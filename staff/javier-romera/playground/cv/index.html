@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="web app that shows a cv with practical objective">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/5988/5988705.png" type="image/x-icon">
+    <title>CV</title>
+</head>
+<!--html{
+    scroll-behavior: smooth;
+}-->
+<style>
+    html {
+        font-family: system-ui;
+        background-color: white;
+    }
+
+    body {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px;
+        background-color: beige;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .contacts {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .contacts p {
+        margin-right: 5%;
+    }
+
+    h2 {
+        margin-left: 5%;
+    }
+
+    h3 {
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 2px solid black;
+        border-right: 2px solid black;
+    }
+
+    li {
+        padding-bottom: 15px;
+        font-size: 16px;
+    }
+
+    .aptitudes,
+    .idiomas {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .idiomas {
+        display: inline-block;
+    }
+
+    .aptitudes ul {
+        justify-content: space-evenly;
+    }
+
+    .aptitems {
+        margin-left: 5%;
+    }
+
+    button {
+        margin-bottom: 40px;
+    }
+
+    a,
+    a:hover :active :visited {
+        color: black;
+    }
+
+    input {
+        display: block;
+        margin-top: 4px;
+    }
+
+    hr {
+        height: 5px;
+        border-color: black;
+    }
+
+    img {
+        display: inline-block;
+        transform: rotate(15deg);
+        margin-left: 92px;
+        margin-bottom: -22px;
+        width: 75px;
+        height: 30x;
+    }
+</style>
+
+<body>
+    <header>
+        <h1>Javier Romera</h1>
+        <h2>Full Stack Developer</h2>
+        <section class="contacts">
+            <p class="tlf"><strong>Teléfono</strong><br> 661 78 38 85</p>
+            <p class="mail"><strong>Mail</strong><br> jromera232003@gmail.com</p>
+            <p class="ubi"><strong>Ubicación</strong><br> Barcelona, Eixample esquerra</p>
+            <p class="linkedin"><strong>Linkedin</strong><br><a target="_blank"
+                    href="https://www.linkedin.com/in/javier-romera-claros-104a38251/">Pulsa aquí!</a></p>
+        </section>
+    </header>
+    <main>
+        <section>
+            <h3 class="title">About me</h3>
+            <p> -Soy programador especializado en el Desarrollo de Aplicaciones Multiplataforma (DAM), i también en el
+                Desarrollo de Aplicaciones Web (DAW).<br><br>
+
+                -Me gustan los retos y aprender sobre el mundo de la programación y la tecnología; me considero una
+                persona resolutiva, con ganas de trabajar en equipo y capaz de asumir responsabilidades.<br><br>
+
+                -Mi experiencia práctica proviene de unas prácticas como desarrollador full stack, donde diseñamos y
+                desarrollamos una aplicación móvil para una empresa de transporte, donde además aplicamos metodologías
+                ágiles para trabajar en el proyecto.
+        </section>
+        <section>
+            <h3 class="title">Datos académicos</h3>
+            <ul>
+                <li>CFGS en DAM (Desarrollo de aplicaciones multiplataforma)<br>septiembre 2021 - julio 2023, en Prat
+                    Educació</li>
+                <li>Certificado de Desarrollo web<br>septiembre 2024 - presente, en ISDI Coders Bootcamp</li>
+            </ul>
+        </section>
+        <section>
+            <h3 class="title">Experiencia laboral</h3>
+            <ul>
+                <li>
+                    <h4>Prácticas en SWARCO</h4>Estuve como full stack developer durante alrededor de 6 meses a tiempo
+                    parcial, trabajamos en un grupo pequeño, por lo que tuve la oportunidad de ver muchas facetas de
+                    dentro de un proyecto, desde el planteamiento inicial de la aplicación y el diseño de la misma,
+                    hasta la ejecución de dicho planeamiento y toda la fase de producción.
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3 class="title">Idiomas</h3>
+            <ul class="idiomas">
+                <li><strong>Castellano y Catalán:</strong><br>Nativo</li>
+            </ul>
+            <ul class="idiomas">
+                <li><strong>Inglés:</strong><br>Nivel alto</li>
+            </ul>
+        </section>
+        <section>
+            <h3 class="title">Aptitudes</h3>
+            <div class="aptitudes">
+                <ul class="aptitems">
+                    <li>Java</li>
+                    <li>Javascrypt</li>
+                    <li>Python</li>
+                </ul>
+                <ul class="aptitems">
+                    <li>SQL</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                </ul>
+                <ul class="aptitems">
+                    <li>GitHub</li>
+                    <li>Metodologias Agile</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer class="formulari">
+        <hr>
+        <h4>Contact me!</h4>
+        <form action="">
+            <label for="email">Email</label>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/021/096/088/small_2x/straw-hat-head-dress-accessory-png.png"
+                alt="mugiwara">
+            <input required type="email" id="email" placeholder="your-email@gmail.com">
+            <br></br>
+            <label for="tel">Tel</label>
+            <input type="tel" id="tel" placeholder="ej. 123 45 67 89">
+            <br></br>
+            <button type="submit">Send</button>
+        </form>
+    </footer>
+</body>
+
+</html>
