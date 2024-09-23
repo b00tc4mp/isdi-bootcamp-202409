@@ -1,0 +1,85 @@
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+img { 
+    width: 3cm;
+    height: 3cm;
+}
+h1 {
+    font-size: x-large; 
+    display: flex; 
+    flex-direction: row; 
+}
+
+h2 {
+    font-style: oblique;
+    text-decoration-color: rgb(56, 4, 4);
+}
+h4 {
+    font-style: inherit;
+}
+p {
+    font-style: normal;
+    font-size: smaller;
+    flex-direction: column;
+}
+ul {
+    font-style: normal;
+    font-size: smaller;
+    text-align: left;
+}
+.top-achievement {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.core-skills {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.other-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+body {
+    background-color: rgb(221, 172, 108);
+    margin-top: 1cm;
+    margin-bottom: 2cm;
+    margin-left: 2cm;
+    margin-right: 2cm;
+}
+.contact-me {
+    display: flex;
+    font-style: oblique;
+    font-size: smaller;
+    
+
+}
+form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 8px;
+    
+}
+
+  .name {
+    flex-grow: 1;
+    flex-basis: 120px;
+  }
+  .email {
+    flex-grow: 3;
+    flex-basis: 170px;
+  }
+  button {
+    flex-grow: 2;
+    flex-basis: 20px;
+  }
