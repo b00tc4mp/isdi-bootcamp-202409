@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="web app that shows a CV with practical objective">
+    <link rel="shortout icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135800.png" type="image/x-icon">
+    <title>CV</title>
+</head>
+
+<style>
+    body {
+        background-color: floralwhite;
+        padding: 1%;
+    }
+
+    header {
+        background-color: rgb(141, 141, 141);
+        margin-top: 2%;
+        text-align: left;
+        display: flex;
+        border-radius: 13%;
+    }
+
+    nav {
+        background-color: rgb(255, 255, 255);
+        text-align: center;
+        justify-content: space-between;
+        display: flex;
+        position: sticky;
+        top: 0%;
+        font-style: italic;
+    }
+
+    a {
+        color: black;
+    }
+
+    .linkedin {
+        color: rgb(64, 0, 124);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        text-align: left;
+    }
+
+    form button {
+        margin-top: 4%;
+        background-color: rgb(139, 139, 139);
+        cursor: pointer;
+    }
+
+    footer {
+        margin-top: 3%;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <nav>
+        <a href="#home"><strong>HOME</strong></a>
+        <a href="#education"><strong>EDUCATION</strong></a>
+        <a href="#skills"><strong>SKILLS</strong></a>
+        <a href="#technician-skills"><strong>TECHNICIAN SKILLS</strong></a>
+        <a href="#work-experience"><strong>WORK EXPERIENCE</strong></a>
+        <a href="#contact-me"><strong>CONTACT ME</strong></a>
+    </nav>
+    <header id="home">
+        <div class="image-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/2666/2666421.png" alt="icon cv" width="275" height="270">
+        </div>
+        <ul>
+            <h1>Juan Pablo Arias</h1>
+            <h3>Telf: +34 696896465</h3>
+            <h3>Email: juanpabloariasr1@icloud.com</h3>
+            <h3>Barcelona, Spain.</h3>
+            <h3><a class="linkedin" href="https://www.linkedin.com/in/juan-pablo-arias-7b68541b3/" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="linkedin icon" width="50"
+                        height="50"></a>
+            </h3>
+        </ul>
+        <h2></h2>
+    </header>
+    <p> Junior Full Stack Developer <strong>not</strong> experienced in designing, developing, and maintaining scalable
+        web
+        applications. Demonstrated ability to collaborate with cross-functional teams to deliver high-quality software
+        solutions that meet user needs and business objectives. Strong problem-solving skills and a passion for clean,
+        efficient code. Committed to continuous learning and staying updated with industry trends to leverage new
+        technologies effectively.</p>
+    <hr>
+
+    <h3 id="education">EDUCATION</h3>
+    <ul>
+        <li>Full Stack Developer (<strong>in progress</strong>)</li>
+        <li>Technician Administration</li>
+        <li>Bachelor Degree</li>
+    </ul>
+    <hr>
+
+    <h3 id="skills">SKILLS</h3>
+    <ul>
+        <li>Team player</li>
+        <li>Resilience</li>
+        <li>Verbal communication</li>
+        <li>Interpersonal skills</li>
+        <li>Adaptability</li>
+    </ul>
+    <hr>
+
+    <h3 id="technician-skills">TECHNICIAN SKILLS</h3>
+    <ul>
+        <li>Front-End: HTML5, CSS3, JavaScript, React, Bootstrap</li>
+        <li>Back-End: Node.js, Express, RESTful APIs</li>
+        <li>Office</li>
+    </ul>
+    <hr>
+
+    <h3 id="work-experience">WORK EXPERIENCE</h3>
+    <h4>Administrative Assistant at DIAGROUP</h4>
+    <ul>
+        <li>Managed daily office operations, including scheduling appointments, answering phones, and responding to
+            emails.</li>
+        <li>Coordinated meetings and prepared agendas, taking minutes and following up on action items.</li>
+    </ul>
+    <h4>Waiter at Casa Alba Restaurant</h4>
+    <ul>
+        <li>Provided exceptional customer service in a fast-paced environment, ensuring a positive dining experience for
+            all guests.</li>
+        <li>Took and processed orders accurately, offering menu recommendations and upselling specials.</li>
+    </ul>
+    <hr>
+    <h3>LANGUAGES</h3>
+    <ul>
+        <li>English</li>
+        <li>Spanish</li>
+    </ul>
+    <hr>
+    <div id="contact-me">
+        <form action="contact-me">
+            <label for="username">Username</label>
+            <input type="username" id="username">
+            <label for="password">Password</label>
+            <input type="password" id="password">
+            <label for="email">Email</label>
+            <input type="email" id="email">
+            <label for="phone">Phone</label>
+            <input type="phone" id="phone">
+            <button type="submit"><strong>Send</strong></button>
+        </form>
+    </div>
+    <footer>
+        <img class="Call me image" src="https://media.tenor.com/WuGchOp9hncAAAAM/call-me-shaq.gif"
+            alt="personaje call me" width="295" height="200">
+    </footer>
+
+</body>
+
+</html>
