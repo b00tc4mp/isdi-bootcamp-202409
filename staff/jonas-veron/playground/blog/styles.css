@@ -1,0 +1,142 @@
+
+body{
+    font-family: sans-serif;
+    background-color: #e0fbfc;
+    box-sizing: border-box;
+    ;
+}
+.header-image{
+    width: 100%;
+    opacity: 0.8;
+}
+
+.home-image{
+    width: 4%;
+    height: 2%;
+}
+
+.enlaces-principales{
+    color: beige;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    margin: 0 20px 0 20px;
+    
+}
+
+.primera-seccion{
+    border-radius: 4px;
+    background-color: #293241;
+    margin-top: -6px;
+    box-sizing: border-box;
+    ;
+    
+}
+
+hr{
+    border: 1px solid black;
+    margin:30px 70px 30px 70px;
+    box-shadow: 1px 1px 1px black;
+}
+
+h1{
+text-align: center;
+font-size: 30px;
+margin: 40px 40px;
+text-shadow: 1px 1px 0px black;
+}
+p{
+    text-shadow: 0px 0px 1px black;
+    text-align: center;
+    padding: 10px 50px;
+}
+
+.p2{
+    padding: 30px
+}
+
+.video{
+    margin: 10px 60px;
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    width: ;
+    display: flex;
+
+}
+
+.img-argentina{
+    max-width: 100%;
+    max-height: 100%;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px black;
+}
+.img-messi-mbappe{
+    max-width: 100%;
+    max-height: 100%;
+    width: 500px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px black;
+}
+.img-francia{
+    max-width: 100%;
+    max-height: 100%;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px black;
+}
+.argentina-vs-francia{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    list-style: none;
+    margin-right: 10px;
+    padding: 20px;
+    
+}
+
+h2{
+    margin: 40px 100px 30px 115px;
+    font-size: 30px;
+    text-shadow: 1px 1px 0px black;
+    text-align: center;
+}
+
+
+/* FOOTER */
+
+footer {
+    background-color: #3d5a80;
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    height: 40px;
+    align-items: center;
+    flex-direction: column-reverse;
+}
+
+footer ul{
+    display: flex;
+    padding: 0;
+}
+
+footer ul li{
+    list-style: none;
+    padding: 5px 20px;
+    font-size: 12px;
+}
+
+footer a{
+    color: black;
+}
+
+
+
