@@ -1,0 +1,137 @@
+/* Paleta de colores */
+html {
+    --color-azul: #0158A3;
+    --color-azul-clarito: #0065AC;
+    --color-azul-mas-clarito: #75C2EE;
+    --color-amarillo: #FFDA00;
+    --color-blanco: #ffffff;
+    --color-fondo: #FFFEFA;
+    --color-negro: #000000;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-negro);
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1.3em;
+}
+
+/* Cabecera con logo y menú */
+.header {
+    background-color: var(--color-blanco);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 5px 10%;
+}
+
+.header .logo img {
+    height: 30px;
+    width: auto;
+}
+
+.header .menu img {
+    max-width: 20px;
+}
+
+/* Sección de artículos */
+section.articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Cada artículo será un cuadrado con una imagen y texto superpuesto */
+.article {
+    position: relative;
+    flex-basis: 30%;
+    margin: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Asegurarse de que las imágenes llenen completamente el contenedor */
+.article img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Cuadrado */
+.square {
+    aspect-ratio: 1 / 1;
+}
+
+/* Texto que aparece sobre la imagen, anclado a la parte inferior */
+.texto-header {
+    position: absolute;
+    bottom: 0;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    color: white;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Ajuste responsivo de los artículos */
+@media (max-width: 800px) {
+    .article {
+        flex-basis: 45%;
+        /* Dos columnas en pantallas medianas */
+    }
+}
+
+@media (max-width: 480px) {
+    .article {
+        flex-basis: 100%;
+        /* Una columna en pantallas pequeñas */
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+}
+
+.footer-menu {
+    margin-top: 0px;
+    background-color: var(--color-azul);
+    color: var(--color-blanco);
+
+}
+
+footer img {
+    width: 100%;
+    height: 100%;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+nav ul.footer-legal {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+nav ul.footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    padding: 10px 20px;
+
+}
