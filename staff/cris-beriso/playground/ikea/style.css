@@ -1,0 +1,186 @@
+*, ::after ::before {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 10px;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+/* Header */
+.header {
+    position: static;
+    width: -webkit-fill-availabl;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+.img-ikea {
+    width: 20vw;
+    height: 10vw;
+}
+.img-hamb {
+    width: 5vw;
+    height: 5vw;
+    align-self: center;
+}
+
+/*Primer bloque*/ 
+.global-grid {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(6, 1fr);
+    row-gap: 15px;
+    height: 2000px;
+}
+.first-room {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+}
+.first-room img {
+    position: relative;
+    width: -webkit-fill-available;
+    max-height: 90vw;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.text-room {
+    position: absolute;
+    color: white;
+    box-shadow: inset 0px -60px 20px 5px rgb(0 0 0 / 45%);
+    padding-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    width: -webkit-fill-available;
+}
+.text-room p {
+    margin: 0px;
+}
+.text-room h2 {
+    margin-top: 0;
+}
+
+/*GO SHOPPING*/
+.box-shopping {
+    background-color: #FFDB00;
+    border-radius: 10px;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+}
+.shop-part1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+.shop-part1 img {
+    width: 10vw;
+    height: 10vw;
+    align-self: center;
+}
+.shop-part2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.shop-part2 p {
+    align-self: center;
+}
+
+.shop-part2 img {
+    width: 5vw;
+    height: 5vw;
+    align-self: center;
+}
+.shop-part2 strong {
+    font-weight: bold;
+}
+
+/*SLEEP*/
+.box-sleep {
+   background-color: black;
+   color: white;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+.text-sleep  {
+    margin: 0 0 0 30px;
+}
+.box-sleep img {
+    width: 80vw;
+    border-radius: 20px;
+    align-self: center;
+}
+
+/*GIRL*/
+.box-girl {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+}
+.box-girl img {
+    position: relative;
+    width: -webkit-fill-available;
+    border-radius: 10px;
+}
+.text-girl {
+    position: absolute;
+    color: white;
+    box-shadow: inset 0px -60px 20px 5px rgb(0 0 0 / 45%);
+    padding-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    width: -webkit-fill-available;
+}
+
+/*PARTY*/
+.box-party {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+}
+.box-party img {
+    position: relative;
+    width: -webkit-fill-available;
+    max-height: 90vw;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.text-party {
+    position: absolute;
+    color: white;
+    box-shadow: inset 0px -60px 20px 5px rgb(0 0 0 / 45%);
+    padding-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    width: -webkit-fill-available;
+}
+
+/*OFFICE*/
+.box-office {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+}
+.box-office img {
+    position: relative;
+    width: 100%;
+    height: 90vw; 
+    border-radius: 10px;
+    object-fit: cover;
+}
+.text-office {
+    position: absolute;
+    color: white;
+    box-shadow: inset 0px -60px 20px 5px rgb(0 0 0 / 45%);
+    padding-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    width: -webkit-fill-available;
+}
