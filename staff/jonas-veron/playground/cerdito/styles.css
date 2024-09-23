@@ -1,0 +1,72 @@
+body{
+background-color: #626262;
+}
+
+.cabeza-cerdito{
+    height: 300px;
+    width: 300px;
+    background-color: #ffb0b0;
+    border-radius: 70% 70% 80% 80%;
+    margin:100px auto;
+    /* overflow: hidden; */
+    display: flex;
+    /* display: grid; */
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    
+}
+
+.left-ear{
+    width: 0;
+    height: 13px;
+    border-top: 40px solid transparent;
+    border-right: 80px solid #ef8c8c;
+    border-bottom: 40px solid transparent;
+    border-radius: 20px;
+    margin: 0 150px 20px 0;
+}
+
+.right-ear  {
+    width: 0;
+    height: 13px;
+    border-top: 40px solid transparent;
+    border-left: 80px solid #ef8c8c;
+    border-bottom: 40px solid transparent;
+    border-radius: 20px;
+}
+
+.left-eye{
+    width: 20px;
+    height: 40px;
+    border-radius: 70% 70%;
+    background-color: rgb(14, 14, 14);
+    position: absolute;
+    z-index: 1;
+    margin: 81px 80px 144px 0px;
+}
+
+.right-eye{
+    width: 20px;
+    height: 40px;
+    border-radius: 70% 70%;
+    background-color: rgb(14, 14, 14);
+    position: absolute;
+    z-index: 1;
+    margin: 80px 200px 200px 300px;
+}
+
+.nose{
+    width: 90px;
+    height: 60px;
+    background-color: #f37171;
+    position: absolute;
+    border-radius: 45%;
+    margin: 143px 0 10px 10px;
+}
+
+.p-nose{
+    color: rgb(255, 72, 72);
+    font-size: 100px;
+    margin: -57px 0px 0px 8px;
+}
