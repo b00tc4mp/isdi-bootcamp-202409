@@ -89,7 +89,7 @@ section.articles {
 @media (max-width: 480px) {
     .article {
         flex-basis: 100%;
-        /* Una columna en pantallas pequeñas */
+        /* Una columna en pantallas pequeñas. */
     }
 }
 
