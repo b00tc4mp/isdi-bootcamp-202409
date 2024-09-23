@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/Blog/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <title>Doggy</title>
+    <script src="magic.js"></script>
+</head>
+
+<body>
+    <header>
+        <a class="logo" href="">
+            <img class="imagen6" src="logo.png" alt="logo de la empresa">
+            <h2 class="nombre-empresa">Doggy</h2>
+        </a>
+        <nav>
+            <button class="nav-boton" onclick="accion()">Menú</button>
+            <a class="nav-enlace desaparece" href="#nosotros" onclick="scrollToSection('inicio')">Nosotros</a>
+            <a class="nav-enlace desaparece" href="#razas" onclick="scrollToSection('razas')">Razas de Perros</a>
+            <a class="nav-enlace desaparece" href="#contacto" onclick="scrollToSection('contacto')">Contacto</a>
+            <a class="nav-enlace desaparece" href="#ayuda" onclick="scrollToSection('ayuda')">Ayuda</a>
+        </nav>
+    </header>
+
+    <section class="container">
+        <div id="nosotros" class="div1">
+            <h1>Nosotros</h1>
+
+            <p class="texto-responsive">Doggy es tu mejor opción para el cuidado de tu amigo peludo. Con servicios de
+                paseo, cuidados y entrenamiento, garantizamos que tu perro esté feliz y saludable. ¡Confía en nosotros
+                para brindarle el amor y la atención que se merece! 🐾🐶</p>
+
+            <a class="texto-responsive" onclick="mostrarAlerta()" href="#"> Ver Más...</a>
+
+        </div>
+        <div class="div2">
+            <img class="imagen1" src="imagen2.jpg" alt="perros de diferentes razas">
+        </div>
+    </section>
+
+    <section class="container">
+        <div id="razas" class="div1">
+            <h1>Razas de Perros</h1>
+
+            <p class="texto-responsive">Existen innumerables razas de perros, cada una con sus propias características
+                únicas. Desde los pequeños y adorables <a class="texto-responsive" onclick="mostrarAlerta()"
+                    href="#">Chihuahuas</a> hasta los majestuosos y poderosos <a class="texto-responsive"
+                    onclick="mostrarAlerta()" href="#">Pastores Alemanes</a>, hay una raza para cada amante de los
+                perros. Algunas razas se destacan por su inteligencia, como el <a class="texto-responsive"
+                    onclick="mostrarAlerta()" href="#">Border Collie</a>, ideal para entrenamientos y trabajos de
+                pastoreo. Otras son conocidas por su lealtad, como el <a class="texto-responsive"
+                    onclick="mostrarAlerta()" href="#">Labrador Retriever</a>, siempre dispuesto a ser un fiel
+                compañero.</p>
+
+            <a class="texto-responsive" onclick="mostrarAlerta()" href="#"> Leer Más...</a>
+
+        </div>
+        <div class="div2">
+            <img class="imagen1" src="imagen1.jpg" alt="perros de diferentes razas">
+        </div>
+    </section>
+
+    <section class="form-container" id="contacto">
+        <h2>Contacto</h2>
+        <form class="input-group" name="formulario" onsubmit="return ValidarCampoNumerico()">
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Escribe tu Nombre..." required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Escribe tu email..." required>
+
+            <label for="numero">Número:</label>
+            <input type="number" id="numero" name="numero" placeholder="Escribe tu número..." required>
+
+            <label for="selector">¿De donde nos conoces?:</label>
+            <select id="selector" required>
+                <option value="">Selecciona una opcion</option>
+                <option value="redes">Redes Sociales</option>
+                <option value="email">Email</option>
+                <option value="google">Google</option>
+                <option value="otros">Otros</option>
+            </select>
+
+            <div class="form-txt">
+                <a class="texto-responsive" href="#">Politica de privacidad</a>
+                <a class="texto-responsive" href="#">Terminos y condiciones</a>
+            </div>
+            <input class="btn-enviar" type="submit">
+        </form>
+    </section>
+    <footer id="ayuda">
+        <div class="info-adicional">
+            <p class="ayuda">© Doggy</p>
+            <ul class="terminos">
+                <li><a href="#">Politica de privacidad</a></li>
+                <li><a href="#">Terminos y condiciones</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+        <p class="ayuda">Si necesitas ayuda haz click <a onclick="mostrarAlerta()" href="#"> aquí</a></p>
+    </footer>
+</body>
+
+</html>
