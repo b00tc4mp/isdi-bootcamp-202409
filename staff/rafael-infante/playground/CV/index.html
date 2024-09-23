@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="web app that shows a CV with practical purpose">
+  <link rel="shortcut icon" href="/playground/CV/cv.png" type="image/x-icon">
+  <title>CV</title>
+  <style>
+    body {
+      background-color: rgb(231, 245, 249);
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin: auto;
+    }
+
+    h1 {
+      margin-top: 25px;
+    }
+
+    #experience {
+      margin-top: 25px;
+      padding-top: 20px;
+    }
+
+    p {
+      width: 500px;
+      text-align: center;
+    }
+
+    img {
+      height: 200px;
+      padding: 20px;
+    }
+
+    section {
+      height: 350px;
+    }
+
+    nav>a {
+      padding: 30px;
+      margin-top: 15px;
+      font-size: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      font-size: large;
+      min-width: 400px;
+      align-items: center;
+    }
+
+    input {
+      padding: 15px 10px;
+      border-radius: 5px;
+      width: 250px;
+      margin-bottom: 15px;
+    }
+
+    p,
+    li {
+      font-size: 22px;
+      width: auto;
+      line-height: 30px;
+      padding: 15px;
+    }
+
+    button {
+      padding: 10px;
+      width: 200px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    button:hover {
+      background-color: black;
+      color: white;
+      cursor: pointer;
+    }
+
+    #contact {
+      border: solid rgb(0, 0, 0);
+      padding: 25px;
+      box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.425);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 100px;
+      height: 450px;
+    }
+
+    #social a {
+      padding: 30px;
+      font-size: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#skills">My skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <header>
+    <h1>THIS IS RAFAEL'S CV</h1>
+    <img
+      src="https://cdn4.vectorstock.com/i/1000x1000/36/23/businessman-character-avatar-with-cv-icon-vector-13393623.jpg"
+      alt="profile image">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus minima quas officia, nisi est eaque accusamus
+      accusantium, dolor nemo laudantium quibusdam expedita unde voluptate rem odit quam</p>
+  </header>
+  <section>
+    <h2 id="experience">EXPERIENCE</h2>
+    <ol>
+      <li>Salesperson at Le Creuset SL. (2 years)</li>
+      <li>Contact center worker at Worldcob SL. (2 years)</li>
+      <li>Factory worker at Mondat baker SL. (1.5 years)</li>
+    </ol>
+  </section>
+  <section id="education">
+    <h2>EDUCATION</h2>
+    <ol>
+      <li>Bachellor's degree at U.E.C.P "Patria Bolivariana" (Venezuela)</li>
+      <li>Industrial Engineer at "Universidad de Carabobo" (Venezuela)</li>
+      <li>Full-Stack Developer at ISDI CODERS (Barcelona, Spain)</li>
+    </ol>
+  </section>
+  <section id="skills">
+    <h2>MY SKILLS</h2>
+    <ul>
+      <li>Attentive to detail</li>
+      <li>Team Worker</li>
+      <li>Problem solver</li>
+      <li>Critical thinker</li>
+    </ul>
+  </section>
+  <section id="contact">
+    <h2>Contact me!</h2>
+    <form id="form" action="">
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="Write your name...">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Write your email...">
+      <label for="number">Number:</label>
+      <input type="number" id="number" placeholder="Write your number...">
+
+    </form>
+    <button>Submit</button>
+  </section>
+  <footer>
+    <div id="social">
+      <a href="https://github.com/Rafa0297" target="_blank">Github</a>
+      <a href="https://www.linkedin.com/in/rinfante91/" target="_blank">Linkedin</a>
+      <a href="https://x.com/rafaeduar46" target="_blank">Twitter</a>
+      <p>© CV Rafael</p>
+    </div>
+  </footer>
+</body>
+
+</html>
