@@ -1,0 +1,111 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: black;
+    color: antiquewhite;
+    margin: 0px 200px 0px 200px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid antiquewhite;
+    border-radius: 30px;
+    justify-content: center;
+    padding: 15px 0px 15px 0px;
+}
+
+h1,
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(99, 217, 95);
+}
+
+li,
+p {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+header,
+nav,
+#section5,
+#section6 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: rgb(99, 217, 95);
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin-right: 15px;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 50px;
+}
+
+#section2,
+#section4 {
+    text-align: right;
+}
+
+#section6 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+div {
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form button {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    width: 100px;
+    background-color: rgb(99, 217, 95);
+}
+
+form label {
+    margin-top: 10px;
+}
+
+.studies-experience,
+.skills-hobbies {
+    display: flex;
+    gap: 20px;
+    margin: 20px;
+}
+
+#section1,
+#section2,
+#section3,
+#section4 {
+    flex: 1;
+    padding: 20px;
+}
