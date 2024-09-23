@@ -1,0 +1,31 @@
+main {
+  padding: 75px;
+}
+
+body {
+  background: #ececec;
+  font-family: monospace;
+  color: #142d4c;
+  margin: 20px;
+  font-size: 14pt;
+}
+
+ol,
+ul {
+  color: #385170;
+  margin-top: 10px;
+}
+
+footer {}
+
+form {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-section {
+  background: #9fd3c7;
+  display: flex;
+  flex-wrap: wrap;
+}
