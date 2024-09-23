@@ -1,0 +1,117 @@
+body{
+    background-image: url(https://static.vecteezy.com/system/resources/previews/002/811/450/non_2x/city-background-and-wallpaper-vector.jpg);
+    object-fit: cover;
+}
+
+.fachada{
+    height: 700px;
+    width: 335px;
+    perspective: 80px;
+    perspective-origin: 50% 100px;
+    background-color: rgb(255, 71, 71);
+    margin: 66px 100px 0 951px;
+    display: grid;
+    grid-template-columns: 10% 20% 5% 34% 10%;
+    grid-template-rows: 5% 15% 15% 15% 15% 15% 15% 5%;
+}
+
+.window{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 2;
+    grid-row: 2;
+
+}
+
+.uno{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 5;
+    grid-row: 2;
+}
+
+.dos{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.tres{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 5;
+    grid-row: 3;
+}
+
+.cuatro{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.cinco{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 5;
+    grid-row: 4;
+}
+
+.seis{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 2;
+    grid-row: 5;
+}
+
+.siete{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 5;
+    grid-row: 5;
+}
+
+.ocho{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 2;
+    grid-row: 6;
+}
+
+.nueve{
+    width: 75px;
+    height: 100px;
+    background-image: url(https://st2.depositphotos.com/2640963/10130/v/450/depositphotos_101306274-stock-illustration-arched-window-in-brick-wall.jpg);
+    background-size: cover;
+    grid-column: 5;
+    grid-row: 6;
+}
+
+.door{
+    width: 60px;
+    height: 120px;
+    background-image: url(https://w7.pngwing.com/pngs/164/522/png-transparent-brown-wooden-door-door-icon-wood-door-angle-furniture-image-file-formats-thumbnail.png);
+    background-size: cover;
+    grid-column: 4;
+    grid-row: 7;
+    margin: 21px;
+}
