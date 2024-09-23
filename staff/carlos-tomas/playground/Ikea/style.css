@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.box {
+    box-sizing: border-box;
+}
+
+.men {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5%;
+}
+
+.fotos {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.armariogit {
+    width: 310px;
+    height: 300px;
+    border-radius: 8%;
+    filter: brightness(0.80);
+
+}
+
+.d1 {
+    position: absolute;
+    color: white;
+    top: 240px;
+    left: 68px;
+    margin: 0;
+    font-size: 130%;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 2px -2px 2px #050201;
+    z-index: 1;
+    /*Posicion */
+}
+
+.d2 {
+    position: absolute;
+    color: white;
+    top: 560px;
+    left: 68px;
+    margin: 0;
+    font-size: 130%;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 2px -3px 2px #050201;
+}
+
+.d3 {
+    position: absolute;
+    color: white;
+    top: 850px;
+    left: 68px;
+    margin: 0;
+    font-size: 130%;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 2px -3px 2px #050201;
+    /* Hacer sombra a las letras */
+}
+
+.d4 {
+    position: absolute;
+    color: white;
+    top: 1180px;
+    left: 68px;
+    margin: 0;
+    font-size: 130%;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 2px -3px 2px #050201;
+}
+
+.info {
+    background-color: blue;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    /*Separacion entre los children*/
+    padding: 20px;
+}
+
+.info2 {
+    color: white;
+    list-style-type: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+
+}
+
+.info2 a {
+    color: white;
+    text-decoration: none
+}
