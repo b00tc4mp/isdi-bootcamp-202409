@@ -1,0 +1,66 @@
+html {
+    scroll-behavior: smooth;
+}
+
+header {
+    background-color: blue;
+    width: auto;
+    height: auto;
+    position: sticky;
+    top: 0;
+}
+
+.list {
+    gap: 20px;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+}
+
+.image {
+    border-radius: 70px 10px 40px 20px;
+    border: solid;
+    border-color: black;
+    margin-left: 0;
+}
+
+.p-header {
+    margin-right: 150px;
+    margin-top: 90px;
+    margin-bottom: 50px;
+}
+
+body {
+    margin: 100px;
+    padding: 40px;
+    background-color: grey;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.hr {
+    border-color: black;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+
+}
+
+a:visited {
+    color: black;
+}
+
+a:active {
+    color: white;
+}
+
+a:hover {
+    cursor: pointer;
+}
