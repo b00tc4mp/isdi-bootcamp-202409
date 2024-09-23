@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="web app that shows a cv with practical objective">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135800.png" type="image/x-icon">
+    <title>CV</title>
+
+</head>
+<style>
+    body {
+        background-color: rgb(226, 226, 226);
+        font-style: italic;
+        padding: 5%;
+    }
+
+    h1 {
+        color: rgb(120, 120, 120);
+        margin-top: 5%;
+    }
+
+    h2 {
+        color: rgb(120, 120, 120);
+    }
+
+    nav {
+        text-align: center;
+        justify-content: space-between;
+        display: flex;
+        margin-top: 0.5%;
+    }
+
+    a {
+        color: rgb(120, 120, 120);
+        letter-spacing: 4px;
+    }
+
+
+    h3 {
+        color: rgb(120, 120, 120);
+    }
+
+    h4 {
+        color: rgb(120, 120, 120);
+    }
+
+    p {
+        font: italic‣;
+    }
+
+    .image-container {
+        text-align: left;
+        clip-path: circle(50%);
+        width: 250px;
+        height: 250px;
+    }
+
+    h3 {
+        text-align: left;
+    }
+
+    header {
+        background-color: rgb(95, 185, 174);
+        display: flex;
+        border-radius: 20%;
+    }
+
+    .contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100px;
+        min-width: 17rem;
+    }
+
+    form label {
+        color: rgb(120, 120, 120);
+    }
+
+    form input {
+        background-color: rgb(181, 218, 214);
+    }
+
+    form button {
+        margin-top: 20px;
+        cursor: pointer;
+        background-color: rgb(95, 185, 174);
+    }
+</style>
+
+<body>
+    <header>
+        <div class="image-container">
+
+            <img src="https://media.istockphoto.com/id/1297349747/es/foto/globos-aerost%C3%A1ticos-sobrevolando-el-ca%C3%B1%C3%B3n-del-bot%C3%A1nico-en-turkey.jpg?s=612x612&w=0&k=20&c=uL9soCdbbUwJf5p56h8sMvgHXRja2ymUR6QkD9Mqbr0="
+                alt="glovo">
+        </div>
+        <h3>
+            <ul>
+                <h2> Alba Lomas Lopez</h2>
+                <h4>31 años</h4>
+                <h5>Grup verge de la salut nº11, 3o 1a, 08914, Badalona, Barcelona</h5>
+                <h5>Telefono: 637838032</h5>
+            </ul>
+        </h3>
+
+
+
+
+
+    </header>
+    <nav>
+        <a href="#formación academica">Formación academica</a>
+        <a href="#Experiencia laboral">Experiencia laboral</a>
+        <a href="#Habilidades">Habilidades</a>
+        <a href="#Otros datos">Otros datos</a>
+        <a href="#Datos de contacto">Datos de contacto</a>
+    </nav>
+
+
+    <h1>Mi curriculum vitae</h1>
+    <p>Mi nombre es alba, llevo 14 años en el mundo de la cocina y 6 de estudios previamente, actualmente estoy
+        estudiando un bootcamp de programación para hacer un cambio radical de oficio. </p>
+    <hr>
+
+
+    <h2 id="formación academica">Formación academica</h2>
+    <ul>
+        <li>Educación obligatoria (E.S.O)</li>
+        <li>FP Industria carnica</li>
+        <li>FP Catering y precocinados</li>
+        <li>FP Elaboración de productos alimentarios</li>
+        <li>Bootcamp de programación web</li>
+    </ul>
+    <hr>
+
+
+    <h2 id="Experiencia laboral">Experiencia laboral</h2>
+    <ul>
+        <li>Cuidadora niño</li>
+        <li>Practicas en matadero</li>
+        <li>Panadera en forn camps</li>
+        <li>Practicas en alifresh </li>
+        <li>Cocinera en Sagardi</li>
+        <li>Practicas en hotel Cotton house</li>
+        <li>Jefa de cocina en Resolis</li>
+        <li>Cocinera en El sortidor</li>
+        <li>Jefa de cocina en Bodega picarol</li>
+        <li>Segunda de cocina en Mango</li>
+        <li>Cocinera extra en hotel vela y hotel hilton</li>
+    </ul>
+    <hr>
+
+
+    <h2 id="Habilidades">Habilidades</h2>
+    <ul>
+        <li>Perfectionista</li>
+        <li>Creativa</li>
+        <li>En aprendizaje constante</li>
+    </ul>
+    <hr>
+
+
+    <h2 id="Otros datos">Otros datos</h2>
+    <ul>
+        <li><a href="https://www.linkedin.com/in/alba-l-133900bb/">Linkedin</a></li>
+        <li>carnet de conducir B</li>
+    </ul>
+
+    <section class="contact">
+        <h3 id="Datos de contacto">Datos de contacto</h3>
+        <form action="">
+            <label for="username">Usuario</label>
+            <input type="text" id="username"><br>
+            <label for="password">Contraseña</label>
+            <input type="password" id="password"><br>
+            <label for="email">Email</label>
+            <input type="email" id="email"><br>
+            <label for="phone">Telefono</label>
+            <input type="tel" id="phone">
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+</body>
+
+</html>
