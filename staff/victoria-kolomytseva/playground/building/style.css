@@ -1,0 +1,34 @@
+.building {
+    width: 226px;
+    height: 316px;
+    background-color: blueviolet;
+    margin: 0 auto;
+    margin-top: 91px;
+}
+
+.container {
+    display: grid;
+    height: 231px;
+    width: 100%;
+    grid-template-columns: 35px 35px 35px;
+    gap: 10px;
+    padding-top: 15px;
+    justify-content: space-evenly;
+
+}
+
+.window-1 {
+    background-color: black;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.door {
+    width: 32px;
+    height: 46px;
+    background-color: red;
+    margin: 0 auto;
+    margin-top: 23px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
