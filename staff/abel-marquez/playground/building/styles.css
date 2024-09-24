@@ -1,0 +1,33 @@
+body {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    
+}
+
+.edificio {
+    display: grid;
+    grid-template-columns: 15% 15% 15% 15% 15%;
+    grid-template-rows: 15% 15% 15% 15% 15%;
+    background-color: black;
+    width: 250px;
+    height: 450px;
+    gap: 10px;
+    
+}
+
+
+div {
+    background-color: aqua;
+    border: 1px solid black;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.puerta {
+    width: 25px;
+    height: 40px;
+    background-color: brown;
+    margin-left: 90px;
+}
