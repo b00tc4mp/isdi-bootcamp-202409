@@ -1,0 +1,126 @@
+.car {
+    margin: 300px;
+    position: relative;
+}
+
+.glass {
+    width: 225px;
+    height: 90px;
+    background-color: #39383185;
+    border: solid;
+    border-radius: 30px 30px 0 0;
+    position: absolute;
+    bottom: 21%;
+    left: 2%;
+}
+
+.car-body {
+    background-color: darkslateblue;
+    width: 240px;
+    height: 140px;
+    border-style: solid;
+    border-radius: 37%;
+    position: relative;
+    left: -21%;
+}
+
+.chasis {
+    background-color: darkslateblue;
+    width: 315px;
+    height: 90px;
+    position: absolute;
+    border: solid;
+    border-radius: 40px 40px 0 0;
+    top: 53%;
+    left: -17%;
+}
+
+.front-bumper {
+    width: 327px;
+    background-color: gray;
+    height: 20px;
+    top: 12%;
+    position: absolute;
+    top: 70%;
+    left: -3%;
+    border: solid;
+    border-radius: 20px;
+}
+
+.left-light {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: #eded43;
+    border-radius: 40px;
+    border-style: double;
+    border-color: #8b8888;
+    border-width: thick;
+    top: 2%;
+    left: 2%;
+}
+
+.right-light {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: #eded43;
+    border-radius: 40px;
+    border-style: double;
+    border-color: #8b8888;
+    border-width: thick;
+    top: 2%;
+    right: 2%;
+}
+
+.grill {
+    width: 125px;
+    height: 40px;
+    background-color: #5f5f5f;
+    position: absolute;
+    left: 30%;
+    top: 15%;
+    border-radius: 20%;
+    border: #282525;
+    border-style: solid;
+}
+
+img {
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    left: 38%;
+    top: -150%;
+}
+
+.grill-divider {
+    position: absolute;
+    width: 138px;
+    height: 8px;
+    background-color: gray;
+    top: 37%;
+    right: -6%;
+    border-radius: 30%;
+    border-style: double;
+    border-color: #282525;
+}
+
+.left-wheel {
+    background-color: black;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    bottom: -80%;
+    left: 3%;
+    border-radius: 20%;
+}
+
+.right-wheel {
+    background-color: black;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    bottom: -23%;
+    left: 81%;
+    border-radius: 20%;
+}
