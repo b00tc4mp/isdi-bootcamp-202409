@@ -2,12 +2,19 @@ body {
     margin: 0;
 }
 
+.main {
+    width: 200px;
+    height: 150px;
+    margin: 100px auto;
+    position: relative;
+}
+
 .left--ear {
     position: absolute;
     width: 40px;
     height: 50px;
-    left: 35%;
-    top: 19%;
+    left: -2%;
+    top: 18%;
     background-color: pink;
     border: solid;
 }
@@ -16,8 +23,8 @@ body {
     position: absolute;
     width: 40px;
     height: 50px;
-    left: 59%;
-    top: 19%;
+    left: 82%;
+    top: 18%;
     background-color: pink;
     border: solid;
 }
@@ -69,10 +76,10 @@ body {
 .nose {
     position: absolute;
     background-color: rgb(238 138 197);
-    left: 45%;
+    left: 32%;
     width: 70px;
     height: 30px;
-    bottom: 68%;
+    bottom: 28%;
 }
 
 .nose-left {
