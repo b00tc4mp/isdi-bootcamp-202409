@@ -4,6 +4,7 @@
     background-color: #795548;
     margin: auto;
     border: solid rosybrown;
+    position: relative;
 }
 
 .windows {
@@ -14,7 +15,7 @@
     justify-content: center;
     position: absolute;
     top: 10%;
-    left: 25%;
+    left: 5%;
 }
 
 .window1,
@@ -41,8 +42,8 @@
     display: grid;
     grid-template-rows: 117px;
     grid-template-columns: 90px;
-    top: 67%;
-    left: 44%;
+    top: 79%;
+    left: 38%;
 }
 
 .double-door {
