@@ -1,0 +1,144 @@
+header{
+    background-color: beige;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    
+  }
+  
+  header img {
+    width: 10%;
+    position: relative;
+    top: 20px;
+  
+  }
+  
+  
+  body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    background-color: #f0eeb7;
+    margin-top: 20px;
+  }
+  
+  body img{
+    border: 2px dotted black;
+    padding: 1px;
+    margin: 1px;
+  }
+  
+  nav{
+    display: inline-flex;
+    font-size: 15px;
+    width: 80%;
+    text-decoration: none;
+    color: black;
+    border: 1px solid;
+    box-shadow: 2px 2px 5px #4f4f4f;
+  }
+  
+  nav li{
+    display: inline-block;
+    width:25%;
+    padding: 10px;
+    height: 35px;
+    justify-content: space-between;
+    color: black;
+    border: 1px solid;
+    box-shadow: 5px 5px 10px #4f4f4f;
+    vertical-align: middle;
+     
+  }
+  
+  .navlink {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .navlink:visited {
+    color: black;
+    text-decoration: none;
+  
+  }
+  
+  main{
+    background-color: #d6d6d6;
+    font-size: 20px;
+  }
+  
+  footer{
+    background-color: #e8dd96;
+  }
+  
+  h1{
+    text-align: center;
+    font-family: Cursive, Arial, Calibri;
+    color: #2b1212;
+    font-size: 125%;
+    width: 100%
+  }
+  
+  p{
+    line-height: 1.5;
+    font-size: 20px;
+  }
+  
+  .skip {
+    height: 25px;
+    font-size: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    opacity: 0;
+    
+  }
+  .skip:focus {
+    opacity: 1;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 40% 40%; 
+    grid-gap: 10px;
+  }
+  
+  .grid img {
+    width: 100%;
+    height: auto;
+    background-color: darkblue;
+    border: 2px solid black;
+    padding: 3px;
+    margin: 5px;
+    border-radius: 100%;
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+  
+  }
+  
+  .grid img:hover {
+    opacity: 1;
+  }
+  
+  .grid img:nth-child(odd) {
+    border-radius: 0%;
+  }
+  
+  
+  .div {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+  
+  }
+  
+  .div img {
+    width: auto;
+    height: 200px;
+    
+  }
