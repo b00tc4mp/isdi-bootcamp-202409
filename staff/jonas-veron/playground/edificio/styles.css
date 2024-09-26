@@ -1,6 +1,7 @@
 body{
     background-image: url(https://static.vecteezy.com/system/resources/previews/002/811/450/non_2x/city-background-and-wallpaper-vector.jpg);
     object-fit: cover;
+    /* background-size: cover; */
 }
 
 .fachada{
