@@ -1,0 +1,241 @@
+.ventanas {
+    background-color: darkgoldenrod;
+    width: 60%;
+    height: 70%;
+    position: absolute;
+    border-color: goldenrod;
+    border-style: groove;
+    border-radius: 3%;
+}
+
+html {
+    padding: 5%;
+}
+
+.ventana1 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 10%;
+    margin-top: 10%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana2 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 38%;
+    margin-top: 10%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana3 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 65%;
+    margin-top: 10%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana4 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 10%;
+    margin-top: 36%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana5 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 38%;
+    margin-top: 36%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana6 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 65%;
+    margin-top: 36%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana7 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 65%;
+    margin-top: 62%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana8 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 10%;
+    margin-top: 62%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana9 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 38%;
+    margin-top: 62%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana10 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 65%;
+    margin-top: 88%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana11 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 10%;
+    margin-top: 88%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana12 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 38%;
+    margin-top: 88%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana13 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 65%;
+    margin-top: 114%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana14 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 10%;
+    margin-top: 114%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana15 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 38%;
+    margin-top: 114%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana16 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 65%;
+    margin-top: 140%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana17 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 10%;
+    margin-top: 140%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.ventana18 {
+    background-color: bisque;
+    position: absolute;
+    width: 20%;
+    height: 10%;
+    margin-left: 38%;
+    margin-top: 140%;
+    border-color: goldenrod;
+    border-style: groove;
+}
+
+.puerta1 {
+    background-color: darkgray;
+    position: absolute;
+    width: 10%;
+    height: 12%;
+    border-color: goldenrod;
+    border-style: groove;
+    margin-top: 103%;
+    margin-left: 20%;
+}
+
+.puerta2 {
+    background-color: darkgray;
+    position: absolute;
+    width: 10%;
+    height: 12%;
+    border-color: goldenrod;
+    border-style: groove;
+    margin-top: 103%;
+    margin-left: 31%;
+}
+
+.cesped {
+    width: 60%;
+    margin-left: 55%;
+    position: relative;
+    margin-top: 130.5%;
+}
+
