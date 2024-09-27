@@ -19,3 +19,13 @@ console.log(fruits);
 // (5) ["apple", "orange", "raspberry", "pineapple", "banana"]
 console.log(length);
 // (5)
+
+console.log("CASE add banana pear an coconut to fruit")
+
+var fruits = ["apple", "orange", "raspberry", "pineapple"]
+var length = fruits.push("banana", "pear", "coconut")
+
+console.log(fruits)
+// ['apple', 'orange', 'raspberry', 'pineapple', 'banana', 'pear', 'coconut'] (7)
+console.log(length)
+// 7

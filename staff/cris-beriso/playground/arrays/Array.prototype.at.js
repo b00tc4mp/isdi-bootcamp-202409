@@ -1,18 +1,33 @@
-console.log ("Test Array.prototype.at");
+console.log("Test Array.prototype.at");
 
-console.log("Case get element with positive index");
+console.log("Case get element with index 3");
 
-var array1 = [5, 12, 8, 130, 44];
+var nums = [100, 200, 300, 400, 500]
 
-var index = 2;
+var num = nums.at(3)
+console.log(num)
+//400
 
-console.log("An index of " + index + " returns " + array1.at(index));
-// "An index of 2 returns 8"
+console.log("CASE get number at index -3 in nums")
 
-console.log("Case get element with negative index");
+var nums = [100, 200, 300, 400, 500]
 
-index = -2;
+var num = nums.at(-3)
+console.log(num)
+// 300
 
-console.log("An index of " + index + " returns " + array1.at(index));
-// "An index of -2 returns 130"
+console.log("CASE get number at index -10 in nums")
 
+var nums = [100, 200, 300, 400, 500]
+
+var num = nums.at(-10)
+console.log(num)
+// undefined
+
+console.log("CASE get number at index 10 in nums")
+
+var nums = [100, 200, 300, 400, 500]
+
+var num = nums.at(10)
+console.log(num)
+//undefined
