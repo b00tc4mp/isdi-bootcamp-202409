@@ -1,10 +1,10 @@
 var push = function (iterable, element) {
 
-    for (let i = arguments; i < array.length; i++) {
 
+    iterable[iterable.length] = element
+    iterable.length++
 
-    }
-
+    return iterable.length
 }
 
 console.log('TEST push')
