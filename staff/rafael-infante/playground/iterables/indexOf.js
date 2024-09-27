@@ -53,4 +53,9 @@ console.log(index3) // Expected output: 6
 
 console.log('CASE show index of "7" in "numbers" from index "-3"')
 var index3 = indexOf(numbers, 7, -3);
-console.log(index3) // Expected output: 4 
+console.log(index3) // Expected output: 4
+
+console.log('CASE get index of c')
+var chars = { 0: 'a', 1: 'b', 2: 'c', 3: 'b', 4: 'a', length: 5 }
+var index4 = indexOf(chars, 'c')
+console.log(index4) // expected output: 2

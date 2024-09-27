@@ -14,10 +14,10 @@ var at = function (iterable, index) {
 
 console.log('CASE show "perro" from "animals" ')
 var animals = { 0: 'perro', 1: 'gato', 2: 'cabra', length: 3 }
-var animal = at(arr, 0)
+var animal = at(animals, 0)
 console.log(animal) // expected output: 'perro'
 
 console.log('CASE show "cabra" from "animals" ')
 var animals = { 0: 'perro', 1: 'gato', 2: 'cabra', length: 3 }
-var animal = at(arr, -1)
+var animal = at(animals, -1)
 console.log(animal) // expected output: 'cabra'

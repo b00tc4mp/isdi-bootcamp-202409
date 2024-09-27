@@ -19,3 +19,7 @@ console.log(animals);
 // Expected output: Array ["pigs", "goats", "dogs", "sheep", "cows"] (5)
 console.log(length);
 // Expected output 5
+
+console.log('CASE add cats and hamsters to animals')
+
+var fruits = ['pigs', 'goats', 'dogs', 'sheep']

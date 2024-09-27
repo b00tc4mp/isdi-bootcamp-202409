@@ -21,7 +21,12 @@ console.log(index) // Expected output: 6
 console.log('CASE show index of "bison" in "animals" from index 2')
 
 var animals = ['ant', 'bison', 'camel', 'duck', 'bison'];
-var index = beasts.indexOf('bison', 2)
+var index = animals.indexOf('bison', 2)
 
 console.log(index) // Expected output: 4
 
+console.log('CASE get index of c')
+
+var chars = ['a', 'b', 'c', 'b', 'a']
+var index = chars.indexOf('c')
+console.log(index)  // expected output 2
