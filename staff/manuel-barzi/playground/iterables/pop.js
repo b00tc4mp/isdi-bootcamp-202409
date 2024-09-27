@@ -15,6 +15,8 @@ var pop = function (iterable) {
     return last
 }
 
+console.log('TEST pop')
+
 console.log('CASE extract tomato from veggies')
 
 var veggies = { 0: 'broccoli', 1: 'cauliflower', 2: 'cabbage', 3: 'kale', 4: 'tomato', length: 5 }
