@@ -2,6 +2,8 @@ console.log('TEST Array.prototype.indexOf')
 
 console.log('CASE find the index of the element')
 
+//The indexOf() method of Array instances returns the first index at which a given element can be found in the array, or -1 if it is not present
+
 var numbers = [2, 4, 8, 16, 32, 8]
 var index = numbers.indexOf(8)
 

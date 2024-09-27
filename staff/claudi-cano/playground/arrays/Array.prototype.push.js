@@ -1,5 +1,8 @@
 console.log('TEST Array.prototype.push')
+
 console.log('CASE add 400 to nums')
+
+//The push() method of Array instances adds the specified elements to the end of an array and returns the new length of the array
 
 var nums = [100, 200, 300]
 nums.push(400)

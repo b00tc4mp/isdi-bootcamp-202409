@@ -1,3 +1,5 @@
+console.log("TEST at")
+
 var at = function (iterable, index) {
     // buscar en el iterable el elemento que se encuentra en el index
     // siempre te va a devolver undefined si no encuentra el index
@@ -26,3 +28,11 @@ var colors = { 0: 'red', 1: 'green', 2: 'blue', 3: 'yellow', length: 4 }
 var color = at(colors, -3)
 console.log(color)
 // green
+
+console.log('CASE get number at index 3 in nums')
+
+var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 }
+
+var num = at(nums, 3)
+console.log(num)
+// 400
