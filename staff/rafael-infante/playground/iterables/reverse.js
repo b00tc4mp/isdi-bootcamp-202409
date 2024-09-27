@@ -11,12 +11,12 @@ var reverse = function (iterable) {
   return newArray
 }
 
-console.log('CASE reverse array numbers')
+console.log('CASE reverse array of numbers')
 var numbers = { 0: 'one', 1: 'two', 2: 'three', length: 3 }
 var reversed = reverse(numbers)
-console.log(reversed) // Expected output ["three", "two", "one"]
+console.log(reversed) // Expected output {0: 'three', 1: 'two', 2: 'one', length: 3}
 
-console.log('CASE reverse letters')
+console.log('CASE reverse array of letters')
 var letters = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
 var reversed2 = reverse(letters)
-console.log(reversed2) // Expected output ['c', 'b', 'a']
+console.log(reversed2) // Expected output {0: 'c', 1: 'b', 2: 'a', length: 3}
