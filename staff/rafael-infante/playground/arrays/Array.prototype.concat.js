@@ -13,3 +13,4 @@ console.log('CASE concat 3 arrays')
 var array3 = ['g', 'h', 'i']
 var result2 = array1.concat(array2, array3)
 console.log(result2)
+// Expected output: Array ["a", "b", "c", "d", "e", "f", "g", "h", "i"]

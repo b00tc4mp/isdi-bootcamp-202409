@@ -4,8 +4,11 @@ console.log('TEST iterables/shift')
 // return the element removed
 var shift = function (iterable) {
   var first = iterable[0]
-  delete iterable[0]
-  iterable.length--
+  for (var i = 0; i < iterable.length - 1; i++) {
+    iterable[i] = iterable[i + 1]
+  }
+  delete iterable[iterable.length - 1]
+  iterable.length--;
   return first
 }
 
