@@ -1,20 +1,15 @@
 console.log('TEST iterables/concat')
 // recibo mas de un array y debo incluir todos los elementos en un solo array
 // devuelve un nuevo array con todos los elementos incluidos
-var concat = function (arr1, arr2) {
-  var newArray = []
-  if (arguments.length === 1) {
-    newArray = arr1
-    return newArray
-  }
-  if (arguments.length >= 2) {
-    for (var i = 0; i < arguments.length; i++) {
-      for (var j = 0; j < arguments[i].length; j++) {
-        newArray[newArray.length] = arguments[i][j]
-      }
+var concat = function (arr1) {
+  var result = { length: 0 }
+  for (var i = 0; i < arguments.length; i++) {
+    for (var j = 0; j < arguments[i].length; j++) {
+      result[result.length] = arguments[i][j]
+      result.length++
     }
-    return newArray
   }
+  return result
 }
 var array1 = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
 var array2 = { 0: 'd', 1: 'e', 2: 'f', length: 3 }
