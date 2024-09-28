@@ -28,9 +28,34 @@ var obj44 = {
 };
 
 
+
+
+//CASE: Personal concat function using objects and returning one single object
+console.log('Personal concat function to concatenate as arrays as the user send by parameter');
+var concatPersonalObj = function (arrays) {
+    var objResultado = { length: 0 };
+
+    for (var i = 0; i < arguments.length; i++) {
+
+        for (var j = 0; j < arguments[i].length; j++) {
+            //Always I'll concatenate the new word in the last position of the new array resultado
+            objResultado[objResultado.length] = arguments[i][j];
+            objResultado.length++;
+        }
+    }
+    return objResultado;
+}
+
+console.log(concatPersonalObj(obj11, obj22, obj33, obj44));
+
+
+//----------------------------
+
+
+
 //CASE: Personal concat function using objects
 console.log('Personal concat function to concatenate as arrays as the user send by parameter');
-var concatPersonal = function (arrays) {
+var concatPersonalArr = function (arrays) {
     var resultado = [];
 
     for (var i = 0; i < arguments.length; i++) {
@@ -44,4 +69,4 @@ var concatPersonal = function (arrays) {
     return resultado;
 }
 
-console.log(concatPersonal(obj11, obj22, obj33, obj44));
+console.log(concatPersonalArr(obj11, obj22, obj33, obj44));
