@@ -1,0 +1,48 @@
+.canvas {
+    width: 400px;
+    height: 200px;
+}
+
+.car {
+    display: flex;
+    width: 333px;
+    height: 166px;
+}
+
+.polygon {
+    display: flex;
+    position: absolute;
+    width: 333px;
+    height: 166px;
+    background-color: grey;
+    clip-path: polygon(98% 88%, 100% 65%, 45% 35%, 6% 71%, 8% 90%);
+}
+
+.car-window {
+    position: absolute;
+    width: 333px;
+    height: 166px;
+    background-color: aqua;
+    clip-path: polygon(19% 63%, 80% 60%, 45% 40%);
+
+}
+
+.tire1 {
+    bottom: -35%;
+    left: 0%;
+    position: relative;
+    width: 333px;
+    height: 166px;
+    clip-path: circle(18%);
+    background-color: black;
+}
+
+.tire2 {
+    bottom: -35%;
+    left: 0%;
+    position: relative;
+    width: 333px;
+    height: 166px;
+    clip-path: circle(18%);
+    background-color: black;
+}
