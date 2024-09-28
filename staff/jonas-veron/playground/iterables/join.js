@@ -1,6 +1,6 @@
 var join = function(iterable, separator){
     var newString = ''
-    if(!separator){
+    if(separator === undefined ){
         separator = ','
     }
     for(let i = 0; i < iterable.length; i++){
@@ -24,6 +24,6 @@ console.log(str);
 
 console.log('CASE with separator')
 
-var str1 = join(elements, '')
+var str1 = join(elements, '-')
 console.log(str1);
 //"Fire-Air-Water"
