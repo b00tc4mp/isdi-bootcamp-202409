@@ -60,5 +60,14 @@ body {
 }
 
 .clock {
+    content: '';
     position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: yellow;
+    left: 123px;
+    top: 91px;
+    border-radius: 50px;
+    border: 2px solid #000;
+
 }
