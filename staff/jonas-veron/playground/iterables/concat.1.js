@@ -3,7 +3,7 @@
 var concat = function(iterable, iterable2){
     var result = iterable
     for (var i = 0; i < iterable2.length; i++){
-        result[result.length+i] = iterable2[i]
+        result[result.length] = iterable2[i]
         result.length++
     }
     return result
