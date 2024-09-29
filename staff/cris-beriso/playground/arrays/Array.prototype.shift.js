@@ -12,10 +12,10 @@ console.log(color);
 
 console.log("CASE extract 100 from nums");
 
-var nums = [100, 200, 300, 400];
+var nums = [100, 200, 300, 400, 500];
 var num = nums.shift();
 
 console.log(nums);
-// [200, 300, 400]
+// [200, 300, 400, 500]
 console.log(num);
 // 100
