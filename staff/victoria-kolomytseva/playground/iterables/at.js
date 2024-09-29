@@ -2,24 +2,23 @@ var at = function (iterable, index) {
     //buscar en el iterable el elemnto que se encuentra en el index
     //siempre te va a devolver indefined si no encuentra el index
 
-    if (index > -1) {
-        return iterable[Math.floor(index)]
+    if (index > 0) {
+        return iterable[iterable.length + index];
     }
-    else {
-        return iterable[iterable.length + (Math.ceil(index))]
-    }
+
+    return iterable[index];
+
 }
 
 
-console.log('CASE locate kale from veggies')
-var veggies = { 0: 'broccoli', 1: 'califlower', 2: 'cabbage', 3: 'kale', length: 4 }
-var veggie = at(veggies, 3)
-console.log(veggie)
-//kale
+console.log('CASE locate 5 from num')
+var num = { 0: 1, 1: 9, 2: 11, 3: 15, 4: 50, 5: 4, 6: 45, length: 7 }
+var index = at(num, 5)
+console.log(index)
+//4
 
-console.log('CASE locate green from colors')
-
-var colors = { 0: 'red', 1: 'green', 2: 'blue', 3: 'yellow', length: 4 }
-var color = at(colors, 1)
-console.log(color)
-//green
+console.log('CASE locate  from num')
+var num = { 0: 1, 1: 9, 2: 11, 3: 15, 4: 50, 5: 4, 6: 45, length: 7 }
+var index = at(num, -3)
+console.log(index)
+//50

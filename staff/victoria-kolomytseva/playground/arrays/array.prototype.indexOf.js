@@ -6,8 +6,8 @@ const nums = [5, 3, 4, 12, 1, 8, 1]
 console.log(nums.indexOf(1));
 //Expected output: 4
 
-// Start from index2
-console.log(nums.indexOf(1, 2));
+// Start from index 2
+console.log(nums.indexOf(1, -2));
 //Expected output: 6
 
 console.log(nums.indexOf(14))
@@ -20,6 +20,5 @@ console.log(ropa.indexOf("vestido"))
 //Expected output: 0
 
 console.log(ropa.indexOf("vestido", 2))
+// Expected output: 5
 
-console.log(pinguIndex)
-// Expected output:5
