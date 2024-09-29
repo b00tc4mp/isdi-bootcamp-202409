@@ -60,3 +60,30 @@ De esta manera podemos operar sobre la función como si trabajaramos con reverse
     return reversedIterable;
     }`
 
+
+## Shift()
+*29/09/2024*
+Se suben los archivos Array.prototype.shift y la función personalizada shift para eliminar el primer elemento de un objeto. 
+Seguramente no será la versión más optimizada de todas pero funciona de la misma manera que la función original. 
+`
+    var shift = function (iterable) {
+    var shiftedIterable = { length: 0 };
+    var shiftedWord = iterable[0];
+    //console.log(shiftedWord);
+
+    delete iterable[0];
+    iterable.length--;
+    //console.log(iterable);
+
+    //Now we'r going to update the indexes of the object. 
+    //First we are re indexing all ellements to i-1
+    for (i = 1; i <= iterable.length; i++) {
+        iterable[i - 1] = iterable[i];
+    }
+    //Finnally we just delete the last repeated element
+    delete iterable[iterable.length];
+
+    return shiftedWord;
+    }
+`
+
