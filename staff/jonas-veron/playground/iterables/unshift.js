@@ -25,3 +25,4 @@ var length1 = unshift(obj1, 'a', 'b')
 console.log(obj1)
 
 console.log(length1)
+//{0: 'a', 1: 'b', 2: 1, 3: 2, 4: 3, length: 5}
