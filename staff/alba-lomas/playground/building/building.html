@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>building</title>
+</head>
+<style>
+    .edificio {
+        margin: 130px;
+        position: absolute;
+        width: 330px;
+        height: 530px;
+        background-color: rgb(227, 156, 50);
+        border-color: black;
+        border-style: solid;
+    }
+
+    .puerta {
+        position: absolute;
+        width: 80px;
+        height: 130px;
+        background-color: #8b5709;
+        border-color: black;
+        border-style: solid;
+        left: 125px;
+        top: 398px;
+        border-radius: 80px 80px 0px 0px;
+    }
+
+    .lado1 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 35px;
+        height: 127px;
+        background-color: #8b5709;
+        border-color: black;
+        border-style: solid;
+        left: 2.5px;
+        top: 1.5px;
+        border-radius: 80px 0px 0px 0px;
+    }
+
+    .lado2 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 35px;
+        height: 127px;
+        background-color: #8b5709;
+        border-color: black;
+        border-style: solid;
+        left: 39.5px;
+        top: 1.5px;
+        border-radius: 0px 80px 0px 0px;
+    }
+
+    .pomo1 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 8px;
+        height: 8px;
+        background-color: black;
+        left: 22px;
+        top: 86px;
+        border-radius: 50%;
+    }
+
+    .pomo2 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 8px;
+        height: 8px;
+        background-color: black;
+        left: 6px;
+        top: 86px;
+        border-radius: 50%;
+    }
+
+    .ventana1 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 30px;
+        top: 30px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana2 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 230px;
+        top: 30px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana3 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 130px;
+        top: 30px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana4 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 30px;
+        top: 150px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana5 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 230px;
+        top: 150px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana6 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 130px;
+        top: 150px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana7 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 30px;
+        top: 270px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana8 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 230px;
+        top: 270px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana9 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 130px;
+        top: 270px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana10 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 30px;
+        top: 390px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .ventana11 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(171, 231, 238);
+        border-color: black;
+        border-style: solid;
+        left: 230px;
+        top: 390px;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    .linea1 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: -14px;
+        width: 70px;
+        height: 4px;
+        background-color: black;
+    }
+
+    .linea2 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 28px;
+        width: 70px;
+        height: 4px;
+        background-color: black;
+    }
+
+    .linea3 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-left: -20px;
+        width: 4px;
+        height: 70px;
+        background-color: black;
+    }
+
+    .linea4 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-left: 22px;
+        width: 4px;
+        height: 70px;
+        background-color: black;
+    }
+
+    .franja1 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: px;
+        width: 330px;
+        height: 15px;
+        background-color: #d04f04;
+    }
+
+    .franja2 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 120px;
+        width: 330px;
+        height: 15px;
+        background-color: #d04f04;
+    }
+
+    .franja3 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 240px;
+        width: 330px;
+        height: 15px;
+        background-color: #d04f04;
+    }
+
+    .franja4 {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 360px;
+        width: 330px;
+        height: 15px;
+        background-color: #d04f04;
+    }
+</style>
+
+<body>
+    <div class="edificio">
+        <div class="puerta">
+            <div class="lado1">
+                <div class="pomo1"></div>
+            </div>
+            <div class="lado2">
+                <div class="pomo2"></div>
+            </div>
+        </div>
+        <div class="ventana1">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana2">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana3">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana4">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana5">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana6">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana7">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana8">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana9">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana10">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+        <div class="ventana11">
+            <div class="linea1"></div>
+            <div class="linea2"></div>
+            <div class="linea3"></div>
+            <div class="linea4"></div>
+        </div>
+
+        <div class="franja1"></div>
+        <div class="franja2"></div>
+        <div class="franja3"></div>
+        <div class="franja4"></div>
+
+    </div>
+
+</body>
+
+</html>

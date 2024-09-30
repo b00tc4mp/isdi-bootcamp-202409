@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>car</title>
+</head>
+<style>
+    .coche {
+        position: relative;
+        margin: 150px;
+    }
+
+    .chapa1 {
+        width: 300px;
+        height: 100px;
+        margin-left: 15px;
+        background-color: rgb(22, 134, 172);
+        border-color: black;
+        border-style: solid;
+        border-radius: 40% 40% 0% 0%;
+    }
+
+    .cristal {
+        margin: 95px;
+        width: 280px;
+        height: 120px;
+        background-color: rgb(116, 172, 183);
+        border-color: black;
+        border-style: solid;
+        border-radius: 40% 40% 0% 0%;
+        margin-top: 10px;
+        margin-left: 8px;
+    }
+
+    .chapa2 {
+        position: absolute;
+        width: 330px;
+        height: 130px;
+        background-color: rgb(22, 134, 172);
+        border-color: black;
+        border-style: solid;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    .parrilla {
+        position: absolute;
+        width: 190px;
+        height: 60px;
+        background-color: rgb(83, 99, 105);
+        border-color: black;
+        border-style: solid;
+        margin-left: 70px;
+        margin-top: 40px;
+        clip-path: inset(0.2% round 3%);
+    }
+
+    .matricula {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90px;
+        height: 25px;
+        background-color: white;
+        border-color: black;
+        border-style: solid;
+        margin-left: 50px;
+        margin-top: 15px;
+        clip-path: inset(0.2% round 3%);
+        text-align: center;
+    }
+
+    p {
+        color: black;
+    }
+
+    .guardabarros {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 350px;
+        height: 20px;
+        background-color: rgb(44, 44, 44);
+        margin-left: -7px;
+        margin-top: 112px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .foco-izquierdo {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: rgb(199, 214, 220);
+        border-color: black;
+        border-style: solid;
+        margin-left: 20px;
+        margin-top: 40px;
+        border-radius: 50%;
+    }
+
+    .foco-derecho {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: rgb(199, 214, 220);
+        border-color: black;
+        border-style: solid;
+        margin-left: 270px;
+        margin-top: 40px;
+        border-radius: 50%;
+    }
+
+    .rueda-izquierda {
+        position: absolute;
+        width: 40px;
+        height: 20px;
+        background-color: black;
+        margin-left: 20px;
+        margin-top: 132px;
+        border-radius: 0% 0% 20% 20%;
+    }
+
+    .rueda-derecha {
+        position: absolute;
+        width: 40px;
+        height: 20px;
+        background-color: black;
+        margin-left: 270px;
+        margin-top: 132px;
+        border-radius: 0% 0% 20% 20%;
+    }
+
+    .retrovisor-izquierdo {
+        position: absolute;
+        width: 40px;
+        height: 30px;
+        background-color: rgb(22, 134, 172);
+        border-color: black;
+        border-style: solid;
+        left: -33px;
+        top: 70px;
+        border-radius: 20% 20% 0% 20%;
+    }
+
+    .retrovisor-derecho {
+        position: absolute;
+        width: 40px;
+        height: 30px;
+        background-color: rgb(22, 134, 172);
+        border-color: black;
+        border-style: solid;
+        left: 324px;
+        top: 70px;
+        border-radius: 20% 20% 20% 0%;
+    }
+</style>
+
+<body>
+    <div class="coche">
+        <div class="chapa1">
+            <div class="cristal"></div>
+        </div>
+        <div class="chapa2">
+            <div class="parrilla">
+                <div class="matricula">
+                    <p>0000 XXX</p>
+                </div>
+            </div>
+            <div class="foco-izquierdo"></div>
+            <div class="foco-derecho"></div>
+        </div>
+        <div class="guardabarros"></div>
+        <div class="rueda-izquierda"></div>
+        <div class="rueda-derecha"></div>
+        <div class="retrovisor-izquierdo"></div>
+        <div class="retrovisor-derecho"></div>
+    </div>
+</body>
+
+</html>
