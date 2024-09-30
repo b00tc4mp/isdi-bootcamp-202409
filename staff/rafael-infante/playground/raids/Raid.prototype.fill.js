@@ -33,3 +33,14 @@ numbers.length = 5;
 console.log(numbers.fill(6));
 //expected output { '0': 6, '1': 6, '2': 6, '3': 6, '4': 6, length: 5 }
 
+console.log("CASE replace values after 1 with 5")
+var numbers = new Raid()
+numbers[0] = 1;
+numbers[1] = 2;
+numbers[2] = 3;
+numbers[3] = 4;
+numbers[4] = 5;
+numbers.length = 5;
+
+console.log(numbers.fill(5, 1))
+//expected output { '0': 1, '1': 5, '2': 5, '3': 5, '4': 5, length: 5 }
