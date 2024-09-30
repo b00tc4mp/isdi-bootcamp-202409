@@ -149,7 +149,7 @@ var concat = function (iterable, iterable2) {
     }
 }
 
-console.log('TEST Array.prototype.concat')
+console.log('TEST concat')
 
 console.log('CASE concat 2 iterables of characters')
 

@@ -15,7 +15,7 @@ var concat = function () {
     return result
 }
 
-console.log('TEST Array.prototype.concat')
+console.log('TEST concat')
 
 console.log('CASE concat 2 iterables of characters')
 
