@@ -1,3 +1,5 @@
+/* El método concat() concatena dos arrays y devuelve uno nuevo */
+
 var array11 = ['hola', 'manola', 'mi', 'color', 'realmente'];
 var array22 = ['favorito', 'es', 'el', 'amarillo'];
 var array33 = ['yupiiiiii', 'yepa!'];
