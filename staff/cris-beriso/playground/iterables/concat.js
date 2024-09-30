@@ -1,7 +1,4 @@
-var concat = function (iterables) {
-    /*
-    Recorrer cada propiedad de los objetos y "copiarla" en el objeto resultante.
-    */
+var concat = function (/*no hace falta poner parametro de entrada, porque no lo usamos*/) {
     var length = 0;
     var newObj = {}
     for (var i = 0; i < arguments.length; i++) {
