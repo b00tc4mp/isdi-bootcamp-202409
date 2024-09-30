@@ -1,0 +1,39 @@
+.building {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Four columns for windows */
+    grid-template-rows: repeat(5, 1fr);
+    /* Four rows for windows, one for the door */
+    width: 250px;
+    /* Reduced width */
+    height: 500px;
+    background-color: #ccc;
+    margin: 0 auto;
+    /* Center the building horizontally */
+    grid-gap: 5px;
+    /* Reduce gap to make windows closer */
+}
+
+.window {
+    background-color: #fff;
+    border: 2px solid #000;
+    width: 40px;
+    height: 40px;
+    justify-self: center;
+    /* Center horizontally within the grid cell */
+    align-self: center;
+    /* Center vertically within the grid cell */
+}
+
+.door {
+    background-color: #654321;
+    border: 2px solid #000;
+    width: 80px;
+    height: 100px;
+    grid-row: 5;
+    grid-column: 2 / span 2;
+    /* Span columns 2 and 3 to center the door */
+    justify-self: center;
+    align-self: end;
+    /* Align the door to the bottom of the grid cell */
+}
