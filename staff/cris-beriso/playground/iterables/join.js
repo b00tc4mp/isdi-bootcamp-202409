@@ -1,10 +1,10 @@
 var join = function (iterable, separator) {
 
-    var finalStr = "";
-    if (separator === undefined) separator = ",";
-    for (var i = 0; i < iterable["length"]; i++) {
-        i === 0 ? finalStr += iterable[i]
-            : finalStr += separator + iterable[i];
+    var finalStr = iterable.length === 0 ? "" : iterable[0];
+    var separator2 = separator === undefined ? "," : separator;
+
+    for (var i = 1; i < iterable["length"]; i++) {
+        finalStr += separator2 + iterable[i];
     }
     return finalStr;
 }
