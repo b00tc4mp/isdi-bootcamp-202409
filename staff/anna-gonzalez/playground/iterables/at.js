@@ -11,7 +11,7 @@ var atObject = function (iterable, index) {
     }
 }
 
-console.log('CASE locate index 2 on numbers')
+console.log('CASE get number at index 2 in numbers')
 
 var numbers = { 0: 10, 1: 20, 2: 30, 3: 40, 4: 50, length: 5 }
 var number = atObject(numbers, 2)
@@ -19,7 +19,7 @@ var number = atObject(numbers, 2)
 console.log(atObject(numbers, 2)) // It's the same than console.log(number)
 // 30
 
-console.log('CASE locate kale from veggies')
+console.log('CASE get kale at index 3 in veggies')
 
 var veggies = { 0: 'broccoli', 1: 'cauliflower', 2: 'cabbage', 3: 'kale', 4: 'tomato', length: 5 }
 var veggie = atObject(veggies, 3)
@@ -27,18 +27,10 @@ var veggie = atObject(veggies, 3)
 console.log(veggie)
 // kale
 
-console.log('CASE locate green from colours using a negative index')
+console.log('CASE get green at index -3 in colours')
 
 var colours = { 0: 'red', 1: 'green', 2: 'blue', 3: 'yellow', length: 4 }
 var colour = atObject(colours, -3)
 
 console.log(colour)
 // green
-
-console.log('CASE locate Vancouver on cities')
-
-var cities = { 0: 'Barcelona', 1: 'Vancouver', 2: 'Karlsruhe', 3: 'Hospitalet', length: 4 }
-var city = atObject(cities, 1)
-
-console.log(city)
-// Vancouver

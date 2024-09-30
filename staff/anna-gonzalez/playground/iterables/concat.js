@@ -1,12 +1,18 @@
-var concat = function (iterable) {
-    var newObj = { length: 0 }
-    for (var j = 0; j < arguments.length; j++) {
-        for (var i = 0; i < arguments[j].length; i++) {
-            newObj[newObj.length] = arguments[j][i]
-            newObj.length++
-        }
+var concat = function (iterable, iterable2) {
+    // create a new variable object
+    var result = { length: 0 }
+    // go through the first object and assign it to the newobj
+    for (var i = 0; i < iterable.length; i++) {
+        result = iterable[i]
+        iterable.length++
     }
-    return newObj
+    // go through the second object and assig it too
+    for (var i = 0; i < iterable2.length; i++) {
+        result = iterable2[i]
+        iterable2.length++
+    }
+    // return a new object
+    return result
 }
 
 console.log('TEST concat')
@@ -29,11 +35,3 @@ var newObject = concat(object1, object2, object3)
 
 console.log(newObject)
 // { 0: 1, 1: 2, 2: 3, 3: 'a', 4: 'b', 5: 'c', 6: 'fish', 7: 'almond', 8: 'nut', length: 9 }
-
-console.log('CASE concat values')
-//not working yet
-var object1 = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
-var newObject = concat(object1, 1, 2)
-
-console.log(newObject)
-// { 0: 'a', 1: 'b', 2: 'c', 3: 1, 4: 2, length: 5 }

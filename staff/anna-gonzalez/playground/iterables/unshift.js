@@ -1,9 +1,14 @@
 var unshift = function (iterable) {
+    // go through arguments backwards excluding iterable
     for (var j = arguments.length - 1; j > 0; j--) {
+        // go through iterable backwards
         for (var i = iterable.length; i > -1; i--) {
+            // move each element one position to the right
             iterable[i] = iterable[i - 1]
         }
+        // assign the element you want to add
         iterable[0] = arguments[j]
+        // increase the length of the iterable
         iterable.length++
     }
     return iterable.length
