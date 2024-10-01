@@ -1,71 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" type="text/css" href=“tu_dominio_web/css_root/flaticon.css">
-    <title>Document</title>
-  </head>
-  <body>
-    <header></header>
-    <main>
-      <nav class="menu">
-        <div>
-          <img
-            src="https://www.ikea.com/global/assets/logos/brand/ikea.svg"
-            alt="IKEA logotype"
-            class="svelte-1o56mjw"
-          />
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replica IKEA Mockup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="https://www.ikea.com/global/assets/logos/brand/ikea.svg" alt="IKEA Logo" class="logo">
         </div>
-        <p><i class="fi fi-rr-menu-burger"></i></p>
-      </nav>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Hamburger_icon.svg" alt="Menu" class="menu-icon">
+    </header>
 
+    <main>
+        <section class="hero">
+            <img 
+                src="https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg" 
+                srcset="
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=g 2000w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=sg 1600w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=xxxl 1400w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=xxl 1100w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=xl 900w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=l 750w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=m 700w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=s 600w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=xs 500w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=xxs 400w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=xxxs 300w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=u 160w, 
+                    https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg?f=xu 80w" 
+                sizes="(min-width: 768px) 920px, 94vw"
+                alt="Una gran solución de armario PAX en la esquina de un dormitorio soleado con paredes y pisos claros y acentos en materiales naturales."
+                loading="eager"
+                class="hero-img">
+                
+            <div class="hero-text">
+                <p>El sistema de armario PAX</p>
+                <h1>Amplio almacenamiento para cada espacio.</h1>
+            </div>
+        </section>
 
-<article>
-          <div class="imagen" style="background-image: url('https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg');background-repeat: no-repeat;background-size: cover; ">
-            <!-- <img style="" src="https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg" alt="" /> -->
-            <p>Fecha de publicación: 13/05/2022</p>
-            <h3>Título del post 2</h3>
-          </div>
-          
-        </article>
-        <!-- bloque noticia 3 -->
-        <article>
-          <div class="imagen">
-            <img src="./gandalf.jpg" alt="" />
-          </div>
-          <h3>Título del post</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate,
-            laudantium incidunt tempora quis corrupti totam repudiandae
-            cupiditate ea! Esse commodi enim architecto temporibus nostrum quo
-            consectetur velit sit eum impedit? Vitae aperiam minus asperiores
-            velit mollitia labore ipsa, sunt deleniti eveniet quo harum commodi
-            odit. Temporibus quis at eligendi obcaecati et. Similique animi,
-          </p>
-          <p>Fecha de publicación: 12/05/2022</p>
-        </article>
-        <!-- bloque noticia 4 -->
-        <article>
-          <div class="imagen">
-            <img src="./gandalf.jpg" alt="" />
-          </div>
-          <h3>Título del post</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate,
-            laudantium incidunt tempora quis corrupti totam repudiandae
-            cupiditate ea! Esse commodi enim architecto temporibus nostrum quo
-            consectetur velit sit eum impedit? Vitae aperiam minus asperiores
-            velit mollitia labore ipsa, sunt deleniti eveniet quo harum commodi
-            odit. Temporibus quis at eligendi obcaecati et. Similique animi,
-          </p>
-          <p>Fecha de publicación: 12/05/2022</p>
-        </article>
-      </section>
+        <section class="cta-box">
+            <div class="cta-container">
+                <p>Hacer compras</p>
+                <div class="arrow">&#10132;</div>
+            </div>
+            <p>Tienda: IKEA.es</p>
+        </section>
 
-        
-      </section>
+        <section class="hero">
+            <div class="hero-text">
+                <p>¡Por el amor de todas las cosas, duerme!</p>
+                <h1>La gran noche en</h1>
+            </div>
+            <video style="object-position: 50% 50%" src="https://www.ikea.com/global/en/images/Complete_Sleep_Startpage_Video_87023f9165.mp4" 
+            loop="" 
+            allowfullscreen="false" 
+            playsinline="" preload="auto"
+             class="svelte-ropo9z"><track kind="captions"></video>
+                
+        </section>
+
+        <section class="hero">
+            <img 
+                src="https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg" 
+                srcset="
+                https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=g 2000w,
+                 https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=sg 1600w,
+                  https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=xxxl 1400w,
+                   https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=xxl 1100w,
+                    https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=xl 900w,
+                     https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=l 750w,
+                      https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=m 700w, 
+                      https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=s 600w,
+                       https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=xs 500w,
+                        https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=xxs 400w,
+                         https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=xxxs 300w, 
+                         https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=u 160w, 
+                         https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg?f=xu 80w" 
+                         sizes="(min-width: 768px) 920px, 94vw"
+                alt="Una gran solución de armario PAX en la esquina de un dormitorio soleado con paredes y pisos claros y acentos en materiales naturales."
+                loading="eager"
+                class="hero-img">
+                
+            <div class="hero-text">
+                <p>Entrevista con Akanksha, embajadora de IKEA</p>
+                <h1>IKEA en la cumbre One Young World</h1>
+            </div>
+        </section>
+       
     </main>
-  </body>
+
+    <footer>
+        
+    </footer>
+</body>
 </html>

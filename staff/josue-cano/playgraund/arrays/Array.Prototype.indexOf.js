@@ -1,3 +1,5 @@
+console.log('TEST Array.prototype.IndexOf')
+
 //Indexof sirve para buscar un elemento en un array y devuelve su indice
 console.log('TEST Array.prototype.Indexof()');
 

@@ -1,4 +1,4 @@
-console.log('TeST ARRAY.protorype.push');
+console.log('TeST ARRAY.protorype.pop');
 
 console.log('CASE EXTRACT tomato from veggies');
 
