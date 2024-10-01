@@ -1,13 +1,14 @@
-var unshift = function (iterable, element) {
+var unshift = function (iterable,) {
 
     for (let i = iterable.length; i > 0; i--) {
         iterable[i] = iterable[i - 1]
-        iterable[0] = element;
-        iterable.length++
-
-        return iterable
-
     }
+    iterable[0] = element;
+    iterable.length++
+
+    return iterable
+
+
 }
 
 console.log("TEST array.prototype.unshift")
