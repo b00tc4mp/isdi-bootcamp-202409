@@ -22,7 +22,7 @@ var nums = { 0: 100, 1: 200, 2: 300, length: 3 }
 var length = push(nums, 400)
 
 console.log(nums)
-//{ 0:100, 1: 200, 2: 300, 3: 400, length: 3}
+//{ 0:100, 1: 200, 2: 300, 3: 400, length: 4}
 console.log(length)
 //4
 
@@ -32,7 +32,7 @@ var fruits = { 0: "apple", 1: "orange", 2: "rapsberry", 3: "pineaple", length: 4
 var length = push(fruits, "banana");
 
 console.log(fruits)
-// {0: "apple", 1: "orange", 2: "rapsberry", 3: "pineaple", 4: "banana" length: 4}
+// {0: "apple", 1: "orange", 2: "rapsberry", 3: "pineaple", 4: "banana" length: 5}
 console.log(length)
 // 5
 
@@ -42,6 +42,6 @@ var fruits = { 0: "apple", 1: "orange", 2: "rapsberry", 3: "pineaple", length: 4
 var length = push(fruits, "banana", "pear", "coconut")
 
 console.log(fruits)
-// 'apple', 'orange', 'raspberry', 'pineapple', 'banana', 'pear', 'coconut'] (7)
+// {0: 'apple', 1: 'orange', 2: 'raspberry', 3: 'pineapple', 4: 'banana', 5: 'pear', 6: 'coconut'] (7)
 console.log(length)
 // 7

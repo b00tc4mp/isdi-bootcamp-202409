@@ -23,7 +23,6 @@ console.log(color)
 console.log("CASE extract 100 from nums");
 
 var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 };
-debugger
 var num = shift(nums);
 
 console.log(nums)

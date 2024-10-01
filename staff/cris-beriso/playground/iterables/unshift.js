@@ -31,12 +31,12 @@ console.log(fruits);
 console.log(length);
 // 5
 
-console.log("CASE add banana pear an cocnut to fruits");
+console.log("CASE add banana pear and coconut to fruits");
 
 var fruits = { 0: "apple", 1: "orange", 2: "raspberry", 3: "pineaple", length: 4 };
 var length = unshift(fruits, "banana", "pear", "coconut");
 
 console.log(fruits);
-// // {0: "banana", 1: "pear", 2: "coconut", 3: "apple", 4: "orange", 5: "raspberry", 6: "pineaple", length: 7}
+// {0: "banana", 1: "pear", 2: "coconut", 3: "apple", 4: "orange", 5: "raspberry", 6: "pineaple", length: 7}
 console.log(length);
 // 7

@@ -1,7 +1,7 @@
 var indexOf = function (iterable, element, fromIndex) {
 
     for (
-        var i = (arguments.length === 2 ? 0 : (fromIndex >= 0 ? fromIndex : fromIndex + index));
+        var i = (arguments.length === 2 ? 0 : (fromIndex >= 0 ? fromIndex : fromIndex + iterable.length));
         i < iterable["length"];
         i++
     ) {
