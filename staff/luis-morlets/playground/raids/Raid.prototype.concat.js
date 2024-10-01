@@ -8,19 +8,20 @@ var Raid = function () {
 
 Raid.prototype.concat = function () {
 
+    var result = { length: 0 }
+    for (var k = 0; k < this.length; k++) {
+        result[result.length++] = this[k]
+    }
+
     for (var i = 0; i < arguments.length; i++) {
         for (var j = 0; j < arguments[i].length; j++) {
             element = arguments[i][j]
-            this[this.length] = element;
-            this.length++
+            result[result.length] = element;
+            result.length++
         }
     }
-
-    return this
+    return result
 }
-
-
-
 
 var abc = new Raid
 abc[0] = 'a'
