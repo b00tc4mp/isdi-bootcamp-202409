@@ -1,16 +1,16 @@
-var concat = function (iterable1) {
+var concat = function () {
     //add the properties and values of one object to another.
     // in this case the properties are interger (indexes) and one final length
     // for one 1 argument, add length of iterable properties of argument and add length of argument to length of iterable
-
-    for (var j = 1; j < arguments.length; j++) {
+    var result= {length:0}
+    for (var j = 0; j < arguments.length; j++) {
         for (i = 0; i < arguments[j].length; i++) {
-            iterable1[iterable1.length + i] = arguments[j][i]
+            result[result.length + i] = arguments[j][i]
         }
-        iterable1.length = iterable1.length + arguments[j].length
+        result.length += arguments[j].length
 
     }
-    return iterable1
+    return result
 }
 
 
