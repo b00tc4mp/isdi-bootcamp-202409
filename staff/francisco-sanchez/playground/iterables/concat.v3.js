@@ -29,21 +29,20 @@ var obj44 = {
 
 
 
-
-//CASE: Personal concat function using objects and returning one single object
+//CASE: Personal concat function using objects returning one single array
 console.log('Personal concat function to concatenate as arrays as the user send by parameter');
-var concatPersonalObj = function () { //--> Como estams accediendo por Arguments no hace falta declarar ningun parámetro en la función
-    var objResultado = { length: 0 };
+var concatPersonalArr = function (arrays) {
+    var resultado = [];
 
     for (var i = 0; i < arguments.length; i++) {
 
         for (var j = 0; j < arguments[i].length; j++) {
             //Always I'll concatenate the new word in the last position of the new array resultado
-            objResultado[objResultado.length] = arguments[i][j];
-            objResultado.length++;
+            resultado[resultado.length] = arguments[i][j];
         }
     }
-    return objResultado;
+
+    return resultado;
 }
 
-console.log(concatPersonalObj(obj11, obj22, obj33, obj44));
+console.log(concatPersonalArr(obj11, obj22, obj33, obj44));
