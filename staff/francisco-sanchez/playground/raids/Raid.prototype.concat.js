@@ -1,19 +1,22 @@
-var Lista = function (name, desc) {
+//Creamos la función constructora Raid
+//-------------------------------------
+
+var Elemento = function (name, desc) {
     this.name = name;
     this.desc = desc
 }
 
-var a = new Lista('A', 'Abrir');
-var b = new Lista('B', 'Ballena');
-var c = new Lista('C', 'Corcho');
-var d = new Lista('D', 'Deliberar');
-var e = new Lista('E', 'Entropía');
+var a = new Elemento('A', 'Abrir');
+var b = new Elemento('B', 'Ballena');
+var c = new Elemento('C', 'Corcho');
+var d = new Elemento('D', 'Deliberar');
+var e = new Elemento('E', 'Entropía');
 
-var f = new Lista('F', 'Fabuloso');
-var g = new Lista('G', 'Gato');
-var h = new Lista('H', 'Hospital');
-var i = new Lista('I', 'Inteligente');
-var j = new Lista('J', 'Jovial');
+var f = new Elemento('F', 'Fabuloso');
+var g = new Elemento('G', 'Gato');
+var h = new Elemento('H', 'Hospital');
+var i = new Elemento('I', 'Inteligente');
+var j = new Elemento('J', 'Jovial');
 
 
 var abcde = { length: 5 };

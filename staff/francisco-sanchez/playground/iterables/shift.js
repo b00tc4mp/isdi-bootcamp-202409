@@ -20,8 +20,7 @@ var objeto_vacio = {
 
 //CASE: Personal shift function to use in object. 
 // The function should receive an object and return the same element mutaded without the first object. 
-// The function should return too the deleted element. 
-// As a second step, we can add a parameter to know if we want to modify the original object or not. 
+// The function should return the deleted element too. 
 
 
 var shift = function (iterable) {
