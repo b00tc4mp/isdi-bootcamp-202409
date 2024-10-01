@@ -12,7 +12,7 @@ var pop = function(iterable){
     return last
 }
 
-console.log('CASE extract tomato from veggies')
+
 
 var veggies = {
     0: 'broccoli',

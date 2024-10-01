@@ -3,9 +3,6 @@
 
 //si tenemos mas de dos argumentos, recorrer y cambiar el array a partir del tercer argumento.
 
-
-
-
 var fill = function (iterable, elemento, fromIndex, end) {
 
     if(fromIndex < 0){
