@@ -73,7 +73,7 @@ console.log(copyElement);
 console.log('CASE copy with target out of range')
 
 var object = { 0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', length: 5 }
-var copyElement = copyWithin(object, -2, -3, -1)
+var copyElement = copyWithin(object, -20, -3, -1)
 console.log(copyElement);
 // { 0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', length: 5 }
 
