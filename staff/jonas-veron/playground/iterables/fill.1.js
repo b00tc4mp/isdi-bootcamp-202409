@@ -8,7 +8,7 @@ var fill = function (iterable, elemento) {
     return iterable
 }
 
-console.log('CASE fill the whole array with number 6')
+console.log('CASE fill the whole array with letter x')
 
 var obj = { 0: 'a', 1: 'b', 2: 'c', 3: 'd', length: 4 }
 var newObject = fill(obj, 'x')

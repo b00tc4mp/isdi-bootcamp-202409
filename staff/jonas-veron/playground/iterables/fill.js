@@ -11,12 +11,12 @@ var fill = function (iterable, elemento, fromIndex, end) {
     if(end < 0){
         end += iterable.length
     }
-    if(arguments === 2){
+    if(arguments.length === 2){
         for (var i = 0; i < iterable.length; i++){
             iterable[i] = elemento
         }
         return iterable
-    } else if(arguments === 3) {
+    } else if(arguments.length === 3) {
         for(var i = fromIndex; i < iterable.length; i++){
             iterable[i] = elemento
         }
@@ -41,7 +41,7 @@ console.log(newObject);
 console.log('CASE fill with fromIndex')
 var obj1 = {0: 'a', 1: 'b', 2: 'c', 3: 'd', length: 4
 }
-var newObject1 = fill(obj, 'x', 2)
+var newObject1 = fill(obj1, 'x', 2)
 console.log(newObject1)
 //{0: 'a', 1: 'b', 2: 'x', 3: 'x', length: 4}
 
