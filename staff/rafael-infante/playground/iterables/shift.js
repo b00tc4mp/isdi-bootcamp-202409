@@ -20,7 +20,7 @@ var element = shift(nums)
 console.log(nums) // Expected output { 0: 200, 1: 300, 2: 400, length: 3}
 console.log(element) // Expected Output: 100
 
-console.log('CASE remove cows from animals')
+console.log('CASE remove pigs from animals')
 var animals = { 0: 'pigs', 1: 'goats', 2: 'dogs', 3: 'sheep', 4: 'cows', length: 5 }
 var element2 = shift(animals)
 console.log(animals) // Expected output { 0: 'goats', 1: 'dogs', 2: 'sheep', 3: 'cows', length: 4}

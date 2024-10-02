@@ -1,3 +1,6 @@
+console.log('TEST iterables/unshift')
+// add elements at the start of an array
+// returns the new length of the mutated array
 var unshift = function (iterable) {
   for (var j = arguments.length - 1; j > 0; j--) {
     for (var i = iterable.length; i >= 0; i--) {
@@ -10,7 +13,7 @@ var unshift = function (iterable) {
 }
 
 
-console.log('CASE add element at the start on obj')
+console.log('CASE add element at the start of obj')
 var obj = { 0: 1, 1: 2, 2: 3, length: 3 };
 var length = unshift(obj, 'a');
 
