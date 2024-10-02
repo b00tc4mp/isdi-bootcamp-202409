@@ -5,6 +5,21 @@ var reverse = function (iterable) {
     */
 
     /*
+    for (var i = 0; i < iterable.length; i++) {
+        var elemente = iterable[i]
+
+        newObj[i] = element
+        newObj.length++
+    }
+    for (var i = newObj.length - 1; i > -1; i--) {
+        var element = newObj[i]
+
+        iterable[iterable.length - 1 - i] = element
+    }
+    return iterable;
+    */
+
+
     if (iterable.length === 2) {
         var element = iterable[1]
         iterable[1] = iterable[0]
@@ -12,7 +27,7 @@ var reverse = function (iterable) {
     } else if (iterable.length === 3) {
         var element = iterable[2]
         iterable[2] = iterable[0]
-        iterbale[0] = element 
+        iterbale[0] = element
     } else if (iterbale.length === 4) {
         var element = iterbale[3]
         iterbale[3] = iterable[0]
@@ -28,23 +43,6 @@ var reverse = function (iterable) {
         iterable[3] = iterable[1]
         iterable[1] = element
     }
-    */
-    /*
-    for (var i = iterable.length - 1; i > Math.floor((iterable.length - 1)/2); i--) {
-        var element = iterable[i]
-        iterable[i] = iterable[iterable.length - 1 - i]
-        iterable[iterable.length - 1 - i] = element
-    }
-    return iterable
-    */
-
-    for (var i = 0; i < Math.floor(iterable.length / 2); i++) {
-        var element = iterable[i]
-        iterable[i] = iterable[iterable.length - 1 - i]
-        iterable[iterable.length - 1 - i] = element
-    }
-    return iterable
-
 
 }
 console.log("TEST reverse");

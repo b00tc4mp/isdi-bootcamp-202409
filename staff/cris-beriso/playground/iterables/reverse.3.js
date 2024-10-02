@@ -3,6 +3,21 @@ var reverse = function (iterable) {
     recorrer el objeto y
     devolverlo con los elementos en orden inverso
     */
+    // var newObj = { length: 0 }
+    /*
+    for (var i = 0; i < iterable.length; i++) {
+        var elemente = iterable[i]
+
+        newObj[i] = element
+        newObj.length++
+    }
+    for (var i = newObj.length - 1; i > -1; i--) {
+        var element = newObj[i]
+
+        iterable[iterable.length - 1 - i] = element
+    }
+    return iterable;
+    */
 
     /*
     if (iterable.length === 2) {
@@ -29,16 +44,8 @@ var reverse = function (iterable) {
         iterable[1] = element
     }
     */
-    /*
-    for (var i = iterable.length - 1; i > Math.floor((iterable.length - 1)/2); i--) {
-        var element = iterable[i]
-        iterable[i] = iterable[iterable.length - 1 - i]
-        iterable[iterable.length - 1 - i] = element
-    }
-    return iterable
-    */
 
-    for (var i = 0; i < Math.floor(iterable.length / 2); i++) {
+    for (var i = iterable.length - 1; i > Math.floor((iterable.length - 1) / 2); i--) {
         var element = iterable[i]
         iterable[i] = iterable[iterable.length - 1 - i]
         iterable[iterable.length - 1 - i] = element
@@ -46,6 +53,11 @@ var reverse = function (iterable) {
     return iterable
 
 
+    // for (var i = iterable.length - 1; i > -1; i--) {
+    //     newObj[newObj.length] = iterable[i]
+    //     newObj.length++;
+    // }
+    // return newObj;
 }
 console.log("TEST reverse");
 

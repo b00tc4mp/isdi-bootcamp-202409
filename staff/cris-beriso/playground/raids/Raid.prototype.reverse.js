@@ -2,12 +2,12 @@ var Raid = function () {
     this.length = 0
 }
 Raid.prototype.reverse = function () {
-    var newObj = { length: 0 }
-    for (var i = this.length - 1; i > -1; i--) {
-        newObj[newObj.length] = this[i]
-        newObj.length++;
+    for (var i = 0; i < Math.floor(this.length / 2); i++) {
+        var element = this[i]
+        this[i] = this[this.length - 1 - i]
+        this[this.length - 1 - i] = element
     }
-    return newObj
+    return this
 }
 
 console.log("TEST Raid.prototype.reverse");
@@ -19,8 +19,9 @@ nums[0] = "one"
 nums[1] = "two"
 nums[2] = "three"
 nums[3] = "four"
-nums.length = 4
+nums[4] = "five"
+nums.length = 5
 
 var reversed = nums.reverse()
 console.log(reversed);
-// {0: "four", 1: "three", 2: "two", 3: "one", length: 4}
+// {0: "five", 1: "four", 2: "three", 3: "two", 4: "one", length: 5}
