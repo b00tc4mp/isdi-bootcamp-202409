@@ -1,13 +1,14 @@
 console.log('TEST Array.prototype.reverse')
 
-console.log('CASE reverse numbers')
+console.log('CASE reverses array of 2 elements')
 
-var numbers = ['one', 'two', 'three']
-var reversed = numbers.reverse()
-console.log(reversed) // Expected output ["three", "two", "one"]
+var names = ['Juana', 'Pedro']
+var reversed = names.reverse()
+console.log(reversed) // ['Pedro', 'Juana']
+console.log(names)
 
-console.log('CASE reverse letters')
+console.log('CASE reverse array of 3 elements')
 
-var letters = ['a', 'b', 'c']
-var reversed2 = letters.reverse()
-console.log(reversed2) // Expected output ['c', 'b', 'a']
+var names = ['Juana', 'Pedro', 'Anitta']
+console.log(reversed) // ['Anitta', 'Pedro', 'Juana']
+console.log(names)
