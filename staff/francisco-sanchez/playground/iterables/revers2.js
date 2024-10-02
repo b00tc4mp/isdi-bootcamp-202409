@@ -15,7 +15,7 @@ var barcos = {
 // As a second step, we can add a parameter to know if we want to modify the original object or not. 
 
 
-var reverse = function (iterable, mutateOriginal) {
+var reverse = function (iterable) {
     var reversedIterable = { length: 0 };
 
     //console.log(iterable.length);
@@ -25,10 +25,7 @@ var reverse = function (iterable, mutateOriginal) {
         reversedIterable[reversedIterable.length] = iterable[i - 1];
         reversedIterable.length++;
     }
-
-    if (mutateOriginal === undefined || mutateOriginal === 'y') {
-        barcos = reversedIterable;
-    }
+    barcos = reversedIterable;
 
     return reversedIterable;
 }
@@ -36,6 +33,6 @@ var reverse = function (iterable, mutateOriginal) {
 
 // The second parameter on the function let the function know if should modify the original array or not.
 // If the second parameter is 'y': will mutate the original, if 'n': the original wont be mutated
-console.log(reverse(barcos, 'y'));
+console.log(reverse(barcos));
 
 console.log(barcos);
