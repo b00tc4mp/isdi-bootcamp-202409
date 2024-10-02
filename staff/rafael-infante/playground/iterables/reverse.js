@@ -8,7 +8,10 @@ var reverse = function (iterable) {
     newArray[newArray.length] = iterable[i]
     newArray.length++
   }
-  return newArray
+  for (var j = 0; j < iterable.length; j++) {
+    iterable[j] = newArray[j]
+  }
+  return iterable
 }
 
 console.log('CASE reverse array of numbers')
