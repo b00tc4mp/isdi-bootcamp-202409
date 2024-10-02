@@ -5,7 +5,7 @@ Aviso: en algun apartado hay referencias a otros apartados, por lo que quizás h
 
 ## Index
 
-### Week 2
+### [Week 2](#week2)
 #### Funciones 'solitarias'
 - function [at](#function-at)
 - function [concat](#function-concat)
@@ -17,7 +17,7 @@ Aviso: en algun apartado hay referencias a otros apartados, por lo que quizás h
 - function [reverse](#function-reverse)
 - function [shift](#function-shift)
 - function [unshift](#function-unshift)
-### Week 3
+### [Week 3](#week3)
 #### Funciones 'solitarias'
 - function [includes](#function-includes)
 - function [fill](#function-fill)
@@ -27,8 +27,15 @@ Aviso: en algun apartado hay referencias a otros apartados, por lo que quizás h
 #### Raid
 - Qué es un [Raid](#Raids) y para qué lo utilizamos
 #### Funciones 'solitarias' con callbacks
+- function [forEach](#function-forEach)
+- function [map](#function-map)
+- function [find](#function-find)
+- function [findIndex](#function-findIndex)
+- function [filter](#function-filter)
+- function [reduce](#function-reduce)
 
-## Week 2
+
+## Week2
 
 ## Funciones solitarias
 
@@ -758,7 +765,7 @@ Y finalmente, el return:
 
 Retornamos el iterable que hemos estado modificando.
 
-## Week 3
+## Week3
 
 ## Funciones solitarias
 
@@ -1392,4 +1399,704 @@ Hmmmmmmmmm.
 
 Let's go. (Con voz de mario)
 
-WIP
+Lo primero de todo, vamos a ver la función para instanciar los objetos Raid:
+
+```js
+var Raid = function () {
+    this.length = 0
+}
+```
+
+Para empezar, aclarar que "Raid" es un nombre que hemos escogido nosotros, no tiene ningún significado dentro de javascript como sí lo tienen los términos "Array" o "Object".
+
+Bien, en estas líneas de código lo que estamos creando un constructor. Un constructor es un método especial que se utiliza para inicializar un objeto recién creado y asignarle valores iniciales a sus variables de instancia. Esto significa que, nosotros estamos creando un objeto, pero no un objeto cualquiera dado por javascript, sino un objeto tipo "Raid" que nos hemos inventado nosotros, y al que nosotros le daremos todas sus propiedades y valores. Y siempre que inicializamos un Raid, como estamos tratando con iterables todo el rato, le asociamos una longitud igual a 0, lo que quiere decir que siempre que inicializemos un objeto tal que así:
+
+```js
+var numbers = new Raid
+```
+
+Nuestro Raid, en este caso numbers, nada más "nazca" tendrá una length = 0.
+
+Una vez tenemos el Raid creado, normalmente le insertamos algunas propiedades numéricas (no tienen por qué serlo, pero como estamos tratando con iterables siempre ponemos indices numéricos) lo hacemos tal que así:
+
+```js
+//var numbers = new Raid
+numbers[0] = 100
+numbers[1] = 100
+numbers[2] = 100
+numbers[3] = 100
+```
+
+Y después de esto le reasignamos la length:
+
+```js
+//var numbers = new Raid
+// numbers[0] = 100
+// numbers[1] = 100
+// numbers[2] = 100
+// numbers[3] = 100
+numbers.length = 4
+```
+
+Bien, ahora tenemos un Raid almacenado en la variable numbers, con 4 posiciones y por ende una longitud de 4.
+
+Hasta aquí lo que hemos hecho es solamente determinar que vamos a tener unos tipos de objeto llamados "Raid" y hemos creado un Raid asociándole unos valores y una longitud, vamos ahora a crear una función inherente para todos los Raid:
+
+```js
+Raid.prototype.pop = function () {
+
+}
+```
+
+Con esto que hemos hecho? Hemos creado una función llamada pop que podran utilizar todos nuestros Raid. Para dejar clara la diferencia, cuando trabajamos con funciones solitarias, las declaramos así:
+
+```js
+var pop = function () {
+
+}
+```
+
+Cual es la diferencia? En el segundo caso lo que estamos creando es una variable global que almacena una función, que podremos llamar siempre que queramos de la siguiente manera:
+
+```js
+pop()
+```
+
+Sin embargo, en el primer caso (el de Raid), para llamarla tendremos que hacer esto:
+
+```js
+// Raid.prototype.pop = function () {
+
+// }
+
+numbers.pop()
+```
+
+Por qué? Porque pop es una función asociada a los Raid, es decir, es un método de los objetos que hayamos inicializado como new Raid, no una función global y accesible de manera solitaria.
+
+Si intentasemos llamar a la función pop sin asociarla a un objeto Raid, la consola nos dirá lo siguiente:
+
+```js
+pop()
+  |
+  |
+  V
+Uncaught ReferenceError: pop is not defined
+```
+
+Nos sale esto porque, tal y como hemos comentado, pop es un método de Raid, y para llamarlo y utilizarlo tenemos que hacerlo sobre un objeto Raid como "numbers", en este caso.
+
+Sigamos con el método pop:
+
+```js
+Raid.prototype.pop = function () {
+    var deleted = this[this.length - 1]
+    delete this[this.length - 1]
+    if (this.length > 0) {
+        this.length--
+    } else return 'empty Raid detected'
+    return deleted
+}
+
+numbers.pop()
+```
+
+*Recordemos que la función pop borra el último elemento de una lista*
+
+Vemos que dentro de la función ya no recibimos por parámetro un iterable, y donde antes poniamos "iterable" para referirnos a la lista que estabamos recorriendo, ahora ponemos "this".
+
+Esto se debe a que ya no estamos llamando a una función solitaria la cual puede recibir cualquier iterable, sino que estamos llamando a un método de Raid, es decir, una función solo accesible para los iterables Raid que hemos creado, como en este caso numbers.
+
+En el fondo estamos haciendo lo mismo dentro de la función, pero ya no nos referimos a la lista iterable como "iterable" ni entra como parámetro, sino que como la función pop es inherente de los Raid, cualquier Raid que creasemos seria capaz o "tendría el derecho" a acceder a esta función, por lo tanto utilizamos "this", para referirnos al Raid con el cual hemos llamado al método pop.
+
+Para acabar, recalcar que todos los métodos son funciones, pero no todas las funciones son métodos. Un método solo es un método cuando "forma parte" de un tipo de objeto, en este caso Raid; al instanciar la función pop con "Raid.prototype" es cuando le decimos a todos nuestros Raid que podran utilizar y acceder al método pop.
+
+## Funciones solitarias con "callbacks"
+
+## function-forEach
+
+```js
+var result = 0
+
+var forEach = function (iterable, callback) {
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        callback(element)
+    }
+}
+// Y la llamamos así:
+forEach(nums, function (num) {
+    result += num
+})
+```
+
+La función forEach ejecutará la función indicada (callback) una vez por cada elemento que haya en el iterable.
+
+Paso por paso, un callback es el uso de funciones como parámetros de otras funciones. Es decir, una función call back se crea cuando insertamos una función como valor de un parámetro de otra función.
+
+Ahora veamos el código:
+
+```js
+// var result = 0
+// var forEach = function (iterable, callback) {
+//     for (var i = 0; i < iterable.length; i++) {
+//         var element = iterable[i]
+//         callback(element)
+//     }
+// }
+// Y la llamamos así:
+forEach(nums, function (num) {
+    result += num
+})
+```
+
+Empecemos mirando como llamamos a esta función. Estamos llamando a la función forEach con dos parámetros: nums (un iterable con números), y una función. De la misma manera que podemos llamar a una función enviándole como parámetros numbers, strings, etc etc..., también podemos hacerlo enviándole una función entera. El objetivo de esto es darle a la función forEach una función sobre la cual queremos iterar con los elementos de nuestro iterable.
+
+Veamos la otra parte del código:
+
+```js
+// var result = 0
+
+var forEach = function (iterable, callback) {
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        callback(element)
+    }
+}
+// Y la llamamos así:
+// forEach(nums, function (num) {
+//     result += num
+// })
+```
+
+Lo primero, efectivamente nuestra función forEach recibe dos parámetros de entrada: el iterable y "callback" (la función a la que llamaremos desde forEach). Vayamos al for; primero declaramos una var "i" y le damos el valor 0, y la condición de continuidad es que "i" sea menor a la longitud del iterable, por lo tanto vamos a recorrer todo el iterable.
+
+Vayamos a lo que pasa dentro del for:
+
+```js
+// var result = 0
+// var forEach = function (iterable, callback) {
+//     for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        callback(element)
+//     }
+// }
+// Y la llamamos así:
+// forEach(nums, function (num) {
+//     result += num
+// })
+```
+
+En la primera linea creamos una variable llamada element, y le damos el valor de la posición en la cual nos encontramos dentro del iterable.
+
+Acto seguido, llamamos a la función que hemos enviado por parámetro. Lo que hace esta función es muy simple: tiene un parámetro de entrada, donde nosotros le enviaremos la posición del iterable en la que nos encontramos, y esta función sumará lo que le hemos enviado en la variable "result" que hemos declarado al principio del código.
+
+De esta manera, por cada uno de los elementos que tenga el iterable, primero almacenaremos el valor de la posición en la que estamos y llamaremos a la función callback para que sume ese numero al resultado.
+
+Destacar que esta función no tiene un return, sino que despues imprimiriamos con un console.log el resultado:
+
+```js
+console.log(result)
+// la suma de todos los numeros del iterable
+```
+
+## function-map
+
+
+```js
+var map = function (iterable, callback) {
+    var newObj = { length: 0 }
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        newObj[newObj.length] = callback(element)
+        newObj.length++
+    }
+    return newObj
+}
+// Y la llamamos así:
+var newNumbers = map(numbers, function (num) {
+    return num * 2
+})
+```
+
+La función map crea un nuevo iterable con los resultados de la función callback aplicada a cada uno de sus elementos.
+
+Veamos primero como llamamos a la función map:
+
+```js
+// var map = function (iterable, callback) {
+//     var newObj = { length: 0 }
+//     for (var i = 0; i < iterable.length; i++) {
+//         var element = iterable[i]
+//         newObj[newObj.length] = callback(element)
+//         newObj.length++
+//     }
+//     return newObj
+// }
+// Y la llamamos así:
+var newNumbers = map(numbers, function (num) {
+    return num * 2
+})
+```
+
+Creamos una variable llamada newNumbers, donde almacenaremos el iterable que nos devolverá la función map, y le enviamos dos parámetros: numbers (un iterable con numeros) y una función que retorna el número que haya recibido multiplicado por dos. Para ver más claro como actúa esta función callback vayamos a la función principal:
+
+```js
+var map = function (iterable, callback) {
+    var newObj = { length: 0 }
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        newObj[newObj.length] = callback(element)
+        newObj.length++
+    }
+    return newObj
+}
+// Y la llamamos así:
+// var newNumbers = map(numbers, function (num) {
+//     return num * 2
+// })
+```
+
+De primeras podemos ver que nuestra función map recibe dos parámetros: el iterable "iterable" y la función "callback" (nombres asignados por nosotros a los parámetros).
+
+En primera instáncia creamos un nuevo objeto y le asignamos una longitud de 0, aquí es donde almacenaremos los resultados de la función callback y es el objeto que retornaremos.
+
+Pal for:
+
+```js
+// var map = function (iterable, callback) {
+//     var newObj = { length: 0 }
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        newObj[newObj.length] = callback(element)
+        newObj.length++
+    }
+//     return newObj
+// }
+// Y la llamamos así:
+// var newNumbers = map(numbers, function (num) {
+//     return num * 2
+// })
+```
+
+De nuevo, al declarar en for ponemos las tres típicas lineas para recorrer un iterable, "i" es igual a 0, que "i" sea menor que la longitud del iterable y en cada vuelta sumamos 1 a "i".
+
+Bien, dentro del for, en la primera linea, al igual que hicimos en el forEach, almacenamos el valor de la posición en la que nos encontramos en la variable "element".
+
+En la siguiente linea le asignamos a la posición 0 (teniendo en cuenta que estamos en la primera iteración y le hemos dado una longitud de 0 al iterable) el return que nos da la función callback cuando le enviamos element. Paso a paso:
+
+Cuando entremos en callback, esta directamente retornará el valor de "num * 2", y num se refiere a lo que esta reciba por parámetro, es decir "element" y guardamos este valor en la posición de nuestro nuevo objeto.
+
+Después aumentamos en uno la longitud del nuevo objeto, ya que le acabamos de introducir una posición.
+
+Finalmente, después del for:
+
+```js
+// var map = function (iterable, callback) {
+//     var newObj = { length: 0 }
+    // for (var i = 0; i < iterable.length; i++) {
+    //     var element = iterable[i]
+    //     newObj[newObj.length] = callback(element)
+    //     newObj.length++
+    // }
+    return newObj
+// }
+// Y la llamamos así:
+// var newNumbers = map(numbers, function (num) {
+//     return num * 2
+// })
+```
+
+Retornamos el nuevo objeto con todas las posiciones cubiertas con el doble de las posiciones del iterable enviado a la función map.
+
+## function-find
+
+```js
+var find = function (iterable, callback) {
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) { return element }
+    }
+    return 'no se ha encontrado ningun elemento que cumpla con las características'
+}
+//Y la llamamos así
+var found = find(numbers, function (element) {
+    return element > 10
+})
+```
+
+La función find devuelve el valor del primer elemento del array que cumple la función de prueba proporcionada (que cumpla la condición del callback)
+
+Primero, la parte del código con la que llamamos a find:
+
+```js
+// var find = function (iterable, callback) {
+//     for (var i = 0; i < iterable.length; i++) {
+//         var element = iterable[i]
+//         if (callback(element)) { return element }
+//     }
+//     return 'no se ha encontrado ningun elemento que cumpla con las características'
+// }
+//Y la llamamos así
+var found = find(numbers, function (element) {
+    return element > 10
+})
+```
+
+Como find dará un return, lo almacenamos en una variable llamada "found" para luego imprimirla por consola.
+
+A find le enviamos dos parámetros: un iterable llamado numbers(iterable con números) y una función (callback) que recibirá un argumento: un elemento, y retornará un true o un false si se cumple la condición; en este caso concreto, si "element" tiene un valor mayor a 10, el callback devolverá true.
+
+Veamos la función find:
+
+```js
+var find = function (iterable, callback) {
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) { return element }
+    }
+    return 'no se ha encontrado ningun elemento que cumpla con las características'
+}
+//Y la llamamos así
+// var found = find(numbers, function (element) {
+//     return element > 10
+// })
+```
+
+En primer lugar, vemos que la función find recibe 2 parámetros de entrada: el primero al que llamaremos iterable, por donde entrará el iterable a recorrer, y en segundo lugar callback, la función a la que llamaremos desde find.
+
+Vayamos al for:
+
+```js
+// var find = function (iterable, callback) {
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) { return element }
+    }
+//     return 'no se ha encontrado ningun elemento que cumpla con las características'
+// }
+//Y la llamamos así
+// var found = find(numbers, function (element) {
+//     return element > 10
+// })
+```
+
+De nuevo, las tres primeras mierdas del for son como siempre: la var "i" es igual a 0, seguiremos en el bucle mientras "i" sea menor a la longitud del iterable y aumentamos en 1 la "i" en cada iteración.
+
+Entremos al for:
+
+```js
+// var find = function (iterable, callback) {
+    // for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) { return element }
+    // }
+//     return 'no se ha encontrado ningun elemento que cumpla con las características'
+// }
+//Y la llamamos así
+// var found = find(numbers, function (element) {
+//     return element > 10
+// })
+```
+
+En primer lugar creamos una var "element" donde almacenaremos la posición en la que nos encontramos del iterable según la iteración del for en la que estemos.
+
+En segundo lugar, tenemos un if, que dice que : en caso de que la llamada a la función almacenada en callback devuelva true, retornaremos el elemento que ha cumplido la condición del callback, que recordemos que es que el elemento sea mayor a 10.
+
+Esto quiere decir que si el valor de la posición que estamos recorriendo del iterable es mayor que 10, callback retornará true y por lo tanto entraremos al if, finalizando la función con un return ya que hemos confirmado que hay un elemento que cumple la condición del callback, y retornamos el elemento que ha cumplido esta condición.
+
+Fuera del for:
+
+```js
+// var find = function (iterable, callback) {
+    // for (var i = 0; i < iterable.length; i++) {
+        // var element = iterable[i]
+        // if (callback(element)) { return element }
+    // }
+    return 'no se ha encontrado ningun elemento que cumpla con las características'
+// }
+//Y la llamamos así
+// var found = find(numbers, function (element) {
+//     return element > 10
+// })
+```
+
+En caso de salir del for, es decir, de que ningun elemento del iterable cumpla la condición del callback, retornaremos un string que nos notifica que no hay ningun elemento que cumpla con las condiciones del callback.
+
+## function-findIndex
+
+```js
+var find = function (iterable, callback) {
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) { return element }
+    }
+    return 'no se ha encontrado ningun elemento que cumpla con las características'
+}
+//Y la llamamos así:
+var found = findIndex(numbers, function (element) {
+    return element > 10
+})
+```
+
+Esta función es exactamente igual a la función anterior (find), lo único que cambia es que el return del for devuelve el índice en el que se ha encontrado el elemento que cumple con la condición del callback, en vez del elemento en si mismo.
+
+## function-filter
+
+```js
+var filter = function (iterable, callback) {
+    var newObj = { length: 0 }
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) {
+            newObj[newObj.length++] = element
+        }
+    }
+    return newObj
+}
+//Y la llamamos así:
+var result = filter(words, function (word) {
+    return word.length > 6
+})
+```
+
+La función filter crea un nuevo iterable con todos los elementos del iterable recibido por parámetro que cumplan la condición de la función callback (la función que entra por parámetro).
+
+Cómo se llama a la función:
+
+```js
+// var filter = function (iterable, callback) {
+//     var newObj = { length: 0 }
+//     for (var i = 0; i < iterable.length; i++) {
+//         var element = iterable[i]
+//         if (callback(element)) {
+//             newObj[newObj.length++] = element
+//         }
+//     }
+//     return newObj
+// }
+//Y la llamamos así:
+var result = filter(words, function (word) {
+    return word.length > 6
+})
+```
+
+Como filter retornará un nuevo objeto, lo almacenaremos en una var llamada "result". Para llamar a filter le enviamos 2 cosas: el iterable (en este caso un iterable llamado words con palabras) y la función que utilizaremos desde la función filter, la cual recibe por parámetro un elemento, llamado "word", y si este "word" tiene una longitud mayor tiene una longitud mayor a 6, la función retornará true, en caso contrario retornará false.
+
+Vayamos a la función filter:
+
+```js
+var filter = function (iterable, callback) {
+    var newObj = { length: 0 }
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) {
+            newObj[newObj.length++] = element
+        }
+    }
+    return newObj
+}
+//Y la llamamos así:
+// var result = filter(words, function (word) {
+//     return word.length > 6
+// })
+```
+
+Vemos que la función filter tiene 2 parámetros de entrada: "iterable", donde le enviaremos un iterable (en este caso words) y "callback", que recibirá una función la cual llamaremos desde dentro de filter.
+
+Al for:
+
+```js
+// var filter = function (iterable, callback) {
+//     var newObj = { length: 0 }
+    for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) {
+            newObj[newObj.length++] = element
+        }
+    }
+//     return newObj
+// }
+//Y la llamamos así:
+// var result = filter(words, function (word) {
+//     return word.length > 6
+// })
+```
+
+Lo mismo de siempre al principio. "i" es igual a 0, i menor a la longitud del iterable para poder recorrer todo el iterable y sumamos 1 a "i" en cada iteración.
+
+Adentro del for:
+
+```js
+// var filter = function (iterable, callback) {
+//     var newObj = { length: 0 }
+    // for (var i = 0; i < iterable.length; i++) {
+        var element = iterable[i]
+        if (callback(element)) {
+            newObj[newObj.length++] = element
+        }
+    // }
+//     return newObj
+// }
+//Y la llamamos así:
+// var result = filter(words, function (word) {
+//     return word.length > 6
+// })
+```
+
+En primer lugar, como es habitual, una var "element" donde almacenamos el valor de la posición del iterable en la que nos encontramos. Después tenemos un if, y la condición de este if es la llamada a la función callback al enviarle el elemento que acabamos de almacenar. Esto quiere decir que si cuando llamamos a la función almacenada en callback enviándole el elemento almacenado devuelve true, es decir que el elemento enviado tiene una longitud mayor a 6, entraremos al if y le insertaremos al nuevo objeto que hemos creado el valor que ha cumplido con la condición, y le aumentaremos la longitud ya que hemos insertado un nuevo elemento en el iterable.
+
+Fuera del for:
+
+```js
+// var filter = function (iterable, callback) {
+//     var newObj = { length: 0 }
+    // for (var i = 0; i < iterable.length; i++) {
+        // var element = iterable[i]
+        // if (callback(element)) {
+        //     newObj[newObj.length++] = element
+        // }
+    // }
+    return newObj
+// }
+//Y la llamamos así:
+// var result = filter(words, function (word) {
+//     return word.length > 6
+// })
+```
+
+Retornamos el objeto con todos los elementos de iterable que han cumplido con la condición del callback.
+
+## function-reduce
+
+```js
+var initialValue = 0
+var reduce = function (iterable, callback, initial) {
+    var result = !initial ? 0 : initial
+    for (var i = 0; i < iterable.length; i++) {
+        if (!initial && i === 0) { result = callback(iterable[i], 0) }
+        else { result = callback(result, iterable[i]) }
+    }
+    return result
+}
+//Y la llamamos así:
+var sumWithInitial = reduce(numbers, function (accumulator, currentValue) {
+    return accumulator + currentValue
+}, initialValue)
+```
+
+Esta es la más puta (con perdón) hasta ahora.
+
+La función reduce ejecuta una función reductora sobre cada elemento de un iterable, y devuelve como resultado un único valor que comprima todos los elementos del iterable.
+
+Veamos primero cuando la llamamos:
+
+```js
+// var initialValue = 0
+// var reduce = function (iterable, callback, initial) {
+//     var result = !initial ? 0 : initial
+//     for (var i = 0; i < iterable.length; i++) {
+//         if (!initial && i === 0) { result = callback(iterable[i], 0) }
+//         else { result = callback(result, iterable[i]) }
+//     }
+//     return result
+// }
+//Y la llamamos así:
+var sumWithInitial = reduce(numbers, function (accumulator, currentValue) {
+    return accumulator + currentValue
+}, initialValue)
+```
+
+Como la función reduce tiene un retorno, lo almacenamos en una var llamada sumWithInitial (nombre de MDN copiao).
+
+Llamamos a la función reduce con 3 parámetros de entrada, veamos: en primer lugar "numbers", un iterable con números (sorprendido/a?), una función (ahora la comentamos) y la variable "initialValue" que determinamos nosotros al principio del código.
+
+Esta función callback tiene dos parámetros de entrada: "accumulator" y "currentValue", la primera servirá de acumulador que almacena el valor total progresivamente, y "currentValue" es el valor que le estamos enviando para que lo añada al "accumulator" como podemos ver en el retorno del callback.
+
+Un poco raro, pero con un poco de suerto quedará más claro al ver la función reduce:
+
+```js
+// var initialValue = 0
+var reduce = function (iterable, callback, initial) {
+    var result = !initial ? 0 : initial
+    for (var i = 0; i < iterable.length; i++) {
+        if (!initial && i === 0) { result = callback(iterable[i], 0) }
+        else { result = callback(result, iterable[i]) }
+    }
+    return result
+}
+//Y la llamamos así:
+// var sumWithInitial = reduce(numbers, function (accumulator, currentValue) {
+//     return accumulator + currentValue
+// }, initialValue)
+```
+
+En primer lugar, vemos que reduce recibe 3 parámetros: "iterable", el iterable a recorrer, "callback", la función a la que llamaremos desde reduce, y "inital", que será el valor inicial que hemos determinado fuera de la función.
+
+En la primera línea declaramos una variable llamada result con un valor que determinará el ternario. El ternario dice que: En caso de que no se haya introducido un valor en "initial" (ya que es opcional) le asignaremos a result el valor 0; en caso contrario, le asignaremos a result el valor de initial.
+
+El for:
+
+```js
+// var initialValue = 0
+// var reduce = function (iterable, callback, initial) {
+//     var result = !initial ? 0 : initial
+    for (var i = 0; i < iterable.length; i++) {
+        if (!initial && i === 0) { result = callback(iterable[i], 0) }
+        else { result = callback(result, iterable[i]) }
+    }
+//     return result
+// }
+//Y la llamamos así:
+// var sumWithInitial = reduce(numbers, function (accumulator, currentValue) {
+//     return accumulator + currentValue
+// }, initialValue)
+```
+
+Again: "i" es 0, condición de que "i" sea menor a la longitud del iterable para recorrerlo entero, en cada iteración "i" suma uno.
+
+Dentro del for:
+
+```js
+// var initialValue = 0
+// var reduce = function (iterable, callback, initial) {
+//     var result = !initial ? 0 : initial
+    // for (var i = 0; i < iterable.length; i++) {
+        if (!initial && i === 0) { result = callback(iterable[i], 0) }
+        else { result = callback(result, iterable[i]) }
+    // }
+//     return result
+// }
+//Y la llamamos así:
+// var sumWithInitial = reduce(numbers, function (accumulator, currentValue) {
+//     return accumulator + currentValue
+// }, initialValue)
+```
+
+Antes de entrar al if, explico la condición que dice MDN (como buenamente puedo porque no la tengo 100% clara): En la primera iteración, si cuando hemos llamado a la función reduce no hemos introducido un valor inicial, llamaremos a la función "callback" enviandole la primera posición del iterable, y ningún valor actual.
+
+Si no se entiende del todo no pasa nada, limitémonos a creer lo que dice MDN, y eso es lo que dice el if: si no hay valor inicial y es la primera iteración a la función que llamamos le enviamos la posición actual del iterable y un 0, como para darle nosotros un valor inicial. Recalcar que el resultado que devuelva la función "callback" lo almacenamos en la variable "result".
+
+En caso contrario, entrariamos al else: result tomará el valor de la función "callback" al enviarle el resultado almacenado hasta ahora y el valor de la posición en la que nos encontramos en el iterable. De esta manera vamos acumulando en result todo lo que vamos sumando, y le vamos añadiendo lo que sea que esté en la posición del iterable.
+
+Note: A simple vista esto lo único que hace es sumar los elementos de un iterable, pero según Frank el reduce es más complejo que eso porque se le pueden aplicar muchas funcionalidades, solo que MDN pone el caso "sencillo" en el que se suman números.
+
+Después del for:
+
+```js
+// var initialValue = 0
+// var reduce = function (iterable, callback, initial) {
+//     var result = !initial ? 0 : initial
+    // for (var i = 0; i < iterable.length; i++) {
+        // if (!initial && i === 0) { result = callback(iterable[i], 0) }
+        // else { result = callback(result, iterable[i]) }
+    // }
+    return result
+// }
+//Y la llamamos así:
+// var sumWithInitial = reduce(numbers, function (accumulator, currentValue) {
+//     return accumulator + currentValue
+// }, initialValue)
+```
+
+Retornamos el valor que hemos almacenado en "result", que es la acumulación de todos los elementos del iterable.
