@@ -1,4 +1,4 @@
-var pop = function (iterable, element) {
+var pop = function (iterable) {
     //extract last element from iterable
     var lastElement = iterable[iterable.length - 1]
 
