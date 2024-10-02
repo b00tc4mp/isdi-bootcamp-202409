@@ -7,7 +7,7 @@ console.log('TEST iterables/indexOf')
 // si el elemento recorrido coincide con el pattern devolvemos el indice de ese elemento que hemos recorrido
 // si existe el argumento fromIndex, comenzar la busqueda a partir de dicho indice
 
-var indexOf = function (iterable, pattern, fromIndex) {
+var lastIndexOf = function (iterable, pattern, fromIndex) {
   var found = 0;
 
   if (!fromIndex) {
@@ -40,22 +40,22 @@ var numbers = {
   6: 8,
   length: 7
 }
-var index = indexOf(numbers, 8)
+var index = lastIndexOf(numbers, 8)
 console.log(index) // expected output: 6
 
 console.log('CASE show index of "20" in "numbers"')
 
-var index2 = indexOf(numbers, 20)
+var index2 = lastIndexOf(numbers, 20)
 console.log(index2) // expected output: -1
 
 console.log('CASE show index of "8" in "numbers" from index 4')
-var index3 = indexOf(numbers, 8, 4) // expected output 3
+var index3 = lastIndexOf(numbers, 8, 4) // expected output 3
 console.log(index3)
 
 console.log('CASE show index of "8" in "numbers" from index -2')
-var index4 = indexOf(numbers, 8, -2) // expected output 3
+var index4 = lastIndexOf(numbers, 8, -2) // expected output 3
 console.log(index4)
 
 console.log('CASE show index of "8" in "numbers" from index -1')
-var index5 = indexOf(numbers, 8, -1) // expected output 6
+var index5 = lastIndexOf(numbers, 8, -1) // expected output 6
 console.log(index5)

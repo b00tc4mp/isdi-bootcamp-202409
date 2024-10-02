@@ -1,3 +1,4 @@
+console.log('TEST Iterable/join')
 var join = function (iterable, separator) {
   var newString = ''
   if (separator === undefined) {
@@ -25,3 +26,8 @@ console.log('CASE with separator "-"')
 var str1 = join(elements, '-')
 console.log(str1);
 //"Fire-Air-Water"
+
+console.log('CASE array with only one item')
+var element = { 0: 'Fire', length: 1 }
+var str2 = join(element)
+console.log(str2)
