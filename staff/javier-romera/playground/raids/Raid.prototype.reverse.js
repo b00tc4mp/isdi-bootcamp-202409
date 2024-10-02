@@ -3,13 +3,10 @@ var Raid = function () {
 }
 
 Raid.prototype.reverse = function () {
-    var reversedRaid = new Raid
-    for (var i = this.length - 1; i >= 0; i--) {
-        reversedRaid[reversedRaid.length] = this[i]
-        reversedRaid.length++
-    }
-    for (var i = 0; i < reversedRaid.length; i++) {
-        this[i] = reversedRaid[i]
+    for (var i = 0; i < Math.floor(this.length / 2); i++) {
+        var element = this[this.length - 1 - i]
+        this[this.length - 1 - i] = this[i]
+        this[i] = element
     }
     return this
 }

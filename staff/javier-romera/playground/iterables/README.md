@@ -1,8 +1,12 @@
 # Iterables
-En este README.md hablaré de los archvios que tengan un 1 en el nombre, por ejemplo: "at1.js", no "at.js", "concat1.js", no "concat.js", etc... (refiriendome a las funciones que he hecho y estan en mi github)
+En este README.md hablaré de los archvios que tengan un 1 en el nombre, por ejemplo: "at1.js", no "at.js", "concat1.js", no "concat.js", etc..., en el caso de que existan (refiriendome a las funciones que he hecho y estan en mi github)
 
 Aviso: en algun apartado hay referencias a otros apartados, por lo que quizás hay alguna parte que no esta explicada al 100% porque está explicada en ese otro apartado.
 
+## Index
+
+### Week 2
+#### Funciones 'solitarias'
 - function [at](#function-at)
 - function [concat](#function-concat)
 - function [indexOf](#function-indexOf)
@@ -13,6 +17,20 @@ Aviso: en algun apartado hay referencias a otros apartados, por lo que quizás h
 - function [reverse](#function-reverse)
 - function [shift](#function-shift)
 - function [unshift](#function-unshift)
+### Week 3
+#### Funciones 'solitarias'
+- function [includes](#function-includes)
+- function [fill](#function-fill)
+- function [slice](#function-slice)
+- function [copyWithin](#function-copyWithin)
+- function [splice](#function-splice)
+#### Raid
+- Qué es un [Raid](#Raids) y para qué lo utilizamos
+#### Funciones 'solitarias' con callbacks
+
+## Week 2
+
+## Funciones solitarias
 
 ## function-at
 
@@ -739,3 +757,639 @@ Y finalmente, el return:
 ```
 
 Retornamos el iterable que hemos estado modificando.
+
+## Week 3
+
+## Funciones solitarias
+
+## function-includes
+
+```js
+var includes = function (iterable, searchElement, fromIndex) {
+    if (fromIndex < -iterable.length || fromIndex >= iterable.length) {
+        return false
+    }
+
+    if (!fromIndex) {
+        fromIndex = 0;
+    }
+    else if (fromIndex < 0) {
+        fromIndex = iterable.length + fromIndex
+    }
+    for (fromIndex; fromIndex < iterable.length; fromIndex++) {
+        if (iterable[fromIndex] === searchElement) {
+            return true
+        }
+    }
+    return false
+}
+```
+
+La función includes es similar a la función indexOf, pero en vez de devolver el indice en el que se encuentra el elemento que estamos buscando, devuelve un booleano true o false, que se refiere a si el elemento está dentro del iterable o no, respectivamente.
+
+Veamos los condicionales previos al bucle for: 
+```js
+if (fromIndex < -iterable.length || fromIndex >= iterable.length) {
+        return false
+    }
+
+    if (!fromIndex) {
+        fromIndex = 0;
+    }
+    else if (fromIndex < 0) {
+        fromIndex = iterable.length + fromIndex
+    }
+```
+
+En esta parte revisamos si los argumentos introducidos por el usuario 'tienen sentido'; en el primer if miramos que el fromIndex esté dentro del rango de la length de nuestro iterable, es decir, que sea una posición que seamos capaces de seleccionar.
+
+En el segundo if, decimos que si no hay un fromIndex introducido por el usuario, nosotros mismos le asignamos un 0 para que recorra el iterable entero.
+
+En caso de que sí haya un fromIndex y no hayamos entrado en el if anterior, tenemos un if else para que, en caso de que fromIndex sea un numero negativo, transformarlo a positivo con el "iterable.length + fromIndex", así de esta manera contamos desde el final del iterable.
+
+Veamos el for:
+
+```js
+for (fromIndex; fromIndex < iterable.length; fromIndex++) {
+        if (iterable[fromIndex] === searchElement) {
+            return true
+        }
+    }
+```
+
+En primer lugar, como previamente hemos estudiado todoslos casos de fromIndex, podemos utilizarlo como variable para recorrer el iterable, y la condición de continuidad es que fromIndex sea meno que la longitud de nuestro iterable.
+
+Dentro del for tenemos un condicional, que dice que en caso de que encontremos el elemento introducido por el usaurio mientras recorremos el iterable, finalizamos la función devolviendo true.
+
+Veamos el final de la función:
+```js
+// var includes = function (iterable, searchElement, fromIndex) {
+//     if (fromIndex < -iterable.length || fromIndex >= iterable.length) {
+//         return false
+//     }
+
+//     if (!fromIndex) {
+//         fromIndex = 0;
+//     }
+//     else if (fromIndex < 0) {
+//         fromIndex = iterable.length + fromIndex
+//     }
+//     for (fromIndex; fromIndex < iterable.length; fromIndex++) {
+//         if (iterable[fromIndex] === searchElement) {
+//             return true
+//         }
+//     }
+    return false
+//}
+```
+
+Finalmente, si después de recorrer el iterable con el for no hemos encontrado el elemento introducido por el usuario, devolveremos "false", señalando que el elemento no se encuentra en el iterable.
+
+## function-fill
+
+```js
+var fill = function (iterable, element, fromIndex, endIndex) {
+    if (fromIndex < 0) {
+        fromIndex += iterable.length // fromIndex = fromIndex + iterable.length
+    }
+    if (endIndex < 0) {
+        endIndex += iterable.length
+    }
+
+    if (fromIndex >= iterable.length) {
+        return iterable
+    }
+    if (endIndex <= fromIndex) {
+        return iterable
+    }
+
+    for (var i = !fromIndex ? 0 : fromIndex;
+        i < (!endIndex || endIndex >= iterable.length ? iterable.length : endIndex);
+        i++) {
+        iterable[i] = element
+    }
+    return iterable
+}
+```
+
+La función fill rellena el iterable x veces con el elemento que hayamos enviado por parámetro al llamar a la función. Es indispensable enviar tanto el iterable a recorrer y el elemento con el que queremos rellenar el iterable, pero fromIndex y endIndex son opcionales.
+
+Veamos los condicionales previos al for:
+```js
+if (fromIndex < 0) {
+        fromIndex += iterable.length // fromIndex = fromIndex + iterable.length
+    }
+    if (endIndex < 0) {
+        endIndex += iterable.length
+    }
+
+    if (fromIndex >= iterable.length) {
+        return iterable
+    }
+    if (endIndex <= fromIndex) {
+        return iterable
+    }
+```
+
+Lo primero de todo, con los dos primeros if's miramos si el fromIndex y el endIndex introducidos por el usuario son negativos, y en caso de serlos los pasamos a positivos con la formula de siempre: fromIndex = fromIndex + iterable.length.
+
+En los dos siguientes if's, por partes: en el primero, miramos que fromIndex sea mayor o igual que la longitud de nuestro iterable, y en caso de serlo, como no hay un indice que podamos seleccionar, devolvemos directamente el iterable. Lo mismo en caso de que el endIndex sea menor o igual que fromIndex, ya que no tendria sentido que la posición final sea menor o igual que la posición inicial, ya que queremos recorrer el iterable de izquierda a derecha.
+
+Vayamos al for:
+
+```js
+for (var i = !fromIndex ? 0 : fromIndex;
+        i < (!endIndex || endIndex >= iterable.length ? iterable.length : endIndex);
+        i++) {
+        iterable[i] = element
+    }
+```
+
+Aquí he puesto un par de ternarios para acabar de cubrir todos los casos de uso. Empecemos por la declaración de "i":
+
+```js
+!fromIndex || fromIndex < -iterable.length ? 0 : fromIndex
+```
+
+Aquí le estamos diciendo que "i", en caso de que no hayamos introducido un fromIndex al llamar a la función, "i" será igual a 0, pero en caso de que sí haya sido introducido (y previamente haya pasado los condicionales, que funcionan como cortafuegos para asegurarse de que es un valor válido), "i" será igual a ese fromIndex.
+
+En la condición de continuidad, tenemos otro ternario, que dice que: en caso de que no se haya introducido un endIndex o que el endIndex sea mayor a la longitud del iterable, la condición de continuidad será que i sea menor que la longitud del iterable, ya que no tendría sentido que le estemos diciendo al programa que la posición final es una que está mas allá de la longitud de nuestro iterable; y en caso de que esto no se cumpla, utilizaremos el endIndex introducido al llamar la función y que ha pasado el cortafuegos.
+
+Como (casi) siempre, en cada iteración, hacemos i++.
+
+Una vez dentro del for, igualamos cada posición que recorraos del iterable con el elemento que hemos introducido al llamar a la función.
+
+```js
+// var fill = function (iterable, element, fromIndex, endIndex) {
+//     if (fromIndex < 0) {
+//         fromIndex += iterable.length // fromIndex = fromIndex + iterable.length
+//     }
+//     if (endIndex < 0) {
+//         endIndex += iterable.length
+//     }
+
+//     if (fromIndex >= iterable.length) {
+//         return iterable
+//     }
+//     if (endIndex <= fromIndex) {
+//         return iterable
+//     }
+
+//     for (var i = !fromIndex ? 0 : fromIndex;
+//         i < (!endIndex || endIndex >= iterable.length ? iterable.length : endIndex);
+//         i++) {
+//         iterable[i] = element
+//     }
+    return iterable
+//}
+```
+
+Finalmente retornamos el iterable que hemos modificado en el for.
+
+## function-slice
+
+```js
+var slice = function (iterable, startIndex, endIndex) {
+    if (arguments.length <= 1) { return iterable }
+
+    var newObj = {}
+
+    if (startIndex < 0) {
+        startIndex = iterable.length + startIndex
+    }
+    if (startIndex >= iterable.length) {
+        return newObj
+    }
+
+    if (endIndex < -iterable.length) {
+        endIndex = iterable.length
+    }
+    else if (endIndex < 0) {
+        endIndex = iterable.length + endIndex
+    }
+
+    if (endIndex <= startIndex) {
+        return newObj
+    }
+
+    newObj.length = 0;
+    for (var i = (!startIndex ? 0 : startIndex);
+        i < (!endIndex ? iterable.length : endIndex);
+        i++) {
+        newObj[newObj.length] = iterable[i]
+        newObj.length++
+    }
+    return newObj
+}
+```
+
+La función slice devuelve una porción del iterable recortada, pero sin modificar el iterable original, es decir, nosotros le pasamos un startIndex (podria ser fromIndex) y un endIndex y crea una copia de los elementos entre startIndex y endIndex y la devuelve.
+
+Veamos los típicos condicionales previos al for:
+
+```js
+if (arguments.length <= 1) { return iterable }
+
+    var newObj = {}
+
+    if (startIndex < 0) {
+        startIndex = iterable.length + startIndex
+    }
+    if (startIndex >= iterable.length) {
+        return newObj
+    }
+
+    if (endIndex < -iterable.length) {
+        endIndex = iterable.length
+    }
+    else if (endIndex < 0) {
+        endIndex = iterable.length + endIndex
+    }
+
+    if (endIndex <= startIndex) {
+        return newObj
+    }
+
+    newObj.length = 0
+```
+
+En primer lugar, un if rapidín que dice que si no se ha introducido más de un argumento, es decir, no hemos siquiera introducido un startIndex, devolvemos el iterable tal cual.
+
+Si hemos introducido un startIndex, avanzamos en el código y creamos un nuevo objeto, dónde almacenaremos la copia que haremos desde startIndex hasta endIndex.
+
+Empiezan los condicionales: el primer if después de la declaración de objeto: primero 'transformamos' startIndex a positivo en caso de que sea negativo, como ya hemos hecho tantas otras veces, y después, en otro if, revisamos si startIndex es mayor o igual a la longitud del iterable, y en caso de que lo sea retornamos el objeto que hemos creado completamente vacío, ya que no podemos seleccionar una posición que está más allá de nuestro iterable, por lo tanto no podemos copiar nada.
+
+Siguiente if: en el caso de que endIndex sea menor que la longitud del iterable en negativo, le damos el valor de la longitud del array como límite, ya que endIndex es lo que utilizaremos mas tarde como limitante para recorrer el iterable. En el else if valoramos si, aunque endIndex no sea menor que la longitud del iterable en negativo, este es menor que 0, es decir un número negativo que entra dentro del rango de la length de nuestro iterable, y lo transformamos a positivo.
+
+En el último if, miramos si después de todos estas valoraciones y transformaciones, endIndex es menor o igual que startIndex, y en caso de que lo sea devolvemos el nuevo objeto, ya que no podriamos generar ningún tipo de copia.
+
+Por último, si hemos superado todo este cortafuegos, le damos longitud 0 a nuestro nuevo objeto, ya que ahora toca recorrer el iterable y generar la copia.
+
+Vayamos al for:
+```js
+for (var i = (!startIndex ? 0 : startIndex);
+        i < (!endIndex ? iterable.length : endIndex);
+        i++) {
+        newObj[newObj.length] = iterable[i]
+        newObj.length++
+    }
+```
+
+Como hemos hecho todo ese estudio previo al for, éste no es muy extenso.
+
+En primer lugar declaramos la "i": y le decimos que en caso de que no hayamos introducido un startIndex al llamar a la función, "i" será igual a 0, pero en caso contrario utilizaremos el startIndex.
+
+Para la condición de continuidad hacemos algo muy similalr: si no hemos introducido un endIndex, la condición será que "i" sea menor que la longitud del iterable, pero en caso contrario utilizamos endIndex en vez de la longitud del iterable.
+
+Como (casi) siempre (de nuevo) i++.
+
+Y dentro del for ya hay poca cosa, como estamos recorriendo exactamente la parte del iterabe la cual queremos copiar, le vamos asignando al nuevo objeto la posición en la que nos encontramos del iterable, y vamos aumentando la longitud del nuevo objeto.
+
+Finalmente:
+
+```js
+// var slice = function (iterable, startIndex, endIndex) {
+//     if (arguments.length <= 1) { return iterable }
+
+//     var newObj = {}
+
+//     if (startIndex < 0) {
+//         startIndex = iterable.length + startIndex
+//     }
+//     if (startIndex >= iterable.length) {
+//         return newObj
+//     }
+
+//     if (endIndex < -iterable.length) {
+//         endIndex = iterable.length
+//     }
+//     else if (endIndex < 0) {
+//         endIndex = iterable.length + endIndex
+//     }
+
+//     if (endIndex <= startIndex) {
+//         return newObj
+//     }
+
+//     newObj.length = 0;
+//     for (var i = (!startIndex ? 0 : startIndex);
+//         i < (!endIndex ? iterable.length : endIndex);
+//         i++) {
+//         newObj[newObj.length] = iterable[i]
+//         newObj.length++
+//     }
+    return newObj
+//}
+```
+
+Devolvemos el nuevo objeto que hemos creado, con la copia de la porción seleccionada del iterable hecha.
+
+## function-copyWithin
+
+```js
+var copyWithin = function (iterable, target, start, end) {
+    var shallowCopy = { length: 0 }
+    if (target >= iterable.length || start >= iterable.length) {
+        return iterable
+    }
+
+    var target = (-iterable.length <= target && target < 0) ? target = target + iterable.length :
+        (target < -iterable.length) ? 0 :
+            target
+
+    var start = (-iterable.length <= start && start < 0) ? start = start + iterable.length :
+        (start < -iterable.length) ? 0 :
+            start
+
+    var end = (-iterable.length <= end && end < 0) ? end = end + iterable.length :
+        (end > iterable.length || !end) ? end = iterable.length :
+            (end < -iterable.length) ? 0 :
+                end
+
+    if (end <= start) {
+        return iterable
+    }
+
+    for (var i = start; i < end; i++) {
+        shallowCopy[shallowCopy.length] = iterable[i]
+        shallowCopy.length++
+    }
+
+    if (iterable.length < shallowCopy.length + target) {
+        for (var i = 0; i < iterable.length - target; i++) {
+            iterable[target + i] = shallowCopy[i]
+        }
+    } else {
+        for (var i = 0; i < shallowCopy.length; i++) {
+            iterable[target + i] = shallowCopy[i]
+        }
+    }
+    return iterable
+}
+```
+
+La función copyWithin genera copias de partes del iterable y las copia en otra parte del iterable (todos los parametros controlados por el usuario). Esta función acepta el iterable, el target, el start, y el end, pero este último es opcional. Rarete no? Es más fácil de ver que de explicar, vamos por partes:
+
+```js
+var shallowCopy = { length: 0 }
+    if (target >= iterable.length || start >= iterable.length) {
+        return iterable
+    }
+```
+
+En la primera línea de la función, creamos un objeto llamado shallowCopy donde más tarde almacenaremos la parte del iterable que queremos  copiar.
+
+Después tenemos el primer cortafuegos, que dice que en caso de que el target o el start (ambos parámetros obligatorios) sean mayores o iguales a la longitud del iterable, salimos de la función retornando el iterable sin cambiar nada, ya que no podemos copiar nada.
+
+Vayamos con el ternario de target:
+
+```js
+var target = (-iterable.length <= target && target < 0) ? target = target + iterable.length :
+        (target < -iterable.length) ? 0 :
+            target
+```
+
+Este ternario determina el valor de target. Primera parte (if):
+
+```js
+var target = (-iterable.length <= target && target < 0) ? target = target + iterable.length :
+//        (target < -iterable.length) ? 0 :
+//           target
+```
+
+Aquí, aunque presentado de manera más larga, estamos revisando si el target es negativo y está dentro del rango de la longitud del iterable, tal y como hemos hecho ya varias veces en varias funciones.
+
+En caso de que no sea así, segunda parte (else if):
+
+```js
+//var target = (-iterable.length <= target && target < 0) ? target = target + iterable.length :
+        (target < -iterable.length) ? 0 :
+            //target
+```
+
+Si el target introducido es menor que la longitud en negativo del iterable, es decir, si se sale del rango, target será igual a 0.
+
+En el último caso (else):
+
+```js
+//var target = (-iterable.length <= target && target < 0) ? target = target + iterable.length :
+//        (target < -iterable.length) ? 0 :
+            target
+```
+
+Utilizaremos el valor de target que hayamos introducido al llamar a la función.
+
+Ahora veremos que estos 3 ternarios (target, start, end) son bastante similares entre si mismos, aunque alguno valora alguna opción extra.
+
+Ternario para determinar el valor de start:
+
+```js
+var start = (-iterable.length <= start && start < 0) ? start = start + iterable.length :
+        (start < -iterable.length) ? 0 :
+            start
+```
+
+Por partes:
+
+```js
+var start = (-iterable.length <= start && start < 0) ? start = start + iterable.length :
+//        (start < -iterable.length) ? 0 :
+//            start
+```
+
+Primera parte: exactamente igual que el target, si es negativo y dentro del rango del iterable, lo transformamos a positivo.
+
+Next:
+```js
+//var start = (-iterable.length <= start && start < 0) ? start = start + iterable.length :
+        (start < -iterable.length) ? 0 :
+            //start
+```
+
+Si start es menor que el rango de la longitud en negativo: start será igual a 0.
+
+Por último:
+```js
+//var start = (-iterable.length <= start && start < 0) ? start = start + iterable.length :
+        //(start < -iterable.length) ? 0 :
+            start
+```
+
+En caso de que nada de lo anterior se cumpla, utilizamos el start introducido por parámetro.
+
+El último ternario, el de end:
+
+```js
+var end = (-iterable.length <= end && end < 0) ? end = end + iterable.length :
+        (end > iterable.length || !end) ? end = iterable.length :
+            (end < -iterable.length) ? 0 :
+                end
+```
+
+Primer caso: as always: en negativo pero en rango válido: transformamos a positivo.
+```js
+var end = (-iterable.length <= end && end < 0) ? end = end + iterable.length :
+//        (end > iterable.length || !end) ? end = iterable.length :
+//            (end < -iterable.length) ? 0 :
+//                end
+```
+
+Second case:
+
+```js
+//var end = (-iterable.length <= end && end < 0) ? end = end + iterable.length :
+        (end > iterable.length || !end) ? end = iterable.length :
+            //(end < -iterable.length) ? 0 :
+                //end
+```
+
+En caso de que end sea mayor que la longitud del iterable o que no hayamos introducido un end, este será igual a la longitud del iterable.
+
+Sigamos:
+
+```js
+//var end = (-iterable.length <= end && end < 0) ? end = end + iterable.length :
+        //(end > iterable.length || !end) ? end = iterable.length :
+            (end < -iterable.length) ? 0 :
+                //end
+```
+
+Si end es menor que la longitud del iterable en negativo, esta será igual a 0 (caso de MDN).
+
+Finalmente(else):
+
+```js
+//var end = (-iterable.length <= end && end < 0) ? end = end + iterable.length :
+        //(end > iterable.length || !end) ? end = iterable.length :
+            //(end < -iterable.length) ? 0 :
+                end
+```
+
+Utilizamos el end introducido por parámetro.
+
+Ahora, antes del primer for, tenemos un if:
+
+```js
+if (end <= start) {
+        return iterable
+    }
+```
+
+Aquí, después de todas las sumas, restas, consideraciones y demás, decimos que si end es menor o igual que start, devolvemos el iterable, ya que no podriamos hacer una copia.
+
+Vayamos al primer for (por fin):
+
+```js
+for (var i = start; i < end; i++) {
+        shallowCopy[shallowCopy.length] = iterable[i]
+        shallowCopy.length++
+    }
+```
+
+En este for, simplemente recorremos desde la posición inicial hasta la final señalizadas por los parámetros introducidos y que hemos calculado de camino, copiando en nuestro nuevo objeto la porción del iterable que hemos seleccionado.
+
+Y ya casi al final de la función:
+
+```js
+if (iterable.length < shallowCopy.length + target) {
+        for (var i = 0; i < iterable.length - target; i++) {
+            iterable[target + i] = shallowCopy[i]
+        }
+    } else {
+        for (var i = 0; i < shallowCopy.length; i++) {
+            iterable[target + i] = shallowCopy[i]
+        }
+    }
+```
+
+De primeras tenemos un if, que dice que : en caso de que la longitud del iterable sea inferior a la suma de la longitud de la copia y el target, utilizaremos un for, y en caso contrario otro for.
+
+Antes de pasar a los bucles, que dice exactamente ese if? La funcón copyWithin NO puede alterar la longitud del iterable, por lo que si nosotros al intentar insertar la copia en el iterable fuesemos a superar esa length, accedermos al for que gestiona ese caso:
+
+```js
+for (var i = 0; i < iterable.length - target; i++) {
+            iterable[target + i] = shallowCopy[i]
+        }
+```
+
+En este for declaramos que "i" es igual a 0, y la condición de continuidad es que "i" sea menor que la longitud del iterable menos el target, ya que nosotros empezaremos a colocar la copia a partir de ese target, y no queremos pasarnos de la longitud del iterable.
+
+Dentro del for le decimos exactamente eso: en la posición del iterable de target + "i", es decir empezamos a copiar desde el target y aumentamos en 1 la posición en cada iteración.
+
+El otro for:
+
+```js
+for (var i = 0; i < shallowCopy.length; i++) {
+            iterable[target + i] = shallowCopy[i]
+        }
+```
+
+En este otro, como ya hemos comprobado que no nos vamos a pasar de la longitud del iterable, la condición de continuidad es la longitud de la copia. El resto es igual al for de arriba.
+
+Por último:
+
+```js
+// var copyWithin = function (iterable, target, start, end) {
+//     var shallowCopy = { length: 0 }
+//     if (target >= iterable.length || start >= iterable.length) {
+//         return iterable
+//     }
+
+//     var target = (-iterable.length <= target && target < 0) ? target = target + iterable.length :
+//         (target < -iterable.length) ? 0 :
+//             target
+
+//     var start = (-iterable.length <= start && start < 0) ? start = start + iterable.length :
+//         (start < -iterable.length) ? 0 :
+//             start
+
+//     var end = (-iterable.length <= end && end < 0) ? end = end + iterable.length :
+//         (end > iterable.length || !end) ? end = iterable.length :
+//             (end < -iterable.length) ? 0 :
+//                 end
+
+//     if (end <= start) {
+//         return iterable
+//     }
+
+//     for (var i = start; i < end; i++) {
+//         shallowCopy[shallowCopy.length] = iterable[i]
+//         shallowCopy.length++
+//     }
+
+//     if (iterable.length < shallowCopy.length + target) {
+//         for (var i = 0; i < iterable.length - target; i++) {
+//             iterable[target + i] = shallowCopy[i]
+//         }
+//     } else {
+//         for (var i = 0; i < shallowCopy.length; i++) {
+//             iterable[target + i] = shallowCopy[i]
+//         }
+//     }
+    return iterable
+//}
+```
+
+Devolvemos el iterable modificado.
+
+## function-splice
+
+No.
+
+Nope.
+
+Nanai.
+
+Nein.
+
+Sigamos
+
+## Raids
+
+Qué es un Raid? Para qué y por qué lo utilizamos?
+
+Hmmmmmmmmm.
+
+Let's go. (Con voz de mario)
+
+WIP

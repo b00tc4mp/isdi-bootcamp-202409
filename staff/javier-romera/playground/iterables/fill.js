@@ -5,8 +5,16 @@ var fill = function (iterable, element, fromIndex, endIndex) {
     if (endIndex < 0) {
         endIndex += iterable.length
     }
-    for (var i = !fromIndex ? 0 : fromIndex;
-        i < (!endIndex ? iterable.length : endIndex);
+
+    if (fromIndex >= iterable.length) {
+        return iterable
+    }
+    if (endIndex <= fromIndex) {
+        return iterable
+    }
+
+    for (var i = !fromIndex || fromIndex < -iterable.length ? 0 : fromIndex;
+        i < (!endIndex || endIndex >= iterable.length ? iterable.length : endIndex);
         i++) {
         iterable[i] = element
     }

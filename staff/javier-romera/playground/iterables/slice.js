@@ -11,7 +11,7 @@ var slice = function (iterable, startIndex, endIndex) {
     }
 
     if (endIndex < -iterable.length) {
-        endIndex = 0
+        endIndex = iterable.length
     }
     else if (endIndex < 0) {
         endIndex = iterable.length + endIndex
