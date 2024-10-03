@@ -12,6 +12,7 @@ console.log('CASE 1: Extract elements from index 2.');
 
 var nums = [100, 200, 300, 400, 500, 600, 700];
 var extracted = nums.splice(3);
+
 console.log(nums);
 //[ 100, 200, 300 ]
 console.log(extracted);
