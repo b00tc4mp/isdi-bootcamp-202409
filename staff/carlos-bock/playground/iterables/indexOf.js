@@ -5,21 +5,19 @@
 // if no match return -1 
 
 function indexOf (arr, element, element2) {
+    let i = 0;
     if (element2 !== undefined){
-        let i = element2;
-        while (i < arr.length) {
-            if (arr[i] === element){
-                return i;
-            }
-            i++;
+        i = element2;
+    } else if(element2 < 0){
+        
+    };
+
+    while (i < arr.length) {
+        if (arr[i] === element){
+            return i;
         }
-    } else {
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i] === element) {
-                return i;
-                 }       
-            }
-        }
+        i++;
+    }
     return -1;
 }
 
@@ -32,5 +30,6 @@ var arr2 = [false, false, true, false];
 console.log(indexOf(arr1, 1));
 debugger;
 console.log(indexOf(arr1, 1, 2));
+console.log(indexOf(arr1, 1, -2));
 console.log(indexOf(obj1, 4));
 console.log(indexOf(arr2, true));

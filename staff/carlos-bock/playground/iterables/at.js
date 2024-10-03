@@ -1,26 +1,21 @@
+var at = function (iterable, index){
+    //case positive
+    //case negative
+    if (index >= 0){
+        var element = iterable[index];
+    } else {
+        var newIndex = index + interable.length;
 
-// if index > arr.length  return undefined;
-// if positive logic 
-// if negative other logic 
-//for iratables
+        var element = iterable[newIndex];
+    }
 
+    
 
-function at(arr, index){
-    if (index > arr.length || arr.length > - index) return undefined
-    else if(index > -1){
-        return arr[Math.floor(index)];
-    } else if(index < 0){
-        return arr[arr.length + Math.ceil(index)];
-    } else return "parameter is not a number";
+    return element;
 }
 
+console.log('test at');
 
-const arr1 = [1, "a", true, null, [3]];
-const obj1 = {0: 3, 1: null, 2: true, 3: "a", 4: 1, length: 5};
+console.log('case get a number at index 3 in nums');
 
-console.log(at(arr1, 3));
-console.log(at(arr1, -3));
-console.log(at(obj1, 3));
-console.log(at(arr1, -3));
-
-
+var nums = {0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5}
