@@ -24,8 +24,6 @@ var splice = function (iterable, start, deleteCount) {
         for (var i = start; i < start + deleteCount; i++) {
             var element = iterable[i]
 
-            delete iterable[i]
-
             removed[removed.length] = element
             removed.length++
         }
@@ -67,7 +65,7 @@ console.log(nums)
 console.log(extracted)
 // { 0: 400, 1: 500, 2: 600, 3: 700, length: 4 }
 
-console.log('CASE extract elements from index 2 and delete 2')
+console.log('CASE extract elements from index 1 and delete 2')
 
 var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, 5: 600, 6: 700, length: 7 }
 var extracted = splice(nums, 1, 2)
