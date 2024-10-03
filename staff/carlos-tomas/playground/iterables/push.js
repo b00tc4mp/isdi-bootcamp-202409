@@ -1,10 +1,17 @@
 var push = function (iterable, element) {
+    if (arguments.length === 2) {
+        iterable[iterable.length] = element
+        iterable.length++
+    } else {
+        for (var i = 1; i < arguments.length; i++) {
+            var element = arguments[i]
 
-    for (let i = arguments; i < array.length; i++) {
-
-
+            iterable[iterable.length] = element
+            iterable.length++
+        }
     }
 
+    return iterable.length
 }
 
 console.log('TEST push')

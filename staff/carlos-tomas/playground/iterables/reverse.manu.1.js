@@ -1,5 +1,5 @@
 var reverse = function (iterable) {
-    for (var i = 0; i < Math.floor(iterable.length / 2); i++) {
+    for (var i = iterable.length - 1; i > Math.floor(iterable.length / 2); i--) {
         var element = iterable[i]
         iterable[i] = iterable[iterable.length - 1 - i]
         iterable[iterable.length - 1 - i] = element

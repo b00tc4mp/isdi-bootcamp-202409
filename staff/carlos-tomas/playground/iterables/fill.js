@@ -12,7 +12,7 @@ var fill = function (iterable, value, start, end) {
         end = iterable.length
     }
 
-    for (i = start; i < end; i++) {
+    for (var i = start; i < end; i++) {
 
         iterable[i] = value
     }

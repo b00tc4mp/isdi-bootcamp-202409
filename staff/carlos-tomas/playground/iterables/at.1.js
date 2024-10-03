@@ -20,14 +20,7 @@ console.log('CASE buscar el indice')
 var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 };
 var num = at(nums, -2)
 
-
-
 console.log(num)
-
-
-
-
-
 
 console.log('CASE extract green from colors')
 
