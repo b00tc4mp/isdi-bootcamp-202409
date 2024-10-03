@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+  <h1 style="color:chartreuse;">How to print the DOM tree?? 🙃</h1>
+  <script>
+    // Debemos escribir una funcion que se llame a si misma para imprimir por pantalla todos los
+    // nombres de los tags que componen a un documento html (DOM)
+
+    var html = document.children[0]
+
+    function printDomTree(element) {
+      console.log(element.tagName)
+      for (var i = 0; i < element.children.length; i++) {
+        printDomTree(element.children[i])
+      }
+
+    }
+    printDomTree(html)
+
+  </script>
+</body>
+
+</html>
