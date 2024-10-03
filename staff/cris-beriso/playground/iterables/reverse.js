@@ -44,8 +44,6 @@ var reverse = function (iterable) {
         iterable[iterable.length - 1 - i] = element
     }
     return iterable
-
-
 }
 console.log("TEST reverse");
 

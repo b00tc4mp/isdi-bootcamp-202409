@@ -41,3 +41,4 @@ evenNums.length = 4
 
 var result = evenNums.map(function (num) { return num / 2 });
 console.log(result);
+// Raid { 0: 1, 1: 2, 2: 3, 3: 4, length: 4 }
