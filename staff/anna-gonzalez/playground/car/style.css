@@ -1,0 +1,53 @@
+.car {
+    position: relative;
+    margin: 20px auto;
+}
+
+.upper-car {
+    background: rgb(243, 82, 82);
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin: -7px auto;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.window {
+    background: rgb(85, 164, 248);
+    width: 150px;
+    height: 150px;
+    margin: -10px 0px 0px 150px;
+    overflow: hidden;
+}
+
+.lower-car {
+    background: rgb(243, 82, 82);
+    width: 600px;
+    height: 200px;
+    border-radius: 50%;
+    margin: -160px auto;
+    position: relative;
+    z-index: 2;
+}
+
+.left-wheel {
+    background: black;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    top: 100px;
+    left: 125px;
+}
+
+.right-wheel {
+    background: black;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    top: -50px;
+    left: 325px;
+}
