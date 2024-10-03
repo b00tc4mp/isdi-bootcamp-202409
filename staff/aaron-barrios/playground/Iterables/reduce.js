@@ -3,6 +3,9 @@ var reduce = function (iterable, callback, initialValue) {
     if (!initialValue) {
         initialValue = iterable[0]
     }
+    else if (!iterable[0]) {
+        initialValue = iterable[1]
+    }
     else {
         for (var i = 0; i < iterable.length; i++) {
             var element = iterable[i]
