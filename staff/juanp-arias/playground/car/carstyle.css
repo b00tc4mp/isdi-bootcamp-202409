@@ -1,0 +1,196 @@
+html {
+    padding: 5%;
+}
+
+.carstyle {
+    background-color: black;
+    height: 16%;
+    width: 64%;
+    position: absolute;
+    border-top-right-radius: 45%;
+    border-top-left-radius: 45%;
+    margin-left: 10%;
+}
+
+.parabrisas {
+    background-color: rgba(255, 255, 255, 0.821);
+    height: 78%;
+    width: 90%;
+    border-top-right-radius: 45%;
+    border-top-left-radius: 45%;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.cuerpocoche {
+    background-color: darkcyan;
+    height: 15%;
+    width: 80%;
+    position: absolute;
+    border-top-right-radius: 40%;
+    border-top-left-radius: 40%;
+    margin-top: 22%;
+    margin-left: 2%;
+    border-color: black;
+    border-style: groove;
+}
+
+.partebaja {
+    background-color: black;
+    height: 5%;
+    width: 83%;
+    position: absolute;
+    border-radius: 20%;
+    margin-top: 42%;
+    margin-left: 0.5%;
+    border-color: black;
+    border-style: groove;
+}
+
+.luz1 {
+    background-color: rgb(238, 238, 114);
+    width: 12%;
+    height: 48%;
+    position: absolute;
+    margin-top: 6%;
+    margin-left: 6%;
+    border-radius: 50%;
+    border-color: black;
+    border-style: groove;
+}
+
+.luz2 {
+    background-color: rgb(238, 238, 114);
+    width: 12%;
+    height: 48%;
+    position: absolute;
+    margin-top: 6%;
+    margin-left: 81%;
+    border-radius: 50%;
+    border-color: black;
+    border-style: groove;
+}
+
+.partealta {
+    background-color: black;
+    height: 0.5%;
+    width: 42%;
+    position: absolute;
+    border-radius: 20%;
+    margin-top: 29%;
+    margin-left: 21.5%;
+    border-color: black;
+    border-style: groove;
+}
+
+.partealta2 {
+    background-color: black;
+    height: 0.5%;
+    width: 42%;
+    position: absolute;
+    border-radius: 20%;
+    margin-top: 31.5%;
+    margin-left: 21.5%;
+    border-color: black;
+    border-style: groove;
+}
+
+.partealta3 {
+    background-color: black;
+    height: 0.5%;
+    width: 42%;
+    position: absolute;
+    border-radius: 20%;
+    margin-top: 34%;
+    margin-left: 21.5%;
+    border-color: black;
+    border-style: groove;
+}
+
+.partealta4 {
+    background-color: black;
+    height: 0.5%;
+    width: 42%;
+    position: absolute;
+    border-radius: 20%;
+    margin-top: 36.5%;
+    margin-left: 21.5%;
+    border-color: black;
+    border-style: groove;
+}
+
+.matricula {
+    background-color: rgb(255, 255, 255);
+    height: 6.5%;
+    width: 25%;
+    position: absolute;
+    border-radius: 20%;
+    margin-top: 40.5%;
+    margin-left: 30%;
+    border-color: black;
+    border-style: groove;
+    text-align: center;
+    justify-content: center;
+    font-size: larger;
+    text-align: center;
+}
+
+.rueda1 {
+    background-color: black;
+    width: 8.5%;
+    height: 6%;
+    position: absolute;
+    margin-top: 48%;
+    margin-left: 7%;
+    border-radius: 25%;
+    border-color: black;
+    border-style: groove;
+}
+
+.rueda2 {
+    background-color: black;
+    width: 8.5%;
+    height: 6%;
+    position: absolute;
+    margin-top: 48%;
+    margin-left: 68%;
+    border-radius: 25%;
+    border-color: black;
+    border-style: groove;
+}
+
+.retroderecho {
+    background-color: black;
+    width: 8.5%;
+    height: 4%;
+    position: absolute;
+    margin-top: 15%;
+    margin-left: 66%;
+    border-radius: 25%;
+    border-color: black;
+    border-style: groove;
+}
+
+.retroizquierdo {
+    background-color: black;
+    width: 8.5%;
+    height: 4%;
+    position: absolute;
+    margin-top: 15%;
+    margin-left: 7.8%;
+    border-radius: 25%;
+    border-color: black;
+    border-style: groove;
+}
+
+.carroceria {
+    background-color: rgb(103, 103, 103);
+    height: 1.5%;
+    width: 81%;
+    position: absolute;
+    border-radius: 20%;
+    margin-top: 50%;
+    margin-left: 1.7%;
+    border-color: black;
+    border-style: groove;
+}
