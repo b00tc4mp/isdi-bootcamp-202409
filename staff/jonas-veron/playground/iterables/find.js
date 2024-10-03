@@ -9,7 +9,7 @@ var find = function(iterable, callback){
 }
 
 
-console.log('CASE ')
+console.log('CASE find the first element that matched and return the element')
 
 var numbers = {
     0: 5,

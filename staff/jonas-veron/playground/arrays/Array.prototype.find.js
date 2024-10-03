@@ -1,6 +1,6 @@
 console.log('TEST Array.prototype.find')
 
-console.log('CASE encontrar el primer elemento que coindida')
+console.log('CASE find the first element that matched')
 
 var numbers = [5, 10, 15, 20, 25, 30]
 

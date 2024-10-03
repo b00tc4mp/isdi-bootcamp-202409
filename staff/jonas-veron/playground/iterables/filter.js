@@ -4,7 +4,7 @@ var filter = function(iterable, callback){
     var result = {length:0}
     for(var i = 0; i < iterable.length; i++){
         var element = iterable[i]
-        if(callback(element)){
+        if(callback(element, i, iterable)){
             result[result.length] = element, i, iterable
             result.length++
         }
