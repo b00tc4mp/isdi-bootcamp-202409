@@ -1,13 +1,13 @@
-console.log('TEST Array.prototype.reverse')
+console.log('TEST array prototype reverse')
 
+const array1 = ['one', 'two', 'three'];
+console.log('array1:', array1);
+// Expected output: "array1:" Array ["one", "two", "three"]
 
-var nums = [100, 200, 300];
-console.log(nums);
-// [100, 200, 300]
+const reversed = array1.reverse();
+console.log('reversed:', reversed);
+// Expected output: "reversed:" Array ["three", "two", "one"]
 
-
-console.log('Revertir los elementos en nums')
-var reversed = nums.reverse();
-console.log(reversed);
-// [300, 200, 100]
-
+// Careful: reverse is destructive -- it changes the original array.
+console.log('array1:', array1);
+// Expected output: "array1:" Array ["three", "two", "one"]

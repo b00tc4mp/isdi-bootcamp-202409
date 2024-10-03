@@ -3,16 +3,13 @@ console.log('TEST array prototype reverse for iterables')
 var reverse = function (iterable) {
     // make a new iterable iterating the first one in reverse order
     // asign the new iterable to the original variable
-    var reversed = {length: iterable[length]}
+    var reversed = {}
 
     for (var i = 0; i < iterable.length; i++) {
         reversed[i] = iterable[iterable.length - 1 - i]
     }
-
-    for (var j = 0; j < iterable.length; j++) {
-        iterable[j] = reversed[j]
-    }
-    
+    reversed.length = iterable.length
+    iterable = reversed
     return iterable
 }
 
