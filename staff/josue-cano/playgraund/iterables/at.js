@@ -1,40 +1,37 @@
- var at = function(iterable, index) {
-     if(index > -1) {
-        //mathflor es para redondear hacia abajo un número que tiene decimales
-         return iterable[Math.floor(index)];
-     }
-    else {
+var at = function (iterable, index) {
+    return iterable[index >= 0 ? index : index + iterable.length]
+}
 
-        return iterable[iterable.length + (Math.ceil(index))];
-    }
+console.log('TEST at')
 
- }
+console.log('CASE get number at index 3 in nums')
 
-console.log("CASE locate kale grom veggies");
+var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 }
 
-var veggies = {
-    0: 'brocoli',
-    1: 'carrot',
-    2: 'potato',
-    3: 'onion',
-    4: 'zucchini',
-    5: 'kale',
-    length:6 };
+var num = at(nums, 3)
+console.log(num)
+// 400
 
-var veggie = at(veggies, -1);
-console.log(veggie);
+console.log('CASE get number at index -3 in nums')
 
-console.log('CASE locate green from colors');
+var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 }
 
-var colors = {
-    0: 'green',
-    1: 'blue',
-    2: 'yellow',
-    3: 'purple',
-    4: 'orange',
-    5: 'red',
-    length:6 };
+var num = at(nums, -3)
+console.log(num)
+// 300
 
-var color = at(colors, -10);
-console.log(color);
+console.log('CASE get number at index -10 in nums')
 
+var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 }
+
+var num = at(nums, -10)
+console.log(num)
+// undefined
+
+console.log('CASE get number at index 10 in nums')
+
+var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 }
+
+var num = at(nums, 10)
+console.log(num)
+// undefined
