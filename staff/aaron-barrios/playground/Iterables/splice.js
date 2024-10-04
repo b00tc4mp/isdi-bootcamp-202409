@@ -44,7 +44,7 @@ function splice(iterable, startIndex, deleteCount) {
 
             iterable[i - deleteCount] = element
 
-            // if (i === (iterable.length - deleteCount)) {
+            // if (i ===iterable.length - deleteCount)) {
             //     delete iterable[i]
             // }
         }
