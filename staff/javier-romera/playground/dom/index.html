@@ -10,12 +10,14 @@
 <body style="background-color: black;">
     <h1 style="color: magenta;">Hola Mundo!</h1>
     <script>
-
-        var dom = function (nodo) {
-            console.log(nodo.tagName)
+        var dom = function (nodo, indent) {
+            if (indent === undefined) indent = 0
+            console.log((indent === 0 ? "" : " ".repeat(indent)) + nodo.tagName)
 
             for (var i = 0; i < nodo.children.length; i++) {
-                dom(nodo.children[i])
+                var child = nodo.children[i]
+
+                dom(child, indent + 1)
             }
         }
 
