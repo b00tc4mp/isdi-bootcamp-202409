@@ -4,6 +4,7 @@ var find = function (iterable, callback) {
             return iterable[i]
         }
     }
+    return 'undefined'
 }
 
 console.log('TEST find')
