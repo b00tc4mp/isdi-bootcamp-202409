@@ -1,8 +1,6 @@
-// The shift() method of Array instances removes the first element from an array and returns that removed element. This method changes the length of the array.
-
 console.log('TEST Array.prototype.shift')
 
-console.log('CASE check if "cat" is in "pets" array')
+console.log('CASE remove 1 from the array and return it')
 
 var array1 = [1, 2, 3]
 

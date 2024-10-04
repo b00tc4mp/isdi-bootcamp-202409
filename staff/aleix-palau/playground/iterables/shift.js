@@ -12,14 +12,14 @@ var shift = function (iterable) {
 
 console.log('TEST shift')
 
-console.log('CASE check if "cat" is in "pets" array')
+console.log('CASE remove 1 from the array and return it')
 
 var obj1 = { 0: 1, 1: 2, 2: 3, length: 3 }
 
 var firstElement = shift(obj1)
 
 console.log(obj1)
-// { 0: 2, 1: 3, length; 2 }
+// { 0: 2, 1: 3, length: 2 }
 
 console.log(firstElement)
 // 1

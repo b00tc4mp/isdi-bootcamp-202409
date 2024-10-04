@@ -22,8 +22,6 @@ nums[3] = 400
 nums[4] = 500
 nums.length = 5
 
-{ 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 }
-
 var num = nums.at(3)
 console.log(num)
 // 400
