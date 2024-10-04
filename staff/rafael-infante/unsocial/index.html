@@ -121,6 +121,31 @@
       loginSection.style.display = ''
     }
 
+    var loginForm = forms[0]
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault()
+      var loginInputs = loginForm.querySelectorAll('input')
+      debugger
+      var loginUsername = loginInputs[0].value
+      var loginPassword = loginInputs[1].value
+
+      var match = users.find(function (element) {
+        return (element.username === loginUsername) && (element.password === loginPassword)
+      })
+
+      loginForm.reset()
+
+      if (match) {
+        loginSection.style.display = 'none'
+        homeSection.style.display = ''
+        homeSection.querySelector('h3').innerText = 'Hello, ' + match.name
+      } else {
+        alert('Escribe bien boludo!!')
+      }
+
+    })
+
   </script>
 
 </body>
