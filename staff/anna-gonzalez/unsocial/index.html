@@ -135,12 +135,10 @@
             var passwordInput = inputs[1]
             var password = passwordInput.value
 
-            if (users.find(function (user) {
-                if (user.username === username && user.password === password) {
-                    loggedInUser = user
-                    return true
-                }
-            })) {
+            loggedInUser = users.find(function (user) {
+                return user.username === username && user.password === password
+            })
+            if (loggedInUser) {
                 loginForm.reset()
                 loginSection.style.display = 'none'
                 homeSection.style.display = ''
