@@ -23,8 +23,6 @@
     // nombres de los tags que componen a un documento html (DOM)
     // agregamos una logica para imprimir los elementos indentados
 
-    var html = document.children[0]
-
     function printDomTree(element, indent) {
 
       if (indent === undefined) indent = 0
@@ -33,9 +31,8 @@
       for (var i = 0; i < element.children.length; i++) {
         printDomTree(element.children[i], indent + 1)
       }
-
     }
-    printDomTree(html)
+    printDomTree(document.children[0])
 
   </script>
 </body>
