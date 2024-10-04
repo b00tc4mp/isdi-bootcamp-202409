@@ -31,11 +31,13 @@
 
 var html = document.children[0]
 
-var fun = function(x){
-    
-    console.log(x.tagName)
+function fun(x, indent){
+    if(indent === undefined) indent = 0
+    console.log((indent === 0 ? '' : ' '.repeat(indent)) + x.tagName)
+
     for(var i = 0; i < x.children.length; i++){
-        fun(x.children[i])
+        var child = x.children[i]
+        fun(child, indent + 1)
     }
 }
 
