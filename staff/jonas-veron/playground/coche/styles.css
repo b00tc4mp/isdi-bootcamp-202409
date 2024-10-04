@@ -1,0 +1,138 @@
+body{
+    
+}
+
+.techo{
+    width: 484px;
+    height: 139px;
+    background-color: rgb(67, 67, 67);
+    position: absolute;
+    margin: 93px 208px;
+    border-radius: 124% 124% 0% 0%;
+}
+.parabrisas{
+    width: 452px;
+    height: 160px;
+    background-color: rgb(26, 26, 26);
+    /* position:relative; */
+    margin:30px 22px 28px 16px;
+    border-radius: 35% 35% 0% 0%;
+}
+
+.chasis{
+    position:absolute;
+    margin: -161px 0px 0px 0px;
+}
+.capo{
+    width: 510px;
+    height: 98px;
+    background-color: rgb(67, 67, 67);
+    margin: 350px 10px 10px 195px;
+    border-radius: 46% 46% 30% 30%;
+    position: absolute;
+}
+
+.capo-one{
+    width: 538px;
+    height: 129px;
+    background-color: rgb(67, 67, 67);
+    margin: 404px 10px 10px 182px;
+    border-radius: 18% 18% 8% 8%;
+    position: absolute;
+}
+
+.faro-derecho{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: whitesmoke;
+    border: 5px solid black;
+    margin: 368px 10px 10px 630px;
+    position: absolute;
+}
+.faro-izquierdo{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: whitesmoke;
+    border: 5px solid black;
+    margin: 368px 10px 10px 229px;
+    position: absolute;
+}
+.faro-derecho-intermitente{
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background-color: whitesmoke;
+    border: 5px solid black;
+    margin: 390px 10px 10px 671px;
+    position: absolute;
+}
+.faro-izquierdo-intermitente{
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background-color: whitesmoke;
+    border: 5px solid black;
+    margin: 390px 10px 10px 203px;
+    position: absolute;
+}
+.parachoque{
+    width: 466px;
+    height: 52px;
+    background-color:  rgb(46, 46, 46);
+    border-radius: 15% 15% 15% 15%;
+    margin: 466px 0px 0px 219px;
+    position:absolute;
+}
+.parachoque-uno{
+    width: 412px;
+    height: 16px;
+    background-color: rgb(46, 46, 46);
+    border-radius: 20% 20% 20% 20%;
+    margin: 432px 0px 0px 238px;
+    position:absolute;
+}
+.linea-capo{
+    width: 385px;
+    height: 6px;
+    background-color: rgb(23, 23, 23);
+    border-radius: 20% 20% 20% 20%;
+    margin: 406px 0px 0px 259px;
+    position:absolute;
+}
+.rueda-izquierda{
+    width: 85px;
+    height: 118px;
+    background-color: black;
+    border-radius: 10% 10% 10% 10%;
+    margin: 425px 10px 10px 642px;
+    position:absolute;
+    z-index: -1;
+}
+.rueda-derecha{
+    width: 85px;
+    height: 118px;
+    background-color: black;
+    border-radius: 10% 10% 10% 10%;
+    margin: 425px 10px 10px 175px;
+    position:relative;
+    z-index: -1;
+}
+.retrovisor-izquierdo{
+    width: 45px;
+    height: 25px;
+    background-color: rgb(67, 67, 67);
+    border-radius: 40% 0% 0% 17%;
+    margin: -199px 0px 0px 172px;
+    position:absolute;
+}
+.retrovisor-derecho{
+    width: 45px;
+    height: 25px;
+    background-color: rgb(67, 67, 67);
+    border-radius: 0% 40% 17% 0%;
+    margin: -199px 0px 0px 682px;
+    position:absolute;
+}
+
