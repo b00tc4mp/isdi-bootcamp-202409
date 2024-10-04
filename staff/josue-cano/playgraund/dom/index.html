@@ -32,20 +32,18 @@
 //    console.log(html.tagName);
 
 
-var dom = function(nodo){
-    console.log()
+var Dom = function(nodo){
+    console.log(nodo.tagName)
+
+for(var i = 0; i <nodo.children.length; i++){
+    Dom(nodo.children[i]);
+ }
 }
-
-// var recorrerDom = function(nodo){
-//     console.log(nodo.tagName)
-
-// for(var i = 0; i <nodo.children.length; i++){
-//     recorrerDom(nodo.children[i]);
-//  }
-// }
-// var html = document.children[0];
-// recorrerDom(html);
+var html = document.children[0];
+Dom(html);
     </script>
+
+
 </body>
 
 

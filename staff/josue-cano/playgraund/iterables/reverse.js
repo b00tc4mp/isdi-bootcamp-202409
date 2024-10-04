@@ -1,4 +1,4 @@
-var reversePalabras = function(palabras) {
+var reversePalabras = function (palabras) {
     var i = 0;
     var j = palabras.length - 1;
 
@@ -11,14 +11,14 @@ var reversePalabras = function(palabras) {
         j--;
     }
 };
-
+console.log('TEST Reverse')
 var palabras = {
     0: 'la',
     1: 'le',
     2: 'li',
     3: 'lo',
     4: 'lu',
-    length: 5 
+    length: 5
 };
 
 console.log("Palabras antes de invertir: ", palabras);

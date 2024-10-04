@@ -1,3 +1,5 @@
+console.log('TEST Concat')
+
 var concat = function(iterable1, iterable2) {
     var result = {};
 

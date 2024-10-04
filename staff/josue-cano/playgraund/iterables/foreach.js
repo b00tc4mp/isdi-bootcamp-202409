@@ -15,12 +15,6 @@ var chars = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
 // forEach(chars, function (element) { console.log(element) })
 
 
-
-
-
-
-
-
 var nums = { 0: 100, 1: 200, 2: 300, length: 3 }
 var result = 0
 

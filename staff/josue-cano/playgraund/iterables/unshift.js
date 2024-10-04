@@ -1,4 +1,4 @@
-// Función 'unshift'
+
 var unshiftPalabras = function(palabras, nuevaPalabra) {
     // Desplazamos todos los elementos hacia atrás
     for (var i = palabras.length; i > 0; i--) {
@@ -8,7 +8,8 @@ var unshiftPalabras = function(palabras, nuevaPalabra) {
     palabras.length++; // Incrementamos longitud
 };
 
-// Objeto array de palabras
+console.log('TEST unshift')
+
 var palabras = {
     0: 'la',
     1: 'le',

@@ -1,5 +1,6 @@
+console.log('TEST Indexof')
 
-var indexOf = function(palabras, palabraBuscada, indiceInicial){
+var indexOf = function (palabras, palabraBuscada, indiceInicial) {
     var i = 0;
 
     if (indiceInicial < 0) {
@@ -20,7 +21,7 @@ var palabras = {
     2: 'li',
     3: 'lo',
     4: 'lu',
-    length: 5 
+    length: 5
 }
 
 
