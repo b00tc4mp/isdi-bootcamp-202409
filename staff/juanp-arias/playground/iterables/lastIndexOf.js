@@ -1,16 +1,13 @@
 console.log('TEST lastIndexOf')
-var lastIndexOf = function(iterable, searchElement, fromIndex){
-    if (fromIndex === NaN) return -1;
-
+var lastIndexOf = function (iterable, searchElement, fromIndex) {
 
     if (fromIndex === undefined) {
-        fromIndex = iterable.length;
+        fromIndex = iterable.length - 1;
 
 
     } else if (fromIndex < 0) {
         fromIndex = iterable.length + fromIndex;
     }
-
 
     for (var i = fromIndex; i >= 0; i--) {
         if (iterable[i] === searchElement) {
