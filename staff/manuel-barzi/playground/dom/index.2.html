@@ -37,19 +37,21 @@
            text
         */
 
-        function print(element, indent) {
-            if (indent === undefined) indent = 0
+        var html = document.children[0]
 
-            console.log((indent === 0 ? '' : ' '.repeat(indent)) + element.tagName)
+        console.log(html.tagName)
 
-            for (var i = 0; i < element.children.length; i++) {
-                var child = element.children[i]
+        for (var i = 0; i < html.children.length; i++) {
+            var child = html.children[i]
 
-                print(child, indent + 1)
+            console.log(' ' + child.tagName)
+
+            for (var j = 0; j < child.children.length; j++) {
+                var child2 = child.children[j]
+
+                console.log('  ' + child2.tagName)
             }
         }
-
-        print(document.children[0])
     </script>
 </body>
 
