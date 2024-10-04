@@ -1,0 +1,97 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.pig-face {
+    margin: 30px;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    background-color: pink;
+    border-radius: 50%;
+    /* Hace la cara redonda */
+    border: 5px solid #d98c8c;
+}
+
+
+.eye {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+.pupila-left {
+    position: absolute;
+    width: 55px;
+    height: 49px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50px;
+    /* Alinea la pupila dentro del ojo */
+    left: 54px
+}
+
+.pupila-right {
+    position: absolute;
+    width: 59px;
+    height: 51px;
+    background-color: white;
+    border-radius: 50%;
+    top: 51px;
+    /* Alinea la pupila dentro del ojo */
+    right: 49px
+}
+
+.eye-left {
+    border-top-left-radius: 25px;
+    top: 60px;
+    left: 54px;
+    z-index: 1;
+
+
+}
+
+.eye-right {
+    top: 60px;
+    right: 54px;
+    z-index: 1;
+
+}
+
+.ear {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    background-color: pink;
+    border-radius: 50%;
+    border: 5px solid #d98c8c;
+}
+
+.ear-left {
+    top: -40px;
+    left: -20px;
+    transform: rotate(-30deg);
+}
+
+.ear-right {
+    top: -40px;
+    right: -20px;
+    transform: rotate(30deg);
+}
+
+.snout {
+    position: absolute;
+    width: 100px;
+    height: 70px;
+    background-color: #ffcccc;
+    border-radius: 50%;
+    border: 5px solid #d98c8c;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+}
