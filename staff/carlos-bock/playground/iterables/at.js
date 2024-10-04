@@ -9,8 +9,6 @@ var at = function (iterable, index){
         var element = iterable[newIndex];
     }
 
-    
-
     return element;
 }
 

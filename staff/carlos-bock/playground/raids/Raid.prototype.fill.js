@@ -8,9 +8,7 @@ How to correctly pass the other values into the function
 
 var Raid = function (){
     this.length = 0;
-    this.value = value;
-    this.start = start;
-    this.end = end;
+  
 };
 
 Raid.prototype.fill = function (value, start, end){
@@ -18,9 +16,9 @@ Raid.prototype.fill = function (value, start, end){
     for (var i = (start === undefined ? 0 : start); 
         i < (end === undefined ? this.length : end); 
         i++) {
-        this[i] = value;
+        titerable[i] = value;
         };
-    return this;
+    return interable;
 };
 
 console.log("CASE replace all values with 6");
