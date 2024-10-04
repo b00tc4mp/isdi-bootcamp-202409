@@ -1,0 +1,54 @@
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+body {
+    padding: 0px 100px;
+}
+header {
+    background-color: rgba(107, 198, 200, 0.648);
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: end;
+    display: flex;
+    margin: 5%;
+    align-items: center;
+}
+
+h2, h3 {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+section {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 50px;
+}
+
+footer {
+    padding: 0px 30%;
+}
+form {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: grid;
+    justify-content: left;
+}
+label {
+    margin: 5px 0px;
+}
+
+textarea {
+    color: rgb(178, 172, 172);
+    margin: 5px 0px;
+}
+
+button {
+    width: 50px;
+    height: 20px;
+    text-align: center;
+}

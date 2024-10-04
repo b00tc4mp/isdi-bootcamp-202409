@@ -1,0 +1,73 @@
+*, ::before::after {
+    box-sizing: border-box;
+}
+body {
+    background: linear-gradient(to bottom right, black, grey);
+    color: white;
+    padding-left: 250px;
+    padding-right: 250px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    min-width: 320px;
+    text-align: justify;
+}
+.index {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color:white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 20px;
+}   
+
+.index a {
+    text-decoration: none;
+    color: black;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: inherit;
+}
+.portada {
+    width: 100%;
+}
+hr {
+    margin: 40px;
+    margin-bottom: 40px;
+}
+h1 {
+    font-size: 50px;
+    text-align: center;
+}
+h3 {
+    font-style: italic;
+}
+.forms {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* flex-direction: row; */
+    /* justify-content: space-between; */
+}
+.form {
+    text-align: center;
+    padding: 15px;
+}
+.form p {
+    text-align: justify;
+}
+.arms {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.img-forms {
+    display: block;
+    margin: auto;
+}

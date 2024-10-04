@@ -1,0 +1,38 @@
+.build-structure {
+    background-color: #B1715C;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    width: 300px;
+    height: 500px;
+    gap: 15px;
+    padding: 10px;
+
+}
+.window {
+    background-color: aliceblue;
+    border: 2px solid black;
+    width: 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+.door {
+    width: 120px;
+    height: 100px;
+    background-color: #A7381C;
+    border: 2px solid black;
+    bottom: 1px;
+    position: absolute;
+    bottom: 30px;
+    left: 100px;
+}
+hr {
+    background-color: black;
+    width: 2px;
+    height: 100px;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+}
