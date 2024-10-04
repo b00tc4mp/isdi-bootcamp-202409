@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    margin: 0;
+}
+
+.car {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.car-body {
+    position: relative;
+    width: 300px;
+    height: 100px;
+    background-color: red;
+    border-radius: 20px;
+}
+
+.roof {
+    position: absolute;
+    top: -60px;
+    left: 50px;
+    width: 200px;
+    height: 60px;
+    background-color: goldenrod;
+    border-radius: 10px 10px 0 0;
+}
+.wheel {
+    position: absolute;
+    bottom: -20px;
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    border-radius: 50%;
+}
+.f-wheel {
+    left: 220px;
+}
