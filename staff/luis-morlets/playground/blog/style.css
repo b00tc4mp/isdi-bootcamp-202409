@@ -1,0 +1,159 @@
+html {
+    scroll-behavior: smooth;
+}
+
+header {
+    width: auto;
+    height: 120px;
+    background-color: #c94340;
+    box-shadow: #080808;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    position: static;
+    top: 0;
+}
+
+.title {
+    text-align: center;
+    margin-left: -100px;
+    margin-top: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+}
+
+.img {
+    width: 110px;
+    height: 110px;
+    border-color: black;
+    border-style: ridge;
+    margin: auto;
+}
+
+nav {
+    margin: auto;
+    font-family: monospace;
+    font-size: xx-large;
+}
+
+a,
+a:visited {
+    color: #080808;
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+a:active {
+    color: #5E0000;
+}
+
+body {
+    background-image: url("https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2021/08/17/16291886670895.jpg");
+    background-size: cover;
+    margin: 10px;
+    height: auto;
+}
+
+*,
+:after,
+:before {
+    box-sizing: border-box;
+}
+
+.sec-img {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.main {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.image {
+    width: 400px;
+    height: 200px;
+    border-color: #080808;
+    border-style: solid;
+}
+
+.docu-list {
+    list-style: none;
+    text-decoration: underline;
+    text-align: center;
+    list-style-type: disc;
+}
+
+.h4 {
+    text-align: center;
+}
+
+.docu-link {
+    color: white;
+}
+
+.docu-link:visited {
+    color: white;
+}
+
+.contenido {
+    margin: auto;
+    padding: auto;
+    width: 150px;
+    height: auto;
+    text-align: left;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+.sec2 {
+    background-color: rgba(25, 22, 22, 0.871);
+    border-radius: 30px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.495);
+    width: 1200px;
+    height: fit-content;
+    text-align: justify;
+    padding: 2rem;
+}
+
+.intro {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    color: white;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.img4 {
+    height: 30%;
+    width: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.h1,
+.h2 {
+    color: white;
+    text-align: center;
+    margin-top: 0;
+}
+
+.h3 {
+    color: white;
+    text-align: left;
+    margin-left: 80px;
+}
+
+footer {
+    background-color: rgb(238, 23, 23);
+    position: static;
+}
