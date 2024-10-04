@@ -11,23 +11,15 @@ for (var i = 0; i < ns.length; i++)
 var forEach = function (array, callback, index) {
     if (index === undefined) index = 0
 
-    callback(index, array)
+    callback(index)
 
     if (index < array.length - 1)
         forEach(array, callback, index + 1)
 }
 
-forEach(ns, function (i, a) { console.log(a[i]) })
-// 100
-// 200
-// 300
-
-forEach(cs, function (i, a) { console.log(a[i]) })
-// a
-// b
-// c
+forEach(ns, function (i) { console.log(ns[i]) })
+forEach(cs, function (i) { console.log(cs[i]) })
 
 var r = 0
-forEach(ns, function (i, a) { r += a[i] })
+forEach(ns, function (i) { r += ns[i] })
 console.log(r)
-// 600
