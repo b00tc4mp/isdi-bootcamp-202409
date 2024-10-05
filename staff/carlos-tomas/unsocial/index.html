@@ -9,26 +9,44 @@
     <link rel="shortcut icon" href="https://b00tc4mp.com/favicon.ico" type="image/x-icon">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap');
 
         :root {
             --color: dodgerblue;
-            --font: 'Sixtyfour';
+            --font: "Fontdiner Swanky", serif;
             font-family: var(--font);
         }
 
         body {
-            background-color: lightgrey;
-            color: var(--color);
+            background-color: #fffe9a;
+
+            text-align: center;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login {
+            margin-top: 100px;
+        }
+
+        .register {
+            margin-top: 100px;
         }
 
         input {
             background-color: inherit;
             font-family: inherit;
+            display: block;
+            width: 20px;
+            max-width: 500px;
+            min-width: 300px;
+            margin: 15px auto;
+            border-radius: 10px;
         }
 
         a:visited {
-            color: var(--color);
+            color: black;
         }
     </style>
 </head>
@@ -36,14 +54,14 @@
 <body>
     <h1>Unsocial</h1>
 
-    <section>
+    <section class="login">
         <h2>Login</h2>
 
         <form>
             <label>Username</label>
-            <input type="text" id="username" />
+            <input type="text" id="username" required />
             <label>Password</label>
-            <input type="password" id="password" />
+            <input type="password" id="password" required />
 
             <button type="submit">Login</button>
         </form>
@@ -51,21 +69,21 @@
         <a href="">Register</a>
     </section>
 
-    <section>
+    <section class="register">
         <h2>Register</h2>
 
         <form>
             <label for="name">Name</label>
-            <input type="text" id="name" />
+            <input type="text" id="name" required />
 
             <label for="email">E-mail</label>
-            <input type="email" id="email" />
+            <input type="email" id="email" required />
 
             <label for="username">Username</label>
-            <input type="text" id="username" />
+            <input type="text" id="username" required />
 
             <label for="password">Password</label>
-            <input type="password" id="password" />
+            <input type="password" id="password" required />
 
             <button type="submit">Register</button>
         </form>
@@ -76,7 +94,7 @@
     <section>
         <h2>Home</h2>
 
-        <h3>Hello, User!</h3>
+        <h3></h3>
 
         <button>Logout</button>
     </section>
@@ -86,8 +104,6 @@
             { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
             { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
         ]
-
-        var loggedInUser = null
 
         var sections = document.querySelectorAll('section')
 
@@ -101,6 +117,7 @@
         homeSection.style.display = 'none'
 
         var anchors = document.querySelectorAll('a')
+
 
         var registerAnchor = anchors[0]
         // registerAnchor.onclick = function (event) {
@@ -177,13 +194,21 @@
             if (user) {
                 loginSection.style.display = 'none'
                 homeSection.style.display = ""
-            }
-
-            else {
-                alert("Usuario o passowrd Mal")
+                var h3 = homeSection.querySelector('h3')
+                h3.innerText = "Hello, " + user.name + "!"
+            } else {
+                alert("Usuario o passoword Mal")
             }
             return
         })
+
+        var control = document.querySelectorAll("button")
+        var controlLogout = control[2]
+        controlLogout.addEventListener('click', function (event) {
+            loginSection.style.display = ''
+            homeSection.style.display = "none"
+        })
+
 
     </script>
 </body>
