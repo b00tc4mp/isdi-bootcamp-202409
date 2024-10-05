@@ -12,23 +12,71 @@
         @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
 
         :root {
-            --color: dodgerblue;
+            --color: #00FE00;
             --font: 'Sixtyfour';
             font-family: var(--font);
         }
 
         body {
-            background-color: lightgrey;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
             color: var(--color);
         }
 
+        section,
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         input {
+            color: var(--color);
             background-color: inherit;
             font-family: inherit;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
 
         a:visited {
             color: var(--color);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        a {
+            margin-top: 20px;
+        }
+
+        label,
+        input,
+        button {
+            display: block;
+        }
+
+        button {
+            background-color: black;
+            color: var(--color);
+            font-family: var(--font);
+            padding: 5px;
+            border-bottom: 1px solid #545454;
+            border-right: 1px solid #545454
+        }
+
+        #up {
+            margin-top: 50px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -36,7 +84,7 @@
 <body>
     <h1>Unsocial</h1>
 
-    <section>
+    <section> <!-- LOGIN SECTION-->
         <h2>Login</h2>
 
         <form>
@@ -51,7 +99,7 @@
         <a href="">Register</a>
     </section>
 
-    <section>
+    <section> <!-- REGISTER SECTION-->
         <h2>Register</h2>
 
         <form>
@@ -73,18 +121,21 @@
         <a href="">Login</a>
     </section>
 
-    <section>
+    <section> <!-- HOME SECTION-->
         <h2>Home</h2>
 
         <h3>Hello, User>!</h3>
 
         <button>Logout</button>
+        <button id="up" onclick="clickUp()">Up</button>
+        <button id="down" onclick="clickDown()">Down</button>
+        <p id="clicks">0</p>
     </section>
 
-    <script>
+    <script> // SCRIPT START
         var users = [
-            { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
-            { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
+            { name: 'Monkey D. Luffy', email: 'monkey@luffy.com', username: 'luffy', password: '123' },
+            { name: 'Roronoa Zoro', email: 'roronoa@zoro.com', username: 'zoro', password: '123' }
         ]
 
         var loggedInUser = null
@@ -102,7 +153,7 @@
 
         var anchors = document.querySelectorAll('a')
 
-        var registerAnchor = anchors[0]
+        var registerAnchor = anchors[0] // REGISTER ANCHOR CLICK
         // registerAnchor.onclick = function (event) {
         registerAnchor.addEventListener('click', function (event) {
             event.preventDefault()
@@ -112,7 +163,7 @@
             // }
         })
 
-        var loginAnchor = anchors[1]
+        var loginAnchor = anchors[1] // LOGIN ANCHOR CLICK
         // loginAnchor.onclick = function (event) {
         loginAnchor.addEventListener('click', function (event) {
             event.preventDefault()
@@ -124,9 +175,9 @@
 
         var forms = document.querySelectorAll('form')
 
-        var loginForm = forms[0]
+        var loginForm = forms[0] // LOGIN BUTTON
 
-        loginForm.onsubmit = function (event) {
+        loginForm.onsubmit = function (event) { // LOGIN BUTTON CLICK
             event.preventDefault()
 
             var inputs = loginForm.querySelectorAll('input')
@@ -147,15 +198,15 @@
                 loginSection.style.display = 'none'
                 homeSection.style.display = ''
                 var h3 = homeSection.querySelector('h3')
-                h3.innerText = "Hello, " + loggedInUser.username + "!"
+                h3.innerText = "Hello, " + loggedInUser.name + "!"
             } else {
                 alert('cagaste')
             }
         }
 
-        var registerForm = forms[1]
+        var registerForm = forms[1] // REGISTER BUTTON
         //registerForm.onsubmit = function (event) {
-        registerForm.addEventListener('submit', function (event) {
+        registerForm.addEventListener('submit', function (event) { // REGISTER BUTTON CLICK
             event.preventDefault()
 
             var inputs = registerForm.querySelectorAll('input')
@@ -183,15 +234,30 @@
             //}
         })
 
-        var logoutButton = homeSection.querySelector('button')
+        var logoutButton = homeSection.querySelector('button') // LOGOUT BUTTON
 
-        logoutButton.addEventListener('click', function (event) {
+        logoutButton.addEventListener('click', function (event) { // LOGOUT BUTTON CLICK
             event.preventDefault()
             loggedInUser = null
 
             homeSection.style.display = 'none'
             loginSection.style.display = ''
         })
+
+        // EJERCICIO CLICKS
+        var clicks = 0;
+        function clickUp() {
+            clicks++
+            document.getElementById("clicks").innerHTML = clicks;
+        }
+
+        function clickDown() {
+            if (clicks > 0) {
+                clicks--
+                document.getElementById("clicks").innerHTML = clicks;
+            }
+            else { alert('can\'t go lower') }
+        }
 
     </script>
 </body>
