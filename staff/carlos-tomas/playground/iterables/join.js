@@ -18,10 +18,8 @@ var join = function (iterable, separator) {
 
     for (var i = 1; i < iterable.length; i++) {
         var element = iterable[i]
-
         result += separator2 + element // result = result + separator + element
     }
-
     return result
 }
 

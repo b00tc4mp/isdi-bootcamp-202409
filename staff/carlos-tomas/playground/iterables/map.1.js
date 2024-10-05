@@ -7,7 +7,6 @@ var map = function (iterable, callback) {
     }
     return nums2
 }
-
 console.log("CASE map() crea un nuevo array con los resultados de la llamada a la función indicada aplicados a cada uno de sus elementos")
 
 var nums = { 0: 1, 1: 4, 2: 9, 3: 16, length: 4 }
@@ -15,7 +14,6 @@ var nums = { 0: 1, 1: 4, 2: 9, 3: 16, length: 4 }
 var res = map(nums, function (element) {
     return element * 2
 })
-
 
 
 console.log(res)

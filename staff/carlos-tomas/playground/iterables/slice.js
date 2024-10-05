@@ -11,16 +11,12 @@ var slice = function (iterable, startIndex, endIndex) {
 
     if (endIndex < -iterable.length) {
         endIndex = 0
-    }
-    else if (endIndex < 0) {
+    } else if (endIndex < 0) {
         endIndex = iterable.length + endIndex
     }
-
     if (endIndex <= startIndex) {
         return newObj
     }
-
-
     var newelement = {}
     newelement.length = 0
     for (var i = (!startIndex ? 0 : startIndex);
@@ -34,16 +30,9 @@ var slice = function (iterable, startIndex, endIndex) {
     return newelement
 }
 
-
-
 console.log("TEST slice")
 
 console.log("TEST delete values ​​from an index")
-
-//
-
-
-
 
 var animals = { 0: "ant", 1: 'bison', 2: 'camel', 3: 'duck', 4: 'elephant', length: 5 }
 var animal = slice(animals, 2,)

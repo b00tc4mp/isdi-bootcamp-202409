@@ -1,13 +1,10 @@
 var Raid = function () {
     this.length = 0
 }
-
 Raid.prototype.pop = function () {
-
     var last = this[this.length - 1]
     delete this[this.length - 1]
     this.length--
-
     return last
 
 }
@@ -24,4 +21,7 @@ fruits.length = 4
 var fruit = fruits.pop()
 
 console.log(fruits)
+//Raid { '0': 'banana', '1': 'apple', '2': 'coconut', length: 3 }
+
 console.log(fruit)
+//kiwi

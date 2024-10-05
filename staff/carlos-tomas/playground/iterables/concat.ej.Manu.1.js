@@ -19,22 +19,16 @@ var concat = function (iterable, iterable2) {
     */
 
     var result = { length: 0 }
-
     for (var i = 0; i < iterable.length; i++) {
-
         var element = iterable[i]
         result[result.length] = element
         result.length++
-
     }
-
     for (var i = 0; i < iterable2.length; i++) {
         var element = iterable2[i]
-
         result[result.length] = element
         result.length++
     }
-
     return result
 
 }

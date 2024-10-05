@@ -5,10 +5,7 @@ var unshift = function (iterable,) {
     }
     iterable[0] = element;
     iterable.length++
-
     return iterable
-
-
 }
 
 console.log("TEST array.prototype.unshift")

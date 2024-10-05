@@ -1,17 +1,7 @@
 var pop = function (iterable) {
-    /*
-    extract last element from iterable
-    descrease length from iterable
-    delete last element from iterable
-    return extracted element
-    */
-
     var last = iterable[iterable.length - 1]
-
     delete iterable[iterable.length - 1]
-
     iterable.length--
-
     return last
 }
 

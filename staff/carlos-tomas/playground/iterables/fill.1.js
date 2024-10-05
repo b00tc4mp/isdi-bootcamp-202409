@@ -1,18 +1,8 @@
 var fill = function (iterable, value, start, end) {
-
-
     for (i = start; i < end; i++) {
-
         iterable[i] = value
     }
-
-
-
-
     return iterable
-
-
-
 }
 
 

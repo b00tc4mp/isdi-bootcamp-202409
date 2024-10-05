@@ -8,14 +8,11 @@ Raid.prototype.includes = function (searchElement, fromIndex) {
     } else if (fromIndex < 0) {
         fromIndex = this.length + fromIndex
     }
-
     for (var i = fromIndex; i < this.length; i++) {
         if (this[i] === searchElement) {
-
             return true
         }
     }
-
     return false
 }
 

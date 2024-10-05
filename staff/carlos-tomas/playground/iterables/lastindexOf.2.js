@@ -1,8 +1,5 @@
 var lastindexOf = function (iterable, element) {
-
-
     for (var i = iterable.length - 1; i >= 0; i--) {
-
         if (iterable[i] === element) {
             return i;
         }

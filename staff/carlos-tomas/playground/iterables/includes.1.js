@@ -1,11 +1,9 @@
 var includes = function (iterable, searchElement) {
     for (i = 0; i < iterable.length; i++) {
         if (iterable[i] === searchElement) {
-
             return true
         }
     }
-
     return false
 }
 

@@ -2,9 +2,7 @@ var reverse = function (iterable) {
     for (var i = iterable.length - 1; i > -1; i--) {
         obj[obj.length] = iterable[i]
         obj.length++
-
     }
-
     iterable = obj
     return iterable
 

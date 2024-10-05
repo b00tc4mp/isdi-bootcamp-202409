@@ -4,7 +4,6 @@ var Raid = function () {
 
 Raid.prototype.at = function (index) {
     var element = this[index]
-
     return element
 }
 

@@ -4,14 +4,11 @@ var includes = function (iterable, searchElement, fromIndex) {
     } else if (fromIndex < 0) {
         fromIndex = iterable.length + fromIndex
     }
-
     for (var i = fromIndex; i < iterable.length; i++) {
         if (iterable[i] === searchElement) {
-
             return true
         }
     }
-
     return false
 }
 

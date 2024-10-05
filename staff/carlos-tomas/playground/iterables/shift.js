@@ -6,7 +6,6 @@ var shift = function (iterable) {
         iterable[i] = iterable[i + 1]
         delete iterable[i + 1]
     }
-
     return deleted
 }
 

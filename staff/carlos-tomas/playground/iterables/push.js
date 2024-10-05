@@ -5,12 +5,10 @@ var push = function (iterable, element) {
     } else {
         for (var i = 1; i < arguments.length; i++) {
             var element = arguments[i]
-
             iterable[iterable.length] = element
             iterable.length++
         }
     }
-
     return iterable.length
 }
 

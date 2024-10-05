@@ -1,11 +1,9 @@
 var lastindexOf = function (iterable, element, fromIndex) {
     if (!fromIndex) {
         fromIndex = iterable.length - 1
-    }
-    else if (fromIndex < 0) {
+    } else if (fromIndex < 0) {
         fromIndex = fromIndex + (iterable.length)
     }
-
     for (var i = fromIndex; i >= 0; i--) {
 
         if (iterable[i] === element) {
@@ -14,7 +12,6 @@ var lastindexOf = function (iterable, element, fromIndex) {
     }
     return -1
 }
-
 
 console.log('TEST Array.prototype.lastindexOf')
 

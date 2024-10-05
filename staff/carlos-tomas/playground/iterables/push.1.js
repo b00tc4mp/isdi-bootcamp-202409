@@ -3,18 +3,12 @@ var push = function (iterable, element) {
     if (arguments === 2) {
         iterable[iterable.length] = element
         iterable.length++
-
     } else
         for (var i = 1; i < arguments.length; i++) {
-
             var element = arguments[i]
-
             iterable[iterable.length] = element
             iterable.length++
-
         }
-
-
 }
 
 

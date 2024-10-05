@@ -4,7 +4,6 @@ var reverse = function (iterable) {
         iterable[i] = iterable[iterable.length - 1 - i]
         iterable[iterable.length - 1 - i] = element
     }
-
     return iterable
 }
 

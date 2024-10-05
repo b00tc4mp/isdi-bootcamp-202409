@@ -4,9 +4,7 @@ var unshift = function (iterable, element) {
         iterable[i] = iterable[i - 1]
         iterable[0] = element;
         iterable.length++
-
         return iterable
-
     }
 }
 

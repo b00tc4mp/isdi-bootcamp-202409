@@ -2,21 +2,16 @@ var indexOf = function (iterable, element, fromIndex) {
 
     if (!fromIndex) {
         fromIndex = 0
-    }
-    else if (fromIndex < 0) {
+    } else if (fromIndex < 0) {
         fromIndex = iterable.length + fromIndex
     }
     for (var i = fromIndex; i < iterable.length; i++) {
-
         if (iterable[i] === element) {
             return i;
         }
     }
     return -1
 }
-
-
-
 
 console.log('TEST Array.prototype.indexOf')
 

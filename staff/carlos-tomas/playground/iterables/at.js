@@ -4,14 +4,11 @@ var at = function (iterable, index) {
 
     if (index > -1) {
         return iterable[Math.floor(index)]
-    }
-    else {
+    } else {
         return iterable[iterable.length + (Math.ceil(index))]
 
     }
-
 }
-
 
 console.log('TEST Array.prototype.at')
 
@@ -19,14 +16,7 @@ console.log('CASE buscar el indice')
 
 var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5 };
 var num = at(nums, -2)
-
-
-
 console.log(num)
-
-
-
-
 
 
 console.log('CASE extract green from colors')

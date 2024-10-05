@@ -2,7 +2,6 @@ var concat = function (obj1, obj2) {
     for (var i = 0; i < obj2.length; i++) {
         obj1[obj1.length + i] = obj2[i]
     }
-
     obj1.length = obj1.length + obj2.length
     return obj1
 }
@@ -11,10 +10,6 @@ var concat = function (obj1, obj2) {
 
 
 console.log("Test concat with object")
-
-
-
-
 
 
 

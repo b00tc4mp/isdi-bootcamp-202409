@@ -10,7 +10,6 @@ Raid.prototype.unshift = function (element) {
     }
     this[0] = element;
     this.length++
-
     return this
 
 }
@@ -19,7 +18,6 @@ Raid.prototype.unshift = function (element) {
 console.log("TEST raid.prototype.unshift")
 
 console.log("CASE")
-
 
 var obj = new Raid
 obj[0] = 1

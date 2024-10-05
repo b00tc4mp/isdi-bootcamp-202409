@@ -4,18 +4,12 @@ var concat = function () {
 
     for (var j = 0; j < arguments.length; j++) {
         var iterableX = arguments[j]
-
         for (var i = 0; i < iterableX.length; i++) {
             var element = iterableX[i]
-
             result[result.length] = element
             result.length++
-
         }
-
-
     }
-
     return result
 }
 

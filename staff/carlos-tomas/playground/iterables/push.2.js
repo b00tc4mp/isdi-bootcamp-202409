@@ -1,9 +1,6 @@
 var push = function (iterable, element) {
-
-
     iterable[iterable.length] = element
     iterable.length++
-
     return iterable.length
 }
 

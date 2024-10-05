@@ -4,10 +4,8 @@ var at = function (iterable, index) {
 
     if (index > -1) {
         return iterable[Math.floor(index)]
-    }
-    else {
+    } else {
         return iterable[iterable.length + (Math.ceil(index))]
-
     }
 
 }
