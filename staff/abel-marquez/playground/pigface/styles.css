@@ -1,0 +1,101 @@
+body {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+
+.face {
+    width: 300px ;
+    height: 300px;
+    position: relative;
+    background-color: pink;
+    border-radius: 50%;
+}
+
+.eye-left {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(rgba(255, 0, 0, 0.695),rgba(255, 0, 0, 0.59));
+    width: 50px;
+    height: 50px;
+    left: 50px;
+    top: 60px;
+    }
+
+
+.eye-pupil-left {
+    background-color: black;
+    height: 10px;
+    width: 30px;
+    margin-top: 39px;
+    margin-left: 9px;
+    border-radius: 30%;
+}
+
+.eye-right {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(rgba(255, 0, 0, 0.695),rgba(255, 0, 0, 0.59));
+    width: 50px;
+    height: 50px;
+    top: 60px;
+    right: 45px;
+}
+
+.eye-pupil-right {
+    background-color: black;
+    height: 10px;
+    width: 30px;
+    margin-top: 38px;
+    margin-left: 9px;
+    border-radius: 30%;
+}
+
+.nose {
+    width: 75px;
+    height: 55px;
+    background-color: rgb(255, 192, 232);
+    position: absolute;
+    left: 113px;
+    bottom: 88px;
+    border: 2px solid;
+    border-radius: 50%;
+}
+
+.agujero1 {
+    background-color: black;
+    width: 10px;
+    height: 10px;
+    margin-left: 47px;
+    margin-top: 20px;
+}
+
+.agujero2 {
+    background-color: black;
+    width: 10px;
+    height: 10px;
+    margin-left: 15px;
+    margin-top: -10px;
+}
+
+.mouth {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    background-color: palevioletred;
+    left: 140px;
+    bottom: 64px;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.porro {
+    height: 17px;
+    width: 162px;
+    background: linear-gradient(brown,green);
+    margin-left: -149px;
+    margin-top: 7px;
+    
+}
