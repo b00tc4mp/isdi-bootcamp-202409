@@ -152,19 +152,19 @@
 
         <form class="register">
             <label for="name">Name</label>
-            <input type="text" id="name">
+            <input type="text" id="name" required>
             <p></p>
 
             <label for="email">Email</label>
-            <input type="email" id="email">
+            <input type="email" id="email" required>
             <p></p>
 
             <label for="username">Username</label>
-            <input type="text" id="username">
+            <input type="text" id="username" required>
             <p></p>
 
             <label for="password">Password</label>
-            <input type="password" id="password">
+            <input type="password" id="password" required>
             <p></p>
 
             <button type="submit">Register</button>
@@ -204,8 +204,12 @@
     <script>
         //USUARIOS POR DEFECTO
         var users = [
-            { name: 'Juan Pablo', email: 'juanpablo@gmail.com', username: 'juanpablo', password: '123456' },
-            { name: 'Aaron', email: 'aaron@gmail.com', username: 'aaron', password: '123456' }
+            { name: 'Juan Pablo', email: 'juanpablo@gmail.com', username: 'juanpablo', password: '123' },
+            { name: 'Aaron', email: 'aaron@gmail.com', username: 'aaron', password: '123' },
+            { name: 'Anna', email: 'anna@gmail.com', username: 'anna', password: '123' },
+            { name: 'Angel', email: 'Angel@gmail.com', username: 'angel', password: '123' },
+            { name: 'Claudi', email: 'Claudi@gmail.com', username: 'claudi', password: '123' },
+            { name: 'Javi', email: 'Javi@gmail.com', username: 'javi', password: '123' }
         ]
 
         //variable que te almacena datos del usuario loggeado
@@ -232,6 +236,7 @@
         registerAnchor.onclick = function (event) {
             event.preventDefault();
 
+            logInForm.reset()
             logInSection.style.display = 'none'
             registerSection.style.display = ''
         }
@@ -240,6 +245,7 @@
         logInAnchor.onclick = function (event) {
             event.preventDefault();
 
+            registerForm.reset()
             registerSection.style.display = 'none'
             logInSection.style.display = ''
         }
@@ -285,6 +291,21 @@
 
             var newUser = { name: name, email: email, username: username, password: password }
 
+            for (i = 0; i < users.length; i++) {
+                var user = users[i]
+
+                if (newUser.username === user.username) {
+                    throw alert('Username already exists')
+
+                    return
+                }
+
+                if (newUser.email === user.email) {
+                    throw alert('Email already exists')
+
+                    return
+                }
+            }
             users.push(newUser)
 
             registerForm.reset()
@@ -316,23 +337,34 @@
             var passwordInput = inputs[1]
             var password = passwordInput.value
 
+            var loggedUser = { username: username, password: password }
+            loggedInUser = loggedUser
+
+            var userFound = false;
+
             for (i = 0; i < users.length; i++) {
                 var currrentUser = users[i]
-                if (currrentUser.username.value === username.value && currrentUser.password.value === password.value) {
-                    logInForm.reset()
+                if (currrentUser.username === loggedInUser.username) {
 
-                    logInSection.style.display = 'none'
-                    homeSection.style.display = ''
+                    if (currrentUser.password === loggedInUser.password) {
+                        logInForm.reset()
 
-                    loggedInUser = currrentUser
-                    var heading = document.querySelector('h3')
-                    heading.innerText = 'Welcome, ' + loggedInUser.name + '!'
-                }
-                else {
-                    throw alert("Incorrect data!!");
+                        logInSection.style.display = 'none'
+                        homeSection.style.display = ''
+
+                        loggedInUser = currrentUser
+
+                        var heading = document.querySelector('h3')
+                        heading.innerText = 'Welcome, ' + loggedInUser.username + '!'
+                        return
+                    }
+                    else {
+                        throw alert('Incorrect password')
+                    }
                 }
             }
 
+            throw alert('User not found!')
         }
 
         var logOutButton = document.querySelector('button.logo')
