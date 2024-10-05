@@ -5,45 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unsocial</title>
-
     <link rel="shortcut icon" href="https://b00tc4mp.com/favicon.ico" type="image/x-icon">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
         :root {
-            --color: dodgerblue;
-            --font: 'Sixtyfour';
+            --color: #dccde1;
+
+            --font: 'Archivo Black';
             font-family: var(--font);
         }
 
         body {
-            background-color: lightgrey;
+            background-color: #311845;
             color: var(--color);
+            text-align: center;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
         }
 
         input {
             background-color: inherit;
             font-family: inherit;
         }
-
-        a:visited {
-            color: var(--color);
-        }
     </style>
+
 </head>
 
 <body>
     <h1>Unsocial</h1>
-
     <section>
-        <h2>Login</h2>
+        <h2>login</h2>
 
-        <form>
+        <form id="loginForm">
             <label>Username</label>
-            <input type="text" />
+            <input type="text" id="username" required />
             <label>Password</label>
-            <input type="password" />
+            <input type="password" id="password" required />
 
             <button type="submit">Login</button>
         </form>
@@ -51,10 +51,10 @@
         <a href="">Register</a>
     </section>
 
-    <section>
+    <section class="register">
         <h2>Register</h2>
 
-        <form>
+        <form id="registerForm">
             <label for="name">Name</label>
             <input type="text" id="name" />
 
@@ -68,23 +68,24 @@
             <input type="password" id="password" />
 
             <button type="submit">Register</button>
+
         </form>
 
         <a href="">Login</a>
     </section>
 
     <section>
-        <h2>Home</h2>]
+        <h2>Home</h2>
 
-        <h3>Hello, User!</h3>
+        <h3>Hello, User</h3>
 
         <button>Logout</button>
     </section>
 
     <script>
         var users = [
-            { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
-            { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
+            { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123' },
+            { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123' }
         ]
 
         var loggedInUser = null
@@ -92,13 +93,13 @@
         var sections = document.querySelectorAll('section')
 
         var loginSection = sections[0]
-        loginSection.style.display = 'none'
+        // loginSection.style.display = 'none'
 
         var registerSection = sections[1]
         registerSection.style.display = 'none'
 
         var homeSection = sections[2]
-        // homeSection.style.display = 'none'
+        homeSection.style.display = 'none'
 
         var anchors = document.querySelectorAll('a')
 
@@ -111,7 +112,6 @@
             registerSection.style.display = ''
             // }
         })
-
         var loginAnchor = anchors[1]
         // loginAnchor.onclick = function (event) {
         loginAnchor.addEventListener('click', function (event) {
@@ -121,14 +121,13 @@
             loginSection.style.display = ''
             // }
         })
-
         var forms = document.querySelectorAll('form')
 
         var registerForm = forms[1]
         //registerForm.onsubmit = function (event) {
         registerForm.addEventListener('submit', function (event) {
             event.preventDefault()
-
+            console.log('register form')
             var inputs = registerForm.querySelectorAll('input')
 
             var nameInput = inputs[0]
@@ -146,6 +145,7 @@
             var user = { name: name, email: email, username: username, password: password }
             //users[users.length] = user
             users.push(user)
+            console.log('register form use: ', user)
 
             registerForm.reset()
 
@@ -153,7 +153,48 @@
             loginSection.style.display = ''
             //}
         })
+        var loginform = forms[0]
+        var userLogin = []
+        loginform.addEventListener("submit", function (event) {
+            event.preventDefault()
+            var loginInputs = loginform.querySelectorAll("input")
+
+            var usernameInputLogin = loginInputs[0]
+            var usernameLogin = usernameInputLogin.value
+
+            var passwordInputLogin = loginInputs[1]
+            var passwordLogin = passwordInputLogin.value
+
+            var login = { username: usernameLogin, password: passwordLogin }
+
+
+
+            loginform.reset()
+            var user = users.find(
+                (users) => users.username === usernameLogin && users.password === passwordLogin
+            )
+
+
+            if (user) {
+                loginSection.style.display = 'none'
+                homeSection.style.display = ""
+                var h3 = homeSection.querySelector('h3')
+                h3.innerText = "Hello, " + user.name + "!"
+            } else {
+                alert("Usuario o passoword Mal")
+            }
+            return
+        })
+
+        var control = document.querySelectorAll("button")
+        var controlLogout = control[2]
+        controlLogout.addEventListener('click', function (event) {
+            loginSection.style.display = ''
+            homeSection.style.display = "none"
+        })
+
     </script>
+
 </body>
 
 </html>
