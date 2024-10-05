@@ -64,16 +64,16 @@
 
         <form>
             <label for="name">Name</label>
-            <input type="text" id="name" />
+            <input type="text" id="name" required/>
 
             <label for="email">Email</label>
-            <input type="email" id="email" />
+            <input type="email" id="email" required/>
 
             <label for="username">Username</label>
-            <input type="text" id="username" />
+            <input type="text" id="username" required/>
 
             <label for="password">Password</label>
-            <input type="password" id="password" />
+            <input type="password" id="password" required/>
 
             <button type="submit">Register</button>
         </form>
@@ -153,22 +153,22 @@
                         document.children[0].children[1].children[3].children[1].textContent = 'Hello, ' + users[i].name
                         return
                     } else {
-                        alert('Incorrect password')
-                        return
+                        throw alert('Incorrect password')
+                        
                     }
                 }         
                 
-            } alert('User not found')
+            } throw alert('User not found')
 
         })
 
-
+    
 
         var registerForm = forms[1]
 
         registerForm.addEventListener('submit', function (event) {
             event.preventDefault()
-        
+            
             var inputs = registerForm.querySelectorAll('input')
 
             var nameInput = inputs[0]
@@ -183,8 +183,20 @@
             var passwordInput = inputs[3]
             var password = passwordInput.value
 
+            
             var user = { name: name, email: email, username: username, password: password }
 
+            for( var i = 0; i < users.length ; i++) {
+                
+                if (user.username === users[i].username) {
+                    throw alert('username already exist, choose another')
+                return
+            } 
+                if (user.email === users[i].email) {
+                    throw alert('email already exist')
+                    return
+                }
+            }
             users.push(user)
 
             registerForm.reset()
