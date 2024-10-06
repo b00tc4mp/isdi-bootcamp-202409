@@ -5,28 +5,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unsocial</title>
-    <link rel="shortcut icon" href="https://b00tc4mp.com/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://www.facebook.com/favicon.ico" type="image/x-icon"> <!--ICON OF THE PAGE-->
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Press+Start+2P&display=swap');
 
         :root {
-            --color: dodgerblue;
-            --font: 'Sixtyfour';
+            --color: lavender;
+            --font: 'Montserrat';
+            letter-spacing: 1px;
             font-family: var(--font);
         }
 
         body {
-            background-color: lightgrey;
-            color: var(--colorX);
+            font-size: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            background-color: black;
+            color: var(--color);
+        }
+
+        h1 {
+            font-size: 450%;
+            font-family: 'Press Start 2P';
+            margin-bottom: 80px;
         }
 
         input {
-            background-color: inherit;
-            font-family: inherit;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            border: 0px;
+            margin-top: 2%;
+            margin-bottom: 10%;
+            background-color: var(--color);
+            width: 200px;
+            /* it's the same than font-family: inherit
+            for the input and buttons we always need to change the default font */
         }
 
-        a:visited {
+        a:visited,
+        h1 {
+            color: yellow;
+        }
+
+        button {
+            font-family: 'Press Start 2P';
+            font-size: 120%;
+            margin-top: 80px;
+            margin-bottom: 15px;
+            background: blue;
             color: var(--color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 0px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -34,7 +72,7 @@
 <body>
     <h1>Unsocial</h1>
 
-    <section>
+    <section> <!--LOGIN SECTION-->
         <h2>Login</h2>
 
         <form>
@@ -50,7 +88,7 @@
         <a href="">Register</a>
     </section>
 
-    <section>
+    <section> <!--REGISTER SECTION-->
         <h2>Register</h2>
 
         <form>
@@ -72,26 +110,28 @@
         <a href="">Login</a>
     </section>
 
-    <section>
+    <section> <!--HOME SECTION-->
         <h2>Home</h2>
 
         <h3>Hello, User!</h3>
 
-        <button type="submit">Logout</button>
+        <button>Logout</button>
     </section>
 
     <script>
+        //-------------------------------CREATE AN ARRAY TO REGISTER ALL USERS && CREATE LOGGEDIN USER VARIABLE-------------------------------
         var users = [
-            { name: 'Peter Pan', email: 'peterpan@pan.com', username: 'peterpan', password: '123123123' },
+            { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
             { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
         ]
 
-        var loggedInUser = null
+        var loggedInUser = null //using find
 
+        //-------------------------------TURN OFF REGISTER && HOME WHEN WE OPEN THE APP-------------------------------
         var sections = document.querySelectorAll('section')
 
         var loginSection = sections[0]
-        loginSection.style.display = ''
+        //loginSection.style.display = 'none'
 
         var registerSection = sections[1]
         registerSection.style.display = 'none'
@@ -99,60 +139,32 @@
         var homeSection = sections[2]
         homeSection.style.display = 'none'
 
+        //-------------------------------TURN OFF LOGIN && HOME WHEN WE GO TO REGISTER-------------------------------
         var anchors = document.querySelectorAll('a')
 
         var registerAnchor = anchors[0]
-        // registerAnchor.onclick = function (event) {
-        registerAnchor.addEventListener('click', function (event) {
+        //long way: registerAnchor.addEventListener('click', function (event) {
+        registerAnchor.onclick = function (event) {
             event.preventDefault()
 
             loginSection.style.display = 'none'
             registerSection.style.display = ''
-            // }
-        })
+        }
 
+        //-------------------------------TURN OFF REGISTER && HOME WHEN WE GO BACK TO LOGIN-------------------------------
         var loginAnchor = anchors[1]
-        //loginAnchor.onclick = function (event) {
-        loginAnchor.addEventListener('click', function (event) {
+        loginAnchor.onclick = function (event) {
             event.preventDefault()
 
             registerSection.style.display = 'none'
             loginSection.style.display = ''
-            // }
-        })
+        }
 
+        //-------------------------------COLLECTION OF REGISTER FORM DATA-------------------------------
         var forms = document.querySelectorAll('form')
 
-        var loginForm = forms[0]
-        loginForm.addEventListener('submit', function (event) {
-            event.preventDefault()
-
-            var inputs = loginForm.querySelectorAll('input')
-
-            var usernameInput = inputs[0]
-            var username = usernameInput.value
-
-            var passwordInput = inputs[1]
-            var password = passwordInput.value
-
-            loggedInUser = users.find(function (user) {
-                return user.username === username && user.password === password
-            })
-            if (loggedInUser) {
-                loginForm.reset()
-                loginSection.style.display = 'none'
-                homeSection.style.display = ''
-                var h3 = homeSection.querySelector('h3')
-                h3.innerText = "Hello, " + loggedInUser.name + "!"
-            } else {
-                alert('Not today')
-            }
-        })
-
         var registerForm = forms[1]
-
-        //registerForm.onsubmit = function (event) {
-        registerForm.addEventListener('submit', function (event) {
+        registerForm.onsubmit = function (event) {
             event.preventDefault()
 
             var inputs = registerForm.querySelectorAll('input')
@@ -170,27 +182,55 @@
             var password = passwordInput.value
 
             var user = { name: name, email: email, username: username, password: password }
-            // users[users.length] = user
+            //users[users.length] = user
             users.push(user)
 
             registerForm.reset()
+
             registerSection.style.display = 'none'
             loginSection.style.display = ''
-            // }
+        }
 
-        })
-
-        var buttons = document.querySelectorAll('button')
-
-        var logoutButton = buttons[2]
-        // var logoutButton = homeSection.querySelector('button')
-        logoutButton.addEventListener('click', function (event) {
+        //-------------------------------EXERCISE: ADD USER TO LOGGEDIN USER & TURN ON HOME & PERSONALIZE HELLO & ALERT-------------------------------
+        var loginForm = forms[0]
+        loginForm.onsubmit = function (event) {
             event.preventDefault()
+
+            var inputs = loginForm.querySelectorAll('input')
+
+            var usernameInput = inputs[0]
+            username = usernameInput.value
+
+            var passwordInput = inputs[1]
+            password = passwordInput.value
+
+            loggedInUser = users.find(function (user) {
+                return username === user.username && password === user.password
+            })
+
+            if (loggedInUser) {
+                loginForm.reset()
+
+                loginSection.style.display = 'none'
+                homeSection.style.display = ''
+                var h3 = homeSection.querySelector('h3')
+                h3.innerText = "Hello " + loggedInUser.name + "!"
+            } else {
+                alert('Not today')
+            }
+        }
+
+        //-------------------------------EXERCISE: LOGOUT BUTTON BEHAVIOUR-------------------------------
+        var homeButtons = homeSection.querySelectorAll('button')
+        var logoutButton = homeButtons[0]
+        logoutButton.onclick = function (event) {
+            event.preventDefault()
+
             loggedInUser = null
 
-            loginSection.style.display = ''
             homeSection.style.display = 'none'
-        })
+            loginSection.style.display = ''
+        }
 
     </script>
 </body>
