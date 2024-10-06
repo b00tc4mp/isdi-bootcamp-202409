@@ -8,7 +8,7 @@ console.log(array1);
 console.log(firstElement);
 // Expected output: 1
 
-console.log('CASE shift off first value in array')
+console.log('CASE shift off first value in array');
 var bool = [true, false, false];
 var boolean = array1.shift();
 console.log(bool);
