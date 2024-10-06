@@ -13,6 +13,7 @@
 
     :root {
         --color: #444333;
+        --dark-brown: #333;
         --white: #ffffff;
         --font: 'Sixtyfour';
         font-family: var(--font);
@@ -22,26 +23,67 @@
         background-color: lightgrey;
         color: var(--color);
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-around;
         align-items: center;
         height: 100vh;
-        /*altura toda la pantalla*/
         margin: 0;
     }
 
     section {
-        background-color: var(--white);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        /* Ajusta el tamaño del formulario */
+        margin: 10px;
+    }
+
+    h1,
+    h2 {
+        text-align: center;
+    }
+
+    p {
+        font-size: 0.9em;
+        text-align: center;
+        line-height: 1.3em;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
     }
 
     input {
-        background-color: inherit;
-        /*Significa heredado */
-        font-family: inherit;
+        margin-bottom: 15px;
+        padding: 10px;
+        font-size: 1.1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font: inherit;
     }
 
-    a:visited {
-        color: var(--color);
+    button {
+        padding: 10px;
+        font-size: 1.1em;
+        background-color: var(--color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font: inherit;
+    }
 
+    button:hover {
+        background-color: var(--dark-brown);
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
     }
 </style>
 
@@ -51,6 +93,7 @@
     <h1>Unsocial</h1>
     <section class="loggin-form">
         <h2>Login</h2>
+        <p>Acces here to start</p>
         <form>
             <label for="loginUsername">Username</label>
             <input type="text" id="loginUsername">
@@ -63,6 +106,7 @@
 
     <section>
         <h2>Register</h2>
+        <p>Create your account now for free!</p>
         <form>
             <label for="name">Name</label>
             <input type="text" id="name">
