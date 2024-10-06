@@ -16,9 +16,9 @@ Raid.prototype.fill = function (value, start, end){
     for (var i = (start === undefined ? 0 : start); 
         i < (end === undefined ? this.length : end); 
         i++) {
-        titerable[i] = value;
+        this[i] = value;
         };
-    return interable;
+    return this;
 };
 
 console.log("CASE replace all values with 6");
