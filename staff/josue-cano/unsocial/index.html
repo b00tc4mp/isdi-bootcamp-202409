@@ -19,13 +19,30 @@
         text-align: center;
       }
       section {
+        
+        width: 300px; 
+        padding: 20px; 
+        background-color: #585656; 
+        border: 2px solid #ccc; /* Borde del div */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del div */
+        margin: 20px auto; 
         text-align: center;
+    
       }
       form {
         display: flex;
         align-items: center;
         flex-direction: column;
       }
+      a {
+        color: inherit; /* Mantiene el color del texto padre */
+        text-decoration: none; 
+        }
+
+    a:hover {
+            color: #f31212; 
+            }
     </style>
     <title>Unsocial</title>
   </head>
@@ -103,11 +120,11 @@
       // seccion login
       var sections = document.querySelectorAll("section");
       var loginSection = sections[0];
-      loginSection.style.display = "none";
+      loginSection.style.display = "";
 
       //seccion registro
       var registerSection = sections[1];
-      registerSection.style.display = " ";
+      registerSection.style.display = "none";
 
       //seccion home
       var homeSection = sections[2];
@@ -118,23 +135,23 @@
 
       //selecciona la primera etiqueta a para inicializar el evento
       var registerAnchor = anchors[0];
-      // registerAnchor.onclick = function (event) {
+      
       registerAnchor.addEventListener("click", function (event) {
         //hace que al clicar el evento no se actualice la pagina
-        pevent.preventDefault();
+        event.preventDefault();
         //esconde la seccion login
         loginSection.style.display = "none";
         //y aqui se meustra registro
         registerSection.style.display = "";
       });
       var loginAnchor = anchors[1];
-      // loginAnchor.onclick = function (event) {
+      
       loginAnchor.addEventListener("click", function (event) {
         event.preventDefault();
 
         registerSection.style.display = "none";
         loginSection.style.display = "";
-        // }
+        
       });
 
       // aqui forms recoge todos los formularios
@@ -187,6 +204,8 @@
         var username = usernameInput.value;
         var passwordInput = inputs[1];
         var password = passwordInput.value;
+
+        //creamos variable para 
         var user = users.find(
           (user) => user.username === username && user.password === password
         );
@@ -199,6 +218,7 @@
           h3.innerText ="Hello, "+ user.username;
         } else {
           alert("Username or Password incorrect");
+        
         }
       });
 
