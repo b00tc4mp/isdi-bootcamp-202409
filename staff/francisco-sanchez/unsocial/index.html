@@ -13,6 +13,7 @@
 
     :root {
         --color: #444333;
+        --white: #ffffff;
         --font: 'Sixtyfour';
         font-family: var(--font);
     }
@@ -20,6 +21,16 @@
     body {
         background-color: lightgrey;
         color: var(--color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /*altura toda la pantalla*/
+        margin: 0;
+    }
+
+    section {
+        background-color: var(--white);
     }
 
     input {
@@ -38,7 +49,7 @@
 
 <body>
     <h1>Unsocial</h1>
-    <section>
+    <section class="loggin-form">
         <h2>Login</h2>
         <form>
             <label for="loginUsername">Username</label>
@@ -73,19 +84,23 @@
 
     <section>
         <h2>Home</h2>
-        <h3>Hello, User!</h3>
-        <button>Logout</button>
+
+        <div id="homeSection">
+            <h3 id="welcomeMessage"></h3>
+        </div>
+
+        <button type="submit">Logout</button>
     </section>
 </body>
 
 <script>
     //Declaramos un array de usuarios para los tests
     var users = [
-        { nome: 'Roger', email: 'roger@roger.com', userName: 'roger', password: 'roger123' },
-        { nome: 'Lara', email: 'lara@lara.com', userName: 'lara', password: 'lara123' },
+        { name: 'Roger', email: 'roger@roger.com', username: 'roger', password: 'roger123' },
+        { name: 'Lara', email: 'lara@lara.com', username: 'lara', password: 'lara123' },
     ]
 
-    var loggedUser = false;
+    var loggedUser;
 
     //La primera lógica será para mostrar correctamente las vistas
     //Definición de las variables section
@@ -126,6 +141,7 @@
     //A continuación viene el tratamiento de los forms
     var forms = document.querySelectorAll('form');
 
+
     //Logica para el formulario de registro
     var registerForm = forms[1];
     registerForm.onsubmit = function (event) {
@@ -156,24 +172,60 @@
         loginSection.style.display = '';
     }
 
+
     //Lógica para el formulario de login
     var logginForm = forms[0];
     logginForm.onsubmit = function (event) {
         event.preventDefault();
 
         var logginInputs = logginForm.querySelectorAll('input');
-        console.log(logginInputs)
+        //console.log(logginInputs)
 
-        var userName = logginInputs[0].value;
-        var user = userName;
+        var fUserName = logginInputs[0].value;
+        var fLoginUser = fUserName;
 
         var pass = logginInputs[1].value;
-        var password = pass;
+        var loginPassword = pass;
 
         //Y ahora que hemos recuperado los valores del formulario de login procedemos con la lógica para validar el usuario
         //var existe = users.find
+
+        function validateLogin(inputUsername, inputPassword) {
+            // Buscamos el usuario usando find
+            var user = users.find(user => user.username === inputUsername);
+            console.log(user);
+
+            // Si el usuario existe y la contraseña coincide
+            if (user && user.password === inputPassword) {
+                console.log('usuario validado!')
+                return user;
+            } else {
+                console.log('Usuario o contraseña incorrectos')
+                return null;
+            }
+        }
+
+        var loggedUser = validateLogin(fLoginUser, loginPassword)
+
+        if (loggedUser) {
+            console.log("Entro en la zona logueada")
+            logginForm.reset();
+            loginSection.style.display = 'none';
+            homeSection.style.display = '';
+            document.getElementById('welcomeMessage').innerText = `Welcome, ${loggedUser.name}!`;
+        }
     }
 
+    //Aquí debajo va la lógica para el logout
+    var buttons = document.querySelectorAll('button');
+    var loggoutButton = buttons[2];
+
+    loggoutButton.addEventListener('click', function () {
+        loggedUser = null;
+        homeSection.style.display = 'none';
+        loginSection.style.display = '';
+        console.log("el usuario ha salido del sistema")
+    })
 
 </script>
 
