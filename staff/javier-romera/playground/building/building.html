@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2016/03/31/20/11/building-1295569_640.png"
+        type="image/x-icon">
+    <title>Building</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        margin-top: 2.5%;
+    }
+
+    .card {
+        display: flex;
+        position: relative;
+        width: 375px;
+        height: 800px;
+        border: 1px solid black;
+    }
+
+    .building {
+        position: absolute;
+        width: 325px;
+        height: 700px;
+        top: 50px;
+        left: 25px;
+        background-color: #99928B;
+        border: 1px solid black;
+    }
+
+    .door {
+        position: absolute;
+        width: 40%;
+        height: 20%;
+        top: 79.8%;
+        left: 30%;
+        background-color: burlywood;
+        border-top: 1px solid black;
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+    }
+
+    .door-side {
+        position: absolute;
+        width: 40%;
+        height: 89.5%;
+        top: 10%;
+        border-top: 1px solid black;
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+    }
+
+    .door-left-side {
+        left: 5%;
+    }
+
+    .door-right-side {
+        left: 52.5%;
+    }
+
+    .building__floors {
+        position: absolute;
+        width: 70%;
+        height: 60px;
+        left: 15%;
+    }
+
+    .floor1 {
+        top: 65%;
+    }
+
+    .floor2 {
+        top: 45%;
+    }
+
+    .floor3 {
+        top: 25%;
+    }
+
+    .floor4 {
+        top: 5%;
+    }
+
+    .building__windows {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background-color: white;
+        border: 1px solid black;
+    }
+
+    .building__glasses-v {
+        position: absolute;
+        width: 29px;
+        height: 60px;
+        border-right: 1px solid black;
+    }
+
+    .building__glasses-h {
+        position: absolute;
+        width: 60px;
+        height: 29px;
+        border-bottom: 1px solid black;
+    }
+
+    .right-window {
+        left: 74%;
+    }
+
+    .building__knob {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: brown;
+        top: 45%;
+        border-radius: 25px;
+    }
+
+    .left-knob {
+        left: 75%;
+    }
+
+    .right-knob {
+        left: 5%;
+    }
+</style>
+
+<body>
+    <main>
+        <div class="card">
+            <div class="building">
+                <div class="door">
+                    <div class="door-side door-left-side">
+                        <div class="building__knob left-knob"></div>
+                    </div>
+                    <div class="door-side door-right-side">
+                        <div class="building__knob right-knob"></div>
+                    </div>
+                </div>
+                <div class="building__floors floor1">
+                    <div class="building__windows left-window">
+                        <div class="building__glasses-v"></div>
+                        <div class="building__glasses-h"></div>
+                    </div>
+                    <div class="building__windows right-window">
+                        <div class="building__glasses-v"></div>
+                        <div class="building__glasses-h"></div>
+                    </div>
+                </div>
+                <div class="building__floors floor2">
+                    <div class="building__windows left-window">
+                        <div class="building__glasses-v"></div>
+                        <div class="building__glasses-h"></div>
+                    </div>
+                    <div class="building__windows right-window">
+                        <div class="building__glasses-v"></div>
+                        <div class="building__glasses-h"></div>
+                    </div>
+                </div>
+                <div class="building__floors floor3">
+                    <div class="building__windows left-window">
+                        <div class="building__glasses-v"></div>
+                        <div class="building__glasses-h"></div>
+                    </div>
+                    <div class="building__windows right-window">
+                        <div class="building__glasses-v"></div>
+                        <div class="building__glasses-h"></div>
+                    </div>
+                </div>
+                <div class="building__floors floor4">
+                    <div class="building__windows left-window">
+                        <div class="building__glasses-v"></div>
+                        <div class="building__glasses-h"></div>
+                    </div>
+                    <div class="building__windows right-window">
+                        <div class="building__glasses-v"></div>
+                        <div class="building__glasses-h"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

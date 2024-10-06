@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="web app that shows a vlog with practical objective">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/5988/5988705.png" type="image/x-icon">
+    <title>Vlog</title>
+</head>
+
+<style>
+    html {
+        font-family: system-ui;
+        background-color: white;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        width: 75vw;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px;
+        background-color: beige;
+    }
+
+    header {
+        background-color: orange;
+    }
+
+    .menu {
+        margin-left: auto;
+        margin-right: auto;
+        padding: 1px;
+    }
+
+    .navoptions {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-rows: 40px;
+        justify-content: space-around;
+        padding-left: 0;
+    }
+
+    .navitem {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1,
+    h2 {
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+    }
+
+    h1 {
+        font-style: italic;
+        margin-bottom: 50px;
+    }
+
+    h2 {
+        padding: 20px;
+    }
+
+    a,
+    a:hover :active :visited {
+        color: black;
+    }
+
+    #mangatitle1,
+    #mangatitle2,
+    #mangatitle3 {
+        display: grid;
+        justify-content: center;
+        text-align: center;
+        background-color: burlywood;
+    }
+
+    .manga {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .content {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .resumen {
+        width: 40%;
+        padding-left: 20px;
+    }
+
+    hr {
+        border-color: black;
+    }
+
+    .imgop {
+        width: 200px;
+        height: auto;
+        margin-left: 32%;
+        transform: scaleX(-1);
+    }
+
+    .imgkimetsu {
+        width: 400px;
+        height: auto;
+        margin-left: 25%;
+        margin-top: 4%;
+    }
+
+    .imgsnk {
+        width: 500px;
+        height: auto;
+        margin-left: 20%;
+        margin-top: 7%;
+    }
+
+    .imgmha {
+        width: 300px;
+        height: auto;
+        margin-left: 23%;
+        margin-top: 3%;
+    }
+
+    .imgjjk {
+        width: 300px;
+        height: auto;
+        margin-left: 23%;
+        margin-top: 4%;
+    }
+
+    .imghxh {
+        width: 300px;
+        height: auto;
+        margin-left: 25%;
+        margin-top: 5%;
+    }
+
+    .imggoku {
+        width: 150px;
+        height: auto;
+        margin-left: 20%;
+        margin-right: 10%;
+    }
+
+    .imgluffy {
+        width: 150px;
+        height: auto;
+        margin-left: 10%;
+    }
+
+    .imgl {
+        width: 150px;
+        height: auto;
+        margin-left: 20%;
+        margin-right: 10%;
+    }
+
+    .imgsailor {
+        width: 150px;
+        height: auto;
+        margin-left: 12%;
+    }
+
+    .imgedward {
+        width: 150px;
+        height: auto;
+        margin-left: 20%;
+        margin-right: 10%;
+    }
+
+    .imgnaruto {
+        width: 150px;
+        height: auto;
+        margin-left: 12%;
+    }
+
+    .scores {
+        width: 100%;
+        margin-left: 40px;
+    }
+
+    .personaje-start,
+    .personaje-end {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .content-start {
+        display: flex;
+        align-items: flex-end;
+        width: 100%;
+    }
+
+    .content-end {
+        display: flex;
+        width: 100%;
+    }
+
+    .resumen-start {
+        width: 40%;
+        padding-left: 20px;
+    }
+
+    .resumen-end {
+        width: 40%;
+        margin-left: 20%;
+    }
+
+    .content-panel {
+        display: block;
+    }
+
+    fig {
+        display: block;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3%;
+        text-align: center;
+    }
+
+    .imgchainsaw {
+        width: 400px;
+        height: auto;
+    }
+
+    .imgeren {
+        width: 400px;
+        height: auto;
+    }
+
+    .imgnarutopanel {
+        width: 400px;
+        height: auto;
+    }
+
+    .imgtokyo {
+        width: 400px;
+        height: auto;
+    }
+
+    .cita {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+
+    footer {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        font-size: 14px;
+    }
+
+    input {
+        width: 60%;
+    }
+
+    button {
+        margin-left: 179px;
+        margin-top: 5px;
+    }
+</style>
+
+<body>
+    <header>
+        <nav class="menu">
+            <ul class="navoptions">
+                <li class="navitem"><a href="#mangatitle1">Mangas más vendidos</a></li>
+                <li class="navitem"><a href="#mangatitle2">Personajes más populares</a></li>
+                <li class="navitem"><a href="#mangatitle3">Paneles de manga</a></li>
+                <li class="navitem"><a href="#foot">Comentar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Frikada extrema</h1>
+        <section id="mangatitle1">
+            <h2>Algunos de los mangas más vendidos</h2>
+        </section>
+        <article id="mangalist">
+            <article class="manga">
+                <h3><em>1. One Piece - 528M de copias</em></h3>
+                <div class="content">
+                    <p class="resumen"> <strong>One Piece</strong> es un manga escrito e ilustrado por el mangaka
+                        japonés <strong>Eiichirō Oda</strong>. Comenzó a publicarse en la revista Japonesa Weekly Shōnen
+                        Jump el
+                        22 de julio de 1997 y a la fecha se han publicado 109 volúmenes.La obra narra las aventuras de
+                        <strong>Monkey D. Luffy</strong> y su tripulación, los Piratas de Sombrero de Paja, recorriendo
+                        el
+                        mar
+                        para encontrar el legendario tesoro "One Piece" y así convertirse en el <strong>Rey de
+                            los Piratas</strong>.
+                    </p>
+                    <img class="imgop"
+                        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/91266973-434b-45dc-8d4c-e4e275cc04f9/d2pipsw-a564ed38-5920-4776-b511-e0332bd604a8.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzkxMjY2OTczLTQzNGItNDVkYy04ZDRjLWU0ZTI3NWNjMDRmOVwvZDJwaXBzdy1hNTY0ZWQzOC01OTIwLTQ3NzYtYjUxMS1lMDMzMmJkNjA0YTgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.NzOxA3yUBQse7vh4E1-IoB4nRYx6kxMg2bpttmUgYko"
+                        alt="op">
+                </div>
+                <div class="scores">
+                    <p>Scores:</p>
+                    <ul>
+                        <li><a target="_blank"
+                                href="https://www.imdb.com/title/tt0388629/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_one%2520piece">IMDB</a>:
+                            <strong>9.0</strong>/10.0
+                        </li>
+                        <li><a target="_blank"
+                                href="https://myanimelist.net/anime/21/One_Piece?q=one%20piece&cat=anime">MyAnimeList</a>:
+                            <strong>8.72</strong>/10.0
+                        </li>
+                    </ul>
+                </div>
+            </article>
+            <hr>
+
+
+            <article class="manga">
+                <h3><em>9. Kimetsu no Yaiba - 150M de copias</em></h3>
+                <div class="content">
+                    <p class="resumen"> <strong>Kimetsu no Yaiba</strong>, también conocida bajo su
+                        nombre en inglés Demon Slayer, es una serie de manga
+                        escrita e ilustrada por <strong>Koyoharu Gotōge</strong>, cuya publicación comenzó el 15 de
+                        febrero de 2016 en la
+                        revista semanal Shūkan Shōnen Jump de la editorial Shūeisha. Una adaptación a serie de anime
+                        producida por el estudio Ufotable fue estrenada el 6 de abril de 2019 y <strong>finalizó el 28
+                            de
+                            septiembre</strong> de ese mismo año cuya primera temporada tiene 26 episodios. <strong>La
+                            continuación</strong> de la
+                        historia fue adaptada en <strong>formato de película</strong> y se llamó Kimetsu no Yaiba: Mugen
+                        Ressha-hen, se
+                        estrenó el 16 de octubre de 2020 en Japón, convirtiéndose en la <strong>película más taquillera
+                            en la
+                            historia de dicho país</strong>.
+                    </p>
+                    <img class="imgkimetsu"
+                        src="https://1000marcas.net/wp-content/uploads/2022/07/Demon-Slayer-Logo.png" alt="kimetsu">
+                </div>
+                <div class="scores">
+                    <p>Scores:</p>
+                    <ul>
+                        <li><a target="_blank"
+                                href="https://www.imdb.com/title/tt9335498/?ref_=nv_sr_srsg_0_tt_5_nm_3_in_0_q_kime">IMDB</a>:
+                            <strong>8.6</strong>/10.0
+                        </li>
+                        <li><a target="_blank"
+                                href="https://myanimelist.net/anime/38000/Kimetsu_no_Yaiba?q=kimetsu&cat=anime">MyAnimeList</a>:
+                            <strong>8.45</strong>/10.0 - <strong>8.74</strong>/10.0
+                        </li>
+                    </ul>
+                </div>
+            </article>
+            <hr>
+
+
+            <article class="manga">
+                <h3><em>11. Shingeki no Kyojin - 140M de copias</em></h3>
+                <div class="content">
+                    <p class="resumen"><strong>Shingeki no Kyojin</strong>, también conocida en países de
+                        habla hispana como Ataque a los titanes, es una serie de manga japonesa
+                        escrita e ilustrada por <strong>Hajime Isayama</strong>. El manga se publicó en septiembre de
+                        2009 en la revista
+                        Bessatsu Shōnen Magazine de la editorial Kōdansha y fue difundida de forma mensual hasta abril
+                        de 2021 con un total de 139 capítulos. Su historia <strong>terminó después de casi doce
+                            años</strong>.
+                    </p>
+                    <img class="imgsnk" src="https://www.funkoteca.com/wp-content/uploads/2020/10/attack-on-titan.png"
+                        alt="snk">
+                </div>
+                <div class="scores">
+                    <p>Scores:</p>
+                    <ul>
+                        <li><a target="_blank"
+                                href="https://www.imdb.com/title/tt2560140/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_shingek">IMDB</a>:
+                            <strong>9.1</strong>/10.0
+                        </li>
+                        <li><a target="_blank"
+                                href="https://myanimelist.net/anime/16498/Shingeki_no_Kyojin?q=attac&cat=anime">MyAnimeList</a>:
+                            <strong>8.55</strong>/10.0 - <strong>9.05</strong>/10.0
+                        </li>
+                    </ul>
+                </div>
+            </article>
+            <hr>
+
+
+            <article class="manga">
+                <h3><em>21. My Hero Academia - 100M de copias</em></h3>
+                <div class="content">
+                    <p class="resumen"><strong>My Hero Academia</strong> es un manga escrito e
+                        ilustrado por <strong>Kōhei Horikoshi</strong>. Se basa en un one-shot realizado por el mismo
+                        autor y publicado
+                        en el quinto volumen del manga Ōmagadoki Dōbutsuen bajo el nombre de My Hero. El 11 de enero de
+                        2015, fue lanzado un VOMIC basado en el manga, y <strong>finalizó el 5 de agosto de
+                            2024</strong>.
+                    </p>
+                    <img class="imgmha"
+                        src="https://upload.wikimedia.org/wikipedia/commons/1/18/My_Hero_Academia_logo_in_Japan_20150106.png"
+                        alt="mha">
+                </div>
+                <div class="scores">
+                    <p>Scores:</p>
+                    <ul>
+                        <li><a target="_blank"
+                                href="https://www.imdb.com/title/tt5626028/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_my%2520hero">IMDB</a>:
+                            <strong>8.3</strong>/10.0
+                        </li>
+                        <li><a target="_blank"
+                                href="https://myanimelist.net/anime/31964/Boku_no_Hero_Academia?q=boku%20no%20hero&cat=anime">MyAnimeList</a>:
+                            <strong>7.36</strong>/10.0 - <strong>8.27</strong>/10.0
+                        </li>
+                    </ul>
+                </div>
+            </article>
+            <hr>
+
+
+            <article class="manga">
+                <h3><em>23. Jujutsu Kaisen - 90M de copias</em></h3>
+                <div class="content">
+                    <p class="resumen"><strong>Jujutsu Kaisen</strong>, es una serie de manga japonés escrita e
+                        ilustrada por
+                        <strong>Gege Akutami</strong>. Shūeisha pública sus capítulos en la revista Shūkan Shōnen Jump
+                        desde el 5 de
+                        marzo de 2018 y los ha recopilado y publicado en veintisiete volúmenes tankōbon a mediados de
+                        2024. La historia gira en torno al estudiante </strong>Yūji Itadori</strong>, quien se une a una
+                        organización
+                        secreta de hechiceros para matar a una poderosa maldición llamada <strong>Ryōmen Sukuna tras
+                            convertirse
+                            en su anfitrión</strong>.
+                    </p>
+                    <img class="imgjjk"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Jujutsu_Kaisen_%28Japanese%29_logo.svg/1200px-Jujutsu_Kaisen_%28Japanese%29_logo.svg.png"
+                        alt="jjk">
+                </div>
+                <div class="scores">
+                    <p>Scores:</p>
+                    <ul>
+                        <li><a target="_blank"
+                                href="https://www.imdb.com/title/tt12343534/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_jujutsu">IMDB</a>:
+                            <strong>8.6</strong>/10.0
+                        </li>
+                        <li><a target="_blank"
+                                href="https://myanimelist.net/anime/40748/Jujutsu_Kaisen">MyAnimeList</a>:
+                            <strong>8.58</strong>/10.0 - <strong>8.80</strong>/10.0
+                        </li>
+                    </ul>
+                </div>
+            </article>
+            <hr>
+
+
+            <article class="manga">
+                <h3><em>27. Hunter x Hunter - 84M de copias</em></h3>
+                <div class="content">
+                    <p class="resumen"><strong>Hunter x Hunter</strong> es una serie de manga
+                        escrita e ilustrada por <strong>Yoshihiro Togashi</strong>. La historia tiene como protagonista
+                        a <strong>Gon Freecs</strong>, un
+                        niño de doce años que desea encontrar a su padre a toda costa, por lo que decide convertirse en
+                        «cazador», justo como él, y de alguna forma hallar su paradero. A medida que avanza la historia,
+                        Gon se hace amigo de otros tres aspirantes a cazador: <strong>Leorio, Kurapika y
+                            Killua</strong>, quienes lo
+                        acompañarán en sus aventuras a lo largo del anime.
+                    </p>
+                    <img class="imghxh" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Hunter_x_hunter.png"
+                        alt="hxh">
+                </div>
+                <div class="scores">
+                    <p>Scores:</p>
+                    <ul>
+                        <li><a target="_blank"
+                                href="https://www.imdb.com/title/tt2098220/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_hunter%2520x%2520hunter">IMDB</a>:
+                            <strong>9.0</strong>/10.0
+                        </li>
+                        <li><a target="_blank"
+                                href="https://myanimelist.net/anime/11061/Hunter_x_Hunter_2011?q=hunter&cat=anime">MyAnimeList</a>:
+                            <strong>9.03</strong>/10.0
+                        </li>
+                    </ul>
+                </div>
+            </article>
+            <hr>
+        </article>
+        <section id="mangatitle2">
+            <h2>Los personajes de animanga más populares</h2>
+        </section>
+        <article class="personaje-start">
+            <h3 class="pjname">1. Son Goku</h3>
+            <div class="content-start">
+                <img class="imggoku" src="https://static.miraheze.org/loathsomecharacterswiki/0/05/0.png" alt="goku">
+                <p class="resumen-start"> Son Goku, el Legendario Super Saiyan, ha sido el primer personaje de anime con
+                    el
+                    que los niños
+                    españoles enloquecieron. En varias cadenas de televisión se emitía la mítica serie Dragon Ball a la
+                    hora de la merienda o los sábados, por lo que miles de niños españoles de los 90 crecieron comiendo
+                    su bocadillo delante de esta serie de dibujos animados sin saber que sería la puerta de entrada a la
+                    revolución del manga y del anime.</p>
+            </div>
+        </article>
+        <hr>
+
+
+        <article class="personaje-end">
+            <h3 class="pjname">2. Monkey D. Luffy</h3>
+            <div class="content-end">
+                <p class="resumen-end"> Luffy es un niño que siempre ha soñado con convertirse en pirata tomando el
+                    ejemplo
+                    de Shanks el Pelirrojo. Un día, come una fruta del diablo, que hace que su cuerpo sea de goma, un
+                    poder extremadamente útil para luchar pero que le impide nadar. Entonces decide conquistar los mares
+                    para descubrir el One Piece, el tesoro de Gold D. Roger y convertirse en el nuevo rey de los
+                    piratas.</p>
+                <img class="imgluffy" src="https://i.ebayimg.com/images/g/hvYAAOSwc~xh0nmp/s-l1200.png" alt="goku">
+            </div>
+        </article>
+        <hr>
+
+
+        <article class="personaje-start">
+            <h3 class="pjname">3. L</h3>
+            <div class="content-start">
+                <img class="imgl" src="https://2img.net/h/i204.photobucket.com/albums/bb214/sakime/L_.png" alt="l">
+                <p class="resumen-start"> Con su aspecto casi infantil, sus posturas (frecuentemente en cuclillas) y sus
+                    ideas, los lectores y espectadores poco a poco irán enamorándose de su personaje. Además del
+                    misterio que rodea a este personaje, también está su seudónimo, L, que parece ocultar su nombre real
+                    a los ojos de Light. ¿O realmente no lo esconde? Lo que es seguro es que es un personaje enigmático
+                    que te atrapará.</p>
+            </div>
+        </article>
+        <hr>
+
+
+        <article class="personaje-end">
+            <h3 class="pjname">4. Sailor Moon</h3>
+            <div class="content-end">
+                <p class="resumen-end"> ¡Es imposible que no te suene Sailor Moon, el manga y anime más famoso de
+                    magical girl del mundo! Publicado entre 1992 y 1997 en Pika (Francia), esta serie fue uno de los
+                    primeros shojo en llegar a España. Este manga también ha sido objeto de varias controversias:
+                    violencia, escenarios mediocres, desnudez e incluso homosexualidad (ya ha llovido mucho desde
+                    entonces...).</p>
+                <img class="imgsailor"
+                    src="https://www.poptoys.nl/cdn/shop/collections/png-transparent-sailor-moon-sailor-moon-sailor-jupiter-decal-sticker-sailor-venus-sailor-moon-logo-fictional-character-cartoon.png?v=1668591680&width=640"
+                    alt="sailor">
+            </div>
+        </article>
+        <hr>
+
+
+        <article class="personaje-start">
+            <h3 class="pjname">5. Edward Elric</h3>
+            <div class="content-start">
+                <img class="imgedward" src="https://epic7x.com/wp-content/uploads/2022/08/edward-elric1.png"
+                    alt="edward">
+                <p class="resumen-start"> En 2001, el mangaka Hiromu Arakawa nos ofreció una pequeña joya del manga, el
+                    ahora ampliamente conocido Fullmetal Alchemist.
+
+                    Esta historia nos traslada a las razones de la existencia humana en una atmósfera fantástica y
+                    steampunk que se encuentra en pocos manga japoneses. El personaje principal es Edward Elric, un
+                    joven alquimista que tiene un objetivo: encontrar la piedra filosofal para hallar el cuerpo de su
+                    hermano, perdido debido a un experimento fallido.</p>
+            </div>
+        </article>
+        <hr>
+
+
+        <article class="personaje-end">
+            <h3 class="pjname">6. Naruto Uzumaki</h3>
+            <div class="content-end">
+                <p class="resumen-end"> Seguro que alguna vez has oído hablar de Naruto Uzumaki, es sin duda el ninja
+                    más famosa del mundo (bueno... igual las Tortugas Ninja tienen algo que decir) el héroe del manga
+                    homónimo creado por Masashi Kishimoto en 1999. Hoy todos conocen a esta cabeza rubia, su banda ninja
+                    y sus devastadoras técnicas secretas como el Rasengan.</p>
+                <img class="imgnaruto" src="https://static.miraheze.org/greatcharacterswiki/3/32/Naruto_%28Kid%29.png"
+                    alt="naruto">
+            </div>
+        </article>
+        <hr>
+        <section id="mangatitle3">
+            <h2>Paneles que no puedes perderte</h2>
+        </section>
+        <article class="panel">
+            <div class="content-panel">
+                <fig>
+                    <img class="imgchainsaw"
+                        src="https://static1.srcdn.com/wordpress/wp-content/uploads/2022/05/Chainsaw-Man-Darkness-Devil1.png"
+                        alt="chainsaw">
+                    <figcaption><strong>Chainsaw Man</strong></figcaption>
+                </fig>
+            </div>
+            <p class="cita">
+                "<em>El miedo a la oscuridad puede considerarse como el miedo a lo desconocido. La gente teme la
+                    oscuridad porque no puede ver con claridad, lo que significa que puede haber cualquier cosa.</em>"
+            </p>
+        </article>
+        <hr>
+
+
+        <article class="panel">
+            <div class="content-panel">
+                <fig>
+                    <img class="imgeren"
+                        src="https://i.pinimg.com/originals/ec/d5/01/ecd501b6c825dad1794fe873141f9a4c.jpg" alt="eren">
+                    <figcaption><strong>Attack on Titan</strong></figcaption>
+                </fig>
+            </div>
+            <p class="cita">
+                "<em>Por fin... Libertad.</em>"
+            </p>
+        </article>
+        <hr>
+
+
+        <article class="panel">
+            <div class="content-panel">
+                <fig>
+                    <img class="imgnarutopanel"
+                        src="https://images.hitpaw.com/topics/photo-tips/best-manga-panels-1.webp" alt="naruto">
+                    <figcaption><strong>Naruto</strong></figcaption>
+                </fig>
+            </div>
+            <p class="cita">
+                "<em>Pain</em>"
+            </p>
+        </article>
+        <hr>
+
+
+        <article class="panel">
+            <div class="content-panel">
+                <fig>
+                    <img class="imgoppanel" src="https://images.hitpaw.com/topics/photo-tips/best-manga-panels-3.webp"
+                        alt="oppanel">
+                    <figcaption><strong>One Piece</strong></figcaption>
+                </fig>
+            </div>
+            <p class="cita">
+                "<em>La Guerra de los Mejores</em>"
+            </p>
+        </article>
+        <hr>
+
+
+        <article class="panel">
+            <div class="content-panel">
+                <fig>
+                    <img class="imgberserk"
+                        src="https://preview.redd.it/what-do-you-think-is-the-most-badass-berserk-panel-v0-vc70csyzafpc1.jpg?width=640&crop=smart&auto=webp&s=35ad1404b11205914068dd94e10e18de63f745e1"
+                        alt="berser">
+                    <figcaption><strong>Berserk</strong></figcaption>
+                </fig>
+            </div>
+            <p class="cita">
+                "<em>Ganishka reincarnating into Shiva</em>"
+            </p>
+        </article>
+        <hr>
+
+
+        <article class="panel">
+            <div class="content-panel">
+                <fig>
+                    <img class="imgtokyo" src="https://images.hitpaw.com/topics/photo-tips/best-manga-panels-4.webp"
+                        alt="tokyo">
+                    <figcaption><strong>Tokyo Ghoul</strong></figcaption>
+                </fig>
+            </div>
+            <p class="cita">
+                "<em>Un horror cautivador</em>"
+            </p>
+        </article>
+        <hr>
+    </main>
+
+    <footer id="foot">Si quieres discutir acerca de algun ranking de este vlog, deja un comentario!</footer>
+    <div class=" formulario">
+        <form>
+            <label>Deja aquí tu comentario!</label>
+            <input type="text">
+        </form>
+        <button type="submit">Enviar</button>
+    </div>
+</body>
+
+</html>

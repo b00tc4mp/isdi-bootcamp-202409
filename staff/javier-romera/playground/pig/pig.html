@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://minecraftfaces.com/wp-content/bigfaces/big-pig-face.png"
+        type="image/x-icon">
+    <title>Pig</title>
+</head>
+
+<style>
+    * {
+        margin: 0
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        margin-top: 10%;
+    }
+
+    div {
+        border: 1px solid black;
+    }
+
+    .card {
+        display: flex;
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 1px solid black;
+    }
+
+    .face {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        top: 50px;
+        left: 50px;
+        background-color: #F0A5A7;
+    }
+
+    .face__eyes {
+        position: absolute;
+        width: 60px;
+        height: 30px;
+        top: 35%;
+        background-color: white;
+    }
+
+    .right-eye {
+        position: absolute;
+        left: 69%;
+    }
+
+    .face__pupil {
+        position: absolute;
+        width: 50%;
+        height: 29px;
+        background-color: black;
+        border-color: black;
+    }
+
+    .right-pupil {
+        position: absolute;
+        left: 50%;
+    }
+
+    .face__mouth {
+        position: inherit;
+        width: 76px;
+        height: 60px;
+        top: 50.5%;
+        left: 30.5%;
+        background-color: #F2C0C2;
+    }
+
+    .face__nose {
+        position: inherit;
+        width: 22.5px;
+        height: 22.5px;
+        top: 30%;
+        left: -1%;
+        background-color: #8B4847;
+    }
+
+    .right-nose {
+        position: inherit;
+        left: 68.5%;
+    }
+</style>
+
+<body>
+    <main>
+        <div class="card">
+            <div class="face">
+                <div class="face__eyes left-eye">
+                    <div class="face__pupil left-pupil"></div>
+                </div>
+                <div class="face__eyes right-eye">
+                    <div class="face__pupil right-pupil"></div>
+                </div>
+                <div class="face__mouth">
+                    <div class="face__nose right-nose"></div>
+                    <div class="face__nose left-nose"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
