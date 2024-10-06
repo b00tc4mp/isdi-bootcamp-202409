@@ -8,44 +8,107 @@
   <link rel="shortcut icon" href="https://b00tc4mp.com/favicon.ico" type="image/x-icon">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
-
+    body{
+      background-color: #ebf2fa;
+      text-align: center;
+      box-sizing: border-box;
+    }
     :root {
       --font: 'Noto Sans JP';
       font-family: var(--font);
     }
+    h1{
+      font-size: 35px;
+    }
+    section{
+      background-color: #ebf2fa;
+      width:auto;
+      height: 450px;
+      max-width: 400px;
+      min-width: 300px;
+      margin:30px auto;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 2px 2px;
+    }
+    form{
+      margin: auto;
+    }
+    label{
+      display: block;
+      margin: 0.3%
+    }
+
+    input{
+      width: 50%;
+      background-color: #ebf2fa;
+      border: none;
+      border-radius: 10px;
+      border: 1px solid black;
+      padding: 10px;
+      transition: background-color 0.3s;
+    }
+    input:focus {
+            background-color: #939393;
+            border-color: #00eaff;
+        }
+    button{
+      display: block;
+      margin: 20px auto;
+      width: 50%;
+      height: 2em;
+      background-color: #ed254e;
+      border-radius: 15px;
+      font-weight:700 ;
+
+    }
+    p, a{
+      display: inline;
+      margin: 5px
+    }
+    a{
+      text-decoration: none;
+    }
+    a:visited {
+            color: inherit;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
   </style>
 </head>
 
 <body>
-  <h1>Unsocial</h1>
+  <h1>Welcome to Unsocial !</h1>
 
   <section>
     <h2>Login</h2>
     <form>
       <label for="login-user">Username</label>
-      <input type="text" id="login-user">
+      <input type="text" id="login-user" required>
 
       <label for="login-password">Password</label>
-      <input type="password" id="login-password">
+      <input type="password" id="login-password" required>
       <button type="submit">Login</button>
     </form>
-    <a href="">Register</a>
+    <p>You don't have an account?</p><a href="">Register here !</a>
   </section>
 
   <section>
     <h2>Register</h2>
     <form>
       <label for="name">Name</label>
-      <input type="text" id="name">
+      <input type="text" id="name" placeholder="Petar Pan" required>
 
       <label for="email">Email</label>
-      <input type="email" id="name">
+      <input type="email" id="name" placeholder="example@email.com" required>
 
       <label for="username">Username</label>
-      <input type="text" id="username">
+      <input type="text" id="username" placeholder="Peterpan" required>
 
       <label for="password">Password</label>
-      <input type="password" id="password">
+      <input type="password" id="password" required>
       <button type="submit">Register</button>
     </form>
     <a href="">Login</a>
@@ -54,7 +117,7 @@
   <section>
     <h2>Home</h2>
     <h3>Hello, User!</h3>
-    <button>Logout</button>
+    <button type="submit">Logout</button>
   </section>
 
   <script>
@@ -141,11 +204,17 @@
         homeSection.style.display = ''
         homeSection.querySelector('h3').innerText = 'Hello, ' + match.name
       } else {
-        alert('Escribe bien boludo!!')
+        alert('The data entered does not correspond to any account, create an account!!!')
       }
 
     })
-
+    var logoutBotton = homeSection.querySelector('button')
+    
+    logoutBotton.onclick = function (event) {
+      event.preventDefault()
+      homeSection.style.display = 'none'
+      loginSection.style.display = ''
+    }
   </script>
 
 </body>
