@@ -54,6 +54,12 @@
             color: yellow;
         }
 
+        .counterBox {
+            margin-top: 20px;
+            background-color: yellow;
+            color: black;
+        }
+
         button {
             font-family: 'Press Start 2P';
             font-size: 120%;
@@ -115,6 +121,12 @@
 
         <h3>Hello, User!</h3>
 
+        <div class="counter">
+            <p>How unsocial do you feel today?</p>
+            <button class="counterBox">-</button>
+            <button class="counterBox">+</button>
+            <p id="counter">0</p>
+        </div>
         <button>Logout</button>
     </section>
 
@@ -222,7 +234,7 @@
 
         //-------------------------------EXERCISE: LOGOUT BUTTON BEHAVIOUR-------------------------------
         var homeButtons = homeSection.querySelectorAll('button')
-        var logoutButton = homeButtons[0]
+        var logoutButton = homeButtons[2]
         logoutButton.onclick = function (event) {
             event.preventDefault()
 
@@ -232,6 +244,25 @@
             loginSection.style.display = ''
         }
 
+        //-------------------------------EXERCISE: COUNTER IN THE HOME-------------------------------
+        var counter = 0
+        var counterDisplay = document.getElementById('counter')
+
+        var decreaseButton = homeButtons[0]
+        decreaseButton.onclick = function (event) {
+            event.preventDefault()
+
+            counter--
+            counterDisplay.innerText = counter
+        }
+
+        var increaseButton = homeButtons[1]
+        increaseButton.onclick = function (event) {
+            event.preventDefault()
+
+            counter++
+            counterDisplay.innerText = counter
+        }
     </script>
 </body>
 
