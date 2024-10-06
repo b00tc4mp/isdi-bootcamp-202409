@@ -20,8 +20,6 @@ console.log('Buscar con una properidad que indice tiene')
 var beasts = { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'bison', length: 5 };
 
 var beast = indexOf(beasts, "ant", 2)
+    / -1
 
 
-
-
-console.log(beast)

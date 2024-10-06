@@ -7,7 +7,6 @@ Raid.prototype.forEach = function (callback) {
     }
 }
 
-
 console.log('TEST Array.prototype.forEach')
 
 console.log('CASE print characters in iterable')

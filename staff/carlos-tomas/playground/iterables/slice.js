@@ -1,14 +1,10 @@
 var slice = function (iterable, startIndex, endIndex) {
     if (arguments.length <= 1) { return iterable }
-
-
     if (startIndex < 0) {
         startIndex = iterable.length + startIndex
-    }
-    else if (startIndex >= iterable.length) {
+    } else if (startIndex >= iterable.length) {
         return newObj
     }
-
     if (endIndex < -iterable.length) {
         endIndex = 0
     } else if (endIndex < 0) {
