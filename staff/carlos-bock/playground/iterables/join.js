@@ -3,14 +3,14 @@
 
 
 function join(){
-    let arr = arguments[0];
-    let newStr = '';
-    let str = '';
+    var arr = arguments[0];
+    var newStr = '';
+    var str = '';
     if (typeof arguments[1] === "string") {
         str = arguments[1];
     }
 
-    for (let i = 0; i < arr.length; i++) {
+    for (var i = 0; i < arr.length; i++) {
         newStr+= arr[i];
         if (str === arguments[1]) {
             newStr += str;
@@ -20,8 +20,9 @@ function join(){
     return newStr;
 }
 
-const arr = ["Let's", 'play', 'mario', 'kart'];
-const elements = ['Fire', 'Air', 'Water'];
-debugger;
-console.log(join(arr, " "));
+var obj1 = {0:"Let's", 1:"play", 2:"mario", 3:"kart", length:4};
+var obj2 = {0:"Fire", 1:"Air", 2:"Water", length:3};
+
+console.log(join(obj1, " "));
+console.log(join(obj2,""));
 

@@ -15,7 +15,7 @@ console.log(length);
 console.log("case add banana to fruits");
 
 var fruits = {0:"apple", 1:"orange", 2:"rasberry", 3:"pineapple", length:4 };
-var length = fruits.push("banana");
+var length = push(fruits,"banana");
 
 console.log(fruits);
 

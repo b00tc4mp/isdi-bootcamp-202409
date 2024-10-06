@@ -9,8 +9,8 @@ function pop (array) {
 }
 
 
-var arr1 = [1, 2, 3, 4, 5, 6, 7];
-var arr2 = [false, false, true, false];
+var obj1 = {0:1, 1:2, 2:3, 3:4, 4:5, 5:6, 6:7, length:7};
+var obj2 = {0:false, 1: false, 2:true, 3:false, length:4};
 
-console.log(pop(arr1));
-console.log(pop(arr2));
+console.log(pop(obj1));
+console.log(pop(obj2));

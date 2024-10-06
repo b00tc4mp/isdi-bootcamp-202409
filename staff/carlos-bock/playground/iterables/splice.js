@@ -1,22 +1,24 @@
-
 var splice = function (iterable, start,deleteCount) {
     if (arguments.length ===2) {
         var removed = {length: 0};
 
         for (var i = start; i < iterable.length; i++){
             var element = iterable [i];
+
             delete iterable[i];
+
             removed[removed.length] = element;
             removed.length++;
         }
-        iterable.length -= removed.length;
-        return removed;
 
+        iterable.length -= removed.length;
+        
+        return removed;
     } else if (arguments.length === 3){
         var removed = {length: 0};
         
         for (var i = start; i < start + deleteCount; i++) {
-            var elelement = iterable[i];
+            var element = iterable[i];
             delete iterable [i];
 
             removed[removed.length] = element;
@@ -24,7 +26,7 @@ var splice = function (iterable, start,deleteCount) {
         }
 
         for (var i = start + deleteCount; i < iterable.length; i++) {
-            var elelement = iterable[i];
+            var element = iterable[i];
             iterable[i - deleteCount] = element;
         }
 
@@ -36,6 +38,7 @@ var splice = function (iterable, start,deleteCount) {
     }
 }
 
+var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, 5: 600, 6: 700, length: 7 }
 
 console.log('TEST splice')
 console.log(nums)
@@ -43,7 +46,6 @@ console.log(nums)
 console.log(extracted)
 // { 0: 400, 1: 500, 2: 600, 3: 700, length: 4 }
 console.log('CASE extract elements from index 2 and delete 2')
-var nums = { 0: 100, 1: 200, 2: 300, 3: 400, 4: 500, 5: 600, 6: 700, length: 7 }
 var extracted = splice(nums, 1, 2)
 console.log(nums)
 // { 0: 100, 1: 400, 2: 500, 3: 600, 4: 700, length: 5 }

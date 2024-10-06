@@ -1,5 +1,5 @@
 
-var slice = function (iterable, ars) {
+var slice = function (iterable) {
     var newObj = {};
     var counter = 0;
     var number1 = 0;

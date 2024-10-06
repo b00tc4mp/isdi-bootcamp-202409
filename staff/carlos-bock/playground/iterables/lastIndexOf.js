@@ -16,8 +16,8 @@ function indexOf (arr, element) {
 
 //tdd 
 
-var arr1 = [1, 2, 3, 4, 5, 6, 4, 7];
-var arr2 = [false, false, true, false, true];
+var obj1 = {0:1, 1:2, 2:3, 3:4, 4:5, 5:6, 6:4, 7:7, length:8};
+var obj2 = {0:false, 1:false, 2: true, 3:false, 4:true, length:5};
 
-console.log(indexOf(arr1, 4));
-console.log(indexOf(arr2, true));
+console.log(indexOf(obj1, 4));
+console.log(indexOf(obj2, true));
