@@ -137,7 +137,7 @@
     ]
 
     var loggedUser = null
-
+    // Login section
     var loginSection = document.createElement('section')
     var loginParagraph = document.createElement('p')
     var loginTitle = document.createElement('h2')
@@ -183,23 +183,19 @@
     loginBottomText.id = 'bottom-text'
     loginBottomText.innerHTML = `Don't have an account? <a id="registerAnchor" href="">Register</a>`
 
-
-
-
     var body = document.querySelector('body')
     body.appendChild(loginSection)
 
     var registerAnchor = document.getElementById('registerAnchor')
-
+    // Send user to register section when clicking on register anchor
     registerAnchor.addEventListener('click', function (event) {
       event.preventDefault()
       loginSection.remove()
-
+      // Register Section
       var registerSection = document.createElement('section')
       var registerTitle = document.createElement('h2')
       var registerText = document.createElement('h4')
       var registerForm = document.createElement('form')
-
       var registerNameLabel = document.createElement('label')
       var registerNameInput = document.createElement('input')
       var registerEmailLabel = document.createElement('label')
@@ -208,7 +204,6 @@
       var registerUsernameInput = document.createElement('input')
       var registerPasswordLabel = document.createElement('label')
       var registerPasswordInput = document.createElement('input')
-
       var registerButton = document.createElement('button')
       var registerLoginLink = document.createElement('a')
 
@@ -266,14 +261,14 @@
       registerLoginLink.id = 'loginAnchor'
       registerLoginLink.innerText = 'Login'
       registerSection.appendChild(registerLoginLink)
-
+      // Send user to login section when clicking on login anchor
       registerLoginLink.addEventListener('click', function (event) {
         event.preventDefault();
         registerSection.remove()
         body.appendChild(loginSection)
       })
-
-      registerButton.addEventListener('click', function (event) {
+      // Save data of new user when clicking on register button
+      registerForm.addEventListener('submit', function (event) {
         event.preventDefault()
         var name = registerNameInput.value
         var email = registerEmailInput.value
@@ -291,14 +286,57 @@
         registerSection.remove()
         body.appendChild(loginSection)
       })
-
-      /// TODO: Hacer que funcione el login view
-      /* Si el user que recibimos por input es igual a alguno de los que
-      hay en users le damos acceso al home y lo saludamos por su nombre 
-      */
     })
+    // Compare data entered by the user with our users list
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault()
+      var loginUsername = loginUsernameInput.value
+      var loginPassword = loginPasswordInput.value
 
+      var user = users.find(function (user) {
+        return user.username === loginUsername && user.password === loginPassword
+      })
 
+      if (user === undefined) {
+        alert('Please enter a valid user name and password')
+        loginForm.reset()
+      } else {
+        loggedUser = user
+        loginForm.reset()
+        loginSection.remove()
+        // Home Section
+        var homeSection = document.createElement('section')
+        var homeTitle = document.createElement('h2')
+        var homeText = document.createElement('h3')
+        var image = document.createElement('img')
+        var logoutButton = document.createElement('button')
+
+        body.appendChild(homeSection)
+        homeSection.appendChild(homeTitle)
+        homeSection.appendChild(homeText)
+        homeSection.appendChild(image)
+        homeSection.appendChild(logoutButton)
+
+        homeSection.id = 'home'
+        homeSection.classList.add('section-container')
+        homeTitle.innerText = 'Home'
+        homeText.innerText = 'Hello, ' + user.name + '!'
+        image.style.height = '300px'
+        image.src = '/staff/rafael-infante/unsocial/images/boy.png'
+        logoutButton.id = 'btn-logout'
+        logoutButton.innerText = 'Logout'
+        // Send user to login page when clicking on logout button
+        logoutButton.addEventListener('click', function (event) {
+          var condition = prompt('Are you sure? (y/n)')
+          if (condition === 'y') {
+            event.preventDefault()
+            loggedUser = null
+            homeSection.remove()
+            body.appendChild(loginSection)
+          }
+        })
+      }
+    })
 
   </script>
 
