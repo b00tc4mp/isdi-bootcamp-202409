@@ -53,7 +53,7 @@
     <section id="login">
       <h2>Login</h2>
       <form action="">
-        <label for="Name">UserName</label>
+        <label for="Name" id="password">UserName</label>
         <input type="text" />
         <br />
         <label for="password">Password</label>
@@ -70,17 +70,17 @@
     <section id="register">
       <h2>Register</h2>
       <form action="">
-        <label for="name">Name</label>
-        <input type="text" id="name" />
+        <label for="name">Name</label >
+        <input type="text" id="name" required />
         <br />
         <label for="email">E-mail</label>
-        <input type="email" id="email" />
+        <input type="email" id="email" required />
         <br />
         <label for="username">Username</label>
-        <input type="text" id="username" />
+        <input type="text" id="username" required />
         <br />
         <label for="password">Password</label>
-        <input type="password" id="password" />
+        <input type="password" id="password" required />
         <br /><br />
         <button type="submit">Register</button>
         <!-- anchors[1] -->
@@ -219,9 +219,10 @@
           loginSection.style.display = "none";
           var h3 = homeSection.querySelector("h3");
           h3.innerText ="Hello, "+ loggedInUser.name;
-        } else {
+        } else  {
           alert("Username or Password incorrect");
-        
+          passwordInput.value = "";
+          // registerLogin.reset();
         }
       });
 
@@ -229,8 +230,9 @@
       var logout = sections[2];
 
       logout.addEventListener("click", function (event) {
+        //no usar, se considera mala experiencia.
         window.location.reload()
-
+        //    loggedInUser = null;
         //   homeSection.style.display = "none";
         //   registerSection.style.display = "none";
         //   loginSection.style.display = "";
