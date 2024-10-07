@@ -85,16 +85,15 @@
             text-align: center;
             justify-content: center;
 
-            font-size: 200%;
+            font-size: 150%;
         }
 
         .res {
             text-align: center;
             justify-content: center;
-
         }
 
-        button {
+        #but {
             background-color: rgb(69, 69, 239);
             color: white;
             font-size: 26px;
@@ -125,81 +124,6 @@
 
 <body>
 
-    <section>
-        <h2>Login</h2>
-
-        <form class="login">
-            <label for="username">Username</label>
-            <input type="text" id="username">
-            <p></p>
-
-            <label for="password">Password</label>
-            <input type="password" id="password">
-            <p></p>
-
-            <button type="submit">Login</button>
-            <p></p>
-
-        </form>
-
-        <!-- //HIPERVINCULO QUE TE LLEVA A LA SECCION INDICADA -->
-        <a href="">Register</a>
-
-    </section>
-
-    <section>
-        <h2 class="res">Register</h2>
-
-        <form class="register">
-            <label for="name">Name</label>
-            <input type="text" id="name" required>
-            <p></p>
-
-            <label for="email">Email</label>
-            <input type="email" id="email" required>
-            <p></p>
-
-            <label for="username">Username</label>
-            <input type="text" id="username" required>
-            <p></p>
-
-            <label for="password">Password</label>
-            <input type="password" id="password" required>
-            <p></p>
-
-            <button type="submit">Register</button>
-            <p></p>
-
-        </form>
-
-        <a href="">Login</a>
-    </section>
-
-    <section class="home">
-        <h2>Home</h2>
-
-        <h3>Welcome </h3>
-        <p></p>
-
-
-        <button class="logo">Logout</button>
-
-    </section>
-
-    <section>
-        <h2>UNSOCIAL</h2>
-        <BR></BR>
-        <BR></BR>
-        <BR></BR>
-        <BR></BR>
-        <BR></BR>
-        <!-- //HIPERVINCULO QUE TE LLEVA A LA SECCION INDICADA -->
-        <a href="" class="anchor">Register</a>
-        <p></p>
-        <a href="" class="anchor">Login</a>
-
-    </section>
-
 
     <script>
         //USUARIOS POR DEFECTO
@@ -215,137 +139,108 @@
         //variable que te almacena datos del usuario loggeado
         var loggedInUser
 
-        var sections = document.querySelectorAll('section')
 
-        var logInSection = sections[0]
-        var registerSection = sections[1]
-        var homeSection = sections[2]
-        var unsocialSection = sections[3]
+        //CREACIÓN SECCIONES MEDIANTE JAVASCRIPT
 
-        logInSection.style.display = 'none'
-        homeSection.style.display = 'none'
-        registerSection.style.display = 'none'
+        //----- LOGIN SECTION -----  
+        var logInSection = document.createElement('section')
+        var logInTitle = document.createElement('h2')
+        logInTitle.innerText = 'Login'
+        logInSection.appendChild(logInTitle)
 
-        var anchors = document.querySelectorAll('a')
-        var registerAnchor = anchors[0]
-        var logInAnchor = anchors[1]
-        var regUnAnchor = anchors[2]
-        var logUnAnchor = anchors[3]
+        //FORMULARIO DEL LOGIN
+        var loginForm = document.createElement('form')
+        logInSection.appendChild(loginForm)
 
-        //FUNCION QUE TIENE LUGAR AL PULSAR EL HVINCULO 'REGISTER'
-        registerAnchor.onclick = function (event) {
-            event.preventDefault();
+        //LOGIN USERNAME LABEL 
+        var loginUsernameLabel = document.createElement('label')
+        loginForm.appendChild(loginUsernameLabel)
+        loginUsernameLabel.htmlFor = 'username'
+        loginUsernameLabel.innerText = 'Username'
 
-            logInForm.reset()
-            logInSection.style.display = 'none'
-            registerSection.style.display = ''
-        }
+        //LOGIN USERNAME INPUT 
+        var loginUsernameInput = document.createElement('input')
+        loginForm.appendChild(loginUsernameInput)
+        loginUsernameInput.type = 'text'
+        loginUsernameInput.id = 'username'
 
-        //FUNCION QUE TIENE LUGAR AL PULSAR EL HVINCULO 'LOGIN'
-        logInAnchor.onclick = function (event) {
-            event.preventDefault();
+        //LOGIN PASSWORD LABEL 
+        var logInPasswordLabel = document.createElement('label')
+        loginForm.appendChild(logInPasswordLabel)
+        logInPasswordLabel.htmlFor = 'password'
+        logInPasswordLabel.innerText = 'Password'
 
-            registerForm.reset()
-            registerSection.style.display = 'none'
-            logInSection.style.display = ''
-        }
+        //LOGIN PASSWORD INPUT 
+        var logInPasswordInput = document.createElement('input')
+        loginForm.appendChild(logInPasswordInput)
+        logInPasswordInput.type = 'password'
+        logInPasswordInput.id = 'password'
 
-        regUnAnchor.onclick = function (event) {
-            event.preventDefault();
+        //LOGIN SUBMIT BUTTON 
+        var loginButton = document.createElement('button')
+        loginForm.appendChild(loginButton)
+        loginButton.innerText = 'Log In'
+        loginButton.type = 'submit'
+        loginButton.id = 'but'
 
-            unsocialSection.style.display = 'none'
-            registerSection.style.display = ''
-        }
+        //LOGIN REGISTER ANCHOR 
+        var loginResgisterAnchor = document.createElement('a')
+        loginResgisterAnchor.href = ''
+        loginResgisterAnchor.innerText = 'Register'
+        loginForm.appendChild(loginResgisterAnchor)
 
-        //FUNCION QUE TIENE LUGAR AL PULSAR EL HVINCULO 'LOGIN'
-        logUnAnchor.onclick = function (event) {
-            event.preventDefault();
+        //SE CREA EL BODY Y SE LE AÑADEN LOS HIJOS
+        var body = document.querySelector('body')
+        body.appendChild(logInSection)
 
-            unsocialSection.style.display = 'none'
-            logInSection.style.display = ''
-        }
-
-
-        var forms = document.querySelectorAll('form')
-
-        var logInForm = forms[0]
-        var registerForm = forms[1]
-
-        //HACEMOS REGISTER DEL USER Y GUARDAMOS SUS DATOS
-        registerForm.onsubmit = function (event) {
+        loginButton.addEventListener('click', function (event) {
             event.preventDefault()
 
-            var inputs = registerForm.querySelectorAll('input')
-
-            var nameInput = inputs[0]
-            var name = nameInput.value
-
-            var emailInput = inputs[1]
-            var email = emailInput.value
-
-            var usernameInput = inputs[2]
+            var usernameInput = loginUsernameInput
             var username = usernameInput.value
 
-            var passwordInput = inputs[3]
-            var password = passwordInput.value
-
-            var newUser = { name: name, email: email, username: username, password: password }
-
-            for (i = 0; i < users.length; i++) {
-                var user = users[i]
-
-                if (newUser.username === user.username) {
-                    throw alert('Username already exists')
-
-                    return
-                }
-
-                if (newUser.email === user.email) {
-                    throw alert('Email already exists')
-
-                    return
-                }
-            }
-            users.push(newUser)
-
-            registerForm.reset()
-
-            registerSection.style.display = 'none'
-            logInSection.style.display = ''
-
-        }
-
-        //HACEMOS LOGIN DEL USER Y COMPROBAMOS SUS DATOS
-        logInForm.onsubmit = function (event) {
-            event.preventDefault()
-
-            var inputs = logInForm.querySelectorAll('input')
-
-            var usernameInput = inputs[0]
-            var username = usernameInput.value
-
-            var passwordInput = inputs[1]
+            var passwordInput = logInPasswordInput
             var password = passwordInput.value
 
             var loggedUser = { username: username, password: password }
             loggedInUser = loggedUser
 
-            var userFound = false;
-
             for (i = 0; i < users.length; i++) {
-                var currrentUser = users[i]
-                if (currrentUser.username === loggedInUser.username) {
+                var currentUser = users[i]
+                if (currentUser.username === loggedInUser.username) {
 
-                    if (currrentUser.password === loggedInUser.password) {
-                        logInForm.reset()
+                    if (currentUser.password === loggedInUser.password) {
+                        // logInForm.reset()
 
-                        logInSection.style.display = 'none'
-                        homeSection.style.display = ''
+                        logInSection.remove()
 
-                        loggedInUser = currrentUser
+                        //----- HOME SECTION -----  
+                        var homeSection = document.createElement('section')
 
-                        var heading = document.querySelector('h3')
-                        heading.innerText = 'Welcome, ' + loggedInUser.username + '!'
+                        var homeTitle = document.createElement('h2')
+                        homeTitle.innerText = 'HOME'
+                        homeSection.appendChild(homeTitle)
+
+                        var welcomeText = document.createElement('h3')
+                        homeSection.appendChild(welcomeText)
+                        welcomeText.innerText = 'Welcome, ' + loggedInUser.username + '!'
+
+                        var logoutButton = document.createElement('button')
+                        homeSection.appendChild(logoutButton)
+                        logoutButton.innerText = 'Log Out'
+                        logoutButton.type = 'submit'
+                        logoutButton.id = 'but'
+
+                        logoutButton.addEventListener('click', function (event) {
+                            event.preventDefault()
+
+                            loggedInUser = null
+
+                            homeSection.remove()
+                            body.appendChild(logInSection)
+                        })
+                        loginForm.reset()
+                        body.appendChild(homeSection)
                         return
                     }
                     else {
@@ -353,43 +248,176 @@
                         throw alert('Incorrect password')
                     }
                 }
+
             }
 
             logInForm.reset()
             throw alert('User not found!')
+        })
+
+
+
+
+        //FUNCION QUE TIENE LUGAR AL PULSAR EL ANCHOR 'REGISTER'
+        loginResgisterAnchor.onclick = function (event) {
+            event.preventDefault();
+
+            logInSection.remove()
+
+            //----- REGISTER SECTION -----  
+            var registerSection = document.createElement('section')
+            var registerTitle = document.createElement('h2')
+            registerTitle.innerText = 'Register'
+            registerSection.appendChild(registerTitle)
+
+            //FORMULARIO DEL REGISTER
+            var registerForm = document.createElement('form')
+            registerSection.appendChild(registerForm)
+
+
+            //REGISTER NAME LABEL 
+            var registerNameLabel = document.createElement('label')
+            registerForm.appendChild(registerNameLabel)
+            registerNameLabel.htmlFor = 'name'
+            registerNameLabel.innerText = 'Name'
+
+            //REGISTER NAME INPUT 
+            var registerNameInput = document.createElement('input')
+            registerNameInput.required = true
+            registerForm.appendChild(registerNameInput)
+            registerNameInput.type = 'text'
+            registerNameInput.id = 'Name'
+
+            //REGISTER EMAIL LABEL 
+            var registerEmailLabel = document.createElement('label')
+            registerForm.appendChild(registerEmailLabel)
+            registerEmailLabel.htmlFor = 'email'
+            registerEmailLabel.innerText = 'E-mail'
+
+            //REGISTER EMAIL INPUT 
+            var registerEmailInput = document.createElement('input')
+            registerEmailInput.required = true
+            registerForm.appendChild(registerEmailInput)
+            registerEmailInput.type = 'email'
+            registerEmailInput.id = 'Email'
+            // registerEmailInput.required
+
+            //REGISTER USERNAME LABEL 
+            var registerUsernameLabel = document.createElement('label')
+            registerForm.appendChild(registerUsernameLabel)
+            registerUsernameLabel.htmlFor = 'text'
+            registerUsernameLabel.innerText = 'Username'
+
+            //REGISTER USERNAME INPUT 
+            var registerUsernameInput = document.createElement('input')
+            registerUsernameInput.required = true
+            registerForm.appendChild(registerUsernameInput)
+            registerUsernameInput.type = 'text'
+            registerUsernameInput.id = 'username'
+
+            //REGISTER PASSWORD LABEL 
+            var registerPasswordLabel = document.createElement('label')
+            registerForm.appendChild(registerPasswordLabel)
+            registerPasswordLabel.htmlFor = 'password'
+            registerPasswordLabel.innerText = 'Password'
+
+            //REGISTER PASSWORD INPUT 
+            var registerPasswordInput = document.createElement('input')
+            registerPasswordInput.required = true
+            registerForm.appendChild(registerPasswordInput)
+            registerPasswordInput.type = 'password'
+            registerPasswordInput.id = 'password'
+
+            //REGISTER PASSWORD2 LABEL 
+            var registerPassword2Label = document.createElement('label')
+            registerForm.appendChild(registerPassword2Label)
+            registerPassword2Label.htmlFor = 'password'
+            registerPassword2Label.innerText = 'Repeat Password'
+
+            //REGISTER PASSWORD2 INPUT 
+            var registerPassword2Input = document.createElement('input')
+            registerPassword2Input.required = true
+            registerForm.appendChild(registerPassword2Input)
+            registerPassword2Input.type = 'password'
+            registerPassword2Input.id = 'password'
+
+
+            //REGISTER SUBMIT BUTTON 
+            var registerButton = document.createElement('button')
+            registerForm.appendChild(registerButton)
+            registerButton.innerText = 'Register'
+            registerButton.type = 'submit'
+            registerButton.id = 'but'
+
+            //HACEMOS REGISTER DEL USER Y GUARDAMOS SUS DATOS
+            registerForm.addEventListener('submit', function (event) {
+                event.preventDefault()
+
+                var nameInput = registerNameInput
+                var name = nameInput.value
+
+                var emailInput = registerEmailInput
+                var email = emailInput.value
+
+                var usernameInput = registerUsernameInput
+                var username = usernameInput.value
+
+                var passwordInput = registerPasswordInput
+                var password = passwordInput.value
+
+                var password2Input = registerPassword2Input
+                var password2 = password2Input.value
+
+                var newUser = { name: name, email: email, username: username, password: password }
+
+                for (i = 0; i < users.length; i++) {
+                    var user = users[i]
+
+                    if (newUser.username === user.username) {
+                        throw alert('Username already exists')
+
+                        return
+                    }
+
+                    if (newUser.email === user.email) {
+                        throw alert('Email already exists')
+
+                        return
+                    }
+                }
+
+                if (password2 !== password) {
+                    passwordInput.value = ''
+                    password2Input.value = ''
+                    throw alert('Password does not match!')
+                }
+                else {
+                    users.push(newUser)
+
+                    registerForm.reset()
+
+                    registerSection.remove()
+                    body.appendChild(logInSection)
+                }
+            })
+
+            //REGISTER LOGIN ANCHOR 
+            var registerLoginAnchor = document.createElement('a')
+            registerLoginAnchor.href = ''
+            registerLoginAnchor.innerText = 'Login'
+            registerForm.appendChild(registerLoginAnchor)
+
+            body.appendChild(registerSection)
+
+            //anchor hacia el login
+            registerLoginAnchor.onclick = function (event) {
+                event.preventDefault()
+
+                registerSection.remove()
+                body.appendChild(logInSection)
+            }
+
         }
-
-        var logOutButton = document.querySelector('button.logo')
-
-        //LOGICA DEL LOGOUT
-        logOutButton.onclick = function (event) {
-            event.preventDefault()
-
-            homeSection.style.display = 'none'
-            logInSection.style.display = ''
-
-            loggedInUser = undefined
-        }
-
-
-        /*
-                --------------TO DO-----------
-                // ALMACENAR LOS DATOS DEL USUARIO REGISTRADO
-                ----- DONE----
-
-                // HACEER EL LOGIN TENIENDO EN CUENTA QUE EL USUARIO EXISTE
-                ----- DONE----
-
-                // SI EL USUARIO EXISTE ENTRAS EN EL HOME
-                ----- DONE----
-
-                // AL ENTRAR AL HOME, LE DEVUELVES UN WELCOME USER.NAME
-                ----- DONE----
-
-                // HACER LOGOUT DE USUARIO
-                ----- DONE----
-
-        */
     </script>
 
 </body>
