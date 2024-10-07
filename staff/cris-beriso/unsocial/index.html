@@ -18,9 +18,65 @@
 
     body {
       background-color: lightskyblue;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .login {}
+    .login {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      text-align: center;
+      background-color: lavender;
+      width: 300px;
+      height: 300px;
+      border-radius: 10px;
+      box-shadow: 10px 5px 5px rgb(21, 35, 71);
+
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px
+    }
+
+    .login-button {
+      font-family: var(--font);
+      background-color: black;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .register {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      text-align: center;
+      background-color: lavender;
+      width: 300px;
+      height: 400px;
+      border-radius: 10px;
+      box-shadow: 10px 5px 5px rgb(21, 35, 71);
+    }
+
+    .register-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2px
+    }
+
+    .register-button {
+      font-family: var(--font);
+      background-color: black;
+      color: white;
+      border-radius: 10px;
+    }
   </style>
 </head>
 
@@ -30,22 +86,22 @@
   <section class="login">
     <h2>Login</h2>
 
-    <form>
-      <label for="login-user">Username</label>
-      <input type="text" id="login-user">
+    <form class="login-form">
+      <label class="login-input" for="login-user">Username</label>
+      <input class="login-input" type="text" id="login-user">
 
-      <label for="login-password">Password</label>
-      <input type="password" id="login-password">
+      <label for="login-password" class="login-input">Password</label>
+      <input type="password" id="login-password" class="login-input">
 
-      <button type="submit">Login</button>
+      <button type="submit" class="login-button">Login</button>
     </form>
 
     <a href="">Register</a>
   </section>
 
-  <section>
+  <section class="register">
     <h2>Register</h2>
-    <form>
+    <form class="register-form">
       <label for="name">Name</label>
       <input type="text" id="name">
 
@@ -58,7 +114,7 @@
       <label for="password">Password</label>
       <input type="password" id="password">
 
-      <button type="submit">Register</button>
+      <button type="submit" class="register-button">Register</button>
     </form>
 
     <a href="">Login</a>
