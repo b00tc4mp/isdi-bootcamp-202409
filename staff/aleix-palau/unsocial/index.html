@@ -4,11 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UN$OC14L</title>
-
-    <link rel="shortcut icon"
-        href="https://cdn.vectorstock.com/i/500p/00/40/creative-hidden-hacker-logo-vector-22540040.jpg"
-        type="image/x-icon">
+    <title>UN$0C14L</title>
+    <link rel="shortcut icon" href="https://b00tc4mp.com/favicon.ico" type="image/x-icon">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
@@ -22,36 +19,92 @@
         body {
             background-color: black;
             color: var(--color);
+            font-family: var(--font);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
         }
 
         h1 {
-            font-size: 100px;
-            margin: 0px;
+            font-size: 4.25rem;
+            margin: 2rem 0 1rem 0;
         }
 
-        input {
-            background-color: gainsboro;
+        section {
+            background-color: #111;
+            padding: 0.75rem 2rem 2rem 2rem;
+            margin: 1rem 0;
+            border: 1px solid var(--color);
+            width: 300px;
+            border-radius: 8px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
             font-family: inherit;
         }
 
-        a:visited {
+        label {
+            margin-top: 1rem;
+        }
+
+        input {
+            background-color: #222;
             color: var(--color);
+            border: 1px solid var(--color);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        button {
+            background-color: var(--color);
+            color: black;
+            border: none;
+            padding: 0.75rem;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
+        a {
+            color: var(--color);
+            text-decoration: none;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 
 <body>
-    <h1>UN$OC14L</h1>
+    <h1>UN$0C14L</h1>
 
     <section>
         <h2>Login</h2>
 
         <form>
-            <label for="username">Username</label>
-            <input type="text" id="username" />
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" required />
 
-            <label for="password">Password</label>
-            <input type="password" id="password" />
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required />
 
             <button type="submit">Login</button>
         </form>
@@ -63,17 +116,17 @@
         <h2>Register</h2>
 
         <form>
-            <label for="name">Name</label>
-            <input type="text" id="name" />
+            <label for="register-name">Name</label>
+            <input type="text" id="register-name" required />
 
-            <label for="email">Email</label>
-            <input type="email" id="email" />
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" required />
 
-            <label for="username">Username</label>
-            <input type="text" id="username" />
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" required />
 
-            <label for="password">Password</label>
-            <input type="password" id="password" />
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" required />
 
             <button type="submit">Register</button>
         </form>
@@ -142,27 +195,27 @@
             var passwordLoginInput = loginInputs[1]
             var loginPassword = passwordLoginInput.value
 
-
+            var userFound = false
 
             for (var i = 0; i < users.length; i++) {
                 if (users[i].username === loginUsername) {
+                    userFound = true
                     if (users[i].password === loginPassword) {
                         loginSection.style.display = 'none'
                         homeSection.style.display = ''
                         loginForm.reset()
-                        document.children[0].children[1].children[3].children[1].textContent = 'Hello, ' + users[i].name
+                        homeSection.querySelector('h3').textContent = 'Hello, ' + users[i].name + '!'
                         return
                     } else {
                         alert('Incorrect password')
                         return
                     }
                 }
-                else {
-                    alert('User not found')
-                    return
-                }
             }
 
+            if (!userFound) {
+                alert('User not found')
+            }
         })
 
 
