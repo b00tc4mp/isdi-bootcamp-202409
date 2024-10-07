@@ -313,16 +313,6 @@
             registerSection.style.display = 'none'
             logInSection.style.display = ''
 
-            /*
-                    --------------TO DO-----------
-                    // ALMACENAR LOS DATOS DEL USUARIO REGISTRADO
-                    // HACEER EL LOGIN TENIENDO EN CUENTA QUE EL USUARIO EXISTE
-                    // SI EL USUARIO EXISTE ENTRAS EN EL HOME
-                    // AL ENTRAR AL HOME, LE DEVUELVES UN WELCOME USER.NAME
-                    // HACER LOGOUT DE USUARIO
-
-            */
-
         }
 
         //HACEMOS LOGIN DEL USER Y COMPROBAMOS SUS DATOS
@@ -359,11 +349,13 @@
                         return
                     }
                     else {
+                        passwordInput.value = ''
                         throw alert('Incorrect password')
                     }
                 }
             }
 
+            logInForm.reset()
             throw alert('User not found!')
         }
 
