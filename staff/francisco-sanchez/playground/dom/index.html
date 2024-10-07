@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título</title>
+</head>
+
+
+<body style="background-color: darkblue; color: aliceblue;">
+    <h1>Wello World</h1>
+    <p>Dom tree challenge</p>
+    <div>
+        <p>Hello World 2</p>
+        <ul>
+            <li>Element 1</li>
+            <li>Element 2</li>
+            <li>Element 3</li>
+        </ul>
+    </div>
+
+    <script>
+
+        var html = document.children[0];
+        //console.log(html)
+
+        console.log("CASE: Nested fors\n")
+
+        console.log(html.tagName)
+
+        for (var i = 0; i < html.children.length; i++) {
+            var child = html.children[i];
+            console.log("  " + child.tagName);
+
+
+            for (var j = 0; j < child.children.length; j++) {
+                var child2 = child.children[j];
+                console.log("    " + child2.tagName)
+
+
+                for (var k = 0; k < child2.children.length; k++) {
+                    var child3 = child2.children[k];
+                    console.log("       " + child3.tagName)
+
+
+                    for (var k = 0; k < child3.children.length; k++) {
+                        var child4 = child3.children[k];
+                        console.log("          " + child4.tagName)
+                    }
+                }
+            }
+        }
+
+        console.log("\nCASE: Recursion")
+
+        var showChilds = function (html, index) {
+            if (!index) index = 0;
+
+            if (html[index].child !== Object) {
+                console.log("no continuo")
+            }
+            var child = html.children[index];
+            console.log(child.tagName);
+
+            showChilds[html[index], index + 1];
+        }
+        console.log(html.tagName)
+        showChilds(html)
+
+
+    </script>
+
+</body>
+
+</html>

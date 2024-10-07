@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título</title>
+</head>
+
+
+<body style="background-color: darkblue; color: aliceblue;">
+    <h1>Wello World</h1>
+    <p>Dom tree challenge</p>
+    <div>
+        <p>Hello World 2</p>
+        <ul>
+            <li>Element 1</li>
+            <li>Element 2</li>
+            <li>Element 3</li>
+        </ul>
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <div>
+                            <p>Hola!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var html = document.children[0];
+        //console.log(html)
+
+        console.log("CASE: Nested fors\n")
+
+        console.log(html.tagName)
+
+        function print(element, indent) {
+            if (indent === undefined) indent = 0;
+
+            console.log((element.tagName));
+
+            for (var i = 0; i < element.children.length; i++) {
+                var child = element.children[i];
+
+                print(child, indent + 1);
+            }
+
+        }
+        print(document.children[0])
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
