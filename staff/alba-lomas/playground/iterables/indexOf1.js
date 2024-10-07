@@ -3,26 +3,21 @@
 
 var indexOf = function (iterable, searchelement, fromIndex) {
 
-
     if (fromIndex === undefined) {
-
-    } else if (fromIndex < 0) {
-        fromIndex = fromIndex + iterable.length
-
+        fromIndex = 0;
     }
+    else if (fromIndex < 0)
+        fromIndex = fromIndex + iterable.length;
+    
 
+    for (var i = fromIndex; i < iterable.length; i++) {
 
-    for (
-        var i = fromIndex; i < iterable.length;
-    ) {
-        var element = iterable[i];
+        var element = iterable[i]
+
         if (element === searchelement)
-
             return i
-
     }
     return -1
-
 
 }
 
@@ -40,7 +35,7 @@ var colors = {
     length: 6
 }
 
-var index = indexOf(colors, green)
+var index = indexOf(colors, 'green')
 console.log(index)
 
 
@@ -48,4 +43,3 @@ console.log('CASE get index of green from index -2')
 
 index = indexOf(colors, 'green', -2)
 console.log(index)
-

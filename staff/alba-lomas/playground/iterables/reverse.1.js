@@ -1,8 +1,6 @@
 
 
 
-var animales = { 0: 'gato', 1: 'perro', 2: 'gallina', 3: 'caballo', length: 4 };
-
 var reverse = function (iterable) {
 
     var result = { length: 0 };
@@ -20,3 +18,5 @@ var reverse = function (iterable) {
 
 console.log(reverse(animales))
 
+
+var animales = { 0: 'gato', 1: 'perro', 2: 'gallina', 3: 'caballo', length: 4 };

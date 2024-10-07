@@ -1,39 +1,15 @@
 
 
 
-var Animal = function (nombre, tipo, raza, edad, peso) {
-    this.nombre = nombre
-    this.tipo = tipo
-    this.raza = raza
-    this.edad = edad
-    this.peso = peso
+var Raid = function () {
+    this.length = 0
 }
 
-var dante = new Animal('Dante', 'gato', 'Persa', '3', '5kg');
-var kiara = new Animal('Kiara', 'perro', 'Pastor aleman', '14', '35kg');
-var risto = new Animal('Risto', 'gato', 'Europeo', '4', '4,5kg');
-var romero = new Animal('Romero', 'caballo', 'frison', '9', '600kg');
+Raid.prototype.reverse = function (this) {
 
-var animales = [dante, kiara, risto, romero]
+    for (var i = this.length; i >= 0; i--) {
 
-console.log(Animales)
-
-var raidAnimales = { length: 0 };
-raidAnimales[0] = dante;
-raidAnimales[1] = kiara;
-raidAnimales[2] = risto;
-raidAnimales[3] = romero;
-raidAnimales.length = 4;
-
-console.log(raidAnimales)
-
-var reverse = function (iterable) {
-
-    var result = { length: 0 };
-
-    for (var i = iterable.length; i >= 0; i--) {
-
-        result[result.length] = iterable[i - 1];
+        result[result.length] = this[i - 1];
 
         result.length += 1;
     }
@@ -42,4 +18,13 @@ var reverse = function (iterable) {
     return animales;
 }
 
-console.log(reverse(raidAnimales))
+
+var animales = { length: 0 };
+animales[0] = 'gato';
+animales[1] = 'perro';
+animales[2] = 'gallina';
+animales[3] = 'caballo';
+animales.length = 4;
+
+var reversed = animales.reverse
+console.log(reverse(animales))
