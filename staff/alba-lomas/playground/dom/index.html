@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: gray;">
+    <h1 style="color: rgb(117, 173, 117);">Hola, Mundo!</h1>
+    <script>
+        /*
+        HTML
+         HEAD
+          META
+          META
+          TITTLE
+           text
+         BODY
+          H1
+           text
+          SCRIPT
+           text
+          SCRIPT
+           text    
+        */
+
+        var html = document.children[0]
+
+        console.log(html.tagName)
+
+        for (var i = 0; i < html.children.length; i++) {
+            var child = html.children[i]
+
+            console.log(child.tagName)
+
+            for (var j = 0; j < child.children.length; j++) {
+                var child2 = child.children[j]
+
+                console.log(child2.tagName)
+            }
+        }
+    </script>
+</body>
+
+</html>
