@@ -103,27 +103,29 @@
         var anchors = document.querySelectorAll('a')
 
         var registerAnchor = anchors[0]
-
+        // registerAnchor.onclick = function (event) {
         registerAnchor.addEventListener('click', function (event) {
             event.preventDefault()
 
             loginSection.style.display = 'none'
             registerSection.style.display = ''
+            // }
         })
 
         var loginAnchor = anchors[1]
-
+        // loginAnchor.onclick = function (event) {
         loginAnchor.addEventListener('click', function (event) {
             event.preventDefault()
 
             registerSection.style.display = 'none'
             loginSection.style.display = ''
+            // }
         })
 
         var forms = document.querySelectorAll('form')
 
         var registerForm = forms[1]
-
+        //registerForm.onsubmit = function (event) {
         registerForm.addEventListener('submit', function (event) {
             event.preventDefault()
 
@@ -142,38 +144,14 @@
             var password = passwordInput.value
 
             var user = { name: name, email: email, username: username, password: password }
-
+            //users[users.length] = user
             users.push(user)
 
             registerForm.reset()
 
             registerSection.style.display = 'none'
             loginSection.style.display = ''
-        })
-
-        var loginForm = forms[0]
-
-        loginForm.addEventListener('submit', function (event) {
-            event.preventDefault()
-
-            var inputs = loginForm.querySelectorAll('input')
-
-            var usernameInput = inputs[0]
-            var username = usernameInput.value
-
-            var passwordInput = inputs[1]
-            var password = passwordInput.value
-
-            /*
-            buscar en users el usuario con este username y password
-            si existe entonces entrar en home [1]
-            si no, un alerta de error
-            poner un reset cuando se hace submit (se envia el formulario)
-            [1] poner el saludo en home con el name del usuario en el h3
-            apagar login, y encender home
-            */
-
-
+            //}
         })
     </script>
 </body>
