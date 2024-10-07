@@ -205,17 +205,20 @@
         var passwordInput = inputs[1];
         var password = passwordInput.value;
 
-        //creamos variable para 
-        var user = users.find(
-          (user) => user.username === username && user.password === password
-        );
+        //creamos variable para  buscar y almacenar al usuario que coincida
+        // var user = users.find(
+        //   (user) => user.username === username && user.password === password
+        // );
+        var user = users.find(function(user) {
+            return user.username === username && user.password === password;
+        });
         if (user) {
           loggedInUser = user;
           homeSection.style.display = "";
           registerSection.style.display = "none";
           loginSection.style.display = "none";
           var h3 = homeSection.querySelector("h3");
-          h3.innerText ="Hello, "+ user.username;
+          h3.innerText ="Hello, "+ loggedInUser.name;
         } else {
           alert("Username or Password incorrect");
         
@@ -228,9 +231,9 @@
       logout.addEventListener("click", function (event) {
         window.location.reload()
 
-          homeSection.style.display = "none";
-          registerSection.style.display = "none";
-          loginSection.style.display = "";
+        //   homeSection.style.display = "none";
+        //   registerSection.style.display = "none";
+        //   loginSection.style.display = "";
         
       });
 
