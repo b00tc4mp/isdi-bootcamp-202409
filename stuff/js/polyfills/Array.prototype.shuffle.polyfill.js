@@ -47,3 +47,35 @@ var a = [10, 20, 30, 40, 50]
 a.shuffle()
 console.log(a)
 // [40, 10, 30, 50, 20]
+
+var online = [
+    'Carlos Bock',
+    'Cris Beriso',
+    'Rafael Infante',
+    'Angel Ruan',
+    'Jhonatan Gilardi',
+]
+online.shuffle()
+console.log('online', online)
+
+var onsite = [
+    'Aaron Barrios',
+    'Abel Márquez',
+    'Alba Lomas',
+    'Aleix Palau Rufach',
+    'Anna Gonzalez',
+    'Carlos Tomas',
+    'Claudi Cano',
+    'Emiliano Rozas',
+    'Francisco S.',
+    'Javier Romera',
+    'Jonas Veron',
+    'Josué Cano',
+    'Juan Pablo Arias',
+    'Luis Morlets',
+    'Pablo Delgado',
+    'Salva Marchese',
+    'Victoria Kolomytseva',
+]
+onsite.shuffle()
+console.log('onsite', onsite)
