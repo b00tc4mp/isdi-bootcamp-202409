@@ -49,7 +49,7 @@
       transition: background-color 0.3s;
     }
     input:focus {
-            background-color: #939393;
+            background-color: #e0e0e0;
             border-color: #00eaff;
         }
     button{
@@ -60,6 +60,7 @@
       background-color: #ed254e;
       border-radius: 15px;
       font-weight:700 ;
+      cursor: pointer;
 
     }
     p, a{
@@ -86,10 +87,10 @@
     <h2>Login</h2>
     <form>
       <label for="login-user">Username</label>
-      <input type="text" id="login-user" required>
+      <input type="text" id="login-user" placeholder="Insert your username" required>
 
       <label for="login-password">Password</label>
-      <input type="password" id="login-password" required>
+      <input type="password" id="login-password" placeholder="Insert your password" required>
       <button type="submit">Login</button>
     </form>
     <p>You don't have an account?</p><a href="">Register here !</a>
@@ -99,16 +100,16 @@
     <h2>Register</h2>
     <form>
       <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Petar Pan" required>
+      <input type="text" id="name" placeholder="Insert your name" required>
 
       <label for="email">Email</label>
-      <input type="email" id="name" placeholder="example@email.com" required>
+      <input type="email" id="name" placeholder="Insert your E-mail" required>
 
       <label for="username">Username</label>
-      <input type="text" id="username" placeholder="Peterpan" required>
+      <input type="text" id="username" placeholder="Insert your username" required>
 
       <label for="password">Password</label>
-      <input type="password" id="password" required>
+      <input type="password" id="password" placeholder="Insert your password" required>
       <button type="submit">Register</button>
     </form>
     <a href="">Login</a>
@@ -125,6 +126,7 @@
       { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
       { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
     ]
+    var loggedInUser = null
 
     var sections = document.querySelectorAll('section')
     var loginSection = sections[0]
@@ -189,24 +191,24 @@
     loginForm.addEventListener('submit', function (event) {
       event.preventDefault()
       var loginInputs = loginForm.querySelectorAll('input')
-      debugger
       var loginUsername = loginInputs[0].value
       var loginPassword = loginInputs[1].value
 
-      var match = users.find(function (element) {
+      var user = users.find(function (element) {
         return (element.username === loginUsername) && (element.password === loginPassword)
       })
 
-      loginForm.reset()
-
-      if (match) {
+      
+      if (user) {
+        loggedInUser = user
         loginSection.style.display = 'none'
         homeSection.style.display = ''
-        homeSection.querySelector('h3').innerText = 'Hello, ' + match.name
+        var welcome = homeSection.querySelector('h3')
+        welcome.innerText = 'Hello, ' + loggedInUser.name
       } else {
-        alert('The data entered does not correspond to any account, create an account!!!')
+        alert('The data entered does not correspond to any account!')
       }
-
+      loginForm.reset()
     })
     var logoutBotton = homeSection.querySelector('button')
     
