@@ -109,16 +109,16 @@
         <p>Create your account now for free!</p>
         <form>
             <label for="name">Name</label>
-            <input type="text" id="name">
+            <input type="text" id="name" required>
 
             <label for="email">Email</label>
-            <input type="email" id="email">
+            <input type="email" id="email" required>
 
             <label for="username">Username</label>
-            <input type="text" id="username">
+            <input type="text" id="username" required>
 
             <label for="password">Password</label>
-            <input type="password" id="password">
+            <input type="password" id="password" required>
 
             <button type="submit">Register</button>
         </form>
@@ -129,9 +129,9 @@
     <section>
         <h2>Home</h2>
 
-        <div id="homeSection">
-            <h3 id="welcomeMessage"></h3>
-        </div>
+
+        <h3 id="welcomeMessage"></h3>
+
 
         <button type="submit">Logout</button>
     </section>
@@ -236,7 +236,13 @@
 
         function validateLogin(inputUsername, inputPassword) {
             // Buscamos el usuario usando find
-            var user = users.find(user => user.username === inputUsername);
+
+            var user = users.find(function (user) {
+                return user.username === inputUsername
+            });
+
+            //var user = users.find(user => user.username === inputUsername);
+
             console.log(user);
 
             // Si el usuario existe y la contraseña coincide
@@ -245,6 +251,7 @@
                 return user;
             } else {
                 console.log('Usuario o contraseña incorrectos')
+                alert('User or password not correct')
                 return null;
             }
         }

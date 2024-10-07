@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsocial v2</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+
+    :root {
+        --color: #444333;
+        --dark-brown: #333;
+        --white: #ffffff;
+        --font: 'Sixtyfour';
+        font-family: var(--font);
+    }
+
+    body {
+        background-color: lightgrey;
+        color: var(--color);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    section {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        /* Ajusta el tamaño del formulario */
+        margin: 10px;
+    }
+
+    h1,
+    h2 {
+        text-align: center;
+    }
+
+    p {
+        font-size: 0.9em;
+        text-align: center;
+        line-height: 1.3em;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input {
+        margin-bottom: 15px;
+        padding: 10px;
+        font-size: 1.1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font: inherit;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 1.1em;
+        background-color: var(--color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    button:hover {
+        background-color: var(--dark-brown);
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+
+<body>
+    <h1>Unsocial</h1>
+</body>
+
+<script>
+    //Declaramos un array de usuarios para los tests
+    var users = [
+        { name: 'Roger', email: 'roger@roger.com', username: 'roger', password: 'roger123' },
+        { name: 'Lara', email: 'lara@lara.com', username: 'lara', password: 'lara123' },
+    ]
+
+    var loggedUser = null;
+
+    //showLogin()
+
+    //function showLogin() {
+
+    //FORMULARIO DE LOGIN
+    var loginSection = document.createElement('section')
+    var loginTitle = document.createElement('h2')
+    loginTitle.innerText = 'Login'
+    loginSection.appendChild(loginTitle)
+
+    var loginForm = document.createElement('form')
+    loginSection.appendChild(loginForm)
+
+    var loginUsernameLabel = document.createElement('label')
+    loginUsernameLabel.htmlFor = 'username'
+    loginUsernameLabel.innerText = 'Username'
+    loginForm.appendChild(loginUsernameLabel)
+
+    var loginUsernameInput = document.createElement('input')
+    loginUsernameInput.type = 'text'
+    loginUsernameInput.id = 'username'
+    loginForm.appendChild(loginUsernameInput)
+
+    var loginPasswordLabel = document.createElement('label')
+    loginPasswordLabel.htmlFor = 'password'
+    loginPasswordLabel.innerText = 'Password'
+    loginForm.appendChild(loginPasswordLabel)
+
+    var loginPasswordInput = document.createElement('input')
+    loginPasswordInput.type = 'password'
+    loginPasswordInput.id = 'password'
+    loginForm.appendChild(loginPasswordInput)
+
+    var loginSubmitButton = document.createElement('button')
+    loginSubmitButton.type = 'submit'
+    loginSubmitButton.innerText = 'Login'
+    loginForm.appendChild(loginSubmitButton)
+
+    var loginRegisterLink = document.createElement('a')
+    loginRegisterLink.href = ''
+    loginRegisterLink.innerText = 'Register'
+    loginSection.appendChild(loginRegisterLink)
+
+    // }
+
+
+    //FORMULARIO REGISTER
+    //-------------------
+
+    function showRegister() {
+        var registerSection = document.createElement('section')
+        var registerTitle = document.createElement('h2')
+        registerTitle.innerText = 'Register'
+        registerSection.appendChild(registerTitle)
+
+        var registerForm = document.createElement('form')
+        registerSection.appendChild(registerForm)
+
+        var registerNameLabel = document.createElement('label')
+        registerNameLabel.htmlFor = 'name'
+        registerNameLabel.innerText = 'Name'
+        registerForm.appendChild(registerNameLabel)
+
+        var registerNameInput = document.createElement('input')
+        registerNameInput.type = 'text'
+        registerNameInput.id = 'name'
+        registerForm.appendChild(registerNameInput)
+
+        var registerEmailLabel = document.createElement('label')
+        registerEmailLabel.htmlFor = 'email'
+        registerEmailLabel.innerText = 'Your email'
+        registerForm.appendChild(registerEmailLabel)
+
+        var registerEmailInput = document.createElement('input')
+        registerEmailInput.type = 'email'
+        registerEmailInput.id = 'email'
+        registerForm.appendChild(registerEmailInput)
+
+        var registerUserNameLabel = document.createElement('label')
+        registerUserNameLabel.htmlFor = 'username'
+        registerUserNameLabel.innerText = 'Username'
+        registerForm.appendChild(registerUserNameLabel)
+
+        var registerUserNameInput = document.createElement('input')
+        registerUserNameInput.type = 'text'
+        registerUserNameInput.id = 'username'
+        registerForm.appendChild(registerUserNameInput)
+
+        var registerPasswordLabel = document.createElement('label')
+        registerPasswordLabel.htmlFor = 'password'
+        registerPasswordLabel.innerText = 'Password'
+        registerForm.appendChild(registerPasswordLabel)
+
+        var registerPasswordInput = document.createElement('input')
+        registerPasswordInput.type = 'password'
+        registerPasswordInput.id = 'password'
+        registerForm.appendChild(registerPasswordInput)
+
+        var registerSubmitButton = document.createElement('button')
+        registerSubmitButton.type = 'submit'
+        registerSubmitButton.innerText = 'Register now'
+        registerForm.appendChild(registerSubmitButton)
+
+        var registerLoginLink = document.createElement('a')
+        registerLoginLink.href = ''
+        registerLoginLink.innerText = 'Login'
+        registerSection.appendChild(registerLoginLink)
+
+        body.appendChild(registerSection)
+
+        registerLoginLink.addEventListener('click', function (event) {
+            event.preventDefault()
+            registerSection.remove()
+            body.appendChild(loginSection)
+        })
+
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            console.log('Pulso en el botón registrar')
+
+            var name = registerNameInput.value
+            var email = registerEmailInput.value
+            var username = registerUserNameInput.value
+            var password = registerPasswordInput.value
+
+            //Busco si el usuario ya existe
+            var user = users.find(function (user) {
+                return user.username === username
+            })
+
+            //Validamos que el usuario no exista antes de registrarlo
+            if (!user) {
+                var newUser = { name: name, email: email, username: username, password: password }
+                users.push(newUser)
+                body.appendChild(loginSection)
+                registerForm.reset();
+                registerSection.remove();
+            } else {
+                alert('The user ' + username + ' already exist in the database')
+            }
+
+
+
+        })
+    }
+
+    //SECCION HOME
+    function showHome() {
+        console.log('Cargo la homepage')
+
+        var homeSection = document.createElement('section')
+        var homeTitle = document.createElement('h2')
+        homeTitle.innerText = 'Home'
+        homeSection.appendChild(homeTitle)
+
+        var homeWelcome = document.createElement('h3')
+        homeWelcome.innerText = 'Hello ' + loggedUser.name
+        homeSection.appendChild(homeWelcome)
+
+        var logoutClickButton = document.createElement('button')
+        //logoutClickButton.type = 'click'
+        logoutClickButton.innerText = 'Logout'
+        homeSection.appendChild(logoutClickButton)
+
+        body.appendChild(homeSection)
+
+        logoutClickButton.addEventListener('click', function () {
+            loggedUser = null;
+            homeSection.remove();
+            body.appendChild(loginSection)
+        })
+    }
+
+
+    //EVENTOS DE LOS ENLACES Y BOTONES
+    //--------------------------------
+    loginRegisterLink.addEventListener('click', function (event) {
+        event.preventDefault()
+        loginSection.remove()
+        loginForm.reset()
+        showRegister()
+    })
+
+    loginForm.addEventListener('submit', function (event) {
+        event.preventDefault()
+        console.log('Click en botón login')
+
+        var user = users.find(function (user) {
+            return user.username === loginUsernameInput.value && user.password === loginPasswordInput.value
+        })
+
+        console.log(user)
+
+        // Si el usuario existe y la contraseña coincide
+        if (user) {
+            console.log('usuario validado!')
+            console.log("Entro en la zona logueada")
+            loginForm.reset()
+            loginSection.remove()
+            loggedUser = user
+            showHome()
+
+        } else {
+            console.log('Usuario o contraseña incorrectos')
+            alert('User or password not correct')
+            loginPasswordInput.value = ''
+        }
+    })
+
+
+    var body = document.querySelector('body')
+    body.appendChild(loginSection)
+
+</script>
+
+</html>
