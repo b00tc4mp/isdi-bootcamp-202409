@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+
+html {
+    background-image: url(https://img.freepik.com/vector-gratis/textura-malla-linea-cuadricula-geometrica-abstracta-fondo-blanco_1017-54597.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid);
+    display: flex;
+    justify-content: center;
+}
+
+:root {
+    --color: black;
+    --font: 'Protest Strike';
+}
+
+h1 {
+    text-align: center;
+    font-family: var(--font);
+    font-size: 57px;
+}
+
+h2 {
+    text-align: center;
+    font-family: var(--font);
+    font-size: 37px;
+}
