@@ -37,61 +37,10 @@
     <h1>Unsocial</h1>
 
     <script>
-        // data
-
         var users = [
             { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
             { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
         ]
-
-        // business
-
-        function registerUser(name, email, username, password, passwordRepeat) {
-            if (name.length < 2)
-                throw new Error('invalid name')
-
-            if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
-                throw new Error('invalid e-mail')
-
-            if (username.length < 4 || username.length > 12)
-                throw new Error('invalid username')
-
-            if (password.length < 8)
-                throw new Error('invalid password')
-
-            if (password !== passwordRepeat)
-                throw new Error('passwords do not match')
-
-            var user = users.find(function (user) {
-                return user.username === username || user.email === email
-            })
-
-            if (user !== undefined)
-                throw new Error('user already exists')
-
-            user = { name: name, email: email, username: username, password: password }
-
-            users.push(user)
-        }
-
-        function authenticateUser(username, password) {
-            if (username.length < 4 || username.length > 12)
-                throw new Error('invalid username')
-
-            if (password.length < 8)
-                throw new Error('invalid password')
-
-            var user = users.find(function (user) {
-                return user.username === username && user.password === password
-            })
-
-            if (user === undefined)
-                throw new Error('wrong credentials')
-
-            return user
-        }
-
-        // presentation
 
         var loggedInUser = null
 
@@ -135,8 +84,28 @@
             var username = loginUsernameInput.value
             var password = loginPasswordInput.value
 
-            try {
-                loggedInUser = authenticateUser(username, password)
+            if (username.length < 4 || username.length > 12) {
+                alert('invalid username')
+
+                return
+            }
+
+            if (password.length < 8) {
+                alert('invalid password')
+
+                return
+            }
+
+            var user = users.find(function (user) {
+                return user.username === username && user.password === password
+            })
+
+            if (user === undefined) {
+                alert('Wrong credentials')
+
+                loginPasswordInput.value = ''
+            } else {
+                loggedInUser = user
 
                 loginForm.reset()
 
@@ -167,10 +136,6 @@
                 })
 
                 body.appendChild(homeSection)
-            } catch (error) {
-                alert(error.message)
-
-                console.error(error)
             }
         })
 
@@ -257,19 +222,55 @@
                 var password = registerPasswordInput.value
                 var passwordRepeat = registerPasswordRepeatInput.value
 
-                try {
-                    registerUser(name, email, username, password, passwordRepeat)
+                if (name.length < 2) {
+                    alert('invalid name')
 
-                    registerForm.reset()
-
-                    registerSection.remove()
-
-                    body.appendChild(loginSection)
-                } catch (error) {
-                    alert(error.message)
-
-                    console.error(error)
+                    return
                 }
+
+                if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)) {
+                    alert('invalid e-mail')
+
+                    return
+                }
+
+                if (username.length < 4 || username.length > 12) {
+                    alert('invalid username')
+
+                    return
+                }
+
+                if (password.length < 8) {
+                    alert('invalid password')
+
+                    return
+                }
+
+                if (password !== passwordRepeat) {
+                    alert('passwords do not match')
+
+                    return
+                }
+
+                var user = users.find(function (user) {
+                    return user.username === username || user.email === email
+                })
+
+                if (user !== undefined) {
+                    alert('user already exists')
+
+                    return
+                }
+
+                user = { name: name, email: email, username: username, password: password }
+
+                users.push(user)
+
+                registerForm.reset()
+
+                registerSection.remove()
+
+                body.appendChild(loginSection)
             })
 
             var registerLoginLink = document.createElement('a')
