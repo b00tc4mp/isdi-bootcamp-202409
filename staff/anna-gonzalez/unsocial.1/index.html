@@ -178,7 +178,7 @@
             var username = loginUsernameInput.value
             var password = loginPasswordInput.value
 
-            try {
+            try { //call the declarated function on line 92
                 loggedInUser = loginUser(username, password)
 
                 loginForm.reset()
@@ -289,7 +289,7 @@
             var password = registerPasswordInput.value
             var passwordRepeat = registerPasswordRepeatInput.value
 
-            try {
+            try { //call the declarated function on line 106
                 registerUser(name, email, username, password, passwordRepeat)
 
                 registerForm.reset()
