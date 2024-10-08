@@ -12,12 +12,15 @@
         @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
 
         :root {
-            --color: rgb(0, 4, 255);
+            --color: #7F462C;
             --font: 'Sixtyfour';
             font-family: var(--font);
         }
 
         body {
+            background-image: url(https://c4.wallpaperflare.com/wallpaper/390/245/116/raphael-school-of-athens-hd-wallpaper-preview.jpg);
+            background-size: cover;
+            background-attachment: fixed;
             background-color: black;
             color: var(--color);
             margin: 0;
@@ -33,7 +36,7 @@
         .container {
             width: 350px;
             padding: 40px;
-            background-color: white;
+            background-color: rgb(255, 255, 255);
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -92,11 +95,11 @@
             <h2>Login</h2>
 
             <form>
-                <label>Username</label>
-                <input type="text" placeholder="Enter your Username" />
+                <label for="username">Username</label>
+                <input type="text" placeholder="Enter your Username" id="username">
                 <br>
-                <label>Password</label>
-                <input type="password" placeholder="Enter your password" />
+                <label for="password">Password</label>
+                <input type="password" placeholder="Enter your password" id="password" />
 
                 <button type="submit">Login</button>
             </form>
@@ -120,6 +123,9 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="Enter your password" />
 
+                <label for="password">Repeat Password</label>
+                <input type="password" id="password" placeholder="Repeat your password" />
+
                 <button type="submit">Register</button>
             </form>
 
@@ -135,10 +141,58 @@
         </section>
 
         <script>
+            //DATA
             var users = [
                 { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
                 { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
             ]
+
+            //LOGIC
+            function registerUser(name, email, username, password, repeatPassword) {
+                if (name.length < 2)
+                    throw new Error("Invalid Name")
+
+                if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
+                    throw new Error("Invalid Email")
+
+                if (username.lenght < 4 || username.length > 12)
+                    throw new Error("Invalid Username")
+
+                if (password.length < 8)
+                    throw new Error("Invalid Password")
+
+                if (password !== repeatPassword)
+                    throw new Error("Passwords do NOT match")
+
+                var user = users.find(function (user) {
+                    return user.username === username || user.email === email
+                })
+                if (user !== undefined)
+                    throw new Error("User already exist")
+
+                user = { name: name, email: email, username: username, password: password }
+
+                users.push(user)
+            }
+
+            function authenticateUser(username, password) {
+                if (username.length < 4 || username.length > 12)
+                    throw new Error('Invalid Username')
+
+                if (password.length < 8)
+                    throw new Error('Invalid Password')
+
+                var user = users.find(function (user) {
+                    return user.username === username && user.password === password
+                })
+
+                if (user === undefined)
+                    throw new Error('Wrong Credentials')
+
+                return user
+            }
+
+            //Presentation
 
             var loggedInUser = null
 
@@ -190,20 +244,23 @@
                 var passwordInput = inputs[1]
                 var password = passwordInput.value
 
-                if (users.find(function (user) {
-                    if (user.username === username && user.password === password) {
-                        loggedInUser = user
-                        return true
-                    }
-                })) {
+
+                try {
+                    loggedInUser = authenticateUser(username, password)
+
                     loginForm.reset()
+
                     loginSection.style.display = 'none'
                     homeSection.style.display = ''
-                    var h3 = homeSection.querySelector("h3")
-                    h3.innerText = "Hello, " + loggedInUser.name
 
-                } else {
-                    alert("Invalid information")
+                    var homeUserTitle = homeSection.querySelector("h3")
+                    homeUserTitle.innerText = "Hello, " + loggedInUser.name + " !"
+
+                } catch (error) {
+                    passwordInput.value = ""
+
+                    alert(error.message)
+                    console.error(error)
                 }
             })
 
@@ -226,15 +283,26 @@
                 var passwordInput = inputs[3]
                 var password = passwordInput.value
 
-                var user = { name: name, email: email, username: username, password: password }
-                //users[users.length] = user
-                users.push(user)
+                var repeatPasswordInput = inputs[4]
+                var repeatPassword = repeatPasswordInput.value
 
-                registerForm.reset()
 
-                registerSection.style.display = 'none'
-                loginSection.style.display = ''
-                //}
+                //u sers[users.length] = user
+                try {
+
+                    registerUser(name, email, username, password, repeatPassword)
+
+                    registerForm.reset()
+
+                    registerSection.style.display = 'none'
+                    loginSection.style.display = ''
+                }
+                catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+
             })
 
             var button = document.querySelectorAll("button")
@@ -242,18 +310,13 @@
             var logoutButton = button[2]
 
             logoutButton.addEventListener('click', function (event) {
+                event.preventDefault()
+
+                loggedInUser = null // limpiamos usuario de la memoria.
 
                 loginSection.style.display = ''
                 homeSection.style.display = 'none'
-
             })
-
-
-
-
-
-
-
         </script>
     </div>
 </body>
