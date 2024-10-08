@@ -6,7 +6,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unsocial</title>
   <link rel="shortcut icon" href="/staff/rafael-infante/unsocial/images/users-avatar2.png" type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    :root {
+      --font: 'Poppins';
+      font-family: var(--font);
+      background-color: #e4b834;
+    }
+
+    .logo-container {
+      display: flex;
+      text-decoration: none;
+      color: black;
+      align-items: center;
+      margin: 0;
+      padding-left: 15px;
+    }
+
+    .logo {
+      max-height: 45px;
+      margin-right: 5px;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 15px;
+    }
+
+    .section-container {
+      background-color: white;
+      padding: 20px;
+      margin: 10px;
+      width: 85%;
+      max-width: 500px;
+      min-height: 500px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    label {
+      padding-bottom: 8px;
+    }
+
+    input {
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid gray;
+    }
+
+    h4 {
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    button {
+      color: white;
+      background-color: black;
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: bolder;
+      border: none;
+    }
+
+    button:hover {
+      color: black;
+      background-color: #e7cc79;
+      border: none;
+    }
+
+    #btn-register {
+      margin: 0;
+    }
+
+    #bottom-text,
+    p {
+      font-size: 12px;
+      color: grey;
+      margin-top: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+    }
+
+    a:hover {
+      color: #dda600;
+    }
+
+    h4 {
+      margin: 0;
+    }
+  </style>
 </head>
 
 <body>
@@ -15,9 +123,12 @@
     <h1>unSocial</h1>
   </header>
 
-  <script src="data.js"></script>
-
   <script>
+
+    var users = [
+      { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
+      { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
+    ]
 
     var loggedUser = null
     // Login section
