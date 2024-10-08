@@ -1,24 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
 html {
     background-image: url(https://img.freepik.com/vector-gratis/textura-malla-linea-cuadricula-geometrica-abstracta-fondo-blanco_1017-54597.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid);
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 
 :root {
     --color: black;
-    --font: 'Protest Strike';
+    --font: 'Bangers';
+    font-family: var(--font);
+    font-size: 25px;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 2%;
+}
+
+
+input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-family: inherit;
+}
+
 
 h1 {
     text-align: center;
-    font-family: var(--font);
+    font-family: 'Protest Strike';
     font-size: 57px;
 }
 
 h2 {
     text-align: center;
-    font-family: var(--font);
+    font-family: 'Protest Strike';
     font-size: 37px;
+}
+
+button {
+    font-family: var(--font);
+    background-color: black;
+    color: rgb(255, 243, 229);
+    font-size: 24px;
 }

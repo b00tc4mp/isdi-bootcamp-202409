@@ -22,7 +22,7 @@ loginForm.appendChild(loginUsernameInput)
 var loginPasswordLabel = document.createElement('label')
 loginPasswordLabel.htmlFor = 'password'
 loginPasswordLabel.innerText = 'Password'
-loginForm.appendChild(loginPasswordLabel)
+loginForm.appendChild(loginPasswordLabel) 
 
 var loginPasswordInput = document.createElement('input')
 loginPasswordInput.type = 'password'
