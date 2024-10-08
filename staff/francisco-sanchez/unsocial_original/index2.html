@@ -100,8 +100,6 @@
 
     var loggedUser = null;
 
-    //showLogin()
-
     //function showLogin() {
 
     //FORMULARIO DE LOGIN
@@ -143,12 +141,12 @@
     loginRegisterLink.innerText = 'Register'
     loginSection.appendChild(loginRegisterLink)
 
-    // }
+    //
+    //showLogin()
 
 
-    //FORMULARIO REGISTER
+    //SECTION REGISTER
     //-------------------
-
     function showRegister() {
         var registerSection = document.createElement('section')
         var registerTitle = document.createElement('h2')
@@ -166,6 +164,7 @@
         var registerNameInput = document.createElement('input')
         registerNameInput.type = 'text'
         registerNameInput.id = 'name'
+        registerNameInput.required = true
         registerForm.appendChild(registerNameInput)
 
         var registerEmailLabel = document.createElement('label')
@@ -176,6 +175,7 @@
         var registerEmailInput = document.createElement('input')
         registerEmailInput.type = 'email'
         registerEmailInput.id = 'email'
+        registerEmailInput.required = true
         registerForm.appendChild(registerEmailInput)
 
         var registerUserNameLabel = document.createElement('label')
@@ -186,8 +186,10 @@
         var registerUserNameInput = document.createElement('input')
         registerUserNameInput.type = 'text'
         registerUserNameInput.id = 'username'
+        registerUserNameInput.required = true
         registerForm.appendChild(registerUserNameInput)
 
+        //Campo para el password
         var registerPasswordLabel = document.createElement('label')
         registerPasswordLabel.htmlFor = 'password'
         registerPasswordLabel.innerText = 'Password'
@@ -196,7 +198,22 @@
         var registerPasswordInput = document.createElement('input')
         registerPasswordInput.type = 'password'
         registerPasswordInput.id = 'password'
+        registerPasswordInput.required = true
         registerForm.appendChild(registerPasswordInput)
+
+        //Campo para el check password
+        var checkRegisterPasswordLabel = document.createElement('label')
+        checkRegisterPasswordLabel.htmlFor = 'checkpassword'
+        checkRegisterPasswordLabel.htmlFor = 'checkpassword'
+        checkRegisterPasswordLabel.innerText = 'Repeat password'
+        checkRegisterPasswordInput.required = true
+        registerForm.appendChild(checkRegisterPasswordLabel)
+
+        var checkRegisterPasswordInput = document.createElement('input')
+        checkRegisterPasswordInput.type = 'password'
+        checkRegisterPasswordInput.id = 'checkpassword'
+        registerForm.appendChild(checkRegisterPasswordInput)
+
 
         var registerSubmitButton = document.createElement('button')
         registerSubmitButton.type = 'submit'
@@ -210,12 +227,14 @@
 
         body.appendChild(registerSection)
 
+        //Evento click del enlace de la página de registro a login
         registerLoginLink.addEventListener('click', function (event) {
             event.preventDefault()
             registerSection.remove()
             body.appendChild(loginSection)
         })
 
+        //Evento submit del botón register
         registerForm.addEventListener('submit', function (event) {
             event.preventDefault();
             console.log('Pulso en el botón registrar')
@@ -224,24 +243,34 @@
             var email = registerEmailInput.value
             var username = registerUserNameInput.value
             var password = registerPasswordInput.value
+            var checkPassword = checkRegisterPasswordInput.value
+            var error = false
 
             //Busco si el usuario ya existe
             var user = users.find(function (user) {
                 return user.username === username
             })
 
+            //Validamos el password
+            if (password !== checkPassword) {
+                error = true
+                alert('Passwords not match')
+            }
+
+            if (user) {
+                error = true
+                alert('The user ' + username + ' already exist in the database')
+            }
+
+
             //Validamos que el usuario no exista antes de registrarlo
-            if (!user) {
+            if (!error) {
                 var newUser = { name: name, email: email, username: username, password: password }
                 users.push(newUser)
                 body.appendChild(loginSection)
                 registerForm.reset();
                 registerSection.remove();
-            } else {
-                alert('The user ' + username + ' already exist in the database')
             }
-
-
 
         })
     }
@@ -266,6 +295,7 @@
 
         body.appendChild(homeSection)
 
+        //Evento click del botón logout
         logoutClickButton.addEventListener('click', function () {
             loggedUser = null;
             homeSection.remove();
@@ -276,6 +306,8 @@
 
     //EVENTOS DE LOS ENLACES Y BOTONES
     //--------------------------------
+
+    //Evento click del enlace registro
     loginRegisterLink.addEventListener('click', function (event) {
         event.preventDefault()
         loginSection.remove()
@@ -283,10 +315,12 @@
         showRegister()
     })
 
+    //Evento submit del botón login 
     loginForm.addEventListener('submit', function (event) {
         event.preventDefault()
         console.log('Click en botón login')
 
+        //Con el método find() realizamos la validación del usuario
         var user = users.find(function (user) {
             return user.username === loginUsernameInput.value && user.password === loginPasswordInput.value
         })
@@ -308,7 +342,6 @@
             loginPasswordInput.value = ''
         }
     })
-
 
     var body = document.querySelector('body')
     body.appendChild(loginSection)
