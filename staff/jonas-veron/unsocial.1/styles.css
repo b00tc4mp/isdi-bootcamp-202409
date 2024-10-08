@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
 
 body{
-background-color: #ebf2fa;
+background-color: #a0a0a1;
 text-align: center;
 box-sizing: border-box;
 }
+
 :root {
 --font: 'Noto Sans JP';
 font-family: var(--font);
 }
+
 h1{
-font-size: 35px;
+font-size: 50px;
 width: 100%;
 }
 
-
-.login{
+section{
 background-color: #ebf2fa;
 width:auto;
-height: 350px;
 max-width: 400px;
 min-width: 300px;
 margin: auto;
@@ -26,29 +26,16 @@ padding: 10px;
 border-radius: 10px;
 box-shadow: 2px 2px 2px 2px;
 }
+.login{
+height: 350px;
+}
 
 .register{
-    background-color: #ebf2fa;
-    width:auto;
     height: 500px;
-    max-width: 400px;
-    min-width: 300px;
-    margin:auto;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px;
 }
 
 .home{
-    background-color: #ebf2fa;
-    width:auto;
     height: 250px;
-    max-width: 400px;
-    min-width: 300px;
-    margin:30px auto;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px;
 }
 
 form{
@@ -68,10 +55,12 @@ border: 1px solid black;
 padding: 10px;
 transition: background-color 0.3s;
 }
+
 input:focus {
 background-color: #e0e0e0;
 border-color: #00eaff;
 }
+
 button{
 display: block;
 margin: 20px auto;
@@ -87,9 +76,11 @@ p, a{
 display: inline;
 margin: 5px
 }
+
 a{
 text-decoration: none;
 }
+
 a:visited {
 color: inherit;
 }

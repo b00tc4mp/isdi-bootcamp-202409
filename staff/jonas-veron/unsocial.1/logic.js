@@ -1,3 +1,5 @@
+
+//function to register user
 function registerUser(nameInput, emailInput, usernameInput, passwordInput, passwordRepeatInput){
 
     if(nameInput.length < 2){
@@ -37,6 +39,9 @@ var user = {
 
 users.push(user)
 }
+
+
+//function to autenticate logins
 
 function autenticateUser(username, password){
 // create conditions for login

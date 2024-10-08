@@ -2,7 +2,6 @@ var loggedInUser = null
 
 //create login section
 
-
     var loginSection = document.createElement('section')
     loginSection.classList = 'login'
     var loginTitle = document.createElement('h2')
@@ -49,7 +48,6 @@ var loggedInUser = null
         try{
             loggedInUser = autenticateUser(username, password)
             loginForm.reset()
-
 
 //create a Home Section
 
