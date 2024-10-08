@@ -78,55 +78,6 @@
         loginSubmitButton.innerText = 'Login'
         loginForm.appendChild(loginSubmitButton)
 
-        loginForm.addEventListener('submit', function (event) {
-            event.preventDefault()
-
-            var username = loginUsernameInput.value
-            var password = loginPasswordInput.value
-
-            var user = users.find(function (user) {
-                return user.username === username && user.password === password
-            })
-
-            if (user === undefined) {
-                alert('Wrong credentials')
-
-                loginPasswordInput.value = ''
-            } else {
-                loggedInUser = user
-
-                loginForm.reset()
-
-                loginSection.remove()
-
-                var homeSection = document.createElement('section')
-
-                var homeTitle = document.createElement('h2')
-                homeTitle.innerText = 'Home'
-                homeSection.appendChild(homeTitle)
-
-                var homeUserTitle = document.createElement('h3')
-                homeUserTitle.innerText = 'Hello, ' + loggedInUser.name + '!'
-                homeSection.appendChild(homeUserTitle)
-
-                var homeLogoutButton = document.createElement('button')
-                homeLogoutButton.innerText = 'Logout'
-                homeSection.appendChild(homeLogoutButton)
-
-                homeLogoutButton.addEventListener('click', function (event) {
-                    event.preventDefault()
-
-                    loggedInUser = null
-
-                    homeSection.remove()
-
-                    body.appendChild(loginSection)
-                })
-
-                body.appendChild(homeSection)
-            }
-        })
-
         var loginRegisterLink = document.createElement('a')
         loginRegisterLink.href = ''
         loginRegisterLink.innerText = 'Register'
@@ -190,25 +141,6 @@
             registerSubmitButton.type = 'submit'
             registerSubmitButton.innerText = 'Register'
             registerForm.appendChild(registerSubmitButton)
-
-            registerForm.addEventListener('submit', function (event) {
-                event.preventDefault()
-
-                var name = registerNameInput.value
-                var email = registerEmailInput.value
-                var username = registerUsernameInput.value
-                var password = registerPasswordInput.value
-
-                var user = { name: name, email: email, username: username, password: password }
-
-                users.push(user)
-
-                registerForm.reset()
-
-                registerSection.remove()
-
-                body.appendChild(loginSection)
-            })
 
             var registerLoginLink = document.createElement('a')
             registerLoginLink.href = ''
