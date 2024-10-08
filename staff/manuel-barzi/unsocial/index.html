@@ -168,6 +168,8 @@
 
                 body.appendChild(homeSection)
             } catch (error) {
+                loginPasswordInput.value = ''
+
                 alert(error.message)
 
                 console.error(error)

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsocial</title>
+
+    <link rel="shortcut icon" href="https://b00tc4mp.com/favicon.ico" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+
+        :root {
+            --color: dodgerblue;
+            --font: 'Sixtyfour';
+            font-family: var(--font);
+        }
+
+        body {
+            background-color: lightgrey;
+            color: var(--color);
+        }
+
+        input {
+            background-color: inherit;
+            font-family: inherit;
+        }
+
+        a:visited {
+            color: var(--color);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Unsocial</h1>
+
+    <section>
+        <h2>Login</h2>
+
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" />
+            <label for="password">Password</label>
+            <input type="password" id="password" />
+
+            <button type="submit">Login</button>
+        </form>
+
+        <a href="">Register</a>
+    </section>
+
+    <section>
+        <h2>Register</h2>
+
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" />
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" />
+
+            <label for="username">Username</label>
+            <input type="text" id="username" />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" />
+
+            <button type="submit">Register</button>
+        </form>
+
+        <a href="">Login</a>
+    </section>
+
+    <section>
+        <h2>Home</h2>
+
+        <h3>Hello, User!</h3>
+
+        <button>Logout</button>
+    </section>
+
+    <script>
+        // data
+
+        var users = [
+            { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
+            { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
+        ]
+
+        // business
+
+        function registerUser(name, email, username, password, passwordRepeat) {
+            if (name.length < 2)
+                throw new Error('invalid name')
+
+            if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
+                throw new Error('invalid e-mail')
+
+            if (username.length < 4 || username.length > 12)
+                throw new Error('invalid username')
+
+            if (password.length < 8)
+                throw new Error('invalid password')
+
+            if (password !== passwordRepeat)
+                throw new Error('passwords do not match')
+
+            var user = users.find(function (user) {
+                return user.username === username || user.email === email
+            })
+
+            if (user !== undefined)
+                throw new Error('user already exists')
+
+            user = { name: name, email: email, username: username, password: password }
+
+            users.push(user)
+        }
+
+        function authenticateUser(username, password) {
+            if (username.length < 4 || username.length > 12)
+                throw new Error('invalid username')
+
+            if (password.length < 8)
+                throw new Error('invalid password')
+
+            var user = users.find(function (user) {
+                return user.username === username && user.password === password
+            })
+
+            if (user === undefined)
+                throw new Error('wrong credentials')
+
+            return user
+        }
+
+        // presentation
+
+        var loggedInUser = null
+
+        var sections = document.querySelectorAll('section')
+
+        var loginSection = sections[0]
+        // loginSection.style.display = 'none'
+
+        var registerSection = sections[1]
+        registerSection.style.display = 'none'
+
+        var homeSection = sections[2]
+        homeSection.style.display = 'none'
+
+        var anchors = document.querySelectorAll('a')
+
+        var registerAnchor = anchors[0]
+
+        registerAnchor.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            loginSection.style.display = 'none'
+            registerSection.style.display = ''
+        })
+
+        var loginAnchor = anchors[1]
+
+        loginAnchor.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            registerSection.style.display = 'none'
+            loginSection.style.display = ''
+        })
+
+        var forms = document.querySelectorAll('form')
+
+        var registerForm = forms[1]
+
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+            var inputs = registerForm.querySelectorAll('input')
+
+            var nameInput = inputs[0]
+            var name = nameInput.value
+
+            var emailInput = inputs[1]
+            var email = emailInput.value
+
+            var usernameInput = inputs[2]
+            var username = usernameInput.value
+
+            var passwordInput = inputs[3]
+            var password = passwordInput.value
+
+            try {
+                registerUser(name, email, username, password, password)
+
+                registerForm.reset()
+
+                registerSection.style.display = 'none'
+                loginSection.style.display = ''
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        })
+
+        var loginForm = forms[0]
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+            var inputs = loginForm.querySelectorAll('input')
+
+            var usernameInput = inputs[0]
+            var username = usernameInput.value
+
+            var passwordInput = inputs[1]
+            var password = passwordInput.value
+
+            try {
+                loggedInUser = authenticateUser(username, password)
+
+                loginForm.reset()
+
+                var homeUserTitle = homeSection.querySelector('h3')
+                homeUserTitle.innerText = 'Hello, ' + loggedInUser.name + '!'
+
+                loginSection.style.display = 'none'
+                homeSection.style.display = ''
+            } catch (error) {
+                passwordInput.value = ''
+
+                alert(error.message)
+
+                console.error(error)
+            }
+        })
+
+        var logoutButton = homeSection.querySelector('button')
+
+        logoutButton.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            loggedInUser = null
+
+            homeSection.style.display = 'none'
+            loginSection.style.display = ''
+        })
+    </script>
+</body>
+
+</html>
