@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unsocial</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="shortcut icon" href="/staff/rafael-infante/unsocial/images/users-avatar2.png" type="image/x-icon">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -68,8 +69,6 @@
       border: 1px solid gray;
     }
 
-
-
     button {
       color: white;
       background-color: black;
@@ -112,6 +111,29 @@
 
     h4 {
       margin: 20px;
+    }
+
+    .password-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .password-container input {
+      width: 95%;
+    }
+
+    .password-container i {
+      position: absolute;
+      top: 40%;
+      right: 18px;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    @media (max-width: 350px) {
+      .password-container input {
+        width: 92%;
+      }
     }
   </style>
 </head>
@@ -183,6 +205,8 @@
     var loginUsernameLabel = document.createElement('label')
     var loginUsernameInput = document.createElement('input')
     var loginPasswordLabel = document.createElement('label')
+    var loginPasswordInputContainer = document.createElement('div')
+    var loginPasswordIcon = document.createElement('i')
     var loginPasswordInput = document.createElement('input')
     var loginButton = document.createElement('button')
     var loginBottomText = document.createElement('p')
@@ -204,14 +228,20 @@
     loginUsernameInput.placeholder = 'Enter your user name'
     loginUsernameInput.required = true
     loginForm.appendChild(loginPasswordLabel)
-    loginForm.appendChild(loginPasswordInput)
+    loginForm.appendChild(loginPasswordInputContainer)
+    loginPasswordInputContainer.classList.add('password-container')
+    loginPasswordInputContainer.appendChild(loginPasswordInput)
     loginPasswordLabel.htmlFor = 'login-password'
     loginPasswordLabel.innerText = 'Password'
     loginPasswordLabel.id = 'login-password'
     loginPasswordInput.type = 'password'
-    loginPasswordInput.id = 'login-password'
+    loginPasswordInput.id = 'password'
     loginPasswordInput.placeholder = 'Enter your Password'
     loginPasswordInput.required = true
+    loginPasswordInputContainer.appendChild(loginPasswordIcon)
+    loginPasswordIcon.classList.add('far')
+    loginPasswordIcon.classList.add('fa-eye')
+    loginPasswordIcon.id = 'icon'
     loginForm.appendChild(loginButton)
     loginButton.id = 'btn-login'
     loginButton.type = 'submit'
@@ -222,6 +252,22 @@
 
     var body = document.querySelector('body')
     body.appendChild(loginSection)
+
+    var icon = document.querySelector('#icon')
+    var input = document.querySelector('#password')
+    var isVisible = false
+
+    icon.addEventListener('click', function (event) {
+      icon.classList.toggle('fa-eye-slash')
+      if (!isVisible) {
+        input.type = 'text'
+        isVisible = true
+      } else {
+        input.type = 'password'
+        isVisible = false
+      }
+
+    })
 
     var registerAnchor = document.getElementById('registerAnchor')
     // Send user to register section when clicking on register anchor

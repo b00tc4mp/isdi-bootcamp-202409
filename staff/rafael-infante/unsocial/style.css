@@ -59,8 +59,6 @@ input {
   border: 1px solid gray;
 }
 
-
-
 button {
   color: white;
   background-color: black;
@@ -103,4 +101,27 @@ a:hover {
 
 h4 {
   margin: 20px;
+}
+
+.password-container {
+  position: relative;
+  display: inline-block;
+}
+
+.password-container input {
+  width: 95%;
+}
+
+.password-container i {
+  position: absolute;
+  top: 40%;
+  right: 18px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+@media (max-width: 350px) {
+  .password-container input {
+    width: 92%;
+  }
 }

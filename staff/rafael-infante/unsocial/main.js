@@ -1,4 +1,3 @@
-// PRESENTATION
 var loggedUser = null
 // Login section
 var loginSection = document.createElement('section')
@@ -9,6 +8,8 @@ var loginForm = document.createElement('form')
 var loginUsernameLabel = document.createElement('label')
 var loginUsernameInput = document.createElement('input')
 var loginPasswordLabel = document.createElement('label')
+var loginPasswordInputContainer = document.createElement('div')
+var loginPasswordIcon = document.createElement('i')
 var loginPasswordInput = document.createElement('input')
 var loginButton = document.createElement('button')
 var loginBottomText = document.createElement('p')
@@ -30,14 +31,20 @@ loginUsernameInput.id = 'login-user'
 loginUsernameInput.placeholder = 'Enter your user name'
 loginUsernameInput.required = true
 loginForm.appendChild(loginPasswordLabel)
-loginForm.appendChild(loginPasswordInput)
+loginForm.appendChild(loginPasswordInputContainer)
+loginPasswordInputContainer.classList.add('password-container')
+loginPasswordInputContainer.appendChild(loginPasswordInput)
 loginPasswordLabel.htmlFor = 'login-password'
 loginPasswordLabel.innerText = 'Password'
 loginPasswordLabel.id = 'login-password'
 loginPasswordInput.type = 'password'
-loginPasswordInput.id = 'login-password'
+loginPasswordInput.id = 'password'
 loginPasswordInput.placeholder = 'Enter your Password'
 loginPasswordInput.required = true
+loginPasswordInputContainer.appendChild(loginPasswordIcon)
+loginPasswordIcon.classList.add('far')
+loginPasswordIcon.classList.add('fa-eye')
+loginPasswordIcon.id = 'icon'
 loginForm.appendChild(loginButton)
 loginButton.id = 'btn-login'
 loginButton.type = 'submit'
@@ -48,6 +55,21 @@ loginBottomText.innerHTML = `Don't have an account? <a id="registerAnchor" href=
 
 var body = document.querySelector('body')
 body.appendChild(loginSection)
+
+var icon = document.querySelector('#icon')
+var input = document.querySelector('#password')
+var isVisible = false
+
+icon.addEventListener('click', function (event) {
+  icon.classList.toggle('fa-eye-slash')
+  if (!isVisible) {
+    input.type = 'text'
+    isVisible = true
+  } else {
+    input.type = 'password'
+    isVisible = false
+  }
+})
 
 var registerAnchor = document.getElementById('registerAnchor')
 // Send user to register section when clicking on register anchor
