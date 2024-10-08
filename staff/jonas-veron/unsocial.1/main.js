@@ -1,6 +1,8 @@
 var loggedInUser = null
 
 //create login section
+
+
     var loginSection = document.createElement('section')
     loginSection.classList = 'login'
     var loginTitle = document.createElement('h2')
@@ -9,7 +11,7 @@ var loggedInUser = null
 //create a form
     var loginForm = document.createElement('form')
     loginSection.appendChild(loginForm)
-    //create label username     
+//create label username     
     var loginUsernameLabel = document.createElement('label')
     loginUsernameLabel.htmlFor = 'username'
     loginUsernameLabel.innerText = 'Username'
@@ -37,50 +39,51 @@ var loggedInUser = null
     loginSubmitButton.innerText = 'Login'
     loginForm.appendChild(loginSubmitButton)
 
-    //create a function to login
+//create a function to login
     loginForm.addEventListener('submit', function(event){
-    event.preventDefault()
+        event.preventDefault()
 
-    var username = loginUsernameInput.value
-    var password = loginPasswordInput.value
+        var username = loginUsernameInput.value
+        var password = loginPasswordInput.value
 
-    try{
-    loggedInUser = autenticateUser(username, password)
-    loginForm.reset()
+        try{
+            loggedInUser = autenticateUser(username, password)
+            loginForm.reset()
+
 
 //create a Home Section
 
-    loginSection.remove()
-    var homeSection = document.createElement('section')
-    homeSection.classList = 'home'
-    var homeTitle = document.createElement('h2')
-    homeTitle.innertext = 'Home'
-    homeSection.appendChild(homeTitle)
-    var homeSubtitle = document.createElement('h3')
-    homeSubtitle.innerText = 'Hello, ' + loggedInUser.name + '!'
-    homeSection.appendChild(homeSubtitle)
+            loginSection.remove()
+            var homeSection = document.createElement('section')
+            homeSection.classList = 'home'
+            var homeTitle = document.createElement('h2')
+            homeTitle.innertext = 'Home'
+            homeSection.appendChild(homeTitle)
+            var homeSubtitle = document.createElement('h3')
+            homeSubtitle.innerText = 'Hello, ' + loggedInUser.name + '!'
+            homeSection.appendChild(homeSubtitle)
 
 //create a button for return to login
-    var logoutSubmitButton = document.createElement('button')
-    logoutSubmitButton.type = 'submit'
-    logoutSubmitButton.innerText = 'Logout'
-    homeSection.appendChild(logoutSubmitButton)
-    loginForm.reset()
+            var logoutSubmitButton = document.createElement('button')
+            logoutSubmitButton.type = 'submit'
+            logoutSubmitButton.innerText = 'Logout'
+            homeSection.appendChild(logoutSubmitButton)
+            loginForm.reset()
 
 //create a function for return to login
-logoutSubmitButton.addEventListener('click', function(event){
-    event.preventDefault()
-    loggedInUser = null
-    homeSection.remove()
-    body.appendChild(loginSection)
+            logoutSubmitButton.addEventListener('click', function(event){
+                event.preventDefault()
+                loggedInUser = null
+                homeSection.remove()
+                body.appendChild(loginSection)
 })     
-body.appendChild(homeSection)
-} catch (error) {
-    loginPasswordInput.value = ''
+            body.appendChild(homeSection)
+        } catch (error) {
+            loginPasswordInput.value = ''
 
-    alert(error.message)
-    console.log(error)
-}
+            alert(error.message)
+            console.log(error)
+    }
 })
 
 
@@ -172,26 +175,26 @@ loginRegisterLink.addEventListener('click', function(event){
     registerLoginLink.innerText = 'Login'
     registerSection.appendChild(registerLoginLink)
 //create FUNCTION to register 
-registerForm.addEventListener('submit', function (event) {
-    event.preventDefault()
-    var nameInput = registerNameInput.value
-    var emailInput = registerEmailInput.value
-    var usernameInput = registerUsernameInput.value
-    var passwordInput = registerPasswordInput.value
-    var passwordRepeatInput = registerPasswordRepeatInput.value
+    registerForm.addEventListener('submit', function (event) {
+        event.preventDefault()
+        var nameInput = registerNameInput.value
+        var emailInput = registerEmailInput.value
+        var usernameInput = registerUsernameInput.value
+        var passwordInput = registerPasswordInput.value
+        var passwordRepeatInput = registerPasswordRepeatInput.value
 
-    try{
-        registerUser(nameInput, emailInput, usernameInput, passwordInput, passwordRepeatInput)
-    
-        registerForm.reset()
-        registerSection.remove()
-        body.appendChild(loginSection)
+        try{
+            registerUser(nameInput, emailInput, usernameInput, passwordInput, passwordRepeatInput)
+        
+            registerForm.reset()
+            registerSection.remove()
+            body.appendChild(loginSection)
         }catch (error){
             alert(error.message)
 
             console.log(error)
-        }
-    })
+            }
+        })
 
 //create a function for a button Login          
     registerLoginLink.addEventListener('click', function(event){
