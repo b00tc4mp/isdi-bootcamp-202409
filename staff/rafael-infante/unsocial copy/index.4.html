@@ -34,12 +34,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 0 15px 15px 15px;
+      margin: 15px;
     }
 
     .section-container {
       background-color: white;
-      padding: 0 20px 20px 20px;
+      padding: 20px;
       margin: 10px;
       width: 85%;
       max-width: 500px;
@@ -57,18 +57,20 @@
     }
 
     label {
-      padding-bottom: 6px;
-      font-size: 14px;
+      padding-bottom: 8px;
     }
 
     input {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid gray;
     }
 
-
+    h4 {
+      font-size: 15px;
+      font-weight: 400;
+    }
 
     button {
       color: white;
@@ -93,10 +95,9 @@
 
     #bottom-text,
     p {
-      font-size: 13px;
+      font-size: 12px;
       color: grey;
-      margin-top: 15px;
-      margin-bottom: 0;
+      margin-top: 20px;
     }
 
     a {
@@ -111,7 +112,7 @@
     }
 
     h4 {
-      margin: 20px;
+      margin: 0;
     }
   </style>
 </head>
@@ -123,56 +124,12 @@
   </header>
 
   <script>
-    // DATA 
+
     var users = [
       { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
       { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
     ]
-    // BUSINESS LOGIC
-    function registerUser(name, email, username, password, confirmPassword) {
-      if (name.length < 2)
-        throw new Error('Invalid name')
 
-      if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
-        throw new Error('Invalid email')
-
-      var registeredUser = users.find(function (user) {
-        return user.email === email || user.username === username
-      })
-      if (registeredUser)
-        throw new Error('This user is already registered')
-
-      if (username.length < 4 || username.length > 12)
-        throw new Error('invalid user name')
-
-      if (password.length < 8)
-        throw new Error('invalid password')
-
-      if (password !== confirmPassword)
-        throw new Error('passwords do not match')
-      var user = { name: name, email: email, username: username, password: password }
-
-      users.push(user)
-    }
-
-    function authenticateUser(loginUsername, loginPassword) {
-      if (loginUsername.length < 4 || loginUsername.length > 12)
-        throw new Error('invalid username')
-
-      if (loginPassword < 8)
-        throw new Error('invalid password')
-
-      var user = users.find(function (user) {
-        return user.username === loginUsername && user.password === loginPassword
-      })
-
-      if (user === undefined)
-        throw new Error('wrong credentials')
-
-      return user
-    }
-
-    // PRESENTATION
     var loggedUser = null
     // Login section
     var loginSection = document.createElement('section')
@@ -231,6 +188,7 @@
       // Register Section
       var registerSection = document.createElement('section')
       var registerTitle = document.createElement('h2')
+      var registerText = document.createElement('h4')
       var registerForm = document.createElement('form')
       var registerNameLabel = document.createElement('label')
       var registerNameInput = document.createElement('input')
@@ -240,16 +198,15 @@
       var registerUsernameInput = document.createElement('input')
       var registerPasswordLabel = document.createElement('label')
       var registerPasswordInput = document.createElement('input')
-      var registerConfirmPasswordLabel = document.createElement('label')
-      var registerConfirmPasswordInput = document.createElement('input')
       var registerButton = document.createElement('button')
 
 
       registerSection.classList.add('section-container')
       body.appendChild(registerSection)
-      registerTitle.id = 'register-title'
       registerTitle.innerText = 'Register to unSocial'
       registerSection.appendChild(registerTitle)
+      registerText.innerText = 'Enter your details to register'
+      registerSection.appendChild(registerText)
       registerForm.classList.add('form-container')
       registerSection.appendChild(registerForm)
       registerNameLabel.htmlFor = 'name'
@@ -258,10 +215,8 @@
       registerEmailLabel.innerText = 'E-mail'
       registerUsernameLabel.htmlFor = 'username'
       registerUsernameLabel.innerText = 'User name'
-      registerPasswordLabel.htmlFor = 'password'
+      registerPasswordLabel.htmlFor = 'name'
       registerPasswordLabel.innerText = 'Password'
-      registerConfirmPasswordLabel.htmlFor = 'confirm-password'
-      registerConfirmPasswordLabel.innerText = 'Confirm Password'
 
       registerNameInput.type = 'text'
       registerNameInput.id = 'name'
@@ -283,11 +238,6 @@
       registerPasswordInput.placeholder = 'Enter your password'
       registerPasswordInput.required = true
 
-      registerConfirmPasswordInput.type = 'password'
-      registerConfirmPasswordInput.id = 'confirm-password'
-      registerConfirmPasswordInput.placeholder = 'Confirm your password'
-      registerConfirmPasswordInput.required = true
-
       registerForm.appendChild(registerNameLabel)
       registerForm.appendChild(registerNameInput)
       registerForm.appendChild(registerEmailLabel)
@@ -296,8 +246,6 @@
       registerForm.appendChild(registerUsernameInput)
       registerForm.appendChild(registerPasswordLabel)
       registerForm.appendChild(registerPasswordInput)
-      registerForm.appendChild(registerConfirmPasswordLabel)
-      registerForm.appendChild(registerConfirmPasswordInput)
 
       registerButton.id = 'btn-register'
       registerButton.type = 'submit'
@@ -325,22 +273,49 @@
         var email = registerEmailInput.value
         var username = registerUsernameInput.value
         var password = registerPasswordInput.value
-        var confirmPassword = registerConfirmPasswordInput.value
-
 
         //TODO
         // separate concerns: data, presentation, business logic
-        try {
-          registerUser(name, email, username, password, confirmPassword)
-          registerForm.reset()
-          registerSection.remove()
-          body.appendChild(loginSection)
-        }
-        catch (error) {
-          alert(error.message)
-          console.error(error)
+
+        if (name.length < 2) {
+          alert('Invalid name')
+          return
         }
 
+        if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)) {
+          alert('Invalid email')
+          return
+        }
+        var registeredUser = users.find(function (user) {
+          return user.email === email || user.username === username
+        })
+        if (registeredUser) {
+          alert('This user is already registered')
+          return
+        }
+
+        if (username.length < 4 || username.length > 12) {
+          alert('invalid user name')
+          return
+        }
+
+        if (password.length < 8) {
+          alert('invalid password')
+          return
+        }
+
+
+
+        var user = {
+          name: name,
+          email: email,
+          username: username,
+          password: password
+        }
+        users.push(user)
+        registerForm.reset()
+        registerSection.remove()
+        body.appendChild(loginSection)
       })
     })
     // Compare data entered by the user with our users list
@@ -349,11 +324,28 @@
       var loginUsername = loginUsernameInput.value
       var loginPassword = loginPasswordInput.value
 
-      try {
-        loggedUser = authenticateUser(loginUsername, loginPassword)
+      if (loginUsername.length < 4 || loginUsername.length > 12) {
+        alert('invalid username')
+        return
+      }
+
+      if (loginPassword < 8) {
+        alert('invalid password')
+        return
+      }
+
+      var user = users.find(function (user) {
+        return user.username === loginUsername && user.password === loginPassword
+      })
+
+      if (user === undefined) {
+        alert('Please enter a valid user name and password')
+        loginForm.reset()
+      } else {
+        loggedUser = user
         loginForm.reset()
         loginSection.remove()
-        // Home section
+        // Home Section
         var homeSection = document.createElement('section')
         var homeTitle = document.createElement('h2')
         var homeText = document.createElement('h3')
@@ -365,15 +357,16 @@
         homeSection.appendChild(homeText)
         homeSection.appendChild(image)
         homeSection.appendChild(logoutButton)
+
         homeSection.id = 'home'
         homeSection.classList.add('section-container')
         homeTitle.innerText = 'Home'
-        homeText.innerText = 'Hello, ' + loggedUser.name + '!'
+        homeText.innerText = 'Hello, ' + user.name + '!'
         image.style.height = '300px'
         image.src = '/staff/rafael-infante/unsocial/images/boy.png'
         logoutButton.id = 'btn-logout'
         logoutButton.innerText = 'Logout'
-        // Functionality of logout button
+        // Send user to login page when clicking on logout button
         logoutButton.addEventListener('click', function (event) {
           var condition = prompt('Are you sure? (y/n)')
           if (condition === 'y') {
@@ -383,11 +376,6 @@
             body.appendChild(loginSection)
           }
         })
-      }
-      catch (error) {
-        loginPasswordInput.value = ''
-        alert(error.message)
-        console.error(error)
       }
     })
 

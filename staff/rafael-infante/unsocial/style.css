@@ -25,12 +25,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 15px;
+  margin: 0 15px 15px 15px;
 }
 
 .section-container {
   background-color: white;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   margin: 10px;
   width: 85%;
   max-width: 500px;
@@ -48,20 +48,18 @@ body {
 }
 
 label {
-  padding-bottom: 8px;
+  padding-bottom: 6px;
+  font-size: 14px;
 }
 
 input {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid gray;
 }
 
-h4 {
-  font-size: 15px;
-  font-weight: 400;
-}
+
 
 button {
   color: white;
@@ -86,9 +84,10 @@ button:hover {
 
 #bottom-text,
 p {
-  font-size: 12px;
+  font-size: 13px;
   color: grey;
-  margin-top: 20px;
+  margin-top: 15px;
+  margin-bottom: 0;
 }
 
 a {
@@ -103,5 +102,5 @@ a:hover {
 }
 
 h4 {
-  margin: 0;
+  margin: 20px;
 }
