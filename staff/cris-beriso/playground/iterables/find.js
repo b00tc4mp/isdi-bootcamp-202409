@@ -9,6 +9,7 @@ var find = function (iterable, callback) {
 
   return undefined //puede ponerse o no
 }
+
 console.log('TEST find')
 
 console.log('CASE find first greater than 10')
@@ -17,6 +18,13 @@ var nums = { 0: 5, 1: 12, 2: 8, 3: 130, 4: 44, length: 5 }
 var found = find(nums, function (num) { return num > 10 });
 console.log(found);
 //12
+
+console.log('CASE find first greater than 100')
+
+var nums = { '0': 5, '1': 12, '2': 8, '3': 130, '4': 44, 'length': 5 }
+var found = find(nums, function (num) { return num > 100 });
+console.log(found);
+// 130
 
 console.log('CASE find tirst name with length lower than 3')
 
