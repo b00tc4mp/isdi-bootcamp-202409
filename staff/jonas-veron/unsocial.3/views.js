@@ -94,7 +94,6 @@ registerLink.addEventListener('click', function(event){
 
 function buildRegisterSection(){
 var compo = new Compo(document.createElement('section'))
-
 //create new section to register
 var section = compo.container
 section.classList = 'register'
