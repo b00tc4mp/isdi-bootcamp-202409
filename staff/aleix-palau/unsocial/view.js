@@ -20,7 +20,9 @@ function buildButton(text, type) {
 }
 
 function buildHomeSection() {
-    var section = document.createElement('section')
+    var compo = new Compo(document.createElement('section'))
+
+    var section = compo.container
 
     var title = document.createElement('h2')
     title.innerText = 'Home'
@@ -40,14 +42,16 @@ function buildHomeSection() {
 
         section.remove()
 
-        body.appendChild(loginSection)
+        body.add(loginSection)
     })
 
-    return section
+    return compo
 }
 
 function buildRegisterSection() {
-    var section = document.createElement('section')
+    var compo = new Compo(document.createElement('section'))
+
+    var section = compo.container
 
     var title = document.createElement('h2')
     title.innerText = 'Register'
@@ -95,7 +99,7 @@ function buildRegisterSection() {
 
             section.remove()
 
-            body.appendChild(loginSection)
+            body.add(loginSection)
         } catch (error) {
             alert(error.message)
 
@@ -113,14 +117,16 @@ function buildRegisterSection() {
 
         section.remove()
 
-        body.appendChild(loginSection)
+        body.add(loginSection)
     })
 
-    return section
+    return compo
 }
 
 function buildLoginSection() {
-    var section = document.createElement('section')
+    var compo = new Compo(document.createElement('section'))
+
+    var section = compo.container
 
     var title = document.createElement('h2')
     title.innerText = 'Login'
@@ -155,7 +161,7 @@ function buildLoginSection() {
 
             var homeSection = buildHomeSection()
 
-            body.appendChild(homeSection)
+            body.add(homeSection)
         } catch (error) {
             passwordField[1].value = ''
 
@@ -177,8 +183,8 @@ function buildLoginSection() {
 
         var registerSection = buildRegisterSection()
 
-        body.appendChild(registerSection)
+        body.add(registerSection)
     })
 
-    return section
+    return compo
 }
