@@ -1,0 +1,150 @@
+.truck {
+    height: 40px;
+    width: auto;
+}
+.shipping {
+    background-color: black;
+    color: white;
+    margin: 0px;
+    width: 110%;
+    align-content: -3;
+    font-size: small;
+    margin-left: -8px;
+    margin-top: -8px;
+}
+
+nav {
+    margin-top: 15px;
+    display: inline-flex;
+}
+
+.store-location {
+    display: inline-flex;
+    margin-top: 10px;
+    border-top: white;
+    border-right: white;
+    border-left: white;;
+    border-bottom: grey 1px;
+    border-style: solid;
+    padding-bottom: 8px;
+    width: 99%;
+}
+
+.store-left {
+    padding-left: 1px;
+}
+
+.store-right{
+    padding-left: 33%;
+}
+
+.search-bar-image{
+    height: 15px;
+    width: auto;
+}
+
+.promo-statement {
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 8px;
+}
+
+.red-box{
+    background-color: rgb(201, 34, 34);
+    color: white;
+    height: 400px;
+    margin-top: 30px;
+    top: 50%;
+    padding-top: 250px;
+    padding-left: 10px;
+}
+.furniture-image {
+    width: 90%;
+    height: auto;
+}
+
+footer {
+    color: rgb(80, 78, 78);
+    background-color: whitesmoke;
+}
+
+.cookies{
+    display: inline-flex;
+    margin-top: 10px;
+}
+
+.cookies-policy {
+    margin-right: 10px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+.legal {
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-flex
+}
+
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.hamburger-button {
+    display: block;
+    cursor: pointer;
+    position: relative;
+}
+
+.hamburger-button span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    margin: 5px 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+input[type="checkbox"]:checked ~ .menu {
+    display: block;
+}
+
+input[type="checkbox"]:checked ~ .hamburger-button span {
+    transform: rotate(45deg) translate(5px, 5px);
+    background-color: #fff;
+}
+
+input[type="checkbox"]:checked ~ .hamburger-button span:nth-child(2) {
+    opacity: 0;
+}
+
+input[type="checkbox"]:checked ~ .hamburger-button span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+    background-color: #fff;
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 10px 0;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
