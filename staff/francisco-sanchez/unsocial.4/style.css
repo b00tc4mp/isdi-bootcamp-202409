@@ -24,7 +24,8 @@ section {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 400px;
+    max-width: 400px;
     /* Ajusta el tamaño del formulario */
     margin: 10px;
 }

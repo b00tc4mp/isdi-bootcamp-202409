@@ -15,7 +15,10 @@ function buildFormField(id, text, type) {
 
 //Construye buttons
 function buildButton(text, type) {
-    var button = document.createElement('button')
+
+    var compoButton = new Compo(document.createElement('button'))
+    var button = compoButton.container
+    //var button = document.createElement('button')
     button.type = type
     button.innerText = text
 
@@ -26,8 +29,8 @@ function buildButton(text, type) {
 function buildLoginSection() {
     //FORMULARIO DE LOGIN
     var compo = new Compo(document.createElement('section'))
-    var section2 = compo.container
-    var section = document.createElement('section')
+    var section = compo.container
+    //var section = document.createElement('section')
 
     var loginTitle = document.createElement('h2')
     loginTitle.innerText = 'Login'
@@ -37,7 +40,10 @@ function buildLoginSection() {
     introText.innerText = 'Log in to acces your account'
     section.appendChild(introText)
 
-    var form = document.createElement('form')
+
+    var compoForm = new Compo(document.createElement('form'))
+    var form = compoForm.container
+    //var form = document.createElement('form')
     section.appendChild(form)
 
     //Label & Imput Username
@@ -102,7 +108,10 @@ function buildLoginSection() {
 
 //SECTION REGISTER
 function showRegister() {
-    var section = document.createElement('section')
+
+    var compo = new Compo(document.createElement('section'))
+    var section = compo.container
+    //var section = document.createElement('section')
 
     var registerTitle = document.createElement('h2')
     registerTitle.innerText = 'Register'
@@ -188,9 +197,11 @@ function showRegister() {
 
 //SECCION HOME
 function showHome() {
-    console.log('Cargo la homepage')
 
-    var section = document.createElement('section')
+    var compo = new Compo(document.createElement('section'))
+    var section = compo.container
+
+    //var section = document.createElement('section')
     var homeTitle = document.createElement('h2')
     homeTitle.innerText = 'Home'
     section.appendChild(homeTitle)
