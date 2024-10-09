@@ -1,68 +1,86 @@
+function buildFormField(id, text, type, placeholder) {
+  var label = document.createElement('label')
+  label.htmlFor = id
+  label.innertext = text
+
+  var input = document.createElement('input')
+  input.type = type
+  input.id = id
+  input.placeholder = placeholder
+  input.required = true
+
+  return [label, input]
+}
+
 function buildLoginSection() {
 
-  var loginSection = document.createElement('section')
-  var loginParagraph = document.createElement('p')
-  var loginTitle = document.createElement('h2')
-  var loginText = document.createElement('h4')
-  var loginForm = document.createElement('form')
-  var loginUsernameLabel = document.createElement('label')
-  var loginUsernameInput = document.createElement('input')
-  var loginPasswordLabel = document.createElement('label')
-  var loginPasswordInputContainer = document.createElement('div')
-  var loginPasswordIcon = document.createElement('i')
-  var loginPasswordInput = document.createElement('input')
-  var loginButton = document.createElement('button')
-  var loginAnchorText = document.createElement('p')
+  var compo = new Compo(document.createElement('section'))
+
+  var section = compo.container
+
+  var paragraph = document.createElement('p')
+  var title = document.createElement('h2')
+  var text = document.createElement('h4')
+  var form = document.createElement('form')
+
+  var usernameLabel = document.createElement('label')
+  var usernameInput = document.createElement('input')
+  var passwordLabel = document.createElement('label')
+  var passwordInputContainer = document.createElement('div')
+  var passwordIcon = document.createElement('i')
+  var passwordInput = document.createElement('input')
+  var button = document.createElement('button')
+  var anchorText = document.createElement('p')
   var registerLink = document.createElement('a')
 
-  loginParagraph.innerText = 'Welcome !'
-  loginTitle.innerText = 'Sign in to unSocial'
-  loginText.innerText = 'Write username and password to access'
-  loginSection.appendChild(loginParagraph)
-  loginSection.appendChild(loginTitle)
-  loginSection.appendChild(loginText)
-  loginSection.classList.add('section-container')
-  loginSection.appendChild(loginForm)
-  loginForm.classList.add('form-container')
-  loginForm.appendChild(loginUsernameLabel)
-  loginForm.appendChild(loginUsernameInput)
-  loginUsernameLabel.htmlFor = 'login-user'
-  loginUsernameLabel.innerText = 'User name'
-  loginUsernameInput.id = 'login-user'
-  loginUsernameInput.placeholder = 'Enter your user name'
-  loginUsernameInput.required = true
-  loginForm.appendChild(loginPasswordLabel)
-  loginForm.appendChild(loginPasswordInputContainer)
-  loginPasswordInputContainer.classList.add('password-container')
-  loginPasswordInputContainer.appendChild(loginPasswordInput)
-  loginPasswordLabel.htmlFor = 'login-password'
-  loginPasswordLabel.innerText = 'Password'
-  loginPasswordLabel.id = 'login-password'
-  loginPasswordInput.type = 'password'
-  loginPasswordInput.id = 'password'
-  loginPasswordInput.placeholder = 'Enter your Password'
-  loginPasswordInput.required = true
-  loginPasswordInputContainer.appendChild(loginPasswordIcon)
-  loginPasswordIcon.classList.add('far')
-  loginPasswordIcon.classList.add('fa-eye')
-  loginPasswordIcon.id = 'icon'
-  loginForm.appendChild(loginButton)
-  loginButton.id = 'btn-login'
-  loginButton.type = 'submit'
-  loginButton.innerText = 'Login'
-  loginAnchorText.innerText = "Don't have an account? "
-  loginSection.appendChild(loginAnchorText)
+  paragraph.innerText = 'Welcome !'
+  title.innerText = 'Sign in to unSocial'
+  text.innerText = 'Write username and password to access'
+  section.appendChild(paragraph)
+  section.appendChild(title)
+  section.appendChild(text)
+  section.classList.add('section-container')
+  section.appendChild(form)
+  form.classList.add('form-container')
+  form.appendChild(usernameLabel)
+  form.appendChild(usernameInput)
+  usernameLabel.htmlFor = 'login-user'
+  usernameLabel.innerText = 'User name'
+  usernameInput.id = 'login-user'
+  usernameInput.placeholder = 'Enter your user name'
+  usernameInput.required = true
+  form.appendChild(passwordLabel)
+  form.appendChild(passwordInputContainer)
+  passwordInputContainer.classList.add('password-container')
+  passwordInputContainer.appendChild(passwordInput)
+  passwordLabel.htmlFor = 'login-password'
+  passwordLabel.innerText = 'Password'
+  passwordLabel.id = 'login-password'
+  passwordInput.type = 'password'
+  passwordInput.id = 'password'
+  passwordInput.placeholder = 'Enter your Password'
+  passwordInput.required = true
+  passwordInputContainer.appendChild(passwordIcon)
+  passwordIcon.classList.add('far')
+  passwordIcon.classList.add('fa-eye')
+  passwordIcon.id = 'icon'
+  form.appendChild(button)
+  button.id = 'btn-login'
+  button.type = 'submit'
+  button.innerText = 'Login'
+  anchorText.innerText = "Don't have an account? "
+  section.appendChild(anchorText)
   registerLink.innerText = "Register"
-  loginAnchorText.appendChild(registerLink)
+  anchorText.appendChild(registerLink)
 
   var isVisible = false
-  loginPasswordIcon.addEventListener('click', function (event) {
-    loginPasswordIcon.classList.toggle('fa-eye-slash')
+  passwordIcon.addEventListener('click', function (event) {
+    passwordIcon.classList.toggle('fa-eye-slash')
     if (!isVisible) {
-      loginPasswordInput.type = 'text'
+      passwordInput.type = 'text'
       isVisible = true
     } else {
-      loginPasswordInput.type = 'password'
+      passwordInput.type = 'password'
       isVisible = false
     }
   })
@@ -70,132 +88,96 @@ function buildLoginSection() {
   // Send user to register section when clicking on register link
   registerLink.addEventListener('click', function (event) {
     event.preventDefault()
-    loginSection.remove()
+    section.remove()
     var registerSection = buildRegisterSection()
-    body.appendChild(registerSection)
+    body.add(registerSection)
   })
   // actions when submitting the login Form
-  loginForm.addEventListener('submit', function (event) {
+  form.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    var loginUsername = loginUsernameInput.value
-    var loginPassword = loginPasswordInput.value
+    var loginUsername = usernameInput.value
+    var loginPassword = passwordInput.value
 
     try {
       loggedUser = authenticateUser(loginUsername, loginPassword)
-      loginForm.reset()
-      loginSection.remove()
-      buildHomeSection()
+      form.reset()
+      section.remove()
+      var homeSection = buildHomeSection()
+      body.add(homeSection)
     }
     catch (error) {
-      loginPasswordInput.value = ''
+      passwordInput.value = ''
       alert(error.message)
       console.error(error)
     }
   })
 
-  return loginSection
+  return compo
 }
 
 function buildRegisterSection() {
-  // BUILD REGISTER SECTION
-  var registerSection = document.createElement('section')
-  var registerTitle = document.createElement('h2')
-  var registerForm = document.createElement('form')
-  var registerNameLabel = document.createElement('label')
-  var registerNameInput = document.createElement('input')
-  var registerEmailLabel = document.createElement('label')
-  var registerEmailInput = document.createElement('input')
-  var registerUsernameLabel = document.createElement('label')
-  var registerUsernameInput = document.createElement('input')
-  var registerPasswordLabel = document.createElement('label')
-  var registerPasswordInput = document.createElement('input')
-  var registerConfirmPasswordLabel = document.createElement('label')
-  var registerConfirmPasswordInput = document.createElement('input')
+  var compo = new Compo(document.createElement('section'))
+  var section = compo.container
+
+  var title = document.createElement('h2')
+  var form = document.createElement('form')
+  var nameField = buildFormField('name', 'Name', 'text', 'Enter your name')
+  var emailField = buildFormField('email', 'e-mail', 'email', 'Enter your email')
+  var usernameField = buildFormField('username', 'User name', 'text', 'Enter your user name')
+  var passwordField = buildFormField('password', 'Password', 'password', 'Enter your password')
+  var confirmPasswordField = buildFormField('confirm-password', 'Confirm Password', 'password', 'Confirm your password')
   var registerButton = document.createElement('button')
 
-  registerSection.classList.add('section-container')
-  registerTitle.id = 'register-title'
-  registerTitle.innerText = 'Register to unSocial'
-  registerSection.appendChild(registerTitle)
-  registerForm.classList.add('form-container')
-  registerSection.appendChild(registerForm)
-
-  registerNameLabel.htmlFor = 'name'
-  registerNameLabel.innerText = 'Name'
-  registerEmailLabel.htmlFor = 'email'
-  registerEmailLabel.innerText = 'E-mail'
-  registerUsernameLabel.htmlFor = 'username'
-  registerUsernameLabel.innerText = 'User name'
-  registerPasswordLabel.htmlFor = 'password'
-  registerPasswordLabel.innerText = 'Password'
-  registerConfirmPasswordLabel.htmlFor = 'confirm-password'
-  registerConfirmPasswordLabel.innerText = 'Confirm Password'
-  registerNameInput.type = 'text'
-  registerNameInput.id = 'name'
-  registerNameInput.placeholder = 'Enter your name'
-  registerNameInput.required = true
-  registerEmailInput.type = 'email'
-  registerEmailInput.id = 'email'
-  registerEmailInput.placeholder = 'Enter your E-mail'
-  registerEmailInput.required = true
-  registerUsernameInput.type = 'text'
-  registerUsernameInput.id = 'username'
-  registerUsernameInput.placeholder = 'Enter your user name'
-  registerUsernameInput.required = true
-  registerPasswordInput.type = 'password'
-  registerPasswordInput.id = 'password'
-  registerPasswordInput.placeholder = 'Enter your password'
-  registerPasswordInput.required = true
-  registerConfirmPasswordInput.type = 'password'
-  registerConfirmPasswordInput.id = 'confirm-password'
-  registerConfirmPasswordInput.placeholder = 'Confirm your password'
-  registerConfirmPasswordInput.required = true
-
-  registerForm.appendChild(registerNameLabel)
-  registerForm.appendChild(registerNameInput)
-  registerForm.appendChild(registerEmailLabel)
-  registerForm.appendChild(registerEmailInput)
-  registerForm.appendChild(registerUsernameLabel)
-  registerForm.appendChild(registerUsernameInput)
-  registerForm.appendChild(registerPasswordLabel)
-  registerForm.appendChild(registerPasswordInput)
-  registerForm.appendChild(registerConfirmPasswordLabel)
-  registerForm.appendChild(registerConfirmPasswordInput)
+  section.classList.add('section-container')
+  title.id = 'register-title'
+  title.innerText = 'Register to unSocial'
+  section.appendChild(title)
+  form.classList.add('form-container')
+  section.appendChild(form)
+  form.appendChild(nameField[0])
+  form.appendChild(nameField[1])
+  form.appendChild(emailField[0])
+  form.appendChild(emailField[1])
+  form.appendChild(usernameField[0])
+  form.appendChild(usernameField[1])
+  form.appendChild(passwordField[0])
+  form.appendChild(passwordField[1])
+  form.appendChild(confirmPasswordField[0])
+  form.appendChild(confirmPasswordField[1])
 
   registerButton.id = 'btn-register'
   registerButton.type = 'submit'
   registerButton.innerText = 'Register'
-  registerForm.appendChild(registerButton)
+  form.appendChild(registerButton)
 
   var registerAnchorText = document.createElement('p')
   registerAnchorText.innerText = 'Already have an account? '
-  registerSection.appendChild(registerAnchorText)
+  section.appendChild(registerAnchorText)
   var registerLoginLink = document.createElement('a')
   registerLoginLink.id = 'loginAnchor'
   registerLoginLink.innerText = 'Login'
   registerAnchorText.appendChild(registerLoginLink)
 
-
   registerLoginLink.addEventListener('click', function (event) {
     event.preventDefault();
-    registerSection.remove()
-    body.appendChild(loginSection)
+    section.remove()
+    body.add(loginSection)
   })
   // Save data of new user when clicking on register button
-  registerForm.addEventListener('submit', function (event) {
+  form.addEventListener('submit', function (event) {
     event.preventDefault()
-    var name = registerNameInput.value
-    var email = registerEmailInput.value
-    var username = registerUsernameInput.value
-    var password = registerPasswordInput.value
-    var confirmPassword = registerConfirmPasswordInput.value
+    var name = nameField[1].value
+    var email = emailField[1].value
+    var username = usernameField[1].value
+    var password = passwordField[1].value
+    var confirmPassword = confirmPasswordField[1].value
 
     try {
       registerUser(name, email, username, password, confirmPassword)
-      registerForm.reset()
-      registerSection.remove()
-      body.appendChild(loginSection)
+      form.reset()
+      section.remove()
+      body.add(loginSection)
     }
     catch (error) {
       alert(error.message)
@@ -203,25 +185,26 @@ function buildRegisterSection() {
     }
   })
 
-  return registerSection
+  return compo
 }
 
 function buildHomeSection() {
-  var homeSection = document.createElement('section')
-  var homeTitle = document.createElement('h2')
-  var homeText = document.createElement('h3')
+  var compo = new Compo(document.createElement('section'))
+
+  var section = compo.container
+
+  var title = document.createElement('h2')
+  var text = document.createElement('h3')
   var image = document.createElement('img')
   var logoutButton = document.createElement('button')
-
-  body.appendChild(homeSection)
-  homeSection.appendChild(homeTitle)
-  homeSection.appendChild(homeText)
-  homeSection.appendChild(image)
-  homeSection.appendChild(logoutButton)
-  homeSection.id = 'home'
-  homeSection.classList.add('section-container')
-  homeTitle.innerText = 'Home'
-  homeText.innerText = 'Hello, ' + loggedUser.name + '!'
+  section.appendChild(title)
+  section.appendChild(text)
+  section.appendChild(image)
+  section.appendChild(logoutButton)
+  section.id = 'home'
+  section.classList.add('section-container')
+  title.innerText = 'Home'
+  text.innerText = 'Hello, ' + loggedUser.name + '!'
   image.style.height = '300px'
   image.src = '/staff/rafael-infante/unsocial/images/boy.png'
   logoutButton.id = 'btn-logout'
@@ -232,8 +215,9 @@ function buildHomeSection() {
     if (condition === 'y') {
       event.preventDefault()
       loggedUser = null
-      homeSection.remove()
-      body.appendChild(loginSection)
+      section.remove()
+      body.add(loginSection)
     }
   })
+  return compo
 }

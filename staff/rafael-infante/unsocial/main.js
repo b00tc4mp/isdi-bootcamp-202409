@@ -2,6 +2,6 @@ var loggedUser = null
 
 var loginSection = buildLoginSection()
 
-var body = document.querySelector('body')
+var body = new Compo(document.querySelector('body'))
 
-body.appendChild(loginSection)
+body.add(loginSection)
