@@ -2,9 +2,6 @@
 
 var loggedUser = null;
 
-//function showLogin() {
-//    console.log('entro en el showLogin')
-
 //FORMULARIO DE LOGIN
 var loginSection = document.createElement('section')
 var loginTitle = document.createElement('h2')
@@ -54,11 +51,9 @@ loginRegisterLink.href = ''
 loginRegisterLink.innerText = '> Register <'
 loginSection.appendChild(loginRegisterLink)
 
-//}
 
 
 
-//  showLogin()
 
 //SECTION REGISTER
 //-------------------

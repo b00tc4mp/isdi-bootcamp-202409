@@ -4,17 +4,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unsocial v3</title>
+    <title>Unsocial</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+
+    :root {
+        --color: #444333;
+        --dark-brown: #333;
+        --white: #ffffff;
+        --font: 'Sixtyfour';
+        font-family: var(--font);
+    }
+
+    body {
+        background-color: lightgrey;
+        color: var(--color);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    section {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        /* Ajusta el tamaño del formulario */
+        margin: 10px;
+    }
+
+    h1,
+    h2 {
+        text-align: center;
+    }
+
+    p {
+        font-size: 0.9em;
+        text-align: center;
+        line-height: 1.3em;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input {
+        margin-bottom: 15px;
+        padding: 10px;
+        font-size: 1.1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font: inherit;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 1.1em;
+        background-color: var(--color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    button:hover {
+        background-color: var(--dark-brown);
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+
+
+
 <body>
     <h1>Unsocial</h1>
-    <link rel="stylesheet" href="style.css">
-    <script src="data.js"></script>
-    <script src="logic.js"></script>
-    <script src="main.js"></script>
+    <section class="loggin-form">
+        <h2>Login</h2>
+        <p>Acces here to start</p>
+        <form>
+            <label for="loginUsername">Username</label>
+            <input type="text" id="loginUsername">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword">
+            <button type="submit">Login</button>
+        </form>
+        <a href="#">Register</a>
+    </section>
+
+    <section>
+        <h2>Register</h2>
+        <p>Create your account now for free!</p>
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <a href="#">Login</a>
+    </section>
+
+    <section>
+        <h2>Home</h2>
+
+
+        <h3 id="welcomeMessage"></h3>
+
+
+        <button type="submit">Logout</button>
+    </section>
 </body>
 
+<script>
+    //Declaramos un array de usuarios para los tests
+    var users = [
+        { name: 'Roger', email: 'roger@roger.com', username: 'roger', password: 'roger123' },
+        { name: 'Lara', email: 'lara@lara.com', username: 'lara', password: 'lara123' },
+    ]
+
+    var loggedUser;
+
+    //La primera lógica será para mostrar correctamente las vistas
+    //Definición de las variables section
+    var sections = document.querySelectorAll('section');
+
+    var loginSection = sections[0];
+    loginSection.style.display = '';
+
+    var registerSection = sections[1];
+    registerSection.style.display = 'none';
+
+    var homeSection = sections[2];
+    homeSection.style.display = 'none';
+
+
+    //A continuación defino el identificador para los enlaces
+    var anchors = document.querySelectorAll('a');
+    var registerAnchor = anchors[0];
+    var loginAnchor = anchors[1];
+
+
+    //Aquí vienen las lógicas para cambiar las vistas
+    //registerAnchor.onclick = function(event){} ** Seria lo mismo que lo de abajo
+    registerAnchor.addEventListener('click', function (event) {
+        event.preventDefault() //Con esto evitamos la recarga de la página por defecto
+
+        loginSection.style.display = 'none';
+        registerSection.style.display = '';
+    });
+
+    loginAnchor.addEventListener('click', function (event) {
+        event.preventDefault();
+        registerSection.style.display = 'none';
+        loginSection.style.display = '';
+    })
+
+
+    //A continuación viene el tratamiento de los forms
+    var forms = document.querySelectorAll('form');
+
+
+    //Logica para el formulario de registro
+    var registerForm = forms[1];
+    registerForm.onsubmit = function (event) {
+        event.preventDefault();
+
+        var inputs = registerForm.querySelectorAll('input');
+
+        var nameInput = inputs[0]
+        var name = nameInput.value;
+
+        var emailInput = inputs[1]
+        var email = emailInput.value;
+
+        var usernameInput = inputs[2]
+        var username = usernameInput.value;
+
+        var passwordInput = inputs[3]
+        var password = passwordInput.value;
+
+        var user = { name: name, email: email, username: username, password: password }
+        console.log(user);
+        users.push(user);
+
+        registerForm.reset(); //Método para limpiar el formulario
+
+        //Finalmente ocultamos el formulario de registro y mostramos el de login
+        registerSection.style.display = 'none';
+        loginSection.style.display = '';
+    }
+
+
+    //Lógica para el formulario de login
+    var logginForm = forms[0];
+    logginForm.onsubmit = function (event) {
+        event.preventDefault();
+
+        var logginInputs = logginForm.querySelectorAll('input');
+        //console.log(logginInputs)
+
+        var fUserName = logginInputs[0].value;
+        var fLoginUser = fUserName;
+
+        var pass = logginInputs[1].value;
+        var loginPassword = pass;
+
+        //Y ahora que hemos recuperado los valores del formulario de login procedemos con la lógica para validar el usuario
+        //var existe = users.find
+
+        function validateLogin(inputUsername, inputPassword) {
+            // Buscamos el usuario usando find
+
+            var user = users.find(function (user) {
+                return user.username === inputUsername
+            });
+
+            //var user = users.find(user => user.username === inputUsername);
+
+            console.log(user);
+
+            // Si el usuario existe y la contraseña coincide
+            if (user && user.password === inputPassword) {
+                console.log('usuario validado!')
+                return user;
+            } else {
+                console.log('Usuario o contraseña incorrectos')
+                alert('User or password not correct')
+                return null;
+            }
+        }
+
+        var loggedUser = validateLogin(fLoginUser, loginPassword)
+
+        if (loggedUser) {
+            console.log("Entro en la zona logueada")
+            logginForm.reset();
+            loginSection.style.display = 'none';
+            homeSection.style.display = '';
+            document.getElementById('welcomeMessage').innerText = `Welcome, ${loggedUser.name}!`;
+        }
+    }
+
+    //Aquí debajo va la lógica para el logout
+    var buttons = document.querySelectorAll('button');
+    var loggoutButton = buttons[2];
+
+    loggoutButton.addEventListener('click', function () {
+        loggedUser = null;
+        homeSection.style.display = 'none';
+        loginSection.style.display = '';
+        console.log("el usuario ha salido del sistema")
+    })
+
+</script>
 
 </html>
