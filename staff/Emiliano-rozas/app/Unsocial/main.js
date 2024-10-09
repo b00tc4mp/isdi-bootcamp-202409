@@ -38,14 +38,14 @@ loginSubmitButton.type = 'submit'
 loginSubmitButton.innerText = 'Login'
 loginForm.appendChild(loginSubmitButton)
 //link register
-var loginRegisterLink = document.createElement('a')
-loginRegisterLink.href = ''
-loginRegisterLink.innerText = 'Register'
-loginSection.appendChild(loginRegisterLink)
+var registerLink = document.createElement('a')
+registerLink.href = ''
+registerLink.innerText = 'Register'
+loginSection.appendChild(registerLink)
 
 
 //Evento register
-loginRegisterLink.addEventListener('click', function (event) {
+registerLink.addEventListener('click', function (event) {
     event.preventDefault()
 
     loginSection.remove()
@@ -128,6 +128,7 @@ loginRegisterLink.addEventListener('click', function (event) {
         var username = registerUsernameInput.value
         var password = registerPasswordInput.value
         var passwordRepeat = registerPasswordRepeatInput.value
+
         // el try catch va por fuera de la funcion,(el throw va adentro) seria la condicion por la que tiene que pasar el evento para dar un resultado
         try {
             registerUser(name, email, username, password, passwordRepeat)
