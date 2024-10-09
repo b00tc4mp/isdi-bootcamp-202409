@@ -27,9 +27,7 @@ function buildAnchor(ref, text) {
 }
 
 function buildLoginSection() {
-    var compo = new Compo(document.createElement('section'))
-
-    var section = compo.container
+    var section = document.createElement('section')
 
     var title = document.createElement('h2')
     title.innerText = 'Login'
@@ -63,7 +61,7 @@ function buildLoginSection() {
             var homeSection = buildHomeSection()
 
             section.remove()
-            body.add(homeSection)
+            body.appendChild(homeSection)
         } catch (error) {
             passwordField[1].value = ''
 
@@ -82,15 +80,13 @@ function buildLoginSection() {
         var registerSection = buildRegisterSection()
 
         section.remove()
-        body.add(registerSection)
+        body.appendChild(registerSection)
     }
-    return compo
+    return section
 }
 
 function buildRegisterSection() {
-    var compo = new Compo(document.createElement('section'))
-
-    var section = compo.container
+    var section = document.createElement('section')
 
     var title = document.createElement('h2')
     title.innerText = 'Register'
@@ -137,7 +133,7 @@ function buildRegisterSection() {
             form.reset()
 
             section.remove()
-            body.add(loginSection)
+            body.appendChild(loginSection)
         } catch (error) {
             alert(error.message)
 
@@ -152,15 +148,13 @@ function buildRegisterSection() {
         event.preventDefault()
 
         section.remove()
-        body.add(loginSection)
+        body.appendChild(loginSection)
     }
-    return compo
+    return section
 }
 
 function buildHomeSection() {
-    var compo = new Compo(document.createElement('section'))
-
-    var section = compo.container
+    var section = document.createElement('section')
 
     var title = document.createElement('h2')
     title.innerText = 'Home'
@@ -179,7 +173,7 @@ function buildHomeSection() {
         loggedInUser = null
 
         section.remove()
-        body.add(loginSection)
+        body.appendChild(loginSection)
     }
-    return compo
+    return section
 }
