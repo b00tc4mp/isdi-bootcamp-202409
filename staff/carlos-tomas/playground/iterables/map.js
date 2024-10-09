@@ -1,3 +1,5 @@
+console.log("TEST map")
+
 var map = function (iterable, callback) {
     var nums2 = { length: 0 }
     for (var i = 0; i < iterable.length; i++) {
