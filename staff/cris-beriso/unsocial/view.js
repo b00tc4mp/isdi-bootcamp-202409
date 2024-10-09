@@ -94,8 +94,6 @@ function buildRegisterSection() {
   var compo = new Compo(document.createElement('section'))
 
   var section = compo.container
-
-  var section = document.createElement('section')
   section.className = 'register'
 
   var title = document.createElement('h2')
