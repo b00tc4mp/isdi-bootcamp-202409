@@ -27,11 +27,11 @@ var loggedInUser = null
     loginPasswordLabel.innerText = 'Password'
     loginForm.appendChild(loginPasswordLabel)
 //create input password
-    var loginPasswordInput = document.createElement('input')
-    loginPasswordInput.type = 'password'
-    loginPasswordInput.id = 'password'
-    loginPasswordInput.placeholder = 'Insert your password'
-    loginForm.appendChild(loginPasswordInput)
+    var passwordField[1] = document.createElement('input')
+    passwordField[1].type = 'password'
+    passwordField[1].id = 'password'
+    passwordField[1].placeholder = 'Insert your password'
+    loginForm.appendChild(passwordField[1])
 //create button in login
     var loginSubmitButton = document.createElement('button')
     loginSubmitButton.type = 'submit'
@@ -43,7 +43,7 @@ var loggedInUser = null
         event.preventDefault()
 
         var username = loginUsernameInput.value
-        var password = loginPasswordInput.value
+        var password = passwordField[1].value
 
         try{
             loggedInUser = autenticateUser(username, password)
@@ -77,7 +77,7 @@ var loggedInUser = null
 })     
             body.appendChild(homeSection)
         } catch (error) {
-            loginPasswordInput.value = ''
+            passwordField[1].value = ''
 
             alert(error.message)
             console.log(error)
