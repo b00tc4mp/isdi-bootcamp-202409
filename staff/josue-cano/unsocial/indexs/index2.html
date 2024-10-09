@@ -166,7 +166,7 @@ button{
             registerForm.appendChild(registerEmailLabel);
 
             var registerEmailInput = document.createElement('input');
-            registerEmailInput.type = 'text';
+            registerEmailInput.type = 'email';
             registerEmailInput.id = 'email';
             registerForm.appendChild(registerEmailInput);
 
@@ -214,6 +214,10 @@ button{
                     alert('Todos los campos son obligatorios');
                     return;
                 }
+                if (newUser.email == /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(newUser.email)) {
+                    alert("la cagaste")
+                    return;
+                } 
 
                 // subimos el usuario 
                 users.push(newUser);
@@ -256,7 +260,8 @@ button{
             if (user) {
                 loggedInUser = user;
                 loginSection.remove();
-
+                 //reseteo formulario login
+                 loginForm.reset();
                 // creamos la seccion home
                 var homeSection = document.createElement('section');
                 var homeTitle = document.createElement('h2');
@@ -269,7 +274,7 @@ button{
                 homeSection.appendChild(welcomeMessage);
 
                 // creo elemento a para el logout
-                var logoutLink = document.createElement('a');
+                var logoutLink = document.createElement('button');
                 logoutLink.href = '';
                 logoutLink.innerText = 'Logout';
                 homeSection.appendChild(logoutLink);
@@ -290,6 +295,7 @@ button{
         });
 
         // Muestro la sección de login en la página
+        
         document.body.appendChild(loginSection);
 
     
