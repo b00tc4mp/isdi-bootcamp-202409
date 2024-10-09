@@ -1,55 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+// presentation
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unsocial</title>
-
-    <link rel="shortcut icon" href="https://b00tc4mp.com/favicon.ico" type="image/x-icon">
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
-
-        :root {
-            --color: dodgerblue;
-            --font: 'Sixtyfour';
-            font-family: var(--font);
-        }
-
-        body {
-            background-color: lightgrey;
-            color: var(--color);
-        }
-
-        input {
-            background-color: inherit;
-            font-family: inherit;
-        }
-
-        a:visited {
-            color: var(--color);
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Unsocial</h1>
-
-    <script>
-        var users = [
-            { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
-            { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
-        ]
-
+        //LOGIN SECTION
         var loggedInUser = null
-
         var loginSection = document.createElement('section')
         var loginTitle = document.createElement('h2')
-        loginTitle.innerText = 'Login' 
+        loginTitle.innerText = 'Login'
         loginSection.appendChild(loginTitle)
+        //login form
         var loginForm = document.createElement('form')
         loginSection.appendChild(loginForm)
+        //login username label & input
         var loginUsernameLabel = document.createElement('label')
         loginUsernameLabel.htmlFor = 'username'
         loginUsernameLabel.innerText = 'Username'
@@ -58,6 +18,7 @@
         loginUsernameInput.type = 'text'
         loginUsernameInput.id = 'username'
         loginForm.appendChild(loginUsernameInput)
+        //login password label & input
         var loginPasswordLabel = document.createElement('label')
         loginPasswordLabel.htmlFor = 'password'
         loginPasswordLabel.innerText = 'Password'
@@ -66,53 +27,84 @@
         loginPasswordInput.type = 'password'
         loginPasswordInput.id = 'password'
         loginForm.appendChild(loginPasswordInput)
+        //login form submit button
         var loginSubmitButton = document.createElement('button')
         loginSubmitButton.type = 'submit'
         loginSubmitButton.innerText = 'Login'
         loginForm.appendChild(loginSubmitButton)
 
-        //event
-        loginSubmitButton.onclick = function (event) {
+        //event login form submit button
+        loginForm.onsubmit = function (event) {
             event.preventDefault()
 
             var username = loginUsernameInput.value
             var password = loginPasswordInput.value
 
-            var user = users.find(function (user) {
-                return user.username === username && user.password === password
-            })
+            try {
+                loggedInUser = authenticateUser(username, password)
 
-            if(user === undefined) {
-                alert('Wrong credentials')
-            }
-            else {
-                loggedInUser = user
                 loginForm.reset()
 
-                homeTitleUser.innerText = 'Hello, ' + loggedInUser.name + '!'
-
                 loginSection.remove()
+
+                var homeSection = document.createElement('section')
+
+                var homeTitle = document.createElement('h2')
+                homeTitle.innerText = 'Home'
+                homeSection.appendChild(homeTitle)
+
+                var homeUserTitle = document.createElement('h3')
+                homeUserTitle.innerText = 'Hello, ' + loggedInUser.name + '!'
+                homeSection.appendChild(homeUserTitle)
+
+                var homeLogoutButton = document.createElement('button')
+                homeLogoutButton.innerText = 'Logout'
+                homeSection.appendChild(homeLogoutButton)
+
+                homeLogoutButton.addEventListener('click', function (event) {
+                    event.preventDefault()
+
+                    loggedInUser = null
+
+                    homeSection.remove()
+
+                    body.appendChild(loginSection)
+                })
+
                 body.appendChild(homeSection)
-            
-        }}
+            } catch (error) {
+                loginPasswordInput.value = ''
+
+                alert(error.message)
+
+                console.error(error)
+            }
+        }
 
 
+        //login register link
         var loginRegisterLink = document.createElement('a')
         loginRegisterLink.href = ''
         loginRegisterLink.innerText = 'Register'
         loginSection.appendChild(loginRegisterLink)
 
-        loginRegisterLink.addEventListener('click', function (event) {
+        // event of login register link
+        loginRegisterLink.onclick = function (event) {
             event.preventDefault()
 
             loginSection.remove()
 
+            // REGISTER SECTION
             var registerSection = document.createElement('section')
             var registerTitle = document.createElement('h2')
             registerTitle.innerText = 'Register'
             registerSection.appendChild(registerTitle)
+
+            // register form
             var registerForm = document.createElement('form')
             registerSection.appendChild(registerForm)
+
+            // register name label & input
             var registerNameLabel = document.createElement('label')
             registerNameLabel.htmlFor = 'name'
             registerNameLabel.innerText = 'Name'
@@ -121,6 +113,8 @@
             registerNameInput.type = 'text'
             registerNameInput.id = 'name'
             registerForm.appendChild(registerNameInput)
+
+            // register email label & input
             var registerEmailLabel = document.createElement('label')
             registerEmailLabel.htmlFor = 'email'
             registerEmailLabel.innerText = 'E-mail'
@@ -129,6 +123,8 @@
             registerEmailInput.type = 'text'
             registerEmailInput.id = 'email'
             registerForm.appendChild(registerEmailInput)
+
+            // register username label & input
             var registerUsernameLabel = document.createElement('label')
             registerUsernameLabel.htmlFor = 'username'
             registerUsernameLabel.innerText = 'Username'
@@ -137,6 +133,7 @@
             registerUsernameInput.type = 'text'
             registerUsernameInput.id = 'username'
             registerForm.appendChild(registerUsernameInput)
+            // register password label & input
             var registerPasswordLabel = document.createElement('label')
             registerPasswordLabel.htmlFor = 'password'
             registerPasswordLabel.innerText = 'Password'
@@ -145,67 +142,61 @@
             registerPasswordInput.type = 'password'
             registerPasswordInput.id = 'password'
             registerForm.appendChild(registerPasswordInput)
+
+            var registerPasswordRepeatLabel = document.createElement('label')
+            registerPasswordRepeatLabel.htmlFor = 'password-repeat'
+            registerPasswordRepeatLabel.innerText = 'Repeat Password'
+            registerForm.appendChild(registerPasswordRepeatLabel)
+
+            var registerPasswordRepeatInput = document.createElement('input')
+            registerPasswordRepeatInput.type = 'password'
+            registerPasswordRepeatInput.id = 'password-repeat'
+            registerForm.appendChild(registerPasswordRepeatInput)
+            //register form submit button
             var registerSubmitButton = document.createElement('button')
             registerSubmitButton.type = 'submit'
             registerSubmitButton.innerText = 'Register'
             registerForm.appendChild(registerSubmitButton)
 
-            // event 
-            registerSubmitButton.onclick = function (event) {
+            //event of register form submit button
+            registerForm.onsubmit = function (event) {
                 event.preventDefault()
 
                 var name = registerNameInput.value
                 var email = registerEmailInput.value
                 var username = registerUsernameInput.value
-                var password = registerPasswordInput.value 
+                var password = registerPasswordInput.value
+                var passwordRepeat = registerPasswordRepeatInput.value
 
-                var user =  { name: name, email: email, username: username , password: password }
-                users.push(user)
+                try {
+                    registerUser(name,email,username,password,passwordRepeat)
+                
                 registerForm.reset()
 
                 registerSection.remove()
                 body.appendChild(loginSection)
-            }
+            } catch (error) {
+                alert(error.message)
 
+                console.error(error)
+            }}
+
+            //register login link
             var registerLoginLink = document.createElement('a')
             registerLoginLink.href = ''
             registerLoginLink.innerText = 'Login'
             registerSection.appendChild(registerLoginLink)
 
-            registerLoginLink.addEventListener('click', function (event){
+            //event of register login link
+            registerLoginLink.onclick = function (event) {
                 event.preventDefault()
 
                 registerSection.remove()
                 body.appendChild(loginSection)
+            }
 
-            })
             body.appendChild(registerSection)
-            
-        })
+        }
 
         var body = document.querySelector('body')
         body.appendChild(loginSection)
-
-        var homeSection = document.createElement('section')
-        var homeSectionTitle = document.createElement('h2')
-        homeSectionTitle.innerText = 'Home'
-        homeSection.appendChild(homeSectionTitle)
-        var homeTitleUser = document.createElement('h3')
-        homeTitleUser.innerText = 'Hello user!'
-        homeSection.appendChild(homeTitleUser)
-        var homeLogoutButton = document.createElement('button')
-        homeLogoutButton.innerText = 'Logout'
-        homeSection.appendChild(homeLogoutButton)
-
-        homeLogoutButton.onclick = function (event) {
-            event.preventDefault()
-
-            homeSection.remove()
-            body.appendChild(loginSection)
-        }
-        
-    </script>
-</body>
-
-</html>    
-     
