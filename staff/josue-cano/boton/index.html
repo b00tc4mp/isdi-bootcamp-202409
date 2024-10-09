@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <p>0</p>
+        <div>
+            <button type="button">sumar</button>
+            <button type="button">restar</button>
+        </div>
+    </div>
+   <script>
+    
+    boton = document.querySelectorAll("button");
+    sumas = document.querySelectorAll("p");
+    var resultado = sumas[0];
+  
+
+    var boton1 = boton[0];
+    var boton2 = boton[1];
+
+    boton1.addEventListener("click", function () {
+        var valor = parseInt(resultado.textContent);
+        valor++;  
+        resultado.textContent = valor; 
+        
+    })
+
+    boton2.addEventListener("click", function (){
+        var valor = parseInt(resultado.textContent);
+        valor--;
+        resultado.textContent = valor;
+    })
+    
+
+    
+
+   </script>
+</body>
+</html>
