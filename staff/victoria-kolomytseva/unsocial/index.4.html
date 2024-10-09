@@ -39,14 +39,65 @@
     <h1>Unsocial</h1>
 
     <script>
+        //data
+
         var users = [
             { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
             { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
         ]
 
+        // business
+
+        function registerUser(name, email, username, password, passwordRepeat) {
+            if (name.length < 2)
+                throw new Error('invalid name')
+
+            if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
+                throw new Error('invalid e-mail')
+
+            if (username.length < 4 || username.length > 12)
+                throw new Error('invalid username')
+
+            if (password.length < 8)
+                throw new Error('invalid password')
+
+            if (password !== passwordRepeat)
+                throw new Error('passswords do not match')
+
+            var user = users.find(function (user) {
+                return user.username === username || user.email === email
+            })
+
+            if (user !== underfined)
+                throw new Error('user already exists')
+
+            user = { name: name, email: email, username: username, password: password }
+
+            users.push(user)
+        }
+
+        function authenticateUser(username, password) {
+            if (username.length < 4 || username.length > 12)
+                throw new Error('invalid username')
+
+            if (password.length < 8)
+                throw new Error('invalid password')
+
+            var user = users.find(function (user) {
+                return user.username === username && user.password === password
+            })
+
+            if (user === undefined)
+                throw new Error('wrong credentials')
+
+            return user
+        }
+        // presentation 
+
         var loggedInUser = null
 
         var loginSection = document.createElement('section')
+
         var loginTitle = document.createElement('h2')
         loginTitle.innerText = 'Login'
         loginSection.appendChild(loginTitle)
@@ -79,6 +130,55 @@
         loginSubmitButton.innerText = 'Login'
         loginForm.appendChild(loginSubmitButton)
 
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+
+            var username = loginUsernameInput.value
+            var password = loginPasswordInput.value
+
+            try {
+                loggedInUser = authenticateUser(username, password)
+
+                loginForm.reset()
+
+                loginSection.remove()
+
+                var homeSection = document.createElement('section')
+
+                var homeTitle = document.createElement('h2')
+                homeTitle.innerText = 'Home'
+                homeSection.appendChild(homeTitle)
+
+                var homeUserTitle = document.createElement('h3')
+                homeUserTitle.innerText = 'Hello, ' + loggedInUser.name + '!'
+                homeSection.appendChild(homeUserTitle)
+
+                var homeLogoutButton = document.createElement('button')
+                homeLogoutButton.innerText = 'Logout'
+                homeSection.appendChild(homeLogoutButton)
+
+                homeLogoutButton.addEventListener('click', function (event) {
+                    event.preventDefault()
+
+                    loggedInUser = null
+
+                    homeSection.remove()
+
+                    body.appendChild(loginSection)
+                })
+
+                body.appendChild(homeSection)
+            } catch (error) {
+                loginPasswordInput.value = ''
+
+                alert(error.message)
+
+                console.error(error)
+            }
+
+        })
+
         var loginRegisterLink = document.createElement('a')
         loginRegisterLink.href = ''
         loginRegisterLink.innerText = 'Register'
@@ -90,6 +190,7 @@
             loginSection.remove()
 
             var registerSection = document.createElement('section')
+
             var registerTitle = document.createElement('h2')
             registerTitle.innerText = 'Register'
             registerSection.appendChild(registerTitle)
@@ -142,36 +243,34 @@
             registerSubmitButton.innerText = 'Register'
             registerForm.appendChild(registerSubmitButton)
 
+            registerForm.addEventListener('submit', function (event) {
+                event.preventDefault()
+
+                var name = registerNameInput.value
+                var email = registerEmailInput.value
+                var username = registerUsernameInput.value
+                var password = registerPasswordInput.value
+                var passwordRepeat = registerPasswordRepeatInput.value
+
+                try {
+                    registerUser(name, email, username, password, passwordRepeat)
+
+                    registerForm.reset()
+
+                    registerSection.remove()
+
+                    body.appendChild(loginSection)
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+            })
+
             var registerLoginLink = document.createElement('a')
             registerLoginLink.href = ''
             registerLoginLink.innerText = 'Login'
             registerSection.appendChild(registerLoginLink)
-
-            //register
-            registerForm.addEventListener('submit', function (event) {
-                event.preventDefault()
-                var nameInput = nameR.value
-                var emailInput = email.value
-                var usernameInput = username.value
-                var passwordInput = password.value
-
-                var user = {
-                    name: nameInput,
-                    email: emailInput,
-                    username: usernameInput,
-                    password: passwordInput
-                }
-
-                users.push(user)
-
-                registerSection.remove()
-                body.appendChild(loginSection)
-            })
-
-
-            body.appendChild(registerSection)
-
-            //create a function for a button Login    
 
             registerLoginLink.addEventListener('click', function (event) {
                 event.preventDefault()
@@ -179,53 +278,7 @@
                 registerSection.remove()
                 body.appendChild(loginSection)
             })
-
             body.appendChild(registerSection)
-        })
-
-        loginForm.addEventListener('submit', function (event) {
-            event.preventDefault()
-            console.log('Submit login click!')
-
-            var username = loginUsernameInput.value
-            var password = loginPasswordInput.value
-            var user = users.find(function (element) {
-                return (element.username === username) && (element.password === password)
-            });
-
-            if (user) {
-                loggedInUser = user
-                loginSection.remove()
-                var homeSection = document.createElement('section')
-                var homeTitle = document.createElement('h2')
-                homeTitle.innertext = 'Home'
-                homeSection.appendChild(homeTitle)
-                var homeSubtitle = document.createElement('h3')
-                homeSubtitle.innerText = 'Hello, User!'
-                homeSection.appendChild(homeSubtitle)
-
-                //create a button for return to login
-                var logoutSubmitButton = document.createElement('button')
-                logoutSubmitButton.type = 'submit'
-                logoutSubmitButton.innerText = 'Logout'
-                homeSection.appendChild(logoutSubmitButton)
-
-
-                var homeUserTitle = homeSubtitle
-                homeUserTitle.innerText = 'Hello, ' + loggedInUser.name + '!'
-            }
-            else {
-                alert('Wrong credentials!')
-            }
-            //create a function for return to login
-            logoutSubmitButton.addEventListener('click', function (event) {
-                event.preventDefault()
-
-                homeSection.remove()
-                body.appendChild(loginSection)
-            })
-
-            body.appendChild(homeSection)
         })
 
         var body = document.querySelector('body')
