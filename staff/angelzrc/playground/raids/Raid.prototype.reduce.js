@@ -7,11 +7,20 @@ var Raid = function () {
 
 console.log('TEST Raid.prototype.reduce')
 
-Raid.prototype.reduce = function () {
-
+Raid.prototype.reduce = function (callback) {
+    var accumulator = 0
+    var initialValue = 0
     for (var i = 0; i < this.length; i++) {
 
+        var currentValue = this[i]
+        if (currentValue === undefined) {
+            currentValue = initialValue
+        }
+        accumulator += currentValue
+
     }
+
+    return accumulator
 
 
 }

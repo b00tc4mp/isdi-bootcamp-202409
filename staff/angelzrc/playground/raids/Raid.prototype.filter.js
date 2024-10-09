@@ -8,18 +8,15 @@ var Raid = function () {
 console.log('TEST Array.prototype.filter')
 
 Raid.prototype.filter = function (callback) {
+
+    var result = new Raid
     for (var i = 0; i < this.length; i++) {
         if (callback(this[i]) === true) {
-            var startIndex = i
-            break
+            result[result.length] = this[i]
+            result.length++
         }
+    }
 
-    }
-    var result = new Raid
-    for (var j = startIndex; j < this.length; j++) {
-        result[j - startIndex] = this[j]
-        result.length++
-    }
     return result
 }
 
