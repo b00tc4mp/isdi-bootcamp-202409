@@ -10,16 +10,9 @@ console.log('TEST copyWithin method in object')
 // result -> {0: 100, 1: 200, 2: 100, 3: 200, 4: 300, length: 5}
 
 
-var copyWithin = function(iterable, target, start){
-    if(target < 0){
-        target = iterable.length + target
-    }
-
-    if(start < 0){
-        start = iterable.length + start
-    }
+var copyWithin = function(iterable, target){
     var extracted = {length:0}
-    for(var i = start; i < iterable.length - target; i++){
+    for(var i = 0; i < iterable.length - target; i++){
         extracted[extracted.length] = iterable[i]
         extracted.length++
     }
@@ -37,7 +30,6 @@ var result = copyWithin(nums, 2)
 console.log(result)
 //{0: 100, 1: 200, 2: 100, 3: 200, 4: 300, length: 5}
 
-
 console.log('CASE copy with one element')
 
 var nums = {0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5}
@@ -45,10 +37,9 @@ var result = copyWithin(nums, -2)
 console.log(result)
 //{0: 100, 1: 200, 2: 300, 3: 100, 4: 200, length: 5}
 
-console.log('CASE copy with two parametrs')
+console.log('CASE Copy to index 0 the element at index 3')
 
-var nums = {0: 100, 1: 200, 2: 300, 3: 400, 4: 500, length: 5}
-var result = copyWithin(nums, 0, 3)
-console.log(result)
-//{0: 400, 1: 500, 2: 300, 3: 400, 4: 500, length: 5}
+var array1 = ['a', 'b', 'c', 'd', 'e']
 
+console.log(array1.copyWithin(0, 3, 4));
+// ["d", "b", "c", "d", "e"]
