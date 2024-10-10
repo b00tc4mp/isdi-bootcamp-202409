@@ -1,6 +1,7 @@
 var loggedInUser = null
 
+var body = new Compo(document.querySelector('body'))
 var loginSection = buildLoginSection()
 
-var body = new Compo(document.querySelector('body'))
+
 body.add(loginSection)
