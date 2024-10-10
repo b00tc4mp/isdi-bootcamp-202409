@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<body>
+    <h1></h1>
+    <script>
+        /*
+        HTML
+            HEAD
+                META
+                META
+                TITLE
+                    text
+            BODY
+                H1
+                    text
+                SCRIPT
+                    text
+                SCRIPT
+                    text
+        */
+        var html = document.children[0]
+        console.log(html.tagName)
+
+        for (var i = 0; i < html.children.length; i++) {
+            var child = html.children[i]
+
+            console.log(child.tagName)
+
+            for (var j = 0; j < child.children.length; j++) {
+                var child2 = child.children[j]
+
+                console.log(child2.tagName)
+            }
+        }
+    </script>
+</body>
+</head>
+
+</html>
