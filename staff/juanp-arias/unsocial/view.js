@@ -1,60 +1,36 @@
-//function form
-function buildFormField(id, text, type) {
-    var label = document.createElement('label')
-    label.htmlFor = id
-    label.innerText = text
-
-    var input = document.createElement('input')
-    input.type = type
-    input.innerText = text
-
-    return [label, input]
-}
-//function button
-function buildButton(text, type) {
-    var button = document.createElement('button')
-    button.type = type
-    button.innerText = text
-
-    return button
-}
-
-
 //function de login
 function buildLoginSection() {
     var compo = new Compo(document.createElement('section'))
-    var section = compo.container
 
-    var title = document.createElement('h2')
-    title.innerText = 'LOGIN'
-    section.appendChild(title)
+    var title = new Heading('LOGIN', 2)
+    compo.add(title)
 
-    var form = document.createElement('form')
-    section.appendChild(form)
+    var form = new Form()
+    compo.add(form)
 
-    var usernameField = buildFormField('username', 'Username', 'text')
-    form.appendChild(usernameField[0])
-    form.appendChild(usernameField[1])
+    form.add(new Label('Username', 'username'))
+    var usernameInput = new Input('text', 'username')
+    form.add(usernameInput)
 
-    var passwordField = buildFormField('password', 'Password', 'password')
-    form.appendChild(passwordField[0])
-    form.appendChild(passwordField[1])
+    form.add(new Label('Password', 'password'))
+    var passwordInput = new Input('Password', 'password')
+    form.add(passwordInput)
 
-    var submitButton = buildButton('Login', 'submit')
-    form.appendChild(submitButton)
+    var submitButton = new Button('Login', 'submit')
+    form.add(submitButton)
 
-    form.addEventListener('submit', function (event) {
+    form.addBehavior('submit', function (event) {
         event.preventDefault()
 
-        var username = usernameField[1].value
-        var password = passwordField[1].value
+        var username = usernameInput.getValue()
+        var password = passwordInput.getValue()
 
         try {
             loggedInUser = authenticateUser(username, password)
 
             form.reset()
 
-            section.remove()
+            compo.remove()
 
             //SECCIÓN HOME
             var homeSection = buildHomeSection()
@@ -62,7 +38,7 @@ function buildLoginSection() {
             body.add(homeSection)
 
         } catch (error) {
-            passwordField[1].value = ''
+            passwordInput.setValue('')
 
             alert(error.message)
 
@@ -71,15 +47,13 @@ function buildLoginSection() {
     })
 
     //CREACIÓN LINK TIPO ANCHOR QUE TE LLEVA A LA SECCIÓN DE REGISTRO
-    var registerLink = document.createElement('a')
-    registerLink.href = ''
-    registerLink.innerText = 'Register'
-    section.appendChild(registerLink)
+    var registerLink = new Link('Register')
+    compo.add(registerLink)
 
-    registerLink.addEventListener('click', function (event) {
+    registerLink.addBehavior('click', function (event) {
         event.preventDefault()
 
-        section.remove()
+        compo.remove()
 
         //SECCIÓN DE REGISTRO
         var registerSection = buildRegisterSection()
@@ -92,52 +66,51 @@ function buildLoginSection() {
 //function de register
 function buildRegisterSection() {
     var compo = new Compo(document.createElement('section'))
-    var section = compo.container
 
-    var title = document.createElement('h2')
-    title.innerText = 'REGISTER'
-    section.appendChild(title)
 
-    var form = document.createElement('form')
-    section.appendChild(form)
+    var title = new Heading('REGISTER', 2)
+    compo.add(title)
 
-    var nameField = buildFormField('name', 'Name', 'text')
-    form.appendChild(nameField[0])
-    form.appendChild(nameField[1])
+    var form = new Form()
+    compo.add(form)
 
-    var emailField = buildFormField('email', 'E-mail', 'email')
-    form.appendChild(emailField[0])
-    form.appendChild(emailField[1])
+    form.add(new Label('Name', 'name'))
+    var nameInput = new Input('text', 'name')
+    form.add(nameInput)
 
-    var usernameField = buildFormField('username', 'Username', 'text')
-    form.appendChild(usernameField[0])
-    form.appendChild(usernameField[1])
+    form.add(new Label('E-mail', 'email'))
+    var emailInput = new Input('email', 'email')
+    form.add(emailInput)
 
-    var passwordField = buildFormField('password', 'Password', 'password')
-    form.appendChild(passwordField[0])
-    form.appendChild(passwordField[1])
+    form.add(new Label('Username', 'username'))
+    var usernameInput = new Input('text', 'username')
+    form.add(usernameInput)
 
-    var passwordRepeatField = buildFormField('password-repeat', 'Repeat Password', 'password')
-    form.appendChild(passwordRepeatField[0])
-    form.appendChild(passwordRepeatField[1])
+    form.add(new Label('Password', 'password'))
+    var passwordInput = new Input('password', 'password')
+    form.add(passwordInput)
 
-    var submitButton = buildButton('Register', 'submit')
-    form.appendChild(submitButton)
+    form.add(new Label('Repeat Password', 'password-repeat'))
+    var passwordRepeatInput = new Input('password', 'password-repeat')
+    form.add(passwordRepeatInput)
 
-    form.addEventListener('submit', function (event) {
+    var submitButton = new Button('Register', 'submit')
+    form.add(submitButton)
+
+    form.addBehavior('submit', function (event) {
         event.preventDefault()
 
-        var name = nameField[1].value
-        var email = emailField[1].value
-        var username = usernameField[1].value
-        var password = passwordField[1].value
-        var repeatpassword = passwordRepeatField[1].value
+        var name = nameInput.getValue()
+        var email = emailInput.getValue()
+        var username = usernameInput.getValue()
+        var password = passwordInput.getValue()
+        var repeatpassword = passwordRepeatInput.getValue()
 
         try {
             registerUser(name, email, username, password, repeatpassword)
 
             form.reset()
-            section.remove()
+            compo.remove()
             body.add(loginSection)
 
         } catch (error) {
@@ -147,15 +120,13 @@ function buildRegisterSection() {
         }
     })
 
-    var loginLink = document.createElement('a')
-    loginLink.href = ''
-    loginLink.innerText = 'Login'
-    section.appendChild(loginLink)
+    var loginLink = new Link('Login')
+    compo.add(loginLink)
 
-    loginLink.addEventListener('click', function (event) {
+    loginLink.addBehavior('click', function (event) {
         event.preventDefault()
 
-        section.remove()
+        compo.remove()
         body.add(loginSection)
     })
     return compo
@@ -165,26 +136,19 @@ function buildRegisterSection() {
 function buildHomeSection() {
     var compo = new Compo(document.createElement('section'))
 
-    var section = compo.container
+    var title = new Heading('HOME', 2)
+    compo.add(title)
 
-    var title = document.createElement('h2')
-    title.innerText = 'HOME'
-    section.appendChild(title)
+    var welcome = new Heading('Welcome, ' + loggedInUser.name + '!')
+    compo.add(welcome)
 
-    var welcome = document.createElement('h3')
-    welcome.innerText = 'Welcome, ' + loggedInUser.name + '!'
-    section.appendChild(welcome)
+    var logout = new Button('Logout', 'button')
+    compo.add(logout)
 
-    var logout = document.createElement('button')
-    logout.type = 'button'
-    logout.innerText = 'Logout'
-    logout.href = ''
-    section.appendChild(logout)
-
-    logout.addEventListener('click', function (event) {
+    logout.addBehavior('click', function (event) {
         event.preventDefault()
         loggedInUser = null
-        section.remove()
+        compo.remove()
         body.add(loginSection)
     })
     return compo
