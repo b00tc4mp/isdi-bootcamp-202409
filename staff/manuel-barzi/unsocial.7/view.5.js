@@ -1,10 +1,5 @@
-/**
- * Constructs Login instances
- */
-function Login() {
-    Compo.call(this, document.createElement('section'))
-
-    var compo = this
+function buildLoginSection() {
+    var compo = new Compo(document.createElement('section'))
 
     var title = new Heading('Login', 2)
     compo.add(title)
@@ -36,9 +31,9 @@ function Login() {
 
             compo.remove()
 
-            var home = new Home()
+            var homeSection = buildHomeSection()
 
-            page.add(home)
+            body.add(homeSection)
         } catch (error) {
             //passwordInput.container.value = ''
             passwordInput.setValue('')
@@ -58,22 +53,16 @@ function Login() {
 
         compo.remove()
 
-        var register = new Register()
+        var registerSection = buildRegisterSection()
 
-        page.add(register)
+        body.add(registerSection)
     })
+
+    return compo
 }
 
-Login.prototype = Object.create(Compo.prototype)
-Login.prototype.constructor = Login
-
-/**
- * Constructs Register instances
- */
-function Register() {
-    Compo.call(this, document.createElement('section'))
-
-    var compo = this
+function buildRegisterSection() {
+    var compo = new Compo(document.createElement('section'))
 
     var title = new Heading('Register', 2)
     compo.add(title)
@@ -120,7 +109,7 @@ function Register() {
 
             compo.remove()
 
-            page.add(login)
+            body.add(loginSection)
         } catch (error) {
             alert(error.message)
 
@@ -135,20 +124,14 @@ function Register() {
         event.preventDefault()
 
         compo.remove()
-        page.add(login)
+        body.add(loginSection)
     })
+
+    return compo
 }
 
-Register.prototype = Object.create(Compo.prototype)
-Register.prototype.constructor = Register
-
-/**
- * Constructs Home instances
- */
-function Home() {
-    Compo.call(this, document.createElement('section'))
-
-    var compo = this
+function buildHomeSection() {
+    var compo = new Compo(document.createElement('section'))
 
     var title = new Heading('Home', 2)
     compo.add(title)
@@ -166,9 +149,8 @@ function Home() {
 
         compo.remove()
 
-        page.add(login)
+        body.add(loginSection)
     })
-}
 
-Home.prototype = Object.create(Compo.prototype)
-Home.prototype.constructor = Home
+    return compo
+}

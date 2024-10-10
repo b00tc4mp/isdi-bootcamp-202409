@@ -1,13 +1,9 @@
-/**
- * Constructs Login instances
- */
-function Login() {
-    Compo.call(this, document.createElement('section'))
+function buildLoginSection() {
+    var compo = new Compo(document.createElement('section'))
 
-    var compo = this
-
-    var title = new Heading('Login', 2)
-    compo.add(title)
+    var title = document.createElement('h2')
+    title.innerText = 'Login'
+    compo.container.appendChild(title)
 
     var form = new Form()
     compo.add(form)
@@ -23,7 +19,7 @@ function Login() {
     var submitButton = new Button('Login', 'submit')
     form.add(submitButton)
 
-    form.addBehavior('submit', function (event) {
+    form.container.addEventListener('submit', function (event) {
         event.preventDefault()
 
         var username = usernameInput.getValue()
@@ -36,9 +32,9 @@ function Login() {
 
             compo.remove()
 
-            var home = new Home()
+            var homeSection = buildHomeSection()
 
-            page.add(home)
+            body.add(homeSection)
         } catch (error) {
             //passwordInput.container.value = ''
             passwordInput.setValue('')
@@ -49,34 +45,30 @@ function Login() {
         }
     })
 
+    var registerLink = document.createElement('a')
+    registerLink.href = ''
+    registerLink.innerText = 'Register'
+    compo.container.appendChild(registerLink)
 
-    var registerLink = new Link('Register')
-    compo.add(registerLink)
-
-    registerLink.addBehavior('click', function (event) {
+    registerLink.addEventListener('click', function (event) {
         event.preventDefault()
 
         compo.remove()
 
-        var register = new Register()
+        var registerSection = buildRegisterSection()
 
-        page.add(register)
+        body.add(registerSection)
     })
+
+    return compo
 }
 
-Login.prototype = Object.create(Compo.prototype)
-Login.prototype.constructor = Login
+function buildRegisterSection() {
+    var compo = new Compo(document.createElement('section'))
 
-/**
- * Constructs Register instances
- */
-function Register() {
-    Compo.call(this, document.createElement('section'))
-
-    var compo = this
-
-    var title = new Heading('Register', 2)
-    compo.add(title)
+    var title = document.createElement('h2')
+    title.innerText = 'Register'
+    compo.container.appendChild(title)
 
     var form = new Form()
     compo.add(form)
@@ -104,13 +96,25 @@ function Register() {
     var submitButton = new Button('Register', 'submit')
     form.add(submitButton)
 
-    form.addBehavior('submit', function (event) {
+    form.container.addEventListener('submit', function (event) {
         event.preventDefault()
 
+        //var name = form.container.name.value
+        //var name = event.target.name.value
+        //var name = this.name.value
+        //var name = nameInput.container.value
         var name = nameInput.getValue()
+        //var email = this.email.value
+        //var email = emailInput.container.value
         var email = emailInput.getValue()
+        //var username = this.username.value
+        //var username = usernameInput.container.value
         var username = usernameInput.getValue()
+        //var password = this.password.value
+        //var password = passwordInput.container.value
         var password = passwordInput.getValue()
+        //var passwordRepeat = this['password-repeat'].value
+        //var passwordRepeat = passwordRepeatInput.container.value
         var passwordRepeat = passwordRepeatInput.getValue()
 
         try {
@@ -120,7 +124,7 @@ function Register() {
 
             compo.remove()
 
-            page.add(login)
+            body.add(loginSection)
         } catch (error) {
             alert(error.message)
 
@@ -128,47 +132,44 @@ function Register() {
         }
     })
 
-    var loginLink = new Link('Login')
-    compo.add(loginLink)
+    var loginLink = document.createElement('a')
+    loginLink.href = ''
+    loginLink.innerText = 'Login'
+    compo.container.appendChild(loginLink)
 
-    loginLink.addBehavior('click', function (event) {
+    loginLink.addEventListener('click', function (event) {
         event.preventDefault()
 
         compo.remove()
-        page.add(login)
+        body.add(loginSection)
     })
+
+    return compo
 }
 
-Register.prototype = Object.create(Compo.prototype)
-Register.prototype.constructor = Register
+function buildHomeSection() {
+    var compo = new Compo(document.createElement('section'))
 
-/**
- * Constructs Home instances
- */
-function Home() {
-    Compo.call(this, document.createElement('section'))
+    var title = document.createElement('h2')
+    title.innerText = 'Home'
+    compo.container.appendChild(title)
 
-    var compo = this
-
-    var title = new Heading('Home', 2)
-    compo.add(title)
-
-    var userTitle = new Heading('Hello, ' + loggedInUser.name + '!', 3)
-    compo.add(userTitle)
+    var userTitle = document.createElement('h3')
+    userTitle.innerText = 'Hello, ' + loggedInUser.name + '!'
+    compo.container.appendChild(userTitle)
 
     var logoutButton = new Button('Logout', 'button')
     compo.add(logoutButton)
 
-    logoutButton.addBehavior('click', function (event) {
+    logoutButton.container.addEventListener('click', function (event) {
         event.preventDefault()
 
         loggedInUser = null
 
         compo.remove()
 
-        page.add(login)
+        body.add(loginSection)
     })
-}
 
-Home.prototype = Object.create(Compo.prototype)
-Home.prototype.constructor = Home
+    return compo
+}
