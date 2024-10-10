@@ -1,200 +1,177 @@
-function buildFormField(id, text, type) {
-    var label = document.createElement('label')
-    label.htmlFor = id
-    label.innerText = text
+/**
+ * Constructs Login instances
+ */
+function Login() { // La función login, monta toda la vista del login
+    Compo.call(this, document.createElement('section')) // Le asignamos a login las popiedades de Compo, el container principal será section
 
-    var input = document.createElement('input')
-    input.type = type
-    input.id = id
+    var compo = this // Variable auxiliar para que el código sea más bonito y no ver todo el rato "this" sino "compo"
 
-    return [label, input]
-}
+    var title = new Heading('Login', 2) // Creación del título
+    compo.add(title) // Añadimos el título al compo
 
-function buildButton(text, type) {
-    var button = document.createElement('button')
-    button.type = type
-    button.innerText = text
+    var form = new Form() // Creación del formulario
+    compo.add(form)
 
-    return button
-}
+    form.add(new Label('Username', 'username')) // Añadimos un label (el de username) al formulario
+    var usernameInput = new Input('text', 'username')
+    form.add(usernameInput) // Añadimos un input (el de username) al formulario
 
-function buildAnchor(ref, text) {
-    var anchor = document.createElement('a')
-    anchor.href = ref
-    anchor.innerText = text
+    form.add(new Label('Password', 'password')) // Añadimos un label (el de password) al formulario
+    var passwordInput = new Input('password', 'password')
+    form.add(passwordInput) // Añadimos un input (el de password) al formulario
 
-    return anchor
-}
+    var submitButton = new Button('submit', 'Login') // Creación del botón para submitear el formulario
+    form.add(submitButton) // Añadimos el botón al formulario
 
-function buildLoginSection() {
-    var compo = new Compo(document.createElement('section'))
+    form.addBehavior('submit', function (event) { // El comportamiento (addEventListener) del botón de submitear
+        event.preventDefault() // Un clásico, OG, leyenda, fiera, máquina
 
-    var section = compo.container
-
-    var title = document.createElement('h2') // Título Login
-    title.innerText = 'Login'
-    section.appendChild(title)
-
-    var form = document.createElement('form') // El formulario del login
-    section.appendChild(form)
-
-    var usernameField = buildFormField('username', 'Userame', 'text')
-    form.appendChild(usernameField[0])
-    form.appendChild(usernameField[1])
-
-    var passwordField = buildFormField('password', 'Password', 'password')
-    form.appendChild(passwordField[0])
-    form.appendChild(passwordField[1])
-
-    var submitButton = buildButton('Login', 'submit') // El botón de login
-    form.appendChild(submitButton)
-
-    form.addEventListener('submit', function (event) { // Botón login (borramos login y montamos home)
-        event.preventDefault()
-
-        var username = usernameField[1].value
-        var password = passwordField[1].value
+        var username = usernameInput.getValue() // Almacenamos el valor escrito en el input
+        var password = passwordInput.getValue() // Almacenamos el valor escrito en el input
 
         try {
-            loggedInUser = authenticateUser(username, password) // Llamamos a la función para confirmar que el usuario existe
+            loggedInUser = authenticateUser(username, password)
 
-            form.reset() // Borramos el form del login (porque salimos de login)
+            form.reset()
 
-            section.remove() // Borramos el login
+            compo.remove()
 
-            var homeSection = buildHomeSection()
+            var home = new Home() // Creación de la pantalla home
 
-            body.add(homeSection)
+            page.add(home) // Añadimos la pantalla home a la page (a la vista de la página)
         } catch (error) {
-            passwordField[1].value = ""
-
-            console.error(error)
+            passwordInput.setValue('') // En caso de error reiniciamos el input de la contraseña
 
             alert(error.message)
+
+            console.error(error)
         }
     })
 
-    var registerLink = buildAnchor('', 'Register')
-    section.appendChild(registerLink)
+    var registerLink = new Link('Register') // Creación del link para ir a la pantalla de registro
+    compo.add(registerLink) // Lo añadimos al compo (la sección) del login
 
-    registerLink.addEventListener('click', function (event) { // Borramos login y vamos a la pantalla de registro
-        event.preventDefault()
+    registerLink.addBehavior('click', function (event) { // Comportamiento del link
+        event.preventDefault() // Lo volvió a hacer
 
-        form.reset() // Borramos el contenido que hubiese escrito en el formulario del login
+        form.reset()
 
-        section.remove() // Desmontamos login
+        compo.remove()
 
-        var registerSection = buildRegisterSection()
+        var register = new Register() // Creamos la pantalla de register
 
-        body.add(registerSection) // Montamos el registro
+        page.add(register) // La ponemos a la vista
     })
-
-    return compo
 }
 
-function buildRegisterSection() {
-    var compo = new Compo(document.createElement('section'))
+Login.prototype = Object.create(Compo.prototype) // Le decimos a Login que es heredero de Compo
+Login.prototype.constructor = Login // Le decimos a Login que su constructor es Login (con la línea anterior se asigna a Compo, hay que rectificarlo)
 
-    var section = compo.container
+/**
+ * Constructs Register instances
+ */
+function Register() { // Función para crear la pantalla de registro
+    Compo.call(this, document.createElement('section')) // Asignamos a Register las propiedades de Compo
 
-    var title = document.createElement('h2') // Título de registro
-    title.innerText = "Register"
-    section.appendChild(title)
+    var compo = this // Variable auxiliar
 
-    var form = document.createElement('form') // Creación del formulario que tendrá los campos para el registro
-    section.appendChild(form)
+    // Creación de un nuevo título y formulario con sus respectivos campos y un botón
+    var title = new Heading('Register', 2)
+    compo.add(title)
 
-    var nameField = buildFormField('name', 'Name', 'text')
-    form.appendChild(nameField[0])
-    form.appendChild(nameField[1])
+    var form = new Form
+    compo.add(form)
 
-    var emailField = buildFormField('email', 'E-mail', 'email')
-    form.appendChild(emailField[0])
-    form.appendChild(emailField[1])
+    form.add(new Label('Name', 'name'))
+    var nameInput = new Input('text', 'name')
+    form.add(nameInput)
 
-    var usernameField = buildFormField('username', 'Username', 'text')
-    form.appendChild(usernameField[0])
-    form.appendChild(usernameField[1])
+    form.add(new Label('E-mail', 'email'))
+    var emailInput = new Input('email', 'email')
+    form.add(emailInput)
 
-    var passwordField = buildFormField('password', 'Password', 'password')
-    form.appendChild(passwordField[0])
-    form.appendChild(passwordField[1])
+    form.add(new Label('Username', 'username'))
+    var usernameInput = new Input('username', 'text')
+    form.add(usernameInput)
 
-    var passwordRepeatField = buildFormField('repeatPassword', 'Confirm password', 'password')
-    form.appendChild(passwordRepeatField[0])
-    form.appendChild(passwordRepeatField[1])
+    form.add(new Label('Password', 'password'))
+    var passwordInput = new Input('password', 'password')
+    form.add(passwordInput)
 
-    var submitButton = document.createElement('button') // Botón de registro
-    submitButton.type = "submit"
-    submitButton.innerText = "Register"
-    form.appendChild(submitButton)
+    form.add(new Label('Confirm Password', 'repeatPassword'))
+    var passwordRepeatInput = new Input('repeatPassword', 'password')
+    form.add(passwordRepeatInput)
 
-    form.addEventListener('submit', function (event) { // Acción del botón para registrar al usuario y volver a la pantalla login
-        event.preventDefault()
+    var submitButton = new Button('submit', 'Register')
+    form.add(submitButton)
 
-        // Guardar todos los valores
-        var name = nameField[1].value
-        var email = emailField[1].value
-        var username = usernameField[1].value
-        var password = passwordField[1].value
-        var confirmpassword = passwordRepeatField[1].value
+    form.addBehavior('submit', function (event) { // Comportamiento del botón
+        event.preventDefault() // event.preventDefault() siempre muy arriba en los rankings (un poco por debajo de España)
+
+        // Almacenamos todos los valores de los inputs
+        var name = nameInput.getValue()
+        var email = emailInput.getValue()
+        var username = usernameInput.getValue()
+        var password = passwordInput.getValue()
+        var confirmpassword = passwordRepeatInput.getValue()
 
         try {
-            registerUser(name, email, username, password, confirmpassword) // Llamamos a la función para registrar al usuario
+            registerUser(name, email, username, password, confirmpassword) // Registramos al usuario (logic.js)
 
-            form.reset() // Borramos el formulario de registro
+            form.reset()
 
-            section.remove() // "Salimos" de registro
+            compo.remove() // Eliminamos el compo (la sección) en la que nos encontramos (Register)
 
-            body.add(loginSection) // Montamos el login
+            page.add(login) // En caso de que registremos  al usuario volvemos a la pantalla Login
         } catch (error) {
-            console.error(error)
-
             alert(error.message)
+
+            console.error(error)
         }
     })
 
-    var loginLink = buildAnchor('', 'Login')
-    section.appendChild(loginLink)
+    var loginLink = new Link('Login') // Creación del link que nos lleva de vuelta a login
+    compo.add(loginLink)
 
-    loginLink.addEventListener('click', function (event) { // Borramos registro y montamos login
-        event.preventDefault()
+    loginLink.addBehavior('click', function (event) { // Comportamiento del link
+        event.preventDefault() // Nooooo imposible, soy fan desde pequeñito una foto porfa
 
-        section.remove() // "Salimos" de registro
+        compo.remove() // Borramos el compo (Register)
 
-        form.reset() // Borramos el formulario de registro
-
-        body.add(loginSection) // Montamos el login
+        page.add(login) // Enseñamos Login
     })
-
-    return compo
 }
 
-function buildHomeSection() {
-    var compo = new Compo(document.createElement('section'))
+/**
+ * Constructs Home instances
+ */
+Register.prototype = Object.create(Compo.prototype) // Le decimos a Register que es heredero de Compo
+Register.prototype.constructor = Register // Le decimos a Register que su constructor es Register (con la línea anterior se asigna a Compo, hay que rectificarlo)
 
-    var section = compo.container
+function Home() { // Función constructora de la pantalla Home
+    Compo.call(this, document.createElement('section')) // Le asignamos a Home las propiedades de Compo
+    var compo = this // Variable auxiliar
 
-    var title = document.createElement('h2') // Título de home
-    title.innerText = "Home"
-    section.appendChild(title)
+    // Creamos las partes de Home
+    var title = new Heading('Home', 2)
+    compo.add(title)
 
-    var welcome = document.createElement('h3') // Texto de bienvenida
-    welcome.innerText = "Welcome, " + loggedInUser.name + "!"
-    section.appendChild(welcome)
+    var welcome = new Heading('Welcome, ' + loggedInUser.name + '!', 3)
+    compo.add(welcome)
 
-    var logoutButton = buildButton('Logout', 'button')
-    section.appendChild(logoutButton)
+    var logoutButton = new Button('button', 'Logout')
+    compo.add(logoutButton)
 
-    logoutButton.addEventListener("click", function (event) { // Acción del botón de logout (dentro de home)
-        event.preventDefault()
+    logoutButton.addBehavior("click", function (event) { // Comportamiento del botón de logout
+        event.preventDefault() // Si event.preventDefault() tiene 100 fans, yo soy uno de  ellos, si event.preventDefault() tiene 10 fans, yo soy uno de ellos, si event.preventDefault() tiene 1 fan, yo soy ese fan, si event.preventDefault() no tiene fans, es que me han matado.
 
         loggedInUser = null // Desconectamos al usuario
 
-        section.remove() // Desmontamos home
+        compo.remove() // Borramos Home
 
-        body.add(loginSection) // Volvemos al login
+        page.add(login) // Añadimos login a la vista
     })
-
-    return compo
 }
+
+Home.prototype = Object.create(Compo.prototype) // Le decimos a Home que es heredero de Compo
+Home.prototype.constructor = Home // Le decimos a Home que su constructor es Home (con la línea anterior se asigna a Compo, hay que rectificarlo)
