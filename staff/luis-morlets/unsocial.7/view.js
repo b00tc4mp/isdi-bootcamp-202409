@@ -1,6 +1,3 @@
-/**
- * Constructs Login instances
- */
 function Login() {
 
     Compo.call(this, document.createElement('section'))
@@ -39,7 +36,7 @@ function Login() {
 
             var home = new Home()
 
-            page.add(home)
+            body.add(home)
         } catch (error) {
             passwordInput.setValue('')
 
@@ -62,16 +59,13 @@ function Login() {
 
         var register = new Register()
 
-        page.add(register)
+        body.add(register)
     })
 }
 
 Login.prototype = Object.create(Compo.prototype)
 Login.prototype.constructor = Login
 
-/**
- * Construcs Register instances
- */
 function Register() {
 
     Compo.call(this, document.createElement('section'))
@@ -123,7 +117,7 @@ function Register() {
 
             compo.remove()
 
-            page.add(login)
+            body.add(login)
         } catch (error) {
             alert(error.message)
 
@@ -141,16 +135,13 @@ function Register() {
         event.preventDefault()
 
         compo.remove()
-        page.add(login)
+        body.add(login)
     })
 }
 
 Register.prototype = Object.create(Compo.prototype)
 Register.prototype.constructor = Register
 
-/**
- * Constructs Home instances
- */
 function Home() {
 
     Compo.call(this, document.createElement('section'))
@@ -173,7 +164,7 @@ function Home() {
 
         compo.remove()
 
-        page.add(login)
+        body.add(login)
     })
 }
 
