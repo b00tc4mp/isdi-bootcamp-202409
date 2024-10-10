@@ -21,14 +21,15 @@ function buildForm() {
 
 //Construye buttons
 
-function buildButton(text, type) {
+//En principi crec que ja no em farà falta 
+/*function buildButton(text, type) {
     var compo = new Compo(document.createElement('button'))
 
     compo.container.type = type
     compo.container.innerText = text
 
     return compo
-}
+}*/
 
 //SECTION LOGIN
 function buildLoginSection() {
@@ -39,22 +40,37 @@ function buildLoginSection() {
     title.innerText = 'Login'
     compo.container.appendChild(title)
 
+    /*var compo = this*/
+
+    /*var form = new Form()
+    compo.add(form)*/
     var form = buildForm()
     compo.add(form)
 
     //Label & Imput Username
+
+    /*form.add(new Label('Username', 'username'))
+    var usernameInput = new Input('text', 'username')
+    form.add(usernameInput)*/
+
     var usernameField = buildFormField('username', 'Username', 'text')
     form.container.appendChild(usernameField[0])
     form.container.appendChild(usernameField[1])
 
     //Label & Imput Password
+    /*form.add(new Label('Password', 'password'))
+    var passwordInput = new Input('password', 'password')
+    fprm.add(passwordInput)*/
+
     var passwordField = buildFormField('password', 'Password', 'password')
     form.container.appendChild(passwordField[0])
     form.container.appendChild(passwordField[1])
 
     //Login Button
-    var submitButton = buildButton('Login', 'submit')
+    var submitButton = new Button('Login', 'submit')
     form.add(submitButton)
+    //var submitButton = buildButton('Login', 'submit')
+    //form.add(submitButton)
 
     var registerText = document.createElement('p')
     registerText.innerText = "Don't have an account? Create your account below."
@@ -144,8 +160,10 @@ function showRegister() {
 
 
     //Botón Register
-    var submitButton = buildButton('Register', 'submit')
+    var submitButton = new Button('Register', 'submit')
     form.add(submitButton)
+    //var submitButton = buildButton('Register', 'submit')
+    //form.add(submitButton)
 
     var registerLoginLink = document.createElement('a')
     registerLoginLink.href = ''
@@ -204,8 +222,10 @@ function showHome() {
     homeWelcome.innerText = 'Hello ' + loggedUser.name
     compo.container.appendChild(homeWelcome)
 
-    var logoutButton = buildButton('Logout', 'button')
+    logoutButton = new Button('Logout', 'buton')
     compo.add(logoutButton)
+    //var logoutButton = buildButton('Logout', 'button')
+    //compo.add(logoutButton)
 
     //Evento click del botón logout
     logoutButton.container.addEventListener('click', function (event) {
