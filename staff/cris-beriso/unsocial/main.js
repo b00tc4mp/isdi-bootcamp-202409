@@ -7,3 +7,9 @@ page.add(title)
 
 var login = new Login()
 page.add(login)
+
+var home
+//loggedInUser = users[0]
+
+//home = new Home()
+//page.add(home)
