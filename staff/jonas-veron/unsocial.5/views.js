@@ -2,7 +2,7 @@ function Login(){
     Compo.call(this, document.createElement('section'))
     
     var compo = this
- 
+
     var title = new Heading('Login', 2)
     compo.add(title)
 
@@ -71,7 +71,7 @@ function Register(){
 Compo.call(this, document.createElement('section'))
 
 var compo = this
-compo.classList = 'register'
+// compo.classList = 'register'
 
 var title = new Heading('Register', 2)
 compo.add(title)
@@ -143,7 +143,7 @@ Register.prototype.constructor = Register
 
 function Home(){
     Compo.call(this, document.createElement('section'))
-    compo.container.classList = 'home'
+    // compo.classList = 'home'
 
     var compo = this
 

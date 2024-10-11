@@ -27,17 +27,17 @@ padding: 10px;
 border-radius: 10px;
 box-shadow: 2px 2px 2px 2px;
 }
-/* .login{
+.login{
 height: 350px;
-} */
+}
 
-/* .register{
+.register{
     height: 500px;
-} */
+}
 
-/* .home{
+.home{
     height: 250px;
-} */
+}
 
 form{
 margin: auto;
