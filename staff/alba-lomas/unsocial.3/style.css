@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Updock&display=swap');
+
+
+:root {
+    --color: rgb(128, 175, 128);
+    --font: 'Dancing Script';
+    font-family: var(--font);
+}
+
+body {
+    background-color: rgb(219, 224, 224);
+    color: var(--color);
+}
+
+input {
+    background-color: inherit;
+    font-family: inherit;
+}
+
+a:visited {
+    color: var(--color);
+}
