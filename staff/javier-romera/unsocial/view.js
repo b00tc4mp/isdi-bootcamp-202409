@@ -4,13 +4,11 @@
 function Login() { // La función login, monta toda la vista del login
     Compo.call(this, document.createElement('section')) // Le asignamos a login las popiedades de Compo, el container principal será section
 
-    var compo = this // Variable auxiliar para que el código sea más bonito y no ver todo el rato "this" sino "compo"
-
     var title = new Heading('Login', 2) // Creación del título
-    compo.add(title) // Añadimos el título al compo
+    this.add(title) // Añadimos el título al compo
 
     var form = new Form() // Creación del formulario
-    compo.add(form)
+    this.add(form)
 
     form.add(new Label('Username', 'username')) // Añadimos un label (el de username) al formulario
     var usernameInput = new Input('text', 'username')
@@ -34,7 +32,8 @@ function Login() { // La función login, monta toda la vista del login
 
             form.reset()
 
-            compo.remove()
+            //this.remove() // De normal, el "this" seria form y borrariamos el formulario y no el compo
+            this.remove()
 
             var home = new Home() // Creación de la pantalla home
 
@@ -46,22 +45,22 @@ function Login() { // La función login, monta toda la vista del login
 
             console.error(error)
         }
-    })
+    }.bind(this))
 
     var registerLink = new Link('Register') // Creación del link para ir a la pantalla de registro
-    compo.add(registerLink) // Lo añadimos al compo (la sección) del login
+    this.add(registerLink) // Lo añadimos al compo (la sección) del login
 
     registerLink.addBehavior('click', function (event) { // Comportamiento del link
         event.preventDefault() // Lo volvió a hacer
 
         form.reset()
 
-        compo.remove()
+        this.remove()
 
         var register = new Register() // Creamos la pantalla de register
 
         page.add(register) // La ponemos a la vista
-    })
+    }.bind(this))
 }
 
 Login.prototype = Object.create(Compo.prototype) // Le decimos a Login que es heredero de Compo
@@ -73,14 +72,12 @@ Login.prototype.constructor = Login // Le decimos a Login que su constructor es 
 function Register() { // Función para crear la pantalla de registro
     Compo.call(this, document.createElement('section')) // Asignamos a Register las propiedades de Compo
 
-    var compo = this // Variable auxiliar
-
     // Creación de un nuevo título y formulario con sus respectivos campos y un botón
     var title = new Heading('Register', 2)
-    compo.add(title)
+    this.add(title)
 
     var form = new Form
-    compo.add(form)
+    this.add(form)
 
     form.add(new Label('Name', 'name'))
     var nameInput = new Input('text', 'name')
@@ -120,7 +117,7 @@ function Register() { // Función para crear la pantalla de registro
 
             form.reset()
 
-            compo.remove() // Eliminamos el compo (la sección) en la que nos encontramos (Register)
+            this.remove() // Eliminamos el compo (la sección) en la que nos encontramos (Register)
 
             page.add(login) // En caso de que registremos  al usuario volvemos a la pantalla Login
         } catch (error) {
@@ -128,18 +125,18 @@ function Register() { // Función para crear la pantalla de registro
 
             console.error(error)
         }
-    })
+    }.bind(this))
 
     var loginLink = new Link('Login') // Creación del link que nos lleva de vuelta a login
-    compo.add(loginLink)
+    this.add(loginLink)
 
     loginLink.addBehavior('click', function (event) { // Comportamiento del link
         event.preventDefault() // Nooooo imposible, soy fan desde pequeñito una foto porfa
 
-        compo.remove() // Borramos el compo (Register)
+        this.remove() // Borramos el compo (Register)
 
         page.add(login) // Enseñamos Login
-    })
+    }.bind(this))
 }
 
 /**
@@ -150,27 +147,26 @@ Register.prototype.constructor = Register // Le decimos a Register que su constr
 
 function Home() { // Función constructora de la pantalla Home
     Compo.call(this, document.createElement('section')) // Le asignamos a Home las propiedades de Compo
-    var compo = this // Variable auxiliar
 
     // Creamos las partes de Home
     var title = new Heading('Home', 2)
-    compo.add(title)
+    this.add(title)
 
     var welcome = new Heading('Welcome, ' + loggedInUser.name + '!', 3)
-    compo.add(welcome)
+    this.add(welcome)
 
     var logoutButton = new Button('button', 'Logout')
-    compo.add(logoutButton)
+    this.add(logoutButton)
 
     logoutButton.addBehavior("click", function (event) { // Comportamiento del botón de logout
         event.preventDefault() // Si event.preventDefault() tiene 100 fans, yo soy uno de  ellos, si event.preventDefault() tiene 10 fans, yo soy uno de ellos, si event.preventDefault() tiene 1 fan, yo soy ese fan, si event.preventDefault() no tiene fans, es que me han matado.
 
         loggedInUser = null // Desconectamos al usuario
 
-        compo.remove() // Borramos Home
+        this.remove() // Borramos Home
 
         page.add(login) // Añadimos login a la vista
-    })
+    }.bind(this))
 }
 
 Home.prototype = Object.create(Compo.prototype) // Le decimos a Home que es heredero de Compo
