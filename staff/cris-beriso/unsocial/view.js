@@ -4,13 +4,11 @@
 function Login() {
   Compo.call(this, document.createElement('section'))
 
-  var compo = this
-
   var title = new Heading('Login', 2)
-  compo.add(title)
+  this.add(title)
 
   var form = new Form()
-  compo.add(form)
+  this.add(form)
 
   form.add(new Label('Username', 'username'))
   var usernameInput = new Input('text', 'username')
@@ -34,7 +32,7 @@ function Login() {
 
       form.reset()
 
-      compo.remove()
+      this.remove()
 
       var home = new Home()
 
@@ -46,20 +44,20 @@ function Login() {
 
       console.error(error)
     }
-  })
+  }.bind(this))
 
   var registerLink = new Link('Register')
-  compo.add(registerLink)
+  this.add(registerLink)
 
   registerLink.addBehavior('click', function (event) {
     event.preventDefault()
 
-    compo.remove()
+    this.remove()
 
     var register = new Register()
 
     page.add(register)
-  })
+  }.bind(this))
 }
 
 Login.prototype = Object.create(Compo.prototype)
@@ -71,13 +69,11 @@ Login.prototype.constructor = Login
 function Register() {
   Compo.call(this, document.createElement('section'))
 
-  var compo = this
-
   var title = new Heading('Register', 2)
-  compo.add(title)
+  this.add(title)
 
   var form = new Form()
-  compo.add(form)
+  this.add(form)
 
   form.add(new Label('Name', 'name'))
   var nameInput = new Input('text', 'name')
@@ -116,7 +112,7 @@ function Register() {
 
       form.reset()
 
-      compo.remove()
+      this.remove()
 
       page.add(login)
     } catch (error) {
@@ -124,17 +120,17 @@ function Register() {
 
       console.error(error)
     }
-  })
+  }.bind(this))
 
   var loginLink = new Link('Login')
-  compo.add(loginLink)
+  this.add(loginLink)
 
   loginLink.addBehavior('click', function (event) {
     event.preventDefault()
 
-    compo.remove()
+    this.remove()
     page.add(login)
-  })
+  }.bind(this))
 }
 
 Register.prototype = Object.create(Compo.prototype)
@@ -146,26 +142,24 @@ Register.prototype.constructor = Register
 function Home() {
   Compo.call(this, document.createElement('section'))
 
-  var compo = this
-
   var title = new Heading('Home', 2)
-  compo.add(title)
+  this.add(title)
 
   var userTitle = new Heading('Hello, ' + loggedInUser.name + '!', 3)
-  compo.add(userTitle)
+  this.add(userTitle)
 
   var logoutButton = new Button('Logout', 'button')
-  compo.add(logoutButton)
+  this.add(logoutButton)
 
   logoutButton.addBehavior('click', function (event) {
     event.preventDefault()
 
     loggedInUser = null
 
-    compo.remove()
+    this.remove()
 
     page.add(login)
-  })
+  }.bind(this))
 }
 
 Home.prototype = Object.create(Compo.prototype)
