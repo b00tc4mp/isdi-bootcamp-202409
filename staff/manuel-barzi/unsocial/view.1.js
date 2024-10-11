@@ -4,11 +4,13 @@
 function Login() {
     Compo.call(this, document.createElement('section'))
 
+    var self = this
+
     var title = new Heading('Login', 2)
-    this.add(title)
+    self.add(title)
 
     var form = new Form()
-    this.add(form)
+    self.add(form)
 
     form.add(new Label('Username', 'username'))
     var usernameInput = new Input('text', 'username')
@@ -32,33 +34,34 @@ function Login() {
 
             form.reset()
 
-            this.remove()
+            self.remove()
 
             var home = new Home()
 
             page.add(home)
         } catch (error) {
+            //passwordInput.container.value = ''
             passwordInput.setValue('')
 
             alert(error.message)
 
             console.error(error)
         }
-    }.bind(this))
+    })
 
 
     var registerLink = new Link('Register')
-    this.add(registerLink)
+    self.add(registerLink)
 
     registerLink.addBehavior('click', function (event) {
         event.preventDefault()
 
-        this.remove()
+        self.remove()
 
         var register = new Register()
 
         page.add(register)
-    }.bind(this))
+    })
 }
 
 Login.prototype = Object.create(Compo.prototype)
@@ -70,11 +73,13 @@ Login.prototype.constructor = Login
 function Register() {
     Compo.call(this, document.createElement('section'))
 
+    var self = this
+
     var title = new Heading('Register', 2)
-    this.add(title)
+    self.add(title)
 
     var form = new Form()
-    this.add(form)
+    self.add(form)
 
     form.add(new Label('Name', 'name'))
     var nameInput = new Input('text', 'name')
@@ -113,7 +118,7 @@ function Register() {
 
             form.reset()
 
-            this.remove()
+            self.remove()
 
             page.add(login)
         } catch (error) {
@@ -121,17 +126,17 @@ function Register() {
 
             console.error(error)
         }
-    }.bind(this))
+    })
 
     var loginLink = new Link('Login')
-    this.add(loginLink)
+    self.add(loginLink)
 
     loginLink.addBehavior('click', function (event) {
         event.preventDefault()
 
-        this.remove()
+        self.remove()
         page.add(login)
-    }.bind(this))
+    })
 }
 
 Register.prototype = Object.create(Compo.prototype)
@@ -143,24 +148,26 @@ Register.prototype.constructor = Register
 function Home() {
     Compo.call(this, document.createElement('section'))
 
+    var self = this
+
     var title = new Heading('Home', 2)
-    this.add(title)
+    self.add(title)
 
     var userTitle = new Heading('Hello, ' + loggedInUser.name + '!', 3)
-    this.add(userTitle)
+    self.add(userTitle)
 
     var logoutButton = new Button('Logout', 'button')
-    this.add(logoutButton)
+    self.add(logoutButton)
 
     logoutButton.addBehavior('click', function (event) {
         event.preventDefault()
 
         loggedInUser = null
 
-        this.remove()
+        self.remove()
 
         page.add(login)
-    }.bind(this))
+    })
 }
 
 Home.prototype = Object.create(Compo.prototype)
