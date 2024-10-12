@@ -56,7 +56,7 @@ function createPost(username, image, text) {
     date: new Date
   }
 
-  post.push(post)
+  posts.push(post)
 }
 
 function getPosts() {
