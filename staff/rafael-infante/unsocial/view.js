@@ -177,7 +177,61 @@ function Home() {
       page.add(login)
     }
   }.bind(this))
+
+  var postButton = new Button('btn-post', 'button', 'Post')
+  this.add(postButton)
+
+  postButton.addBehavior('click', function () {
+
+    var createPost = new CreatePost('section-container')
+    this.remove()
+    page.add(createPost)
+  }.bind(this))
 }
 
 Home.prototype = Object.create(Compo.prototype)
 Home.prototype.constructor = Home
+
+function CreatePost(className) {
+  Compo.call(this, document.createElement('div'))
+
+  this.container.classList.add(className)
+
+  var title = new Heading('Create a Post', 3)
+  this.add(title)
+
+  var form = new Form('form-container')
+
+  var imageLabel = new Label('image', 'Image')
+  var imageInput = new Input('image', 'text', 'Select an image', true)
+  form.add(imageLabel)
+  form.add(imageInput)
+
+  var textLabel = new Label('text', 'Text')
+  var textInput = new Input('text', 'text', 'Write a text', true)
+  form.add(textLabel)
+  form.add(textInput)
+
+  var submitButton = new Button('submit', 'submit', 'Create')
+  form.add(submitButton)
+
+  this.add(form)
+
+  form.addBehavior('submit', function (event) {
+    event.preventDefault()
+    var image = imageInput.getValue()
+    var text = textInput.getValue()
+
+    try {
+      createpost(loggedUser.username, image, text)
+      this.remove()
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }.bind(this))
+}
+
+CreatePost.prototype = Object.create(Compo.prototype)
+CreatePost.prototype.constructor = CreatePost
