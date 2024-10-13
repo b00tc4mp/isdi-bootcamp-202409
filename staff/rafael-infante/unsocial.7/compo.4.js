@@ -12,10 +12,6 @@ Compo.prototype.remove = function () {
   this.container.remove()
 }
 
-Compo.prototype.addBehavior = function (action, callback) {
-  this.container.addEventListener(action, callback)
-}
-
 function Header(className) {
   Compo.call(this, document.createElement('header'))
   this.container.classList.add(className)

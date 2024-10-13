@@ -12,10 +12,6 @@ Compo.prototype.remove = function () {
   this.container.remove()
 }
 
-Compo.prototype.addBehavior = function (action, callback) {
-  this.container.addEventListener(action, callback)
-}
-
 function Header(className) {
   Compo.call(this, document.createElement('header'))
   this.container.classList.add(className)
@@ -80,6 +76,7 @@ Input.prototype.getValue = function () {
 Input.prototype.setValue = function (value) {
   this.container.value = value
 }
+
 function Button(id, type, text) {
   Compo.call(this, document.createElement('button'))
   this.container.id = id
@@ -89,12 +86,3 @@ function Button(id, type, text) {
 
 Button.prototype = Object.create(Compo.prototype)
 Button.prototype.constructor = Button
-
-function Link(text, href) {
-  Compo.call(this, document.createElement('a'))
-  this.container.innerText = text
-  this.container.href = href
-}
-
-Link.prototype = Object.create(Compo.prototype)
-Link.prototype.constructor = Link

@@ -59,14 +59,14 @@ function buildLoginSection() {
   // })
 
   // Send user to register section when clicking on register link
-  registerLink.addBehavior('click', function (event) {
+  registerLink.container.addEventListener('click', function (event) {
     event.preventDefault()
     compo.remove()
     var registerSection = buildRegisterSection()
     body.add(registerSection)
   })
   // actions when submitting the login Form
-  form.addBehavior('submit', function (event) {
+  form.container.addEventListener('submit', function (event) {
     event.preventDefault()
 
     var username = usernameInput.getValue()
@@ -129,13 +129,13 @@ function buildRegisterSection() {
   var loginLink = new Link('Login', '#')
   registerAnchorText.appendChild(loginLink.container)
 
-  loginLink.addBehavior('click', function (event) {
+  loginLink.container.addEventListener('click', function (event) {
     event.preventDefault();
     compo.remove()
     body.add(loginSection)
   })
   // Save data of new user when clicking on register button
-  form.addBehavior('submit', function (event) {
+  form.container.addEventListener('submit', function (event) {
     event.preventDefault()
     var name = nameInput.getValue()
     var email = emailInput.getValue()

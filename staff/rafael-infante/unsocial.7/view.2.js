@@ -1,3 +1,19 @@
+function buildHeader(className, imageSrc, imageClass) {
+  var compo = new Compo(document.createElement('header'))
+  compo.container.classList.add(className)
+
+  var image = document.createElement('img')
+  image.src = imageSrc
+  image.classList.add(imageClass)
+  compo.container.appendChild(image)
+
+  var title = document.createElement('h1')
+  title.innerText = 'unSocial'
+  compo.container.appendChild(title)
+
+  return compo
+}
+
 function buildLoginSection() {
 
   var compo = new Compo(document.createElement('section'))
@@ -7,11 +23,13 @@ function buildLoginSection() {
   paragraph.innerText = 'Welcome !'
   compo.container.appendChild(paragraph)
 
-  var title = new Heading('Sign in to unSocial', 2)
-  compo.add(title)
+  var title = document.createElement('h2')
+  title.innerText = 'Sign in to unSocial'
+  compo.container.appendChild(title)
 
-  var text = new Heading('Write username and password to access', 4)
-  compo.add(text)
+  var text = document.createElement('h4')
+  text.innerText = 'Write username and password to access'
+  compo.container.appendChild(text)
 
   var form = (new Form('form-container'))
   compo.add(form)
@@ -32,9 +50,9 @@ function buildLoginSection() {
   anchorText.innerText = "Don't have an account? "
   compo.container.appendChild(anchorText)
 
-  var registerLink = new Link('Register', '#')
-
-  anchorText.appendChild(registerLink.container)
+  var registerLink = document.createElement('a')
+  registerLink.innerText = "Register"
+  anchorText.appendChild(registerLink)
 
   // var passwordInputContainer = document.createElement('div')
   // var passwordIcon = document.createElement('i')
@@ -59,14 +77,14 @@ function buildLoginSection() {
   // })
 
   // Send user to register section when clicking on register link
-  registerLink.addBehavior('click', function (event) {
+  registerLink.addEventListener('click', function (event) {
     event.preventDefault()
     compo.remove()
     var registerSection = buildRegisterSection()
     body.add(registerSection)
   })
   // actions when submitting the login Form
-  form.addBehavior('submit', function (event) {
+  form.container.addEventListener('submit', function (event) {
     event.preventDefault()
 
     var username = usernameInput.getValue()
@@ -93,8 +111,10 @@ function buildRegisterSection() {
   var compo = new Compo(document.createElement('section'))
   compo.container.classList.add('section-container')
 
-  var title = new Heading('Register to unSocial', 2)
-  compo.add(title)
+  var title = document.createElement('h2')
+  title.id = 'register-title'
+  title.innerText = 'Register to unSocial'
+  compo.container.appendChild(title)
 
   var form = new Form('form-container')
   compo.add(form)
@@ -126,16 +146,18 @@ function buildRegisterSection() {
   registerAnchorText.innerText = 'Already have an account? '
   compo.container.appendChild(registerAnchorText)
 
-  var loginLink = new Link('Login', '#')
-  registerAnchorText.appendChild(loginLink.container)
+  var registerLoginLink = document.createElement('a')
+  registerLoginLink.id = 'loginAnchor'
+  registerLoginLink.innerText = 'Login'
+  registerAnchorText.appendChild(registerLoginLink)
 
-  loginLink.addBehavior('click', function (event) {
+  registerLoginLink.addEventListener('click', function (event) {
     event.preventDefault();
     compo.remove()
     body.add(loginSection)
   })
   // Save data of new user when clicking on register button
-  form.addBehavior('submit', function (event) {
+  form.container.addEventListener('submit', function (event) {
     event.preventDefault()
     var name = nameInput.getValue()
     var email = emailInput.getValue()
@@ -164,14 +186,18 @@ function buildHomeSection() {
   compo.container.id = 'home'
   compo.container.classList.add('section-container')
 
-  var title = new Heading('Home', 2)
-  compo.add(title)
+  var title = document.createElement('h2')
+  title.innerText = 'Home'
+  compo.container.appendChild(title)
 
-  var text = new Heading('Hello, ' + loggedUser.name + '!', 3)
-  compo.add(text)
+  var text = document.createElement('h3')
+  text.innerText = 'Hello, ' + loggedUser.name + '!'
+  compo.container.appendChild(text)
 
-  var image = new Picture('/staff/rafael-infante/unsocial/images/boy.png', 'boy')
-  compo.add(image)
+  var image = document.createElement('img')
+  image.style.height = '300px'
+  image.src = '/staff/rafael-infante/unsocial/images/boy.png'
+  compo.container.appendChild(image)
 
   var logoutButton = new Button('btn.logout', 'submit', 'Logout')
   compo.add(logoutButton)

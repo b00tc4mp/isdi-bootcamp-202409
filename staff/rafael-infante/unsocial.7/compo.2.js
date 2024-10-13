@@ -12,35 +12,6 @@ Compo.prototype.remove = function () {
   this.container.remove()
 }
 
-Compo.prototype.addBehavior = function (action, callback) {
-  this.container.addEventListener(action, callback)
-}
-
-function Header(className) {
-  Compo.call(this, document.createElement('header'))
-  this.container.classList.add(className)
-}
-
-Header.prototype = Object.create(Compo.prototype)
-Header.prototype.constructor = Header
-
-function Heading(text, level) {
-  Compo.call(this, document.createElement('h' + level))
-  this.container.innerText = text
-}
-
-Heading.prototype = Object.create(Compo.prototype)
-Heading.prototype.constructor = Heading
-
-function Picture(imageSrc, imageClass) {
-  Compo.call(this, document.createElement('img'))
-  this.container.src = imageSrc
-  this.container.classList.add(imageClass)
-}
-
-Picture.prototype = Object.create(Compo.prototype)
-Picture.prototype.constructor = Picture
-
 function Form(className) {
   Compo.call(this, document.createElement('form'))
   this.container.classList.add(className)
@@ -80,6 +51,7 @@ Input.prototype.getValue = function () {
 Input.prototype.setValue = function (value) {
   this.container.value = value
 }
+
 function Button(id, type, text) {
   Compo.call(this, document.createElement('button'))
   this.container.id = id
@@ -89,12 +61,3 @@ function Button(id, type, text) {
 
 Button.prototype = Object.create(Compo.prototype)
 Button.prototype.constructor = Button
-
-function Link(text, href) {
-  Compo.call(this, document.createElement('a'))
-  this.container.innerText = text
-  this.container.href = href
-}
-
-Link.prototype = Object.create(Compo.prototype)
-Link.prototype.constructor = Link
