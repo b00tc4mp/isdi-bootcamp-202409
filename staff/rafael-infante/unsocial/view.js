@@ -1,6 +1,10 @@
-function buildLoginSection() {
+/**
+ * Builds Login instances
+ */
+function Login() {
+  Compo.call(this, document.createElement('section'))
 
-  var compo = new Compo(document.createElement('section'))
+  var compo = this
   compo.container.classList.add('section-container')
 
   var paragraph = document.createElement('p')
@@ -62,8 +66,8 @@ function buildLoginSection() {
   registerLink.addBehavior('click', function (event) {
     event.preventDefault()
     compo.remove()
-    var registerSection = buildRegisterSection()
-    body.add(registerSection)
+    var register = new Register()
+    page.add(register)
   })
   // actions when submitting the login Form
   form.addBehavior('submit', function (event) {
@@ -76,8 +80,8 @@ function buildLoginSection() {
       loggedUser = authenticateUser(username, password)
       form.container.reset()
       compo.remove()
-      var homeSection = buildHomeSection()
-      body.add(homeSection)
+      var home = new Home()
+      page.add(home)
     }
     catch (error) {
       passwordInput.setValue('')
@@ -86,11 +90,18 @@ function buildLoginSection() {
     }
   })
 
-  return compo
 }
 
-function buildRegisterSection() {
-  var compo = new Compo(document.createElement('section'))
+Login.prototype = Object.create(Compo.prototype)
+Login.prototype.constructor = Login
+
+/**
+ * Builds Register instances
+ */
+function Register() {
+  Compo.call(this, document.createElement('section'))
+
+  var compo = this
   compo.container.classList.add('section-container')
 
   var title = new Heading('Register to unSocial', 2)
@@ -132,7 +143,7 @@ function buildRegisterSection() {
   loginLink.addBehavior('click', function (event) {
     event.preventDefault();
     compo.remove()
-    body.add(loginSection)
+    page.add(login)
   })
   // Save data of new user when clicking on register button
   form.addBehavior('submit', function (event) {
@@ -147,19 +158,25 @@ function buildRegisterSection() {
       registerUser(name, email, username, password, confirmPassword)
       form.reset()
       compo.remove()
-      body.add(loginSection)
+      page.add(login)
     }
     catch (error) {
       alert(error.message)
       console.error(error)
     }
   })
-
-  return compo
 }
 
-function buildHomeSection() {
-  var compo = new Compo(document.createElement('section'))
+Register.prototype = Object.create(Compo.prototype)
+Register.prototype.constructor = Register
+
+/**
+ * Builds Home instances
+ */
+function Home() {
+  Compo.call(this, document.createElement('section'))
+
+  var compo = this
 
   compo.container.id = 'home'
   compo.container.classList.add('section-container')
@@ -183,8 +200,10 @@ function buildHomeSection() {
       event.preventDefault()
       loggedUser = null
       compo.remove()
-      body.add(loginSection)
+      page.add(login)
     }
   })
-  return compo
 }
+
+Home.prototype = Object.create(Compo.prototype)
+Home.prototype.constructor = Home
