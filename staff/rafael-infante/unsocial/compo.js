@@ -108,6 +108,20 @@ Input.prototype.getValue = function () {
 Input.prototype.setValue = function (value) {
   this.container.value = value
 }
+Input.prototype.setType = function (type) {
+  this.container.type = type
+}
+
+function Icon() {
+  Compo.call(this, document.createElement('i'))
+  this.container.classList.add('far')
+  this.container.classList.add('fa-eye')
+  this.container.id = 'icon'
+}
+
+Icon.prototype = Object.create(Compo.prototype)
+Icon.prototype.constructor = Icon
+
 /**
  * Builds a Button instance
  * @param {string} id name the id of the Button instance
@@ -136,3 +150,39 @@ function Link(text, href) {
 
 Link.prototype = Object.create(Compo.prototype)
 Link.prototype.constructor = Link
+
+function Passwordinput(className, id, type, placeholder, required) {
+  Compo.call(this, document.createElement('div'))
+  this.container.classList.add(className)
+
+  var input = new Input(id, type, placeholder, required)
+  this.add(input)
+
+  var icon = new Icon()
+  this.add(icon)
+
+  var isVisible = false
+  icon.addBehavior('click', function (event) {
+
+    icon.container.classList.toggle('fa-eye-slash')
+    if (!isVisible) {
+      input.setType('text')
+      isVisible = true
+    } else {
+      input.setType('password')
+      isVisible = false
+    }
+  })
+
+}
+
+Passwordinput.prototype = Object.create(Compo.prototype)
+Passwordinput.prototype.constructor = Passwordinput
+
+Passwordinput.prototype.getValue = function () {
+  return this.children[0].container.value
+}
+
+Passwordinput.prototype.setValue = function (value) {
+  this.children[0].container.value = value
+}

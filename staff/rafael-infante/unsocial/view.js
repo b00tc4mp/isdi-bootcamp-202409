@@ -24,9 +24,8 @@ function Login() {
   form.add(usernameInput)
 
   form.add(new Label('login-password', 'Password'))
-  var passwordInput = new Input('login-password', 'password', 'Enter your password', true)
+  var passwordInput = new Passwordinput('password-container', 'password', 'password', 'Enter your password', true)
   form.add(passwordInput)
-
 
   var submitButton = new Button('btn-login', 'submit', 'Login')
   form.add(submitButton)
@@ -38,28 +37,6 @@ function Login() {
   var registerLink = new Link('Register', '#')
 
   anchorText.appendChild(registerLink.container)
-
-  // var passwordInputContainer = document.createElement('div')
-  // var passwordIcon = document.createElement('i')
-  // var passwordInput = document.createElement('input')
-  //form.appendChild(passwordInputContainer)
-  //passwordInputContainer.classList.add('password-container')
-  //passwordInputContainer.appendChild(passwordInput)
-  //passwordInputContainer.appendChild(passwordIcon)
-  // passwordIcon.classList.add('far')
-  // passwordIcon.classList.add('fa-eye')
-  // passwordIcon.id = 'icon'
-  // var isVisible = false
-  // passwordIcon.addEventListener('click', function (event) {
-  //   passwordIcon.classList.toggle('fa-eye-slash')
-  //   if (!isVisible) {
-  //     passwordInput.type = 'text'
-  //     isVisible = true
-  //   } else {
-  //     passwordInput.type = 'password'
-  //     isVisible = false
-  //   }
-  // })
 
   // Send user to register section when clicking on register link
   registerLink.addBehavior('click', function (event) {
@@ -83,6 +60,7 @@ function Login() {
       page.add(home)
     }
     catch (error) {
+      debugger
       passwordInput.setValue('')
       alert(error.message)
       console.error(error)
