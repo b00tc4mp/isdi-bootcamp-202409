@@ -20,7 +20,7 @@ function registerUser(name, email, username, password, passwordRepeat) {
         return user.username === username || user.email === email
     })
 
-    if (user !== underfined)
+    if (user !== undefined)
         throw new Error('user already exists')
 
     user = { name: name, email: email, username: username, password: password }

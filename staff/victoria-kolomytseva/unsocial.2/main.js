@@ -187,5 +187,7 @@ loginRegisterLink.addEventListener('click', function (event) {
     body.appendChild(registerSection)
 })
 
+
+
 var body = document.querySelector('body')
 body.appendChild(loginSection)
