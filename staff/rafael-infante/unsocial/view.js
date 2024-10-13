@@ -60,7 +60,6 @@ function Login() {
       page.add(home)
     }
     catch (error) {
-      debugger
       passwordInput.setValue('')
       alert(error.message)
       console.error(error)
@@ -224,7 +223,10 @@ function CreatePost(className) {
 
     try {
       createpost(loggedUser.username, image, text)
+      form.reset()
       this.remove()
+      var home = new Home()
+      page.add(home)
     } catch (error) {
       alert(error.message)
 
