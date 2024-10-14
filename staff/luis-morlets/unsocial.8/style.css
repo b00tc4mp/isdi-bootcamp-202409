@@ -18,15 +18,13 @@ form {
     flex-direction: column;
     justify-content: space-evenly;
     min-width: 100px;
-    /*width: 300px;*/
+    width: 300px;
     gap: 5px;
 }
 
 input {
     background-color: inherit;
     font-family: inherit;
-    width: 100%;
-    box-sizing: border-box;
 }
 
 button {

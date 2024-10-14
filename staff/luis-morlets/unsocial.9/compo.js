@@ -6,25 +6,14 @@
 function Compo(container) {
     this.children = []
     this.container = container
-    this.parent = null
 }
 
 Compo.prototype.add = function (child) {
     this.children.push(child)
-    child.parent = this
-
     this.container.appendChild(child.container)
 }
 
 Compo.prototype.remove = function () {
-    var self = this
-    var index = this.parent.children.findIndex(function (child) {
-        return child === self
-    })
-
-    if (index > -1)
-        this.parent.children.splice(index, 1)
-
     this.container.remove()
 }
 
@@ -142,14 +131,6 @@ function Paragraph(text) {
 Paragraph.prototype = Object.create(Compo.prototype)
 Paragraph.prototype.constructor = Paragraph
 
-Paragraph.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Paragraph.prototype.getText = function () {
-    return this.container.innerText
-}
-
 /**
  * Constructs Link instances
  * 
@@ -201,10 +182,10 @@ function PasswordInput(id) {
     this.add(input)
 
     var icon = new Icon('https://icons.veryicon.com/png/o/miscellaneous/computer-room-integration/show-password-3.png')
-    icon.container.style.cursor = 'pointer'
+    /*icon.container.style.cursor = 'pointer'
     icon.container.style.position = 'absolute'
-    icon.container.style.width = '20px'
-    icon.container.style.right = '55px'
+    icon.container.style.width = '23px'
+    icon.container.style.right = '10px'*/
     this.add(icon)
 
     icon.addBehavior('click', function () {
@@ -223,61 +204,4 @@ PasswordInput.prototype.constructor = PasswordInput
 
 PasswordInput.prototype.getValue = function () {
     return this.children[0].container.value
-}
-
-PasswordInput.prototype.setValue = function (value) {
-    this.container.value = value
-}
-
-/**
- * Construct unordered lists instances
- */
-function UnorderedList() {
-    Compo.call(this, document.createElement('ul'))
-}
-
-UnorderedList.prototype = Object.create(Compo.prototype)
-UnorderedList.prototype.constructor = UnorderedList
-
-/**
- * Construct item list instances
- */
-function ListItem() {
-    Compo.call(this, document.createElement('li'))
-}
-
-ListItem.prototype = Object.create(Compo.prototype)
-ListItem.prototype.constructor = ListItem
-
-/**
- * Construct image instances
- */
-function Image(address) {
-    Compo.call(this, document.createElement('img'))
-
-    this.container.src = address
-    this.container.style.width = '100%'
-}
-
-Image.prototype = Object.create(Compo.prototype)
-Image.prototype.constructor = Image
-
-/**
- * @param {string} text The text for time
- */
-function Time(text) {
-    Compo.call(this, document.createElement('time'))
-
-    this.container.innerText = text
-}
-
-Time.prototype = Object.create(Compo.prototype)
-Time.prototype.constructor = Time
-
-Time.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Time.prototype.getText = function () {
-    return this.container.innerText
 }

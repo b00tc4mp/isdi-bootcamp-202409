@@ -18,7 +18,7 @@ function Login() {
     form.add(usernameInput)
 
     form.add(new Label('Password', 'password'))
-    var passwordInput = new PasswordInput('password')
+    var passwordInput = new Input('password', 'password')
     form.add(passwordInput)
 
     var submitButton = new Button('Login', 'submit')
@@ -37,7 +37,7 @@ function Login() {
 
             self.remove()
 
-            home = new Home()
+            var home = new Home()
 
             page.add(home)
         } catch (error) {
@@ -97,11 +97,11 @@ function Register() {
     form.add(usernameInput)
 
     form.add(new Label('Password', 'password'))
-    var passwordInput = new PasswordInput('password')
+    var passwordInput = new Input('password', 'password')
     form.add(passwordInput)
 
     form.add(new Label('Repeat Password', 'password-repeat'))
-    var passwordRepeatInput = new PasswordInput('password-repeat')
+    var passwordRepeatInput = new Input('password', 'password-repeat')
     form.add(passwordRepeatInput)
 
     var submitButton = new Button('Register', 'submit')
@@ -175,118 +175,7 @@ function Home() {
 
         page.add(login)
     })
-
-    var addPostButton = new Button('➕', 'button')
-    self.add(addPostButton)
-
-    addPostButton.addBehavior('click', function () {
-        var createPost = new CreatePost()
-
-        self.children[self.children.length - 1].remove()
-
-        self.add(createPost)
-    })
-
-    var postList = new PostList()
-    self.add(postList)
 }
 
 Home.prototype = Object.create(Compo.prototype)
 Home.prototype.constructor = Home
-
-function CreatePost() {
-    Compo.call(this, document.createElement('div'))
-
-    var self = this
-
-    var title = new Heading('Create Post', 3)
-    self.add(title)
-
-    var form = new Form()
-
-    var imageLabel = new Label('Image', 'image')
-    var imageInput = new Input('text', 'image')
-    form.add(imageLabel)
-    form.add(imageInput)
-
-    var textLabel = new Label('Text', 'text')
-    var textInput = new Input('text', 'text')
-    form.add(textLabel)
-    form.add(textInput)
-
-    var submitButton = new Button('Create', 'submit')
-    form.add(submitButton)
-
-    self.add(form)
-
-    form.addBehavior('submit', function (event) {
-        event.preventDefault()
-
-        var image = imageInput.getValue()
-        var text = textInput.getValue()
-
-        try {
-            createPost(loggedInUser.username, image, text)
-
-            self.remove()
-
-            var postList = new PostList()
-            home.add(postList)
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    })
-}
-
-CreatePost.prototype = Object.create(Compo.prototype)
-CreatePost.prototype.constructor = CreatePost
-
-function Post(username, image, text, date) {
-    Compo.call(this, document.createElement('div'))
-
-    var self = this
-
-    var userTitle = new Heading(username, 4)
-    self.add(userTitle)
-
-    var picture = new Image(image)
-    self.add(picture)
-
-    var comment = new Paragraph(text)
-    self.add(comment)
-
-    var time = new Time(date)
-    self.add(time)
-}
-
-Post.prototype = Object.create(Compo.prototype)
-Post.prototype.constructor = Post
-
-function PostList() {
-    Compo.call(this, document.createElement('div'))
-
-    var self = this
-
-    var title = new Heading('Posts', 3)
-    self.add(title)
-
-    try {
-        var posts = getPosts().toReversed()
-
-        posts.forEach(function (post) {
-
-            var _post = new Post(post.username, post.image, post.text, post.date)
-
-            self.add(_post)
-        })
-    } catch (error) {
-        alert(error.message)
-
-        console.error(error)
-    }
-}
-
-PostList.prototype = Object.create(Compo.prototype)
-PostList.prototype.constructor = PostList
