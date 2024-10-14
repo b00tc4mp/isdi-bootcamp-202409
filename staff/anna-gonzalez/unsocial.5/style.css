@@ -62,14 +62,3 @@ button {
     border: 0px;
     cursor: pointer;
 }
-
-.create-post-button {
-    background-color: yellow;
-    color: black;
-    margin-left: 10px;
-}
-
-.publish-post-button {
-    background-color: yellow;
-    color: black;
-}

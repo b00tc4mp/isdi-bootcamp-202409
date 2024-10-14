@@ -90,3 +90,124 @@ function Link(text) {
 
 Link.prototype = Object.create(Compo.prototype)
 Link.prototype.constructor = Link
+
+//constructs SPAN instances
+function Span(text) {
+    Compo.call(this, document.createElement('span'))
+
+    this.container.innerText = text
+}
+
+Span.prototype = Object.create(Compo.prototype)
+Span.prototype.constructor = Span
+
+Span.prototype.setText = function (text) {
+    this.container.innerText = text
+}
+
+Span.prototype.getText = function () {
+    return this.container.innerText
+}
+
+//constructs PASSWORDINPUT instances
+function PasswordInput(id) {
+    Compo.call(this, document.createElement('div'))
+    this.container.style.display = 'flex'
+
+    var input = new Input('password', id)
+    input.container.style.paddingRight = '18px'
+    this.add(input)
+
+    var span = new Span('😌')
+    span.container.style.cursor = 'pointer'
+    span.container.style.position = 'absolute'
+    span.container.style.right = '10px'
+    this.add(span)
+
+    span.addBehavior('click', function () {
+        if (span.getText() === '😌') {
+            input.setType('text')
+            span.setText('😳')
+        } else {
+            input.setType('password')
+            span.setText('😌')
+        }
+    })
+}
+
+PasswordInput.prototype = Object.create(Compo.prototype)
+PasswordInput.prototype.constructor = PasswordInput
+
+PasswordInput.prototype.getValue = function () {
+    return this.children[0].container.value
+}
+
+
+PasswordInput.prototype.setValue = function (value) {
+    this.container.value = value
+}
+
+//UNORDERED LIST compos
+function UnorderedList() {
+    Compo.call(this, document.createElement('ul'))
+}
+
+UnorderedList.prototype = Object.create(Compo.prototype)
+UnorderedList.prototype.constructor = UnorderedList
+
+//LIST ITEM compos
+function ListItem() {
+    Compo.call(this, document.createElement('li'))
+}
+
+ListItem.prototype = Object.create(Compo.prototype)
+ListItem.prototype.constructor = ListItem
+
+//IMAGE compos
+function Image(address) {
+    Compo.call(this, document.createElement('img'))
+
+    this.container.src = address
+    this.container.style.width = '400px'
+    this.container.style.border = '2px solid yellow'
+    this.container.style.borderRadius = '10px'
+}
+
+Image.prototype = Object.create(Compo.prototype)
+Image.prototype.constructor = Image
+
+//PARAGRAPH compos
+function Paragraph(text) {
+    Compo.call(this, document.createElement('p'))
+
+    this.container.innerText = text
+}
+
+Paragraph.prototype = Object.create(Compo.prototype)
+Paragraph.prototype.constructor = Paragraph
+
+Paragraph.prototype.setText = function (text) {
+    this.container.innerText = text
+}
+
+Paragraph.prototype.getText = function () {
+    return this.container.innerText
+}
+
+//TIME compos
+function Time(text) {
+    Compo.call(this, document.createElement('time'))
+
+    this.container.innerText = text
+}
+
+Time.prototype = Object.create(Compo.prototype)
+Time.prototype.constructor = Time
+
+Time.prototype.setText = function (text) {
+    this.container.innerText = text
+}
+
+Time.prototype.getText = function () {
+    return this.container.innerText
+}

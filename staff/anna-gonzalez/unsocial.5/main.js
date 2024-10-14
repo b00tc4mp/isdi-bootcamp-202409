@@ -7,5 +7,3 @@ page.add(title)
 
 var login = new Login()
 page.add(login)
-
-var home
