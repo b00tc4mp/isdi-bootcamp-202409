@@ -1,5 +1,5 @@
 function PostItem(username, image, text, date) {
-    Compo.call(this, document.createElement('div'))
+    Compo.call(this, document.createElement('article'))
 
     var userTitle = new Heading(username, 4)
     this.add(userTitle)
