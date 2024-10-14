@@ -1,7 +1,7 @@
 //NEW SECTION FOR LOGIC FUNCTIONS
 //-------------------------------
 
-function registerUser(name, email, username, password, checkPassword) {
+function registerUser(name, email, username, password, passwordRepeat) {
     //Validamos el que nombre no sea inferior a 2 carácteres
     if (name.length < 2) {
         throw new Error('Field name too short, min 3 chars')
@@ -12,12 +12,22 @@ function registerUser(name, email, username, password, checkPassword) {
         throw new Error('invalid e-mail')
 
     //Busco si el usuario ya existe
+    if (username.length < 4 || username.length > 12)
+        throw new Error('invalid username')
+
+    if (password.length < 8)
+        throw new Error('invalid password')
+
+    if (password !== passwordRepeat)
+        throw new Error('passwords do not match')
+
+
     var user = users.find(function (user) {
         return user.username === username || user.email === email
     })
 
     //Validamos el password
-    if (password !== checkPassword) {
+    if (password !== passwordRepeat) {
         throw new Error('Passwords not match')
     }
 
@@ -46,26 +56,20 @@ function authenticateUser(username, password) {
     return user
 }
 
-/*function PostList() {
-    Compo.call(this, document.createElement('div'))
+function createPost(username, image, text) {
+    if (username.length < 4 || username.length > 12)
+        throw new Error('invalid user')
 
-    var title = new Heading('Posts', 3)
-    this.add(title)
-
-    try {
-        //Mostramos los posts en orden inverso
-        var posts = getPosts().toReversed()
-
-        posts.forEach(function (post) {
-            var _post = new PostList(post.username, post.image, post.text, post.date)
-            this.add(_post)
-        }.bind(this))
-
-    } catch (error) {
-        alert(error.message)
-        console.error(error)
+    var post = {
+        image: image,
+        text: text,
+        username: username,
+        date: new Date
     }
+
+    posts.push(post)
 }
 
-PostList.prototype = Object.create(Compo.prototype)
-PostList.prototype.constructor = PostList*/
+function getPosts() {
+    return posts
+}
