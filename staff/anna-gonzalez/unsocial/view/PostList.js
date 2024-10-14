@@ -8,7 +8,7 @@ function PostList() {
         var posts = getPosts().toReversed()
 
         posts.forEach(function (post) {
-            var postItem = new PostItem(post.username, post.image, post.text, post.date)
+            var postItem = new PostItem(post.username, post.image, post.text, post.date, post.emoji)
 
             this.add(postItem)
         }.bind(this))

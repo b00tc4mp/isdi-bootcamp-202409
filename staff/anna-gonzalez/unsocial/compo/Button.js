@@ -6,3 +6,11 @@ function Button(text, type) {
 }
 
 Button.extends(Compo)
+
+Button.prototype.getText = function () {
+    return this.container.textContent
+};
+
+Button.prototype.setText = function (text) {
+    this.container.textContent = text
+};
