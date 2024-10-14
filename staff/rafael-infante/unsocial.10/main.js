@@ -13,4 +13,6 @@ var page = new Compo(document.querySelector('body'))
 page.add(header)
 page.add(login)
 
+//loggedUser = users[1]
 var home
+// page.add(home)
