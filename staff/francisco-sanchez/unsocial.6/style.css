@@ -24,7 +24,7 @@ body {
 }
 
 section {
-    background-color: white;
+    background-color: grey;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -84,4 +84,15 @@ a {
     font-size: 11px;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+img {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 10px solid #fff;
+    border-left: 10px solid #fff;
+    border-right: 10px solid #fff;
+    border-bottom: 30px solid #fff;
 }

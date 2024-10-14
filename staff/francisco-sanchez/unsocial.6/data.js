@@ -21,5 +21,35 @@ var posts = [
         text: 'here i am',
         username: 'wendydarling',
         date: new Date
+    },
+    {
+        image: 'https://fastly.picsum.photos/id/809/200/200.jpg?hmac=2U0kkZGtbw4L4bQc3aC8cZA6ywfn2MvR0d-YC4ITcI8',
+        text: 'Enjoying the sunny day at the beach!',
+        username: 'lara',
+        date: new Date()
+    },
+    {
+        image: 'https://picsum.photos/200',
+        text: 'Had the best coffee this morning!',
+        username: 'lara',
+        date: new Date()
+    },
+    {
+        image: 'https://fastly.picsum.photos/id/442/200/200.jpg?hmac=S-yNCNr30GK97ulUYoey_Fh2-czIf7YnNgcKp7zrEoE',
+        text: 'Exploring the mountains, the view is amazing.',
+        username: 'aliceW',
+        date: new Date()
+    },
+    {
+        image: 'https://fastly.picsum.photos/id/319/200/200.jpg?hmac=UVJeYSi6TAfErW8IEThVndqxRlYBeWaZRymD1KuysSg',
+        text: 'Loving the vibes at this concert! 🎶',
+        username: 'aliceW',
+        date: new Date()
+    },
+    {
+        image: 'https://picsum.photos/200',
+        text: 'Just finished reading a great book!',
+        username: 'maxwell',
+        date: new Date()
     }
 ]
