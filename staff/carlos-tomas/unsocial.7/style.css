@@ -30,6 +30,7 @@ input {
     width: 20px;
     max-width: 500px;
     min-width: 300px;
+    margin: 15px auto;
     border-radius: 10px;
 }
 

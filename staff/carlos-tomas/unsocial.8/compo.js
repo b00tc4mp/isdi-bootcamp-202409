@@ -6,36 +6,33 @@
 function Compo(container) {
     this.children = []
     this.container = container
-    this.parent = null
+}
+
+Compo.prototype.add = function (child) {
+    this.children.push(child) // Par poder montar nuestro comcepto
+    this.container.appendChild(child.container) //Para poder montar el HTML
+}
+Compo.prototype.remove = function () {
+    this.container.remove()
 }
 
 Compo.prototype.add = function (child) {
     this.children.push(child)
-    child.parent = this
-
     this.container.appendChild(child.container)
 }
 
 Compo.prototype.remove = function () {
-    var index = this.parent.children.findIndex(function (child) {
-        return child === this
-    }.bind(this))
-
-    if (index > -1)
-        this.parent.children.splice(index, 1)
-
     this.container.remove()
 }
 
 Compo.prototype.addBehavior = function (type, callback) {
     this.container.addEventListener(type, callback)
 }
-
 /**
- * Constructs Form instances
+ * Construcus Form instances
  */
 function Form() {
-    Compo.call(this, document.createElement('form'))
+    Compo.call(this, document.createElement("form"))
 }
 
 Form.prototype = Object.create(Compo.prototype)
@@ -47,12 +44,11 @@ Form.prototype.reset = function () {
 
 /**
  * Constructs Button instances
- * 
  * @param {string} text The text of the button
- * @param {string} type The button type
+ * @param {string} type  The button type
  */
 function Button(text, type) {
-    Compo.call(this, document.createElement('button'))
+    Compo.call(this, document.createElement("button"))
 
     this.container.innerText = text
     this.container.type = type
@@ -61,7 +57,6 @@ function Button(text, type) {
 Button.prototype = Object.create(Compo.prototype)
 Button.prototype.constructor = Button
 
-
 /**
  * Constructs Label instances
  * 
@@ -69,7 +64,7 @@ Button.prototype.constructor = Button
  * @param {string} id The id of the input to relate with
  */
 function Label(text, id) {
-    Compo.call(this, document.createElement('label'))
+    Compo.call(this, document.createElement("label"))
 
     this.container.innerText = text
     this.container.htmlFor = id
@@ -78,7 +73,6 @@ function Label(text, id) {
 Label.prototype = Object.create(Compo.prototype)
 Label.prototype.constructor = Label
 
-
 /**
  * Constructs Input instances
  * 
@@ -86,9 +80,9 @@ Label.prototype.constructor = Label
  * @param {string} id The input id
  */
 function Input(type, id) {
-    Compo.call(this, document.createElement('input'))
-    this.container.style.width = '100%'
-    this.container.style.boxSizing = 'border-box'
+    Compo.call(this, document.createElement("input"))
+    this.container.style.width = "100%"
+    this.container.style.boxSizing = " boder-box"
 
     this.container.type = type
     this.container.id = id
@@ -143,13 +137,14 @@ function Link(text) {
 Link.prototype = Object.create(Compo.prototype)
 Link.prototype.constructor = Link
 
+
 /**
  * Constructs Span instances
  * 
  * @param {string} text The text inside span
  */
 function Span(text) {
-    Compo.call(this, document.createElement('span'))
+    Compo.call(this, document.createElement("span"))
 
     this.container.innerText = text
 }
@@ -166,30 +161,29 @@ Span.prototype.getText = function () {
 }
 
 /**
- * Constructs PasswordInput instances
  * 
- * @param {string} id The input id
  */
-function PasswordInput(id) {
-    Compo.call(this, document.createElement('div'))
-    this.container.style.display = 'flex'
 
-    var input = new Input('password', id)
-    input.container.style.paddingRight = '18px'
+function PasswordInput(id) {
+    Compo.call(this, document.createElement("div"))
+    this.container.style.display = "flex"
+
+    var input = new Input("password", id)
+    input.container.style.paddingRight = "18px"
     this.add(input)
 
     var span = new Span('😌')
-    span.container.style.cursor = 'pointer'
-    span.container.style.position = 'absolute'
-    span.container.style.right = '10px'
+    span.container.style.cursor = "pointer"
+    span.container.style.position = "absolute"
+    span.container.style.right = "10px"
     this.add(span)
 
-    span.addBehavior('click', function () {
+    span.addBehavior("click", function () {
         if (span.getText() === '😌') {
-            input.setType('text')
+            input.setType("text")
             span.setText('😳')
         } else {
-            input.setType('password')
+            input.setType("password")
             span.setText('😌')
         }
     })
@@ -200,84 +194,4 @@ PasswordInput.prototype.constructor = PasswordInput
 
 PasswordInput.prototype.getValue = function () {
     return this.children[0].container.value
-}
-
-
-PasswordInput.prototype.setValue = function (value) {
-    this.container.value = value
-}
-
-/**
- * 
- */
-function UnorderedList() {
-    Compo.call(this, document.createElement('ul'))
-}
-
-UnorderedList.prototype = Object.create(Compo.prototype)
-UnorderedList.prototype.constructor = UnorderedList
-
-/**
- * 
- */
-function ListItem() {
-    Compo.call(this, document.createElement('li'))
-}
-
-ListItem.prototype = Object.create(Compo.prototype)
-ListItem.prototype.constructor = ListItem
-
-/**
- * 
- */
-function Image(address) {
-    Compo.call(this, document.createElement('img'))
-
-    this.container.src = address
-    this.container.style.width = '100%'
-}
-
-Image.prototype = Object.create(Compo.prototype)
-Image.prototype.constructor = Image
-
-/**
- * 
- * @param {*} text 
- */
-function Paragraph(text) {
-    Compo.call(this, document.createElement('p'))
-
-    this.container.innerText = text
-}
-
-Paragraph.prototype = Object.create(Compo.prototype)
-Paragraph.prototype.constructor = Paragraph
-
-Paragraph.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Paragraph.prototype.getText = function () {
-    return this.container.innerText
-}
-
-/**
- * 
- * @param {*} text 
- */
-function Time(text) {
-    Compo.call(this, document.createElement('time'))
-
-    this.container.innerText = text
-}
-
-Time.prototype = Object.create(Compo.prototype)
-Time.prototype.constructor = Time
-
-Time.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Time.prototype.getText = function () {
-    return this.container.innerText
 }
