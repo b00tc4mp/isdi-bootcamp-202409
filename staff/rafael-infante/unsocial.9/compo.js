@@ -5,22 +5,14 @@
 function Compo(container) {
   this.container = container
   this.children = []
-  this.parent = null
 }
 
 Compo.prototype.add = function (child) {
   this.children.push(child)
-  child.parent = this
   this.container.appendChild(child.container)
 }
 
 Compo.prototype.remove = function () {
-  var index = this.parent.children.findIndex(function (child) {
-    return child === this
-  }.bind(this))
-
-  if (index > -1) this.parent.children.splice(index, 1)
-
   this.container.remove()
 }
 
@@ -181,6 +173,7 @@ function Passwordinput(className, id, type, placeholder, required) {
       isVisible = false
     }
   })
+
 }
 
 Passwordinput.prototype = Object.create(Compo.prototype)
@@ -192,43 +185,4 @@ Passwordinput.prototype.getValue = function () {
 
 Passwordinput.prototype.setValue = function (value) {
   this.children[0].container.value = value
-}
-
-/**
- * Builds a Paragraph instance
- * @param {string} text text inside the Paragraph instance
- */
-function Paragraph(text) {
-  Compo.call(this, document.createElement('p'))
-  this.container.innerText = text
-}
-
-Paragraph.prototype = Object.create(Compo.prototype)
-Paragraph.prototype.constructor = Paragraph
-
-Paragraph.prototype.setText = function (text) {
-  this.container.innerText = text
-}
-
-Paragraph.prototype.getText = function () {
-  return this.container.innerText
-}
-
-/**
- * Builds a Time instance
- * @param {string} text text inside the Time instance
- */
-function Time(text) {
-  Compo.call(this, document.createElement('time'))
-  this.container.innerText = text
-}
-
-Time.prototype = Object.create(Compo.prototype)
-Time.prototype.constructor = Time
-Time.prototype.setText = function (text) {
-  this.container.innerText = text
-}
-
-Time.prototype.getText = function () {
-  return this.container.innerText
 }

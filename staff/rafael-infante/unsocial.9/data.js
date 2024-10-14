@@ -15,11 +15,5 @@ var posts = [
     text: 'here i am',
     username: 'wendydarling',
     date: new Date
-  },
-  {
-    image: 'https://png.pngtree.com/png-clipart/20231020/original/pngtree-couple-dressed-up-like-a-pirate-and-vampire-taking-a-selfie-png-image_13385873.png',
-    text: 'muajajajaja',
-    username: 'captainhook',
-    date: new Date
   }
 ]

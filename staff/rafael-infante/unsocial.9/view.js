@@ -56,7 +56,7 @@ function Login() {
       loggedUser = authenticateUser(username, password)
       form.container.reset()
       this.remove()
-      home = new Home()
+      var home = new Home()
       page.add(home)
     }
     catch (error) {
@@ -183,12 +183,9 @@ function Home() {
   postButton.addBehavior('click', function () {
 
     var createPost = new CreatePost('section-container')
-    this.children[this.children.length - 1].remove()
-    this.add(createPost)
+    this.remove()
+    page.add(createPost)
   }.bind(this))
-
-  var postList = new PostList()
-  this.add(postList)
 }
 
 Home.prototype = Object.create(Compo.prototype)
@@ -228,9 +225,8 @@ function CreatePost(className) {
       createpost(loggedUser.username, image, text)
       form.reset()
       this.remove()
-      var postList = new PostList()
-      home.add(postList)
-
+      var home = new Home()
+      page.add(home)
     } catch (error) {
       alert(error.message)
 
@@ -241,46 +237,3 @@ function CreatePost(className) {
 
 CreatePost.prototype = Object.create(Compo.prototype)
 CreatePost.prototype.constructor = CreatePost
-
-function Post(username, image, text, date) {
-  Compo.call(this, document.createElement('div'))
-
-  var userTitle = new Heading(username, 4)
-  this.add(userTitle)
-
-  var picture = new Picture(image, 'boy')
-  this.add(picture)
-
-  var comment = new Paragraph(text)
-  this.add(comment)
-
-  var time = new Time(date)
-  this.add(time)
-}
-
-Post.prototype = Object.create(Compo.prototype)
-Post.prototype.constructor = Post
-
-function PostList() {
-  Compo.call(this, document.createElement('div'))
-
-  var title = new Heading('Posts', 3)
-  this.add(title)
-
-  try {
-    var posts = getPosts().toReversed()
-
-    posts.forEach(function (post) {
-      var _post = new Post(post.username, post.image, post.text, post.date)
-      this.add(_post)
-    }.bind(this))
-
-  } catch (error) {
-    alert(error.message)
-
-    console.error(error)
-  }
-}
-
-PostList.prototype = Object.create(Compo.prototype)
-PostList.prototype.constructor = PostList
