@@ -29,7 +29,7 @@ function Login() {
 
             form.reset()
 
-            this.removeSelf()
+            this.remove()
 
             home = new Home()
 
@@ -51,7 +51,7 @@ function Login() {
 
         form.reset()
 
-        this.removeSelf()
+        this.remove()
 
         var register = new Register()
 
@@ -108,7 +108,7 @@ function Register() {
 
             form.reset()
 
-            this.removeSelf()
+            this.remove()
 
             page.add(login)
         } catch (error) {
@@ -124,7 +124,7 @@ function Register() {
     loginLink.addBehaviour('click', function (event) {
         event.preventDefault()
 
-        this.removeSelf()
+        this.remove()
 
         page.add(login)
     }.bind(this))
@@ -150,7 +150,7 @@ function Home() {
 
         loggedInUser = null
 
-        this.removeSelf()
+        this.remove()
 
         page.add(login)
     }.bind(this))
@@ -162,7 +162,7 @@ function Home() {
     createPostButton.addBehaviour('click', function (event) {
         var createPost = new CreatePost()
 
-        this.children[this.children.length - 1].removeSelf()
+        this.children[this.children.length - 1].remove()
 
         this.add(createPost)
     }.bind(this))
@@ -204,7 +204,7 @@ function CreatePost() {
         try {
             createPost(loggedInUser.username, image, text)
 
-            this.removeSelf()
+            this.remove()
 
             var postList = new PostList()
             home.add(postList)

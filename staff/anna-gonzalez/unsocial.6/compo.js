@@ -9,7 +9,7 @@ Compo.prototype.add = function (child) {
     this.container.appendChild(child.container)
 }
 
-Compo.prototype.removeSelf = function () {
+Compo.prototype.remove = function () {
     this.container.remove()
 }
 
