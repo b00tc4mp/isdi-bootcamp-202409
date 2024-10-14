@@ -1,8 +1,3 @@
-var users = [
-    { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
-    { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
-]
-
 var posts = [
     {
         image: 'https://hips.hearstapps.com/hmg-prod/images/peter-pan03-1615970999.jpg',

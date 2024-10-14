@@ -1,0 +1,3 @@
+function getPosts() {
+    return posts
+}
