@@ -160,7 +160,7 @@ function Home() {
   var text = new Heading('Hello, ' + loggedUser.name + '!', 3)
   this.add(text)
 
-  var image = new Picture('/staff/rafael-infante/unsocial/images/boy.png', 'boy')
+  var image = new Picture('images/boy.png', 'boy')
   this.add(image)
 
   var logoutButton = new Button('btn.logout', 'submit', 'Logout')
