@@ -12,7 +12,7 @@ function Login() {
     form.add(usernameInput)
 
     form.add(new Label('Password', 'password'))
-    var passwordInput = new Input('password', 'password')
+    var passwordInput = new PasswordInput('password', 'password')
     form.add(passwordInput)
 
     var submitButton = new Button('Login', 'submit')

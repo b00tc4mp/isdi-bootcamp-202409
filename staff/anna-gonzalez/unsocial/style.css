@@ -33,6 +33,7 @@ input {
     border: 0px;
     margin-top: 2%;
     margin-bottom: 10%;
+    margin-left: 10px;
     background-color: var(--color);
     width: 200px;
     /* it's the same than font-family: inherit

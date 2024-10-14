@@ -14,3 +14,11 @@ Input.prototype.getValue = function () {
 Input.prototype.setValue = function (value) {
     this.container.value = value
 }
+
+Input.prototype.getType = function () {
+    return this.container.type //para cambiar el tipo de input
+}
+
+Input.prototype.setType = function (type) {
+    this.container.type = type //para cambiar el tipo de input
+}
