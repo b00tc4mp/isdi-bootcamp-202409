@@ -12,11 +12,3 @@ function Button(text, type) {
 }
 
 Button.extends(Compo)
-
-Button.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Button.prototype.getText = function () {
-    return this.container.innerText
-}

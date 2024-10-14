@@ -1,5 +1,5 @@
 function PostList() {
-    Compo.call(this, document.createElement('ul'))
+    Compo.call(this, document.createElement('div'))
 
     var self = this
 
@@ -11,7 +11,7 @@ function PostList() {
 
         posts.forEach(function (post) {
 
-            var postItem = new PostItem(post.username, post.image, post.text, post.date, post.likes)
+            var postItem = new PostItem(post.username, post.image, post.text, post.date)
 
             self.add(postItem)
         })

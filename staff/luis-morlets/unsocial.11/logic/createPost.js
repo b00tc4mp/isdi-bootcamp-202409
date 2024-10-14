@@ -6,8 +6,7 @@ function createPost(username, image, text) {
         image: image,
         text: text,
         username: username,
-        date: new Date,
-        likes: 0
+        date: new Date
     }
     posts.push(post)
 }
