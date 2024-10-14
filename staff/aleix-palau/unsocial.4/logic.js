@@ -1,3 +1,4 @@
+// REGISTER FORM FUNCTION
 function registerUser(name, email, username, password, passwordRepeat) {
     if (name.length < 2)
         throw new Error('invalid name')
@@ -26,6 +27,7 @@ function registerUser(name, email, username, password, passwordRepeat) {
     users.push(user)
 }
 
+// LOGIN FORM FUNCTION
 function authenticateUser(username, password) {
     if (username.length < 4 || username.length > 12)
         throw new Error('invalid username')
@@ -41,24 +43,4 @@ function authenticateUser(username, password) {
         throw new Error('wrong credentials')
 
     return user
-}
-
-function createPost(username, image, text) {
-    if (username.length < 4 || username.length > 12)
-        throw new Error('invalid username')
-
-    // TODO input validation (and throw error)
-
-    var post = {
-        image: image,
-        text: text,
-        username: username,
-        date: new Date
-    }
-
-    posts.push(post)
-}
-
-function getPosts() {
-    return posts
 }
