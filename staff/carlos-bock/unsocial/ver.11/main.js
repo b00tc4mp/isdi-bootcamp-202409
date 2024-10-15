@@ -7,3 +7,5 @@ page.add(title) // if duplication occurs try removing.
 
 var login = new Login();
 page.add(login);
+
+var home;//added as global variable?

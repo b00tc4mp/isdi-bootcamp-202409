@@ -37,7 +37,8 @@ function buildLoginSection() {
     var passwordField = buildFormField('password', 'Passord', 'password')
     form.appendChild(passwordField[0]);
     form.appendChild(passwordField[1]);
-    
+    var br = document.createElement('br'); // break before the button
+    form.appendChild(br);
     var submitButton = buildButton('Login', 'submit');
     form.appendChild(submitButton);
 
