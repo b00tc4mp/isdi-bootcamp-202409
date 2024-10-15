@@ -9,10 +9,10 @@ class PostList extends Compo {
             //Mostramos los posts en orden inverso
             let posts = getPosts().toReversed()
 
-            posts.forEach(function (post) {
-                let _post = new Post(post.username, post.image, post.text, post.date)
-                this.add(_post)
-            }.bind(this))
+            posts.forEach(post => {
+                const postItem = new Post(post.username, post.image, post.text, post.date)
+                this.add(postItem)
+            })
 
         } catch (error) {
             alert(error.message)
