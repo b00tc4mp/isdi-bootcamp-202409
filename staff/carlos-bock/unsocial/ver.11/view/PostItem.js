@@ -14,6 +14,6 @@ function Post(username, image, text, date){
     this.add(time);
 }
 
-Post.extends(Compo);
+PostItem.extends(Compo);
 //Post.prototype = Object.create(Compo.prototype); 
 //Post.prototype.constructor = Post; 
