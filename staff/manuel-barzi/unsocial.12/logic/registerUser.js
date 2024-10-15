@@ -1,4 +1,4 @@
-const registerUser = (name, email, username, password, passwordRepeat) => {
+function registerUser(name, email, username, password, passwordRepeat) {
     if (name.length < 2)
         throw new Error('invalid name')
 
@@ -14,7 +14,9 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
     if (password !== passwordRepeat)
         throw new Error('passwords do not match')
 
-    let user = users.find(user => user.username === username || user.email === email)
+    var user = users.find(function (user) {
+        return user.username === username || user.email === email
+    })
 
     if (user !== undefined)
         throw new Error('user already exists')
