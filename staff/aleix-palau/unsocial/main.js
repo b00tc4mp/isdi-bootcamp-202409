@@ -1,14 +1,14 @@
-var loggedInUser = null
+let loggedInUser = null
 
-var page = new Compo(document.querySelector('body'))
+const page = new Compo(document.querySelector('body'))
 
-var title = new Heading('UN$0C14L', 1)
+const title = new Heading('UN$0C14L', 1)
 page.add(title)
 
-var login = new Login()
+const login = new Login()
 page.add(login)
 
 // loggedInUser = users[0]
-var home
+let home
 // home = new Home()
 // page.add(home)
