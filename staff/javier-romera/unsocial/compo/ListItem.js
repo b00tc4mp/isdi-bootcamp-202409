@@ -1,9 +1,8 @@
 /**
  * 
  */
-function ListItem() {
-    Compo.call(this, document.createElement('li'))
+class ListItem extends Compo {
+    constructor() {
+        super(document.createElement('li'))
+    }
 }
-
-ListItem.prototype = Object.create(Compo.prototype)
-ListItem.prototype.constructor = ListItem

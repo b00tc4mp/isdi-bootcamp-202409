@@ -1,4 +1,4 @@
-var posts = [
+const posts = [
     {
         image: 'https://i.pinimg.com/originals/8c/60/1a/8c601a25311a1a5098896f751a784b54.jpg',
         text: 'here we are',

@@ -3,10 +3,10 @@
  * 
  * @param {string} text The text of the link
  */
-function Link(text) {
-    Compo.call(this, document.createElement('a'))
-    this.container.href = ''
-    this.container.innerText = text
+class Link extends Compo {
+    constructor(text) {
+        super(document.createElement('a'))
+        this.container.href = ''
+        this.container.innerText = text
+    }
 }
-
-Link.extends(Compo)

@@ -1,4 +1,4 @@
-function registerUser(name, email, username, password, confirmpassword) {
+const registerUser = (name, email, username, password, confirmpassword) => {
     if (name.length < 2) {
         throw new Error('invalid name')
     }
@@ -15,7 +15,7 @@ function registerUser(name, email, username, password, confirmpassword) {
         throw new Error('Incorrect password')
     }
 
-    var user = users.find(function (user) {
+    let user = users.find(function (user) {
         return user.username === username || user.email === email
     })
 

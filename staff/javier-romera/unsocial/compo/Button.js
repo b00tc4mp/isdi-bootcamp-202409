@@ -4,10 +4,10 @@
  * @param {string} text The text of the button
  * @param {string} type The button type
  */
-function Button(type, text) {
-    Compo.call(this, document.createElement('button'))
-    this.container.innerText = text
-    this.container.type = type
+class Button extends Compo {
+    constructor(type, text) {
+        super(document.createElement('button'))
+        this.container.innerText = text
+        this.container.type = type
+    }
 }
-
-Button.extends(Compo)
