@@ -1,3 +1,1 @@
-function getPosts() {
-  return posts
-}
+const getPosts = () => posts

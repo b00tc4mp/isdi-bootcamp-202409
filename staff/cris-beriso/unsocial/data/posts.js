@@ -1,4 +1,4 @@
-var posts = [
+const posts = [
   {
     image: '../unsocial/Cofy.jpg',
     text: 'Cofy',

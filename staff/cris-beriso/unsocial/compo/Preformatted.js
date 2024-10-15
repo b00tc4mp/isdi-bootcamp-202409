@@ -2,18 +2,18 @@
  * 
  * @param {*} text 
  */
-function Preformatted(text) {
-  Compo.call(this, document.createElement('pre'))
+class Preformatted extends Compo {
+  constructor(text) {
+    super(document.createElement('pre'))
 
-  this.container.innerText = text
-}
+    this.container.innerText = text
+  }
 
-Preformatted.extends(Compo)
+  setText(text) {
+    this.container.innerText = text
+  }
 
-Preformatted.prototype.setText = function (text) {
-  this.container.innerText = text
-}
-
-Preformatted.prototype.getText = function () {
-  return this.container.innerText
+  getText() {
+    return this.container.innerText
+  }
 }
