@@ -1,15 +1,15 @@
-function Span(text) {
-    Compo.call(this, document.createElement('span'))
+class Span extends Compo {
+    constructor(text) {
+        super(document.createElement('span'))
 
-    this.container.innerText = text
-}
+        this.container.innerText = text
+    }
 
-Span.extends(Compo)
+    setText(text) {
+        this.container.innerText = text
+    }
 
-Span.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Span.prototype.getText = function () {
-    return this.container.innerText
+    getText() {
+        return this.container.innerText
+    }
 }

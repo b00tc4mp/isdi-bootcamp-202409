@@ -1,44 +1,46 @@
-function CreatePost() {
-    Compo.call(this, document.createElement('div'))
+class CreatePost extends Compo {
+    constructor() {
+        super(document.createElement('div'))
 
-    var title = new Heading('Create post', 2)
-    this.add(title)
+        const title = new Heading('Create post', 2)
+        this.add(title)
 
-    var post = new Form()
-    this.add(post)
+        const post = new Form()
+        this.add(post)
 
-    post.add(new Label('Image link', 'img'))
-    var imgInput = new Input('text', 'img')
-    post.add(imgInput)
+        const imgLabel = new Label('Image link', 'img')
+        const imgInput = new Input('text', 'img')
+        post.add(imgLabel)
+        post.add(imgInput)
 
-    post.add(new Label('Text', 'txt'))
-    var txtInput = new Input('text', 'txt')
-    post.add(txtInput)
+        const txtLabel = new Label('Text', 'txt')
+        const txtInput = new Input('text', 'txt')
+        post.add(txtLabel)
+        post.add(txtInput)
 
-    var publishPostButton = new Button('Publish', 'submit')
-    publishPostButton.container.classList.add('publish-post-button')
-    post.add(publishPostButton)
+        const publishPostButton = new Button('Publish', 'submit')
+        publishPostButton.container.classList.add('publish-post-button')
+        post.add(publishPostButton)
 
-    post.addBehaviour('submit', function (event) {
-        event.preventDefault()
+        post.addBehaviour('submit', event => {
+            event.preventDefault()
 
-        var image = imgInput.getValue()
-        var text = txtInput.getValue()
+            const image = imgInput.getValue()
+            const text = txtInput.getValue()
 
-        try {
-            createPost(loggedInUser.username, image, text)
+            try {
+                createPost(loggedInUser.username, image, text)
 
-            this.removeSelf()
+                this.removeSelf()
 
-            var postList = new PostList()
-            home.add(postList)
-        } catch (error) {
-            alert(error.message)
+                const postList = new PostList()
+                home.add(postList)
+            } catch (error) {
+                alert(error.message)
 
-            console.error(error)
-        }
+                console.error(error)
+            }
 
-    }.bind(this))
+        })
+    }
 }
-
-CreatePost.extends(Compo)

@@ -1,7 +1,8 @@
-function Heading(text, level) {
-    Compo.call(this, document.createElement('h' + level))
+class Heading extends Compo {
+    constructor(text, level) {
 
-    this.container.innerText = text
+        super(document.createElement('h' + level))
+
+        this.container.innerText = text
+    }
 }
-
-Heading.extends(Compo)

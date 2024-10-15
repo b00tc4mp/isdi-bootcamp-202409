@@ -1,16 +1,17 @@
-function Button(text, type) {
-    Compo.call(this, document.createElement('button'))
+class Button extends Compo {
+    constructor(text, type) {
 
-    this.container.innerText = text
-    this.container.type = type
+        super(document.createElement('button'))
+
+        this.container.innerText = text
+        this.container.type = type
+    }
+
+    getText() {
+        return this.container.textContent
+    }
+
+    setText(text) {
+        this.container.textContent = text
+    }
 }
-
-Button.extends(Compo)
-
-Button.prototype.getText = function () {
-    return this.container.textContent
-};
-
-Button.prototype.setText = function (text) {
-    this.container.textContent = text
-};

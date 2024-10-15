@@ -1,4 +1,4 @@
-var posts = [
+const posts = [
     {
         image: 'https://hips.hearstapps.com/hmg-prod/images/peter-pan03-1615970999.jpg',
         text: 'We are together',

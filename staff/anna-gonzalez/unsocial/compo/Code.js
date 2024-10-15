@@ -1,15 +1,14 @@
-function Code(text) {
-    Compo.call(this, document.createElement('code'))
+class Code extends Compo {
+    constructor(text) {
+        super(document.createElement('code'))
+        this.container.innerText = text
+    }
 
-    this.container.innerText = text
-}
+    setText(text) {
+        this.container.innerText = text
+    }
 
-Code.extends(Compo)
-
-Code.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Code.prototype.getText = function () {
-    return this.container.innerText
+    getText() {
+        return this.container.innerText
+    }
 }

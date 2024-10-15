@@ -1,5 +1,5 @@
-function ListItem() {
-    Compo.call(this, document.createElement('li'))
+class ListItem extends Compo {
+    constructor() {
+        super(document.createElement('li'))
+    }
 }
-
-ListItem.extends(Compo)
