@@ -15,7 +15,7 @@ page.add(title)
 }
 
 {
-    var passwordInputTitle = new Heading("PasswordInput")
+    var passwordInputTitle = new Heading("Link", 2)
     page.add(passwordInputTitle)
 
     var link = new Link("Google")
