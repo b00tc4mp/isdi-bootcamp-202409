@@ -1,8 +1,8 @@
-function createPost(username, image, text) {
+const createPost = (username, image, text) => {
     if (username.length < 4 || username.length > 12)
         throw new Error('invalid user')
 
-    var post = {
+    let post = {
         image: image,
         text: text,
         username: username,
@@ -12,6 +12,4 @@ function createPost(username, image, text) {
     posts.push(post)
 }
 
-function getPosts() {
-    return posts
-}
+const getPosts = () => posts

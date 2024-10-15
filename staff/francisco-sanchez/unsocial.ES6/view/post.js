@@ -6,24 +6,20 @@
  * @param {*} date 
  */
 
-function Post(username, image, text, date) {
+class Post extends Compo {
+    constructor(username, image, text, date) {
+        super(document.createElement('div'))
 
-    Compo.call(this, document.createElement('div'))
+        let userTitle = new Heading(username, 4)
+        this.add(userTitle)
 
-    var userTitle = new Heading(username, 4)
-    this.add(userTitle)
+        let picture = new Image(image)
+        this.add(picture)
 
-    var picture = new Image(image)
-    this.add(picture)
+        let comment = new Paragraph(text)
+        this.add(comment)
 
-    var comment = new Paragraph(text)
-    this.add(comment)
-
-    var time = new Time(date)
-    this.add(time)
+        let time = new Time(date)
+        this.add(time)
+    }
 }
-
-
-Post.extends(Compo)
-//Post.prototype = Object.create(Compo.prototype)
-//Post.prototype.constructor = Post

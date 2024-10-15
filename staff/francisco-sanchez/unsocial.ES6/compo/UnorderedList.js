@@ -1,8 +1,6 @@
-/**
- * 
- */
-function UnorderedList() {
-    Compo.call(this, document.createElement('ul'))
-}
 
-UnorderedList.extends(Compo)
+class UnorderedList extends Compo {
+    constructor() {
+        super(document.createElement('ul'))
+    }
+}

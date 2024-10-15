@@ -1,16 +1,11 @@
-/**
- * 
- */
-
-//Función de la imagen de posts
-
-function Image(address) {
-    Compo.call(this, document.createElement('img'))
-
-    this.container.src = address
-    this.container.style.width = '95%'
+class Image extends Compo {
+    constructor(address) {
+        // Llama al constructor de Compo con un elemento <img> como contenedor
+        super(document.createElement('img'))
+        // Asigna la dirección (src) de la imagen
+        this.container.src = address
+        // Establece el ancho de la imagen al 95%
+        this.container.style.width = '95%'
+    }
 }
 
-Image.extends(Compo)
-//Image.prototype = Object.create(Compo.prototype)
-//Image.prototype.constructor = Image

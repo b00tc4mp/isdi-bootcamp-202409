@@ -1,50 +1,46 @@
 //Aquí vamos a añadir el formulario para crear un nuevo post
-function CreatePost() {
-    Compo.call(this, document.createElement('div'))
+class CreatePost extends Compo {
+    constructor() {
+        super(document.createElement('div'))
+        const title = new Heading('Create Post', 3)
+        this.add(title)
 
-    var title = new Heading('Create Post', 3)
-    this.add(title)
+        let form = new Form()
 
-    var form = new Form()
+        let imageLabel = new Label('Image', 'image')
+        let imageInput = new Input('text', 'image')
+        form.add(imageLabel)
+        form.add(imageInput)
 
-    var imageLabel = new Label('Image', 'image')
-    var imageInput = new Input('text', 'image')
-    form.add(imageLabel)
-    form.add(imageInput)
+        let textLabel = new Label('Text', 'text')
+        let textInput = new Input('text', 'text')
+        form.add(textLabel)
+        form.add(textInput)
 
-    var textLabel = new Label('Text', 'text')
-    var textInput = new Input('text', 'text')
-    form.add(textLabel)
-    form.add(textInput)
+        let submitButton = new Button('Create', 'submit')
+        form.add(submitButton)
 
-    var submitButton = new Button('Create', 'submit')
-    form.add(submitButton)
+        this.add(form)
 
-    this.add(form)
+        form.addBehavior('submit', event => {
+            event.preventDefault()
 
-    form.addBehavior('submit', function (event) {
-        event.preventDefault()
+            let image = imageInput.getValue()
+            let text = textInput.getValue()
 
-        var image = imageInput.getValue()
-        var text = textInput.getValue()
+            try {
+                createPost(loggedInUser.username, image, text)
 
-        try {
-            createPost(loggedInUser.username, image, text)
+                this.removeSelf()
 
-            this.removeSelf()
+                let postList = new PostList()
+                home.add(postList)
+            } catch (error) {
+                alert(error.message)
 
-            var postList = new PostList()
-            home.add(postList)
-        } catch (error) {
-            alert(error.message)
+                console.error(error)
+            }
 
-            console.error(error)
-        }
-
-    }.bind(this))
+        })
+    }
 }
-
-
-CreatePost.extends(Compo)
-//CreatePost.prototype = Object.create(Compo.prototype)
-//CreatePost.prototype.constructor = CreatePost

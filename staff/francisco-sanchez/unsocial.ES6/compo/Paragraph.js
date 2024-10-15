@@ -1,17 +1,16 @@
 //Funcion constructora para el parrafo de la foto
-function Paragraph(text) {
-    Compo.call(this, document.createElement('p'))
-    this.container.innerText = text
-}
+class Paragraph extends Compo {
+    constructor(text) {
+        super(document.createElement('p'))
+        this.container.innerText = text
+    }
 
-Paragraph.extends(Compo)
-//Paragraph.prototype = Object.create(Compo.prototype)
-//Paragraph.prototype.constructor = Paragraph
+    setText(text) {
+        this.container.innerText = text
+    }
 
-Paragraph.prototype.setText = function (text) {
-    this.container.innerText = text
-}
+    getText() {
+        return this.container.innerText
+    }
 
-Paragraph.prototype.getText = function () {
-    return this.container.innerText
 }
