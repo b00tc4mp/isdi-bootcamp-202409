@@ -1,12 +1,14 @@
 /**
  * Constructs Form instances
  */
-function Form() {
-    Compo.call(this, document.createElement('form'))
-}
+class Form extends Compo {
+    constructor() {
+        // Llamamos al constructor de Compo con un elemento <form>
+        super(document.createElement('form'));
+    }
 
-Form.extends(Compo)
-
-Form.prototype.reset = function () {
-    this.container.reset()
+    // Método para resetear el formulario
+    reset() {
+        this.container.reset()
+    }
 }
