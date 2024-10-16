@@ -55,7 +55,6 @@ class Register extends Compo {
                 console.error(error)
             }
         })
-
         let loginLink = new Link('Login')
         compo.add(loginLink)
 
