@@ -7,7 +7,7 @@
 class Input extends Compo {
   constructor(type, id) {
     super(document.createElement('input'))
-    this.container.style.width = '100%'
+    this.container.style.width = 'auto'
     this.container.style.boxSizing = 'border-box'
 
     this.container.type = type

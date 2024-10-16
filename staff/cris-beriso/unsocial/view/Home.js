@@ -8,7 +8,7 @@ class Home extends Compo {
     const title = new Heading('Home', 2)
     this.add(title)
 
-    const userTitle = new Heading('Hello, ' + loggedInUser.name + '!', 3)
+    const userTitle = new Heading(`Hello, ${loggedInUser.name}!`, 3)
     this.add(userTitle)
 
     const logoutButton = new Button('Logout', 'button')
