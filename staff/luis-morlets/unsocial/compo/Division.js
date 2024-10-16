@@ -1,5 +1,5 @@
-function Division() {
-    Compo.call(this, document.createElement('div'))
+class Division extends Compo {
+    constructor() {
+        super(document.createElement('div'))
+    }
 }
-
-Division.extends(Compo)

@@ -36,3 +36,7 @@ button {
 a:visited {
     color: var(--color);
 }
+
+ul {
+    list-style: none;
+}

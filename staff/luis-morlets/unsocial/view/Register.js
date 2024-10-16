@@ -1,77 +1,74 @@
 /**
  * Construcs Register instances
  */
-function Register() {
+class Register extends Compo {
+    constructor() {
+        super(document.createElement('section'))
 
-    Compo.call(this, document.createElement('section'))
+        const title = new Heading('Register', 2)
+        this.add(title)
 
-    var self = this
+        const form = new Form()
+        this.add(form)
 
-    var title = new Heading('Register', 2)
-    self.add(title)
+        form.add(new Label('Name', 'name'))
+        const nameInput = new Input('text', 'name')
+        form.add(nameInput)
 
-    var form = new Form()
-    self.add(form)
+        form.add(new Label('E-mail', 'email'))
+        const emailInput = new Input('email', 'email')
+        form.add(emailInput)
 
-    form.add(new Label('Name', 'name'))
-    var nameInput = new Input('text', 'name')
-    form.add(nameInput)
+        form.add(new Label('Username', 'username'))
+        const usernameInput = new Input('text', 'username')
+        form.add(usernameInput)
 
-    form.add(new Label('E-mail', 'email'))
-    var emailInput = new Input('email', 'email')
-    form.add(emailInput)
+        form.add(new Label('Password', 'password'))
+        const passwordInput = new PasswordInput('password')
+        form.add(passwordInput)
 
-    form.add(new Label('Username', 'username'))
-    var usernameInput = new Input('text', 'username')
-    form.add(usernameInput)
+        form.add(new Label('Repeat Password', 'password-repeat'))
+        const passwordRepeatInput = new PasswordInput('password-repeat')
+        form.add(passwordRepeatInput)
 
-    form.add(new Label('Password', 'password'))
-    var passwordInput = new PasswordInput('password')
-    form.add(passwordInput)
+        const submitButton = new Button('Register', 'submit')
+        form.add(submitButton)
 
-    form.add(new Label('Repeat Password', 'password-repeat'))
-    var passwordRepeatInput = new PasswordInput('password-repeat')
-    form.add(passwordRepeatInput)
+        form.addBehavior('submit', event => {
+            event.preventDefault()
 
-    var submitButton = new Button('Register', 'submit')
-    form.add(submitButton)
+            const name = nameInput.getValue()
+            const email = emailInput.getValue()
+            const username = usernameInput.getValue()
+            const password = passwordInput.getValue()
+            const passwordRepeat = passwordRepeatInput.getValue()
 
-    form.addBehavior('submit', function (event) {
-        event.preventDefault()
+            try {
+                registerUser(name, email, username, password, passwordRepeat)
 
-        var name = nameInput.getValue()
-        var email = emailInput.getValue()
-        var username = usernameInput.getValue()
-        var password = passwordInput.getValue()
-        var passwordRepeat = passwordRepeatInput.getValue()
+                form.reset()
 
-        try {
-            registerUser(name, email, username, password, passwordRepeat)
+                this.removeSelf()
 
-            form.reset()
+                page.add(login)
+            } catch (error) {
+                alert(error.message)
 
-            self.remove()
+                console.error(error)
+            }
+        })
 
+        const anchorText = new Paragraph('Already have an account? ')
+        this.add(anchorText)
+
+        const loginLink = new Link('Login')
+        anchorText.add(loginLink)
+
+        loginLink.addBehavior('click', event => {
+            event.preventDefault()
+
+            this.removeSelf()
             page.add(login)
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    })
-
-    var anchorText = new Paragraph('Already have an account? ')
-    self.add(anchorText)
-
-    var loginLink = new Link('Login')
-    anchorText.add(loginLink)
-
-    loginLink.addBehavior('click', function (event) {
-        event.preventDefault()
-
-        self.remove()
-        page.add(login)
-    })
+        })
+    }
 }
-
-Register.extends(Compo)

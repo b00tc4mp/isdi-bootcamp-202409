@@ -3,18 +3,18 @@
  * 
  * @param {string} text The text inside span
  */
-function Icon(address) {
-    Compo.call(this, document.createElement('img'))
+class Icon extends Compo {
+    constructor(address) {
+        super(document.createElement('img'))
 
-    this.container.src = address
-}
+        this.container.src = address
+    }
 
-Icon.extends(Compo)
+    setAddress(address) {
+        this.container.src = address
+    }
 
-Icon.prototype.setAddress = function (address) {
-    this.container.src = address
-}
-
-Icon.prototype.getAddress = function () {
-    return this.container.src
+    getAddress() {
+        return this.container.src
+    }
 }

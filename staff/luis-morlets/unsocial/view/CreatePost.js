@@ -1,47 +1,45 @@
-function CreatePost() {
-    Compo.call(this, document.createElement('div'))
+class CreatePost extends Compo {
+    constructor() {
+        super(document.createElement('div'))
 
-    var self = this
+        const title = new Heading('Create Post', 3)
+        this.add(title)
 
-    var title = new Heading('Create Post', 3)
-    self.add(title)
+        const form = new Form()
 
-    var form = new Form()
+        const imageLabel = new Label('Image', 'image')
+        const imageInput = new Input('text', 'image')
+        form.add(imageLabel)
+        form.add(imageInput)
 
-    var imageLabel = new Label('Image', 'image')
-    var imageInput = new Input('text', 'image')
-    form.add(imageLabel)
-    form.add(imageInput)
+        const textLabel = new Label('Text', 'text')
+        const textInput = new Input('text', 'text')
+        form.add(textLabel)
+        form.add(textInput)
 
-    var textLabel = new Label('Text', 'text')
-    var textInput = new Input('text', 'text')
-    form.add(textLabel)
-    form.add(textInput)
+        const submitButton = new Button('Create', 'submit')
+        form.add(submitButton)
 
-    var submitButton = new Button('Create', 'submit')
-    form.add(submitButton)
+        this.add(form)
 
-    self.add(form)
+        form.addBehavior('submit', event => {
+            event.preventDefault()
 
-    form.addBehavior('submit', function (event) {
-        event.preventDefault()
+            const image = imageInput.getValue()
+            const text = textInput.getValue()
 
-        var image = imageInput.getValue()
-        var text = textInput.getValue()
+            try {
+                createPost(loggedInUser.username, image, text)
 
-        try {
-            createPost(loggedInUser.username, image, text)
+                this.removeSelf()
 
-            self.remove()
+                const postList = new PostList()
+                home.add(postList)
+            } catch (error) {
+                alert(error.message)
 
-            var postList = new PostList()
-            home.add(postList)
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    })
+                console.error(error)
+            }
+        })
+    }
 }
-
-CreatePost.extends(Compo)

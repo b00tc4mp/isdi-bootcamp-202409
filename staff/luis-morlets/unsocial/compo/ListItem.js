@@ -1,8 +1,10 @@
 /**
  * Construct item list instances
  */
-function ListItem() {
-    Compo.call(this, document.createElement('li'))
-}
+class ListItem extends Compo {
+    constructor() {
+        super(document.createElement('li'))
 
-ListItem.extends(Compo)
+        this.container.style.listStyleType = 'none'
+    }
+}

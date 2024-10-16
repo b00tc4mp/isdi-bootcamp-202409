@@ -1,18 +1,18 @@
 /**
  * @param {string} text The text for time
  */
-function Time(text) {
-    Compo.call(this, document.createElement('time'))
+class Time extends Compo {
+    constructor(text) {
+        super(document.createElement('time'))
 
-    this.container.innerText = text
-}
+        this.container.innerText = text
+    }
 
-Time.extends(Compo)
+    setText(text) {
+        this.container.innerText = text
+    }
 
-Time.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Time.prototype.getText = function () {
-    return this.container.innerText
+    getText() {
+        return this.container.innerText
+    }
 }

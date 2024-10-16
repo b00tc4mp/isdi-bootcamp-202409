@@ -1,15 +1,17 @@
-var loggedInUser = null
+let loggedInUser = null
 
-var page = new Compo(document.querySelector('body'))
+let hasLiked = false
 
-var title = new Heading('Unsocial', 1)
+const page = new Compo(document.querySelector('body'))
+
+const title = new Heading('Unsocial', 1)
 page.add(title)
 
-var login = new Login()
+const login = new Login()
 page.add(login)
 
 //loggedInUser = users[0]
-var home
+let home
 //home = new Home()
 //page.add(home)
 

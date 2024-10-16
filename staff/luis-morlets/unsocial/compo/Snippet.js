@@ -2,17 +2,17 @@
  * 
  * @param {string} text The text of the snippet
  */
-function Snippet(title, text) {
-    Compo.call(this, document.createElement('div'))
+class Snippet extends Compo {
+    constructor(title, text) {
+        super(document.createElement('div'))
 
-    var title = new Heading(title, 4)
-    this.add(title)
+        const heading = new Heading(title, 4)
+        this.add(heading)
 
-    var pre = new Preformatted('')
-    var code = new Code(text)
-    pre.add(code)
+        const pre = new Preformatted('')
+        const code = new Code(text)
+        pre.add(code)
 
-    this.add(pre)
+        this.add(pre)
+    }
 }
-
-Snippet.extends(Compo)

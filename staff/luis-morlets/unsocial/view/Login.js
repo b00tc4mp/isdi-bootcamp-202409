@@ -1,69 +1,66 @@
 /**
  * Constructs Login instances
  */
-function Login() {
+class Login extends Compo {
+    constructor() {
+        super(document.createElement('section'))
 
-    Compo.call(this, document.createElement('section'))
+        const title = new Heading('Login', 2)
+        this.add(title)
 
-    var self = this
+        const form = new Form()
+        this.add(form)
 
-    var title = new Heading('Login', 2)
-    self.add(title)
+        form.add(new Label('Username', 'username'))
+        const usernameInput = new Input('text', 'username')
+        form.add(usernameInput)
 
-    var form = new Form()
-    self.add(form)
+        form.add(new Label('Password', 'password'))
+        const passwordInput = new PasswordInput('password')
+        form.add(passwordInput)
 
-    form.add(new Label('Username', 'username'))
-    var usernameInput = new Input('text', 'username')
-    form.add(usernameInput)
+        const submitButton = new Button('Login', 'submit')
+        form.add(submitButton)
 
-    form.add(new Label('Password', 'password'))
-    var passwordInput = new PasswordInput('password')
-    form.add(passwordInput)
+        form.addBehavior('submit', event => {
+            event.preventDefault()
 
-    var submitButton = new Button('Login', 'submit')
-    form.add(submitButton)
+            const username = usernameInput.getValue()
+            const password = passwordInput.getValue()
 
-    form.addBehavior('submit', function (event) {
-        event.preventDefault()
+            try {
+                loggedInUser = authenticateUser(username, password)
 
-        var username = usernameInput.getValue()
-        var password = passwordInput.getValue()
+                form.reset()
 
-        try {
-            loggedInUser = authenticateUser(username, password)
+                this.removeSelf()
 
-            form.reset()
+                home = new Home()
 
-            self.remove()
+                page.add(home)
+            } catch (error) {
+                passwordInput.setValue('')
 
-            home = new Home()
+                alert(error.message)
 
-            page.add(home)
-        } catch (error) {
-            passwordInput.setValue('')
+                console.error(error)
+            }
+        })
 
-            alert(error.message)
+        const anchorText = new Paragraph("Don't have an account? ")
+        this.add(anchorText)
 
-            console.error(error)
-        }
-    })
+        const registerLink = new Link('Register')
+        anchorText.add(registerLink)
 
-    var anchorText = new Paragraph("Don't have an account? ")
-    self.add(anchorText)
+        registerLink.addBehavior('click', event => {
+            event.preventDefault()
 
-    var registerLink = new Link('Register')
-    anchorText.add(registerLink)
+            this.removeSelf()
 
-    registerLink.addBehavior('click', function (event) {
-        event.preventDefault()
+            const register = new Register()
 
-        self.remove()
-
-        var register = new Register()
-
-        page.add(register)
-    })
+            page.add(register)
+        })
+    }
 }
-
-Login.extends(Compo)

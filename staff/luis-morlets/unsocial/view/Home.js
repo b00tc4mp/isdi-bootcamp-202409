@@ -1,44 +1,41 @@
 /**
  * Constructs Home instances
  */
-function Home() {
+class Home extends Compo {
+    constructor() {
+        super(document.createElement('section'))
 
-    Compo.call(this, document.createElement('section'))
+        const title = new Heading('Home', 2)
+        this.add(title)
 
-    var self = this
+        const greeting = new Heading(`Hey, ${loggedInUser.name}, you're finally awake!`, 3)
+        this.add(greeting)
 
-    var title = new Heading('Home', 2)
-    self.add(title)
+        const logoutButton = new Button('Logout', 'button')
+        this.add(logoutButton)
 
-    var greeting = new Heading("Hey " + loggedInUser.name + ", you're finally awake!", 3)
-    self.add(greeting)
+        logoutButton.addBehavior('click', event => {
+            event.preventDefault()
 
-    var logoutButton = new Button('Logout', 'button')
-    self.add(logoutButton)
+            loggedInUser = null
 
-    logoutButton.addBehavior('click', function (event) {
-        event.preventDefault()
+            this.removeSelf()
 
-        loggedInUser = null
+            page.add(login)
+        })
 
-        self.remove()
+        const addPostButton = new Button('➕', 'button')
+        this.add(addPostButton)
 
-        page.add(login)
-    })
+        addPostButton.addBehavior('click', () => {
+            const createPost = new CreatePost()
 
-    var addPostButton = new Button('➕', 'button')
-    self.add(addPostButton)
+            this.children[this.children.length - 1].removeSelf()
 
-    addPostButton.addBehavior('click', function () {
-        var createPost = new CreatePost()
+            this.add(createPost)
+        })
 
-        self.children[self.children.length - 1].remove()
-
-        self.add(createPost)
-    })
-
-    var postList = new PostList()
-    self.add(postList)
+        const postList = new PostList()
+        this.add(postList)
+    }
 }
-
-Home.extends(Compo)

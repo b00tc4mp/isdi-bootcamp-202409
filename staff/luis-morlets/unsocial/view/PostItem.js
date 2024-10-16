@@ -1,41 +1,58 @@
-function PostItem(username, image, text, date, likes) {
-    Compo.call(this, document.createElement('li'))
+class PostItem extends Compo {
+    constructor(username, image, text, date, likes, likedBy) {
+        super(document.createElement('li'))
 
-    var self = this
+        const userTitle = new Heading(username, 4)
+        this.add(userTitle)
 
-    var userTitle = new Heading(username, 4)
-    self.add(userTitle)
+        const picture = new Image(image)
+        this.add(picture)
 
-    var picture = new Image(image)
-    self.add(picture)
+        const likesContainer = new Division()
+        this.add(likesContainer)
 
-    var likesContainer = new Division()
-    self.add(likesContainer)
+        const likeButton = new Button('🤍', 'button')
 
-    var likeButton = new Button('🤍', 'button')
-    likeButton.container.style.cursor = 'pointer'
-    likesContainer.add(likeButton)
+        likeButton.container.style.cursor = 'pointer'
+        likesContainer.add(likeButton)
 
-    var countLikes = new Span(likes)
-    likesContainer.add(countLikes)
+        const countLikes = new Span(likes)
+        likesContainer.add(countLikes)
 
-    likeButton.addBehavior('click', function () {
-        if (likeButton.getText() === '🤍') {
-            likes++;
-            countLikes.setText(likes)
-            likeButton.setText('❤️')
+        if (likedBy[loggedInUser.username]) {
+            hasLiked = true
         } else {
-            likes--;
-            countLikes.setText(likes)
-            likeButton.setText('🤍')
+            hasLiked = false
         }
-    })
 
-    var comment = new Paragraph(text)
-    self.add(comment)
+        if (hasLiked) {
+            likeButton.setText('❤️')
+        }
 
-    var time = new Time(date)
-    self.add(time)
+        likeButton.addBehavior('click', () => {
+            try {
+                if (!likedBy[loggedInUser.username]) {
+                    likes++
+                    countLikes.setText(likes)
+                    likeButton.setText('❤️')
+                    likedBy[loggedInUser.username] = true
+                } else {
+                    likes--
+                    likeButton.setText('🤍')
+                    countLikes.setText(likes)
+                    likedBy[loggedInUser.username] = false
+                }
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        })
+
+        const comment = new Paragraph(text)
+        this.add(comment)
+
+        const time = new Time(date)
+        this.add(time)
+    }
 }
-
-PostItem.extends(Compo)
