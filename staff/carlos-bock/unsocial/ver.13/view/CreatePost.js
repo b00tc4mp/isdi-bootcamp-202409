@@ -29,7 +29,7 @@ class CreatePost extends Compo {
             const text = textInput.getValue();
 
             try{
-                createPost(loggedInUser, username, image, text);
+                createPost(loggedInUser.username, image, text);
 
                 this.removeSelf();
 

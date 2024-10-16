@@ -1,6 +1,6 @@
 const createPost = (username, image, text) => {
     if (username.length < 4 || username.length > 12)
-        throw new Error('invalid username')
+        throw new Error('invalid username');
 
     const post = {
         image: image,

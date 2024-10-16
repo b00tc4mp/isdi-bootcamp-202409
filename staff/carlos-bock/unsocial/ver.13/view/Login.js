@@ -35,7 +35,7 @@ class Login extends Compo {
 
             this.removeSelf();  
 
-            var home = new Home(); 
+            home = new Home(); 
 
             page.add(home);  
         } catch (error) {
