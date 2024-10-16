@@ -10,7 +10,7 @@ class PostItem extends Compo {
         const userTitle = new Heading(username, 4)
         userTitle.container.style.textDecoration = 'underline'
         userTitle.container.style.color = 'yellow'
-        userTitle.container.style.marginTop = '100px'
+        userTitle.container.style.marginTop = '50px'
         this.add(userTitle)
 
         const picture = new Image(image)

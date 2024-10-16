@@ -19,9 +19,9 @@ body {
 }
 
 h1 {
-    font-size: 450%;
+    font-size: 250%;
     font-family: 'Press Start 2P';
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 }
 
 input {
@@ -54,7 +54,7 @@ h1 {
 button {
     font-family: 'Press Start 2P';
     font-size: 120%;
-    margin-top: 80px;
+    margin-top: 50px;
     margin-bottom: 15px;
     background: blue;
     color: var(--color);
