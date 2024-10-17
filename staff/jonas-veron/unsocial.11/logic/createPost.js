@@ -7,8 +7,7 @@ const createPost = (username, image, text) => {
         text: text,
         username: username,
         date: new Date,
-        likes: 0,
-        likedBY: {}
+        likes: 0
     }
 
     posts.push(post)

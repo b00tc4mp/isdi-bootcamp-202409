@@ -5,7 +5,7 @@ const posts = [
         username: 'peterpan',
         date: new Date,
         likes: 100,
-        likedBy: {}
+        likedBY: {}
     },
     {
         image: 'https://pm1.aminoapps.com/8360/ad07e2d2cdf6e1733328d6e7b7848b87db38a2bbr1-1536-2048v2_hq.jpg',
