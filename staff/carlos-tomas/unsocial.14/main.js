@@ -73,7 +73,37 @@ const redCar = new Car({ car: '🚗' })
 const yellowCar = new Car({ car: '🚕' })
 
 
+const nameLabel = React.createElement("label", ({ htmlFor: "name", id: "name" }), "Name")
+const nameInput = React.createElement("input", ({ id: "name", type: "text", placeholder: "Your name", name: "name" }))
+const userNameLabel = React.createElement("label", ({ htmlFor: "userName", id: "userName" }), "User name")
+const userNameInput = React.createElement("input", ({ id: "userName", type: "text", placeholder: "User Name", name: "userName" }))
+const emailLabel = React.createElement("label", ({ htmlFor: "email", id: "email" }), "E-mail")
+const emailInput = React.createElement("input", ({ id: "email", type: "email", placeholder: "E-mail", name: "email" }))
+const submitRegister = React.createElement("button", { type: "submit" }, "Register")
+const formRegiser = React.createElement("form", {
+    style: { border: "4px solid #007bff", boxsizing: "border-box" },
+    onSubmit: event => {
+        event.preventDefault()
 
+        let name = event.target["name"].value
+        let email = event.target["email"].value
+        let username = event.target["userName"].value
+
+
+        users.push(name)
+        users.push(email)
+        users.push(username)
+
+        alert("registgrado")
+
+
+
+
+    }
+}, [nameLabel, nameInput, userNameLabel, userNameInput, emailLabel, emailInput, submitRegister])
+
+
+let users = []
 
 root.render([
     title,
@@ -86,6 +116,6 @@ root.render([
     link,
     ReactiveEmoji({ emoji: '😊' }),
     ReactiveEmoji({ emoji: '❤️' }),
-
+    formRegiser
 
 ])
