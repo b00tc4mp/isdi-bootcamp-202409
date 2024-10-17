@@ -14,12 +14,12 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
     if (password !== passwordRepeat)
         throw new Error('passwords do not match')
 
-    let user = users.find(user => user.username === username || user.email === email) //Verificación de existencia de usuario
+    let user = users.find(user => user.username === username || user.email === email)
 
-    if (user !== undefined) //Si el usuario ya existe (es decir, si user no es undefined), lanza un error con el mensaje 'user already exists'
+    if (user !== underfined)
         throw new Error('user already exists')
 
-    user = { name: name, email: email, username: username, password: password } //Creación del nuevo usuario
+    user = { name: name, email: email, username: username, password: password }
 
-    users.push(user) // Finalmente, el nuevo usuario se agrega a la lista de users utilizando el método .push(), que añade el nuevo usuario al final del arreglo.
+    users.push(user)
 }

@@ -11,5 +11,5 @@ const createPost = (username, image, text) => {
         date: new Date
     }
 
-    posts.push(post)
+    postMessage.push(post)
 }
