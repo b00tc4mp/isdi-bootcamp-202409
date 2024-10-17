@@ -1,58 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap');
 
 :root {
-    --color: #444333;
-    --dark-brown: #333;
+    --color-fondo: #07074a;
     --white: #ffffff;
     --font: "Nunito", sans-serif;
     font-family: var(--font);
+
+
+
+
 }
 
 body {
-    background-color: lightgrey;
-    color: var(--color);
+    background-color: var(--color-fondo);
+    color: var(var(--white));
     display: flex;
     flex-direction: column;
-    /*justify-content: space-around;*/
     align-items: center;
     height: 100vh;
     margin: 0;
     font-weight: 400;
     font-style: normal;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
-section {
-    background-color: grey;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    /* Ajusta el tamaño del formulario */
-    margin: 10px;
+label {
+    color: var(--white);
 }
 
 h1,
-h2 {
+h2,
+h3 {
     text-align: center;
+    color: var(--white);
 }
 
 p {
-    font-size: 0.9em;
+    font-size: 1.2em;
     text-align: center;
     line-height: 1.3em;
+    color: var(--white);
 }
 
 form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 input {
     margin-bottom: 15px;
     padding: 10px;
     font-size: 1.1em;
-    border: 1px solid #ccc;
+    border: 1px solid var(--white);
     border-radius: 5px;
     font: inherit;
 }
@@ -60,16 +61,17 @@ input {
 button {
     padding: 10px;
     font-size: 1.1em;
-    background-color: var(--color);
-    color: white;
+    background-color: #ddd207;
+    color: rgb(25, 7, 138);
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font: inherit;
+    margin-bottom: 10px;
 }
 
 button:hover {
-    background-color: var(--dark-brown);
+    background-color: #b9b007
 }
 
 a {
