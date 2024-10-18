@@ -15,15 +15,17 @@ const registerUser = (name, email, username, password, confirmpassword) => {
         throw new Error('Incorrect password')
     }
 
-    let user = users.find(function (user) {
-        return user.username === username || user.email === email
-    })
+    const users = JSON.parse(localStorage.users)
+
+    let user = users.find(user => user.username === username || user.email === email)
 
     if (user !== undefined) {
         throw new Error('user already exists')
     }
 
-    user = { 'name': name, 'email': email, 'username': username, 'password': password } // Insertamos el usuario entero
+    user = { id: uuid(), name: name, email: email, username: username, password: password }
 
     users.push(user)
+
+    localStorage.users = JSON.stringify(users)
 }

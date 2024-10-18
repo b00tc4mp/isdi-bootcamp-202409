@@ -1,5 +1,4 @@
-const users = [ // La "base de datos" con los usuarios
-    { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
-    { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' },
-    { name: 'Javier', email: 'javi@gmail.com', username: 'javi', password: '123123123' }
+const users = [
+    { id: 'm2eo2tqvg06', name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
+    { id: 'm2eo38l0e1', name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
 ]
