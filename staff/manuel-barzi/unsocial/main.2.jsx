@@ -64,43 +64,15 @@ function Login(props) {
             <button type="submit">Login</button>
         </form>
 
-        <a href="" onClick={event => {
-            event.preventDefault()
-
-            props.onRegisterClick()
-        }}>Register</a>
+        <a href="">Register</a>
     </section>
 }
 
-function Register(props) {
+function Register() {
     return <section>
         <h2>Register</h2>
 
-        <form onSubmit={event => {
-            event.preventDefault()
-
-            const { target: form } = event
-
-            const {
-                name: { value: name },
-                email: { value: email },
-                username: { value: username },
-                password: { value: password },
-                ['password-repeat']: { value: passwordRepeat }
-            } = form
-
-            try {
-                registerUser(name, email, username, password, passwordRepeat)
-
-                form.reset()
-
-                props.onRegistered()
-            } catch (error) {
-                alert(error.message)
-
-                console.error(error)
-            }
-        }}>
+        <form>
             <label htmlFor="name">Name</label>
             <input type="text" id="name" style={{ width: '100%', boxSizing: 'border-box' }} />
 
@@ -119,11 +91,7 @@ function Register(props) {
             <button type="submit">Register</button>
         </form>
 
-        <a href="" onClick={event => {
-            event.preventDefault()
-
-            props.onLoginClick()
-        }}>Login</a>
+        <a href="">Login</a>
     </section>
 }
 
@@ -166,14 +134,8 @@ class App extends Component {
         return <div>
             <h1>Unsocial</h1>
 
-            {this.state.view === 'login' && <Login
-                onLoggedIn={() => this.setState({ view: 'home' })}
-                onRegisterClick={() => this.setState({ view: 'register' })}
-            />}
-            {this.state.view === 'register' && <Register
-                onLoginClick={() => this.setState({ view: 'login' })}
-                onRegistered={() => this.setState({ view: 'login' })}
-            />}
+            {this.state.view === 'login' && <Login onLoggedIn={() => this.setState({ view: 'home' })} />}
+            {this.state.view === 'register' && <Register />}
             {this.state.view === 'home' && <Home />}
         </div>
     }
