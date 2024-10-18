@@ -1,4 +1,4 @@
-let loggedInUser = null
+// let loggedInUserId = null
 
 const rootElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootElement)
@@ -34,11 +34,11 @@ return <section>
     <h2>Login</h2>
     <form onSubmit={event => {
         event.preventDefault()
-        console.log(event)
-        const{ target: {username:{ value: username }, password: {value: password } } } = event
+
+        const { target: { username:{ value: username }, password: {value: password } } } = event
 
         try{
-            loggedInUser = autenticateUser(username, password)
+            sessionStorage.loggedInUserId = authenticateUser(username, password)
 
             event.target.reset()
 
@@ -63,7 +63,6 @@ return <section>
 
             props.onRegisterLink()
 
-
         }}>Register</a>
     </section>
 }
@@ -74,24 +73,27 @@ function Register(props){
         <form onSubmit={event => {
             event.preventDefault()
 
-            const { target: {
+            const { target: form } = event
+
+            const {
                 name: { value: name},
                 email: { value: email },
                 username: { value: username }, 
                 password: { value: password }, 
                 ['password-repeat']: { value: passwordRepeat }
-            } } = event 
+            } = form
 
                 try{
                     registerUser(name, email, username, password, passwordRepeat)
-                    event.target.reset()     
+
+                    form.reset()  
+
                     props.loginBack()
                 }catch (error){
                     alert(error.message)
                     
                     console.error(error)
                 }
-            
             }}>
 
 
@@ -122,67 +124,104 @@ function Register(props){
     </section>
 }
 
-function Home(props) {
-    return <section>
-    <h2>Home</h2>
-        <h3>Hello, Peter Pan!</h3>
-        <button type="button" onClick={event =>{
-            event.preventDefault()
-            props.onLoggedOut()
+class Home extends Component {
+    constructor(props) {
+        super(props)
 
-        } }>Logout</button>
+        let name
 
+        try {
+            name = getUserName(sessionStorage.loggedInUserId)
+        } catch (error) {
+            alert(error.message)
 
-        <button type="button" onClick={event => {
-            event.preventDefault()
+            console.error(error)
+        }
 
-            props.createPost()
+        this.state = {name: name, view: 'list'}
 
-        }}>➕</button>
-        <ul>
-            <h3>Posts</h3>
-            <li>
-                <h4>wendydarling</h4>
-                <img src="https://pm1.aminoapps.com/8360/ad07e2d2cdf6e1733328d6e7b7848b87db38a2bbr1-1536-2048v2_hq.jpg" style={{width: '100%'}}/>
-                <div>
-                    <button type="button" style={{cursor:'pointer'}}>🤍</button>
-                    <span>235</span>
-                </div>
-                    <p>here i am</p>
-                    <time>Thu Oct 17 2024 15:12:15 GMT+0200 (hora de verano de Europa central)</time>
-            </li>
-                
-            <li>
-                <h4>peterpan</h4>
-                <img src="https://i.pinimg.com/originals/8c/60/1a/8c601a25311a1a5098896f751a784b54.jpg" style={{width: '100%'}}/>
-                <div>
-                    <button type="button" style={{cursor: 'pointer'}}>🤍</button>
-                    <span>100</span>
-                    </div>
-                    <p>here we are</p>
-                    <time>Thu Oct 17 2024 15:12:15 GMT+0200 (hora de verano de Europa central)</time>
-            </li>
-        </ul>
-    </section>
+    }
+
+    render() {
+        return <section>
+        <h2>Home</h2>
+            <h3>Hello, {this.state.name}!</h3>
+            <button type="button" onClick={() =>{
+                delete sessionStorage.loggedInUserId
+            
+                this.props.onLoggedOut()
+    
+            } }>Logout</button>
+    
+            <button type="button" onClick={() => this.setState({ view: 'new' })}>➕</button>
+
+            { this.state.view === 'list' && <PostList/> }
+            { this.state.view === 'new' && <CreatePost onCreated={()=> this.setState({ view: 'list' })} />}
+        </section>
+    }
 }
 
-// function createPost {
-//     return <div>
+function PostList() {
+    let posts
 
-//         <h3>Create Post</h3>
+    try{
+        posts = getPosts()
+    } catch (error) {
+        alert(error.message)
 
-//         <form>
-//             <label htmlFor="image">Image</label>
-//             <input type="text" id="image" />
+        console.error(error)
+    }
 
-//             <label htmlFor="text">Text</label>
-//             <input type="text" />
+    return <div>
 
-//             <button type="submit"></button>
-//         </form>
+        <h3>Posts</h3>
 
-//     </div>
-// }
+        {posts.map(post => <article>
+            <h4>{post.author}</h4>
+            <img src={post.image} style={{width: '100%'}} />
+            <p>{post.date}</p>
+        </article>)}
+    </div>
+    
+}
+
+
+function CreatePost(props) {
+    return <div>
+
+        <h3>Create Post</h3>
+
+        <form onSubmit={event => {
+            event.preventDefault()
+
+            const { target: form } = event
+
+            const {
+                image: { value: image },
+                text: { value: text}
+            } = form
+
+            try {
+                createPost(sessionStorage.loggedInUserId, image, text)
+
+                props.onCreated()
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        }}>
+            <label htmlFor="image">Image</label>
+            <input type="text" id="image" style={{width: '100%', boxSizing: 'boder-box'}} />
+
+            <label htmlFor="text">Text</label>
+            <input type="text" id='text' style={{ width: '100%', boxSizing: 'border-box' }} />
+
+            <button type="submit">Create</button>
+        </form>
+
+    </div>
+}
 
 
 class App extends Component {
