@@ -1,6 +1,15 @@
-var loggedInUser = null
+let loggedInUser = null
 
-var loginSection = buildLoginSection()
+const page = new Compo(document.querySelector('body'))
 
-var body = document.querySelector('body')
-body.appendChild(loginSection)
+let title = new Heading('Unsocial', 1)
+page.add(title)
+
+const login = new Login()
+page.add(login)
+
+let home
+//loggedInUser = users[0]
+
+//home = new Home()
+//page.add(home)
