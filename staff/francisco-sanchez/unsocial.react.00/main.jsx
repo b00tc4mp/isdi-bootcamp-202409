@@ -25,11 +25,11 @@ class PasswordInput extends Component {
                     status: this.state.status === '🫣' ? '🥹' : '🫣',
                     type: this.state.type === 'password' ? 'text' : 'password'
                 })}
+            //En este punto usando las llaves {...} insertamos javascript en el html
             >{this.state.status}</span>
         </div>
 
     }
-
 }
 
 
@@ -98,10 +98,8 @@ function Register(props) {
                 console.log(passwordRepeat)
 
                 registerUser(name, email, username, password, passwordRepeat)
-
-                //Para no perderme, aquí va la función de registro
-
                 event.target.reset()
+                props.onRegisterClick()
 
             } catch (error) {
                 alert(error.message)
@@ -131,7 +129,7 @@ function Register(props) {
         <a href=""
             onClick={event => {
                 event.preventDefault()
-                props.onNavLogin()
+                props.onLoginClick()
             }}>Login</a>
 
     </section>
@@ -149,7 +147,7 @@ function Home(props) {
             event.preventDefault()
             console.log('Click en el boton logout')
             loggedInUser = null
-            props.onNavLogin()
+            props.onLoggedOut()
 
         }}>Logout</button>
 
@@ -217,14 +215,22 @@ class App extends Component {
         return <div>
             <h1>Unsocial React v0.0.2</h1>
 
-            {this.state.view === 'login' && <Login onLoggedIn={() => this.setState({ view: 'home' })}
-                onNavRegister={() => this.setState({ view: 'register' })} />}
+            {
+                //En este punto hacemos un short circuit evaluation
+                //https://www.freecodecamp.org/news/short-circuiting-in-javascript/
+
+                //Evaluación primera && evaluación segunda
+                //Si la primera ya es falsa, ya no evalua la segunda
+                this.state.view === 'login' && <Login
+                    onLoggedIn={() => this.setState({ view: 'home' })}
+                    onNavRegister={() => this.setState({ view: 'register' })} />}
 
             {this.state.view === 'register' && <Register
-                onNavLogin={() => this.setState({ view: 'login' })} />}
+                onLoginClick={() => this.setState({ view: 'login' })}
+                onRegisterClick={() => this.setState({ view: 'login' })} />}
 
             {this.state.view === 'home' && <Home
-                onNavLogin={() => this.setState({ view: 'login' })} />}
+                onLoggedOut={() => this.setState({ view: 'login' })} />}
         </div>
     }
 }

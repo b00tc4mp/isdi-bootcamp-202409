@@ -12,7 +12,7 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
     if (username.length < 4 || username.length > 12)
         throw new Error('invalid username')
 
-    if (password.length < 8)
+    if (password.length < 4)
         throw new Error('invalid password')
 
     if (password !== passwordRepeat)
