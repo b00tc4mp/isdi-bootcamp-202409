@@ -1,0 +1,19 @@
+:root {
+    --color: dodgerblue;
+    --font: 'Sixtyfour';
+    font-family: var(--font);
+}
+
+body {
+    background-color: lightgrey;
+    color: var(--color);
+}
+
+input {
+    background-color: inherit;
+    font-family: inherit;
+}
+
+a:visited {
+    color: var(--color);
+}
