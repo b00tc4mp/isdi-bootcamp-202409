@@ -50,18 +50,18 @@ https://developer.mozilla.org/es/docs/Web/API/Window/sessionStorage
 
 OK - crea un fichero uuid.js para generar los id
 
-OK - modificar función para creación de usuarios, pasar id
+- modificar función para creación de usuarios, pasar id
 
 OK - modificar la función de creación de posts, pasar id
 
 
 #### El nuevo proceso de usuarios funcionará así
 
-OK - parse() recupera el json de users de la memoria 
+- parse() recupera el json de users de la memoria 
 
-OK - Añade el nuevo usuario
+- Añade el nuevo usuario
 
-OK - y despues lo vuelve a guardar en memoria con JSON.stringify(users)
+- y despues lo vuelve a guardar en memoria con JSON.stringify(users)
 
 - También implementa el sessionStorage para mantener la información del usuario. ¿¿SesionStorage?? 
 

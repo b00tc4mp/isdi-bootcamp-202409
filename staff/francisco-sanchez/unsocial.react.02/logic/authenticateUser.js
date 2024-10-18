@@ -5,9 +5,6 @@ const authenticateUser = (username, password) => {
     if (password.length === '')
         throw new Error('Password is required')
 
-    //Recuperamos los usuarios de la memoria
-    const users = JSON.parse(localStorage.users)
-
     let user = users.find(function (user) {
         return user.username === username && user.password === password
     })

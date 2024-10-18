@@ -18,16 +18,17 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
     if (password !== passwordRepeat)
         throw new Error('passwords do not match')
 
+
+    let user = users.find(user => user.username === username || user.email === email)
+
+    /*let user = users.find(function (user) {
+        return user.username === username || user.email === email
+    })*/
+
     //Validamos el password
     if (password !== passwordRepeat) {
         throw new Error('Passwords not match')
     }
-
-    //Recuperamos los usuarios de la memoria
-    const users = JSON.parse(localStorage.users)
-
-    let user = users.find(user => user.username === username || user.email === email)
-
 
     if (user) {
         throw new Error('The user ' + username + ' already exist in the database')
@@ -41,7 +42,4 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
         password: password
     }
     users.push(newUser)
-
-    //Actualizamos el array de usuarios en la memoria
-    localStorage.users = JSON.stringify(users)
 }

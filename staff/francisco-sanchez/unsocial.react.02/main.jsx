@@ -46,7 +46,6 @@ function Login(props) {
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                //sessionStorage.loggedInUser = authenticateUser(username, password)
                 loggedInUser = authenticateUser(username, password)
 
                 event.target.reset()
@@ -260,8 +259,8 @@ class App extends Component {
 
     render() {
         return <div>
-            <h1>Unsocial React v0.0.3</h1>
-            <p>Esta versión introduce todas las novedades vistas en React hasta la fecha, también incluye el <strong>localStorage y sessionStorage</strong> </p>
+            <h1>Unsocial React v0.0.2</h1>
+            <p>Esta versión introduce todas las novedades vistas en React hasta la fecha, pero guarda todavía los datos de usuarios y posts en los ficheros correspondientes. </p>
             <hr style={{ width: '100px' }}></hr>
 
             {
