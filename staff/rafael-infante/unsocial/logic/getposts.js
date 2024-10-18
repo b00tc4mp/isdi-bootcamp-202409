@@ -1,1 +1,1 @@
-const getPosts = () => posts
+const getPosts = () => posts.toReversed()

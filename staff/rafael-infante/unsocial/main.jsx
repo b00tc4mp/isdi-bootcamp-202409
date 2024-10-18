@@ -81,16 +81,18 @@ function Register(props) {
       <form className="form-container"
         onSubmit={event => {
           event.preventDefault()
-          const { target: {
+
+          const { target: form } = event
+          const {
             name: { value: name },
             email: { value: email },
             username: { value: username },
             password: { value: password },
-            confirmPassword: { value: confirmPassword } } } = event
+            confirmPassword: { value: confirmPassword } } = form
 
           try {
             registerUser(name, email, username, password, confirmPassword)
-            event.target.reset()
+            form.reset()
             props.onRegistered()
           } catch (error) {
             alert(error.message)
@@ -118,39 +120,73 @@ function Register(props) {
   )
 }
 
-function Home() {
+class Home extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { view: 'list' }
+
+  }
+
+  render() {
+    return (
+      <section id="home" className="section-container">
+        <h2>Home</h2>
+        <h3>Hello, Peter Pan!</h3>
+        <img src="images/boy.png" className="boy" />
+        <button id="btn-logout" type="button" onClick={event => {
+          event.preventDefault()
+          this.props.onLoggedOut()
+        }}>Logout</button>
+        <button id="btn-post" type="button" onClick={() => this.setState({ view: 'new' })}>Post</button>
+
+        {this.state.view === 'list' && <PostList />}
+        {this.state.view === 'new' && <CreatePost />}
+
+      </section>
+    )
+  }
+}
+
+function PostList() {
+
+  let posts
+
+  try {
+    posts = getPosts()
+  } catch (error) {
+    alert(error.message)
+    console.error(error)
+  }
   return (
-    <section id="home" className="section-container">
-      <h2>Home</h2>
-      <h3>Hello, Peter Pan!</h3>
-      <img src="https://unsightly-stem-unsocial-project-app.surge.sh/images/boy.png" className="boy" />
-      <button id="btn-logout" type="button">Logout</button>
-      <button id="btn-post" type="button">Post</button>
+    <div>
+      <h2>Posts</h2>
+      {posts.map(post => {
+        return (
+          <article>
+            <h4>{post.username}</h4>
+            <img src={post.image} className="boy" />
+            <p>{post.text}</p>
+            <time>{post.date}</time>
+          </article>
+        )
+      })}
+    </div>
+  )
+}
 
-      <div>
-        <h2>Posts</h2>
-        <article>
-          <h4>captainhook</h4>
-          <img src="https://png.pngtree.com/png-clipart/20231020/original/pngtree-couple-dressed-up-like-a-pirate-and-vampire-taking-a-selfie-png-image_13385873.png" className="boy" />
-          <p>Muajajajajajaja</p>
-          <time>Thu Oct 17 2024 19:27:31 GMT+0200 (hora de verano de Europa central)</time>
-        </article>
-
-        <article>
-          <h4>wendydarling</h4>
-          <img src="https://pm1.aminoapps.com/8360/ad07e2d2cdf6e1733328d6e7b7848b87db38a2bbr1-1536-2048v2_hq.jpg" className="boy" />
-          <p>Here I am</p>
-          <time>Thu Oct 17 2024 19:27:35 GMT+0200 (hora de verano de Europa central)</time>
-        </article>
-
-        <article>
-          <h4>peterpan</h4>
-          <img src="https://i.pinimg.com/originals/8c/60/1a/8c601a25311a1a5098896f751a784b54.jpg" className="boy" />
-          <p>Here we are</p>
-          <time>Thu Oct 17 2024 19:29:35 GMT+0200 (hora de verano de Europa central)</time>
-        </article>
-      </div>
-    </section>
+function CreatePost() {
+  return (
+    <div className="section-container">
+      <form className="form-container">
+        <h3>Create a Post</h3>
+        <label htmlFor="image">Image</label>
+        <input type="text" id="image" placeholder="Select an image" required />
+        <label htmlFor="image">Text</label>
+        <input type="text" id="text" placeholder="Write a text" required />
+        <button id="submit" type="submit">Create</button>
+      </form>
+    </div>
   )
 }
 
@@ -176,7 +212,8 @@ class App extends Component {
           onAnchorLogin={() => this.setState({ view: 'login' })}
         />}
 
-        {this.state.view === 'home' && <Home />}
+        {this.state.view === 'home' && <Home
+          onLoggedOut={() => this.setState({ view: 'login' })} />}
       </div>
     )
   }
