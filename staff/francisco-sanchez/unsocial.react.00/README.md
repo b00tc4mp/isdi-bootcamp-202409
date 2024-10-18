@@ -38,7 +38,7 @@ OK - Y como ahora Home va a cambiar, cambiamos la función Home por una class
 
 OK - Añadimos comentarios en todos los stios para dar mejor seguimiento
 
-- Prepara la lógica para el createPost() aprovechando la lógica que ya teniamos
+OK - Prepara la lógica para el createPost() aprovechando la lógica que ya teniamos
 
 OK - Implementa el logout de la aplicación. 
 
@@ -48,11 +48,11 @@ OK - Implementa el logout de la aplicación.
 - Introduce el sessionStorage para mantener la sesión activa del usuario
 https://developer.mozilla.org/es/docs/Web/API/Window/sessionStorage
 
-- crea un fichero uuid.js para generar los id
+OK - crea un fichero uuid.js para generar los id
 
 - modificar función para creación de usuarios, pasar id
 
-- modificar la función de creación de posts, pasar id
+OK - modificar la función de creación de posts, pasar id
 
 
 #### El nuevo proceso de usuarios funcionará así
@@ -69,7 +69,7 @@ https://developer.mozilla.org/es/docs/Web/API/Window/sessionStorage
 
 ### Tareas
 
-- Modficar idUser por username, en la lista de posts
+OK - Modficar idUser por username, en la lista de posts
 
 
 

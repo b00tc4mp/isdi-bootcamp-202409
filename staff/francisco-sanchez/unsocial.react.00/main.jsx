@@ -85,11 +85,12 @@ function Register(props) {
         <form onSubmit={event => {
             event.preventDefault()
 
-            const { target: { username: { value: username },
-                password: { value: password },
-                name: { value: name },
-                email: { value: email },
-                passwordRepeat: { value: passwordRepeat } } } = event
+            const {
+                target: { username: { value: username },
+                    password: { value: password },
+                    name: { value: name },
+                    email: { value: email },
+                    passwordRepeat: { value: passwordRepeat } } } = event
 
             try {
 
@@ -173,10 +174,10 @@ class Home extends Component {
 
             }}>Logout</button>
 
-            <button type="button">✚ New Post</button>
+            <button type="button" onClick={() => this.setState({ view: 'new' })}>✚ New Post</button>
 
-            {/* {this.state.view === 'list' && <PostList />} */}
             {this.state.view === 'list' && <PostList />}
+            {this.state.view === 'new' && <CreatePosts onCreated={() => this.setState({ view: 'list' })} />}
 
 
         </section>
@@ -189,7 +190,7 @@ function PostList() {
     let posts;
 
     try {
-        posts = getPosts().reverse()
+        posts = getPosts()
 
     } catch (error) {
         alert(error.message);
@@ -207,6 +208,45 @@ function PostList() {
     </div>
 }
 
+function CreatePosts(props) {
+    console.log('Entramos en createPost -> Render')
+
+    return <div>
+        <h3>Create new post</h3>
+
+        <form onSubmit={event => {
+            event.preventDefault()
+
+            //Extraemos el form de event
+            const { target: form } = event
+
+            //Y en este punto extraemos los valores de los campos del form
+            const {
+                image: { value: image },
+                text: { value: text }
+            } = form
+
+            //Ahora tratamos de crear el post
+            try {
+                createPost(loggedInUser.id, image, text)
+                props.onCreated()
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
+        }}>
+            <label htmlFor="image">Image</label>
+            <input type="text" id="image" style={{ width: '100%', boxSizing: 'border-box' }} />
+
+            <label htmlFor="text">Text</label>
+            <input type="text" id="text" style={{ width: '100%', boxSizing: 'border-box' }} />
+
+            <button type="submit"> Create</button>
+        </form>
+    </div>
+
+}
+
 
 //La classe App extiende de component y la declaramos como class porque será dinámica e ira mutando conforme utilicemos la app
 
@@ -220,6 +260,8 @@ class App extends Component {
     render() {
         return <div>
             <h1>Unsocial React v0.0.2</h1>
+            <p>Esta versión introduce todas las novedades vistas en React hasta la fecha, pero guarda todavía los datos de usuarios y posts en los ficheros correspondientes. </p>
+            <hr style={{ width: '100px' }}></hr>
 
             {
                 //En este punto hacemos un short circuit evaluation

@@ -34,6 +34,12 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
         throw new Error('The user ' + username + ' already exist in the database')
     }
 
-    let newUser = { name: name, email: email, username: username, password: password }
+    let newUser = {
+        id: uuid(),
+        name: name,
+        email: email,
+        username: username,
+        password: password
+    }
     users.push(newUser)
 }
