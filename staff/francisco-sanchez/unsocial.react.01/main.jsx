@@ -9,7 +9,7 @@ const { Component } = React
 //Clase PasswordInput, para el campo de contraseña, añade la funcionalidad de ver o esconderla. 
 class PasswordInput extends Component {
     constructor(props) {
-        console.log('PasswordInput -> Constructor')
+        console.log('Entramos en el PasswordInput -> Constructor')
         super(props)
         this.state = { status: '🫣', type: 'password' }
     }
@@ -35,8 +35,6 @@ class PasswordInput extends Component {
 
 //Función login, que será nuestra primera pantalla de la aplicación
 function Login(props) {
-    console.log('Login -> render')
-
     return <section>
         <h2>Login</h2>
 
@@ -140,71 +138,67 @@ function Register(props) {
 
 //Function Home, que se encargará de mostrar la pantalla principal de la aplicación
 
-class Home extends Component {
-    constructor(props) {
-        console.log("Constructor de home")
-        super(props)
+function Home(props) {
+    return <section>
+        <h2>Home</h2>
+        <h3>Hello Risto</h3>
 
-        let name //Para el nombre del usuario
+        <button type="button" onClick={event => {
+            event.preventDefault()
+            console.log('Click en el boton logout')
+            loggedInUser = null
+            props.onLoggedOut()
 
-        try {
-            name = getUserName(loggedInUser.id)
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
-        }
+        }}>Logout</button>
 
-        //En el pase del estado le pasamos la pantalla a la que iremos y el nombre del usuario para saludarlo :) 
-        this.state = { name: name, view: 'list' }
-    }
+        <button type="button">✚ New Post</button>
 
-    render() {
-        console.log('Render del Home')
-
-        return <section>
-            <h2>Home</h2>
-            <h3>Hello, {this.state.name}!</h3>
-
-            <button type="button" onClick={event => {
-                event.preventDefault()
-                console.log('Click en el boton logout')
-                loggedInUser = null
-                this.props.onLoggedOut()
-
-            }}>Logout</button>
-
-            <button type="button">✚ New Post</button>
-
-            {/* {this.state.view === 'list' && <PostList />} */}
-            {this.state.view === 'list' && <PostList />}
-
-
-        </section>
-    }
-}
-
-function PostList() {
-    console.log('Renderizamos el postList')
-
-    let posts;
-
-    try {
-        posts = getPosts().reverse()
-
-    } catch (error) {
-        alert(error.message);
-        console.error(error)
-    }
-
-    return <div>
-        <h3>Posts</h3>
-        {posts.map(post => <article>
-            <h4>{getUserUserName(post.author)}</h4>
-            <img src={post.image} style={{ width: '95%' }} />
-            <p>{post.text}</p>
-            <time>{post.date}</time>
-        </article>)}
-    </div>
+        <div>
+            <h3>Posts</h3>
+            <div>
+                <h4>maxwell</h4>
+                <img src="https://picsum.photos/200" style={{ width: '95%' }} />
+                <p>Just finished reading a great book!</p>
+                <time>Thu Oct 17 2024 16:12:46 GMT+0200 (hora de verano de Europa central)</time>
+            </div>
+            <div>
+                <h4>aliceW</h4>
+                <img src="https://fastly.picsum.photos/id/319/200/200.jpg?hmac=UVJeYSi6TAfErW8IEThVndqxRlYBeWaZRymD1KuysSg" style={{ width: '95%' }} />
+                <p>Loving the vibes at this concert! 🎶</p>
+                <time>Thu Oct 17 2024 16:12:46 GMT+0200 (hora de verano de Europa central)</time>
+            </div>
+            <div>
+                <h4>aliceW</h4>
+                <img src="https://fastly.picsum.photos/id/442/200/200.jpg?hmac=S-yNCNr30GK97ulUYoey_Fh2-czIf7YnNgcKp7zrEoE" style={{ width: '95%' }} />
+                <p>Exploring the mountains, the view is amazing.</p>
+                <time>Thu Oct 17 2024 16:12:46 GMT+0200 (hora de verano de Europa central)</time>
+            </div>
+            <div>
+                <h4>lara</h4>
+                <img src="https://picsum.photos/200" style={{ width: '95%' }} />
+                <p>Had the best coffee this morning!</p>
+                <time>Thu Oct 17 2024 16:12:46 GMT+0200 (hora de verano de Europa central)</time>
+            </div>
+            <div>
+                <h4>lara</h4>
+                <img src="https://fastly.picsum.photos/id/809/200/200.jpg?hmac=2U0kkZGtbw4L4bQc3aC8cZA6ywfn2MvR0d-YC4ITcI8" style={{ width: '95%' }} />
+                <p>Enjoying the sunny day at the beach!</p>
+                <time>Thu Oct 17 2024 16:12:46 GMT+0200 (hora de verano de Europa central)</time>
+            </div>
+            <div>
+                <h4>wendydarling</h4>
+                <img src="https://pm1.aminoapps.com/8360/ad07e2d2cdf6e1733328d6e7b7848b87db38a2bbr1-1536-2048v2_hq.jpg" style={{ width: '95%' }} />
+                <p>here i am</p>
+                <time>Thu Oct 17 2024 16:12:46 GMT+0200 (hora de verano de Europa central)</time>
+            </div>
+            <div>
+                <h4>peterpan</h4>
+                <img src="https://i.pinimg.com/originals/8c/60/1a/8c601a25311a1a5098896f751a784b54.jpg" style={{ width: '95%' }} />
+                <p>here we are</p>
+                <time>Thu Oct 17 2024 16:12:46 GMT+0200 (hora de verano de Europa central)</time>
+            </div>
+        </div>
+    </section>
 }
 
 

@@ -10,23 +10,23 @@ Iré realizando copias que iran acumulando el número, pero la más reciente y a
 
 ### ¿Quñe ampliamos en la clase? 
 
-OK - Repasamos códigos y mejoramos la navegación entre secciones. 
+- Repasamos códigos y mejoramos la navegación entre secciones. 
 
-OK - Implementamos las funciones submit de los botones de registro y login
+- Implementamos las funciones submit de los botones de registro y login
 
-OK - Introducimos el concepto de identificadores únicos de usuarios: https://www.uuidgenerator.net/ (a modo ejemplo)
+- Introducimos el concepto de identificadores únicos de usuarios: https://www.uuidgenerator.net/ (a modo ejemplo)
 
-OK - Creamos una función para crear identificadores de usuario únicos
+- Creamos una función para crear identificadores de usuario únicos
     - Añadimos los id's a los usuarios
 
-OK    - Añadismo los id's a los posts
-OK    - En los posts modificamos el identificador de username por author --> Y nos traemos el user relacionado a través del id
+    - Añadismo los id's a los posts
+        - En los posts modificamos el identificador de username por author --> Y nos traemos el user relacionado a través del id
 
-OK - Modificaremos el loggedInUser por loggedInUserId --> Modificaremos la logica 
+- Modificaremos el loggedInUser por loggedInUserId --> Modificaremos la logica 
 
-OK - Creamos la función getUserName --> Para recuperar el username a partir del id y mostrar el nombre en la home
+- Creamos la función getUserName --> Para recuperar el username a partir del id y mostrar el nombre en la home
 
-OK - Ampliamos la funcionalidad para mostrar los posts --> Utilizamos un .map() para devolver  (La metemos en una función después)
+- Ampliamos la funcionalidad para mostrar los posts --> Utilizamos un .map() para devolver  (La metemos en una función después)
 
 - Modificamos la lógica de createPost --> Ahora la función no recibe userName sino, userId
     - También añadimos validaciones para que no nos entren datos incorrectos
@@ -34,13 +34,13 @@ OK - Ampliamos la funcionalidad para mostrar los posts --> Utilizamos un .map() 
 - Creamos una nueva función CreatePost() dentro del main.jsx --> "Tipo las funciones anteriores"
     Creamos también una función para mostrar los posts (Postlist().)
 
-OK - Y como ahora Home va a cambiar, cambiamos la función Home por una class
+- Y como ahora Home va a cambiar, cambiamos la función Home por una class
 
-OK - Añadimos comentarios en todos los stios para dar mejor seguimiento
+- Añadimos comentarios en todos los stios para dar mejor seguimiento
 
 - Prepara la lógica para el createPost() aprovechando la lógica que ya teniamos
 
-OK - Implementa el logout de la aplicación. 
+- Implementa el logout de la aplicación. 
 
 - Implementa el localStorage para guardar la información de la aplicación en el navegador
     - https://developer.mozilla.org/es/docs/Web/API/Window/localStorage
