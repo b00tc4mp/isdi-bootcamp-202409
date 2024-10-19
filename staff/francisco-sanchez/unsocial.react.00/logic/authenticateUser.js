@@ -15,5 +15,5 @@ const authenticateUser = (username, password) => {
     if (user === undefined)
         throw new Error('User or password are not valid')
 
-    return user
+    return user.id
 }

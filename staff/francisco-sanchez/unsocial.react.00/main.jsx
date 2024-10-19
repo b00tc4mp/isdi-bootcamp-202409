@@ -36,6 +36,10 @@ class PasswordInput extends Component {
 //Función login, que será nuestra primera pantalla de la aplicación
 function Login(props) {
     console.log('Login -> render')
+    {
+        if (sessionStorage.loggedInUserId !== undefined)
+            props.onLoggedIn()
+    }
 
     return <section>
         <h2>Login</h2>
@@ -46,8 +50,8 @@ function Login(props) {
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                //sessionStorage.loggedInUser = authenticateUser(username, password)
-                loggedInUser = authenticateUser(username, password)
+                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                //loggedInUser = authenticateUser(username, password)
 
                 event.target.reset()
 
@@ -150,7 +154,8 @@ class Home extends Component {
         let name //Para el nombre del usuario
 
         try {
-            name = getUserName(loggedInUser.id)
+            //name = getUserName(loggedInUser.id)
+            name = getUserName(sessionStorage.loggedInUserId)
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -170,7 +175,8 @@ class Home extends Component {
             <button type="button" onClick={event => {
                 event.preventDefault()
                 console.log('Click en el boton logout')
-                loggedInUser = null
+                //loggedInUser = null
+                delete sessionStorage.loggedInUserId
                 this.props.onLoggedOut()
 
             }}>Logout</button>
@@ -229,7 +235,8 @@ function CreatePosts(props) {
 
             //Ahora tratamos de crear el post
             try {
-                createPost(loggedInUser.id, image, text)
+                //createPost(loggedInUser.id, image, text)
+                createPost(sessionStorage.loggedInUserId, image, text)
                 props.onCreated()
             } catch (error) {
                 alert(error.message)
