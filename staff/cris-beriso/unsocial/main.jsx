@@ -136,7 +136,7 @@ class Home extends Component {
 
     super(props)
 
-    let Name
+    let name
 
     try {
       name = getUserName(sessionStorage.loggedInUserId)
@@ -186,7 +186,7 @@ function PostList() {
     <h3>Posts</h3>
 
     {posts.map(post => <article>
-      <h4>{post.author}</h4>
+      <h4>{getUserUsername(post.author)}</h4>
       <img src={post.image} style={{ width: '100%' }} />
       <p>{post.text}</p>
       <time>{post.date}</time>
@@ -242,6 +242,7 @@ class App extends Component {
 
   render() {
     console.log('App -> render')
+
     return <div>
       <h1>Unsocial</h1>
 

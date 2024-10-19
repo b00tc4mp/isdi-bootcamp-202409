@@ -12,7 +12,7 @@ const getUserName = userId => {
 
   const users = JSON.parse(localStorage.users)
 
-  const user = users.find(user => user.is === userId)
+  const user = users.find(user => user.id === userId)
 
   if (!user) throw new Error('user not found')
 

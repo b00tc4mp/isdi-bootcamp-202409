@@ -9,7 +9,7 @@ const createPost = (userId, image, text) => {
     id: uuid(),
     image: image,
     text: text,
-    username: username,
+    author: userId,
     date: new Date
   }
 

@@ -33,7 +33,7 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
   if (user !== undefined)
     throw new Error('user already exists')
 
-  user = { name: name, email: email, username: username, password: password }
+  user = { id: uuid(), name: name, email: email, username: username, password: password }
 
   users.push(user)
 
