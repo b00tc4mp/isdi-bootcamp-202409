@@ -119,8 +119,10 @@ function Home() {
         <h2>Home</h2>
 
         <h3>Hello, !</h3>
-        <button type="button">Logout</button>
+        <button type="button" >Logout</button>
         <button type="button">➕</button>
+
+
 
         <div>
             <h3>Posts</h3>
@@ -129,14 +131,14 @@ function Home() {
                 <h4>flash</h4>
                 <img src="https://www.mundodeportivo.com/alfabeta/hero/2024/01/the-flash-dc-comics.jpg?width=1200" style={{ width: '100%' }} />
                 <p>speed men</p>
-                <time>Thu Oct 17 2024 12:59:05 GMT+0200 (Central European Summer Time)</time>
+                <time>Thu Oct 18 2024 12:55:05 GMT+0200 (Central European Summer Time)</time>
             </article>
 
             <article>
                 <h4>batman</h4>
                 <img src="https://images.desenio.com/zoom/wb0125-8batman-portrait50x70-55544-10774.jpg" style={{ width: '100%' }} />
                 <p>darknes is my life</p>
-                <time>Thu Oct 17 2024 12:59:05 GMT+0200 (Central European Summer Time)</time>
+                <time>Thu Oct 18 2024 13:01:05 GMT+0200 (Central European Summer Time)</time>
             </article>
         </div>
     </section>
@@ -153,7 +155,9 @@ class App extends Component {
         return <div>
             <h1>Unsocial</h1>
             {/* al ejecutarse cambia la vista a home */}
-            {this.state.view === 'login' && <Login onLoggedIn={() => this.setState({ view: 'home' })} toRegister={() => this.setState({ view: 'register' })} />}
+            {this.state.view === 'login' && <Login onLoggedIn={() => this.setState({ view: 'home' })}
+                toRegister={() => this.setState({ view: 'register' })} />}
+
             {this.state.view === 'register' && <Register />}
             {this.state.view === 'home' && <Home />}
         </div>
