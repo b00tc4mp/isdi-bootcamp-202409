@@ -5,10 +5,12 @@ const authenticateUser = (loginUsername, loginPassword) => {
   if (loginPassword < 8)
     throw new Error('invalid password')
 
+  const users = JSON.parse(localStorage.users)
+
   const user = users.find(user => user.username === loginUsername && user.password === loginPassword)
 
   if (user === undefined)
     throw new Error('wrong credentials')
 
-  return user
+  return user.userId
 }

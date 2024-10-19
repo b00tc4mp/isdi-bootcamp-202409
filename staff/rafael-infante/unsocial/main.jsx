@@ -1,5 +1,3 @@
-let loggedUser = null
-
 const rootElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootElement)
 
@@ -51,7 +49,7 @@ function Login(props) {
 
           try {
 
-            loggedUser = authenticateUser(username, password)
+            sessionStorage.loggedUserId = authenticateUser(username, password)
             event.target.reset()
             props.onLoggedIn()
 
@@ -124,7 +122,16 @@ class Home extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { view: 'list' }
+    let name
+
+    try {
+      name = getUserName(sessionStorage.loggedUserId)
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
+
+    this.state = { name: name, view: 'list' }
 
   }
 
@@ -132,16 +139,17 @@ class Home extends Component {
     return (
       <section id="home" className="section-container">
         <h2>Home</h2>
-        <h3>Hello, Peter Pan!</h3>
+        <h3>Hello, {this.state.name}</h3>
         <img src="images/boy.png" className="boy" />
         <button id="btn-logout" type="button" onClick={event => {
           event.preventDefault()
           this.props.onLoggedOut()
         }}>Logout</button>
+
         <button id="btn-post" type="button" onClick={() => this.setState({ view: 'new' })}>Post</button>
 
         {this.state.view === 'list' && <PostList />}
-        {this.state.view === 'new' && <CreatePost />}
+        {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
 
       </section>
     )
@@ -164,7 +172,7 @@ function PostList() {
       {posts.map(post => {
         return (
           <article>
-            <h4>{post.username}</h4>
+            <h4>{post.author}</h4>
             <img src={post.image} className="boy" />
             <p>{post.text}</p>
             <time>{post.date}</time>
@@ -175,10 +183,27 @@ function PostList() {
   )
 }
 
-function CreatePost() {
+function CreatePost(props) {
   return (
     <div className="section-container">
-      <form className="form-container">
+      <form className="form-container" onSubmit={event => {
+        event.preventDefault()
+        const { target: form } = event
+
+        const {
+          image: { value: image },
+          text: { value: text }
+        } = form
+
+        try {
+          createPost(sessionStorage.loggedUserId, image, text)
+          form.reset()
+          props.onCreated()
+        } catch (error) {
+          alert(error.message)
+          console.error(error)
+        }
+      }}>
         <h3>Create a Post</h3>
         <label htmlFor="image">Image</label>
         <input type="text" id="image" placeholder="Select an image" required />
@@ -213,7 +238,10 @@ class App extends Component {
         />}
 
         {this.state.view === 'home' && <Home
-          onLoggedOut={() => this.setState({ view: 'login' })} />}
+          onLoggedOut={() => {
+            this.setState({ view: 'login' })
+            delete sessionStorage.loggedUserId
+          }} />}
       </div>
     )
   }
