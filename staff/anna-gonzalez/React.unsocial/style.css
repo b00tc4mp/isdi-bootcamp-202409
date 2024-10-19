@@ -14,12 +14,35 @@ body {
     justify-content: center;
     text-align: center;
     align-items: center;
-    background-color: black;
+    background: radial-gradient(circle at bottom left, #978d00,
+            #6a6300 20%,
+            #4b0088 40%,
+            #39008f 60%,
+            #250035 80%,
+            #150020 90%,
+            #0d0027 100%);
+    background-size: 450% 450%;
+    animation: gradient 7s ease infinite;
+    /*animation for a gradual effect*/
     color: var(--color);
 }
 
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 h1 {
-    font-size: 250%;
+    font-size: 230%;
     font-family: 'Press Start 2P';
     margin-bottom: 50px;
 }
@@ -35,7 +58,7 @@ input {
     margin-bottom: 10%;
     margin-left: 10px;
     background-color: var(--color);
-    width: 300px;
+    width: 250px;
     /* it's the same than font-family: inherit
             for the input and buttons we always need to change the default font */
 }
@@ -54,8 +77,7 @@ h1 {
 button {
     font-family: 'Press Start 2P';
     font-size: 120%;
-    margin-top: 50px;
-    margin-bottom: 15px;
+    margin: 50px 7px 15px 0px;
     background: blue;
     color: var(--color);
     padding: 10px 20px;
@@ -67,6 +89,7 @@ button {
 a {
     display: flex;
     flex-direction: column;
+    margin-bottom: 70px;
 }
 
 .create-post-button {
@@ -112,4 +135,16 @@ img {
     width: 300px;
     border: 2px solid yellow;
     border-radius: 10px;
+}
+
+.deleteButton {
+    font-family: 'Press Start 2P';
+    font-size: 60%;
+    margin: 50px 7px 15px 0px;
+    background: red;
+    color: var(--color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 0px;
+    cursor: pointer;
 }

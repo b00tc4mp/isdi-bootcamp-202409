@@ -14,14 +14,16 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
     if (password !== passwordRepeat)
         throw new Error('Passwords do not match')
 
-    let user = users.find(function (user) {
-        return user.username === username || user.email === email
-    })
+    const users = JSON.parse(localStorage.users) //bring object from localStorage
+
+    let user = users.find(user => user.username === username || user.email === email)
 
     if (user !== undefined)
         throw new Error('User already exists')
 
-    user = { name: name, email: email, username: username, password: password }
+    user = { id: uuid(), name: name, email: email, username: username, password: password }
 
     users.push(user)
+
+    localStorage.users = JSON.stringify(users) //return the users a string
 }

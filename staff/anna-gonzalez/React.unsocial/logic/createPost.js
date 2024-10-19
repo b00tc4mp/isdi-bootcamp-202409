@@ -1,19 +1,24 @@
-const createPost = (username, image, text) => {
-    if (username.length < 4 || username.length > 12)
+const createPost = (userId, image, text) => {
+    if (typeof userId !== 'string')
         throw new Error('Invalid username')
 
-    if (image === undefined)
+    if (typeof image !== 'string')
         throw new Error('Inser a link to an image')
 
-    if (text === undefined)
+    if (typeof text !== 'string')
         throw new Error('Insert a text, even if it is an empty space')
 
+    const posts = JSON.parse(localStorage.posts)
+
     const post = {
+        id: uuid(),
         image: image,
         text: text,
-        username: username,
+        author: userId,
         date: new Date
     }
 
     posts.push(post)
+
+    localStorage.posts = JSON.stringify(posts)
 }
