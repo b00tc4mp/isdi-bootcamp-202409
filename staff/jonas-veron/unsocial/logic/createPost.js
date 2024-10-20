@@ -1,13 +1,21 @@
-function createPost(username, image, text) {
-    if (username.length < 4 || username.length > 12)
-        throw new Error('invalid username') 
+const createPost = (userId, image, text) => {
+    if ( typeof userId !== 'string') throw new Error('invalid userId')
+    if (typeof image !== 'string') throw new Error('invalid text')
+    if (typeof text !== 'string') throw new Error('invalid text')
 
-    var post = {
+    const posts = JSON.parse(localStorage.posts)
+
+    const post = {
+        id: uuid(),
         image: image,
         text: text,
-        username: username,
-        date: new Date
+        author: userId,
+        date: new Date,
+        likes: 0,
+        likedBY: {}
     }
 
     posts.push(post)
+
+    localStorage.posts = JSON.stringify(posts)
 }

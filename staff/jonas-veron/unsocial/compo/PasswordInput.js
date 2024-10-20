@@ -3,17 +3,18 @@
  * @param {string} id The input id
  * 
  */
-function PasswordInput(id) {
-    Compo.call(this, document.createElement('div'))
+class PasswordInput extends Compo{
+    constructor(id) {
+        super(document.createElement('div'))
 
-    var input = new Input('password', id)
-    this.add(input)
+        const input = new Input('password', id)
+        this.add(input)
 
-    var span = new Span('😊')
-    span.container.style.cursor = 'pointer'
-    this.add(span)
+        const span = new Span('😊')
+        span.container.style.cursor = 'pointer'
+        this.add(span)
 
-    span.addBehavior('click', function(){
+        span.addBehavior('click',() => {
         if(span.getText() === '😊') {
             input.setType('text')
             span.setText('😃')
@@ -24,12 +25,11 @@ function PasswordInput(id) {
     })
 }
 
-PasswordInput.extends(Compo)
+    getValue() {
+        return this.children[0].container.value
+    }
 
-PasswordInput.prototype.getValue = function() {
-    return this.children[0].container.value
-}
-
-PasswordInput.prototype.setValue = function (value) {
-    this.container.value = value
+    setValue(value) {
+        this.container.value = value
+    }
 }

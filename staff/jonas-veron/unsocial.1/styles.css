@@ -19,6 +19,7 @@ width: 100%;
 section{
 background-color: #ebf2fa;
 width:auto;
+height: 500px;
 max-width: 400px;
 min-width: 300px;
 margin: auto;
@@ -26,7 +27,12 @@ padding: 10px;
 border-radius: 10px;
 box-shadow: 2px 2px 2px 2px;
 }
-.login{
+
+input{
+    width: 100%;
+    box-sizing: border-box;
+}
+/* .login{
 height: 350px;
 }
 
@@ -35,8 +41,8 @@ height: 350px;
 }
 
 .home{
-    height: 250px;
-}
+    height: 100%;
+} */
 
 form{
 margin: auto;
@@ -62,7 +68,7 @@ border-color: #00eaff;
 }
 
 button{
-display: block;
+/* display: block; */
 margin: 20px auto;
 width: 50%;
 height: 2em;
@@ -87,4 +93,8 @@ color: inherit;
 
 a:hover {
 text-decoration: underline;
+}
+
+li{
+    list-style: none;
 }

@@ -4,10 +4,9 @@
  * @param {number} level The heading level
  */
 
-function Heading(text, level) {
-    Compo.call(this, document.createElement('h' + level))
-
-    this.container.innerText = text
+class Heading extends Compo {
+    constructor(text, level) {
+        super(document.createElement(`h${level}`))
+        this.container.innerText = text
+    }
 }
-
-Heading.extends(Compo)

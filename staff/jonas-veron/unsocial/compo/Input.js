@@ -4,27 +4,26 @@
  * @param {string} id The input id
  */
 
-function Input(type, id) {
-    Compo.call(this, document.createElement('input'))
+class Input extends Compo {
+    constructor (type, id) {
+        super(document.createElement('input'))
+        this.container.type = type
+        this.container.id = id
+        }
 
-    this.container.type = type
-    this.container.id = id
-}
+    getValue() {
+        return this.container.value
+    }
 
-Input.extends(Compo)
+    setValue(value) {
+        this.container.value = value
+        }
 
-Input.prototype.getValue = function() {
-    return this.container.value
-}
+    getType(){
+        return this.container.type //para cambiar el tipo de input
+    }
 
-Input.prototype.setValue = function (value) {
-    this.container.value = value
-}
-
-Input.prototype.getType = function(){
-    return this.container.type //para cambiar el tipo de input
-}
-
-Input.prototype.setType = function(type) {
-    this.container.type = type //para cambiar el tipo de input
+    setType(type) {
+        this.container.type = type //para cambiar el tipo de input
+    }
 }

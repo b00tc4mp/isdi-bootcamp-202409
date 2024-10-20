@@ -166,6 +166,7 @@ function PostList() {
 
     try{
         posts = getPosts()
+    
     } catch (error) {
         alert(error.message)
 
@@ -176,13 +177,13 @@ function PostList() {
 
         <h3>Posts</h3>
 
+
         {posts.map(post => <article>
-            <h4>{post.author}</h4>
+            <h4>{getUserUsername(post.author)}</h4>
             <img src={post.image} style={{width: '100%'}} />
             <p>{post.date}</p>
         </article>)}
     </div>
-    
 }
 
 

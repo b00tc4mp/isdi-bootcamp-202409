@@ -1,17 +1,54 @@
-function PostItem(username, image, text, date) {
-    Compo.call(this, document.createElement('div'))
+class PostItem extends Compo {
+    constructor(username, image, text, date, likes, likedBy) {
+    super(document.createElement('li'))
 
-    var userTitle = new Heading(username, 4)
-    this.add(userTitle)
+        const userTitle = new Heading(username, 4)
+        this.add(userTitle)
 
-    var picture = new Image(image)
-    this.add(picture)
+        const picture = new Image(image)
+        this.add(picture)
 
-    var comment = new Paragraph(text)
+        const likesContainer = new Division()
+        this.add(likesContainer)
+        const buttonLikes = new Button('🤍', 'button')
+        buttonLikes.container.style.cursor = 'pointer'
+        likesContainer.add(buttonLikes)
+        const countLikes = new Span(likes)
+        likesContainer.add(countLikes)
+
+        
+        
+        if(likedBy[loggedInUser.username]) {
+            hasLiked = true
+        } else{
+            hasLiked = false
+        }
+
+        if(hasLiked){
+            buttonLikes.setText('❤️')
+        }
+
+    buttonLikes.addBehavior('click', () => {
+    if(!likedBy[loggedInUser.username]){
+        likes++
+        countLikes.setText(likes)
+        buttonLikes.setText('❤️')
+        likedBy[loggedInUser.username] = true
+        } else{
+            buttonLikes.setText('🤍')
+            likes--
+            countLikes.setText(likes)
+            likedBy[loggedInUser.username] = false
+
+        }
+    })
+    const comment = new Paragraph(text)
     this.add(comment)
 
-    var time = new Time(date)
+    const time = new Time(date)
     this.add(time)
+    }
 }
 
-PostItem.extends(Compo)
+
+

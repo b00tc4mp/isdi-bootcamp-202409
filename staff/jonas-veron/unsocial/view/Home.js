@@ -2,19 +2,19 @@
  * Constructs Home instances
  */
 
-function Home(){
-    Compo.call(this, document.createElement('section'))
+class Home extends Compo {
+    constructor() {
+        super(document.createElement('section'))
+        const title = new Heading('Home', 2)
+        this.add(title)
 
-    var title = new Heading('Home', 2)
-    this.add(title)
+        const userTitle = new Heading(`Hello, ${loggedInUser.name}!`, 3)
+            this.add(userTitle)
 
-    var userTitle = new Heading('Hello, ' + loggedInUser.name + '!', 3)
-    this.add(userTitle)
+        const logoutButton = new Button('Logout', 'button')
+        this.add(logoutButton)
 
-var logoutButton = new Button('Logout', 'button')
-this.add(logoutButton)
-
-    logoutButton.addBehavior('click', function(event){
+        logoutButton.addBehavior('click', event => {
         event.preventDefault()
 
         loggedInUser = null
@@ -22,23 +22,21 @@ this.add(logoutButton)
         this.removeSelf()
 
         page.add(login)
-    }.bind(this))
+    })
 
-    var addPostButton = new Button('➕', 'button')
-    this.add(addPostButton)
+        const addPostButton = new Button('➕', 'button')
+        this.add(addPostButton)
 
-    addPostButton.addBehavior('click', function() {
-        var createPost = new CreatePost()
-
+        addPostButton.addBehavior('click', () => {
+            const createPost = new CreatePost()
         //postList.remove()
-        this.children[this.children.length - 1].removeSelf()
+            this.children[this.children.length - 1].removeSelf()
+            this.add(createPost)
 
-        this.add(createPost)
+    })
 
-    }.bind(this))
-
-    var postList = new PostList()
-    this.add(postList)
+        const postList = new PostList()
+        this.add(postList)
+    }
 }
 
-Home.extends(Compo)
