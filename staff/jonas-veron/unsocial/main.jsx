@@ -185,11 +185,10 @@ function PostList(props) {
             <time>{post.date}</time>
 
                 {sessionStorage.loggedInUserId === post.author && <button type="button" onClick={() => {
-                deletePost()            
-                }  }>Delete post</button>}
-
-    
-
+                            deletePost(post.author)
+                            props.onDeleted()
+                }  }>Delete post</button>
+                }
 
         </article>)}
     </div>
