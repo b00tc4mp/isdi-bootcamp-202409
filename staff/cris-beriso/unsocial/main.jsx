@@ -163,13 +163,13 @@ class Home extends Component {
       }}>Logout</button>
       <button type="button" onClick={() => this.setState({ view: 'new' })}>➕</button>
 
-      {this.state.view === 'list' && <PostList />}
+      {this.state.view === 'list' && <PostList onDeleted={() => this.setState({ view: 'list' })} />}
       {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
     </section>
   }
 }
 
-function PostList() {
+function PostList(props) {
   console.log('PostList -> render')
 
   let posts
@@ -190,6 +190,19 @@ function PostList() {
       <img src={post.image} style={{ width: '100%' }} />
       <p>{post.text}</p>
       <time>{post.date}</time>
+      {sessionStorage.loggedInUserId === post.author && <button type="button" onClick={() => {
+
+        posts = JSON.parse(localStorage.posts)
+
+        let index = posts.findIndex(element => element.id === post.id)
+
+        posts.splice(index, 1)
+
+        localStorage.posts = JSON.stringify(posts)
+        props.onDeleted()
+      }}>Delete</button>
+      }
+
     </article>)}
   </div>
 }
