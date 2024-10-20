@@ -155,13 +155,14 @@ class Home extends Component {
     
             <button type="button" onClick={() => this.setState({ view: 'new' })}>➕</button>
 
-            { this.state.view === 'list' && <PostList/> }
+            { this.state.view === 'list' && <PostList onDeleted ={() => this.setState({ view: 'list'})}/>}
             { this.state.view === 'new' && <CreatePost onCreated={()=> this.setState({ view: 'list' })} />}
+            
         </section>
     }
 }
 
-function PostList() {
+function PostList(props) {
     let posts
 
     try{
@@ -177,11 +178,19 @@ function PostList() {
 
         <h3>Posts</h3>
 
-
         {posts.map(post => <article>
-            <h4>{getUserUsername(post.author)}</h4>
+            <h4>{ getUserUsername(post.author) }</h4>
             <img src={post.image} style={{width: '100%'}} />
-            <p>{post.date}</p>
+            <p>{post.text}</p>
+            <time>{post.date}</time>
+
+                {sessionStorage.loggedInUserId === post.author && <button type="button" onClick={() => {
+                deletePost()            
+                }  }>Delete post</button>}
+
+    
+
+
         </article>)}
     </div>
 }
@@ -228,9 +237,11 @@ function CreatePost(props) {
 class App extends Component {
     constructor(props){
         super(props)
-
-        this.state = { view: 'login'}
-    }
+        this.state = {
+            view: sessionStorage.loggedInUserId === undefined ? 'login' : 'home'
+            }
+        }
+        
 
     render(){
         return <div>
