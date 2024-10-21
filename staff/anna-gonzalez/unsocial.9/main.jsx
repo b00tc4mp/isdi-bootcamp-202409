@@ -6,7 +6,7 @@ const { Component } = React
 class PasswordInput extends Component { //-----------PasswordInput class-----------
     constructor(props) {
         super(props)
-
+        //state used to control the type of password and the icon showd when click
         this.state = { type: 'password', status: '🔐' }
     }
 
@@ -24,6 +24,7 @@ class PasswordInput extends Component { //-----------PasswordInput class--------
     }
 }
 
+//props example: onLoggedIn & onRegisterClick (they're functions executed when login or register)
 function Login(props) { //-----------Login-----------
     return <section>
         <h2>Login</h2>
@@ -211,7 +212,7 @@ function CreatePost(props) {
 class App extends Component { //-----------App general Compo-----------
     constructor(props) {
         super(props)
-
+        //initial state:
         this.state = { view: typeof sessionStorage.loggedInUserId === 'undefined' ? 'login' : 'home' }
     }
 

@@ -22,7 +22,7 @@ body {
             #150020 90%,
             #0d0027 100%);
     background-size: 450% 450%;
-    animation: gradient 7s ease infinite;
+    animation: gradient 10s ease infinite;
     /*animation for a gradual effect*/
     color: var(--color);
 }
@@ -140,7 +140,7 @@ img {
 .deleteButton {
     font-family: 'Press Start 2P';
     font-size: 60%;
-    margin: 50px 7px 15px 0px;
+    margin: 10px 7px 15px 0px;
     background: red;
     color: var(--color);
     padding: 5px 10px;

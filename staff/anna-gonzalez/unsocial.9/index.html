@@ -11,9 +11,10 @@
 </head>
 
 <body>
-    <div id="root"></div>
+    <div id="root"></div> <!--where react renders the app, like a big container-->
+    <!--es un "lienzo" donde react dibuja toda la app, manipulando el DOM dinámicamente-->
 
-    <script src="data/uuid.js"></script>
+    <script src="data/uuid.js"></script> <!--code pieces-->
 
     <script src="logic/authenticateUser.js"></script>
     <script src="logic/createPost.js"></script>
@@ -23,11 +24,12 @@
     <script src="logic/getUserName.js"></script>
     <script src="logic/getUserUsername.js"></script>
 
+    <!--react libraries-->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
+    <!--babel used to write JSX directly on the browser-->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
     <script src="main.jsx" type="text/babel"></script>
 </body>
 
