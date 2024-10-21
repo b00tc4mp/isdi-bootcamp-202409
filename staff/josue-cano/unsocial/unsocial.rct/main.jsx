@@ -53,7 +53,7 @@ function Login(props) {
         <h2>Login</h2>
 
         <form onSubmit={event => {
-            debugger
+           
             event.preventDefault()
             //target recoge todo el formulario
             const { target: { username: { value: username }, password: { value: password } } } = event
@@ -62,6 +62,9 @@ function Login(props) {
 
             try {
                 loggedInUser = authenticateUser(username, password)
+                // localStorage.setItem("usuarioActual",loggedInUser)
+                sessionStorage.setItem("usuarioActual", loggedInUser); // Almacena el nombre de usuario en sessionStorage
+                sessionStorage.loggedInUserId = "someUserId"; // Aquí también podrías guardar el ID del usuario si tienes uno.
 
                 event.target.reset()
                 //ejecuta la funcion cuando envia e logiln
@@ -83,15 +86,60 @@ function Login(props) {
             <button type="submit">Login</button>
         </form>
         {/* siempre con props */}
-        <a onClick={props.toRegister}>Register</a>
+        {/* <a onClick={props.toRegister}>Register</a> */}
+        <a href="" onClick={event => {
+            event.preventDefault()
+
+            props.onRegisterClick()
+        }}>Register</a>
+
     </section>
 }
 
-function Register() {
-    return <section>
+class Register extends Component {
+    constructor(props){
+        super(props)
+        this.registrarUsuario=this.registrarUsuario.bind(this)
+    }
+    
+    registrarUsuario(event){
+        event.preventDefault()
+        
+        // const { target: { username: { value: username }, password: { value: password } } } = event
+        // const usuario = event.target.username.value
+        // const clave = event.target.password.value
+        //form es un alias para el objeto target
+        const {target:form} = event  
+
+        const {
+            name :{value:name},
+            email :{value:email},
+            username :{value:username},
+            password :{value:password},
+            ['password-repeat']:{value:repeat}
+        }=form
+
+        try {
+            registerUser(name, email, username, password,repeat)
+
+            event.target.reset()
+
+            this.props.toLogin()
+        } catch (error) {
+            //passwordInput.setValue('')
+
+            alert(error.message)
+
+            console.error(error)
+        
+    }
+    }
+
+    render(){
+        return <section>
         <h2>Register</h2>
 
-        <form>
+        <form onSubmit={this.registrarUsuario}>
             <label htmlFor="name">Name</label>
             <input type="text" id="name" style={{ width: '100%', boxSizing: 'border-box' }} />
 
@@ -108,40 +156,123 @@ function Register() {
             <PasswordInput id="password-repeat" />
 
             <button type="submit">Register</button>
-        </form>
 
-        <a href="">Login</a>
+
+        </form>
+            
+        <a href="" onClick={event => {
+            event.preventDefault()
+
+            this.props.toLogin()
+        }}>Login</a>
+
     </section>
 }
+}
 
-function Home() {
+class Home extends Component{
+    constructor(props){
+        super(props)
+        // const usuarioId = localStorage.getItem("usuarioActual")
+        const usuarioId = sessionStorage.getItem("usuarioActual");
+        //adquiero el nombre para imprimirlo en home
+        let nombre  = getUsername(usuarioId)
+        // this.state={usuario:nombre}
+        this.state = { usuario: nombre, view: 'list' }
+       
+    }
+render(){
     return <section>
         <h2>Home</h2>
 
-        <h3>Hello, !</h3>
-        <button type="button" >Logout</button>
-        <button type="button">➕</button>
+        <h3>Hello, {this.state.usuario}!</h3>
 
+        <button type="button" onClick={() => {
+                delete sessionStorage.loggedInUserId
 
+                this.props.onLoggedOut()
+            }}>Logout</button>
 
-        <div>
-            <h3>Posts</h3>
+        <button type="button" onClick={() => this.setState({ view: 'new' })}>➕</button>
 
-            <article>
-                <h4>flash</h4>
-                <img src="https://www.mundodeportivo.com/alfabeta/hero/2024/01/the-flash-dc-comics.jpg?width=1200" style={{ width: '100%' }} />
-                <p>speed men</p>
-                <time>Thu Oct 18 2024 12:55:05 GMT+0200 (Central European Summer Time)</time>
-            </article>
+        {this.state.view === 'list' && <PostList />}
+        {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
 
-            <article>
-                <h4>batman</h4>
-                <img src="https://images.desenio.com/zoom/wb0125-8batman-portrait50x70-55544-10774.jpg" style={{ width: '100%' }} />
-                <p>darknes is my life</p>
-                <time>Thu Oct 18 2024 13:01:05 GMT+0200 (Central European Summer Time)</time>
-            </article>
-        </div>
     </section>
+}
+}
+
+function PostList(){
+    console.log('PostList -> render')
+
+    let posts
+
+    try {
+        posts = getPosts()
+    } catch (error) {
+        alert(error.message)
+
+        console.error(error)
+    }
+
+    return <div>
+    <h3>Posts</h3>
+    {posts.map(post => (<article
+             key={post.id}> 
+            <h4>{post.username}</h4>
+            <img src={post.image} style={{ width: "100%" }} alt="Post image" />
+            <p>{post.text}</p>
+            <time>{new Date(post.date).toDateString()}</time>
+        </article>
+        ))}
+    
+</div>
+
+}
+
+function CreatePost(props) {
+    console.log('CreatePost -> render')
+
+    return <div>
+        <h3>Create Post</h3>
+
+        <form onSubmit={event => {
+            event.preventDefault()
+
+            const { target: form } = event
+
+            const {
+                image: { value: image },
+                text: { value: text }
+            } = form
+
+            try {
+                // Obtener el usuario actual desde sessionStorage
+                const loggedInUser = sessionStorage.getItem("usuarioActual"); // Aquí guardamos el nombre de usuario
+                const userId = sessionStorage.loggedInUserId; // Aquí guardamos el ID del usuario si está almacenado
+
+                if (!loggedInUser || !userId) {
+                    throw new Error('Invalid user session');
+                }
+
+                // Llamar a createPost con los parámetros correctos (userId, username, image, text)
+                createPost(userId, loggedInUser, image, text); // Se pasa el nombre de usuario aquí
+
+                props.onCreated();
+            } catch (error) {
+                alert(error.message);
+                console.error(error);
+            }
+        }}>
+            <label htmlFor="image">Image</label>
+            <input type="text" id="image" style={{ width: '100%', boxSizing: 'border-box' }} />
+
+            <label htmlFor="text">Text</label>
+            <input type="text" id="text" style={{ width: '100%', boxSizing: 'border-box' }} />
+
+            <button type="submit">Create</button>
+        </form>
+    </div>
 }
 
 class App extends Component {
@@ -154,12 +285,18 @@ class App extends Component {
     render() {
         return <div>
             <h1>Unsocial</h1>
-            {/* al ejecutarse cambia la vista a home */}
-            {this.state.view === 'login' && <Login onLoggedIn={() => this.setState({ view: 'home' })}
-                toRegister={() => this.setState({ view: 'register' })} />}
 
-            {this.state.view === 'register' && <Register />}
-            {this.state.view === 'home' && <Home />}
+            {/* al ejecutarse cambia la vista a home */}
+            {this.state.view === 'login' && <Login 
+            onLoggedIn={() => this.setState({ view: 'home' })}
+            onRegisterClick={() => this.setState({view: 'register' })} />}
+
+            {this.state.view === 'register' && <Register 
+            toLogin={() => this.setState({view: 'login' })} 
+            toRegistered={() => this.setState.apply({view: 'login' })}
+            />}
+
+            {this.state.view === 'home' && <Home onLoggedOut={() => this.setState({ view: 'login' })} />}
         </div>
     }
 }
