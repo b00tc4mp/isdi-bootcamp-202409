@@ -1,6 +1,6 @@
 # Unsocial App - React Version
 
-## *20/10/2024*
+## *21/10/2024*
 
 ### ¿Quñe ampliamos en la clase? 
 

@@ -145,7 +145,6 @@ function Register(props) {
 
 
 //Function Home, que se encargará de mostrar la pantalla principal de la aplicación
-
 class Home extends Component {
     constructor(props) {
         console.log("Constructor de home")
@@ -261,7 +260,6 @@ function CreatePosts(props) {
 
 
 //La classe App extiende de component y la declaramos como class porque será dinámica e ira mutando conforme utilicemos la app
-
 class App extends Component {
     constructor(props) {
         super(props)
