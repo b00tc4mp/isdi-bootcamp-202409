@@ -1,8 +1,11 @@
 const authenticateUser = (username, password) => {
     // create conditions for login
+    if ( typeof username !== 'string') throw new Error('invalid username')
     if(username.length < 4 || username.length > 12 )
         throw new Error('Invalid username')
     
+
+    if ( typeof password !== 'string') throw new Error('invalid password')
     if(password.length < 8)
         throw new Error('Invalid password')
 
@@ -16,4 +19,6 @@ const authenticateUser = (username, password) => {
 
     return user.id
 }
+
+export default authenticateUser
     
