@@ -1,3 +1,5 @@
+import uuid from '../data/uuid'
+
 const registerUser = (name, email, username, password, confirmpassword) => {
     if (typeof name !== 'string') throw new Error('invalid name')
     if (name.length < 2) {
@@ -34,3 +36,5 @@ const registerUser = (name, email, username, password, confirmpassword) => {
 
     localStorage.users = JSON.stringify(users)
 }
+
+export default registerUser

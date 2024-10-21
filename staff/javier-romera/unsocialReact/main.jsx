@@ -42,6 +42,7 @@ function Login(props) {
             } catch (error) {
                 alert(error.message)
                 console.error(error)
+                event.target.password.value = ""
             }
         }}>
             <label htmlFor="username">Username</label>
@@ -74,7 +75,7 @@ function Register(props) {
                 email: { value: email },
                 username: { value: username },
                 password: { value: password },
-                ['password-repeat']: { value: passwordRepeat }
+                passwordRepeat: { value: passwordRepeat }
             } = form
 
             try {
@@ -142,13 +143,13 @@ class Home extends Component {
             <button type="button"
                 onClick={() => this.setState({ view: 'new' })}>+</button>
 
-            {this.state.view === 'list' && <PostList />}
+            {this.state.view === 'list' && <PostList onDeletedPost={() => this.setState({ view: 'list' })} />}
             {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
         </section>
     }
 }
 
-function PostList() {
+function PostList(props) {
     let posts
 
     try {
@@ -162,10 +163,15 @@ function PostList() {
         <h3>Posts</h3>
 
         {posts.map(post => <article>
-            <h4>{post.author}</h4>
+            <h4>{getUserUsername(post.author)}</h4>
             <img src={post.image} style={{ width: '100%' }} />
             <p>{post.text}</p>
             <time>{post.date}</time>
+            {sessionStorage.loggedInUserId === post.author && <button type="button" onClick={() => {
+                deletePost(post)
+
+                props.onDeletedPost()
+            }}>Delete Post</button>}
         </article>)}
     </div>
 }
