@@ -1,4 +1,4 @@
-let loggedInUser = null
+let loggedInUserId = null
 
 const rootElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootElement)
@@ -155,7 +155,9 @@ class Home extends Component {
 
         try {
             //name = getUserName(loggedInUser.id)
+            console.log("Sesion en la carga de la home: " + sessionStorage.loggedInUserId)
             name = getUserName(sessionStorage.loggedInUserId)
+
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -211,7 +213,9 @@ function PostList() {
             <img src={post.image} style={{ width: '95%' }} />
             <p>{post.text}</p>
             <time>{post.date}</time>
-        </article>)}
+        </article>)
+        }
+
     </div>
 }
 
@@ -262,7 +266,14 @@ class App extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { view: 'login' }
+        // this.state = { view: 'login' }
+        if (sessionStorage.loggedInUserId !== undefined) {
+            this.state = { view: 'login' }
+        } else {
+
+            this.state = { view: 'home' }
+            console.log(sessionStorage.loggedInUserId)
+        }
     }
 
     render() {
@@ -274,6 +285,8 @@ class App extends Component {
             {
                 //En este punto hacemos un short circuit evaluation
                 //https://www.freecodecamp.org/news/short-circuiting-in-javascript/
+
+
 
                 //Evaluación primera && evaluación segunda
                 //Si la primera ya es falsa, ya no evalua la segunda

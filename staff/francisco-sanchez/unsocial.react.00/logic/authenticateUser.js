@@ -1,7 +1,9 @@
 const authenticateUser = (username, password) => {
+    if (typeof username !== 'string') throw new Error('invalid username')
     if (username.length < 4 || username.length > 12)
         throw new Error('unsername lenght should be between 4 and 12 chars')
 
+    if (typeof password !== 'string') throw new Error('invalid username')
     if (password.length === '')
         throw new Error('Password is required')
 

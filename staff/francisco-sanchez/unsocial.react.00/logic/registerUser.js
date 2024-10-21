@@ -1,5 +1,6 @@
 const registerUser = (name, email, username, password, passwordRepeat) => {
     //Validamos el que nombre no sea inferior a 2 carácteres
+    if (typeof name !== 'string') throw new Error('invalid name')
     if (name.length < 2) {
         throw new Error('Field name too short, min 3 chars')
     }
@@ -9,12 +10,15 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
         throw new Error('invalid e-mail')
 
     //Busco si el usuario ya existe
+    if (typeof username !== 'string') throw new Error('invalid username')
     if (username.length < 4 || username.length > 12)
         throw new Error('invalid username')
 
+    if (typeof password !== 'string') throw new Error('invalid username')
     if (password.length < 4)
         throw new Error('invalid password')
 
+    if (typeof password !== 'string') throw new Error('invalid username')
     if (password !== passwordRepeat)
         throw new Error('passwords do not match')
 

@@ -1,5 +1,55 @@
 # Unsocial App - React Version
 
+## *20/10/2024*
+
+### ¿Quñe ampliamos en la clase? 
+
+- Modificamos logica authenticateUser.js
+
+- Modificamos lógica registerUser.js
+
+    - En ambos casos valida que se le pase a la función un string con el typeof
+
+- TAREITA: Revisar las validaciones de campos de entrada en las funciones 
+
+- Hablamos de JSONS, (Revisar docu: https://www.json.org/json-en.html 👀)
+
+- Realizamos un seguimiento de las llamadas de la aplicación con la herramienta: https://www.websequencediagrams.com/
+
+- Crea una carpeta lib (temporal) y meté allí los ficheros de react y de babel para ejecutarlos en local en lugar de llamar a servers externos.  (aunque no es algo que se haga de forma habitual)
+
+- Instala Vite en el ordenador y muestra como crear un nuevo proyecto 
+https://v2.vitejs.dev/
+
+
+- Procede a instalar el proyecto y lo muestra en localhost
+
+- Una vez arrancado el proyecto lo limpia y empieza a exportarlo por archivos
+
+    - Los archivos que antes eran js, se crearán como jsx, para que trabejen siempre con react. 
+
+- !!Hay que tener en cuenta que cada fichero importa y exporta sus dependencias segun las necesite. 
+
+> A tener en cuenta 
+>
+> Todo lo que sea reutilizable lo ponemos en Components, y este directorio a su vez lo subdividimos en functional y librari: 
+>
+> En **functional** metemos: Todas aquellas funciones que sean reutilizables 
+>
+> En **library** metemos:  ¿?¿?¿?¿?¿?
+
+
+- TAREITA: Revisar la lógica para obtener el nombre de usuario de los posts. **(Repasar código de manu)**
+    - Quitar mi función getUserUserName
+    - Implementar una lógica dentro de getPosts para traerme el nombre de usuario de los posts
+    - La nueva lógica de posts devolverá un objeto que será el id y el nombre de usuario
+
+- TAREA PERSONAL: Mantener la sesión iniciada 
+
+
+
+
+
 ## *18/10/2024*
 Inicio este documento para comentar las consideraciones de este proyecto. 
 

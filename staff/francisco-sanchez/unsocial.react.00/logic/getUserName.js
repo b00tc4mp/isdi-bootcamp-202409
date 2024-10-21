@@ -4,6 +4,7 @@ const getUserName = userId => {
 
     //Recuperamos los usuarios de la memoria
     const users = JSON.parse(localStorage.users)
+    console.log("Sesion en la carga en la getUserName: " + sessionStorage.loggedInUserId)
 
     const user = users.find(user => user.id === userId)
 
