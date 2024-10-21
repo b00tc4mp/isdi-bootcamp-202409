@@ -1,7 +1,4 @@
 const authenticateUser = (loginUsername, loginPassword) => {
-  if (typeof loginUsername !== 'string') throw new Error
-  if (typeof loginPassword !== 'string') throw new Error
-
   if (loginUsername.length < 4 || loginUsername.length > 12)
     throw new Error('invalid username')
 
