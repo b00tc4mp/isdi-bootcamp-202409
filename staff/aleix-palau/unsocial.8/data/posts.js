@@ -1,16 +1,14 @@
 const posts = [
     {
-        id: 'm2f02d18uqs',
         image: 'https://pbs.twimg.com/media/GZICEdpXAAA1Aqf?format=jpg&name=small',
         text: 'Skrik😱',
-        author: 'm2ezyokwfk',
+        username: 'runner4life',
         date: new Date
     },
     {
-        id: 'm2f03ev5air',
         image: 'https://pbs.twimg.com/media/GZOUcE1XwAAPQVO?format=jpg&name=medium',
         text: 'Spooky Season👻',
-        username: 'm2ezz6bqkh8',
+        username: 'peterpan',
         date: new Date
     }
 ]
