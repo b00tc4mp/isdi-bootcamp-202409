@@ -23,14 +23,6 @@ function PostList(props) {
             <img src={post.image} style={{width: '100%'}} />
             <p>{post.text}</p>
             <time>{post.date}</time>
-            <div>
-                <h3>Comments</h3>
-                <section>
-
-                </section>
-                <textarea name="" id=""></textarea>
-                <button type="button">Send</button>
-            </div>
 
                 {sessionStorage.loggedInUserId === post.author.id && <button type="button" onClick={() => {
                             deletePost(post)
