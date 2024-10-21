@@ -1,6 +1,6 @@
-import postUuid from '../data/uuid'
+import uuid from '../data/uuid'
 
-const CreatePost = (userId, image, text) => {
+const createPost = (userId, image, text) => {
     if (typeof userId !== 'string') throw new Error('invalid userId')
     if (typeof image !== 'string') throw new Error('invalid image')
     if (typeof text !== 'string') throw new Error('invalid text')
@@ -9,7 +9,7 @@ const CreatePost = (userId, image, text) => {
     const posts = JSON.parse(localStorage.posts)
 
     let post = {
-        id: postUuid(), //llama a la función para crear un id de post
+        id: uuid(), //llama a la función para crear un id de post
         image: image,
         text: text,
         author: userId,
@@ -23,4 +23,4 @@ const CreatePost = (userId, image, text) => {
     localStorage.posts = JSON.stringify(posts)
 }
 
-export default CreatePost
+export default createPost

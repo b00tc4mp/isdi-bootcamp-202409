@@ -16,8 +16,7 @@ function PostList() {
     return <div>
         <h3>Posts</h3>
         {posts.map(post => <article>
-            {/* <h4>{getUserUserName(post.author)}</h4> */}
-            {/* <h4>{getUserName(post.author)}</h4> */}
+            <h4>{post.author.username}</h4>
             <img src={post.image} style={{ width: '95%' }} />
             <p>{post.text}</p>
             <time>{post.date}</time>

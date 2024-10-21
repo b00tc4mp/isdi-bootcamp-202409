@@ -10,9 +10,9 @@ A partir de ahora la versión más reciente (trabajando con Vite es esta "unsoci
 ## Trabajo por la tarde del 21/10/2024  WIP !!!!
 Traspasar toda la app a Vite React
 
-- Recordar revisar logica del getPosts para el nombre de usuarios en los posts
-- Falla crear posts
-- Falla logica de crear post
+OK - Recordar revisar logica del getPosts para el nombre de usuarios en los posts
+OK - Falla crear posts
+OK - Falla logica de crear post
 
 
 NOTA: Para mostrar ver el proyecto Vite hay que verlo en la instancia de localhost en: 

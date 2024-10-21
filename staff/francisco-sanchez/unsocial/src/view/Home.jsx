@@ -2,7 +2,7 @@ import { Component } from "react"
 
 import getUserName from "../logic/getUserName"
 import PostList from "../components/functional/PostList"
-import CreatePosts from '../logic/createPost'
+import CreatePost from "../components/functional/CreatePost"
 
 //Function Home, que se encargará de mostrar la pantalla principal de la aplicación
 class Home extends Component {
@@ -45,7 +45,7 @@ class Home extends Component {
             <button type="button" onClick={() => this.setState({ view: 'new' })}>✚ New Post</button>
 
             {this.state.view === 'list' && <PostList />}
-            {this.state.view === 'new' && <CreatePosts onCreated={() => this.setState({ view: 'list' })} />}
+            {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
 
 
         </section>

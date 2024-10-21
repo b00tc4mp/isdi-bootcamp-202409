@@ -1,6 +1,6 @@
-import CreatePost from '../../logic/createPost'
+import createPost from "../../logic/createPost"
 
-function CreatePosts(props) {
+function CreatePost(props) {
     console.log('Entramos en createPost -> Render')
 
     return <div>
