@@ -17,3 +17,5 @@ const authenticateUser = (loginUsername, loginPassword) => {
 
   return user.userId
 }
+
+export default authenticateUser

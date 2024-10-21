@@ -7,3 +7,5 @@ const getUserName = (userId) => {
 
   return user.name
 }
+
+export default getUserName
