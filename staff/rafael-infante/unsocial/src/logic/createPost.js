@@ -1,3 +1,5 @@
+import uuid from "../data/uuid"
+
 const createPost = (userId, image, text) => {
   if (typeof userId !== 'string') throw new Error
   if (typeof image !== 'string') throw new Error
@@ -17,3 +19,5 @@ const createPost = (userId, image, text) => {
 
   localStorage.posts = JSON.stringify(posts)
 }
+
+export default createPost
