@@ -1,5 +1,11 @@
 # Unsocial App - React Version
 
+NOTA!!! 
+La versión más reciente sin Vite era la 
+**unsocial.react.00**
+
+A partir de ahora la versión más reciente (trabajando con Vite es esta "unsocial")
+
 
 ## Trabajo por la tarde del 21/10/2024  WIP !!!!
 Traspasar toda la app a Vite React
