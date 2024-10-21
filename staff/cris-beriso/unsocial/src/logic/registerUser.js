@@ -1,3 +1,4 @@
+import uuid from '../data/uuid'
 /**
  * Recogemos los datos del nuevo usuario y 
  * los guardamos en USER (despues de unas comprobaciones).
@@ -39,3 +40,5 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
 
   localStorage.users = JSON.stringify(users)
 }
+
+export default registerUser
