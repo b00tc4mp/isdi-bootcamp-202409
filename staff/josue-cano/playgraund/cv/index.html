@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+    <!-- head es la cabeza donde van los metadatos para linkar los estilos ... -->
+<head>
+    <!-- charset es para los carteres, es un estandar -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- meta name description describimos de que va nuestra web -->
+    <meta name="description" content="web app that show a cv with pratical objective">
+    <!-- para poner el icono en la pagina -->
+    <link rel="shortcut icon" href="./img/ciervo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <title>curriculum Vitae</title>
+</head>
+<body>
+    <header>
+    </header>
+    
+    <nav>
+        <ul> 
+            <li><a href="./index.html">home</a></li>
+            <li><a href="#about me">About me</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#work" >work</a></li>
+            <li><a href="#formu">contacto</a></li>
+            <!-- <li><a href="fotos">fotos</a></li> -->
+        </ul>
+    </nav>
+
+    <main>
+
+    <section class="about">
+
+        <div >
+                <div class="yo"> 
+                        <!-- <img src="./img/yo.jpg" alt=""> -->
+                        <a href="http://www.linkedin.com/in/josue-cano">
+                            <img src="./img/yo.jpg" alt="yo frente al palacio de algo">
+                        </a>
+                </div>
+
+                <div >
+                    <h2 class="About me">About me</h2>
+                    <p>Amante de la programación, pasión por picar codigo y aprender dia a dia, enfrentarme a retos con ilusión.....</p>
+                </div>
+         </div>
+
+    </section>
+
+    <section class="skilss" id="skills">
+
+        <div class="skillt">
+                    <h2>Skills</h2>
+                    <p>Contenido de la sección skills</p>
+        </div>
+
+            <div class="skill">
+                
+                        <div class="skill1">
+                            <img class="ht" src="./img/html.png" alt="">
+                            <h3>Skill 1</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aommo</p>
+                        </div>
+                        <div class="skill2">
+                            <img class="js" src="./img/html.png" alt="">
+                            <h3>Skill 2</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aommo</p>
+                        </div>
+                        
+        </div>
+
+    </section>
+
+    <section id="work"></section>
+
+            <div class="works">
+                <h2>Work</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aommo</p>
+            </div>
+
+    </section>
+
+<section class="contacto">
+
+    <h2>contact me</h2>
+
+    <form action="" id="formu">
+        <label for="name">Name:</label> 
+        <input type="text" placeholder="Name" id="username" required >
+        <label for="email">email:</label> 
+        <input type="email" placeholder="Email" required>
+        <label for="text">Message</label>
+        <textarea placeholder="Message"></textarea>
+        <br>
+        <button type="Submit">Send</button>
+    </form>
+
+</section>
+
+
+
+</main>
+    <footer >
+        <p>footer footer footer footer footer footer footer footer footer footer</p>
+    </footer>
+
+</body>
+</html>

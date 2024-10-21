@@ -1,0 +1,110 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+header  {
+    background-color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    height: 40px;
+}
+
+.menu-icon {
+    height: 30px;
+}
+
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 46vh; 
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute; /* Fija la imagen al contenedor */
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.hero-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 10px;
+    max-width: 70%;
+    border-radius: 5px;
+}
+
+.hero-text p {
+    font-size: 14px;
+}
+
+.hero-text h1 {
+    font-size: 22px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Call to Action Box */
+.cta-box {
+    background-color: #f7d600;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.cta-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.cta-container p {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.arrow {
+    font-size: 24px;
+    color: black;
+    margin-left: 10px;
+}
+
+/* Footer */
+footer {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: black;
+    border-top: 1px solid #ccc;
+}
