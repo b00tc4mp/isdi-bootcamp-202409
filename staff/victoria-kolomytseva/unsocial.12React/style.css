@@ -21,7 +21,7 @@ label {
 
 
 input {
-    background-color: white;
+    background-color: inherit;
     font-family: inherit;
     padding: 10px;
     width: 200px;
