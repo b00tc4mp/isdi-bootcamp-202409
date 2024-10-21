@@ -166,19 +166,19 @@ class Home extends Component {
             }}>Logout</button>
             <button type="button" onClick={() => this.setState({ view: 'new' })}>➕</button>
 
-            {this.state.view === 'list' && <PostList onDeleted={() => this.setState({ view: "list" })} />}
+            {this.state.view === 'list' && <PostList />}
             {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
         </section>
     }
 }
 
-function PostList(props) {
+function PostList() {
     console.log('PostList -> render')
 
     let posts
 
     try {
-        posts = getPosts(props)
+        posts = getPosts()
     } catch (error) {
         alert(error.message)
 
@@ -191,19 +191,6 @@ function PostList(props) {
         {posts.map(post => <article>
             <h4>{post.author}</h4>
             <img src={post.image} style={{ width: '100%' }} />
-            {sessionStorage.loggedInUserId === post.author && <button type="button" onClick={() => {
-                posts = JSON.parse(localStorage.posts)
-
-                let index = posts.findIndex(element => element.id === post.id)
-
-                posts.splice(index, 1)
-
-                localStorage.posts = JSON.stringify(posts)
-
-                props.onDeleted()
-
-            }} >Delete post </button>}
-
             <p>{post.text}</p>
             <time>{post.date}</time>
         </article>)}
