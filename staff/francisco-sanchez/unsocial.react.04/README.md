@@ -1,69 +1,37 @@
 # Unsocial App - React Version
 
-**NOTA!!!**
-- La carpeta unsocial siempre será la versión mas nueva. 
-- Las carpetas unsocial.X son las primeras versiones de la app y la versión mas reciente es la del numero mayor
-- Las carpetas unsocial.react.00 son las que incluyen react, y la más reciente es la que tenga el mayor numero. 
+NOTA!!! 
+La versión más reciente sin Vite era la 
+**unsocial.react.00**
+
+A partir de ahora la versión más reciente (trabajando con Vite es esta "unsocial")
 
 
+## Trabajo por la tarde del 21/10/2024  WIP !!!!
+Traspasar toda la app a Vite React
 
-## **22/10/2024**
-
-- Hoy presentamos figma y empezamos a diseñar nuestra futura aplicación allí. 
-
-- Creamos un compo Header.jsx 
-
-- Empezamos con estilos css
-
-    OK - Creamos un estilo Header.css  para la cabecera y lo metemos dentro de la carpeta components junto a header
-    
-    OK - Creamos un Login.css para el login y lo metemos dentro de view junto al login.jsx
-
-    - Hacemos que el login esté centrado horizontal y verticalmente 
-
-OK - Creamos un footer con con su función footer.jsx que devuelva un texto de ejemplo, también le añadimos estilos, lo metemos en la home.
-
-OK - Booooomba! -> Se pone a componetizar todo con sus css incluidos y todo separado. 
-
-   OK - Input
-   OK  - PasswordImput
-   OK   - Quita los estilos de los elementos y crea nuevas clases 
-    
-    OK - Luego modifica las vistas register y login para añadir los nuevos compos de input. (por tanto hay que importarlos).
-
-    OK - Creamos más compos: 
-        - Button
-        - Label
-
-    OK    - *Al en la función que costruye al botón ha incluido sus children... (ir con cuidado)
-    
-    OK - El formulario también va a ser un compo 
-        - Tanto en el compo de Form, y del botón, se les tiene que traspasar el onClick porque ahora son ellos los que construyen.
-
-    OK - Creamos un compo Field.jsx para agrupar el label y el input. 
-        - Lo agrupamos dentro de un div. 
-        - Creamos también sus estilos
-        - Al final pone el compo field para agrupar o encerrar los label / input
+OK - Recordar revisar logica del getPosts para el nombre de usuarios en los posts
+OK - Falla crear posts
+OK - Falla logica de crear post
 
 
-    OK - Creamos el compo para el label 
+NOTA: Para mostrar ver el proyecto Vite hay que verlo en la instancia de localhost en: 
 
-    OK - Tras arreglar el Login, procedemos a arreglar el Register. 
+    'npm run dev
 
 
 
 
+-----
+### React + Vite
 
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-NOTAS: 
+Currently, two official plugins are available:
 
-- Los titulos H llevan implicitos margenes superiores, los podemos quitar para pegar un texto a la parte superiro
-- La unidad rem (unidad relativa del root)
-- Cada Compo tiene que tener su propio archivo css 
-- la propiedad box-sizing: border-box -> hace que aplique de borde a borde
-
-
-
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-----
 
 
 ## *21/10/2024*
@@ -105,7 +73,6 @@ OK - !!Hay que tener en cuenta que cada fichero importa y exporta sus dependenci
 > En **library** metemos:  ¿?¿?¿?¿?¿?
 
 
-
 - TAREITA: Revisar la lógica para obtener el nombre de usuario de los posts. **(Repasar código de manu)**
     OK - Quitar mi función getUserUserName
     - Implementar una lógica dentro de getPosts para traerme el nombre de usuario de los posts
@@ -114,29 +81,6 @@ OK - !!Hay que tener en cuenta que cada fichero importa y exporta sus dependenci
 - TAREA PERSONAL: Mantener la sesión iniciada 
 
 
-### Trabajo por la tarde del 21/10/2024  WIP !!!!
-Traspasar toda la app a Vite React
-
-OK - Recordar revisar logica del getPosts para el nombre de usuarios en los posts
-OK - Falla crear posts
-OK - Falla logica de crear post
-
-
-NOTA: Para mostrar ver el proyecto Vite hay que verlo en la instancia de localhost en: 
-
-    'npm run dev
-
-
------
-### React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
------
 
 
 

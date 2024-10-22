@@ -33,7 +33,7 @@ class Home extends Component {
             <h2>Home</h2>
             <h3>Hello, {this.state.name}!</h3>
 
-            <button type="button" className="Button" onClick={event => {
+            <button type="button" onClick={event => {
                 event.preventDefault()
                 console.log('Click en el boton logout')
                 //loggedInUser = null
@@ -42,7 +42,7 @@ class Home extends Component {
 
             }}>Logout</button>
 
-            <button type="button" className="Button" onClick={() => this.setState({ view: 'new' })}>✚ New Post</button>
+            <button type="button" onClick={() => this.setState({ view: 'new' })}>✚ New Post</button>
 
             {this.state.view === 'list' && <PostList />}
             {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}

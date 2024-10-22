@@ -1,7 +1,5 @@
 import { Component } from 'react'
 
-import Input from './Input'
-
 //Clase PasswordInput, para el campo de contraseña, añade la funcionalidad de ver o esconderla. 
 class PasswordInput extends Component {
     constructor(props) {
@@ -14,7 +12,7 @@ class PasswordInput extends Component {
         console.log('Entramos en el passwordInput Render')
 
         return <div style={{ display: 'flex' }}>
-            <Input type={this.state.type} id={this.props.id} />
+            <input type={this.state.type} id={this.props.id} style={{ width: '100%', boxSizing: 'border-box', paddingRight: '18px' }} />
             <span
                 style={{ cursor: 'pointer', position: 'absolute', right: '10px' }}
                 onClick={() => this.setState({

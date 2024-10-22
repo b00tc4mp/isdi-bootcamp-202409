@@ -1,11 +1,7 @@
 import { Component } from 'react'
-
 import Login from './view/Login'
 import Register from './view/Register' //Puede fallar algo
 import Home from './view/Home'
-
-import Header from './components/functional/Header'
-import Footer from './components/functional/Footer'
 
 //La classe App extiende de component y la declaramos como class porque será dinámica e ira mutando conforme utilicemos la app
 class App extends Component {
@@ -23,11 +19,9 @@ class App extends Component {
     }
 
     render() {
-        return <>
-            <Header />
-
-            <h1>React  v0.0.5</h1>
-            <p className='white-text'>Versión con Vite de la red social mas Unsocial de la historia. En esta versión componetizamos prácticamente todos los elementos y sus css.</p>
+        return <div>
+            <h1>Unsocial React v0.0.4</h1>
+            <p>Versión con Vite de la red social mas Unsocial de la historia. Hoy me tiene un poco frito </p>
             <hr style={{ width: '100px' }}></hr>
 
             {//Evaluación primera && evaluación segunda
@@ -42,10 +36,9 @@ class App extends Component {
 
             {this.state.view === 'home' && <Home
                 onLoggedOut={() => this.setState({ view: 'login' })} />}
-
-            <Footer />
-        </>
+        </div>
     }
 }
+
 
 export default App

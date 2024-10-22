@@ -1,12 +1,6 @@
 import registerUser from '../logic/registerUser'
 import PasswordInput from '../components/library/PasswordInput'
 
-import Label from '../components/library/Label'
-import Input from '../components/library/Input'
-import Button from '../components/library/Button'
-import Field from '../components/library/Field'
-import Form from '../components/library/Form'
-
 //Funcion register, que mostrará el formulario de registro
 function Register(props) {
     return <section>
@@ -41,28 +35,22 @@ function Register(props) {
             }
         }}>
 
-            <Field>
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" />
-            </Field>
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" style={{ width: '100%', boxSizing: 'border-box' }} />
 
-            <Field>
-                <Label htmlFor="email">E-mail</Label>
-                <Input type="email" id="email" />
-            </Field>
-            <Field>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username" />
-            </Field>
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
-            </Field>
-            <Field>
-                <Label htmlFor="passwordRepeat">Repeat Password</Label>
-                <PasswordInput id="passwordRepeat" />
-            </Field>
-            <Button type="submit" className="Button" >Register</Button>
+            <label htmlFor="email">E-mail</label>
+            <input type="email" id="email" style={{ width: '100%', boxSizing: 'border-box' }} />
+
+            <label htmlFor="username">Username</label>
+            <input type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
+
+            <label htmlFor="password">Password</label>
+            <PasswordInput id="password" />
+
+            <label htmlFor="passwordRepeat">Repeat Password</label>
+            <PasswordInput id="passwordRepeat" />
+
+            <button type="submit">Register</button>
         </form>
 
         <a href=""

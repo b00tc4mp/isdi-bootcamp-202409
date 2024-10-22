@@ -1,37 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap');
 
-/**,
-::before,
-::after {
-    box-sizing: border-box;
-}*/
-
 :root {
     --color-fondo: #07074a;
-    --color-blue: #07074A;
-    --color-yellow: #ddd207;
     --white: #ffffff;
-    --color-font: #0d0b2e;
     --font: "Nunito", sans-serif;
     font-family: var(--font);
+
+
+
+
 }
 
 body {
     background-color: var(--color-fondo);
     color: var(var(--white));
-    /*display: flex;
+    display: flex;
     flex-direction: column;
-    align-items: center;*/
-    height: 100%;
+    align-items: center;
+    height: 100vh;
     margin: 0;
     font-weight: 400;
     font-style: normal;
-    /*padding-left: 10%;
-    padding-right: 10%;*/
-}
-
-#root {
-    height: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 label {
@@ -50,12 +41,7 @@ p {
     font-size: 1.2em;
     text-align: center;
     line-height: 1.3em;
-    /*color: var(--white);*/
-    color: var(--color-font);
-}
-
-p.white-text {
-    color: var(--white)
+    color: var(--white);
 }
 
 form {
@@ -73,6 +59,22 @@ input {
     font: inherit;
 }
 
+button {
+    padding: 10px;
+    font-size: 1.1em;
+    background-color: #ddd207;
+    color: rgb(25, 7, 138);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #b9b007
+}
 
 a {
     display: block;
@@ -91,7 +93,7 @@ a:hover {
     padding-bottom: 10px;
 }
 
-img.postFrame {
+img {
     width: 90%;
     display: flex;
     justify-content: center;
@@ -106,3 +108,33 @@ time {
     color: var(--white);
     text-align: center;
 }
+
+/*Locurote de colores*/
+/*div {
+    background-color: red;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes example {
+    0% {
+        background-color: red;
+    }
+
+    25% {
+        background-color: yellow;
+    }
+
+    50% {
+        background-color: blue;
+    }
+
+    75% {
+        background-color: green;
+    }
+
+    100% {
+        background-color: red;
+    }
+}*/
