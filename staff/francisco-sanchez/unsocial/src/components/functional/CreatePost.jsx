@@ -1,12 +1,20 @@
 import createPost from "../../logic/createPost"
 
+import Input from '../library/Input'
+import Button from '../library/Button'
+import Form from '../library/Form'
+import Field from '../library/Field'
+import Label from '../library/Label'
+
+
+
 function CreatePost(props) {
     console.log('Entramos en createPost -> Render')
 
     return <div>
         <h3>Create new post</h3>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             //Extraemos el form de event
@@ -28,14 +36,16 @@ function CreatePost(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="image">Image</label>
-            <input type="text" id="image" style={{ width: '100%', boxSizing: 'border-box' }} />
-
-            <label htmlFor="text">Text</label>
-            <input type="text" id="text" style={{ width: '100%', boxSizing: 'border-box' }} />
-
-            <button type="submit"> Create</button>
-        </form>
+            <Field>
+                <Label htmlFor="image">Image</Label>
+                <Input type="text" id="image" />
+            </Field>
+            <Field>
+                <Label htmlFor="text">Text</Label>
+                <Input type="text" id="text" />
+            </Field>
+            <Button type="submit"> Create</Button>
+        </Form>
     </div>
 
 }

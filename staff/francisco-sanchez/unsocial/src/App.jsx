@@ -26,10 +26,7 @@ class App extends Component {
         return <>
             <Header />
 
-            <h1>React  v0.0.5</h1>
-            <p className='white-text'>Versión con Vite de la red social mas Unsocial de la historia. En esta versión componetizamos prácticamente todos los elementos y sus css.</p>
-            <hr style={{ width: '100px' }}></hr>
-
+            {/* <h1>React v0.0.5</h1> */}
             {//Evaluación primera && evaluación segunda
                 //Si la primera ya es falsa, ya no evalua la segunda
                 this.state.view === 'login' && <Login
@@ -42,6 +39,7 @@ class App extends Component {
 
             {this.state.view === 'home' && <Home
                 onLoggedOut={() => this.setState({ view: 'login' })} />}
+
 
             <Footer />
         </>

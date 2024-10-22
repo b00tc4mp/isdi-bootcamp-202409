@@ -1,3 +1,5 @@
+import './Home.css'
+
 import { Component } from "react"
 
 import getUserName from "../logic/getUserName"
@@ -29,24 +31,26 @@ class Home extends Component {
     render() {
         console.log('Render del Home')
 
-        return <section>
-            <h2>Home</h2>
-            <h3>Hello, {this.state.name}!</h3>
+        return <section className="Home">
+            <div className="container">
+                <h2>Home</h2>
+                <h3>Hello, {this.state.name}!</h3>
 
-            <button type="button" className="Button" onClick={event => {
-                event.preventDefault()
-                console.log('Click en el boton logout')
-                //loggedInUser = null
-                delete sessionStorage.loggedInUserId
-                this.props.onLoggedOut()
+                <div className="botones-home">
+                    <button type="button" className="Button" onClick={event => {
+                        event.preventDefault()
+                        console.log('Click en el boton logout')
+                        //loggedInUser = null
+                        delete sessionStorage.loggedInUserId
+                        this.props.onLoggedOut()
 
-            }}>Logout</button>
+                    }}>Logout</button>
 
-            <button type="button" className="Button" onClick={() => this.setState({ view: 'new' })}>✚ New Post</button>
-
-            {this.state.view === 'list' && <PostList />}
-            {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
-
+                    <button type="button" className="Button" onClick={() => this.setState({ view: 'new' })}>✚ New Post</button>
+                </div>
+                {this.state.view === 'list' && <PostList />}
+                {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
+            </div>
         </section>
     }
 }

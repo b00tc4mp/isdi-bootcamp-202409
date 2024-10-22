@@ -50,12 +50,7 @@ p {
     font-size: 1.2em;
     text-align: center;
     line-height: 1.3em;
-    /*color: var(--white);*/
-    color: var(--color-font);
-}
-
-p.white-text {
-    color: var(--white)
+    color: var(--white);
 }
 
 form {
@@ -81,9 +76,11 @@ a {
     color: var(--white);
 }
 
+
 a:hover {
     color: #b9b007;
 }
+
 
 .registerText {
     font-size: 11px;
@@ -91,18 +88,8 @@ a:hover {
     padding-bottom: 10px;
 }
 
-img.postFrame {
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: 10px solid #fff;
-    border-left: 10px solid #fff;
-    border-right: 10px solid #fff;
-    border-bottom: 40px solid #fff;
-}
 
-time {
-    color: var(--white);
-    text-align: center;
+
+.container {
+    width: 80%;
 }

@@ -18,44 +18,46 @@ function Login(props) {
     // }
 
     return <section className="Login">
-        <h2>Login</h2>
+        <div className="container">
+            <h2>Login</h2>
 
-        <Form onSubmit={event => {
-            event.preventDefault()
-
-            const { target: { username: { value: username }, password: { value: password } } } = event
-
-            try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
-                //loggedInUser = authenticateUser(username, password)
-
-                event.target.reset()
-
-                props.onLoggedIn()
-            } catch (error) {
-                alert(error.message)
-
-                console.error(error)
-            }
-        }}>
-            <Field>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username" />
-            </Field>
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
-            </Field>
-
-
-            <Button type="submit">Login</Button>
-        </Form>
-
-        <a href=""
-            onClick={event => {
+            <Form onSubmit={event => {
                 event.preventDefault()
-                props.onNavRegister()
-            }}>Register</a>
+
+                const { target: { username: { value: username }, password: { value: password } } } = event
+
+                try {
+                    sessionStorage.loggedInUserId = authenticateUser(username, password)
+                    //loggedInUser = authenticateUser(username, password)
+
+                    event.target.reset()
+
+                    props.onLoggedIn()
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+            }}>
+                <Field>
+                    <Label htmlFor="username">Username</Label>
+                    <Input type="text" id="username" />
+                </Field>
+                <Field>
+                    <Label htmlFor="password">Password</Label>
+                    <PasswordInput id="password" />
+                </Field>
+
+
+                <Button type="submit">Login</Button>
+            </Form>
+
+            <a href=""
+                onClick={event => {
+                    event.preventDefault()
+                    props.onNavRegister()
+                }}>Register</a>
+        </div>
     </section>
 }
 

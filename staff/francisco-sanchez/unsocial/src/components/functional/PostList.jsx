@@ -17,10 +17,10 @@ function PostList() {
         <h3>Posts</h3>
         {posts.map(post => <article>
             <h4>{post.author.username}</h4>
+            <time>{post.date}</time>
             <img className='postFrame' src={post.image} style={{ width: '95%' }} />
             <p>{post.text}</p>
-            <time>{post.date}</time>
-            <p>Edit | Delete</p>
+            {/* <p>Edit | Delete</p> */}
         </article>)
         }
 
