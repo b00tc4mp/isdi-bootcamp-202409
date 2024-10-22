@@ -1,0 +1,15 @@
+.Button {
+    width: 50%;
+    height: 30px;
+
+    box-sizing: border-box;
+    /* padding-right: 18px; */
+    background-color: var(--color);
+    font-family: inherit;
+
+    color: var(--back-color);
+    border-color: var(--color);
+    border-style: solid;
+
+    border-radius: 6px;
+}

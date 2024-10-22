@@ -1,0 +1,5 @@
+.Field2 {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+}
