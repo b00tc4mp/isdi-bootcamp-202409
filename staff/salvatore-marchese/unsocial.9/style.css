@@ -1,0 +1,68 @@
+h2 {
+    font-size: 30px;
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+img {
+  height: 200px;
+  width: auto;
+  border-radius: 25%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+a:visited {
+  color: yellow;
+}
+
+#login-section {
+  padding: 50px; 
+  width: 300px;
+  margin: 0 auto;
+}
+
+#register-section {
+  padding: 50px; 
+  width: 300px;
+  margin: 0 auto;
+}
+
+#home-section {
+  padding: 50px; 
+  width: 300px;
+  margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    border: 5px solid black;
+    padding: 10px 10px 10px 10px;
+    margin: 50px;
+    }
+
+
+label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input {
+  background-color: gainsboro;
+  font-family: inherit;
+  margin-bottom: 15px;
+  padding: 2px;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+button {
+    padding: 10px;
+    width: 100px;
+    margin: 40px;
+}
