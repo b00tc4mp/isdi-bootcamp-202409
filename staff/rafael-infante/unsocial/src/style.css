@@ -4,20 +4,7 @@
   --font: 'Poppins';
   font-family: var(--font);
   background-color: #e4b834;
-}
-
-.logo-container {
-  display: flex;
-  text-decoration: none;
-  color: black;
-  align-items: center;
   margin: 0;
-  padding-left: 15px;
-}
-
-.logo {
-  max-height: 45px;
-  margin-right: 5px;
 }
 
 body {
@@ -25,59 +12,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 15px 15px 15px;
-}
-
-.section-container {
-  background-color: white;
-  padding: 0 20px 20px 20px;
-  margin: 10px;
-  width: 85%;
-  max-width: 500px;
-  min-height: 400px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-label {
-  padding-bottom: 6px;
-  font-size: 14px;
-}
-
-input {
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid gray;
-}
-
-button {
-  color: white;
-  background-color: black;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-weight: bolder;
-  border: none;
-}
-
-button:hover {
-  color: black;
-  background-color: #e7cc79;
-  border: none;
-}
-
-#btn-register {
   margin: 0;
+  height: 100%;
+}
+
+.logo {
+  max-height: 45px;
+  margin-right: 5px;
 }
 
 #bottom-text,
@@ -97,6 +38,11 @@ a {
 
 a:hover {
   color: #dda600;
+}
+
+h1,
+h2 {
+  margin: 0;
 }
 
 h4 {

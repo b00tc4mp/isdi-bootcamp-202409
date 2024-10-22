@@ -1,20 +1,15 @@
-import "./Login.css"
 import authenticateUser from "../logic/authenticateUser"
 import PasswordInput from "../components/biblio/PasswordInput"
-import Input from "../components/biblio/Input"
-import Label from "../components/biblio/Label"
-import Button from "../components/biblio/Button"
-import Form from "../components/biblio/Form"
 
 function Login(props) {
   console.log('Login -> Render')
   return (
-    <section className="Login" >
+    <section className="section-container" >
       <p>Welcome!</p>
       <h2>Sign in to unSocial</h2>
       <h4>Write username and password to access</h4>
 
-      <Form
+      <form className="form-container"
         onSubmit={event => {
           event.preventDefault()
 
@@ -31,16 +26,12 @@ function Login(props) {
             console.error(error)
           }
         }}>
-
-        <Label htmlFor="username">Username</Label>
-        <Input type="text" id="username" placeholder="Enter your username" required />
-
-        <Label htmlFor="password">Password</Label>
+        <label htmlFor="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required />
+        <label htmlFor="password">Password</label>
         <PasswordInput id="password" />
-
-        <Button id="btn-login" type="submit">Login</Button>
-
-      </Form>
+        <button id="btn-login" type="submit">Login</button>
+      </form>
       <p>Don't have an account? <a onClick={event => {
         event.preventDefault()
         props.onAnchorRegister()

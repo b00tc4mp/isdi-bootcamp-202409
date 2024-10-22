@@ -1,16 +1,11 @@
-import './Register.css'
 import registerUser from "../logic/registerUser"
 import PasswordInput from "../components/biblio/PasswordInput"
-import Form from '../components/biblio/Form'
-import Label from '../components/biblio/Label'
-import Input from '../components/biblio/Input'
-import Button from '../components/biblio/Button'
 
 function Register(props) {
   return (
-    <section className="Register">
+    <section className="section-container">
       <h2>Register to unSocial</h2>
-      <Form
+      <form className="form-container"
         onSubmit={event => {
           event.preventDefault()
 
@@ -31,18 +26,18 @@ function Register(props) {
             console.error(error)
           }
         }}>
-        <Label htmlFor="name">Name</Label>
-        <Input type="text" id="name" placeholder="Enter your name" required />
-        <Label htmlFor="email">Email</Label>
-        <Input type="email" id="email" placeholder="Enter your email" required />
-        <Label htmlFor="username">User Name</Label>
-        <Input type="text" id="username" placeholder="Enter your username" required />
-        <Label htmlFor="password">Password</Label>
+        <label htmlFor="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <label htmlFor="username">User Name</label>
+        <input type="text" id="username" placeholder="Enter your username" required />
+        <label htmlFor="password">Password</label>
         <PasswordInput id="password" />
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
+        <label htmlFor="confirmPassword">Confirm Password</label>
         <PasswordInput id="confirmPassword" />
-        <Button id="btn-register" type="submit">Register</Button>
-      </Form>
+        <button id="btn-register" type="submit">Register</button>
+      </form>
       <p>Already have an account? <a onClick={event => {
         event.preventDefault()
         props.onAnchorLogin()

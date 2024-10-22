@@ -1,5 +1,4 @@
 import { Component } from "react"
-import Input from "./Input"
 
 class PasswordInput extends Component {
   constructor(props) {
@@ -11,7 +10,7 @@ class PasswordInput extends Component {
   render() {
     return (
       <div className="password-container">
-        <Input id={this.props.id} type={this.state.type} placeholder="Enter your password" required />
+        <input id={this.props.id} type={this.state.type} placeholder="Enter your password" required />
         <i className={this.state.className}
           id="icon"
           onClick={() => this.setState({

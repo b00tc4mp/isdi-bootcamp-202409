@@ -1,0 +1,8 @@
+.Header {
+  display: flex;
+  text-decoration: none;
+  color: black;
+  align-items: center;
+  margin: 7px;
+  padding-left: 15px;
+}

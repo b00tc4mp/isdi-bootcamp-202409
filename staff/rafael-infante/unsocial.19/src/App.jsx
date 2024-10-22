@@ -1,9 +1,8 @@
 import { Component } from "react"
-import Header from "./components/functional/Header"
+import Header from "./components/biblio/Header"
 import Login from "./view/Login"
 import Register from "./view/Register"
 import Home from "./view/Home"
-import Footer from "./components/functional/Footer"
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +14,7 @@ class App extends Component {
   render() {
     console.log('App -> render')
     return (
-      <>
+      <div>
         <Header />
 
         {this.state.view === 'login' && <Login
@@ -34,8 +33,8 @@ class App extends Component {
             delete sessionStorage.loggedUserId
           }} />}
 
-        <Footer />
-      </>
+
+      </div>
     )
   }
 }
