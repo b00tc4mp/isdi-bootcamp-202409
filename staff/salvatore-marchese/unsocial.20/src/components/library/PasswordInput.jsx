@@ -1,7 +1,5 @@
 import { Component } from 'react'
 
-import Input from './PasswordInput'
-
 class PasswordInput extends Component {
     constructor(props) {
         console.log('PasswordInput -> constructor')
@@ -15,13 +13,13 @@ class PasswordInput extends Component {
         console.log('PasswordInput -> render')
 
         return <div style={{ display: 'flex'}}>
-            <Input type={this.state.type} id={this.props.id} />
+            <input type={this.state.type} id={this.props.id} style={{ width: '140px', boxSizing: 'border-box', marginLeft: '18px' }} />
             <span
                 style={{ 
                     cursor: 'pointer', 
                     position: 'relative',
                     right: '18px',
-                    top: '1%',
+                    top: '20%',
                     transform: 'translateY(-2%)'}}
                 onClick={() => this.setState({
                     status: this.state.status === '🙈' ? '🐵' : '🙈',

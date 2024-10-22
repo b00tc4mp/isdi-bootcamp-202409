@@ -1,8 +1,8 @@
 import { Component } from "react"
 
 import getUserName from '../logic/getUserName'
-import PostList from "../components/functional/PostList"
-import CreatePost from '../components/functional/CreatePost'
+import PostList from "../components/function/PostList"
+import CreatePost from '../components/function/CreatePost'
 
 class Home extends Component {
     constructor(props) {

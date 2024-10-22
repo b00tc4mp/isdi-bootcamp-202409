@@ -1,0 +1,8 @@
+.Register {
+    display: flex;
+    justify-content: center;
+    align-items: column;
+    height: 90%;
+    box-sizing: border-box;
+    background-color: var(--back-color);
+}
