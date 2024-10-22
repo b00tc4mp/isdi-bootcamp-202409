@@ -1,0 +1,17 @@
+.Register {
+  background-color: rgb(255, 255, 255);
+  padding: 15px 20px 10px 20px;
+  margin: 0;
+  width: 70vw;
+  min-height: 80vh;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 700px) {
+  .Register {
+    width: 500px;
+  }
+}
