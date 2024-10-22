@@ -1,5 +1,3 @@
-let loggedInUser = null
-
 const rootElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootElement)
 
@@ -37,7 +35,7 @@ function Login(props) {
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                loggedInUser = authenticateUser(username, password)
+                sessionStorage.loggedInUserId = authenticateUser(username, password)
 
                 event.target.reset()
 
@@ -128,7 +126,7 @@ class Home extends Component {
         let name
 
         try {
-            name = getUserName(loggedInUser.id)
+            name = getUserName(sessionStorage.loggedInUserId)
         } catch (error) {
             alert(error.message)
 
@@ -147,15 +145,15 @@ class Home extends Component {
 
             <button type="button"
                 onClick={() => {
-                    loggedInUser = null
+                    delete sessionStorage.loggedInUserId
 
                     this.props.logoutClick()
 
                 }}>Logout</button>
-            <button type="button">+</button>
+            <button type="button" onClick={() => this.setState({ view: 'new' })}>+</button>
 
             {this.state.view === 'list' && <PostList />}
-
+            {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
         </section>
     }
 }
@@ -165,7 +163,7 @@ function PostList() {
     let posts
 
     try {
-        posts = getPosts().reverse()
+        posts = getPosts()
     } catch (error) {
         alert(error.message)
 
@@ -182,6 +180,42 @@ function PostList() {
             <p>{post.text}</p>
             <time>{post.date}</time>
         </div>)}
+    </div>
+}
+
+function CreatePost(props) {
+    return <div>
+        <h3>Create Post</h3>
+
+        <form onSubmit={event => {
+            event.preventDefault()
+
+            const { target: form } = event
+
+            const {
+                image: { value: image },
+                text: { value: text }
+            } = form
+
+            try {
+                createPost(sessionStorage.loggedInUserId, image, text)
+
+                props.onCreated()
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        }}>
+            <label htmlFor="image">Image</label>
+            <input type="text" id="image" style={{ width: '100%' }} />
+
+            <label htmlFor="image">Text</label>
+            <input type="text" id="text" style={{ width: '100%' }} />
+
+            <button type="submit">Create</button>
+
+        </form>
     </div>
 }
 

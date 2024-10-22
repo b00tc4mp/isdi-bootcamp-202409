@@ -3,7 +3,8 @@ const users = [
         id: 'm2erhpwihme',
         name: 'Juan Pablo',
         email: 'juanpabloariasr1@gmail.com',
-        username: 'juanpablo', password: '123456',
+        username: 'juanpablo', 
+        password: '123456',
         repeatpassword: '123456'
     },
     {

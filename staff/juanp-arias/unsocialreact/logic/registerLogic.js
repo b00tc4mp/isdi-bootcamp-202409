@@ -1,4 +1,5 @@
 const registerUser = (name, email, username, password, repeatpassword) => {
+    //TODO validation username and password
     if (name.length < 2)
         throw new Error('invalid name')
 
@@ -15,13 +16,15 @@ const registerUser = (name, email, username, password, repeatpassword) => {
     if (password !== repeatpassword)
         throw new Error('passwords do not match')
 
-    let user = users.find(function (user) {
-        return user.username === username || user.email === email
-    })
+    const users = JSON.parse(localStorage.users)
+
+    let user = users.find(user => user.username === username || user.email === email)
 
     if (user !== undefined)
         throw new Error('user already exists')
 
-    user = { name: name, email: email, username: username, password: password, repeatpassword: repeatpassword }
+    user = { id: uuid(), name: name, email: email, username: username, password: password, repeatpassword: repeatpassword }
     users.push(user)
+
+    localStorage.users = JSON.stringify(users)
 }

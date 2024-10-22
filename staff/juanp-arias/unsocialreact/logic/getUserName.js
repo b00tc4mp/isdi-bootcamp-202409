@@ -1,7 +1,7 @@
 const getUserName = userId => {
-    if (typeof userId !== 'string') throw new Error('invalid user')
-    // const users = JSON.parse(localStorage.users)
+    if (typeof userId !== 'string') throw new Error('invalid userId')
 
+    const users = JSON.parse(localStorage.users)
     const user = users.find(user => user.id === userId)
 
     if (!user) throw new Error('user not found')
@@ -11,7 +11,7 @@ const getUserName = userId => {
 
 const getUserUsername = userId => {
     if (typeof userId !== 'string') throw new Error('invalid user')
-    // const users = JSON.parse(localStorage.users)
+    const users = JSON.parse(localStorage.users)
 
     const user = users.find(user => user.id === userId)
 
