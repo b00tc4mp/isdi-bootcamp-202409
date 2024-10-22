@@ -1,20 +1,13 @@
-import './Login.css'
-
 import authenticateUser from '../logic/authenticateUser'
 import PasswordInput from '../components/library/PasswordInput'
-import Input from '../components/library/Input'
-import Button from '../components/library/Button'
-import Form from '../components/library/Form'
-import Field from '../components/library/Field'
-import Label from '../components/library/Label'
 
 function Login(props) {
     console.log('Login -> render')
 
-    return <section className="Login">
+    return <section>
         <h2>Login</h2>
 
-        <Form onSubmit={event => {
+        <form onSubmit={event => {
             event.preventDefault()
 
             const { target: { username: { value: username }, password: { value: password } } } = event
@@ -33,18 +26,14 @@ function Login(props) {
                 console.error(error)
             }
         }}>
-            <Field>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username" />
-            </Field>
+            <label htmlFor="username">Username</label>
+            <input type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
 
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
-            </Field>
+            <label htmlFor="password">Password</label>
+            <PasswordInput id="password" />
 
-            <Button type="submit">Login</Button>
-        </Form>
+            <button type="submit">Login</button>
+        </form>
 
         <a href="" onClick={event => {
             event.preventDefault()

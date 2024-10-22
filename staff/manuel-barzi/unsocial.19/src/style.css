@@ -1,22 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
 
 :root {
-    --color: DarkSlateGray;
-    --back-color: white;
+    --color: dodgerblue;
     --font: 'Sixtyfour';
     font-family: var(--font);
-    height: 100%;
 }
 
 body {
     background-color: lightgrey;
     color: var(--color);
-    margin: 0;
-    height: 100%;
 }
 
-#root {
-    height: 100%;
+input {
+    background-color: inherit;
+    font-family: inherit;
 }
 
 a:visited {
