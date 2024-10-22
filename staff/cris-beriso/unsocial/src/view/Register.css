@@ -1,0 +1,13 @@
+.Register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: fit-content;
+  box-sizing: border-box;
+  background-color: lavender;
+  width: 19rem;
+  border-radius: 10px;
+  box-shadow: 10px 5px 5px rgb(21, 35, 71);
+  padding-bottom: 15px;
+}

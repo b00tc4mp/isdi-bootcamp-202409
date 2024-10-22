@@ -1,13 +1,20 @@
+import './Register.css'
+
 import registerUser from '../logic/registerUser'
 import PasswordInput from '../components/library/PasswordInput'
+import Input from '../components/library/Input'
+import Button from '../components/library/Button'
+import Form from '../components/library/Form'
+import Field from '../components/library/Field'
+import Label from '../components/library/Label'
 
 function Register(props) {
   console.log('Register -> render')
 
-  return <section>
+  return <section className='Register'>
     <h2>Register</h2>
 
-    <form onSubmit={event => {
+    <Form onSubmit={event => {
       event.preventDefault()
 
       const { target: form } = event
@@ -32,24 +39,34 @@ function Register(props) {
         console.error(error)
       }
     }}>
-      <label htmlFor="name">Name</label>
-      <input type="text" id="name" style={{ width: 'auto', boxSizing: 'border-box' }} />
+      <Field>
+        <Label htmlFor="name">Name</Label>
+        <Input type="text" id="name" />
+      </Field>
 
-      <label htmlFor="email">E-mail</label>
-      <input type="email" id="email" style={{ width: 'auto%', boxSizing: 'border-box' }} />
+      <Field>
+        <Label htmlFor="email">E-mail</Label>
+        <Input type="email" id="email" />
+      </Field>
 
-      <label htmlFor="username">Username</label>
-      <input type="text" id="username" style={{ width: 'auto', boxSizing: 'border-box' }} />
+      <Field>
+        <Label htmlFor="username">Username</Label>
+        <Input type="text" id="username" />
+      </Field>
 
-      <label htmlFor="password">Password</label>
-      <PasswordInput id="password" />
+      <Field>
+        <Label htmlFor="password">Password</Label>
+        <PasswordInput id="password" />
+      </Field>
 
-      <label htmlFor="password-repeat">Repeat Password</label>
-      <PasswordInput id="password-repeat" />
+      <Field>
+        <Label htmlFor="password-repeat">Repeat Password</Label>
+        <PasswordInput id="password-repeat" />
+      </Field>
 
-      <button type="submit">Register</button>
+      <Button type="submit">Register</Button>
 
-    </form>
+    </Form>
 
     <a href="" onClick={event => {
       event.preventDefault()

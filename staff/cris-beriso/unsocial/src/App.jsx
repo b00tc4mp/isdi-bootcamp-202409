@@ -4,6 +4,9 @@ import Login from './view/Login'
 import Register from './view/Register'
 import Home from './view/Home'
 
+import Header from './components/functional/Header'
+import Footer from './components/functional/Footer'
+
 class App extends Component {
   constructor(props) {
     console.log('App -> constructor')
@@ -15,8 +18,8 @@ class App extends Component {
   render() {
     console.log('App -> render')
 
-    return <div>
-      <h1>Unsocial</h1>
+    return <>
+      <Header />
 
       {this.state.view === 'login' && <Login
         onLoggedIn={() => this.setState({ view: 'home' })}
@@ -29,7 +32,9 @@ class App extends Component {
       {this.state.view === 'home' && <Home
         onLoggedOut={() => this.setState({ view: 'login' })}
       />}
-    </div>
+
+      <Footer />
+    </>
   }
 
 }

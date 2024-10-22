@@ -1,4 +1,6 @@
-import { Component } from 'react';
+import { Component } from 'react'
+import Input from './Input'
+import './PasswordInput.css'
 
 class PasswordInput extends Component {
   constructor(props) {
@@ -13,9 +15,9 @@ class PasswordInput extends Component {
     console.log('PasswordInput -> render')
 
     return <div style={{ display: 'flex' }}>
-      <input type={this.state.type} id={this.props.id} style={{ width: 'auto', boxSizing: 'border-box', paddingRight: '18px' }} />
+      <Input type={this.state.type} id={this.props.id} className="PasswordInput" />
       <span
-        style={{ cursor: 'pointer', position: 'asolute', right: '10px' }}
+        className="PasswordSpan"
         onClick={() => this.setState({
           status: this.state.status === '🙈' ? '🐵' : '🙈',
           type: this.state.type === 'password' ? 'text' : 'password'
