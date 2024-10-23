@@ -1,14 +1,10 @@
 import './Register.css'
-import registerUser from "../logic/registerUser"
-import PasswordInput from "../components/biblio/PasswordInput"
-import Form from '../components/biblio/Form'
-import Label from '../components/biblio/Label'
-import Input from '../components/biblio/Input'
-import Button from '../components/biblio/Button'
+import logic from "../logic/"
+import { PasswordInput, Input, Button, Label, Form } from "../components/biblio"
 
 function Register(props) {
   return (
-    <section className="Register">
+    <main className="Register">
       <h2>Register to unSocial</h2>
       <Form
         onSubmit={event => {
@@ -23,7 +19,7 @@ function Register(props) {
             confirmPassword: { value: confirmPassword } } = form
 
           try {
-            registerUser(name, email, username, password, confirmPassword)
+            logic.registerUser(name, email, username, password, confirmPassword)
             form.reset()
             props.onRegistered()
           } catch (error) {
@@ -48,7 +44,7 @@ function Register(props) {
         props.onAnchorLogin()
       }
       }>Login</a></p>
-    </section>
+    </main>
   )
 }
 

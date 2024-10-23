@@ -1,4 +1,4 @@
-const authenticateUser = (loginUsername, loginPassword) => {
+const loginUser = (loginUsername, loginPassword) => {
   if (typeof loginUsername !== 'string') throw new Error
   if (typeof loginPassword !== 'string') throw new Error
 
@@ -15,7 +15,7 @@ const authenticateUser = (loginUsername, loginPassword) => {
   if (user === undefined)
     throw new Error('wrong credentials')
 
-  return user.userId
+  sessionStorage.loggedUserId = user.userId
 }
 
-export default authenticateUser
+export default loginUser

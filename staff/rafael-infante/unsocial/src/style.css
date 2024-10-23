@@ -3,8 +3,9 @@
 :root {
   --font: 'Poppins';
   font-family: var(--font);
-  background-color: #e4b834;
+  background-color: #e4b83494;
   margin: 0;
+  height: 100%;
 }
 
 body {
@@ -16,9 +17,8 @@ body {
   height: 100%;
 }
 
-.logo {
-  max-height: 45px;
-  margin-right: 5px;
+#root {
+  height: 100%;
 }
 
 #bottom-text,
@@ -43,6 +43,7 @@ a:hover {
 h1,
 h2 {
   margin: 0;
+  font-size: 1.1rem;
 }
 
 h4 {

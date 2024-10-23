@@ -1,15 +1,11 @@
 import "./Login.css"
-import authenticateUser from "../logic/authenticateUser"
-import PasswordInput from "../components/biblio/PasswordInput"
-import Input from "../components/biblio/Input"
-import Label from "../components/biblio/Label"
-import Button from "../components/biblio/Button"
-import Form from "../components/biblio/Form"
+import logic from "../logic/"
+import { PasswordInput, Input, Button, Label, Form } from "../components/biblio"
 
 function Login(props) {
   console.log('Login -> Render')
   return (
-    <section className="Login" >
+    <main className="Login" >
       <p>Welcome!</p>
       <h2>Sign in to unSocial</h2>
       <h4>Write username and password to access</h4>
@@ -22,7 +18,7 @@ function Login(props) {
 
           try {
 
-            sessionStorage.loggedUserId = authenticateUser(username, password)
+            logic.loginUser(username, password)
             event.target.reset()
             props.onLoggedIn()
 
@@ -45,7 +41,7 @@ function Login(props) {
         event.preventDefault()
         props.onAnchorRegister()
       }}>Register</a></p>
-    </section>
+    </main>
   )
 }
 
