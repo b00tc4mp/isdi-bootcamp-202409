@@ -3,12 +3,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /*height: 5%;*/
+    height: 5%;
     background-color: var(--white);
     box-sizing: border-box;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
 
 .FooterMenu ul {

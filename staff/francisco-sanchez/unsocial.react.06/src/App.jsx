@@ -6,7 +6,6 @@ import Home from './view/Home'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
-import isUserLoggedIn from './logic/isUserLoggedIn'
 
 //La classe App extiende de component y la declaramos como class porque será dinámica e ira mutando conforme utilicemos la app
 class App extends Component {
@@ -14,13 +13,10 @@ class App extends Component {
         super(props)
 
         this.state = { view: 'login' }
-
-        this.state = { view: isUserLoggedIn() ? 'home' : 'login' }
-
-        //Logica antigua para mantener la sesión iniciada
         // if (sessionStorage.loggedInUserId !== undefined) {
         //     this.state = { view: 'login' }
         // } else {
+
         //     this.state = { view: 'home' }
         //     console.log(sessionStorage.loggedInUserId)
         // }
