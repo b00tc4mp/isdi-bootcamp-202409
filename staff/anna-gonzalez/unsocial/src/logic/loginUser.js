@@ -1,11 +1,11 @@
 const loginUser = (username, password) => {
     if (typeof username !== 'string') throw new Error('Invalid username')
     if (username.length < 4 || username.length > 12)
-        throw new Error('Invalid username')
+        throw new Error('Invalid username length')
 
     if (typeof password !== 'string') throw new Error('Invalid password')
     if (password.length < 8)
-        throw new Error('Invalid password')
+        throw new Error('Invalid password length')
 
     const users = JSON.parse(localStorage.users)
 

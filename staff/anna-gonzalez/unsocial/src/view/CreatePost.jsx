@@ -1,14 +1,13 @@
-import createPost from '../../logic/createPost'
+import logic from '../logic'
 
-import Button from '../library/Button'
-import Input from '../library/Input'
-import Label from '../library/Label'
-import Field from '../library/Field'
+import { Input, Button, Field, Label } from '../components/library'
 
-function CreatePost(props) {
+import './CreatePost.css'
+
+function CreatePost({ onCreated }) {
     console.log('CreatePost -> render')
 
-    return <div>
+    return <main className="CreatePost">
         <h3>Create post</h3>
 
         <form onSubmit={event => {
@@ -22,9 +21,9 @@ function CreatePost(props) {
             } = form
 
             try {
-                createPost(sessionStorage.loggedInUserId, image, text)
+                logic.createPost(image, text)
 
-                props.onCreated()
+                onCreated()
             } catch (error) {
                 alert(error.message)
 
@@ -41,7 +40,7 @@ function CreatePost(props) {
             </Field>
             <Button type="submit">Create</Button>
         </form>
-    </div>
+    </main>
 }
 
 export default CreatePost

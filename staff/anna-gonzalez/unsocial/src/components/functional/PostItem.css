@@ -1,0 +1,29 @@
+.PostItem {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    border: 2px #2A31FF solid;
+    border-radius: 15px;
+    padding: 0;
+    color: white;
+    margin-bottom: 2rem;
+
+    h4 {
+        padding-left: 1rem;
+        color: #92FF9D;
+    }
+
+    p,
+    time {
+        padding-left: 1rem;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    button {
+        align-self: center;
+        color: #92FF9D;
+    }
+}

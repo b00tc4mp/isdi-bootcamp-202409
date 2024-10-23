@@ -1,12 +1,6 @@
 import './Login.css'
 
-import PasswordInput from '../components/library/PasswordInput'
-import Input from '../components/library/Input'
-import Button from '../components/library/Button'
-import Form from '../components/library/Form'
-import Field from '../components/library/Field'
-import Label from '../components/library/Label'
-import Anchor from '../components/library/Anchor'
+import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../components/library'
 
 import logic from '../logic'
 
@@ -29,6 +23,7 @@ function Login(props) {
                 props.onLoggedIn()
             } catch (error) {
                 alert(error.message)
+
                 console.error(error)
             }
         }}>

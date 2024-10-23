@@ -9,3 +9,9 @@
     margin-bottom: 3rem;
     cursor: pointer;
 }
+
+.header-anchor {
+    font-family: 'Dela Gothic One';
+    letter-spacing: 3px;
+    text-decoration: none;
+}

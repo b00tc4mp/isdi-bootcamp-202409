@@ -1,18 +1,25 @@
 .Header {
-    padding: 1rem;
+    background-color: var(--back-color);
+    padding: 1rem 0rem;
     height: 5%;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-around;
     font-family: 'Dela Gothic One';
-    margin: 0;
-    text-align: center;
+    width: 100%;
+    position: fixed;
 
     h1 {
         margin: 0;
-        font-size: 2rem;
+        font-size: 1rem;
         letter-spacing: 3px;
+    }
+
+    h3 {
+        margin: 0;
+        letter-spacing: 1px;
+        font-size: 1rem;
+        color: #92FF9D;
     }
 }

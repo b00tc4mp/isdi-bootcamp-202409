@@ -7,16 +7,17 @@
     padding: 1rem;
     gap: 1rem;
     margin: 1rem;
-    height: 100%;
+    height: auto;
     background-color: #92FF9D;
     border-radius: 1rem;
     border: 2px solid black;
     color: black;
-    width: 90%;
+    width: 18rem;
+    margin-top: 4.5rem;
 
     h2 {
         font-family: 'Dela Gothic One';
-        padding-left: 8px;
+        padding-left: 15px;
         align-self: flex-start;
     }
 

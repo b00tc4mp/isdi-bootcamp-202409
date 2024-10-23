@@ -1,8 +1,7 @@
 .Button {
-    width: '100%';
+    width: 200px;
     box-sizing: 'border-box';
     padding: 5px 40px 5px 40px;
-    background-color: var(--color);
     font-family: 'Dela Gothic One';
     background-color: #2A31FF;
     border-radius: 25px;
@@ -10,9 +9,36 @@
     font-size: large;
     margin-bottom: 1rem;
     color: white;
-    width: 200px;
+    cursor: pointer;
 }
 
 .Button:hover {
     background-color: #0a11cc;
+}
+
+.likes-button {
+    background-color: transparent;
+    font-size: medium;
+}
+
+.header-button {
+    width: 6rem;
+    padding: 5px 0px 5px 0px;
+    background-color: #0a11cc;
+    color: white;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.footer-button {
+    width: 4rem;
+    padding: 5px 0px 5px 0px;
+    background-color: #92FF9D;
+    color: black;
+    margin-top: 1rem;
+}
+
+.header-button:hover,
+.footer-button:hover {
+    background-color: #44d052;
 }

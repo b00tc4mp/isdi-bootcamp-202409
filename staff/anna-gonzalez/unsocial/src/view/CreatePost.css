@@ -1,11 +1,10 @@
-.Register {
+.CreatePost {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 90%;
     box-sizing: border-box;
     background-color: var(--back-color);
-    margin-top: 5rem;
-    padding-bottom: 6rem;
+    color: var(--color);
 }

@@ -7,7 +7,7 @@ class PasswordInput extends Component {
         console.log('PasswordInput -> constructor')
 
         super(props)
-        //state used to control the type of password and the icon showd when click
+
         this.state = { type: 'password', status: '🔐' }
     }
 
