@@ -2,10 +2,9 @@ import uuid from '../data/uuid'
 
 
 // ----- POSTS STUFF ------
-const createPost = (userId, image, text) => {
-    if (typeof userId !== 'string') throw new Error('invalid userId')
-    if (typeof image !== 'string') throw new Error('invalid image')
-    if (typeof text !== 'string') throw new Error('invalid text')
+const createPost = (text, image) => {
+    // if (typeof text !== 'string') throw new Error('invalid text')
+    // if (typeof image !== 'string') throw new Error('invalid image')
 
     const posts = JSON.parse(localStorage.posts)
 
@@ -17,9 +16,10 @@ const createPost = (userId, image, text) => {
         id: uuid(),
         image: image,
         text: text,
-        author: userId,
-        date: `${formattedDate} ${formattedTime}`
+        author: sessionStorage.userId,
+        date: `${formattedDate} ${formattedTime}`,
         //new Date().toLocaleString() //recoge fecha y hora
+        likes: []
     }
 
     posts.push(post)

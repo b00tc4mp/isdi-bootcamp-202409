@@ -1,16 +1,13 @@
 import './Login.css'
 
-import authenticateUser from '../logic/authenticateUser'
-import PasswordInput from '../Components/library/PasswordInput'
-import Input from '../Components/library/Input'
-import Button from '../Components/library/Button'
-import Form from '../Components/library/Form'
-import Field from '../Components/library/Field'
-import Label from '../Components/library/Label'
+import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+
+
+import logic from '../logic'
 
 function Login(props) {
 
-    return <section className="Login">
+    return <main className="Login">
         <h2>Login</h2>
 
         <Form onSubmit={event => {
@@ -26,7 +23,7 @@ function Login(props) {
             } = event
 
             try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                logic.loginUser(username, password)
                 //RESETEO DEL FORMULARIO
                 event.target.reset() // => form.reset()
 
@@ -68,7 +65,7 @@ function Login(props) {
             }}>
             Register</a>
 
-    </section>
+    </main>
 }
 
 export default Login

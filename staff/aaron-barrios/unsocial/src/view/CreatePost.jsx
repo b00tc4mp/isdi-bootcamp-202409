@@ -1,12 +1,9 @@
-import createPost from '../../logic/createPost'
+import logic from '../logic'
 
-import Form from '../library/Form'
-import Label from '../library/Label'
-import Input from '../library/Input'
-import Button from '../library/Button'
+import { PasswordInput, Input, Button, Form, Label } from '../components/library'
 
 function CreatePost(props) {
-    return <div>
+    return <main>
 
         <h3>New Post</h3>
         <Form onSubmit={event => {
@@ -26,7 +23,7 @@ function CreatePost(props) {
             try {
 
                 //LLAMO A LA FUNCION REGISTER USER CON LOS PARAMETROS CAPTURADOS
-                createPost(sessionStorage.loggedInUserId, image, text)
+                logic.createPost(sessionStorage.loggedInUserId, image, text)
 
                 //LE PASO LA FUNCIÓN "registered" DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
                 props.onCreated()
@@ -46,7 +43,7 @@ function CreatePost(props) {
 
             <Button type="submit">Create Post</Button>
         </Form>
-    </div>
+    </main>
 }
 
 export default CreatePost

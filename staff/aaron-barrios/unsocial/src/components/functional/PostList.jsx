@@ -1,53 +1,67 @@
-import getPosts from "../../logic/getPosts"
+import { Component } from 'react'
 
-import Button from "../library/Button"
-import Field2 from '../library/Field2'
+import logic from '../../logic'
 
-function PostList(props) {
-    console.log('PostList -> render')
+import PostItem from './PostItem'
 
-    let posts
 
-    try {
-        posts = getPosts()
-    } catch (error) {
+class PostList extends Component {
 
-        alert(error.message)
+    constructor(props) {
+        console.log('PostList -> render')
 
-        console.error(error)
+        super(props)
+
+        let posts
+
+        try {
+            posts = logic.getPosts()
+        } catch (error) {
+
+            alert(error.message)
+
+            console.error(error)
+        }
+
+        this.state = { posts }
     }
 
-    return <div id="posts">
-        <h3>Posts</h3>
+    render() {
+        return <div id="posts">
+            <h3>Posts</h3>
 
-        {posts.map(post => <article>
-            {sessionStorage.loggedInUserId === post.author.id && <Button type="button"
-                onClick={() => {
+            {this.state.posts.map(post => <PostItem item={post}
+                onDeleted={() => {
 
-                    posts = JSON.parse(localStorage.posts)
+                    try {
+                        const posts = logic.getPosts()
+                        // logic.deletePost()
 
-                    let index = posts.findIndex(element => element.id === post.id)
+                        this.setState({ posts })
+                    } catch (error) {
+                        alert(error.message)
 
-                    posts.splice(index, 1)
+                        console.error(error)
+                    }
 
-                    localStorage.posts = JSON.stringify(posts)
+                }}
+                onLikeClicked={() => {
+                    try {
+                        const posts = logic.getPosts()
 
-                    props.onDeleted()
+                        this.setState({ posts })
 
-                }}>Delete Post</Button>}
+                    } catch (error) {
+                        alert(error.message)
 
-            <h4>Title: {post.text}</h4>
-            <label>Author:{post.author.username}</label>
-            <img src={post.image} style={{ width: '80%', height: '50%' }} />
-            <br />
-            <Field2>
-                <button style={{ marginRight: '260px' }}>❤️</button>
-                <button style={{ marginRight: '250px' }}>+</button>
-            </Field2>
-            <time>{post.date}</time>
-            <p></p>
-        </article>)}
-    </div>
+                        console.error(error)
+                    }
+
+
+                }}
+            />)}
+        </div>
+    }
 }
 
 export default PostList

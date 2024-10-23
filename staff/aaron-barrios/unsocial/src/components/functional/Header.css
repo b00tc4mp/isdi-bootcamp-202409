@@ -1,14 +1,19 @@
 .Header {
     background-color: var(--back-color);
     padding: 1rem;
-    height: 10%;
-    box-sizing: border-box;
+    height: 5%;
+
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
 
     h1 {
         margin: 0;
-        font-size: xx-large;
+        font-size: x-large;
     }
 }

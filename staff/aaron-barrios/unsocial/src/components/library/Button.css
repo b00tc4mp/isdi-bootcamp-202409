@@ -13,3 +13,8 @@
 
     border-radius: 6px;
 }
+
+.Button--light {
+    color: var(--color);
+    background-color: var(--back-color);
+}

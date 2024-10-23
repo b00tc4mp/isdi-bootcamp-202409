@@ -1,27 +1,27 @@
 import { Component } from "react"
 
-import Login from './view/Login'
-import Register from './view/Register'
-import Home from './view/Home'
+import { Login, Register, Home, CreatePost } from './view'
 
-import ProfileData from './Components/functional/ProfileData'
+import { Header, Footer } from './components/functional'
 
-import Header from './Components/functional/Header'
-import Footer from './Components/functional/Footer'
+import ProfileData from './components/functional/ProfileData'
+
+import logic from './logic'
 
 class App extends Component {
   constructor(props) {
+
     super(props)
 
     //PROPIEDAD ESTADO QUE NOS CHIVA LA QUE SE VE DE ENTRADA
-    this.state = sessionStorage.loggedInUserId ? { view: 'home' } : { view: 'login' }
+    this.state = logic.isUserLoggedIn() ? { view: 'home' } : { view: 'login' }
   }
 
   //RENDER DE LAS DIFERENTES PÁGINAS
   render() {
 
     return <>
-      <Header />
+      <Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })} onLoggedOut={() => this.setState({ view: 'login' })} />
 
       {
         this.state.view === 'login'
@@ -34,12 +34,11 @@ class App extends Component {
         && <Register
           registered={() => this.setState({ view: 'login' })} />
       }
-      {
-        this.state.view === 'home'
-        && <Home
-          logout={() => this.setState({ view: 'login' })}
-          profileAct={() => this.setState({ view: 'profile' })} />
-      }
+      {this.state.view === 'home'
+        && <Home />}
+
+      {this.state.view === 'new-post' && <CreatePost
+        onCreated={() => this.setState({ view: 'home' })} />}
 
       {
         this.state.view === 'profile'
@@ -47,7 +46,8 @@ class App extends Component {
           home={() => this.setState({ view: 'home' })} />
       }
 
-      <Footer />
+
+      <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
     </>
   }
 }

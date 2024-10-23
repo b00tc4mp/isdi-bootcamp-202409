@@ -1,9 +1,12 @@
 import './Footer.css'
 
-function Footer() {
-    return <footer className="Footer">
+// import { Button } from '../library'
 
-        <h3>hola footer</h3>
+function Footer({ onNewPostClick, view }) {
+    return <footer className="Footer">
+        {view === 'home' &&
+            <button type="button" onClick={onNewPostClick}>+</button>}
+
     </footer>
 }
 

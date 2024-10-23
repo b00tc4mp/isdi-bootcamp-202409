@@ -1,5 +1,6 @@
 .Field2 {
     display: flex;
+    align-items: flex-start;
     flex-direction: row;
     gap: .5rem;
 }

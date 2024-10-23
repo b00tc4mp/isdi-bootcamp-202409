@@ -1,17 +1,13 @@
-import './Register.css'
+import logic from '../logic'
 
-import registerUser from '../logic/registerUser'
-import PasswordInput from '../components/library/PasswordInput'
-import Input from '../components/library/Input'
-import Button from '../components/library/Button'
-import Form from '../components/library/Form'
-import Field from '../components/library/Field'
-import Label from '../components/library/Label'
+import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+
+import './Register.css'
 
 
 function Register(props) {
 
-    return <section className="Register">
+    return <main className="Register">
         <h2>Register</h2>
 
         <Form onSubmit={event => {
@@ -34,7 +30,7 @@ function Register(props) {
             try {
 
                 //LLAMO A LA FUNCION REGISTER USER CON LOS PARAMETROS CAPTURADOS
-                registerUser(name, email, username, password, passwordRepeat)
+                logic.registerUser(name, email, username, password, passwordRepeat)
 
                 //RESETEO DEL FORMULARIO
                 form.reset() // => form.reset()
@@ -84,7 +80,7 @@ function Register(props) {
 
                 props.registered()
             }}>Login</a>
-    </section>
+    </main>
 }
 
 export default Register

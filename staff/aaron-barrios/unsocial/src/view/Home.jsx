@@ -1,11 +1,11 @@
 import { Component } from "react"
 import './Home.css'
 
-import getUserName from '../logic/getUserName'
-import PostList from '../Components/functional/PostList'
-import CreatePost from '../components/functional/CreatePost'
-import ProfileData from '../Components/functional/ProfileData'
-import Button from '../Components/library/Button'
+import PostList from "../components/functional/PostList"
+import CreatePost from './CreatePost'
+import ProfileData from '../components/functional/ProfileData'
+import Button from '../components/library/Button'
+
 
 class Home extends Component {
     constructor(props) {
@@ -13,27 +13,12 @@ class Home extends Component {
 
         super(props)
 
-        let name
-
-        try {
-
-            name = getUserName(sessionStorage.loggedInUserId)
-
-        } catch (error) {
-
-            alert(error.message)
-
-            console.error(error)
-        }
-
-        this.state = { name: name, view: 'list' }
+        this.state = { view: 'list' }
     }
 
     render() {
 
-        return <section className="Home">
-
-            <h2>Home</h2>
+        return <main className="Home">
 
             {/* <a href="" className="prof"
                 onClick={event => {
@@ -42,32 +27,13 @@ class Home extends Component {
                 }}
             > Profile </a> */}
 
-            <h3>Hello, {this.state.name}!</h3>
-
-            <Button type="button"
-                onClick={() => {
-
-                    delete sessionStorage.loggedInUserId
-
-                    this.props.logout()
-                }}>Logout</Button>
-            <p></p>
 
             {this.state.view === 'list' &&
                 <PostList onDeleted={() => this.setState({ view: 'list' })} />}
 
-            {this.state.view === 'new' &&
-                <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
-
             {this.state.view === 'profile' &&
                 <ProfileData />}
-
-            <Button type="button"
-                onClick={() => this.setState({ view: 'new' })}>+</Button>
-
-        </section >
+        </main >
     }
-
 }
-
 export default Home
