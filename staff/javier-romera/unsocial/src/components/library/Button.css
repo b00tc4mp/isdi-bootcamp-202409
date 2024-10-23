@@ -1,0 +1,9 @@
+.Button {
+    color: var(--color);
+    font-family: var(--font);
+    background-color: var(--back-color);
+    border-bottom: 1px solid #545454;
+    border-right: 1px solid #545454;
+    padding: 5px;
+    width: 125px;
+}

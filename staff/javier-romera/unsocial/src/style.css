@@ -2,8 +2,10 @@
 
 :root {
     --color: #00FE00;
+    --back-color: black;
     --font: 'Sixtyfour';
     font-family: var(--font);
+    height: 100%;
 }
 
 body {
@@ -12,59 +14,19 @@ body {
     text-align: center;
     justify-content: center;
     align-items: center;
-    justify-content: center;
     background-color: black;
     color: var(--color);
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
-section,
-article,
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#root {
+    height: 100%;
+    width: 100%;
 }
 
-input {
-    color: var(--color);
-    background-color: inherit;
-    font-family: inherit;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-a:visited {
-    color: var(--color);
-}
-
-h1 {
-    margin-bottom: 10px;
-}
-
-h2 {
-    margin-bottom: 30px;
-}
-
-a {
-    margin-top: 20px;
-}
-
-label,
-input,
-button {
-    display: block;
-}
-
-button {
-    background-color: black;
-    color: var(--color);
-    font-family: var(--font);
-    padding: 5px;
-    border-bottom: 1px solid #545454;
-    border-right: 1px solid #545454
-}
-
-#up {
+/* #up {
     margin-top: 50px;
     margin-bottom: 10px;
 }
@@ -78,4 +40,4 @@ button {
 .lock {
     position: absolute;
     cursor: pointer;
-}
+} */

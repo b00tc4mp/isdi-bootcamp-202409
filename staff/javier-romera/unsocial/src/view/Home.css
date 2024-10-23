@@ -1,0 +1,23 @@
+.Home {
+    margin-top: 15%;
+    padding-bottom: 10%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: var(--back-color);
+
+    h3 {
+        padding: 1rem 0 1rem 0;
+        margin: 0;
+    }
+
+    .logout-button {
+        width: 95px;
+        margin-bottom: 5px;
+    }
+
+    .create-button {
+        width: 25px;
+    }
+}

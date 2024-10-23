@@ -1,8 +1,12 @@
+import './Home.css'
+
 import { Component } from 'react'
 
-import getUserName from '../logic/getUserName'
+import logic from '../logic'
+
 import PostList from '../components/functional/PostList'
 import CreatePost from '../components/functional/CreatePost'
+import Button from '../components/library/Button'
 
 class Home extends Component {
     constructor(props) {
@@ -11,7 +15,7 @@ class Home extends Component {
         let name
 
         try {
-            name = getUserName(sessionStorage.loggedInUserId)
+            name = logic.getUserName(sessionStorage.loggedInUserId)
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -20,22 +24,20 @@ class Home extends Component {
         this.state = { name: name, view: 'list' }
     }
     render() {
-        return <section>
-            <h2>Home</h2>
-
+        return <main className="Home">
             <h3>Welcome, {this.state.name}!</h3>
 
-            <button type="button" onClick={() => {
-                delete sessionStorage.loggedInUserId
+            <Button type="button" classname="logout-button" onClick={() => {
+                logic.logoutUser()
 
                 this.props.onLoggedOut()
-            }}>Logout</button>
-            <button type="button"
-                onClick={() => this.setState({ view: 'new' })}>+</button>
+            }}>Logout</Button>
+            <Button classname="create-button" type="button"
+                onClick={() => this.setState({ view: 'new' })}>+</Button>
 
             {this.state.view === 'list' && <PostList onDeletedPost={() => this.setState({ view: 'list' })} />}
             {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
-        </section>
+        </main>
     }
 }
 

@@ -1,16 +1,25 @@
-import authenticateUser from '../logic/authenticateUser'
+import './Login.css'
+
+import logic from '../logic'
+
+import Anchor from '../components/library/Anchor'
+import Form from '../components/library/Form'
+import Label from '../components/library/Label'
+import Input from '../components/library/Input'
+import Field from '../components/library/Field'
+import Button from '../components/library/Button'
 
 function Login(props) {
-    return <section>
+    return <main className="Login">
         <h2>Login</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                logic.loginUser(username, password)
 
                 event.target.reset()
 
@@ -21,20 +30,24 @@ function Login(props) {
                 event.target.password.value = ""
             }
         }}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username"></input>
+            <Field>
+                <Label htmlFor="username">Username</Label>
+                <Input type="text" id="username"></Input>
+            </Field>
 
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password"></input>
+            <Field>
+                <Label htmlFor="password">Password</Label>
+                <Input type="password" id="password"></Input>
+            </Field>
 
-            <button type="submit">Login</button>
-        </form>
-        <a href="" onClick={event => {
+            <Button type="submit" classname="login-button">Login</Button>
+        </Form>
+        <Anchor href="" onClick={event => {
             event.preventDefault()
 
             props.onRegisterClick()
-        }}>Register</a>
-    </section>
+        }}>Register</Anchor>
+    </main>
 }
 
 export default Login

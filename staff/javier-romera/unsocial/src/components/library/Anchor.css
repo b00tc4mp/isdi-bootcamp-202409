@@ -1,0 +1,7 @@
+.Anchor {
+    margin-top: 0.25rem;
+}
+
+.Anchor:visited {
+    color: var(--color);
+}

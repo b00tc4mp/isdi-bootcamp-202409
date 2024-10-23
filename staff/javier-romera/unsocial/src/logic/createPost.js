@@ -12,7 +12,8 @@ const createPost = (userId, image, text) => {
         image: image,
         text: text,
         author: userId,
-        date: new Date
+        date: new Date,
+        likedBy: []
     }
 
     posts.push(post)

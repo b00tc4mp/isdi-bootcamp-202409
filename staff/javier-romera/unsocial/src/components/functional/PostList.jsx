@@ -1,31 +1,39 @@
-import getPosts from '../../logic/getPosts'
-import deletePost from '../../logic/deletePost'
+import './PostList.css'
+
+import logic from '../../logic'
+
+import LikeButton from '../library/LikeButton'
+import Button from '../library/Button'
 
 function PostList(props) {
     let posts
 
     try {
-        posts = getPosts()
+        posts = logic.getPosts()
     } catch (error) {
         alert(error.message)
         console.error(error)
     }
 
-    return <div>
+    return <section className="PostList">
         <h3>Posts</h3>
 
         {posts.map(post => <article>
             <h4>{post.author.username}</h4>
-            <img src={post.image} style={{ width: '100%' }} />
+            <img src={post.image} />
+            <div>
+                <LikeButton id={sessionStorage.loggedInUserId} post={post} />
+            </div>
             <p>{post.text}</p>
             <time>{post.date}</time>
-            {sessionStorage.loggedInUserId === post.author.id && <button type="button" onClick={() => {
-                deletePost(post)
+            <p className="comments-p">View comments..</p>
+            {sessionStorage.loggedInUserId === post.author.id && <Button type="button" classname="delete-button" onClick={() => {
+                logic.deletePost(post)
 
                 props.onDeletedPost()
-            }}>Delete Post</button>}
+            }}>Delete Post</Button>}
         </article>)}
-    </div>
+    </section>
 }
 
 export default PostList

@@ -16,7 +16,7 @@ const authenticateUser = (username, password) => {
         throw new Error('cagaste')
     }
 
-    return user.id
+    sessionStorage.loggedInUserId = user.id
 }
 
 export default authenticateUser
