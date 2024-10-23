@@ -4,47 +4,22 @@ html {
     --color: rgb(184, 129, 184);
     --font: 'Sixtyfour';
     font-family: var(--font);
+    height: 100%;
 }
 
 body {
     background-color: rgb(63, 61, 61);
     color: var(--color);
-}
-
-h1 {
-    margin-top: 25px;
-    padding-top: 100px;
-    padding-bottom: 50px;
-    text-align: center;
-}
-
-input {
-    background-color: inherit;
-    font-family: inherit;
-    color: antiquewhite;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin:0;
+    height: 100%;
 }
 
 a:visited {
     color: var(--color);
 }
 
-button {
-    background-color: grey;
-    font-family: inherit;
-    color: white;
-    border-radius: 10%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-section {
-    border: solid white;
-    border-width: 2px;
-    padding: 5px;
-    text-align: center;
-  
+#root {
+    height: 100%;
 }
 
 .message {

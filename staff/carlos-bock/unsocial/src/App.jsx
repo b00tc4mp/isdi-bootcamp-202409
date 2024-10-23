@@ -1,12 +1,11 @@
 import { Component } from 'react'
 
-import Login from './view/Login'
-import Register from './view/Register'
-import Home from './view/Home'
+import {Login, Register, Home, CreatePost} from './view'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
 
+import logic from './logic'
 
 class App extends Component {
   constructor(props) {
@@ -14,14 +13,14 @@ class App extends Component {
 
     super(props)
 
-    this.state = {view: 'login'}
+    this.state = {view: logic.isUserLoggedIn() ? 'home': 'login'}
   }
 
   render() {
     console.log('App -> render')
-    //removed div wrapper from return and left and empty wrapper
+
     return <>
-      <Header/>
+      <Header view={this.state.view} onHomeClick={()=> this.setState({view:'home'})} onLoggedOut ={() => this.setState({view:'login'})} />
 
       {this.state.view === 'login' && <Login
         onLoggedIn={() => this.setState({view:'home'})}
@@ -31,52 +30,13 @@ class App extends Component {
         onLoginClick={() => this.setState({view:'login'})}  
         onRegistered={() => this.setState({view:'login'})}
       />}
-      {this.state.view === 'home' && <Home onLoggedOut={() => this.setState({ view:'login'})} />}
-      <Footer/>
+      {this.state.view === 'home' && <Home />}
+
+      {this.state.view === 'new-post' && <CreatePost onCreated ={ () => this.setState({view: 'home'})}/>}
+
+      <Footer onNewPostClick={() => this.setState({view: 'new-post'})} view= {this.state.view}/>
     </>
   }
 }
 
 export default App
-
-//////////////////
-
-
-
-/*
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
-*/
