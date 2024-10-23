@@ -48,11 +48,11 @@ function Login(props) {
             <Button type="submit">Login</Button>
         </Form>
 
-        <a href="" onClick={event => {
+        <Anchor href="" onClick={event => {
             event.preventDefault()
 
             props.onRegisterClick()
-        }}>Register</a>
+        }}>Register</Anchor>
     </section>
 }
 

@@ -2,8 +2,6 @@ const getPosts = () => {
     const users = JSON.parse(localStorage.users)
     const posts = JSON.parse(localStorage.posts)
 
-    const { userID } = seesionStorage
-
     posts.forEach(post => {
         const { author: authorId } = post
 
@@ -13,11 +11,9 @@ const getPosts = () => {
 
         //post.author = { id: authorId, username: username }
         post.author = { id: authorId, username }
-
-        post.liked = post.likes.includes(userID)
     })
 
     return posts.toReversed()
 }
- 
+
 export default getPosts
