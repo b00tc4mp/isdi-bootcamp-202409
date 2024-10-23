@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap');
+
+:root {
+    --color: black;
+    --balc-color: white;
+    --font: "Fontdiner Swanky", serif;
+    font-family: var(--font);
+    height: 100%;
+}
+
+body {
+    background-color: var(--balc-color);
+    color: var(--color);
+    height: 100%;
+    margin: 0;
+}
+
+#root {
+    height: 100%;
+}
+
+a:hover {
+    color: black;
+}
