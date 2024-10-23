@@ -1,9 +1,6 @@
 import uuid from '../data/uudi'
 
-const createPost = (userNameId, image, text) => {
-    if (typeof userNameId !== 'string')
-        throw new Error('invalid username')
-
+const createPost = (image, text) => {
     //// Validate image input (assuming it's a URL or string, or can be any truthy value)
     if (typeof image !== 'string')
         throw new Error('Invalid image');
@@ -17,7 +14,7 @@ const createPost = (userNameId, image, text) => {
         id: uuid(),
         image: image,
         text: text,
-        username: userId,
+        author: sessionStorage.userId,
         date: new Date
     }
 

@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import Input from './PasswordInput'
+import Input from './Input'
 
 class PasswordInput extends Component {
     constructor(props) {
