@@ -1,8 +1,9 @@
 import Logo from '../../images/users-avatar.png'
 import './Header.css'
 import logic from '../../logic'
+import { Button } from '../biblio'
 
-function Header({ onLoggedOut }) {
+function Header({ view, onHomeClick, onLoggedOut }) {
   let name
   let username
 
@@ -18,17 +19,17 @@ function Header({ onLoggedOut }) {
 
   return (
     <header className="Header">
-      <div className='logo-container'>
+      <div onClick={onHomeClick} className='logo-container'>
         <img className="logo" src={Logo} />
         <h1>unSocial</h1>
       </div>
 
       {logic.isUserLoggedIn() && <h3>{username}</h3>}
 
-      {logic.isUserLoggedIn() && <button id="btn-logout" type="button" onClick={event => {
+      {logic.isUserLoggedIn() && <Button id="btn-logout" type="button" onClick={event => {
         event.preventDefault()
         onLoggedOut()
-      }}>Logout</button>}
+      }}>Logout</Button>}
 
     </header>
   )

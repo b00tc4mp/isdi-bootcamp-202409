@@ -1,6 +1,6 @@
-.Login {
+.CreatePost {
   background-color: rgb(255, 255, 255);
-  padding: 10% 20px 20px 20px;
+  padding: 15% 20px 0px 20px;
   margin: 0;
   height: 100%;
   display: flex;
@@ -9,13 +9,13 @@
 }
 
 @media (min-width: 700px) {
-  .Login {
+  .CreatePost {
     width: 500px;
   }
 }
 
 @media (max-width: 700px) {
-  .Login {
+  .CreatePost {
     width: 250px;
   }
 }

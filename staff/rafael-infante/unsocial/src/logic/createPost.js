@@ -1,7 +1,6 @@
 import uuid from "../data/uuid"
 
-const createPost = (userId, image, text) => {
-  if (typeof userId !== 'string') throw new Error
+const createPost = (image, text) => {
   if (typeof image !== 'string') throw new Error
   if (typeof text !== 'string') throw new Error
 
@@ -11,7 +10,7 @@ const createPost = (userId, image, text) => {
     id: uuid(),
     image: image,
     text: text,
-    author: userId,
+    author: sessionStorage.loggedUserId,
     date: new Date
   }
 

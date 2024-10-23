@@ -11,6 +11,25 @@
   align-self: center;
 }
 
+#btn-logout {
+  padding: 5px;
+  margin-right: 5px;
+  font-size: 0.7em;
+  font-weight: normal;
+}
+
+#btn-post {
+  color: white;
+  padding: 0;
+  margin: 0;
+  padding: 3px;
+}
+
+#btn-post:hover {
+  color: black;
+  border: solid black;
+}
+
 .Button:hover {
   color: black;
   background-color: #e7cc79;

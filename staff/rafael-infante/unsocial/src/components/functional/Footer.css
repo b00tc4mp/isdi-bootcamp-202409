@@ -6,6 +6,7 @@
   justify-content: space-around;
   position: fixed;
   bottom: 0;
+  height: 5%;
 }
 
 .Footer>button {
@@ -13,6 +14,14 @@
   border: solid black 3px;
   font-size: 1.1em;
   border-radius: 10px;
+}
+
+i {
+  cursor: pointer;
+}
+
+i:hover {
+  color: wheat;
 }
 
 @media (min-width: 700px) {

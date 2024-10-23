@@ -1,12 +1,15 @@
 import './Footer.css'
-import Button from '../biblio/Button'
+import logic from '../../logic'
+import { Button } from '../biblio'
 
-function Footer() {
+function Footer({ onHomeClick, onNewPostClick }) {
   return (
+
     <footer className="Footer">
-      <a href=''><i class="fa-solid fa-house"></i></a>
-      <button><i class="fa-solid fa-plus"></i></button>
-      <a><i class="fa-solid fa-user"></i></a>
+      {logic.isUserLoggedIn() && <i onClick={onHomeClick} class="fa-solid fa-house"></i>}
+      {logic.isUserLoggedIn() && <Button onClick={onNewPostClick} id="btn-post"><i class="fa-solid fa-plus"></i></Button>}
+      {logic.isUserLoggedIn() && <i class="fa-solid fa-user"></i>}
+
     </footer>
   )
 }
