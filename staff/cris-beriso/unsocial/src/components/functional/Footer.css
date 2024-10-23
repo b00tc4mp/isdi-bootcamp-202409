@@ -1,5 +1,11 @@
 .Footer {
   height: 5%;
   box-sizing: border-box;
-  width: auto;
+  width: 100%;
+
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

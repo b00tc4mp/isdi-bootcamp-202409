@@ -1,6 +1,6 @@
-import createPost from '../../logic/createPost'
+import logic from '../logic'
 
-function CreatePost(props) {
+function CreatePost({ onCreated }) {
   console.log('CreatePost -> render')
 
   return <div>
@@ -17,9 +17,9 @@ function CreatePost(props) {
       } = form
 
       try {
-        createPost(sessionStorage.loggedInUserId, image, text)
+        logic.createPost(image, text)
 
-        props.onCreated()
+        onCreated()
       } catch (error) {
         alert(error.message)
 

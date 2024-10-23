@@ -12,6 +12,7 @@ import uuid from '../data/uuid'
  * @param {string} passwordRepeat 
  */
 const registerUser = (name, email, username, password, passwordRepeat) => {
+  if (typeof name !== 'string') throw new Error('invalid name')
   if (name.length < 2)
     throw new Error('invalid name')
 
@@ -24,6 +25,7 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
   if (password.length < 8)
     throw new Error('invalid password')
 
+  if (typeof passwordRepeat !== 'string') throw new Error('invalid password repeat')
   if (password !== passwordRepeat)
     throw new Error('passwords do not match')
 

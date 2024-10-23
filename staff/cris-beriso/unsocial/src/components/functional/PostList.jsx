@@ -1,41 +1,46 @@
+import { Component } from 'react'
+
+import PostItem from './PostItem'
+
 import getPosts from '../../logic/getPosts'
 
-function PostList(props) {
-  console.log('PostList -> render')
+import './PostList'
 
-  let posts
+class PostList extends Component {
+  constructor(props) {
+    console.log('PostList -> render')
 
-  try {
-    posts = getPosts()
-  } catch (error) {
-    alert(error.message)
+    super(props)
 
-    console.error(error)
+    let posts
+
+    try {
+      posts = getPosts()
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+    this.state = { posts }
   }
 
-  return <div>
-    <h3>Posts</h3>
+  render() {
+    return <>
+      <h3>Posts</h3>
 
-    {posts.map(post => <article>
-      <h4>{post.author.username}</h4>
-      <img src={post.image} style={{ width: '100%' }} />
-      <p>{post.text}</p>
-      <time>{post.date}</time>
-      {sessionStorage.loggedInUserId === post.author.id && <button type="button" onClick={() => {
+      {this.state.posts.map(post => <PostItem item={post} onLikeClicked={() => {
+        try {
+          const posts = getPosts()
 
-        posts = JSON.parse(localStorage.posts)
+          this.setState({ posts })
+        } catch (error) {
+          alert(error.message)
 
-        let index = posts.findIndex(element => element.id === post.id)
-
-        posts.splice(index, 1)
-
-        localStorage.posts = JSON.stringify(posts)
-        props.onDeleted()
-      }}>Delete</button>
-      }
-
-    </article>)}
-  </div>
+          console.error(error)
+        }
+      }} />)}
+    </>
+  }
 }
 
 export default PostList
