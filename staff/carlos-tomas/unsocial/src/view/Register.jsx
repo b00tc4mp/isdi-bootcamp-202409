@@ -1,13 +1,21 @@
+import './Register.css'
+
+
 import registerUser from '../logic/registerUser'
 import PasswordInput from '../components/library/PasswordInput'
+import Form from '../components/library/Form'
+import Label from '../components/library/Label'
+import Input from '../components/library/Input'
+import Button from '../components/library/Button'
+import Field from '../components/library/Field'
 
 function Register(props) {
     console.log('Register -> render')
 
-    return <section>
+    return <section className='Register'>
         <h2>Register</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: form } = event
@@ -32,23 +40,32 @@ function Register(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="name">Name</Label>
+                <Input type="text" id="name" />
+            </Field>
+            <Field>
+                <Label htmlFor="email">E-mail</Label>
+                <Input type="email" id="email" />
+            </Field>
 
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="username">Username</Label>
+                <Input type="text" id="username" />
+            </Field>
 
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="password">Password</Label>
+                <PasswordInput id="password" />
+            </Field>
 
-            <label htmlFor="password">Password</label>
-            <PasswordInput id="password" />
+            <Field>
+                <Label htmlFor="password-repeat">Repeat Password</Label>
+                <PasswordInput id="password-repeat" />
+            </Field>
 
-            <label htmlFor="password-repeat">Repeat Password</label>
-            <PasswordInput id="password-repeat" />
-
-            <button type="submit">Register</button>
-        </form>
+            <Button type="submit">Register</Button>
+        </Form>
 
         <a href="" onClick={event => {
             event.preventDefault()

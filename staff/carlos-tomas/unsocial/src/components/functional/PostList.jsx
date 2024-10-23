@@ -1,4 +1,8 @@
+import './PostList.css'
+
 import getPosts from '../../logic/getPosts'
+import LikeUser from '../library/Likes'
+import Button from '../library/Button'
 
 function PostList(props) {
     console.log('PostList -> render')
@@ -13,13 +17,13 @@ function PostList(props) {
         console.error(error)
     }
 
-    return <div>
+    return <div className='PostList'>
         <h3>Posts</h3>
 
-        {posts.map(post => <article>
+        {posts.map(post => <article className='PostList'>
             <h4>{post.author.username}</h4>
-            <img src={post.image} style={{ width: '100%' }} />
-            {sessionStorage.loggedInUserId === post.author.id && <button type="button" onClick={() => {
+            <img src={post.image} style={{ width: '90%', margin: '5px' }} />
+            {sessionStorage.loggedInUserId === post.author.id && <Button type="button" onClick={() => {
                 posts = JSON.parse(localStorage.posts)
 
                 let index = posts.findIndex(element => element.id === post.id)
@@ -30,7 +34,9 @@ function PostList(props) {
 
                 props.onDeleted()
 
-            }} >Delete post </button>}
+            }} >Delete post </Button>}
+            <LikeUser />
+
 
             <p>{post.text}</p>
             <time>{post.date}</time>

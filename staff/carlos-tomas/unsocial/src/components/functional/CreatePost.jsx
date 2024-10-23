@@ -1,12 +1,20 @@
+import './CreatePost.css'
+
 import createPost from '../../logic/cratePost'
+
+import Label from '../library/Label'
+import Input from '../library/Input'
+import Form from '../library/Form'
+import Field from '../library/Field'
+import Button from '../library/Button'
 
 function CreatePost(props) {
     console.log('CreatePost -> render')
 
-    return <div>
+    return <div className='CreatePost'>
         <h3>Create Post</h3>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: form } = event
@@ -26,14 +34,16 @@ function CreatePost(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="image">Image</label>
-            <input type="text" id="image" style={{ width: '100%', boxSizing: 'border-box' }} />
-
-            <label htmlFor="text">Text</label>
-            <input type="text" id="text" style={{ width: '100%', boxSizing: 'border-box' }} />
-
-            <button type="submit">Create</button>
-        </form>
+            <Field>
+                <Label htmlFor="image">Image</Label>
+                <Input type="text" id="image" />
+            </Field>
+            <Field>
+                <Label htmlFor="text">Text</Label>
+                <Input type="text" id="text" />
+            </Field>
+            <Button type="submit">Create</Button>
+        </Form>
     </div>
 }
 

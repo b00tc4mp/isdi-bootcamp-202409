@@ -1,51 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap');
 
 :root {
-    --color: dodgerblue;
+    --color: black;
+    --balc-color: white;
     --font: "Fontdiner Swanky", serif;
     font-family: var(--font);
+    height: 100%;
 }
 
 body {
-    background-color: #94FA50;
-    text-align: center;
-    width: 100%;
-    height: 100vh;
+    background-color: var(--balc-color);
+    color: var(--color);
+    height: 100%;
     margin: 0;
 }
 
-.login {
-    margin-top: 100px;
+#root {
+    height: 100%;
 }
 
-.register {
-    margin-top: 100px;
-}
-
-input {
-    background-color: inherit;
-    font-family: inherit;
-    width: 20px;
-    border-radius: 10px;
-    background-color: white;
-}
-
-a:visited {
+a:hover {
     color: black;
-}
-
-form {
-    max-width: 500px;
-    min-width: 300px;
-    margin: 0 auto;
-}
-
-
-legend {}
-
-fieldset {
-    background-color: white;
-    border-radius: 15px;
-    border-color: black;
-
 }

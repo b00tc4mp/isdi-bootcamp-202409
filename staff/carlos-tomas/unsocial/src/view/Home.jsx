@@ -1,8 +1,12 @@
+import './Home.css'
+
 import { Component } from 'react'
 
 import getUserName from '../logic/getUserName'
 import PostList from '../components/functional/PostList'
 import CreatePost from '../components/functional/CreatePost'
+import Button from '../components/library/Button'
+import Field from '../components/library/Field'
 
 class Home extends Component {
     constructor(props) {
@@ -26,17 +30,18 @@ class Home extends Component {
     render() {
         console.log('Home -> render')
 
-        return <section>
+        return <section className='Home'>
             <h2>Home</h2>
 
             <h3>Hello, {this.state.name}!</h3>
-            <button type="button" onClick={() => {
-                delete sessionStorage.loggedInUserId
+            <Field>
+                <Button type="button" onClick={() => {
+                    delete sessionStorage.loggedInUserId
 
-                this.props.onLoggedOut()
-            }}>Logout</button>
-            <button type="button" onClick={() => this.setState({ view: 'new' })}>➕</button>
-
+                    this.props.onLoggedOut()
+                }}>Logout</Button>
+                <Button type="button" onClick={() => this.setState({ view: 'new' })}>➕</Button>
+            </Field>
             {this.state.view === 'list' && <PostList onDeleted={() => this.setState({ view: "list" })} />}
             {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
         </section>
