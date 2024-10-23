@@ -34,10 +34,6 @@ body {
     height: 100%;
 }
 
-label {
-    color: var(--white);
-}
-
 h1,
 h2,
 h3,
@@ -47,25 +43,10 @@ h4 {
 }
 
 p {
-    font-size: 1.2em;
-    text-align: center;
-    line-height: 1.3em;
-    color: var(--white);
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-input {
-    margin-bottom: 15px;
-    padding: 10px;
     font-size: 1.1em;
-    border: 1px solid var(--white);
-    border-radius: 5px;
-    font: inherit;
+    text-align: center;
+    line-height: 1.1em;
+    color: var(--white);
 }
 
 

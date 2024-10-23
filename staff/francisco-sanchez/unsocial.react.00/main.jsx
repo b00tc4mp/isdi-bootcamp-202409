@@ -37,7 +37,7 @@ class PasswordInput extends Component {
 function Login(props) {
     console.log('Login -> render')
     {
-        if (sessionStorage.loggedInUserId !== undefined)
+        if (sessionStorage.UserId !== undefined)
             props.onLoggedIn()
     }
 
@@ -50,7 +50,7 @@ function Login(props) {
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                sessionStorage.loggedInUserIdUserId = authenticateUser(username, password)
                 //loggedInUser = authenticateUser(username, password)
 
                 event.target.reset()
@@ -154,8 +154,8 @@ class Home extends Component {
 
         try {
             //name = getUserName(loggedInUser.id)
-            console.log("Sesion en la carga de la home: " + sessionStorage.loggedInUserId)
-            name = getUserName(sessionStorage.loggedInUserId)
+            console.log("Sesion en la carga de la home: " + sessionStorage.UserId)
+            name = getUserName(sessionStorage.UserId)
 
         } catch (error) {
             alert(error.message)

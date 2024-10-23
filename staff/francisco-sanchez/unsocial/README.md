@@ -10,39 +10,50 @@
 
 ## **23/10/2024**
 
+COSAS QUE NO ME FUNCIONAN
+-------------------------
+
+- Lógica que mantiene la sesión iniciada
+- La gestión de la cabecera
+    - Nombre del usuario
+    - Botón de new post 
+    - Y creo que me he cargado el boton de logout
+---------------------------
+
 En la clase de hoy implementaremos funcionallidades a la aplicación. 
 
  OK - Forzamos el footer fijado al final de la página con position fixed y bottom: 0
-    - Consecuentemente tenemos que empujar las vistas
+ OK   - Consecuentemente tenemos que empujar las vistas
 
-- En home, register y login,  modificamos 'section' por 'home'
+OK - En home, register y login,  modificamos 'section' por 'main'
 
-- Fijamos el header arriba con position: fixed y bottom 0 "creo"
+OK - Fijamos el header arriba con position: fixed y bottom 0.
 
-- Al poner el menú fijo deberemos verificar las alturas de las ventanas principales. (Hay que jugar con los margins y los paddings)
+OK - Al poner el menú fijo deberemos verificar las alturas de las ventanas principales. (Hay que jugar con los margins y los paddings)
 
-- Implementamos una lógica para mantener la sesión iniciada 
+OK - Implementamos una lógica para mantener la sesión iniciada 
 
-    - Creamos una nueva función en logic (isUserLoggedIn)
-    - Y la llamamos desde App en el mismo sitio dónde lo teniamos
-    - También lo añadimos en el apartado de login
-    - OJO! que le cambia el nombre a la variable del sessionStorage
+   OK - Creamos una nueva función en logic (isUserLoggedIn)
+   OK - Y la llamamos desde App en el mismo sitio dónde lo teniamos
+   OK  - También lo añadimos en el apartado de login
+   OK  - OJO! que le cambia el nombre a la variable del sessionStorage
 
 - Nota: Manu ha utilizado el git restore para recuperar la versión del dia anterior
 
-- Modifica la función authenticatelogin.js por loginUser.js
+OK - Modifica la función authenticatelogin.js por loginUser.js
 
-- REVISAR!!!! Ha modificado las logicas dentro de logic para mejorar la semantica de la aplicación. Revisar todas! 
 
-- Añadimos un contexto a la logica para mejorar la comprensibilidad, para ello lo encierra todo dentro de un objeto.
+OK - REVISAR!!!! Ha modificado las logicas dentro de logic para mejorar la semantica de la aplicación. Revisar todas! 
 
-    - Creamos un objeto que regule todas las logicas (index.js)
-        - WIP - Aquí añadimos los imports de todas las logicas
-        - Una ves vez hecho crea un objeto que los incluye todos 
+OK - Añadimos un contexto a la logica para mejorar la comprensibilidad, para ello lo encierra todo dentro de un objeto.
+
+  OK  - Creamos un objeto que regule todas las logicas (index.js)
+    OK    - WIP - Aquí añadimos los imports de todas las logicas
+    OK    - Una ves vez hecho crea un objeto que los incluye todos 
         - Cambia todas las llamadas en el programa: ""logic.la_llamada_que_sea""
 
 - Modificamos el botón de create post, lo quitamos de la vista principal y la pone en el footer
-    - El createPost.jsx lo pasamos a view (A partir de ahora será una vista) ¿?¿?¿?¿?¿?¿?¿?¿
+    OK - El createPost.jsx lo pasamos a view (A partir de ahora será una vista) ¿?¿?¿?¿?¿?¿?¿?¿
     - El createPost ya no recibe el idUser
     - Quita el botón de createPost de la home
     - En CreatePost ya no nos hará falta el props
@@ -56,7 +67,7 @@ En la clase de hoy implementaremos funcionallidades a la aplicación.
     >
     >  .Button--light{} (para el invertido)
 
-    - Hace una lógica en la llamadaa a la función del botón para mostrarlo en caro o oscuro depende de la situación. 
+    - Hace una lógica en la llamada a la función del botón para mostrarlo en claro o oscuro depende de la situación. 
 
 - En este punto la nueva vista create post ya debería funcionar, pero tenemos mucho que arreglar
 

@@ -6,4 +6,6 @@
     height: 90%;
     box-sizing: border-box;
     /*background-color: var(--white);*/
+    padding-top: 10%;
+    padding-bottom: 20%;
 }

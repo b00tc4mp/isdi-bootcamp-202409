@@ -1,3 +1,7 @@
+label {
+    color: var(--white);
+}
+
 .Label {
     &::before {
         content: '[';

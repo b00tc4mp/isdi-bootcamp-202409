@@ -11,7 +11,7 @@ import Form from '../components/library/Form'
 
 //Funcion register, que mostrará el formulario de registro
 function Register(props) {
-    return <section className="Register">
+    return <main className="Register">
         <div className="container">
 
             <h2>Register</h2>
@@ -75,7 +75,7 @@ function Register(props) {
                     props.onLoginClick()
                 }}>Login</a>
         </div>
-    </section>
+    </main>
 }
 
 export default Register

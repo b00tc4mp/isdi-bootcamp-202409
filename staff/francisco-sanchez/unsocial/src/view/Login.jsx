@@ -1,23 +1,14 @@
 import './Login.css'
 
-import authenticateUser from '../logic/authenticateUser'
-import PasswordInput from '../components/library/PasswordInput'
+import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
 
-import Input from '../components/library/Input'
-import Button from '../components/library/Button'
-import Form from '../components/library/Form'
-import Field from '../components/library/Field'
-import Label from '../components/library/Label'
+import logic from '../logic'
 
 //Función login, que será nuestra primera pantalla de la aplicación
 function Login(props) {
     console.log('Login -> render')
-    // {
-    //     if (sessionStorage.loggedInUserId !== undefined)
-    //         props.onLoggedIn()
-    // }
 
-    return <section className="Login">
+    return <main className="Login">
         <div className="container">
             <h2>Login</h2>
 
@@ -27,8 +18,7 @@ function Login(props) {
                 const { target: { username: { value: username }, password: { value: password } } } = event
 
                 try {
-                    sessionStorage.loggedInUserId = authenticateUser(username, password)
-                    //loggedInUser = authenticateUser(username, password)
+                    logic.loginUser(username, password)
 
                     event.target.reset()
 
@@ -55,10 +45,11 @@ function Login(props) {
             <a href=""
                 onClick={event => {
                     event.preventDefault()
+
                     props.onNavRegister()
                 }}>Register</a>
         </div>
-    </section>
+    </main>
 }
 
 export default Login

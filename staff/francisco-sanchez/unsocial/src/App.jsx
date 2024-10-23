@@ -1,51 +1,42 @@
 import { Component } from 'react'
 
-import Login from './view/Login'
-import Register from './view/Register' //Puede fallar algo
-import Home from './view/Home'
+import { Login, Register, Home, CreatePost } from './view'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
-import isUserLoggedIn from './logic/isUserLoggedIn'
+
+import logic from './logic'
+
+
 
 //La classe App extiende de component y la declaramos como class porque será dinámica e ira mutando conforme utilicemos la app
 class App extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { view: 'login' }
-
-        this.state = { view: isUserLoggedIn() ? 'home' : 'login' }
-
-        //Logica antigua para mantener la sesión iniciada
-        // if (sessionStorage.loggedInUserId !== undefined) {
-        //     this.state = { view: 'login' }
-        // } else {
-        //     this.state = { view: 'home' }
-        //     console.log(sessionStorage.loggedInUserId)
-        // }
+        this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
     }
 
     render() {
         return <>
-            <Header />
+            <Header view={this.state.view}
+                onHomeClick={() => this.setState({ view: 'home' })}
+                onLoggedOut={() => this.setState({ view: 'login' })} />
 
-            {/* <h1>React v0.0.5</h1> */}
-            {//Evaluación primera && evaluación segunda
-                //Si la primera ya es falsa, ya no evalua la segunda
-                this.state.view === 'login' && <Login
-                    onLoggedIn={() => this.setState({ view: 'home' })}
-                    onNavRegister={() => this.setState({ view: 'register' })} />}
+            {this.state.view === 'login' && <Login
+                onLoggedIn={() => this.setState({ view: 'home' })}
+                onNavRegister={() => this.setState({ view: 'register' })} />}
 
             {this.state.view === 'register' && <Register
                 onLoginClick={() => this.setState({ view: 'login' })}
                 onRegisterClick={() => this.setState({ view: 'login' })} />}
 
-            {this.state.view === 'home' && <Home
-                onLoggedOut={() => this.setState({ view: 'login' })} />}
+            {this.state.view === 'home' && <Home />}
 
+            {this.state.view === 'new-post' && <CreatePost
+                onCreated={() => this.setState({ view: 'home' })} />}
 
-            <Footer />
+            <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
         </>
     }
 }

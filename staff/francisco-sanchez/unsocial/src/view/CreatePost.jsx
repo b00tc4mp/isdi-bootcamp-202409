@@ -1,12 +1,6 @@
-import createPost from "../../logic/createPost"
+import logic from '../logic'
 
-import Input from '../library/Input'
-import Button from '../library/Button'
-import Form from '../library/Form'
-import Field from '../library/Field'
-import Label from '../library/Label'
-
-
+import { Input, Button, Form, Field, Label } from '../components/library'
 
 function CreatePost(props) {
     console.log('Entramos en createPost -> Render')
@@ -29,7 +23,7 @@ function CreatePost(props) {
             //Ahora tratamos de crear el post
             try {
                 //createPost(loggedInUser.id, image, text)
-                createPost(sessionStorage.loggedInUserId, image, text)
+                logic.createPost(image, text)
                 props.onCreated()
             } catch (error) {
                 alert(error.message)
