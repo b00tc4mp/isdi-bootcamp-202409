@@ -1,85 +1,117 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
-html {
-    /* background-image: url(https://img.freepik.com/vector-gratis/textura-malla-linea-cuadricula-geometrica-abstracta-fondo-blanco_1017-54597.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid); */
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    margin: 0%;
-    padding: 0%;
-    height: 100%;
-    color: antiquewhite;
-    flex-direction: column;
-}
-
 :root {
-    --color: rgb(211, 211, 211);
-    --font: 'Bangers';
-    font-family: var(--font);
-    font-size: 25px;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 15px 10px;
+    font-family: 'Bangers';
+    font-size: x-large;
+    text-shadow: 0 0 5px white;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    background-color: rgb(0, 0, 0);
-    background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)), radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)), radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2)), radial-gradient(circle at var(--x-3) var(--y-3), var(--c-3) var(--s-start-3), transparent var(--s-end-3)), radial-gradient(circle at var(--x-4) var(--y-4), var(--c-4) var(--s-start-4), transparent var(--s-end-4));
-    animation: hero-gradient-animation 10s linear infinite alternate;
-    background-blend-mode: normal, normal, normal, normal, normal;
-    background-repeat: no-repeat;
-}
 
 input {
-    display: flex;
-    flex-direction: row;
+    background-color: rgba(158, 158, 158, 0.178);
+    color: antiquewhite;
+    display: block;
+    font-family: inherit;
+    justify-content: center;
     text-align: center;
     align-items: center;
-    font-family: inherit;
-    font-size: 28px;
-    background-color: rgb(0, 0, 0);
-    color: antiquewhite;
+    display: block;
+    width: 200px;
+    font-size: large;
 }
 
-h1 {
-    font-family: 'Protest Strike';
-    font-size: 47px;
-    color: antiquewhite;
+.header {
+    background-color: rgba(255, 255, 255, 0.132);
+    padding: 20px 20px 20px 20px;
+    margin: 10px;
+    width: 85%;
+    max-width: 500px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    --font: 'Bangers';
+    font-family: var(--font);
+    font-size: 70px;
+    text-shadow: 0 0 15px black, 0 0 15px black;
+    color: white;
+
 }
 
-h2 {
-    font-family: 'Protest Strike';
-    font-size: 33px;
-    color: antiquewhite;
+.section-container {
+    background-color: rgba(255, 255, 255, 0.132);
+    padding: 0 20px 20px 20px;
+    margin: 10px;
+    width: 85%;
+    max-width: 500px;
+    min-height: 280px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 button {
-    text-align: center;
-    align-items: center;
     font-family: var(--font);
-    background-color: black;
-    color: antiquewhite;
-    font-size: 24px;
-    margin: 15px;
-    animation: rainbow-animation 800ms linear infinite;
-    width: 150px;
-    height: 40px;
+    font-size: 20px;
+    width: 100px;
     border-radius: 50%;
 }
 
+.post-container {
+    border: 2px solid rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.567);
+    padding: 12px;
+    margin-top: 8px;
 
-@keyframes rainbow-animation {
-    to {
-        filter: hue-rotate(0deg);
-    }
-
-    from {
-        filter: hue-rotate(360deg);
-    }
 }
+
+.time {
+    font-size: medium;
+}
+
+.post-username {
+    font-size: xx-large;
+}
+
+.post-button {
+    font-size: 40px;
+    width: 37px;
+    border-radius: 20%;
+    text-align: end;
+    justify-content: center;
+    align-items: end;
+    margin-left: 85%;
+    position: relative;
+    margin-top: -70px;
+    display: flex;
+    cursor: pointer;
+    text-shadow: 0 0 5px black, 0 0 5px black;
+}
+
+.emoji {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-right: 64px;
+    font-size: 16px;
+    position: relative;
+    margin-top: -24px;
+}
+
+
+
+
 
 @keyframes hero-gradient-animation {
     0% {
