@@ -3,6 +3,7 @@ import { Component } from 'react'
 import getUserName from '../logic/getUserName'
 import PostList from '../components/functional/PostList'
 import CreatePost from '../components/functional/CreatePost'
+import Button from '../components/library/Button'
 
 
 
@@ -22,7 +23,7 @@ class Home extends Component {
             console.error(error)
         }
 
-        this.state = {name: name, view: 'list'}
+        this.state = { name: name, view: 'list' }
     }
 
     render() {
@@ -32,15 +33,15 @@ class Home extends Component {
             <h2>Home</h2>
 
             <h3>Hello, {this.state.name}!</h3>
-            <button type="button" onClick= {() => {
+            <Button type="button" onClick={() => {
                 delete sessionStorage.loggedInUserId
 
                 this.props.onLoggedOut()
-            }}>Logout</button>
-            <button type="button" onClick={() => this.setState({ view: 'new' })}>➕</button>
+            }}>Logout</Button>
+            <Button type="button" onClick={() => this.setState({ view: 'new' })}>➕</Button>
 
             {this.state.view === 'list' && <PostList />}
-            {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({view: 'list'})}/>}
+            {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
 
         </section>
     }

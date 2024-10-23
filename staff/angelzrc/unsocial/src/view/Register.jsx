@@ -7,7 +7,7 @@ function Register(props) {
     return <section>
         <h2>Register</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: form } = event
@@ -32,23 +32,23 @@ function Register(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Label htmlFor="name">Name</Label>
+            <Input type="text" id="name" style={{ width: '100%', boxSizing: 'border-box' }} />
 
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Label htmlFor="email">E-mail</Label>
+            <Input type="email" id="email" style={{ width: '100%', boxSizing: 'border-box' }} />
 
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Label htmlFor="username">Username</Label>
+            <Input type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
 
-            <label htmlFor="password">Password</label>
+            <Label htmlFor="password">Password</Label>
             <PasswordInput id="password" />
 
-            <label htmlFor="password-repeat">Repeat Password</label>
+            <Label htmlFor="password-repeat">Repeat Password</Label>
             <PasswordInput id="password-repeat" />
 
-            <button type="submit">Register</button>
-        </form>
+            <Button type="submit">Register</Button>
+        </Form>
 
         <a href="" onClick={event => {
             event.preventDefault()

@@ -1,5 +1,13 @@
+import './Login.css'
+
 import authenticateUser from '../logic/authenticateUser'
 import PasswordInput from '../components/library/PasswordInput'
+import Input from '../components/library/Input'
+import Button from '../components/library/Button'
+import Form from '../components/library/Form'
+import Field from '../components/library/Field'
+import Label from '../components/library/Label'
+import Anchor from '../components/library/Anchor'
 
 function Login(props) {
     console.log('Login -> render')
@@ -7,7 +15,7 @@ function Login(props) {
     return <section>
         <h2>Login</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: { username: { value: username }, password: { value: password } } } = event
@@ -26,20 +34,25 @@ function Login(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
 
-            <label htmlFor="password">Password</label>
-            <PasswordInput id="password" />
+            <Field>
+                <Label htmlFor="username">Username</Label>
+                <Input type="text" id="username" />
+            </Field>
 
-            <button type="submit">Login</button>
-        </form>
+            <Field>
+                <Label htmlFor="password">Password</Label>
+                <PasswordInput type='password' id="password" />
+            </Field>
 
-        <a href="" onClick={event => {
+            <Button type="submit">Login</Button>
+        </Form>
+
+        <Anchor href="" onClick={event => {
             event.preventDefault()
 
             props.onRegisterClick()
-        }}>Register</a>
+        }}>Register</Anchor>
     </section>
 }
 
