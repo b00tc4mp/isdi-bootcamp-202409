@@ -1,44 +1,22 @@
 import { Component } from "react"
-import getUserName from '../logic/getUserName'
-import PostList from '../components/function/PostList'
-import CreatePost from '../components/function/CreatePost'
+
+import { PostList } from '../components/function'
+
+import './Home.css'
 
 class Home extends Component {
     constructor(props) {
         super(props)
 
-        let name
-
-        try {
-            name = getUserName(sessionStorage.loggedInUserId)
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-
-        this.state = { name: name, view: 'list' }
+        this.state = { view: 'list' }
     }
 
     render() {
+        console.log('Home -> render')
 
-        return <section className="section-container">
-            <h2>HOME</h2>
-
-            <h3>Welcome, {this.state.name}! </h3>
-
-            <button type="button"
-                onClick={() => {
-                    delete sessionStorage.loggedInUserId
-
-                    this.props.logoutClick()
-
-                }}>Logout</button>
-            <button type="button" onClick={() => this.setState({ view: 'new' })}>+</button>
-
+        return <main className="Home">
             {this.state.view === 'list' && <PostList />}
-            {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
-        </section>
+        </main>
     }
 }
 export default Home

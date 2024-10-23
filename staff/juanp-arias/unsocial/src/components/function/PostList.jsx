@@ -1,27 +1,44 @@
+import { Component } from 'react'
+
+import PostItem from './PostItem'
+import './PostList.css'
 import getPosts from '../../logic/getPosts'
-import getUserUsername from '../../logic/getUserUsername'
-function PostList() {
 
-    let posts
+class PostList extends Component {
+    constructor(props) {
 
-    try {
-        posts = getPosts()
-    } catch (error) {
-        alert(error.message)
+        super(props)
 
-        console.error(error)
+        let posts
+
+        try {
+            posts = getPosts()
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+
+        this.state = { posts }
     }
 
-    return <div>
-        <h3>POSTS</h3>
+    render() {
+        return <div className='PostList'>
+            <h2>POSTS</h2>
 
-        {posts.map(post => <div className="post-container">
-            <h4>{getUserUsername(post.author)}</h4>
-            <img src={post.image} style={{ width: "100%" }} />
-            <span>😊</span>
-            <p>{post.text}</p>
-            <time>{post.date}</time>
-        </div>)}
-    </div>
+            {this.state.posts.map(post => <PostItem item={post} onLikeClicked={() => {
+                try {
+                    const posts = getPosts()
+
+                    this.setState({ posts })
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+            }} />)}
+        </div>
+    }
 }
+
 export default PostList

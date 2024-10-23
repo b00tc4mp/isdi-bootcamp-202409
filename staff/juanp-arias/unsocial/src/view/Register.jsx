@@ -1,23 +1,28 @@
-import registerUser from '../logic/registerLogic'
-import PasswordInput from '../components/library/PasswordInput'
+import './Register.css'
+
+import { PasswordInput, Input, Button, Form, Label } from '../components/library'
+import logic from '../logic'
 
 function Register(props) {
-    return <section className="section-container" id="register">
+    return <main className="Register" id="register">
         <h2>REGISTER</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
-            const { target: { name: { value: name },
+            const { target: form } = event
+
+            const {
+                name: { value: name },
                 email: { value: email },
                 username: { value: username },
                 password: { value: password },
                 ['password-repeat']: { value: repeatpassword }
-            } } = event
+            } = form
 
             try {
-                registerUser(name, email, username, password, repeatpassword)
-                event.target.reset()
+                logic.registerUser(name, email, username, password, repeatpassword)
+                form.reset()
 
                 props.onRegistered()
             } catch (error) {
@@ -27,29 +32,29 @@ function Register(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" />
+            <Label htmlFor="name" >Name</Label>
+            <Input type="text" id="name" placeholder="USERNAME" />
+            <br />
+            <Label htmlFor="email">E-mail</Label>
+            <Input type="email" id="email" />
 
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" />
+            <Label htmlFor="username">Username</Label>
+            <Input type="text" id="username" />
 
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
-
-            <label htmlFor="password">Password</label>
+            <Label htmlFor="password">Password</Label>
             <PasswordInput id="password" />
 
-            <label htmlFor="password-repeat">Repeat Password</label>
+            <Label htmlFor="password-repeat">Repeat Password</Label>
             <PasswordInput id="password-repeat" />
 
-            <button type="submit">Register</button>
-        </form>
+            <Button type="submit">Register</Button>
+        </Form>
         <a href="" onClick={
             event => {
                 event.preventDefault()
 
                 props.onLoginClick()
             }}>Login</a>
-    </section>
+    </main>
 }
 export default Register

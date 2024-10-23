@@ -24,6 +24,7 @@ let posts = [
         text: 'Hey London',
         author: 'm2erhpwihme',
         date: new Date().toDateString()
+        
     },
     {
         id: 'm2esebkkge',

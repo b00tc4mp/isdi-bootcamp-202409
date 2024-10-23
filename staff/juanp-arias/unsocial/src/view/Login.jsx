@@ -1,17 +1,20 @@
-import authenticateUser from '../logic/userLogic'
-import PasswordInput from '../components/library/PasswordInput'
+import './Login.css'
+import { PasswordInput, Input, Button, Form, Label } from '../components/library'
+import logic from '../logic'
 
+
+//TODO make styles of all views
 function Login(props) {
-    return <section className="section-container">
+    return <main className='Login'>
         <h2>LOGIN</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                logic.loginUser(username, password)
 
                 event.target.reset()
 
@@ -23,14 +26,14 @@ function Login(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username"></input>
+            <Label htmlFor="username">Username</Label>
+            <input type="text" id="username" placeholder="USERNAME"></input>
 
-            <label htmlFor="password">Password</label>
+            <Label htmlFor="password">Password</Label>
             <PasswordInput id="password" />
 
-            <button type="submit">Login</button>
-        </form>
+            <Button type="submit">Login</Button>
+        </Form>
 
         <h4>Don't have an account?</h4>
         <a href="" onClick={
@@ -40,6 +43,6 @@ function Login(props) {
             }
         }>Register</a>
 
-    </section>
+    </main>
 }
 export default Login

@@ -1,7 +1,7 @@
-import createPost from '../../logic/createPostLogic'
-
-function CreatePost(props) {
-    return <div>
+import logic from '../logic'
+import './CreatePost.css'
+function CreatePost({ onCreated }) {
+    return <main className='CreatePost'>
         <h3>Create Post</h3>
 
         <form onSubmit={event => {
@@ -15,9 +15,9 @@ function CreatePost(props) {
             } = form
 
             try {
-                createPost(sessionStorage.loggedInUserId, image, text)
+                logic.createPostLogic(image, text)
 
-                props.onCreated()
+                onCreated()
             } catch (error) {
                 alert(error.message)
 
@@ -33,6 +33,6 @@ function CreatePost(props) {
             <button type="submit">Create</button>
 
         </form>
-    </div>
+    </main>
 }
 export default CreatePost
