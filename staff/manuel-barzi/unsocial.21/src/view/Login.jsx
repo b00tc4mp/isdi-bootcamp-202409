@@ -1,13 +1,12 @@
 import './Login.css'
 
+import loginUser from '../logic/loginUser'
 import PasswordInput from '../components/library/PasswordInput'
 import Input from '../components/library/Input'
 import Button from '../components/library/Button'
 import Form from '../components/library/Form'
 import Field from '../components/library/Field'
 import Label from '../components/library/Label'
-
-import logic from '../logic'
 
 function Login(props) {
     console.log('Login -> render')
@@ -21,7 +20,7 @@ function Login(props) {
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                logic.loginUser(username, password)
+                loginUser(username, password)
 
                 event.target.reset()
 

@@ -1,11 +1,8 @@
 import { Component } from 'react'
 
+import getUserName from '../logic/getUserName'
 import PostList from '../components/functional/PostList'
 import CreatePost from '../components/functional/CreatePost'
-
-import logic from '../logic'
-
-import './Home.css'
 
 class Home extends Component {
     constructor(props) {
@@ -16,7 +13,7 @@ class Home extends Component {
         let name
 
         try {
-            name = logic.getUserName()
+            name = getUserName(sessionStorage.loggedInUserId)
         } catch (error) {
             alert(error.message)
 
@@ -29,10 +26,12 @@ class Home extends Component {
     render() {
         console.log('Home -> render')
 
-        return <main className="Home">
+        return <section>
+            <h2>Home</h2>
+
             <h3>Hello, {this.state.name}!</h3>
             <button type="button" onClick={() => {
-                logic.logoutUser()
+                delete sessionStorage.loggedInUserId
 
                 this.props.onLoggedOut()
             }}>Logout</button>
@@ -40,7 +39,7 @@ class Home extends Component {
 
             {this.state.view === 'list' && <PostList />}
             {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
-        </main>
+        </section>
     }
 }
 

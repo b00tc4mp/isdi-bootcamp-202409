@@ -1,5 +1,6 @@
 import './Register.css'
 
+import registerUser from '../logic/registerUser'
 import PasswordInput from '../components/library/PasswordInput'
 import Input from '../components/library/Input'
 import Button from '../components/library/Button'
@@ -7,12 +8,10 @@ import Form from '../components/library/Form'
 import Field from '../components/library/Field'
 import Label from '../components/library/Label'
 
-import logic from '../logic'
-
 function Register(props) {
     console.log('Register -> render')
 
-    return <main className="Register">
+    return <section className="Register">
         <h2>Register</h2>
 
         <Form onSubmit={event => {
@@ -29,7 +28,7 @@ function Register(props) {
             } = form
 
             try {
-                logic.registerUser(name, email, username, password, passwordRepeat)
+                registerUser(name, email, username, password, passwordRepeat)
 
                 form.reset()
 
@@ -73,7 +72,7 @@ function Register(props) {
 
             props.onLoginClick()
         }}>Login</a>
-    </main>
+    </section>
 }
 
 export default Register

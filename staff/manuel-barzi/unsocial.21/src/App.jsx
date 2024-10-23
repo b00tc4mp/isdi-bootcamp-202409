@@ -7,7 +7,7 @@ import Home from './view/Home'
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
 
-import logic from './logic'
+import isUserLoggedIn from './logic/isUserLoggedIn'
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class App extends Component {
 
         super(props)
 
-        this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
+        this.state = { view: isUserLoggedIn() ? 'home' : 'login' }
     }
 
     render() {

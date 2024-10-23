@@ -3,7 +3,8 @@ import { Component } from 'react'
 import PostList from '../components/functional/PostList'
 import CreatePost from '../components/functional/CreatePost'
 
-import logic from '../logic'
+import getUserName from '../logic/getUserName'
+import logoutUser from '../logic/logoutUser'
 
 import './Home.css'
 
@@ -16,7 +17,7 @@ class Home extends Component {
         let name
 
         try {
-            name = logic.getUserName()
+            name = getUserName()
         } catch (error) {
             alert(error.message)
 
@@ -32,7 +33,7 @@ class Home extends Component {
         return <main className="Home">
             <h3>Hello, {this.state.name}!</h3>
             <button type="button" onClick={() => {
-                logic.logoutUser()
+                logoutUser()
 
                 this.props.onLoggedOut()
             }}>Logout</button>
