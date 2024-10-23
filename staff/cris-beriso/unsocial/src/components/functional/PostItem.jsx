@@ -10,15 +10,17 @@ function PostItem({ item: { id, author, image, text, date, liked, likes }, onLik
 
     <img src={image} />
 
-    <p>{text}</p>
+    <div>
+      <p>{text}</p>
 
-    <time>{date}</time>
+      <time>{date}</time>
+    </div>
 
     <Button onClick={() => {
       logic.toggleLikePost(id)
 
       onLikeClicked()
-    }}>{`${liked ? '❤' : '🤍'} ${likes.length} likes`}</Button>
+    }}>{`${liked ? '❤️' : '🤍'} ${likes.length} likes`}</Button>
   </article>
 }
 

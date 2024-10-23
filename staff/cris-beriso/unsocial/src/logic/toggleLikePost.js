@@ -3,7 +3,7 @@ function toggleLikePost(postId) {
 
   const posts = JSON.parse(localStorage.posts)
 
-  const post = posts.find(({ id }) => id = postId)
+  const post = posts.find(({ id }) => id === postId)
 
   if (!post) throw new Error('post not found')
 
