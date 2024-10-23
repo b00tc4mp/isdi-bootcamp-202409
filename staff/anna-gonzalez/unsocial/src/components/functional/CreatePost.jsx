@@ -1,5 +1,10 @@
 import createPost from '../../logic/createPost'
 
+import Button from '../library/Button'
+import Input from '../library/Input'
+import Label from '../library/Label'
+import Field from '../library/Field'
+
 function CreatePost(props) {
     console.log('CreatePost -> render')
 
@@ -26,13 +31,15 @@ function CreatePost(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="image">Image</label>
-            <input type="text" id="image" />
-
-            <label htmlFor="text">Text</label>
-            <input type="text" id="text" />
-
-            <button type="submit">Create</button>
+            <Field>
+                <Label htmlFor="image">Image</Label>
+                <Input type="text" id="image" />
+            </Field>
+            <Field>
+                <Label htmlFor="text">Text</Label>
+                <Input type="text" id="text" />
+            </Field>
+            <Button type="submit">Create</Button>
         </form>
     </div>
 }

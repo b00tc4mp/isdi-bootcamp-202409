@@ -1,13 +1,20 @@
-import authenticateUser from '../logic/authenticateUser'
+import './Login.css'
+
 import PasswordInput from '../components/library/PasswordInput'
+import Input from '../components/library/Input'
+import Button from '../components/library/Button'
+import Form from '../components/library/Form'
+import Field from '../components/library/Field'
+import Label from '../components/library/Label'
+import Anchor from '../components/library/Anchor'
+
+import logic from '../logic'
 
 function Login(props) {
     console.log('Login -> render')
 
-    return <section>
-        <h2>Login</h2>
-
-        <form onSubmit={event => {
+    return <main className="Login">
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: form } = event
@@ -15,7 +22,7 @@ function Login(props) {
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                logic.loginUser(username, password)
 
                 form.reset()
 
@@ -25,19 +32,25 @@ function Login(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
-            <label htmlFor="password">Password</label>
-            <PasswordInput id="password" />
-            <button type="submit">Login</button>
-        </form>
-        <a href="" onClick={event => {
+            <h2>Login</h2>
+
+            <Field>
+                <Label htmlFor="username">Username</Label>
+                <Input type="text" id="username" />
+            </Field>
+            <Field>
+                <Label htmlFor="password">Password</Label>
+                <PasswordInput id="password" />
+            </Field>
+            <Button type="submit">Login</Button>
+        </Form>
+        <Anchor href="" onClick={event => {
             event.preventDefault()
 
             props.onRegisterClick()
-        }}>Register</a>
+        }}>Register</Anchor>
 
-    </section>
+    </main>
 }
 
 export default Login

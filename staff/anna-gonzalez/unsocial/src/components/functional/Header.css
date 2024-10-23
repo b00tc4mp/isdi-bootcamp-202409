@@ -1,0 +1,18 @@
+.Header {
+    padding: 1rem;
+    height: 5%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-family: 'Dela Gothic One';
+    margin: 0;
+    text-align: center;
+
+    h1 {
+        margin: 0;
+        font-size: 2rem;
+        letter-spacing: 3px;
+    }
+}

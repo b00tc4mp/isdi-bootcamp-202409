@@ -1,28 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  --color: lavender;
-  --font: 'Montserrat';
-  letter-spacing: 1px;
+  --color: white;
+  --back-color: black;
+  --font: 'Gantari';
   font-family: var(--font);
+  height: 100%;
 }
 
 body {
-  font-size: 80%;
+  color: var(--color);
+  margin: 0;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  text-align: center;
-  align-items: center;
   background: radial-gradient(circle at bottom left, #978d00,
-      #6a6300 20%,
-      #4b0088 40%,
-      #39008f 60%,
-      #250035 80%,
-      #150020 90%,
-      #0d0027 100%);
-  background-size: 450% 450%;
-  animation: gradient 10s ease infinite;
+      rgb(37, 0, 96) 20%,
+      rgb(25, 0, 65) 40%,
+      rgb(0, 0, 0) 60%,
+      hsl(0, 0%, 0%) 80%,
+      rgb(26, 0, 69) 90%,
+      rgb(37, 0, 96) 100%);
+  background-size: 300% 300%;
+  animation: gradient 8s ease infinite;
   /*animation for a gradual effect*/
   color: var(--color);
 }
@@ -41,110 +41,22 @@ body {
   }
 }
 
-h1 {
-  font-size: 230%;
-  font-family: 'Press Start 2P';
-  margin-bottom: 50px;
+#root {
+  height: 100%;
 }
 
-input {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  border: 0px;
-  margin-top: 2%;
-  margin-bottom: 10%;
-  margin-left: 10px;
-  background-color: var(--color);
-  width: 250px;
-  /* it's the same than font-family: inherit
-            for the input and buttons we always need to change the default font */
-}
-
-a:visited,
-h1 {
-  color: yellow;
-}
-
-.counterBox {
-  margin-top: 20px;
-  background-color: yellow;
-  color: black;
-}
-
-button {
-  font-family: 'Press Start 2P';
-  font-size: 120%;
-  margin: 50px 7px 15px 0px;
-  background: blue;
+a:visited {
   color: var(--color);
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: 0px;
-  cursor: pointer;
 }
 
-a {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 70px;
-}
-
-.create-post-button {
-  background-color: yellow;
-  color: black;
-  margin-left: 10px;
-}
-
-.publish-post-button {
-  background-color: yellow;
-  color: black;
-}
-
-.password-input {
-  display: flex;
-  flex-direction: row;
+.password-repeat-input {
   position: relative;
+  justify-content: left;
+  align-items: right;
 }
 
-.lock {
+.span {
   position: absolute;
-  right: -20px;
-  top: 6px;
-  cursor: pointer;
-}
-
-
-article {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-}
-
-h4 {
-  text-decoration: underline;
-  color: yellow;
-  margin-top: 50px;
-}
-
-img {
-  width: 300px;
-  border: 2px solid yellow;
-  border-radius: 10px;
-}
-
-.deleteButton {
-  font-family: 'Press Start 2P';
-  font-size: 60%;
-  margin: 10px 7px 15px 0px;
-  background: red;
-  color: var(--color);
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 0px;
-  cursor: pointer;
+  margin-top: 5px;
+  margin-left: 2px;
 }
