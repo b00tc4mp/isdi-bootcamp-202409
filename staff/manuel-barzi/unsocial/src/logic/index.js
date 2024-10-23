@@ -6,6 +6,7 @@ import logoutUser from './logoutUser'
 
 import createPost from './createPost'
 import getPosts from './getPosts'
+import toggleLikePost from './toggleLikePost'
 
 const logic = {
     registerUser,
@@ -15,7 +16,8 @@ const logic = {
     logoutUser,
 
     createPost,
-    getPosts
+    getPosts,
+    toggleLikePost
 }
 
 export default logic

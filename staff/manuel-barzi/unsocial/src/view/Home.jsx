@@ -1,9 +1,6 @@
 import { Component } from 'react'
 
-import PostList from '../components/functional/PostList'
-import CreatePost from '../components/functional/CreatePost'
-
-import logic from '../logic'
+import { PostList } from '../components/functional'
 
 import './Home.css'
 
@@ -13,33 +10,14 @@ class Home extends Component {
 
         super(props)
 
-        let name
-
-        try {
-            name = logic.getUserName()
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-
-        this.state = { name: name, view: 'list' }
+        this.state = { view: 'list' }
     }
 
     render() {
         console.log('Home -> render')
 
         return <main className="Home">
-            <h3>Hello, {this.state.name}!</h3>
-            <button type="button" onClick={() => {
-                logic.logoutUser()
-
-                this.props.onLoggedOut()
-            }}>Logout</button>
-            <button type="button" onClick={() => this.setState({ view: 'new' })}>➕</button>
-
             {this.state.view === 'list' && <PostList />}
-            {this.state.view === 'new' && <CreatePost onCreated={() => this.setState({ view: 'list' })} />}
         </main>
     }
 }

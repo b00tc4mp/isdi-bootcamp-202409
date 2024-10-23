@@ -1,11 +1,6 @@
 import './Login.css'
 
-import PasswordInput from '../components/library/PasswordInput'
-import Input from '../components/library/Input'
-import Button from '../components/library/Button'
-import Form from '../components/library/Form'
-import Field from '../components/library/Field'
-import Label from '../components/library/Label'
+import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
 
 import logic from '../logic'
 

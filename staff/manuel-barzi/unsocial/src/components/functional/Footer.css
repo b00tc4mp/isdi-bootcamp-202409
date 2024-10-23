@@ -1,8 +1,12 @@
 .Footer {
     height: 5%;
-    background-color: var(--back-color);
+    /* background-color: var(--back-color); */
+    background-color: red;
     box-sizing: border-box;
     position: fixed;
     width: 100%;
     bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
