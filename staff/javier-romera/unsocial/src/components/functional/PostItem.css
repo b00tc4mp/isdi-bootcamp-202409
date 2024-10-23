@@ -1,0 +1,50 @@
+.PostItem {
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .delete-button {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        margin: 0;
+    }
+
+    .like-button {
+        width: 22px;
+        height: 22px;
+        border: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .likes-div {
+        display: flex;
+        align-items: center;
+    }
+
+    span {
+        margin-left: 0.25rem;
+    }
+
+    p {
+        font-size: 10px;
+        margin: 0;
+        padding: .5rem 0 .125rem 0;
+    }
+
+    p.caption {
+        font-size: 14px;
+    }
+
+    time {
+        font-size: 8px;
+    }
+}

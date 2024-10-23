@@ -2,12 +2,7 @@ import './Register.css'
 
 import logic from '../logic'
 
-import Anchor from '../components/library/Anchor'
-import Form from '../components/library/Form'
-import Label from '../components/library/Label'
-import Input from '../components/library/Input'
-import Field from '../components/library/Field'
-import Button from '../components/library/Button'
+import { Anchor, Form, Label, Input, Field, Button } from '../components/library'
 
 function Register(props) {
     return <main className="Register">

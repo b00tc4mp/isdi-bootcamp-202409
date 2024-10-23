@@ -5,17 +5,11 @@
     align-items: center;
     width: 100%;
 
-    .delete-button {
-        width: 145px;
-        margin-top: 0.25rem;
-        font-size: 12px;
-    }
-
     article {
         text-align: start;
         justify-content: center;
         align-items: center;
-        width: 80%;
+        width: 90%;
         border: 1px solid var(--color);
         padding-bottom: 1rem;
         margin-bottom: 1rem;
@@ -23,30 +17,8 @@
         padding-left: 0.5rem;
     }
 
-    time {
-        font-size: 10px;
-    }
-
     img {
         width: 100%;
         margin-bottom: 0.25rem;
-    }
-
-    h4 {
-        margin: 0;
-        padding: 1rem 0 1rem 0;
-    }
-
-    p {
-        margin: 0;
-        padding: 0.5rem 0 0.5rem 0;
-    }
-
-    .comments-p {
-        font-size: 10px;
-    }
-
-    span {
-        font-size: 14px;
     }
 }

@@ -1,39 +1,57 @@
+import { Component } from 'react'
+
 import './PostList.css'
 
 import logic from '../../logic'
 
-import LikeButton from '../library/LikeButton'
-import Button from '../library/Button'
+import PostItem from './PostItem'
 
-function PostList(props) {
-    let posts
+class PostList extends Component {
+    constructor(props) {
+        super(props)
 
-    try {
-        posts = logic.getPosts()
-    } catch (error) {
-        alert(error.message)
-        console.error(error)
+        let posts
+
+        try {
+            posts = logic.getPosts()
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+
+        this.state = { posts }
     }
 
-    return <section className="PostList">
-        <h3>Posts</h3>
+    render() {
+        return <div className="PostList">
+            <h3>Posts</h3>
 
-        {posts.map(post => <article>
-            <h4>{post.author.username}</h4>
-            <img src={post.image} />
-            <div>
-                <LikeButton id={sessionStorage.loggedInUserId} post={post} />
-            </div>
-            <p>{post.text}</p>
-            <time>{post.date}</time>
-            <p className="comments-p">View comments..</p>
-            {sessionStorage.loggedInUserId === post.author.id && <Button type="button" classname="delete-button" onClick={() => {
-                logic.deletePost(post)
+            {this.state.posts.map(post => <PostItem key={post.id} item={post}
+                onDeletedPost={() => {
+                    try {
+                        const posts = logic.getPosts()
 
-                props.onDeletedPost()
-            }}>Delete Post</Button>}
-        </article>)}
-    </section>
+                        this.setState({ posts })
+                    } catch (error) {
+                        alert(error.message)
+
+                        console.error(error)
+                    }
+                }}
+
+                onLikeClicked={() => {
+                    try {
+                        const posts = logic.getPosts()
+
+                        this.setState({ posts })
+                    } catch (error) {
+                        alert(error.message)
+
+                        console.error(error)
+                    }
+                }} />)}
+        </div>
+    }
 }
 
 export default PostList

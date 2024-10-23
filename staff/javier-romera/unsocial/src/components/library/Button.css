@@ -1,5 +1,6 @@
 .Button {
     color: var(--color);
+    box-sizing: 'border-box';
     font-family: var(--font);
     background-color: var(--back-color);
     border-bottom: 1px solid #545454;
