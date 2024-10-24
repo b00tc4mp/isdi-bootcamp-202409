@@ -8,16 +8,81 @@
 - VIP! Solo la versión más reciente de unsocial mantiene la carpeta **node_modules**. Para probarlas habrá que añadir la carpeta
 
 
+### **Cosas que podemos hacer**   
+    - Un chat
+    - Guardar favoritos
+    - Añadir comentarios --> Implementando 
+    - Editar los comentarios
+
+
+## **24/10/2024 **
+
+**Hoy implementamos más funcionalidad.** 
+
+- **Añadiremos un botón para eliminar posts**
+   OK - Añade botón papelera al lado de likes (en PostItem)
+   OK - Logic -> creamos función deletePost
+   OK  - OJO!!! -> Mirar apartado Super VIP antes de continuar.
+   Ok - Logic -> crea función getUserId (para saber si un post es mio o no)
+   OK - Al botón añadido en PostItem le añade la función para mostrarse o no en función si getUserId confirma que el post es nuestro.
+   OK - escribe la lógica de deletePost
+   OK     - busca el post con findIndex (para que nos devuelva su indice en el array) y desestructura su id
+   OK     - lo elimina del array con splice
+   OK     - actualiza el array posts en localstorage
+   OK     - por ultimo importa deletePost en index.js
+   OK     - Y en post item llama a la función con el evento onClick
+   OK     - La última cosa es añadir un confirm para evitar el borrado accidental.
+        
+
+- **Cosas varias**
+    - Metemos un heigth de 3rem en header y footer
+    - createPost.js la vuelvo a dejar como new Date()
+
+    - Operamos con fechas
+    OK - Preparamos una función para mostrar el tiempo que hace que se publicó
+    OK    - Crea carpeta utils -> Guarda la nueva función
+        - Llama a la nueva función en el PostItem.jsx
+    - Añade estilos a su createPost.jsx
+
+
+
+- **Implementamos función de comentarios**
+   OK - En postItem añadimos un botón para añadir comentarios
+   OK - En Functional creamos Comments.jsx
+   OK     - Será una section con una lista dentro UL, LI y un Form. 
+   OK  - Lo importamos en Index.js (de functional)
+   OK - PostItem.jsx tendrá que importar 
+
+
+
+- **¡¡¡Super VIP!!!!**
+  OK  - modifica todos los export default... --> ahora hace los exports directamente en la declaración de la función
+    NOTA: "Podemos eliminar los nombres de las funciones con tranquilidad, ya que el import lo recuperará del nombre del archivo"
+    
+   OK - Prestar atención a los exports de los compos, especialmente los que retornan con funciones flecha "=>", aquí eliminamos el return subsiguiente. (Si hay consoles log de momento no los tocaremos) 
+
+
+
+
+
+
+
+
 ## **23/10/2024**
 
 COSAS QUE NO ME FUNCIONAN
 -------------------------
 
-- Lógica que mantiene la sesión iniciada
-- La gestión de la cabecera
-    - Nombre del usuario
-    - Botón de new post 
-    - Y creo que me he cargado el boton de logout
+(Solved) - Lógica que mantiene la sesión iniciada
+(Solved) - La gestión de la cabecera
+(Solved)    - Nombre del usuario
+(Solved)    - Botón de new post 
+(Solved)    - Y creo que me he cargado el boton de logout
+
+ Pending!   - El botón de like no cambia de estado
+ Pending!   - Revisar estilos createPost 
+ Pending!   - QUe no permita publicar si imagen o texto está en blanco
+
 ---------------------------
 
 En la clase de hoy implementaremos funcionallidades a la aplicación. 

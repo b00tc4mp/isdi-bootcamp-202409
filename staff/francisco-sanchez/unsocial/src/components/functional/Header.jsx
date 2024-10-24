@@ -3,7 +3,7 @@ import './Header.css'
 import { Button } from '../library'
 import logic from '../../logic'
 
-function Header({ view, onHomeClick, onLoggedOut }) {
+export default ({ view, onHomeClick, onLoggedOut }) => {
     let name //Para el nombre del usuario
 
     if (logic.isUserLoggedIn())
@@ -24,13 +24,11 @@ function Header({ view, onHomeClick, onLoggedOut }) {
             onHomeClick()
         }}>Unsocial</a> : 'Unsocial'}</h1>
 
-        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+        {logic.isUserLoggedIn() && <h3 className="nombreUser">{name}</h3>}
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={() => {
             logic.logoutUser()
             onLoggedOut()
-        }}></Button>}
+        }}>Logout</Button>}
     </header>
 }
-
-export default Header

@@ -6,11 +6,8 @@ import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
 
 import logic from './logic'
-
-
-
 //La classe App extiende de component y la declaramos como class porque será dinámica e ira mutando conforme utilicemos la app
-class App extends Component {
+export default class extends Component {
     constructor(props) {
         super(props)
 
@@ -40,5 +37,3 @@ class App extends Component {
         </>
     }
 }
-
-export default App

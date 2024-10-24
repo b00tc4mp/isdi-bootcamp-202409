@@ -8,6 +8,10 @@ import createPost from './createPost'
 import getPosts from './getPosts'
 import toggleLikePost from './toggleLikePost'
 
+import deletePost from './deletePost'
+import getUserId from './getUserId'
+import getElapsedTime from '../utils/getElapsedTime'
+
 
 const logic = {
     registerUser,
@@ -18,7 +22,13 @@ const logic = {
     logoutUser,
     createPost,
     getPosts,
-    toggleLikePost
+    toggleLikePost,
+
+    deletePost,
+    getUserId,
+
+    //getElapsedTime //OJO !! 
+
 }
 
 export default logic

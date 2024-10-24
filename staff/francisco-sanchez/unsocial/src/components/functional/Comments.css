@@ -1,0 +1,10 @@
+.comentsTexts {
+    text-align: left;
+}
+
+.comentsTexts .ul {
+    list-style: none;
+
+}
+
+.comentsTexts .ul .li {}

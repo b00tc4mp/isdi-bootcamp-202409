@@ -3,7 +3,7 @@ import { Component } from 'react'
 import Input from './Input'
 
 //Clase PasswordInput, para el campo de contraseña, añade la funcionalidad de ver o esconderla. 
-class PasswordInput extends Component {
+export default class extends Component {
     constructor(props) {
         console.log('PasswordInput -> Constructor')
         super(props)
@@ -27,5 +27,3 @@ class PasswordInput extends Component {
 
     }
 }
-
-export default PasswordInput

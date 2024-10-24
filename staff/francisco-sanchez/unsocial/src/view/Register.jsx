@@ -10,7 +10,7 @@ import Field from '../components/library/Field'
 import Form from '../components/library/Form'
 
 //Funcion register, que mostrará el formulario de registro
-function Register(props) {
+export default (props) => {
     return <main className="Register">
         <div className="container">
 
@@ -77,5 +77,3 @@ function Register(props) {
         </div>
     </main>
 }
-
-export default Register

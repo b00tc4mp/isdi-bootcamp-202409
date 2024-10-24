@@ -1,6 +1,6 @@
 import uuid from '../data/uuid'
 
-const createPost = (image, text) => {
+export default (image, text) => {
     if (typeof image !== 'string') throw new Error('invalid image')
     if (typeof text !== 'string') throw new Error('invalid text')
 
@@ -12,8 +12,9 @@ const createPost = (image, text) => {
         image: image,
         text: text,
         author: sessionStorage.userId,
-        date: new Date().toDateString(), //Para mostrar la fecha un poco más corta
-        likes: []
+        date: new Date(),
+        likes: [],
+        //comments: {authorID, comment}
     }
 
     //Pusheamos el nuevo post
@@ -22,5 +23,3 @@ const createPost = (image, text) => {
     //Y volvemos a actualizar el array de posts de la memoria
     localStorage.posts = JSON.stringify(posts)
 }
-
-export default createPost
