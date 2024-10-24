@@ -3,7 +3,29 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90%;
+    height: 100%;
     box-sizing: border-box;
-    background-color: var(--back-color);
+    background: radial-gradient(circle at bottom left,
+            #5eca00,
+            #2A31FF 40%,
+            #2A31FF 50%,
+            #2A31FF 70%,
+            #5eca00 100%);
+    background-size: 120% 120%;
+    animation: gradient 6s ease infinite;
+    /*animation for a gradual effect*/
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }

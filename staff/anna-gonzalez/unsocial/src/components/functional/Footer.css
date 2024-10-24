@@ -1,5 +1,5 @@
 .Footer {
-    height: 5%;
+    height: 4rem;
     background-color: var(--back-color);
     box-sizing: border-box;
     position: fixed;
@@ -8,4 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.Footer--transparent {
+    background-color: transparent;
 }

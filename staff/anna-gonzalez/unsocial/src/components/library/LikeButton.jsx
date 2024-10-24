@@ -2,7 +2,7 @@ import { Component } from 'react'
 
 import Button from '../library/Button'
 
-class LikeButton extends Component {
+export default class extends Component {
     constructor(props) {
         super(props)
 
@@ -19,5 +19,3 @@ class LikeButton extends Component {
         </div>
     }
 }
-
-export default LikeButton

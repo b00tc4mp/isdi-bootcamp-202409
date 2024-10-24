@@ -1,16 +1,14 @@
 import logic from '../logic'
 
-import { Input, Button, Field, Label } from '../components/library'
+import { Input, Button, Field, Form, Label } from '../components/library'
 
 import './CreatePost.css'
 
-function CreatePost({ onCreated }) {
+export default ({ onCreated }) => {
     console.log('CreatePost -> render')
 
     return <main className="CreatePost">
-        <h3>Create post</h3>
-
-        <form onSubmit={event => {
+        <Form className="create-post-form" onSubmit={event => {
             event.preventDefault()
 
             const { target: form } = event
@@ -30,6 +28,8 @@ function CreatePost({ onCreated }) {
                 console.error(error)
             }
         }}>
+            <h3>Create post</h3>
+
             <Field>
                 <Label htmlFor="image">Image</Label>
                 <Input type="text" id="image" />
@@ -39,8 +39,6 @@ function CreatePost({ onCreated }) {
                 <Input type="text" id="text" />
             </Field>
             <Button type="submit">Create</Button>
-        </form>
+        </Form>
     </main>
 }
-
-export default CreatePost

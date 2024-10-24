@@ -4,7 +4,7 @@ import { PostList } from '../components/functional'
 
 import './Home.css'
 
-class Home extends Component { //-----------Home-----------
+export default class extends Component { //-----------Home-----------
     constructor(props) {
         console.log('Home -> constructor')
 
@@ -19,5 +19,3 @@ class Home extends Component { //-----------Home-----------
         </main>
     }
 }
-
-export default Home

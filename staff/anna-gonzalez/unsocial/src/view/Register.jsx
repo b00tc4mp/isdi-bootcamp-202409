@@ -4,7 +4,7 @@ import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../com
 
 import logic from '../logic'
 
-function Register(props) {
+export default (props) => {
     console.log('Register -> render')
 
     return <main className="Register">
@@ -65,5 +65,3 @@ function Register(props) {
         }}>Login</Anchor>
     </main>
 }
-
-export default Register

@@ -7,7 +7,7 @@ import Footer from './components/functional/Footer'
 
 import logic from './logic'
 
-class App extends Component {
+export default class extends Component {
   constructor(props) {
     console.log('App -> constructor')
 
@@ -37,5 +37,3 @@ class App extends Component {
     </>
   }
 }
-
-export default App

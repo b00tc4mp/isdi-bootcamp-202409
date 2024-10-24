@@ -1,5 +1,3 @@
-function logoutUser() {
+export default () => {
     delete sessionStorage.userId
 }
-
-export default logoutUser

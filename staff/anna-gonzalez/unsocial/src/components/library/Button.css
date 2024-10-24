@@ -12,22 +12,40 @@
     cursor: pointer;
 }
 
-.Button:hover {
+.Button:hover,
+.header-button:hover {
     background-color: #0a11cc;
 }
 
-.likes-button {
+.no-style-button {
     background-color: transparent;
     font-size: medium;
+}
+
+.no-style-button:hover,
+.save-post-button:hover {
+    background-color: transparent;
 }
 
 .header-button {
     width: 6rem;
     padding: 5px 0px 5px 0px;
-    background-color: #0a11cc;
+    background-color: #2A31FF;
     color: white;
     font-size: 0.8rem;
     margin: 0;
+}
+
+.save-post-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: transparent;
+    color: #2A31FF;
+    padding: 0;
+    margin: 0;
+    width: 2rem;
+    text-align: left;
 }
 
 .footer-button {
@@ -38,7 +56,6 @@
     margin-top: 1rem;
 }
 
-.header-button:hover,
 .footer-button:hover {
     background-color: #44d052;
 }

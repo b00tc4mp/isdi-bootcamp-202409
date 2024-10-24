@@ -5,17 +5,19 @@
     border: 2px #2A31FF solid;
     border-radius: 15px;
     padding: 0;
-    color: white;
+    color: black;
     margin-bottom: 2rem;
 
     h4 {
         padding-left: 1rem;
-        color: #92FF9D;
+        color: #2A31FF;
     }
 
     p,
     time {
         padding-left: 1rem;
+        padding-right: 0.75rem;
+        margin-bottom: 1rem;
     }
 
     img {
@@ -24,6 +26,55 @@
 
     button {
         align-self: center;
+        margin: 0;
+        font-size: small;
+    }
+
+    .above-photo-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 10px;
+        text-align: left;
+    }
+
+    .post-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
         color: #92FF9D;
+        background-color: #2A31FF;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        border: none;
+        outline: none;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        textarea {
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            border-style: none;
+            margin-bottom: 1rem;
+        }
     }
 }

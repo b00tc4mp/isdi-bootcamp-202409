@@ -7,13 +7,13 @@ export default (postId) => {
 
     if (!post) throw new Error('Post not found')
 
-    const { likes } = post
+    const { saves } = post
     const { userId } = sessionStorage
 
-    const index = likes.indexOf(userId)
+    const index = saves.indexOf(userId)
 
-    if (index < 0) likes.push(userId)
-    else likes.splice(index, 1)
+    if (index < 0) saves.push(userId)
+    else saves.splice(index, 1)
 
     localStorage.posts = JSON.stringify(posts)
 }

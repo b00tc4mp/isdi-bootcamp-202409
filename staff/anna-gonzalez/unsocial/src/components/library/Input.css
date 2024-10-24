@@ -1,6 +1,9 @@
 .Input {
     width: 250px;
-    padding: 5px 0px 5px 8px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 8px;
+    padding-right: 25px;
     box-sizing: 'border-box';
     text-align: left;
     background-color: var(--color);

@@ -1,6 +1,6 @@
 import uuid from '../data/uuid'
 
-const createPost = (image, text) => {
+export default (image, text) => {
     if (typeof image !== 'string') throw new Error('Invalid image')
     if (typeof text !== 'string') throw new Error('Invalid text')
 
@@ -12,12 +12,11 @@ const createPost = (image, text) => {
         text: text,
         author: sessionStorage.userId,
         date: new Date,
-        likes: []
+        likes: [],
+        saves: []
     }
 
     posts.push(post)
 
     localStorage.posts = JSON.stringify(posts)
 }
-
-export default createPost

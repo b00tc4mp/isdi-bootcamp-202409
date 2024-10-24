@@ -4,7 +4,7 @@ import logic from '../../logic'
 
 import './Header.css'
 
-function Header({ view, onHomeClick, onLoggedOut }) {
+export default ({ view, onHomeClick, onLoggedOut, className }) => {
     let name
 
     if (logic.isUserLoggedIn())
@@ -16,7 +16,9 @@ function Header({ view, onHomeClick, onLoggedOut }) {
             console.error(error)
         }
 
-    return <header className="Header">
+    return <header className={
+        "Header " + (view !== 'home' && view !== 'new-post' ? 'Header--transparent' : '')
+    }>
         <h1>{view === 'new-post' ? <Anchor className="header-anchor" href="" onClick={event => {
             event.preventDefault()
 
@@ -25,12 +27,13 @@ function Header({ view, onHomeClick, onLoggedOut }) {
 
         {logic.isUserLoggedIn() && <h3>{name}</h3>}
 
-        {logic.isUserLoggedIn() && <Button className="header-button" type="button" onClick={() => {
-            logic.logoutUser()
-
-            onLoggedOut()
-        }}>Logout</Button>}
-    </header>
+        {
+            logic.isUserLoggedIn() && <Button className="header-button" type="button" onClick={() => {
+                if (confirm('Are you sure to logout?')) {
+                    logic.logoutUser()
+                    onLoggedOut()
+                }
+            }}>Logout</Button>
+        }
+    </header >
 }
-
-export default Header

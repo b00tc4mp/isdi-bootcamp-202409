@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: var(--back-color);
+  background-color: white;
   margin: 0;
   height: 100%;
   display: flex;
@@ -25,14 +25,8 @@ body {
   width: 100%;
 }
 
-.password-repeat-input {
-  position: relative;
-  justify-content: left;
-  align-items: right;
-}
-
 .span {
   position: absolute;
   margin-top: 5px;
-  margin-left: 2px;
+  margin-left: -1.5rem;
 }

@@ -4,7 +4,7 @@ import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../com
 
 import logic from '../logic'
 
-function Login(props) {
+export default (props) => {
     console.log('Login -> render')
 
     return <main className="Login">
@@ -35,7 +35,7 @@ function Login(props) {
             </Field>
             <Field>
                 <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
+                <PasswordInput id="password" className="password-input" />
             </Field>
             <Button type="submit">Login</Button>
         </Form>
@@ -47,5 +47,3 @@ function Login(props) {
 
     </main>
 }
-
-export default Login
