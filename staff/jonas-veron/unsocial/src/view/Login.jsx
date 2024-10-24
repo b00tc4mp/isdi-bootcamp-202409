@@ -1,20 +1,23 @@
-import authenticateUser from '../logic/authenticateUser'
-import PasswordInput from '../components/library/PasswordInput'
+import './Login.css'
+
+import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+
+import logic from '../logic'
 
 
 function Login(props) {
     console.log('Login -> render')
 
-    return <section>
+    return <main className="Login">
         <h2>Login</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                logic.loginUser(username, password)
 
                 event.target.reset()
 
@@ -27,21 +30,25 @@ function Login(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="username">Username</Label>
+                <Input type="text" id="username"/>
+            </Field>
 
-            <label htmlFor="password">Password</label>
-            <PasswordInput id="password" />
+            <Field>
+                <Label htmlFor="password">Password</Label>
+                <PasswordInput id="password" />
+            </Field>
 
-            <button type="submit">Login</button>
-        </form>
+            <Button type="submit" className="Button">Login</Button>
+        </Form>
 
         <a href="" onClick={event => {
             event.preventDefault()
 
             props.onRegisterClick()
         }}>Register</a>
-    </section>
+    </main>
 }
 
 export default Login

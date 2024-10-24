@@ -1,4 +1,7 @@
-import { Component } from "react"
+import { Component } from 'react'
+
+import Input from './Input'
+import './PasswordInput.css'
 
 class PasswordInput extends Component{
     constructor(props) {
@@ -8,8 +11,8 @@ class PasswordInput extends Component{
     }
     
     render() {
-        return <div style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}>
-            <input type={this.state.type} id={this.props.id} style={{width: '85%', boxSizing: 'border-box', marginLeft:'19px' }} />
+        return <div className="PasswordInput">
+            <Input type={this.state.type} id={this.props.id}/>
 
             <span
                 style={{ cursor: 'pointer', position: 'relative', right: '30px', fontSize: '16px'}}

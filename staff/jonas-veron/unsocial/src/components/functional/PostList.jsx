@@ -1,36 +1,62 @@
-import getPosts from '../../logic/getPosts'
-import deletePost from '../../logic/deletePost'
+import {Component } from 'react'
 
+import PostItem from './PostItem'
 
-function PostList(props) {
-    let posts
+import './PostList.css'
 
-    try{
-        posts = getPosts()
+import logic from '../../logic'
+
+class PostList extends Component {
+constructor(props) {
+        console.log('PostList -> render')
+
+        super(props)
+
+        let posts
+
+        try{
+            posts = logic.getPosts()
     
-    } catch (error) {
-        alert(error.message)
+        }catch (error) {
+            alert(error.message)
 
-        console.error(error)
+            console.error(error)
+        }
+
+        this.state = { posts }
     }
 
-    return <div>
+    render(){
+        return <div className='Postlist'>
 
-        <h3>Posts</h3>
+            <h3>Posts</h3>
 
-        {posts.map(post => <article>
-            <h4>{post.author.username}</h4>
-            <img src={post.image} style={{width: '100%'}} />
-            <p>{post.text}</p>
-            <time>{post.date}</time>
+            {this.state.posts.map(post => <PostItem item={post} onLikeClicked={() => {
+                try {
+                    const posts = logic.getPosts()
 
-                {sessionStorage.loggedInUserId === post.author.id && <button type="button" onClick={() => {
-                            deletePost(post)
-                            props.onDeleted()
-                }  }>Delete post</button>
+                    this.setState({ posts })
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
                 }
-        </article>)}
-    </div>
+            }}
+                onDeleted={()=> {
+                    try {
+                        const posts = logic.getPosts()
+    
+                        this.setState({ posts })
+                    } catch (error) {
+                        alert(error.message)
+    
+                        console.error(error)
+                    }
+                }}
+            
+            />)}
+        </div>
+    }
 }
 
 export default PostList

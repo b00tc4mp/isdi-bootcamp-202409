@@ -1,90 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
 
+
 body{
-background-color: #a0a0a1;
+background-color: beige;
+background-size: cover;
+background-attachment: fixed;
 text-align: center;
 box-sizing: border-box;
+margin: 0;
+height: 100%;
+position: relative;
+padding-bottom: 60px;
 }
 
 :root {
 --font: 'Noto Sans JP';
 font-family: var(--font);
+height: 100%;
 }
 
-h1{
-font-size: 50px;
-width: 100%;
-}
-
-section{
-background-color: #ebf2fa;
-width:auto;
-height: 500px;
-max-width: 400px;
-min-width: 300px;
-margin: auto;
-padding: 10px;
-border-radius: 10px;
-box-shadow: 2px 2px 2px 2px;
-}
-
-input{
-    width: 100%;
-    box-sizing: border-box;
-}
-/* .login{
-height: 350px;
-}
-
-.register{
-    height: 500px;
-}
-
-.home{
-    height: 100%;
-} */
-
-form{
-margin: auto;
-}
-label{
-display: block;
-margin: 0.3%
-}
-
-input{
-width: 50%;
-background-color: #ebf2fa;
-border: none;
-border-radius: 10px;
-border: 1px solid black;
-padding: 10px;
-transition: background-color 0.3s;
-}
-
-input:focus {
-background-color: #e0e0e0;
-border-color: #00eaff;
-}
-
-button{
-/* display: block; */
-margin: 20px auto;
-width: 50%;
-height: 2em;
-background-color: #ed254e;
-border-radius: 15px;
-font-weight:700 ;
-cursor: pointer;
-
-}
-p, a{
-display: inline;
-margin: 5px
-}
-
-a{
+a{  
 text-decoration: none;
+display: inline;
 }
 
 a:visited {
@@ -93,8 +30,4 @@ color: inherit;
 
 a:hover {
 text-decoration: underline;
-}
-
-li{
-    list-style: none;
 }

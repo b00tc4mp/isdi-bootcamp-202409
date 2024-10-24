@@ -1,8 +1,8 @@
-const deletePost = (post) => {
+const deletePost = (postId) => {
     let posts = JSON.parse(localStorage.posts)
     
     let postIndex = posts.findIndex(element =>{ 
-        return element.id === post.id })
+        return element.id === postId })
     
     posts.splice(postIndex, 1)
     
