@@ -1,42 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-    --color: rgb(170, 60, 43);
+    --color: rgb(25, 19, 18);
     --font: 'Press Start 2P';
+    --back-color: rgb(214, 213, 213);
     font-family: var(--font);
+    height: 100%;
 }
 
 body {
-    background-color: rgb(179, 176, 176);
+    background-color: rgb(214, 213, 213);
     color: var(--color);
-    margin: 50px;
+    margin: auto;
     min-width: 370px;
 }
 
-form {
+#root {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    min-width: 100px;
-    /*width: 300px;*/
-    gap: 5px;
+    justify-content: center;
+    align-items: center;
 }
 
-input {
-    background-color: inherit;
-    font-family: inherit;
-    width: 100%;
-    box-sizing: border-box;
+.icon {
+    cursor: pointer;
+    position: absolute;
+    width: 25px;
+    height: 30px;
+    right: 15px;
 }
 
-button {
-    width: fit-content;
+#password.Input {
+    padding-right: 30px;
 }
 
 a:visited {
     color: var(--color);
-}
-
-ul {
-    list-style: none;
 }

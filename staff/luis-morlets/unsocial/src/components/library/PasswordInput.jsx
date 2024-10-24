@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import Input from './Input'
 
 class PasswordInput extends Component {
     constructor(props) {
@@ -9,10 +10,9 @@ class PasswordInput extends Component {
 
     render() {
 
-        return <div style={{ display: 'flex' }}>
-            <input type={this.state.type} id={this.props.id} required={true} style={{ width: '100%', boxSizing: 'border-box', paddingRight: '30px' }} />
-            <img src={this.state.status}
-                style={{ cursor: 'pointer', position: 'absolute', width: '20px', right: '55px', }}
+        return <div>
+            <Input type={this.state.type} id={this.props.id} required={true} style={{ paddingRight: '30px' }} />
+            <img className="icon" src={this.state.status}
                 onClick={() => this.setState({
                     status: this.state.status === 'https://icons.veryicon.com/png/o/miscellaneous/computer-room-integration/show-password-3.png'
                         ? 'https://icons.veryicon.com/png/o/miscellaneous/computer-room-integration/hide-password.png'

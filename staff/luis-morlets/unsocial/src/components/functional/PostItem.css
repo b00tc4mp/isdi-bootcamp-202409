@@ -1,0 +1,71 @@
+.PostItem {
+    height: auto;
+    width: 100%;
+
+    img {
+        width: 100%;
+        box-shadow: inset;
+    }
+
+    div.username {
+        display: flex;
+        align-items: center;
+        font-size: xx-small;
+        padding-left: 1rem;
+        justify-content: flex-start;
+        gap: 5px;
+    }
+
+    h4 {
+        margin: .5rem 0;
+        font-size: small;
+    }
+
+    time {
+        font-size: x-small;
+        padding-left: 1rem;
+    }
+
+    figure {
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .Paragraphpost-item {
+        padding-left: 1rem;
+        font-size: x-small;
+    }
+
+    .Buttonlikes {
+        width: fit-content;
+        background-color: dimgrey;
+        color: lightgrey;
+        border-style: groove;
+        border-radius: 10px;
+    }
+
+    .Buttondelete {
+        width: fit-content;
+        background-color: dimgrey;
+        color: lightgrey;
+        border-style: groove;
+        border-radius: 10px;
+    }
+
+    div.container {
+        display: flex;
+        align-items: center;
+        font-size: xx-small;
+        padding-left: 1rem;
+        justify-content: space-between;
+        padding-right: 1rem;
+    }
+
+    div.likes {
+        display: flex;
+        align-items: center;
+        font-size: xx-small;
+        justify-content: flex-start;
+        gap: 2px;
+    }
+}

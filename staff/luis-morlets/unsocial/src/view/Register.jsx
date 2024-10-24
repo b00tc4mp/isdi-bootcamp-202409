@@ -1,11 +1,20 @@
-import registerUser from '../logic/registerUser'
+import './Register.css'
+
+import logic from '../logic'
+
 import PasswordInput from '../components/library/PasswordInput'
+import Form from '../components/library/Form'
+import Label from '../components/library/Label'
+import Input from '../components/library/Input'
+import Button from '../components/library/Button'
+import Paragraph from '../components/library/Paragraph'
+import Field from '../components/library/Field'
 
 function Register(props) {
-    return <section>
+    return <main className="Register">
         <h2>Register</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: form } = event
@@ -19,7 +28,7 @@ function Register(props) {
             } = form
 
             try {
-                registerUser(name, email, username, password, passwordRepeat)
+                logic.registerUser(name, email, username, password, passwordRepeat)
 
                 form.reset()
 
@@ -30,31 +39,40 @@ function Register(props) {
                 console.error(error)
             }
         }}>
+            <Field>
+                <Label htmlFor="name">Name:</Label>
+                <Input type="text" id="name" required={true} />
+            </Field>
 
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" required={true} style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="email">E-mail:</Label>
+                <Input type="email" id="email" required={true} />
+            </Field>
 
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" required={true} style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="username">Username:</Label>
+                <Input type="text" id="username" required={true} />
+            </Field>
 
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" required={true} style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="password">Password:</Label>
+                <PasswordInput id="password" />
+            </Field>
 
-            <label htmlFor="password">Password</label>
-            <PasswordInput id="password" />
+            <Field>
+                <Label htmlFor="password-repeat">Repeat Password:</Label>
+                <PasswordInput id="password-repeat" />
+            </Field>
 
-            <label htmlFor="password-repeat">Repeat Password</label>
-            <PasswordInput id="password-repeat" />
+            <Button type="submit" className="">Register</Button>
+        </Form>
 
-            <button type="submit">Register</button>
-        </form>
-
-        <p>Already have an account? <a href="" onClick={event => {
+        <Paragraph className="">Already have an account? <a href="" onClick={event => {
             event.preventDefault()
 
             props.onLoginLink()
-        }}>Login</a></p>
-    </section>
+        }}>Login</a></Paragraph>
+    </main>
 }
 
 export default Register

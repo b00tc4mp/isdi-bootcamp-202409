@@ -1,11 +1,14 @@
-import authenticateUser from '../logic/authenticateUser'
-import PasswordInput from '../components/library/PasswordInput'
+import './Login.css'
+
+import logic from '../logic'
+
+import { PasswordInput, Form, Field, Label, Button, Paragraph, Input } from '../components/library'
 
 function Login(props) {
-    return <section>
+    return <main className="Login">
         <h2>Login</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: form } = event
@@ -16,7 +19,7 @@ function Login(props) {
             } = form
 
             try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                logic.loginUser(username, password)
 
                 form.reset()
 
@@ -27,21 +30,25 @@ function Login(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" required={true} style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="username">Username:</Label>
+                <Input type="text" id="username" required={true} style={{ width: '100%', boxSizing: 'border-box' }} />
+            </Field>
 
-            <label htmlFor="password">Password</label>
-            <PasswordInput id='password' />
+            <Field><Label htmlFor="password">Password:</Label>
+                <PasswordInput id='password' />
+            </Field>
 
-            <button type="submit">Login</button>
-        </form>
 
-        <p>Don't have an account? <a href="" onClick={event => {
+            <Button type="submit" className="">Login</Button>
+        </Form>
+
+        <Paragraph className="">Don't have an account? <a href="" onClick={event => {
             event.preventDefault()
 
             props.onRegisterLink()
-        }}>Register</a></p>
-    </section>
+        }}>Register</a></Paragraph>
+    </main>
 }
 
 export default Login
