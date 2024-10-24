@@ -3,7 +3,8 @@ import { Component } from "react"
 import './PasswordInput.css'
 import Input from './Input'
 
-class PasswordInput extends Component {
+
+export default class extends Component {
     constructor(props) {
         console.log('PassInput -> Constructor')
 
@@ -31,5 +32,3 @@ class PasswordInput extends Component {
         </div >
     }
 }
-
-export default PasswordInput

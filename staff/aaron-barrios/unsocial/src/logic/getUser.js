@@ -1,4 +1,4 @@
-const getUser = userId => {
+export default (userId) => {
     if (typeof userId !== 'string') throw new Error('invalid userId')
 
     const users = JSON.parse(localStorage.users)
@@ -9,5 +9,3 @@ const getUser = userId => {
 
     return user
 }
-
-export default getUser

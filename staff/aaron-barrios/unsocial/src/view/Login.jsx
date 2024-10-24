@@ -5,7 +5,8 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
-function Login(props) {
+
+export default (props) => {
 
     return <main className="Login">
         <h2>Login</h2>
@@ -67,5 +68,3 @@ function Login(props) {
 
     </main>
 }
-
-export default Login

@@ -1,13 +1,11 @@
 import { Component } from "react"
+
+import { PostList } from '../components/functional'
+
 import './Home.css'
 
-import PostList from "../components/functional/PostList"
-import CreatePost from './CreatePost'
-import ProfileData from '../components/functional/ProfileData'
-import Button from '../components/library/Button'
 
-
-class Home extends Component {
+export default class extends Component {
     constructor(props) {
         console.log('Home -> constructor')
 
@@ -36,4 +34,3 @@ class Home extends Component {
         </main >
     }
 }
-export default Home

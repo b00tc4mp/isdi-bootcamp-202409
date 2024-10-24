@@ -1,38 +1,61 @@
+import { Component } from 'react'
+
 import logic from '../../logic'
+import Comments from './Comments'
 
 import Button from '../library/Button'
 
+import getElapsedTime from '../../utils/getElapsedTime'
+
 import './PostItem.css'
 
-function PostItem({ item: { id, author, image, text, date, liked, likes }, onLikeClicked, onDeleted }) {
-    return <article className="PostItem">
 
-        {sessionStorage.userId === author.id &&
-            <Button type="button"
+export default class extends Component {
+
+    constructor(props) {
+
+        super(props)
+
+        this.state = { view: null }
+    }
+
+    render() {
+
+        const { item: { id, author, image, text, date, liked, likes }, onLiked, onDeleted } = this.props
+
+        return <article className="PostItem">
+
+            {author.id === logic.getUserId() &&
+                <Button type="button"
+                    onClick={() => {
+                        if (confirm('Delete post?')) {
+                            logic.deletePost(id)
+
+                            onDeleted()
+                        }
+                    }}>Delete Post</Button>}
+
+            <p>Author:{author.username}</p>
+            <img src={image} className='img' />
+            <br />
+            <button
                 onClick={() => {
-                    logic.deletePost(id)
+                    logic.toggleLikePost(id)
 
-                    onDeleted()
+                    onLiked()
+                }}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</button>
+            <button onClick={() => {
+                this.setState({ view: this.state.view ? null : 'comments' })
 
-                }}>Delete Post</Button>}
+            }}>💬</button>
+            <label style={{ opacity: '60%', fontSize: '13px', marginTop: '2%' }}>View comments...</label>
 
-        <p>Author:{author.username}</p>
-        <img src={image} />
-        <br />
-        <button
-            onClick={() => {
-                logic.toggleLikePost(id)
+            <h4 style={{ margin: '2%', marginLeft: '40px', fontSize: 'small' }}>{text}</h4>
+            <time style={{ fontSize: 'xx-small', marginRight: '10px', marginTop: '2.5%' }}>{getElapsedTime(date)}</time>
 
-                onLikeClicked()
-            }}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</button>
-        <button >💬</button>
-        <label style={{ opacity: '60%', fontSize: '13px', marginTop: '2%' }}>View comments...</label>
+            {this.state.view === 'comments' && <Comments postId={id} />}
 
-        <h4 style={{ margin: '2%', marginLeft: '40px', fontSize: 'small' }}>{text}</h4>
-        <time style={{ fontSize: 'xx-small', marginRight: '10px', marginTop: '2.5%' }}>{date}</time>
+        </article>
+    }
 
-        <br />
-    </article>
 }
-
-export default PostItem

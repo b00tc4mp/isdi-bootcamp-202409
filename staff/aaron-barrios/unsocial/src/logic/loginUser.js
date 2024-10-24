@@ -1,4 +1,4 @@
-const loginUser = (username, password) => {
+export default (username, password) => {
     if (typeof username !== 'string') throw new Error('invalid username')
     if (username.length < 4 || username.length > 12)
         throw new Error('Invalid username length')
@@ -15,4 +15,3 @@ const loginUser = (username, password) => {
     sessionStorage.userId = user.id
 }
 
-export default loginUser

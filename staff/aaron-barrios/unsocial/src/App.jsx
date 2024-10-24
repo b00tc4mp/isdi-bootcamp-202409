@@ -8,7 +8,8 @@ import ProfileData from './components/functional/ProfileData'
 
 import logic from './logic'
 
-class App extends Component {
+
+export default class extends Component {
   constructor(props) {
 
     super(props)
@@ -52,4 +53,3 @@ class App extends Component {
   }
 }
 
-export default App

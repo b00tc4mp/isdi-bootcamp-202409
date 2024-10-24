@@ -1,7 +1,7 @@
 .Header {
     background-color: var(--back-color);
     padding: 1rem;
-    height: 5%;
+    height: 3rem;
 
     display: flex;
     justify-content: space-between;

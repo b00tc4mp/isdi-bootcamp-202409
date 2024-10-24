@@ -1,4 +1,5 @@
-const getPosts = () => {
+
+export default () => {
     const users = JSON.parse(localStorage.users)
     const posts = JSON.parse(localStorage.posts)
 
@@ -20,5 +21,3 @@ const getPosts = () => {
 
     return posts.toReversed()
 }
-
-export default getPosts

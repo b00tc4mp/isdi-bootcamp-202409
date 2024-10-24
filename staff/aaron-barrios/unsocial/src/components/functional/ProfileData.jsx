@@ -1,6 +1,6 @@
 import getUser from "../../logic/getUser"
 
-function ProfileData(props) {
+export default (props) => {
 
     let currentUser
 
@@ -82,5 +82,3 @@ function ProfileData(props) {
         </form>
     </div>
 }
-
-export default ProfileData

@@ -5,7 +5,8 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 import './Register.css'
 
 
-function Register(props) {
+
+export default (props) => {
 
     return <main className="Register">
         <h2>Register</h2>
@@ -82,5 +83,3 @@ function Register(props) {
             }}>Login</a>
     </main>
 }
-
-export default Register

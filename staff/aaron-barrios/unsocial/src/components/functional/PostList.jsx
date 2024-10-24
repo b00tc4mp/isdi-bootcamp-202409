@@ -5,7 +5,8 @@ import logic from '../../logic'
 import PostItem from './PostItem'
 
 
-class PostList extends Component {
+
+export default class extends Component {
 
     constructor(props) {
         console.log('PostList -> render')
@@ -30,12 +31,12 @@ class PostList extends Component {
         return <div id="posts">
             <h3>Posts</h3>
 
-            {this.state.posts.map(post => <PostItem item={post}
+            {this.state.posts.map(post => <PostItem
+                item={post}
                 onDeleted={() => {
 
                     try {
                         const posts = logic.getPosts()
-                        // logic.deletePost()
 
                         this.setState({ posts })
                     } catch (error) {
@@ -43,9 +44,8 @@ class PostList extends Component {
 
                         console.error(error)
                     }
-
                 }}
-                onLikeClicked={() => {
+                onLiked={() => {
                     try {
                         const posts = logic.getPosts()
 
@@ -56,12 +56,8 @@ class PostList extends Component {
 
                         console.error(error)
                     }
-
-
                 }}
             />)}
         </div>
     }
 }
-
-export default PostList

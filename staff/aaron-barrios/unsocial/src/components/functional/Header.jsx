@@ -4,7 +4,8 @@ import logic from '../../logic'
 
 import './Header.css'
 
-function Header({ view, onHomeClick, onLoggedOut }) {
+
+export default ({ view, onHomeClick, onLoggedOut }) => {
 
     let name
 
@@ -34,11 +35,12 @@ function Header({ view, onHomeClick, onLoggedOut }) {
         {logic.isUserLoggedIn() && <Button type="button"
             onClick={() => {
 
-                logic.logoutUser()
+                if (confirm('Logout?')) {
+                    logic.logoutUser()
 
-                onLoggedOut()
+                    onLoggedOut()
+                }
+
             }}>Logout</Button>}
     </header>
 }
-
-export default Header
