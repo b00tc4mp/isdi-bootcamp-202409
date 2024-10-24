@@ -1,11 +1,10 @@
 import { Component } from 'react'
 
-import { Login, Register, Home, CreatePost } from './view'
-
+import Login from './view/Login'
+import Register from './view/Register'
+import Home from './view/Home'
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
-
-import logic from './logic'
 
 class App extends Component {
   constructor(props) {
@@ -13,14 +12,14 @@ class App extends Component {
 
     super(props)
 
-    this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
+    this.state = { view: 'login' }
   }
 
   render() {
     console.log('App -> render')
 
     return <>
-      <Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })} onLoggedOut={() => this.setState({ view: 'login' })} />
+      <Header />
 
       {this.state.view === 'login' && <Login
         onLoggedIn={() => this.setState({ view: 'home' })}
@@ -30,11 +29,9 @@ class App extends Component {
         onLoginClick={() => this.setState({ view: 'login' })}
         onRegistered={() => this.setState({ view: 'login' })}
       />}
-      {this.state.view === 'home' && <Home />}
+      {this.state.view === 'home' && <Home onLoggedOut={() => this.setState({ view: 'login' })} />}
 
-      {this.state.view === 'new-post' && <CreatePost onCreated={() => this.setState({ view: 'home' })} />}
-
-      <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
+      <Footer children='' />
     </>
   }
 }

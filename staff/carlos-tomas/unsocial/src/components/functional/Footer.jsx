@@ -1,7 +1,11 @@
 import './Footer.css'
 
-function Footer({ children }) {
-    return <footer className="Footer">{children}</footer>
+import Button from '../library/Button'
+
+function Footer({ onNewPostClick, view }) {
+    return <footer className="Footer">
+        {view === 'home' && <Button type="button" onClick={onNewPostClick}>+</Button>}
+    </footer>
 }
 
 export default Footer

@@ -1,10 +1,36 @@
+import { Button } from '../library'
+
+import logic from '../../logic'
+
 import './Header.css'
 
-function Header() {
+function Header({ view, onHomeClick, onLoggedOut }) {
+    let name
+
+    if (logic.isUserLoggedIn())
+        try {
+            name = logic.getUserName()
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+
     return <header className="Header">
 
-        <h1>Unsocial</h1>
-        <img src="https://i.ibb.co/PN6ym9Y/DALL-E-2024-10-22-16-46-29-A-simple-round-icon-with-a-black-background-and-the-letters-Un-S-in-bold.webp" />
+        <h1>{view === 'new-post' ? <a href='' onClick={event => {
+            event.preventDefault()
+
+            onHomeClick()
+        }}>Unsocial</a> : 'Unsocial'}</h1>
+
+        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+
+        {logic.isUserLoggedIn() && <Button type="button" onClick={() => {
+            logic.logoutUser()
+
+            onLoggedOut()
+        }}>Logout</Button>}
     </header >
 }
 

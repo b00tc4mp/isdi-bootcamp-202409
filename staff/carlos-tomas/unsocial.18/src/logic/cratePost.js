@@ -11,6 +11,7 @@ const createPost = (userId, image, text) => {
         image: image,
         text: text,
         author: userId,
+        likes: [],
         date: new Date
     }
 

@@ -7,11 +7,14 @@
     align-items: center;
     color: white;
     gap: 3rem;
-    width: 100%;
 
     h1 {
         margin: 0;
         font-size: x-large;
     }
 
+    img {
+        height: auto;
+        width: 4rem;
+    }
 }

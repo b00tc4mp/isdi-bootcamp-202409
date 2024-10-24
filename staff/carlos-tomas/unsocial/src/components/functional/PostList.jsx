@@ -1,47 +1,45 @@
-import './PostList.css'
+import { Component } from 'react'
 
+import PostItem from './PostItem'
 import getPosts from '../../logic/getPosts'
-import LikeUser from '../library/Likes'
-import Button from '../library/Button'
 
-function PostList(props) {
-    console.log('PostList -> render')
 
-    let posts
+class PostList extends Component {
+    constructor(props) {
+        console.log('PostList -> render')
 
-    try {
-        posts = getPosts(props)
-    } catch (error) {
-        alert(error.message)
+        super(props)
 
-        console.error(error)
+        let posts
+
+        try {
+            posts = getPosts()
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+
+        this.state = { posts }
     }
 
-    return <div className='PostList'>
-        <h3>Posts</h3>
+    render() {
+        return <div>
+            <h3>Posts</h3>
 
-        {posts.map(post => <article className='PostList'>
-            <h4>{post.author.username}</h4>
-            <img src={post.image} style={{ width: '90%', margin: '5px' }} />
-            {sessionStorage.loggedInUserId === post.author.id && <Button type="button" onClick={() => {
-                posts = JSON.parse(localStorage.posts)
+            {this.state.posts.map(post => <PostItem item={post} onLikeClicked={() => {
+                try {
+                    const posts = getPosts()
 
-                let index = posts.findIndex(element => element.id === post.id)
+                    this.setState({ posts })
+                } catch (error) {
+                    alert(error.message)
 
-                posts.splice(index, 1)
-
-                localStorage.posts = JSON.stringify(posts)
-
-                props.onDeleted()
-
-            }} >Delete post </Button>}
-            <LikeUser />
-
-
-            <p>{post.text}</p>
-            <time>{post.date}</time>
-        </article>)}
-    </div>
+                    console.error(error)
+                }
+            }} />)}
+        </div>
+    }
 }
 
 export default PostList
