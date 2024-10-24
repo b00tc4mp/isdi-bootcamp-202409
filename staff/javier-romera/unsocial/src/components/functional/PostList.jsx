@@ -6,7 +6,7 @@ import logic from '../../logic'
 
 import PostItem from './PostItem'
 
-class PostList extends Component {
+export default class extends Component {
     constructor(props) {
         super(props)
 
@@ -24,8 +24,6 @@ class PostList extends Component {
 
     render() {
         return <div className="PostList">
-            <h3>Posts</h3>
-
             {this.state.posts.map(post => <PostItem key={post.id} item={post}
                 onDeletedPost={() => {
                     try {
@@ -53,5 +51,3 @@ class PostList extends Component {
         </div>
     }
 }
-
-export default PostList

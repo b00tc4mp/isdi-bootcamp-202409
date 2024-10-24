@@ -1,4 +1,4 @@
-const deletePost = (postId) => {
+export default (postId) => {
     const posts = JSON.parse(localStorage.posts)
 
     const index = posts.findIndex(element => {
@@ -7,9 +7,5 @@ const deletePost = (postId) => {
 
     posts.splice(index, 1)
 
-    posts.toReversed()
-
     localStorage.posts = JSON.stringify(posts)
 }
-
-export default deletePost

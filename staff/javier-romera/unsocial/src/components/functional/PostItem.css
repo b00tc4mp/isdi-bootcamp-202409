@@ -15,7 +15,8 @@
         margin: 0;
     }
 
-    .like-button {
+    .like-button,
+    .comment-button {
         width: 22px;
         height: 22px;
         border: 0;
@@ -31,7 +32,8 @@
     }
 
     span {
-        margin-left: 0.25rem;
+        margin-left: .25rem;
+        margin-right: 1rem;
     }
 
     p {

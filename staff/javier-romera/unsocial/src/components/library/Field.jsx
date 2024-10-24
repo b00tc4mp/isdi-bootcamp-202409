@@ -1,7 +1,5 @@
 import './Field.css'
 
-function Field({ children }) {
+export default ({ children }) => {
     return <div className="Field">{children}</div>
 }
-
-export default Field

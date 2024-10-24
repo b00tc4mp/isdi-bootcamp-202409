@@ -1,0 +1,28 @@
+.Comments {
+    ul {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        list-style: none;
+    }
+
+    h5 {
+        margin: .5rem 0;
+    }
+
+    form {
+        margin: 1rem 0;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    p,
+    time {
+        padding-left: .5rem;
+    }
+
+    button {
+        width: 120px;
+    }
+}

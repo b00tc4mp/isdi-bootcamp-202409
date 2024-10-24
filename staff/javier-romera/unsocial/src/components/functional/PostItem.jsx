@@ -3,38 +3,60 @@ import { Button } from '../library'
 import logic from '../../logic'
 
 import './PostItem.css'
+import getElapsedTime from '../../utils/getElapsedTime'
+import { Component } from 'react'
+import Comments from './Comments'
+import getComments from '../../logic/getComments'
 
-function PostItem({ item: { id, author, image, text, date, liked, likedBy }, onLikeClicked, onDeletedPost }, key) {
-    const { loggedInUserId } = sessionStorage
-    return <article key={key} className="PostItem">
-        <div className="post-header">
-            <h4>{author.username}</h4>
+export default class extends Component {
+    constructor(props) {
+        super(props)
 
-            {loggedInUserId === author.id && <Button classname="delete-button" type="button" onClick={() => {
-                logic.deletePost(id)
+        this.state = { view: null }
+    }
 
-                onDeletedPost()
-            }}>❌</Button>}
-        </div>
+    render() {
+        const { item: { id, author, image, text, date, liked, likedBy }, onLikeClicked, onDeletedPost, } = this.props
 
-        <img src={image}></img>
+        return <article className="PostItem">
+            <div className="post-header">
+                <h4>{author.username}</h4>
 
-        <div className="likes-div">
-            <Button classname="like-button" onClick={() => {
-                logic.toggleLikePost(id)
+                {logic.getUserId() === author.id && <Button classname="delete-button" type="button" onClick={() => {
+                    if (confirm('Are you sure you want to delete this post?')) {
+                        logic.deletePost(id)
 
-                onLikeClicked()
-            }}>{`${liked ? '❤️' : '🤍'}`}</Button>
+                        onDeletedPost()
+                    }
+                }}>❌</Button>}
+            </div >
 
-            <span>{likedBy.length}</span>
-        </div>
+            <img src={image}></img>
 
-        <p className="caption">{text}</p>
+            <div className="likes-div">
+                <Button classname="like-button" onClick={() => {
+                    logic.toggleLikePost(id)
 
-        <p>View comments...</p>
+                    onLikeClicked()
+                }}>{`${liked ? '❤️' : '🤍'}`}</Button>
 
-        <time>{date}</time>
-    </article>
+                <span>{likedBy.length}</span>
+
+                <Button classname="comment-button" onClick={() => {
+                    const comments = getComments(id)
+                    this.setState({ view: this.state.view ? null : 'comments' })
+                }}>💬</Button>
+            </div>
+
+            <p className="caption">{text}</p>
+
+            {this.state.view === 'comments' && <Comments postId={id} />}
+
+            {this.state.view !== 'comments' && <p onClick={() => {
+                this.setState({ view: 'comments' })
+            }}>View comments...</p>}
+
+            <time>{getElapsedTime(date)} ago</time>
+        </article >
+    }
 }
-
-export default PostItem

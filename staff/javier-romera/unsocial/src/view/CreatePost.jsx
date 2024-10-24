@@ -4,7 +4,7 @@ import logic from '../logic'
 
 import { Form, Field, Label, Input, Button } from '../components/library'
 
-function CreatePost({ onCreated }) {
+export default ({ onCreated }) => {
     return <div className="CreatePost">
         <h3>Create Post</h3>
 
@@ -41,5 +41,3 @@ function CreatePost({ onCreated }) {
         </Form>
     </div>
 }
-
-export default CreatePost

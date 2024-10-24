@@ -4,7 +4,7 @@ import { Anchor, Button } from '../library'
 
 import logic from '../../logic'
 
-function Header({ view, onHomeClick, onLoggedOut }) {
+export default ({ view, onHomeClick, onLoggedOut }) => {
     // let name
     let username
 
@@ -28,12 +28,12 @@ function Header({ view, onHomeClick, onLoggedOut }) {
             {logic.isUserLoggedIn() && <h3>{username}</h3>}
 
             {logic.isUserLoggedIn() && <Button classname="logout-button" type="button" onClick={() => {
+                // if (confirm('Are you sure you want to logout?')) {
                 logic.logoutUser()
 
                 onLoggedOut()
+                // }
             }}>𐢫</Button>}
         </div>
     </header>
 }
-
-export default Header

@@ -4,7 +4,7 @@ import { Component } from 'react'
 
 import { PostList } from '../components/functional'
 
-class Home extends Component {
+export default class extends Component {
     constructor(props) {
         super(props)
 
@@ -16,5 +16,3 @@ class Home extends Component {
         </main>
     }
 }
-
-export default Home
