@@ -4,7 +4,7 @@ import { PostList } from '../components/function'
 
 import './Home.css'
 
-class Home extends Component {
+export default class extends Component {
     constructor(props) {
         super(props)
 
@@ -12,11 +12,9 @@ class Home extends Component {
     }
 
     render() {
-        console.log('Home -> render')
 
         return <main className="Home">
             {this.state.view === 'list' && <PostList />}
         </main>
     }
 }
-export default Home

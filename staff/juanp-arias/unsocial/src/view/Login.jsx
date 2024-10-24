@@ -3,8 +3,7 @@ import { PasswordInput, Input, Button, Form, Label } from '../components/library
 import logic from '../logic'
 
 
-//TODO make styles of all views
-function Login(props) {
+export default (props) => {
     return <main className='Login'>
         <h2>LOGIN</h2>
 
@@ -27,10 +26,10 @@ function Login(props) {
             }
         }}>
             <Label htmlFor="username">Username</Label>
-            <input type="text" id="username" placeholder="USERNAME"></input>
+            <Input type="text" id="username" placeholder="username"></Input>
 
             <Label htmlFor="password">Password</Label>
-            <PasswordInput id="password" />
+            <PasswordInput id="password" placeholder="password" />
 
             <Button type="submit">Login</Button>
         </Form>
@@ -45,4 +44,3 @@ function Login(props) {
 
     </main>
 }
-export default Login

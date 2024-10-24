@@ -4,7 +4,7 @@ import logic from '../../logic'
 
 import './Header.css'
 
-function Header({ view, onHomeClick, onLoggedOut }) {
+export default ({ view, onHomeClick, onLoggedOut }) => {
     let name
 
     if (logic.isUserLoggedIn())
@@ -33,4 +33,3 @@ function Header({ view, onHomeClick, onLoggedOut }) {
     </header>
 }
 
-export default Header

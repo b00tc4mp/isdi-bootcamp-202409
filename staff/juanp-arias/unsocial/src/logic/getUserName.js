@@ -1,4 +1,4 @@
-const getUserName = () => {
+export default () => {
     const users = JSON.parse(localStorage.users)
     const user = users.find(user => user.id === sessionStorage.userId)
 
@@ -6,5 +6,5 @@ const getUserName = () => {
 
     return user.name
 }
-export default getUserName
+
 

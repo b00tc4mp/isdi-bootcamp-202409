@@ -1,4 +1,4 @@
-function toggleLikePost(postId) {
+export default (postId) => {
     if (typeof postId !== 'string') throw new Error('invalid postId')
     const posts = JSON.parse(localStorage.posts)
 
@@ -16,5 +16,3 @@ function toggleLikePost(postId) {
 
     localStorage.posts = JSON.stringify(posts)
 }
-
-export default toggleLikePost

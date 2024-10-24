@@ -1,6 +1,6 @@
 import uuid from '../data/uuid'
 
-const createPostLogic = (image, text) => {
+export default (image, text) => {
     if (typeof image !== 'string') throw new Error('invalid image')
     if (typeof text !== 'string') throw new Error('invalid text')
 
@@ -19,5 +19,5 @@ const createPostLogic = (image, text) => {
 
     localStorage.posts = JSON.stringify(posts)
 }
-export default createPostLogic
+
 

@@ -3,7 +3,7 @@ import './Register.css'
 import { PasswordInput, Input, Button, Form, Label } from '../components/library'
 import logic from '../logic'
 
-function Register(props) {
+export default (props) => {
     return <main className="Register" id="register">
         <h2>REGISTER</h2>
 
@@ -33,7 +33,7 @@ function Register(props) {
             }
         }}>
             <Label htmlFor="name" >Name</Label>
-            <Input type="text" id="name" placeholder="USERNAME" />
+            <Input type="text" id="name" placeholder="name" />
             <br />
             <Label htmlFor="email">E-mail</Label>
             <Input type="email" id="email" />
@@ -57,4 +57,3 @@ function Register(props) {
             }}>Login</a>
     </main>
 }
-export default Register

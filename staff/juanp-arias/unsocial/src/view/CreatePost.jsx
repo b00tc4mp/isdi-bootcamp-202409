@@ -1,6 +1,7 @@
 import logic from '../logic'
 import './CreatePost.css'
-function CreatePost({ onCreated }) {
+
+export default ({ onCreated }) => {
     return <main className='CreatePost'>
         <h3>Create Post</h3>
 
@@ -35,4 +36,3 @@ function CreatePost({ onCreated }) {
         </form>
     </main>
 }
-export default CreatePost

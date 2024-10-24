@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import './PasswordInput.css'
 
-class PasswordInput extends Component {
+export default class extends Component {
     constructor(props) {
         console.log('PasswordInput -> constructor') // chivato para ver como construye la password input
 
@@ -11,7 +11,7 @@ class PasswordInput extends Component {
     render() {
 
         return <div>
-            <input type={this.state.type} id={this.props.id} />
+            <input className='Input' type={this.state.type} id={this.props.id} />
             <span className="emoji"
                 style={{ cursor: 'pointer', position: 'absolute', right: '10px' }}
                 onClick={() => this.setState({
@@ -22,4 +22,3 @@ class PasswordInput extends Component {
         </div>
     }
 }
-export default PasswordInput
