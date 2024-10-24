@@ -1,21 +1,21 @@
-.CreatePost {
-  background-color: rgb(255, 255, 255);
-  padding: 15% 0px 16% 0px;
-  margin: 0;
-  height: 35rem;
+.Register {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(255, 255, 255);
+  height: 35rem;
+  padding: 9% 0px 16% 0px;
 }
 
 @media (min-width: 700px) {
-  .CreatePost {
+  .Register {
     width: 540px;
   }
 }
 
 @media (max-width: 700px) {
-  .CreatePost {
+  .Register {
     width: 290px;
   }
 }

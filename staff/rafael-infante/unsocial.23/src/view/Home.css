@@ -1,21 +1,20 @@
-.CreatePost {
+.Home {
   background-color: rgb(255, 255, 255);
-  padding: 15% 0px 16% 0px;
+  padding: 9% 0px 16% 0px;
   margin: 0;
-  height: 35rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 @media (min-width: 700px) {
-  .CreatePost {
+  .Home {
     width: 540px;
   }
 }
 
 @media (max-width: 700px) {
-  .CreatePost {
+  .Home {
     width: 290px;
   }
 }
