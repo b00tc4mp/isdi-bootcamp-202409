@@ -1,8 +1,7 @@
 import './Form.css'
 
-function Form({ children, onSubmit }) {
+export default ({ children, onSubmit }) => {
     return <form className="Form" onSubmit={onSubmit}>{children}</form>
 
 }
 
-export default Form

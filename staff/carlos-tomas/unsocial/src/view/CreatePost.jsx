@@ -4,7 +4,8 @@ import { Label, Input, Form, Field, Button } from '../components/library'
 
 import logic from '../logic'
 
-function CreatePost({ onCreated }) {
+
+export default ({ onCreated }) => {
     console.log('CreatePost -> render')
 
     return <main className='CreatePost'>
@@ -42,5 +43,3 @@ function CreatePost({ onCreated }) {
         </Form>
     </main>
 }
-
-export default CreatePost

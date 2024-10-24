@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-class PasswordInput extends Component {
+export default class extends Component {
     constructor(props) {
         console.log('PasswordInput -> constructor')
 
@@ -25,4 +25,3 @@ class PasswordInput extends Component {
     }
 }
 
-export default PasswordInput
