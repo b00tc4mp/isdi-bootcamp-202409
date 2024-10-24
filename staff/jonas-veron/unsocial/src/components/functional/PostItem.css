@@ -1,16 +1,11 @@
 .PostItem{
     /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-
-    img{
-        height: 80vh;
-        width: 100%;
-        object-fit: cover;
-        margin: 0;
-    }
-
-    p{
-        margin:0
+    h4{
+        font-size: 20px;
+        margin-right: 45rem;
+        img{
+            
+            
+        }
     }
 }
