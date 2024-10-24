@@ -1,48 +1,52 @@
-import authenticateUser from '../logic/authenticateUser'
-import PasswordInput from '../components/library/PasswordInput'
+import './Login.css'
+
+import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+
+import logic from '../logic'
 
 function Login(props) {
     console.log('Login -> render')
 
-    return <section>
-        <h2>Login</h2>
+    return <main className="Login">
+        <h2>Log in to Unsocial</h2>
 
-        <form onSubmit={event => {
+        <Form onSubmit={event => {
             event.preventDefault()
 
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                // old -> loggedInUser = authenticateUser(username, password)
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                logic.loginUser(username, password)
 
                 event.target.reset()
 
                 props.onLoggedIn()
             } catch (error) {
                 // passwordInput.setValue('')
-
                 alert(error.message)
 
                 console.error(error)
             }
         }}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="username">Username</Label>
+                <Input type="text" id="username" />
+            </Field>
 
-            <label htmlFor="password">Password</label>
-            <PasswordInput id="password" />
+            <Field>
+                <Label htmlFor="password">Password</Label>
+                <PasswordInput id="password" />
+            </Field>
 
-            <button type="submit">Login</button>
-        </form>
+            <Button type="submit">Log In</Button>
+        </Form>
 
         <a href="" onClick={event => {
             event.preventDefault()
 
-            // old -> this.setState({ view: 'register' });
             props.onRegisterClick()
-        }}>Register</a>
-    </section>
+        }}>Sign up</a>
+    </main>
 }
 
 export default Login

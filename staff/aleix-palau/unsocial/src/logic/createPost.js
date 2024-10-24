@@ -1,7 +1,6 @@
 import uuid from '../data/uuid'
 
-const createPost = (userId, image, text) => {
-    if (typeof userId !== 'string') throw new Error('invalid userId')
+const createPost = (image, text) => {
     if (typeof image !== 'string') throw new Error('invalid image')
     if (typeof text !== 'string') throw new Error('invalid text')
 
@@ -11,8 +10,9 @@ const createPost = (userId, image, text) => {
         id: uuid(),
         image: image,
         text: text,
-        author: userId,
-        date: new Date
+        author: sessionStorage.userId,
+        date: new Date,
+        likes: []
     }
 
     posts.push(post)
