@@ -1,5 +1,13 @@
 .Login{
-    /* margin-top: 70px; */
+    margin: auto;
+    margin-top: 5rem;
+    background-image: radial-gradient(circle at 50% -20.71%, #ff57d2 0, #ff4edb 12.5%, #f046e3 25%, #d63feb 37.5%, #b53cf2 50%, #8c3df9 62.5%, #4f40ff 75%, #0046ff 87.5%, #004bff 100%);  
+    padding: 2rem;
+    height: 30rem;
+    width: 30rem;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 10px 5px 5px black;
     h2{
         font-size: 26px;
     }

@@ -23,14 +23,17 @@ function Header({ view, onHomeClick, onLoggedOut }) {
             onHomeClick()
         }}>Unsocial</a> : 'Unsocial'}</h1>
 
-        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+        <div className="TopNav">
+            
+            {logic.isUserLoggedIn() && <h3>{name}</h3>}
 
-        {logic.isUserLoggedIn() && <Button type="button" className="Button" onClick={()=> {
+            {logic.isUserLoggedIn() && <Button type="button" className="Button" onClick={()=> {
             logic.logoutUser()
 
             onLoggedOut()
-        }}>Logout</Button>
-    }
+            }}>Logout</Button>
+            }
+        </div>
     </header>
 }
 
