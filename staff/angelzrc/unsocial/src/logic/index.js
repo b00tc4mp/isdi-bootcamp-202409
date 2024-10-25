@@ -3,6 +3,7 @@ import loginUser from './loginUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'
 import logoutUser from './logoutUser'
+import getUserId from './getUserId'
 
 import createPost from './createPost'
 import getPosts from './getPosts'
@@ -16,7 +17,8 @@ const logic = {
     logoutUser,
     createPost,
     getPosts,
-    toggleLikePost
+    toggleLikePost,
+    getUserId
 }
 
 export default logic

@@ -1,18 +1,13 @@
 import './Login.css'
 
-import authenticateUser from '../logic/authenticateUser'
-import PasswordInput from '../components/library/PasswordInput'
-import Input from '../components/library/Input'
-import Button from '../components/library/Button'
-import Form from '../components/library/Form'
-import Field from '../components/library/Field'
-import Label from '../components/library/Label'
-import Anchor from '../components/library/Anchor'
+import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+
+import logic from '../logic'
 
 function Login(props) {
     console.log('Login -> render')
 
-    return <section>
+    return <main className="Login">
         <h2>Login</h2>
 
         <Form onSubmit={event => {
@@ -21,20 +16,17 @@ function Login(props) {
             const { target: { username: { value: username }, password: { value: password } } } = event
 
             try {
-                sessionStorage.loggedInUserId = authenticateUser(username, password)
+                logic.loginUser(username, password)
 
                 event.target.reset()
 
                 props.onLoggedIn()
             } catch (error) {
-                //passwordInput.setValue('')
-
                 alert(error.message)
 
                 console.error(error)
             }
         }}>
-
             <Field>
                 <Label htmlFor="username">Username</Label>
                 <Input type="text" id="username" />
@@ -42,7 +34,7 @@ function Login(props) {
 
             <Field>
                 <Label htmlFor="password">Password</Label>
-                <PasswordInput type='password' id="password" />
+                <PasswordInput id="password" />
             </Field>
 
             <Button type="submit">Login</Button>
@@ -53,7 +45,7 @@ function Login(props) {
 
             props.onRegisterClick()
         }}>Register</a>
-    </section>
+    </main>
 }
 
 export default Login

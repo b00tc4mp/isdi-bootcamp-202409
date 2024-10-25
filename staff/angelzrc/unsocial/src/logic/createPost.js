@@ -1,7 +1,7 @@
 import uuid from '../data/uuid'
 
-const createPost = ( image, text) => {
-  
+const createPost = (image, text) => {
+
     if (typeof image !== 'string') throw new Error('invalid image')
     if (typeof text !== 'string') throw new Error('invalid text')
 
@@ -12,7 +12,8 @@ const createPost = ( image, text) => {
         image: image,
         text: text,
         author: sessionStorage.userId,
-        date: new Date
+        date: new Date,
+        likes: []
     }
 
     posts.push(post)
@@ -21,3 +22,7 @@ const createPost = ( image, text) => {
 }
 
 export default createPost
+
+const posts = JSON.parse(localStorage.posts)
+posts.forEach(post => post.likes = [])
+JSON.stringify(localStorage.posts)
