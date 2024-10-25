@@ -14,19 +14,21 @@ export default class extends Component {
         this.state = { status: '😌', type: 'password' }
     }
 
+    handleToggleClick = () => this.setState({
+
+        status: this.state.status === '😌' ? '😳' : '😌',
+        type: this.state.type === 'password' ? 'text' : 'password'
+    })
+
     render() {
 
-        return <div style={{ display: 'flex' }}>
+        return <div className="test" style={{ display: 'flex' }}>
             <Input
-                type={this.state.type} id={this.props.id}
-                style={{ width: '100%', boxSizing: 'border - box', paddingRight: '18px' }} />
+                type={this.state.type} id={this.props.id} />
 
-            <span
-                style={{ cursor: 'pointer', position: 'absolute', right: '10px' }}
-                onClick={() => this.setState({
-                    status: this.state.status === '😌' ? '😳' : '😌',
-                    type: this.state.type === 'password' ? 'text' : 'password'
-                })}
+            <span className="spaan"
+                style={{}}
+                onClick={this.handleToggleClick}
             >{this.state.status}
             </span>
         </div >

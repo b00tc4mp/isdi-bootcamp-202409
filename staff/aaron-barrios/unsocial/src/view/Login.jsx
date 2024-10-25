@@ -7,39 +7,44 @@ import logic from '../logic'
 
 
 export default (props) => {
+    const handleSubmit = event => {
+        event.preventDefault()
+
+        //CAPTURO LOS VALORES DEL USERNAME Y PASSWORD DEL TARGET DEL EVENTO (FORMULARIO)
+        //LOS NOMBRES QUE CAPTURAS ES IMPORTANTE QUE COINCIDAN CON EL ID DEL INPUT
+        const { target:
+            { username: { value: username },
+                password: { value: password }
+            }
+        } = event
+
+        try {
+            logic.loginUser(username, password)
+            //RESETEO DEL FORMULARIO
+            event.target.reset() // => form.reset()
+
+            //LE PASO LA FUNCIÓN ONLOGGEDIN DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
+            props.onLoggedIn()
+
+        } catch (error) {
+            //passwordInput.setValue('')
+
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    const handleRegisterClick = event => {
+        event.preventDefault()
+
+        props.onRegisterLink()
+    }
 
     return <main className="Login">
         <h2>Login</h2>
 
-        <Form onSubmit={event => {
-
-            event.preventDefault()
-
-            //CAPTURO LOS VALORES DEL USERNAME Y PASSWORD DEL TARGET DEL EVENTO (FORMULARIO)
-            //LOS NOMBRES QUE CAPTURAS ES IMPORTANTE QUE COINCIDAN CON EL ID DEL INPUT
-            const { target:
-                { username: { value: username },
-                    password: { value: password }
-                }
-            } = event
-
-            try {
-                logic.loginUser(username, password)
-                //RESETEO DEL FORMULARIO
-                event.target.reset() // => form.reset()
-
-                //LE PASO LA FUNCIÓN ONLOGGEDIN DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
-                props.onLoggedIn()
-
-            } catch (error) {
-                //passwordInput.setValue('')
-
-                alert(error.message)
-
-                console.error(error)
-            }
-
-        }}>
+        <Form onSubmit={handleSubmit}>
 
             <Field>
                 <Label htmlFor="username">Username</Label>
@@ -58,13 +63,7 @@ export default (props) => {
 
 
 
-        <a href=""
-            onClick={event => {
-                event.preventDefault()
-
-                props.onRegisterLink()
-            }}>
-            Register</a>
+        <a href="" onClick={handleRegisterClick}> Register</a>
 
     </main>
 }

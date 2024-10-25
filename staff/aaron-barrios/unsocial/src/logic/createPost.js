@@ -1,10 +1,10 @@
 import uuid from '../data/uuid'
 
-
+import { validate } from './helpers'
 // ----- POSTS STUFF ------
 export default (text, image) => {
-    if (typeof text !== 'string') throw new Error('invalid text')
-    if (typeof image !== 'string') throw new Error('invalid image')
+    validate.text(text)
+    validate.image(image)
 
     const posts = JSON.parse(localStorage.posts)
 

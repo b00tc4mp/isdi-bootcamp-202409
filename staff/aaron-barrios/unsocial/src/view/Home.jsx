@@ -1,6 +1,6 @@
 import { Component } from "react"
 
-import { PostList } from '../components/functional'
+import { Posts } from '../components/functional'
 
 import './Home.css'
 
@@ -27,7 +27,7 @@ export default class extends Component {
 
 
             {this.state.view === 'list' &&
-                <PostList onDeleted={() => this.setState({ view: 'list' })} />}
+                <Posts onDeleted={() => this.setState({ view: 'list' })} />}
 
             {this.state.view === 'profile' &&
                 <ProfileData />}

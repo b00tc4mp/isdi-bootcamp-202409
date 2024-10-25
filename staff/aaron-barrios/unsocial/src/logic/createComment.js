@@ -1,21 +1,23 @@
+import { validate } from './helpers'
 
-import getElapsedTime from '../utils/getElapsedTime'
+import uuid from '../data/uuid'
 
-export default (postId, textarea) => {
-    if (typeof textarea !== 'string') throw new Error('invalid textarea')
+export default (postId, text) => {
+    validate.id(postId, 'postId')
+    validate.text(text)
 
     const posts = JSON.parse(localStorage.posts)
 
     const post = posts.find(({ id }) => id === postId)
-    // const post = posts[0]
 
     if (!post) throw new Error('post not found')
 
-    const { comments } = post
-
-    comments.push(textarea)
+    post.comments.push({
+        id: uuid(),
+        author: sessionStorage.userId,
+        text,
+        date: new Date
+    })
 
     localStorage.posts = JSON.stringify(posts)
-
-    // date = getElapsedTime()
 }
