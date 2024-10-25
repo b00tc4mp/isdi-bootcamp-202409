@@ -1,12 +1,13 @@
 import logic from '../logic'
 
-function CreatePost({ onCreated }) {
+import { Label, Input, Button, Form, Field } from '../components/library'
+
+export default ({ onCreated }) => {
   console.log('CreatePost -> render')
 
-  return <div>
-    <h3>Create Post</h3>
+  return <main className="CreatePost">
 
-    <form onSubmit={event => {
+    <Form onSubmit={event => {
       event.preventDefault()
 
       const { target: form } = event
@@ -26,15 +27,17 @@ function CreatePost({ onCreated }) {
         console.error(error)
       }
     }}>
-      <label htmlFor="image">Image</label>
-      <input type="text" id="image" style={{ width: 'auto', boxSizing: 'border-box' }} />
+      <Field>
+        <Label htmlFor="image">Image</Label>
+        <Input type="text" id="image" />
+      </Field>
 
-      <label htmlFor="text">Text</label>
-      <input type="text" id="text" style={{ width: 'auto', boxSizing: 'border-box' }} />
+      <Field>
+        <Label htmlFor="text">Text</Label>
+        <Input type="text" id="text" />
+      </Field>
 
-      <button type="submit">Create</button>
-    </form>
-  </div>
+      <Button type="submit">Create</Button>
+    </Form>
+  </main>
 }
-
-export default CreatePost

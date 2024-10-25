@@ -4,7 +4,7 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
-function Login(props) {
+export default props => {
   console.log('Login -> render')
 
   return <main className="Login">
@@ -24,7 +24,6 @@ function Login(props) {
 
         props.onLoggedIn()
       } catch (error) {
-        // passwordInput.setValue('')
 
         alert(error.message)
 
@@ -52,4 +51,3 @@ function Login(props) {
   </main>
 }
 
-export default Login

@@ -4,9 +4,9 @@ import PostItem from './PostItem'
 
 import getPosts from '../../logic/getPosts'
 
-import './PostList'
+import './PostList.css'
 
-class PostList extends Component {
+export default class extends Component {
   constructor(props) {
     console.log('PostList -> render')
 
@@ -26,22 +26,34 @@ class PostList extends Component {
 
   render() {
     return <>
-      <h3>Posts</h3>
 
-      {this.state.posts.map(post => <PostItem item={post} onLikeClicked={() => {
-        try {
-          const posts = getPosts()
+      {this.state.posts.map(post => <PostItem
+        item={post}
+        onLiked={() => {
+          try {
+            const posts = getPosts()
 
-          this.setState({ posts })
-        } catch (error) {
-          alert(error.message)
+            this.setState({ posts })
+          } catch (error) {
+            alert(error.message)
 
-          console.error(error)
-        }
-      }} />)}
+            console.error(error)
+          }
+        }}
+        onDeleted={() => {
+          try {
+            const posts = getPosts()
+
+            this.setState({ posts })
+          } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+          }
+        }}
+      />)}
     </>
   }
 }
 
-export default PostList
 

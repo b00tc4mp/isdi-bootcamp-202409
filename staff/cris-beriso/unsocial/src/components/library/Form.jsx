@@ -1,7 +1,8 @@
 import './Form.css'
 
-function Form({ children, onSubmit }) {
+export default ({ children, onSubmit }) => {
+  console.log('Form -> render')
+
   return <form className="Form" onSubmit={onSubmit}>{children}</form>
 }
 
-export default Form
