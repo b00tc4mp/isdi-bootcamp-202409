@@ -4,12 +4,16 @@ import Input from './Input'
 
 class PasswordInput extends Component {
     constructor(props) {
-        console.log('PasswordInput -> constructor')
-
+        //console.log('PasswordInput -> constructor')
         super(props) // this.props = props
 
         this.state = {status:'🙈', type: 'password'}
     }
+
+    handleToggleClick = () => this.setState({ // implicit return, {} and return can be ommited
+        status: this.state.status ==='🙈' ? '😏' : '🙈',
+        type: this.state.type === 'password' ? 'text' : 'password'
+    })
 
     render() {
         console.log('PasswordInput -> render')
@@ -18,10 +22,7 @@ class PasswordInput extends Component {
             <Input type={this.state.type} id={this.props.id}/>
             <span
                 style={{ cursor: 'pointer', position: 'absolute', right: '25px', marginTop: '8px'}}
-                onClick={() => this.setState( {
-                    status: this.state.status === '🙈' ? '😏' : '🙈',
-                    type: this.state.type === 'password' ? 'text' : 'password'
-                })}
+                onClick={this.handleToggleClick}
             >{this.state.status}</span>
         </div>
     }

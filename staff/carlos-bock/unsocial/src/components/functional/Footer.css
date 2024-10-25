@@ -1,6 +1,6 @@
 .Footer {
-    height: 5%;
-    background-color: green;
+    height: 3rem;
+    background-color: rgb(212, 216, 212);
     box-sizing: border-box;
     position: fixed;
     width: 100%;

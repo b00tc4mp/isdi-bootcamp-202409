@@ -1,5 +1,3 @@
-function isUserLoggedIn() {
-    return sessionStorage.userId !== undefined
-}
-
+const isUserLoggedIn =() => sessionStorage.userId !== undefined
+    //{return sessionStorage.userId !== undefined}
 export default isUserLoggedIn;
