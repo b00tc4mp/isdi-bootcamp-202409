@@ -1,0 +1,16 @@
+.Form {
+    gap: 10px;
+
+    .Field {
+        width: 90%;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .send-button {
+        width: 75px;
+        margin: 0;
+    }
+}

@@ -1,8 +1,8 @@
-import './Home.css'
-
 import { Component } from 'react'
 
-import { PostList } from '../components/functional'
+import { Posts } from '../components/functional'
+
+import './Home.css'
 
 export default class extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class extends Component {
     }
     render() {
         return <main className="Home">
-            {this.state.view === 'list' && <PostList />}
+            {this.state.view === 'list' && <Posts />}
         </main>
     }
 }

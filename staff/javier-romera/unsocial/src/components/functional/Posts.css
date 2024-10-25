@@ -1,4 +1,4 @@
-.PostList {
+.Posts {
     background-color: var(--back-color);
     display: flex;
     flex-direction: column;

@@ -1,20 +1,20 @@
 import { Component } from 'react'
 import { Button, Form } from '../library'
+import AddComment from './AddComment'
+
 import './Comments.css'
 
 import logic from '../../logic'
-import CommentItem from './CommentItem'
+import Comment from './Comment'
 
 export default class extends Component {
     constructor(props) {
         super(props)
 
-        const { postId } = props
-
         let comments
 
         try {
-            comments = logic.getComments(postId)
+            comments = logic.getComments(props.postId)
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -23,31 +23,46 @@ export default class extends Component {
         this.state = { comments }
     }
 
+    onAdded = () => {
+        try {
+            const comments = logic.getComments(this.props.postId)
+
+            this.setState({ comments })
+
+            this.props.onAdded()
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+    onRemoved = () => {
+        try {
+            const comments = logic.getComments(this.props.postId)
+
+            this.setState({ comments })
+
+            this.props.onRemoved()
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
     render() {
         return <section className="Comments">
             <ul>
-                {this.state.comments.map(comment => <CommentItem id={comment} />)}
+                {this.state.comments.map(comment =>
+                    <Comment
+                        postId={this.props.postId}
+                        comment={comment}
+                        onRemoved={this.onRemoved}
+                    />)}
             </ul>
-            <Form onSubmit={event => {
-                event.preventDefault()
-
-                try {
-                    logic.createComment(logic.getUserId(), event.target['text-area'].value, this.props.postId)
-
-                    event.target['text-area'].value = ""
-
-                    const comments = logic.getComments(this.props.postId)
-
-                    this.setState({ comments })
-                } catch (error) {
-                    alert(error.message)
-
-                    console.error(error)
-                }
-            }}>
-                <textarea id="text-area" placeholder="Comment"></textarea>
-                <Button type="submit">Comment</Button>
-            </Form>
+            <AddComment
+                postId={this.props.postId}
+                onAdded={this.onAdded}
+            />
         </section>
     }
 }

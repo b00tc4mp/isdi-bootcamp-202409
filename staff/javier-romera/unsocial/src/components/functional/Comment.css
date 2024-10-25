@@ -1,0 +1,15 @@
+.Comment {
+    p {
+        padding-right: 0;
+    }
+
+    .username-delete {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .remove-comment {
+        width: 26px;
+        border: 0;
+    }
+}
