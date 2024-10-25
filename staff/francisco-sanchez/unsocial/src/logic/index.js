@@ -10,7 +10,11 @@ import toggleLikePost from './toggleLikePost'
 
 import deletePost from './deletePost'
 import getUserId from './getUserId'
-import getElapsedTime from '../utils/getElapsedTime'
+//import getElapsedTime from '../utils/getElapsedTime'
+
+import addComment from './addComment'
+import getComments from './getComments'
+import removeComment from './removeComment'
 
 
 const logic = {
@@ -26,6 +30,10 @@ const logic = {
 
     deletePost,
     getUserId,
+
+    addComment,
+    getComments,
+    removeComment,
 
     //getElapsedTime //OJO !! 
 

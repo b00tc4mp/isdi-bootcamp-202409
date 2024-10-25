@@ -1,8 +1,10 @@
+import validate from './helpers/validate'
+
 import uuid from '../data/uuid'
 
 export default (image, text) => {
-    if (typeof image !== 'string') throw new Error('invalid image')
-    if (typeof text !== 'string') throw new Error('invalid text')
+    validate.image(image)
+    validate.text(text)
 
     //Recuperamos el array de posts de la memoria del navegador
     const posts = JSON.parse(localStorage.posts)
@@ -14,6 +16,7 @@ export default (image, text) => {
         author: sessionStorage.userId,
         date: new Date(),
         likes: [],
+        comments: []
         //comments: {authorID, comment}
     }
 

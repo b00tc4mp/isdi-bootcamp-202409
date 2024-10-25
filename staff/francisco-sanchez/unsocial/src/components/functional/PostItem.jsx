@@ -2,10 +2,10 @@ import { Button } from '../library'
 import Comments from './Comments'
 
 import logic from '../../logic'
+
 import getElapsedTime from '../../utils/getElapsedTime'
 
 import './PostItem.css'
-
 import { Component } from 'react'
 
 export default class extends Component {
@@ -17,9 +17,54 @@ export default class extends Component {
         this.state = { view: null }
     }
 
-    render() {
+    handleLikeClick = () => {
+        try {
+            logic.toggleLikePost(this.props.item.id)
 
-        const { item: { id, author, image, text, date, liked, likes }, onLikeClicked, onDeleted } = this.props
+            this.props.onLiked()
+
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+    handleDeleteClick = () => {
+        try {
+            if (confirm('Delete post?')) {
+                logic.deletePost(this.props.item.id)
+
+                this.props.onDeleted()
+            }
+
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+    handleCommentsClick = () => {
+        this.setState({ view: this.state.view ? null : 'comments' })
+    }
+
+    render() {
+        console.log('Post -> Render')
+        const {
+            props: {
+                item: {
+                    id,
+                    author,
+                    image,
+                    text,
+                    date,
+                    liked,
+                    likes,
+                    comments
+                },
+                onCommentAdded,
+                onCommentRemoved
+            }
+        } = this
 
         return <article className="PostItem">
             <div className="publishedBy">
@@ -28,39 +73,29 @@ export default class extends Component {
 
             <img src={image} className="postFrame" />
             <div className="postCommentAndLikes">
-
                 {/* Botón para dar me gusta a los posts */}
                 <p className="postText">{text}</p>
-                <Button onClick={() => {
-                    logic.toggleLikePost(id)
 
-                    onLikeClicked()
-                }}>{`${liked ? '💙' : '🤍'} ${likes.length} likes`}</Button>
+                {/* Botón Like */}
+                <Button onClick={this.handleLikeClick}>{`${liked ? '💙' : '🤍'} ${likes.length}`}</Button>
+
 
                 {/* Botón para Eliminar posts */}
                 {author.id === logic.getUserId() && <Button
-                    onClick={() => {
-                        if (confirm('Delete post?')) {
-                            logic.deletePost(id)
-
-                            onDeleted()
-                        }
-                    }}>❌ Delete</Button>}
+                    onClick={this.handleDeleteClick}>❌</Button>}
 
 
                 {/* Botón para mostrar los comentarios */}
-                <Button onClick={() => {
-                    this.setState({ view: this.state.view ? null : 'comments' })
-                }}>💬 Comment</Button>
-
+                <Button onClick={this.handleCommentsClick}>💬 {comments}</Button>
             </div>
+
             <div className="comentsTexts">
-                {this.state.view === 'comments' && <Comments />}
+                {this.state.view === 'comments' && <Comments
+                    postId={id}
+                    onAdded={onCommentAdded}
+                    onRemoved={onCommentRemoved}
+                />}
             </div>
-
         </article>
-
     }
-
 }
-

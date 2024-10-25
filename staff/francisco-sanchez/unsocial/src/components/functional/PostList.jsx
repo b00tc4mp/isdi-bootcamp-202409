@@ -23,33 +23,83 @@ export default class extends Component {
         this.state = { posts }
     }
 
+    handleLiked = () => {
+        try {
+            const posts = getPosts()
+            this.setState({ posts })
+        } catch (error) {
+            alert.error(error)
+            console.error(error)
+        }
+    }
+
+    handleDeleted = () => {
+        try {
+            const posts = getPosts()
+            this.setState({ posts })
+        } catch {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+    handleCommentAdded = () => {
+        try {
+            const posts = getPosts()
+            this.setState({ posts })
+        } catch {
+            alert.error(error)
+            console.error(error)
+        }
+    }
+
+    handleCommentRemoved = () => {
+        try {
+
+        } catch {
+            alert.error(error)
+            console.error(error)
+        }
+    }
+
 
     render() {
+        console.log('Posts -> render')
+
         return <div>
             {/* <h3>Posts</h3> */}
-            {this.state.posts.map(post => <PostItem item={post}
+            {this.state.posts.map(post => <PostItem
+                item={post}
 
-                onLikeClicked={() => {              //Esta función es la que repinta
-                    try {
-                        const posts = getPosts()
+                onLiked={this.handleLiked}
 
-                        this.setState({ posts })
-                    } catch (error) {
-                        alert(error.message)
+                onDeleted={this.handleDeleted}
 
-                        console.error(error)
-                    }
-                }}
+                onCommentAdded={this.handleCommentAdded}
 
-                onDeleted={() => {              //Esta función es la que repinta
-                    try {
-                        const posts = getPosts()
-                        this.setState({ posts })
-                    } catch {
-                        alert(error.message)
-                        console.error(error)
-                    }
-                }}
+                onCommentRemoved={this.handleCommentRemoved}
+
+            // onLikeClicked={() => {              //Esta función es la que repinta
+            //     try {
+            //         const posts = getPosts()
+
+            //         this.setState({ posts })
+            //     } catch (error) {
+            //         alert(error.message)
+
+            //         console.error(error)
+            //     }
+            // }}
+
+            // onDeleted={() => {              //Esta función es la que repinta
+            //     try {
+            //         const posts = getPosts()
+            //         this.setState({ posts })
+            //     } catch {
+            //         alert(error.message)
+            //         console.error(error)
+            //     }
+            // }}
 
             />)}
         </div>

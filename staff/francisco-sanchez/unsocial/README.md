@@ -9,10 +9,156 @@
 
 
 ### **Cosas que podemos hacer**   
-    - Un chat
-    - Guardar favoritos
-    - Añadir comentarios --> Implementando 
-    - Editar los comentarios
+- Un chat
+- Guardar favoritos
+- Añadir comentarios --> Implementando 
+- Editar posts
+- Página de perfil 
+- Imagen de perfil 
+- Guardar posts favoritos
+- Mensaje de aviso de cumpleaños
+
+### **Checks mejora**
+- Campo password no resetea cuando está mal.
+- Revisar css de createPost
+- Revisar css
+
+### **Pendientes último dia**
+- Modifica item --> Comment (En PostItem.jsx)
+- Cambia nombre PostList.jsx --> Posts.jsx
+- Cambia nombre PostItem.jsx --> Post.jsx
+- Y todas sus llamadas y referencias subsiguientes en css
+
+
+-----------------------------------------------------------------
+
+
+## **25/10/2024 **
+
+**Hoy implementamos la funcionalidad de comentarios.**
+    
+- **Funcionalidad comentarios. --> Los incluiremos dentro del propio post!!**
+    
+- **Logic: Crear addComment.js**
+    - OK - Modificamos la base de datos de posts y añadimos los comentarios
+    - OK - Creamos función y Le pasamos el postId y el comentario
+    - OK - Metemos varias validaciones 
+
+    - OK - buscamos el post de la base de datos y desestructuramos su id
+    - OK - Si el post no existe --> Error
+    - OK -Hacemos un push que añada el un objeto al array de comentarios que incluya: 
+        - id
+        - author
+        - text
+        - date: new Date
+    
+    - OK - En la lodica del getPosts -> Añadimos los comentarios 
+    - OK - Agrega addComent al index de logic
+
+- **Logic: Traer comentarios: getComments.js**
+    - OK - Busca el post y lo valida 
+    - OK - Lo desestructura con el id
+    - OK - Si no lo encuentra muestra error
+    - OK - Si todo ha ido bien, 
+        - OK - Para cada comentario de post (desestructura)
+        - OK - Saca el authorId
+            - OK - busca el nombre de usuario (del comentario) por el id
+            - OK - desestructura el author del comentario 
+    - OK - agrega el getComments al index de logic
+
+- **Añadimos Prop en PostItem.jsx para mostrar el comentario**
+    - OK - Comments.jsx --> importa la logica del getComment.
+    - OK - Creamos una función y le pasamos postId
+    - OK - recupera los comments
+    - OK - Edita el html previo con la función comment.map para recuperar la info
+
+- **Implementar la lógica del addComment al formulario**
+    - OK -  Desestructura del formulario la variable text
+    - OK -  Comments.jsx añadimos evento onSubmit en el formulario
+    - OK -  validamos errores
+    - OK -  al logic.addCommment le pasamos postId y texto
+    - OK -  Passamos la función a clase para manejar la vista
+    - OK -  preparamos el render de la clase
+    - OK -  Como actualizamos la lista, le tenemos que volver a pinar los comentarios
+    - OK -  OJO!!! Para refrescar cada vez, nos tenemos que referir a la vista siempre con el this.props...
+
+- **Nuevos compos**
+    - OK - Comment.jsx --> Traspasamos el comentario a compo (en todo el bloque= )
+
+    - CUIDADOOOOOO!!! CUIDADOOOOOO!!!  CUIDADOOOOOO!!!  CUIDADOOOOOO!!! 
+        - Cambia nombre PostList.jsx --> Posts.jsx
+        - Cambia nombre PostItem.jsx --> Post.jsx
+        - Y todas sus llamadas y referencias subsiguientes en css
+
+    - OK -  AddComment.jsx --> Para poner todo el formulario de comentarios
+
+    - OK -  Crea una nueva vista 
+
+    - ¿?¿?¿?¿?¿? ENTENDER LOGICA DEL TRASPASO ENTRE CAMBIOS DE VISTAS ¿?¿?¿?¿?
+
+
+- **AL LORO**
+    - Modifica item --> Comment
+
+
+- **Eliminar comentario**
+    - OK -  Crea logic -> removeComment.js
+    - OK -  le passamos postId y comentId
+    - OK -  Valida posibles errores
+    - OK -  Recuperamos los posts
+    - OK -  Recoperamos post por id 
+    - OK -  Recuperamos los comentarios del post 
+    - OK -  Buscamos el indice del comentario que le estamos pasando 
+    - OK -  Valida que exista
+    - OK -  Buscamos el autor del comentario, si el comentario no es mio muestro un error y no permito borrar
+    - OK -  Si existe se lo carga con un splice(index, 1) 
+    - OK -  Actualiza la base de datos 
+    - OK -  Lo añadimos al index de logic 
+    - OK -  Nos vamos al compo Comment y le añadimos un botón de borrado
+    - OK -  Y al evento onclick del botón llamamos a la de removeCommnet.js (le tenemos que pasar post id y id del comentario)
+    - OK - Le pasamos el evento onRemove para actualizar la vista despues de borrar
+    - OK - En comment.jsx condicionamos la visibilidad del botón borrar si somos el autor del comentario
+
+    - OK - Una ultima cosa: en getPosts.js contamos el numero comentarios del post
+    - OK - Y en Post.jsx lo desestructuramos para mostrarlos.
+    - OK - Por tanto tenemos que avisar a Posts.jsx para que se actualice, para ello reaprovecharemos el evento onDeleted. 
+    - OK - Seguimos en Post.jsx, para añadir el evento on Add... 
+        - OK - Nuevos métodos
+            - OK - onCommentRemoved
+            - OK - onCommentAdded
+
+
+- **Añadimos los eventos en funciones separadas**
+    -  OK - View: 
+        Separa las funciones 
+            handle"loquesea"
+    -  OK - Functional:
+        - Cuidado con los que son de clases, hay que pasarlas con el this
+
+    - ...
+
+    -  OK - Al final quedará todo un poco más ordenado. 
+
+
+
+- **Pequeña referencia a lo de ayer**
+    - OK - en el deletePost.jsx, añadimos una validación para no permitir borrar un post si no somos el autor del mismo. (Ojo, a nivel de lógica, no botón)
+
+
+
+- **Mas cosas**
+    - OK -  Creamos carpeta helpers **dentro de logic** para validar todas las logicas
+        - OK - Creamos archivo validate.js
+            - OK - Metemos validaciones de registerUser
+                - OK - **Al final del validate.js metemos todas las validaciones en la const validate y exportamos**
+                - OK - Esto lo podremos reutilizar en otros sitios
+            - OK - Metemos validaciones de createPost
+            - OK - Validaciones de loginUser
+            - ...
+        - OK - TAREA!! -> Buscar info y probar los default parameter ES6!!!
+
+
+
 
 
 ## **24/10/2024 **
