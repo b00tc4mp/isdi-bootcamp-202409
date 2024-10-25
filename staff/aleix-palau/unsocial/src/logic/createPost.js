@@ -1,8 +1,10 @@
+import { validate } from './helpers'
+
 import uuid from '../data/uuid'
 
-const createPost = (image, text) => {
-    if (typeof image !== 'string') throw new Error('invalid image')
-    if (typeof text !== 'string') throw new Error('invalid text')
+export default (image, text) => {
+    validate.image(image)
+    validate.text(text)
 
     const posts = JSON.parse(localStorage.posts)
 
@@ -12,12 +14,11 @@ const createPost = (image, text) => {
         text: text,
         author: sessionStorage.userId,
         date: new Date,
-        likes: []
+        likes: [],
+        comments: []
     }
 
     posts.push(post)
 
     localStorage.posts = JSON.stringify(posts)
 }
-
-export default createPost

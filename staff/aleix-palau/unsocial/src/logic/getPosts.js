@@ -1,4 +1,4 @@
-const getPosts = () => {
+export default () => {
     const users = JSON.parse(localStorage.users)
     const posts = JSON.parse(localStorage.posts)
 
@@ -15,9 +15,9 @@ const getPosts = () => {
         post.author = { id: authorId, username }
 
         post.liked = post.likes.includes(userId)
+
+        post.comments = post.comments.length
     })
 
     return posts.toReversed()
 }
-
-export default getPosts
