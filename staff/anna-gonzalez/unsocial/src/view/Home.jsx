@@ -1,10 +1,10 @@
 import { Component } from 'react'
 
-import { PostList } from '../components/functional'
+import { Posts } from '../components/functional'
 
 import './Home.css'
 
-export default class extends Component { //-----------Home-----------
+export default class extends Component {
     constructor(props) {
         console.log('Home -> constructor')
 
@@ -14,8 +14,10 @@ export default class extends Component { //-----------Home-----------
     }
 
     render() {
+        console.log('Home -> render')
+
         return <main className="Home">
-            {this.state.view === 'list' && <PostList onDeleted={() => this.setState({ view: 'list' })} />}
+            {this.state.view === 'list' && <Posts />}
         </main>
     }
 }

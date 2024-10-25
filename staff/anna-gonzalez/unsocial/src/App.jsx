@@ -20,7 +20,9 @@ export default class extends Component {
     console.log('App -> render')
 
     return <>
-      <Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })} onLoggedOut={() => this.setState({ view: 'login' })} />
+      <Header view={this.state.view}
+        onHomeClick={() => this.setState({ view: 'home' })}
+        onLoggedOut={() => this.setState({ view: 'login' })} />
       {this.state.view === 'login' && <Login
         onLoggedIn={() => this.setState({ view: "home" })}
         onRegisterClick={() => this.setState({ view: "register" })}

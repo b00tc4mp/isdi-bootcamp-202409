@@ -3,7 +3,7 @@ export default () => {
 
     const user = users.find(user => user.id === sessionStorage.userId)
 
-    if (!user) throw new Error('user not found')
+    if (!user) throw new Error('User not found')
 
     return user.name
 }

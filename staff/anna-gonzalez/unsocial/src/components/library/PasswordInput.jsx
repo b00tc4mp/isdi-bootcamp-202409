@@ -6,22 +6,26 @@ import './PasswordInput.css'
 
 export default class extends Component {
     constructor(props) {
-        console.log('PasswordInput -> constructor')
+        //console.log('PasswordInput -> constructor')
 
         super(props)
 
         this.state = { type: 'password', status: '🔐' }
     }
 
-    render() {
-        console.log('PasswordInput -> render')
+    handleToggleClick = () => this.setState({
+        type: this.state.type === 'password' ? 'text' : 'password',
+        status: this.state.status === '🔐' ? '🔓' : '🔐'
+    })
 
-        return <div>
-            <Input className="password-repeat-input" type={this.state.type} id={this.props.id} />
-            <span className="span" onClick={() => this.setState({
-                type: this.state.type === 'password' ? 'text' : 'password',
-                status: this.state.status === '🔐' ? '🔓' : '🔐'
-            })}>{this.state.status}</span>
+    render() {
+        //console.log('PasswordInput -> render')
+
+        return <div className="password-input">
+            <Input type={this.state.type} id={this.props.id} />
+            <span className="password-toggle"
+                onClick={this.handleToggleClick}
+            >{this.state.status}</span>
         </div>
     }
 }

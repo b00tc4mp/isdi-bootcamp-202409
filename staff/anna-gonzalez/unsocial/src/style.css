@@ -24,9 +24,3 @@ body {
   height: 100%;
   width: 100%;
 }
-
-.span {
-  position: absolute;
-  margin-top: 5px;
-  margin-left: -1.5rem;
-}

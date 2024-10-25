@@ -1,7 +1,10 @@
 import { validate } from './helpers'
 
-export default postId => {
+import uuid from '../data/uuid'
+
+export default (postId, text) => {
     validate.id(postId, 'postId')
+    validate.text(text)
 
     const posts = JSON.parse(localStorage.posts)
 
@@ -9,13 +12,12 @@ export default postId => {
 
     if (!post) throw new Error('Post not found')
 
-    const { saves } = post
-    const { userId } = sessionStorage
-
-    const index = saves.indexOf(userId)
-
-    if (index < 0) saves.push(userId)
-    else saves.splice(index, 1)
+    post.comments.push({
+        id: uuid(),
+        author: sessionStorage.userId,
+        text,
+        date: new Date
+    })
 
     localStorage.posts = JSON.stringify(posts)
 }
