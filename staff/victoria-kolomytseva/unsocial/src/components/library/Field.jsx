@@ -1,7 +1,7 @@
 import './Field.css'
 
-function Field({ children }) {
+export default ({ children }) => {
+    console.log('Field -> render')
     return <div className="Field">{children}</div>
 }
 
-export default Field

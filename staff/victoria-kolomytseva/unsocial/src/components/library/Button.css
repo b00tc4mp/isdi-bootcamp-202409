@@ -1,5 +1,6 @@
 .Button {
-    width: 18%;
+    margin-right: 10px;
+
     box-sizing: 'border-box';
     /* padding-right: '18px'; */
     background-color: var(--color);
@@ -8,6 +9,7 @@
     border-color: var(--color);
     border-style: solid;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .Button--Light {

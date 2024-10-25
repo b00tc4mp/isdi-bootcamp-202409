@@ -5,7 +5,7 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
-function Login(props) { //Un campo de entrada para la contraseña usando el componente PasswordInput.
+export default props => { //Un campo de entrada para la contraseña usando el componente PasswordInput.
     console.log('Login -> render')
 
     return <main className="Login">
@@ -51,4 +51,3 @@ function Login(props) { //Un campo de entrada para la contraseña usando el comp
         }}>Register</a>
     </main>
 }
-export default Login
