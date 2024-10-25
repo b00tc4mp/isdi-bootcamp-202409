@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import './Comments.css'
 import logic from '../../logic'
-import Comment from './Comment'
+import getElapsedTime from '../../utils/getElapsedTime'
 
 class Comments extends Component {
   constructor(props) {
@@ -22,9 +22,11 @@ class Comments extends Component {
     return (
       <section className="Comments">
         <ul>
-          {this.state.comments.map(comment =>
-            <Comment
-              comment={comment} />)}
+          {this.state.comments.map(({ author, text, date }) => <li>
+            <h4>{author.username}</h4>
+            <p>{text}</p>
+            <time>{getElapsedTime(date)} ago</time>
+          </li>)}
           <form onSubmit={event => {
             event.preventDefault()
 

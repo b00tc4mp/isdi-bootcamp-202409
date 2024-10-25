@@ -22,9 +22,7 @@ class Comments extends Component {
     return (
       <section className="Comments">
         <ul>
-          {this.state.comments.map(comment =>
-            <Comment
-              comment={comment} />)}
+          {this.state.comments.map(comment => <Comment comment={comment} />)}
           <form onSubmit={event => {
             event.preventDefault()
 

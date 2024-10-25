@@ -40,11 +40,10 @@ class Post extends Component {
           this.setState({ view: this.state.view ? null : 'comments' })
         }}>📄</a>
 
-        {this.state.view === 'comments' && <Comments />}
-
         <p>{text}</p>
-
         <time>{getElapsedTime(date)} ago</time>
+        {this.state.view === 'comments' && <Comments
+          postId={id} />}
 
       </article>
     )
