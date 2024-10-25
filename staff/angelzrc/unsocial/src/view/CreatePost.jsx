@@ -1,42 +1,46 @@
 import logic from '../logic'
 
-function CreatePost({ onCreated }) {
+import { Label, Input, Button, Form, Field } from '../components/library'
+
+import './CreatePost.css'
+
+export default ({ onCreated }) => {
     console.log('CreatePost -> render')
 
-    return <main>
-        <h3>Create Post</h3>
+    const handleSubmit = event => {
+        event.preventDefault()
 
+        const { target: form } = event
 
-        <form onSubmit={event => {
-            event.preventDefault()
+        const {
+            image: { value: image },
+            text: { value: text }
+        } = form
 
-            const { target: form } = event
+        try {
+            logic.createPost(image, text)
 
-            const {
-                image: { value: image },
-                text: { value: text }
-            } = form
-            
+            onCreated()
+        } catch (error) {
+            alert(error.message)
 
-            try {
-                logic.createPost(image, text)
+            console.error(error)
+        }
+    }
 
-                onCreated()
-            } catch (error) {
-                alert(error.message)
+    return <main className="CreatePost">
+        <Form onSubmit={handleSubmit}>
+            <Field>
+                <Label htmlFor="image">Image</Label>
+                <Input type="text" id="image" />
+            </Field>
 
-                console.error(error)
-            }
-        }}>
-            <label htmlFor="image">Image</label>
-            <input type="text" id="image" style={{ width: '100%', boxSizing: 'border-box' }} />
+            <Field>
+                <Label htmlFor="text">Text</Label>
+                <Input type="text" id="text" />
+            </Field>
 
-            <label htmlFor="text">Text</label>
-            <input type="text" id="text" style={{ width: '100%', boxSizing: 'border-box' }} />
-
-            <button type="submit">Create</button>
-        </form>
+            <Button type="submit">Create</Button>
+        </Form>
     </main>
 }
-
-export default CreatePost

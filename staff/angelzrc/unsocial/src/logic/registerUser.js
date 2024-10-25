@@ -1,25 +1,13 @@
+import { validate } from './helpers'
+
 import uuid from '../data/uuid'
 
-const registerUser = (name, email, username, password, passwordRepeat) => {
-    if (typeof name !== 'string') throw new Error('invalid name')
-    if (name.length < 2)
-        throw new Error('invalid name length')
-
-    if (typeof email !== 'string') throw new Error('invalid email')
-    if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
-        throw new Error('invalid e-mail')
-
-    if (typeof username !== 'string') throw new Error('invalid username')
-    if (username.length < 4 || username.length > 12)
-        throw new Error('invalid username length')
-
-    if (typeof password !== 'string') throw new Error('invalid password')
-    if (password.length < 8)
-        throw new Error('invalid password length')
-
-    if (typeof passwordRepeat !== 'string') throw new Error('invalid password repeat')
-    if (password !== passwordRepeat)
-        throw new Error('passwords do not match')
+export default (name, email, username, password, passwordRepeat) => {
+    validate.name(name)
+    validate.email(email)
+    validate.username(username)
+    validate.password(password)
+    validate.passwordsMatch(password, passwordRepeat)
 
     const users = JSON.parse(localStorage.users)
 
@@ -34,5 +22,3 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
 
     localStorage.users = JSON.stringify(users)
 }
-
-export default registerUser

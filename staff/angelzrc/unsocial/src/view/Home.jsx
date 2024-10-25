@@ -1,10 +1,10 @@
 import { Component } from 'react'
 
-import { PostList } from '../components/functional'
+import { Posts } from '../components/functional'
 
 import './Home.css'
 
-class Home extends Component {
+export default class extends Component {
     constructor(props) {
         console.log('Home -> constructor')
 
@@ -17,9 +17,8 @@ class Home extends Component {
         console.log('Home -> render')
 
         return <main className="Home">
-            {this.state.view === 'list' && <PostList />}
+            {this.state.view === 'list' && <Posts />}
         </main>
     }
 }
 
-export default Home

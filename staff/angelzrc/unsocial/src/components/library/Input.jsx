@@ -1,7 +1,7 @@
 import './Input.css'
 
-function Input({ type, id }) {
+export default ({ type, id }) => {
+    // console.log('Input -> render')
+
     return <input type={type} id={id} className="Input" />
 }
-
-export default Input
