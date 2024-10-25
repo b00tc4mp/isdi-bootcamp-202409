@@ -6,8 +6,10 @@ import logic from '../../logic'
 
 import PostItem from './PostItem'
 
-class PostList extends Component {
+export default class extends Component {
     constructor(props) {
+        console.log('PostList -> contructor')
+
         super(props)
 
         let posts
@@ -22,34 +24,70 @@ class PostList extends Component {
 
         this.state = { posts }
     }
+
+    handleLiked = () => {
+        try {
+            const posts = logic.getPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+
+    }
+
+    handleDeleted = () => {
+        try {
+            const posts = logic.getPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    handleCommented = () => {
+        try {
+            const posts = logic.getPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    handleCommentRemoved = () => {
+        try {
+            const posts = logic.getPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
     render() {
+        console.log('PostList -> render')
         return <div className="PostList">
 
-            {this.state.posts.map(post => <PostItem item={post} onLikeClicked={() => {
-                try {
-                    const posts = logic.getPosts()
+            {this.state.posts.map(post => <PostItem
+                post={post}
 
-                    this.setState({ posts })
-                } catch (error) {
-                    alert(error.message)
+                onLiked={this.handleLiked}
 
-                    console.error(error)
-                }
+                onDeleted={this.handleDeleted}
 
-            }}
-                onDeleted={() => {
-                    try {
-                        const posts = logic.getPosts()
+                onCommented={this.handleCommented}
 
-                        this.setState({ posts })
-                    } catch (error) {
-                        alert(error.message)
-
-                        console.error(error)
-                    }
-                }} />)}
+                onCommentRemoved={this.handleCommentRemoved} />)}
         </div>
     }
 }
-
-export default PostList

@@ -1,5 +1,7 @@
-const likesInteraction = (postId) => {
-    if (typeof postId !== 'string') throw new Error('invalid postID')
+import { validate } from './helpers'
+
+export default (postId) => {
+    validate.id(postId, 'postId')
 
     const posts = JSON.parse(localStorage.posts)
 
@@ -17,5 +19,3 @@ const likesInteraction = (postId) => {
 
     localStorage.posts = JSON.stringify(posts)
 }
-
-export default likesInteraction
