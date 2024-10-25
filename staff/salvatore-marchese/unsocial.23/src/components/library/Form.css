@@ -1,0 +1,14 @@
+.Form {
+    display: flex;
+    flex-direction: column;
+    border: 5px solid black;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+/*  
+    display: flex;
+    flex-direction: column;
+    border: 5px solid black;
+    margin: 20px;
+*/

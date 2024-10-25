@@ -1,0 +1,20 @@
+.Input {
+    width: 80%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    font-family: inherit;
+    border-color: var(--color);
+    border-style: solid;
+    align-self: center;
+}
+
+/*
+input {
+  background-color: gainsboro;
+  font-family: inherit;
+  margin-bottom: 15px;
+  padding: 2px;
+  width: 50%;
+  box-sizing: border-box;
+}
+*/
