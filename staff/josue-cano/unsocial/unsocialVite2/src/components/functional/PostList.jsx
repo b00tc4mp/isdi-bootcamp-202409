@@ -35,6 +35,7 @@ function PostList(){
         <Post onLiked={onLiked} usuarioActual={usuarioActual} key={post.id} post={post} />
 
         ))}
+        
     
 </div>
 

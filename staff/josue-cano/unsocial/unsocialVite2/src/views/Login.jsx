@@ -1,16 +1,19 @@
 import PasswordInput from "../components/library/PasswordInput"
 import authenticateUser from "../components/logic/authenticateUser"
+import Form from "../components/library/Form"
+import Button from "../components/library/Button"
+import Label from "../components/library/Label"
 
 
 
-export default function Login(props){
+export default function Login(props) {
 
     console.log('Login -> render')
 
     return <section>
-        <h2>Login</h2>
-       
-        <form onSubmit={event => {
+
+
+        <Form onSubmit={event => {
             event.preventDefault()
             //target recoge todo el formulario
             const { target: { username: { value: username }, password: { value: password } } } = event
@@ -18,10 +21,10 @@ export default function Login(props){
             // const clave = event.target.password.value
 
             try {
-            const loggedInUser = authenticateUser(username, password)
+                const loggedInUser = authenticateUser(username, password)
                 // localStorage.setItem("usuarioActual",loggedInUser)
                 sessionStorage.setItem("usuarioActual", loggedInUser); // Almacena el nombre de usuario en sessionStorage
-                
+
 
                 event.target.reset()
                 //ejecuta la funcion cuando envia e logiln
@@ -34,16 +37,15 @@ export default function Login(props){
                 console.error(error)
             }
         }}>
-            <label  htmlFor="username">Username 
-            <input class="form-control"  placeholder="username" type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} />
-            </label>
+            <Label htmlFor="username">Username</Label>
+           
 
-            <label htmlFor="password">Password
-            <PasswordInput id="password" placeholder="constraseña" />
-            </label>
-            <button type="submit">Login</button>
-        </form>
-        {/* siempre con props */}
+            <Label htmlFor="password">Password
+                <PasswordInput id="password" placeholder="constraseña" />
+            </Label>
+            <Button type="submit">Login</Button>
+        </Form>
+
         {/* <a onClick={props.toRegister}>Register</a> */}
         <a href="" onClick={event => {
             event.preventDefault()
@@ -52,5 +54,5 @@ export default function Login(props){
         }}>Register</a>
 
     </section>
-    
+
 }

@@ -15,7 +15,8 @@ import Register from './views/Register'
 import Home from './views/Home'
 import loadUsers from './data/users'
 import loadPosts from './data/posts'
-import Header from './components/functional/Header';
+import Header from './components/functional/Header'
+// import Footer from './components/functional/Footer'
 
 
 class App extends Component {
@@ -31,7 +32,7 @@ class App extends Component {
   render() {
       return <div>
 
-         <Header />
+<Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })} onLoggedOut={() => this.setState({ view: 'login' })} />
 
           {/* al ejecutarse cambia la vista a home */}
           {this.state.view === 'login' && <Login 
