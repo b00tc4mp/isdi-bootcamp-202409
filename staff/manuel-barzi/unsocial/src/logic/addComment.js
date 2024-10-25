@@ -1,8 +1,10 @@
+import { validate } from './helpers'
+
 import uuid from '../data/uuid'
 
 export default (postId, text) => {
-    if (typeof postId !== 'string') throw new Error('invalid postId')
-    if (typeof text !== 'string') throw new Error('invalid text')
+    validate.id(postId, 'postId')
+    validate.text(text)
 
     const posts = JSON.parse(localStorage.posts)
 
