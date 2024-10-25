@@ -1,9 +1,9 @@
 import './PostItem.css'
 import { Button } from '../library'
+import Comments from './Comments'
 
 import logic from '../../logic'
 import dateAgo from '../../utilities/dateAgo'
-import Comments from './Comments'
 
 import { Component } from 'react'
 
@@ -13,9 +13,30 @@ export default class extends Component {
         this.state = { view: null }
     }
 
+    handleLikeClick = () => {
+        try {
+            logic.toggleLikePosts(this.props.post.id)
+
+            this.props.onLiked()
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+    handleDeleteClick = () => {
+        if (confirm('Delete post?')) {
+            logic.deletePost(this.props.post.id)
+
+            this.props.onDeleted()
+        }
+    }
+    handleCommentsClick = () => {
+        this.setState({ view: this.state.view ? null : 'comments' })
+    }
+
     render() {
 
-        const { item: { id, author, image, text, date, liked, likes }, onLikeClicked, onDeleted } = this.props
+        const { props: { post: { id, author, image, text, date, liked, likes, comments }, onCommentAdded, onCommentRemoved } } = this
         return <article className="PostItem">
             <h4>{author.username}</h4>
 
@@ -23,28 +44,19 @@ export default class extends Component {
 
             <p>{text}</p>
 
-            <time>{dateAgo(date)}ago</time>
+            <div className='PostButtons'>
+                <Button onClick={this.handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length} likes`}</Button>
 
-            <Button onClick={() => {
-                logic.toggleLikePosts(id)
+                <Button className="ButtonPost" onClick={this.handleCommentsClick}>🗨️{comments}</Button>
 
-                onLikeClicked()
-            }}>{`${liked ? '❤️' : '🤍'} ${likes.length} likes`}</Button>
-
-            {author.id === logic.getUserId() &&
-                <Button onClick={() => {
-                    if (confirm('Delete post?')) {
-                        logic.deletePost(id)
-
-                        onDeleted()
-                    }
-                }}>Delete</Button>}
-
-            <Button onClick={() => {
-                this.setState({ view: this.state.view ? null : 'comments' })
-            }}>Comment</Button>
-
-            {this.state.view === 'comments' && <Comments />}
+                {author.id === logic.getUserId() && <Button onClick={this.handleDeleteClick}>🗑️</Button>}
+            </div>
+            {this.state.view === 'comments' && <Comments
+                postId={id}
+                onAdded={onCommentAdded}
+                onRemoved={onCommentRemoved}
+            />}
+            <time>{dateAgo(date)} ago...</time>
         </article>
     }
 }

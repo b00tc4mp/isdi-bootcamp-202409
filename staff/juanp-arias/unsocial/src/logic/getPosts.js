@@ -12,6 +12,8 @@ export default () => {
         post.author = { id: authorId, username }
 
         post.liked = post.likes.includes(userId)
+
+        post.comments = post.comments.length
     })
 
     return posts.toReversed()

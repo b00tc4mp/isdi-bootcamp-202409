@@ -17,7 +17,7 @@ export default (props) => {
                 email: { value: email },
                 username: { value: username },
                 password: { value: password },
-                ['password-repeat']: { value: repeatpassword }
+                repeatpassword: { value: repeatpassword }
             } = form
 
             try {
@@ -32,22 +32,22 @@ export default (props) => {
                 console.error(error)
             }
         }}>
-            <Label htmlFor="name" >Name</Label>
+            <Label htmlfor="name" >Name</Label>
             <Input type="text" id="name" placeholder="name" />
             <br />
-            <Label htmlFor="email">E-mail</Label>
-            <Input type="email" id="email" />
+            <Label htmlfor="email">E-mail</Label>
+            <Input type="email" id="email" placeholder="email" />
 
-            <Label htmlFor="username">Username</Label>
-            <Input type="text" id="username" />
+            <Label htmlfor="username">Username</Label>
+            <Input type="text" id="username" placeholder="username" />
 
-            <Label htmlFor="password">Password</Label>
-            <PasswordInput id="password" />
+            <Label htmlfor="password">Password</Label>
+            <PasswordInput id="password" placeholder="password"/>
 
-            <Label htmlFor="password-repeat">Repeat Password</Label>
-            <PasswordInput id="password-repeat" />
+            <Label htmlfor="repeatpassword">Repeat Password</Label>
+            <PasswordInput id="repeatpassword" placeholder="repeat password"/>
 
-            <Button type="submit">Register</Button>
+            <Button type="submit"><strong>REGISTER</strong></Button>
         </Form>
         <a href="" onClick={
             event => {

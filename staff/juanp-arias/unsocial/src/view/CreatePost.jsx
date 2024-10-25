@@ -26,12 +26,12 @@ export default ({ onCreated }) => {
             }
         }}>
             <label htmlFor="image">Image</label>
-            <input type="text" id="image" style={{ width: '100%' }} />
+            <input type="text" id="image"  />
 
             <label htmlFor="image">Text</label>
-            <input type="text" id="text" style={{ width: '100%' }} />
+            <input type="text" id="text"  />
 
-            <button type="submit">Create</button>
+            <button type="submit"><strong>CREATE</strong></button>
 
         </form>
     </main>

@@ -22,33 +22,67 @@ export default class extends Component {
         this.state = { posts }
     }
 
+    handleLiked = () => {
+        try {
+            const posts = getPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    handleDeleted = () => {
+        try {
+            const posts = getPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    handleCommentAdded = () => {
+        try {
+            const posts = getPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    handleCommentRemoved = () => {
+        try {
+            const posts = getPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
     render() {
-        return <div className='PostList'>
 
-            {this.state.posts.map(post => <PostItem item={post}
+        return <div>
+            {this.state.posts.map(post => <PostItem
+                post={post}
 
-                onLikeClicked={() => {
-                    try {
-                        const posts = getPosts()
+                onLiked={this.handleLiked}
 
-                        this.setState({ posts })
-                    } catch (error) {
-                        alert(error.message)
+                onDeleted={this.handleDeleted}
 
-                        console.error(error)
-                    }
-                }}
-                onDeleted={() => {
-                    try {
-                        const posts = getPosts()
+                onCommentAdded={this.handleCommentAdded}
 
-                        this.setState({ posts })
-                    } catch (error) {
-                        alert(error.message)
-
-                        console.error(error)
-                    }
-                }}
+                onCommentRemoved={this.handleCommentRemoved}
             />)}
         </div>
     }

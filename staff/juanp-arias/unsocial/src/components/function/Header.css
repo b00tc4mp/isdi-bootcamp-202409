@@ -17,13 +17,18 @@
 
     h3 {
         margin: 2.5%;
-        font-size: medium;
+        font-size: small;
         margin-left: 8rem;
+        margin-top: 3%;
     }
 
     button {
         height: 4%;
         margin-top: 2%;
         margin-right: 2%;
+    }
+
+    a {
+        color: white;
     }
 }

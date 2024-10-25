@@ -1,5 +1,7 @@
+import validate from './helpers/validate'
+
 export default (postId) => {
-    if (typeof postId !== 'string') throw new Error('invalid postId')
+    validate.id(postId, 'PostID')
     const posts = JSON.parse(localStorage.posts)
 
     const post = posts.find(({ id }) => id === postId)

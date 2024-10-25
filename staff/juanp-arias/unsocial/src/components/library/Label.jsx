@@ -1,7 +1,6 @@
 import './Label.css'
 
-export default({ htmlFor, children }) =>
-     <label hmtlFor={htmlFor} className="Label">{children}</label>
+export default ({ htmlfor, children }) =>
+     <label hmtlfor={htmlfor} className="Label">{children}</label>
 
 
- 

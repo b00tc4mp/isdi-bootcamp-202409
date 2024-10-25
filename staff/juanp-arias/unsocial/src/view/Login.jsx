@@ -5,7 +5,7 @@ import logic from '../logic'
 
 export default (props) => {
     return <main className='Login'>
-        <h2>LOGIN</h2>
+        <h2>Login</h2>
 
         <Form onSubmit={event => {
             event.preventDefault()
@@ -25,13 +25,13 @@ export default (props) => {
                 console.error(error)
             }
         }}>
-            <Label htmlFor="username">Username</Label>
+            <Label htmlfor="username">Username</Label>
             <Input type="text" id="username" placeholder="username"></Input>
 
-            <Label htmlFor="password">Password</Label>
+            <Label htmlfor="password">Password</Label>
             <PasswordInput id="password" placeholder="password" />
 
-            <Button type="submit">Login</Button>
+            <Button type="submit"><strong>LOGIN</strong></Button>
         </Form>
 
         <h4>Don't have an account?</h4>
