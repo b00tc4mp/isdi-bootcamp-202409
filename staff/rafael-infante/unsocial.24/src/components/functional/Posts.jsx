@@ -1,9 +1,9 @@
 import getPosts from "../../logic/getPosts"
 
-import PostItem from "./PostItem"
+import Post from "./Post"
 import { Component } from "react"
 
-class PostList extends Component {
+class Posts extends Component {
   constructor(props) {
     super(props)
 
@@ -22,7 +22,7 @@ class PostList extends Component {
   render() {
     return (
       <div>
-        {this.state.posts.map(post => <PostItem item={post}
+        {this.state.posts.map(post => <Post item={post}
 
           onLiked={() => {
             try {
@@ -48,4 +48,4 @@ class PostList extends Component {
 }
 
 
-export default PostList
+export default Posts

@@ -6,7 +6,7 @@ h4 {
   width: 100%;
 }
 
-.PostItem>p {
+.Post>p {
   margin: 0;
   color: black;
 }
@@ -27,6 +27,6 @@ h4 {
   background-color: rgba(0, 0, 0, 0.441)
 }
 
-.PostItem>a {
+.Post>a {
   cursor: pointer
 }
