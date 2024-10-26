@@ -8,7 +8,8 @@ import getElapsedTime from '../../utils/getElapsedTime'
 import './PostItem.css'
 import { Component } from 'react'
 
-export default class extends Component {
+//export default class extends Component {
+export default class PostItem extends Component {
     constructor(props) {
         console.log('PostItem')
 

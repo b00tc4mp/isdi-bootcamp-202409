@@ -10,3 +10,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>,
 )
+
+
+/*NOTA: 
+React.StrictMode es un contenedor especial de React que ayuda a identificar problemas potenciales en el código. Activa advertencias adicionales en el desarrollo y verifica prácticas recomendadas, pero no tiene efecto en producción.
+*/

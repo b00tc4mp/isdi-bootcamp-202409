@@ -10,7 +10,8 @@ import Field from '../components/library/Field'
 import Form from '../components/library/Form'
 
 //Funcion register, que mostrará el formulario de registro
-export default (props) => {
+//export default (props) => {
+export default function Register(props) {
     return <main className="Register">
         <div className="container">
 

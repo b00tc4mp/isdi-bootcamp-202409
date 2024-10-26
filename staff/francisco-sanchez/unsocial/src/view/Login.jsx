@@ -5,7 +5,8 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 import logic from '../logic'
 
 //Función login, que será nuestra primera pantalla de la aplicación
-export default (props) => {
+//export default (props) => {
+export default function Login(props) {
     console.log('Login -> render')
 
     return <main className="Login">

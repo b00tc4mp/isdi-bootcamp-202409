@@ -5,7 +5,8 @@ import './Home.css'
 
 
 //Function Home, que se encargará de mostrar la pantalla principal de la aplicación
-export default class extends Component {
+//export default class extends Component {
+export default class Home extends Component {
     constructor(props) {
         console.log("Constructor de home")
         super(props)

@@ -57,6 +57,10 @@ a {
     color: var(--white);
 }
 
+a.nombreUser {
+    color: var(--color-blue)
+}
+
 
 a:hover {
     color: #b9b007;

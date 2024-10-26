@@ -11,9 +11,9 @@
 ### **Cosas que podemos hacer**   
 - Un chat
 - Guardar favoritos
-- Añadir comentarios --> Implementando 
+- Añadir comentarios --> OK
 - Editar posts
-- Página de perfil 
+- Página de perfil --> WIP
 - Imagen de perfil 
 - Guardar posts favoritos
 - Mensaje de aviso de cumpleaños

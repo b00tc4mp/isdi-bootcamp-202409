@@ -3,7 +3,8 @@ import './Header.css'
 import { Button } from '../library'
 import logic from '../../logic'
 
-export default ({ view, onHomeClick, onLoggedOut }) => {
+//export default ({ view, onHomeClick, onLoggedOut }) => {
+export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }) {
     let name //Para el nombre del usuario
 
     if (logic.isUserLoggedIn())
@@ -20,11 +21,17 @@ export default ({ view, onHomeClick, onLoggedOut }) => {
         <img src='../../public/logo-unsocial-sin-fondo.png' alt='logo' id='logo' />
         <h1>{view === 'new-post' ? <a href="" onClick={event => {
             event.preventDefault()
-
             onHomeClick()
         }}>Unsocial</a> : 'Unsocial'}</h1>
 
-        {logic.isUserLoggedIn() && <h3 className="nombreUser">{name}</h3>}
+
+        {/*logic.isUserLoggedIn() && <h3 className="nombreUser">{name}</h3>*/}
+        {/*Nueva lógica para visitar el perfil de usuario desde el nombre*/}
+        {logic.isUserLoggedIn() && <a href="" onClick={event => {
+            event.preventDefault()
+            onViewProfile()
+        }}><h3 className="nombreUser">{name}</h3></a>}
+
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={() => {
             logic.logoutUser()

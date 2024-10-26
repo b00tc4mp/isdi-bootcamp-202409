@@ -4,7 +4,8 @@ import PostItem from "./PostItem";
 
 import getPosts from "../../logic/getPosts";
 
-export default class extends Component {
+//export default class extends Component {
+export default class PostList extends Component {
     constructor(props) {
         console.log('PostList -> render')
 

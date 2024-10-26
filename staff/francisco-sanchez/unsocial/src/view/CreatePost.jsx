@@ -4,7 +4,8 @@ import './Createpost.css'
 
 import { Input, Button, Form, Field, Label } from '../components/library'
 
-export default (props) => {
+//export default (props) => {
+export default function CreatePost(props) {
     console.log('Entramos en createPost -> Render')
 
     return <article className="CreatePost">
