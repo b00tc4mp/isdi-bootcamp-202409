@@ -1,4 +1,3 @@
-
 export default () => {
 
     const users = JSON.parse(localStorage.users)

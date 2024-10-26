@@ -1,14 +1,26 @@
+import { validate } from './helpers'
 
-export default (postId) => {
-    let posts = JSON.parse(localStorage.posts)
+export default postId => {
+    validate.id(postId, 'postId')
 
-    let post = posts.find(post =>
+    const users = JSON.parse(localStorage.users)
+    const posts = JSON.parse(localStorage.posts)
+
+    const post = posts.find(post =>
         post.id === postId
-    )
+)
 
-    if (!post) {
-        throw new Error('Post not')
-    }
+        if (!post) throw new Error('Post not found')
 
-    return post.comments
+        const { comments } = post
+
+        comments.forEach(comment => {
+            const { author: authorId } = comment
+
+            const { username } = users.find(({ id }) => id === authorId)
+
+            comment.author = { id: authorId, username }
+        })
+
+    return comments
 }

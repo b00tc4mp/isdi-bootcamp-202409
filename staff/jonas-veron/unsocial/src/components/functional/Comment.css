@@ -1,0 +1,22 @@
+.Comment{
+}
+
+ul{
+    list-style: none;
+    align-items: center;
+    margin-left:-2rem;
+}
+li{
+    margin-top:5rem
+}
+h4{
+    margin:0;
+    display: flex;
+    font-size: 16px;
+}
+
+p{
+    text-align: justify;
+    font-size: 20px;
+    
+}

@@ -1,4 +1,2 @@
 
-export default () => {
-    return sessionStorage.userId !== undefined 
-}
+export default () => sessionStorage.userId !== undefined 

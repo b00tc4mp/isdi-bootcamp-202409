@@ -1,58 +1,76 @@
-import logic from '../../logic'
-import getElapsedTime from '../../utils/getElapsedTime'
-
 import { Component } from 'react'
+
+import Comment from './Comment'
+import AddComment from './AddComment'
+
+import logic from '../../logic'
+import './Comments.css'
 
 export default  class extends Component{
     constructor(props){
         console.log('Comments -> constructor')
+
         super(props)
 
-        this.state = { 
-            comments: logic.getComments(this.props.postId)     
+        let comments
+        try{
+            comments = logic.getComments(this.props.postId)     
+        }catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+
+        this.state = { comments }
+    }
+
+    onAdded = () => {
+        try {
+            const comments = logic.getComments(this.props.postId) 
+            
+            this.setState({ comments })
+
+            this.props.onAdded()
+        } catch (error) {
+            alert(error.message)
+
+            console.log(error)
         }
     }
     
-    handleCreateComment = (event) => {
-        event.preventDefault()
-
-        const form = event.target
-        const text = form.elements.text.value
-
+    onRemoved = () => {
         try {
-            logic.createComment(logic.getUserId(), this.props.postId, text)
+            const comments = logic.getComments(this.props.postId)
 
-            this.setState({ comments: logic.getComments(this.props.postId) })
-            form.reset()
-        } catch (error) {   
+            this.setState({ comments })
+
+            this.props.onRemoved()
+        } catch (error) {
+            alert(error.message)
+
             console.error(error)
         }
     }
 
     render() {
+        console.log('Comments -> render')
 
-        const { comments } = this.state
+        return <section className="Comments">
+            <ul>
+                {this.state.comments.map(comment => 
+                    <Comment
+                        postId={this.props.postId}
+                        comment={comment}
+                        onRemoved={this.onRemoved}
+                        />)
+                    }
+            </ul>
 
-    return (
-    <section>
-    <ul>
-        {comments.map(comment => (
-            <li>
-                <h4>{logic.getUserName(comment.author)}</h4>
-                <p>{comment.text}</p>
-                <time>{getElapsedTime()} ago</time>
-            </li>
-        ))}
- 
-
-        <form onSubmit={this.handleCreateComment}>
-            <label htmlFor="text">New comment</label>
-            <textarea id="text" required></textarea>
-
-            <button type="submit">Send</button>
-        </form>
-    </ul>
-</section>
-    )
+            <AddComment
+            postId={this.props.postId}
+            onAdded={this.onAdded}
+            />
+        </section>
+    }
 }
-}
+    

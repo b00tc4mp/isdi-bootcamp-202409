@@ -3,12 +3,9 @@
         width: 100%;
         position: fixed;
         bottom: 0;
-        background-color: rgb(30, 30, 30);
+        background: linear-gradient(90deg, #000000,#121212,#000000);
         display: flex;
         justify-content: center;
         align-items: center;
 
-        h3{
-                
-        }
 }

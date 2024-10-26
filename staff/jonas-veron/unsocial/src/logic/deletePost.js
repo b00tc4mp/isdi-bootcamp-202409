@@ -1,14 +1,21 @@
+import { validate } from './helpers'
 
-export default (postId) => {
-    let posts = JSON.parse(localStorage.posts)
+export default postId => {
+    validate.id(postId, 'postId')
+
+    const posts = JSON.parse(localStorage.posts)
     
-    let postIndex = posts.findIndex(element =>{ 
-        return element.id === postId })
-    
-    posts.splice(postIndex, 1)
-    
-    posts.toReversed()
+    const index = posts.findIndex(({ id }) => id === postId )
+
+    if (index < 0) throw new Error('post not found')
+
+    const post = posts[index]
+
+    const { author } = post
+
+    if (author !== sessionStorage.userId) throw new Error('User is not author of post')
+
+    posts.splice(index, 1)
 
     localStorage.posts = JSON.stringify(posts)
-
 }  

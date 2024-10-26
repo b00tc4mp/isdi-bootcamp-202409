@@ -2,7 +2,8 @@
 
     margin: auto;
     margin-top: 3rem;
-    background: transparent;
+    background: -webkit-linear-gradient(90deg, #000000,#75151d,#000000);
+    background: linear-gradient(90deg, #000000,#75151d,#000000);    
     padding: 2rem;
     height: 36rem;
     width: 30rem;
