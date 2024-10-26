@@ -27,10 +27,14 @@ export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }
 
         {/*logic.isUserLoggedIn() && <h3 className="nombreUser">{name}</h3>*/}
         {/*Nueva lógica para visitar el perfil de usuario desde el nombre*/}
-        {logic.isUserLoggedIn() && <a href="" onClick={event => {
-            event.preventDefault()
-            onViewProfile()
-        }}><h3 className="nombreUser">{name}</h3></a>}
+        {/* Enlace al perfil del usuario si está logueado */}
+        {logic.isUserLoggedIn() &&
+            <a href="" onClick={event => {
+                event.preventDefault()
+                onViewProfile() // Cambia la vista a 'viewProfile'
+            }}>
+                <h3 className="nombreUser">{name}</h3>
+            </a>}
 
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={() => {

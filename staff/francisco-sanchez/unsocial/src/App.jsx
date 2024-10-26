@@ -18,11 +18,19 @@ export default class App extends Component {
         this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
     }
 
+    // Método para cambiar la vista a 'viewProfile' (perfil del usuario)
+    onViewProfile = () => {
+        this.setState({ view: 'viewProfile' })
+    }
+
     render() {
         return <>
-            <Header view={this.state.view}
+            {/* Componente Header recibe las funciones de cambio de vista como props */}
+            <Header
+                view={this.state.view}
                 onHomeClick={() => this.setState({ view: 'home' })}
-                onLoggedOut={() => this.setState({ view: 'login' })} />
+                onLoggedOut={() => this.setState({ view: 'login' })}
+                onViewProfile={() => this.setState({ view: 'viewProfile' })} />
 
             {this.state.view === 'login' && <Login
                 onLoggedIn={() => this.setState({ view: 'home' })}
@@ -37,8 +45,8 @@ export default class App extends Component {
             {this.state.view === 'new-post' && <CreatePost
                 onCreated={() => this.setState({ view: 'home' })} />}
 
-            {/*this.state.view === 'viewProfile' && <ViewProfile
-                onCreated={() => this.setState({ view: 'viewProfile' })} />*/}
+            {this.state.view === 'viewProfile' && <ViewProfile          //La primera linea hace referencia a la vista
+                onHomeClick={() => this.setState({ view: 'home' })} />} {/* La segunda, a las acciones dentro de la misma */}
 
             <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
         </>

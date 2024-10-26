@@ -15,7 +15,7 @@ export default class PasswordInput extends Component {
         console.log('Entramos en el passwordInput Render')
 
         return <div style={{ display: 'flex' }}>
-            <Input type={this.state.type} id={this.props.id} />
+            <Input type={this.state.type} id={this.props.id} defaultValue={this.props.defaultValue} />
             <span
                 style={{ cursor: 'pointer', position: 'absolute', right: '10px' }}
                 onClick={() => this.setState({
