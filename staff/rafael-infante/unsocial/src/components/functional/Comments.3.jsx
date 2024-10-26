@@ -3,7 +3,6 @@ import { Component } from 'react'
 import './Comments.css'
 import logic from '../../logic'
 import Comment from './Comment'
-import AddComment from './AddComment'
 
 class Comments extends Component {
   constructor(props) {
@@ -41,22 +40,33 @@ class Comments extends Component {
                   console.error(error)
                 }
               }} />)}
-        </ul>
+          <form onSubmit={event => {
+            event.preventDefault()
 
-        <AddComment
-          postId={this.props.postId}
-          onAdded={() => {
+            const form = event.target
+
+            const { text: { value: text } } = form
+
             try {
-              const comments = logic.getComments(this.props.postId)
-              this.setState({ comments })
-              this.props.onAdded()
+              logic.addComment(this.props.postId, text)
+              form.reset()
+              try {
+                const comments = logic.getComments(this.props.postId)
+                this.setState({ comments })
+              } catch (error) {
+                alert(error.message)
+                console.error(error)
+              }
             } catch (error) {
               alert(error.message)
-
               console.error(error)
             }
-          }} />
-
+          }}>
+            <label htmlFor="text"> New Comment</label>
+            <textarea name="" id="text"></textarea>
+            <button type='submit'>Send</button>
+          </form>
+        </ul>
       </section>
     )
   }
