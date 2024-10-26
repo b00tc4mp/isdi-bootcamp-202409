@@ -1,4 +1,4 @@
-const getUserUsername = () => {
+export default () => {
 
   const users = JSON.parse(localStorage.users)
 
@@ -8,5 +8,3 @@ const getUserUsername = () => {
 
   return user.username
 }
-
-export default getUserUsername

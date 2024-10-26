@@ -4,6 +4,29 @@ import { PasswordInput, Input, Button, Label, Form } from "../components/biblio"
 
 function Login(props) {
   console.log('Login -> Render')
+
+  const handleSubmit = event => {
+    event.preventDefault()
+
+    const { target: { username: { value: username }, password: { value: password } } } = event
+
+    try {
+
+      logic.loginUser(username, password)
+      event.target.reset()
+      props.onLoggedIn()
+
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
+  }
+
+  const handleRegisterClick = event => {
+    event.preventDefault()
+    props.onAnchorRegister()
+  }
+
   return (
     <main className="Login" >
       <p>Welcome!</p>
@@ -11,22 +34,7 @@ function Login(props) {
       <h4>Write username and password to access</h4>
 
       <Form
-        onSubmit={event => {
-          event.preventDefault()
-
-          const { target: { username: { value: username }, password: { value: password } } } = event
-
-          try {
-
-            logic.loginUser(username, password)
-            event.target.reset()
-            props.onLoggedIn()
-
-          } catch (error) {
-            alert(error.message)
-            console.error(error)
-          }
-        }}>
+        onSubmit={handleSubmit}>
 
         <Label htmlFor="username">Username</Label>
         <Input type="text" id="username" placeholder="Enter your username" required />
@@ -37,10 +45,7 @@ function Login(props) {
         <Button id="btn-login" type="submit">Login</Button>
 
       </Form>
-      <p>Don't have an account? <a onClick={event => {
-        event.preventDefault()
-        props.onAnchorRegister()
-      }}>Register</a></p>
+      <p>Don't have an account? <a onClick={handleRegisterClick}>Register</a></p>
     </main>
   )
 }

@@ -1,4 +1,9 @@
+import { validate } from "./helpers"
+
 export default (postId, commentId) => {
+
+  validate.id(postId, 'postId')
+  validate.id(commentId, 'commentId')
 
   const posts = JSON.parse(localStorage.posts)
 

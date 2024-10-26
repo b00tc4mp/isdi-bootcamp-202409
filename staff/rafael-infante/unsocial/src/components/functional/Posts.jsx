@@ -19,47 +19,55 @@ class Posts extends Component {
     this.state = { posts }
   }
 
+  handleLiked = () => {
+    try {
+      const posts = getPosts()
+      this.setState({ posts })
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
+  }
+
+  handleDeleted = () => {
+    try {
+      const posts = getPosts()
+      this.setState({ posts })
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
+  }
+
+  handleCommentRemoved = () => {
+    try {
+      const posts = getPosts()
+      this.setState({ posts })
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
+  }
+
+  handleCommentAdded = () => {
+    try {
+      const posts = getPosts()
+      this.setState({ posts })
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
+  }
+
   render() {
     return (
       <div>
-        {this.state.posts.map(post => <Post item={post}
-
-          onLiked={() => {
-            try {
-              const posts = getPosts()
-              this.setState({ posts })
-            } catch (error) {
-              alert(error.message)
-              console.error(error)
-            }
-          }}
-          onDeleted={() => {
-            try {
-              const posts = getPosts()
-              this.setState({ posts })
-            } catch (error) {
-              alert(error.message)
-              console.error(error)
-            }
-          }}
-          onCommentRemoved={() => {
-            try {
-              const posts = getPosts()
-              this.setState({ posts })
-            } catch (error) {
-              alert(error.message)
-              console.error(error)
-            }
-          }}
-          onCommentAdded={() => {
-            try {
-              const posts = getPosts()
-              this.setState({ posts })
-            } catch (error) {
-              alert(error.message)
-              console.error(error)
-            }
-          }} />)}
+        {this.state.posts.map(post => <Post
+          item={post}
+          onLiked={this.handleLiked}
+          onDeleted={this.handleDeleted}
+          onCommentRemoved={this.handleCommentRemoved}
+          onCommentAdded={this.handleCommentAdded} />)}
       </div>
     )
   }

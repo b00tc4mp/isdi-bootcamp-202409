@@ -1,6 +1,6 @@
 import uuid from "../data/uuid";
 
-const addComment = (postId, text) => {
+export default (postId, text) => {
 
   const posts = JSON.parse(localStorage.posts)
   const post = posts.find(({ id }) => id === postId)
@@ -17,5 +17,3 @@ const addComment = (postId, text) => {
   localStorage.posts = JSON.stringify(posts)
 
 }
-
-export default addComment

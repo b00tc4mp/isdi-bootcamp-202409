@@ -14,6 +14,8 @@ export default () => {
 
     post.liked = post.likes.includes(loggedUserId)
 
+    post.comments = post.comments.length
+
   });
 
   return posts.toReversed()

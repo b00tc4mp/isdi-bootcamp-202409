@@ -1,12 +1,8 @@
-const loginUser = (loginUsername, loginPassword) => {
-  if (typeof loginUsername !== 'string') throw new Error
-  if (typeof loginPassword !== 'string') throw new Error
+import { validate } from './helpers'
 
-  if (loginUsername.length < 4 || loginUsername.length > 12)
-    throw new Error('invalid username')
-
-  if (loginPassword < 8)
-    throw new Error('invalid password')
+export default (loginUsername, loginPassword) => {
+  validate.username(loginUsername)
+  validate.password(loginPassword)
 
   const users = JSON.parse(localStorage.users)
 
@@ -17,5 +13,3 @@ const loginUser = (loginUsername, loginPassword) => {
 
   sessionStorage.loggedUserId = user.userId
 }
-
-export default loginUser

@@ -3,9 +3,14 @@ import './Header.css'
 import logic from '../../logic'
 import { Button } from '../biblio'
 
-function Header({ view, onHomeClick, onLoggedOut }) {
+export default function Header({ onHomeClick, onLoggedOut }) {
   let name
   let username
+
+  const handleLogout = event => {
+    event.preventDefault()
+    onLoggedOut()
+  }
 
   if (logic.isUserLoggedIn()) {
     try {
@@ -26,13 +31,8 @@ function Header({ view, onHomeClick, onLoggedOut }) {
 
       {logic.isUserLoggedIn() && <h3>{username}</h3>}
 
-      {logic.isUserLoggedIn() && <Button id="btn-logout" type="button" onClick={event => {
-        event.preventDefault()
-        onLoggedOut()
-      }}>Logout</Button>}
+      {logic.isUserLoggedIn() && <Button id="btn-logout" type="button" onClick={handleLogout}>Logout</Button>}
 
     </header>
   )
 }
-
-export default Header

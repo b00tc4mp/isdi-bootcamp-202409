@@ -11,10 +11,32 @@ class Post extends Component {
     this.state = { view: null }
   }
 
+  handleDeleteClick = () => {
+    if (confirm('Delete Post?')) {
+      logic.deletePost(this.props.item.id)
+      this.props.onDeleted()
+    }
+  }
+
+  handleLikeClick = () => {
+    try {
+      logic.toggleLikePost(this.props.item.id)
+
+      this.props.onLiked()
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
+  }
+
+  handleViewComments = () => {
+    this.setState({ view: this.state.view ? null : 'comments' })
+  }
+
   render() {
     console.log('Render -> Post')
 
-    const { item: { id, author, image, text, date, liked, likes }, onLiked, onDeleted, onCommentRemoved, onCommentAdded } = this.props
+    const { item: { id, author, image, text, date, liked, likes, comments }, onCommentRemoved, onCommentAdded } = this.props
 
     return (
       <article className='Post'>
@@ -23,22 +45,11 @@ class Post extends Component {
 
         <img src={image} className="img" />
 
-        <a onClick={() => {
-          logic.toggleLikePost(id)
+        <a onClick={this.handleLikeClick}>{liked ? '❤️' : '🤍'}{likes.length} likes</a>
 
-          onLiked()
-        }}>{liked ? '❤️' : '🤍'}{likes.length} likes</a>
+        {author.id === logic.getUserId() && <a onClick={this.handleDeleteClick}>🗑️</a>}
 
-        {author.id === logic.getUserId() && <a onClick={() => {
-          if (confirm('Delete Post?')) {
-            logic.deletePost(id)
-            onDeleted()
-          }
-        }}>🗑️</a>}
-
-        <a onClick={() => {
-          this.setState({ view: this.state.view ? null : 'comments' })
-        }}>📄</a>
+        <a onClick={this.handleViewComments}> 💬{comments} comments</a>
 
         <p>{text}</p>
         <time>{getElapsedTime(date)} ago</time>

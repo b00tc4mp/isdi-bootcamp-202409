@@ -1,5 +1,3 @@
-function isUserLoggedIn() {
+export default () => {
   return sessionStorage.loggedUserId !== undefined
 }
-
-export default isUserLoggedIn

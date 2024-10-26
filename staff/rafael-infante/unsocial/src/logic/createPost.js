@@ -1,9 +1,12 @@
+import { validate } from "./helpers"
+
 import uuid from "../data/uuid"
 import logic from "."
 
-const createPost = (image, text) => {
-  if (typeof image !== 'string') throw new Error
-  if (typeof text !== 'string') throw new Error
+export default (image, text) => {
+
+  validate.image(image)
+  validate.text(text)
 
   const posts = JSON.parse(localStorage.posts)
 
@@ -13,12 +16,11 @@ const createPost = (image, text) => {
     text: text,
     author: logic.getUserId(),
     date: new Date,
-    likes: []
+    likes: [],
+    comments: []
   }
 
   posts.push(post)
 
   localStorage.posts = JSON.stringify(posts)
 }
-
-export default createPost

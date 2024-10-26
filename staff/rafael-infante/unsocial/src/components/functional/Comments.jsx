@@ -19,6 +19,32 @@ class Comments extends Component {
     this.state = { comments }
   }
 
+  onRemoved = () => {
+    try {
+      const comments = logic.getComments(this.props.postId)
+
+      this.setState({ comments })
+
+      this.props.onRemoved()
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
+
+  onAdded = () => {
+    try {
+      const comments = logic.getComments(this.props.postId)
+      this.setState({ comments })
+      this.props.onAdded()
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
+
   render() {
     console.log('Render -> Comments')
     return (
@@ -28,34 +54,12 @@ class Comments extends Component {
             <Comment
               postId={this.props.postId}
               comment={comment}
-              onRemoved={() => {
-                try {
-                  const comments = logic.getComments(this.props.postId)
-
-                  this.setState({ comments })
-
-                  this.props.onRemoved()
-                } catch (error) {
-                  alert(error.message)
-
-                  console.error(error)
-                }
-              }} />)}
+              onRemoved={this.onRemoved} />)}
         </ul>
 
         <AddComment
           postId={this.props.postId}
-          onAdded={() => {
-            try {
-              const comments = logic.getComments(this.props.postId)
-              this.setState({ comments })
-              this.props.onAdded()
-            } catch (error) {
-              alert(error.message)
-
-              console.error(error)
-            }
-          }} />
+          onAdded={this.onAdded} />
 
       </section>
     )

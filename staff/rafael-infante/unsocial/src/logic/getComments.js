@@ -1,5 +1,7 @@
-function getComments(postId) {
-  if (typeof postId !== 'string') throw new Error('invalid string')
+import { validate } from "./helpers"
+
+export default (postId) => {
+  validate.id(postId, 'postId')
 
   const users = JSON.parse(localStorage.users)
   const posts = JSON.parse(localStorage.posts)
@@ -21,5 +23,3 @@ function getComments(postId) {
 
   return comments
 }
-
-export default getComments

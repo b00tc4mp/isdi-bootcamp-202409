@@ -1,5 +1,7 @@
-function toggleLikePost(postId) {
-  if (typeof postId !== 'string') throw new Error('invalid post')
+import { validate } from "./helpers"
+
+export default (postId) => {
+  validate.id(postId, 'postId')
 
   const posts = JSON.parse(localStorage.posts)
 
@@ -19,5 +21,3 @@ function toggleLikePost(postId) {
 
   localStorage.posts = JSON.stringify(posts)
 }
-
-export default toggleLikePost
