@@ -5,7 +5,7 @@ import logic from '../../logic'
 
 import getElapsedTime from '../../utils/getElapsedTime'  
 
-import './PostItem.css'
+import './Post.css'
 import { Component } from 'react'
 
 class PostItem extends Component {

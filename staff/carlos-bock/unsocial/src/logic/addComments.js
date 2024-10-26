@@ -1,6 +1,6 @@
 import {validate} from './helpers'
 
-import uuid from '../date/uuid'
+import uuid from '../data/uuid'
 
 const addComments = (postId, text) => {
     validate.id(postId, 'postId')

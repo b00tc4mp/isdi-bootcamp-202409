@@ -1,5 +1,5 @@
 import validate from './validate'
 
-export {
+export default{
     validate
 }
