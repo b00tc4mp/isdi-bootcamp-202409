@@ -1,6 +1,6 @@
 import logic from '../../logic'
 
-import { Label, Form, Field } from '../library'
+import { Label, Form } from '../library'
 
 export default ({ postId, onAdded }) => {
     const handleSubmit = event => {

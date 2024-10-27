@@ -5,7 +5,7 @@ import logic from '../../logic'
 import './Header.css'
 
 
-export default ({ view, onHomeClick, onLoggedOut }) => {
+export default ({ view, onHomeClick, onLoggedOut, onProfileClick }) => {
 
     let name
 
@@ -36,12 +36,17 @@ export default ({ view, onHomeClick, onLoggedOut }) => {
         }
     }
 
+    const onProfile = (event) => {
+        event.preventDefault()
+
+        onProfileClick()
+    }
 
 
     return <header className="Header">
         <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
-        {logic.isUserLoggedIn() && <h3 style={{ fontSize: 'medium' }}>{name}</h3>}
+        {logic.isUserLoggedIn() && <a href='' style={{ fontSize: 'medium' }} onClick={onProfile}>{name}</a>}
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
     </header>

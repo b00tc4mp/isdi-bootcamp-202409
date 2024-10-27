@@ -22,7 +22,10 @@ export default class extends Component {
   render() {
 
     return <>
-      <Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })} onLoggedOut={() => this.setState({ view: 'login' })} />
+      <Header view={this.state.view}
+        onHomeClick={() => this.setState({ view: 'home' })}
+        onLoggedOut={() => this.setState({ view: 'login' })}
+        onProfileClick={() => this.setState({ view: 'profile' })} />
 
       {
         this.state.view === 'login'

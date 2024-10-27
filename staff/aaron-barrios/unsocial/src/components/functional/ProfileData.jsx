@@ -1,16 +1,28 @@
 import getUser from "../../logic/getUser"
 
+import './ProfileData.css'
+
 export default (props) => {
 
     let currentUser
 
-    currentUser = getUser(sessionStorage.loggedInUserId)
+    currentUser = getUser(sessionStorage.userId)
 
-    return <div>
-        <h3>Profile</h3>
+    const handleProClick = event => {
+        event.preventDefault()
 
-        <h4>{currentUser.name} Information</h4>
 
+    }
+
+    return <div className="ProfData">
+        <h3>{currentUser.name}</h3>
+
+
+        <img
+            className="profpic"
+            src="https://yt3.googleusercontent.com/mA6JoYXrjwCT1yIOUpURNkxFbA5tojJ7OBPIfGGJW_bxP6--OaRAtMLMSgOYTtqDfvV3IqvW=s900-c-k-c0x00ffffff-no-rj" />
+
+        <a href="" className="aa" onClick={handleProClick}>Change</a>
         <form onSubmit={event => {
             event.preventDefault()
 

@@ -15,6 +15,8 @@ import createComment from './createComment'
 import getComments from './getComments'
 import removeComment from './removeComment'
 
+import getUser from './getUser'
+
 
 const logic = {
     registerUser,
@@ -32,7 +34,9 @@ const logic = {
 
     createComment,
     getComments,
-    removeComment
+    removeComment,
+
+    getUser
 }
 
 export default logic
