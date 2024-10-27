@@ -2,11 +2,12 @@ import { Component } from 'react'
 
 import { Login, Register, Home, CreatePost } from './view'
 
-import { Header, Footer } from './components/functional'
+import Header from './components/functional/Header'
+import Footer from './components/functional/Footer'
 
 import logic from './logic'
 
-class App extends Component {
+export default class extends Component {
   constructor(props) {
     console.log('App -> constructor')
 
@@ -23,11 +24,11 @@ class App extends Component {
 
       {this.state.view === 'login' && <Login
         onLoggedIn={() => this.setState({ view: 'home' })}
-        onRegisterLink={() => this.setState({ view: 'register' })}
+        onRegisterClick={() => this.setState({ view: 'register' })}
       />}
       {this.state.view === 'register' && <Register
         onRegisterIn={() => this.setState({ view: 'login' })}
-        onLoginLink={() => this.setState({ view: 'login' })}
+        onLoginClick={() => this.setState({ view: 'login' })}
       />}
       {this.state.view === 'home' && <Home />}
 
@@ -37,5 +38,3 @@ class App extends Component {
     </>
   }
 }
-
-export default App

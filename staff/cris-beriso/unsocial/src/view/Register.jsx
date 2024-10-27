@@ -7,34 +7,42 @@ import logic from '../logic'
 export default props => {
   console.log('Register -> render')
 
+  const handleSubmit = event => {
+    event.preventDefault()
+
+    const { target: form } = event
+
+    const {
+      name: { value: name },
+      email: { value: email },
+      username: { value: username },
+      password: { value: password },
+      ['password-repeat']: { value: passwordRepeat }
+    } = form
+
+    try {
+      logic.registerUser(name, email, username, password, passwordRepeat)
+
+      form.reset()
+
+      props.onRegisterIn()
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
+
+  const handleLoginClick = event => {
+    event.preventDefault()
+
+    props.onLoginClick()
+  }
+
   return <main className='Register'>
     <h2>Register</h2>
 
-    <Form onSubmit={event => {
-      event.preventDefault()
-
-      const { target: form } = event
-
-      const {
-        name: { value: name },
-        email: { value: email },
-        username: { value: username },
-        password: { value: password },
-        ['password-repeat']: { value: passwordRepeat }
-      } = form
-
-      try {
-        logic.registerUser(name, email, username, password, passwordRepeat)
-
-        form.reset()
-
-        props.onRegisterIn()
-      } catch (error) {
-        alert(error.message)
-
-        console.error(error)
-      }
-    }}>
+    <Form onSubmit={handleSubmit}>
       <Field>
         <Label htmlFor="name">Name</Label>
         <Input type="text" id="name" />
@@ -50,25 +58,22 @@ export default props => {
         <Input type="text" id="username" />
       </Field>
 
-      <Field>
-        <Label htmlFor="password">Password</Label>
-        <PasswordInput id="password" />
-      </Field>
+      <div className="password">
+        <Field >
+          <Label htmlFor="password">Password</Label>
+          <PasswordInput id="password" />
+        </Field>
 
-      <Field>
-        <Label htmlFor="password-repeat">Repeat Password</Label>
-        <PasswordInput id="password-repeat" />
-      </Field>
-
+        <Field>
+          <Label htmlFor="password-repeat">Repeat Password</Label>
+          <PasswordInput id="password-repeat" />
+        </Field>
+      </div>
       <Button type="submit">Register</Button>
 
     </Form>
 
-    <a href="" onClick={event => {
-      event.preventDefault()
-
-      props.onLoginLink()
-    }}>Login</a>
+    <a href="" onClick={handleLoginClick}>Login</a>
   </main >
 }
 

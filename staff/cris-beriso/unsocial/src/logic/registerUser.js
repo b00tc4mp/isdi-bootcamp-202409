@@ -1,3 +1,5 @@
+import { validate } from './helpers'
+
 import uuid from '../data/uuid'
 /**
  * Recogemos los datos del nuevo usuario y 
@@ -12,22 +14,11 @@ import uuid from '../data/uuid'
  * @param {string} passwordRepeat 
  */
 export default (name, email, username, password, passwordRepeat) => {
-  if (typeof name !== 'string') throw new Error('invalid name')
-  if (name.length < 2)
-    throw new Error('invalid name')
-
-  if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
-    throw new Error('invalid e-mail')
-
-  if (username.length < 4 || username.length > 12)
-    throw new Error('invalid username')
-
-  if (password.length < 8)
-    throw new Error('invalid password')
-
-  if (typeof passwordRepeat !== 'string') throw new Error('invalid password repeat')
-  if (password !== passwordRepeat)
-    throw new Error('passwords do not match')
+  validate.name(name)
+  validate.email(email)
+  validate.username(username)
+  validate.password(password)
+  validate.passwordsMatch(password, passwordRepeat)
 
   const users = JSON.parse(localStorage.users)
 

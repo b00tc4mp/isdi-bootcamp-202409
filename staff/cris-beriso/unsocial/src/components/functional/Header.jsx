@@ -17,19 +17,25 @@ export default ({ view, onHomeClick, onLoggedOut }) => {
       console.error(error)
     }
 
-  return <header className='Header'>
-    <h1>{view === 'new-post' ? <a href="" onClick={event => {
-      event.preventDefault()
+  const handleHomeClick = event => {
+    event.preventDefault()
 
-      onHomeClick()
-    }}>Unsocial</a> : 'Unsocial'}</h1>
+    onHomeClick()
+  }
 
-    {logic.isUserLoggedIn() && <h3>{name}</h3>}
-
-    {logic.isUserLoggedIn() && <Button type="button" onClick={() => {
+  const handleLogout = () => {
+    if (confirm('Logout?')) {
       logic.logoutUser()
 
       onLoggedOut()
-    }}>Logout</Button>}
+    }
+  }
+
+  return <header className='Header'>
+    <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+
+    {logic.isUserLoggedIn() && <h3>{name}</h3>}
+
+    {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
   </header>
 }
