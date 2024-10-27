@@ -7,13 +7,10 @@ import logic from '../logic'
 export default props => {
     console.log('Register -> render')
 
-    return <main className="Register">
-        <h2>Register</h2>
+    const handleSubmit = event => {
+        event.preventDefault()
 
-        <Form onSubmit={event => {
-            event.preventDefault()
-
-            const { target: form } = event
+        const { target: form } = event
 
             const {
                 name: { value: name },
@@ -34,7 +31,19 @@ export default props => {
 
                 console.error(error)
             }
-        }}>
+        }
+
+        const handleLoginClick = event => {
+            event.preventDefault()
+
+            props.onLoginClick()
+        }
+
+    return <main className="Register">
+        <h2>Register</h2>
+
+        <Form onSubmit={handleSubmit}>
+            event.preventDefault()
             <Field>
                 <Label htmlFor="name">Name</Label>
                 <Input type="text" id="name" />
@@ -63,11 +72,7 @@ export default props => {
             <Button type="submit">Register</Button>
         </Form>
 
-        <a href="" onClick={event => {
-            event.preventDefault()
-
-            props.onLoginClick()
-        }}>Login</a>
+        <a href="" onClick={handleLoginClick}>Login</a>
     </main>
 }
 

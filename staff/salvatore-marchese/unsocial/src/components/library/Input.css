@@ -1,11 +1,12 @@
 .Input {
-    width: 80%;
+    width: 100%;
     box-sizing: border-box;
     background-color: whitesmoke;
     font-family: inherit;
     border-color: var(--color);
     border-style: solid;
     align-self: center;
+    height: 30px
 }
 
 /*

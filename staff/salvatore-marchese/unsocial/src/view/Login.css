@@ -7,3 +7,9 @@
     box-sizing: border-box;
     background-color: var(--back-color);
 }
+
+.form-container{
+    border: 1px solid blue;
+    width: 50%;
+    padding: 25px;
+}

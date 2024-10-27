@@ -1,9 +1,15 @@
 .Form {
     display: flex;
     flex-direction: column;
-    border: 5px solid black;
+   /*  border: 5px solid black;*/
     gap: 1rem;
     margin: 1rem;
+}
+
+.form-container{
+    border: 1px solid green;
+    width: 50%;
+    padding: 25px;
 }
 
 /*  

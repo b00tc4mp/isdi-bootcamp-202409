@@ -10,6 +10,10 @@ import getPosts from './getPosts'
 import toggleLikePost from './toggleLikePost'
 import deletePost from './deletePost'
 
+import addComment from './addComment'
+import getComments from './getComments'
+import removeComment from './removeComment'
+
 const logic = {
     registerUser,
     loginUser,
@@ -21,7 +25,11 @@ const logic = {
     createPost,
     getPosts,
     toggleLikePost,
-    deletePost
+    deletePost,
+
+    addComment,
+    getComments,
+    removeComment
 }
 
 export default logic

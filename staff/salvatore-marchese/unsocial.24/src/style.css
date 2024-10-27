@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Iceberg&family=Tiny5&display=swap');
+
+:root {
+  --color: lime;
+  --back-color: rgb(60, 60, 60); 
+  --font: 'Tiny5';
+  font-family: var(--font);
+  height: 100%;
+}
+
+body {
+  background-color: rgb(60, 60, 60);
+  color: var(--color);
+  margin: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+/*
+img {
+  height: 200px;
+  width: auto;
+  border-radius: 25%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+  */
+
+a:visited {
+  color: yellow;
+}
+

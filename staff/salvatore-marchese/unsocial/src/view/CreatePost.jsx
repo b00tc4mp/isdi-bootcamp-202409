@@ -7,8 +7,7 @@ import './CreatePost.css'
 export default ({ onCreated }) => {
     console.log('CreatePost -> render')
 
-    return <main className="CreatePost">
-        <Form onSubmit={event => {
+    const handleSubmit = event => {
             event.preventDefault()
 
             const { target: form } = event
@@ -27,15 +26,18 @@ export default ({ onCreated }) => {
 
                 console.error(error)
             }
-        }}>
+        }
+
+        return <main className="CreatePost">
+        <Form onSubmit={handleSubmit}>
             <Field>
-            <Label htmlFor="image">Image</Label>
-            <Input type="text" id="image" />
+                <Label htmlFor="image">Image</Label>
+                <Input type="text" id="image" />
             </Field>
 
             <Field>
-            <Label htmlFor="text">Text</Label>
-            <Input type="text" id="text" />
+                <Label htmlFor="text">Text</Label>
+                <Input type="text" id="text" />
             </Field>
 
             <Button type="submit">Create</Button>

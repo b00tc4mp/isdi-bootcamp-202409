@@ -7,44 +7,51 @@ import logic from '../logic'
 export default props => {
     console.log('Login -> render')
 
-    return <main className="Login">
-        <h2>Login</h2>
+    const handleSubmit = event => {
+        event.preventDefault()
 
-        <Form onSubmit={event => {
-            event.preventDefault()
+        const { target: { username: { value: username }, password: { value: password } } } = event
 
-            const { target: { username: { value: username }, password: { value: password } } } = event
+        try {
+            logic.loginUser(username, password)
 
-            try {
-                logic.loginUser(username, password)
+            event.target.reset()
 
-                event.target.reset()
+            props.onLoggedIn()
+        } catch (error) {
+            alert(error.message)
 
-                props.onLoggedIn()
-            } catch (error) {
-                alert(error.message)
+            console.error(error)
+        }
+    }
 
-                console.error(error)
-            }
-        }}>
-            <Field>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username" />
-            </Field>
+    const handleRegisterClick = event => {
+        event.preventDefault()
 
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
-            </Field>
+        props.onRegisterClick()
+    }
 
-            <Button type="submit">Login</Button>
-        </Form>
+    return (
+        <main className="Login">
+            <h2>Login</h2>
 
-        <a href="" onClick={event => {
-            event.preventDefault()
+                <Form onSubmit={handleSubmit}>
+                    <Field>
+                        <Label htmlFor="username">Username</Label>
+                        <Input type="text" id="username" />
+                    </Field>
 
-            props.onRegisterClick()
-        }}>Register</a>
-    </main>
+                    <Field>
+                        <Label htmlFor="password">Password</Label>
+                        <PasswordInput id="password" />
+                    </Field>
+
+                    <Button type="submit">Login</Button>
+                </Form>
+
+                <a href="" onClick={handleRegisterClick}>Register</a>
+
+
+        </main>)
 }
 
