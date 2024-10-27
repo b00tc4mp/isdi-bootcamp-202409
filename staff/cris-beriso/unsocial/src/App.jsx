@@ -6,6 +6,7 @@ import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
 
 import logic from './logic'
+import ProfileUser from './view/ProfileUser'
 
 export default class extends Component {
   constructor(props) {
@@ -20,7 +21,10 @@ export default class extends Component {
     console.log('App -> render')
 
     return <>
-      <Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })} onLoggedOut={() => this.setState({ view: 'login' })} />
+      <Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })}
+        onLoggedOut={() => this.setState({ view: 'login' })}
+        onProfile={() => this.setState({ view: 'profile' })}
+      />
 
       {this.state.view === 'login' && <Login
         onLoggedIn={() => this.setState({ view: 'home' })}
@@ -33,6 +37,8 @@ export default class extends Component {
       {this.state.view === 'home' && <Home />}
 
       {this.state.view === 'new-post' && <CreatePost onCreated={() => this.setState({ view: 'home' })} />}
+
+      {this.state.view === 'profile' && <ProfileUser onProfile={() => this.setState({ view: 'profile' })} />}
 
       <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
     </>

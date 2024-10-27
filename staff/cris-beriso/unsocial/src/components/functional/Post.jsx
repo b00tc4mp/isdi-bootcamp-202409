@@ -41,6 +41,15 @@ export default class extends Component {
     this.setState({ view: this.state.view ? null : 'comments' })
   }
 
+  handleSaveClick = () => {
+    try {
+      logic.savePost(this.props.post.id)
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
   render() {
     console.log('Post-> render')
 
@@ -78,6 +87,8 @@ export default class extends Component {
         {author.id === logic.getUserId() && <Button onClick={this.handleDeleteClick}>🗑</Button>}
 
         <Button onClick={this.handleCommentsClick}>💬{comments} comments</Button>
+
+        <Button onClick={this.handleSaveClick}>📂</Button>
       </div>
       {this.state.view === 'comments' && <Comments
         postId={id}
