@@ -7,4 +7,3 @@ export default () => {
 
     return user.name
 }
-

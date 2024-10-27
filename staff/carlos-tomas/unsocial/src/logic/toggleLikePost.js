@@ -1,5 +1,7 @@
-export default (postId) => {
-    if (typeof postId !== 'string') throw new Error('invalid postId')
+import { validate } from './helpers'
+
+export default postId => {
+    validate.id(postId, 'postId')
 
     const posts = JSON.parse(localStorage.posts)
 
@@ -17,4 +19,3 @@ export default (postId) => {
 
     localStorage.posts = JSON.stringify(posts)
 }
-

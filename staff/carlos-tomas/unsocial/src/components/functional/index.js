@@ -1,12 +1,16 @@
 import Footer from './Footer'
 import Header from './Header'
-import PostList from './PostList'
-import PostItem from './PostItem'
+import Posts from './Posts'
+import Post from './Post'
 import Comments from './Comments'
+import Comment from './Comment'
+
+
 export {
     Footer,
     Header,
-    PostList,
-    PostItem,
-    Comments
+    Posts,
+    Post,
+    Comments,
+    Comment
 }

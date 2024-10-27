@@ -1,0 +1,17 @@
+.Header {
+    background-color: #26272E;
+    padding: 1rem;
+    height: 10%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 3rem;
+    width: 100%;
+
+    h1 {
+        margin: 0;
+        font-size: x-large;
+    }
+
+}
