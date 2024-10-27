@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-import PostItem from "./PostItem";
+import PostItem from "./Post";
 
 import getPosts from "../../logic/getPosts";
 
@@ -70,7 +70,7 @@ export default class PostList extends Component {
         return <div>
             {/* <h3>Posts</h3> */}
             {this.state.posts.map(post => <PostItem
-                item={post}
+                post={post}  //Le he cambiado el nombre de "item = {post}" a "post = {post}"
 
                 onLiked={this.handleLiked}
 
@@ -79,28 +79,6 @@ export default class PostList extends Component {
                 onCommentAdded={this.handleCommentAdded}
 
                 onCommentRemoved={this.handleCommentRemoved}
-
-            // onLikeClicked={() => {              //Esta función es la que repinta
-            //     try {
-            //         const posts = getPosts()
-
-            //         this.setState({ posts })
-            //     } catch (error) {
-            //         alert(error.message)
-
-            //         console.error(error)
-            //     }
-            // }}
-
-            // onDeleted={() => {              //Esta función es la que repinta
-            //     try {
-            //         const posts = getPosts()
-            //         this.setState({ posts })
-            //     } catch {
-            //         alert(error.message)
-            //         console.error(error)
-            //     }
-            // }}
 
             />)}
         </div>

@@ -13,20 +13,21 @@
 - Guardar favoritos
 - Añadir comentarios --> OK
 - Editar posts
-- Página de perfil --> WIP
+- Página de perfil --> OK
 - Imagen de perfil 
 - Guardar posts favoritos
 - Mensaje de aviso de cumpleaños
 
 ### **Checks mejora**
 - Campo password no resetea cuando está mal.
-- Revisar css de createPost
-- Revisar css
+- Revisar css de createPost¶
+- Revisar css de viewProfile
+- Revisar css en general
 
 ### **Pendientes último dia**
-- Modifica item --> Comment (En PostItem.jsx)
+- Modifica item --> Comment (En PostItem.jsx) --> OK
 - Cambia nombre PostList.jsx --> Posts.jsx
-- Cambia nombre PostItem.jsx --> Post.jsx
+- Cambia nombre PostItem.jsx --> Post.jsx --> OK
 - Y todas sus llamadas y referencias subsiguientes en css
 
 

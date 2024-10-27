@@ -1,7 +1,7 @@
 import Header from './Header'
 import Footer from './Footer'
 import PostList from './PostList'
-import PostItem from './PostItem'
+import PostItem from './Post'
 import Comments from './Comments'
 
 export {

@@ -5,7 +5,7 @@ import logic from '../../logic'
 
 import getElapsedTime from '../../utils/getElapsedTime'
 
-import './PostItem.css'
+import './Post.css'
 import { Component } from 'react'
 
 //export default class extends Component {
@@ -20,7 +20,7 @@ export default class PostItem extends Component {
 
     handleLikeClick = () => {
         try {
-            logic.toggleLikePost(this.props.item.id)
+            logic.toggleLikePost(this.props.post.id)
 
             this.props.onLiked()
 
@@ -33,7 +33,7 @@ export default class PostItem extends Component {
     handleDeleteClick = () => {
         try {
             if (confirm('Delete post?')) {
-                logic.deletePost(this.props.item.id)
+                logic.deletePost(this.props.post.id)
 
                 this.props.onDeleted()
             }
@@ -52,7 +52,7 @@ export default class PostItem extends Component {
         console.log('Post -> Render')
         const {
             props: {
-                item: {
+                post: {
                     id,
                     author,
                     image,

@@ -15,10 +15,13 @@ export default class App extends Component {
 
         //Validamos si el usuario está logueado para mostrar la home o login
         //this.state es una propiedad de this 
+
+        //Dentro del constructor aquí marcamos la vista que se cargará primero
         this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
     }
 
     // Método para cambiar la vista a 'viewProfile' (perfil del usuario)
+    // Este evento lo tenemos aquí porqué la vista se carga en la ventana principal
     onViewProfile = () => {
         this.setState({ view: 'viewProfile' })
     }
