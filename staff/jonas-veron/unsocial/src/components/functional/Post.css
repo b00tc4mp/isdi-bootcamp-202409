@@ -7,9 +7,9 @@
     }
 
     h4{
-        margin-right: 95%;
+        /* margin-right: 95%;
         margin-top: 1rem;
-        display: flex;
+        display: flex; */
         
     }
     img{
@@ -60,6 +60,9 @@
     }
 
  .usernameAndDeleteButton{
-
+    display: flex;
+    width: 89%;
+    align-content: flex-start;
+    justify-content: space-between;
  }
 }

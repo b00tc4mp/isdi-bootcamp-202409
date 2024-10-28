@@ -68,8 +68,8 @@ export default class extends Component{
             <div className="usernameAndDeleteButton">
             <h4 className="postUserNameTitle">{author.username}</h4>
                 {author.id === logic.getUserId() && <Button className="deletePostButton" onClick={this.handleDeleteClick}>🗑️</Button>}
-            </div>
             <img src={image}/>
+            </div>
         <div  className="postItemButtons" >
 
             <div>

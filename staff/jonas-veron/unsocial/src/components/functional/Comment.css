@@ -4,10 +4,10 @@
 ul{
     list-style: none;
     align-items: center;
-    margin-left:-2rem;
+    
 }
 li{
-    margin-top:5rem
+    /* margin-top:5rem */
 }
 h4{
     margin:0;
