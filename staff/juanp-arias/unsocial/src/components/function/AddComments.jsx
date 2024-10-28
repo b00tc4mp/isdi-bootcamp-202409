@@ -12,7 +12,7 @@ export default ({ postId, onAdded }) => {
 
         try {
             logic.addComments(postId, text)
-
+ 
             form.reset()
 
             onAdded()

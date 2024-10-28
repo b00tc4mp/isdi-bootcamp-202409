@@ -26,10 +26,10 @@ export default ({ onCreated }) => {
             }
         }}>
             <label htmlFor="image">Image</label>
-            <input type="text" id="image"  />
+            <input type="text" id="image" />
 
             <label htmlFor="image">Text</label>
-            <input type="text" id="text"  />
+            <input type="text" id="text" />
 
             <button type="submit"><strong>CREATE</strong></button>
 

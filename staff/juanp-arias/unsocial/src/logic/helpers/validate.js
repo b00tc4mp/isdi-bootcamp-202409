@@ -30,12 +30,13 @@ const validatePasswordRepeat = (password, repeatpassword) => {
 }
 
 const validateImage = image => {
-    if (typeof image !== 'string') throw new Error('invalid image')
+    if (typeof image !== 'string') throw new Error('invalid image');
+    if (typeof text === "") throw new Error('invalid post')
 }
 
 const validateText = text => {
-    if (typeof text !== 'string') throw new Error('invalid text')
-    else (typeof text === "") throw new Error('invalid post')
+    if (typeof text !== 'string') throw new Error('invalid text');
+    if (typeof text === "") throw new Error('invalid post')
 }
 
 const validateId = (id, explain = 'id') => {

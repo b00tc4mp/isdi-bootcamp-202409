@@ -19,7 +19,7 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
             }
     }
 
-    return <li>
+    return <section>
         <h4>{author.username}</h4>
 
         <p>{text}</p>
@@ -27,5 +27,5 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
         <time>{dateAgo(date)}</time>
 
         {logic.getUserId() === author.id && <Button onClick={handleRemove}>🗑️</Button>}
-    </li>
+    </section>
 }
