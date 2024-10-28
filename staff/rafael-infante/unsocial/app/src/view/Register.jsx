@@ -1,5 +1,5 @@
 import './Register.css'
-import logic from "../logic/"
+import logic from "../logic"
 import { PasswordInput, Input, Button, Label, Form } from "../components/biblio"
 
 function Register(props) {

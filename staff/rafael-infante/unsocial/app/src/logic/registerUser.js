@@ -1,5 +1,5 @@
 import uuid from "../data/uuid"
-import { validate } from "./helpers/"
+import { validate } from "./helpers"
 
 export default (name, email, username, password, confirmPassword) => {
   validate.name(name)
