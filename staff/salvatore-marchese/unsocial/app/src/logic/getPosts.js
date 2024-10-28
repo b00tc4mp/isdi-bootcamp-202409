@@ -12,7 +12,7 @@ export default () => {
             //const user = users.find(({ id }) => id === authorId)
             const  { username } = users.find(({ id, username }) => username === authorId)
 
-            //fi result is not undefined then try and get the username else return 
+            //if result is not undefined then try and get the username else return 
     
             //post.author = {id: authorId, username: username }
             post.author = { id: authorId, username }
