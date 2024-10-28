@@ -7,3 +7,12 @@
     border-color: var(--color);
     border-style: solid;
 }
+
+::placeholder{
+    color: black;
+    opacity: 1;
+}
+
+input:focus::-webkit-input-placeholder {
+	opacity : 0;
+}

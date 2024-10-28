@@ -36,12 +36,12 @@ export default props => {
 
         <Form onSubmit={handleSubmit}>
             <Field>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username" />
+                {/* <Label htmlFor="username">Username</Label> */}
+                <Input type="text" id="username" placeholder="Username" />
             </Field>
 
             <Field>
-                <Label htmlFor="password">Password</Label>
+                {/* <Label htmlFor="password" placeholder="username">Password</Label> */}
                 <PasswordInput id="password" />
             </Field>
 

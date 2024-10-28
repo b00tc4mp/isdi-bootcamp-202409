@@ -1,7 +1,7 @@
 import './Input.css'
 
-export default ({ type, id }) => {
+export default ({ type, id, placeholder }) => {
     // console.log('Input -> render')
 
-    return <input type={type} id={id} className="Input" />
+    return <input type={type} id={id} className="Input" placeholder={placeholder} />
 }
