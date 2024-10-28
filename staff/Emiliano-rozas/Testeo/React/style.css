@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+button {
+    display: flex;
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 50px;
+    background-color: #E91E63;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: large;
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    font-size: 100px;
+    cursor: pointer;
+}
