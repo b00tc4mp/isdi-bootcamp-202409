@@ -17,9 +17,10 @@ export default () => {
         post.liked = post.likes.includes(userId)
 
         post.saved = post.saves.includes(userId)
+        //enseñar solo los q post.saved sea true
 
         post.comments = post.comments.length //we do not need to charge all the comments yet, we are going to do that when we click on the view comments icon
-        //remember that we are not modifying the localStorage
+        //remember that by doing this we are not modifying the localStorage
     })
 
     return posts.toReversed()
