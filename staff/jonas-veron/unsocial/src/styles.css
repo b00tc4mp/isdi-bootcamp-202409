@@ -13,7 +13,8 @@
     }
 }
     body{
-        background: linear-gradient(90deg, #000000,#121212,#000000);
+        background-image: linear-gradient(180deg, #634835 0, #624230 10%, #603b2b 20%, #5f3227 30%, #5c2923 40%, #591f1f 50%, #55131d 60%, #52051c 70%, #4e001c 80%, #49001e 90%, #440020 100%);
+        height: 97rem;
         /* padding:10px; */
         margin: 0;
         background-size: 200% 400%;

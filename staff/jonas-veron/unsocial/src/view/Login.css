@@ -1,5 +1,5 @@
 .Login{
-background: -webkit-linear-gradient(90deg, #000000,#75151d,#000000);background: linear-gradient(90deg, #000000,#75151d,#000000);    
+    background-image: radial-gradient(circle at 50% -20.71%, #ffd679 0, #ffc776 12.5%, #fbb674 25%, #eca371 37.5%, #d8906c 50%, #c27e67 62.5%, #af6f62 75%, #9e645e 87.5%, #8f5a5a 100%);
     margin: auto;
     margin-top: 5rem;
     /* background: transparent; */
