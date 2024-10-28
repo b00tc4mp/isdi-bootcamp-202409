@@ -1,0 +1,67 @@
+body {
+    background-image: url("https://www.shutterstock.com/image-vector/city-park-lights-trees-bench-260nw-1230959725.jpg");
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.body {
+    position: relative;
+    background-color: brown;
+
+    top: 150px;
+    left: 300px;
+
+    width: 600px;
+    height: 500px;
+}
+
+.body__window {
+    position: absolute;
+    background-color: tan;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.right--window {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 200px;
+    left: 50px;
+}
+
+.left--window {
+    position: absolute;
+    width: 150px;
+    height: 300px;
+    top: 200px;
+    left: 420px;
+}
+
+.int {
+    position: absolute;
+    background-color: aquamarine;
+
+    width: 90%;
+    height: 95%;
+}
+
+.body__cartel {
+    height: 120px;
+    position: absolute;
+    width: 100%;
+    background-color: #b57144;
+    top: 20px;
+}
+
+.tel {
+    position: absolute;
+    background-color: #e3cab5;
+    width: 100%;
+    height: 90%;
+    margin-top: 1%;
+}
