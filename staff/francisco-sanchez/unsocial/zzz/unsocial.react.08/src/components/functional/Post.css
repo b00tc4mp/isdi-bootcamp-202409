@@ -1,0 +1,23 @@
+.PostItem {
+    img {
+        width: 100%;
+    }
+}
+
+.publishedBy {
+    color: var(--white);
+}
+
+.publishedBy .author {
+    font-weight: bold;
+}
+
+.postCommentAndLikes {
+    display: flex;
+    margin-bottom: 25px;
+    justify-content: space-between;
+}
+
+.postText {
+    font-size: 14px;
+}
