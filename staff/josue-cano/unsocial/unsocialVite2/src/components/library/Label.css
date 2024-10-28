@@ -1,4 +1,6 @@
-.Label {
+/* Label {
+    display: flex;
+    
     border: solid 1px lightgray;
     padding: 10px;
     border-radius: 10px;
@@ -7,3 +9,9 @@
     width: 100%;
 
 }
+
+Label input{
+    margin-bottom: 0px;
+    border: none;
+    outline: none;
+} */

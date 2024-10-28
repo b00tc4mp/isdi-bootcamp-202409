@@ -1,7 +1,7 @@
 import './Label.css'
 
-function Label({ htmlFor, Children }) {
-    return <label htmlFor={htmlFor} className="Label">{Children}  <input placeholder="username" type="text" id="username" style={{ width: '100%', boxSizing: 'border-box' }} /></label>
+function Label({ htmlFor, children }) {
+    return <label htmlFor={htmlFor} className="Label">{children}<input placeholder="username" type="text" id="username"  /></label>
 }
 
 export default Label
