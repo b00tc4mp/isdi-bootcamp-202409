@@ -7,7 +7,7 @@ class Home extends Compo {
         let title = new Heading('HOME', 2)
         compo.add(title)
 
-        let welcome = new Heading('Welcome, ' + loggedInUser.name + '!')
+        const welcome = new Heading('Welcome, ' + loggedInUser.name + '!')
         compo.add(welcome)
         let space = new Heading('...', 4)
         compo.add(space)

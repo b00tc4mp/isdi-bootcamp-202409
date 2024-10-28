@@ -1,4 +1,5 @@
-const registerUser = (name, email, username, password, repeatpassword) => {
+
+function registerUser(name, email, username, password, repeatpassword) {
     if (name.length < 2)
         throw new Error('invalid name')
 
@@ -15,15 +16,26 @@ const registerUser = (name, email, username, password, repeatpassword) => {
     if (password !== repeatpassword)
         throw new Error('passwords do not match')
 
-    const users = JSON.parse(localStorage.users)
-
-    let user = users.find(user => user.username === username || user.email === email)
+    var user = users.find(function (user) {
+        return user.username === username || user.email === email
+    })
 
     if (user !== undefined)
         throw new Error('user already exists')
 
-    user = { id: uuid(), name: name, email: email, username: username, password: password, repeatpassword: repeatpassword }
+    user = { name: name, email: email, username: username, password: password, repeatpassword: repeatpassword }
     users.push(user)
+}
 
-    localStorage.users = JSON.stringify(users)
+function authenticateUser(username, password) {
+    if (username.length < 4 || username.length > 12)
+        throw new Error('invalid username')
+
+    var user = users.find(function (user) {
+        return user.username === username && user.password === password
+    })
+
+    if (user === undefined)
+        throw new Error('User not found')
+    return user
 }

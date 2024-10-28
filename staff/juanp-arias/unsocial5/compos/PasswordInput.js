@@ -6,17 +6,17 @@ class PasswordInput extends Compo {
         var input = new Input('password', id)
         this.add(input)
 
-        var span = new Span('🗨️')
+        var span = new Span('😊')
         span.container.style.cursor = 'pointer'
         this.add(span)
 
         span.addBehavior('click', function () {
-            if (span.getText() === '🗨️') {
+            if (span.getText() === '😊') {
                 input.container.type = 'text'
-                span.setText('👁️‍🗨️')
+                span.setText('🫥')
             } else {
                 input.container.type = 'password'
-                span.setText('🗨️')
+                span.setText('😊')
             }
         })
 
