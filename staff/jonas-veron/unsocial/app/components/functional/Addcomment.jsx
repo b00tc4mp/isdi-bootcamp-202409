@@ -1,6 +1,6 @@
 import { Label, Button, Form, Field } from '../library'
 
-import logic from '../../logic'
+import logic from '../../../src/logic'
 
 export default ({ postId, onAdded }) => {
     console.log('AddComment -> render')
