@@ -1,8 +1,8 @@
 .Login {
   background-color: rgb(255, 255, 255);
-  padding: 9% 0px 16% 0px;
+  padding: 13% 0px 10% 0px;
   margin: 0;
-  height: 35rem;
+  height: 40rem;
   display: flex;
   flex-direction: column;
   align-items: center;

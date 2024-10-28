@@ -1,7 +1,6 @@
-import getPosts from "../../logic/getPosts"
-
-import Post from "./Post"
 import { Component } from "react"
+import logic from "../../logic"
+import { Post } from "./index"
 
 class Posts extends Component {
   constructor(props) {
@@ -10,7 +9,7 @@ class Posts extends Component {
     let posts
 
     try {
-      posts = getPosts()
+      posts = logic.getPosts()
     } catch (error) {
       alert(error.message)
       console.error(error)
@@ -21,7 +20,7 @@ class Posts extends Component {
 
   handleLiked = () => {
     try {
-      const posts = getPosts()
+      const posts = logic.getPosts()
       this.setState({ posts })
     } catch (error) {
       alert(error.message)
@@ -31,7 +30,7 @@ class Posts extends Component {
 
   handleDeleted = () => {
     try {
-      const posts = getPosts()
+      const posts = logic.getPosts()
       this.setState({ posts })
     } catch (error) {
       alert(error.message)
@@ -41,7 +40,7 @@ class Posts extends Component {
 
   handleCommentRemoved = () => {
     try {
-      const posts = getPosts()
+      const posts = logic.getPosts()
       this.setState({ posts })
     } catch (error) {
       alert(error.message)
@@ -51,7 +50,7 @@ class Posts extends Component {
 
   handleCommentAdded = () => {
     try {
-      const posts = getPosts()
+      const posts = logic.getPosts()
       this.setState({ posts })
     } catch (error) {
       alert(error.message)

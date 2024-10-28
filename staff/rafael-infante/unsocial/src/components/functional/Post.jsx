@@ -1,5 +1,5 @@
 import './Post.css'
-import Comments from './Comments'
+import { Comments } from './index'
 import logic from '../../logic'
 import getElapsedTime from '../../utils/getElapsedTime'
 import { Component } from 'react'

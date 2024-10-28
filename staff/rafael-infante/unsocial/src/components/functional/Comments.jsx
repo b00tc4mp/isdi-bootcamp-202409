@@ -2,8 +2,8 @@ import { Component } from 'react'
 
 import './Comments.css'
 import logic from '../../logic'
-import Comment from './Comment'
-import AddComment from './AddComment'
+
+import { Comment, AddComment } from './index'
 
 class Comments extends Component {
   constructor(props) {

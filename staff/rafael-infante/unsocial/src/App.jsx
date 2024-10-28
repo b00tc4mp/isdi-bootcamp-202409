@@ -2,8 +2,7 @@ import { Component } from "react"
 
 import { Login, Register, Home, CreatePost } from "./view"
 
-import Header from "./components/functional/Header"
-import Footer from "./components/functional/Footer"
+import { Header, Footer } from './components/functional'
 
 import logic from "./logic"
 
