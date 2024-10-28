@@ -1,0 +1,8 @@
+.PostList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-sizing: border-box;
+    background-color: rgba(100, 148, 237, 0.8);
+    padding: 5px 0;
+}
