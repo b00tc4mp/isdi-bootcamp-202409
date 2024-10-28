@@ -38,18 +38,18 @@
 
 **Hoy comenzamos a trabajar en el back.**
 
-- Hacemos una redistribución de carpetas. A partir de ahora dentro de unsocial tendremos: 
-    - /app: para todo lo que es la aplicación
-    - /api: para todo aquello relacionado con el back 
+- OK - Hacemos una redistribución de carpetas. A partir de ahora dentro de unsocial tendremos: 
+    - OK - /app: para todo lo que es la aplicación
+    - OK - /api: para todo aquello relacionado con el back 
 
 - unsocial
-    - appi
-    - app
-    - zzz
+    - api (Aquí irán los archivos para las apis)
+    - app (Archivos de la aplicación)
+    - zzz (Versiones antiguas de App)
 
 - actualizamos el package.json
 - se situa en la carpeta api
-- npm init --yes (esto crea un packete por defecto)
+- npm init --yes (esto crea un paquete por defecto)
 
 - creamos un archivo index.js con touch (dentro de api)
     - Crea un server con una escucha
@@ -67,7 +67,7 @@
 - **Para la tarde jugamos en playground**
 
     - replicar el chat de manu
-    
+
 
 
 
