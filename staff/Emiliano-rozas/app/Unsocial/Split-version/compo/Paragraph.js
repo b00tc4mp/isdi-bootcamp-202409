@@ -1,15 +1,13 @@
-function Paragraph(text) {
-    Compo.call(this, document.createElement("p"))
-    this.container.innerText = text
-}
+class Paragraph extends Compo {
+    constructor(text) {
+        super(document.createElement("p"))
+        this.container.innerText = text
+    }
+    setText(text) {
+        this.container.innerText = text
+    }
 
-Paragraph.extends(Compo)
-
-// Utilidad especifica para Paragraph
-Paragraph.prototype.setText = function (text) {
-    this.container.innerText = text
-}
-
-Paragraph.prototype.getText = function () {
-    return this.container.innerText
+    getText() {
+        return this.container.innerText
+    }
 }

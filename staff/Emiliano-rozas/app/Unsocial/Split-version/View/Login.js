@@ -1,73 +1,70 @@
-function Login() {
-    Compo.call(this, document.createElement('section'))
+class Login extends Compo {
+    constructor() {
+        super(document.createElement('section'))
 
-    var title = new Heading("login", 2)
-    this.add(title)
+        const title = new Heading("login", 2)
+        this.add(title)
 
-    //formulario
-    var form = new Form()
-    this.add(form)
+        //formulario
+        const form = new Form()
+        this.add(form)
 
-    //User credentials
-    form.add(new Label('Username', 'username'))
-    var usernameInput = new Input('text', 'username')
-    form.add(usernameInput)
+        //User credentials
+        form.add(new Label('Username', 'username'))
+        const usernameInput = new Input('text', 'username')
+        form.add(usernameInput)
 
-    form.add(new Label("Password", "password"))
-    var passwordInput = new PasswordInput("password")
-    form.add(passwordInput)
+        form.add(new Label("Password", "password"))
+        const passwordInput = new PasswordInput("password")
+        form.add(passwordInput)
 
 
-    // boton log in
-    var submitButton = new Button('Login', "submit")
-    form.add(submitButton)
+        // boton log in
+        const submitButton = new Button('Login', "submit")
+        form.add(submitButton)
 
-    form.addBehavior("submit", function (event) {
-        event.preventDefault()
+        form.addBehavior("submit", event => {
+            event.preventDefault()
 
-        var username = usernameInput.getValue()
-        var password = passwordInput.getValue()
+            const username = usernameInput.getValue()
+            const password = passwordInput.getValue()
 
-        try {
+            try {
 
-            loggedInUser = authenticateUser(username, password)
+                loggedInUser = authenticateUser(username, password)
 
-            form.reset()
+                form.reset()
 
-            this.remove() // para que desaparezca la vista
+                this.removeSelf() // para que desaparezca la vista
 
-            home = new Home()
+                home = new Home()
 
-            page.add(home)
+                page.add(home)
 
-        } catch (error) {
-            passwordInput.setValue("")
+            } catch (error) {
+                passwordInput.setValue("")
 
-            alert(error.message)
+                alert(error.message)
 
-            console.error(error)
-        }
-    }.bind(this))
+                console.error(error)
+            }
+        })
 
-    //link register
-    var registerLink = new Link("Register")
-    this.add(registerLink)
+        //link register
+        const registerLink = new Link("Register")
+        this.add(registerLink)
 
-    //Evento register
-    registerLink.addBehavior('click', function (event) {
-        event.preventDefault()
+        //Evento register
+        registerLink.addBehavior('click', event => {
+            event.preventDefault()
 
-        this.remove()
+            this.removeSelf()
 
-        var register = new Register()
+            const register = new Register()
 
-        page.add(register)
+            page.add(register)
 
-    }.bind(this))
+        })
 
+    }
 }
-
-Login.extends(Compo)
-
-
-

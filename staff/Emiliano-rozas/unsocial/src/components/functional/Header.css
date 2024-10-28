@@ -1,0 +1,44 @@
+.Header {
+    /* position: fixed;
+    top: 0;
+    background-color: rgba(220, 215, 215, 0.9);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; */
+
+    background-color: rgba(220, 215, 215, 0.9);
+    padding: 1rem;
+    height: 7%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    .TopNav {
+        display: inline-flex;
+        align-items: stretch;
+        flex-direction: row;
+        padding: 20px;
+        align-items: center;
+        padding: 10px 20px;
+        gap: 1rem;
+
+        white-space: nowrap;
+    }
+
+    h3 {
+        width: 100%;
+        font-size: small;
+        margin: 0 5px;
+    }
+
+    button {
+        font-size: 12px;
+    }
+}

@@ -1,22 +1,22 @@
-function PostList() {
-    Compo.call(this, document.createElement('ul'))
+class PostList extends Compo {
+    constructor() {
+        super(document.createElement('ul'))
 
-    var title = new Heading('Posts', 3)
-    this.add(title)
+        const title = new Heading('Posts', 3)
+        this.add(title)
 
-    try {
-        var posts = getPosts().toReversed()
+        try {
+            const posts = getPosts().toReversed()
 
-        posts.forEach(function (post) {
-            var postItem = new PostItem(post.username, post.image, post.text, post.date, post.likes)
+            posts.forEach(post => {
+                const postItem = new PostItem(post.username, post.image, post.text, post.date, post.likes)
 
-            this.add(postItem)
-        }.bind(this))
-    } catch (error) {
-        alert(error.message)
+                this.add(postItem)
+            })
+        } catch (error) {
+            alert(error.message)
 
-        console.error(error)
+            console.error(error)
+        }
     }
 }
-
-PostList.extends(Compo)

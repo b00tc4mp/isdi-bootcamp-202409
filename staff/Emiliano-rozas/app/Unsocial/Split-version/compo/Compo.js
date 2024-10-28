@@ -1,18 +1,27 @@
-function Compo(container) {
-    this.children = []
-    this.container = container
-}
-// Utilidad para todas las compo (independientemente de tipo form,value,input,et)
+class Compo {
+    constructor(container) {
+        this.children = []
+        this.container = container
+        this.parent = null
+    }
 
-Compo.prototype.add = function (child) {
-    this.children.push(child)
-    this.container.appendChild(child.container)
-}
+    add(child) {
+        this.children.push(child)
+        child.parent = this
 
-Compo.prototype.remove = function () {
-    this.container.remove()
-}
+        this.container.appendChild(child.container)
+    }
 
-Compo.prototype.addBehavior = function (type, callback) {
-    this.container.addEventListener(type, callback)
+    removeSelf() {
+        const index = this.parent.children.findIndex(child => child === this)
+
+        if (index > -1)
+            this.parent.children.splice(index, 1)
+
+        this.container.remove()
+    }
+
+    addBehavior(type, callback) {
+        this.container.addEventListener(type, callback)
+    }
 }

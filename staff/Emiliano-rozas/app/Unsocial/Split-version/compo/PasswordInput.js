@@ -3,34 +3,41 @@
  * @param {string} id 
  */
 
-function PasswordInput(id) {
-    Compo.call(this, document.createElement('div'))
+class PasswordInput extends Compo {
+    constructor(id) {
+        super(document.createElement('div'))
 
-    var input = new Input('password', id)
-    this.add(input)
+        this.container.style.display = "flex"
+        this.container.style.position = "relative"
 
-    var span = new Span('😌')
-    span.container.style.cursor = 'pointer'
-    this.add(span)
+        const input = new Input('password', id)
+        this.add(input)
 
-    span.addBehavior('click', function () {
-        if (span.getText() === '😌') {
-            input.setType('text')
-            span.setText('😳')
-        } else {
-            input.setType('password')
-            span.setText('😌')
-        }
-    })
+        var icon = new Span('😌')
+        icon.container.style.cursor = 'pointer'
+        icon.container.style.position = "absolute"
+        icon.container.style.right = "3px"
+        icon.container.style.top = "30%"
+        icon.container.style.transform = "translateY(-50%)"
+
+        this.add(icon)
+
+        icon.addBehavior('click', function () {
+            if (icon.getText() === '😌') {
+                input.setType('text')
+                icon.setText('😳')
+            } else {
+                input.setType('password')
+                icon.setText('😌')
+            }
+        })
+    }
+
+    getValue() {
+        return this.children[0].container.value
+    }
+
+    setValue(value) {
+        this.container.value = value
+    }
 }
-
-PasswordInput.extends(Compo)
-
-PasswordInput.prototype.getValue = function () {
-    return this.children[0].container.value
-}
-
-PasswordInput.prototype.setValue = function (value) {
-    this.container.value = value
-}
-

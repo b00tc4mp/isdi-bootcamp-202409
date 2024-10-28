@@ -1,7 +1,7 @@
 //item de la lista
 
-function ListItem() {
-    Compo.call(this, documet.createElement("li"))
+class ListItem extends Compo {
+    constructor() {
+        super(documet.createElement("li"))
+    }
 }
-
-ListItem.extends(Compo)

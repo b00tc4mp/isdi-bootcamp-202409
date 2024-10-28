@@ -1,52 +1,55 @@
-function PostItem(username, image, text, date, likes) {
-    Compo.call(this, document.createElement('li'))
+class PostItem extends Compo {
+    constructor(username, image, text, date, likes, likeBy) {
+        super(document.createElement('li'))
 
-    var userTitle = new Heading(username, 4)
-    this.add(userTitle)
+        const userTitle = new Heading(username, 4)
+        this.add(userTitle)
 
-    var picture = new Image(image)
-    this.add(picture)
+        const picture = new Image(image)
+        this.add(picture)
 
-    var div = new Division()
-    this.add(div)
+        const div = new Division()
+        this.add(div)
 
-    var likeButton = new Button("👍", "button")
-    div.add(likeButton)
+        const likeButton = new Button("👍", "button")
+        div.add(likeButton)
 
-    var countLikes = new Span(likes)
-    div.add(countLikes)
+        const countLikes = new Span(likes)
 
+        div.add(countLikes)
 
-    /*likeButton.addBehavior('click', function (event) {
-        count++
-        countLikes.setText(count)
+        let hasLiked = false
+        /*likeButton.addBehavior('click', function (event) {
+            count++
+            countLikes.setText(count)
+    
+        })*/
 
-    })*/
+        likeButton.addBehavior('click', () => {
+            if (!hasLiked) {
+                likeButton.getText() === "👍"
+                likes++;
+                hasLiked = true
+                likeBy = loggedInUser.username
+                countLikes.setText(likes)
+                likeButton.setText('👎')
+                postMessage.likes = likes
+            } else {
+                likes--;
+                countLikes.setText(likes)
+                likeButton.setText('👍')
+                hasLiked = false
 
-    likeButton.addBehavior('click', function () {
-        if (likeButton.getText() === "👍") {
-            likes++;
-            countLikes.setText(likes)
-            likeButton.setText('👎')
-        } else {
-            likes--;
-            countLikes.setText(likes)
-            likeButton.setText('👍')
-        }
-    })
+                delete postMessage.likeBy[loggedInUser.username]
+            }
+        })
 
+        const comment = new Paragraph(text)
+        this.add(comment)
 
+        const time = new Time(date)
+        this.add(time)
 
-
-
-
-
-    var comment = new Paragraph(text)
-    this.add(comment)
-
-    var time = new Time(date)
-    this.add(time)
+    }
 
 }
-
-PostItem.extends(Compo)

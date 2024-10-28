@@ -15,8 +15,8 @@ function Login() {
     var usernameInput = new Input('text', 'username')
     form.add(usernameInput)
 
-    form.add(new Label("Password", "password"))
-    var passwordInput = new Input("password", "password")
+    form.add(new Label('Password', 'password'))
+    var passwordInput = new PasswordInput('password')
     form.add(passwordInput)
 
 
@@ -100,13 +100,13 @@ function Register() {
     form.add(usernameInput)
 
     //Password  Label + Input
-    form.add(new Label("Password", "password"))
-    var passwordInput = new Input("password", "password")
+    form.add(new Label('Password', 'password'))
+    var passwordInput = new PasswordInput('password')
     form.add(passwordInput)
 
     //Repeat Password Label + Input
     form.add(new Label('Repeat Password', 'password-repeat'))
-    var passwordRepeatInput = new Input('password', 'password-repeat')
+    var passwordRepeatInput = new PasswordInput('password-repeat')
     form.add(passwordRepeatInput)
 
 

@@ -10,14 +10,11 @@ var posts = [
         image: 'https://ultra-pet.co.za/wp-content/uploads/2020/08/socialising-800x630.jpg',
         text: 'here we are',
         username: 'peterpan',
-        date: new Date,
-        likes: 2
+        date: new Date
     },
     {
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDAjjbeKBImUYPvPvtF3tpDdCLSRI2kdc4gg&s",
-        text: 'What up G',
         username: 'wendydarling',
-        date: new Date,
-        likes: 3
+        date: new Date
     }
 ]

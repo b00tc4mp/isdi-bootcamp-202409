@@ -46,3 +46,4 @@ function authenticateUser(username, password) {
 
     return user
 }
+

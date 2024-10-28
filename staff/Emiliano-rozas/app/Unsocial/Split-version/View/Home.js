@@ -1,47 +1,47 @@
-function Home() {
-    //creamos los elementos
-    //Creamos section
-    Compo.call(this, document.createElement("section"))
+class Home extends Compo {
+    constructor() {
+        //creamos los elementos
+        //Creamos section
+        super(document.createElement("section"))
 
-    //Creamos el titulo
+        //Creamos el titulo
 
-    var title = new Heading("Home", 2)
-    this.add(title)
-    //Creamos la bienvenida
+        const title = new Heading("Home", 2)
+        this.add(title)
+        //Creamos la bienvenida
 
-    var greetingTitle = new Heading("Hello, " + loggedInUser.name + "!", 3)
-    this.add(greetingTitle)
-    //Creamos el boton
+        const greetingTitle = new Heading(`Hello, ${loggedInUser.name}!`, 3)
+        this.add(greetingTitle)
+        //Creamos el boton
 
-    var logoutButton = new Button('Logout', 'button')
-    this.add(logoutButton)
+        const logoutButton = new Button('Logout', 'button')
+        this.add(logoutButton)
 
-    logoutButton.addBehavior('click', function (event) {
-        event.preventDefault()
+        logoutButton.addBehavior('click', event => {
+            event.preventDefault()
 
-        loggedInUser = null
+            loggedInUser = null
 
-        this.remove()
+            this.removeSelf()
 
-        page.add(login)
-    }.bind(this))
+            page.add(login)
+        })
 
-    // botonseto de add post
-    var addPostButton = new Button('➕', 'button')
-    this.add(addPostButton)
+        // botonseto de add post
+        const addPostButton = new Button('➕', 'button')
+        this.add(addPostButton)
 
-    //comportamiento del boton
-    addPostButton.addBehavior('click', function () {
-        var createPost = new CreatePost()
+        //comportamiento del boton
+        addPostButton.addBehavior('click', () => {
+            const createPost = new CreatePost()
 
-        // para eliminar los post de la memoria
-        this.children[this.children.length - 1].remove()
+            // para eliminar los post de la memoria
+            this.children[this.children.length - 1].removeSelf()
 
-        this.add(createPost)
-    }.bind(this))
+            this.add(createPost)
+        })
 
-    var postList = new PostList()
-    this.add(postList)
+        const postList = new PostList()
+        this.add(postList)
+    }
 }
-
-Home.extends(Compo)
