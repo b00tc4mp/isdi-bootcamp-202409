@@ -9,14 +9,14 @@ const client = net.createConnection({ port: 8888 }, () => {
     output: process.stdout,
   })
 
-  rl.question('who are you?', name => {
+  rl.question('who are you? ', name => {
     client.write(JSON.stringify({ type: 'id', name }))
 
     const chat = () => {
       rl.question('write to? ', name => {
         rl.question('what message? ', message => {
           client.write(JSON.stringify({ type: 'text', to: name, message }))
-          rl.question('Disconnect? y/n', answer => {
+          rl.question('Disconnect? y/n ', answer => {
             if (answer === 'y') {
               client.end()
               rl.close()
