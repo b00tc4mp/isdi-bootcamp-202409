@@ -7,7 +7,6 @@ const server = net.createServer(connection => {
 
     connection.on('data', data => {
         const message = JSON.parse(data.toString())
-        console.log(message)
 
         if (message.type === 'id') {
             console.log(`client ${message.from} registered`)
@@ -20,7 +19,7 @@ const server = net.createServer(connection => {
 
                 return
             }
-            clientConnection.write(JSON.stringify(`${message.message} from ${message.from}`))
+            clientConnection.write(JSON.stringify(message))
         }
     })
 })

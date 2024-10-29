@@ -13,16 +13,21 @@ const connection = net.createConnection({ port: 8888 }, () => {
         connection.write(JSON.stringify({ type: 'id', from }))
 
         function chat() {
-            rl.question('write to?\n', name => {
+            rl.question('write to?\n', to => {
                 rl.question('what message?\n', body => {
-                    connection.write(JSON.stringify({ type: 'text', to: name, from, body }))
+                    connection.write(JSON.stringify({ type: 'text', from, to, body }))
 
                     chat()
                 })
             })
         }
-
         chat()
     })
-    connection.on('data', data => console.log(data.toString()))
+    connection.on('data', data => {
+        const { from, body } = JSON.parse(data.toString())
+
+        console.log('MESSAGE')
+        console.log(`FROM: ${from}`)
+        console.log(`BODY: ${body}`)
+    })
 })
