@@ -1,5 +1,5 @@
 {
-  "name": "web-server",
+  "name": "app-server",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -9,5 +9,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
 }
