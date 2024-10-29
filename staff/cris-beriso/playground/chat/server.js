@@ -5,22 +5,24 @@ const clients = {}
 const server = net.createServer(connection => {
   console.log('client connected')
 
+  //La transferencia de info se hace en forma de bites
+  //y hay que convertirla a objeto
   connection.on('data', data => {
     const message = JSON.parse(data.toString())
 
     if (message.type === 'id') {
-      console.log(`client ${message.name} registred`)
-      clients[message.name] = connection
+      console.log(`client ${message.from} registred`)
+      clients[message.from] = connection
     } else if (message.type === 'text') {
-      const client = clients[message.to]
+      const clientConnection = clients[message.to]
 
-      if (!client) {
-        connection.write(JSON.stringify({ type: 'error', message: 'client not found' }))
+      if (!clientConnection) {
+        connection.write(JSON.stringify({ type: 'error', message: 'recipient not found' }))
 
         return
       }
 
-      client.write(JSON.stringify(message))
+      clientConnection.write(JSON.stringify(message))
     }
   })
 })
@@ -28,3 +30,7 @@ const server = net.createServer(connection => {
 server.on('error', error => console.error(error))
 
 server.listen(8888, () => console.log('server up'))
+
+/*
+Cuando activas el server, se queda "escuchando" en el puerto en cuestion.
+*/
