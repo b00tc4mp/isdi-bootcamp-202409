@@ -1,0 +1,55 @@
+html {
+    background-color: antiquewhite;
+}
+
+nav {
+    background-color: rgb(199, 199, 182);
+    size: 25px;
+    display: inline-flex;
+    padding: 10px;
+    margin: 10px;
+    border: black;
+    border-style: solid;
+  }
+
+  .nav-div:hover {
+    background-color: rgb(188, 189, 127);
+    margin: 30px;
+  }
+
+  .nav-div {
+    background-color: rgb(231, 231, 170);
+    margin: 30px;
+    border: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
+  }
+
+  img {
+    height: auto;
+    width: 300px;
+    border-radius: 50%;
+  }
+
+  .ft-link {
+    background-color: beige;
+    display: inline-block;
+    margin: 10px;    
+  }
+
+  .ft-link:hover {
+    background-color: rgb(189, 189, 42);
+    display: inline-block;
+    
+  }
+
+   footer {
+    background-color: bisque;
+    border-style: solid;
+    border-color: black;
+   }
+
+   .bottom {
+    font-weight: bold;
+    font-size: medium;
+   }
