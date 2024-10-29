@@ -9,13 +9,13 @@ const client = net.createConnection({ port: 8888 }, () => {
     output: process.stdout,
   })
 
-  rl.question('who are you? ', name => {
-    client.write(JSON.stringify({ type: 'id', name }))
+  rl.question('who are you? ', from => {
+    client.write(JSON.stringify({ type: 'id', from }))
 
     const chat = () => {
-      rl.question('write to? ', name => {
-        rl.question('what message? ', message => {
-          client.write(JSON.stringify({ type: 'text', to: name, message }))
+      rl.question('write to? ', to => {
+        rl.question('what message? ', body => {
+          client.write(JSON.stringify({ type: 'text', from, to, body }))
           rl.question('Disconnect? y/n ', answer => {
             if (answer === 'y') {
               client.end()
@@ -35,7 +35,11 @@ const client = net.createConnection({ port: 8888 }, () => {
 })
 
 client.on('data', data => {
-  console.log(data.toString())
+  const { from, body } = JSON.parse(data.toString())
+
+  console.log('MESSAGE')
+  console.log(`FROM: ${from}`)
+  console.log(`BODY: ${body}`)
 })
 
 client.on('end', () => {
