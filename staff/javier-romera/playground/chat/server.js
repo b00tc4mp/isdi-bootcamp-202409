@@ -7,19 +7,20 @@ const server = net.createServer(connection => {
 
     connection.on('data', data => {
         const message = JSON.parse(data.toString())
+        console.log(message)
 
         if (message.type === 'id') {
-            console.log(`client ${message.name} registered`)
-            clients[message.name] = connection
+            console.log(`client ${message.from} registered`)
+            clients[message.from] = connection
         } else if (message.type === 'text') {
-            const client = clients[message.to]
+            const clientConnection = clients[message.to]
 
-            if (!client) {
+            if (!clientConnection) {
                 connection.write(JSON.stringify({ type: 'error', message: 'client not found' }))
 
                 return
             }
-            client.write(JSON.stringify(message))
+            clientConnection.write(JSON.stringify(`${message.message} from ${message.from}`))
         }
     })
 })
