@@ -39,79 +39,10 @@
     <h1>Unsocial</h1>
 
     <script>
-
-        // DATA
         var users = [
-            { name: 'alba', email: 'alba@gmail.com', username: 'alba', password: '123123123' },
-            { name: 'maga', email: 'maga@gmail.com', username: 'maga', password: '123123123' }
+            { name: 'alba', email: 'alba@gmail.com', username: 'alba', password: '123123' },
+            { name: 'maga', email: 'maga@gmail.com', username: 'maga', password: '123123' }
         ]
-
-        // BUSINESS ( Es donde se ponen las reglas.)
-
-        // funcion del registro
-        function registerUser(name, email, username, password, passwordRepeat) {
-            if (name.length < 2) // Creamos una regla para el nombre que se quiere registrar.
-                throw new Error('invalid name') // al utilizar el throw, rompe el cogido y ya no es necesario poner el return.
-
-
-            /* Se pueden utilizar regex ya hechas para poner reglas*/
-            if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)) // regla para registrar un email, esto es un regex.
-                throw new Error('invalid e-mail')
-
-
-            if (username.length < 4 || username.length > 12) // regla para username
-                throw new Error('invalid username')
-
-
-            if (password.length < 8)  // regla para password.
-                throw new Error('invalid password')
-
-
-            if (password !== passwordRepeat)
-                throw new Error('password do not match')
-
-
-            /* si se encuentra en el array un usuario o un correo con el mismo nombre
-            user seria undefined, no se podria crear el usuario.
-            */
-            var user = users.find(function (user) {
-                return user.username === username || user.email === email
-            })
-
-            if (user !== undefined) // si user es indefinido.
-                throw new Error('user already exists') // alertar
-
-
-            var user = { name: name, email: email, username: username, password: password }
-
-            users.push(user)
-        }
-
-        // funcion del login
-        function authenticateUser(username, password) { // creamos la funcion para validar todas las reglas.
-            if (username.length < 4 || username.length > 12) { // regla para username
-                throw new Error('invalid username')
-
-                return
-            }
-
-            if (password.length < 8) { // regla para password.
-                throw new Error('invalid password')
-
-                return
-            }
-
-            var user = users.find(function (user) { // regla para que el username y el password sean iguales que uno existente.
-                return user.username === username && user.password === password
-            })
-
-            if (user === undefined)
-                throw new Error('wrong credentials')
-
-            return user
-        }
-
-        // PRESENTATION ( Es la parte que maneja la parte visual)
 
         var loggedInUser = null
 
@@ -163,8 +94,30 @@
             var username = loginUsernameInput.value
             var password = loginPasswordInput.value
 
-            try { // si la funcion authenticateUser funciona, sigue el try.
-                loggedInUser = authenticateUser(username, password)
+            if (username.length < 4 || username.length > 12) { // regla para username
+                alert('invalid username')
+
+                return
+            }
+
+            if (password.length < 8) { // regla para password.
+                alert('invalid password')
+
+                return
+            }
+
+
+
+            var user = users.find(function (user) {
+                return user.username === username && user.password === password
+            })
+
+            if (user === undefined) {
+                alert('Wrong credentials')
+
+                loginPasswordInput.value = ''
+            } else {
+                loggedInUser = user
 
                 loginForm.reset()
 
@@ -195,10 +148,6 @@
                 })
 
                 body.appendChild(homeSection)
-            } catch (error) { // si el try no està bien lanzamos un error.
-                alert(error.message) // y nos muestra el error.
-
-                console.log.error(error) // ponemos el console para que muestre en la consola donde esta el error.
             }
         })
 
@@ -299,22 +248,63 @@
                 var password = registerPasswordInput.value
                 var passwordRepeat = registerPasswordRepeatInput.value
 
-                /* el try catch no solo captura un error (como el return), tambien hace algo con el. */
 
-                try { // si se cumple lo de abajo sigue.
-                    registerUser(name, email, username, password, passwordRepeat)
+                /* Se pueden utilizar regex ya hechas para poner reglas*/
 
-                    registerForm.reset()
+                if (name.length < 2) { // Creamos una regla para el nombre que se quiere registrar.
+                    alert('invalid name')
 
-                    registerSection.remove()
-
-                    body.appendChild(loginSection)
-                } catch (error) { // si no se cumple de lo arriba se rompe y viene aqui.
-                    alert(error.message) // y nos muestra el error.
-
-                    console.log.error(error)  // ponemos el console para que muestre en la consola donde esta el error.
-
+                    return
                 }
+
+                if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)) { // regla para registrar un email, esto es un regex.
+                    alert('invalid e-mail')
+
+                    return
+                }
+
+                if (username.length < 4 || username.length > 12) { // regla para username
+                    alert('invalid username')
+
+                    return
+                }
+
+                if (password.length < 8) { // regla para password.
+                    alert('invalid password')
+
+                    return
+                }
+
+                if (password !== passwordRepeat) {
+                    alert('password do not match')
+
+                    return
+                }
+
+                /* si se encuentra en el array un usuario o un correo con el mismo nombre
+                user seria undefined, no se podria crear el usuario.
+                */
+                var user = users.find(function (user) {
+                    return user.username === username || user.email === email
+                })
+
+                if (user !== undefined) { // si user is indefinido.
+                    alert('user already exists') // alertar
+
+                    return
+                }
+
+
+
+                var user = { name: name, email: email, username: username, password: password }
+
+                users.push(user)
+
+                registerForm.reset()
+
+                registerSection.remove()
+
+                body.appendChild(loginSection)
             })
 
             var registerLoginLink = document.createElement('a')
