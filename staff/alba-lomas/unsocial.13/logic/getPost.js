@@ -1,0 +1,6 @@
+
+
+
+function getPosts() {
+    return posts
+}
