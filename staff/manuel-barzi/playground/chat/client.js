@@ -1,7 +1,7 @@
 const net = require('net')
-const readline = require('readline');
+const readline = require('readline')
 
-const client = net.createConnection({ port: 8888 }, () => {
+const connection = net.createConnection({ port: 8888 }, () => {
     console.log('connected to server')
 
     const rl = readline.createInterface({
@@ -9,13 +9,13 @@ const client = net.createConnection({ port: 8888 }, () => {
         output: process.stdout,
     })
 
-    rl.question('who are you? ', name => {
-        client.write(JSON.stringify({ type: 'id', name }))
+    rl.question('who are you? ', from => {
+        connection.write(JSON.stringify({ type: 'id', from }))
 
         function chat() {
-            rl.question('write to? ', name => {
-                rl.question('what message? ', message => {
-                    client.write(JSON.stringify({ type: 'text', to: name, message }))
+            rl.question('write to? ', to => {
+                rl.question('what message? ', body => {
+                    connection.write(JSON.stringify({ type: 'text', from, to, body }))
 
                     chat()
                 })
@@ -25,5 +25,11 @@ const client = net.createConnection({ port: 8888 }, () => {
         chat()
     })
 
-    client.on('data', data => console.log(data.toString()))
+    connection.on('data', data => {
+        const { from, body } = JSON.parse(data.toString())
+
+        console.log('MESSAGE')
+        console.log(`FROM: ${from}`)
+        console.log(`BODY: ${body}`)
+    })
 })

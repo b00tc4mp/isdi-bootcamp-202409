@@ -9,8 +9,8 @@ const server = net.createServer(connection => {
         const message = JSON.parse(data.toString())
 
         if (message.type === 'id') {
-            console.log(`client ${message.from} registered`)
-            clients[message.from] = connection
+            console.log(`client ${message.name} registered`)
+            clients[message.name] = connection
         } else if (message.type === 'text') {
             const clientConnection = clients[message.to]
 
