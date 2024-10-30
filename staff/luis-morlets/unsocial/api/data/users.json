@@ -1,0 +1,16 @@
+[
+    {
+        "id": "m2wd1d38rhe",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "username": "pepitogrillo",
+        "password": "123123123"
+    },
+    {
+        "id": "m2wd7pkr7xq",
+        "name": "Pin Ocho",
+        "email": "pin@ocho.com",
+        "username": "pinocho",
+        "password": "123123123"
+    }
+]
