@@ -1,4 +1,4 @@
-import { uuid } from '../util/index.js'
+import uuid from './uuid.js'
 
 const users = []
 

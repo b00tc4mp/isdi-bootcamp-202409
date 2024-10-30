@@ -1,4 +1,4 @@
-import { storage } from '../data/index.js'
+import { users } from '../data/index.js'
 import validate from './helpers/validate.js'
 
 export default (username, password) => {
@@ -7,8 +7,6 @@ export default (username, password) => {
 
     if (password.length < 8)
         throw new Error('invalid password')
-
-    const { users } = storage
 
     const user = users.find(user => user.username === username && user.password === password)
 
