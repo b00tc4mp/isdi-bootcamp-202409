@@ -51,7 +51,10 @@ server.get('/', (req, res) => {
         return
     }
 
-    res.send(`<!DOCTYPE html>
+    try {
+        const name = logic.getUserName(userId)
+
+        res.send(`<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -62,9 +65,37 @@ server.get('/', (req, res) => {
 
 <body>
     <h1>Home</h1>
+
+    <p>Hello, ${name}!</p>
+
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
 </body>
 
 </html>`)
+    } catch (error) {
+        res.send(`<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>Home</h1>
+
+    <p>Sorry, there was an error :(</p>
+
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+
+</html>`)
+    }
 })
 
 server.post('/login', formBodyParser, (req, res) => {
@@ -83,6 +114,50 @@ server.post('/login', formBodyParser, (req, res) => {
     }
 })
 
+server.get('/register', (req, res) => {
+    const userId = req.headers.cookie?.split('=')[1]
+
+    if (userId) {
+        res.redirect('/')
+
+        return
+    }
+
+    res.send(`<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+
+<body>
+    <h1>Register</h1>
+
+    <form action="/register" method="post">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="email">
+
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+
+        <label for="password-repeat">Password</label>
+        <input type="password" name="password-repeat" id="password-repeat">
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+
+</html>`)
+})
+
 server.post('/register', formBodyParser, (req, res) => {
     const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
@@ -95,6 +170,12 @@ server.post('/register', formBodyParser, (req, res) => {
 
         console.error(error)
     }
+})
+
+server.post('/logout', (req, res) => {
+    res.clearCookie('userId')
+
+    res.redirect('/login')
 })
 
 server.listen(8080, () => console.log('server is up'))
