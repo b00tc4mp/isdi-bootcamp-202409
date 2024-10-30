@@ -1,0 +1,1 @@
+ curl -H 'Content-Type: application/json' -d '{"username":"SuperMario","password":"12341234"}' http://localhost:8080/authenticate -v
