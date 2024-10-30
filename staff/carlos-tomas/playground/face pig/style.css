@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.face {
+    width: 50px;
+    height: 50px;
+    background-color: pink;
+    position: relative;
+    border-radius: 50%;
+    top: 25px;
+    left: 50px;
+    border: solid 0.5px black;
+}
+
+.left--eye {
+
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    position: absolute;
+    left: 9px;
+    top: 14px;
+    border-radius: 100%;
+    border: solid 0.5px black;
+}
+
+.right--eye {
+
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    position: absolute;
+    left: 31px;
+    top: 14px;
+    border-radius: 100%;
+    border: solid 0.5px black;
+}
+
+.left--eye .pupila {
+
+    width: 5px;
+    height: 5px;
+    background-color: black;
+    border-radius: 100%;
+    margin-top: 2.5px;
+    margin-left: 2.5px;
+}
+
+.right--eye .pupila {
+
+    width: 5px;
+    height: 5px;
+    background-color: black;
+    border-radius: 100%;
+    margin-top: 2.5px;
+    margin-left: 2px;
+}
+
+.morro {
+
+    background-color: brown;
+    width: 25px;
+    height: 10px;
+    border-radius: 30%;
+    top: 28px;
+    left: 12.5px;
+    position: absolute;
+    border: solid 0.5px black;
+}
+
+.ocico--left {
+    background-color: chocolate;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    margin-top: 2.5px;
+    margin-left: 4px;
+    position: absolute;
+}
+
+.ocico--right {
+    background-color: chocolate;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    margin-top: 2.5px;
+    margin-left: 16px;
+    position: absolute;
+}
+
+.oreja--left {
+    background-color: palevioletred;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    z-index: -1;
+    border: solid 0.5px black;
+}
+
+.oreja--right {
+    background-color: palevioletred;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    left: 38px;
+    z-index: -1;
+    border: solid 0.5px black;
+}
+
+.boca {
+    background-color: black;
+    width: 20px;
+    position: absolute;
+    height: 2px;
+    top: 42px;
+    left: 15.5px;
+    border-radius: 50%;
+}

@@ -1,0 +1,55 @@
+header {
+
+    background-color: darkkhaki;
+    text-align: center;
+}
+
+
+
+body {
+    background-color: lightgoldenrodyellow;
+    text-align: center;
+
+}
+
+.my-foto {
+    width: 75px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.my {
+    margin-top: 70px;
+    font-size: 15pt;
+    font-family: sans-serif;
+
+
+}
+
+
+
+.skills {
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.skills ul {
+    list-style: none;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+footer {
+    color: powderblue;
+
+}
