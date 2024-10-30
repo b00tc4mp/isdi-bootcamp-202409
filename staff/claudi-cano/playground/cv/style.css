@@ -1,0 +1,25 @@
+html {
+    scroll-behavior: smooth;
+    font-size: medium;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: italic;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    min-width: 17rem;
+    flex-wrap: wrap;
+}
+
+img {
+    border-radius: 50%;
+}
+
+body {
+    flex-direction: column;
+}
