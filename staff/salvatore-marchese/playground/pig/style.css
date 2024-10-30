@@ -1,0 +1,93 @@
+body {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+.container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    background-color: green;
+}
+.pig {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.head {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: pink;
+    border: 5px solid black;
+}
+.ear {
+    box-sizing: border-box;
+    position: absolute;
+    z-index: -1;
+    width: 80px;
+    height: 80px;
+    top: -5px;
+    background-color: pink;
+    border: 5px solid black;
+}
+.l-ear {
+    border-radius: 15px 0 0 0;
+    left: 20px;
+    transform: rotate(-12deg) skew(27deg);
+}
+.r-ear {
+    border-radius: 0 15px 0 0;
+    right: 20px;
+    transform: rotate(12deg) skew(-27deg);
+}
+.eye {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    top: 40%;
+    background-color: white;
+}
+.eye::before {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 5px;
+    height: 5px;
+    background-color: blue;
+    border-radius: 50%;
+    top: 10px;
+    left: 10px;
+}
+.l-eye {
+    left: 25%;
+}
+.r-eye {
+    right: 25%;
+}
+.nose {
+    position: absolute;
+    height: 50px;
+    width: 60px;
+    top: 55%;
+    left: 70px;
+    background-color: rgb(189, 75, 94);
+    border-radius: 100px/80px;
+}
+.nostril {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 18px;
+    background-color: pink;
+    border-radius: 50%;
+}
+.l-nostril {
+    left: 10px;
+}
+.r-nostril {
+    right: 10px;
+}
