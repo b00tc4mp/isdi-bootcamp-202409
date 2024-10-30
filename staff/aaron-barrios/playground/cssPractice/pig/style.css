@@ -1,0 +1,90 @@
+.face {
+    position: relative;
+    background-color: pink;
+    width: 50px;
+    height: 40px;
+    top: 30px;
+    left: 30px;
+}
+
+body {
+    margin: auto;
+}
+
+.face__eyes {
+    position: absolute;
+}
+
+.right--eye {
+
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    top: 4px;
+    left: 6px;
+}
+
+.left--eye {
+
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    top: 4px;
+    left: 32px;
+}
+
+.pupil {
+
+    background-color: black;
+    width: 6px;
+    height: 6px;
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+.face__nose {
+    position: absolute;
+    width: 25px;
+    height: 12px;
+    background-color: rgb(225, 137, 151);
+    top: 18px;
+    left: 12px;
+}
+
+.left--hole {
+    position: absolute;
+    width: 8px;
+    height: 6px;
+    background-color: rgb(215, 82, 104);
+    margin-top: 3px;
+    margin-left: 2px;
+}
+
+.right--hole {
+    position: absolute;
+    width: 8px;
+    height: 6px;
+    background-color: rgb(215, 82, 104);
+    margin-top: 3px;
+    margin-left: 13px;
+}
+
+.left--ear {
+    position: absolute;
+    width: 18px;
+    height: 16px;
+    background-color: rgb(215, 82, 104);
+    top: -10px;
+    left: 40px;
+    z-index: -1;
+}
+
+.right--ear {
+    position: absolute;
+    width: 18px;
+    height: 16px;
+    background-color: rgb(215, 82, 104);
+    top: -10px;
+    left: -8px;
+    z-index: -1;
+}
