@@ -34,6 +34,15 @@
 
 -----------------------------------------------------------------
 
+## **30/10/2024 **
+
+**Ya hemos visto un poco las lógicas de server, hoy lo implementaremos en nuestra app**
+
+
+
+
+
+
 ## **28/10/2024 **
 
 **Hoy comenzamos a trabajar en el back.**
