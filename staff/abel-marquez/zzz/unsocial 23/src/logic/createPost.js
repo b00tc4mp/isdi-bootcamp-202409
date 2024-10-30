@@ -19,3 +19,4 @@ export default (image, text) => {
 
     localStorage.posts = JSON.stringify(posts)
 }
+
