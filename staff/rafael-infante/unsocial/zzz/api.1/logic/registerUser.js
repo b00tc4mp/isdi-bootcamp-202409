@@ -1,4 +1,5 @@
-import { storage, uuid } from "../data/index.js";
+import { uuid } from "../util/index.js";
+import { users } from "../data/index.js";
 import validate from "./helpers/validate.js";
 
 export default (name, email, username, password, passwordRepeat) => {
@@ -12,8 +13,6 @@ export default (name, email, username, password, passwordRepeat) => {
 
   validate.passwordsMatch(password, passwordRepeat)
 
-  const { users } = storage
-
   let user = users.find(user => user.username === username || user.email === email)
 
   if (user !== undefined)
@@ -22,7 +21,4 @@ export default (name, email, username, password, passwordRepeat) => {
   user = { id: uuid(), name: name, email: email, username: username, password: password }
 
   users.push(user)
-
-  storage.users = users
-
 }

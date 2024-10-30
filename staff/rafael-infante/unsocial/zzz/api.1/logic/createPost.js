@@ -1,13 +1,11 @@
 import { validate } from "./helpers/index.js"
 
-import { storage, uuid } from "../data/index.js"
+import { users, posts, uuid } from "../data/index.js"
 
 export default (userId, image, text) => {
   validate.id(userId, 'userId')
   validate.image(image)
   validate.text(text)
-
-  const { users, posts } = storage
 
   const found = users.some(({ id }) => id === userId)
 
@@ -24,6 +22,4 @@ export default (userId, image, text) => {
   }
 
   posts.push(post)
-
-  storage.posts = posts
 }

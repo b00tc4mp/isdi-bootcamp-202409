@@ -1,12 +1,10 @@
 import createPost from "./createPost.js"
 
-import { users, posts } from "../data/index.js"
-
-const { id: userId } = users[0]
+import { storage } from "../data/index.js"
 
 try {
-  createPost(userId, 'https://image.com', 'hola mundo')
-  console.log(posts)
+  createPost('m2wh96xo6vr', 'https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg', 'Soy un gatito guapo')
+  console.log(storage.posts)
 } catch (error) {
   console.error(error)
 }
