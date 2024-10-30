@@ -1,10 +1,4 @@
 import express from 'express'
-import cookieParser from 'cookie-parser'
-
-var app = express()
-
-app.use(cookieParser())
-
 
 let uuid = 0
 const users = []
@@ -14,18 +8,6 @@ const server = express()
 const formBodyParser = express.urlencoded({ extended: true })
 
 server.use(express.static('public'))
-
-server.get('/cookie', (req, res) => {
-
-    const userId = req.cookies.user.Id
-    if (userId) {
-        res.send(`User ID cookie is set with value: ${userId}`)
-    } else {
-        res.send('No User ID cookie found')
-
-    }
-})
-
 
 server.post('/login', formBodyParser, (req, res) => {
     const { username, password } = req.body
@@ -37,7 +19,6 @@ server.post('/login', formBodyParser, (req, res) => {
 
         return
     }
-    res.cookie('userId', user.id, { httpOnly: true, maxAge: 900000 })
 
     res.send(`welcome ${user.name}`)
 })
@@ -64,8 +45,6 @@ server.post('/register', formBodyParser, (req, res) => {
     users.push(user)
     console.log(users)
 
-
-    res.cookie('userId', user.id, { httpOnly: true, maxAge: 900000 })
     res.send('user registered')
 })
 
