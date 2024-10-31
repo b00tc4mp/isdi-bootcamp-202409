@@ -84,30 +84,69 @@ server.post('/login', formBodyParser, (req, res) => { // http://localhost:8080/l
     console.error(error)
   }
 })
-// TODO falta editar el register
+
+server.get('/register', (req, res) => {
+  const userId = req.headers.cookie?.splic('=')[1]
+
+  if (userId) {
+    res.redirect('/')
+
+    return
+  }
+
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+
+<body>
+    <h1>Register</h1>
+
+    <form action="/register" method="post">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="email">
+
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+
+        <label for="password-repeat">Password</label>
+        <input type="password" name="password-repeat" id="password-repeat">
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+
+</html>`)
+})
+
 server.post('/register', formBodyParser, (req, res) => {
   const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
-  let user = users.find(user => user.email || user.username === username)
+  try {
+    logic.registerUser(name, email, username, password, passwordRepeat)
 
-  if (user) {
-    res.send('user already exists')
+    res.send('user registered')
+  } catch (error) {
+    res.send(error.message)
 
-    return
+    console.error(error)
   }
+})
 
-  if (password !== passwordRepeat) {
-    res.send('passwords do not match')
+server.post('/logout', (req, res) => {
+  res.clearCookie('userId')
 
-    return
-  }
-
-  user = { id: ++uuid, name, email, username, password }
-
-  users.push(user)
-  console.log(users)
-
-  res.send('user registered')
+  res.redirect('/login')
 })
 
 server.listen(8080, () => console.log('server is up'))
