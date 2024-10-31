@@ -5,7 +5,7 @@ const server = express()
 
 const jsonBodyParser = express.json()
 
-server.use(express.static('public'))
+server.get('/', (_req, res) => res.send('Hello, API!'))
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
   const { username, password } = req.body
