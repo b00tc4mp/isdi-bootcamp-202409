@@ -8,6 +8,7 @@ export default (userId, postId) => {
     validate.id(userId, 'userId')
 
     const { posts } = storage
+    // const posts = storage.posts
     
     const index = posts.findIndex(({ id }) => id === postId )
 
@@ -16,7 +17,6 @@ export default (userId, postId) => {
     const post = posts[index]
 
     const { author } = post
-
     if (author !== userId) throw new Error('User is not author of post')
 
     posts.splice(index, 1)

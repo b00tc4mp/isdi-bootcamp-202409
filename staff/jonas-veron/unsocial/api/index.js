@@ -1,6 +1,7 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
 
+
 const server = express()
 
 const jsonBodyParser = express.json()
@@ -64,15 +65,28 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
-server.get('/posts', (req, res) => {
-    const { posts } = req.params
+// server.get('/posts', (req, res) => {
+//     const { posts } = req.params
 
+//     try {
+//         const post = getPosts(posts)
+
+//         res.json(post)
+//     } catch (error) {
+//         res.status(400).json({ error: error.constructor.name, message: error.message })
+
+//         console.error(error)
+//     }
+// })
+
+server.delete('/posts/:postId', (req, res) => {
+    const {postId} = req.params
+    const userId = req.headers.authorization.slice(6)
     try {
-        const post = getPosts(posts)
-
-        res.json(post)
+        logic.deletePost(userId, postId)
+        res.status(200).send() //OK
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        res.status(404).json({ error: error.constructor.name, message: error.message })
 
         console.error(error)
     }
