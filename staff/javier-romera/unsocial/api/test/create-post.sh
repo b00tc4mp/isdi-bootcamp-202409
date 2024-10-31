@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2w6ch7dkh' -H 'Content-Type: application/json' -d '{"image":"http://invented-image.com","text":"hello world"}' http://localhost:8080/posts -v
