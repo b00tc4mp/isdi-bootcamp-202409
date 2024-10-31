@@ -1,5 +1,5 @@
 import createPost from './createPost.js'
-//import deletePost from './deletePost'
+import deletePost from './deletePost.js'
 //import getPosts from './getPosts'
 //import likesInteraction from './likesInteraction'
 
@@ -29,7 +29,7 @@ const logic = {
 
     createPost,
     // getPosts,
-    // deletePost,
+    deletePost
     // likesInteraction,
 }
 

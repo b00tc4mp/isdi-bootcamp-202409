@@ -12,5 +12,12 @@
         "email": "pin@ocho.com",
         "username": "pinocho",
         "password": "123123123"
+    },
+    {
+        "id": "m2x9yvtmjgu",
+        "name": "Simon Bolivar",
+        "email": "simon@bolivar.com",
+        "username": "simoncito",
+        "password": "123123123"
     }
 ]

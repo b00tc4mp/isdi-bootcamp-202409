@@ -5,7 +5,7 @@ const server = express()
 
 const jsonBodyParser = express.json()
 
-server.use(express.static('public'))
+server.get('/', (_, res) => res.send('Hello, API!'))
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
     const { username, password } = req.body
@@ -50,7 +50,7 @@ server.get('/users/:userId/name', (req, res) => {
 })
 
 server.post('/posts', jsonBodyParser, (req, res) => {
-    const userId = req.headers.authorization.slice(6)
+    const userId = req.headers.authorization.slice(6) //Basic sgsgsgsgs
 
     const { image, text } = req.body
 
@@ -58,6 +58,20 @@ server.post('/posts', jsonBodyParser, (req, res) => {
         logic.createPost(userId, image, text)
 
         res.status(201).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.delete('/posts/:postId', (req, res) => {
+    const { postId } = req.params
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        logic.deletePost(userId, postId)
+        res.status(200).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
