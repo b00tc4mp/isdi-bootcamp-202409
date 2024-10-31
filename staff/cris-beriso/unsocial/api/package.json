@@ -4,13 +4,18 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node .",
+    "inspect": "node --inspect-brk .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "express": "^4.21.1"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "description": ""
 }
