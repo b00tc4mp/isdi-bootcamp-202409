@@ -1,8 +1,9 @@
-import { storage } from '../data/index.js'
+import { storage } from '../data'
 
-export default (userId) => {
+export default () => {
 
-    const { userId } = storage
+    const { posts, users } = storage
+    
 
     posts.forEach(post => {
         const { author: authorId } = post

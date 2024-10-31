@@ -1,1 +1,1 @@
- curl -H 'Authorization: Basic m2w7k2bb17d' -H 'Content-Type: application/json' -d '{"image":"http://invented-image.com","text":"hello world"}' http://localhost:8080/posts -v
+ curl -H 'Authorization: Basic m2wawcrxzki' -H 'Content-Type: application/json' -d '{"image":"https://www.subexpuesta.com/img/content/fotografia-de-paisajes-con-luz-de-luna_1.webp","text":"hola mundo!!!!"}' http://localhost:8080/posts -v

@@ -5,7 +5,7 @@ const server = express()
 
 const jsonBodyParser = express.json()
 
-server.use(express.static('public'))
+server.get('/', (_,res) => res.send('Hello, API!'))
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
     const { username, password } = req.body
@@ -63,5 +63,21 @@ server.post('/posts', jsonBodyParser, (req, res) => {
         console.error(error)
     }
 })
+
+server.get('/posts', (req, res) => {
+    const { posts } = req.params
+
+    try {
+        const post = getPosts(posts)
+
+        res.json(post)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+
 
 server.listen(8080, () => console.log('api is up'))
