@@ -18,6 +18,13 @@
         "name": "Coco Drilo",
         "email": "coco@drilo.com",
         "username": "cocodrilo",
-        "password": "123123123"
+        "password": "123456"
+    },
+    {
+        "id": "m2xg2c7zlb",
+        "name": "Debora Hombres",
+        "email": "debora@hombres.com",
+        "username": "debora",
+        "password": "123456"
     }
 ]

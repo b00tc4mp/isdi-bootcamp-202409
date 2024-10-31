@@ -1,11 +1,11 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
 
-const server = express()
+const server = express()//inicializamos un servidor con express
 
-const jsonBodyParser = express.json()
+const jsonBodyParser = express.json()//toda la informacion que bajamos del servidor se convierte a formato JSON
 
-server.use(express.static('public'))
+server.get('/', (_, res) => res.send('Hello, API!'))//Es como una ruta por defecto para informarnos que el API está arriba 
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
     const { username, password } = req.body
@@ -63,6 +63,29 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
+server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
+    const { postId } = req.params
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        logic.deletePost(userId, postId)
+
+        res.status(200).send()
+    } catch {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+server.get('/home', (req, res) => {
+    const { userId } = req.params
+    try {
+        logic.getPosts()
+
+        res.status(201).send()
+    } catch {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
 
 
 server.listen(7070, () => console.log('api is up'))
