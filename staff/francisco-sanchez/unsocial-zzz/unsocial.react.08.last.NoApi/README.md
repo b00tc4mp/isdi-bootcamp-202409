@@ -1,7 +1,6 @@
 # Unsocial App - React Version
 
-**30/10/2024**
-## A partir de hoy **30/10/2024** la aplicación incluye la redistribución de carpetas incluyendo la nueva API
+## Última versión de la app sin incluir las nuevas lógicas de las API!!!!!!
 
 
 **NOTA!!!**
@@ -42,11 +41,11 @@
 
 **Ya hemos visto un poco las lógicas de server, hoy lo implementaremos en nuestra app**
 
-- OK - Inicializamos el paquete y importa express
-    - OK - npm init --yes
-    - OK - npm i express
-- OK - Se trae la lógica de playground a la app (git checkout rama "nombre de carpeta"). 
-- OK - Hace la limpieza 
+- Inicializamos el paquete y importa express
+    - npm init --yes
+    - npm i express
+- Se trae la lógica de playground a la app (git checkout rama "nombre de carpeta"). 
+- Hace la limpieza 
 - Empieza a preparar el index.js dentro de la carpeta api. 
 - Para probar que funcione podemos pasarle los datos en JSON de la siguiente manera: 
 
@@ -57,7 +56,7 @@
 
 
 
-## **28/10/2024**
+## **28/10/2024 **
 
 **Hoy comenzamos a trabajar en el back.**
 

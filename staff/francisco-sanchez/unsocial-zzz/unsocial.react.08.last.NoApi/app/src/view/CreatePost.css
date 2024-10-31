@@ -1,0 +1,8 @@
+.CreatePost {
+    display: flex;
+    justify-content: center;
+
+    flex-direction: column;
+    padding-top: 10%;
+    padding-bottom: 20%;
+}

@@ -1,0 +1,1 @@
+ curl -H 'Content-Type: application/json' -d '{"name":"Sauron","email":"sauron@middleearth.com","username":"sauron","password":"sauron999","password-repeat":"sauron999"}' http://localhost:8080/register -v
