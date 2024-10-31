@@ -3,9 +3,9 @@ import logic from './logic/index.js'
 
 const server = express()
 
-const jsonBodyParser = express.json()
+const jsonBodyParser = express.json() //todas las request que tengan el metodo post y el content type aplication, lo parsean a JS. 
 
-server.use(express.static('public'))
+server.get('/', (_, res) => res.send('Hello, API!'))
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
   const { username, password } = req.body
@@ -36,7 +36,7 @@ server.post('/register', jsonBodyParser, (req, res) => {
 })
 
 server.get('/users/:userId/name', (req, res) => {
-  const { userId } = req.params
+  const { userId } = req.params //extrae los parametros de la ruta y desestructuramos el userId. 
 
   try {
     const name = logic.getUserName(userId)
@@ -50,7 +50,7 @@ server.get('/users/:userId/name', (req, res) => {
 })
 
 server.post('/posts', jsonBodyParser, (req, res) => {
-  const userId = req.headers.authorization.slice(6) // // 'Basic asdfasdfas'
+  const userId = req.headers.authorization.slice(6) // 'Basic asdfasdfas'
 
   const { image, text } = req.body
 
