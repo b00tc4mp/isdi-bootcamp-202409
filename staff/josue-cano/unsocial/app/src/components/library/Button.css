@@ -1,0 +1,14 @@
+.Button {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color);
+    color: var(--back-color);
+    border: 2px solid var(--color);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.Button--light {
+    color: var(--color);
+    background-color: var(--back-color);
+}
