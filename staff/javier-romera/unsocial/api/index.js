@@ -1,11 +1,11 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
 
-const server = express()
+const server = express() // creamos un server express
 
-const jsonBodyParser = express.json()
+const jsonBodyParser = express.json() // parsea todo el contenido a json
 
-server.use(express.static('public'))
+server.get('/', (_, res) => res.send('Hello API!')) // endpoint, una ruta y un método
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
     const { username, password } = req.body
@@ -35,7 +35,7 @@ server.post('/register', jsonBodyParser, (req, res) => {
     }
 })
 
-server.get('/users/:userId/name', (req, res) => {
+server.get('/users/:userId/name', (req, res) => { // : un parámetro que puede cambiar ==> dinámico
     const { userId } = req.params
 
     try {
@@ -49,8 +49,22 @@ server.get('/users/:userId/name', (req, res) => {
     }
 })
 
+server.get('/users/:userId/username', (req, res) => { // : un parámetro que puede cambiar ==> dinámico
+    const { userId } = req.params
+
+    try {
+        const username = logic.getUserUsername(userId)
+
+        res.json(username)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
 server.post('/posts', jsonBodyParser, (req, res) => {
-    const userId = req.headers.authorization.slice(6)
+    const userId = req.headers.authorization.slice(6) // 'Basic m4dskanfnj'
 
     const { image, text } = req.body
 
@@ -65,11 +79,87 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
-server.post('/getposts', jsonBodyParser, (req, res) => {
+server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.deletePost(postId, userId)
+
+        res.status(200).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.patch('/posts/:postId', (req, res) => {
+    const { postId } = req.params
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        logic.toggleLikePost(postId, userId)
+
+        res.status(200).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.get('/posts/:userId', (req, res) => {
     const { userId } = req.params
 
     try {
-        console.log(logic.getPosts(userId))
+        const posts = logic.getPosts(userId)
+
+        res.json(posts)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+    const { postId } = req.params
+    const { text } = req.body
+
+    try {
+        logic.addComment(postId, text, userId)
+
+        res.status(201).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.get('/posts/:postId/comments', (req, res) => {
+    const { postId } = req.params
+
+    try {
+        const comments = logic.getComments(postId)
+
+        res.json(comments)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.delete('/posts/:postId/comments/:commentId', (req, res) => {
+    const { postId, commentId } = req.params
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        logic.removeComment(postId, commentId, userId)
 
         res.status(200).send()
     } catch (error) {

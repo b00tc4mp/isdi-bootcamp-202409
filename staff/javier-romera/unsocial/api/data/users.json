@@ -5,5 +5,12 @@
         "email": "pepito@grillo.com",
         "username": "pepitogrillo",
         "password": "123123123"
+    },
+    {
+        "id": "m2x99dua3tc",
+        "name": "Pin Otto",
+        "email": "pin@otto.com",
+        "username": "pinotto",
+        "password": "123123123"
     }
 ]

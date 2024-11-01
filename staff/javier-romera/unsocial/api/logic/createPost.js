@@ -19,7 +19,7 @@ export default (userId, image, text) => {
         text: text,
         author: userId,
         date: new Date,
-        likes: [],
+        likedBy: [],
         comments: []
     }
 
