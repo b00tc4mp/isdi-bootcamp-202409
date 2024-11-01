@@ -47,8 +47,8 @@
     - OK - npm i express
 - OK - Se trae la lógica de playground a la app (git checkout rama "nombre de carpeta"). 
 - OK - Hace la limpieza 
-- Empieza a preparar el index.js dentro de la carpeta api. 
-- Para probar que funcione podemos pasarle los datos en JSON de la siguiente manera: 
+- OK - Empieza a preparar el index.js dentro de la carpeta api. 
+- OK - Para probar que funcione podemos pasarle los datos en JSON de la siguiente manera: 
 
 - curl -H 'Content-type: application/json' -d '{"username":"pepitogrillo","passowrd":"123123123"}' http://localhost:8080/login -v
 
