@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2vvqdtgcba' -H 'Content-Type: application/json' -d '{"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUIicSn0piVklT9EupNPzy-80j7Yt3coUccg&s","text":"Mr potato"}' http://localhost:8080/posts -v

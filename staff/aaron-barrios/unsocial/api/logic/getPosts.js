@@ -1,8 +1,14 @@
-export default () => {
-    const users = JSON.parse(localStorage.users)
-    const posts = JSON.parse(localStorage.posts)
+import { storage } from '../data/index.js'
+import validate from './helpers/validate.js'
 
-    const { userId } = sessionStorage
+export default userId => {
+    validate.id(userId, 'userId')
+
+    const { users, posts } = storage
+
+    const user = users.find(user => user.id === userId)
+
+    if (!user) throw new Error('user not found')
 
     posts.forEach(post => {
         const { author: authorId } = post
