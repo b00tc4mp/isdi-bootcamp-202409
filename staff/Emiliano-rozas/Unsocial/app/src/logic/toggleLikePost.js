@@ -1,6 +1,5 @@
 import { validate } from './helpers'
 
-
 export default (postId) => {
     validate.id(postId, 'postId')
 
@@ -20,6 +19,4 @@ export default (postId) => {
     else likedby.splice(index, 1)
 
     localStorage.posts = JSON.stringify(posts)
-
 }
-
