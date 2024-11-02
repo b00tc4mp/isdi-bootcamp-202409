@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "id": "m2yqq9pvyi8",
+    "image": "https://www.subexpuesta.com/img/content/fotografia-de-paisajes-con-luz-de-luna_1.webp",
+    "text": "hola mundo!!!!",
+    "author": "m2wawcrxzki",
+    "date": "2024-11-01T12:58:40.435Z",
+    "likes": ["m2wawcrxzki", "m2yxig4w4f"],
+    "comments": [
+      {
+        "id": "m2yxig4w4f",
+        "author": "m2wawcrxzki",
+        "text": "holaaaa loquitooo!!",
+        "date": "2024-11-01T16:08:32.816Z"
+      }
+    ]
+  },
+  {
+    "id": "m2yqxg9tzu",
+    "image": "https://www.subexpuesta.com/img/content/fotografia-de-paisajes-con-luz-de-luna_1.webp",
+    "text": "hola mundo!!!!",
+    "author": "m2wawcrxzki",
+    "date": "2024-11-01T13:04:15.521Z",
+    "likes": [],
+    "comments": []
+  },
+  {
+    "id": "m2yr31xofq",
+    "image": "https://www.subexpuesta.com/img/content/fotografia-de-paisajes-con-luz-de-luna_1.webp",
+    "text": "hola mundo!!!!",
+    "author": "m2wawcrxzki",
+    "date": "2024-11-01T13:08:36.876Z",
+    "likes": [],
+    "comments": []
+  },
+  {
+    "id": "m2yrbfsi21f",
+    "image": "https://images.squarespace-cdn.com/content/v1/6137f1eafdd46630c1744367/118c6bda-87ce-422c-95eb-1c8085e160f4/DSC00486-2.jpg",
+    "text": "holaaaaaa mundo",
+    "author": "m2wawcrxzki",
+    "date": "2024-11-01T13:15:08.082Z",
+    "likes": [],
+    "comments": [
+      {
+        "id": "m2ywj3n9l7",
+        "author": "m2wawcrxzki",
+        "text": "Que haceeeee papá!!",
+        "date": "2024-11-01T15:41:03.669Z"
+      }
+    ]
+  }
+]

@@ -1,0 +1,1 @@
+curl -H 'Authorization: Basic m2wawcrxzki' --request PATCH http://localhost:8080/posts/m2yqq9pvyi8 -v
