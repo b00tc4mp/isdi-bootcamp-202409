@@ -1,1 +1,30 @@
-[{"id":"m2vzaqy1te","name":"Cris Beriso","email":"cris@beriso.com","username":"beriso","password":"criscris"},{"id":"m2w09dl9jti","name":"Yannick","email":"yan@nick.com","username":"yannick","password":"criscris"},{"id":"m2xdb5jwm9","name":"Pin Otto","email":"pin@otto.com","username":"pinotto","password":"123123123"},{"id":"m2xdcly347","name":"Pepito Grillo","email":"pepito@grillo.com","username":"pepitogrillo","password":"123123123"}]
+[
+  {
+    "id": "m2vzaqy1te",
+    "name": "Cris Beriso",
+    "email": "cris@beriso.com",
+    "username": "beriso",
+    "password": "criscris"
+  },
+  {
+    "id": "m2w09dl9jti",
+    "name": "Yannick",
+    "email": "yan@nick.com",
+    "username": "yannick",
+    "password": "criscris"
+  },
+  {
+    "id": "m2xdb5jwm9",
+    "name": "Pin Otto",
+    "email": "pin@otto.com",
+    "username": "pinotto",
+    "password": "123123123"
+  },
+  {
+    "id": "m2xdcly347",
+    "name": "Pepito Grillo",
+    "email": "pepito@grillo.com",
+    "username": "pepitogrillo",
+    "password": "123123123"
+  }
+]

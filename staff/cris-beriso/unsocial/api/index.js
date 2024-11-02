@@ -65,5 +65,94 @@ server.post('/posts', jsonBodyParser, (req, res) => {
   }
 })
 
+server.delete('/posts/:postId', (req, res) => {
+  const { postId } = req.params
+  const userId = req.headers.authorization.slice(6)
+
+  try {
+    logic.deletePost(userId, postId)
+    res.status(200).send()
+  } catch (error) {
+    res.status(404).json({ error: error.constructor.name, message: error.message })
+
+    console.error(error)
+  }
+})
+
+server.get('/posts/:userId', (req, res) => {
+  const { userId } = req.params
+
+  try {
+    const posts = logic.getPosts(userId)
+
+    res.json(posts)
+  } catch (error) {
+    res.status(400).json({ error: error.constructor.name, message: error.message })
+
+    console.error(error)
+  }
+})
+
+server.patch('/posts/:postId', (req, res) => {
+  const { postId } = req.params
+
+  const userId = req.headers.authorization.slice(6)
+
+  try {
+    logic.toggleLikePost(userId, postId)
+
+    res.status(200).send()
+  } catch (error) {
+    res.status(400).json({ error: error.constructor.name, message: error.message })
+
+    console.error(error)
+  }
+})
+
+server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
+  const { text } = req.body
+  const { postId } = req.params
+  const userId = req.headers.authorization.slice(6)
+
+  try {
+    logic.addComment(userId, postId, text)
+
+    res.status(201).send()
+  } catch (error) {
+    res.status(400).json({ error: error.constructor.name, message: error.message })
+
+    console.error(error)
+  }
+})
+
+server.get('/posts/:postId/comments', (req, res) => {
+  const { postId } = req.params
+
+  try {
+    logic.getComments(postId)
+
+    res.json(comments)
+  } catch (error) {
+    res.status(400).json({ error: error.constructor.name, message: error.message })
+
+    console.error(error)
+  }
+})
+
+server.delete('/posts/:postId/comments/:commentId', (req, res) => {
+  const { postId, commentId } = req.params
+  const userId = req.headers.authorization.slice(6)
+
+  try {
+    logic.removeComment(postId, commentId, userId)
+
+    res.status(200).send()
+  } catch (error) {
+    res.status(400).json({ error: error.constructor.name, message: error.message })
+
+    console.error(error)
+  }
+})
+
 server.listen(8080, () => console.log('api is up'))
 
