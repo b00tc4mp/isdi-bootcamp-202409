@@ -72,6 +72,20 @@ server.post('/register', jsonBodyParser, (req, res) => {
     }
 })
 
+server.get('/users/:userId', (req, res) => {
+    const { userId } = req.params
+
+    try {
+        const user = logic.getUserId(userId)
+
+        res.json(user)
+    } catch (error) {
+        res.status(404).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
 server.get('/users/:userId/name', (req, res) => { //:parámetro dinámico, que puede variar. de los usuarios, quiero este usuario, y de ahí quiero el name. cuando quiero algo concreto. es una ruta semántica
     const { userId } = req.params //objeto que recoge la propiedad. forma de enviar datos a través de la url
 
@@ -80,7 +94,7 @@ server.get('/users/:userId/name', (req, res) => { //:parámetro dinámico, que p
 
         res.json(name)
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        res.status(404).json({ error: error.constructor.name, message: error.message })
 
         console.error(error)
     }
@@ -124,7 +138,85 @@ server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
     try {
         logic.deletePost(postId, userId)
 
+        res.status(200).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.get('/posts/:postId/comments', (req, res) => {
+    const { postId } = req.params
+
+    try {
+        const comments = logic.getComments(postId)
+
+        res.json(comments)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+    const { postId } = req.params
+    const { text } = req.body
+
+    try {
+        logic.addComment(userId, postId, text)
+
         res.status(201).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.delete('/posts/:postId/comments/:commentId', jsonBodyParser, (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId, commentId } = req.params
+
+    try {
+        logic.removeComment(userId, postId, commentId)
+
+        res.status(200).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.patch('/posts/:postId/likes', jsonBodyParser, (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.toggleLikePost(userId, postId)
+
+        res.status(200).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.patch('/posts/:postId/saves', jsonBodyParser, (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.toggleSavePost(userId, postId)
+
+        res.status(200).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -156,6 +248,8 @@ terminal commands:
 
     test/authenticate-user.sh //ejecuta automáticamente el código con el dólar que es para el terminal
 
+    xhr se prueba en el navegador directamente, previamente hay q estar conectados a la api
+
     ls -l test/authenticate-user.sh //ver si tengo permisos, o sea si el archivo es ejecutable
         RWX (lectura, escritura, ejecución) rwxrwxrwx (yo, mi equipo, otros equipos)
         en binario: 111 111 111
@@ -167,6 +261,6 @@ terminal commands:
         Si quiero todos los permisos: 7 4 4
         chmod 744 test/login-user.sh
 
-    node --inspect-bkr //debugar
+    node --inspect-brk //debugar
         o eso o añado en el script del package "inspect": "node --inspect-brk ." y npm run inspect
 */

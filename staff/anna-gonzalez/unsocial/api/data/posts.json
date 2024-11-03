@@ -5,7 +5,9 @@
         "text": "hello world",
         "author": "m2w6ehc8bg",
         "date": "2024-10-30T17:57:44.961Z",
-        "likes": [],
+        "likes": [
+            "m2w6ehc8bg"
+        ],
         "comments": [],
         "saves": []
     },
@@ -16,7 +18,14 @@
         "author": "m2w6ehc8bg",
         "date": "2024-11-02T18:03:07.483Z",
         "likes": [],
-        "comments": [],
+        "comments": [
+            {
+                "id": "m31cwamtc6j",
+                "author": "m2w6ehc8bg",
+                "text": "hola patagonia",
+                "date": "2024-11-03T08:54:45.461Z"
+            }
+        ],
         "saves": []
     }
 ]
