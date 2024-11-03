@@ -2,6 +2,7 @@ import authenticateUser from './authenticateUser.js'
 import registerUser from './registerUser.js'
 import getUserName from './getUserName.js'
 import getUserUsername from './getUserUsername.js'
+import getUserId from './getUserId.js'
 
 import createPost from './createPost.js'
 import getPosts from './getPosts.js'
@@ -17,6 +18,7 @@ const logic = {
     registerUser,
     getUserName,
     getUserUsername,
+    getUserId,
 
     createPost,
     deletePost,

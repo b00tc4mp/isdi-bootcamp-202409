@@ -1,11 +1,11 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
 
-const server = express() // creamos un server express
+const server = express()
 
-const jsonBodyParser = express.json() // parsea todo el contenido a json
+const jsonBodyParser = express.json()
 
-server.get('/', (_, res) => res.send('Hello API!')) // endpoint, una ruta y un método
+server.get('/', (_, res) => res.send('Hello API!'))
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
     const { username, password } = req.body
@@ -35,7 +35,21 @@ server.post('/register', jsonBodyParser, (req, res) => {
     }
 })
 
-server.get('/users/:userId/name', (req, res) => { // : un parámetro que puede cambiar ==> dinámico
+server.get('/users/:userId', (req, res) => {
+    const { userId } = req.params
+
+    try {
+        const user = logic.getUserId(userId)
+
+        res.json(user)
+    } catch (error) {
+        res.status(404).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.get('/users/:userId/name', (req, res) => {
     const { userId } = req.params
 
     try {
@@ -43,7 +57,7 @@ server.get('/users/:userId/name', (req, res) => { // : un parámetro que puede c
 
         res.json(name)
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        res.status(404).json({ error: error.constructor.name, message: error.message })
 
         console.error(error)
     }
@@ -56,6 +70,20 @@ server.get('/users/:userId/username', (req, res) => { // : un parámetro que pue
         const username = logic.getUserUsername(userId)
 
         res.json(username)
+    } catch (error) {
+        res.status(404).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.get('/posts', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        const posts = logic.getPosts(userId)
+
+        res.json(posts)
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -79,7 +107,7 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
-server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
+server.delete('/posts/:postId', (req, res) => {
     const userId = req.headers.authorization.slice(6)
 
     const { postId } = req.params
@@ -110,13 +138,13 @@ server.patch('/posts/:postId', (req, res) => {
     }
 })
 
-server.get('/posts/:userId', (req, res) => {
-    const { userId } = req.params
+server.get('/posts/:postId/comments', (req, res) => {
+    const { postId } = req.params
 
     try {
-        const posts = logic.getPosts(userId)
+        const comments = logic.getComments(postId)
 
-        res.json(posts)
+        res.json(comments)
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -133,20 +161,6 @@ server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
         logic.addComment(postId, text, userId)
 
         res.status(201).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        console.error(error)
-    }
-})
-
-server.get('/posts/:postId/comments', (req, res) => {
-    const { postId } = req.params
-
-    try {
-        const comments = logic.getComments(postId)
-
-        res.json(comments)
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
