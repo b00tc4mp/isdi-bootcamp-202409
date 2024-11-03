@@ -62,4 +62,18 @@ server.post('/posts', jsonBodyParser, (req, res) => {
   }
 })
 
+server.delete('/posts/:postId', (req, res) => {
+  const userId = req.headers.authorization.slice(6)
+
+  const { postId } = req.params
+
+  try {
+    logic.deletePost(userId, postId)
+    res.status(200).send()
+  } catch (error) {
+    res.status(400).json({ error: error.constructor.name, message: error.message })
+
+  }
+})
+
 server.listen(8080, () => console.log('api is up'))
