@@ -1,7 +1,7 @@
 import { storage } from "../data/index.js"
 
 export default () => {
-    const { users, posts } = storage
+    const { posts, users } = storage
 
     posts.forEach(post => {
         const { author: authorId } = post
@@ -10,11 +10,11 @@ export default () => {
 
         post.author = { id: authorId, username }
 
-        //post.liked = post.likes.includes(userI)
+        post.liked = post.likes.includes(userId)
 
         post.comments = post.comments.length
     })
 
     storage.posts = posts
-    return storage.posts.toReversed()
+    return posts.toReversed()
 }

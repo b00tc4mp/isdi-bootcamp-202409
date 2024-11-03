@@ -49,6 +49,33 @@ server.get('/users/:userId/name', (req, res) => {
     }
 })
 
+server.get('/users/:userId', (req, res) => {
+    const { userId } = req.params
+
+    try {
+        const id = logic.getUserId(userId)
+
+        res.json(id)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.get('/posts', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        const posts = logic.getPosts(userId)
+
+        res.json(posts)
+    } catch {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+    }
+})
+
 server.post('/posts', jsonBodyParser, (req, res) => {
     const userId = req.headers.authorization.slice(6)
 
@@ -73,19 +100,63 @@ server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
         res.status(200).send()
     } catch {
         res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
     }
 })
 
-server.get('/home', (req, res) => {
-    const { userId } = req.params
+server.patch('/posts/:postId', (req, res) => {
+    const { postId } = req.params
+    const userId = req.headers.authorization.slice(6)
+
     try {
-        logic.getPosts()
+        logic.toggleLikePosts(postId, userId)
+        res.status(200).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+    }
+})
+
+server.get('/posts/:postId/comments', (req, res) => {
+    const { postId } = req.params
+
+    try {
+        const comments = logic.getComments(postId)
+        res.json(comments)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+    }
+})
+
+server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+    const { postId } = req.params
+    const { text } = req.body
+
+    try {
+        logic.addComments(postId, text, userId)
 
         res.status(201).send()
-    } catch {
+    } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
     }
 })
 
+server.delete('/posts/:postId/comments/:commentId', (req, res) => {
+    const { postId, commentId } = req.params
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        logic.removeComment(postId, commentId, userId)
+
+        res.status(200).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
 
 server.listen(7070, () => console.log('api is up'))

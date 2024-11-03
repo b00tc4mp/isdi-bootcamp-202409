@@ -1,1 +1,1 @@
- curl http://localhost:7070/home -v
+ curl -H 'Authorization: Basic m2x63gb7wns' http://localhost:7070/posts -v
