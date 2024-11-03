@@ -12,7 +12,7 @@ export default {
     set users(users) {
         const json = JSON.stringify(users)
 
-        fs.writeFileSync ('.data/users.json', json)
+        fs.writeFileSync('./data/users.json', json)
     },
 
     get posts() {

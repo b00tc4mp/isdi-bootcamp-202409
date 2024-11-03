@@ -1,14 +1,14 @@
-import express, {json} from 'express'
+import express, { json } from 'express'
 import logic from './logic/index.js'
 
 const server = express()
 
 const jsonBodyParser = express.json()
 
-server.use(express.static('public'))
+server.get('/', (_, res) => res.send('Hello, API!'))
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
-    const {username, password } = req.body
+    const { username, password } = req.body
     try {
         const userId = logic.authenticateUser(username, password)
 
@@ -29,14 +29,14 @@ server.post('/register', jsonBodyParser, (req, res) => {
 
         res.status(201).send()
     } catch (error) {
-        res.status(400).json({error: error.constructor.name, message: error.message })
+        res.status(400).json({ error: error.constructor.name, message: error.message })
 
         console.error(error)
     }
 })
 
 server.get('/users/:userId/name', (req, res) => {
-    const {userId } = req.params
+    const { userId } = req.params
 
     try {
         const name = logic.getUserName(userId)
@@ -52,7 +52,7 @@ server.get('/users/:userId/name', (req, res) => {
 
 
 server.post('/posts', jsonBodyParser, (req, res) => {
-    const userId = req.headers.authorization.slice(6) // 'Basic asdfasdfas'
+    const userId = req.headers.authorization.slice(6)
 
     const { image, text } = req.body
 
@@ -67,6 +67,40 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
+server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
+    const { postId } = req.params
+    const userId = req.headers.authorization.slice(6) // 'Basic asdfasdfas'
+    const { text } = req.body
+
+    try {
+        logic.addComment(userId, postId, text)
+
+        res.status(201).send()
+    } catch (error) {
+
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+
+
+})
+
+/* server.delete('posts/:postId/:commentId', jsonBodyParser, (req, res) => {
+    const { postId, commentId } = req.params
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        logic.aremoveComment(postId, userId, commentId)
+
+        res.status(200).send()
+    } catch (error) {
+
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+ */
 
 server.listen(8080, () => console.log('api is up'))
 
