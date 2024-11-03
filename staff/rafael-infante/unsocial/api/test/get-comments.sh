@@ -1,0 +1,1 @@
+curl http://localhost:8080/posts/m31o037p6yl/comments -v
