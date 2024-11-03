@@ -9,7 +9,7 @@ export default (postId, commentId, userId) => {
 
   const { posts } = storage
 
-  const post = post.find(({ id }) => id === postId)
+  const post = posts.find(({ id }) => id === postId)
 
   const { comments } = post
 

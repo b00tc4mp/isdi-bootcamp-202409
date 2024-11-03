@@ -7,19 +7,6 @@ const jsonBodyParser = express.json() //todas las request que tengan el metodo p
 
 server.get('/', (_, res) => res.send('Hello, API!'))
 
-server.post('/authenticate', jsonBodyParser, (req, res) => {
-  const { username, password } = req.body
-
-  try {
-    const userId = logic.authenticateUser(username, password)
-
-    res.json(userId)
-  } catch (error) {
-    res.status(401).json({ error: error.constructor.name, message: error.message })
-
-    console.error(error)
-  }
-})
 
 server.post('/register', jsonBodyParser, (req, res) => {
   const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
@@ -30,6 +17,20 @@ server.post('/register', jsonBodyParser, (req, res) => {
     res.status(201).send()
   } catch (error) {
     res.status(400).json({ error: error.constructor.name, message: error.message })
+
+    console.error(error)
+  }
+})
+
+server.post('/authenticate', jsonBodyParser, (req, res) => {
+  const { username, password } = req.body
+
+  try {
+    const userId = logic.authenticateUser(username, password)
+
+    res.json(userId)
+  } catch (error) {
+    res.status(401).json({ error: error.constructor.name, message: error.message })
 
     console.error(error)
   }
@@ -71,6 +72,7 @@ server.delete('/posts/:postId', (req, res) => {
 
   try {
     logic.deletePost(userId, postId)
+
     res.status(200).send()
   } catch (error) {
     res.status(404).json({ error: error.constructor.name, message: error.message })
@@ -129,7 +131,7 @@ server.get('/posts/:postId/comments', (req, res) => {
   const { postId } = req.params
 
   try {
-    logic.getComments(postId)
+    const comments = logic.getComments(postId)
 
     res.json(comments)
   } catch (error) {
