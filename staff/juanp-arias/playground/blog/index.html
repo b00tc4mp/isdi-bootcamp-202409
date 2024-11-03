@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="web app that shows a blog">
+    <link rel="shortout icoon" href="https://cdn-icons-png.flaticon.com/512/616/616616.png" type="image/x-icon">
+    <title>Cities to visit</title>
+</head>
+<style>
+    html {
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+        font-style: inherit
+    }
+
+    body {
+        padding-left: 13%;
+        padding-right: 13%;
+    }
+
+
+    main {
+        background-color: rgba(0, 197, 0, 0.164);
+        text-align: center;
+    }
+
+    h1 {
+        letter-spacing: 2cap;
+        font-size: 50px;
+    }
+
+    nav {
+        justify-content: space-between;
+        display: flex;
+        color: black;
+    }
+
+    .first {
+        display: flex;
+        text-align: center;
+        justify-content: space-around;
+    }
+
+    .second {
+        display: flex;
+        text-align: center;
+        justify-content: space-around;
+    }
+
+    .images {
+        color: black;
+    }
+
+    .images-africa {
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(88, 182, 129, 0.364);
+    }
+
+    .images-americanor {
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(88, 182, 129, 0.364);
+    }
+
+    .images-americasur {
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(88, 182, 129, 0.364);
+    }
+
+    .images-asia {
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(88, 182, 129, 0.364);
+    }
+
+    .images-europe {
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(88, 182, 129, 0.364);
+    }
+
+    .titulospaises {
+        text-align: center;
+    }
+
+    img {
+        text-align: center;
+    }
+
+    footer {
+        font-size: large;
+        background-color: rgba(88, 182, 129, 0.364);
+    }
+
+    form button {
+        /* text-align: center; */
+        cursor: pointer;
+    }
+
+    /* nav{
+        background-color: rgba(88, 182, 129, 0.364);
+        text-align: center;
+        justify-content: space-between;
+        display: flex;
+        /* position: sticky; */
+    top: 0%;
+    }
+
+    */
+</style>
+
+<main id="home">
+    <h1>CITIES AND COUNTRIES TO VISIT</h1>
+</main>
+
+<body>
+    <article class="images">
+        <article class="first">
+            <section class="europe-img">
+                <img src="https://i.pinimg.com/736x/3d/2b/fc/3d2bfc823c73f4214205881902c919b9.jpg" alt="image-europe"
+                    width="280" height="280">
+                <h2><a href="#europe"><strong>EUROPA</strong></a></h2>
+            </section>
+            <section class="asiaimg">
+                <img src="https://media.istockphoto.com/id/692898084/es/vector/territorio-de-asia-ilustraci%C3%B3n-de-vector.jpg?s=612x612&w=0&k=20&c=EOQ8IIstfTN9pQqv3OhWap5MNLmiEUHZRzPTYr6hm9w="
+                    alt="image-asia" width="280" height="280">
+                <h2><a href="#asia"><strong>ASIA</strong></a></h2>
+            </section>
+        </article>
+        <article class="second">
+            <section class="africa-img">
+                <img src="https://static8.depositphotos.com/1008611/883/v/950/depositphotos_8833952-stock-illustration-africa-continent-flag-map.jpg"
+                    alt="image-europe" width="280" height="280">
+                <h2><a href="#africa"><strong>AFRICA</strong></a></h2>
+            </section>
+            <section class="america-del-sur-img">
+                <img src="https://media.istockphoto.com/id/594463288/es/vector/mapa-pol%C3%ADtico-de-los-solos-estados-de-am%C3%A9rica-del-sur.jpg?s=612x612&w=0&k=20&c=DKKIlb9i6pLSSqg-qYTJcOXVIIq_t5L-nofoTYf1qEo="
+                    alt="image-americasur" width="280" height="280">
+                <h2><a href="#america-del-sur"><strong>AMERICA DEL SUR</strong></a></h2>
+            </section>
+            <section class="america-del-norte-img">
+                <img src="https://img.freepik.com/vector-premium/ilustracion-vector-mapa-politico-america-norte_119523-10451.jpg"
+                    alt="image-americanorte" width="280" height="280">
+                <h2><a href="#america-del-norte"><strong>AMERICA DEL NORTE</strong></a></h2>
+            </section>
+        </article>
+    </article>
+    <hr>
+    <article class="europe" id="europe">
+        <H2 class="titulospaises">EUROPE</H2>
+        <section class="images-europe">
+            <section class="imagesroma">
+                <h3>ROMA</h3>
+                <p>Roma es una de las ciudades más bonitas de Europa. Ninguna ciudad puede comparar su historia con la
+                    de Roma, en la que parece que el tiempo se haya detenido en ella. Visitar lugares como el Coliseo,
+                    la Fontana de Trevi, el Foro Romano o el Pantéon de Agripa.
+                    Uno de nuestros lugares preferidos de la ciudad es el barrio del Trastevere, en el que pasear por la
+                    tarde por sus estrechas calles y comer en alguna de sus trattorias, te aseguramos, es de la mejores
+                    experiencias que se puede tener en la Ciudad Eterna.</p>
+                <img src="https://tourismmedia.italia.it/is/image/mitur/20220127150143-colosseo-roma-lazio-shutterstock-756032350-2?wid=1600&hei=900&fit=constrain,1&fmt=webp"
+                    alt="imagen-roma" width="375" height="245"></img>
+            </section>
+            <hr>
+            <section class="imagesviena">
+                <h3>VIENA</h3>
+                <p>Sin lugar a duda, en la lista de las ciudades más bonitas de Europa está Viena. La capital austriaca
+                    cuenta con más de 100 museos es obligado visitar el Palacio de Schönbrunn, la Catedral de San
+                    Esteban y el Palacio Belvedere. En Viena se puede ver gratis el Ayuntamiento, el Reloj Anker,
+                    Parlamento y la
+                    Catedral de Viena. ¡Dicen que también es una de las mejores ciudades para vivir en Europa!</p>
+                <br><br>
+                <img src="https://www.panavision-tours.com/viajes/ciudad-de-viena/viena.jpg" alt="imagen-viena"
+                    width="365" height="245"></img>
+            </section>
+            <hr>
+            <section class="imagesparis">
+                <h3>PARIS</h3>
+                <p>París es una ciudad alucinante, una de las más bonitas de Europa que debe ser explorada a pie para
+                    así descubrir todos sus rincones y no dejarte ni uno atrás. Es una ciudad llena de tradición, muchos
+                    lugares de interés, cultura, historia, estilo y mucho encanto vas a poder experimentar sin coste
+                    alguno. Como por ejemplo algunas atracciones locales como los Campos Elíseos llenos de tiendas,
+                    cafés y monumentos muy famosos como el Arco del Triunfo y la Place de la Concorde. Montmartre, un
+                    barrio muy bohemio.
+                </p>
+                <img src="https://cdn2.civitatis.com/francia/paris/galeria/torre-eiffel-altura.jpg" alt="imagen-viena"
+                    width="365" height="245"></img>
+            </section>
+
+        </section>
+    </article>
+    <hr>
+    <article class="asia" id="asia">
+        <H2 class="titulospaises">ASIA</H2>
+        <section class="images-asia">
+            <section class="imagesjapon">
+
+                <h3>JAPON</h3>
+                <p>Konnichiwa, ¡bienvenidos a Japón! Todos desean ir allí al menos una vez en la vida porque esperan una
+                    especie de país de juguetes con Gundam a tamaño real, sushi como si lloviera y extensiones de manga
+                    en
+                    cada esquina. En realidad, Japón es esto… y mucho más. Aquí la modernidad convive con la tradición
+                    en un
+                    continuo espectacular que os recomendamos descubrir en un viaje itinerante a bordo de un flamante
+                    Shinkansen.</p><br>
+                <img src="https://www.advantour.com/img/japan/images/index.jpg" alt="imagen-japon" width="375"
+                    height="245"></img>
+            </section>
+            <hr>
+            <section class="imagesindia">
+                <h3>INDIA</h3>
+                <p>¿Cómo no escoger de entre los mejores destinos en Asia, sino la cuna de la civilización? Para ir a la
+                    India hay que estar preparados. Es un país caracterizado por muchísimas contradicciones: junto a la
+                    majestuosidad del Taj Mahal y el lujo de los hoteles de moda, hay mucha (mucha) pobreza, lo que
+                    pondrá a
+                    prueba vuestro espíritu de adaptación. No os desaniméis, porque entre los lugares para ver en Asia,
+                    éste
+                    es imperdible.</p><br>
+                <img src="https://blackpepper.travel/cache/2024-01/blackpepper-viajes-uzbekistan-0000-galeria-2x-1181x786.jpg"
+                    alt="imagen-uzbekistan" width="365" height="245"></img>
+            </section>
+            <hr>
+            <section class="imagessrilanka">
+                <h3>SRI LANKA</h3>
+                <p>¿Estáis buscando destinos en Asia para viajar en agosto? Tenemos un as bajo la manga para vosotros:
+                    ¡Sri
+                    Lanka! No os preocupéis, porque no pasaréis todas las vacaciones bajo la lluvia torrencial de los
+                    monzones: durante el verano, la parte oriental del país permanece al resguardo de las intensas
+                    lluvias
+                    estacionales. Con esta aclaración, podréis relajaros y planificar vuestras vacaciones entre
+                    maravillosas
+                    playas, una naturaleza exuberante e increíbles santuarios.</p>
+                <img src="https://media.traveler.es/photos/64dcbe3a25bc5813d05acc0b/16:9/w_2560%2Cc_limit/1288609237"
+                    alt="imagen-srilanka" width="365" height="245"></img>
+            </section>
+        </section>
+    </article>
+    <hr>
+
+    <article class="america-del-sur" id="america-del-sur">
+        <H2 class="titulospaises">AMERICA DEL SUR</H2>
+        <section class="images-americasur">
+            <section class="imagesperu">
+                <h3>MACHU PICHU, PERÚ</h3>
+                <p>El destino estrella de Perú es, sin duda, uno de los mejores lugares de América del Sur para ir de
+                    vacaciones. El legado de los Incas en una ciudad perdida que te deja con la boca abierta. Es
+                    prácticamente indescriptible la magia que se vive en este lugar. Puedes vivirlo en primera persona
+                    cuando en tu próximo viaje vayas tras las huellas ancestrales de los Incas.</p><br>
+                <img src="https://www.peru.travel/Contenido/AcercaDePeru/Imagen/es/1/0.0/Principal/Machu%20Picchu.jpg"
+                    alt="imagen-peru" width="375" height="245"></img>
+            </section>
+            <hr>
+            <section class="imagesriojaneiro">
+                <h3>RIO DE JANEIRO, BRAZIL</h3>
+                <p>¿Quién no ha soñado con ver la inmensidad de Rio desde el Cristo Redentor? La ciudad del carnaval más
+                    importante y grande del mundo. Una ciudad que vibra y baila a ritmo de Samba. Hay mucho por
+                    descubrir en
+                    la antigua capital de Brasil. Desde playas a montañas, pasando por las favelas. Enamórate de una de
+                    las
+                    ciudades más famosas de América del Sur, Rio de Janeiro.</p>
+                <img src="https://www.tmf-group.com/globalassets/images/news-and-insights/articles--pr/944x540-country-landscape/christ-sugar-loaf-mountain-brazil.jpg"
+                    alt="imagen-brazil" width="365" height="245"></img>
+            </section>
+            <hr>
+            <section class="imagescolombia">
+                <h3>CARTAGENA, COLOMBIA</h3>
+                <p>El legado colonial español está muy presente en las ciudades latinoamericanas. Pero, hay una ciudad
+                    que
+                    preserva ese legado de manera especial. El mayor destino turístico de Colombia y uno de los mejores
+                    lugares de América del Sur para ir de vacaciones. Bañada por las aguas del Caribe, rodeada por
+                    murallas
+                    y protegida por fuertes y castillos, la fantástica Cartagena de Indias</p>
+                <img src="https://expatmoney.com/hs-fs/hubfs/Streets%20of%20Cartagena%20in%20Colombia.jpg?width=850&height=478&name=Streets%20of%20Cartagena%20in%20Colombia.jpg"
+                    alt="imagen-colombia" width="365" height="245"></img>
+            </section>
+
+        </section>
+    </article>
+    <hr>
+
+    <article class="america-del-norte" id="america-del-norte">
+        <H2 class="titulospaises">AMERICA DEL NORTE</H2>
+        <section class="images-americanor">
+
+            <section class="imagesnuevayork">
+                <h3>NUEVA YORK</h3>
+                <p>Nueva York es una ciudad de récord ya que además de ser la ciudad más bonita de Estados Unidos, es la
+                    más
+                    poblada del país, su capital financiera, y una de las ciudades más conocidas, visitadas y
+                    cinematográficas del planeta. Es una ciudad gigante, uno de los lugares turísticos en America del
+                    Norte, y tiene mil cosas que ver. Sólo decirte, que si viajas en verano, prepárate para estar
+                    rodeado de turistas.</p><br>
+                <img src="https://content.r9cdn.net/rimg/dimg/17/74/0ca6e469-city-30651-1632b88f203.jpg?width=1366&height=768&xhint=2635&yhint=1507&crop=true"
+                    alt="image-miami" width="375" height="245"> </img>
+            </section>
+            <hr>
+            <section class="imagessanfrancisco">
+                <h3>SAN FRANCISCO</h3>
+                <p>Considerada por muchos como una de las ciudades más bonitas de Estados Unidos, y por otros tantos
+                    la
+                    más
+                    bella del país, San Francisco ha sabido aunar como ninguna otra ciudad, modernidad con el
+                    clásico
+                    estilo
+                    de sus casas victorianas y los más pintorescos barrios. Su mayor emblema es el conocidísimo
+                    Golden
+                    Gate,
+                    pero también cabría destacar sus calles empinadas, sus hermosos tranvías o la famosa Lombard
+                    Street,
+                    una
+                    peculiar, bella y serpenteante calle.</p>
+                <img src="https://a.travel-assets.com/findyours-php/viewfinder/images/res70/471000/471674-Miami.jpg"
+                    alt="image-manchester" width="365" height="245"> </img>
+            </section>
+            <hr>
+            <section class="imageschicago">
+                <h3>CHICAGO</h3>
+                <p>Chicago además de ser una de las ciudades más bonitas de Estados Unidos, es la tercera urbe más
+                    poblada
+                    del país. Una moderna y vibrante ciudad con imponentes construcciones que os trasladará a la
+                    época
+                    de
+                    gánsters y cabaret. Un lugar en el que, a pesar de sus bajas temperaturas en invierno, podréis
+                    visitar
+                    atracciones como el Millennium Park donde se encuentra la conocida escultura The Bean (“El
+                    Haba”), o
+                    la
+                    Avenida Michigan.</p>
+                <img src="https://www.travelandleisure.com/thmb/wwUPgdpCUuD5sAPFLQf4YasjH0M=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/chicago-illinois-CHITG0221-e448062fc5164da0bba639f9857987f6.jpg"
+                    alt="image-washington" width="365" height="245"> </img>
+            </section>
+    </article>
+    <hr>
+
+    <article class="africa" id="africa"></article>
+    <H2 class="titulospaises">AFRICA</H2>
+    <section class="images-africa">
+
+        <section class="images-africamarrakech">
+            <h3>MARAKECH</h3>
+            <p>Esta ciudad marroquí (una de las cuatro tradicionales ciudades imperiales) tiene la capacidad de
+                embaucar
+                y embelesar al turista. La Medina, con sus particulares construcciones en rojos y ocres, es su
+                centro
+                neurálgico. Los zocos y bazares centran también la vida social de los ciudadanos y no pueden
+                dejar de
+                visitarse, al igual que la irregular plaza Jamaa el Fna, un enorme escenario donde encontrar
+                músicos,
+                faquires y hasta encantadores de serpientes.</p>
+            <img src="https://res.cloudinary.com/hello-tickets/image/upload/c_limit,f_auto,q_auto,w_1300/v1641972977/cdqnve0zcpxtjcpx9ui8.jpg"
+                alt="image-marrakech" width="375" height="245"> </img>
+        </section>
+        <hr>
+        <section class="images-africaciudadcabo">
+            <h3>CIUDAD DEL CABO</h3>
+            <p>La situación geográfica de la capital legislativa sudafricana es ya motivo suficiente para
+                visitarla. De
+                hecho, es la ciudad más visitada de todo África, en la que se mezcla la modernidad con la
+                naturaleza
+                (con su Montaña de la Mesa) y con el mar (y su famoso puerto). Muy cerca de allí además está
+                Robben
+                Island (la isla de las focas) donde permaneció preso Nelson Mandela.</p><br><br>
+            <img src="https://img.static-kl.com/images/media/B2B667B6-DC8C-46DA-B9F0A9EBF1877EDE" alt="image-cabo"
+                width="365" height="245"> </img>
+        </section>
+        <hr>
+        <section class="images-africatunez">
+            <h3>TUNEZ</h3>
+            <p>Al igual que en Marrakech, el centro de la capital tunecina es la Medina, que además es
+                Patrimonio de la
+                Humanidad. Allí podrás perderte entre sus callejuelas y pasadizos cubiertos, impregnados siempre
+                de
+                colores y olores procedentes de sus comercios. Al norte de la ciudad está la masa verde de
+                Belvedere, y
+                también cuenta con un lago natural y una gran avenida conocida como ‘los Campos Elíseos de
+                África’.</p>
+            <br>
+            <img src="https://viajes.nationalgeographic.com.es/medio/2024/02/13/tunez_3acf60e4_240213161708_1200x630.jpg"
+                alt="image-tuez" width="365" height="245"> </img>
+        </section>
+    </section>
+
+    </article>
+</body>
+<footer id="contact">
+    <!-- <nav>
+            <h3>TAKE A LOOK AGAIN</h3>
+            <a href="#home"><strong>HOME</strong></a>
+            <a href="#europe"><strong>EUROPA</strong></a>
+            <a href="#asia"><strong>ASIA</strong></a>
+            <a href="#africa"><strong>AFRICA</strong></a>
+            <a href="#america-del-sur"><strong>AMERICA DEL SUR</strong></a>
+            <a href="#america-del-norte"><strong>AMERICA DEL NORTE</strong></a>
+        </nav> -->
+    <form action="contact-me">
+        <H3 class="titulospaises">IF YOU NEED HELP...</H3>
+        <label for="username">NOMBRE</label>
+        <input type="username" id="username">
+        <label for="username">PAIS A VISITAR</label>
+        <input type="pais" id="pais">
+        <label for="email">EMAIL</label>
+        <input type="email" id="email">
+        <label for="phone">TELÉFONO</label>
+        <input type="phone" id="phone">
+        <button type="submit"><strong>Send</strong></button>
+    </form>
+</footer>
+
+</html>
