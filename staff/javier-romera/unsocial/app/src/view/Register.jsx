@@ -15,15 +15,23 @@ export default props => {
             email: { value: email },
             username: { value: username },
             password: { value: password },
-            passwordRepeat: { value: passwordRepeat }
+            ['password-repeat']: { value: passwordRepeat }
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat)
+            logic.registerUser(name, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    alert(error.message)
 
-            form.reset()
+                    console.error(error)
 
-            props.onRegistered()
+                    return
+                }
+
+                form.reset()
+
+                props.onRegistered()
+            })
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -62,7 +70,7 @@ export default props => {
 
             <Field>
                 <Label htmlFor="passwordRepeat">Confirm password</Label>
-                <Input type="password" id="passwordRepeat"></Input>
+                <Input type="password" id="password-repeat"></Input>
             </Field>
 
             <Button type="submit">Register</Button>

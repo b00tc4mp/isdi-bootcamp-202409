@@ -1,16 +1,1 @@
-[
-    {
-        "id": "m2w6ch7dkh",
-        "name": "Pepito Grillo",
-        "email": "pepito@grillo.com",
-        "username": "pepitogrillo",
-        "password": "123123123"
-    },
-    {
-        "id": "m2x99dua3tc",
-        "name": "Pin Otto",
-        "email": "pin@otto.com",
-        "username": "pinotto",
-        "password": "123123123"
-    }
-]
+[{"id":"m2eo2tqvg06","name":"Peter Pan","email":"peter@pan.com","username":"peterpan","password":"123123123"},{"id":"m33ay092yab","name":"Javi","email":"javi@gmail.com","username":"javi","password":"123123123"}]

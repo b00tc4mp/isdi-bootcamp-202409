@@ -1,39 +1,81 @@
+import { Component } from 'react'
+
 import './Header.css'
 
 import { Anchor, Button } from '../library'
 
 import logic from '../../logic'
 
-export default ({ view, onHomeClick, onLoggedOut }) => {
-    let username
+export default class extends Component {
+    constructor(props) {
+        super(props)
 
-    if (logic.isUserLoggedIn())
-        try {
-            username = logic.getUserUsername()
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
+        this.state = { userName: "" }
+    }
+
+    componentDidMount() {
+        if (logic.isUserLoggedIn()) {
+            try {
+                logic.getUserName((error, userName) => {
+                    if (error) {
+                        alert(error.message)
+
+                        console.error(error)
+
+                        return
+                    }
+
+                    this.setState({ userName })
+                })
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
         }
+    }
 
-    const handleHomeClick = event => {
+    componentDidUpdate() {
+        if (logic.isUserLoggedIn()) {
+            try {
+                logic.getUserName((error, userName) => {
+                    if (error) {
+                        alert(error.message)
+
+                        console.error(error)
+
+                        return
+                    }
+
+                    this.setState({ userName })
+                })
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
+        }
+    }
+
+    handleHomeClick = event => {
         event.preventDefault()
 
-        onHomeClick()
+        this.props.onHomeClick()
     }
 
-    const handleLogout = () => {
+    handleLogout = () => {
         logic.logoutUser()
 
-        onLoggedOut()
+        this.props.onLoggedOut()
     }
 
-    return <header className="Header">
-        <h1>{view === 'new-post' ? <Anchor href="" onClick={handleHomeClick}>laicosnU</Anchor> : "laicosnU"}</h1>
+    render() {
+        return <header className="Header">
+            <h1>{this.props.view === 'new-post' ? <Anchor href="" onClick={this.handleHomeClick}>laicosnU</Anchor> : "laicosnU"}</h1>
 
-        <div className="name-button">
-            {logic.isUserLoggedIn() && <h3>{username}</h3>}
+            <div className="name-button">
+                {logic.isUserLoggedIn() && <h3>{this.state.userName}</h3>}
 
-            {logic.isUserLoggedIn() && <Button classname="logout-button" type="button" onClick={handleLogout}>𐢫</Button>}
-        </div>
-    </header>
+                {logic.isUserLoggedIn() && <Button classname="logout-button" type="button" onClick={this.handleLogout}>𐢫</Button>}
+            </div>
+        </header>
+    }
 }

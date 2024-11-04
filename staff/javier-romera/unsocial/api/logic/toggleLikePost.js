@@ -1,11 +1,15 @@
 import { validate } from './helpers/index.js'
 import { storage } from '../data/index.js'
 
-export default (postId, userId) => {
+export default (userId, postId) => {
     validate.id(postId, 'postId')
     validate.id(userId, 'userId')
 
-    const { posts } = storage
+    const { users, posts } = storage
+
+    const found = users.some(({ id }) => id === userId)
+
+    if (!found) throw new Error('user not found');
 
     const post = posts.find(({ id }) => id === postId)
 
@@ -15,8 +19,10 @@ export default (postId, userId) => {
 
     const index = likedBy.indexOf(userId)
 
-    if (index < 0) likedBy.push(userId)
-    else likedBy.splice(index, 1)
+    if (index < 0)
+        likedBy.push(userId)
+    else
+        likedBy.splice(index, 1)
 
     storage.posts = posts
 }

@@ -6,5 +6,4 @@ xhr.addEventListener('load', () => {
 
 xhr.open('DELETE', 'http://localhost:8080/posts/m2yjwe5wdfs/comments/m2ymh29xxfb')
 xhr.setRequestHeader('Authorization', 'Basic m2w6ch7dkh')
-xhr.setRequestHeader('Content-Type', 'application/json')
 xhr.send()

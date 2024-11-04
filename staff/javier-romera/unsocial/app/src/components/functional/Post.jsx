@@ -18,9 +18,17 @@ export default class extends Component {
 
     handleLikeClick = () => {
         try {
-            logic.toggleLikePost(this.props.post.id)
+            logic.toggleLikePost(this.props.post.id, error => {
+                if (error) {
+                    alert(error.message)
 
-            this.props.onLiked()
+                    console.error(error)
+
+                    return
+                }
+
+                this.props.onLiked()
+            })
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -29,9 +37,17 @@ export default class extends Component {
 
     handleDeleteClick = () => {
         if (confirm('Are you sure you want to delete this post?')) {
-            logic.deletePost(this.props.post.id)
+            logic.deletePost(this.props.post.id, error => {
+                if (error) {
+                    alert(error.message)
 
-            this.props.onDeleted()
+                    console.error(error)
+
+                    return
+                }
+
+                this.props.onDeleted()
+            })
         }
     }
 

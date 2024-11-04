@@ -1,25 +1,29 @@
 import { validate } from './helpers'
 
-import uuid from "../data/uuid"
-
-export default (postId, text) => {
+export default (postId, text, callback) => {
     validate.id(postId, 'postId')
     validate.text(text)
     if (text.length < 5) throw new Error('Comment is too short')
     if (text.length > 100) throw new Error('Comment is too long')
 
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest
 
-    const post = posts.find(({ id }) => id === postId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (!post) throw new Error('post not found')
+        if (status === 201) {
+            callback(null)
 
-    post.comments.push({
-        id: uuid(),
-        author: sessionStorage.loggedInUserId,
-        text,
-        date: new Date
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
     })
 
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.loggedInUserId}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(`{"text":"${text}"}`)
 }

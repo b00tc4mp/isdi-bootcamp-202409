@@ -10,23 +10,41 @@ export default class extends Component {
     constructor(props) {
         super(props)
 
-        let posts
+        this.state = { posts: [] }
+    }
 
+    componentDidMount() {
         try {
-            posts = logic.getPosts()
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             alert(error.message)
             console.error(error)
         }
-
-        this.state = { posts }
     }
 
     handleLiked = () => {
         try {
-            const posts = logic.getPosts()
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ posts })
+                    console.error(error)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -35,9 +53,17 @@ export default class extends Component {
 
     handleDeleted = () => {
         try {
-            const posts = logic.getPosts()
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ posts })
+                    console.error(error)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -46,9 +72,17 @@ export default class extends Component {
 
     handleCommentAdded = () => {
         try {
-            const posts = logic.getPosts()
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ posts })
+                    console.error(error)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -57,9 +91,17 @@ export default class extends Component {
 
     handleCommentRemoved = () => {
         try {
-            const posts = logic.getPosts()
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ posts })
+                    console.error(error)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             alert(error.message)
             console.error(error)

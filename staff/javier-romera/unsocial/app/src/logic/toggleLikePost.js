@@ -1,21 +1,25 @@
 import { validate } from './helpers'
 
-export default (postId) => {
+export default (postId, callback) => {
     validate.id(postId, 'postId')
 
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest
 
-    const post = posts.find(({ id }) => id === postId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (!post) throw new Error('post not found')
+        if (status === 200) {
+            callback(null)
 
-    const { likedBy } = post
-    const { loggedInUserId } = sessionStorage
+            return
+        }
 
-    const index = likedBy.indexOf(loggedInUserId)
+        const { error, message } = JSON.parse(response)
 
-    if (index < 0) likedBy.push(loggedInUserId)
-    else likedBy.splice(index, 1)
+        callback(new Error(message))
+    })
 
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.loggedInUserId}`)
+    xhr.send()
 }
