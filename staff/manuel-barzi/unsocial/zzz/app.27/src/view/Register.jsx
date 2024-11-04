@@ -21,19 +21,11 @@ export default props => {
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat, error => {
-                if (error) {
-                    alert(error.message)
+            logic.registerUser(name, email, username, password, passwordRepeat)
 
-                    console.error(error)
+            form.reset()
 
-                    return
-                }
-
-                form.reset()
-
-                props.onRegistered()
-            })
+            props.onRegistered()
         } catch (error) {
             alert(error.message)
 
