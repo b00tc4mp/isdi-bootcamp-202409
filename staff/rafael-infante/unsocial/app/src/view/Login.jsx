@@ -12,9 +12,15 @@ function Login(props) {
 
     try {
 
-      logic.loginUser(username, password)
-      event.target.reset()
-      props.onLoggedIn()
+      logic.authenticateUser(username, password, error => {
+        if (error) {
+          alert(error.message)
+          console.error(error)
+          return
+        }
+        event.target.reset()
+        props.onLoggedIn()
+      })
 
     } catch (error) {
       alert(error.message)
