@@ -26,5 +26,12 @@
         "email": "debora@hombres.com",
         "username": "debora",
         "password": "123456"
+    },
+    {
+        "id": "m3373mpb6uh",
+        "name": "Luis",
+        "email": "luis@gmail.com",
+        "username": "luis123",
+        "password": "123456"
     }
 ]

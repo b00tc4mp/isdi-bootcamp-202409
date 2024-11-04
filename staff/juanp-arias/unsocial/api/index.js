@@ -1,9 +1,12 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
+import cors from 'cors'
 
 const server = express()//inicializamos un servidor con express
 
-const jsonBodyParser = express.json()//toda la informacion que bajamos del servidor se convierte a formato JSON
+server.use(cors())
+
+const jsonBodyParser = json()//toda la informacion que bajamos del servidor se convierte a formato JSON
 
 server.get('/', (_, res) => res.send('Hello, API!'))//Es como una ruta por defecto para informarnos que el API está arriba 
 
@@ -63,19 +66,6 @@ server.get('/users/:userId', (req, res) => {
     }
 })
 
-server.get('/posts', (req, res) => {
-    const userId = req.headers.authorization.slice(6)
-
-    try {
-        const posts = logic.getPosts(userId)
-
-        res.json(posts)
-    } catch {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-        console.error(error)
-    }
-})
-
 server.post('/posts', jsonBodyParser, (req, res) => {
     const userId = req.headers.authorization.slice(6)
 
@@ -90,6 +80,20 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
+server.get('/posts', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        const posts = logic.getPosts(userId)
+
+        res.json(posts)
+    } catch {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+    }
+})
+
+
 server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
     const { postId } = req.params
     const userId = req.headers.authorization.slice(6)
@@ -97,37 +101,26 @@ server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
     try {
         logic.deletePost(userId, postId)
 
-        res.status(200).send()
+        res.status(204).send()
     } catch {
         res.status(400).json({ error: error.constructor.name, message: error.message })
         console.error(error)
     }
 })
 
-server.patch('/posts/:postId', (req, res) => {
+server.patch('/posts/:postId/likes', (req, res) => {
     const { postId } = req.params
     const userId = req.headers.authorization.slice(6)
 
     try {
-        logic.toggleLikePosts(postId, userId)
-        res.status(200).send()
+        logic.toggleLikePosts(userId, postId)
+        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
         console.error(error)
     }
 })
 
-server.get('/posts/:postId/comments', (req, res) => {
-    const { postId } = req.params
-
-    try {
-        const comments = logic.getComments(postId)
-        res.json(comments)
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-        console.error(error)
-    }
-})
 
 server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
     const userId = req.headers.authorization.slice(6)
@@ -135,7 +128,7 @@ server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
     const { text } = req.body
 
     try {
-        logic.addComments(postId, text, userId)
+        logic.addComments(userId, postId, text)
 
         res.status(201).send()
     } catch (error) {
@@ -149,12 +142,24 @@ server.delete('/posts/:postId/comments/:commentId', (req, res) => {
     const userId = req.headers.authorization.slice(6)
 
     try {
-        logic.removeComment(postId, commentId, userId)
+        logic.removeComment(userId, postId, commentId)
 
-        res.status(200).send()
+        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
+        console.error(error)
+    }
+})
+
+server.get('/posts/:postId/comments', (req, res) => {
+    const { postId } = req.params
+    const userId = req.headers.authorization.slice(6)
+    try {
+        const comments = logic.getComments(userId, postId)
+        res.json(comments)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
         console.error(error)
     }
 })

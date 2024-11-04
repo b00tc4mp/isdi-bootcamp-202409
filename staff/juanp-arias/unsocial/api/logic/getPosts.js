@@ -1,7 +1,12 @@
-import { storage } from "../data/index.js"
+import { storage } from '../data/index.js'
+import validate from './helpers/validate.js'
 
-export default () => {
+export default userId => {
+    validate.id(userId, 'userId')
     const { posts, users } = storage
+
+    const found = users.some(({ id }) => id === userId)
+    if (!found) throw new Error('user not found')
 
     posts.forEach(post => {
         const { author: authorId } = post
@@ -15,6 +20,5 @@ export default () => {
         post.comments = post.comments.length
     })
 
-    storage.posts = posts
     return posts.toReversed()
 }

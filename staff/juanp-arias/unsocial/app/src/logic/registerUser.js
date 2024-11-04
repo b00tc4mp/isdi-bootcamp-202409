@@ -1,22 +1,28 @@
 import { validate } from './helpers'
-import uuid from '../data/uuid'
 
-export default (name, email, username, password, repeatpassword) => {
+export default (name, email, username, password, repeatpassword, callback) => {
     validate.name(name)
     validate.email(email)
     validate.username(username)
     validate.password(password)
     validate.passwordRepeat(password, repeatpassword)
 
-    const users = JSON.parse(localStorage.users)
+    const xhr = new XMLHttpRequest
 
-    let user = users.find(user => user.username === username || user.email === email)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (user !== undefined)
-        throw new Error('user already exists')
+        if (status === 201) {
+            callback(null)
 
-    user = { id: uuid(), name: name, email: email, username: username, password: password, repeatpassword: repeatpassword }
-    users.push(user)
+            return
+        }
 
-    localStorage.users = JSON.stringify(users)
+        const { error, message } = JSON.parse(response)
+        callback(new Error(message))
+    })
+
+    xhr.open('POST', 'http://localhost:7070/register')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': repeatpassword }))
 }

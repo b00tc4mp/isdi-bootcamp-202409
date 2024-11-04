@@ -3,7 +3,7 @@ import './Register.css'
 import { PasswordInput, Input, Button, Form, Label } from '../components/library'
 import logic from '../logic'
 
-export default (props) => {
+export default props => {
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -19,10 +19,17 @@ export default (props) => {
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, repeatpassword)
-            form.reset()
+            logic.registerUser(name, email, username, password, repeatpassword, error => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
 
-            props.onRegistered()
+                form.reset()
+
+                props.onRegistered()
+            })
         } catch (error) {
 
             alert(error.message)

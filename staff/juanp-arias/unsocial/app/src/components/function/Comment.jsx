@@ -9,7 +9,7 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
     const handleRemove = () => {
         if (confirm('Delete comment?'))
             try {
-                logic.removeComment(postId, id)//TODO falta crear logica e importarla
+                logic.removeComment(postId, id)
 
                 onRemoved()
             } catch (error) {

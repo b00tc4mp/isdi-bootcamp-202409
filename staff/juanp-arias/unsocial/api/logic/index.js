@@ -21,8 +21,8 @@ const logic = {
     deletePost,
     toggleLikePosts,
 
-    addComments,
     getComments,
+    addComments,
     removeComment
 }
 

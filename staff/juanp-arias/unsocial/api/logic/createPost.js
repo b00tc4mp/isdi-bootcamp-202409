@@ -10,7 +10,6 @@ export default (userId, image, text) => {
     const { users, posts } = storage
 
     const found = users.some(({ id }) => id === userId)
-
     if (!found) throw new Error('user not found')
 
     const post = {
