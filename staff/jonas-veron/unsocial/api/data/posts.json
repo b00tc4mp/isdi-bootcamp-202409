@@ -5,7 +5,7 @@
     "text": "hola mundo!!!!",
     "author": "m2wawcrxzki",
     "date": "2024-11-01T12:58:40.435Z",
-    "likes": ["m2wawcrxzki", "m2yxig4w4f"],
+    "likes": ["m2yxig4w4f"],
     "comments": [
       {
         "id": "m2yxig4w4f",
@@ -34,18 +34,24 @@
     "comments": []
   },
   {
-    "id": "m2yrbfsi21f",
+    "id": "m32sos5ly2",
     "image": "https://images.squarespace-cdn.com/content/v1/6137f1eafdd46630c1744367/118c6bda-87ce-422c-95eb-1c8085e160f4/DSC00486-2.jpg",
     "text": "holaaaaaa mundo",
     "author": "m2wawcrxzki",
-    "date": "2024-11-01T13:15:08.082Z",
+    "date": "2024-11-04T09:04:34.953Z",
     "likes": [],
     "comments": [
       {
-        "id": "m2ywj3n9l7",
+        "id": "m32wiau05si",
         "author": "m2wawcrxzki",
-        "text": "Que haceeeee papá!!",
-        "date": "2024-11-01T15:41:03.669Z"
+        "text": "holaaaa puti",
+        "date": "2024-11-04T10:51:31.032Z"
+      },
+      {
+        "id": "m32wj5e4pz",
+        "author": "m2wawcrxzki",
+        "text": "holaaaa putiiiiiii",
+        "date": "2024-11-04T10:52:10.636Z"
       }
     ]
   }

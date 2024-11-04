@@ -1,10 +1,12 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
-
+import cors from 'cors'
 
 const server = express()
 
-const jsonBodyParser = express.json()
+server.use(cors())
+
+const jsonBodyParser = json()
 
 server.get('/', (_,res) => res.send('Hello, API!'))
 
@@ -84,7 +86,7 @@ server.delete('/posts/:postId', (req, res) => {
     const userId = req.headers.authorization.slice(6)
     try {
         logic.deletePost(userId, postId)
-        res.status(200).send() //OK
+        res.status(204).send() //OK
     } catch (error) {
         res.status(404).json({ error: error.constructor.name, message: error.message })
 
@@ -92,7 +94,7 @@ server.delete('/posts/:postId', (req, res) => {
     }
 })
 
-server.patch('/posts/:postId', (req, res) => {
+server.patch('/posts/:postId/likes', (req, res) => {
     const userId = req.headers.authorization.slice(6)
     const { postId } = req.params
 
@@ -112,7 +114,7 @@ server.patch('/posts/:postId', (req, res) => {
 
 
 
-server.post('/posts/:postId', jsonBodyParser, (req, res) => {
+server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
     const userId = req.headers.authorization.slice(6)
     const { text } = req.body
 
@@ -129,10 +131,11 @@ server.post('/posts/:postId', jsonBodyParser, (req, res) => {
 })
 
 server.get('/posts/:postId/comments', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
     const { postId } = req.params
 
     try {
-        const comments = logic.getComments(postId)
+        const comments = logic.getComments(userId, postId)
 
         res.json(comments)
     } catch (error) {
