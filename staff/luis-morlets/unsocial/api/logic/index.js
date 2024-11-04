@@ -1,36 +1,29 @@
 import createPost from './createPost.js'
 import deletePost from './deletePost.js'
-//import getPosts from './getPosts'
-//import likesInteraction from './likesInteraction'
+import getPosts from './getPosts.js'
+import likesInteraction from './likesInteraction.js'
 
 import getUserName from './getUserName.js'
-//import isUserLoggedIn from './isUserLoggedIn'
 import authenticateUser from './authenticateUser.js'
-//import logoutUser from './logoutUser'
 import registerUser from './registerUser.js'
-//import getUserId from './getUserId'
 
-
-// import createComment from './createComment'
-// import getComments from './getComments'
-// import removeComment from './removeComment'
+import addComment from './addComment.js'
+import getComments from './getComments.js'
+import removeComment from './removeComment.js'
 
 const logic = {
     registerUser,
     authenticateUser,
-    // isUserLoggedIn,
-    // logoutUser,
     getUserName,
-    //getUserId,
 
-    // getComments,
-    // createComment,
-    // removeComment,
+    getComments,
+    addComment,
+    removeComment,
 
     createPost,
-    // getPosts,
-    deletePost
-    // likesInteraction,
+    getPosts,
+    deletePost,
+    likesInteraction
 }
 
 export default logic

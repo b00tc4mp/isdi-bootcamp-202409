@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2wd7pkr7xq' -H 'Content-Type: application/json' -d '{"text":"Bolivar te anda buscando la negra Matea"}' http://localhost:8080/posts/m2xaozivndc/comments -v

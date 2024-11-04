@@ -14,7 +14,7 @@ export default () => {
 
         post.liked = post.likedBy.includes(userId)
 
-        delete post.comments
+        post.comments = post.comments.length
     })
 
     return posts.toReversed()

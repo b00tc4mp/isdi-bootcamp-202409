@@ -1,7 +1,7 @@
 import deletePost from './deletePost.js'
 
 try {
-    console.log(deletePost('m2wd7pkr7xq', 'm2wecjrb0ar'))
+    deletePost('m2wd7pkr7xq', 'm32snzaun6d')
 } catch (error) {
     console.error(error)
 }

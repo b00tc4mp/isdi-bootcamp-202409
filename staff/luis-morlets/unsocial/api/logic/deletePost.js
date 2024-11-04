@@ -5,7 +5,11 @@ export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const { posts } = storage
+    const { posts, users } = storage
+
+    const found = users.some(({ id }) => id === userId)
+
+    if (!found) throw new Error('user not found')
 
     const index = posts.findIndex(({ id }) => id === postId)
 
