@@ -100,8 +100,8 @@ server.get('/users/:userId/name', (req, res) => { //:parámetro dinámico, que p
     }
 })
 
-server.get('/posts/:userId', (req, res) => {
-    const { userId } = req.params
+server.get('/posts', (req, res) => { //cuando no se recibe data dl cliente no hace falta el jsonBodyParser
+    const userId = req.headers.authorization.slice(6)
 
     try {
         const posts = logic.getPosts(userId)
@@ -136,9 +136,9 @@ server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
     const { postId } = req.params
 
     try {
-        logic.deletePost(postId, userId)
+        logic.deletePost(userId, postId)
 
-        res.status(200).send()
+        res.status(204).send() //devuelves un 200 pero sin body
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -184,7 +184,7 @@ server.delete('/posts/:postId/comments/:commentId', jsonBodyParser, (req, res) =
     try {
         logic.removeComment(userId, postId, commentId)
 
-        res.status(200).send()
+        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -192,7 +192,7 @@ server.delete('/posts/:postId/comments/:commentId', jsonBodyParser, (req, res) =
     }
 })
 
-server.patch('/posts/:postId/likes', jsonBodyParser, (req, res) => {
+server.patch('/posts/:postId/likes', (req, res) => {
     const userId = req.headers.authorization.slice(6)
 
     const { postId } = req.params
@@ -208,7 +208,7 @@ server.patch('/posts/:postId/likes', jsonBodyParser, (req, res) => {
     }
 })
 
-server.patch('/posts/:postId/saves', jsonBodyParser, (req, res) => {
+server.patch('/posts/:postId/saves', (req, res) => {
     const userId = req.headers.authorization.slice(6)
 
     const { postId } = req.params
@@ -234,6 +234,7 @@ terminal commands:
     npm i express //instalar express. el archivo generado x defecto se puede borrar
     touch index.js //creo un archivo
 
+    control C //parar la api
     node . //arrancar el server. voy al navegador y pongo localhost:8080/ruta. ej: localhost:8080/authenticate
     npm start //previo habiéndolo puesto en el package "start"
     
@@ -249,6 +250,8 @@ terminal commands:
     test/authenticate-user.sh //ejecuta automáticamente el código con el dólar que es para el terminal
 
     xhr se prueba en el navegador directamente, previamente hay q estar conectados a la api
+        Si pongo lo siguiente tras probarlo en el navegador, me lo pasa a objeto:
+        JSON.parse(xhr.response)
 
     ls -l test/authenticate-user.sh //ver si tengo permisos, o sea si el archivo es ejecutable
         RWX (lectura, escritura, ejecución) rwxrwxrwx (yo, mi equipo, otros equipos)

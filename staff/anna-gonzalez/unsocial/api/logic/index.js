@@ -9,6 +9,7 @@ import removeComment from './removeComment.js'
 import toggleLikePost from './toggleLikePost.js'
 import toggleSavePost from './toggleSavePost.js'
 import getUserId from './getUserId.js'
+import deletePost from './deletePost.js'
 
 const logic = {
     authenticateUser,
@@ -18,6 +19,7 @@ const logic = {
 
     createPost,
     getPosts,
+    deletePost,
     toggleLikePost,
     toggleSavePost,
 

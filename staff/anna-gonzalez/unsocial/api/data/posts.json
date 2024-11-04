@@ -5,27 +5,18 @@
         "text": "hello world",
         "author": "m2w6ehc8bg",
         "date": "2024-10-30T17:57:44.961Z",
-        "likes": [
-            "m2w6ehc8bg"
-        ],
+        "likes": [],
         "comments": [],
         "saves": []
     },
     {
-        "id": "m30h1nbvkrd",
-        "image": "http://invented-image.com",
-        "text": "hello world",
+        "id": "m32soe3izto",
+        "image": "https://images.squarespace-cdn.com/content/v1/6137f1eafdd46630c1744367/118c6bda-87ce-422c-95eb-1c8085e160f4/DSC00486-2.jpg",
+        "text": "hola patagonia",
         "author": "m2w6ehc8bg",
-        "date": "2024-11-02T18:03:07.483Z",
+        "date": "2024-11-04T09:04:16.735Z",
         "likes": [],
-        "comments": [
-            {
-                "id": "m31cwamtc6j",
-                "author": "m2w6ehc8bg",
-                "text": "hola patagonia",
-                "date": "2024-11-03T08:54:45.461Z"
-            }
-        ],
+        "comments": [],
         "saves": []
     }
 ]
