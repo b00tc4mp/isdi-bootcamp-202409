@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { json } from 'express'
 import logic from './logic/index.js'
 import cors from 'cors'
 
@@ -6,7 +6,7 @@ const server = express()
 
 server.use(cors())
 
-const jsonBodyParser = express.json()
+const jsonBodyParser = json()
 
 server.get('/', (_req, res) => res.send('Hello, API!'))
 
