@@ -6,4 +6,4 @@ xhr.addEventListener('load', () => {
 
 xhr.open('POST', 'http://localhost:8080/register')
 xhr.setRequestHeader('Content-Type', 'application/json')
-xhr.send('{"name": "Pin Otto","email":"pin@otto.com","username":"pinotto","password":"123123123","password-repeat":"123123123"}')
+xhr.send('{"name": "Campa Nilla","email":"campa@nilla.com","username":"campa","password":"123123123","password-repeat":"123123123"}')

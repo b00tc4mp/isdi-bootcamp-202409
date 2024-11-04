@@ -13,7 +13,15 @@ export default props => {
     const { target: { username: { value: username }, password: { value: password } } } = event
 
     try {
-      logic.loginUser(username, password)
+      logic.loginUser(username, password, error => {
+        if (error) {
+          alert(error.message)
+
+          console.error(error)
+
+          return
+        }
+      })
 
       event.target.reset()
 

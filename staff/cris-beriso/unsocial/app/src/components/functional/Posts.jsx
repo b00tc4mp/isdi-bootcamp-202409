@@ -8,7 +8,7 @@ import './Posts.css'
 
 export default class extends Component {
   constructor(props) {
-    console.log('Posts -> render')
+    console.log('Posts -> constructor')
 
     super(props)
 

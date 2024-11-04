@@ -26,5 +26,19 @@
     "email": "pepito@grillo.com",
     "username": "pepitogrillo",
     "password": "123123123"
+  },
+  {
+    "id": "m335dpht06",
+    "name": "Campa Nilla",
+    "email": "campa@nilla.com",
+    "username": "campa",
+    "password": "123123123"
+  },
+  {
+    "id": "m335o2nqq1",
+    "name": "Cofy",
+    "email": "cofy@cofy.com",
+    "username": "cofy2015",
+    "password": "criscris"
   }
 ]

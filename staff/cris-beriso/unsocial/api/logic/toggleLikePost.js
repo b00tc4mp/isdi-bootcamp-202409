@@ -5,7 +5,11 @@ export default (userId, postId) => {
   validate.id(postId, 'postId')
   validate.id(userId, 'userId')
 
-  const { posts } = storage
+  const { users, posts } = storage
+
+  const found = users.some(({ id }) => id === userId)
+
+  if (!found) throw new Error('user not found')
 
   const post = posts.find(({ id }) => id === postId)
 
@@ -15,8 +19,10 @@ export default (userId, postId) => {
 
   const index = likes.indexOf(userId)
 
-  if (index < 0) likes.push(userId)
-  else likes.splice(index, 1)
+  if (index < 0)
+    likes.push(userId)
+  else
+    likes.splice(index, 1)
 
   storage.posts = posts
 }

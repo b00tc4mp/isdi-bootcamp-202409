@@ -7,12 +7,25 @@
  * @param {string} userId id del usuario del que queremos obtener el nombre
  * @returns el nombre del usuario obtenido a partir del id
  */
-export default () => {
-  const users = JSON.parse(localStorage.users)
+export default callback => {
+  const xhr = new XMLHttpRequest
 
-  const user = users.find(user => user.id === sessionStorage.userId)
+  xhr.addEventListener('load', () => {
+    const { status, response } = xhr
 
-  if (!user) throw new Error('user not found')
+    if (status === 200) {
+      const name = JSON.parse(response)
 
-  return user.name
+      callback(null, name)
+
+      return
+    }
+
+    const { error, message } = JSON.parse(response)
+
+    callback(new Error(message))
+  })
+
+  xhr.open('GET', `http://localhost:8080/users/${sessionStorage.userId}/name`)
+  xhr.send()
 }

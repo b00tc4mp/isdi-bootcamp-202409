@@ -1,47 +1,87 @@
+import { Component } from 'react'
 import { Button } from '../library'
 
 import logic from '../../logic'
 
 import './Header.css'
 
-export default ({ view, onHomeClick, onLoggedOut, onProfile }) => {
-  console.log('Header -> render')
-  let name
+export default class extends Component {
+  constructor(props) {
+    console.log('Header -> constructor')
 
-  if (logic.isUserLoggedIn())
+    super(props)
+
+    this.state = { name: null }
+  }
+
+  componentDidMount() {
+    if (logic.isUserLoggedIn())
+      try {
+        logic.getUserName((error, name) => {
+          if (error) {
+            alert(error.message)
+
+            console.error(error)
+
+            return
+          }
+          this.setState({ name })
+        })
+      } catch (error) {
+        alert(error.message)
+
+        console.error(error)
+      }
+  }
+
+  handleHomeClick = event => {
     try {
-      name = logic.getUserName()
+      event.preventDefault()
+
+      onHomeClick()
     } catch (error) {
       alert(error.message)
 
       console.error(error)
     }
 
-  const handleHomeClick = event => {
-    event.preventDefault()
-
-    onHomeClick()
   }
 
-  const handleLogout = () => {
-    if (confirm('Logout?')) {
-      logic.logoutUser()
+  handleLogout = () => {
+    try {
+      if (confirm('Logout?')) {
+        logic.logoutUser()
 
-      onLoggedOut()
+        onLoggedOut()
+      }
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
     }
   }
 
-  const handleProfileClick = event => {
-    event.preventDefault()
+  handleProfileClick = event => {
+    try {
+      event.preventDefault()
 
-    onProfile()
+      onProfile()
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+
   }
 
-  return <header className='Header'>
-    <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+  render() {
+    console.log('Header -> render')
+    return <header className='Header'>
+      <h1>{this.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
-    {logic.isUserLoggedIn() && <h3><a href="" onClick={handleProfileClick}>{name}</a></h3>}
+      {logic.isUserLoggedIn() && <h3><a href="" onClick={this.handleProfileClick}>{this.state.name}</a></h3>}
 
-    {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
-  </header>
+      {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
+    </header>
+  }
 }
