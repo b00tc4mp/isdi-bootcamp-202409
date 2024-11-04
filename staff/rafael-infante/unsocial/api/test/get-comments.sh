@@ -1,1 +1,1 @@
-curl http://localhost:8080/posts/m31o037p6yl/comments -v
+curl -H 'Authorization: Basic m2wgq7tdelk' http://localhost:8080/posts/m31o037p6yl/comments -v

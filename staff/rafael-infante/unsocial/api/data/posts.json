@@ -5,7 +5,9 @@
     "text": "Soy un gatito guapo",
     "author": "m2wh96xo6vr",
     "date": "2024-10-30T23:12:43.475Z",
-    "likes": [],
+    "likes": [
+      "m2wgq7tdelk"
+    ],
     "comments": []
   },
   {
@@ -15,7 +17,8 @@
     "author": "m2wgq7tdelk",
     "date": "2024-11-03T14:05:38.245Z",
     "likes": [
-      "m2wh96xo6vr"
+      "m2wh96xo6vr",
+      "m2wgq7tdelk"
     ],
     "comments": [
       {

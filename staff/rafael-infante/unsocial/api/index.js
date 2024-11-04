@@ -88,11 +88,27 @@ server.delete('/posts/:postId', (req, res) => {
   }
 })
 
-server.get('/posts/:postId/comments', (req, res) => {
+server.patch('/posts/:postId/likes', (req, res) => {
+  const userId = req.headers.authorization.slice(6)
+
   const { postId } = req.params
 
   try {
-    const comments = logic.getComments(postId)
+    logic.toggleLikePost(userId, postId)
+
+    res.status(204).send()
+  } catch (error) {
+    res.status(400).json({ error: error.constructor.name, message: error.message })
+
+  }
+})
+
+server.get('/posts/:postId/comments', (req, res) => {
+  const userId = req.headers.authorization.slice(6)
+  const { postId } = req.params
+
+  try {
+    const comments = logic.getComments(userId, postId)
     res.json(comments)
   } catch (error) {
     res.status(400).json({ error: error.constructor.name, message: error.message })

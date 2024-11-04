@@ -7,6 +7,7 @@ import addComment from "./addComment.js";
 import getComments from "./getComments.js";
 import getPosts from "./getPosts.js";
 import removeComment from "./removeComment.js";
+import toggleLikePost from "./toggleLikePost.js";
 
 const logic = {
   authenticateUser,
@@ -16,6 +17,7 @@ const logic = {
   createPost,
   deletePost,
   getPosts,
+  toggleLikePost,
 
 
   addComment,
