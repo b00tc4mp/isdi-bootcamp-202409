@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2wgq7tdelk' -H 'Content-Type: application/json' -d '{"image":"https://gratisography.com/wp-content/uploads/2024/10/gratisography-halloween-cat-1036x780.jpg","text":"hello ween"}' http://localhost:8080/posts -v

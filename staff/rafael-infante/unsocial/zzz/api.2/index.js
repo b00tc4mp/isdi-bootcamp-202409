@@ -1,10 +1,7 @@
 import express from 'express'
 import logic from './logic/index.js'
-import cors from 'cors'
 
 const server = express()
-
-server.use(cors())
 
 const jsonBodyParser = express.json()
 
@@ -24,10 +21,10 @@ server.post('/authenticate', jsonBodyParser, (req, res) => {
 })
 
 server.post('/register', jsonBodyParser, (req, res) => {
-  const { name, email, username, password, confirmPassword } = req.body
+  const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
   try {
-    logic.registerUser(name, email, username, password, confirmPassword)
+    logic.registerUser(name, email, username, password, passwordRepeat)
 
     res.status(201).send()
   } catch (error) {
