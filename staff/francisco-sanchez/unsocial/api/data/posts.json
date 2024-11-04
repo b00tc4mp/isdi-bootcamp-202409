@@ -14,8 +14,23 @@
         "text": "I love mountains",
         "author": "m2ey7tvjg0t",
         "date": "2024-10-31T10:39:30.227Z",
-        "likes": [],
-        "comments": []
+        "likes": [
+            "m2osxzzmwg6"
+        ],
+        "comments": [
+            {
+                "id": "m334577mj8b",
+                "author": "m2osxzzmwg6",
+                "text": "Me too!",
+                "date": "2024-11-04T14:25:16.738Z"
+            },
+            {
+                "id": "m337gxwxg06",
+                "author": "m2osxzzmwg6",
+                "text": "Me too!",
+                "date": "2024-11-04T15:58:23.409Z"
+            }
+        ]
     },
     {
         "id": "m2xfqx4yi6",

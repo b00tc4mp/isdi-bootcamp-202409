@@ -9,6 +9,7 @@ export default (name, email, username, password, passwordRepeat) => {
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
 
+    //const users = storage.users
     const { users } = storage
 
     let user = users.find(user => user.username === username || user.email === email)

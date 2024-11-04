@@ -1,5 +1,6 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
+import cors from 'cors'
 
 //Inicializamos el server de express 
 const server = express()
@@ -87,18 +88,129 @@ server.post('/posts', jsonBodyParser, (req, res) => {
 })
 
 
+
+server.get('/posts', (req, res) => {
+    const userId = req.header.authorization.slice(6)
+
+    try {
+        const posts = logic.getPosts(userId)
+    } catch {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+
+    }
+})
+
+
 server.delete('/posts/:postId', (req, res) => {
     const { postId } = req.params
     const userId = req.headers.authorization.slice(6)
 
     try {
         logic.deletePost(userId, postId)
-        res.status(200).send() //Cuando el server devuelve OK
+        res.status(204).send() //Cuando el server devuelve OK
+        //El resultado 200 estaría bien, pero cuando no hay que devolver nada mejor un 204
     } catch {
         res.status(400).json({ error: error.constructor.name, message: error.message })
         console.error(error)
     }
 })
+
+
+server.patch('/posts/:postId/likes', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+
+        logic.toggleLikePost(userId, postId)
+
+        res.status(204).send()
+
+
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+    }
+
+})
+
+
+//Montar la url para los addComments
+server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
+
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId } = req.params
+
+    const { text } = req.body
+
+    //const { params: { postId }, body: { text } } = req
+
+    try {
+        logic.addComment(userId, postId, text)
+        res.status(201).send()
+    } catch {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+    }
+
+})
+
+//Llamada al toggle like posts
+server.patch('/posts/:postId/likes', (req, res) => {
+    const userId = req.header.authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.toggleLikePost(userId, postId)
+        res.status(204).send()
+
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+    }
+})
+
+
+//url para removeComment
+server.delete('/posts/:postId/comments/:commentId', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId, commentId } = req.params
+
+    try {
+        logic.removeComment(userId, postId, commentId)
+        res.status(204).send()
+
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+    }
+})
+
+
+
+//url para getComments
+server.get('/posts/:postId/comments', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+    const { postId } = req.params
+
+    try {
+        const comments = logic.getComments(userId, postId)
+        res.json(comments)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+        console.error(error)
+
+    }
+})
+
+
+
+
 
 
 server.listen(8080, () => console.log('api is up'))

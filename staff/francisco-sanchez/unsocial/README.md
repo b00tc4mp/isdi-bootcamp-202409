@@ -38,6 +38,62 @@
 
 -----------------------------------------------------------------
 
+## **04/11/2024**
+### Terminamos la API
+Hoy terminamos todas las lógicas de la API, aquí está el flujo para crear los archivos
+
+
+Flujo de creación de los archivos para la API
+    
+**LOGIC**
+
+1. Crear el xxx.test.js --> Para hacer la prueba directa.
+2. Creamos el xxx.js --> Es la lógica como tal.
+3. Añadimos la logica xxx.js en el index.js de logica
+
+
+**INDEX.JS de la api**
+
+4. Hay que añadir la nueva lógica con la nueva url al index.js de la api.
+
+
+
+**TEST**
+
+5. Crear el xxx-xxx.sh --> para hacer la prueba en linea de comandos en terminal
+6. Crear el xxx-xxx-js (para el xhr) --> Para probar en consola del navegador
+
+
+### Integramos la api con la app
+- Añadimos el start en el package.json de la app
+- Vemos que nuestra app arranca vite con un puerto, mientras que la api arranca con otro puerto
+- Esto provoca un error CORS
+    - URL: https://www.labsmobile.com/es/blog/que-es-el-error-cors-y-cuando-se-produce
+    - URL2: https://developer.mozilla.org/es/docs/Web/HTTP/CORS/Errors
+
+    - Esto está relacionado con las optiones del navegador
+    - URL: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS
+
+- LO QUE TENEMOS QUE HACER
+    - OK- instalar CORS (npm install cors) --> Luego lo usamos en la api
+    - TODO: Revisar lo que manu ha hecho en index.js de la api 
+    - Añadimos el server.options dentro del index de la api 
+        Access-Control-Allow-Origin: http://example.com
+        Access-Control-Allow-Methods: POST, GET, OPTIONS
+        Access-Control-Allow-Headers: Content-Type, Authorization... (Si ponemos un '*' los permitimos todos)
+    
+    - TODO: Modificamos el registerUser.js de la App utilizando la llamada a la api XHR
+    - TODO: Modificamos registerUser.js con la respuesta correcta de xhr, y añadimos un callback en el export default. 
+    - En caso que la api devuelva error, tenemos que parsear la respuesta con lo que nos devuelve (error, message)
+        - Y esto se lo pasamos al callback
+    
+    - Y esta respuesta la va a usar el compo view de Register.jsx (el de react)
+        - Dentro del try de la lógica usaremos lo que nos retorna el callback  
+    
+
+
+
+
 ## **30/10/2024 **
 
 **Ya hemos visto un poco las lógicas de server, hoy lo implementaremos en nuestra app**
