@@ -48,7 +48,7 @@ server.get('/users/:userId/name', (req, res) => {
 })
 
 server.get('/posts', (req, res) => {
-  const { userId } = req.headers.authorization.slice(6)
+  const userId = req.headers.authorization.slice(6)
 
   try {
     const posts = logic.getPosts(userId)
@@ -81,7 +81,7 @@ server.delete('/posts/:postId', (req, res) => {
 
   try {
     logic.deletePost(userId, postId)
-    res.status(200).send()
+    res.status(204).send()
   } catch (error) {
     res.status(400).json({ error: error.constructor.name, message: error.message })
 
