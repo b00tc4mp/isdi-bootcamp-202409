@@ -65,6 +65,52 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
+server.get('/posts', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    try {
+        const posts = logic.getPosts(userId)
+
+        res.json(posts)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.delete('/posts/:postId', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.deletePost(userId, postId)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
+server.patch('/posts/:postId/likes', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.toggleLikePost(userId, postId)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+})
+
 
 server.listen(8080, () => console.log('api is up'))
 
