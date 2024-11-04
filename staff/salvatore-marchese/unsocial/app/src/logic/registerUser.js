@@ -1,37 +1,30 @@
-import uuid from '../data/uuid'
+import { validate } from './helpers'
 
-export default (name, email, username, password, passwordRepeat) => {
-    if (typeof name !== 'string') throw new Error('invalid name')
-    if (name.length < 2)
-        throw new Error('invalid name length')
+export default (name, email, username, password, passwordRepeat, callback) => {
+    validate.name(name)
+    validate.email(email)
+    validate.username(username)
+    validate.password(password)
+    validate.passwordsMatch(password, passwordRepeat)
+    // TODO validate callback
 
-    if (typeof email !== 'string') throw new Error('invalid email')
-    if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
-        throw new Error('invalid e-mail')
+    const xhr = new XMLHttpRequest
 
-    if (typeof username !== 'string') throw new Error('invalid username')
-    if (username.length < 4 || username.length > 12)
-        throw new Error('invalid username')
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (typeof password !== 'string') throw new Error('invalid password')
-    if (password.length < 8)
-        throw new Error('invalid password')
+        if (status === 201) {
+            callback(null)
 
-    if (typeof passwordRepeat !== 'string') throw new Error('invalid password repeat')
-    if (password !== passwordRepeat)
-        throw new Error('passwords do not match')
+            return
+        }
 
-    const users = JSON.parse(localStorage.users)
+        const { error, message } = JSON.parse(response)
 
-    let user = users.find(user => user.username === username || user.mail === email)
+        callback(new Error(message))
+    })
 
-    if (user !== undefined)
-        throw new Error('user already exists')
-
-    user = { id: uuid(), name: name, email: email, username: username, password: password }
-
-    users.push(user)
-
-    localStorage.users = JSON.stringify(users)
+    xhr.open('POST', 'http://localhost:8080/register')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat }))
 }
-
