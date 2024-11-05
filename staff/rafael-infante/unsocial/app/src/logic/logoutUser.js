@@ -1,1 +1,1 @@
-export default () => delete sessionStorage.loggedUserId
+export default () => delete sessionStorage.userId

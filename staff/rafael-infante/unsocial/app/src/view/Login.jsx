@@ -12,7 +12,8 @@ function Login(props) {
 
     try {
 
-      logic.authenticateUser(username, password, error => {
+      logic.loginUser(username, password, error => {
+
         if (error) {
           alert(error.message)
           console.error(error)

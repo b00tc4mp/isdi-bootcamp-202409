@@ -1,6 +1,6 @@
 import { Component } from "react"
 
-import { Login, Register, Home, CreatePost } from "./view"
+import { Login, Register, Posts, CreatePost } from "./view"
 
 import { Header, Footer } from './components/functional'
 
@@ -10,35 +10,54 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
+    this.state = { view: logic.isUserLoggedIn() ? 'posts' : 'login' }
   }
+
+  handleHomeClick = () => this.setState({ view: 'posts' })
+
+  handleUserLoggedOut = () => {
+    this.setState({ view: 'login' })
+    logic.logoutUser()
+  }
+
+  handleUserloggedIn = () => this.setState({ view: 'posts' })
+
+  handleAnchorRegister = () => this.setState({ view: 'register' })
+
+  handleUserRegistered = () => this.setState({ view: 'login' })
+
+  handleAnchorLogin = () => this.setState({ view: 'login' })
+
+  handlePostCreated = () => this.setState({ view: 'posts' })
+
+  handleNewPostClick = () => this.setState({ view: 'new-post' })
 
   render() {
     console.log('App -> render')
     return (
       <>
-        <Header view={this.state.view} onHomeClick={() => {
-          this.setState({ view: 'home' })
-        }} onLoggedOut={() => {
-          this.setState({ view: 'login' })
-          logic.logoutUser()
-        }} />
+        <Header view={this.state.view}
+          onHomeClick={this.handleHomeClick}
+          onLoggedOut={this.handleUserLoggedOut} />
 
         {this.state.view === 'login' && <Login
-          onLoggedIn={() => this.setState({ view: 'home' })}
-          onAnchorRegister={() => this.setState({ view: 'register' })}
+          onLoggedIn={this.handleUserloggedIn}
+          onAnchorRegister={this.handleAnchorRegister}
         />}
 
         {this.state.view === 'register' && <Register
-          onRegistered={() => this.setState({ view: 'login' })}
-          onAnchorLogin={() => this.setState({ view: 'login' })}
+          onRegistered={this.handleUserRegistered}
+          onAnchorLogin={this.handleAnchorLogin}
         />}
 
-        {this.state.view === 'home' && <Home />}
+        {this.state.view === 'posts' && <Posts />}
 
-        {this.state.view === 'new-post' && <CreatePost onCreated={() => this.setState({ view: 'home' })} />}
+        {this.state.view === 'new-post' && <CreatePost
+          onCreated={handlePostCreated} />}
 
-        <Footer onHomeClick={() => this.setState({ view: 'home' })} onNewPostClick={() => { this.setState({ view: 'new-post' }) }} />
+        <Footer view={this.state.view}
+          onHomeClick={this.handleHomeClick}
+          onNewPostClick={this.handleNewPostClick} />
       </>
     )
   }

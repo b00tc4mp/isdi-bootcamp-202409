@@ -1,3 +1,3 @@
 export default () => {
-  return sessionStorage.loggedUserId !== undefined
+  return sessionStorage.userId !== undefined
 }

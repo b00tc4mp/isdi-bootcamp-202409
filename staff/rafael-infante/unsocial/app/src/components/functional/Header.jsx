@@ -1,38 +1,71 @@
-import Logo from '../../images/users-avatar.png'
-import './Header.css'
-import logic from '../../logic'
 import { Button } from '../biblio'
+import { Component } from 'react'
+import logic from '../../logic'
+import './Header.css'
+import Logo from '../../images/users-avatar.png'
 
-export default function Header({ onHomeClick, onLoggedOut }) {
-  let name
-  let username
+export default class extends Component {
+  constructor(props) {
+    console.log('Header -> Constructor')
 
-  const handleLogout = event => {
-    event.preventDefault()
-    onLoggedOut()
+    super(props)
+
+    this.state = { name: null }
   }
 
-  if (logic.isUserLoggedIn()) {
-    try {
-      name = logic.getUserName()
-      username = logic.getUserUsername()
-    } catch (error) {
-      alert(error.message)
-      console.error(error)
+  componentDidMount() {
+    console.log('Header -> componentDidMount')
+
+    if (logic.isUserLoggedIn()) {
+      try {
+        logic.getUserName((error, name) => {
+
+          if (error) {
+            alert(error.message)
+            console.error(error)
+            return
+          }
+
+          this.setState({ name })
+        })
+      } catch (error) {
+        alert(error.message)
+        console.error(error)
+      }
     }
   }
 
-  return (
-    <header className="Header">
-      <div onClick={onHomeClick} className='logo-container'>
-        <img className="logo" src={Logo} />
-        <h1>unSocial</h1>
-      </div>
+  handleLogout = event => {
 
-      {logic.isUserLoggedIn() && <h3>{username}</h3>}
+    if (confirm('Logout?')) {
+      event.preventDefault()
+      this.props.onLoggedOut()
+    }
+  }
 
-      {logic.isUserLoggedIn() && <Button id="btn-logout" type="button" onClick={handleLogout}>Logout</Button>}
+  handleHomeClick = event => {
 
-    </header>
-  )
+    event.preventDefault()
+    this.props.onHomeClick()
+  }
+
+  render() {
+    console.log('Header -> render')
+
+    return (
+      <header className="Header">
+        <div
+          onClick={logic.isUserLoggedIn() ? this.handleHomeClick : () => { }}
+          className={logic.isUserLoggedIn() ? 'logo-container-btn' : 'logo-container'}>
+          <img className="logo" src={Logo} />
+          <h1>unSocial</h1>
+        </div>
+
+        {logic.isUserLoggedIn() && this.state.name && <h3>{this.state.name}</h3>}
+
+        {logic.isUserLoggedIn() && <Button id="btn-logout" type="button" onClick={this.handleLogout}>Logout</Button>}
+
+      </header>
+    )
+  }
 }

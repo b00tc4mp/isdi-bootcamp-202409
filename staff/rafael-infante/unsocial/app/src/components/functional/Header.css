@@ -10,10 +10,15 @@
   justify-content: space-between;
 }
 
-.logo-container {
+.logo-container-btn {
   display: flex;
   align-items: center;
   cursor: pointer
+}
+
+.logo-container {
+  display: flex;
+  align-items: center
 }
 
 .logo {
