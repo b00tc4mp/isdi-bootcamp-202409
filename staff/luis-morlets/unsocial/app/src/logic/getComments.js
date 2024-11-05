@@ -1,28 +1,27 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
-export default postId => {
+export default (postId, callback) => {
     validate.id(postId, 'postId')
-    //Nos traemos los usuarios y posts
-    const users = JSON.parse(localStorage.users)
-    const posts = JSON.parse(localStorage.posts)
+    validate.callback(callback)
 
-    //Se usa el metodo find para conseguir y hacer coincidir el post con su id
-    const post = posts.find(({ id }) => id === postId)
+    const xhr = new XMLHttpRequest
 
-    if (!post) throw new Error('post not found');
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    const { comments } = post
+        if (status === 200) {
+            const comments = JSON.parse(response)
 
-    //Ahora usamos un forEach para en cada comentario extraer el id del comentario y el usuario
-    comments.forEach(comment => {
-        const { author: authorId } = comment
+            callback(null, comments)
 
-        //Usamos el find para tambien buscar que el id del comentario coincida con el del autor,
-        //convertirlo en un objeto que nos permita usar o el id o el nombre de usuario mas que nada al momento de la vista
-        const { username } = users.find(({ id }) => id === authorId)
+            return
+        }
+        const { error, message } = JSON.parse(response)
 
-        comment.author = { id: authorId, username }
+        callback(new Error(message))
     })
 
-    return comments
+    xhr.open('GET', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }

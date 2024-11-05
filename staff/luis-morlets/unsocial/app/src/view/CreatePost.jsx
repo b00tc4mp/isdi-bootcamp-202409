@@ -2,7 +2,7 @@ import { Form, Label, Input, Button, Field } from '../components/library'
 
 import './CreatePost.css'
 
-import logic from "../logic"
+import logic from '../logic'
 
 export default ({ onCreatePost }) => {
 
@@ -19,9 +19,17 @@ export default ({ onCreatePost }) => {
         } = form
 
         try {
-            logic.createPost(image, text)
+            logic.createPost(image, text, error => {
+                if (error) {
+                    alert(error.message)
 
-            onCreatePost()
+                    console.log(error)
+
+                    return
+                }
+                onCreatePost()
+            })
+
         } catch (error) {
             alert(error.message)
 

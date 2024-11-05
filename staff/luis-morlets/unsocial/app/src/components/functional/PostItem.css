@@ -1,5 +1,7 @@
 .PostItem {
     width: 100%;
+    background-color: cornflowerblue;
+    padding-bottom: 0.5rem;
 
     img {
         width: 100%;

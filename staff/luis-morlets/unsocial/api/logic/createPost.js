@@ -1,5 +1,5 @@
 import { uuid, storage } from '../data/index.js'
-import { validate } from './helpers/index.js'
+import { validate } from 'com'
 
 export default (userId, image, text) => {
     validate.id(userId, 'userId')

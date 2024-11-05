@@ -12,9 +12,14 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
         const confirmRemove = window.confirm('Do you want to delete this comment?')
         try {
             if (confirmRemove) {
-                logic.removeComment(postId, id)
+                logic.removeComment(postId, id, error => {
+                    if (error) {
+                        alert(error.message)
 
-                onRemoved()
+                        console.error(error)
+                    }
+                    onRemoved()
+                })
             }
         } catch (error) {
             alert(error.message)

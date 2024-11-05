@@ -4,7 +4,7 @@ import logic from '../logic'
 
 import { PasswordInput, Form, Field, Label, Button, Paragraph, Input } from '../components/library'
 
-export default (props) => {
+export default props => {
 
     console.log('Login -> render')
 
@@ -19,11 +19,18 @@ export default (props) => {
         } = form
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    alert(error.message)
 
-            form.reset()
+                    console.error(error)
 
-            props.onLoggedIn()
+                    return
+                }
+                form.reset()
+
+                props.onLoggedIn()
+            })
         } catch (error) {
             alert(error.message)
 

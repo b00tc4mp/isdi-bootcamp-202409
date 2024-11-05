@@ -1,6 +1,6 @@
 import { storage, uuid } from '../data/index.js'
 
-import { validate } from './helpers/index.js'
+import { validate } from 'com'
 
 
 export default (userId, postId, text) => {

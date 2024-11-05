@@ -4,7 +4,7 @@ import logic from '../logic'
 
 import { PasswordInput, Form, Label, Input, Button, Paragraph, Field } from '../components/library'
 
-export default (props) => {
+export default props => {
 
     console.log('Register -> render')
 
@@ -22,11 +22,19 @@ export default (props) => {
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat)
+            logic.registerUser(name, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    alert(error.message)
 
-            form.reset()
+                    console.error(error)
 
-            props.onRegister()
+                    return
+                }
+
+                form.reset()
+
+                props.onRegister()
+            })
         } catch (error) {
             alert(error.message)
 

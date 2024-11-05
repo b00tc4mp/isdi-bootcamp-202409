@@ -19,5 +19,26 @@
         "email": "simon@bolivar.com",
         "username": "simoncito",
         "password": "123123123"
+    },
+    {
+        "id": "m3352rtur6c",
+        "name": "Manuela Saenz",
+        "email": "manuela@saenz.com",
+        "username": "manuelita",
+        "password": "123123123"
+    },
+    {
+        "id": "m34kcl8k76i",
+        "name": "Hipolita Bolivar",
+        "email": "hipolita@bolivar.com",
+        "username": "negrahipolita",
+        "password": "123123123"
+    },
+    {
+        "id": "m34m1x7tbyb",
+        "name": "Simon Rodriguez",
+        "email": "simon@rodriguez.com",
+        "username": "profesimon",
+        "password": "123123123"
     }
 ]

@@ -20,9 +20,14 @@ export default class extends Component {
 
     handleLikeClick = () => {
         try {
-            logic.likesInteraction(this.props.post.id)
+            logic.likesInteraction(this.props.post.id, error => {
+                if (error) {
+                    alert(error.message)
 
-            this.props.onLiked()
+                    console.error(error)
+                }
+                this.props.onLiked()
+            })
         } catch (error) {
             alert(error.message)
 
@@ -34,8 +39,20 @@ export default class extends Component {
         const confirmDelete = window.confirm('Are you sure you want to delete this post?')
 
         if (confirmDelete) {
-            logic.deletePost(this.props.post.id)
-            this.props.onDeleted()
+            try {
+                logic.deletePost(this.props.post.id, error => {
+                    if (error) {
+                        alert(error.message)
+
+                        console.error(error)
+                    }
+                    this.props.onDeleted()
+                })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
         }
     }
 
@@ -53,7 +70,6 @@ export default class extends Component {
                 <span>👤</span>
                 <h4>{author.username}</h4>
             </div>
-
 
             <figure><img src={image} /></figure>
 

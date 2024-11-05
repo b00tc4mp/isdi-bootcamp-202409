@@ -11,27 +11,38 @@ export default class extends Component {
 
         super(props)
 
-        let comments
+        this.state = { comments: [] }
+    }
 
-        //trycatch al momento de obtener los comentarios por su id
+    componentDidMount() {
         try {
-            comments = logic.getComments(props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+                this.setState({ comments })
+            })
         } catch (error) {
             alert(error.message)
 
             console.error(error)
         }
-
-        this.state = { comments }
     }
 
     onAdded = () => {
         try {
-            const comments = logic.getComments(this.props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ comments })
+                    console.error(error)
+                }
+                this.setState({ comments })
 
-            this.props.onAdded()
+                this.props.onAdded()
+            })
         } catch (error) {
             alert(error.message)
 
@@ -41,11 +52,15 @@ export default class extends Component {
 
     onRemoved = () => {
         try {
-            const comments = logic.getComments(this.props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ comments })
-
-            this.props.onRemoved()
+                    console.error(error)
+                }
+                this.setState({ comments })
+                this.props.onRemoved()
+            })
         } catch (error) {
             alert(error.message)
 
@@ -58,9 +73,10 @@ export default class extends Component {
         console.log('Comments -> render')
 
         return <section className="Comments">
-            <ul>{/*Este map se hace sobre el nuevo como de comment que contiene la lista de comentarios*/}
+            <ul>
                 {this.state.comments.map(comment =>
                     <Comment
+                        key={comment.id}
                         postId={this.props.postId}
                         comment={comment}
                         onRemoved={this.onRemoved}

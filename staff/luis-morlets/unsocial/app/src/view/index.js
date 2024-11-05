@@ -1,10 +1,10 @@
-import Home from './Home'
+import PostList from './PostList'
 import Register from './Register'
 import Login from './Login'
 import CreatePost from './CreatePost'
 
 export {
-    Home,
+    PostList,
     Register,
     Login,
     CreatePost

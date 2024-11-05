@@ -11,9 +11,10 @@ const jsonBodyParser = json()
 server.get('/', (_, res) => res.send('Hello, API!'))
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
-    const { username, password } = req.body
 
+    const { username, password } = req.body
     try {
+
         const userId = logic.authenticateUser(username, password)
 
         res.json(userId)
@@ -25,9 +26,10 @@ server.post('/authenticate', jsonBodyParser, (req, res) => {
 })
 
 server.post('/register', jsonBodyParser, (req, res) => {
-    const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
     try {
+        const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
+
         logic.registerUser(name, email, username, password, passwordRepeat)
 
         res.status(201).send()
@@ -38,11 +40,13 @@ server.post('/register', jsonBodyParser, (req, res) => {
     }
 })
 
-server.get('/users/:userId/name', (req, res) => {
-    const { userId } = req.params
+server.get('/users/:targetUserId/name', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { targetUserId } = req.params
 
     try {
-        const name = logic.getUserName(userId)
+        const name = logic.getUserName(userId, targetUserId)
 
         res.json(name)
     } catch (error) {

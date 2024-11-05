@@ -1,4 +1,4 @@
-import validate from './helpers/validate.js'
+import { validate } from 'com'
 import { uuid, storage } from '../data/index.js'
 
 export default (name, email, username, password, passwordRepeat) => {

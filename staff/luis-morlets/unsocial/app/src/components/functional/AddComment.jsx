@@ -11,11 +11,15 @@ export default ({ postId, onAdded }) => {
         const { text: { value: text } } = event.target
 
         try {
-            logic.createComment(text, postId)
+            logic.createComment(text, postId, error => {
+                if (error) {
+                    alert(error.message)
 
-            event.target.reset()
-
-            onAdded()
+                    console.error(error)
+                }
+                event.target.reset()
+                onAdded()
+            })
         } catch (error) {
             alert(error.message)
 

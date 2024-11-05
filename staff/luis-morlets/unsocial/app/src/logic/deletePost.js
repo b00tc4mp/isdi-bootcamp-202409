@@ -1,11 +1,27 @@
-export default postId => {
-    const posts = JSON.parse(localStorage.posts)
+import { validate } from "com"
 
-    const index = posts.findIndex(({ id }) => id === postId)
+export default (postId, callback) => {
+    validate.callback(callback)
+    validate.id(postId, 'postId')
 
-    if (index < 0) throw new Error('post not found');
+    const xhr = new XMLHttpRequest
 
-    posts.splice(index, 1)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    localStorage.posts = JSON.stringify(posts)
+        if (status === 204) {
+            const postId = JSON.parse(response)
+
+            callback(null, postId)
+
+            return
+        }
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
+    })
+
+    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }
