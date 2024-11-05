@@ -1,12 +1,11 @@
 import './Register.css'
 
-
 import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
 
 import logic from '../logic'
 
 
-export default (props) => {
+export default props => {
     console.log('Register -> render')
 
     const handleSubmit = event => {
@@ -22,12 +21,21 @@ export default (props) => {
             ['password-repeat']: { value: passwordRepeat }
         } = form
 
+
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat)
+            logic.registerUser(name, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    alert(error.message)
 
-            form.reset()
+                    console.error(error)
 
-            props.onRegistered()
+                    return
+                }
+
+                form.reset()
+
+                props.onRegistered()
+            })
         } catch (error) {
             alert(error.message)
 
@@ -41,7 +49,7 @@ export default (props) => {
         props.onLoginClick()
     }
 
-    return <main className='Register'>
+    return <main className="Register">
         <h2>Register</h2>
 
         <Form onSubmit={handleSubmit}>

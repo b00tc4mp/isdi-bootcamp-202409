@@ -3,39 +3,68 @@ import { Button } from '../library'
 import logic from '../../logic'
 
 import './Header.css'
+import { Component } from 'react'
 
-export default ({ view, onHomeClick, onLoggedOut }) => {
-    let name
+export default class extends Component {
+    constructor(props) {
+        console.log('Header -> constructor')
 
-    if (logic.isUserLoggedIn())
-        try {
-            name = logic.getUserName()
-        } catch (error) {
-            alert(error.message)
+        super(props)
 
-            console.error(error)
-        }
+        this.state = { name: null }
 
-    const handleHomeClick = event => {
-        event.preventDefault()
-
-        onHomeclick()
     }
 
-    const handleLogout = () => {
+    componentDidMount() {
+        console.log('Header -> componentDidMount')
+
+
+        if (logic.isUserLoggedIn())
+            try {
+                logic.getUserName((error, name) => {
+                    if (error) {
+                        alert(error.message)
+
+                        console.error(error)
+
+                        return
+                    }
+
+                    this.setState({ name })
+                })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+
+    }
+
+    handleHomeClick = event => {
+        event.preventDefault()
+
+        this.props.onHomeClick()
+    }
+
+    handleLogout = () => {
         if (confirm('Logout?')) {
             logic.logoutUser()
 
-            onLoggedOut()
+            this.props.onLoggedOut()
         }
     }
 
-    return <header className="Header">
+    render() {
+        console.log('Header -> render')
 
-        <h1>{view === 'new-post' ? <a href='' onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+        return <header className="Header">
 
-        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+            <h1>{this.props.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
-        {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
-    </header >
+            {this.state.name && <h3>{this.state.name}</h3>}
+
+            {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
+        </header>
+    }
+
 }

@@ -5,8 +5,9 @@ import createPost from './createPost.js'
 import addComment from './addComment.js'
 import deletePost from './deletePost.js'
 import toggleLikePost from './toggleLikePost.js'
-import removeComments from './removeComments.js'
+import removeComment from './removeComment.js'
 import getPosts from './getPosts.js'
+import getComments from './getComments.js'
 
 
 const logic = {
@@ -19,7 +20,8 @@ const logic = {
     getPosts,
 
     addComment,
-    removeComments,
+    removeComment,
+    getComments,
 
     toggleLikePost
 }
