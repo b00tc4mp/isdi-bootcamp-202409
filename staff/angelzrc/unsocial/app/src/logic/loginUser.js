@@ -1,15 +1,28 @@
 import { validate } from './helpers'
 
-export default (username, password) => {
+export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
 
-    const users = JSON.parse(localStorage.users)
+    const xhr = new XMLHttpRequest
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    const user = users.find(user => user.username === username && user.password === password)
+        if (status === 200) {
+            const userId = JSON.parse(response)
 
-    if (user === undefined)
-        throw new Error('wrong credentials')
+            sessionStorage.userId = userId
+            callback(null)
 
-    sessionStorage.userId = user.id
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
+    })
+
+    xhr.open('POST', 'http://localhost:8080/authenticate')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify({ username, password }))
 }

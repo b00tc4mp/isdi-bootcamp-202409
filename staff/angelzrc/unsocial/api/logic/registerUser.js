@@ -10,9 +10,10 @@ export default (name, email, username, password, passwordRepeat) => {
     validate.passwordsMatch(password, passwordRepeat)
 
     const { users } = storage
+
     let user = users.find(user => user.username === username || user.email === email)
 
-    if (user !== undefined)
+    if (user)
         throw new Error('user already exists')
 
     user = { id: uuid(), name: name, email: email, username: username, password: password }

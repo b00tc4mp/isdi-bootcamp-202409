@@ -13,7 +13,7 @@ export default (userId, postId, text) => {
 
 
     if (!found) {
-        throw new Error('user nor found')
+        throw new Error('user not found')
     } else if (!postFound) {
         throw new Error('post not found')
     } else {

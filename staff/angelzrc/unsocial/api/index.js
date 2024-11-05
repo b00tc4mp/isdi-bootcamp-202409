@@ -1,11 +1,15 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
+import cors from 'cors'
 
 const server = express()
 
-const jsonBodyParser = express.json()
+server.use(cors())
+
+const jsonBodyParser = json()
 
 server.get('/', (_, res) => res.send('Hello, API!'))
+
 
 server.post('/authenticate', jsonBodyParser, (req, res) => {
     const { username, password } = req.body
@@ -94,7 +98,7 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
-server.patch('/posts/:postId', (req, res) => {
+server.patch('/posts/:postId/likes', (req, res) => {
     const { postId } = req.params
     const userId = req.headers.authorization.slice(6)
 
@@ -137,7 +141,7 @@ server.delete('posts/:postId/comments/:commentId', (req, res) => {
     try {
         logic.removeComment(postId, userId, commentId)
 
-        res.status(200).send()
+        res.status(204).send()
     } catch (error) {
 
         res.status(400).json({ error: error.constructor.name, message: error.message })
@@ -154,7 +158,7 @@ server.delete('/posts/:postId', (req, res) => {
     try {
         logic.deletePost(postId, userId)
 
-        res.status(200).send()
+        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 

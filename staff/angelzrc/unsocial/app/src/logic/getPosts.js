@@ -1,20 +1,25 @@
-export default () => {
-    const users = JSON.parse(localStorage.users)
-    const posts = JSON.parse(localStorage.posts)
+export default callback => {
+    // TODO validate callback
 
-    const { userId } = sessionStorage
+    const xhr = new XMLHttpRequest
 
-    posts.forEach(post => {
-        const { author: authorId } = post
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-        const { username } = users.find(({ id }) => id === authorId)
+        if (status === 200) {
+            const posts = JSON.parse(response)
 
-        post.author = { id: authorId, username }
+            callback(null, posts)
 
-        post.liked = post.likes.includes(userId)
+            return
+        }
 
-        post.comments = post.comments.length
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
     })
 
-    return posts.toReversed()
+    xhr.open('GET', 'http://localhost:8080/posts')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }
