@@ -1,25 +1,26 @@
 import { validate } from "./helpers"
 
-export default (postId) => {
+export default (postId, callback) => {
   validate.id(postId, 'postId')
+  validate.callback(callback)
 
-  const users = JSON.parse(localStorage.users)
-  const posts = JSON.parse(localStorage.posts)
+  const xhr = new XMLHttpRequest
 
-  const post = posts.find(({ id }) => id === postId)
+  xhr.addEventListener('load', () => {
+    const { status, response } = xhr
 
-  if (!post) throw new Error('post not found')
+    if (status === 200) {
+      const comments = JSON.parse(response)
+      callback(null, comments)
 
-  const { comments } = post
+      return
+    }
 
-  comments.forEach(comment => {
-    const { author: authorId } = comment
-
-    //const { username } = users.find(({ id }) => id === authorId)
-    const { username } = users.find((user) => user.userId === authorId)
-
-    comment.author = { id: authorId, username }
+    const { error, message } = JSON.parse(response)
+    callback(new Error(message))
   })
 
-  return comments
+  xhr.open('GET', `http://localhost:8080/posts/${postId}/comments`)
+  xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+  xhr.send()
 }

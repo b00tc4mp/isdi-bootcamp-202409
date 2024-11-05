@@ -1,23 +1,25 @@
 import { validate } from "./helpers"
 
-export default (postId) => {
+export default (postId, callback) => {
   validate.id(postId, 'postId')
+  validate.callback(callback)
 
-  const posts = JSON.parse(localStorage.posts)
+  const xhr = new XMLHttpRequest
 
-  const post = posts.find(({ id }) => id === postId)
+  xhr.addEventListener('load', () => {
+    const { status, response } = xhr
 
-  if (!post) throw new Error('post not found')
+    if (status === 204) {
+      callback(null)
+      return
+    }
 
-  const { likes } = post
-  const { loggedUserId } = sessionStorage
+    const { error, message } = JSON.parse(response)
+    callback(new Error(message))
+  })
 
-  // buscamos en el array de likes
-  const index = likes.indexOf(loggedUserId)
-  // si esta el id del usuario logeado lo sacamos
-  // si no esta (index === -1) lo añadimos al array 
-  if (index < 0) likes.push(loggedUserId)
-  else likes.splice(index, 1)
+  xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+  xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+  xhr.send()
 
-  localStorage.posts = JSON.stringify(posts)
 }

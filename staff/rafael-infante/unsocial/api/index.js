@@ -126,7 +126,7 @@ server.delete('/posts/:postId/comments/:commentId', (req, res) => {
   const userId = req.headers.authorization.slice(6)
   try {
     logic.removeComment(userId, postId, commentId)
-    res.status(200).send()
+    res.status(204).send()
   } catch (error) {
     res.status(400).json({ error: error.constructor.name, message: error.message })
   }

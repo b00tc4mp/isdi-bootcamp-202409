@@ -1,16 +1,27 @@
 import { validate } from "./helpers"
 
-export default postId => {
+export default (postId, callback) => {
 
   validate.id(postId, 'postId')
+  validate.callback(callback)
 
-  const posts = JSON.parse(localStorage.posts)
+  const xhr = new XMLHttpRequest
 
-  const index = posts.findIndex(post => post.id === postId)
+  xhr.addEventListener('load', () => {
+    const { status, response } = xhr
 
-  if (index < 0) throw new Error('post not found')
+    if (status === 204) {
+      callback(null)
 
-  posts.splice(index, 1)
+      return
+    }
 
-  localStorage.posts = JSON.stringify(posts)
+    const { error, message } = JSON.parse(response)
+
+    callback(new Error(message))
+  })
+
+  xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+  xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+  xhr.send()
 }

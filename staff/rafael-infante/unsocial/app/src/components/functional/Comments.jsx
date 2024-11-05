@@ -9,38 +9,61 @@ class Comments extends Component {
   constructor(props) {
     super(props)
 
-    let comments
+    this.state = { comments: [] }
+  }
+
+  componentDidMount() {
     try {
-      comments = logic.getComments(props.postId)
+      logic.getComments(this.props.postId, (error, comments) => {
+        if (error) {
+          alert(error.message)
+          console.error(error)
+          return
+        }
+
+        this.setState({ comments })
+
+      })
     } catch (error) {
       alert(error.message)
       console.error(error)
     }
-    this.state = { comments }
   }
 
   onRemoved = () => {
     try {
-      const comments = logic.getComments(this.props.postId)
+      logic.getComments(this.props.postId, (error, comments) => {
+        if (error) {
+          alert(error.message)
+          console.error(error)
+          return
+        }
 
-      this.setState({ comments })
+        this.setState({ comments })
+        this.props.onRemoved()
 
-      this.props.onRemoved()
+      })
     } catch (error) {
       alert(error.message)
-
       console.error(error)
     }
   }
 
   onAdded = () => {
     try {
-      const comments = logic.getComments(this.props.postId)
-      this.setState({ comments })
-      this.props.onAdded()
+      logic.getComments(this.props.postId, (error, comments) => {
+        if (error) {
+          alert(error.message)
+          console.error(error)
+          return
+        }
+
+        this.setState({ comments })
+        this.props.onAdded()
+
+      })
     } catch (error) {
       alert(error.message)
-
       console.error(error)
     }
   }
@@ -52,6 +75,7 @@ class Comments extends Component {
         <ul>
           {this.state.comments.map(comment =>
             <Comment
+              key={comment.id}
               postId={this.props.postId}
               comment={comment}
               onRemoved={this.onRemoved} />)}

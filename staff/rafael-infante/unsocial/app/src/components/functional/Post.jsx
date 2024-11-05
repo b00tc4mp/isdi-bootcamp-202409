@@ -4,8 +4,10 @@ import logic from '../../logic'
 import getElapsedTime from '../../utils/getElapsedTime'
 import { Component } from 'react'
 
-class Post extends Component {
+export default class extends Component {
   constructor(props) {
+    console.log('Post -> constructor')
+
     super(props)
 
     this.state = { view: null }
@@ -13,16 +15,36 @@ class Post extends Component {
 
   handleDeleteClick = () => {
     if (confirm('Delete Post?')) {
-      logic.deletePost(this.props.item.id)
-      this.props.onDeleted()
+      try {
+        logic.deletePost(this.props.post.id, error => {
+          if (error) {
+            alert(error.message)
+            console.error(error)
+            return
+          }
+          this.props.onDeleted()
+
+        })
+      } catch (error) {
+        alert(error.message)
+        console.error(error)
+      }
     }
   }
 
   handleLikeClick = () => {
     try {
-      logic.toggleLikePost(this.props.item.id)
+      logic.toggleLikePost(this.props.post.id, error => {
+        if (error) {
+          alert(error.message)
+          console.error(error)
+          return
+        }
 
-      this.props.onLiked()
+        this.props.onLiked()
+
+      })
+
     } catch (error) {
       alert(error.message)
       console.error(error)
@@ -36,7 +58,7 @@ class Post extends Component {
   render() {
     console.log('Render -> Post')
 
-    const { item: { id, author, image, text, date, liked, likes, comments }, onCommentRemoved, onCommentAdded } = this.props
+    const { post: { id, author, image, text, date, liked, likes, comments }, onCommentRemoved, onCommentAdded } = this.props
 
     return (
       <article className='Post'>
@@ -63,5 +85,3 @@ class Post extends Component {
     )
   }
 }
-
-export default Post

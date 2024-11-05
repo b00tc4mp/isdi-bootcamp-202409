@@ -3,9 +3,11 @@ import './CreatePost.css'
 import { Button, Form, Label, Input } from "../components/biblio"
 
 function CreatePost({ onCreated }) {
+  console.log('Create Post -> render')
 
   const handleSubmit = event => {
     event.preventDefault()
+
     const { target: form } = event
 
     const {
@@ -14,9 +16,14 @@ function CreatePost({ onCreated }) {
     } = form
 
     try {
-      logic.createPost(image, text)
-      form.reset()
-      onCreated()
+      logic.createPost(image, text, error => {
+        if (error) {
+          alert(error.message)
+          console.error(error)
+          return
+        }
+        onCreated()
+      })
     } catch (error) {
       alert(error.message)
       console.error(error)

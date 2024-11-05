@@ -1,1 +1,1 @@
-export default () => sessionStorage.loggedUserId
+export default () => sessionStorage.userId

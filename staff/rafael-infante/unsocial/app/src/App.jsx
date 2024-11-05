@@ -53,7 +53,7 @@ class App extends Component {
         {this.state.view === 'posts' && <Posts />}
 
         {this.state.view === 'new-post' && <CreatePost
-          onCreated={handlePostCreated} />}
+          onCreated={this.handlePostCreated} />}
 
         <Footer view={this.state.view}
           onHomeClick={this.handleHomeClick}
