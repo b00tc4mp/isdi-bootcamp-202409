@@ -1,26 +1,30 @@
-//import {validate} from './helpers'
-import validate from './helpers/validate'
+import {validate} from 'com';
 
-import uuid from '../data/uuid'
+const addComments = (postId, text, callback) => {
+    validate.id(postId, 'postId');
+    validate.text(text);
+    validate.callback(callback);
 
-const addComments = (postId, text) => {
-    validate.id(postId, 'postId')
-    validate.text(text)
+    const xhr = new XMLHttpRequest;
+    
+    xhr.addEventListener('load',() => {
+        const {status, response} = xhr;
 
-    const posts = JSON.parse(localStorage.posts)
+        if (status === 201){
+            callback(null);
 
-    const post = posts.find(({id}) => id === postId)
+            return;
+        };
 
-    if(!post) throw new Error('post not found')
+        const {error, message} = JSON.parse(response);
 
-    post.comments.push({
-        id: uuid(),
-        author: sessionStorage.userId,
-        text,
-        date: new Date
-    })
+        callback(new Error(message));
+    } );
 
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`);
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.send(JSON.stringify({text}));
 }
 
-export default addComments
+export default addComments;

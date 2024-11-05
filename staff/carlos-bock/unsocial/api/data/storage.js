@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 export default {
-    get users () {
+    get users() {
         const json = fs.readFileSync('./data/users.json', 'utf-8');
 
         const users = JSON.parse(json);
@@ -9,7 +9,7 @@ export default {
         return users;
     },
 
-    set users (users) {
+    set users(users) {
         const json = JSON.stringify(users);
 
         fs.writeFileSync('./data/users.json', json)

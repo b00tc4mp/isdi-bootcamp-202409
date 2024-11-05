@@ -10,7 +10,7 @@ import { Component } from 'react'
 
 class Post extends Component {
   constructor(props) {
-    console.log('PostItem')
+    console.log('Post -> constructor ')
 
     super(props)
 
@@ -19,9 +19,17 @@ class Post extends Component {
 
   handleLikeClick = () => {
     try {
-      logic.toggleLikePost(this.props.post.id)
+      logic.toggleLikePost(this.props.post.id, error => {
+        if (error) {
+          alert(error.message);
 
-      this.props.onLiked()
+          console.error(error);
+
+          return;
+        }
+
+        this.props.onLiked();
+      })
     } catch (error) {
       alert(error.message)
 
@@ -31,9 +39,22 @@ class Post extends Component {
 
   handleDeleteClick = () => {
     if (confirm('Delete post?')) {
-      logic.deletePost(this.props.post.id)
+      try {
+        logic.deletePost(this.props.post.id, error => {
+          if (error) {
+          alert(error.message);
+          
+          console.error(error);
 
-      this.props.onDeleted()
+          return
+        }
+          this.props.onDeleted()
+      })
+      } catch (error) {
+        alert(error.message);
+
+        console.error(error);
+      }
     }
   }
 
@@ -44,21 +65,22 @@ class Post extends Component {
   render() {
     console.log('PostItem -> render')
 
-    const {props: {
-              post: {
-                id, 
-                author, 
-                image, 
-                text, 
-                date, 
-                liked, 
-                likes,
-                comments 
-              }, 
-              onCommentAdded,
-              onCommentRemoved
+    const {
+      props: {
+          post: {
+            id, 
+            author, 
+            image, 
+            text, 
+            date, 
+            liked, 
+            likes,
+            comments 
+         }, 
+        onCommentAdded,
+        onCommentRemoved
             }
-          } = this
+          } = this;
 
     return <article className="PostItem">
       <h4>{author.username}</h4>

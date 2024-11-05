@@ -1,20 +1,13 @@
 {
-  "name": "api",
+  "name": "com",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "com": "file:../com",
-    "express": "^4.21.1"
-  }
+  "description": ""
 }

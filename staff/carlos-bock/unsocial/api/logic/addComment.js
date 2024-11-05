@@ -1,4 +1,4 @@
-import {validate} from './helpers/index';
+import {validate} from './helpers/index.js';
 import {storage, uuid} from '../data/index.js';
 
 const addComment = (userId, postId, text) => {

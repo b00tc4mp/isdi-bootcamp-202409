@@ -1,7 +1,0 @@
-.Input {
-    width: 'border-box';
-    box-sizing: 'border-box';
-    background-color: 'inherit';
-    border-color: var(--color);
-    border-style: solid;
-}

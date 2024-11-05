@@ -1,25 +1,30 @@
-import validate from './helpers/validate'
-//import {validite} from "./helpers"
+import {validite} from 'com';
 
-const getComments = postId => {
-    validite.id(postId, 'postId')
+const getComments = (postId, callback) => {
+    validite.id(postId, 'postId');
+    validite.callback(callback);
 
-    const users = JSON.parse(localStorage.users)
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest;
 
-    const post = posts.find(({id}) => id === postId)
+    xhr.addEventListener('load', () => {
+        const {status, response} = xhr;
 
-    if (!post) throw new Error('post not found')
+        if (status === 200) {
+            const comments = JSON.parse(response);
 
-    const {comments } = post
+            callback(null, comments);
 
-    comments.forEach(comment => {
-        const {author: authorId} = comment
+            return;
+        }
 
-        const {username} = users.find(({id}) => id === authorId)
+        const {error, message} = JSON.parse(response);
 
-        comment.author = {id: authorId, username: username}
-    })
+        callback(new Error(message));
+    });
+
+    xhr.open('GET', `http://localhost:8080/posts/${postId}/comments`);
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`);
+    xhr.send();
 }
 
-export default getComments
+export default getComments;

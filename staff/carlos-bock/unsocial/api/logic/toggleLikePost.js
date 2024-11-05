@@ -26,3 +26,5 @@ const toggleLikePost = (userId, postId) => {
 
     storage.posts = post;
 };
+
+export default toggleLikePost

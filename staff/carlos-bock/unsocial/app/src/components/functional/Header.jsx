@@ -3,45 +3,66 @@ import {Button} from '../library'
 import logic from '../../logic'
 
 import './Header.css'
-
-const Header = ({view, onHomeClick, onLoggedOut}) => {
-    let name
-
-    if (logic.isUserLoggedIn())
-        try {
-            name = logic.getUserName()
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
+import { Component } from 'react'
 
 
-    const handleHomeClick = event => {
-        event.preventDefault()
+class Header extends Component {
+    constructor (props) {
+        console.log('Header -> constructor')
 
-        onHomeClick()
+        super(props);
+
+        this.state = {name: null};
     }
 
+    componentDidMount() {
+        console.log('Header -> componentDidMount');
 
-    const handleLogout = () => {
-        if(confirm('Logout?')) {
-            logic.logoutUser()
+        if(logic.isUserLoggedIn())
+            try {
+                logic.getUserName((error,name) => {
+                    if (error) {
+                        alert(error.message);
 
-            onLoggedOut()
+                        console.error(error);
+
+                        return;
+                    }
+
+                    this.setState({name});
+                });
+            } catch (error) {
+                alert(error.message);
+
+                console.error(error);
+            }
+    }
+
+    handleHomeClick = event => {
+        event.preventDefault();
+
+        this.props.onHomeClick();
+    }
+
+    handleLogout = () => {
+        if (confirm ('Logout?')) {
+            logic.logoutUser();
+
+            this.props.onLoggedOut();
         }
     }
 
+    render() {
+        console.log('Header -> render');
 
-    return <header className="Header">
-        <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>unSocial</a>: 'unSocial'}</h1>
+        return <header className='header'>
+            <h1>{this.props.view === 'new-post' ? <a href='' onClick={this.handleHomeClick}>unSocial</a>: 'unSocial'}</h1>
 
-        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+            {this.state.name && <h3>{this.state.name}</h3>}
 
-        {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
-
-        <h6>The network you never leave...</h6>
-    </header>
-}
+            {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
+        </header>
+    };
+};
 
 export default Header

@@ -1,7 +1,7 @@
 import {storage} from '../data/index.js';
-import {validate} from '../data/index.js';
+import {validate} from 'com';
 
-const getPosts = () => {
+const getPosts = (userId) => {
     validate.id(userId, 'userId');
 
     const {users, posts} = storage;
