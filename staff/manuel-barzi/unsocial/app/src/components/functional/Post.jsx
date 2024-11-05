@@ -10,7 +10,7 @@ import { Component } from 'react'
 
 export default class extends Component {
     constructor(props) {
-        console.log('Post')
+        console.log('Post -> constructor')
 
         super(props)
 

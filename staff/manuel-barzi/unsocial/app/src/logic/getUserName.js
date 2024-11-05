@@ -1,9 +1,24 @@
-export default () => {
-    const users = JSON.parse(localStorage.users)
+export default callback => {
+    // TODO validate callback
 
-    const user = users.find(user => user.id === sessionStorage.userId)
+    const xhr = new XMLHttpRequest
 
-    if (!user) throw new Error('user not found')
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    return user.name
+        if (status === 200) {
+            const name = JSON.parse(response)
+
+            callback(null, name)
+
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
+    })
+
+    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.userId}/name`)
+    xhr.send()
 }
