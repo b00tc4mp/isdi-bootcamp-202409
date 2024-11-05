@@ -1,4 +1,4 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 import uuid from '../data/uuid'
 
 export default (postId, text) => {

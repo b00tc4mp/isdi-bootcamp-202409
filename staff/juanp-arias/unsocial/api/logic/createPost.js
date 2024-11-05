@@ -1,4 +1,4 @@
-import validate from './helpers/validate.js'
+import { validate } from 'com'
 
 import { storage, uuid } from '../data/index.js'
 

@@ -1,4 +1,4 @@
-import validate from './helpers/validate'
+import { validate } from 'com'
 
 export default (postId) => {
     validate.id(postId, 'PostID')

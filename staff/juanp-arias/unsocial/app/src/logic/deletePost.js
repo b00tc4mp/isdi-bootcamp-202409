@@ -1,4 +1,7 @@
+import { validate } from 'com'
+
 export default postId => {
+    validate.id(postId, 'postId')
     const posts = JSON.parse(localStorage.posts)
 
     const index = posts.findIndex(({ id }) => id === postId)

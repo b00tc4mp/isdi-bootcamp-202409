@@ -1,5 +1,5 @@
 import { storage } from '../data/index.js'
-import validate from './helpers/validate.js'
+import { validate } from 'com'
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')

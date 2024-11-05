@@ -1,5 +1,5 @@
 import validate from './validate.js'
 
-export default {
+export {
     validate
 }
