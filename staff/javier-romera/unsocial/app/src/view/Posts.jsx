@@ -1,8 +1,8 @@
 import { Component } from 'react'
 
-import logic from '../../logic'
+import logic from '../logic'
 
-import Post from './Post'
+import Post from '../components/functional/Post'
 
 import './Posts.css'
 
@@ -111,6 +111,8 @@ export default class extends Component {
     render() {
         return <div className="Posts">
             {this.state.posts.map(post => <Post
+                key={post.id}
+
                 post={post}
 
                 onLiked={this.handleLiked}

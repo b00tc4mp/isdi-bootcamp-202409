@@ -80,6 +80,7 @@ export default class extends Component {
             <ul>
                 {this.state.comments.map(comment =>
                     <Comment
+                        key={comment.id}
                         postId={this.props.postId}
                         comment={comment}
                         onRemoved={this.onRemoved}

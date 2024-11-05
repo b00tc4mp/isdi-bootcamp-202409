@@ -1,9 +1,0 @@
-.Home {
-    margin-top: 4rem;
-    padding-bottom: 15%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    box-sizing: border-box;
-    background-color: var(--back-color);
-}

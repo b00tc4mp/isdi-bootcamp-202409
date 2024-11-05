@@ -5,12 +5,13 @@ import './Header.css'
 import { Anchor, Button } from '../library'
 
 import logic from '../../logic'
+import isUserLoggedIn from '../../logic/isUserLoggedIn'
 
 export default class extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { userName: "" }
+        this.state = { userName: null }
     }
 
     componentDidMount() {
@@ -34,25 +35,28 @@ export default class extends Component {
         }
     }
 
-    componentDidUpdate() {
-        if (logic.isUserLoggedIn()) {
-            try {
-                logic.getUserName((error, userName) => {
-                    if (error) {
-                        alert(error.message)
+    // Truquito para freir una cpu
 
-                        console.error(error)
+    componentDidUpdate(prevProps) {
+        if (this.props.view !== prevProps.view)
+            if (logic.isUserLoggedIn()) {
+                try {
+                    logic.getUserName((error, userName) => {
+                        if (error) {
+                            alert(error.message)
 
-                        return
-                    }
+                            console.error(error)
 
-                    this.setState({ userName })
-                })
-            } catch (error) {
-                alert(error.message)
-                console.error(error)
+                            return
+                        }
+
+                        this.setState({ userName })
+                    })
+                } catch (error) {
+                    alert(error.message)
+                    console.error(error)
+                }
             }
-        }
     }
 
     handleHomeClick = event => {
@@ -72,7 +76,7 @@ export default class extends Component {
             <h1>{this.props.view === 'new-post' ? <Anchor href="" onClick={this.handleHomeClick}>laicosnU</Anchor> : "laicosnU"}</h1>
 
             <div className="name-button">
-                {logic.isUserLoggedIn() && <h3>{this.state.userName}</h3>}
+                {isUserLoggedIn() && <h3>{this.state.userName}</h3>}
 
                 {logic.isUserLoggedIn() && <Button classname="logout-button" type="button" onClick={this.handleLogout}>𐢫</Button>}
             </div>

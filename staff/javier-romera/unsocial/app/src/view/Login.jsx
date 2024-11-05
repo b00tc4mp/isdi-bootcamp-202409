@@ -11,11 +11,13 @@ export default props => {
         const { target: { username: { value: username }, password: { value: password } } } = event
 
         try {
-            logic.authenticateUser(username, password, error => {
+            logic.loginUser(username, password, error => {
                 if (error) {
                     alert(error.message)
 
                     console.error(error)
+
+                    event.target.password.value = ""
 
                     return
                 }
@@ -43,12 +45,12 @@ export default props => {
         <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username"></Input>
+                <Input type="text" id="username" autoComplete="on"></Input>
             </Field>
 
             <Field>
                 <Label htmlFor="password">Password</Label>
-                <Input type="password" id="password"></Input>
+                <Input type="password" id="password" autoComplete="off"></Input>
             </Field>
 
             <Button type="submit" classname="login-button">Login</Button>

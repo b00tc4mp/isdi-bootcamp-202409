@@ -1,1 +1,30 @@
-[{"id":"m2eo2tqvg06","name":"Peter Pan","email":"peter@pan.com","username":"peterpan","password":"123123123"},{"id":"m33ay092yab","name":"Javi","email":"javi@gmail.com","username":"javi","password":"123123123"}]
+[
+    {
+        "id": "m2eo2tqvg06",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "username": "peterpan",
+        "password": "123123123"
+    },
+    {
+        "id": "m33ay092yab",
+        "name": "Javi",
+        "email": "javi@gmail.com",
+        "username": "javi",
+        "password": "123123123"
+    },
+    {
+        "id": "m34ljpiix4j",
+        "name": "Cristobal Colon",
+        "email": "cristobal@colon.com",
+        "username": "cristobal",
+        "password": "123123123"
+    },
+    {
+        "id": "m34m0nv8kgl",
+        "name": "Wendy Darling",
+        "email": "wendy@darling.com",
+        "username": "wendy",
+        "password": "123123123"
+    }
+]

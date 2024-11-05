@@ -1,4 +1,4 @@
-import validate from './helpers/validate.js'
+import { validate } from 'apu'
 import { storage, uuid } from '../data/index.js'
 
 export default (userId, postId, text) => {

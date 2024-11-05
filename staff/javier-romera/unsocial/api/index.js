@@ -52,11 +52,13 @@ server.get('/users/:userId', (req, res) => {
     }
 })
 
-server.get('/users/:userId/name', (req, res) => {
-    const { userId } = req.params
+server.get('/users/:targetUserId/name', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { targetUserId } = req.params
 
     try {
-        const name = logic.getUserName(userId)
+        const name = logic.getUserName(userId, targetUserId)
 
         res.json(name)
     } catch (error) {
@@ -134,7 +136,7 @@ server.patch('/posts/:postId/likes', (req, res) => {
     try {
         logic.toggleLikePost(userId, postId)
 
-        res.status(200).send()
+        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 

@@ -1,4 +1,8 @@
+import { validate } from 'apu'
+
 export default callback => {
+    validate.callback(callback)
+
     const xhr = new XMLHttpRequest
 
     xhr.addEventListener('load', () => {
@@ -18,5 +22,6 @@ export default callback => {
     })
 
     xhr.open('GET', `http://localhost:8080/users/${sessionStorage.loggedInUserId}/name`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.loggedInUserId}`)
     xhr.send()
 }

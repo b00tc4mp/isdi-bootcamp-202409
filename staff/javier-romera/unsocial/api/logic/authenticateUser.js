@@ -1,5 +1,5 @@
 import { storage } from '../data/index.js'
-import { validate } from './helpers/index.js'
+import { validate } from 'apu'
 
 export default (username, password) => {
     validate.username(username)
@@ -9,7 +9,7 @@ export default (username, password) => {
 
     const user = users.find(user => user.username === username && user.password === password)
 
-    if (user === undefined)
+    if (!user)
         throw new Error('cagaste')
 
     return user.id

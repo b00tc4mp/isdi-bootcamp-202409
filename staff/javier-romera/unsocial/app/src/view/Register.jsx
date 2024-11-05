@@ -50,27 +50,27 @@ export default props => {
         <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name"></Input>
+                <Input type="text" id="name" autoComplete="on"></Input>
             </Field>
 
             <Field>
                 <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email"></Input>
+                <Input type="email" id="email" autoComplete="on"></Input>
             </Field>
 
             <Field>
                 <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username"></Input>
+                <Input type="text" id="username" autoComplete="on"></Input>
             </Field>
 
             <Field>
                 <Label htmlFor="password">Password</Label>
-                <Input type="password" id="password"></Input>
+                <Input type="password" id="password" autoComplete="off"></Input>
             </Field>
 
             <Field>
                 <Label htmlFor="passwordRepeat">Confirm password</Label>
-                <Input type="password" id="password-repeat"></Input>
+                <Input type="password" id="password-repeat" autoComplete="off"></Input>
             </Field>
 
             <Button type="submit">Register</Button>

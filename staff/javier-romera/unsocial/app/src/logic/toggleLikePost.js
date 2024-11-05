@@ -1,14 +1,15 @@
-import { validate } from './helpers'
+import { validate } from 'apu'
 
 export default (postId, callback) => {
     validate.id(postId, 'postId')
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
     xhr.addEventListener('load', () => {
         const { status, response } = xhr
 
-        if (status === 200) {
+        if (status === 204) {
             callback(null)
 
             return

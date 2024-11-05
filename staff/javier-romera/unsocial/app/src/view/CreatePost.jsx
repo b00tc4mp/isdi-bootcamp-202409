@@ -39,12 +39,12 @@ export default ({ onCreated }) => {
         <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="image">Image</Label>
-                <Input type="text" id="image"></Input>
+                <Input type="text" id="image" autoComplete="on"></Input>
             </Field>
 
             <Field>
                 <Label htmlFor="text">Text</Label>
-                <Input type="text" id="text"></Input>
+                <Input type="text" id="text" autoComplete="on"></Input>
             </Field>
 
             <Button type="Submit">Create</Button>

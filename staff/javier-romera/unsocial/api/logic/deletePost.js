@@ -1,4 +1,4 @@
-import { validate } from './helpers/index.js'
+import { validate } from 'apu'
 
 import { storage } from '../data/index.js'
 

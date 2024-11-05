@@ -1,7 +1,8 @@
-import { validate } from './helpers'
+import { validate } from 'apu'
 
 export default (postId, callback) => {
     validate.id(postId, 'postId')
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 

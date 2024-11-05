@@ -1,8 +1,9 @@
-import { validate } from './helpers'
+import { validate } from 'apu'
 
 export default (image, text, callback) => {
     validate.image(image)
     validate.text(text)
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
@@ -23,5 +24,5 @@ export default (image, text, callback) => {
     xhr.open('POST', 'http://localhost:8080/posts')
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.loggedInUserId}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(`{"image":"${image}","text":"${text}"}`)
+    xhr.send(JSON.stringify({ image, text }))
 }

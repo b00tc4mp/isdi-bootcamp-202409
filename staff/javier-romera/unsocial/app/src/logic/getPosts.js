@@ -1,4 +1,8 @@
+import { validate } from 'apu'
+
 export default callback => {
+    validate.callback(callback)
+
     const xhr = new XMLHttpRequest
 
     xhr.addEventListener('load', () => {

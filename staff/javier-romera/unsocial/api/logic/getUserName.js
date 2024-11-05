@@ -1,14 +1,19 @@
 import { storage } from '../data/index.js'
-import validate from './helpers/validate.js'
+import { validate } from 'apu'
 
-export default userId => {
+export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
+    validate.id(targetUserId, 'targetUserId')
 
     const { users } = storage
 
-    const user = users.find(user => user.id === userId)
+    const found = users.some(({ id }) => id === userId)
 
-    if (!user) throw new Error('user not found')
+    if (!found) throw new Error('user not found')
+
+    const user = users.find(user => user.id === targetUserId)
+
+    if (!user) throw new Error('target user not found')
 
     return user.name
 }

@@ -1,8 +1,9 @@
-import { validate } from './helpers'
+import { validate } from 'apu'
 
 export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
@@ -18,7 +19,7 @@ export default (username, password, callback) => {
 
             return
         }
-        const { error, message } = response
+        const { error, message } = JSON.parse(response)
 
         callback(new Error(message))
     })
