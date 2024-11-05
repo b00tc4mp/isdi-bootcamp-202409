@@ -5,6 +5,11 @@ import cors from 'cors'
 //Inicializamos el server de express 
 const server = express()
 
+
+//Esto nos permite que la api sea accedida de muchos sitios
+server.use(cors())
+
+
 //Parsea todas las respuestas de express a json
 const jsonBodyParser = express.json()
 

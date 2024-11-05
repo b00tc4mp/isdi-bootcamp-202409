@@ -63,7 +63,7 @@ export default class App extends Component {
 
             {this.state.view === 'register' && <Register
                 onLoginClick={() => this.setState({ view: 'login' })}
-                onRegisterClick={() => this.setState({ view: 'login' })} />}
+                onRegistered={() => this.setState({ view: 'login' })} />}
 
             {this.state.view === 'home' && <Home />}
 

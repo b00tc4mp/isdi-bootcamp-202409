@@ -40,5 +40,47 @@
         "email": "aragorn@middleearth.com",
         "username": "aragorn",
         "password": "111111"
+    },
+    {
+        "id": "m34ktr3l598",
+        "name": "Aragorn",
+        "email": "aragorn2@middleearth.com",
+        "username": "aragorn2",
+        "password": "111111"
+    },
+    {
+        "id": "m34mk5kru9",
+        "name": "gusto",
+        "email": "gusto@gusto.com",
+        "username": "gusto",
+        "password": "123456"
+    },
+    {
+        "id": "m34mprpc3kh",
+        "name": "gusto2",
+        "email": "gusto2@gusto.com",
+        "username": "gusto2",
+        "password": "123456"
+    },
+    {
+        "id": "m34muy1l7jh",
+        "name": "gusto3",
+        "email": "gusto3@gusto.com",
+        "username": "gusto3",
+        "password": "123456"
+    },
+    {
+        "id": "m34n1rjr6hu",
+        "name": "gusto4",
+        "email": "gusto4@gusto.com",
+        "username": "gusto4",
+        "password": "123456"
+    },
+    {
+        "id": "m34n4m6nrhq",
+        "name": "gusto6",
+        "email": "gusto6@gusto6.com",
+        "username": "gusto6",
+        "password": "gusto6"
     }
 ]

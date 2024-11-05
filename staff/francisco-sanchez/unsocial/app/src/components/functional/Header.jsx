@@ -2,44 +2,107 @@ import './Header.css'
 
 import { Button } from '../library'
 import logic from '../../logic'
+import { Component } from 'react'
 
-//export default ({ view, onHomeClick, onLoggedOut }) => {
-export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }) {
-    let name //Para el nombre del usuario
+export default class extends Component {
+    constructor(props) {
+        console.log('Header -> construcor')
 
-    if (logic.isUserLoggedIn())
+        super(props)
 
-        try {
-            name = logic.getUserName()
-        } catch (error) {
-            alert(error.message)
+        this.state = { name: null }
+    }
 
-            console.error(error)
+    componentDidMount() {
+        console.log('Header -> componentDidMount')
+
+        if (logic.isUserLoggedIn()) {
+            try {
+                logic.getUserName((error, name) => {
+                    if (error) {
+                        alert(error.message)
+                        console.error(error)
+                        return
+                    }
+                    this.setState({ name })
+                })
+
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
         }
+    }
 
-    return <header className="Header">
-        <img src='../../public/logo-unsocial-sin-fondo.png' alt='logo' id='logo' />
-        <h1>{view === 'new-post' ? <a href="" onClick={event => {
-            event.preventDefault()
-            onHomeClick()
-        }}>Unsocial</a> : 'Unsocial'}</h1>
+    handleHomeClick = event => {
+        event.preventDefault()
+        this.props.onHomeClick()
+    }
 
-
-        {/*logic.isUserLoggedIn() && <h3 className="nombreUser">{name}</h3>*/}
-        {/*Nueva lógica para visitar el perfil de usuario desde el nombre*/}
-        {/* Enlace al perfil del usuario si está logueado */}
-        {logic.isUserLoggedIn() &&
-            <a href="" onClick={event => {
-                event.preventDefault()
-                onViewProfile() // Cambia la vista a 'viewProfile'
-            }}>
-                <h3 className="nombreUser">{name}</h3>
-            </a>}
-
-
-        {logic.isUserLoggedIn() && <Button type="button" onClick={() => {
+    handleLogout = () => {
+        if (confirm('Logout?')) {
             logic.logoutUser()
-            onLoggedOut()
-        }}>Logout</Button>}
-    </header>
+            this.props.onLoggedOut()
+        }
+    }
+
+    handleProfile = event => {
+        event.preventDefault()
+        this.props.onViewProfile() // Cambia la vista a 'viewProfile'
+    }
+
+    render() {
+        console.log('Header -> render')
+
+        return <header className="Header">
+            <img src='../../public/logo-unsocial-sin-fondo.png' alt='logo' id='logo' />
+            <h1>{this.props.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+
+
+            {this.state.name && <a href="" onClick={this.handleProfile}><h3 className="nombreUser">{this.state.name}</h3></a>}
+
+
+            {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
+        </header>
+    }
+
 }
+
+
+// export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }) {
+//     let name //Para el nombre del usuario
+
+//     if (logic.isUserLoggedIn())
+
+//         try {
+//             name = logic.getUserName()
+//         } catch (error) {
+//             alert(error.message)
+
+//             console.error(error)
+//         }
+
+//     return <header className="Header">
+
+//         <h1>{view === 'new-post' ? <a href="" onClick={event => {
+//             event.preventDefault()
+//             onHomeClick()
+//         }}>Unsocial</a> : 'Unsocial'}</h1>
+
+
+
+//         {logic.isUserLoggedIn() &&
+//             <a href="" onClick={event => {
+//                 event.preventDefault()
+//                 onViewProfile() // Cambia la vista a 'viewProfile'
+//             }}>
+//                 <h3 className="nombreUser">{name}</h3>
+//             </a>}
+
+
+//         {logic.isUserLoggedIn() && <Button type="button" onClick={() => {
+//             logic.logoutUser()
+//             onLoggedOut()
+//         }}>Logout</Button>}
+//     </header>
+// }

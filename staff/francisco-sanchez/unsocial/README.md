@@ -38,31 +38,121 @@
 
 -----------------------------------------------------------------
 
+## **05/11/2024**
+### Continuamos trasladando la API a unsocial
+
+- OK - : Modifica loginUser.js --> Le mete el xhr
+    - Si todo ha ido bien devolvemos el callback con un null. (mantenemos la sesión de usuario)
+    - En caso contrario, devolvemos el error y el mensaje 
+- OK - : En el Login.jsx modifica la logica del login con el callback
+
+
+- TODO: Modificamos la lógica dentro de components > getUsername en Header.jsx
+    - Modificamos la lógica actual de getUserName por el callback
+    - El name ahora lo tendremos que passar en el state (this.setState({ name }))
+        - Por tanto tenemos que cambiar la función a un class extends Components
+        - Hay varios puntos modificados, en lo que refiere a view y props. (revisar bien el código)
+        - AL LORO ---> concepto componentDidMount() --> Entendre be!!!! 
+
+- TODO: Modificar la logica del getUserName.js con el nuevo callback del xhr
+
+- Hablamos de Home.jsx, pero lo dejamos para más adelante
+
+- TODO: Modificamos Posts.jsx
+    - importamos logic
+    - con el componentDidMount() gestionamos la logica de la llamada a getPosts()
+    - Tenemos que replicar la misma logica en todos los eventos de Posts.jsx
+    - El render no lo tocamos 
+
+- TODO: Vamos a modificar la logica del getPosts.js con el callback nuevo
+    - Como en los anteriores casos, utilizamos el xhr para traer los posts
+
+- TODO: Modificamos la view de CreatePost.jsx
+    - Modificamos logic > createPost.js con el xhr de la api. 
+
+- TODO: En el render de App.jsx añadimos algunos métodos para mejorar el código 
+
+- TODO: Se carga Home.jsx, y su lógica la mete dentro de Posts.jsx. 
+    - Y se cambian todas las referencias de Home a > Posts, para que ahora Posts sea la vista inicial 
+    - OJO!!! Hay muchas referencias
+    - TODO: hay que cambiar también el footer para mantener el boton de create post
+
+- TODO: En Post.jsx -> modificamos handleLikeClick y handleDeleteClick
+    - Modificamos la logica de deletePost.js con el el xhr y el callback para controlar los errores
+
+
+- TODO: Modificamos la logica del toggleLikePost.js con el xhr. 
+    - ¿¿?¿?¿?¿ Algún sitio más? 
+
+- TODO: Modificamos AddComment.jsx
+    - Modificamos la llamada asíncrona al addComment()
+    - Modificamos el addComment.js con el calback para manejar el xhr desde la api. 
+
+- TODO: Modificamos Comments.jsx, como los anteriores lo pasamos a asíncrono
+
+- TODO: Modificamos getComments.js (asíncrono)
+    - El callback en este punto si que devuelve un 200 porque aquí si que devuelve información. 
+
+- TODO: En Comments.jsx también tenemos que modificar el handleDeleteComment
+    - Modificamos logica removeComments.js para usar el xhr y hacerlo asíncrono. 
+
+
+- TODO: en validate.js de la app hacemos un validateCallback, y esto hay que modificarlo en todos los sitios de la app. 
+
+- TODO: En index de la api modificamos get server.get userid.... 
+    - En el getUserName.js --> también modificamos 
+    - También tendremos que modificar los tests
+        - get-user-name.sh
+        - y el get-user-name.js (el de xhr)
+
+
+
+
+### Cosas nuevas
+- TODO: En Comments.jsx, dentro del render Comment, añadimos un key={comment.id}. (lo haremos en todos los stios que hacemos un map)
+
+- Dentro de posts también lo hacemos 
+
+Al poner un ID único en Key, hace que React solo recargue aquello que ha tenido alguna modificación y no toda la página. De esta manera hacemos que la página recargue mas rápido. 
+
+
+#### Creamos un nuevo paquete para poner cosas comunes. 
+
+- OK - A la misma altura que api y app creamos una nueva carpeta que se llame "com" (Cosas comunes)
+    - OK - inicializamos con npm init --yes
+    - OK - Modificamos el package.json (versión 0)
+    - OK - Hay que añadir el type module en le package
+    - OK - Tenemos que poner un index.js (dentro de la carpeta pone las validaciones y las importa en el index)
+    - OK - Instala el paquete dentro de la app 
+        npm install ../com
+    - En todos los stios donde lo importamos ahora lo tenemos que desestructurar
+
+
+
+
+
+
 ## **04/11/2024**
 ### Terminamos la API
 Hoy terminamos todas las lógicas de la API, aquí está el flujo para crear los archivos
 
-
+--------------------------------------------
 Flujo de creación de los archivos para la API
     
 **LOGIC**
-
 1. Crear el xxx.test.js --> Para hacer la prueba directa.
 2. Creamos el xxx.js --> Es la lógica como tal.
 3. Añadimos la logica xxx.js en el index.js de logica
 
 
 **INDEX.JS de la api**
-
 4. Hay que añadir la nueva lógica con la nueva url al index.js de la api.
 
 
-
 **TEST**
-
 5. Crear el xxx-xxx.sh --> para hacer la prueba en linea de comandos en terminal
 6. Crear el xxx-xxx-js (para el xhr) --> Para probar en consola del navegador
-
+--------------------------------------------
 
 ### Integramos la api con la app
 - Añadimos el start en el package.json de la app
@@ -76,14 +166,15 @@ Flujo de creación de los archivos para la API
 
 - LO QUE TENEMOS QUE HACER
     - OK- instalar CORS (npm install cors) --> Luego lo usamos en la api
-    - TODO: Revisar lo que manu ha hecho en index.js de la api 
-    - Añadimos el server.options dentro del index de la api 
+    - OK - Revisar lo que manu ha hecho en index.js de la api 
+    - OK - Añadimos el server.options dentro del index de la api 
+        (Esto ya no lo hacemos con el cors)
         Access-Control-Allow-Origin: http://example.com
         Access-Control-Allow-Methods: POST, GET, OPTIONS
         Access-Control-Allow-Headers: Content-Type, Authorization... (Si ponemos un '*' los permitimos todos)
     
-    - TODO: Modificamos el registerUser.js de la App utilizando la llamada a la api XHR
-    - TODO: Modificamos registerUser.js con la respuesta correcta de xhr, y añadimos un callback en el export default. 
+    - OK - : Modificamos el registerUser.js de la App utilizando la llamada a la api XHR
+    - OK - : Modificamos registerUser.js con la respuesta correcta de xhr, y añadimos un callback en el export default. 
     - En caso que la api devuelva error, tenemos que parsear la respuesta con lo que nos devuelve (error, message)
         - Y esto se lo pasamos al callback
     
