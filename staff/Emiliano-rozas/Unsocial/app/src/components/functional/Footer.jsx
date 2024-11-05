@@ -7,7 +7,7 @@ export default ({ onNewPostClick, view }) => {
 
     return <footer className="footer">
         <div>
-            {view === 'home' && <Button type="button" onClick={onNewPostClick}>➕</Button>}
+            {view === 'posts' && <Button type="button" onClick={onNewPostClick}>➕</Button>}
         </div>
     </footer>
 }

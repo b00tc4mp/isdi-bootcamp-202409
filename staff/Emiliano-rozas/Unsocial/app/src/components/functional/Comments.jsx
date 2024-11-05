@@ -11,26 +11,46 @@ export default class extends Component {
 
         super(props)
 
-        let comments
+        this.state = { comments: [] }
+    }
 
+    componentDidMount() {
         try {
-            comments = logic.getComments(props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
+
+                this.setState({ comments })
+            })
         } catch (error) {
             alert(error.message)
 
             console.error(error)
         }
 
-        this.state = { comments }
     }
 
     onAdded = () => {
         try {
-            const comments = logic.getComments(this.props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ comments })
+                    console.error(error)
 
-            this.props.onAdded()
+                    return
+                }
+
+                this.setState({ comments })
+
+                this.props.onAdded()
+            })
+
         } catch (error) {
             alert(error.message)
 
@@ -40,11 +60,21 @@ export default class extends Component {
 
     onRemoved = () => {
         try {
-            const comments = logic.getComments(this.props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ comments })
+                    console.error(error)
 
-            this.props.onRemoved()
+                    return
+                }
+
+                this.setState({ comments })
+
+                this.props.onRemoved()
+
+            })
+
         } catch (error) {
             alert(error.message)
 

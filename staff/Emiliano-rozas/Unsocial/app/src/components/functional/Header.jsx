@@ -3,53 +3,75 @@ import './Header.css'
 import { Button, Anchor } from '../library'
 
 import logic from '../../logic'
+import { Component } from 'react'
 
+export default class extends Component {
+    constructor(props) {
+        console.log('Header -> constructor')
 
+        super(props)
 
-export default ({ view, onHomeClick, logOut }) => {
-    let name
+        this.state = { name: null }
+    }
 
-    if (logic.isUserLoggedIn())
-        try {
-            name = logic.getUserName()
-        } catch (error) {
-            alert(error, message)
+    componentDidMount() {
+        console.log('Header -> componentDidMount')
 
-            console.error(error)
-        }
+        if (logic.isUserLoggedIn())
+            try {
+                logic.getUserName((error, name) => {
+                    if (error) {
+                        alert(error.message)
 
-    const handleHomeClick = event => {
+                        console.error(error)
+
+                        return
+                    }
+                    this.setState({ name })
+
+                })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+    }
+    handleHomeClick = event => {
 
         event.preventDefaul()
 
-        onHomeClick()
+        this.props.onHomeClick()
     }
 
-    const handleLogout = () => {
+    handleLogout = () => {
 
         const confirmLogout = window.confirm("Are you sure you want to Logout?")
 
         if (confirmLogout) {
 
             logic.logoutUser()
-            logOut()
+            this.props.logOut()
         }
     }
 
-    return <header className='Header'>
+    render() {
+        console.log('Header -> render')
 
-        <h1>{view === 'new-post' ? <Anchor href="" onClick={handleHomeClick}>Unsocial</Anchor> : 'Unsocial'}</h1>
+        return <header className='Header'>
 
-        <div className='TopNav'>
+            <h1> {this.props.view === 'new-post' ? <Anchor href="" onClick={this.handleHomeClick}>Unsocial</Anchor> : 'Unsocial'}</h1 >
 
-            {logic.isUserLoggedIn() && <h3>{name}</h3>}
+            <div className='TopNav'>
+
+                {this.state.name && <h3>{this.state.name}</h3>}
 
 
-            {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
+                {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
 
-        </div>
+            </div>
 
-    </header >
+        </header >
+    }
 }
 
 

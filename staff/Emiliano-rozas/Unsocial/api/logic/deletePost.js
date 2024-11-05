@@ -11,18 +11,17 @@ export default (userId, postId) => {
 
     if (!found) throw new Error('user not found')
 
-    const post = posts.find(({ id }) => id === postId)
+    const index = posts.findIndex(({ id }) => id === postId)
 
-    if (!post) throw new Error('post not found')
+    if (index < 0) throw new Error('post not found')
 
-    const { likes } = post
+    const post = posts[index]
 
-    const index = likes.indexOf(userId)
+    const { author } = post
 
-    if (index < 0)
-        likes.push(userId)
-    else
-        likes.splice(index, 1)
+    if (author !== userId) throw new Error('user is not author of post')
+
+    posts.splice(index, 1)
 
     storage.posts = posts
 }

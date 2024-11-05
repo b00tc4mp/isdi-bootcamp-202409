@@ -1,9 +1,13 @@
 import express, { json } from 'express'
 import logic from './logic/index.js'
+import cors from 'cors'
 
 const server = express()
 
-const jsonBodyParser = express.json()
+server.use(cors())
+
+const jsonBodyParser = json()
+
 
 server.get('/', (_, res) => res.send('Hello,API!'))
 
@@ -22,9 +26,10 @@ server.post('/authenticate', jsonBodyParser, (req, res) => {
 })
 
 server.post('/register', jsonBodyParser, (req, res) => {
-    const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
     try {
+        const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
+
         logic.registerUser(name, email, username, password, passwordRepeat)
 
         res.status(201).send()
@@ -65,7 +70,7 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
-server.post('/posts/:postId', jsonBodyParser, (req, res) => {
+server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
 
     const userId = req.headers.authorization.slice(6)
 
@@ -94,7 +99,7 @@ server.delete('/posts/:postId/comments/:commentId', (req, res) => {
     try {
         logic.removeComments(userId, postId, commentId)
 
-        res.status(200).send()
+        res.status(204).send()
 
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
@@ -104,10 +109,12 @@ server.delete('/posts/:postId/comments/:commentId', (req, res) => {
 })
 
 server.get('/posts/:postId/comments', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
     const { postId } = req.params
 
     try {
-        const comment = logic.getComments(postId)
+        const comment = logic.getComments(userId, postId)
 
         res.json(comment)
     } catch (error) {
@@ -132,20 +139,48 @@ server.get('/posts', (req, res) => {
     }
 })
 
-server.patch('/posts/:postId/', (req, res) => {
+server.patch('/posts/:postId/likes', (req, res) => {
     const userId = req.headers.authorization.slice(6)
 
     const { postId } = req.params
     try {
         logic.toggleLikePost(userId, postId)
 
-        res.status(201).send()
+        res.status(204).send()
 
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
         console.error(error)
     }
+})
+
+
+server.delete('/posts/:postId', (req, res) => {
+    const userId = req.headers.authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.deletePost(userId, postId)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+        console.error(error)
+    }
+
+
+})
+
+server.options('/*', (_, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'localhost:5173')
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-type')
+    res.setHeader('Access-Control-Request-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+
+    res.send()
 })
 
 server.listen(8080, () => console.log('api is up'))

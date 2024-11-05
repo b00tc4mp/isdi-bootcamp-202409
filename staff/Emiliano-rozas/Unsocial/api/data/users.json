@@ -26,5 +26,26 @@
         "email": "pin@otto.com",
         "username": "pinotto",
         "password": "123123123"
+    },
+    {
+        "id": "m334tr824i",
+        "name": "benito",
+        "email": "benito@camela.com",
+        "username": "camela",
+        "password": "123123123"
+    },
+    {
+        "id": "m336vo52wx9",
+        "name": "benito",
+        "email": "juan@gmail.com",
+        "username": "camelo",
+        "password": "123123123"
+    },
+    {
+        "id": "m34laow1min",
+        "name": "hxrmx",
+        "email": "Emilianorozas@gmail.com",
+        "username": "hxrmx",
+        "password": "123123123"
     }
 ]

@@ -9,14 +9,25 @@ export default props => {
 
     const handleSubmit = event => {
         event.preventDefault()
+
         const { target: { username: { value: username }, password: { value: password } } } = event
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
 
-            event.target.reset()
+                if (error) {
+                    alert(error.message)
 
-            props.onLoggedIn()
+                    console.error(error)
+
+                    return
+                }
+
+                event.target.reset()
+
+                props.onLoggedIn()
+            })
+
         } catch (error) {
 
             alert(error.message)

@@ -1,18 +1,34 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
-export default (username, password) => {
+export default (username, password, callback) => {
 
     validate.username(username)
     validate.password(password)
+    validate.callback(callback)
 
-    const users = JSON.parse(localStorage.users)
 
-    const user = users.find(user => user.username === username && user.password === password)
+    const xhr = new XMLHttpRequest
 
-    if (user === undefined)
-        throw new Error("Wrong Credentials")
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    sessionStorage.userId = user.id
+
+        if (status === 200) {
+            const userId = JSON.parse(response)
+
+            sessionStorage.userId = userId
+
+            callback(null)
+
+            return
+        }
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
+    })
+
+    xhr.open('POST', 'http://localhost:8080/authenticate')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify({ username, password }))
 }
-
 

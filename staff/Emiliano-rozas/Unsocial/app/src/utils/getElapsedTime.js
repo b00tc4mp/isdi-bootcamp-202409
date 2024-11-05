@@ -1,5 +1,5 @@
 export default fromDateString => {
-    const date = new Date()
+    const date = new Date(fromDateString)
     const now = new Date
 
     const diff = now - date

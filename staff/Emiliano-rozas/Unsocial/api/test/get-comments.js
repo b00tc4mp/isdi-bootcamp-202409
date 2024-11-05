@@ -6,4 +6,5 @@ xhr.addEventListener('load', () => {
 })
 
 xhr.open('GET', 'http://localhost:8080/posts/m2vw4ucygv/comments')
+xhr.setRequestHeader('Authorization', 'Basic m2vvw4xzn6d')
 xhr.send()

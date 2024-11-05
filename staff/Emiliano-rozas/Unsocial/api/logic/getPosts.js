@@ -1,10 +1,14 @@
 import { storage } from '../data/index.js'
+import { validate } from 'com'
 
 export default userId => {
-
+    validate.id(userId, 'userId')
 
     const { users, posts } = storage
 
+    const user = users.some(({ id }) => id === userId)
+
+    if (!user) throw new Error('user not found')
 
     posts.forEach(post => {
         const { author: authorId } = post

@@ -9,12 +9,10 @@ import getElapsedTime from '../../utils/getElapsedTime'
 import './Post.css'
 import { Component } from 'react'
 
-
-
 export default class extends Component {
     constructor(props) {
 
-        console.log('Post')
+        console.log('Post -> constructor')
 
         super(props)
 
@@ -23,30 +21,50 @@ export default class extends Component {
 
     handleLikeClick = () => {
         try {
-            logic.toggleLikePost(this.props.post.id)
+            logic.toggleLikePost(this.props.post.id, error => {
+                if (error) {
+                    alert(error.message)
 
-            this.props.onLiked()
+                    console.error(error)
+
+                    return
+                }
+
+                this.props.onLiked()
+            })
         } catch (error) {
             alert(error.message)
 
             console.error(error)
         }
     }
-
     handleDeleteClick = () => {
         const confirmDelete = window.confirm("Are you sure you want to delete this post?")
 
         if (confirmDelete) {
-            logic.deletePost(this.props.post.id)
-            this.props.onDeleted()
+            try {
+                logic.deletePost(this.props.post.id, error => {
+                    if (error) {
+                        alert(error.message)
+
+                        console.error(error)
+
+                        return
+                    }
+
+                    this.props.onDeleted()
+                })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
         }
     }
 
     handleCommentsClick = () => {
         this.setState({ view: this.state.view ? null : 'comments' })
     }
-
-
 
     render() {
         console.log('PostItem -> render')
@@ -60,7 +78,7 @@ export default class extends Component {
                     text,
                     date,
                     liked,
-                    likedby,
+                    likes,
                     comments
                 },
                 onCommentAdded,
@@ -69,7 +87,7 @@ export default class extends Component {
         } = this
 
 
-        return < article className='Post' >
+        return < article className="Post" >
 
             <h4>{author.username}</h4>
 
@@ -81,7 +99,7 @@ export default class extends Component {
 
             <div className='contenedorBotones'>
 
-                <Button onClick={this.handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}{`${likedby.length} `}</Button>
+                <Button onClick={this.handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}{`${likes.length} `}</Button>
 
                 {author.id === logic.getUserId() && <Button type="button" onClick={this.handleDeleteClick}>🗑️</Button>}
 

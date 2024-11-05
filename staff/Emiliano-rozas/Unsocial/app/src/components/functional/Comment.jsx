@@ -13,9 +13,17 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
         if (confirm('Delete comment)'))
 
             try {
-                logic.removeComments(postId, id)
+                logic.removeComments(postId, id, error => {
+                    if (error) {
+                        alert(error.message)
 
-                onRemoved()
+                        console.log(error)
+                    }
+
+                    onRemoved()
+
+                })
+
             } catch (error) {
 
                 alert(error.message)
@@ -29,8 +37,11 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
 
         <li>
             <h4>{author.username}</h4>
+
             <p>{text}</p>
+
             <time>{getElapsedTime(date)}</time>
+
             {logic.getUserId() === author.id && <Button onClick={handleRemove}>🗑️</Button>}
         </li>
     </section >

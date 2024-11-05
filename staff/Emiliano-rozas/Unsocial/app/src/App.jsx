@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import { Login, Register, Home, CreatePost } from './view'
+import { Login, Register, Posts, CreatePost } from './view'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
@@ -14,8 +14,26 @@ export default class extends Component {
 
     super(props)
 
-    this.state = { view: logic.isUserLoggedIn() ? "home" : "login" }
+    this.state = { view: logic.isUserLoggedIn() ? "posts" : "login" }
   }
+
+  handleHomeclick = () => this.setState({ view: 'posts' })
+
+  handleLoggedOut = () => this.setState({ view: 'login' })
+
+  handleLoggedIn = () => this.setState({ view: "posts" })
+
+  handleRegister = () => this.setState({ view: "register" })
+
+  handleLogBack = () => this.setState({ view: "login" })
+
+  handleUserRegistered = () => this.setState({ view: 'login' })
+
+  handlePostCreated = () => this.setState({ view: 'posts' })
+
+  handleOnCanceled = () => this.setState({ view: 'posts' })
+
+  handleNewPostClick = () => this.setState({ view: 'new-post' })
 
   render() {
 
@@ -23,27 +41,26 @@ export default class extends Component {
 
     return <>
 
-      <Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })} logOut={() => this.setState({ view: 'login' })} />
+      <Header view={this.state.view} onHomeClick={this.handleHomeclick} logOut={this.handleLoggedOut} />
 
       {this.state.view === "login" && <Login
-        onLoggedIn={() => this.setState({ view: "home" })}
-        registerInquire={() => this.setState({ view: "register" })}
+        onLoggedIn={this.handleLoggedIn}
+        registerInquire={this.handleRegister}
       />}
 
       {this.state.view === "register" && <Register
-        logBack={() => this.setState({ view: "login" })}
-        onRegistered={() => this.setState({ view: 'login' })}
+        logBack={this.handleLogBack}
+        onRegistered={this.handleUserRegistered}
       />}
 
-      {this.state.view === "home" && <Home />}
+      {this.state.view === "posts" && <Posts />}
 
       {this.state.view === 'new-post' && <CreatePost
-        onCreated={() => this.setState({ view: 'home' })}
-        onCancel={() => this.setState({ view: 'home' })}
+        onCreated={this.handlePostCreated}
+        onCancel={this.handleOnCanceled}
       />}
 
-
-      <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
+      <Footer onNewPostClick={this.handleNewPostClick} view={this.state.view} />
     </>
   }
 }
