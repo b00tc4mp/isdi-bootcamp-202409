@@ -11,18 +11,25 @@ export default (props) => {
         const { target: { username: { value: username }, password: { value: password } } } = event
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
 
-            event.target.reset()
+                    return
+                }
+                event.target.reset()
 
-            props.onLoggedIn()
+                props.onLoggedIn()
+            })
+
         } catch (error) {
 
             alert(error.message)
-
             console.error(error)
         }
     }
+
     const handleRegisterClick = event => {
         event.preventDefault()
         props.onRegisterClick()

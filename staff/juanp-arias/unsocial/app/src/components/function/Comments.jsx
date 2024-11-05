@@ -9,42 +9,62 @@ export default class extends Component {
     constructor(props) {
         super(props)
 
-        let comments
+        this.state = { comments: [] }
+    }
 
+    componentDidMount() {
         try {
-            comments = logic.getComments(props.postId)
-        } catch (error) {
-            alert(error.message)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
 
+                    console.error(error)
+                    return
+                }
+                this.setState({ comments })
+            })
+        } catch (error) {
+
+            alert(error.message)
             console.error(error)
         }
-        this.state = { comments }
     }
 
     onAdded = () => {
         try {
-            const comments = logic.getComments(this.props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ comments })
-
-            this.props.onAdded()
+                    console.error(error)
+                    return
+                }
+                this.setState({ comments })
+                this.props.onAdded()
+            })
         } catch (error) {
-            alert(error.message)
 
+            alert(error.message)
             console.error(error)
         }
     }
 
     onRemoved = () => {
         try {
-            const comments = logic.getComments(this.props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
 
-            this.setState({ comments })
+                    console.error(error)
+                    return
+                }
+                this.setState({ comments })
 
-            this.props.onRemoved()
+                this.props.onRemoved()
+            })
         } catch (error) {
-            alert(error.message)
 
+            alert(error.message)
             console.error(error)
         }
     }
@@ -54,6 +74,7 @@ export default class extends Component {
             <ul>
                 {this.state.comments.map(comment =>
                     <Comment
+                        key={comment.id}
                         postId={this.props.postId}
                         comment={comment}
                         onRemoved={this.onRemoved}

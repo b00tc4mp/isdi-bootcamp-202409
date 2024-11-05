@@ -1,38 +1,49 @@
 import logic from '../logic'
+
+import { Label, Input, Button, Form, Field } from '../components/library'
 import './CreatePost.css'
 
 export default ({ onCreated }) => {
+
+    const handleSubmit = event => {
+        event.preventDefault()
+
+        const { target: form } = event
+
+        const {
+            image: { value: image },
+            text: { value: text }
+        } = form
+
+        try {
+            logic.createPostLogic(image, text, error => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                    return
+                }
+                onCreated()
+            })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
     return <main className='CreatePost'>
         <h3>Create Post</h3>
 
-        <form onSubmit={event => {
-            event.preventDefault()
+        <Form onSubmit={handleSubmit}>
+            <Label htmlFor="image">Image</Label>
+            <Input type="text" id="image" />
 
-            const { target: form } = event
+            <Label htmlFor="image">Text</Label>
+            <Input type="text" id="text" />
 
-            const {
-                image: { value: image },
-                text: { value: text }
-            } = form
+            <Button type="submit"><strong>CREATE</strong></Button>
 
-            try {
-                logic.createPostLogic(image, text)
-
-                onCreated()
-            } catch (error) {
-                alert(error.message)
-
-                console.error(error)
-            }
-        }}>
-            <label htmlFor="image">Image</label>
-            <input type="text" id="image" />
-
-            <label htmlFor="image">Text</label>
-            <input type="text" id="text" />
-
-            <button type="submit"><strong>CREATE</strong></button>
-
-        </form>
-    </main>
+        </Form>
+    </main >
 }

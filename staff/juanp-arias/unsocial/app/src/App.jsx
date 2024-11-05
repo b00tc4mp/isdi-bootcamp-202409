@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import { Login, Register, Home, CreatePost } from './view'
+import { Login, Register, PostList, CreatePost } from './view'
 
 import Header from './components/function/Header'
 import Footer from './components/function/Footer'
@@ -11,14 +11,14 @@ export default class extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
+        this.state = { view: logic.isUserLoggedIn() ? 'posts' : 'login' }
     }
 
-    handlePostCreated = () => this.setState({ view: 'home' })
+    handlePostCreated = () => this.setState({ view: 'posts' })
 
     handleUserLoggedOut = () => this.setState({ view: 'login' })
 
-    handleUserLoggedIn = () => this.setState({ view: 'home' })
+    handleUserLoggedIn = () => this.setState({ view: 'posts' })
 
     handleRegisterClick = () => this.setState({ view: 'register' })
 
@@ -28,7 +28,7 @@ export default class extends Component {
 
     handleNewPostClick = () => this.setState({ view: 'new-post' })
 
-    handleHomeClick = () => this.setState({ view: 'home' })
+    handleHomeClick = () => this.setState({ view: 'posts' })
 
     render() {
         return <div>
@@ -45,7 +45,7 @@ export default class extends Component {
                 onLoginClick={this.handleLoginClick}
                 onRegistered={this.handleUserRegistered}
             />}
-            {this.state.view === 'home' && <Home />}
+            {this.state.view === 'posts' && <PostList />}
 
             {this.state.view === 'new-post' && <CreatePost onCreated={this.handlePostCreated} />}
 

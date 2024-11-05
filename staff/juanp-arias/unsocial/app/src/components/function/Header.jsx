@@ -1,35 +1,55 @@
 import { Button } from '../library'
-
 import logic from '../../logic'
-
 import './Header.css'
+import { Component } from 'react'
 
-export default ({ view, onHomeClick, onLoggedOut }) => {
-    let name
+export default class extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { name: null }
+    }
 
-    if (logic.isUserLoggedIn())
-        try {
-            name = logic.getUserName()
-        } catch (error) {
-            alert(error.message)
+    componentDidMount() {
+        if (logic.isUserLoggedIn())
+            try {
+                logic.getUserName((error, name) => {
+                    if (error) {
+                        alert(error.mesage)
+                        console.error(error)
 
-            console.error(error)
-        }
+                        return
+                    }
+                    this.setState({ name })
+                })
 
-    return <header className="Header">
-        <h1>{view === 'new-post' ? <a href="" onClick={event => {
-            event.preventDefault()
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
+    }
 
-            onHomeClick()
-        }}>Unsocial</a> : 'Unsocial'}</h1>
+    handleHomeClick = event => {
+        event.preventDefault()
 
-        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+        this.props.onHomeClick()
+    }
 
-        {logic.isUserLoggedIn() && <Button type="button" onClick={() => {
+    handleLogout = () => {
+        if (confirm('Logout?')) {
             logic.logoutUser()
 
-            onLoggedOut()
-        }}>Logout</Button>}
-    </header>
+            this.props.onLoggedOut()
+        }
+    }
+
+    render() {
+        return <header className="Header">
+            <h1>{this.props.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+
+            {this.state.name && <h3>{this.state.name}</h3>}
+
+            {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
+        </header>
+    }
 }
 

@@ -1,23 +1,25 @@
 import { validate } from 'com'
 
-export default (postId, commentId) => {
+export default (postId, commentId, callback) => {
     validate.id(postId, 'Post ID')
     validate.id(commentId, 'Comment ID')
+    validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
-    const post = posts.find(({ id }) => id === postId)
+    const xhr = new XMLHttpRequest
 
-    const { comments } = post
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    const index = comments.findIndex(({ id }) => id === commentId)
+        if (status === 204) {
 
-    if (index < 0) throw new Error('comment not found')
+            callback(null)
+            return
+        }
+        const { error, message } = JSON.parse(response)
+        callback(new Error(message))
+    })
 
-    const { author } = comments[index]
-
-    if (author !== sessionStorage.userId) throw new Error('not your post')
-
-    comments.splice(index, 1)
-
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('DELETE', `http://localhost:7070/posts/${postId}/comments/${commentId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }

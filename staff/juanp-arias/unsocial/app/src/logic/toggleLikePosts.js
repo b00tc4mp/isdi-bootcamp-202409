@@ -1,20 +1,25 @@
 import { validate } from 'com'
 
-export default (postId) => {
-    validate.id(postId, 'PostID')
-    const posts = JSON.parse(localStorage.posts)
+export default (postId, callback) => {
+    validate.id(postId, 'post Id')
+    validate.callback(callback)
 
-    const post = posts.find(({ id }) => id === postId)
+    const xhr = new XMLHttpRequest
 
-    if (!post) throw new Error('post not found')
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    const { likes } = post
-    const { userId } = sessionStorage
+        if (status === 204) {
 
-    const index = likes.indexOf(userId)
+            callback(null)
+            return
+        }
 
-    if (index < 0) likes.push(userId)
-    else likes.splice(index, 1)
+        const { error, message } = JSON.parse(response)
+        callback(new Error(message))
+    })
 
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('PATCH', `http://localhost:7070/posts/${postId}/likes`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }

@@ -1,16 +1,26 @@
 import { validate } from 'com'
 
-export default postId => {
+export default (postId, callback) => {
     validate.id(postId, 'postId')
-    const posts = JSON.parse(localStorage.posts)
+    validate.callback(callback)
 
-    const index = posts.findIndex(({ id }) => id === postId)
+    const xhr = new XMLHttpRequest
 
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (index < 0) throw new Error('post not found')
+        if (status === 204) {
+            callback(null)
 
-    posts.splice(index, 1)
+            return
+        }
 
-    localStorage.posts = JSON.stringify(posts)
+        const { error, message } = JSON.parse(response)
+        callback(new Error(message))
+    })
+
+    xhr.open('DELETE', `http://localhost:7070/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }
 //función deletePost para eliminar los posts que queremos, le estamos dando funcionalidad a el botón delete

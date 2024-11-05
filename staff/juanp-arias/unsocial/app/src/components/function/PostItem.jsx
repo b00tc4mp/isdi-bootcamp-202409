@@ -15,21 +15,43 @@ export default class extends Component {
 
     handleLikeClick = () => {
         try {
-            logic.toggleLikePosts(this.props.post.id)
+            logic.toggleLikePosts(this.props.post.id, error => {
+                if (error) {
+                    alert(error.message)
 
-            this.props.onLiked()
+                    console.error(error)
+                    return
+                }
+                this.props.onLiked()
+            })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }
+
     handleDeleteClick = () => {
         if (confirm('Delete post?')) {
-            logic.deletePost(this.props.post.id)
+            try {
+                logic.deletePost(this.props.post.id, error => {
+                    if (error) {
+                        alert(error.message)
 
-            this.props.onDeleted()
+                        console.error(error)
+                        return
+                    }
+
+                    this.props.onDeleted()
+                })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
         }
     }
+
     handleCommentsClick = () => {
         this.setState({ view: this.state.view ? null : 'comments' })
     }
