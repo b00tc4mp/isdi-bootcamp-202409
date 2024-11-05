@@ -1,33 +1,55 @@
 import { Component } from "react";
 
+//aquest import el canviaré quan tregui la home i la modifiqui per postList (o Posts)
 import PostItem from "./Post";
 
-import getPosts from "../../logic/getPosts";
+//import getPosts from "../../logic/getPosts";
+
+import logic from "../../logic";
+
+
 
 //export default class extends Component {
 export default class PostList extends Component {
     constructor(props) {
-        console.log('PostList -> render')
+        console.log('PostList -> Constructor')
 
         super(props)
 
-        let posts
+        //let posts
+        this.state = { posts: [] } //Tinc dubtes si això em pot donar problemes
+    }
+
+    componentDidMount() {
+        console.log('Posts / PostList -> componentDidMount')
 
         try {
-            posts = getPosts()
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                this.setState({ posts })
+            })
+
 
         } catch (error) {
             alert(error.message);
             console.error(error)
         }
-
-        this.state = { posts }
     }
 
     handleLiked = () => {
         try {
-            const posts = getPosts()
-            this.setState({ posts })
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                this.setState({ posts })
+            })
         } catch (error) {
             alert.error(error)
             console.error(error)
@@ -36,8 +58,14 @@ export default class PostList extends Component {
 
     handleDeleted = () => {
         try {
-            const posts = getPosts()
-            this.setState({ posts })
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                this.setState({ posts })
+            })
         } catch {
             alert(error.message)
             console.error(error)
@@ -46,8 +74,14 @@ export default class PostList extends Component {
 
     handleCommentAdded = () => {
         try {
-            const posts = getPosts()
-            this.setState({ posts })
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                this.setState({ posts })
+            })
         } catch {
             alert.error(error)
             console.error(error)
@@ -56,7 +90,14 @@ export default class PostList extends Component {
 
     handleCommentRemoved = () => {
         try {
-
+            logic.getPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                this.setState({ posts })
+            })
         } catch {
             alert.error(error)
             console.error(error)
@@ -70,7 +111,7 @@ export default class PostList extends Component {
         return <div>
             {/* <h3>Posts</h3> */}
             {this.state.posts.map(post => <PostItem
-                post={post}  //Le he cambiado el nombre de "item = {post}" a "post = {post}"
+                post={post}
 
                 onLiked={this.handleLiked}
 

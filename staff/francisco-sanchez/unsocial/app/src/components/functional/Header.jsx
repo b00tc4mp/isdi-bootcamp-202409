@@ -1,8 +1,10 @@
-import './Header.css'
-
 import { Button } from '../library'
 import logic from '../../logic'
+import './Header.css'
 import { Component } from 'react'
+import logo from '../../../public/logo-unsocial-sin-fondo.png'
+
+
 
 export default class extends Component {
     constructor(props) {
@@ -12,7 +14,10 @@ export default class extends Component {
 
         this.state = { name: null }
     }
-
+    /*
+    NOTA: 
+    componentDidMount() es un método del ciclo de vida de los componentes de clase en React. Se ejecuta automáticamente una vez después de que el componente se ha renderizado en el DOM por primera vez. Es útil para inicializar tareas asincrónicas, como solicitar datos de una API, establecer suscripciones, o realizar configuraciones que solo deben ejecutarse una vez en la vida del componente.
+    */
     componentDidMount() {
         console.log('Header -> componentDidMount')
 
@@ -55,7 +60,7 @@ export default class extends Component {
         console.log('Header -> render')
 
         return <header className="Header">
-            <img src='../../public/logo-unsocial-sin-fondo.png' alt='logo' id='logo' />
+            <img src={logo} alt='logo' id='logo' />
             <h1>{this.props.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
 

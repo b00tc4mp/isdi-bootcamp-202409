@@ -1,27 +1,26 @@
-export default () => {
-    const users = JSON.parse(localStorage.users)
-    const posts = JSON.parse(localStorage.posts)
+import { validate } from 'com'
 
-    const { userId } = sessionStorage
+export default callback => {
+    //TODO: ¿Esto por qué? 
+    validate.callback(callback)
 
-    posts.forEach(post => {
-        const { author: authorId } = post
+    const xhr = new XMLHttpRequest
 
-        //const user = users.find(user => user.id === authorId)
-        //const user = users.find(({ id }) => id === authorId)
-        const { username } = users.find(({ id }) => id === authorId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-        //post.author = { id: authorId, username: user.username }
-        /* cuando el valor que devolvemos se llama igual que la variable 
-        que queremos traspasar podemos evitar nombrarla y poner 
-        directamente el valor de lo que vamos a devolver */
-        post.author = { id: authorId, username }
+        if (status === 200) {
+            const posts = JSON.parse(response)
+            callback(null, posts)
+            return
+        }
 
-        post.liked = post.likes.includes(userId)
-
-        post.comments = post.comments.length
+        const { error, message } = JSON.parse(response)
+        callback(new Error(message))
     })
 
-    return posts.toReversed()
+    xhr.open('GET', 'http://localhost:8080/posts')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }
 

@@ -47,24 +47,26 @@
 - OK - : En el Login.jsx modifica la logica del login con el callback
 
 
-- TODO: Modificamos la lógica dentro de components > getUsername en Header.jsx
-    - Modificamos la lógica actual de getUserName por el callback
-    - El name ahora lo tendremos que passar en el state (this.setState({ name }))
-        - Por tanto tenemos que cambiar la función a un class extends Components
-        - Hay varios puntos modificados, en lo que refiere a view y props. (revisar bien el código)
-        - AL LORO ---> concepto componentDidMount() --> Entendre be!!!! 
+- OK - : Modificamos la lógica dentro de components > getUsername en Header.jsx
+    -OK -  Modificamos la lógica actual de getUserName por el callback
+    - OK -  El name ahora lo tendremos que passar en el state (this.setState({ name }))
+        - OK -  Por tanto tenemos que cambiar la función a un class extends Components
+        - OK -  Hay varios puntos modificados, en lo que refiere a view y props. (revisar bien el código)
+        - OK -  AL LORO ---> concepto componentDidMount() --> Entendre be!!!! 
 
-- TODO: Modificar la logica del getUserName.js con el nuevo callback del xhr
+        TODO: Revisar per que no funciona el click del viewProfile
+
+- OK - : Modificar la logica del getUserName.js con el nuevo callback del xhr
 
 - Hablamos de Home.jsx, pero lo dejamos para más adelante
 
-- TODO: Modificamos Posts.jsx
-    - importamos logic
-    - con el componentDidMount() gestionamos la logica de la llamada a getPosts()
-    - Tenemos que replicar la misma logica en todos los eventos de Posts.jsx
-    - El render no lo tocamos 
+- OK -: Modificamos Posts.jsx (En mi caso postList)
+    - OK - importamos logic
+    - OK - con el componentDidMount() gestionamos la logica de la llamada a getPosts()
+    - OK - Tenemos que replicar la misma logica en todos los eventos de Posts.jsx
+    - TODO: El render no lo tocamos  (Lo tocaré luego)
 
-- TODO: Vamos a modificar la logica del getPosts.js con el callback nuevo
+- OK -: Vamos a modificar la logica del getPosts.js con el callback nuevo
     - Como en los anteriores casos, utilizamos el xhr para traer los posts
 
 - TODO: Modificamos la view de CreatePost.jsx

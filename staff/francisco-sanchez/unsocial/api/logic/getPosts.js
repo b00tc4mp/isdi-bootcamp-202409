@@ -1,18 +1,18 @@
 import { storage } from '../data/index.js'
-import validate from './helpers/validate.js'
+import { validate } from 'com'
 
 export default userId => {
     validate.id(userId, 'userId')
 
     const { users, posts } = storage
 
-    const user = users.find(({ id }) => id === userId)
+    //const user = users.find(({ id }) => id === userId)
+    const found = users.some(({ id }) => id === userId)
 
-    if (!user) throw new Error('user not found')
-
+    //if (!user) throw new Error('user not found')
+    if (!found) throw new Error('user not found')
 
     posts.forEach(post => {
-
         //aquí va la lógica de del getPosts original 
 
         const { author: authorId } = post
