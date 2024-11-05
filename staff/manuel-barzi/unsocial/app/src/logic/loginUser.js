@@ -1,9 +1,9 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
 export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
-    // TODO validate callback
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 

@@ -1,8 +1,10 @@
 import { Component } from 'react'
 
-import Post from './Post'
+import { Post } from '../components/functional'
 
-import logic from '../../logic'
+import logic from '../logic'
+
+import './Posts.css'
 
 export default class extends Component {
     constructor(props) {
@@ -118,16 +120,13 @@ export default class extends Component {
     render() {
         console.log('Posts -> render')
 
-        return <div>
+        return <div className="Posts">
             {this.state.posts.map(post => <Post
+                key={post.id}
                 post={post}
-
                 onLiked={this.handleLiked}
-
                 onDeleted={this.handleDeleted}
-
                 onCommentAdded={this.handleCommentAdded}
-
                 onCommentRemoved={this.handleCommentRemoved}
             />)}
         </div>

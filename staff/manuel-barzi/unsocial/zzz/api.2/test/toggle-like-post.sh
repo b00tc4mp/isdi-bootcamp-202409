@@ -1,0 +1,1 @@
+ curl -X PATCH -H 'Authorization: Basic m2vvw4xzn6d' http://localhost:8080/posts/m2vw4ucygv/likes -v
