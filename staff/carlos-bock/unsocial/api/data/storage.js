@@ -2,7 +2,7 @@ import fs from 'fs';
 
 export default {
     get users () {
-        const json = fs.readFileSync('.data/users.json', 'utf-8');
+        const json = fs.readFileSync('./data/users.json', 'utf-8');
 
         const users = JSON.parse(json);
 

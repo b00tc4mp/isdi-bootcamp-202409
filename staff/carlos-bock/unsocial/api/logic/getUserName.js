@@ -1,5 +1,5 @@
 import {storage} from '../data/index.js';
-import validate from './helpers/validate';
+import validate from './helpers/validate.js';
 
 const getUserName = userId => {
     validate.id(userId, 'userId');
