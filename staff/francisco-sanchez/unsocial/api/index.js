@@ -10,8 +10,8 @@ const server = express()
 server.use(cors())
 
 
-//Parsea todas las respuestas de express a json
-const jsonBodyParser = express.json()
+//Parsea todas las !!!respuestas!!! de express a json
+const jsonBodyParser = express.json()  //¿?¿?¿? podemos mantener express.json? o quitamos express?? 
 
 
 //Metemos un servidor de aviso para indicar que está levantado
@@ -62,11 +62,13 @@ server.post('/register', jsonBodyParser, (req, res) => {
 
 //el ":userId", sirve para pasar el usuario como parte de la URL 
 // Ejemplo de la llamada --> curl http://localhost:8080/users/m2ey7tvjg0t/name -v (El user que le pasamos es variable)
-server.get('/users/:userId/name', (req, res) => {
-    const { userId } = req.params
+server.get('/users/:targetUserId/name', (req, res) => {
+    //const { userId } = req.params
+    const userId = req.headers.authorization.slice(6)
+    const { targetUserId } = req.params
 
     try {
-        const name = logic.getUserName(userId)
+        const name = logic.getUserName(userId, targetUserId)
 
         res.json(name)
     } catch (error) {
@@ -108,7 +110,7 @@ server.get('/posts', (req, res) => {
 })
 
 
-server.delete('/posts/:postId', (req, res) => {
+server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
     const { postId } = req.params
     const userId = req.headers.authorization.slice(6)
 

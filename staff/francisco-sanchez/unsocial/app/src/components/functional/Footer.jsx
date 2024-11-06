@@ -20,7 +20,7 @@ import { Button } from '../library'
 //export default ({ onNewPostClick, view }) => {
 export default function Footer({ onNewPostClick, view }) {
     return <footer className="Footer">
-        {view === 'home' && <Button type="button"
+        {view === 'posts' && <Button type="button"
             onClick={onNewPostClick}>+ New Post</Button>}
     </footer>
 }

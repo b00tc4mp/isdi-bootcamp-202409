@@ -38,6 +38,33 @@
 
 -----------------------------------------------------------------
 
+
+## **06/11/2024**
+### Hoy traspasamos la aplicación a Hooks 
+Nos vamos a cargar todas las clases y lo volveremos a pasar a funciones. 
+
+- Lo primero que hace es nombrar todas las funciones para que se vean bien en el inspector de react
+
+- TODO: App -> Importa useState y lo mete en el export default de app. --> Mirar --> https://developero.io/blog/react-hooks-tutorial-en-espa%C3%B1ol#manejo-de-estados-con-usestate
+    - Esto proporciona un array que devuelve dos posiciones, "view, y setView"
+
+- TODO: Posts.jsx -> Importa useEffect y useState --> 
+    - useEffect: https://developero.io/blog/react-hooks-tutorial-en-espa%C3%B1ol#ciclo-de-vida-de-un-componente-con-useeffect
+
+- TODO: Comments.jsx -> Importa useEffect y useState
+    - Cambia los nombres de onRemoved y on... por handle... 
+
+- TODO: Header.jsx (lo mismo que los dos anteriores)
+    - ComponentWillReceiveProps
+
+- TODO: Posts.jsx / PostList.jsx --> 
+
+- TODO: PasswordInput.jsx -->
+
+
+
+
+
 ## **05/11/2024**
 ### Continuamos trasladando la API a unsocial
 
@@ -69,39 +96,39 @@
 - OK -: Vamos a modificar la logica del getPosts.js con el callback nuevo
     - Como en los anteriores casos, utilizamos el xhr para traer los posts
 
-- TODO: Modificamos la view de CreatePost.jsx
-    - Modificamos logic > createPost.js con el xhr de la api. 
+- OK: Modificamos la view de CreatePost.jsx
+    - OK - : Modificamos logic > createPost.js con el xhr de la api. 
 
-- TODO: En el render de App.jsx añadimos algunos métodos para mejorar el código 
+- OK -: En el render de App.jsx añadimos algunos métodos para mejorar legibilidad 
 
-- TODO: Se carga Home.jsx, y su lógica la mete dentro de Posts.jsx. 
+- OK -: Se carga Home.jsx, y su lógica la mete dentro de Posts.jsx. 
     - Y se cambian todas las referencias de Home a > Posts, para que ahora Posts sea la vista inicial 
     - OJO!!! Hay muchas referencias
-    - TODO: hay que cambiar también el footer para mantener el boton de create post
+    - OK -: hay que cambiar también el footer para mantener el boton de create post
 
-- TODO: En Post.jsx -> modificamos handleLikeClick y handleDeleteClick
-    - Modificamos la logica de deletePost.js con el el xhr y el callback para controlar los errores
+- OK: En Post.jsx -> modificamos handleLikeClick y handleDeleteClick
+    - OK - : Modificamos la logica de deletePost.js con el el xhr y el callback para controlar los errores
 
 
-- TODO: Modificamos la logica del toggleLikePost.js con el xhr. 
+- OK -: Modificamos la logica del toggleLikePost.js con el xhr. 
     - ¿¿?¿?¿?¿ Algún sitio más? 
 
-- TODO: Modificamos AddComment.jsx
-    - Modificamos la llamada asíncrona al addComment()
-    - Modificamos el addComment.js con el calback para manejar el xhr desde la api. 
+- OK -: Modificamos AddComment.jsx
+    - OK - Modificamos la llamada asíncrona al addComment()
+    - OK - Modificamos el addComment.js con el calback para manejar el xhr desde la api. 
 
-- TODO: Modificamos Comments.jsx, como los anteriores lo pasamos a asíncrono
+- OK -: Modificamos Comments.jsx, como los anteriores lo pasamos a asíncrono
 
-- TODO: Modificamos getComments.js (asíncrono)
+- OK -: Modificamos getComments.js (asíncrono)
     - El callback en este punto si que devuelve un 200 porque aquí si que devuelve información. 
 
-- TODO: En Comments.jsx también tenemos que modificar el handleDeleteComment
-    - Modificamos logica removeComments.js para usar el xhr y hacerlo asíncrono. 
+- OK -: En Comment.jsx también tenemos que modificar el handleDeleteComment
+    - OK - Modificamos logica removeComments.js para usar el xhr y hacerlo asíncrono. 
 
 
-- TODO: en validate.js de la app hacemos un validateCallback, y esto hay que modificarlo en todos los sitios de la app. 
+- OK: en validate.js de la app hacemos un validateCallback, y esto hay que modificarlo en todos los sitios de la app. 
 
-- TODO: En index de la api modificamos get server.get userid.... 
+- OK - : En index de la api modificamos get server.get userid.... 
     - En el getUserName.js --> también modificamos 
     - También tendremos que modificar los tests
         - get-user-name.sh

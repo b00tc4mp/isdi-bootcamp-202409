@@ -2,7 +2,7 @@ import { Label, Button, Form, Field } from "../library"
 
 import logic from "../../logic"
 
-export default function AddComment({ postId, onAdded }) {
+export default ({ postId, onAdded }) => {
     console.log('AddComment -> render')
 
     const handleSubmit = event => {
@@ -18,11 +18,17 @@ export default function AddComment({ postId, onAdded }) {
         const { text: { value: text } } = form
 
         try {
-            logic.addComment(postId, text)
+            logic.addComment(postId, text, error => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
 
-            form.reset()
+                form.reset()
+                onAdded()
+            })
 
-            onAdded()
         } catch (error) {
             alert(error.message)
             console.error(error)

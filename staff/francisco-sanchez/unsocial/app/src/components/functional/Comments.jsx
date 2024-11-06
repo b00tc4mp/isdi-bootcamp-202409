@@ -12,60 +12,60 @@ export default class Comments extends Component {
 
         super(props)
 
-        let comments
+        this.state = { comments: [] }
+    }
 
+
+    componentDidMount() {
         try {
-            comments = logic.getComments(props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                this.setState({ comments })
+            })
+
         } catch (error) {
             alert(error.message)
-
             console.error(error)
         }
-
-        this.state = { comments }
     }
+
 
     onAdded = () => {
         try {
-            /**
-             * Llama a logic.getComments con el postId actual (proveniente de this.props) 
-             * para obtener los comentarios actualizados del post y 
-             * almacenarlos en comments.
-             */
-            const comments = logic.getComments(this.props.postId)
-
-            /**
-             * Guarda los comentarios recién obtenidos en el estado (this.state.comments).
-             *  Esto permite que el componente se vuelva a renderizar y muestre los 
-             * nuevos comentarios.
-             */
-            this.setState({ comments })
-
-            /*
-            Llama a onAdded, que es una función pasada como propiedad desde un 
-            componente superior. Este patrón permite que los componentes 
-            padres reaccionen cuando algo cambia en el hijo (en este caso, 
-            después de agregar un nuevo comentario).
-            */
-            this.props.onAdded()
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                this.setState({ comments })
+                this.props.onAdded()
+            })
 
         } catch (error) {
             alert(error.message)
-
             console.error(error)
         }
     }
 
     onRemoved = () => {
         try {
-            const comments = logic.getComments(this.props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                this.setState({ comments })
+                this.props.onRemoved()
+            })
 
-            this.setState({ comments })
-
-            this.props.onRemoved()
         } catch (error) {
             alert(error.message)
-
             console.error(error)
         }
     }
@@ -77,6 +77,7 @@ export default class Comments extends Component {
             <ul>
                 {this.state.comments.map(comment =>
                     <Comment
+                        key={comment.id}
                         postId={this.props.postId}
                         comment={comment}
                         onRemoved={this.onRemoved}

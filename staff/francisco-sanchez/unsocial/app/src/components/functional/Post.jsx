@@ -20,9 +20,16 @@ export default class PostItem extends Component {
 
     handleLikeClick = () => {
         try {
-            logic.toggleLikePost(this.props.post.id)
+            logic.toggleLikePost(this.props.post.id, error => {
 
-            this.props.onLiked()
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+
+                this.props.onLiked()
+            })
 
         } catch (error) {
             alert(error.message)
@@ -31,16 +38,22 @@ export default class PostItem extends Component {
     }
 
     handleDeleteClick = () => {
-        try {
-            if (confirm('Delete post?')) {
-                logic.deletePost(this.props.post.id)
 
-                this.props.onDeleted()
+        if (confirm('Delete post?')) {
+            try {
+                logic.deletePost(this.props.post.id, error => {
+                    if (error) {
+                        alert(error.message)
+                        console.error(error)
+                        return
+                    }
+                    this.props.onDeleted()
+                })
+
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
             }
-
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
         }
     }
 
@@ -82,8 +95,7 @@ export default class PostItem extends Component {
 
 
                 {/* Botón para Eliminar posts */}
-                {author.id === logic.getUserId() && <Button
-                    onClick={this.handleDeleteClick}>❌</Button>}
+                {author.id === logic.getUserId() && <Button onClick={this.handleDeleteClick}>❌</Button>}
 
 
                 {/* Botón para mostrar los comentarios */}

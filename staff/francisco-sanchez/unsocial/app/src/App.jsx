@@ -1,21 +1,17 @@
 import { Component } from 'react'
 
-import { Login, Register, Home, CreatePost, ViewProfile } from './view'
+import { Login, Register, CreatePost, ViewProfile } from './view'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
 
 import logic from './logic'
-
-/*Pos si hiciera falta tirar de copia de seguridad*/
-/*import backupUsers from './data/backupUsers'
-import backupPosts from './data/backupPosts'*/
-
-/*import backupUsers from './data/backupUsers'*/
+import { PostList } from './components/functional'
 
 /**
  * Validamos si existe localStorage, si no existe lo fuerzo
  */
+
 const emptyArray = []
 
 if (!localStorage.getItem('users')) {
@@ -39,7 +35,7 @@ export default class App extends Component {
         //this.state es una propiedad de this 
 
         //Dentro del constructor aquí marcamos la vista que se cargará primero
-        this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
+        this.state = { view: logic.isUserLoggedIn() ? 'posts' : 'login' }
     }
 
     // Método para cambiar la vista a 'viewProfile' (perfil del usuario)
@@ -48,30 +44,42 @@ export default class App extends Component {
         this.setState({ view: 'viewProfile' })
     }
 
+    handlePostCreated = () => this.setState({ view: 'posts' })
+
+    handleUserLoggedOut = () => this.setState({ view: 'login' })
+
+    handleUserHomeClick = () => this.setState({ view: 'posts' })
+
+    handleUserViewProfile = () => this.setState({ view: 'viewProfile' })
+
+    handreUserLoggedIn = () => this.setState({ view: 'posts' })
+
+    handleUserNavRegister = () => this.setState({ view: 'register' })
+
+    handleUserLoginClick = () => this.setState({ view: 'login' })
+
+    handleUserOnRegistered = () => this.setState({ view: 'login' })
+
+
+
     render() {
         return <>
             {/* Componente Header recibe las funciones de cambio de vista como props */}
             <Header
                 view={this.state.view}
-                onHomeClick={() => this.setState({ view: 'home' })}
-                onLoggedOut={() => this.setState({ view: 'login' })}
-                onViewProfile={() => this.setState({ view: 'viewProfile' })} />
+                onHomeClick={this.handleUserHomeClick}
+                onLoggedOut={this.handleUserLoggedOut}
+                onViewProfile={this.handleUserViewProfile} />
 
-            {this.state.view === 'login' && <Login
-                onLoggedIn={() => this.setState({ view: 'home' })}
-                onNavRegister={() => this.setState({ view: 'register' })} />}
+            {this.state.view === 'login' && <Login onLoggedIn={this.handreUserLoggedIn} onNavRegister={this.handleUserNavRegister} />}
 
-            {this.state.view === 'register' && <Register
-                onLoginClick={() => this.setState({ view: 'login' })}
-                onRegistered={() => this.setState({ view: 'login' })} />}
+            {this.state.view === 'register' && <Register onLoginClick={this.handleUserLoginClick} onRegistered={this.handleUserOnRegistered} />}
 
-            {this.state.view === 'home' && <Home />}
+            {this.state.view === 'posts' && <PostList />}
 
-            {this.state.view === 'new-post' && <CreatePost
-                onCreated={() => this.setState({ view: 'home' })} />}
+            {this.state.view === 'new-post' && <CreatePost onCreated={this.handlePostCreated} />}
 
-            {this.state.view === 'viewProfile' && <ViewProfile          //La primera linea hace referencia a la vista
-                onHomeClick={() => this.setState({ view: 'home' })} />} {/* La segunda, a las acciones dentro de la misma */}
+            {this.state.view === 'viewProfile' && <ViewProfile onHomeClick={this.handleUserHomeClick} />}
 
             <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
         </>

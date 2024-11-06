@@ -1,13 +1,21 @@
 import { Component } from "react";
 
 //aquest import el canviaré quan tregui la home i la modifiqui per postList (o Posts)
-import PostItem from "./Post";
+import PostItem from "../components/functional/Post";
 
 //import getPosts from "../../logic/getPosts";
 
-import logic from "../../logic";
+import logic from "../logic";
 
+import './PostList.css'
 
+/*
+<main className="Home">
+            <div className="container">
+                {this.state.view === 'list' && <PostList />}
+            </div>
+        </main>
+*/
 
 //export default class extends Component {
 export default class PostList extends Component {
@@ -108,20 +116,22 @@ export default class PostList extends Component {
     render() {
         console.log('Posts -> render')
 
-        return <div>
-            {/* <h3>Posts</h3> */}
-            {this.state.posts.map(post => <PostItem
-                post={post}
+        return <main className="Home">
+            <div className="container">
+                {/* <h3>Posts</h3> */}
+                {this.state.posts.map(post => <PostItem
+                    post={post}
 
-                onLiked={this.handleLiked}
+                    onLiked={this.handleLiked}
 
-                onDeleted={this.handleDeleted}
+                    onDeleted={this.handleDeleted}
 
-                onCommentAdded={this.handleCommentAdded}
+                    onCommentAdded={this.handleCommentAdded}
 
-                onCommentRemoved={this.handleCommentRemoved}
+                    onCommentRemoved={this.handleCommentRemoved}
 
-            />)}
-        </div>
+                />)}
+            </div>
+        </main>
     }
 }

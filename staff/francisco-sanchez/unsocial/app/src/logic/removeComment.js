@@ -1,28 +1,25 @@
-import validate from "./helpers/validate";
-import readPost from "./readPost";
+import { validate } from 'com';
 
-export default (postId, commentId) => {
+export default (postId, commentId, callback) => {
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
+    validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
-    const post = posts.find(({ id }) => id === postId)
-    //const post = readPost(postId)
 
-    const { comments } = post
+    const xhr = new XMLHttpRequest
 
-    //Buscamos el el índex del comentario a eliminar
-    const index = comments.findIndex(({ id }) => id === commentId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (index < 0) throw new Error('Comment not found')
+        if (status === 204) {
+            callback(null)
+            return
+        }
+        const { error, message } = JSON.parse(response)
+        callback(new Error(message))
+    })
 
-    const { author } = comments[index]
-
-    //Validamos que solo el autor de un comentario lo pueda eliminar
-    if (author !== sessionStorage.userId) throw new Error('user is not owner of the comment')
-
-    comments.splice(index, 1)
-
-    localStorage.posts = JSON.stringify(posts)
-
+    xhr.open('DELETE', `http://localhost:8080/posts/${postId}/comments/${commentId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }

@@ -1,15 +1,23 @@
-export default postId => {
-    const posts = JSON.parse(localStorage.posts)
+import { validate } from "com"
 
-    const index = posts.findIndex(({ id }) => id === postId)
+export default (postId, callback) => {
+    validate.id(postId, 'postId')
+    validate.callback(callback)
 
-    if (index < 0) throw new Error('post not found')
+    const xhr = new XMLHttpRequest
 
-    const { author } = posts[index]
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (author !== sessionStorage.userId) throw new Error('user is not the owner of the post')
+        if (status === 204) {
+            callback(null)
+            return
+        }
+        const { error, message } = JSON.parse(response)
+        callback(new Error(message))
+    })
 
-    posts.splice(index, 1)
-
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }
