@@ -1,18 +1,13 @@
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
 import PostItem from '../components/function/PostItem'
 import './PostList.css'
 import logic from '../logic'
 
-export default class PostList extends Component {
+export default function PostList() {
+    const [posts, setPosts] = useState([])
 
-    constructor(props) {
-        super(props)
-        this.state = { posts: [] }
-    }
-
-    componentDidMount() {
-
+    useEffect(() => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -21,16 +16,16 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
 
             console.error(error)
         }
-    }
+    }, [])
 
-    handleLiked = () => {
+    const handleLiked = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -39,7 +34,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
@@ -48,7 +43,7 @@ export default class PostList extends Component {
         }
     }
 
-    handleDeleted = () => {
+    const handleDeleted = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -57,7 +52,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
@@ -66,7 +61,7 @@ export default class PostList extends Component {
         }
     }
 
-    handleCommentAdded = () => {
+    const handleCommentAdded = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -75,7 +70,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
@@ -84,7 +79,7 @@ export default class PostList extends Component {
         }
     }
 
-    handleCommentRemoved = () => {
+    const handleCommentRemoved = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -93,7 +88,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
@@ -102,23 +97,20 @@ export default class PostList extends Component {
         }
     }
 
-    render() {
+    return <div className='PostList'>
+        {posts.map(post => <PostItem
+            key={post.id}
 
-        return <div className='PostList'>
-            {this.state.posts.map(post => <PostItem
-                key={post.id}
+            post={post}
 
-                post={post}
+            onLiked={handleLiked}
 
-                onLiked={this.handleLiked}
+            onDeleted={handleDeleted}
 
-                onDeleted={this.handleDeleted}
+            onCommentAdded={handleCommentAdded}
 
-                onCommentAdded={this.handleCommentAdded}
-
-                onCommentRemoved={this.handleCommentRemoved}
-            />)}
-        </div>
-    }
+            onCommentRemoved={handleCommentRemoved}
+        />)}
+    </div>
 }
 //Estas funciones lo que hacen es repintar, la de delete lo que hace es traer de nuevo los posts al home.

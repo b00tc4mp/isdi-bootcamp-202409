@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './PostItem.css'
 import { Button } from '../library'
 import Comments from './Comments'
@@ -5,24 +6,31 @@ import Comments from './Comments'
 import logic from '../../logic'
 import dateAgo from '../../utilities/dateAgo'
 
-import { Component } from 'react'
 
-export default class PostItem extends Component {
-    constructor(props) {
-        super(props)
-        this.state = { view: null }
-    }
+export default function PostItem({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
+    const [view, setView] = useState(null)
 
-    handleLikeClick = () => {
+    const {
+        id,
+        author,
+        image,
+        text,
+        date,
+        liked,
+        likes,
+        comments
+    } = post
+
+    const handleLikeClick = () => {
         try {
-            logic.toggleLikePosts(this.props.post.id, error => {
+            logic.toggleLikePosts(id, error => {
                 if (error) {
                     alert(error.message)
 
                     console.error(error)
                     return
                 }
-                this.props.onLiked()
+                onLiked()
             })
         } catch (error) {
             alert(error.message)
@@ -31,18 +39,17 @@ export default class PostItem extends Component {
         }
     }
 
-    handleDeleteClick = () => {
+    const handleDeleteClick = () => {
         if (confirm('Delete post?')) {
             try {
-                logic.deletePost(this.props.post.id, error => {
+                logic.deletePost(id, error => {
                     if (error) {
                         alert(error.message)
 
                         console.error(error)
                         return
                     }
-
-                    this.props.onDeleted()
+                    onDeleted()
                 })
             } catch (error) {
                 alert(error.message)
@@ -52,35 +59,31 @@ export default class PostItem extends Component {
         }
     }
 
-    handleCommentsClick = () => {
-        this.setState({ view: this.state.view ? null : 'comments' })
-    }
+    const handleCommentsClick = () => setView(view ? null : 'comments')
 
-    render() {
+    return <article className="PostItem">
+        <div className='headerpost'>
+            <h4>{author.username}</h4>
+            {author.id === logic.getUserId() && <button className="buttondelete" onClick={handleDeleteClick}>❌</button>}
+        </div>
 
-        const { props: { post: { id, author, image, text, date, liked, likes, comments }, onCommentAdded, onCommentRemoved } } = this
-        return <article className="PostItem">
-            <div className='headerpost'>
-                <h4>{author.username}</h4>
-                {author.id === logic.getUserId() && <button className="buttondelete" onClick={this.handleDeleteClick}>❌</button>}
-            </div>
-            <img src={image} />
+        <img src={image} />
 
-            <p>{text}</p>
+        <p>{text}</p>
 
-            <div className='PostButtons'>
-                <Button onClick={this.handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length} likes`}</Button>
+        <div className='PostButtons'>
+            <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length} likes`}</Button>
 
-                <Button className="ButtonPost" onClick={this.handleCommentsClick}>🗨️{comments}</Button>
+            <Button className="ButtonPost" onClick={handleCommentsClick}>🗨️{comments}</Button>
 
-            </div>
-            {this.state.view === 'comments' && <Comments
-                postId={id}
-                onAdded={onCommentAdded}
-                onRemoved={onCommentRemoved}
-            />}
-            <time>{dateAgo(date)} ago...</time>
-        </article>
-    }
+        </div>
+
+        {view === 'comments' && <Comments
+            postId={id}
+            onAdded={onCommentAdded}
+            onRemoved={onCommentRemoved}
+        />}
+        <time>{dateAgo(date)} ago...</time>
+    </article>
 }
 
