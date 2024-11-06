@@ -1,10 +1,10 @@
-import './Login.css'
+import { PasswordInput, Form, Field, Label, Button, Paragraph, Input } from '../components/library'
 
 import logic from '../logic'
 
-import { PasswordInput, Form, Field, Label, Button, Paragraph, Input } from '../components/library'
+import './Login.css'
 
-export default props => {
+export default function Login(props) {
 
     console.log('Login -> render')
 

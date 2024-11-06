@@ -53,9 +53,17 @@
         border-radius: 10px;
     }
 
+    .Buttoncomments {
+        width: fit-content;
+        background-color: dimgrey;
+        color: lightgrey;
+        border-style: groove;
+        border-radius: 10px;
+    }
+
     div.container {
         display: flex;
-        align-items: center;
+        align-items: baseline;
         font-size: xx-small;
         padding-left: 1rem;
         justify-content: space-between;
@@ -64,7 +72,7 @@
 
     div.likes {
         display: flex;
-        align-items: center;
+        align-items: baseline;
         font-size: xx-small;
         justify-content: flex-start;
         gap: 2px;

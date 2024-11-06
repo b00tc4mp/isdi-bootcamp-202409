@@ -1,32 +1,30 @@
-import { Component } from "react"
+import { useState } from 'react'
 
-import { Button, Paragraph } from "../library"
+import { Button, Paragraph } from '../library'
 
-import logic from "../../logic"
+import logic from '../../logic'
 
 import getElapsedTime from '../../utils/getElapsedTime'
-import Comments from "./Comments"
+import Comments from './Comments'
 
 import './PostItem.css'
 
-export default class extends Component {
-    constructor(props) {
-        console.log('PostItem -> contructor')
+export default function PostItem({ post, onLiked, onDeleted, onCommented, onCommentRemoved }) {
+    const [view, setView] = useState(null)
 
-        super(props)
+    const { id, author, image, text, date, liked, likedBy, comments } = post
 
-        this.state = { view: null }
-    }
-
-    handleLikeClick = () => {
+    const handleLikeClick = () => {
         try {
-            logic.likesInteraction(this.props.post.id, error => {
+            logic.likesInteraction(id, error => {
                 if (error) {
                     alert(error.message)
 
                     console.error(error)
+
+                    return
                 }
-                this.props.onLiked()
+                onLiked()
             })
         } catch (error) {
             alert(error.message)
@@ -35,18 +33,20 @@ export default class extends Component {
         }
     }
 
-    handleDeleteCLick = () => {
+    const handleDeleteCLick = () => {
         const confirmDelete = window.confirm('Are you sure you want to delete this post?')
 
         if (confirmDelete) {
             try {
-                logic.deletePost(this.props.post.id, error => {
+                logic.deletePost(id, error => {
                     if (error) {
                         alert(error.message)
 
                         console.error(error)
+
+                        return
                     }
-                    this.props.onDeleted()
+                    onDeleted()
                 })
             } catch (error) {
                 alert(error.message)
@@ -56,47 +56,41 @@ export default class extends Component {
         }
     }
 
-    handleCommentsClick = () => {
-        this.setState({ view: this.state.view ? null : 'comments' })
-    }
+    const handleCommentsClick = () => setView(view ? null : 'comments')
 
-    render() {
-        console.log('PostItem -> render')
+    console.log('PostItem -> render')
 
-        const { post: { id, author, image, text, date, liked, likedBy, comments }, onCommented, onCommentRemoved } = this.props
+    return <article className="PostItem">
+        <div className="username">
+            <span>👤</span>
+            <h4>{author.username}</h4>
+        </div>
 
-        return <article className="PostItem">
-            <div className="username">
-                <span>👤</span>
-                <h4>{author.username}</h4>
+        <img src={image} />
+
+        <div className="container">
+            <div className="likes">
+                <Button type="button" className="likes" onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}</Button>
+                <span>{`${likedBy.length} likes`}</span>
+
+                <Button className="comments" onClick={handleCommentsClick}>💬 {comments}</Button>
+
+                {view === 'comments' && <Comments
+                    postId={id}
+                    onAdded={onCommented}
+                    onRemoved={onCommentRemoved}
+                />}
             </div>
 
-            <figure><img src={image} /></figure>
-
-            <div className="container">
-                <div className="likes">
-                    <Button type="button" className="likes" onClick={this.handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}</Button>
-                    <span>{`${likedBy.length} likes`}</span>
-
-                    <Button className="" onClick={this.handleCommentsClick}>💬 {comments}</Button>
-
-                    {this.state.view === 'comments' && <Comments
-                        postId={id}
-                        onAdded={onCommented}
-                        onRemoved={onCommentRemoved}
-                    />}
-                </div>
-
-                <div>
-                    {author.id === logic.getUserId() &&
-                        <Button type="button" className="delete"
-                            onClick={this.handleDeleteCLick}>❌</Button>}
-                </div>
+            <div>
+                {author.id === logic.getUserId() &&
+                    <Button type="button" className="delete"
+                        onClick={handleDeleteCLick}>❌</Button>}
             </div>
+        </div>
 
-            <Paragraph className="post-item">{text}</Paragraph>
+        <Paragraph className="post-item">{text}</Paragraph>
 
-            <time>{getElapsedTime(date)} ago</time>
-        </article>
-    }
+        <time>{getElapsedTime(date)} ago</time>
+    </article>
 }

@@ -1,8 +1,8 @@
-import './Footer.css'
-
 import { Button } from '../library'
 
-export default ({ onNewPostClick, view }) => {
+import './Footer.css'
+
+export default function Footer({ onNewPostClick, view }) {
 
     console.log('Footer -> render')
     return <footer className="Footer">

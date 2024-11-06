@@ -2,7 +2,7 @@ import { Form, Field, Label, Button } from '../library'
 
 import logic from '../../logic'
 
-export default ({ postId, onAdded }) => {
+export default function AddComment({ postId, onAdded }) {
     console.log('AddComment -> render')
 
     const handleSubmit = event => {
@@ -33,6 +33,6 @@ export default ({ postId, onAdded }) => {
             <textarea id="text"></textarea>
         </Field>
 
-        <Button type="submit">Send</Button>
+        <Button className="" type="submit">Send</Button>
     </Form>
 }

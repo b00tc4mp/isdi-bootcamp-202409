@@ -1,28 +1,43 @@
-import { Component } from "react"
+import { useEffect, useState } from 'react'
 
-import Comment from "./Comment"
-import AddComment from "./AddComment"
+import Comment from './Comment'
+import AddComment from './AddComment'
 
-import logic from "../../logic"
+import logic from '../../logic'
 
-export default class extends Component {
-    constructor(props) {
-        console.log('Comments -> constructor')
+export default function Comments({ postId, onAdded, onRemoved }) {
+    const [comments, setComments] = useState([])
 
-        super(props)
-
-        this.state = { comments: [] }
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         try {
-            logic.getComments(this.props.postId, (error, comments) => {
+            logic.getComments(postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
+                setComments(comments)
+            })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }, [])
+
+    const handleAdded = () => {
+        try {
+            logic.getComments(postId, (error, comments) => {
                 if (error) {
                     alert(error.message)
 
                     console.error(error)
                 }
-                this.setState({ comments })
+                setComments(comments)
+
+                onAdded()
             })
         } catch (error) {
             alert(error.message)
@@ -31,17 +46,16 @@ export default class extends Component {
         }
     }
 
-    onAdded = () => {
+    const handleRemoved = () => {
         try {
-            logic.getComments(this.props.postId, (error, comments) => {
+            logic.getComments(postId, (error, comments) => {
                 if (error) {
                     alert(error.message)
 
                     console.error(error)
                 }
-                this.setState({ comments })
-
-                this.props.onAdded()
+                setComments(comments)
+                onRemoved()
             })
         } catch (error) {
             alert(error.message)
@@ -50,42 +64,21 @@ export default class extends Component {
         }
     }
 
-    onRemoved = () => {
-        try {
-            logic.getComments(this.props.postId, (error, comments) => {
-                if (error) {
-                    alert(error.message)
+    console.log('Comments -> render')
 
-                    console.error(error)
-                }
-                this.setState({ comments })
-                this.props.onRemoved()
-            })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    }
-
-    render() {
-
-        console.log('Comments -> render')
-
-        return <section className="Comments">
-            <ul>
-                {this.state.comments.map(comment =>
-                    <Comment
-                        key={comment.id}
-                        postId={this.props.postId}
-                        comment={comment}
-                        onRemoved={this.onRemoved}
-                    />)}
-            </ul>
-            <AddComment
-                postId={this.props.postId}
-                onAdded={this.onAdded}
-            />
-        </section>
-    }
+    return <section className="Comments">
+        <ul>
+            {comments.map(comment =>
+                <Comment
+                    key={comment.id}
+                    postId={postId}
+                    comment={comment}
+                    onRemoved={handleRemoved}
+                />)}
+        </ul>
+        <AddComment
+            postId={postId}
+            onAdded={handleAdded}
+        />
+    </section>
 }

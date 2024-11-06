@@ -4,7 +4,7 @@ import logic from '../logic'
 
 import { PasswordInput, Form, Label, Input, Button, Paragraph, Field } from '../components/library'
 
-export default props => {
+export default function Register(props) {
 
     console.log('Register -> render')
 

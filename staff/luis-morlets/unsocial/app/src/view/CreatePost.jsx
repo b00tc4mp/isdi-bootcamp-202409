@@ -1,10 +1,10 @@
 import { Form, Label, Input, Button, Field } from '../components/library'
 
-import './CreatePost.css'
-
 import logic from '../logic'
 
-export default ({ onCreatePost }) => {
+import './CreatePost.css'
+
+export default function CreatePost({ onCreatePost }) {
 
     console.log('CreatePost -> render')
 
