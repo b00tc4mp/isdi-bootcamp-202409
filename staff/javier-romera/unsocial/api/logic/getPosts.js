@@ -5,7 +5,6 @@ export default userId => {
     validate.id(userId, 'userId')
 
     const { posts, users } = storage
-    console.log(userId)
 
     const found = users.some(({ id }) => id === userId)
 

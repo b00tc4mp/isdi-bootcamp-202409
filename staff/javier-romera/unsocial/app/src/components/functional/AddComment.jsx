@@ -4,7 +4,7 @@ import logic from '../../logic'
 
 import './AddComment.css'
 
-export default ({ postId, onAdded }) => {
+export default function AddComment({ postId, onAdded }) {
     const handleSubmit = event => {
         event.preventDefault()
 

@@ -4,7 +4,7 @@ import { Form, Field, Label, Input, Button } from '../components/library'
 
 import './CreatePost.css'
 
-export default ({ onCreated }) => {
+export default function CreatePost({ onCreated }) {
     const handleSubmit = event => {
         event.preventDefault()
 

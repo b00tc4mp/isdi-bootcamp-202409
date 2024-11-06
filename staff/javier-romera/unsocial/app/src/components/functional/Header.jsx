@@ -1,47 +1,19 @@
-import { Component } from 'react'
-
-import './Header.css'
+import { useEffect, useState } from 'react'
 
 import { Anchor, Button } from '../library'
 
 import logic from '../../logic'
-import isUserLoggedIn from '../../logic/isUserLoggedIn'
 
-export default class extends Component {
-    constructor(props) {
-        super(props)
+import './Header.css'
 
-        this.state = { userName: null }
-    }
+export default function Header({ view, onHomeClick, onLoggedOut }) {
+    const [name, setName] = useState(null)
 
-    componentDidMount() {
+    useEffect(() => {
         if (logic.isUserLoggedIn()) {
-            try {
-                logic.getUserName((error, userName) => {
-                    if (error) {
-                        alert(error.message)
-
-                        console.error(error)
-
-                        return
-                    }
-
-                    this.setState({ userName })
-                })
-            } catch (error) {
-                alert(error.message)
-                console.error(error)
-            }
-        }
-    }
-
-    // Truquito para freir una cpu
-
-    componentDidUpdate(prevProps) {
-        if (this.props.view !== prevProps.view)
-            if (logic.isUserLoggedIn()) {
+            if (!name) {
                 try {
-                    logic.getUserName((error, userName) => {
+                    logic.getUserName((error, name) => {
                         if (error) {
                             alert(error.message)
 
@@ -50,36 +22,35 @@ export default class extends Component {
                             return
                         }
 
-                        this.setState({ userName })
+                        setName(name)
                     })
                 } catch (error) {
                     alert(error.message)
                     console.error(error)
                 }
             }
-    }
+        } else setName(null)
+    }, [view])
 
-    handleHomeClick = event => {
+    const handleHomeClick = event => {
         event.preventDefault()
 
-        this.props.onHomeClick()
+        onHomeClick()
     }
 
-    handleLogout = () => {
+    const handleLogout = () => {
         logic.logoutUser()
 
-        this.props.onLoggedOut()
+        onLoggedOut()
     }
 
-    render() {
-        return <header className="Header">
-            <h1>{this.props.view === 'new-post' ? <Anchor href="" onClick={this.handleHomeClick}>laicosnU</Anchor> : "laicosnU"}</h1>
+    return <header className="Header">
+        <h1>{view === 'new-post' ? <Anchor href="" onClick={handleHomeClick}>laicosnU</Anchor> : "laicosnU"}</h1>
 
-            <div className="name-button">
-                {isUserLoggedIn() && <h3>{this.state.userName}</h3>}
+        <div className="name-button">
+            {name && <h3>{name}</h3>}
 
-                {logic.isUserLoggedIn() && <Button classname="logout-button" type="button" onClick={this.handleLogout}>𐢫</Button>}
-            </div>
-        </header>
-    }
+            {logic.isUserLoggedIn() && <Button classname="logout-button" type="button" onClick={handleLogout}>𐢫</Button>}
+        </div>
+    </header>
 }
