@@ -1,11 +1,11 @@
 import { Component } from 'react'
-
+import './Comments.css'
 import AddComments from './AddComments'
 import Comment from './Comment'
 
 import logic from '../../logic'
 
-export default class extends Component {
+export default class Comments extends Component {
     constructor(props) {
         super(props)
 
@@ -71,7 +71,7 @@ export default class extends Component {
 
     render() {
         return <section>
-            <ul>
+            <ul className='comments'>
                 {this.state.comments.map(comment =>
                     <Comment
                         key={comment.id}

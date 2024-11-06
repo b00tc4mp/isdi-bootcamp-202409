@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import './PasswordInput.css'
 
-export default class extends Component {
+export default class PasswordInput extends Component {
     constructor(props) {
 
         super(props) // es igual que this.props = props

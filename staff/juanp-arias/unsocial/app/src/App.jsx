@@ -7,7 +7,7 @@ import Footer from './components/function/Footer'
 
 import logic from './logic'
 
-export default class extends Component {
+export default class App extends Component {
     constructor(props) {
         super(props)
 

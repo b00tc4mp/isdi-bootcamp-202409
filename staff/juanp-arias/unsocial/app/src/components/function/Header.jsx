@@ -3,7 +3,7 @@ import logic from '../../logic'
 import './Header.css'
 import { Component } from 'react'
 
-export default class extends Component {
+export default class Header extends Component {
     constructor(props) {
         super(props)
         this.state = { name: null }
@@ -27,6 +27,30 @@ export default class extends Component {
                 console.error(error)
             }
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.view !== nextProps.view)
+            if (logic.isUserLoggedIn())
+                if (!this.state.name) {
+                    try {
+                        logic.getUserName((error, name) => {
+                            if (error) {
+                                alert(error.message)
+
+                                console.error(error)
+
+                                return
+                            }
+
+                            this.setState({ name })
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                        console.error(error)
+                    }
+                } else this.setState({ name: null })
+    }
+
 
     handleHomeClick = event => {
         event.preventDefault()

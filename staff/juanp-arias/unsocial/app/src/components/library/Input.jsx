@@ -1,5 +1,5 @@
 import './Input.css'
 
-export default ({ type, id, placeholder }) =>
-    <input type={type} id={id} placeholder={placeholder} className="Input" />
-
+export default function Input({ type, id, placeholder }) {
+    return <input type={type} id={id} placeholder={placeholder} className="Input" />
+}

@@ -16,7 +16,7 @@ export default (postId, text, callback) => {
         }
 
         const { error, message } = JSON.parse(response)
-        callbaxck(new Error(message))
+        callback(new Error(message))
     })
 
     xhr.open('POST', `http://localhost:7070/posts/${postId}/comments`)

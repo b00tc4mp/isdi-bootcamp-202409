@@ -1,10 +1,10 @@
 import { Button } from '../library'
-
+import './Comment.css'
 import logic from '../../logic'
 
 import dateAgo from '../../utilities/dateAgo'
 
-export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
+export default function Comment({ postId, comment: { id, author, text, date }, onRemoved }) {
 
     const handleRemove = () => {
         if (confirm('Delete comment?'))
@@ -30,7 +30,7 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
 
         <p>{text}</p>
 
-        <time>{dateAgo(date)}</time>
+        <time>{dateAgo(date)} ago...</time>
 
         {logic.getUserId() === author.id && <Button onClick={handleRemove}>🗑️</Button>}
     </section>

@@ -3,7 +3,7 @@ import './Register.css'
 import { PasswordInput, Input, Button, Form, Label } from '../components/library'
 import logic from '../logic'
 
-export default props => {
+export default function Register(props) {
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -50,7 +50,7 @@ export default props => {
         <Form onSubmit={handleSubmit}>
             <Label htmlfor="name" >Name</Label>
             <Input type="text" id="name" placeholder="name" />
-            <br />
+
             <Label htmlfor="email">E-mail</Label>
             <Input type="email" id="email" placeholder="email" />
 

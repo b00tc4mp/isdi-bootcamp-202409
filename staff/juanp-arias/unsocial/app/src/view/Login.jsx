@@ -3,7 +3,7 @@ import { PasswordInput, Input, Button, Form, Label } from '../components/library
 import logic from '../logic'
 
 
-export default (props) => {
+export default function Login(props) {
 
     const handleSubmit = event => {
         event.preventDefault()

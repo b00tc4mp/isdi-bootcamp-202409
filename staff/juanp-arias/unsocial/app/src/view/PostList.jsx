@@ -4,7 +4,7 @@ import PostItem from '../components/function/PostItem'
 import './PostList.css'
 import logic from '../logic'
 
-export default class extends Component {
+export default class PostList extends Component {
 
     constructor(props) {
         super(props)

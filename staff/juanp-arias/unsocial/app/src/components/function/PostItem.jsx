@@ -7,7 +7,7 @@ import dateAgo from '../../utilities/dateAgo'
 
 import { Component } from 'react'
 
-export default class extends Component {
+export default class PostItem extends Component {
     constructor(props) {
         super(props)
         this.state = { view: null }
@@ -60,8 +60,10 @@ export default class extends Component {
 
         const { props: { post: { id, author, image, text, date, liked, likes, comments }, onCommentAdded, onCommentRemoved } } = this
         return <article className="PostItem">
-            <h4>{author.username}</h4>
-
+            <div className='headerpost'>
+                <h4>{author.username}</h4>
+                {author.id === logic.getUserId() && <button className="buttondelete" onClick={this.handleDeleteClick}>❌</button>}
+            </div>
             <img src={image} />
 
             <p>{text}</p>
@@ -71,7 +73,6 @@ export default class extends Component {
 
                 <Button className="ButtonPost" onClick={this.handleCommentsClick}>🗨️{comments}</Button>
 
-                {author.id === logic.getUserId() && <Button onClick={this.handleDeleteClick}>🗑️</Button>}
             </div>
             {this.state.view === 'comments' && <Comments
                 postId={id}

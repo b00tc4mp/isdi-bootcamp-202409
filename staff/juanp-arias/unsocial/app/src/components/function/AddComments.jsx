@@ -1,8 +1,8 @@
 import { Button, Form, Label } from '../library'
 import logic from '../../logic'
+import './AddComments.css'
 
-
-export default ({ postId, onAdded }) => {
+export default function AddComments({ postId, onAdded }) {
     const handleSubmit = event => {
         event.preventDefault()
 

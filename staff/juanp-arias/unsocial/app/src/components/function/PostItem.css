@@ -40,4 +40,19 @@
         text-align: end;
     }
 
+    .headerpost {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .buttondelete {
+            background-color: whitesmoke;
+            text-align: center;
+            border: 0px;
+            width: 2rem;
+            font-size: 0.7rem;
+        }
+    }
+
+
 }
