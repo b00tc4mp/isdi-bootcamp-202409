@@ -30,7 +30,7 @@ class Comments extends Component {
     }
   }
 
-  onRemoved = () => {
+  handleRemoved = () => {
     try {
       logic.getComments(this.props.postId, (error, comments) => {
         if (error) {
@@ -49,7 +49,7 @@ class Comments extends Component {
     }
   }
 
-  onAdded = () => {
+  handleAdded = () => {
     try {
       logic.getComments(this.props.postId, (error, comments) => {
         if (error) {
@@ -78,12 +78,12 @@ class Comments extends Component {
               key={comment.id}
               postId={this.props.postId}
               comment={comment}
-              onRemoved={this.onRemoved} />)}
+              onRemoved={this.handleRemoved} />)}
         </ul>
 
         <AddComment
           postId={this.props.postId}
-          onAdded={this.onAdded} />
+          onAdded={this.handleAdded} />
 
       </section>
     )

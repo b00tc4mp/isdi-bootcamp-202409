@@ -4,7 +4,7 @@ import logic from '../../logic'
 import getElapsedTime from '../../utils/getElapsedTime'
 import { Component } from 'react'
 
-export default class extends Component {
+export default class Post extends Component {
   constructor(props) {
     console.log('Post -> constructor')
 

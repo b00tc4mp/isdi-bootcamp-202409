@@ -3,7 +3,7 @@ import { Post } from "../components/functional/index"
 import logic from "../logic"
 import './Posts.css'
 
-export default class extends Component {
+export default class Posts extends Component {
   constructor(props) {
     console.log('Posts -> constructor')
     super(props)
