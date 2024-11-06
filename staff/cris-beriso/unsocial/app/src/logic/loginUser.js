@@ -1,18 +1,20 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
 export default (username, password, callback) => {
   validate.username(username)
   validate.password(password)
+  // TODO validate callack
 
   const xhr = new XMLHttpRequest
 
   xhr.addEventListener('load', () => {
     const { status, response } = xhr
 
-    const userId = JSON.parse(response)
-
     if (status === 200) {
+      const userId = JSON.parse(response)
+
       sessionStorage.userId = userId
+
       callback(null)
 
       return

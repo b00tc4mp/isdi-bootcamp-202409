@@ -6,7 +6,7 @@ export default ({ onNewPostClick, view }) => {
   console.log('Footer -> render')
 
   return <footer className="Footer">
-    {view === 'home' && <Button type="button" onClick={onNewPostClick}>+</Button>}
+    {view === 'posts' && <Button type="button" onClick={onNewPostClick}>+</Button>}
   </footer>
 }
 

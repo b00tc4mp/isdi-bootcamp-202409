@@ -15,6 +15,8 @@ export default class extends Component {
   }
 
   componentDidMount() {
+    console.log('Header -> componentDidMount')
+
     if (logic.isUserLoggedIn())
       try {
         logic.getUserName((error, name) => {
@@ -25,6 +27,7 @@ export default class extends Component {
 
             return
           }
+
           this.setState({ name })
         })
       } catch (error) {
@@ -38,7 +41,7 @@ export default class extends Component {
     try {
       event.preventDefault()
 
-      onHomeClick()
+      this.props.onHomeClick()
     } catch (error) {
       alert(error.message)
 
@@ -52,7 +55,7 @@ export default class extends Component {
       if (confirm('Logout?')) {
         logic.logoutUser()
 
-        onLoggedOut()
+        this.props.onLoggedOut()
       }
     } catch (error) {
       alert(error.message)
@@ -77,9 +80,9 @@ export default class extends Component {
   render() {
     console.log('Header -> render')
     return <header className='Header'>
-      <h1>{this.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+      <h1>{this.props.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
-      {logic.isUserLoggedIn() && <h3><a href="" onClick={this.handleProfileClick}>{this.state.name}</a></h3>}
+      {this.state.name && <h3><a href="" onClick={this.handleProfileClick}>{this.state.name}</a></h3>}
 
       {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
     </header>

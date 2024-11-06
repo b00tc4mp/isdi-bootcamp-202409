@@ -1,4 +1,4 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
 /**
  * Recogemos los datos del nuevo usuario y 

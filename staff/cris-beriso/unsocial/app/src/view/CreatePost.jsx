@@ -16,9 +16,19 @@ export default ({ onCreated }) => {
     } = form
 
     try {
-      logic.createPost(image, text)
+      logic.createPost(image, text, error => {
+        if (error) {
+          alert(error.message)
 
-      onCreated()
+          console.error(error)
+
+          return
+        }
+
+        onCreated()
+      })
+
+
     } catch (error) {
       alert(error.message)
 

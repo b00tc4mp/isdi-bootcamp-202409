@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import { Login, Register, Home, CreatePost } from './view'
+import { Login, Register, Posts, CreatePost } from './view/index'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
@@ -14,33 +14,44 @@ export default class extends Component {
 
     super(props)
 
-    this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
+    this.state = { view: logic.isUserLoggedIn() ? 'posts' : 'login' }
   }
+
+  handlePostCreated = () => this.setState({ view: 'posts' })
+
+  handleUserLoggedOut = () => this.setState({ view: 'login' })
+
+  handleUserLoggedIn = () => this.setState({ view: 'posts' })
+
+  handleRegisterClick = () => this.setState({ view: 'register' })
+
+  handleLoginClick = () => this.setState({ view: 'login' })
+
+  handleUserRegirtered = () => this.setState({ view: 'login' })
+
+  handleNewPostClick = () => this.setState({ view: 'new-post' })
+
+  handlePostsClick = () => this.setState({ view: 'posts' })
+
+  handleProfileClick = () => this.setState({ view: 'profile' })
 
   render() {
     console.log('App -> render')
 
     return <>
-      <Header view={this.state.view} onHomeClick={() => this.setState({ view: 'home' })}
-        onLoggedOut={() => this.setState({ view: 'login' })}
-        onProfile={() => this.setState({ view: 'profile' })}
-      />
+      <Header view={this.state.view} onHomeClick={this.handlePostsClick} onLoggedOut={this.handleUserLoggedOut} onProfile={this.handleProfileClick} />
 
-      {this.state.view === 'login' && <Login
-        onLoggedIn={() => this.setState({ view: 'home' })}
-        onRegisterClick={() => this.setState({ view: 'register' })}
-      />}
-      {this.state.view === 'register' && <Register
-        onRegisterIn={() => this.setState({ view: 'login' })}
-        onLoginClick={() => this.setState({ view: 'login' })}
-      />}
-      {this.state.view === 'home' && <Home />}
+      {this.state.view === 'login' && <Login onLoggedIn={this.handleUserLoggedIn} onRegisterClick={this.handleRegisterClick} />}
 
-      {this.state.view === 'new-post' && <CreatePost onCreated={() => this.setState({ view: 'home' })} />}
+      {this.state.view === 'register' && <Register onRegisterIn={this.handleUserRegirtered} onLoginClick={this.handleLoginClick} />}
 
-      {this.state.view === 'profile' && <ProfileUser onProfile={() => this.setState({ view: 'profile' })} />}
+      {this.state.view === 'posts' && <Posts />}
 
-      <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
+      {this.state.view === 'new-post' && <CreatePost onCreated={this.handlePostCreated} />}
+
+      {this.state.view === 'profile' && <ProfileUser onProfile={this.handleProfileClick} />}
+
+      <Footer onNewPostClick={this.handleNewPostClick} view={this.state.view} />
     </>
   }
 }

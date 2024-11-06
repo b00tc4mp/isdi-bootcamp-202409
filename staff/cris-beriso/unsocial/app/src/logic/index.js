@@ -10,7 +10,7 @@ import createPost from './createPost'
 import getPosts from './getPosts'
 import toggleLikePost from './toggleLikePost'
 import deletePost from './deletePost'
-import savePost from './savePost'
+// import savePost from './savePost'
 
 import addComment from './addComment'
 import getComments from './getComments'
@@ -29,7 +29,7 @@ const logic = {
   getPosts,
   toggleLikePost,
   deletePost,
-  savePost,
+  //savePost,
 
   addComment,
   getComments,

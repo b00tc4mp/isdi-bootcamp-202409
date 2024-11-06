@@ -1,3 +1,4 @@
+import { validate } from 'com'
 /**
  * A traves de un id de tipo string obtenemos el nombre del usuario. 
  * Previamente hemos almacenado los datos de los usuarios en forma de string en localStorage.
@@ -8,6 +9,8 @@
  * @returns el nombre del usuario obtenido a partir del id
  */
 export default callback => {
+  validate.callback(callback)
+
   const xhr = new XMLHttpRequest
 
   xhr.addEventListener('load', () => {
@@ -27,5 +30,6 @@ export default callback => {
   })
 
   xhr.open('GET', `http://localhost:8080/users/${sessionStorage.userId}/name`)
+  xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
   xhr.send()
 }

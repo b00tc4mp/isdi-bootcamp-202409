@@ -21,11 +21,11 @@ export default props => {
 
           return
         }
+
+        event.target.reset()
+
+        props.onLoggedIn()
       })
-
-      event.target.reset()
-
-      props.onLoggedIn()
     } catch (error) {
 
       alert(error.message)

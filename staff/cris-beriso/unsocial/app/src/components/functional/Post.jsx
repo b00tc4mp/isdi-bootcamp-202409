@@ -19,9 +19,17 @@ export default class extends Component {
 
   handleLikeClick = () => {
     try {
-      logic.toggleLikePost(this.props.post.id)
+      logic.toggleLikePost(this.props.post.id, error => {
+        if (error) {
+          alert(error.message)
 
-      this.props.onLiked()
+          console.error(error)
+
+          return
+        }
+
+        this.props.onLiked()
+      })
     } catch (error) {
       alert(error.message)
 
@@ -31,9 +39,22 @@ export default class extends Component {
 
   handleDeleteClick = () => {
     if (confirm('Delete post?')) {
-      logic.deletePost(this.props.post.id)
+      try {
+        logic.deletePost(this.props.post.id, error => {
+          if (error) {
+            alert(error.message)
 
-      this.props.onDeleted()
+            console.error(error)
+
+            return
+          }
+          this.props.onDeleted()
+        })
+      } catch (error) {
+        alert(error.message)
+
+        console.error(error)
+      }
     }
   }
 
@@ -70,6 +91,7 @@ export default class extends Component {
       }
     } = this
 
+    console.log(comments)
     return <article className="Post">
       <h4>{author.username}</h4>
 
@@ -86,7 +108,7 @@ export default class extends Component {
 
         {author.id === logic.getUserId() && <Button onClick={this.handleDeleteClick}>🗑</Button>}
 
-        <Button onClick={this.handleCommentsClick}>💬{comments} comments</Button>
+        <Button onClick={this.handleCommentsClick}>💬 {comments} comments</Button>
 
         <Button onClick={this.handleSaveClick}>📂</Button>
       </div>

@@ -1,5 +1,5 @@
 import getUserId from './getUserId';
-import { validate } from './helpers';
+import { validate } from 'com';
 
 export default (name, username, password) => {
   validate.name(name)

@@ -1,6 +1,6 @@
 import { storage, uuid } from '../data/index.js'
 
-import validate from './helpers/validate.js'
+import validate from 'com/validate.js'
 
 export default (name, email, username, password, passwordRepeat) => {
   validate.name(name)

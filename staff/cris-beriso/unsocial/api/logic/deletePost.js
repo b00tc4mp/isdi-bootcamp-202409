@@ -1,4 +1,4 @@
-import { validate } from './helpers/index.js'
+import { validate } from 'com/index.js'
 import { storage } from '../data/index.js'
 
 export default (userId, postId) => {

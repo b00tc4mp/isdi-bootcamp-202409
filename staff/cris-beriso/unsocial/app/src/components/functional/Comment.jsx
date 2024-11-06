@@ -10,9 +10,17 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
   const handleRemove = () => {
     if (confirm('Delete comment?'))
       try {
-        logic.removeComment(postId, id)
+        logic.removeComment(postId, id, error => {
+          if (error) {
+            alert(error.message)
 
-        onRemoved()
+            console.error(error)
+
+            return
+          }
+
+          onRemoved()
+        })
       } catch (error) {
         alert(error.message)
 

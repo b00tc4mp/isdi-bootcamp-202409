@@ -39,10 +39,12 @@ server.post('/register', jsonBodyParser, (req, res) => {
 })
 
 server.get('/users/:userId/name', (req, res) => {
-  const { userId } = req.params //extrae los parametros de la ruta y desestructuramos el userId. 
+  const userId = req.headers.authorization.slice(6)
+
+  const { tagetUserId } = req.params
 
   try {
-    const name = logic.getUserName(userId)
+    const name = logic.getUserName(userId, tagetUserId)
 
     res.json(name)
   } catch (error) {
@@ -53,7 +55,7 @@ server.get('/users/:userId/name', (req, res) => {
 })
 
 server.post('/posts', jsonBodyParser, (req, res) => {
-  const userId = req.headers.authorization.slice(6) // 'Basic asdfasdfas'
+  const userId = req.headers.authorization.slice(6)
 
   const { image, text } = req.body
 
@@ -61,6 +63,20 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     logic.createPost(userId, image, text)
 
     res.status(201).send()
+  } catch (error) {
+    res.status(400).json({ error: error.constructor.name, message: error.message })
+
+    console.error(error)
+  }
+})
+
+server.get('/posts', (req, res) => {
+  const userId = req.headers.authorization.slice(6)
+
+  try {
+    const posts = logic.getPosts(userId)
+
+    res.json(posts)
   } catch (error) {
     res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -83,19 +99,7 @@ server.delete('/posts/:postId', (req, res) => {
   }
 })
 
-server.get('/posts/:userId', (req, res) => {
-  const { userId } = req.headers.authorization.slice(6)
 
-  try {
-    const posts = logic.getPosts(userId)
-
-    res.json(posts)
-  } catch (error) {
-    res.status(400).json({ error: error.constructor.name, message: error.message })
-
-    console.error(error)
-  }
-})
 
 server.patch('/posts/:postId/likes', (req, res) => {
   const { postId } = req.params
