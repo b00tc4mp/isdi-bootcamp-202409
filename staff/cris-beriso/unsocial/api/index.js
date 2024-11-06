@@ -120,7 +120,7 @@ server.patch('/posts/:postId/likes', (req, res) => {
 server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
   // const { text } = req.body
   // const { postId } = req.params
-  const { params: { postId }, bdy: { text } } = req
+  const { params: { postId }, body: { text } } = req
 
   const userId = req.headers.authorization.slice(6)
 

@@ -1,7 +1,7 @@
 import { validate } from 'com/index.js'
 import { storage } from '../data/index.js'
 
-export default (postId, userId) => {
+export default (userId, postId) => {
   validate.id(postId, 'postId')
   validate.id(userId, 'userId')
 

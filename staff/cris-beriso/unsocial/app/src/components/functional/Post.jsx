@@ -108,7 +108,7 @@ export default class extends Component {
 
         {author.id === logic.getUserId() && <Button onClick={this.handleDeleteClick}>🗑</Button>}
 
-        <Button onClick={this.handleCommentsClick}>💬 {comments} comments</Button>
+        <Button onClick={this.handleCommentsClick}>💬 {comments.length} comments</Button>
 
         <Button onClick={this.handleSaveClick}>📂</Button>
       </div>

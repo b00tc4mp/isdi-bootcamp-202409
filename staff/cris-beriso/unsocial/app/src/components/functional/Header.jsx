@@ -37,6 +37,28 @@ export default class extends Component {
       }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.view !== nextProps.view)
+      if (logic.isUserLoggedIn())
+        try {
+          logic.getUserName((error, name) => {
+            if (error) {
+              alert(error.message)
+
+              console.error(error)
+
+              return
+            }
+
+            this.setState({ name })
+          })
+        } catch (error) {
+          alert(error.message)
+
+          console.error(error)
+        }
+  }
+
   handleHomeClick = event => {
     try {
       event.preventDefault()
@@ -82,7 +104,7 @@ export default class extends Component {
     return <header className='Header'>
       <h1>{this.props.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
-      {this.state.name && <h3><a href="" onClick={this.handleProfileClick}>{this.state.name}</a></h3>}
+      {logic.isUserLoggedIn() && <h3><a href="" onClick={this.handleProfileClick}>{this.state.name}</a></h3>}
 
       {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
     </header>

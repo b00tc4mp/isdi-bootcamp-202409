@@ -25,7 +25,7 @@ export default class extends Component {
           return
         }
 
-        this.setState = ({ comments })
+        this.setState({ comments })
       })
     } catch (error) {
       alert(error.message)
@@ -44,7 +44,7 @@ export default class extends Component {
           return
         }
 
-        this.setState = ({ comments })
+        this.setState({ comments })
 
         this.props.onAdded()
       })
@@ -66,7 +66,7 @@ export default class extends Component {
           return
         }
 
-        this.setState = ({ comments })
+        this.setState({ comments })
 
         this.props.onRemoved()
       })
