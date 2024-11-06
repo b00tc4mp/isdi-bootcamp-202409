@@ -1,23 +1,28 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
-import uuid from '../data/uuid'
-
-export default (postId, text) => {
+export default (postId, text, callback) => {
     validate.id(postId, 'postId')
     validate.text(text)
+    validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest
 
-    const post = posts.find(({ id }) => id === postId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (!post) throw new Error('Post not found')
+        if (status === 201) {
+            callback(null)
 
-    post.comments.push({
-        id: uuid(),
-        author: sessionStorage.userId,
-        text,
-        date: new Date
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
     })
 
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.send(JSON.stringify({ text }))
 }

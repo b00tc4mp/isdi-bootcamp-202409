@@ -13,11 +13,19 @@ export default ({ postId, onAdded }) => {
         const { text: { value: text } } = form
 
         try {
-            logic.addComment(postId, text)
+            logic.addComment(postId, text, error => {
+                if (error) {
+                    alert(error.message)
 
-            form.reset()
+                    console.error(error)
 
-            onAdded()
+                    return
+                }
+
+                form.reset()
+
+                onAdded()
+            })
         } catch (error) {
             alert(error.message)
 

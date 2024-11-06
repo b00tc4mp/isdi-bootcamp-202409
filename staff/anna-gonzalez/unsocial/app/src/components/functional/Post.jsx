@@ -10,7 +10,7 @@ import { Component } from 'react'
 
 export default class extends Component {
     constructor(props) {
-        console.log('Post')
+        console.log('Post -> constructor')
 
         super(props)
 
@@ -19,7 +19,17 @@ export default class extends Component {
 
     handleSavedClick = () => {
         try {
-            logic.toggleSavePost(this.props.post.id)
+            logic.toggleSavePost(this.props.post.id, error => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
+
+                this.props.onLiked()
+            })
 
             this.props.onSaved()
         } catch (error) {
@@ -31,7 +41,17 @@ export default class extends Component {
 
     handleLikeClick = () => {
         try {
-            logic.toggleLikePost(this.props.post.id)
+            logic.toggleLikePost(this.props.post.id, error => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
+
+                this.props.onLiked()
+            })
 
             this.props.onLiked()
         } catch (error) {
@@ -43,7 +63,17 @@ export default class extends Component {
 
     handleDeleteClick = () => {
         if (confirm('Delete post?')) {
-            logic.deletePost(this.props.post.id)
+            logic.deletePost(this.props.post.id, error => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
+
+                this.props.onDeleted()
+            })
 
             this.props.onDeleted()
         }

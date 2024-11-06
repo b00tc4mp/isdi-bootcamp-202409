@@ -1,5 +1,6 @@
+import { validate } from 'com'
+
 import { storage } from '../data/index.js'
-import validate from './helpers/validate.js'
 
 export default (username, password) => {
     validate.username(username)

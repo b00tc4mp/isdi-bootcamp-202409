@@ -4,7 +4,7 @@ import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../com
 
 import logic from '../logic'
 
-export default (props) => {
+export default props => {
     console.log('Login -> render')
 
     const handleSubmit = event => {
@@ -13,11 +13,18 @@ export default (props) => {
         const { target: { username: { value: username }, password: { value: password } } } = event
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    alert(error.message)
 
-            event.target.reset()
+                    console.error(error)
 
-            props.onLoggedIn()
+                    return
+                }
+                event.target.reset()
+
+                props.onLoggedIn()
+            })
         } catch (error) {
             alert(error.message)
 

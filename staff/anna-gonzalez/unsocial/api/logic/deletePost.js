@@ -1,4 +1,5 @@
-import { validate } from './helpers/index.js'
+import { validate } from 'com'
+
 import { storage } from '../data/index.js'
 
 export default (userId, postId) => { //todo el rato validemos el userId para añadir capas d seguridad

@@ -1,26 +1,28 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
-//logic used to get the comments once the user clicks on the button "view comments"
-//we just need the postId for that
-export default postId => {
+export default (postId, callback) => {
     validate.id(postId, 'postId')
-    //i receive the posts and the users
-    const users = JSON.parse(localStorage.users)
-    const posts = JSON.parse(localStorage.posts)
-    //i take the post whose id is the same than the postId
-    const post = posts.find(({ id }) => id === postId)
-    //if not found...
-    if (!post) throw new Error("Post not found")
+    validate.callback(callback)
 
-    const { comments } = post
+    const xhr = new XMLHttpRequest
 
-    comments.forEach(comment => {
-        const { author: authorId } = comment
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-        const { username } = users.find(({ id }) => id === authorId) //de los usuarios, quiero el ID
+        if (status === 200) {
+            const comments = JSON.parse(response)
 
-        comment.author = { id: authorId, username }
+            callback(null, comments)
+
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
     })
 
-    return comments
+    xhr.open('GET', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }

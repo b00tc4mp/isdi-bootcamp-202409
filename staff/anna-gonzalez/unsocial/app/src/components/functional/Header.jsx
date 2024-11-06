@@ -1,43 +1,69 @@
+import { Component } from 'react'
+
 import { Button, Anchor } from '../library'
 
 import logic from '../../logic'
 
 import './Header.css'
 
-export default ({ view, onHomeClick, onLoggedOut, className }) => { //props destructure
-    let name
+export default class extends Component {
+    constructor(props) {
+        console.log('Header -> constructor')
 
-    if (logic.isUserLoggedIn())
-        try {
-            name = logic.getUserName()
-        } catch (error) {
-            alert(error.message)
+        super(props)
 
-            console.error(error)
-        }
-
-    const handleHomeClick = event => {
-        event.preventDefault()
-
-        onHomeClick()
+        this.state = { name: null }
     }
 
-    const handleLogout = () => {
+    componentDidMount() {
+        console.log('Header -> componentDidMount')
+
+        if (logic.isUserLoggedIn())
+            try {
+                logic.getUserName((error, name) => {
+                    if (error) {
+                        alert(error.message)
+
+                        console.error(error)
+
+                        return
+                    }
+
+                    this.setState({ name })
+                })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+
+    }
+
+    handleHomeClick = event => {
+        event.preventDefault()
+
+        this.props.onHomeClick()
+    }
+
+    handleLogout = () => {
         if (confirm('Logout?')) {
             logic.logoutUser()
 
-            onLoggedOut()
+            this.props.onLoggedOut()
         }
     }
 
-    return <header className={"Header " + (view !== 'home' && view !== 'new-post' ? className = 'Header--transparent' : '')}>
-        <h1>{view === 'new-post' ? <Anchor className="header-anchor" href=""
-            onClick={handleHomeClick}>UNSOCIAL</Anchor> : 'UNSOCIAL'}</h1>
+    render() {
+        return <header className={`Header ${this.props.view !== 'posts' && this.props.view !== 'new-post' ? 'Header--transparent' : ''}`}>
 
-        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+            <h1>{this.props.view === 'new-post' ? <Anchor className="header-anchor" href=""
+                onClick={this.handleHomeClick}>UNSOCIAL</Anchor> : 'UNSOCIAL'}</h1>
 
-        {logic.isUserLoggedIn() && <Button className="header-button" type="button"
-            onClick={handleLogout}>Logout</Button>
-        }
-    </header >
+            {this.state.name && <h3>{this.state.name}</h3>}
+
+            {logic.isUserLoggedIn() && <Button className="header-button" type="button"
+                onClick={this.handleLogout}>Logout</Button>
+            }
+        </header >
+    }
 }

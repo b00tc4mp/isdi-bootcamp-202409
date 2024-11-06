@@ -1,24 +1,30 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
-import uuid from '../data/uuid'
-
-export default (name, email, username, password, passwordRepeat) => {
+export default (name, email, username, password, passwordRepeat, callback) => { //añadimos callback para avisar q ha ido bien, ya q no puede ser un return
     validate.name(name)
     validate.email(email)
     validate.username(username)
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
+    validate.callback(callback)
 
-    const users = JSON.parse(localStorage.users)
+    const xhr = new XMLHttpRequest
 
-    let user = users.find(user => user.username === username || user.email === email)
+    xhr.addEventListener('load', () => { //esto es asincronía
+        const { status, response } = xhr
 
-    if (user !== undefined)
-        throw new Error('User already exists')
+        if (status === 201) {
+            callback(null)
 
-    user = { id: uuid(), name: name, email: email, username: username, password: password }
+            return
+        }
 
-    users.push(user)
+        const { error, message } = JSON.parse(response)
 
-    localStorage.users = JSON.stringify(users)
+        callback(new Error(message))
+    })
+
+    xhr.open('POST', 'http://localhost:8080/register') //esto es indispensable
+    xhr.setRequestHeader('Content-Type', 'application/json') //solo si hay body. También podría ser authorization si hay un user loggeado
+    xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat })) //vacío si no enviamos data
 }

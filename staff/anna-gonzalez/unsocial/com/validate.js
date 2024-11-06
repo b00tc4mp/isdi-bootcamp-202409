@@ -40,6 +40,10 @@ const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new Error(`invalid ${explain}`)
 }
 
+const validateCallback = callback => {
+    if (typeof callback !== 'function') throw new Error('Invalid callback')
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -48,7 +52,8 @@ const validate = {
     passwordsMatch: validatePasswordsMatch,
     image: validateImage,
     text: validateText,
-    id: validateId
+    id: validateId,
+    callback: validateCallback
 }
 
 export default validate

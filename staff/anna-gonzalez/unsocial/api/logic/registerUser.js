@@ -1,6 +1,6 @@
-import { storage, uuid } from '../data/index.js'
+import { validate } from 'com'
 
-import validate from './helpers/validate.js'
+import { storage, uuid } from '../data/index.js'
 
 export default (name, email, username, password, passwordRepeat) => {
     validate.name(name)
@@ -9,11 +9,12 @@ export default (name, email, username, password, passwordRepeat) => {
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
 
+    //const users = storage.users
     const { users } = storage
 
     let user = users.find(user => user.username === username || user.email === email)
 
-    if (user !== undefined)
+    if (user)
         throw new Error('User already exists')
 
     user = { id: uuid(), name: name, email: email, username: username, password: password }
