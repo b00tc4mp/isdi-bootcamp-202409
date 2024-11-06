@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+
+html {
+    --color: rgb(184, 129, 184);
+    --font: 'Sixtyfour';
+    font-family: var(--font);
+    height: 100%;
+}
+
+body {
+    background-color: rgb(63, 61, 61);
+    color: var(--color);
+    margin:0;
+    height: 100%;
+}
+
+a:visited {
+    color: var(--color);
+}
+
+#root {
+    height: 100%;
+}
+
+.message {
+    color: antiquewhite;
+}
+
+.warning {
+    color: antiquewhite;
+}
