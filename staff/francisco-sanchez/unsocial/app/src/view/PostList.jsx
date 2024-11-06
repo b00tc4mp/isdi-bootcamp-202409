@@ -1,4 +1,6 @@
-import { Component } from "react";
+import { useState, useEffect } from 'react'
+
+//import { Component } from "react";
 
 //aquest import el canviaré quan tregui la home i la modifiqui per postList (o Posts)
 import PostItem from "../components/functional/Post";
@@ -9,26 +11,12 @@ import logic from "../logic";
 
 import './PostList.css'
 
-/*
-<main className="Home">
-            <div className="container">
-                {this.state.view === 'list' && <PostList />}
-            </div>
-        </main>
-*/
 
 //export default class extends Component {
-export default class PostList extends Component {
-    constructor(props) {
-        console.log('PostList -> Constructor')
+export default function PostList() {
+    const [posts, setPosts] = useState([])
 
-        super(props)
-
-        //let posts
-        this.state = { posts: [] } //Tinc dubtes si això em pot donar problemes
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         console.log('Posts / PostList -> componentDidMount')
 
         try {
@@ -38,7 +26,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
 
 
@@ -46,9 +34,13 @@ export default class PostList extends Component {
             alert(error.message);
             console.error(error)
         }
-    }
+    }, [])
 
-    handleLiked = () => {
+
+
+
+
+    const handleLiked = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -56,7 +48,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert.error(error)
@@ -64,7 +56,7 @@ export default class PostList extends Component {
         }
     }
 
-    handleDeleted = () => {
+    const handleDeleted = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -72,7 +64,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch {
             alert(error.message)
@@ -80,7 +72,7 @@ export default class PostList extends Component {
         }
     }
 
-    handleCommentAdded = () => {
+    const handleCommentAdded = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -88,7 +80,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch {
             alert.error(error)
@@ -96,7 +88,7 @@ export default class PostList extends Component {
         }
     }
 
-    handleCommentRemoved = () => {
+    const handleCommentRemoved = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -104,7 +96,7 @@ export default class PostList extends Component {
                     console.error(error)
                     return
                 }
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch {
             alert.error(error)
@@ -113,25 +105,25 @@ export default class PostList extends Component {
     }
 
 
-    render() {
-        console.log('Posts -> render')
+    console.log('Posts -> render')
 
-        return <main className="Home">
-            <div className="container">
-                {/* <h3>Posts</h3> */}
-                {this.state.posts.map(post => <PostItem
-                    post={post}
+    return <main className="Home">
+        <div className="container">
+            {/* <h3>Posts</h3> */}
+            {posts.map(post => <PostItem
+                key={post.id}
+                post={post}
 
-                    onLiked={this.handleLiked}
+                onLiked={handleLiked}
 
-                    onDeleted={this.handleDeleted}
+                onDeleted={handleDeleted}
 
-                    onCommentAdded={this.handleCommentAdded}
+                onCommentAdded={handleCommentAdded}
 
-                    onCommentRemoved={this.handleCommentRemoved}
+                onCommentRemoved={handleCommentRemoved}
 
-                />)}
-            </div>
-        </main>
-    }
+            />)}
+        </div>
+    </main>
+
 }

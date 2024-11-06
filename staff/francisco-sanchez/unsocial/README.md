@@ -43,23 +43,21 @@
 ### Hoy traspasamos la aplicación a Hooks 
 Nos vamos a cargar todas las clases y lo volveremos a pasar a funciones. 
 
-- Lo primero que hace es nombrar todas las funciones para que se vean bien en el inspector de react
+- OK -Lo primero que hace es nombrar todas las funciones para que se vean bien en el inspector de react
 
-- TODO: App -> Importa useState y lo mete en el export default de app. --> Mirar --> https://developero.io/blog/react-hooks-tutorial-en-espa%C3%B1ol#manejo-de-estados-con-usestate
+- OK: App -> Importa useState y lo mete en el export default de app. --> Mirar --> https://developero.io/blog/react-hooks-tutorial-en-espa%C3%B1ol#manejo-de-estados-con-usestate
     - Esto proporciona un array que devuelve dos posiciones, "view, y setView"
 
-- TODO: Posts.jsx -> Importa useEffect y useState --> 
+- OK: Posts.jsx -> Importa useEffect y useState --> 
     - useEffect: https://developero.io/blog/react-hooks-tutorial-en-espa%C3%B1ol#ciclo-de-vida-de-un-componente-con-useeffect
 
-- TODO: Comments.jsx -> Importa useEffect y useState
+- OK - : Comments.jsx -> Importa useEffect y useState
     - Cambia los nombres de onRemoved y on... por handle... 
 
-- TODO: Header.jsx (lo mismo que los dos anteriores)
+- OK -: Header.jsx (lo mismo que los dos anteriores)
     - ComponentWillReceiveProps
 
-- TODO: Posts.jsx / PostList.jsx --> 
-
-- TODO: PasswordInput.jsx -->
+- OK: PasswordInput.jsx -->
 
 
 
@@ -81,7 +79,7 @@ Nos vamos a cargar todas las clases y lo volveremos a pasar a funciones.
         - OK -  Hay varios puntos modificados, en lo que refiere a view y props. (revisar bien el código)
         - OK -  AL LORO ---> concepto componentDidMount() --> Entendre be!!!! 
 
-        TODO: Revisar per que no funciona el click del viewProfile
+        OK: Revisar per que no funciona el click del viewProfile
 
 - OK - : Modificar la logica del getUserName.js con el nuevo callback del xhr
 
@@ -91,7 +89,7 @@ Nos vamos a cargar todas las clases y lo volveremos a pasar a funciones.
     - OK - importamos logic
     - OK - con el componentDidMount() gestionamos la logica de la llamada a getPosts()
     - OK - Tenemos que replicar la misma logica en todos los eventos de Posts.jsx
-    - TODO: El render no lo tocamos  (Lo tocaré luego)
+    - OK: El render no lo tocamos  (Lo tocaré luego)
 
 - OK -: Vamos a modificar la logica del getPosts.js con el callback nuevo
     - Como en los anteriores casos, utilizamos el xhr para traer los posts
@@ -138,7 +136,7 @@ Nos vamos a cargar todas las clases y lo volveremos a pasar a funciones.
 
 
 ### Cosas nuevas
-- TODO: En Comments.jsx, dentro del render Comment, añadimos un key={comment.id}. (lo haremos en todos los stios que hacemos un map)
+- OK: En Comments.jsx, dentro del render Comment, añadimos un key={comment.id}. (lo haremos en todos los stios que hacemos un map)
 
 - Dentro de posts también lo hacemos 
 

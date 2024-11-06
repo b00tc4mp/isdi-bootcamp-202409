@@ -1,87 +1,56 @@
-import { Component } from 'react'
+import { useState } from 'react'
 
-import { Login, Register, CreatePost, ViewProfile } from './view'
+import React, { Component } from 'react'
+
+import { Login, Register, CreatePost, PostList, ViewProfile } from './view'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
 
 import logic from './logic'
-import { PostList } from './components/functional'
-
-/**
- * Validamos si existe localStorage, si no existe lo fuerzo
- */
-
-const emptyArray = []
-
-if (!localStorage.getItem('users')) {
-    localStorage.setItem('users', JSON.stringify(emptyArray))
-
-}
-
-if (!localStorage.getItem('posts')) {
-    localStorage.setItem('posts', JSON.stringify(emptyArray))
-}
-
 
 
 //La classe App extiende de component y la declaramos como class porque será dinámica e ira mutando conforme utilicemos la app
 //export default class extends Component {
-export default class App extends Component {
-    constructor(props) {
-        super(props)
+export default function App() {
 
-        //Validamos si el usuario está logueado para mostrar la home o login
-        //this.state es una propiedad de this 
+    const [view, setView] = useState(logic.isUserLoggedIn() ? 'posts' : 'login')
 
-        //Dentro del constructor aquí marcamos la vista que se cargará primero
-        this.state = { view: logic.isUserLoggedIn() ? 'posts' : 'login' }
-    }
+    const handleUserViewProfile = () => setView('viewProfile')
 
-    // Método para cambiar la vista a 'viewProfile' (perfil del usuario)
-    // Este evento lo tenemos aquí porqué la vista se carga en la ventana principal
-    onViewProfile = () => {
-        this.setState({ view: 'viewProfile' })
-    }
+    const handlePostCreated = () => setView('posts')
 
-    handlePostCreated = () => this.setState({ view: 'posts' })
+    const handleUserLoggedOut = () => setView('login')
 
-    handleUserLoggedOut = () => this.setState({ view: 'login' })
+    const handleUserHomeClick = () => setView('posts')
 
-    handleUserHomeClick = () => this.setState({ view: 'posts' })
+    const handreUserLoggedIn = () => setView('posts')
 
-    handleUserViewProfile = () => this.setState({ view: 'viewProfile' })
+    const handleUserNavRegister = () => setView('register')
 
-    handreUserLoggedIn = () => this.setState({ view: 'posts' })
+    const handleUserLoginClick = () => setView('login')
 
-    handleUserNavRegister = () => this.setState({ view: 'register' })
+    const handleUserOnRegistered = () => setView('login')
 
-    handleUserLoginClick = () => this.setState({ view: 'login' })
+    const handleNewPostClick = () => setView('new-post')
 
-    handleUserOnRegistered = () => this.setState({ view: 'login' })
+    console.log('App -> render')
 
 
+    return <>
+        {/* Componente Header recibe las funciones de cambio de vista como props */}
+        <Header view={view} onHomeClick={handleUserHomeClick} onLoggedOut={handleUserLoggedOut} onViewProfile={handleUserViewProfile} />
 
-    render() {
-        return <>
-            {/* Componente Header recibe las funciones de cambio de vista como props */}
-            <Header
-                view={this.state.view}
-                onHomeClick={this.handleUserHomeClick}
-                onLoggedOut={this.handleUserLoggedOut}
-                onViewProfile={this.handleUserViewProfile} />
+        {view === 'login' && <Login onLoggedIn={handreUserLoggedIn} onNavRegister={handleUserNavRegister} />}
 
-            {this.state.view === 'login' && <Login onLoggedIn={this.handreUserLoggedIn} onNavRegister={this.handleUserNavRegister} />}
+        {view === 'register' && <Register onLoginClick={handleUserLoginClick} onRegistered={handleUserOnRegistered} />}
 
-            {this.state.view === 'register' && <Register onLoginClick={this.handleUserLoginClick} onRegistered={this.handleUserOnRegistered} />}
+        {view === 'posts' && <PostList />}
 
-            {this.state.view === 'posts' && <PostList />}
+        {view === 'new-post' && <CreatePost onCreated={handlePostCreated} />}
 
-            {this.state.view === 'new-post' && <CreatePost onCreated={this.handlePostCreated} />}
+        {view === 'viewProfile' && <ViewProfile onHomeClick={handleUserHomeClick} />}
 
-            {this.state.view === 'viewProfile' && <ViewProfile onHomeClick={this.handleUserHomeClick} />}
-
-            <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
-        </>
-    }
+        <Footer onNewPostClick={handleNewPostClick} view={view} />
+    </>
 }

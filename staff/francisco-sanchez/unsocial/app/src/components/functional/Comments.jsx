@@ -1,4 +1,6 @@
-import { Component } from "react";
+import { useState, useEffect } from "react";
+
+//import { Component } from "react";
 
 import Comment from "./Comment";
 import AddComment from "./addComment";
@@ -6,25 +8,61 @@ import AddComment from "./addComment";
 import logic from "../../logic";
 
 //export default class extends Component {
-export default class Comments extends Component {
-    constructor(props) {
-        console.log('Comments -> constructor')
+export default function Comments(props) {
+    const [comments, setComments] = useState([]) //Como useState es un array lo podemos deconstruir
 
-        super(props)
+    useEffect(() => {
+        console.log('Comments -> useEffect "componentDidMount"')
 
-        this.state = { comments: [] }
-    }
-
-
-    componentDidMount() {
         try {
-            logic.getComments(this.props.postId, (error, comments) => {
+            logic.getComments(props.postId, (error, comments) => {
                 if (error) {
                     alert(error.message)
                     console.error(error)
                     return
                 }
-                this.setState({ comments })
+                setComments(comments)
+            })
+
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+
+    }, [])
+
+
+
+
+
+    const handleAdded = () => {
+        try {
+            logic.getComments(props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                setComments(comments)
+                props.onAdded()
+            })
+
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+    const handleRemoved = () => {
+        try {
+            logic.getComments(props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+                    console.error(error)
+                    return
+                }
+                setComments(comments)
+                props.onRemoved()
             })
 
         } catch (error) {
@@ -34,61 +72,24 @@ export default class Comments extends Component {
     }
 
 
-    onAdded = () => {
-        try {
-            logic.getComments(this.props.postId, (error, comments) => {
-                if (error) {
-                    alert(error.message)
-                    console.error(error)
-                    return
-                }
-                this.setState({ comments })
-                this.props.onAdded()
-            })
+    console.log('Comments -> render')
 
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
-        }
-    }
+    return <section>
+        <ul>
+            {comments.map(comment =>
+                <Comment
+                    key={comment.id}
+                    postId={props.postId}
+                    comment={comment}
+                    onRemoved={handleRemoved}
+                />)
+            }
+        </ul>
 
-    onRemoved = () => {
-        try {
-            logic.getComments(this.props.postId, (error, comments) => {
-                if (error) {
-                    alert(error.message)
-                    console.error(error)
-                    return
-                }
-                this.setState({ comments })
-                this.props.onRemoved()
-            })
+        <AddComment
+            postId={props.postId}
+            onAdded={handleAdded}
+        />
+    </section>
 
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
-        }
-    }
-
-    render() {
-        console.log('Comments -> render')
-
-        return <section>
-            <ul>
-                {this.state.comments.map(comment =>
-                    <Comment
-                        key={comment.id}
-                        postId={this.props.postId}
-                        comment={comment}
-                        onRemoved={this.onRemoved}
-                    />)
-                }
-            </ul>
-
-            <AddComment
-                postId={this.props.postId}
-                onAdded={this.onAdded}
-            />
-        </section>
-    }
 }
