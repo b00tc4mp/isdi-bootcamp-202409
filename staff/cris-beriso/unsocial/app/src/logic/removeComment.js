@@ -1,6 +1,6 @@
 import { validate } from 'com'
 
-export default (postId, commentId) => {
+export default (postId, commentId, callback) => {
   validate.id(postId, 'postId')
   validate.id(commentId, 'commentId')
   validate.callback(callback)

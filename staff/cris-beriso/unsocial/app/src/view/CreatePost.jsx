@@ -2,7 +2,7 @@ import logic from '../logic'
 
 import { Label, Input, Button, Form, Field } from '../components/library'
 
-export default ({ onCreated }) => {
+export default function CreatePost({ onCreated }) {
   console.log('CreatePost -> render')
 
   const handleSubmit = event => {

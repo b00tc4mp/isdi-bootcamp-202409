@@ -2,7 +2,7 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
-export default props => {
+export default function ProfileUser(props) {
   console.log('Profile -> render')
 
   const handleSubmit = event => {

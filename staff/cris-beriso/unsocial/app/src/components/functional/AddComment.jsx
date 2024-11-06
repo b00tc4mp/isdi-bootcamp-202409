@@ -2,7 +2,7 @@ import { Label, Button, Form, Field } from '../library'
 
 import logic from '../../logic'
 
-export default ({ postId, onAdded }) => {
+export default function AddComment({ postId, onAdded }) {
   console.log('AddComment -> render')
 
   const handleSubmit = event => {
