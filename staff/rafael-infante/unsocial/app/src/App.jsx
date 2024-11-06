@@ -1,4 +1,4 @@
-import { Component } from "react"
+import { useState } from "react"
 
 import { Login, Register, Posts, CreatePost } from "./view"
 
@@ -6,61 +6,56 @@ import { Header, Footer } from './components/functional'
 
 import logic from "./logic"
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+export default function App() {
+  const [view, setView] = useState(logic.isUserLoggedIn() ? 'posts' : 'login')
 
-    this.state = { view: logic.isUserLoggedIn() ? 'posts' : 'login' }
-  }
+  const handleHomeClick = () => setView('posts')
 
-  handleHomeClick = () => this.setState({ view: 'posts' })
-
-  handleUserLoggedOut = () => {
-    this.setState({ view: 'login' })
+  const handleUserLoggedOut = () => {
+    setView('login')
     logic.logoutUser()
   }
 
-  handleUserloggedIn = () => this.setState({ view: 'posts' })
+  const handleUserloggedIn = () => setView('posts')
 
-  handleAnchorRegister = () => this.setState({ view: 'register' })
+  const handleAnchorRegister = () => setView('register')
 
-  handleUserRegistered = () => this.setState({ view: 'login' })
+  const handleUserRegistered = () => setView('login')
 
-  handleAnchorLogin = () => this.setState({ view: 'login' })
+  const handleAnchorLogin = () => setView('login')
 
-  handlePostCreated = () => this.setState({ view: 'posts' })
+  const handlePostCreated = () => setView('posts')
 
-  handleNewPostClick = () => this.setState({ view: 'new-post' })
+  const handleNewPostClick = () => setView('new-post')
 
-  render() {
-    console.log('App -> render')
-    return (
-      <>
-        <Header view={this.state.view}
-          onHomeClick={this.handleHomeClick}
-          onLoggedOut={this.handleUserLoggedOut} />
 
-        {this.state.view === 'login' && <Login
-          onLoggedIn={this.handleUserloggedIn}
-          onAnchorRegister={this.handleAnchorRegister}
-        />}
+  console.log('App -> render')
 
-        {this.state.view === 'register' && <Register
-          onRegistered={this.handleUserRegistered}
-          onAnchorLogin={this.handleAnchorLogin}
-        />}
+  return (
+    <>
+      <Header view={view}
+        onHomeClick={handleHomeClick}
+        onLoggedOut={handleUserLoggedOut} />
 
-        {this.state.view === 'posts' && <Posts />}
+      {view === 'login' && <Login
+        onLoggedIn={handleUserloggedIn}
+        onAnchorRegister={handleAnchorRegister}
+      />}
 
-        {this.state.view === 'new-post' && <CreatePost
-          onCreated={this.handlePostCreated} />}
+      {view === 'register' && <Register
+        onRegistered={handleUserRegistered}
+        onAnchorLogin={handleAnchorLogin}
+      />}
 
-        <Footer view={this.state.view}
-          onHomeClick={this.handleHomeClick}
-          onNewPostClick={this.handleNewPostClick} />
-      </>
-    )
-  }
+      {view === 'posts' && <Posts />}
+
+      {view === 'new-post' && <CreatePost
+        onCreated={handlePostCreated} />}
+
+      <Footer view={view}
+        onHomeClick={handleHomeClick}
+        onNewPostClick={handleNewPostClick} />
+    </>
+  )
 }
 
-export default App

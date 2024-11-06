@@ -1,28 +1,21 @@
-import { Component } from "react"
+import { useState } from "react"
 import Input from "./Input"
 
-class PasswordInput extends Component {
-  constructor(props) {
-    super(props)
+export default function PasswordInput({ id }) {
+  const [className, setClassname] = useState('far fa-eye')
+  const [type, setType] = useState('password')
 
-    this.state = { className: 'far fa-eye', type: 'password' }
+  const handleIconClick = () => {
+    setClassname(className === 'far fa-eye' ? 'far fa-eye-slash' : 'far fa-eye')
+    setType(type === 'password' ? 'text' : 'password')
   }
 
-  handleIconClick = () => this.setState({
-    className: this.state.className === 'far fa-eye' ? 'far fa-eye-slash' : 'far fa-eye',
-    type: this.state.type === 'password' ? 'text' : 'password'
-  })
-
-  render() {
-    return (
-      <div className="password-container">
-        <Input id={this.props.id} type={this.state.type} placeholder="Enter your password" required />
-        <i className={this.state.className}
-          id="icon"
-          onClick={this.handleIconClick}></i>
-      </div>
-    )
-  }
+  return (
+    <div className="password-container">
+      <Input id={id} type={type} placeholder="Enter your password" required />
+      <i className={className}
+        id="icon"
+        onClick={handleIconClick}></i>
+    </div>
+  )
 }
-
-export default PasswordInput

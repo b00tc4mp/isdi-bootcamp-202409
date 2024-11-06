@@ -1,29 +1,25 @@
-import './Post.css'
+import { useState } from 'react'
 import { Comments } from './index'
 import logic from '../../logic'
 import getElapsedTime from '../../utils/getElapsedTime'
-import { Component } from 'react'
+import './Post.css'
 
-export default class Post extends Component {
-  constructor(props) {
-    console.log('Post -> constructor')
+export default function Post({ post, onLiked, onDeleted, onCommentRemoved, onCommentAdded }) {
+  const [view, setView] = useState(null)
 
-    super(props)
+  const { id, author, image, text, date, liked, likes, comments } = post
 
-    this.state = { view: null }
-  }
-
-  handleDeleteClick = () => {
+  const handleDeleteClick = () => {
     if (confirm('Delete Post?')) {
       try {
-        logic.deletePost(this.props.post.id, error => {
+        logic.deletePost(id, error => {
           if (error) {
             alert(error.message)
             console.error(error)
             return
           }
-          this.props.onDeleted()
 
+          onDeleted()
         })
       } catch (error) {
         alert(error.message)
@@ -32,17 +28,16 @@ export default class Post extends Component {
     }
   }
 
-  handleLikeClick = () => {
+  const handleLikeClick = () => {
     try {
-      logic.toggleLikePost(this.props.post.id, error => {
+      logic.toggleLikePost(id, error => {
         if (error) {
           alert(error.message)
           console.error(error)
           return
         }
 
-        this.props.onLiked()
-
+        onLiked()
       })
 
     } catch (error) {
@@ -51,37 +46,31 @@ export default class Post extends Component {
     }
   }
 
-  handleViewComments = () => {
-    this.setState({ view: this.state.view ? null : 'comments' })
-  }
+  const handleViewComments = () => setView(view ? null : 'comments')
 
-  render() {
-    console.log('Render -> Post')
+  console.log('Render -> Post')
 
-    const { post: { id, author, image, text, date, liked, likes, comments }, onCommentRemoved, onCommentAdded } = this.props
+  return (
+    <article className='Post'>
 
-    return (
-      <article className='Post'>
+      <h4>{author.username}</h4>
 
-        <h4>{author.username}</h4>
+      <img src={image} className="img" />
 
-        <img src={image} className="img" />
+      <a onClick={handleLikeClick}>{liked ? '❤️' : '🤍'}{likes.length} likes</a>
 
-        <a onClick={this.handleLikeClick}>{liked ? '❤️' : '🤍'}{likes.length} likes</a>
+      {author.id === logic.getUserId() && <a onClick={handleDeleteClick}>🗑️</a>}
 
-        {author.id === logic.getUserId() && <a onClick={this.handleDeleteClick}>🗑️</a>}
+      <a onClick={handleViewComments}> 💬{comments} comments</a>
 
-        <a onClick={this.handleViewComments}> 💬{comments} comments</a>
+      <p>{text}</p>
+      <time>{getElapsedTime(date)} ago</time>
 
-        <p>{text}</p>
-        <time>{getElapsedTime(date)} ago</time>
+      {view === 'comments' && <Comments
+        postId={id}
+        onRemoved={onCommentRemoved}
+        onAdded={onCommentAdded} />}
 
-        {this.state.view === 'comments' && <Comments
-          postId={id}
-          onRemoved={onCommentRemoved}
-          onAdded={onCommentAdded} />}
-
-      </article>
-    )
-  }
+    </article>
+  )
 }
