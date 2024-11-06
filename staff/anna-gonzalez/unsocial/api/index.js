@@ -174,7 +174,7 @@ server.patch('/posts/:postId/likes', (req, res) => {
     try {
         logic.toggleLikePost(userId, postId)
 
-        res.status(200).send()
+        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -190,7 +190,7 @@ server.patch('/posts/:postId/saves', (req, res) => {
     try {
         logic.toggleSavePost(userId, postId)
 
-        res.status(200).send()
+        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
 

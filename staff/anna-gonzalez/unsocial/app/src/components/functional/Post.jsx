@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Button } from '../library'
 import Comments from './Comments'
 
@@ -6,20 +8,26 @@ import logic from '../../logic'
 import getElapsedTime from '../../utils/getElapsedTime'
 
 import './Post.css'
-import { Component } from 'react'
 
-export default class extends Component {
-    constructor(props) {
-        console.log('Post -> constructor')
+export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded, onCommentRemoved }) {
+    const [view, setView] = useState(null)
 
-        super(props)
+    const {
+        id,
+        author,
+        image,
+        text,
+        date,
+        liked,
+        saved,
+        likes,
+        saves,
+        comments
+    } = post
 
-        this.state = { view: null }
-    }
-
-    handleSavedClick = () => {
+    const handleSavedClick = () => {
         try {
-            logic.toggleSavePost(this.props.post.id, error => {
+            logic.toggleSavePost(id, error => {
                 if (error) {
                     alert(error.message)
 
@@ -28,10 +36,8 @@ export default class extends Component {
                     return
                 }
 
-                this.props.onLiked()
+                onSaved()
             })
-
-            this.props.onSaved()
         } catch (error) {
             alert(error.message)
 
@@ -39,9 +45,9 @@ export default class extends Component {
         }
     }
 
-    handleLikeClick = () => {
+    const handleLikeClick = () => {
         try {
-            logic.toggleLikePost(this.props.post.id, error => {
+            logic.toggleLikePost(id, error => {
                 if (error) {
                     alert(error.message)
 
@@ -50,10 +56,8 @@ export default class extends Component {
                     return
                 }
 
-                this.props.onLiked()
+                onLiked()
             })
-
-            this.props.onLiked()
         } catch (error) {
             alert(error.message)
 
@@ -61,81 +65,63 @@ export default class extends Component {
         }
     }
 
-    handleDeleteClick = () => {
+    const handleDeleteClick = () => {
         if (confirm('Delete post?')) {
-            logic.deletePost(this.props.post.id, error => {
-                if (error) {
-                    alert(error.message)
+            try {
+                logic.deletePost(id, error => {
+                    if (error) {
+                        alert(error.message)
 
-                    console.error(error)
+                        console.error(error)
 
-                    return
-                }
+                        return
+                    }
 
-                this.props.onDeleted()
-            })
+                    onDeleted()
+                })
+            } catch (error) {
+                alert(error.message)
 
-            this.props.onDeleted()
+                console.error(error)
+            }
         }
     }
 
-    handleCommentsClick = () => {
-        this.setState({ view: this.state.view ? null : 'comments' })
-    }
+    const handleCommentsClick = () => setView(view ? null : 'comments')
 
-    render() {
-        console.log('Post -> render')
+    console.log('Post -> render')
 
-        const {
-            props: {
-                post: {
-                    id,
-                    author,
-                    image,
-                    text,
-                    date,
-                    saved,
-                    liked,
-                    saves,
-                    likes,
-                    comments
-                },
-                onSaved,
-                onCommentAdded,
-                onCommentRemoved
-            }
-        } = this
+    console.log('Post -> render')
 
-        return <article className="Post">
-            <div className="above-photo-content">
-                <h4>{author.username}</h4>
+    return <article className="Post">
+        <div className="above-photo-content">
+            <h4>{author.username}</h4>
 
-                <Button className="save-post-button"
-                    onClick={this.handleSavedClick}>{`📌 ${saves.length}`}</Button>
-            </div>
+            <Button className="save-post-button"
+                onClick={handleSavedClick}>{`📌 ${saves.length}`}</Button>
+        </div>
 
-            <img src={image} />
+        <img src={image} />
 
-            <p>{text}</p>
+        <p>{text}</p>
 
-            <time>{getElapsedTime(date)} ago</time>
+        <time>{getElapsedTime(date)} ago</time>
 
-            {this.state.view === 'comments' && <Comments
-                postId={id}
-                onAdded={onCommentAdded}
-                onRemoved={onCommentRemoved}
-            />}
+        {view === 'comments' && <Comments
+            postId={id}
+            onAdded={onCommentAdded}
+            onRemoved={onCommentRemoved}
+        />}
 
-            <div className="post-buttons">
-                <Button className="no-style-button"
-                    onClick={this.handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</Button>
+        <div className="post-buttons">
+            <Button className="no-style-button"
+                onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</Button>
 
-                {author.id === logic.getUserId() && <Button className="no-style-button"
-                    onClick={this.handleDeleteClick}>❌</Button>}
+            {author.id === logic.getUserId() && <Button className="no-style-button"
+                onClick={handleDeleteClick}>❌</Button>}
 
-                <Button className="no-style-button"
-                    onClick={this.handleCommentsClick}>💬 {comments}</Button>
-            </div>
-        </article >
-    }
+            <Button className="no-style-button"
+                onClick={handleCommentsClick}>💬 {comments}</Button>
+        </div>
+    </article >
 }
