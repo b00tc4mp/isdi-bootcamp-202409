@@ -5,7 +5,7 @@ import {PasswordInput, Input, Button, Form, Field, Label} from '../components/li
 import logic from '../logic'
 
 const Login = (props) => {
-    console.log('Login -> render')
+    console.log('Login -> render');
 
     const handleSubmit = event => {
         event.preventDefault();

@@ -4,8 +4,8 @@ import {Label, Input, Button, Form, Field} from '../components/library'
 
 import './CreatePost.css'
 
-const CreatePost = ({onCreated}) => {
-    console.log('CreatePost -> render')
+export default function CreatePost({onCreated}){
+    console.log('CreatePost -> render');
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -36,10 +36,8 @@ const CreatePost = ({onCreated}) => {
             console.error(error);
         }
     }
-
+    //consider removing style elements below.
     return <main className="CreatePost">
-        <h3>Create Post</h3>
-
         <Form onSubmit={handleSubmit}>
                 <Field>
                     <Label htmlFor="image">Image</Label>
@@ -54,6 +52,4 @@ const CreatePost = ({onCreated}) => {
                 <Button type="submit">Create</Button>
         </Form>
     </main>
-}
-
-export default CreatePost
+};

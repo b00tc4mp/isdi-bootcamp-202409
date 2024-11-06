@@ -19,7 +19,7 @@ const getPosts = (userId) => {
 
         post.liked = post.likes.includes(userId);
 
-        post.comments = posts.comments.length;
+        post.comments = post.comments.length;
     });
 
     return posts.toReversed();

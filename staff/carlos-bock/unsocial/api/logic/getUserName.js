@@ -1,7 +1,7 @@
 import {storage} from '../data/index.js';
 import { validate } from 'com'
 
-const getUserName = userId => {
+const getUserName = (userId, targetUserId) => {
     validate.id(userId, 'userId');
     validate.id(targetUserId, 'targetUserId');
 

@@ -1,16 +1,35 @@
-import { Component } from "react";
+import { Component, useEffect, useState } from "react";
+
 import {Post} from '../components/functional';
+
 import logic from "../logic";
-//import getPosts from "../logic/getPosts";
 
-class Posts extends Component {
-    constructor(props) {
-        console.log('Post -> constructor');
+export default function Posts() {
+    const [post, setPosts] = useState([]);
 
-        super(props);
+    useEffect(() => {
+        console.log('Posts -> useEffect "componentDidMout"');
 
-        this.state = {posts: []};
-    };
+        try {
+            logic.getPosts((error, posts)=> {
+                if (error) {
+                    alert(error.message);
+
+                    console.error(error);
+
+                    return;
+                }
+
+                setPosts(posts);
+            })
+        } catch (error) {
+            alert(error.message);
+
+            console.error(error);
+            
+        }
+    })
+
 
     componentDidMount() {
         console.log('Post -> componentDidMount')
@@ -128,5 +147,3 @@ class Posts extends Component {
         </div>
     }
 };
-
-export default Posts;

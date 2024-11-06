@@ -11,7 +11,7 @@ const removeComment = (postId, commentId, callback) => {
         const { status, response } = xhr;
 
         if (status === 204) {
-            callback(null)
+            callback(null);
 
             return;
         }

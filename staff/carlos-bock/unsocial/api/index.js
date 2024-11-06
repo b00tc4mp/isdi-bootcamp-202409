@@ -35,11 +35,13 @@ server.post('/register', jsonBodyParser, (req, res) => {
     }
 });
 
-server.get('/users/:userId/name', (req, res) => {
-    const {userId} = req.params;
+server.get('/users/:targetUserId/name', (req, res) => {
+    const userId = req.headers.authorization.slice(6);
+    
+    const {targetUserId} = req.params;
 
     try {
-        const name = logic.getUserName(userId);
+        const name = logic.getUserName(userId, targetUserId);
         
         res.json(name);
     } catch (error) {
