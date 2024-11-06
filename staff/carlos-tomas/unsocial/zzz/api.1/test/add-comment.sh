@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2xfav8tjtt' -H 'Content-Type: application/json' -d '{"text":"Que dia mas bonito"}' http://localhost:8080/posts/comment/m2yndgeooz -v

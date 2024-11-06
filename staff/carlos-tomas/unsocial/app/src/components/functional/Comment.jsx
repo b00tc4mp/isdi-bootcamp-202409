@@ -6,7 +6,7 @@ import getElapsedTime from '../../utils/getElapsedTime'
 
 
 
-export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
+export default function Comment({ postId, comment: { id, author, text, date }, onRemoved }) {
     console.log('Comment -> render')
 
     const handleRemove = () => {

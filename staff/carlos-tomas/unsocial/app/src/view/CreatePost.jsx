@@ -4,7 +4,7 @@ import { Label, Input, Form, Field, Button } from '../components/library'
 
 import './CreatePost.css'
 
-export default ({ onCreated }) => {
+export default function CreatePost({ onCreated }) {
     console.log('CreatePost -> render')
 
     const handleSubmit = event => {

@@ -2,7 +2,7 @@ import './Footer.css'
 
 import Button from '../library/Button'
 
-export default ({ onNewPostClick, view }) => {
+export default function Footer({ onNewPostClick, view }) {
     console.log('Fotter-> render')
 
     return <footer className="Footer">
