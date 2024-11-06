@@ -1,9 +1,7 @@
 import './Label.css'
 
-const Label = ({htmlFor, children}) => {
-    console.log ('Label -> render')
+export default function Label ({htmlFor, children}) {
+    //console.log ('Label -> render')
 
     return <label htmlFor={htmlFor} className="Label">{children}</label>
 }
-
-export default Label

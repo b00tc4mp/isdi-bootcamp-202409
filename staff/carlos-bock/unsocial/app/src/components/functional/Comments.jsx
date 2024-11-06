@@ -1,79 +1,95 @@
-import { Component } from "react"
+import {useEffect, useState } from "react";
 
-import Comment from './Comment'
+import Comment from './Comment';
+import AddComment from './AddComment';
 
-import AddComment from './AddComment'
+import logic from '../../logic';
 
-import logic from '../../logic'
-
-class Comments extends Component {
-    constructor(props) {
-        console.log('Comments -> constructor')
-
-        super(props)
-
-        let comments // initiated below
-
+export default function Comments (props) {
+    const [comments, setComments] = useState([]);
+    
+    useEffect(() => {
+        console.log('Comments -> useEffect "componentDidMount');
         try {
-            comments = logic.getComments(props.postId)
+            logic.getComments(this.props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message);
+
+                    console.error(error);
+
+                    return;
+                }
+                setComments(comments);
+            });
+        } catch (error) {
+            alert(error.message);
+
+            console.error(error);
+        }
+    }, []);       
+
+    const handleAdded = () => {
+        try {
+            logic.getComments(props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message);
+                
+                    console.error(error);
+                
+                    return;
+                }
+                setComments(comments)
+
+                props.onAdded();
+            });
+
+        } catch (error) {
+            alert(error.message);
+
+            console.error(error);
+        };
+    };
+
+    const handleRemoved = () => {
+        try {
+            logic.getComments(props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message);
+                    
+                    console.error(error);
+                    
+                    return;
+                }
+                
+                setComments(comments);
+
+                props.onRemoved();
+            });
+
         } catch (error) {
             alert(error.message)
 
             console.error(error)
-        }
-
-        this.state = {comments}
-    }
-
-    onAdded = () => {
-        try {
-            const comments = logic.getComments(this.props.postId)
-
-            this.setState({comments})
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-
-
-
-    }
-
-    onRemoved = () => {
-        try {
-            const comments = logic.getComments(this.props.postId)
-
-            this.setState({comments})
-
-            this.props.onRemoved()
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    }
-
-    render() {
-        console.log('Comments ->')
+        };
+    };
+    console.log('Comments ->');  
 
         return <section>
             <ul>
-                {this.state.comments.map(comment =>
+                {comments.comments.map(comment =>
                     <Comment
-                        postId={this.props.postId}
+                        key={comment.id}
+                        postId={props.postId}
                         comment={comment}
-                        onRemoved={this.onRemoved}                    
+                        onRemoved={handleRemoved}                    
                     />)
                 }
             </ul>
 
             <AddComment
-                postId={this.props.postId}
-                onAdded={this.onAdded}
+                postId={props.postId}
+                onAdded={handleAdded}
             />
         </section>
-    }
-}
+    };
 
-export default Comments

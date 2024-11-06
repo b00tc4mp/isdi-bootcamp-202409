@@ -16,7 +16,7 @@ const addComment = (userId, postId, text) => {
 
     if (!post) throw new Error('post not found');
 
-    const { comments } = posts;
+    const { comments } = post; //prior error here "posts" instead of "post"
 
     comments.push({
         id: uuid(),

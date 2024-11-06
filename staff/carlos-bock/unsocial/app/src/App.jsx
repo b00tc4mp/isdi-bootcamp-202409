@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, useState } from 'react'
 
 import {Login, Register, Posts, CreatePost} from './view'
 
@@ -7,33 +7,28 @@ import Footer from './components/functional/Footer'
 
 import logic from './logic'
 
-class App extends Component {
-  constructor(props) {
-    console.log('App -> constructor')
+export default function App() {
+  const [view, setView] = useState(logic.isUserLoggedIn() ? 'posts' : 'login');
 
-    super(props)
+  handlePostCreated = () => setView({ view: 'posts' });
 
-    this.state = {view: logic.isUserLoggedIn() ? 'posts': 'login'}
-  }
+  handleUserLoggedOut = () => setView({ view: 'login' });
 
-  handlePostCreated = () => this.setState({ view: 'posts' });
+  handleUserLoggedIn = () => setView({ view: 'posts' });
 
-  handleUserLoggedOut = () => this.setState({ view: 'login' });
+  handleRegisterClick = () => setView({ view: 'register' });
 
-  handleUserLoggedIn = () => this.setState({ view: 'posts' });
+  handleLoginClick = () => setView({ view: 'login' });
 
-  handleRegisterClick = () => this.setState({ view: 'register' });
+  handleUserRegistered = () => setView({ view: 'login' });
 
-  handleLoginClick = () => this.setState({ view: 'login' });
+  handleNewPostClick = () => setView({ view: 'new-post' });
 
-  handleUserRegistered = () => this.setState({ view: 'login' });
+  handleHomeClick = () => setView({ view: 'posts' });
 
-  handleNewPostClick = () => this.setState({ view: 'new-post' });
-
-  handleHomeClick = () => this.setState({ view: 'posts' });
+  console.log('App -> render');
 
   render() {
-    console.log('App -> render')
 
     return <>
       <Header view={this.state.view} onHomeClick={this.handleHomeClick} onLoggedOut ={this.handleUserLoggedOut} />
@@ -49,6 +44,4 @@ class App extends Component {
       <Footer onNewPostClick={this.handleNewPostClick} view={this.state.view}/>
     </>
   }
-}
-
-export default App
+};

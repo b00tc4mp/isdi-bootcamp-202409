@@ -2,7 +2,7 @@ import {Label, Button, Form, Field } from '../library'
 
 import logic from '../../logic'
 
-const AddComment = ({postId, onAdded}) => {
+export default function AddComment ({postId, onAdded}) {
     console.log('Add Comment -> render')
 
     const handleSubmit = event => {
@@ -13,15 +13,23 @@ const AddComment = ({postId, onAdded}) => {
         const {text: {value: text}} = form
 
         try {
-            logic.addComment(postId, text)
+            logic.addComment(postId, text, error => {
+                if (error) {
+                    alert(error.messsage);
 
-            form.reset()
+                    console.error(error);
 
-            onAdded()
-        } catch (error) {
-            alert(error.message)
+                    return;
+                }
 
-            console.error(error)
+                form.reset();
+
+                onAdded();
+            })
+        } catch (error){
+            alert(error.message);
+
+            console.error(error);
         }
     }
     
@@ -34,6 +42,3 @@ const AddComment = ({postId, onAdded}) => {
     <Button type="submit">Send</Button>
 </Form>
 }
-
-
-export default AddComment

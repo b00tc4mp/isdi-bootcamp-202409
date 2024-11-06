@@ -17,13 +17,13 @@ const createPost = (userId, image, text) => {
         id: uuid(),
         image: image,
         text: text,
-        author, userId,
+        author: userId,
         date: new Date,
         likes: [],
         comments: []
     };
 
-    post.push(post)
+    posts.push(post)
 
     storage.posts = posts;
 }

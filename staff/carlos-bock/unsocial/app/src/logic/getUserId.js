@@ -1,3 +1,2 @@
-const getUserId = () => sessionStorage.getUserId
-
+const getUserId = () => sessionStorage.getUserId;
 export default getUserId
