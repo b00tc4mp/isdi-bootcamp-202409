@@ -71,12 +71,7 @@ server.post('/posts', jsonBodyParser, (req, res) => {
     }
 })
 
-<<<<<<< HEAD
 server.get('/posts', (req, res) => {
-=======
-server.patch('/posts/:postId/likes', (req, res) => {
-    const { postId } = req.params
->>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
     const userId = req.headers.authorization.slice(6)
 
     try {
@@ -90,46 +85,6 @@ server.patch('/posts/:postId/likes', (req, res) => {
     }
 })
 
-<<<<<<< HEAD
-=======
-
-
-server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
-    const { postId } = req.params
-    const userId = req.headers.authorization.slice(6) // 'Basic asdfasdfas'
-    const { text } = req.body
-
-    try {
-        logic.addComment(userId, postId, text)
-
-        res.status(201).send()
-    } catch (error) {
-
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        console.error(error)
-    }
-
-
-})
-
-server.delete('posts/:postId/comments/:commentId', (req, res) => {
-    const { postId, commentId } = req.params
-    const userId = req.headers.authorization.slice(6)
-
-    try {
-        logic.removeComment(postId, userId, commentId)
-
-        res.status(204).send()
-    } catch (error) {
-
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        console.error(error)
-    }
-})
-
->>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
 server.delete('/posts/:postId', (req, res) => {
     const userId = req.headers.authorization.slice(6)
 

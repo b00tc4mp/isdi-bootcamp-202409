@@ -6,11 +6,7 @@ export default (name, email, username, password, passwordRepeat, callback) => {
     validate.username(username)
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
-<<<<<<< HEAD
     validate.callback(callback)
-=======
-    // TODO validate callback
->>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
 
     const xhr = new XMLHttpRequest
 

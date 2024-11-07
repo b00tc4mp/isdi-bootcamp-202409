@@ -8,7 +8,7 @@ import toggleLikePost from './toggleLikePost.js'
 import addComment from './addComment.js'
 import removeComment from './removeComment.js'
 import getComments from './getComments.js'
-import toggleLikePost from './toggleLikePost.js'
+
 
 
 const logic = {
@@ -23,12 +23,7 @@ const logic = {
 
     addComment,
     removeComment,
-<<<<<<< HEAD
     getComments
-=======
-    deletePost,
-    toggleLikePost
->>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
 }
 
 export default logic

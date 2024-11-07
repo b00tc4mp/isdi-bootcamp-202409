@@ -11,15 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "com": "file:../com",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-=======
-    "cors": "^2.8.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
->>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

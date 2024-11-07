@@ -1,13 +1,15 @@
 {
-  "name": "com",
-  "version": "0.0.0",
-  "description": "",
-  "type": "module",
+  "name": "dat",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": "mongodb",
+  "dependencies": {
+    "mongodb": "^6.10.0"
+  }
 }
