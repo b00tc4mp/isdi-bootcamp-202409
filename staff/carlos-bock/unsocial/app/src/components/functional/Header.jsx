@@ -50,9 +50,9 @@ export default function Header ({view, onHomeClick, onLoggedOut}){
     console.log('Header -> render');
 
         return <header className='header'>
-            <h1>{this.props.view === 'new-post' ? <a href='' onClick={handleHomeClick}>unSocial</a>: 'unSocial'}</h1>
+            <h1>{view === 'new-post' ? <a href='' onClick={handleHomeClick}>unSocial</a>: 'unSocial'}</h1>
 
-            {this.state.name && <h3>{name}</h3>}
+            {name && <h3>{name}</h3>}
 
             {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
         </header>
