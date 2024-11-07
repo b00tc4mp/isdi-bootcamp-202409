@@ -1,10 +1,9 @@
 import { validate } from 'com'
-import { storage, uuid } from '../data/index.js'
+import { storage } from '../data/index.js'
 
-export default (userId, postId, text) => {
+export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
-    validate.text(text)
 
     const { users, posts } = storage
 
@@ -16,14 +15,14 @@ export default (userId, postId, text) => {
 
     if (!post) throw new Error('post not found')
 
-    const { comments } = post
+    const { likes } = post
 
-    comments.push({
-        id: uuid(),
-        author: userId,
-        text,
-        date: new Date().toISOString()
-    })
+    const index = likes.indexOf(userId)
+
+    if (index < 0)
+        likes.push(userId)
+    else
+        likes.splice(index, 1)
 
     storage.posts = posts
 }

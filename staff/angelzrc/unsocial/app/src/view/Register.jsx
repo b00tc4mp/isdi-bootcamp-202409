@@ -4,37 +4,53 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
-function Register(props) {
+export default function Register(props) {
     console.log('Register -> render')
 
-    return <main className="Register">
-        <h2>Register</h2>
+    const handleSubmit = event => {
+        event.preventDefault()
 
-        <Form onSubmit={event => {
-            event.preventDefault()
+        const { target: form } = event
 
-            const { target: form } = event
+        const {
+            name: { value: name },
+            email: { value: email },
+            username: { value: username },
+            password: { value: password },
+            ['password-repeat']: { value: passwordRepeat }
+        } = form
 
-            const {
-                name: { value: name },
-                email: { value: email },
-                username: { value: username },
-                password: { value: password },
-                ['password-repeat']: { value: passwordRepeat }
-            } = form
+        try {
+            logic.registerUser(name, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    alert(error.message)
 
-            try {
-                logic.registerUser(name, email, username, password, passwordRepeat)
+                    console.error(error)
+
+                    return
+                }
 
                 form.reset()
 
                 props.onRegistered()
-            } catch (error) {
-                alert(error.message)
+            })
+        } catch (error) {
+            alert(error.message)
 
-                console.error(error)
-            }
-        }}>
+            console.error(error)
+        }
+    }
+
+    const handleLoginClick = event => {
+        event.preventDefault()
+
+        props.onLoginClick()
+    }
+
+    return <main className="Register">
+        <h2>Register</h2>
+
+        <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="name">Name</Label>
                 <Input type="text" id="name" />
@@ -63,12 +79,6 @@ function Register(props) {
             <Button type="submit">Register</Button>
         </Form>
 
-        <a href="" onClick={event => {
-            event.preventDefault()
-
-            props.onLoginClick()
-        }}>Login</a>
+        <a href="" onClick={handleLoginClick}>Login</a>
     </main>
 }
-
-export default Register
