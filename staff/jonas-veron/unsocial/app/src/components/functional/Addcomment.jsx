@@ -1,36 +1,47 @@
-import { Label, Button, Form, Field } from '../library'
+import { Label, Button, Form, Field } from "../library";
 
-import logic from '../../../src/logic'
+import logic from "../../../src/logic";
 
-export default ({ postId, onAdded }) => {
-    console.log('AddComment -> render')
+export default function AddComment({ postId, onAdded }) {
+  console.log("AddComment -> render");
 
-    const handleSubmit = event => {
-        event.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-        const form = event.target
+    const form = event.target;
 
-        const { text: { value: text } } = form
+    const {
+      text: { value: text },
+    } = form;
 
-        try {
-            logic.addComment(postId, text)
+    try {
+      logic.addComment(postId, text, (error) => {
+        if (error) {
+          alert(error.message);
 
-            form.reset()
+          console.error(error);
 
-            onAdded()
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
+          return;
         }
+        form.reset();
+
+        onAdded();
+      });
+    } catch (error) {
+      alert(error.message);
+
+      console.error(error);
     }
+  };
 
-    return <Form onSubmit={handleSubmit}>
-        <Field>
-            <Label htmlFor="text">New Comment</Label>
-            <textarea id="text"></textarea>
-        </Field>
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Field>
+        <Label htmlFor="text">New Comment</Label>
+        <textarea id="text"></textarea>
+      </Field>
 
-        <Button type="submit">Send</Button>
+      <Button type="submit">Send</Button>
     </Form>
+  );
 }

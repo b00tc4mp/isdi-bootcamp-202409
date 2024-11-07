@@ -1,10 +1,26 @@
-export default () => {
+import { validate } from 'com'
 
-    const users = JSON.parse(localStorage.users)
+export default callback => {
+    validate.callback(callback)
 
-    const user = users.find(user => user.id === sessionStorage.userId)
+    const xhr = new XMLHttpRequest
 
-    if (!user) throw new Error('user not found')
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-        return user.name
+        if(status === 200) {
+            const name = JSON.parse(response)
+
+            callback(null, name)
+
+            return
+        }
+        const { error, message } = JSON.parse(response)
+
+        callback(newError(message))
+    })
+    
+    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.userId}/name`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }

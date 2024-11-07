@@ -40,5 +40,19 @@
     "email": "jonas.veron@hotmail.com",
     "username": "carlos",
     "password": "123123123"
+  },
+  {
+    "id": "m337o9wyg1r",
+    "name": "juan carlos",
+    "email": "juan@carlos.com",
+    "username": "juancarlo",
+    "password": "123123123"
+  },
+  {
+    "id": "m34n98jyny7",
+    "name": "juan",
+    "email": "juan@pedro.com",
+    "username": "juan",
+    "password": "123123123"
   }
 ]

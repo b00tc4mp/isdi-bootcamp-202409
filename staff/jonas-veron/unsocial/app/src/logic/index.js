@@ -1,5 +1,5 @@
 import registerUser from './registerUser'
-import loginUser from './loginUser'
+import authenticateUser from './authenticateUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'
 import logoutUser from './logoutUser'
@@ -16,7 +16,7 @@ import removeComment from './removeComment'
 
 const logic = {
     registerUser,
-    loginUser,
+    authenticateUser,
     isUserLoggedIn,
     getUserName,
     logoutUser,

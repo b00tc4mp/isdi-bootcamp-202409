@@ -1,41 +1,34 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap'); */
+
 
 *{
     box-sizing: border-box;
-    align-items: center;
-    color: white;
-    /* height: 100%; */
+    margin: 0;
+    padding: 0;
 }
 @media (min-width: 768px) {
     body{
         font-size: 1.2rem;
-        /* padding:20px; */
     }
 }
-    body{
-        background-image: linear-gradient(180deg, #634835 0, #624230 10%, #603b2b 20%, #5f3227 30%, #5c2923 40%, #591f1f 50%, #55131d 60%, #52051c 70%, #4e001c 80%, #49001e 90%, #440020 100%);
-        height: 97rem;
-        /* padding:10px; */
-        margin: 0;
-        background-size: 200% 400%;
-        font-size: 1rem;
-/* min-height: 100%; */
-text-align: center;
-/* padding-bottom: 60px; */
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #F4E2DE;
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 3rem;
 }
 
 :root {
-/* --font: 'Noto Sans JP'; */
-/* font-family: var(--font); */
-/* height: 90%; */
-font-family: sans-serif;
+    --primary-color: #F29325;
+    --secondary-color: #000;
+    --bg-color: #F4E2DE;
 }
-
 
 a{  
 text-decoration: none;
-display: inline;
-font-size: 22px;
+color: inerit;
+font-size: 1.2rem;
 }
 
 a:visited {
@@ -46,15 +39,51 @@ a:hover {
 text-decoration: underline;
 }
 
-section {
-    /* align-content: center; */
-    /* padding: 20px; */
-    /* margin: 0; */
-    /* background-color: #dcd7d7; */
-    /* border-radius: 10px; */
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-    /* position: relative; */
-    /* width: 100%; */
-    /* padding: 20px; */
-    /* box-sizing: border-box; */
-}   
+@media (min-width: 768px) {
+    body {
+        font-size: 1.2rem;
+    }
+    
+    .Header h1 {
+        font-size: 2rem;
+    }
+    
+    .Login, .Register {
+        width: 400px;
+    }
+
+    .Post {
+        margin-top: 4rem;
+        padding: 1.5rem;
+    }
+
+    .Footer {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .Header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .Login, .Register {
+        width: 90%;
+    }
+    
+    .TopNav h3 {
+        font-size: 1rem;
+    }
+    
+    a {
+        font-size: 1rem;
+    }
+    
+    .Footer {
+        font-size: 0.8rem;
+    }
+
+    .Post {
+        width: 95%;
+    }
+}

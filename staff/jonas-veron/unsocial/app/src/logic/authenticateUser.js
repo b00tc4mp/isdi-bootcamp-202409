@@ -1,11 +1,8 @@
 import { validate } from 'com'
 
-export default (name, email, username, password, passwordRepeat, callback) => {
-    validate.name(name)
-    validate.email(email)
+export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
-    validate.passwordsMatch(password, passwordRepeat)
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -13,18 +10,22 @@ export default (name, email, username, password, passwordRepeat, callback) => {
     xhr.addEventListener('load', () => {
         const { status, response } = xhr
 
-        if (status === 201) {
+        
+        if (status === 200) {
+            const userId = JSON.parse(response)
+            
+            sessionStorage.userId = userId
             callback(null)
 
             return
         }
-
         const { error, message } = JSON.parse(response)
 
         callback(new Error(message))
     })
 
-    xhr.open('POST', 'http://localhost:8080/register')
+    xhr.open('POST', 'http://localhost:8080/authenticate')
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat}))
+    xhr.send(JSON.stringify({ username, password }))
 }
+    

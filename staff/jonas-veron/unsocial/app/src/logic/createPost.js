@@ -1,24 +1,28 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
-import uuid from '../data/uuid'
-
-export default (image, text) => {
+export default (image, text, callback) => {
    validate.image(image)
    validate.text(text)
+   validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
+   const xhr = new XMLHttpRequest
 
-    const post = {
-        id: uuid(),
-        image: image,
-        text: text,
-        author: sessionStorage.userId,
-        date: new Date,
-        likes: [],
-        comments: []
+   xhr.addEventListener('load', () => {
+       const { status, response } = xhr
+
+       if (status === 201) {
+        callback(null)
+
+        return
     }
 
-    posts.push(post)
+    const { error, message } = JSON.parse(response)
 
-    localStorage.posts = JSON.stringify(posts)
+    callback(new Error(message))
+   })
+   
+   xhr.open('POST', 'http://localhost:8080/posts')
+   xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+   xhr.setRequestHeader('Content-Type', 'application/json')
+   xhr.send(JSON.stringify({ image, text }))
 }

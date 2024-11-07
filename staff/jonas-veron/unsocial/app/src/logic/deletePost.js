@@ -1,21 +1,26 @@
-import { validate } from './helpers'
+import { validate } from 'com'
 
-export default postId => {
+export default (postId, callback) => {
     validate.id(postId, 'postId')
+    validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest
+
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
+
+        if (status === 204) {     
+            callback(null)
+
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
+    })
     
-    const index = posts.findIndex(({ id }) => id === postId )
-
-    if (index < 0) throw new Error('post not found')
-
-    const post = posts[index]
-
-    const { author } = post
-
-    if (author !== sessionStorage.userId) throw new Error('User is not author of post')
-
-    posts.splice(index, 1)
-
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }  

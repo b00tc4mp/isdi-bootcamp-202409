@@ -1,54 +1,78 @@
-import './Login.css'
+import "./Login.css";
 
-import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+import {
+  PasswordInput,
+  Input,
+  Button,
+  Form,
+  Field,
+  Label,
+} from "../components/library";
 
-import logic from '../logic'
+import logic from "../logic";
 
-export default props => {
-    console.log('Login -> render')
+export default function Login(props) {
+  console.log("Login -> render");
 
-    const handleSubmit = event => {
-        event.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-        const { target: { username: { value: username }, password: { value: password } } } = event
+    const {
+      target: {
+        username: { value: username },
+        password: { value: password },
+      },
+    } = event;
 
-        try {
-            logic.loginUser(username, password)
+    try {
+      logic.authenticateUser(username, password, (error) => {
+        if (error) {
+          alert(error.message);
 
-            event.target.reset()
+          console.error(error);
 
-            props.onLoggedIn()
-        } catch (error) {
-
-            alert(error.message)
-
-            console.error(error)
+          return;
         }
+        event.target.reset();
+
+        props.onLoggedIn();
+      });
+    } catch (error) {
+      alert(error.message);
+
+      console.error(error);
     }
+  };
 
-    const handleRegisterClick = event => {
-        event.preventDefault()
+  const handleRegisterClick = (event) => {
+    event.preventDefault();
 
-        props.onRegisterClick()
-    }
+    props.onRegisterClick();
+  };
 
-    return <main className="Login">
-        <h2>Login</h2>
+  return (
+    <main className="Login">
+      <h2>Login</h2>
 
-        <Form onSubmit={handleSubmit}>
-            <Field>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username"/>
-            </Field>
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor="username">Username</Label>
+          <Input type="text" id="username" />
+        </Field>
 
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
-            </Field>
+        <Field>
+          <Label htmlFor="password">Password</Label>
+          <PasswordInput id="password" />
+        </Field>
 
-            <Button type="submit" className="Button">Login</Button>
-        </Form>
-        <p>Don't you have a account ?</p>
-        <a href="" onClick={handleRegisterClick}>Register</a>
+        <Button type="submit" className="Button">
+          Login
+        </Button>
+      </Form>
+      <p>Don't you have a account ?</p>
+      <a href="" onClick={handleRegisterClick}>
+        Register
+      </a>
     </main>
+  );
 }

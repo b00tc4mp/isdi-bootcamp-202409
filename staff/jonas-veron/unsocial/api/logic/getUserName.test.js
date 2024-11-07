@@ -1,7 +1,7 @@
-import getUserName from './getUserName.js'
+import getUserName from "./getUserName.js";
 
 try {
-    console.log(getUserName('m2xfcoyby6'))
+  console.log(getUserName("m2w7k2bb17d", "m2w7k2bb17d"));
 } catch (error) {
-    console.error(error)
+  console.error(error);
 }

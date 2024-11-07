@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
   },
   "description": "",
   "dependencies": {
+    "com": "file:../com",
     "express": "^4.21.1"
   }
 }

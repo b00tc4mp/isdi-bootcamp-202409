@@ -1,14 +1,19 @@
-import { storage } from '../data/index.js'
-import validate from './helpers/validate.js'
+import { storage } from "../data/index.js";
+import { validate } from "com";
 
-export default userId => {
-    validate.id(userId, 'userId')
+export default (userId, targetUserId) => {
+  validate.id(userId, "userId");
+  validate.id(targetUserId, "targetUserId");
 
-    const { users } = storage
-    
-    const user = users.find(user => user.id === userId)
+  const { users } = storage;
 
-    if(!user) throw new Error('user not found')
+  const found = users.some((user) => user.id === userId);
 
-    return user.name
-}
+  if (!found) throw new Error("user not found");
+
+  const user = users.find((user) => user.id === targetUserId);
+
+  if (!user) throw new Error("target user not found");
+
+  return user.name;
+};

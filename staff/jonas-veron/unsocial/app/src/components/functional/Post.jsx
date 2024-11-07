@@ -1,102 +1,106 @@
-import { Button } from '../library'
-import Comments from './Comments'
+import { useState } from "react";
+import { Button } from "../library";
+import Comments from "./Comments";
+import getElapsedTime from "../../utils/getElapsedTime";
+import logic from "../../logic";
+import "./Post.css";
 
-import logic from '../../logic'
+export default function Post({
+  post,
+  onLiked,
+  onDeleted,
+  onCommentAdded,
+  onCommentRemoved,
+}) {
+  console.log("Post -> constructor");
+  const [view, setView] = useState(null);
 
-import getElapsedTime from '../../utils/getElapsedTime'
+  const { id, author, image, text, date, liked, likes, comments } = post;
 
-import './Post.css'
-import { Component } from 'react'
+  const handleLikeClick = () => {
+    try {
+      logic.toggleLikePost(post.id, (error) => {
+        if (error) {
+          alert(error.message);
 
-export default class extends Component{
-    constructor(props){
-        console.log('Post')
+          console.error(error);
 
-        super(props)
-
-        this.state = { view: null}
-    }
-
-    handleLikeClick = () => {
-
-        try {
-            logic.toggleLikePost(this.props.post.id)
-    
-            this.props.onLiked()
-        }catch (error) {
-            alert(error.message)
-
-            console.error(error)
+          return;
         }
+        onLiked();
+      });
+    } catch (error) {
+      alert(error.message);
+
+      console.error(error);
     }
+  };
 
-    handleCommentsClick = ()=> {
-        this.setState({ view: this.state.view ? null : 'comments'})
+  const handleCommentsClick = () => {
+    setView(view ? null : "comments");
+  };
+
+  const handleDeleteClick = () => {
+    if (confirm("Estas seguro de eliminar este post ?")) {
+      try {
+        logic.deletePost(post.id, (error) => {
+          if (error) {
+            alert(error.message);
+
+            console.error(error);
+
+            return;
+          }
+
+          onDeleted();
+        });
+      } catch (error) {
+        alert(error.message);
+
+        console.error(error);
+      }
     }
+  };
 
-    handleDeleteClick = () => {
-        if (confirm('Estas seguro de eliminar este post ?')) {
-            logic.deletePost(this.props.post.id)
+  console.log("Post -> render");
 
-            this.props.onDeleted()
-            }
-        }
-
-    render() {
-        console.log('Post -> render')
-    
-        const { 
-            props:{
-                post: {
-                    id, 
-                    author, 
-                    image, 
-                    text, 
-                    date, 
-                    liked, 
-                    likes,
-                    comments
-                }, 
-                onCommentAdded, 
-                onCommentRemoved
-                }
-            } = this
-    
-    
-        return <article className="Post">
-
-            <div className="usernameAndDeleteButton">
-            <h4 className="postUserNameTitle">{author.username}</h4>
-                {author.id === logic.getUserId() && <Button className="deletePostButton" onClick={this.handleDeleteClick}>🗑️</Button>}
-            <img src={image}/>
-            </div>
-        <div  className="postItemButtons" >
-
-            <div>
-            <Button className="likePostButton" onClick={this.handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length} likes`}
-            </Button>
-
-            </div>
-
-            <div>
-            <Button className="commentPostButton" onClick={this.handleCommentsClick}>💬{comments} comments</Button>
-            </div>
-
-
-
+  return (
+    <article className="Post">
+      <div className="usernameAndDeleteButton">
+        <h4 className="postUserNameTitle">{author.username}</h4>
+        {author.id === logic.getUserId() && (
+          <Button className="deletePostButton" onClick={handleDeleteClick}>
+            🗑️
+          </Button>
+        )}
+      </div>
+      <img src={image} />
+      <div className="postItemButtons">
+        <div>
+          <Button className="likePostButton" onClick={handleLikeClick}>
+            {`${liked ? "❤️" : "🤍"} ${likes.length} likes`}
+          </Button>
         </div>
-            <p>{text}</p>
 
-            <time>{getElapsedTime(date)} ago</time>
+        <div>
+          <Button className="commentPostButton" onClick={handleCommentsClick}>
+            💬{comments} comments
+          </Button>
+        </div>
+      </div>
+      <p>
+        <b>{author.username}</b> {text}
+      </p>
 
+      <time>{getElapsedTime(date)} ago</time>
 
-            {this.state.view === 'comments' && <Comments 
-                postId={id}
-                onAdded={onCommentAdded}
-                onRemoved={onCommentRemoved}
-            />}
-            
+      {view === "comments" && (
+        <Comments
+          postId={id}
+          onAdded={onCommentAdded}
+          onRemoved={onCommentRemoved}
+        />
+      )}
     </article>
-    }
+  );
 }
-

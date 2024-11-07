@@ -1,47 +1,81 @@
-import { Button } from '../library'
+import { useState, useEffect } from "react";
 
-import logic from '../../logic'
+import { Button } from "../library";
 
-import './Header.css'
+import logic from "../../logic";
 
+import "./Header.css";
 
+export default function Header({ view, onHomeClick, onLoggedOut }) {
+  const [name, setName] = useState(null);
 
-export default ({ view, onHomeClick, onLoggedOut }) => {
-
-    let name
-
-    if (logic.isUserLoggedIn())
+  useEffect(() => {
+    console.log("Header -> componentDidMount");
+    if (logic.isUserLoggedIn()) {
+      if (!name)
         try {
-        name = logic.getUserName()
-        } catch (error){
-            alert(error.message)
+          logic.getUserName((error, name) => {
+            if (error) {
+              alert(error.message);
 
-            console.error(error)
+              console.error(error);
+
+              return;
+            }
+
+            setName(name);
+          });
+        } catch (error) {
+          alert(error.message);
+
+          console.error(error);
         }
+    } else setName(null);
+  }, [view]);
 
-    const handleHomeClick = event => {
-        event.preventDefault() 
-        
-        onHomeClick()
+  const handleHomeClick = (event) => {
+    try {
+      event.preventDefault();
+
+      onHomeClick();
+    } catch (error) {
+      alert(error.message);
+
+      console.error(error);
     }
+  };
 
-    const handleLogout = ()=> {
-        if (confirm('Logout?')) {
-            logic.logoutUser()
+  const handleLogout = () => {
+    if (confirm("Logout?")) {
+      logic.logoutUser();
 
-            onLoggedOut()
-            }
-        }
+      onLoggedOut();
+    }
+  };
 
-    return <header className="Header">
-        <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+  console.log("Header -> render");
 
-        <div className="TopNav">
-            
-            {logic.isUserLoggedIn() && <h3>{name}</h3>}
+  return (
+    <header className="Header">
+      <h1>
+        {view === "new-post" ? (
+          <a href="" onClick={handleHomeClick}>
+            Unsocial
+          </a>
+        ) : (
+          "Unsocial"
+        )}
+      </h1>
 
-            {logic.isUserLoggedIn() && <Button type="button" className="Button" onClick={handleLogout}>Logout</Button>
-            }
-        </div>
+      <div className="TopNav">
+        {name && <h3>{name}</h3>}
+
+        {logic.isUserLoggedIn() && (
+          <Button type="button" className="Button" onClick={handleLogout}>
+            Logout
+          </Button>
+        )}
+      </div>
     </header>
+  );
 }

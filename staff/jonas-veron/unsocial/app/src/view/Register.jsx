@@ -1,78 +1,103 @@
-import './Register.css'
+import "./Register.css";
 
-import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+import {
+  PasswordInput,
+  Input,
+  Button,
+  Form,
+  Field,
+  Label,
+} from "../components/library";
 
-import logic from '../logic'
+import logic from "../logic";
 
-export default props => {
-    console.log('Register -> render')
+export default function register(props) {
+  console.log("Register -> render");
 
-    const handleSubmit = event => {
-        event.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-        const { target: form } = event
+    const { target: form } = event;
 
-        const {
-            name: { value: name},
-            email: { value: email },
-            username: { value: username }, 
-            password: { value: password }, 
-            ['password-repeat']: { value: passwordRepeat }
-        } = form
+    const {
+      name: { value: name },
+      email: { value: email },
+      username: { value: username },
+      password: { value: password },
+      ["password-repeat"]: { value: passwordRepeat },
+    } = form;
 
-            try{
-                logic.registerUser(name, email, username, password, passwordRepeat)
+    try {
+      logic.registerUser(
+        name,
+        email,
+        username,
+        password,
+        passwordRepeat,
+        (error) => {
+          if (error) {
+            alert(error.message);
 
-                form.reset()  
+            console.error(error);
 
-                props.onRegistered()
-            }catch (error){
-                alert(error.message)
-                
-                console.error(error)
-            }
+            return;
+          }
+          form.reset();
+
+          props.onRegistered();
         }
+      );
+    } catch (error) {
+      alert(error.message);
 
-        const handleLoginClick = event => {
-            event.preventDefault()
+      console.error(error);
+    }
+  };
 
-            props.onLoginClick()
-        }
+  const handleLoginClick = (event) => {
+    event.preventDefault();
 
-    return <main className="Register">
-        <h2>Register</h2>   
+    props.onLoginClick();
+  };
 
-        <Form onSubmit={handleSubmit}>
+  return (
+    <main className="Register">
+      <h2>Register</h2>
 
-            <Field>
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" />
-            </Field>
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor="name">Name</Label>
+          <Input type="text" id="name" />
+        </Field>
 
-            <Field>
-                <Label htmlFor="email">E-mail</Label>
-                <Input type="email" id="email"/>
-            </Field>
+        <Field>
+          <Label htmlFor="email">E-mail</Label>
+          <Input type="email" id="email" />
+        </Field>
 
-            <Field>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username"/>
-            </Field>
-            
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput id='password'/>
-            </Field>
+        <Field>
+          <Label htmlFor="username">Username</Label>
+          <Input type="text" id="username" />
+        </Field>
 
-            <Field>
-                <Label htmlFor="password-repeat">Repeat Password</Label>
-                <PasswordInput id='password-repeat'/>
-            </Field>
+        <Field>
+          <Label htmlFor="password">Password</Label>
+          <PasswordInput id="password" />
+        </Field>
 
-            <Button type="submit" className="Button">Register</Button>
-        </Form>
+        <Field>
+          <Label htmlFor="password-repeat">Repeat Password</Label>
+          <PasswordInput id="password-repeat" />
+        </Field>
 
-            <a href="" onClick={handleLoginClick}>Login</a>
+        <Button type="submit" className="Button">
+          Register
+        </Button>
+      </Form>
 
+      <a href="" onClick={handleLoginClick}>
+        Login
+      </a>
     </main>
+  );
 }

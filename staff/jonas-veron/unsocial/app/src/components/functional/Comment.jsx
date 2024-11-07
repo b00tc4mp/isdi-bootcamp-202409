@@ -1,35 +1,51 @@
-import { Button } from '../library'
+import { Button } from "../library";
 
-import logic from '../../logic'
+import logic from "../../logic";
 
-import getElapsedTime from '../../utils/getElapsedTime'
+import getElapsedTime from "../../utils/getElapsedTime";
 
-import './Comment.css'
+import "./Comment.css";
 
-export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
-    console.log('Comment -> render')
+export default function Comment({
+  postId,
+  comment: { id, author, text, date },
+  onRemoved,
+}) {
+  console.log("Comment -> render");
 
-    const handleRemove = () => {
-        if (confirm('Delete comment?'))
-            try {
-                logic.removeComment(postId, id)
+  const handleRemove = () => {
+    if (confirm("Delete comment?"))
+      try {
+        logic.removeComment(postId, id, (error) => {
+          if (error) {
+            alert(error.message);
 
-                onRemoved()
-            } catch (error) {
-                alert(error.message)
+            console.error(error);
 
-                console.error(error)
-            }
-    }
+            return;
+          }
+          onRemoved();
+        });
+      } catch (error) {
+        alert(error.message);
 
-    return <li>
-        <div className="UsernameComments">
-            <h4>{author.username}</h4>
-            <time>{getElapsedTime(date)}</time>
-        </div>
-        <p>{text}</p>
+        console.error(error);
+      }
+  };
 
+  return (
+    <li>
+      <div className="UsernameComments">
+        <p>
+          <b>{author.username} </b>
+          {text}
+        </p>
+        <time>{getElapsedTime(date)}</time>
+      </div>
 
-        {logic.getUserId() === author.id && <Button onClick={handleRemove}>🗑️</Button>}
+      {logic.getUserId() === author.id && (
+        <Button onClick={handleRemove}>🗑️</Button>
+      )}
     </li>
+  );
 }
