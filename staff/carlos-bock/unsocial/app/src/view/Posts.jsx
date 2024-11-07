@@ -1,8 +1,10 @@
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {Post} from '../components/functional';
 
 import logic from "../logic";
+
+import './Posts.css';
 
 export default function Posts() {
     const [post, setPosts] = useState([]);
@@ -28,32 +30,9 @@ export default function Posts() {
             console.error(error);
             
         }
-    })
+    },[]);
 
-
-    componentDidMount() {
-        console.log('Post -> componentDidMount')
-
-        try {
-            logic.getPosts((error,posts) => {
-                if (error){
-                    alert(error.message);
-                    
-                    console.error(error);
-
-                    return;
-                }
-
-                this.setState({posts});
-            })
-        } catch (error) {
-            alert(error.message);
-
-            console.error(error);
-        }
-    }
-
-    handleLiked = () => {
+    const handleLiked = () => {
         try {
             logic.getPosts((error, posts) => {
                 if(error) {
@@ -72,7 +51,7 @@ export default function Posts() {
         }
     }
 
-    handleDeleted = () => {
+    const handleDeleted = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -92,7 +71,7 @@ export default function Posts() {
         }
     }
 
-    handleCommentAdded = () => {
+    const handleCommentAdded = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -112,7 +91,7 @@ export default function Posts() {
         };
     };
 
-    handleCommentRemoved = () => {
+    const handleCommentRemoved = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -132,18 +111,17 @@ export default function Posts() {
         }
     }
 
-    render () {
+ 
         console.log('Posts -> render')
 
         return <div className="Posts">
             {this.state.posts.map(post => <Post
                 key={post.id}
                 post = {post}
-                onLiked={this.handleLiked}
-                onDeleted={this.handleDeleted}
-                onCommentAdded={this.handleCommentAdded}
-                onCommentRemoved={this.handleCommentRemoved}                
+                onLiked={handleLiked}
+                onDeleted={handleDeleted}
+                onCommentAdded={handleCommentAdded}
+                onCommentRemoved={handleCommentRemoved}                
             />)}
         </div>
-    }
 };

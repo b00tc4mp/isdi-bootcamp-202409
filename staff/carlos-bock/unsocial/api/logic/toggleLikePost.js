@@ -15,7 +15,7 @@ const toggleLikePost = (userId, postId) => {
 
     if (!post) throw new Error ('post not found');
 
-    const  {like} = post;
+    const  {likes} = post;
 
     const index = likes.indexOf(userId)
 

@@ -1,8 +1,8 @@
-import {validite} from 'com';
+import {validate} from 'com';
 
 const getComments = (postId, callback) => {
-    validite.id(postId, 'postId');
-    validite.callback(callback);
+    validate.id(postId, 'postId');
+    validate.callback(callback);
 
     const xhr = new XMLHttpRequest;
 

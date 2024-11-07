@@ -4,12 +4,12 @@ import Input from './Input';
 
 export default function PasswordInput ({id}) {
         const [status, setStatus] = useState('🙈');
-        const [type, setType] = useState ('password'):
+        const [type, setType] = useState ('password');
         //console.log('PasswordInput -> constructor')
 
     const handleToggleClick = () => {
         setStatus(status ==='🙈' ? '😏' : '🙈');
-        type(type === 'password' ? 'text' : 'password');
+        setType(type === 'password' ? 'text' : 'password');
     }
         //console.log('PasswordInput -> render')
 

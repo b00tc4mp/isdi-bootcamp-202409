@@ -1,7 +1,7 @@
-import {validate} from './helpers/index.js';
+import {validate} from 'com';
 import {storage} from '../data/index.js';
 
-const removeComments = () => {
+const removeComments = (userId, postId, commentId) => {
     validate.id(userId, 'userId');
     validate.id(postId, 'postId');
     validate.id(commentId, 'commmentId');

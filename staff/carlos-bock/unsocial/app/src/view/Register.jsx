@@ -4,7 +4,7 @@ import {PasswordInput, Input, Button, Form, Field, Label} from '../components/li
 
 import logic from '../logic';
 
-const Register = (props) => {
+export default function Register (props) {
     console.log('Register -> render');
 
     const handleSubmit = event => {
@@ -82,4 +82,3 @@ const Register = (props) => {
         <a href="" onClick={handleLoginClick}>Login</a>
     </main>
 };
-export default Register;
