@@ -3,7 +3,7 @@ import { Button } from '../library'
 import logic from '../../logic'
 import './Header.css'
 
-export default function Header({ view, onHomeClick, onLoggedOut }) {
+export default function Header({ view, onHomeClick, onLoggedOut, onProfileClick }) {
     const [name, setName] = useState(null)
 
     useEffect(() => {
@@ -33,6 +33,12 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
         onHomeClick()
     }
 
+    const handleProfileClick = event => {
+        event.preventDefault()
+
+        onProfileClick()
+    }
+
     const handleLogout = () => {
         if (confirm('Logout?')) {
             logic.logoutUser()
@@ -44,7 +50,7 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
     return <header className="Header">
         <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
-        {name && <h3>{name}</h3>}
+        {name && <a href="" onClick={handleProfileClick}><h3>{name}</h3></a>}
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
     </header>

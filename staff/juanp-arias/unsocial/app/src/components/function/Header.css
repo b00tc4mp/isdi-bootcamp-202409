@@ -18,8 +18,9 @@
     h3 {
         margin: 2.5%;
         font-size: small;
-        margin-left: 8rem;
-        margin-top: 3%;
+        margin-left: 9rem;
+        margin-top: 0.7rem;
+        display: ruby-text;
     }
 
     button {

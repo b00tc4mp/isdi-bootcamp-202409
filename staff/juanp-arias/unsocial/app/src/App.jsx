@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Login, Register, PostList, CreatePost } from './view'
+import { Login, Register, PostList, CreatePost, Profile } from './view'
 
 import Header from './components/function/Header'
 import Footer from './components/function/Footer'
@@ -26,21 +26,28 @@ export default function App() {
 
     const handleHomeClick = () => setView('posts')
 
+    const handleProfileClick = () => setView('profile')
     return <div>
 
         <Header view={view}
             onHomeClick={handleHomeClick}
-            onLoggedOut={handleUserLoggedOut} />
+            onLoggedOut={handleUserLoggedOut}
+            onProfileClick={handleProfileClick} />
 
         {view === 'login' && <Login
             onLoggedIn={handleUserLoggedIn}
             onRegisterClick={handleRegisterClick}
         />}
+
         {view === 'register' && <Register
             onLoginClick={handleLoginClick}
             onRegistered={handleUserRegistered}
         />}
+
         {view === 'posts' && <PostList />}
+
+        {view === 'profile' && <Profile
+            onHomeClick={handleHomeClick} />}
 
         {view === 'new-post' && <CreatePost onCreated={handlePostCreated} />}
 
