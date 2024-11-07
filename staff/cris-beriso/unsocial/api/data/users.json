@@ -4,41 +4,47 @@
     "name": "Cris Beriso",
     "email": "cris@beriso.com",
     "username": "beriso",
-    "password": "criscris"
+    "password": "criscris",
+    "savedPosts": []
   },
   {
     "id": "m2w09dl9jti",
     "name": "Yannick",
     "email": "yan@nick.com",
     "username": "yannick",
-    "password": "criscris"
+    "password": "criscris",
+    "savedPosts": []
   },
   {
     "id": "m2xdb5jwm9",
     "name": "Pin Otto",
     "email": "pin@otto.com",
     "username": "pinotto",
-    "password": "123123123"
+    "password": "123123123",
+    "savedPosts": []
   },
   {
     "id": "m2xdcly347",
     "name": "Pepito Grillo",
     "email": "pepito@grillo.com",
     "username": "pepitogrillo",
-    "password": "123123123"
+    "password": "123123123",
+    "savedPosts": []
   },
   {
     "id": "m335dpht06",
     "name": "Campa Nilla",
     "email": "campa@nilla.com",
     "username": "campa",
-    "password": "123123123"
+    "password": "123123123",
+    "savedPosts": []
   },
   {
     "id": "m335o2nqq1",
     "name": "Cofy",
     "email": "cofy@cofy.com",
     "username": "cofy2015",
-    "password": "criscris"
+    "password": "criscris",
+    "savedPosts": []
   }
 ]
