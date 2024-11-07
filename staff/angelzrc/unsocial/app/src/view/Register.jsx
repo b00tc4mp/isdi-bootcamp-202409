@@ -4,7 +4,11 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
+<<<<<<< HEAD
 export default function Register(props) {
+=======
+export default props => {
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
     console.log('Register -> render')
 
     const handleSubmit = event => {

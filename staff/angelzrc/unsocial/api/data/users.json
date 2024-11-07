@@ -26,5 +26,19 @@
         "email": "Jiamei@grillo.com",
         "username": "Jiamei",
         "password": "123123123"
+    },
+    {
+        "id": "m3379tj97",
+        "name": "hang1",
+        "email": "hang@hang.com",
+        "username": "hang1",
+        "password": "123123123"
+    },
+    {
+        "id": "m337kcd9x1",
+        "name": "peterpan",
+        "email": "peterpan@peter.com",
+        "username": "peterpan",
+        "password": "123123123"
     }
 ]

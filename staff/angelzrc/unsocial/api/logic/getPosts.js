@@ -1,5 +1,9 @@
 import { storage } from '../data/index.js'
+<<<<<<< HEAD
 import { validate } from 'com'
+=======
+import { validate } from './helpers/index.js'
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
 
 export default userId => {
     validate.id(userId, 'userId')
@@ -21,6 +25,14 @@ export default userId => {
 
         post.comments = post.comments.length
     })
+<<<<<<< HEAD
+=======
+
+    /* const reversedPosts = posts.slice().reverse();
+    return reversedPosts */
+    /* console.log(Array.isArray(posts))
+    console.log(posts) */
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
 
     return posts.toReversed()
 }

@@ -11,6 +11,10 @@ export default (userId, postId, commentId) => {
     const found = users.some(({ id }) => id === userId)
 
     if (!found) throw new Error('user not found')
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
 
     const post = posts.find(({ id }) => id === postId)
 

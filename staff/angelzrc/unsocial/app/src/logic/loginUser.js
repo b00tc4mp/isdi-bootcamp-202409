@@ -6,6 +6,7 @@ export default (username, password, callback) => {
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
+<<<<<<< HEAD
 
     xhr.addEventListener('load', () => {
         const { status, response } = xhr
@@ -17,6 +18,17 @@ export default (username, password, callback) => {
 
             callback(null)
 
+=======
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
+
+        if (status === 200) {
+            const userId = JSON.parse(response)
+
+            sessionStorage.userId = userId
+            callback(null)
+
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
             return
         }
 

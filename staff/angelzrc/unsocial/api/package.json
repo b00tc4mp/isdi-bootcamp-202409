@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "com": "file:../com",
     "cors": "^2.8.5",
     "express": "^4.21.1"
@@ -22,3 +23,9 @@
   "devDependencies": {},
   "description": ""
 }
+=======
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  }
+}
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b

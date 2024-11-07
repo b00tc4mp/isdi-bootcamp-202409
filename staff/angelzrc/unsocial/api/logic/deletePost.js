@@ -11,6 +11,14 @@ export default (userId, postId) => {
 
     if (!found) throw new Error('user not found')
 
+<<<<<<< HEAD
+=======
+    const { users, posts } = storage
+    const user = users.find(({ id }) => id === userId)
+
+    if (!user) throw new Error('user not found')
+
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
     const index = posts.findIndex(({ id }) => id === postId)
 
     if (index < 0) throw new Error('post not found')

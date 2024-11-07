@@ -1,13 +1,24 @@
 {
   "name": "com",
+<<<<<<< HEAD
   "version": "0.0.0",
   "description": "",
   "type": "module",
   "main": "index.js",
+=======
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
+<<<<<<< HEAD
   "license": "ISC"
+=======
+  "license": "ISC",
+  "description": ""
+>>>>>>> 1b468274c84eb6f3853c660b2b2683f639a5aa7b
 }
