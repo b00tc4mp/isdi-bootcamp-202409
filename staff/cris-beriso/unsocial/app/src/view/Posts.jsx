@@ -13,7 +13,7 @@ export default function Posts() {
     console.log('Posts -> useEffect "componentDidMount"')
 
     try {
-      logic.getPosts((error, posts) => {
+      false && logic.getPosts((error, posts) => {
         if (error) {
           alert(error.message)
 
@@ -33,7 +33,7 @@ export default function Posts() {
 
   const handleLiked = () => {
     try {
-      logic.getPosts((error, posts) => {
+      false && logic.getPosts((error, posts) => {
         if (error) {
           alert(error.message)
 
@@ -53,7 +53,7 @@ export default function Posts() {
 
   const handleDeleted = () => {
     try {
-      logic.getPosts((error, posts) => {
+      false && logic.getPosts((error, posts) => {
         if (error) {
           alert(error.message)
 
@@ -73,7 +73,7 @@ export default function Posts() {
 
   const handleCommentAdded = () => {
     try {
-      logic.getPosts((error, posts) => {
+      false && logic.getPosts((error, posts) => {
         if (error) {
           alert(error.message)
 
@@ -93,7 +93,7 @@ export default function Posts() {
 
   const handleCommentRemoved = () => {
     try {
-      logic.getPosts((error, posts) => {
+      false && logic.getPosts((error, posts) => {
         if (error) {
           alert(error.message)
 

@@ -1,20 +1,15 @@
-import { storage } from '../data/index.js'
-import validate from 'com/validate.js'
+import db from 'dat'
+import { validate } from 'com'
 
 export default (username, password) => {
   validate.username(username)
   validate.password(password)
 
-  // YA TENEMOS VALIDACIÓN DE PASSWORD, ESTO ES REDUNDANTE
-  // if (password.length < 8)
-  //   throw new Error('invalid password')
+  return db.users.findOne({ username, password })
+    .catch(error => { new Error(error.message) })
+    .then(user => {
+      if (user === undefined) throw new Error('wrong credentials')
 
-  const { users } = storage
-
-  const user = users.find(user => user.username === username && user.password === password)
-
-  if (user === undefined)
-    throw new Error('wrong credentials')
-
-  return user.id
+      return user._id.toString()
+    })
 }
