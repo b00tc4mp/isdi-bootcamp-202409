@@ -1,16 +1,15 @@
-import { storage } from "../data/index.js";
+import db from "../../dat/index.js";
 import { validate } from "./helpers/index.js";
 
 export default (username, password) => {
   validate.username(username)
   validate.password(password)
 
-  const { users } = storage
+  return db.users.findOne({ username, password })
+    .catch(error => new Error(error.message))
+    .then(user => {
+      if (!user) throw new Error('wrong credentials')
 
-  const user = users.find(user => user.username === username && user.password === password)
-
-  if (user === undefined)
-    throw new Error('wrong credentials')
-
-  return user.id
+      return user._id.toString()
+    })
 }
