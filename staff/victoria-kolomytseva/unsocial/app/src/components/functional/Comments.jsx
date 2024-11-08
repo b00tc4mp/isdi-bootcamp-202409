@@ -1,79 +1,99 @@
-//es un componente de React llamado Comments, que se encarga de mostrar y gestionar una lista de comentarios en una publicación.
 
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
-import Comment from './Comment'//Componente que representa cada comentario individual
-import AddComment from './AddComment' //permite agregar un nuevo comentario.
+import Comment from './Comment'
+import AddComment from './AddComment'
 
 import logic from '../../logic'
 
-export default class extends Component {
-    constructor(props) {
-        console.log('Comments -> constructor')
+export default function Comments(props) {
+    const [comments, setComments] = useState([])
 
-        super(props)
-
-        let comments
+    useEffect(() => {
+        console.log('Comments -> useEffect "componentDidMount"')
 
         try {
-            comments = logic.getComments(props.postId)//Intenta obtener los comentarios usando logic.getComments(props.postId) para la publicación específica (props.postId).
-        } catch (error) {
-            alert(error.message)
+            logic.getComments(props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
 
-            console.error(error)
-        }
+                    console.error(error)
 
-        this.state = { comments }
-    }
-
-    onAdded = () => { //Método que se ejecuta cuando se agrega un nuevo comentario
-        try {
-            const comments = logic.getComments(this.props.postId)
-
-            this.setState({ comments })//Obtiene la lista actualizada de comentarios y actualiza el estado 
-
-            this.props.onAdded()//para notificar que se ha agregado un comentario
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-
-    }
-
-    onRemoved = () => {//Método que se ejecuta cuando se elimina un comentario
-        try {
-            const comments = logic.getComments(this.props.postId)
-
-            this.setState({ comments })
-
-            this.props.onRemoved()//para notificar que se ha eliminado un comentario.
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    }
-
-    render() {//Define cómo se verá el componente en la pantalla
-        console.log('Comments -> render')
-
-        return <section>
-            <ul>
-                {this.state.comments.map(comment =>
-                    <Comment
-                        postId={this.props.postId}
-                        comment={comment}
-                        onRemoved={this.onRemoved}
-                    />)
+                    return
                 }
-            </ul>
 
-            <AddComment
-                postId={this.props.postId}
-                onAdded={this.onAdded}
-            />
-        </section>
+                setComments(comments)
+            })
+        } catch (error) {
+            alert(error.message)
 
+            console.error(error)
+        }
+    }, [])
+
+    const handleAdded = () => {
+        try {
+            logic.getComments(props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
+
+                setComments(comments)
+
+                props.onAdded()
+            })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
     }
+
+    const handleRemoved = () => {
+        try {
+            logic.getComments(props.postId, (error, comments) => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
+
+                setComments(comments)
+
+                props.onRemoved()
+            })
+
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    console.log('Comments -> render')
+
+    return <section>
+        <ul>
+            {comments.map(comment =>
+                <Comment
+                    key={comment.id}
+                    postId={props.postId}
+                    comment={comment}
+                    onRemoved={handleRemoved}
+                />)
+            }
+        </ul>
+
+        <AddComment
+            postId={props.postId}
+            onAdded={handleAdded}
+        />
+    </section>
+
 }

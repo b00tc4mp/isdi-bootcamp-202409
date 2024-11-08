@@ -1,9 +1,0 @@
-.Input {
-    width: '100%';
-    box-sizing: 'border-box';
-    /*padding-right: '18px; */
-    background-color: inherit;
-    font-family: inherit;
-    border-color: var(--color);
-    border-style: solid;
-}
