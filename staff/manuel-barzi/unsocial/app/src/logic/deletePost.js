@@ -20,7 +20,7 @@ export default (postId, callback) => {
         callback(new Error(message))
     })
 
-    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.open('DELETE', `http://192.168.1.112:8080/posts/${postId}`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }

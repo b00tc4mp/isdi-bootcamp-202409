@@ -21,7 +21,7 @@ export default (postId, text, callback) => {
         callback(new Error(message))
     })
 
-    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.open('POST', `http://192.168.1.112:8080/posts/${postId}/comments`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify({ text }))

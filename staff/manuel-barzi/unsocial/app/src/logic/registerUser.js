@@ -24,7 +24,7 @@ export default (name, email, username, password, passwordRepeat, callback) => {
         callback(new Error(message))
     })
 
-    xhr.open('POST', 'http://localhost:8080/register')
+    xhr.open('POST', 'http://192.168.1.112:8080/register')
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat }))
 }

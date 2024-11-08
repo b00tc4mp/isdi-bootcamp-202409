@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 
 function connect(mongoUrl) {
     const client = new MongoClient(mongoUrl)
@@ -15,7 +15,8 @@ function connect(mongoUrl) {
 const db = {
     connect,
     users: null,
-    posts: null
+    posts: null,
+    ObjectId
 }
 
 export default db

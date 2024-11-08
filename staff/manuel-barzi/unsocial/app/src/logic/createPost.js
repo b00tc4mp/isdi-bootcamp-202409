@@ -21,7 +21,7 @@ export default (image, text, callback) => {
         callback(new Error(message))
     })
 
-    xhr.open('POST', 'http://localhost:8080/posts')
+    xhr.open('POST', 'http://192.168.1.112:8080/posts')
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ image, text }))

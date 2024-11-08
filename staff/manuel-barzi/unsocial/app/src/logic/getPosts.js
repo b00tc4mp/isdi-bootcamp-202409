@@ -21,7 +21,7 @@ export default callback => {
         callback(new Error(message))
     })
 
-    xhr.open('GET', 'http://localhost:8080/posts')
+    xhr.open('GET', 'http://192.168.1.112:8080/posts')
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }

@@ -25,7 +25,7 @@ export default (username, password, callback) => {
         callback(new Error(message))
     })
 
-    xhr.open('POST', 'http://localhost:8080/authenticate')
+    xhr.open('POST', 'http://192.168.1.112:8080/authenticate')
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ username, password }))
 }

@@ -20,7 +20,7 @@ export default (postId, callback) => {
         callback(new Error(message))
     })
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+    xhr.open('PATCH', `http://192.168.1.112:8080/posts/${postId}/likes`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }

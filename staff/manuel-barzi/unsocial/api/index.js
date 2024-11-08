@@ -3,7 +3,7 @@ import express, { json } from 'express'
 import logic from './logic/index.js'
 import cors from 'cors'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial')
+db.connect('mongodb://127.0.0.1:27017/unsocial-test')
     .then(() => {
         console.log('connected to db')
 
@@ -16,12 +16,16 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
         server.get('/', (_, res) => res.send('Hello, API!'))
 
         server.post('/authenticate', jsonBodyParser, (req, res) => {
-            const { username, password } = req.body
-
             try {
-                const userId = logic.authenticateUser(username, password)
+                const { username, password } = req.body
 
-                res.json(userId)
+                logic.authenticateUser(username, password)
+                    .then(userId => res.json(userId))
+                    .catch(error => {
+                        res.status(401).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(401).json({ error: error.constructor.name, message: error.message })
 
@@ -34,8 +38,12 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
                 const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
                 logic.registerUser(name, email, username, password, passwordRepeat)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                res.status(201).send()
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -44,14 +52,18 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
         })
 
         server.get('/users/:targetUserId/name', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
-            const { targetUserId } = req.params
-
             try {
-                const name = logic.getUserName(userId, targetUserId)
+                const userId = req.headers.authorization.slice(6)
 
-                res.json(name)
+                const { targetUserId } = req.params
+
+                logic.getUserName(userId, targetUserId)
+                    .then(name => res.json(name))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
