@@ -1,18 +1,21 @@
 import { MongoClient } from 'mongodb'
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
+function connect(mongoUrl) {
+    const client = new MongoClient(mongoUrl)
 
-client.connect()
-    .then(connection => {
-        console.log('connected')
+    return client.connect()
+        .then(connection => {
+            const db = connection.db()
 
-        const db = connection.db('unsocial')
+            this.users = db.collection('users')
+            this.posts = db.collection('posts')
+        })
+}
 
-        const users = db.collection('users')
-        const posts = db.collection('posts')
+const db = {
+    connect,
+    users: null,
+    posts: null
+}
 
-        users.find({}).toArray().then(users => console.log(users))
-        posts.find({}).toArray().then(posts => console.log(JSON.stringify(posts, null, 2)))
-
-        // TODO repeat what done in mongosh
-    })
+export default db
