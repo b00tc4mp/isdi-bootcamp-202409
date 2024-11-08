@@ -1,26 +1,39 @@
 import { Button } from '../library'
 
+import { useEffect, useState } from 'react'
+
 import logic from '../../logic'
 
 import './Header.css'
 
 
-export default ({ view, onHomeClick, onLoggedOut, onProfileClick }) => {
+export default function Header({ view, onHomeClick, onLoggedOut }) {
+    const [name, setName] = useState(null)
 
-    let name
+    useEffect(() => {
+        if (logic.isUserLoggedIn()) {
+            if (!name) {
+                try {
+                    logic.getUserName((error, name) => {
+                        if (error) {
+                            alert(error.message)
 
-    if (logic.isUserLoggedIn()) {
-        try {
+                            console.error(error)
 
-            name = logic.getUserName()
+                            return
+                        }
 
-        } catch (error) {
+                        setName(name)
+                    })
+                } catch (error) {
 
-            alert(error.message)
+                    alert(error.message)
 
-            console.error(error)
-        }
-    }
+                    console.error(error)
+                }
+            }
+        } else setName(null)
+    }, [view])
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -42,12 +55,11 @@ export default ({ view, onHomeClick, onLoggedOut, onProfileClick }) => {
         onProfileClick()
     }
 
-
     return <header className="Header">
         <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
         {logic.isUserLoggedIn() && <a href='' style={{ fontSize: 'medium' }} onClick={onProfile}>{name}</a>}
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
-    </header>
+    </header >
 }

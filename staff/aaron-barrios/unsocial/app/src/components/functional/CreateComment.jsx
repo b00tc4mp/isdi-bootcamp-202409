@@ -2,7 +2,7 @@ import logic from '../../logic'
 
 import { Label, Form } from '../library'
 
-export default ({ postId, onAdded }) => {
+export default function CreateComment({ postId, onAdded }) {
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -11,11 +11,20 @@ export default ({ postId, onAdded }) => {
         const { text: { value: text } } = form
 
         try {
-            logic.createComment(postId, text)
+            logic.createComment(postId, text, error => {
+                if (error) {
+                    alert(error.message)
 
-            form.reset()
+                    console.error(error)
 
-            onAdded()
+                    return
+                }
+
+                form.reset()
+
+                onAdded()
+            })
+
         } catch (error) {
             alert(error.message)
 

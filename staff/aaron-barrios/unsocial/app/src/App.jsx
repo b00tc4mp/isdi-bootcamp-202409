@@ -1,59 +1,68 @@
-import { Component } from "react"
+import { useState } from 'react'
 
-import { Login, Register, Home, CreatePost } from './view'
+import { Login, Register, Posts, CreatePost } from './view'
 
-import { Header, Footer } from './components/functional'
+import Header from './components/functional/Header'
+import Footer from './components/functional/Footer'
 
 import ProfileData from './components/functional/ProfileData'
 
 import logic from './logic'
 
 
-export default class extends Component {
-  constructor(props) {
+export default function App() {
+  const [view, setView] = useState(logic.isUserLoggedIn() ? 'home' : 'login')
 
-    super(props)
+  const handlePostCreated = () => setView('posts')
 
-    //PROPIEDAD ESTADO QUE NOS CHIVA LA QUE SE VE DE ENTRADA
-    this.state = logic.isUserLoggedIn() ? { view: 'home' } : { view: 'login' }
-  }
+  const handleUserLoggedOut = () => setView('login')
 
-  //RENDER DE LAS DIFERENTES PÁGINAS
-  render() {
+  const handleUserLoggedIn = () => setView('posts')
 
-    return <>
-      <Header view={this.state.view}
-        onHomeClick={() => this.setState({ view: 'home' })}
-        onLoggedOut={() => this.setState({ view: 'login' })}
-        onProfileClick={() => this.setState({ view: 'profile' })} />
+  const handleRegisterClick = () => setView('register')
 
-      {
-        this.state.view === 'login'
-        && <Login
-          onLoggedIn={() => this.setState({ view: 'home' })}
-          onRegisterLink={() => this.setState({ view: 'register' })} />
-      }
-      {
-        this.state.view === 'register'
-        && <Register
-          registered={() => this.setState({ view: 'login' })} />
-      }
-      {this.state.view === 'home'
-        && <Home />}
+  const handleLoginClick = () => setView('login')
 
-      {this.state.view === 'new-post' && <CreatePost
-        onCreated={() => this.setState({ view: 'home' })} />}
+  const handleUserRegistered = () => setView('login')
 
-      {
-        this.state.view === 'profile'
-        && <ProfileData
-          home={() => this.setState({ view: 'home' })}
-          onProfile={() => this.setState({ view: 'profile' })} />
-      }
+  const handleNewPostClick = () => setView('new-post')
+
+  const handleHomeClick = () => setView('posts')
+
+  const handlProfileClick = () => setView('profile')
 
 
-      <Footer onNewPostClick={() => this.setState({ view: 'new-post' })} view={this.state.view} />
-    </>
-  }
+  return <>
+    <Header view={view}
+      onHomeClick={handleHomeClick}
+      onLoggedOut={handleUserLoggedOut}
+      onProfileClick={handleUserRegistered} />
+
+    {
+      view === 'login'
+      && <Login
+        onLoggedIn={handleUserLoggedIn}
+        onRegisterLink={handleRegisterClick} />
+    }
+    {
+      view === 'register'
+      && <Register
+        registered={handleUserRegistered} />
+    }
+    {view === 'posts' && <Posts />}
+
+    {view === 'new-post' && <CreatePost
+      onCreated={handlePostCreated} />}
+
+    {
+      view === 'profile'
+      && <ProfileData
+        home={handleHomeClick}
+        onProfile={handlProfileClick} />
+    }
+
+
+    <Footer onNewPostClick={handleNewPostClick} view={view} />
+  </>
 }
 

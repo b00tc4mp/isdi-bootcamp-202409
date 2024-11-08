@@ -3,7 +3,7 @@ import logic from '../logic'
 import { PasswordInput, Input, Button, Form, Label } from '../components/library'
 
 
-export default ({ onCreated }) => {
+export default function CreatePost({ onCreated }) {
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -17,13 +17,19 @@ export default ({ onCreated }) => {
         } = form
 
         try {
-
             //LLAMO A LA FUNCION REGISTER USER CON LOS PARAMETROS CAPTURADOS
-            logic.createPost(text, image)
+            logic.createPost(text, image, error => {
+                if (error) {
+                    alert(error.message)
 
-            //LE PASO LA FUNCIÓN "registered" DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
-            onCreated()
+                    console.error(error)
 
+                    return
+                }
+
+                //LE PASO LA FUNCIÓN "registered" DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
+                onCreated()
+            })
         } catch (error) {
             alert(error.message)
 
@@ -31,7 +37,7 @@ export default ({ onCreated }) => {
         }
     }
 
-    return <main>
+    return <main className="CreatePost">
         <h3>New Post</h3>
         <Form onSubmit={handleSubmit}>
 

@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState } from 'react'
 
 import logic from '../../logic'
 import Comments from './Comments'
@@ -8,24 +8,35 @@ import Button from '../library/Button'
 import getElapsedTime from '../../utils/getElapsedTime'
 
 import './Post.css'
-import { Field2 } from '../library'
+
+export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
+    const [view, setView] = useState(null)
+
+    const {
+        id,
+        author,
+        image,
+        text,
+        date,
+        liked,
+        likes,
+        comments
+    } = post
 
 
-export default class extends Component {
-    constructor(props) {
-
-        super(props)
-
-        this.state = { view: null }
-    }
-
-
-    handleLikeClick = () => {
+    const handleLikeClick = () => {
         try {
-            logic.toggleLikePost(this.props.post.id)
+            logic.toggleLikePost(id, error => {
+                if (error) {
+                    alert(error)
 
-            this.props.onLiked()
+                    console.error(error)
 
+                    return
+                }
+
+                onLiked()
+            })
         } catch (error) {
             alert(error.message)
 
@@ -33,64 +44,56 @@ export default class extends Component {
         }
     }
 
-    handleDeleteClick = () => {
+    const handleDeleteClick = () => {
         if (confirm('Delete post?')) {
-            logic.deletePost(this.props.post.id)
+            try {
+                logic.deletePost(id, error => {
+                    if (error) {
+                        alert(error)
 
-            this.props.onDeleted()
+                        console.error(error)
+
+                        return
+                    }
+
+                    onDeleted()
+                })
+            }
+            catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
         }
     }
 
-    handleCommentsClick = () => {
-        return this.setState({ view: this.state.view ? null : 'comments' })
-    }
 
+    const handleCommentsClick = () => setView(view ? null : 'comments')
 
-    render() {
+    return <article className="Post">
 
-        const {
-            props: {
-                post: {
-                    id,
-                    author,
-                    image,
-                    text,
-                    date,
-                    liked,
-                    likes,
-                    comments
-                },
-                onCommentAdded,
-                onCommentRemoved
-            }
-        } = this
+        {author.id === logic.getUserId() &&
+            <Button onClick={handleDeleteClick}>Delete Post</Button>}
 
-        return <article className="Post">
+        <Field2>
+            <p>Author:{author.username}</p>
+            <text>{text}</text>
+        </Field2>
 
-            {author.id === logic.getUserId() &&
-                <Button onClick={this.handleDeleteClick}>Delete Post</Button>}
+        <img src={image} className='img' />
+        <br />
+        <button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</button>
+        <button onClick={handleCommentsClick}>💬 {comments} comments</button>
+        <label style={{ opacity: '60%', fontSize: '13px', marginTop: '2%' }}>View comments...</label>
+        <br />
+        <time style={{ fontSize: 'xx-small', marginRight: '10px', marginTop: '2.5%' }}>{getElapsedTime(date)}</time>
+        <p></p>
 
-            <Field2>
-                <p>Author:{author.username}</p>
-                <text>{text}</text>
-            </Field2>
+        {view === 'comments' && <Comments
+            postId={id}
+            onAdded={onCommentAdded}
+            onRemoved={onCommentRemoved}
+        />}
 
-            <img src={image} className='img' />
-            <br />
-            <button onClick={this.handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</button>
-            <button onClick={this.handleCommentsClick}>💬 {comments} comments</button>
-            <label style={{ opacity: '60%', fontSize: '13px', marginTop: '2%' }}>View comments...</label>
-            <br />
-            <time style={{ fontSize: 'xx-small', marginRight: '10px', marginTop: '2.5%' }}>{getElapsedTime(date)}</time>
-            <p></p>
-
-            {this.state.view === 'comments' && <Comments
-                postId={id}
-                onAdded={onCommentAdded}
-                onRemoved={onCommentRemoved}
-            />}
-
-        </article >
-    }
-
+    </article >
 }

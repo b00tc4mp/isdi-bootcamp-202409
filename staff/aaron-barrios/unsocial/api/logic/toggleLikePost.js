@@ -1,9 +1,16 @@
-import { storage } from "../data/index.js"
+import { storage } from '../data/index.js'
+import { validate } from './helpers/index.js'
 
 export default (userId, postId) => {
-    if (typeof postId !== 'string') throw new Error('invalid postId')
+    validate.id(postId, 'postId')
+    validate.id(userId, 'userId')
 
-    const { posts } = storage
+
+    const { users, posts } = storage
+
+    const found = users.some(({ id }) => id === userId)
+
+    if (!found) throw new Error('user not found')
 
     const post = posts.find(({ id }) => id === postId)
 

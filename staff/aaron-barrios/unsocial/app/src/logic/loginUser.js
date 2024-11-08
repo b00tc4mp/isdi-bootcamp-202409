@@ -1,17 +1,37 @@
-export default (username, password) => {
-    if (typeof username !== 'string') throw new Error('invalid username')
-    if (username.length < 4 || username.length > 12)
-        throw new Error('Invalid username length')
+import { validate } from './helpers/index.js'
 
 
-    const users = JSON.parse(localStorage.users)
+export default (username, password, callback) => {
+    validate.username(username)
+    validate.password(password)
+    // validate.callback(callback)
 
-    const user = users.find(user => user.username === username && user.password === password)
+    const xhr = new XMLHttpRequest
+
+    //RESPUESTA LO QUE RECIBE EL SERVIDOR
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
 
-    if (user === undefined)
-        throw new Error('Wrong credentials')
+        if (status === 200) {
+            const userId = JSON.parse(response)
 
-    sessionStorage.userId = user.id
+            sessionStorage.userId = userId
+
+            callback(null)
+
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
+    })
+
+
+    //LO QUE TU LE ENVÍAS (CLIENTE)
+    xhr.open('POST', 'http://localhost:8080/authenticate')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify({ username, password }))
 }
 

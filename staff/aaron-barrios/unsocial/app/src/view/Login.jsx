@@ -6,7 +6,7 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 import logic from '../logic'
 
 
-export default (props) => {
+export default function Login(props) {
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -19,12 +19,22 @@ export default (props) => {
         } = event
 
         try {
-            logic.loginUser(username, password)
-            //RESETEO DEL FORMULARIO
-            event.target.reset() // => form.reset()
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    alert(error.message)
 
-            //LE PASO LA FUNCIÓN ONLOGGEDIN DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
-            props.onLoggedIn()
+                    console.error(error)
+
+                    return
+                }
+
+                //RESETEO DEL FORMULARIO
+                event.target.reset() // => form.reset()
+
+                //LE PASO LA FUNCIÓN ONLOGGEDIN DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
+                props.onLoggedIn()
+            })
+
 
         } catch (error) {
             //passwordInput.setValue('')

@@ -1,149 +1,216 @@
+import db from 'dat'
 import express, { json } from 'express'
 import logic from './logic/index.js'
-
-//CREACION DEL SERVIDOR CON EL METODO EXPRESS
-const server = express()
-
-const jsonBodyParser = express.json() //MIDDLEWARE
-
-//MOSTRAMOS QUE EL SERVIDOR ESTA VIVO Y TE DEVUELVE LA RESPUESTA DE HELLO API -> NO HAY PETICON
-server.get('/', (_, res) => res.send('Hello, API!'))
+import cors from 'cors'
 
 
-//PETICIÓN DEL ID DEL USUARIO -> MÉTODO AUTHENTICATE
-server.post('/authenticate', jsonBodyParser, (req, res) => {
-    const { username, password } = req.body
 
-    try {
-        const userId = logic.authenticateUser(username, password)
+db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+    .then(() => {
+        //CREACION DEL SERVIDOR CON EL METODO EXPRESS
+        const server = express()
 
-        res.json(userId)
-    } catch (error) {
-        res.status(401).json({ error: error.constructor.name, message: error.message })
+        server.use(cors())
 
-        console.error(error)
-    }
-})
-
-server.post('/register', jsonBodyParser, (req, res) => {
-    const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
-
-    try {
-        logic.registerUser(name, email, username, password, passwordRepeat)
-
-        res.status(201).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        console.error(error)
-    }
-})
+        const jsonBodyParser = express.json() //MIDDLEWARE
 
 
-// ----- GET USERNAME -----
-//SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
-server.get('/users/:userId/name', (req, res) => {
-    const { userId } = req.params
-
-    try {
-        const name = logic.getUserName(userId)
-
-        res.json(name)
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        console.error(error)
-    }
-})
+        //MOSTRAMOS QUE EL SERVIDOR ESTA VIVO Y TE DEVUELVE LA RESPUESTA DE HELLO API -> NO HAY PETICON
+        server.get('/', (_, res) => res.send('Hello, API!'))
 
 
-// ----- GET POSTS -----
-//SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
-server.get('/posts/:userId', (req, res) => {
-    const userId = req.headers.authorization.slice(6)
+        //PETICIÓN DEL ID DEL USUARIO -> MÉTODO AUTHENTICATE
+        server.post('/authenticate', jsonBodyParser, (req, res) => {
 
-    try {
-        const posts = logic.getPosts(userId)
+            try {
+                const { username, password } = req.body
 
-        res.json(posts)
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+                logic.authenticateUser(username, password)
+                    .then(userId => res.json(userId))
+                    .catch(error => {
+                        res.status(401).json({ error: error.constructor.name, message: error.message })
 
-        console.error(error)
-    }
-})
-
-// ----- GET COMMENTS -----
-//SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
-server.get('/comments/:userId/', (req, res) => {
-    const { userId } = req.params
-
-    try {
-        const name = logic.getUserName(userId)
-
-        res.json(name)
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        console.error(error)
-    }
-})
+                        console.error(error)
+                    })
 
 
-// ----- CREATE POST -----
-server.post('/posts', jsonBodyParser, (req, res) => {
-    const userId = req.headers.authorization.slice(6) //OBTENEMOS EL ID 'Basic //asdfasdfas' -> ID
+            } catch (error) {
+                res.status(401).json({ error: error.constructor.name, message: error.message })
 
-    const { image, text } = req.body
+                console.error(error)
+            }
+        })
 
-    try {
-        logic.createPost(userId, image, text)
+        server.post('/register', jsonBodyParser, (req, res) => {
 
-        res.status(201).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+            try {
+                const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
-        console.error(error)
-    }
-})
+                logic.registerUser(name, email, username, password, passwordRepeat)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(401).json({ error: error.constructor.name, message: error.message })
 
-// ----- CREATE COMMENT -----
-server.post('/posts/comments/:userId/:postId', jsonBodyParser, (req, res) => {
-    const userId = req.headers.authorization.slice(6) //OBTENEMOS EL ID 'Basic //asdfasdfas' -> ID  
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
 
-    const { text } = req.body
-
-    try {
-        logic.createComment(userId, postId, text)
-
-        res.status(201).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        console.error(error)
-    }
-})
-
-// ----- DELETE POST -----
-//SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
-server.delete('/posts/:userId/ :postId', (req, res) => {
-    const { postId } = req.params
-    const userId = req.headers.authorization.slice(6)
-
-    try {
-        logic.deletepost(userId, postId)
-
-        res.status(200).send()
-
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        console.error(error)
-    }
-
-})
+                console.error(error)
+            }
+        })
 
 
-server.listen(8080, () => console.log('api is up'))
+        // ----- GET USERNAME -----
+        //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
+        server.get('/users/:targetUserId/name', (req, res) => {
+            try {
+                const userId = req.headers.authorization.slice(6)
 
-// TODO use cookies for session management (RTFM cookies + express) 
+                const { targetUserId } = req.params
+
+                logic.getUserName(userId, targetUserId)
+                    .then(name => res.json(name))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+        })
+
+
+        // ----- GET POSTS -----
+        //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
+        server.get('/posts', (req, res) => {
+
+            try {
+                const userId = req.headers.authorization.slice(6)
+
+                const posts = logic.getPosts(userId)
+
+                res.json(posts)
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+        })
+
+        // ----- GET COMMENTS -----
+        //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
+        server.get('/posts/:postId/comments', (req, res) => {
+
+            try {
+                const { userId } = req.params
+
+                const name = logic.getUserName(userId)
+
+                res.json(name)
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+        })
+
+
+        // ----- CREATE POST -----
+        server.post('/posts', jsonBodyParser, (req, res) => {
+            try {
+                const userId = req.headers.authorization.slice(6) //OBTENEMOS EL ID 'Basic //asdfasdfas' -> ID
+
+                const { image, text } = req.body
+
+                logic.createPost(userId, image, text)
+
+                res.status(201).send()
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+        })
+
+        // ----- CREATE COMMENT -----
+        server.post('/posts/comments/:userId/:postId', jsonBodyParser, (req, res) => {
+            try {
+                // const {params: {postId}, body: {text}} = req
+                const userId = req.headers.authorization.slice(6) //OBTENEMOS EL ID 'Basic //asdfasdfas' -> ID  
+
+                const { postId } = req.params
+
+                const { text } = req.body
+
+                logic.createComment(userId, postId, text)
+
+                res.status(201).send()
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+        })
+
+        // ----- DELETE POST -----
+        //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
+        server.delete('/posts/:postId', (req, res) => {
+            try {
+                const { postId } = req.params
+                const userId = req.headers.authorization.slice(6)
+
+                logic.deletePost(userId, postId)
+
+                res.status(204).send()
+
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+
+        })
+
+        // ----- DELETE COMMENT -----
+        //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
+        server.delete('/posts/:postId/comments/:commentId', (req, res) => {
+            try {
+                const userId = req.headers.authorization.slice(6)
+                const { postId, commentId } = req.params
+                logic.removeComment(userId, postId, commentId)
+
+                res.status(204).send()
+
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+
+        })
+
+        // ----- TOGGLE LIKE POST -----
+        //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
+        server.patch('/posts/:postId/likes', (req, res) => {
+            try {
+                const { postId, commentId } = req.params
+                const userId = req.headers.authorization.slice(6)
+                logic.toggleLikePost(userId, postId, commentId)
+
+                res.status(204).send()
+
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+
+        })
+
+
+        server.listen(8080, () => console.log('api is up'))
+    })

@@ -1,19 +1,26 @@
-export default (postId) => {
-    if (typeof postId !== 'string') throw new Error('invalid postId')
+import { validate } from './helpers'
 
-    const posts = JSON.parse(localStorage.posts)
+export default (postId, callback) => {
+    validate.id(postId, 'postId')
+    validate.callback(callback)
 
-    const post = posts.find(({ id }) => id === postId)
+    const xhr = new XMLHttpRequest
 
-    if (!post) throw new Error('post not found')
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    const { likes } = post
-    const { userId } = sessionStorage
+        if (status === 204) {
+            callback(null, comments)
 
-    const index = likes.indexOf(userId)
+            return
+        }
 
-    if (index < 0) likes.push(userId)
-    else likes.splice(index, 1)
+        const { error, message } = JSON.parse(response)
 
-    localStorage.posts = JSON.stringify(posts)
+        callback(new Error(message))
+    })
+
+    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.send()
 }

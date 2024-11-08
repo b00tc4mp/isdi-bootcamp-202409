@@ -1,5 +1,5 @@
 import registerUser from './registerUser'
-import loginUser from './loginUser'
+import loginUser from './loginUser.js'
 
 import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'

@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2vvw4xzn6d' -H 'Content-Type: application/json' -d '{"postId":"m2vw4ucygv","text":"Mr potato"}' http://localhost:8080/comments -v

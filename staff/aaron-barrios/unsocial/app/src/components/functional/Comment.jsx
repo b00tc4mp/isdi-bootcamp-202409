@@ -4,11 +4,19 @@ import logic from '../../logic'
 
 import getElapsedTime from '../../utils/getElapsedTime'
 
-export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
+export default function Comment({ postId, comment: { id, author, text, date }, onRemoved }) {
     const handleRemove = () => {
         if (confirm('Delete Comment?')) {
             try {
-                logic.removeComment(postId, id)
+                logic.removeComment(postId, id, error => {
+                    if (error) {
+                        alert(error.message)
+
+                        console.error(error)
+
+                        return
+                    }
+                })
 
                 onRemoved()
             } catch (error) {

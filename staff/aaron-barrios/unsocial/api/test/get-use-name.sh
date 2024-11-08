@@ -1,1 +1,1 @@
-curl http://localhost:8080/users/m2vvqdtgcba/name
+curl http://localhost:8080/users/m2vvqdtgcba/name -v

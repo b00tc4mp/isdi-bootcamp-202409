@@ -7,46 +7,58 @@ import './Register.css'
 
 
 export default (props) => {
+    const handleSubmit = event => {
+        event.preventDefault()
 
-    return <main className="Register">
-        <h2>Register</h2>
+        const { target: form } = event
 
-        <Form onSubmit={event => {
-
-            event.preventDefault()
-
-            const { target: form } = event
-
-            //CAPTURO LOS VALORES DEL REGISTER (FORMULARIO)
-            //LOS NOMBRES QUE CAPTURAS ES IMPORTANTE QUE COINCIDAN CON EL ID DEL INPUT
-            const {
-                name: { value: name },
-                email: { value: email },
-                username: { value: username },
-                password: { value: password },
-                ['password-repeat']: { value: passwordRepeat }
-            } = form
+        //CAPTURO LOS VALORES DEL REGISTER (FORMULARIO)
+        //LOS NOMBRES QUE CAPTURAS ES IMPORTANTE QUE COINCIDAN CON EL ID DEL INPUT
+        const {
+            name: { value: name },
+            email: { value: email },
+            username: { value: username },
+            password: { value: password },
+            ['password-repeat']: { value: passwordRepeat }
+        } = form
 
 
-            try {
+        try {
 
-                //LLAMO A LA FUNCION REGISTER USER CON LOS PARAMETROS CAPTURADOS
-                logic.registerUser(name, email, username, password, passwordRepeat)
+            //LLAMO A LA FUNCION REGISTER USER CON LOS PARAMETROS CAPTURADOS
+            logic.registerUser(name, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    alert(error.message)
+
+                    console.error(error)
+
+                    return
+                }
 
                 //RESETEO DEL FORMULARIO
                 form.reset() // => form.reset()
 
                 //LE PASO LA FUNCIÓN "registered" DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
                 props.registered()
+            })
 
+        } catch (error) {
+            alert(error.message)
 
-            } catch (error) {
-                alert(error.message)
+            console.error(error)
+        }
+    }
 
-                console.error(error)
-            }
+    const handleLoginClick = event => {
+        event.preventDefault()
 
-        }}>
+        props.registered()
+    }
+
+    return <main className="Register">
+        <h2>Register</h2>
+
+        <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="name">Name</Label>
                 <Input type="text" id="name" />
@@ -75,11 +87,8 @@ export default (props) => {
             <Button type="submit">Register</Button>
         </Form>
 
-        <a href=""
-            onClick={event => {
-                event.preventDefault()
-
-                props.registered()
-            }}>Login</a>
-    </main>
+        <a href="" onClick={event => { handleLoginClick }}>Login</a>
+    </main >
 }
+
+

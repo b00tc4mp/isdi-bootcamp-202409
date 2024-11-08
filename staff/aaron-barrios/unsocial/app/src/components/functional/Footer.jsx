@@ -1,8 +1,8 @@
 import './Footer.css'
 
-export default ({ onNewPostClick, view }) => {
+export default function Footer({ onNewPostClick, view }) {
     return <footer className="Footer">
-        {view === 'home' &&
+        {view === 'posts' &&
             <button type="button" onClick={onNewPostClick}>+</button>}
 
     </footer>
