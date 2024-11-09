@@ -1,1 +1,1 @@
- curl -H 'Authorization: Basic m2eo2tqvg06' -H 'Content-Type: application/json' -d '{"image":"http://invented-image.com","text":"hello world2"}' http://localhost:8080/posts -v
+ curl -H 'Authorization: Basic 672e085966498923e86dcd2b' -H 'Content-Type: application/json' -d '{"image":"http://invented-image.com","text":"hello world2"}' http://localhost:8080/posts -v

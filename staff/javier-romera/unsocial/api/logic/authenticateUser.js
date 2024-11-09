@@ -1,16 +1,16 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
+
 import { validate } from 'apu'
 
 export default (username, password) => {
     validate.username(username)
     validate.password(password)
 
-    const { users } = storage
+    return db.users.findOne({ username, password })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('cagaste')
 
-    const user = users.find(user => user.username === username && user.password === password)
-
-    if (!user)
-        throw new Error('cagaste')
-
-    return user.id
+            return user._id.toString()
+        })
 }

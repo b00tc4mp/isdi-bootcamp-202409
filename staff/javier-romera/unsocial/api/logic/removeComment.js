@@ -1,34 +1,40 @@
+import db from 'dat'
+
 import { validate } from 'apu'
-import { storage } from '../data/index.js'
+
+const { ObjectId } = db
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
 
-    const { users, posts } = storage
+    const objectUserId = ObjectId.createFromHexString(userId)
+    const objectPostId = ObjectId.createFromHexString(postId)
+    const objectCommentId = ObjectId.createFromHexString(commentId)
 
-    const found = users.some(({ id }) => id === userId)
+    return db.users.findOne({ _id: objectUserId })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    if (!found) throw new Error('user not found')
+            return db.posts.findOne({ _id: objectPostId })
+                .catch(error => { new Error(error.message) })
+        })
+        .then(post => {
+            if (!post) throw new Error('post not found')
 
-    const post = posts.find(({ id }) => id === postId)
+            const { comments } = post
 
-    if (!post) throw new Error('post not found')
+            const comment = comments.find(comment => comment._id.equals(objectCommentId))
 
-    const { comments } = post
+            if (!comment) throw new Error('comment not found')
 
-    const index = comments.findIndex(({ id }) => id === commentId)
+            const { author } = comment
 
-    if (index < 0)
-        throw new Error('comment not found')
+            if (author.toString() !== userId) throw new Error('user is not author of comment')
 
-    const { author } = comments[index]
-
-    if (author !== userId)
-        throw new Error('user is not author of comment')
-
-    comments.splice(index, 1)
-
-    storage.posts = posts
+            return db.posts.updateOne({ _id: objectPostId }, { $pull: { comments: { _id: objectCommentId } } })
+        })
+        .then(_ => { })
 }

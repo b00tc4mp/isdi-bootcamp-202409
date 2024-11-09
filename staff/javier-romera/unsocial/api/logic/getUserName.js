@@ -1,19 +1,27 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
+
 import { validate } from 'apu'
+
+const { ObjectId } = db
 
 export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
 
-    const { users } = storage
+    const objectUserId = ObjectId.createFromHexString(userId)
+    const objectTargetUserId = ObjectId.createFromHexString(targetUserId)
 
-    const found = users.some(({ id }) => id === userId)
+    return db.users.findOne({ _id: objectUserId })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    if (!found) throw new Error('user not found')
+            return db.users.findOne({ _id: objectTargetUserId })
+                .catch(error => { new Error(error.message) })
+        })
+        .then(user => {
+            if (!user) throw new Error('target user not found')
 
-    const user = users.find(user => user.id === targetUserId)
-
-    if (!user) throw new Error('target user not found')
-
-    return user.name
+            return user.name
+        })
 }

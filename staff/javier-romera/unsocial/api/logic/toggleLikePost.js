@@ -1,28 +1,36 @@
+import db from 'dat'
+
 import { validate } from 'apu'
-import { storage } from '../data/index.js'
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
     validate.id(postId, 'postId')
     validate.id(userId, 'userId')
 
-    const { users, posts } = storage
+    const objectUserId = ObjectId.createFromHexString(userId)
+    const objectPostId = ObjectId.createFromHexString(postId)
 
-    const found = users.some(({ id }) => id === userId)
+    return db.users.findOne({ _id: objectUserId })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    if (!found) throw new Error('user not found');
+            return db.posts.findOne({ _id: objectPostId })
+                .catch(error => { new Error(error.message) })
+        })
+        .then(post => {
+            if (!post) throw new Error('post not found')
 
-    const post = posts.find(({ id }) => id === postId)
+            const { likedBy } = post
 
-    if (!post) throw new Error('post not found')
+            const found = likedBy.some(id => id.equals(objectUserId))
 
-    const { likedBy } = post
-
-    const index = likedBy.indexOf(userId)
-
-    if (index < 0)
-        likedBy.push(userId)
-    else
-        likedBy.splice(index, 1)
-
-    storage.posts = posts
+            if (!found)
+                return db.posts.updateOne({ _id: objectPostId }, { $push: { likedBy: objectUserId } })
+                    .then(_ => { console.log('liked') })
+            else
+                return db.posts.updateOne({ _id: objectPostId }, { $pull: { likedBy: objectUserId } })
+                    .then(_ => { console.log('unliked') })
+        })
 }
