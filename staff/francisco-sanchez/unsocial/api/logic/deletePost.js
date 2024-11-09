@@ -30,14 +30,15 @@ export default (userId, postId) => {
         .then(result => {
             console.log('Delete Result:', result);
 
-            if (!result || deletedCount === 0) throw new Error('Error deleting post')
+            if (!result || result.deletedCount === 0) throw new Error('Error deleting post')
 
             return { message: 'Post deleted successfully' }
 
         })
 
         .catch(error => {
-            new Error(error.message)
+            console.error = new Error('Error deleting post:', error.message)
+            throw error
         })
 
 

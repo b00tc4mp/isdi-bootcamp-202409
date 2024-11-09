@@ -145,8 +145,6 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
                 const userId = req.headers.authorization.slice(6)
 
                 logic.deletePost(userId, postId)
-                console.log('paso por la logica del delete post')
-
                     .then(result => {
                         //.then(() => res.status(201).send())
                         res.status(200).json(result) //Devolvemos ok status + posts
@@ -184,23 +182,23 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
 
         //Montar la url para los addComments
         server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
-
-            const userId = req.headers.authorization.slice(6)
-
-            const { postId } = req.params
-
-            const { text } = req.body
-
-            //const { params: { postId }, body: { text } } = req
-
             try {
+                const userId = req.headers.authorization.slice(6)
+                const { postId } = req.params
+                const { text } = req.body
+
                 logic.addComment(userId, postId, text)
-                res.status(201).send()
+                    .then(result => {
+                        res.status(200).json(result)
+                        //res.status(201).send()
+                    })
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
                 console.error(error)
             }
-
         })
 
         //Llamada al toggle like posts

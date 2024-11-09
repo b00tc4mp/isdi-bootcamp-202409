@@ -11,7 +11,7 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
             /**
              * userId / postId
              */
-            deletePost('672e2ff11dbad3a5583531bf', "672e4590ca1d6caf6e538d70")
+            deletePost('672e2707de7dde80ec9233c6', "672f7af04ee4e332926502ac")
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {

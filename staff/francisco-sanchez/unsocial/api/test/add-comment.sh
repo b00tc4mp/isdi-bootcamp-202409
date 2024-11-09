@@ -1,2 +1,2 @@
 
- curl -H 'Authorization: Basic m2osxzzmwg6' -H 'Content-type: application/json' -d '{"text":"yeaaaah!"}' http://localhost:8080/posts/m2x6bfznwyj/comments -v
+ curl -H 'Authorization: Basic 672e2707de7dde80ec9233c6' -H 'Content-type: application/json' -d '{"text":"Comentario hacia mongo desde la API sh"}' http://localhost:8080/posts/672f7aef4ee4e332926502a9/comments -v
