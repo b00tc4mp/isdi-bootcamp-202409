@@ -86,12 +86,16 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
         })
 
         server.get('/posts', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
             try {
-                const posts = logic.getPosts(userId)
+                const userId = req.headers.authorization.slice(6)
 
-                res.json(posts)
+                const posts = logic.getPosts(userId)
+                    .then(() => res.json(posts))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -136,11 +140,11 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
         })
 
         server.get('/posts/:postId/comments', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
-            const { postId } = req.params
-
             try {
+                const userId = req.headers.authorization.slice(6)
+
+                const { postId } = req.params
+
                 const comments = logic.getComments(userId, postId)
 
                 res.json(comments)
@@ -152,18 +156,18 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
         })
 
         server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
-            //const { postId } = req.params
-
-            //const { text } = req.body
-
-            const { params: { postId }, body: { text } } = req
-
             try {
-                logic.addComment(userId, postId, text)
+                const userId = req.headers.authorization.slice(6)
 
-                res.status(201).send()
+                const { params: { postId }, body: { text } } = req
+
+                logic.addComment(userId, postId, text)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -172,14 +176,18 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
         })
 
         server.delete('/posts/:postId/comments/:commentId', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
-            const { postId, commentId } = req.params
-
             try {
-                logic.removeComment(userId, postId, commentId)
+                const userId = req.headers.authorization.slice(6)
 
-                res.status(204).send()
+                const { postId, commentId } = req.params
+
+                logic.removeComment(userId, postId, commentId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -188,14 +196,18 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
         })
 
         server.patch('/posts/:postId/likes', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
-            const { postId } = req.params
-
             try {
-                logic.toggleLikePost(userId, postId)
+                const userId = req.headers.authorization.slice(6)
 
-                res.status(204).send()
+                const { postId } = req.params
+
+                logic.toggleLikePost(userId, postId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -204,14 +216,18 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
         })
 
         server.patch('/posts/:postId/saves', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
-            const { postId } = req.params
-
             try {
-                logic.toggleSavePost(userId, postId)
+                const userId = req.headers.authorization.slice(6)
 
-                res.status(204).send()
+                const { postId } = req.params
+
+                logic.toggleSavePost(userId, postId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
