@@ -1,6 +1,8 @@
-import validate from './helpers/validate.js'
+import { validate } from './helpers/index.js'
 
-import { storage, uuid } from '../data/index.js'
+import db from 'dat'
+
+const { ObjectId } = db
 
 // ----- POSTS STUFF ------
 export default (userId, text, image) => {
@@ -8,23 +10,21 @@ export default (userId, text, image) => {
     validate.text(text)
     validate.image(image)
 
-    const { users, posts } = storage
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    const found = users.some(({ id }) => id === userId)
-
-    if (!found) throw new Error('user not found')
-
-    const post = {
-        id: uuid(),
-        image: image,
-        text: text,
-        author: userId,
-        date: new Date,
-        likes: [],
-        comments: []
-    }
-
-    posts.push(post)
-
-    storage.posts = posts
+            return db.posts
+                .insertOne({ author: userId, text, image, likes: [], comments: [] })
+                .then((user) => {
+                    if (!user) throw new Error('user not found')
+                })
+                .then((_) => {
+                    console.log('Created post')
+                })
+                .catch((error) => {
+                    throw new Error(error.message)
+                })
+        })
 }

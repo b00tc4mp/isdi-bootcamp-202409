@@ -127,8 +127,12 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
                 const { image, text } = req.body
 
                 logic.createPost(userId, image, text)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                res.status(201).send()
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -160,19 +164,22 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
         //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
         server.delete('/posts/:postId', (req, res) => {
             try {
-                const { postId } = req.params
                 const userId = req.headers.authorization.slice(6)
 
+                const { postId } = req.params
+
                 logic.deletePost(userId, postId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                res.status(204).send()
-
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
                 console.error(error)
             }
-
         })
 
         // ----- DELETE COMMENT -----

@@ -1,6 +1,8 @@
 import { storage } from '../data/index.js'
 import { validate } from './helpers/index.js'
 
+import db from 'dat'
+
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')

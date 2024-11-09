@@ -1,28 +1,53 @@
 import { validate } from './helpers/index.js'
-import { storage } from '../data/index.js'
+// import { storage } from '../data/index.js'
+
+import db from 'dat'
+
+const { ObjectId } = db
+
 
 export default (userId, postId) => {
     validate.id(postId, 'postId')
     validate.id(userId, 'userId')
 
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    const { users, posts } = storage
+            return db.posts
+                .deleteOne({ _id: ObjectId.createFromHexString(postId) })
+                .then((post) => {
+                    if (!post) throw new Error('post not found')
+                })
+                .then((_) => {
+                    console.log('Deleted post')
+                })
+                .catch((error) => {
+                    throw new Error(error.message)
+                })
+        })
+}
 
-    const user = users.find(({ id }) => id === userId)
 
-    if (!user) throw new Error('user not found')
+// {
+//     const { users, posts } = storage
 
-    const index = posts.findIndex(({ id }) => id === postId)
+//     const user = users.find(({ id }) => id === userId)
 
-    if (index < 0) throw new Error('post not found')
+//     if (!user) throw new Error('user not found')
 
-    const post = posts[index]
+//     const index = posts.findIndex(({ id }) => id === postId)
 
-    const { author } = post
+//     if (index < 0) throw new Error('post not found')
 
-    if (author !== userId) throw new Error('User is not author of post')
+//     const post = posts[index]
 
-    posts.splice(index, 1)
+//     const { author } = post
 
-    storage.posts = posts
-}  
+//     if (author !== userId) throw new Error('User is not author of post')
+
+//     posts.splice(index, 1)
+
+//     storage.posts = posts
+// }
