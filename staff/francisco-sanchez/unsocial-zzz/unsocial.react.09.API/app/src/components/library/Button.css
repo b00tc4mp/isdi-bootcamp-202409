@@ -1,0 +1,36 @@
+.Button {
+    width: '100%';
+    padding: 10px;
+    font-size: 1.1em;
+    box-sizing: 'border-box';
+    border-radius: 10px;
+    font: inherit;
+    cursor: pointer;
+    background-color: var(--color-yellow);
+    font-family: inherit;
+    color: rgb(25, 7, 138);
+    border-color: var(--color-blue);
+    border-style: solid;
+}
+
+.Button:hover {
+    background-color: #b9b007
+}
+
+
+/*button {
+    padding: 10px;
+    font-size: 1.1em;
+    background-color: #ddd207;
+    color: rgb(25, 7, 138);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #b9b007
+}*/

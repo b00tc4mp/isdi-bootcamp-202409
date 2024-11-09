@@ -18,6 +18,7 @@
   "dependencies": {
     "com": "file:../com",
     "cors": "^2.8.5",
+    "dat": "file:../dat",
     "express": "^4.21.1"
   }
 }

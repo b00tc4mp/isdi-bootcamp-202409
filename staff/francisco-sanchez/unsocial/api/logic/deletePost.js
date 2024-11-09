@@ -1,27 +1,65 @@
+import db from 'dat'
 import { validate } from 'com'
-import { storage } from '../data/index.js'
+//import { storage } from '../data/index.js'
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const { users, posts } = storage
+    //const { users, posts } = storage
 
-    const found = users.some(({ id }) => id === userId)
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    if (!found) throw new Error('user not found')
+            console.log('User found:', user);
 
-    const index = posts.findIndex(({ id }) => id === postId)
+            return db.posts.findOne({ _id: ObjectId.createFromHexString(postId) }) //Esto me devuelve el post a borrar si lo encuentra
+        })
+        .then(post => {
+            if (!post) throw new Error('post not found')
 
-    if (index < 0) throw new Error('post not found')
+            console.log('Post found:', post);
 
-    const post = posts[index]
+            if (post.author.toString() !== userId) throw new Error('User is not the author of the post')
 
-    const { author } = post
+            return db.posts.deleteOne({ _id: ObjectId.createFromHexString(postId) })
+        })
+        .then(result => {
+            console.log('Delete Result:', result);
 
-    if (author !== userId) throw new Error('user is not author of post')
+            if (!result || deletedCount === 0) throw new Error('Error deleting post')
 
-    posts.splice(index, 1)
+            return { message: 'Post deleted successfully' }
 
-    storage.posts = posts
+        })
+
+        .catch(error => {
+            new Error(error.message)
+        })
+
+
+
+
+
+
+    // const found = users.some(({ id }) => id === userId)
+
+    // if (!found) throw new Error('user not found')
+
+    // const index = posts.findIndex(({ id }) => id === postId)
+
+    // if (index < 0) throw new Error('post not found')
+
+    // const post = posts[index]
+
+    // const { author } = post
+
+    // if (author !== userId) throw new Error('user is not author of post')
+
+    // posts.splice(index, 1)
+
+    // storage.posts = posts
 }

@@ -38,6 +38,13 @@
 
 -----------------------------------------------------------------
 
+# Diario de tareas en clase
+
+## **08/11/2024**
+### Introducimos Mongo y conectamos nuestra API con la nueva base de datos: 
+
+
+
 
 ## **06/11/2024**
 ### Hoy traspasamos la aplicación a Hooks 

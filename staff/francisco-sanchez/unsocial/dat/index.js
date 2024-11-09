@@ -1,8 +1,29 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb"
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
+//const client = new MongoClient('mongodb://127.0.0.1:27017')
 
-client.connect()
+function connect(mongoUrl) {
+    const client = new MongoClient(mongoUrl)
+
+    return client.connect()
+        .then(connection => {
+            const db = connection.db()
+
+            this.users = db.collection('users')
+            this.posts = db.collection('posts')
+        })
+}
+
+const db = {
+    connect,
+    users: null,
+    posts: null,
+    ObjectId
+}
+
+export default db
+
+/*client.connect()
     .then(connection => {
         console.log('Database connected')
 
@@ -18,4 +39,4 @@ client.connect()
         users.insertOne({ name: 'pepe', username: 'pepet2', email: 'pepet2@marieta.com', password: '1234' })
         users.find({}).toArray().then(users => console.log(users))
 
-    })
+    })*/

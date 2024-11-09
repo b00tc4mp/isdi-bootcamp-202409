@@ -1,2 +1,2 @@
  #Avisa al server para que de un nombre de usuario determinado le devuelva el nombre. 
- curl http://localhost:8080/users/m2ey7tvjg0t/name -v
+ curl -H 'Authorization: Basic 672e21dabd3432d3ba964532' http://localhost:8080/users/672e233ebd3432d3ba964533/name -v

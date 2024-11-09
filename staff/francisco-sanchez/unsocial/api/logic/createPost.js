@@ -1,29 +1,50 @@
+import db from 'dat'
 import { validate } from './helpers/index.js'
-import { storage, uuid } from '../data/index.js'
+//import { storage, uuid } from '../data/index.js'
 
+const { ObjectId } = db
 
 export default (userId, image, text) => {
     validate.id(userId, 'userId')
     validate.image(image)
     validate.text(text)
 
-    const { users, posts } = storage
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    const found = users.some(({ id }) => id === userId)
+            return db.posts.insertOne({
+                image: image,
+                text: text,
+                author: ObjectId.createFromHexString(userId),
+                date: new Date,
+                likes: [],
+                comments: []
+            })
+                .then(_ => { })
+                .catch(error => {
+                    throw new Error(error.message)
+                })
 
-    if (!found) throw new Error('user not found')
+        })
+    // const { users, posts } = storage
 
-    const post = {
-        id: uuid(),
-        image: image,
-        text: text,
-        author: userId,
-        date: new Date,
-        likes: [],
-        comments: []
-    }
+    // const found = users.some(({ id }) => id === userId)
 
-    posts.push(post)
+    // if (!found) throw new Error('user not found')
 
-    storage.posts = posts
+    // const post = {
+    //     id: uuid(),
+    //     image: image,
+    //     text: text,
+    //     author: userId,
+    //     date: new Date,
+    //     likes: [],
+    //     comments: []
+    // }
+
+    // posts.push(post)
+
+    // storage.posts = posts
 }
