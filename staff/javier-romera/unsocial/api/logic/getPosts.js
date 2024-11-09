@@ -10,24 +10,38 @@ export default userId => {
     const objectUserId = ObjectId.createFromHexString(userId)
 
     return db.users.findOne({ _id: objectUserId })
-        .catch(error => { new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
-            return db.posts.find({}).toArray()
+            return db.posts.find().toArray()
                 .catch(error => { new Error(error.message) })
         })
-        .then(posts => {
-            posts.forEach(post => {
-                const { author: authorId } = post
+        .then(allPosts => {
+            return db.users.find().toArray()
+                .catch(error => { new Error(error.message) })
+                .then(allUsers => {
+                    const transformedPosts = []
 
-                post.liked = post.likedBy.includes(userId)
+                    allPosts.forEach(post => {
+                        const { _id, image, text, author: authorId, date, likedBy, comments } = post
 
-                post.comments = post.comments.length
-            })
-            return posts.toReversed()
+                        const { username } = allUsers.find(({ _id }) => _id.equals(authorId))
+
+                        transformedPosts.push({
+                            _id,
+                            image,
+                            text,
+                            author: {
+                                _id: authorId,
+                                username
+                            },
+                            date,
+                            likedBy,
+                            liked: likedBy.some(id => id.equals(authorId)),
+                            comments: comments.length
+                        })
+                    })
+                    return transformedPosts.reverse()
+                })
         })
-    const { username } = users.find(({ id }) => id === authorId)
-
-    post.author = { id: authorId, username }
 }
