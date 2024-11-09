@@ -1,6 +1,5 @@
+import db from 'dat'
 import { validate } from 'com'
-
-import { storage, uuid } from '../data/index.js'
 
 export default (name, email, username, password, passwordRepeat) => {
     validate.name(name)
@@ -9,17 +8,13 @@ export default (name, email, username, password, passwordRepeat) => {
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
 
-    //const users = storage.users
-    const { users } = storage
+    return db.users.insertOne({ name, email, username, password })
+        .then(_ => { })
+        .catch(error => {
+            if (error.code === 11000) throw new Error('User already exists')
 
-    let user = users.find(user => user.username === username || user.email === email)
-
-    if (user)
-        throw new Error('User already exists')
-
-    user = { id: uuid(), name: name, email: email, username: username, password: password }
-
-    users.push(user)
-
-    storage.users = users //estoy llamando al setter. el primer users es una semi-propiedad
+            throw new Error(error.message)
+        })
 }
+
+//el índice me permite lanzar error si algo falla

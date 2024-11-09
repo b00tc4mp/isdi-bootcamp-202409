@@ -1,31 +1,20 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
 import { validate } from 'com'
 
+const { ObjectId } = db
+
 export default userId => {
-    /*
-    el userId es importante para aquellos posts privados y para asegurarme de si he hecho like/save o no
-    */
     validate.id(userId, 'userId')
 
-    const { users, posts } = storage
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('User not found')
 
-    const found = users.some(({ id }) => id === userId)
-
-    if (!found) throw new Error('User not found')
-
-    posts.forEach(post => {
-        const { author: authorId } = post
-
-        const { username } = users.find(({ id }) => id === authorId)
-
-        post.author = { id: authorId, username }
-
-        post.liked = post.likes.includes(userId)
-
-        post.saved = post.saves.includes(userId)
-
-        post.comments = post.comments.length
-    })
-
-    return posts.toReversed()
+            return db.posts.find({}).toArray()
+                .catch(error => { new Error(error.message) })
+                .then(posts => {
+                    return posts.toReversed()
+                })
+        })
 }
