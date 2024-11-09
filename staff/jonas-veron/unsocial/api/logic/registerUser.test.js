@@ -1,7 +1,19 @@
-import registerUser from './registerUser.js'
+import db from "dat";
 
-try {
-    console.log(registerUser('jonas', 'jonas@veron.com', 'jonasveronn', '123123123', '123123123'))
-} catch (error) {
-    console.error(error)
-}
+import registerUser from "./registerUser.js";
+
+db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
+  try {
+    registerUser(
+      "Carlitos",
+      "car@litos.com",
+      "carlitos",
+      "123123123",
+      "123123123"
+    )
+      .then(() => console.log("user registered"))
+      .catch((error) => console.error(error.message));
+  } catch (error) {
+    console.error(error);
+  }
+});

@@ -1,7 +1,16 @@
+import db from "dat";
+
 import toggleLikePost from "./toggleLikePost.js";
 
-try {
-    console.log(toggleLikePost('m2wawcrxzki', 'm2yqq9pvyi8'))
-} catch (error) {
-    console.error(error)
-}
+db.connect("mongodb://127.0.0.1:27017/unsocial-test")
+  .then(() => {
+    try {
+      toggleLikePost(
+        "672e0f93b5102bd54faa6e95",
+        "672f4aa087f9968fcab3f529"
+      ).then(() => console.log("OK"));
+    } catch (error) {
+      console.error(error);
+    }
+  })
+  .catch(console.error);

@@ -1,27 +1,42 @@
-import { validate } from 'com'
+import db from "dat";
+import { validate } from "com";
 
-import { storage, uuid } from '../data/index.js'
+const { ObjectId } = db;
 
-export default(userId, postId, text) => {
+export default (userId, postId, text) => {
+  validate.id(userId, "userId");
+  validate.id(postId, "postId");
+  validate.text(text);
 
-    validate.id(userId, 'userId')
-    validate.id(postId, 'postId')
-    validate.text(text)
- 
-    const { posts } = storage
-
-    const post = posts.find(post =>
-        post.id === postId
-    )
-    if (!post) throw new Error('Post not found')
-
-
-    post.comments.push({
-        id: uuid(),
-        author: userId,
-        text,
-        date: new Date
+  return db.users
+    .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .catch((error) => {
+      new Error(error.message);
     })
+    .then((user) => {
+      if (!user) throw new Error("user not found");
 
-    storage.posts = posts
-}
+      return db.posts
+        .findOne({ _id: ObjectId.createFromHexString(postId) })
+        .catch((error) => {
+          new Error(error.message);
+        })
+        .then((post) => {
+          if (!post) throw new Error("post not found");
+
+          return db.posts.updateOne(
+            { _id: ObjectId.createFromHexString(postId) },
+            {
+              $push: {
+                comments: {
+                  _id: new ObjectId(),
+                  author: ObjectId.createFromHexString(userId),
+                  text,
+                  date: new Date(),
+                },
+              },
+            }
+          );
+        });
+    });
+};

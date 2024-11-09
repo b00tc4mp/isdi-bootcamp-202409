@@ -1,29 +1,34 @@
-import { validate } from 'com'
+import db from "dat";
+import { validate } from "com";
 
-import { storage, uuid } from '../data/index.js'
+const { ObjectId } = db;
 
 export default (userId, image, text) => {
-    validate.id(userId, 'userId')
-    validate.image(image)
-    validate.text(text)
+  validate.id(userId, "userId");
+  validate.image(image);
+  validate.text(text);
 
-    const { users, posts } = storage
-    
-    const found = users.some(({ id }) => id === userId)
+  return db.users
+    .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .catch((error) => {
+      new Error(error.message);
+    })
+    .then((user) => {
+      if (!user) throw new Error("user not found");
 
-    if (!found) throw new Error('user not found')
-
-    const post = {
-        id: uuid(),
-        image: image,
-        text: text,
-        author: userId,
-        date: new Date,
-        likes: [],
-        comments: []
-    }
-
-    posts.push(post)
-
-    storage.posts = posts
-}
+      return db.posts
+        .insertOne({
+          author: ObjectId.createFromHexString(userId),
+          image,
+          text,
+          likes: [],
+          comments: [],
+        })
+        .then((_) => {
+          console.log("Post creado con exito");
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
+    });
+};

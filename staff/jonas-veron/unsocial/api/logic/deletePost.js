@@ -1,30 +1,36 @@
-import { validate } from 'com'
-import { storage } from '../data/index.js'
+import db from "dat";
+import { validate } from "com";
 
-
+const { ObjectId } = db;
 
 export default (userId, postId) => {
-    validate.id(postId, 'postId')
-    validate.id(userId, 'userId')
+  validate.id(postId, "postId");
+  validate.id(userId, "userId");
 
-    const { users, posts } = storage
-    // const posts = storage.posts
+  return db.users
+    .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .catch((error) => {
+      new Error(error.message);
+    })
 
-    const found = users.some(({ id }) => id === userId)
+    .then((user) => {
+      if (!user) throw new Error("user not found");
 
-    if (!found) throw new Error('user not found')
-    
-    const index = posts.findIndex(({ id }) => id === postId )
-
-    if (index < 0) throw new Error('post not found')
-
-    const post = posts[index]
-
-    const { author } = post
-    if (author !== userId) throw new Error('User is not author of post')
-
-    posts.splice(index, 1)
-
-    storage.posts = posts
-
-}  
+      return db.posts
+        .findOne({ _id: ObjectId.createFromHexString(postId) })
+        .then((post) => {
+          if (!post) throw new Error("post not found");
+          if (post.author.toString() !== userId) {
+            throw new Error("Este post no te pertenece");
+          }
+          return db.posts
+            .deleteOne({
+              _id: ObjectId.createFromHexString(postId),
+            })
+            .then((_) => {})
+            .catch((error) => {
+              throw new Error(error.message);
+            });
+        });
+    });
+};

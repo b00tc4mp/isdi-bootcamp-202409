@@ -70,7 +70,7 @@ export default function Post({
         <h4 className="postUserNameTitle">{author.username}</h4>
         {author.id === logic.getUserId() && (
           <Button className="deletePostButton" onClick={handleDeleteClick}>
-            🗑️
+            ❌
           </Button>
         )}
       </div>

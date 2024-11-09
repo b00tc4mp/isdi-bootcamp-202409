@@ -1,31 +1,39 @@
-import { validate } from 'com'
-import { storage } from '../data/index.js'
+import db from "dat";
+import { validate } from "com";
+
+const { ObjectId } = db;
 
 export default (userId, postId) => {
-    validate.id(userId, 'userId')
-    validate.id(postId, 'postId')
-    
-    const { users, posts } = storage
-    const found = users.some(({ id }) => id === userId)
+  validate.id(userId, "userId");
+  validate.id(postId, "postId");
 
-    if (!found) throw new Error('user not found')
+  return db.users
+    .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .then((user) => {
+      if (!user) throw new Error("user not found");
 
-    
-    const post = posts.find(post =>
-        post.id === postId
-)
+      return db.posts
+        .findOne({ _id: ObjectId.createFromHexString(postId) })
+        .then((post) => {
+          if (!post) throw new Error("post not found");
+        });
+    });
 
-        if (!post) throw new Error('Post not found')
+  if (!found) throw new Error("user not found");
 
-        const { comments } = post
+  const post = posts.find((post) => post.id === postId);
 
-        comments.forEach(comment => {
-            const { author: authorId } = comment
+  if (!post) throw new Error("Post not found");
 
-            const { username } = users.find(({ id }) => id === authorId)
+  const { comments } = post;
 
-            comment.author = { id: authorId, username }
-        })
+  comments.forEach((comment) => {
+    const { author: authorId } = comment;
 
-    return comments
-}
+    const { username } = users.find(({ id }) => id === authorId);
+
+    comment.author = { id: authorId, username };
+  });
+
+  return comments;
+};

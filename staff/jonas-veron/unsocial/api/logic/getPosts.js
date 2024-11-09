@@ -1,26 +1,40 @@
-import { storage } from '../data/index.js'
-import { validate } from 'com'
+import db from "dat";
+import { validate } from "com";
 
-export default userId => {
-    validate.id(userId, 'userId')
+const { ObjectId } = db;
 
-    const { posts, users } = storage
+export default (userId) => {
+  validate.id(userId, "userId");
 
-    const found = users.some(({ id }) => id === userId)
+  return db.users
+    .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .then((user) => {
+      if (!user) throw new Error("user not found");
 
-    if (!found) throw new Error('user not found')
-    
-    posts.forEach(post => {
-        const { author: authorId } = post
-
-        const { username } = users.find(({ id }) => id === authorId)
-
-        post.author = { id: authorId, username }
-
-        post.liked = post.likes.includes(userId)
-
-        post.comments = post.comments.length
+      return db.posts.find().toArray();
     })
+    .then((posts) => {
+      const updatedPosts = posts.map((post) => {
+        const authorId = post.author;
 
-    return posts.toReversed()
-}
+        return db.users
+          .findOne({ _id: ObjectId.createFromHexString(authorId) })
+          .then((author) => {
+            console.log(author);
+            if (author) {
+              post.author = { id: author._id, username: author.username };
+            }
+
+            post.liked = post.likes.includes(userId);
+            post.comments = post.comments.length;
+
+            return post;
+          });
+      });
+      return Promise.all(updatedPosts);
+    })
+    .then((updatedPosts) => updatedPosts.reverse())
+    .catch((error) => {
+      throw new Error(error.message);
+    });
+};

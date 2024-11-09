@@ -1,26 +1,48 @@
-import { validate } from 'com'
-import { storage } from '../data/index.js'
+import db from "dat";
+import { validate } from "com";
+
+const { ObjectId } = db;
 
 export default (userId, postId) => {
-    validate.id(userId, 'userId')
-    validate.id(postId, 'postId')
-        
-    const { users, posts } = storage
+  validate.id(userId, "userId");
+  validate.id(postId, "postId");
 
-    const found = users.some(({ id }) => id === userId)
-    if(!found) throw new Error('user not found');
-    
+  return db.users
+    .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .catch((error) => {
+      throw new Error(error.message);
+    })
+    .then((user) => {
+      if (!user) throw new Error("user not found");
 
-    const post = posts.find(({ id }) => id === postId)
+      return db.posts
+        .findOne({ _id: ObjectId.createFromHexString(postId) })
+        .then((post) => {
+          if (!post) throw new Error("post not found");
 
-    if(!post) throw new Error('post not found')
+          const userObjecId = ObjectId.createFromHexString(userId);
+          const alreadyLiked = post.likes.some((like) =>
+            like.equals(userObjecId)
+          );
 
-    const { likes } = post
-
-    const index = likes.indexOf(userId)
-
-    if(index < 0) likes.push(userId)
-        else likes.splice(index, 1)
-
-    storage.posts = posts
-}
+          if (alreadyLiked) {
+            return db.posts
+              .updateOne(
+                { _id: ObjectId.createFromHexString(postId) },
+                { $pull: { likes: userObjecId } }
+              )
+              .then(() => console.log("like eliminado"));
+          } else {
+            return db.posts
+              .updateOne(
+                { _id: ObjectId.createFromHexString(postId) },
+                { $push: { likes: userObjecId } }
+              )
+              .then(() => console.log("like agregado"));
+          }
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
+    });
+};
