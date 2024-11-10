@@ -7,15 +7,18 @@ const { ObjectId } = db
 export default function getPosts(userId) {
     validate.id(userId, 'userId')
 
+    //Primero evaluamos si existe el usuario en cuestión
     return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
             return db.posts.find({}).toArray() //Esto va a buscar todos los posts y los convierte en array
         })
+        //Si encuentra el usuario buecamos los posts
         .then(posts => {
             if (!posts || posts.length === 0) throw new Error('posts not found')
 
+            //Y si los encuentra los mostramos y retornamos
             return posts.toReversed()
         })
         .catch(error => {

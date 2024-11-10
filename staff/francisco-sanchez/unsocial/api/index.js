@@ -161,20 +161,22 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
 
 
         server.patch('/posts/:postId/likes', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
-            const { postId } = req.params
-
             try {
+                const userId = req.headers.authorization.slice(6)
+                const { postId } = req.params
 
                 logic.toggleLikePost(userId, postId)
-
-                res.status(204).send()
-
+                    .then(result => {
+                        //.then(() => res.status(201).send())
+                        res.status(200).json(result) //Devolvemos ok status + posts
+                    })
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+                    })
 
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
-
+                console.error(error)
             }
 
         })
