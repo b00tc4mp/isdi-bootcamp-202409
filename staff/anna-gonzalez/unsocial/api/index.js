@@ -89,8 +89,8 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
             try {
                 const userId = req.headers.authorization.slice(6)
 
-                const posts = logic.getPosts(userId)
-                    .then(() => res.json(posts))
+                logic.getPosts(userId)
+                    .then(posts => res.json(posts))
                     .catch(error => {
                         res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -130,8 +130,12 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
 
             try {
                 logic.deletePost(userId, postId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                res.status(204).send()
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -145,9 +149,13 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
 
                 const { postId } = req.params
 
-                const comments = logic.getComments(userId, postId)
+                logic.getComments(userId, postId)
+                    .then(comments => res.json(comments))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                res.json(comments)
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 

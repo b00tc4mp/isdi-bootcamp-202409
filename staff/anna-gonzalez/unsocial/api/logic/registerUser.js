@@ -15,6 +15,5 @@ export default (name, email, username, password, passwordRepeat) => {
 
             throw new Error(error.message)
         })
+        .then(_ => { })
 }
-
-//el índice me permite lanzar error si algo falla

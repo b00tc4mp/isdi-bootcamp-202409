@@ -1,1 +1,1 @@
-curl -X PATCH -H 'Authorization: Basic m2w6ehc8bg' http://localhost:8080/posts/m2w6j6gxyd/saves -v
+curl -X PATCH -H 'Authorization: Basic 672e24ea47d3288ee08db8e0' http://localhost:8080/posts/67306c0e7e4dfee0292aa96c/likes -v

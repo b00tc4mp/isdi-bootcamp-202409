@@ -23,16 +23,17 @@ export default (userId, postId, commentId) => {
         .then(post => {
             if (!post) throw new Error('Post not found')
 
-            return db.posts.findOne({ _id: postIdObject, comments: { $elemMatch: { _id: commentIdObject } } })
-                .catch(error => { new Error(error.message) })
-        })
-        .then(comment => {
+            const { comments } = post
+
+            const comment = comments.find(comment => comment._id.equals(commentIdObject))
+
             if (!comment) throw new Error('Comment not found')
 
-            if (comment.author.toString() !== userIdObject.toString()) throw new Error('User is not author of comment')
+            const { author: authorId } = comment
+
+            if (!authorId.equals(userIdObject)) throw new Error('User is not author of comment')
 
             return db.posts.updateOne({ _id: postIdObject }, { $pull: { comments: { _id: commentIdObject } } })
-                .catch(error => { new Error(error.message) })
         })
         .then(_ => { })
 }

@@ -3,8 +3,6 @@ import { validate } from 'com'
 
 const { ObjectId } = db
 
-//no funciona no puk mes
-
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
@@ -25,12 +23,12 @@ export default (userId, postId) => {
 
             const { likes } = post
 
-            const found = likes.some(id => id.equals(userIdObject))
+            const found = likes.some(_id => _id.equals(userIdObject))
 
-            if (found) return db.posts.updateOne({ _id: postIdObject }, { $pull: { likes: userIdObject } })
+            if (!found)
+                return db.posts.updateOne({ _id: postIdObject }, { $push: { likes: userIdObject } })
 
-                .then(found => {
-                    if (!found) return db.posts.updateOne({ _id: postIdObject }, { $push: { likes: userIdObject } })
-                })
+            else
+                return db.posts.updateOne({ _id: postIdObject }, { $pull: { likes: userIdObject } })
         })
 }

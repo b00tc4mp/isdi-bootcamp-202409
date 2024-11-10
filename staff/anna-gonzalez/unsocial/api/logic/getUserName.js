@@ -7,12 +7,15 @@ export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
 
-    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+    const userIdObject = ObjectId.createFromHexString(userId)
+    const targetUserIdObject = ObjectId.createFromHexString(targetUserId)
+
+    return db.users.findOne({ _id: userIdObject })
         .catch(error => { new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('User not found')
 
-            return db.users.findOne({ _id: ObjectId.createFromHexString(targetUserId) })
+            return db.users.findOne({ _id: targetUserIdObject })
                 .catch(error => { new Error(error.message) })
         })
         .then(user => {

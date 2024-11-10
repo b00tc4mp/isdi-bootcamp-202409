@@ -35,7 +35,7 @@ terminal commands:
         Si quiero todos los permisos: 7 4 4
         chmod 744 test/login-user.sh
 
-    node --inspect-brk //debugar
+    node --inspect-brk logic/getPosts.test.js //debugar
         o eso o añado en el script del package "inspect": "node --inspect-brk ." y npm run inspect
 
     npm i cors //conectar api app

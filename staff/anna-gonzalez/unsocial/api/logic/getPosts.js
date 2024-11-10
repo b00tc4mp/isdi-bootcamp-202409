@@ -8,38 +8,35 @@ export default userId => {
 
     const userIdObject = ObjectId.createFromHexString(userId)
 
-    return db.users.findOne({ _id: new ObjectId(userIdObject) })
+    return db.users.findOne({ _id: userIdObject })
         .then(user => {
             if (!user) throw new Error('User not found')
 
             return db.posts.find().toArray()
-                .then(allPosts => {
-                    return db.users.find().toArray()
-                        .then(allUsers => {
-                            const transformedPosts = []
+        })
+        .then(allPosts => {
+            return db.users.find().toArray()
+                .then(allUsers => {
+                    const transformedPosts = []
 
-                            allPosts.forEach(post => {
-                                const { _id, image, text, author: authorId, date } = post
+                    allPosts.forEach(post => {
+                        const { author: authorId, likes, saves, comments } = post
 
-                                const { username } = allUsers.find(({ _id }) => _id.toString() === authorId.toString())
+                        const { username } = allUsers.find(({ _id }) => _id.equals(authorId))
 
-                                transformedPosts.push({
-                                    _id,
-                                    image,
-                                    text,
-                                    author: {
-                                        _id: authorId,
-                                        username
-                                    },
-                                    date,
-                                    likes: post.likes.includes(userId),
-                                    saves: post.saves.includes(userId),
-                                    comments: post.comments.length
-                                })
-                            })
-
-                            return transformedPosts.toReversed()
+                        transformedPosts.push({
+                            ...post,
+                            author: {
+                                _id: authorId,
+                                username
+                            },
+                            liked: likes.some(_id => _id.equals(userIdObject)),
+                            saved: saves.some(_id => _id.equals(userIdObject)),
+                            comments: comments.length
                         })
+                    })
+
+                    return transformedPosts.toReversed()
                 })
         })
 }

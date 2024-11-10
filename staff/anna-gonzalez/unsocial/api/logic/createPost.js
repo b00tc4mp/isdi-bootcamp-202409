@@ -8,12 +8,14 @@ export default (userId, image, text) => {
     validate.image(image)
     validate.text(text)
 
-    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+    const userIdObject = ObjectId.createFromHexString(userId)
+
+    return db.users.findOne({ _id: userIdObject })
         .catch(error => { new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('User not found')
 
-            return db.posts.insertOne({ image: image, text: text, author: ObjectId.createFromHexString(userId), date: new Date(), likes: [], saves: [], comments: [] })
+            return db.posts.insertOne({ image: image, text: text, author: userIdObject, date: new Date(), likes: [], saves: [], comments: [] })
                 .catch(error => {
                     if (error.code === 11000) throw new Error('Post already exists')
 

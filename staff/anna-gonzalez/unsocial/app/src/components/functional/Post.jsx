@@ -13,7 +13,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
     const [view, setView] = useState(null)
 
     const {
-        id,
+        _id,
         author,
         image,
         text,
@@ -27,7 +27,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
 
     const handleSavedClick = () => {
         try {
-            logic.toggleSavePost(id, error => {
+            logic.toggleSavePost(_id, error => {
                 if (error) {
                     alert(error.message)
 
@@ -47,7 +47,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
 
     const handleLikeClick = () => {
         try {
-            logic.toggleLikePost(id, error => {
+            logic.toggleLikePost(_id, error => {
                 if (error) {
                     alert(error.message)
 
@@ -68,7 +68,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
     const handleDeleteClick = () => {
         if (confirm('Delete post?')) {
             try {
-                logic.deletePost(id, error => {
+                logic.deletePost(_id, error => {
                     if (error) {
                         alert(error.message)
 
@@ -108,7 +108,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
         <time>{getElapsedTime(date)} ago</time>
 
         {view === 'comments' && <Comments
-            postId={id}
+            postId={_id}
             onAdded={onCommentAdded}
             onRemoved={onCommentRemoved}
         />}
@@ -117,7 +117,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
             <Button className="no-style-button"
                 onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</Button>
 
-            {author.id === logic.getUserId() && <Button className="no-style-button"
+            {author._id === logic.getUserId() && <Button className="no-style-button"
                 onClick={handleDeleteClick}>❌</Button>}
 
             <Button className="no-style-button"

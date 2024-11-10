@@ -1,30 +1,48 @@
+import db from 'dat'
 import { validate } from 'com'
 
-import { storage } from '../data/index.js'
+const { ObjectId } = db
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const { users, posts } = storage
+    const userIdObject = ObjectId.createFromHexString(userId)
+    const postIdObject = ObjectId.createFromHexString(postId)
 
-    const found = users.some(({ id }) => id === userId)
+    return db.users.findOne({ _id: userIdObject })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('User not found')
 
-    if (!found) throw new Error('User not found')
+            return db.posts.findOne({ _id: postIdObject })
+        })
+        .then(post => {
+            if (!post) throw new Error('Post not found')
 
-    const post = posts.find(({ id }) => id === postId)
+            return db.users.find({}).toArray()
+                .catch(error => { new Error(error.message) })
+                .then(allUsers => {
+                    const transformedComments = []
 
-    if (!post) throw new Error('Post not found')
+                    const { comments } = post
 
-    const { comments } = post
+                    comments.forEach(comment => {
+                        const { _id, author: authorId, text, date } = comment
 
-    comments.forEach(comment => {
-        const { author: authorId } = comment
+                        const { username } = allUsers.find(({ _id }) => _id.equals(authorId))
 
-        const { username } = users.find(({ id }) => id === authorId)
-
-        comment.author = { id: authorId, username }
-    })
-
-    return comments
+                        transformedComments.push({
+                            _id,
+                            author: {
+                                _id: authorId,
+                                username
+                            },
+                            text,
+                            date
+                        })
+                    })
+                    return transformedComments
+                })
+        })
 }
