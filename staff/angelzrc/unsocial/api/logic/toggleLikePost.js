@@ -1,11 +1,15 @@
 import { validate } from 'com'
-import { storage } from '../data/index.js'
+import db from 'dat'
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const { users, posts } = storage
+
+
+    /* const { users, posts } = storage
 
     const found = users.some(({ id }) => id === userId)
 
@@ -24,5 +28,5 @@ export default (userId, postId) => {
     else
         likes.splice(index, 1)
 
-    storage.posts = posts
+    storage.posts = posts */
 }
