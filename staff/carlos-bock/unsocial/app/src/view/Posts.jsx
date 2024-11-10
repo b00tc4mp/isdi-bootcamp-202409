@@ -7,13 +7,13 @@ import logic from "../logic";
 import './Posts.css';
 
 export default function Posts() {
-    const [post, setPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         console.log('Posts -> useEffect "componentDidMout"');
 
         try {
-            logic.getPosts((error, posts)=> {
+            false && logic.getPosts((error, posts)=> {
                 if (error) {
                     alert(error.message);
 
@@ -42,7 +42,7 @@ export default function Posts() {
 
                     return;
                 }
-                this.setState({posts});
+                setPosts(posts);
             })
         } catch (error) {
             alert(error.message);
@@ -62,7 +62,7 @@ export default function Posts() {
                     return;
                 };
 
-                this.setState({ posts })
+                setPosts(posts)
             });
         } catch (error) {
             alert(error.message);
@@ -73,7 +73,7 @@ export default function Posts() {
 
     const handleCommentAdded = () => {
         try {
-            logic.getPosts((error, posts) => {
+            false && logic.getPosts((error, posts) => {
                 if (error) {
                     alert(error.message);
 
@@ -82,7 +82,7 @@ export default function Posts() {
                     return;
                 }
 
-                this.setState({ posts });
+               setPosts(posts);
             });
         } catch (error) {
             alert(error.message);
@@ -102,7 +102,7 @@ export default function Posts() {
                     return;
                 };
 
-                this.setState({ posts });
+                setPosts(posts);
             });
         } catch (error) {
             alert(error.message)
@@ -115,7 +115,7 @@ export default function Posts() {
         console.log('Posts -> render')
 
         return <div className="Posts">
-            {this.state.posts.map(post => <Post
+            {posts.map(post => <Post
                 key={post.id}
                 post = {post}
                 onLiked={handleLiked}

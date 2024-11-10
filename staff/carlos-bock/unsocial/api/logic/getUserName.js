@@ -1,21 +1,22 @@
-import {storage} from '../data/index.js';
-import { validate } from 'com'
+import db from 'dat';
+import { validate } from 'com';
+
+const {ObjectId} = db;
 
 const getUserName = (userId, targetUserId) => {
     validate.id(userId, 'userId');
     validate.id(targetUserId, 'targetUserId');
 
-    const {users} = storage;
-    
-    const found = users.some(({id} ) => id === userId)
-
-    if (!found) throw new Error('use not found');
-
-    const user = users.find(({ id }) => id === targetUserId)
-
-    if (!user) throw new Error('user not found');
-
-    return user.name;
-}
-
+    return db.users.findOne({_id: ObjectId.createFromHexString(userId)})
+        .catch(error => { new Error(error.message)})
+        .then(user => {
+            if (!user) throw new Error('user not found')
+                return db.users.findOne({ _id: ObjectId.createFromHexString(targetUserId)})
+                    .catch(error => {new Error(error.message)});
+        })
+        .then(user => {
+            if (!user) throw new Error('target user not found')
+                return user.name;
+        });
+};
 export default getUserName;

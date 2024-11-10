@@ -1,7 +1,14 @@
+import db from 'data';
 import getUserName from './getUserName.js';
 
-try {
-    console.log(getUserName('m2vvw4xzn6d','m2x81mske0o')); //segundo parametro falta en código original, all poner un string aleatorio cause un error esperado;
-} catch (error) {
-    console.error(error);
-}
+db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+    .then(() => {
+        try {
+            getUserName('672e3fc39cee3ea8fbf6dc72','672e3fc39cee3ea8fbf6dc72') // reemplazar ids
+                .then(console.log)
+                .catch(console.error)
+        } catch (error) {
+            console.error(error);
+        }
+    })
+    .catch(console.error);

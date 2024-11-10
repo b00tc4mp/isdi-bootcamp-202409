@@ -1,6 +1,5 @@
-import {storage, uuid} from '../data/index.js';
-
-import validate from './helpers/validate.js';
+import db from 'dat';
+import {validate} from 'com';
 
 const registerUser = (name, email, username, password, passwordRepeat) => {
     validate.name(name);
@@ -9,16 +8,13 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
     validate.password(password);
     validate.passwordsMatch(password,passwordRepeat);
 
-    const {users} = storage;
+    return db.users.insertOne({name, email, username, password})
+        .then(_=> {})
+        .catch(error => {
+            if (error.code === 11000) throw new Error('user already exists');
 
-    let user = users.find ( user => user.username === username || user.email === email);
-
-    if (user)
-        throw new Error('user already exists');
-
-    user = {id: uuid(), name: name, email: email, username: username, password: password};
-
-    users.push(user);
+            throw new Error(error.message);
+        });
 }
 
 export default registerUser;

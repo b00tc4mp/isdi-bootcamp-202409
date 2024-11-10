@@ -1,18 +1,18 @@
-import {storage} from '../data/index.js';
-import validate from './helpers/validate.js';
+import db from 'dat';
+import {validate} from 'com';
 
 const authenticateUser = (username, password) => {
     validate.username(username);
     validate.password(password);
     /*if (password.length < 8) throw new Error('invalid password');*/
-    const {users} = storage;
+    return db.users.findOne({username, password})
+        .catch(error => {new Error (error.message)})
+        .then(user => {
+            if (!user) throw new Error('wrong credentials');
 
-    const user = users.find(user => user.username === username && user.password === password);
-
-    if (user === undefined)
-        throw new Error('wrong credientials');
-
-    return user.id;
+            return user._id.toString();
+        })
+    
 }
 
 export default authenticateUser;
