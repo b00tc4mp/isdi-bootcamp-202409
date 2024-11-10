@@ -7,7 +7,6 @@ import getElapsedTime from "../../utils/getElapsedTime"
 import './Comment.css'
 
 export default ({ postId, comment: { _id, author, text, date }, onRemoved }) => {
-
     const handleRemove = () => {
         if (confirm('Delete comment?'))
             try {
@@ -31,7 +30,6 @@ export default ({ postId, comment: { _id, author, text, date }, onRemoved }) => 
     return <li className="Comment">
         <div className="username-delete">
             <h5>{author.username}</h5>
-
             {logic.getUserId() === author._id && <Button classname="remove-comment" onClick={handleRemove}>❌</Button>}
         </div>
 

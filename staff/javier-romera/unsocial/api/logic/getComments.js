@@ -24,7 +24,6 @@ export default (userId, postId) => {
 
             return db.users.find({}).toArray()
                 .catch(error => { new Error(error.message) })
-
                 .then(users => {
                     const { comments } = post
 

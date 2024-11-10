@@ -1,7 +1,7 @@
 import getUserId from './getUserId.js';
 
 try {
-    console.log(getUserId('m2w6ch7dkh'))
+    console.log(getUserId('672e08451dfe72076c0ca52c'))
 } catch (error) {
     console.error(error)
 }
