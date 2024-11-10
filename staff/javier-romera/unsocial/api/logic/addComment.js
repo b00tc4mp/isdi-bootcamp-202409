@@ -15,7 +15,7 @@ export default (userId, postId, text) => {
     return db.users.findOne({ _id: objectUserId })
         .catch(error => { new Error(error.message) })
         .then(user => {
-            if (!user) throw new Error(error.message)
+            if (!user) throw new Error('user not found')
 
             return db.posts.findOne({ _id: objectPostId })
                 .catch(error => { new Error(error.message) })

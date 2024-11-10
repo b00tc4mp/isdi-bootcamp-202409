@@ -13,7 +13,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
     const [view, setView] = useState(null)
 
     const {
-        id,
+        _id,
         author,
         image,
         text,
@@ -25,7 +25,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
     const handleLikeClick = () => {
         try {
-            logic.toggleLikePost(id, error => {
+            logic.toggleLikePost(_id, error => {
                 if (error) {
                     alert(error.message)
 
@@ -45,7 +45,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
     const handleDeleteClick = () => {
         if (confirm('Are you sure you want to delete this post?')) {
             try {
-                logic.deletePost(id, error => {
+                logic.deletePost(_id, error => {
                     if (error) {
                         alert(error.message)
 
@@ -80,7 +80,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         <div className="post-header">
             <h4>{author.username}</h4>
 
-            {logic.getUserId() === author.id && <Button classname="delete-button" type="button" onClick={handleDeleteClick}>❌</Button>}
+            {logic.getUserId() === author._id && <Button classname="delete-button" type="button" onClick={handleDeleteClick}>❌</Button>}
         </div>
 
         <img src={image}></img>
@@ -97,7 +97,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         <p className="caption">{text}</p>
 
         {view === 'comments' && <Comments
-            postId={id}
+            postId={_id}
             onAdded={onCommentAdded}
             onRemoved={onCommentRemoved} />}
 

@@ -10,7 +10,7 @@ import toggleLikePost from './toggleLikePost.js'
 
 import addComment from './addComment.js'
 import removeComment from './removeComment.js'
-// import getComments from './getComments.js'
+import getComments from './getComments.js'
 
 const logic = {
     authenticateUser,
@@ -25,7 +25,7 @@ const logic = {
 
     addComment,
     removeComment,
-    // getComments
+    getComments
 }
 
 export default logic

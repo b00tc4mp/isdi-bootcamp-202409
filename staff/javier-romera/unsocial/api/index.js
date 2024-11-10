@@ -3,7 +3,7 @@ import express, { json } from 'express'
 import logic from './logic/index.js'
 import cors from 'cors'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect('mongodb://127.0.0.1:27017/unsocial')
     .then(() => {
         console.log('connected to db')
 
@@ -170,7 +170,7 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
                 const { postId } = req.params
 
                 logic.getComments(userId, postId)
-                    .then(() => res.json(comments))
+                    .then(comments => res.json(comments))
                     .catch(error => {
                         res.status(400).json({ error: error.constructor.name, message: error.message })
 

@@ -23,25 +23,21 @@ export default userId => {
                     const transformedPosts = []
 
                     allPosts.forEach(post => {
-                        const { _id, image, text, author: authorId, date, likedBy, comments } = post
+                        const { author: authorId, likedBy, comments } = post
 
                         const { username } = allUsers.find(({ _id }) => _id.equals(authorId))
 
                         transformedPosts.push({
-                            _id,
-                            image,
-                            text,
+                            ...post,
                             author: {
                                 _id: authorId,
                                 username
                             },
-                            date,
-                            likedBy,
-                            liked: likedBy.some(id => id.equals(authorId)),
+                            liked: likedBy.some(id => id.equals(objectUserId)),
                             comments: comments.length
                         })
                     })
-                    return transformedPosts.reverse()
+                    return transformedPosts.toReversed()
                 })
         })
 }
