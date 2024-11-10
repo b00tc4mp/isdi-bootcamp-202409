@@ -3,11 +3,11 @@ import registerUser from './registerUser.js'
 import getUserName from './getUserName.js'
 import createPost from './createPost.js'
 import deletePost from './deletePost.js'
-// import getPosts from './getPosts.js'
-// import createComment from './createComment.js'
-// import removeComment from './removeComment.js'
+import getPosts from './getPosts.js'
+import createComment from './createComment.js'
+import removeComment from './removeComment.js'
 // import getComments from './getComments.js'
-// import toggleLikePost from './toggleLikePost.js'
+import toggleLikePost from './toggleLikePost.js'
 
 const logic = {
     authenticateUser,
@@ -16,12 +16,12 @@ const logic = {
 
     createPost,
     deletePost,
-    // getPosts,
-    // toggleLikePost,
+    getPosts,
+    toggleLikePost,
 
-    // createComment,
+    createComment,
     // getComments,
-    // removeComment
+    removeComment
 }
 
 export default logic

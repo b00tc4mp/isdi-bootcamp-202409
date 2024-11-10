@@ -1,32 +1,22 @@
-import { storage } from '../data/index.js'
 import { validate } from './helpers/index.js'
 
 import db from 'dat'
 
+const { ObjectId } = db
+
 export default userId => {
     validate.id(userId, 'userId')
 
-    const { users, posts } = storage
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    const found = users.some(({ id }) => id === userId)
+            return db.posts.find().forEach(post => { console.log(post) })
+                .catch(error => { new Error(error.message) })
+            // .then(post => {
+            //     if (!post) throw new Error('post not found')
+            // })
+        })
 
-    if (!found) throw new Error('user not found')
-
-    posts.forEach(post => {
-        const { author: authorId } = post
-
-        //const user = users.find(user => user.id === authorId)
-        //const user = users.find(({ id }) => id === authorId)
-        const { username } = users.find(({ id }) => id === authorId)
-
-        //post.author = { id: authorId, username: username }
-        post.author = { id: authorId, username }
-
-        post.liked = post.likes.includes(userId)
-
-        post.comments = post.comments.length
-
-    })
-
-    return posts.toReversed()
 }

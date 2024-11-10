@@ -16,7 +16,7 @@ export default (userId, text, image) => {
             if (!user) throw new Error('user not found')
 
             return db.posts
-                .insertOne({ author: userId, text, image, likes: [], comments: [] })
+                .insertOne({ author: userId, text, image, likes: [], comments: [], date: new Date })
                 .then((user) => {
                     if (!user) throw new Error('user not found')
                 })

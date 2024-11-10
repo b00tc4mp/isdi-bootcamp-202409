@@ -1,6 +1,6 @@
 import { validate } from './helpers/index.js'
 
-import { uuid, storage } from '../data/index.js'
+const { ObjectId } = db
 
 import db from 'dat'
 
@@ -9,24 +9,22 @@ export default (userId, postId, text) => {
     validate.id(postId, 'postId')
     validate.text(text)
 
-    const { users, posts } = storage
 
-    const found = users.some(({ id }) => id === userId)
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    if (!found) throw new Error('user not found')
-
-    const post = posts.find(({ id }) => id === postId)
-
-    if (!post) throw new Error('post not found')
-
-    const { comments } = post
-
-    comments.push({
-        id: uuid(),
-        author: userId,
-        text,
-        date: new Date().toISOString()
-    })
-
-    storage.posts = posts
+            return db.posts
+                .updateOne({ _id: ObjectId.createFromHexString(postId) }, { $push: { comments: { _id: new ObjectId(), author: ObjectId.createFromHexString(userId), text, date: new Date } } })
+                .then((post) => {
+                    if (!post) throw new Error('post not found')
+                })
+                .then((_) => {
+                    console.log('Created comment')
+                })
+                .catch((error) => {
+                    throw new Error(error.message)
+                })
+        })
 }

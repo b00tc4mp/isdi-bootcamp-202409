@@ -91,9 +91,13 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
             try {
                 const userId = req.headers.authorization.slice(6)
 
-                const posts = logic.getPosts(userId)
+                logic.getPosts(userId)
+                    .then(posts => res.json(posts))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                res.json(posts)
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -151,8 +155,12 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
                 const { text } = req.body
 
                 logic.createComment(userId, postId, text)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                res.status(201).send()
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -188,10 +196,14 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
             try {
                 const userId = req.headers.authorization.slice(6)
                 const { postId, commentId } = req.params
+
                 logic.removeComment(userId, postId, commentId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                res.status(204).send()
-
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -204,12 +216,17 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
         //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
         server.patch('/posts/:postId/likes', (req, res) => {
             try {
-                const { postId, commentId } = req.params
                 const userId = req.headers.authorization.slice(6)
-                logic.toggleLikePost(userId, postId, commentId)
 
-                res.status(204).send()
+                const { postId, commentId } = req.params
 
+                logic.toggleLikePost(userId, postId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 

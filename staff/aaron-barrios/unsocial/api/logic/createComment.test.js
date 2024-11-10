@@ -1,7 +1,15 @@
 import createComment from './createComment.js'
 
-try {
-    createComment('m2vvqdtgcba', 'm2vw4ucygv', 'Soy un mierda?')
-} catch (error) {
-    console.error(error)
-}
+import db from 'dat'
+
+db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+    .then(() => {
+        try {
+            createComment('672e3058090fcae7fd450528', '672f6cd403484df2359a9893', 'estoy aquiiiiii')
+                .then(console.log)
+                .catch(console.error)
+        } catch (error) {
+            console.error(error)
+        }
+    })
+    .catch(console.error)
