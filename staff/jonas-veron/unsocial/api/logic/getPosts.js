@@ -8,33 +8,31 @@ export default (userId) => {
 
   return db.users
     .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .catch((error) => new Error(error.message))
     .then((user) => {
       if (!user) throw new Error("user not found");
 
       return db.posts.find().toArray();
     })
     .then((posts) => {
-      const updatedPosts = posts.map((post) => {
-        const authorId = post.author;
+      return db.users
+        .find()
+        .toArray()
+        .then((users) => {
+          posts.forEach((post) => {
+            const { author: authorId, likes, comments } = post;
 
-        return db.users
-          .findOne({ _id: ObjectId.createFromHexString(authorId) })
-          .then((author) => {
-            console.log(author);
-            if (author) {
-              post.author = { id: author._id, username: author.username };
-            }
+            const { username } = users.find(({ _id }) => _id.equals(authorId));
 
-            post.liked = post.likes.includes(userId);
-            post.comments = post.comments.length;
+            post.author = { _id: authorId, username };
 
-            return post;
+            post.liked = likes.some((id) =>
+              id.equals(ObjectId.createFromHexString(userId))
+            );
+
+            post.comments = comments.length;
           });
-      });
-      return Promise.all(updatedPosts);
-    })
-    .then((updatedPosts) => updatedPosts.reverse())
-    .catch((error) => {
-      throw new Error(error.message);
+          return posts.toReversed();
+        });
     });
 };

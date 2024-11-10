@@ -15,11 +15,11 @@ export default function Post({
   console.log("Post -> constructor");
   const [view, setView] = useState(null);
 
-  const { id, author, image, text, date, liked, likes, comments } = post;
+  const { _id, author, image, text, date, liked, likes, comments } = post;
 
   const handleLikeClick = () => {
     try {
-      logic.toggleLikePost(post.id, (error) => {
+      logic.toggleLikePost(post._id, (error) => {
         if (error) {
           alert(error.message);
 
@@ -43,7 +43,7 @@ export default function Post({
   const handleDeleteClick = () => {
     if (confirm("Estas seguro de eliminar este post ?")) {
       try {
-        logic.deletePost(post.id, (error) => {
+        logic.deletePost(post._id, (error) => {
           if (error) {
             alert(error.message);
 
@@ -68,7 +68,7 @@ export default function Post({
     <article className="Post">
       <div className="usernameAndDeleteButton">
         <h4 className="postUserNameTitle">{author.username}</h4>
-        {author.id === logic.getUserId() && (
+        {author._id === logic.getUserId() && (
           <Button className="deletePostButton" onClick={handleDeleteClick}>
             ❌
           </Button>
@@ -96,7 +96,7 @@ export default function Post({
 
       {view === "comments" && (
         <Comments
-          postId={id}
+          postId={_id}
           onAdded={onCommentAdded}
           onRemoved={onCommentRemoved}
         />

@@ -117,12 +117,19 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
   });
 
   server.get("/posts", (req, res) => {
-    const userId = req.headers.authorization.slice(6);
-
     try {
-      const posts = logic.getPosts(userId);
+      const userId = req.headers.authorization.slice(6);
 
-      res.json(posts);
+      logic
+        .getPosts(userId)
+        .then((posts) => res.json(posts))
+        .catch((error) => {
+          res
+            .status(400)
+            .json({ error: error.constructor.name, message: error.message });
+
+          console.error(error);
+        });
     } catch (error) {
       res
         .status(400)
@@ -156,13 +163,20 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
   });
 
   server.patch("/posts/:postId/likes", (req, res) => {
-    const userId = req.headers.authorization.slice(6);
-    const { postId } = req.params;
-
     try {
-      logic.toggleLikePost(userId, postId);
+      const userId = req.headers.authorization.slice(6);
+      const { postId } = req.params;
 
-      res.status(204).send();
+      logic
+        .toggleLikePost(userId, postId)
+        .then(() => res.status(204).send())
+        .catch((error) => {
+          res
+            .status(400)
+            .json({ error: error.constructor.name, message: error.message });
+
+          console.error(error);
+        });
     } catch (error) {
       res
         .status(400)
@@ -173,14 +187,21 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
   });
 
   server.post("/posts/:postId/comments", jsonBodyParser, (req, res) => {
-    const userId = req.headers.authorization.slice(6);
-    const { text } = req.body;
-
-    const { postId } = req.params;
     try {
-      logic.addComment(userId, postId, text);
+      const userId = req.headers.authorization.slice(6);
+      const { text } = req.body;
 
-      res.status(201).send();
+      const { postId } = req.params;
+      logic
+        .addComment(userId, postId, text)
+        .then(() => res.status(201).send())
+        .catch((error) => {
+          res
+            .status(400)
+            .json({ error: error.constructor.name, message: error.message });
+
+          console.error(error);
+        });
     } catch (error) {
       res
         .status(400)
@@ -191,13 +212,20 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
   });
 
   server.get("/posts/:postId/comments", (req, res) => {
-    const userId = req.headers.authorization.slice(6);
-    const { postId } = req.params;
-
     try {
-      const comments = logic.getComments(userId, postId);
+      const userId = req.headers.authorization.slice(6);
+      const { postId } = req.params;
 
-      res.json(comments);
+      logic
+        .getComments(userId, postId)
+        .then((comments) => res.json(comments))
+        .catch((error) => {
+          res
+            .status(400)
+            .json({ error: error.constructor.name, message: error.message });
+
+          console.error(error);
+        });
     } catch (error) {
       res
         .status(400)
@@ -208,13 +236,21 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
   });
 
   server.delete("/posts/:postId/comments/:commentId", (req, res) => {
-    const userId = req.headers.authorization.slice(6);
-
-    const { postId, commentId } = req.params;
-
     try {
-      logic.removeComment(userId, postId, commentId);
-      res.status(204).send();
+      const userId = req.headers.authorization.slice(6);
+
+      const { postId, commentId } = req.params;
+
+      logic
+        .removeComment(userId, postId, commentId)
+        .then(() => res.status(204).send())
+        .catch((error) => {
+          res
+            .status(404)
+            .json({ error: error.constructor.name, message: error.message });
+
+          console.error(error);
+        });
     } catch (error) {
       res
         .status(404)

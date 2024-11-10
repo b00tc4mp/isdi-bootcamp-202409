@@ -11,17 +11,16 @@ export default function Posts() {
   useEffect(() => {
     console.log("Posts -> componentDidMount");
     try {
-      false &&
-        logic.getPosts((error, posts) => {
-          if (error) {
-            alert(error.message);
+      logic.getPosts((error, posts) => {
+        if (error) {
+          alert(error.message);
 
-            console.error(error);
+          console.error(error);
 
-            return;
-          }
-          setPosts(posts);
-        });
+          return;
+        }
+        setPosts(posts);
+      });
     } catch (error) {
       alert(error.message);
 
@@ -31,17 +30,16 @@ export default function Posts() {
 
   const handleLiked = () => {
     try {
-      false &&
-        logic.getPosts((error, posts) => {
-          if (error) {
-            alert(error.message);
+      logic.getPosts((error, posts) => {
+        if (error) {
+          alert(error.message);
 
-            console.error(error);
+          console.error(error);
 
-            return;
-          }
-          setPosts(posts);
-        });
+          return;
+        }
+        setPosts(posts);
+      });
     } catch (error) {
       alert(error.message);
 
@@ -51,17 +49,16 @@ export default function Posts() {
 
   const handleDeleted = () => {
     try {
-      false &&
-        logic.getPosts((error, posts) => {
-          if (error) {
-            alert(error.message);
+      logic.getPosts((error, posts) => {
+        if (error) {
+          alert(error.message);
 
-            console.error(error);
+          console.error(error);
 
-            return;
-          }
-          setPosts(posts);
-        });
+          return;
+        }
+        setPosts(posts);
+      });
     } catch (error) {
       alert(error.message);
 
@@ -71,17 +68,16 @@ export default function Posts() {
 
   const handleCommentAdded = () => {
     try {
-      false &&
-        logic.getPosts((error, posts) => {
-          if (error) {
-            alert(error.message);
+      logic.getPosts((error, posts) => {
+        if (error) {
+          alert(error.message);
 
-            console.error(error);
+          console.error(error);
 
-            return;
-          }
-          setPosts(posts);
-        });
+          return;
+        }
+        setPosts(posts);
+      });
     } catch (error) {
       alert(error.message);
 
@@ -91,17 +87,16 @@ export default function Posts() {
 
   const handleCommentRemoved = () => {
     try {
-      false &&
-        logic.getPosts((error, posts) => {
-          if (error) {
-            alert(error.message);
+      logic.getPosts((error, posts) => {
+        if (error) {
+          alert(error.message);
 
-            console.error(error);
+          console.error(error);
 
-            return;
-          }
-          setPosts(posts);
-        });
+          return;
+        }
+        setPosts(posts);
+      });
     } catch (error) {
       alert(error.message);
 
@@ -115,7 +110,7 @@ export default function Posts() {
     <div>
       {posts.map((post) => (
         <Post
-          key={post.id}
+          key={post._id}
           post={post}
           onLiked={handleLiked}
           onDeleted={handleDeleted}
