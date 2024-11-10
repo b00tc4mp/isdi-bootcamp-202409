@@ -25,27 +25,17 @@ export default (userId, postId) => {
             return db.users.find({}).toArray()
                 .catch(error => { new Error(error.message) })
 
-                .then(allUsers => {
-                    const transformedComments = []
-
+                .then(users => {
                     const { comments } = post
 
                     comments.forEach(comment => {
-                        const { _id, author: authorId, text, date } = comment
+                        const { author: authorId } = comment
 
-                        const { username } = allUsers.find(({ _id }) => _id.equals(authorId))
+                        const { username } = users.find(({ _id }) => _id.equals(authorId))
 
-                        transformedComments.push({
-                            _id,
-                            author: {
-                                _id: authorId,
-                                username
-                            },
-                            text,
-                            date
-                        })
+                        comment.author = { _id: authorId, username }
                     })
-                    return transformedComments
+                    return comments
                 })
         })
 }
