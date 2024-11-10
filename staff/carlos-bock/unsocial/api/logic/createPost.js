@@ -1,31 +1,26 @@
-import {validate} from './helpers/index.js';
-
-import {storage, uuid} from '../data/index.js';
+import db from 'dat';
+import {validate} from 'com';
+import {uuid} from '../data/index.js';
 
 const createPost = (userId, image, text) => {
     validate.id(userId, 'userID');
     validate.image(image);
     validate.text(text);
 
-    const {users, posts} = storage;
-
-    const found = users.some(({id}) => id === userId);
-
-    if (!found) throw new Error ('user not found');
-
-    const post = {
+    return db.posts.insertOne({
         id: uuid(),
         image: image,
         text: text,
-        author: userId,
+        author: userId, //check logic
         date: new Date,
-        likes: [],
+        like:[],
         comments: []
-    };
+    })
+        .then(_=> {})
+        .catch(error => {
+            if (error.code === 11000) throw new Error('post already exists'); //check error code
 
-    posts.push(post)
-
-    storage.posts = posts;
+            throw new Error(error.message);
+        });
 }
-
 export default createPost;

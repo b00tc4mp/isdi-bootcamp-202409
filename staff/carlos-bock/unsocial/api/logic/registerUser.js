@@ -16,5 +16,4 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
             throw new Error(error.message);
         });
 }
-
 export default registerUser;
