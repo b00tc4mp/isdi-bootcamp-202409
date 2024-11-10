@@ -1,4 +1,4 @@
- curl -H 'Authorization: Basic m2vzaqy1te' -H 'Content-Type: application/json' -d '{"image":"https://img.freepik.com/vector-gratis/feliz-halloween-concepto-letras_23-2148628530.jpg","text":"happy halloween"}' http://localhost:8080/posts -v
+ curl -H 'Authorization: Basic 672e23c59b19f01fb4c38f37' -H 'Content-Type: application/json' -d '{"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT49v0CTq4qN332Zz6k7Ov_7KON5si0ZSXa8w&s","text":"happy dog"}' http://localhost:8080/posts -v
 
 # -H son cabeceras. La primera identifica al que hace la solicitud. La segunda el tipo de dato que se envia. 
 # -d es el mensaje. 

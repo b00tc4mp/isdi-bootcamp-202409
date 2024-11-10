@@ -14,7 +14,14 @@ export default (userId, image, text) => {
       if (!user) throw new Error('user not found')
 
       return db.posts.insertOne({ author: userId, image, text, date: new Date, likes: [], comments: [] })
-        .then(_ => { })
-        .catch(console.error)
+        .then((user) => {
+          if (!user) throw new Error('user not found')
+        })
+        .then(_ => {
+          console.log('Created post')
+        })
+        .catch((error) => {
+          throw new Error(error.message)
+        })
     })
 }

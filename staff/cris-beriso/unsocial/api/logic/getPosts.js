@@ -1,26 +1,19 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
 import { validate } from 'com/index.js'
+
+const { ObjectId } = db
 
 export default userId => {
   validate.id(userId)
 
-  const { users, posts } = storage
+  return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+    .catch(error => { new Error(error.message) })
+    .then(user => {
+      if (!user) throw new Error('user not found')
 
-  const found = users.some(({ id }) => id === userId)
-
-  if (!found) throw new Error('user not found')
-
-  posts.forEach(post => {
-    const { author: authorId } = post
-
-    const { username } = users.find(({ id }) => id === authorId)
-
-    post.author = { id: authorId, username }
-
-    post.liked = post.likes.includes(userId)
-
-    posts.comments = post.comments.length
-  })
-
-  return posts.toReversed()
+      return db.posts.find().forEach(post => { console.log(post) })
+        .catch((error) => {
+          throw new Error(error.message)
+        })
+    })
 }

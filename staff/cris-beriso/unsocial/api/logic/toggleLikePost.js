@@ -1,28 +1,38 @@
 import { validate } from 'com/index.js'
-import { storage } from '../data/index.js'
+
+import db from 'dat'
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
   validate.id(postId, 'postId')
   validate.id(userId, 'userId')
 
-  const { users, posts } = storage
+  return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+    .catch(error => { new Error(error.message) })
+    .then(user => {
+      if (!user) throw new Error('user not found')
 
-  const found = users.some(({ id }) => id === userId)
+      let userLiked;
 
-  if (!found) throw new Error('user not found')
+      return db.posts.findOne({ _id: ObjectId.createFromHexString(postId) })
+        .catch(error => { new Error(error.message) })
+        .then(post => {
+          if (!post) throw new Error('post not found')
 
-  const post = posts.find(({ id }) => id === postId)
+          userLiked = post.likes.some(element => element._id.equals(ObjectId.createFromHexString(userId)))
 
-  if (!post) throw new Error('post not found')
+          return db.posts
+            .updateOne({ _id: ObjectId.createFromHexString(postId) }, userLiked
+              ? { $pull: { likes: { _id: ObjectId.createFromHexString(userId) } } }
+              : { $push: { likes: { _id: ObjectId.createFromHexString(userId) } } })
 
-  const { likes } = post
-
-  const index = likes.indexOf(userId)
-
-  if (index < 0)
-    likes.push(userId)
-  else
-    likes.splice(index, 1)
-
-  storage.posts = posts
+            .then(() => {
+              console.log(userLiked ? 'Unliked' : 'Liked')
+            })
+            .catch((error) => {
+              throw new Error(error.message)
+            })
+        })
+    })
 }

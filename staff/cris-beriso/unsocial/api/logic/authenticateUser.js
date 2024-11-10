@@ -8,7 +8,7 @@ export default (username, password) => {
   return db.users.findOne({ username, password })
     .catch(error => { new Error(error.message) })
     .then(user => {
-      if (user === undefined) throw new Error('wrong credentials')
+      if (!user) throw new Error('wrong credentials')
 
       return user._id.toString()
     })
