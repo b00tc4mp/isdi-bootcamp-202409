@@ -72,12 +72,19 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
         })
 
         server.post('/posts', jsonBodyParser, (req, res) => {
-            const userId = req.headers.authorization.slice(6)
 
-            const { image, text } = req.body
 
             try {
+                const userId = req.headers.authorization.slice(6)
+
+                const { image, text } = req.body
                 logic.createPost(userId, image, text)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
 
                 res.status(201).send()
             } catch (error) {
@@ -88,12 +95,18 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
         })
 
         server.get('/posts', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
+
 
             try {
-                const posts = logic.getPosts(userId)
+                const userId = req.headers.authorization.slice(6)
 
-                res.json(posts)
+                logic.getPosts(userId)
+                    .then(posts => res.json(posts))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 

@@ -17,13 +17,28 @@ export default (userId, postId, commentId) => {
         }).then(post => {
             if (!post) throw new Error('post not found')
 
-            return db.comments.findOne({ comments: { _id: ObjectId.createFromHexString(commentId) } })
+            const { comments } = post
+
+            const comment = comments.find(comment => comment._id.equals(ObjectId.createFromHexString(commentId)))
+            console.log(comment)
+            if (!comment)
+                throw new Error('comment not found')
+
+            const { author } = comment
+
+            if (author.toString() !== userId)
+                throw new Error('user is not author of comment')
+
+            /* return db.posts.findOne({ _id: ObjectId.createFromHexString(postId), comments: { $elemMatch: { _id: ObjectId.createFromHexString(commentId) } } })
                 .catch(error => { new Error(error.message) })
         }).then(comment => {
             if (!comment) throw new Error('comment not found')
 
+            /* console.log(comment) 
+
             const { author } = comment
-            if (author !== userId) throw new Error('user is not author of comment')
+            console.log(author.toString())
+            if (author.toString() !== userId) throw new Error('user is not author of comment') */
 
             return db.posts.updateOne({ _id: ObjectId.createFromHexString(postId) }, { $pull: { comments: { _id: ObjectId.createFromHexString(commentId) } } })
         }).then(_ => { })

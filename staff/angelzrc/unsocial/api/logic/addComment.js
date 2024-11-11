@@ -9,7 +9,7 @@ export default (userId, postId, text) => {
     validate.id(postId, 'postId')
     validate.text(text)
 
-    return db.users.findOne({ _id: ObjectId.createFromHexString(UserId) })
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
         .catch(error => { new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
@@ -19,7 +19,7 @@ export default (userId, postId, text) => {
         }).then(post => {
             if (!post) throw new Error('post not found')
 
-            return db.posts.updateOne({ _id: ObjectId.createFromHexString(post) }, {
+            return db.posts.updateOne({ _id: ObjectId.createFromHexString(postId) }, {
                 $push: {
                     comments:
                     {
