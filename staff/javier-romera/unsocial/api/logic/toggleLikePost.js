@@ -11,15 +11,13 @@ export default (userId, postId) => {
     const objectUserId = ObjectId.createFromHexString(userId)
     const objectPostId = ObjectId.createFromHexString(postId)
 
-    return db.users.findOne({ _id: objectUserId })
-        .catch(error => { new Error(error.message) })
-        .then(user => {
+    return Promise.all([
+        db.users.findOne({ _id: objectUserId }),
+        db.posts.findOne({ _id: objectPostId })
+    ])
+        .catch(error => { throw new Error(error.message) })
+        .then(([user, post]) => {
             if (!user) throw new Error('user not found')
-
-            return db.posts.findOne({ _id: objectPostId })
-                .catch(error => { new Error(error.message) })
-        })
-        .then(post => {
             if (!post) throw new Error('post not found')
 
             const { likedBy } = post
@@ -28,9 +26,10 @@ export default (userId, postId) => {
 
             if (!found)
                 return db.posts.updateOne({ _id: objectPostId }, { $push: { likedBy: objectUserId } })
-                    .then(_ => { console.log('liked') })
-            else
-                return db.posts.updateOne({ _id: objectPostId }, { $pull: { likedBy: objectUserId } })
-                    .then(_ => { console.log('unliked') })
+                    .catch(error => { throw new Error(error.message) })
+
+            return db.posts.updateOne({ _id: objectPostId }, { $pull: { likedBy: objectUserId } })
+                .catch(error => { throw new Error(error.message) })
         })
+        .then(_ => { })
 }

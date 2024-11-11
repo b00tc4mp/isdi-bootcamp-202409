@@ -12,12 +12,12 @@ export default (userId, postId) => {
     const objectPostId = ObjectId.createFromHexString(postId)
 
     return db.users.findOne({ _id: objectUserId })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
             return db.posts.findOne({ _id: objectPostId })
-                .catch(error => { new Error(error.message) })
+                .catch(error => { throw new Error(error.message) })
         })
         .then(post => {
             if (!post) throw new Error('post not found')
@@ -27,6 +27,7 @@ export default (userId, postId) => {
             if (author.toString() !== userId) throw new Error('user is not author of post')
 
             return db.posts.deleteOne({ _id: objectPostId })
+                .catch(error => { throw new Error(error.message) })
         })
         .then(_ => { })
 }

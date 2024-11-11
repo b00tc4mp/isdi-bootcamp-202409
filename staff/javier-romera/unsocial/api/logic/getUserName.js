@@ -12,12 +12,12 @@ export default (userId, targetUserId) => {
     const objectTargetUserId = ObjectId.createFromHexString(targetUserId)
 
     return db.users.findOne({ _id: objectUserId })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
             return db.users.findOne({ _id: objectTargetUserId })
-                .catch(error => { new Error(error.message) })
+                .catch(error => { throw new Error(error.message) })
         })
         .then(user => {
             if (!user) throw new Error('target user not found')

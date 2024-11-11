@@ -9,23 +9,15 @@ export default (userId, image, text) => {
     validate.image(image)
     validate.text(text)
 
-    const objectUserId = ObjectId.createFromHexString(userId)
+    const userObjectId = ObjectId.createFromHexString(userId)
 
-    return db.users.findOne({ _id: objectUserId })
-        .catch(error => { new Error(error.message) })
+    return db.users.findOne({ _id: userObjectId })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
-            const post = {
-                image,
-                text,
-                author: objectUserId,
-                date: new Date,
-                likedBy: [],
-                comments: []
-            }
-
-            return db.posts.insertOne(post)
+            return db.posts.insertOne({ author: userObjectId, image, text, date: new Date, likedBy: [], comments: [] })
+                .catch(error => { throw new Error(error.message) })
         })
         .then(_ => { })
 }

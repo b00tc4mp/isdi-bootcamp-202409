@@ -14,12 +14,12 @@ export default (userId, postId, commentId) => {
     const objectCommentId = ObjectId.createFromHexString(commentId)
 
     return db.users.findOne({ _id: objectUserId })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
             return db.posts.findOne({ _id: objectPostId })
-                .catch(error => { new Error(error.message) })
+                .catch(error => { throw new Error(error.message) })
         })
         .then(post => {
             if (!post) throw new Error('post not found')

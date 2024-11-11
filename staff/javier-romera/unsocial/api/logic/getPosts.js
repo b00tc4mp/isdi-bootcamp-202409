@@ -10,29 +10,39 @@ export default userId => {
     const objectUserId = ObjectId.createFromHexString(userId)
 
     return db.users.findOne({ _id: objectUserId })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
-            return db.posts.find().toArray()
-                .catch(error => { new Error(error.message) })
+            return db.posts.find().sort({ date: -1 }).toArray()
+                .catch(error => { throw new Error(error.message) })
         })
         .then(posts => {
-            return db.users.find().toArray()
-                .catch(error => { new Error(error.message) })
-                .then(users => {
-                    posts.forEach(post => {
+            const promises = posts.map(post => {
+                return db.users.findOne({ _id: post.author }, { username: 1 })
+                    .catch(error => { throw new Error(error.message) })
+                    .then(user => {
+                        if (!user) throw new Error('author of post not found')
+
+                        const { username } = user
+
                         const { author: authorId, likedBy, comments } = post
 
-                        const { username } = users.find(({ _id }) => _id.equals(authorId))
+                        //sanitize
+                        post.id = post._id.toString()
+                        delete post._id
 
-                        post.author = { _id: authorId, username }
+                        post.author = { id: authorId.toString(), username }
 
-                        post.liked = likedBy.some(id => id.equals(objectUserId))
+                        post.liked = likedBy.some(id => id.equals(userId))
+
+                        post.likedBy = likedBy.length
 
                         post.comments = comments.length
+
+                        return post
                     })
-                    return posts.toReversed()
-                })
+            })
+            return Promise.all(promises)
         })
 }
