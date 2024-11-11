@@ -7,26 +7,25 @@ export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const userIdObject = ObjectId.createFromHexString(userId)
-    const postIdObject = ObjectId.createFromHexString(postId)
-
-    return db.users.findOne({ _id: userIdObject })
-        .catch(error => { new Error(error.message) })
+    return db.users.findOne({ _id: new ObjectId(userId) })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('User not found')
 
-            return db.posts.findOne({ _id: postIdObject })
-                .catch(error => { new Error(error.message) })
+            const postObjectId = new ObjectId(postId)
+
+            return db.posts.findOne({ _id: postObjectId })
+                .catch(error => { throw new Error(error.message) })
                 .then(post => {
                     if (!post) throw new Error('Post not found')
+                    if (!post.author.equals(userId)) throw new Error('User is not author of post')
 
-                    const { author } = post
+                    //const { author } = post
+                    //if (author.toString() !== userId) throw new Error('User is not author of post')
 
-                    if (author.toString() !== userId) throw new Error('User is not author of post')
-
-                    return db.posts.deleteOne({ _id: postIdObject })
-                        .catch(error => { new Error(error.message) })
+                    return db.posts.deleteOne({ _id: postObjectId })
+                        .catch(error => { throw new Error(error.message) })
                 })
+                .then(_ => { })
         })
-        .then(_ => { })
 }

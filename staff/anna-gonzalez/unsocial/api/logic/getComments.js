@@ -7,8 +7,8 @@ export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const userIdObject = ObjectId.createFromHexString(userId)
-    const postIdObject = ObjectId.createFromHexString(postId)
+    const userIdObject = new ObjectId(userId)
+    const postIdObject = new ObjectId(postId)
 
     return db.users.findOne({ _id: userIdObject })
         .catch(error => { new Error(error.message) })
@@ -20,29 +20,28 @@ export default (userId, postId) => {
         .then(post => {
             if (!post) throw new Error('Post not found')
 
-            return db.users.find({}).toArray()
-                .catch(error => { new Error(error.message) })
-                .then(allUsers => {
-                    const transformedComments = []
+            const { comments } = post
 
-                    const { comments } = post
+            const promises = comments.map(comment => {
 
-                    comments.forEach(comment => {
-                        const { _id, author: authorId, text, date } = comment
+                return db.users.findOne({ _id: comment.author })
+                    .catch(error => { throw new Error(error.message) })
+                    .then(user => {
+                        if (!user) throw new Error('Author of comment not found')
 
-                        const { username } = allUsers.find(({ _id }) => _id.equals(authorId))
+                        const { username } = user
 
-                        transformedComments.push({
-                            _id,
-                            author: {
-                                _id: authorId,
-                                username
-                            },
-                            text,
-                            date
-                        })
+                        const { author: authorId } = comment
+
+                        comment.id = comment._id.toString()
+                        delete comment._id
+
+                        comment.author = { id: authorId.toString(), username }
+
+                        return comment
                     })
-                    return transformedComments
-                })
+            })
+
+            return Promise.all(promises)
         })
 }

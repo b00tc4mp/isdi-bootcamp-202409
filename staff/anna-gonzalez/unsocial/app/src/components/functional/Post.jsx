@@ -13,7 +13,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
     const [view, setView] = useState(null)
 
     const {
-        _id,
+        id,
         author,
         image,
         text,
@@ -27,7 +27,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
 
     const handleSavedClick = () => {
         try {
-            logic.toggleSavePost(_id, error => {
+            logic.toggleSavePost(id, error => {
                 if (error) {
                     alert(error.message)
 
@@ -47,7 +47,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
 
     const handleLikeClick = () => {
         try {
-            logic.toggleLikePost(_id, error => {
+            logic.toggleLikePost(id, error => {
                 if (error) {
                     alert(error.message)
 
@@ -68,7 +68,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
     const handleDeleteClick = () => {
         if (confirm('Delete post?')) {
             try {
-                logic.deletePost(_id, error => {
+                logic.deletePost(id, error => {
                     if (error) {
                         alert(error.message)
 
@@ -98,7 +98,7 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
             <h4>{author.username}</h4>
 
             <Button className="save-post-button"
-                onClick={handleSavedClick}>{`📌 ${saves.length}`}</Button>
+                onClick={handleSavedClick}>{`📌 ${saves}`}</Button>
         </div>
 
         <img src={image} />
@@ -108,16 +108,16 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
         <time>{getElapsedTime(date)} ago</time>
 
         {view === 'comments' && <Comments
-            postId={_id}
+            postId={id}
             onAdded={onCommentAdded}
             onRemoved={onCommentRemoved}
         />}
 
         <div className="post-buttons">
             <Button className="no-style-button"
-                onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</Button>
+                onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes}`}</Button>
 
-            {author._id === logic.getUserId() && <Button className="no-style-button"
+            {author.id === logic.getUserId() && <Button className="no-style-button"
                 onClick={handleDeleteClick}>❌</Button>}
 
             <Button className="no-style-button"

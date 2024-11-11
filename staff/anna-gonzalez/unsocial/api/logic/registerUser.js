@@ -15,5 +15,4 @@ export default (name, email, username, password, passwordRepeat) => {
 
             throw new Error(error.message)
         })
-        .then(_ => { })
 }

@@ -2,6 +2,7 @@ import db from 'dat'
 import express, { json } from 'express'
 import logic from './logic/index.js'
 import cors from 'cors'
+import getPosts from './logic/getPosts.js'
 
 db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, no pasamos a la promesa
     .then(() => { //montamos server
@@ -124,11 +125,11 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test') //hasta q no conectemos, n
         })
 
         server.delete('/posts/:postId', (req, res) => {
-            const userId = req.headers.authorization.slice(6)
-
-            const { postId } = req.params
-
             try {
+                const userId = req.headers.authorization.slice(6)
+
+                const { postId } = req.params
+
                 logic.deletePost(userId, postId)
                     .then(() => res.status(204).send())
                     .catch(error => {
