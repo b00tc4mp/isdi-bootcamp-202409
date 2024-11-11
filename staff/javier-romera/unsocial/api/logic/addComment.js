@@ -23,14 +23,7 @@ export default (userId, postId, text) => {
         .then(post => {
             if (!post) throw new Error('post not found')
 
-            const comment = {
-                _id: new ObjectId,
-                author: objectUserId,
-                text,
-                date: new Date
-            }
-
-            return db.posts.updateOne({ _id: objectPostId }, { $push: { comments: comment } })
+            return db.posts.updateOne({ _id: objectPostId }, { $push: { comments: { _id: new ObjectId, author: objectUserId, text, date: new Date } } })
         })
         .then(_ => { })
 }

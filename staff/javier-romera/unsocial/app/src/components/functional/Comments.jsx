@@ -75,7 +75,7 @@ export default function Comments({ postId, onAdded, onRemoved }) {
         <ul>
             {comments.map(comment =>
                 <Comment
-                    key={comment._id}
+                    key={comment.id}
                     postId={postId}
                     comment={comment}
                     onRemoved={handleRemoved}

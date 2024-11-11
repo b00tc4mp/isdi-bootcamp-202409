@@ -35,6 +35,7 @@ export default (userId, postId, commentId) => {
             if (!authorId.equals(objectUserId)) throw new Error('user is not author of comment')
 
             return db.posts.updateOne({ _id: objectPostId }, { $pull: { comments: { _id: objectCommentId } } })
+                .catch(error => { throw new Error(error.message) })
         })
         .then(_ => { })
 }

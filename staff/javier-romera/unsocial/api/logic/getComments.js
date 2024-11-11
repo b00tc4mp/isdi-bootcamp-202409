@@ -22,19 +22,26 @@ export default (userId, postId) => {
         .then(post => {
             if (!post) throw new Error('post not found')
 
-            return db.users.find({}).toArray()
-                .catch(error => { throw new Error(error.message) })
-                .then(users => {
-                    const { comments } = post
+            const { comments } = post
 
-                    comments.forEach(comment => {
+            const promises = comments.map(comment => {
+                return db.users.findOne({ _id: comment.author })
+                    .catch(error => { throw new Error(error.message) })
+                    .then(user => {
+                        if (!user) throw new Error('author of comment not found')
+
+                        const { username } = user
+
                         const { author: authorId } = comment
 
-                        const { username } = users.find(({ _id }) => _id.equals(authorId))
+                        comment.id = comment._id.toString()
+                        delete comment._id
 
-                        comment.author = { _id: authorId, username }
+                        comment.author = { id: authorId.toString(), username }
+
+                        return comment
                     })
-                    return comments
-                })
+            })
+            return Promise.all(promises)
         })
 }
