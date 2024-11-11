@@ -7,17 +7,23 @@ export default (userId, postId) => {
   validate.id(postId, "postId");
   validate.id(userId, "userId");
 
+  const userObjectId = ObjectId.createFromHexString(userId);
+  const postObjectId = ObjectId.createFromHexString(postId);
+
   return db.users
-    .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .findOne({ _id: userObjectId })
     .catch((error) => {
-      new Error(error.message);
+      throw new Error(error.message);
     })
 
     .then((user) => {
       if (!user) throw new Error("user not found");
 
       return db.posts
-        .findOne({ _id: ObjectId.createFromHexString(postId) })
+        .findOne({ _id: postObjectId })
+        .catch((error) => {
+          throw new Error(error.message);
+        })
         .then((post) => {
           if (!post) throw new Error("post not found");
           if (post.author.toString() !== userId) {
@@ -25,12 +31,12 @@ export default (userId, postId) => {
           }
           return db.posts
             .deleteOne({
-              _id: ObjectId.createFromHexString(postId),
+              _id: postObjectId,
             })
-            .then((_) => {})
             .catch((error) => {
               throw new Error(error.message);
             });
-        });
+        })
+        .then((_) => {});
     });
 };

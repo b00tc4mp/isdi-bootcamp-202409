@@ -110,7 +110,7 @@ export default function Posts() {
     <div>
       {posts.map((post) => (
         <Post
-          key={post._id}
+          key={post.id}
           post={post}
           onLiked={handleLiked}
           onDeleted={handleDeleted}

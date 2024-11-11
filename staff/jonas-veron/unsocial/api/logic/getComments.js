@@ -7,7 +7,8 @@ export default (userId, postId) => {
   validate.id(userId, "userId");
   validate.id(postId, "postId");
 
-  const objectUserId = ObjectId.createFromHexString(userId);
+  const objectUserId = new ObjectId(userId);
+
   return db.users
     .findOne({ _id: objectUserId })
     .catch((error) => new Error(error.message))
@@ -15,26 +16,28 @@ export default (userId, postId) => {
       if (!user) throw new Error("user not found");
 
       return db.posts
-        .findOne({ _id: ObjectId.createFromHexString(postId) })
+        .findOne({ _id: new ObjectId(postId) })
         .catch((error) => new Error(error.message))
         .then((post) => {
           if (!post) throw new Error("post not found");
 
-          return db.users
-            .find()
-            .toArray()
-            .then((users) => {
-              const { comments } = post;
+          const { comments } = post;
 
-              comments.forEach((comment) => {
-                const { author: authorId } = comment;
-                const { username } = users.find((user) =>
-                  user._id.equals(authorId)
-                );
-                comment.author = { _id: authorId, username };
+          const promises = comments.map((comment) => {
+            const { author: authorId } = comment;
+            return db.users
+              .findOne({ _id: authorId }, { username: 1 })
+              .then((user) => {
+                if (!user) throw new Error("user not found");
+                const { username } = user;
+                comment.author = { id: authorId, username };
+
+                comment.id = comment._id.toString();
+                delete comment._id;
+                return comment;
               });
-              return comments;
-            });
+          });
+          return Promise.all(promises);
         });
     });
 };

@@ -8,27 +8,28 @@ export default (userId, image, text) => {
   validate.image(image);
   validate.text(text);
 
+  const userObjectId = ObjectId.createFromHexString(userId);
+
   return db.users
-    .findOne({ _id: ObjectId.createFromHexString(userId) })
+    .findOne({ _id: userObjectId })
     .catch((error) => {
-      new Error(error.message);
+      throw new Error(error.message);
     })
     .then((user) => {
       if (!user) throw new Error("user not found");
 
       return db.posts
         .insertOne({
-          author: ObjectId.createFromHexString(userId),
+          author: userObjectId,
           image,
           text,
+          date: new Date(),
           likes: [],
           comments: [],
-        })
-        .then((_) => {
-          console.log("Post creado con exito");
         })
         .catch((error) => {
           throw new Error(error.message);
         });
-    });
+    })
+    .then((_) => {});
 };

@@ -8,7 +8,7 @@ import "./Comment.css";
 
 export default function Comment({
   postId,
-  comment: { _id, author, text, date },
+  comment: { id, author, text, date },
   onRemoved,
 }) {
   console.log("Comment -> render");
@@ -16,7 +16,7 @@ export default function Comment({
   const handleRemove = () => {
     if (confirm("Delete comment?"))
       try {
-        logic.removeComment(postId, _id, (error) => {
+        logic.removeComment(postId, id, (error) => {
           if (error) {
             alert(error.message);
 
@@ -43,7 +43,7 @@ export default function Comment({
         <time>{getElapsedTime(date)}</time>
       </div>
 
-      {logic.getUserId() === author._id && (
+      {logic.getUserId() === author.id && (
         <Button onClick={handleRemove}>🗑️</Button>
       )}
     </li>
