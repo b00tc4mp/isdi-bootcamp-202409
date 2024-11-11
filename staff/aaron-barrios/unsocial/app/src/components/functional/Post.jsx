@@ -4,6 +4,7 @@ import logic from '../../logic'
 import Comments from './Comments'
 
 import Button from '../library/Button'
+import Field2 from '../library/Field2'
 
 import getElapsedTime from '../../utils/getElapsedTime'
 
@@ -82,11 +83,13 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
         <img src={image} className='img' />
         <br />
-        <button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length}`}</button>
+
+        <button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</button>
+
         <button onClick={handleCommentsClick}>💬 {comments} comments</button>
         <label style={{ opacity: '60%', fontSize: '13px', marginTop: '2%' }}>View comments...</label>
         <br />
-        <time style={{ fontSize: 'xx-small', marginRight: '10px', marginTop: '2.5%' }}>{getElapsedTime(date)}</time>
+        <time style={{ fontSize: 'xx-small', marginRight: '10px', marginTop: '2.5%' }}>{getElapsedTime(date)} ago</time>
         <p></p>
 
         {view === 'comments' && <Comments

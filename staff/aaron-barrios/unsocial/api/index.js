@@ -14,10 +14,8 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
 
         const jsonBodyParser = express.json() //MIDDLEWARE
 
-
         //MOSTRAMOS QUE EL SERVIDOR ESTA VIVO Y TE DEVUELVE LA RESPUESTA DE HELLO API -> NO HAY PETICON
         server.get('/', (_, res) => res.send('Hello, API!'))
-
 
         //PETICIÓN DEL ID DEL USUARIO -> MÉTODO AUTHENTICATE
         server.post('/authenticate', jsonBodyParser, (req, res) => {
@@ -130,7 +128,7 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
 
                 const { image, text } = req.body
 
-                logic.createPost(userId, image, text)
+                logic.createPost(userId, text, image)
                     .then(() => res.status(201).send())
                     .catch(error => {
                         res.status(400).json({ error: error.constructor.name, message: error.message })
@@ -218,7 +216,7 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
             try {
                 const userId = req.headers.authorization.slice(6)
 
-                const { postId, commentId } = req.params
+                const { postId } = req.params
 
                 logic.toggleLikePost(userId, postId)
                     .then(() => res.status(204).send())

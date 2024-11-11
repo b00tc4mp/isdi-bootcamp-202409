@@ -10,7 +10,7 @@ export default (postId, callback) => {
         const { status, response } = xhr
 
         if (status === 204) {
-            callback(null, comments)
+            callback(null)
 
             return
         }

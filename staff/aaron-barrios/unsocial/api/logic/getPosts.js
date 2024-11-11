@@ -1,22 +1,46 @@
-import { validate } from './helpers/index.js'
-
 import db from 'dat'
+
+import { validate } from './helpers/index.js'
 
 const { ObjectId } = db
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+    return db.users.findOne({ _id: new ObjectId(userId) })
         .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
-            return db.posts.find().forEach(post => { console.log(post) })
+            return db.posts.find().sort({ date: -1 }).toArray()
                 .catch(error => { new Error(error.message) })
-            // .then(post => {
-            //     if (!post) throw new Error('post not found')
-            // })
+        })
+        .then(posts => {
+            const promises = posts.map(post =>
+                db.users.findOne({ _id: post.author }, { username: 1 }) //projection
+                    .then(user => {
+                        if (!user) throw new Error('author of post not found')
+
+                        const { username } = user
+
+                        //sanitize
+                        post.id = post._id.toString()
+                        delete post._id
+
+                        post.author = { id: post.author.toString(), username }
+
+                        const { likes, comments } = post
+
+                        post.liked = likes.some(userObjectId => userObjectId.equals(userId))
+                        post.likes = likes.length
+
+                        post.comments = comments.length
+
+                        return post
+                    })
+            )
+
+            return Promise.all(promises)
         })
 
 }
