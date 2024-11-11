@@ -1,10 +1,19 @@
+import db from 'dat'
 import { validate } from 'com/index.js'
-import { storage } from '../data/index.js'
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
   validate.id(postId, 'postId')
   validate.id(userId, 'userId')
 
+  return db.users.findOne({ _id: new ObjectId(userId) })
+    .catch(error => { throw new Error(error.message) })
+    .then(user => {
+      if (!user) throw new Error('user not found')
+
+      return db.posts.find()
+    })
   const { users, posts } = storage
 
   const found = users.some(({ id }) => id === userId)

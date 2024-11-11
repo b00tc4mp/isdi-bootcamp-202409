@@ -14,22 +14,20 @@ export default (userId, postId, commentId) => {
     .then(user => {
       if (!user) throw new Error('user not found')
 
-      return db.posts.findOne({ _id: ObjectId.createFromHexString(postId) })
+      const postObjectId = new ObjectId(postId)
+
+      return db.posts.findOne({ _id: postObjectId })
         .catch(error => { new Error(error.message) })
         .then(post => {
           if (!post) throw new Error('post not found')
 
           return db.posts
             .updateOne({ _id: ObjectId.createFromHexString(postId) }, { $pull: { comments: { _id: ObjectId.createFromHexString(commentId) } } })
-            .then((post) => {
-              if (!post) throw new Error('post not found')
+            .then((comment) => {
+              if (!comment) throw new Error('comment not found')
             })
-            .then(() => {
-              console.log('Removed comment')
-            })
-            .catch((error) => {
-              throw new Error(error.message)
-            })
+            .catch((error) => { throw new Error(error.message) })
         })
+        .then(_ => { })
     })
 }
