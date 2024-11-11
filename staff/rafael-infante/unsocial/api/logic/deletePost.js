@@ -1,24 +1,24 @@
+import db from "../../dat/index.js"
 import { validate } from "./helpers/index.js"
-import { storage } from "../data/index.js"
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
 
   validate.id(userId, 'userId')
   validate.id(postId, 'postId')
 
-  const { posts } = storage
+  return db.posts.findOne({ _id: ObjectId.createFromHexString(postId) })
+    .catch(error => { new Error(error.message) })
+    .then(post => {
+      if (!post) throw new Error('post not found')
 
-  const index = posts.findIndex(post => post.id === postId)
+      const { author } = post
 
-  if (index < 0) throw new Error('post not found')
+      if (author.toString() !== userId) throw new Error('user is not author of the post')
 
-  const post = posts[index]
-
-  const { author } = post
-
-  if (author !== userId) throw new Error('user is not author of post')
-
-  posts.splice(index, 1)
-
-  storage.posts = posts
+      return db.posts.deleteOne({ _id: ObjectId.createFromHexString(postId) })
+        .catch(error => { throw new Error(error.message) })
+        .then(_ => { })
+    })
 }

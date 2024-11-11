@@ -1,28 +1,46 @@
+import db from "../../dat/index.js"
 import { validate } from "./helpers/index.js"
-import { storage } from "../data/index.js"
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
   validate.id(userId, 'userId')
   validate.id(postId, 'postId')
 
-  const { users, posts } = storage
+  const objectUserId = ObjectId.createFromHexString(userId)
+  const objectPostId = ObjectId.createFromHexString(postId)
 
-  const found = users.some(({ id }) => id === userId)
-  if (!found) throw new Error('user not found')
+  return db.users.findOne({ _id: objectUserId })
+    .catch(error => { throw new Error(error.message) })
+    .then(user => {
+      if (!user) throw new Error('user not found')
 
-  const post = posts.find(({ id }) => id === postId)
+      return db.posts.findOne({ _id: objectPostId })
+        .catch(error => { throw new Error(error.message) })
+        .then(post => {
+          if (!post) throw new Error('post not found')
 
-  if (!post) throw new Error('post not found')
+          const { comments } = post
 
-  const { comments } = post
+          const promises = comments.map(comment => {
+            const { author: authorId } = comment
 
-  comments.forEach(comment => {
-    const { author: authorId } = comment
+            return db.users.findOne({ _id: authorId }, { username: 1 })
+              .then(user => {
+                if (!user) throw new Error('user not found')
 
-    const { username } = users.find(({ id }) => id === authorId)
+                const { username } = user
 
-    comment.author = { id: authorId, username }
-  })
+                comment.author = { id: authorId, username }
 
-  return comments
+                comment.id = comment._id.toString()
+                delete comment._id
+
+                return comment
+              })
+          })
+
+          return Promise.all(promises)
+        })
+    })
 }

@@ -1,1 +1,1 @@
- curl -H 'Authorization: Basic m2wgq7tdelk' -H 'Content-Type: application/json' -d '{"text":"Gracias Cami!"}' http://localhost:8080/posts/m31o037p6yl/comments -v
+ curl -H 'Authorization: Basic 672e340e475e18ad6d8bad0f' -H 'Content-Type: application/json' -d '{"text":"El pana Leo!"}' http://localhost:8080/posts/6732411eda269d4883e151dc/comments -v

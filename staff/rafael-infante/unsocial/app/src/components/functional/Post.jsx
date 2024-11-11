@@ -57,7 +57,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentRemoved, onCom
 
       <img src={image} className="img" />
 
-      <a onClick={handleLikeClick}>{liked ? '❤️' : '🤍'}{likes.length} likes</a>
+      <a onClick={handleLikeClick}>{liked ? '❤️' : '🤍'}{likes} likes</a>
 
       {author.id === logic.getUserId() && <a onClick={handleDeleteClick}>🗑️</a>}
 

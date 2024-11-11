@@ -29,11 +29,11 @@ const validatePasswordsMatch = (password, confirmPassword) => {
 }
 
 const validateImage = image => {
-  if (typeof image !== 'string') throw new Error
+  if (typeof image !== 'string') throw new Error('invalid image')
 }
 
 const validateText = text => {
-  if (typeof text !== 'string') throw new Error
+  if (typeof text !== 'string') throw new Error('invalid text')
 }
 
 const validateId = (id, explain = 'id') => {

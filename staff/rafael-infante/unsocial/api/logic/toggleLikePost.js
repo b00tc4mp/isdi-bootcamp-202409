@@ -1,28 +1,35 @@
+import db from "../../dat/index.js"
 import { validate } from "./helpers/index.js"
-import { storage } from "../data/index.js"
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
   validate.id(userId, 'userId')
   validate.id(postId, 'postId')
 
-  const { users, posts } = storage
+  const objectUserId = new ObjectId(userId)
+  const objectPostId = new ObjectId(postId)
 
-  const found = users.some(({ id }) => id === userId)
+  return Promise.all([
+    db.users.findOne({ _id: objectUserId }),
+    db.posts.findOne({ _id: objectPostId })
+  ])
+    .catch(error => { throw new Error('user not found') })
+    .then(([user, post]) => {
+      if (!user) throw new Error('user not found')
+      if (!post) throw new Error('post not found')
 
-  if (!found) throw new Error('user not found')
+      const { likes } = post
 
-  const post = posts.find(({ id }) => id === postId)
+      const found = likes.some(objectUserId => objectUserId.equals(userId))
 
-  if (!post) throw new Error('post not found')
+      if (found)
+        return db.posts.updateOne({ _id: objectPostId }, { $pull: { likes: objectUserId } })
+          .catch(error => { throw new Error(error.message) })
 
-  const { likes } = post
+      return db.posts.updateOne({ _id: objectPostId }, { $push: { likes: objectUserId } })
+        .catch(error => { throw new Error(error.message) })
 
-  // buscamos en el array de likes
-  const index = likes.indexOf(userId)
-  // si esta el id del usuario logeado lo sacamos
-  // si no esta (index === -1) lo añadimos al array 
-  if (index < 0) likes.push(userId)
-  else likes.splice(index, 1)
-
-  storage.posts = posts
+    })
+    .then(_ => { })
 }
