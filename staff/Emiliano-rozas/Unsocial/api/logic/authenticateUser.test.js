@@ -1,8 +1,16 @@
-import authenticateUser from './authenticateUser'
+import db from 'dat'
 
-try {
-    console.log(authenticateUser('cocodrilo', '123123123'))
+import authenticateUser from './authenticateUser.js'
 
-} catch (error) {
-    console.error(error)
-}
+db.connect('mongodb://127.0.0.1:27017/unsocial')
+    .then(() => {
+        try {
+            authenticateUser('cocodrilo', '123123123')
+                .then(console.log)
+                .catch(console.error)
+        } catch (error) {
+            console.error(error)
+        }
+
+    })
+    .catch(console.error)

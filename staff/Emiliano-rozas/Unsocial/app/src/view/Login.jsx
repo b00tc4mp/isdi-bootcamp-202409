@@ -4,7 +4,7 @@ import logic from '../logic'
 
 import './Login.css'
 
-export default props => {
+export default function Login(props) {
     console.log("Login -> render")
 
     const handleSubmit = event => {

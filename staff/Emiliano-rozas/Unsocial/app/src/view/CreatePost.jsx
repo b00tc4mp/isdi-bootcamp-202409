@@ -5,7 +5,7 @@ import { Form, Label, Input, Button } from '../components/library'
 import './CreatePost.css'
 
 
-export default ({ onCreated, onCancel }) => {
+export default function CreatePost({ onCreated, onCancel }) {
     console.log("Creapost -> render")
 
 

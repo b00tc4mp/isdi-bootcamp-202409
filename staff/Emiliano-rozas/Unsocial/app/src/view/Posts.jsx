@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Post } from '../components/functional'
 
@@ -6,19 +6,12 @@ import logic from '../logic'
 
 import './Posts.css'
 
-export default class extends Component {
-    constructor(props) {
-        console.log("Posts -> render")
 
-        super(props)
+export default function Posts() {
+    const [posts, setPosts] = useState([])
 
-        this.state = { posts: [] }
-
-    }
-
-
-    componentDidMount() {
-        console.log('Posts -> componentDidMount')
+    useEffect(() => {
+        console.log('Posts -> useEffect "componentDidMount"')
 
         try {
             logic.getPosts((error, posts) => {
@@ -30,7 +23,7 @@ export default class extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
 
             })
         } catch (error) {
@@ -39,9 +32,9 @@ export default class extends Component {
             console.error(error)
         }
 
-    }
+    }, [])
 
-    handleLiked = () => {
+    const handleLiked = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -52,7 +45,7 @@ export default class extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
@@ -60,7 +53,8 @@ export default class extends Component {
             console.error(error)
         }
     }
-    handleDeleted = () => {
+
+    const handleDeleted = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -71,7 +65,7 @@ export default class extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
@@ -79,7 +73,8 @@ export default class extends Component {
             console.error(error)
         }
     }
-    handleCommentAdded = () => {
+
+    const handleCommentAdded = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -90,7 +85,7 @@ export default class extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
@@ -99,7 +94,7 @@ export default class extends Component {
         }
     }
 
-    handleCommentRemoved = () => {
+    const handleCommentRemoved = () => {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
@@ -110,7 +105,7 @@ export default class extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             alert(error.message)
@@ -119,27 +114,26 @@ export default class extends Component {
         }
     }
 
-    render() {
 
-        console.log('Posts -> render')
+    console.log('Posts -> render')
 
-        return <section className='PostList'>
-            <h3> Posts</h3>
-            {this.state.posts.map(post => <Post
-                key={post.id}
+    return <section className='PostList'>
+        <h3> Posts</h3>
+        {posts.map(post => <Post
+            key={post.id}
 
-                post={post}
+            post={post}
 
-                onLiked={this.handleLiked}
+            onLiked={handleLiked}
 
-                onDeleted={this.handleDeleted}
+            onDeleted={handleDeleted}
 
-                onCommentAdded={this.handleCommentAdded}
+            onCommentAdded={handleCommentAdded}
 
-                onCommentRemoved={this.handleCommentRemoved}
-            />)}
+            onCommentRemoved={handleCommentRemoved} // = props 
+        />)}
 
-        </section >
-    }
+    </section >
 }
+
 

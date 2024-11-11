@@ -5,12 +5,13 @@ import logic from '../../logic'
 import getElapsedTime from '../../utils/getElapsedTime'
 
 
-export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
+export default function comments({ postId, comment: { id, author, text, date }, onRemoved }) {
+
     console.log('AddComment -> render')
 
     const handleRemove = () => {
 
-        if (confirm('Delete comment)'))
+        if (confirm('Delete comment?'))
 
             try {
                 logic.removeComments(postId, id, error => {

@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState } from 'react'
 
 import { Login, Register, Posts, CreatePost } from './view'
 
@@ -7,61 +7,54 @@ import Footer from './components/functional/Footer'
 
 import logic from './logic'
 
-export default class extends Component {
-  constructor(props) {
+export default function App() {
 
-    console.log('App -> constructor')
+  const [view, setView] = useState(logic.isUserLoggedIn() ? "posts" : "login")
 
-    super(props)
 
-    this.state = { view: logic.isUserLoggedIn() ? "posts" : "login" }
-  }
+  const handleHomeclick = () => setView('posts')
 
-  handleHomeclick = () => this.setState({ view: 'posts' })
+  const handleLoggedOut = () => setView('login')
 
-  handleLoggedOut = () => this.setState({ view: 'login' })
+  const handleLoggedIn = () => setView("posts")
 
-  handleLoggedIn = () => this.setState({ view: "posts" })
+  const handleRegister = () => setView("register")
 
-  handleRegister = () => this.setState({ view: "register" })
+  const handleLogBack = () => setView("login")
 
-  handleLogBack = () => this.setState({ view: "login" })
+  const handleUserRegistered = () => setView('login')
 
-  handleUserRegistered = () => this.setState({ view: 'login' })
+  const handlePostCreated = () => setView('posts')
 
-  handlePostCreated = () => this.setState({ view: 'posts' })
+  const handleOnCanceled = () => setView('posts')
 
-  handleOnCanceled = () => this.setState({ view: 'posts' })
+  const handleNewPostClick = () => setView('new-post')
 
-  handleNewPostClick = () => this.setState({ view: 'new-post' })
+  console.log('App-> render')
 
-  render() {
+  return <>
 
-    console.log('App-> render')
+    <Header view={view} onHomeClick={handleHomeclick} onLoggedOut={handleLoggedOut} />
 
-    return <>
+    {view === "login" && <Login
+      onLoggedIn={handleLoggedIn}
+      registerInquire={handleRegister}
+    />}
 
-      <Header view={this.state.view} onHomeClick={this.handleHomeclick} logOut={this.handleLoggedOut} />
+    {view === "register" && <Register
+      logBack={handleLogBack}
+      onRegistered={handleUserRegistered}
+    />}
 
-      {this.state.view === "login" && <Login
-        onLoggedIn={this.handleLoggedIn}
-        registerInquire={this.handleRegister}
-      />}
+    {view === "posts" && <Posts />}
 
-      {this.state.view === "register" && <Register
-        logBack={this.handleLogBack}
-        onRegistered={this.handleUserRegistered}
-      />}
+    {view === 'new-post' && <CreatePost
+      onCreated={handlePostCreated}
+      onCancel={handleOnCanceled}
+    />}
 
-      {this.state.view === "posts" && <Posts />}
-
-      {this.state.view === 'new-post' && <CreatePost
-        onCreated={this.handlePostCreated}
-        onCancel={this.handleOnCanceled}
-      />}
-
-      <Footer onNewPostClick={this.handleNewPostClick} view={this.state.view} />
-    </>
-  }
+    <Footer onNewPostClick={handleNewPostClick} view={view} />
+  </>
 }
+
 

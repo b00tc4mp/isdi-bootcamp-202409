@@ -1,77 +1,80 @@
+import { useState, useEffect } from 'react'
+
+
 import './Header.css'
 
 import { Button, Anchor } from '../library'
 
 import logic from '../../logic'
-import { Component } from 'react'
 
-export default class extends Component {
-    constructor(props) {
-        console.log('Header -> constructor')
 
-        super(props)
+export default function Header({ view, onHomeClick, onLoggedOut }) {
 
-        this.state = { name: null }
-    }
+    const [name, setName] = useState(null)
 
-    componentDidMount() {
+
+    useEffect(() => {
         console.log('Header -> componentDidMount')
 
-        if (logic.isUserLoggedIn())
-            try {
-                logic.getUserName((error, name) => {
-                    if (error) {
-                        alert(error.message)
+        if (logic.isUserLoggedIn()) {
+            if (!name)
+                try {
+                    logic.getUserName((error, name) => {
+                        if (error) {
+                            alert(error.message)
 
-                        console.error(error)
+                            console.error(error)
 
-                        return
-                    }
-                    this.setState({ name })
+                            return
+                        }
+                        setName(name)
 
-                })
-            } catch (error) {
-                alert(error.message)
+                    })
+                } catch (error) {
+                    alert(error.message)
 
-                console.error(error)
-            }
-    }
-    handleHomeClick = event => {
+                    console.error(error)
+                }
+        } else setName(null)
+    }, [view])
+
+
+    const handleHomeClick = event => {
 
         event.preventDefaul()
 
-        this.props.onHomeClick()
+        onHomeClick()
     }
 
-    handleLogout = () => {
+    const handleLogout = () => {
 
         const confirmLogout = window.confirm("Are you sure you want to Logout?")
 
         if (confirmLogout) {
 
             logic.logoutUser()
-            this.props.logOut()
+            onLoggedOut()
         }
     }
 
-    render() {
-        console.log('Header -> render')
 
-        return <header className='Header'>
+    console.log('Header -> render')
 
-            <h1> {this.props.view === 'new-post' ? <Anchor href="" onClick={this.handleHomeClick}>Unsocial</Anchor> : 'Unsocial'}</h1 >
+    return <header className='Header'>
 
-            <div className='TopNav'>
+        <h1> {view === 'new-post' ? <Anchor href="" onClick={handleHomeClick}>Unsocial</Anchor> : 'Unsocial'}</h1 >
 
-                {this.state.name && <h3>{this.state.name}</h3>}
+        <div className='TopNav'>
+
+            {name && <h3>{name}</h3>}
 
 
-                {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
+            {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
 
-            </div>
+        </div>
 
-        </header >
-    }
+    </header >
+
 }
 
 

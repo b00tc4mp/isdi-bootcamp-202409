@@ -1,4 +1,4 @@
-import { storage, uuid } from '../data/index.js'
+import db from 'dat'
 
 import { validate } from 'com'
 
@@ -9,16 +9,12 @@ export default (name, email, username, password, passwordRepeat) => {
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
 
-    const { users } = storage
+    return db.users.insertOne({ name, email, username, password })
+        .then(_ => { })
+        .catch(error => {
+            if (error.code === 11000) throw new Error('user alreay exists')
 
-    let user = users.find(user => user.username === username || user.email === email)
+            throw new Error(error.message);
 
-    if (user)
-        throw new Error('user already exists')
-
-    user = { id: uuid(), name: name, email: email, username: username, password: password }
-
-    users.push(user)
-
-    storage.users = users
+        })
 }

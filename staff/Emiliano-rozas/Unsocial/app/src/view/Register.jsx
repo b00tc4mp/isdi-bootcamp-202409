@@ -5,7 +5,7 @@ import './Register.css'
 
 import logic from '../logic'
 
-export default props => {
+export default function Register(props) {
     console.log('Register -> render')
 
     const handleSubmit = event => {

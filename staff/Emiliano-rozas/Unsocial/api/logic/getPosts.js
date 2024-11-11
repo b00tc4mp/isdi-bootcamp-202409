@@ -1,26 +1,47 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
+
 import { validate } from 'com'
+
+const { ObjectId } = db
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    const { users, posts } = storage
+    const ObjectUserId = ObjectId.createFromHexString(userId)
 
-    const user = users.some(({ id }) => id === userId)
+    return db.users.findOne({ _id: ObjectUserId })
+        .catch(error => { new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error("User not found")
 
-    if (!user) throw new Error('user not found')
+            return db.posts.find().sort({ date: -1 }).toArray()
+                .catch(error => { new Error(error.message) })
+        })
+        .then(posts => {
+            const promises = posts.map(post => db.users.findOne({ _id: post.author }, { username: 1 })
 
-    posts.forEach(post => {
-        const { author: authorId } = post
+                .then(user => {
+                    if (!user) throw new Error("Author post not found")
 
-        const { username } = users.find(({ id }) => id === authorId)
+                    const { username } = user
 
-        post.author = { id: authorId, username }
+                    post.id = post._id.toString()
+                    delete post._id
 
-        post.liked = post.likes.includes(userId)
+                    post.author = { id: post.author.toString(), username }
 
-        post.comments = post.comments.length
-    })
+                    const { likes, comments } = post
 
-    return posts.toReversed()
+                    post.liked = likes.some(userObjectId => userObjectId.equals(userId))
+
+                    post.likes = likes.length
+
+                    post.comments = comments.length
+
+                    return post
+
+                })
+            )
+            return Promise.all(promises)
+        })
 }
