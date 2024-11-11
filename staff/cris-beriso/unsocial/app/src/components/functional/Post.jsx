@@ -91,11 +91,11 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
     </div>
 
     <div className="buttons">
-      <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length} likes`}</Button>
+      <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</Button>
 
       {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑</Button>}
 
-      <Button onClick={handleCommentsClick}>💬 {comments.length} comments</Button>
+      <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
 
       <Button onClick={handleSaveClick}>📂</Button>
     </div>

@@ -1,13 +1,16 @@
 import db from 'dat'
 import toggleLikePost from './toggleLikePost.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect('mongodb://localhost/unsocial-test')
   .then(() => {
     try {
-      toggleLikePost('672e234f9baf06973d87d0ad', '6730dcf6f1c5e699fd2f603f')
+      return toggleLikePost('672e23e5344b26bc5b0f870f', '67321b9c1caf2dc8f4e26353')
+        .then(console.log)
+        .catch(console.error)
     } catch (error) {
       console.error(error)
     }
   })
   .catch(console.error)
+  .finally(() => db.disconnect())
 

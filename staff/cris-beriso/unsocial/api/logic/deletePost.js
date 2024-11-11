@@ -1,22 +1,28 @@
 import db from 'dat'
-import { validate } from 'com/index.js'
+import { validate } from 'com'
 
-const { ObjectId } = db;
+const { ObjectId } = db
 
 export default (userId, postId) => {
   validate.id(postId, 'postId')
   validate.id(userId, 'userId')
 
-  return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
-    .catch(error => { new Error(error.message) })
+  return db.users.findOne({ _id: new ObjectId(userId) })
+    .catch(error => { throw new Error(error.message) })
     .then((user) => {
       if (!user) throw new Error('user not found')
 
-      return db.posts.deleteOne({ _id: ObjectId.createFromHexString(postId) })
-        .then((post) => { if (!post) throw new Error('post not found') })
-        .then(_ => { console.log('Deleted post') })
-        .catch((error) => {
-          throw new Error(error.message)
+      const postObjectId = new ObjectId(postId)
+
+      return db.posts.findOne({ _id: postObjectId })
+        .catch(error => { throw new Error(error.message) })
+        .then(post => {
+          if (!post) throw new Error('post not found')
+          if (!post.author.equals(userId)) throw new Error('user is not author of post')
+
+          return db.posts.deleteOne({ _id: postObjectId })
+            .catch((error) => { throw new Error(error.message) })
         })
+        .then(_ => { })
     })
 }

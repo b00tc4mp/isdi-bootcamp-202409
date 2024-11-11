@@ -4,6 +4,6 @@ xhr.addEventListener('load', () => {
   console.log(xhr.status, xhr.response)
 })
 
-xhr.open('DELETE', 'http://localhost:8080/posts/672e264adba2254072ee1db4')
-xhr.setRequestHeader('Authorization', 'Basic m2vzaqy1te')
+xhr.open('DELETE', 'http://localhost:8080/posts/67321b9c1caf2dc8f4e26353')
+xhr.setRequestHeader('Authorization', 'Basic 672e23e5344b26bc5b0f870f')
 xhr.send()

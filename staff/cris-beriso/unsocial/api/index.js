@@ -51,13 +51,13 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
       }
     })
 
-    server.get('/users/:targetuserId/name', (req, res) => {
+    server.get('/users/:targetUserId/name', (req, res) => {
       try {
         const userId = req.headers.authorization.slice(6)
 
-        const { tagetUserId } = req.params
+        const { targetUserId } = req.params
 
-        logic.getUserName(userId, tagetUserId)
+        logic.getUserName(userId, targetUserId)
           .then(name => res.json(name))
           .catch(error => {
             res.status(400).json({ error: error.constructor.name, message: error.message })
@@ -112,6 +112,7 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
     server.delete('/posts/:postId', (req, res) => {
       try {
         const { postId } = req.params
+
         const userId = req.headers.authorization.slice(6)
 
         logic.deletePost(userId, postId)
