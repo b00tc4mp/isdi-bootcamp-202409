@@ -6,7 +6,7 @@ export default (username, password) => {
     validate.password(password)
 
     return db.users.findOne({ username, password })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('wrong credentials')
 

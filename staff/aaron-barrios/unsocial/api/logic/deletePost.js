@@ -10,7 +10,7 @@ export default (userId, postId) => {
     validate.id(userId, 'userId')
 
     return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
