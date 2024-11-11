@@ -1,24 +1,33 @@
 import { validate } from 'com'
-import { storage } from '../data/index.js'
+import db from 'dat'
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
     validate.id(postId, 'postId')
     validate.id(userId, 'userId')
 
-    const { users, posts } = storage
+    const objectUserId = new ObjectId(userId)
+    const objectPostId = new ObjectId(postId)
 
-    const found = users.some(({ id }) => id === userId)
-    if (!found) throw new Error('user not found')
+    return Promise.all([
+        db.users.findOne({ _id: objectUserId }),
+        db.posts.findOne({ _id: objectPostId })
+    ])
+        .catch(error => { throw new Error(error.mesage) })
+        .then(([user, post]) => {
+            if (!user) throw new Error('user not found')
+            if (!post) throw new Error('post not found')
 
-    const post = posts.find(({ id }) => id === postId)
-    if (!post) throw new Error('post not found')
+            const { likes } = post
+            const found = likes.some(objectUserId => objectUserId.equals(userId))
 
-    const { likes } = post
+            if (found)
+                return db.posts.updateOne({ _id: objectPostId }, { $pull: { likes: objectUserId } })
+                    .catch(error => { throw new Error(error.message) })
 
-    const index = likes.indexOf(userId)
-
-    if (index < 0) likes.push(userId)
-    else likes.splice(index, 1)
-
-    storage.posts = posts
+            return db.posts.updateOne({ _id: objectPostId }, { $push: { likes: objectUserId } })
+                .catch(error => { throw new Error(error.message) })
+        })
+        .then(_ => { })
 }

@@ -1,27 +1,30 @@
+import db from 'dat'
 import { validate } from 'com'
-import { storage } from '../data/index.js'
+
+const { ObjectId } = db
 
 export default (userId, postId) => {
     validate.id(userId, 'user Id')
     validate.id(postId, 'post Id')
 
-    const { users, posts } = storage
+    const objectUserId = new ObjectId(userId)
+    const objectPostId = new ObjectId(postId)
 
-    const found = users.some(({ id }) => id === userId)
-    if (!found) throw new Error('user not found')
+    return Promise.all([
+        db.users.findOne({ _id: objectUserId }),
+        db.posts.findOne({ _id: objectPostId }),
+    ])
+        .catch(error => { throw new Error(error.mesage) })
+        .then(([user, post]) => {
+            if (!user) throw new Error('user not found')
+            if (!post) throw new Error('post not found')
+        })
+        .then(comments => {
+            const { comments } = post
 
-    const post = posts.find(({ id }) => id === postId)
-    if (!post) throw new Error('post not found')
+            const { username } = user
+            post.id = {}
+        })
+    //TODO
 
-    const { comments } = post
-
-    comments.forEach(comment => {
-        const { author: authorId } = comment
-
-        const { username } = users.find(({ id }) => id === authorId)
-
-        comment.author = { id: authorId, username }
-    })
-
-    return comments
 }

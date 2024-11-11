@@ -1,26 +1,35 @@
-import { storage, uuid } from '../data/index.js'
+import db from 'dat'
 import { validate } from 'com'
 
-
+const { ObjectId } = db
 export default (userId, postId, text) => {
     validate.id(postId, 'PostId')
     validate.id(userId, 'userId')
     validate.text(text)
 
-    const { users, posts } = storage
+    const objectUserId = new ObjectId(userId)
+    const objectPostId = new ObjectId(postId)
 
-    const found = users.some(({ id }) => id === userId)
-    if (!found) throw new Error('user not found')
+    return Promise.all([
+        db.users.findOne({ _id: objectUserId }),
+        db.posts.findOne({ _id: objectPostId })
+    ])
+        .catch(error => { throw new Error(error.mesage) })
+        .then(([user, post]) => {
+            if (!user) throw new Error('user not found')
+            if (!post) throw new Error('post not found')
 
-    const post = posts.find(({ id }) => id === postId)
-    if (!post) throw new Error('post not found')
+            const newComment = {
+                _id: new ObjectId(),
+                author: objectUserId,
+                text: text,
+                date: new Date()
+            }
 
-    post.comments.push({
-        id: uuid(),
-        author: userId,
-        text,
-        date: new Date().toISOString()
-    })
-
-    storage.posts = posts
+            return db.posts.updateOne({ _id: objectPostId }, { $push: { comments: newComment } })
+        })
+        .then(_ => { })
+        .catch(error => {
+            throw new Error(error.message)
+        })
 }

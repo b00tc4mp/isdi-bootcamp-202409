@@ -1,5 +1,6 @@
 import db from 'dat'
 import { validate } from 'com'
+
 const { ObjectId } = db
 
 export default (userId, targetUserId) => {

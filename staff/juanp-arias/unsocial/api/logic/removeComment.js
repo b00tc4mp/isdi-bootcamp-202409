@@ -1,28 +1,38 @@
+import db from 'dat'
 import { validate } from 'com'
-import { storage } from '../data/index.js'
+
+const { ObjectId } = db
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'user Id')
     validate.id(postId, 'post Id')
     validate.id(commentId, 'comment Id')
 
-    const { users, posts } = storage
+    const objectUserId = new ObjectId(userId)
+    const objectPostId = new ObjectId(postId)
+    const objectCommentId = new ObjectId(commentId)
 
-    const found = users.some(({ id }) => id === userId)
-    if (!found) throw new Error('user not found')
+    return Promise.all([
+        db.users.findOne({ _id: objectUserId }),
+        db.posts.findOne({ _id: objectPostId }),
+    ])
+        .catch(error => { throw new Error(error.mesage) })
+        .then(([user, post]) => {
+            if (!user) throw new Error('user not found')
+            if (!post) throw new Error('post not found')
 
-    const post = posts.find(({ id }) => id === postId)
-    if (!post) throw new Error('post not found')
+            const { comments } = post
+            const found = comments.some(comment => comment._id.equals(objectCommentId))
+            if (!found) throw new Error('comment not found')
 
-    const { comments } = post
+            const comment = post.comments.find(comment => comment.author.toString() === objectUserId.toString())
+            if (!comment || comment.author.toString() !== objectUserId.toString()) {
+                throw new Error('not your comment')
+            }
 
-    const index = comments.findIndex(({ id }) => id === commentId)
-    if (index < 0) throw new Error('comment not found')
-
-    const { author } = comments[index]
-    if (author !== userId) throw new Error('not your comment')
-
-    comments.splice(index, 1)
-
-    storage.posts = posts
+            return db.posts.updateOne({ _id: objectPostId }, { $pull: { comments: { _id: objectCommentId } } })
+                .catch(error => { throw new Error(error.message) })
+        })
+        .then(_ => { })
 }
+

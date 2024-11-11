@@ -1,24 +1,41 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
 import { validate } from 'com'
+
+const { ObjectId } = db
 
 export default userId => {
     validate.id(userId, 'userId')
-    const { posts, users } = storage
 
-    const found = users.some(({ id }) => id === userId)
-    if (!found) throw new Error('user not found')
+    return db.users.findOne({ _id: new ObjectId(userId) })
+        .catch(error => { throw new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    posts.forEach(post => {
-        const { author: authorId } = post
+            return db.posts.find().sort({ date: -1 }).toArray()
+                .catch(error => { throw new Error(error.message) })
+        })
+        .then(posts => {
+            const promises = posts.map(post =>
+                db.users.findOne({ _id: post.author }, { username: 1 })
+                    .then(user => {
+                        if (!user) throw new Error('author of post not found')
 
-        const { username } = users.find(({ id }) => id === authorId)
+                        const { username } = user
+                        post.id = post._id.toString()
+                        delete post._id
 
-        post.author = { id: authorId, username }
+                        post.author = { id: post.author.toString(), username }
 
-        post.liked = post.likes.includes(userId)
+                        const { likes, comments } = post
 
-        post.comments = post.comments.length
-    })
+                        post.liked = likes.some(userObjectId => userObjectId.equals(userId))
 
-    return posts.toReversed()
+                        post.likes = likes.length
+                        post.comments = comments.length
+
+                        return post
+                    })
+            )
+            return Promise.all(promises)
+        })
 }

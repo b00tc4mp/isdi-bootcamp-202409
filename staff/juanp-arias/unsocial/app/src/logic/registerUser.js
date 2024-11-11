@@ -5,7 +5,7 @@ export default (name, email, username, password, repeatpassword, callback) => {
     validate.email(email)
     validate.username(username)
     validate.password(password)
-    validate.passwordRepeat(password, repeatpassword)
+    validate.passwordsMatch(password, repeatpassword)
 
     const xhr = new XMLHttpRequest
 
