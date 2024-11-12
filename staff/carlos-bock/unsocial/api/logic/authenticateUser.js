@@ -6,7 +6,7 @@ const authenticateUser = (username, password) => {
     validate.password(password);
     /*if (password.length < 8) throw new Error('invalid password');*/
     return db.users.findOne({username, password})
-        .catch(error => {new Error (error.message)})
+        .catch(error => {throw new Error (error.message)})
         .then(user => {
             if (!user) throw new Error('wrong credentials');
 

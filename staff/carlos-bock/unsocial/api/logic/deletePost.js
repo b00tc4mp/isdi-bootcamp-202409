@@ -1,30 +1,29 @@
+import db from 'dat';
 import { validate } from 'com';
-import { storage } from '../data/index.js';
+
+const {ObjectId} = db; 
 
 const deletePost = (userId, postId) => {
     validate.id(userId, 'userId');
     validate.id(postId, 'postId');
 
-    const {users, posts} = storage;
+    return db.users.findOne({_id: new ObjectId(userId)})
+        .catch(error => {throw new Error(error.message)})
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    const found = users.some(({id}) => id === userId);
+            const postObjectId = new ObjectId(postId);
 
-    if (!found) throw new Error('user not found');
+            return db.posts.findOne({_id: postObjectId})
+                .catch(error => {throw new Error(error.message)})
+                .then(post => {
+                    if (!post) throw new Error('post not found');
+                    if (!post.author.equals(userId)) throw new Error('user is not author of post')
 
-    const index = posts.findIndex(({id}) => id === postId); 
-    
-    if (index < 0) throw new Error('post not found'); 
-
-    const post = posts[index]; 
-
-    const {author} = post; 
-
-    if (author !== userId) throw new Error('user is not author of post');
-
-    posts.splice(index,1);
-
-    storage.posts = posts;
-
+                        return db.posts.deleteOne({_id:postObjectId})
+                            .catch(error => {throw new Error(error.message)})
+                })
+                .then(_ => {})
+        })
 }
-
 export default deletePost;

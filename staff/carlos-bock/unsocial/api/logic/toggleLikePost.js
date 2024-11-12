@@ -1,30 +1,36 @@
-import {validate} from './helpers/index.js';
-import {storage} from '../data/index.js';
+import db from 'dat';
+import {validate} from 'com';
+
+const {ObjectId} = db;
 
 const toggleLikePost = (userId, postId) => {
     validate.id(userId, 'userId');
     validate.id(postId, 'postId');
 
-    const {users, posts} = storage; 
+    const userObjectId = new ObjectId(userId);
+    const postObjectId = new ObjectId(postId); 
 
-    const found = users.some(({id}) => id === userId);
+    return Promise.all([
+        db.users.findOne({_id: userObjectId}),
+        db.posts.findOne({_id: postObjectId})
+    ])
+        .catch(error => {throw new Error(error.message)})
+        .then(([user, post]) => {
+            if(!user) throw new Error('user not found');
+            if(!post) throw new Error('post not found');
 
-    if (!found) throw new Error('users not found');
+            const {likes} = post;
 
-    const post = posts.find(({id}) => id === postId);
+            const found = likes.some(userObjectId => userObjectId.equals(userId));
 
-    if (!post) throw new Error ('post not found');
-
-    const  {likes} = post;
-
-    const index = likes.indexOf(userId)
-
-    if (index < 0)
-        likes.push(userId);
-    else
-        likes.splice(index,1);
-
-    storage.posts = post;
+            if (found)
+                return db.posts.updateOne({_id: postObjectId}, {$pull: {likes: userObjectId}})
+                    .catch(error => {throw new Error(error.message)});
+                
+            return db.posts.updateOne({_id: postObjectId}, {$push: {likes: userObjectId}})
+                .catch(error => {throw new Error(error.message)})            
+        })
+        .then(_=>{});
 };
 
 export default toggleLikePost

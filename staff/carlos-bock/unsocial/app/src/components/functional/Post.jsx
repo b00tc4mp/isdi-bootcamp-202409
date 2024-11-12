@@ -77,7 +77,7 @@ export default function Post ({post, onLiked, onDeleted, onCommentAdded, onComme
 
       <time>{getElapsedTime(date)} ago</time>
 
-      <Button onClick={handleLikeClick}> {`${liked ? '💓' : '🖤' } ${likes.length} likes`}</Button>
+      <Button onClick={handleLikeClick}> {`${liked ? '💓' : '🖤' } ${likes} likes`}</Button>
 
       {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
 

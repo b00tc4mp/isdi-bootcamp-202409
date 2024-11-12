@@ -6,7 +6,7 @@ const getPosts = callback => {
     const xhr = new XMLHttpRequest;
 
     xhr.addEventListener('load', () => {
-        const {status, response} = xhr;
+        const { status, response } = xhr;
 
         if(status === 200){
             const posts = JSON.parse(response);

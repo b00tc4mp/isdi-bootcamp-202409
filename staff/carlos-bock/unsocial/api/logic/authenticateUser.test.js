@@ -11,4 +11,5 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
             console.error(error);
         }
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => db.disconnect());
