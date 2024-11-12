@@ -10,15 +10,13 @@ export default (userId, postId) => {
     const objectUserId = new ObjectId(userId)
     const objectPostId = new ObjectId(postId)
 
-    return db.users.findOne({ _id: objectUserId })
-        .catch(error => { throw new Error(error.message) })
-        .then(user => {
+    return Promise.all([
+        db.users.findOne({ _id: objectUserId }),
+        db.posts.findOne({ _id: objectPostId }),
+    ])
+        .catch(error => { throw new Error(error.mesage) })
+        .then(([user, post]) => {
             if (!user) throw new Error('user not found')
-
-            return db.posts.findOne({ _id: objectPostId })
-                .catch(error => { throw new Error(error.message) })
-        })
-        .then(post => {
             if (!post) throw new Error('post not found')
 
             const { comments } = post

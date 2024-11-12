@@ -3,7 +3,7 @@ import { validate } from 'com'
 
 const { ObjectId } = db
 export default (userId, postId, text) => {
-    validate.id(postId, 'PostId')
+    validate.id(postId, 'postId')
     validate.id(userId, 'userId')
     validate.text(text)
 
@@ -20,16 +20,16 @@ export default (userId, postId, text) => {
             if (!post) throw new Error('post not found')
 
             const newComment = {
-                _id: new ObjectId(),
+                _id: new ObjectId,
                 author: objectUserId,
                 text: text,
-                date: new Date()
+                date: new Date
             }
 
             return db.posts.updateOne({ _id: objectPostId }, { $push: { comments: newComment } })
+                .catch(error => {
+                    throw new Error(error.message)
+                })
         })
         .then(_ => { })
-        .catch(error => {
-            throw new Error(error.message)
-        })
 }
