@@ -1,4 +1,6 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
 
 export default callback => {
     validate.callback(callback)
@@ -20,6 +22,8 @@ export default callback => {
 
         callback(new Error(message))
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.open('GET', `http://localhost:8080/users/${sessionStorage.userId}/name`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)

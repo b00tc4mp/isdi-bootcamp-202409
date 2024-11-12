@@ -1,5 +1,6 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
+const { SystemError } = errors
 
 export default (image, text, callback) => {
     validate.image(image)
@@ -20,6 +21,8 @@ export default (image, text, callback) => {
         callback(new Error(message))
 
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.open('POST', 'http://localhost:8080/posts')
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)

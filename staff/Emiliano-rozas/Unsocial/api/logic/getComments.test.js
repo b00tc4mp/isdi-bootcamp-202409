@@ -5,7 +5,7 @@ import getComments from './getComments.js'
 db.connect('mongodb://127.0.0.1:27017/unsocial')
     .then(() => {
         try {
-            getComments('672ce6432d591ce2aef50c5b', '672cea63a14bd241a52c11f9')
+            getComments('67321cb077f45c936bc2b2a0', '67321e791885a22a2b68dc33')
                 .then(console.log)
                 .catch(error => { new Error(error.message) })
         } catch (error) {

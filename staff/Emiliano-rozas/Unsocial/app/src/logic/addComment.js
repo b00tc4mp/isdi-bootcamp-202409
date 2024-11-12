@@ -1,5 +1,6 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
+const { SystemError } = errors
 
 export default (postId, text, callback) => {
     validate.id(postId, 'postId')
@@ -22,6 +23,8 @@ export default (postId, text, callback) => {
 
         callback(new Error(message))
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)

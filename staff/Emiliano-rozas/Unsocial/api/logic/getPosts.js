@@ -1,6 +1,8 @@
 import db from 'dat'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { NotFoundError, SystemError } = errors
 
 const { ObjectId } = db
 
@@ -10,18 +12,19 @@ export default userId => {
     const ObjectUserId = ObjectId.createFromHexString(userId)
 
     return db.users.findOne({ _id: ObjectUserId })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new Error("User not found")
+            if (!user) throw new NotFoundError("User not found")
 
             return db.posts.find().sort({ date: -1 }).toArray()
-                .catch(error => { new Error(error.message) })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(posts => {
             const promises = posts.map(post => db.users.findOne({ _id: post.author }, { username: 1 })
 
                 .then(user => {
-                    if (!user) throw new Error("Author post not found")
+                    if (!user) throw new NotFoundError("Author post not found")
+
 
                     const { username } = user
 
