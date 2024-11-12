@@ -1,8 +1,9 @@
 import db from 'dat'
-import { validate } from './helpers/index.js'
+import { validate, errors } from 'com'
 //import { storage } from '../data/index.js'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId) => {
 
@@ -22,10 +23,10 @@ export default (userId, postId) => {
         db.posts.findOne({ _id: postObjectId })
     ])
 
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
-            if (!user) throw new Error('user not found')
-            if (!post) throw new Error('Post not found')
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('Post not found')
 
             const { likes } = post
 
@@ -33,10 +34,10 @@ export default (userId, postId) => {
 
             if (found)
                 return db.posts.updateOne({ _id: postObjectId }, { $pull: { likes: userObjectId } })
-                    .catch(error => { throw new Error(error.message) })
+                    .catch(error => { throw new SystemError(error.message) })
 
             return db.posts.updateOne({ _id: postObjectId }, { $push: { likes: userObjectId } })
-                .catch(error => { throw new Error(error.message) })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
 

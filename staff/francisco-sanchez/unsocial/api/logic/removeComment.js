@@ -1,7 +1,9 @@
 import db from 'dat'
-import { validate } from './helpers/index.js'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+
+const { DuplicityError, SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
@@ -19,24 +21,24 @@ export default (userId, postId, commentId) => {
 
     ])
 
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
-            if (!user) throw new Error('user not found')
-            if (!post) throw new Error('Post not found')
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('Post not found')
 
             const { comments } = post
             //if (!comments) throw new Error('Comment not found')
 
             const found = comments.some(comment => comment._id.equals(commentObjectId))
-            if (!found) throw new Error('comment not found')
+            if (!found) throw new NotFoundError('comment not found')
 
             const isAuthor = post.comments.find(comment => comment.author.toString() === userObjectId.toString())
 
-            if (!isAuthor) throw new Error('User is not the author of the comment');
+            if (!isAuthor) throw new OwnershipError('User is not the author of the comment');
 
             if (found)
                 return db.posts.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: commentObjectId } } })
-                    .catch(error => { throw new Error(error.message) })
+                    .catch(error => { throw new SystemError(error.message) })
 
         })
         .then(_ => { })

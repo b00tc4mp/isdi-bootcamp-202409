@@ -43,8 +43,8 @@
 ## **12/11/2024**
 ### Introducimos errores personalizados
 
-- Crea un errors.js dentro de com
-- Crea algunos errores y los exporta en el objeto errors
+- OK - Crea un errors.js dentro de com
+- OK -Crea algunos errores y los exporta en el objeto errors
 - Los importa en el index. 
 - Lo importa en el validate.js de API. 
 - Cambia todos lo new Error por new ValidationError

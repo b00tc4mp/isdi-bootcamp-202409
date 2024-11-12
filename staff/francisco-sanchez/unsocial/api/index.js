@@ -1,7 +1,10 @@
 import db from 'dat'
 import express, { json } from 'express'
 import logic from './logic/index.js'
-import cors from 'cors'
+import cors from 'cors' //Para permitir el acceso a la api desde la app
+import { errors } from 'com'
+
+const { ValidationError, SystemError, DuplicityError, CredentialsError, NotFoundError, OwnershipError } = errors
 
 db.connect('mongodb://127.0.0.1:27017/unsocial-test')
     .then(() => {
@@ -161,28 +164,6 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
         })
 
 
-        server.patch('/posts/:postId/likes', (req, res) => {
-            try {
-                const userId = req.headers.authorization.slice(6)
-                const { postId } = req.params
-
-                logic.toggleLikePost(userId, postId)
-                    .then(result => {
-                        //.then(() => res.status(201).send())
-                        res.status(200).json(result) //Devolvemos ok status + posts
-                    })
-                    .catch(error => {
-                        res.status(400).json({ error: error.constructor.name, message: error.message })
-                    })
-
-            } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
-                console.error(error)
-            }
-
-        })
-
-
         //Montar la url para los addComments
         server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
             try {
@@ -191,10 +172,10 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
                 const { text } = req.body
 
                 logic.addComment(userId, postId, text)
-                    .then(result => {
-                        res.status(200).json(result)
+                    .then(() =>
+                        res.status(201).send()
                         //res.status(201).send()
-                    })
+                    )
                     .catch(error => {
                         res.status(400).json({ error: error.constructor.name, message: error.message })
                     })
@@ -242,10 +223,6 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
                         console.error(error)
                     })
 
-
-
-
-
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
                 console.error(error)
@@ -261,21 +238,26 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
                 const { postId } = req.params
 
                 logic.getComments(userId, postId)
-                    .then(comments => {
-                        res.json(comments)
-                    })
+                    .then(comments => res.json(comments))
                     .catch(error => {
-                        res.status(400).json({ error: error.constructor.name, message: error.message })
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+
                         console.error(error)
                     })
 
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                if (error instanceof ValidationError)
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+
                 console.error(error)
 
             }
         })
-
 
         server.listen(8080, () => console.log('api is up'))
 

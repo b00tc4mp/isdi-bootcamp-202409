@@ -1,19 +1,22 @@
 import db from 'dat'
-import { validate } from './helpers/index.js'
+import { validate, errors } from 'com'
 //import { storage, uuid } from '../data/index.js'
 
 const { ObjectId } = db
+
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, image, text) => {
     validate.id(userId, 'userId')
     validate.image(image)
     validate.text(text)
 
+    const userObjectId = ObjectId.createFromHexString(userId)
 
-    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
-        .catch(error => { throw new Error(error.message) })
+    return db.users.findOne({ _id: userObjectId })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new NotFoundError('user not found')
 
             const userObjectId = ObjectId.createFromHexString(userId)
 
@@ -28,7 +31,7 @@ export default (userId, image, text) => {
             })
                 .then(_ => { }) //Este callback no devuelve nada
                 .catch(error => {
-                    throw new Error(error.message)
+                    throw new SystemError(error.message)
                 })
 
         })
