@@ -1,174 +1,221 @@
+import db from 'dat'
 import express, { json } from 'express'
 import logic from './logic/index.js'
 import cors from 'cors'
 
-const server = express()
+db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+    .then(() => {
+        console.log('connected to db')
 
-server.use(cors())
+        const server = express()
 
-const jsonBodyParser = json()
+        server.use(cors())
 
-server.get('/', (_, res) => res.send('Hello, API!'))
+        const jsonBodyParser = json()
 
-server.post('/authenticate', jsonBodyParser, (req, res) => {
+        server.get('/', (_, res) => res.send('Hello, API!'))
 
-    const { username, password } = req.body
-    try {
+        server.post('/authenticate', jsonBodyParser, (req, res) => {
+            try {
+                const { username, password } = req.body
 
-        const userId = logic.authenticateUser(username, password)
+                logic.authenticateUser(username, password)
+                    .then(userId => res.json(userId))
+                    .catch(error => {
+                        res.status(401).json({ error: error.constructor.name, message: error.message })
 
-        res.json(userId)
-    } catch (error) {
-        res.status(401).json({ error: error.constructor.name, message: error.message })
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(401).json({ error: error.constructor.name, message: error.message })
 
-        console.error(error)
-    }
-})
+                console.error(error)
+            }
+        })
 
-server.post('/register', jsonBodyParser, (req, res) => {
+        server.post('/register', jsonBodyParser, (req, res) => {
+            try {
+                const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
-    try {
-        const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
+                logic.registerUser(name, email, username, password, passwordRepeat)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-        logic.registerUser(name, email, username, password, passwordRepeat)
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
 
-        res.status(201).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+                console.error(error)
+            }
+        })
 
-        console.error(error)
-    }
-})
+        server.get('/users/:targetUserId/name', (req, res) => {
 
-server.get('/users/:targetUserId/name', (req, res) => {
-    const userId = req.headers.authorization.slice(6)
+            try {
+                const userId = req.headers.authorization.slice(6)
 
-    const { targetUserId } = req.params
+                const { targetUserId } = req.params
 
-    try {
-        const name = logic.getUserName(userId, targetUserId)
+                logic.getUserName(userId, targetUserId)
+                    .then(name => res.json(name))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-        res.json(name)
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
 
-        console.error(error)
-    }
-})
+                console.error(error)
+            }
+        })
 
-server.post('/posts', jsonBodyParser, (req, res) => {
-    const userId = req.headers.authorization.slice(6) //Basic sgsgsgsgs
+        server.post('/posts', jsonBodyParser, (req, res) => {
 
-    const { image, text } = req.body
+            try {
+                const userId = req.headers.authorization.slice(6) //Basic sgsgsgsgs
 
-    try {
-        logic.createPost(userId, image, text)
+                const { image, text } = req.body
 
-        res.status(201).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+                logic.createPost(userId, image, text)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-        console.error(error)
-    }
-})
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
 
-server.get('/posts', (req, res) => {
-    const userId = req.headers.authorization.slice(6)
+                console.error(error)
+            }
+        })
 
-    try {
-        const posts = logic.getPosts(userId)
+        server.get('/posts', (req, res) => {
 
-        res.json(posts)
-    } catch (error) {
-        res.status(404).json({ error: error.constructor.name, message: error.message })
+            try {
+                const userId = req.headers.authorization.slice(6)
 
-        console.error(error)
-    }
-})
+                logic.getPosts(userId)
+                    .then(posts => res.json(posts))
+                    .catch(error => {
+                        res.status(404).json({ error: error.constructor.name, message: error.message })
 
-server.delete('/posts/:postId', (req, res) => {
-    const { postId } = req.params
-    const userId = req.headers.authorization.slice(6)
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(404).json({ error: error.constructor.name, message: error.message })
 
-    try {
-        logic.deletePost(userId, postId)
+                console.error(error)
+            }
+        })
 
-        res.status(204).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        server.delete('/posts/:postId', (req, res) => {
 
-        console.error(error)
-    }
-})
+            try {
+                const { postId } = req.params
+                const userId = req.headers.authorization.slice(6)
 
-server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
+                logic.deletePost(userId, postId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-    const userId = req.headers.authorization.slice(6)
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
 
-    const { text } = req.body
+                console.error(error)
+            }
+        })
 
-    const { postId } = req.params
+        server.post('/posts/:postId/comments', jsonBodyParser, (req, res) => {
 
-    try {
-        logic.addComment(userId, postId, text)
+            try {
+                const userId = req.headers.authorization.slice(6)
 
-        res.status(201).send()
+                const { text } = req.body
 
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+                const { postId } = req.params
 
-        console.error(error)
-    }
-})
+                logic.addComment(userId, postId, text)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-server.get('/posts/:postId/comments', (req, res) => {
-    const userId = req.headers.authorization.slice(6)
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
 
-    const { postId } = req.params
+                console.error(error)
+            }
+        })
 
-    try {
-        const comment = logic.getComments(userId, postId)
+        server.get('/posts/:postId/comments', (req, res) => {
 
-        res.json(comment)
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+            try {
+                const userId = req.headers.authorization.slice(6)
 
-        console.error(error)
-    }
-})
+                const { postId } = req.params
 
-server.delete('/posts/:postId/comments/:commentId', (req, res) => {
+                logic.getComments(userId, postId)
+                    .then(comment => res.json(comment))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-    const userId = req.headers.authorization.slice(6)
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
 
-    const { postId, commentId } = req.params
+                console.error(error)
+            }
+        })
 
-    try {
-        logic.removeComment(userId, postId, commentId)
+        server.delete('/posts/:postId/comments/:commentId', (req, res) => {
 
-        res.status(204).send()
+            try {
+                const userId = req.headers.authorization.slice(6)
 
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+                const { postId, commentId } = req.params
 
-        console.error(error)
-    }
-})
+                logic.removeComment(userId, postId, commentId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-server.patch('/posts/:postId/likes', (req, res) => {
-    const userId = req.headers.authorization.slice(6)
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
 
-    const { postId } = req.params
-    try {
-        logic.likesInteraction(userId, postId)
+                console.error(error)
+            }
+        })
 
-        res.status(204).send()
+        server.patch('/posts/:postId/likes', (req, res) => {
+            try {
+                const userId = req.headers.authorization.slice(6)
 
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+                const { postId } = req.params
 
-        console.error(error)
-    }
-})
+                logic.likesInteraction(userId, postId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-server.listen(8080, () => console.log('api is up'))
+                        console.error(error)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                console.error(error)
+            }
+        })
+
+        server.listen(8080, () => console.log('api is up'))
+    })

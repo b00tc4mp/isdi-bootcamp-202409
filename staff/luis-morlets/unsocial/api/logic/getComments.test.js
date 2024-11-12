@@ -1,7 +1,15 @@
+import db from 'dat'
 import getComments from './getComments.js'
 
-try {
-    console.log(getComments('m2x9yvtmjgu', 'm2xaozivndc'))
-} catch (error) {
-    console.error(error)
-}
+db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+    .then(() => {
+        try {
+            return getComments('672e20b8106be73d00f7ee7b', '67321930d260445bfba74342')
+                .then(console.log)
+                .catch(console.error)
+        } catch (error) {
+            console.error(error)
+        }
+    })
+    .catch(console.error)
+    .finally(() => db.disconnect())

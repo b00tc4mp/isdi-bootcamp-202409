@@ -1,7 +1,16 @@
+import db from 'dat'
+
 import deletePost from './deletePost.js'
 
-try {
-    deletePost('m2wd7pkr7xq', 'm32snzaun6d')
-} catch (error) {
-    console.error(error)
-}
+db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+    .then(() => {
+        try {
+            return deletePost('672e2c487f1acbd7a5009c67', '67321930d260445bfba74342')
+                .then(console.log)
+                .catch(console.error)
+        } catch (error) {
+            console.error(error)
+        }
+    })
+    .catch(console.error)
+    .finally(() => db.disconnect())

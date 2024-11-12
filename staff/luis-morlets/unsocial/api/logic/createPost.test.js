@@ -1,8 +1,15 @@
+import db from 'dat'
 import createPost from './createPost.js'
 
-try {
-    createPost('m2wd7pkr7xq', 'https://pixabay.com/get/g0259c3660213baf3e4aa36f843176f3d021f71f70db7da315dda8809d7fe49fd0f394a4d00203563adb597194a0868c2_1280.jpg', 'cuando estudiaba')
-
-} catch (error) {
-    console.error(error)
-}
+db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+    .then(() => {
+        try {
+            return createPost('672e2c487f1acbd7a5009c67', 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Sim%C3%B3n_Bol%C3%ADvar_by_Acevedo_Bernal%2C_1922.jpg', 'Libertando')
+                .then(console.log)
+                .catch(console.error)
+        } catch (error) {
+            console.error(error)
+        }
+    })
+    .catch(console.error)
+    .finally(() => db.disconnect())

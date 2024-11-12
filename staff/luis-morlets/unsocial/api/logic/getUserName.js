@@ -1,19 +1,26 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
 import { validate } from 'com'
+
+const { ObjectId } = db
 
 export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
 
-    const { users } = storage
+    const userObjectId = ObjectId.createFromHexString(userId)
+    const targetUserObjectId = ObjectId.createFromHexString(targetUserId)
 
-    const found = users.some(({ id }) => id === userId)
+    return db.users.findOne({ _id: userObjectId })
+        .catch(error => { throw new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    if (!found) throw new Error('user not found')
+            return db.users.findOne({ _id: targetUserObjectId })
+                .catch(error => { throw new Error(error.message) })
+        })
+        .then(user => {
+            if (!user) throw new Error('target user not found')
 
-    const user = users.find(({ id }) => id === targetUserId)
-
-    if (!user) throw new Error('target user not found')
-
-    return user.name
+            return user.name
+        })
 }

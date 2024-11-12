@@ -1,27 +1,31 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
 import { validate } from 'com'
 
+const { ObjectId } = db
+
 export default (userId, postId) => {
-    validate.id(userId, 'userId')
     validate.id(postId, 'postId')
+    validate.id(userId, 'userId')
 
-    const { posts, users } = storage
+    const userObjectId = ObjectId.createFromHexString(userId)
+    const postObjectId = ObjectId.createFromHexString(postId)
 
-    const found = users.some(({ id }) => id === userId)
+    return Promise.all([
+        db.users.findOne({ _id: userObjectId }),
+        db.posts.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new Error(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new Error('user not found')
+            if (!post) throw new Error('post not found')
 
-    if (!found) throw new Error('user not found')
+            const { author } = post
 
-    const index = posts.findIndex(({ id }) => id === postId)
+            if (!author.equals(userId)) { throw new Error('User is not author of this post') }
 
-    if (index < 0) throw new Error('post not found')
-
-    const post = posts[index]
-
-    const { author } = post
-
-    if (author !== userId) throw new Error('user is not author of post')
-
-    posts.splice(index, 1)
-
-    storage.posts = posts
+            return db.posts.deleteOne({ _id: postObjectId })
+                .catch(error => { throw new Error(error.message) })
+                .then(_ => { })
+        })
 }
+

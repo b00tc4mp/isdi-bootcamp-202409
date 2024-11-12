@@ -12,7 +12,7 @@ import './PostItem.css'
 export default function PostItem({ post, onLiked, onDeleted, onCommented, onCommentRemoved }) {
     const [view, setView] = useState(null)
 
-    const { id, author, image, text, date, liked, likedBy, comments } = post
+    const { id, author, image, text, date, liked, likes, comments } = post
 
     const handleLikeClick = () => {
         try {
@@ -71,7 +71,7 @@ export default function PostItem({ post, onLiked, onDeleted, onCommented, onComm
         <div className="container">
             <div className="likes">
                 <Button type="button" className="likes" onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}</Button>
-                <span>{`${likedBy.length} likes`}</span>
+                <span>{`${likes} likes`}</span>
 
                 <Button className="comments" onClick={handleCommentsClick}>💬 {comments}</Button>
 

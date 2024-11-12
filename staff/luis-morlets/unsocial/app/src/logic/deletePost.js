@@ -10,9 +10,7 @@ export default (postId, callback) => {
         const { status, response } = xhr
 
         if (status === 204) {
-            const postId = JSON.parse(response)
-
-            callback(null, postId)
+            callback(null)
 
             return
         }
