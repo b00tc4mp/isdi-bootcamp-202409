@@ -72,7 +72,7 @@ export default function PostItem({ post, onLiked, onDeleted, onCommentAdded, onC
         <p>{text}</p>
 
         <div className='PostButtons'>
-            <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes.length} likes`}</Button>
+            <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</Button>
 
             <Button className="ButtonPost" onClick={handleCommentsClick}>🗨️{comments}</Button>
 

@@ -1,4 +1,3 @@
-import './Login.css'
 import { PasswordInput, Input, Button, Form, Label } from '../components/library'
 import logic from '../logic'
 import './Profile.css'
@@ -35,7 +34,7 @@ export default function Profile(props) {
         props.onHomeClick()
     }
 
-    return <main className='Login'>
+    return <main className='Profile'>
         <h2>Profile</h2>
         <img src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" />
         <Form onSubmit={handleSubmit}>
@@ -48,7 +47,6 @@ export default function Profile(props) {
             <Button type="submit"><strong>LOGIN</strong></Button>
         </Form>
 
-        <h4>Don't have an account?</h4>
         <a href="" onClick={handleHomeClick}>Home</a>
 
     </main>

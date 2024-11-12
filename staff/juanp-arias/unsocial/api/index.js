@@ -196,11 +196,16 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
         })
 
         server.get('/posts/:postId/comments', (req, res) => {
-            const { postId } = req.params
-            const userId = req.headers.authorization.slice(6)
             try {
-                const comments = logic.getComments(userId, postId)
-                res.json(comments)
+                const { postId } = req.params
+                const userId = req.headers.authorization.slice(6)
+                logic.getComments(userId, postId)
+                    .then(comments => res.json(comments))
+                    .catch(error => {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        console.error(error)
+                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
                 console.error(error)
