@@ -1,4 +1,6 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
 
 export default (postId, commentId, callback) => {
     validate.id(postId, 'postId')
@@ -18,10 +20,14 @@ export default (postId, commentId, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
-    xhr.open('DELETE', `http://192.168.1.112:8080/posts/${postId}/comments/${commentId}`)
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('DELETE', `http://192.168.1.156:8080/posts/${postId}/comments/${commentId}`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }

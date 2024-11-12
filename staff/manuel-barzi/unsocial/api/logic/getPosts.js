@@ -16,7 +16,7 @@ export default userId => {
         })
         .then(posts => {
             const promises = posts.map(post =>
-                db.users.findOne({ _id: post.author }, { username: 1 }) // projection
+                db.users.findOne({ _id: post.author }, { projection: { username: 1 } }) // projection
                     .then(user => {
                         if (!user) throw new Error('author of post not found')
 

@@ -4,6 +4,10 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
+import { errors } from 'com'
+
+const { SystemError } = errors
+
 export default function Login(props) {
     console.log('Login -> render')
 
@@ -15,7 +19,10 @@ export default function Login(props) {
         try {
             logic.loginUser(username, password, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
