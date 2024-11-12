@@ -2,6 +2,8 @@ import { Button } from "../library";
 import logic from "../../logic";
 import getElapsedTime from '../../utils/getElapsedTime'
 
+import './Comments.css'
+
 
 export default function Comment({ postId, comment: { id, author, text, date }, onRemoved }) {
     console.log('Comment -> render')
@@ -25,9 +27,9 @@ export default function Comment({ postId, comment: { id, author, text, date }, o
     }
 
     return <li>
-        <h4>{author.username}</h4>
-        <p>{text}</p>
+        <span className="author">{author.username}</span>
+        <span className="commentText">{text}</span>
         <time>{getElapsedTime(date)}</time>
-        {logic.getUserId() === author.id && <Button onClick={handleRemove}>🗑️</Button>}
+        {logic.getUserId() === author.id && <Button className="deleteButton" onClick={handleRemove}>🗑️</Button>}
     </li>
 }

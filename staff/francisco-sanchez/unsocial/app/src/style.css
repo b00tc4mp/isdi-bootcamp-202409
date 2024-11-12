@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap');
 
-/**,
+
 ::before,
 ::after {
     box-sizing: border-box;
-}*/
+}
 
 :root {
     --color-fondo: #07074a;
@@ -18,7 +18,7 @@
 
 body {
     background-color: var(--color-fondo);
-    color: var(var(--white));
+    color: var(--white);
     /*display: flex;
     flex-direction: column;
     align-items: center;*/
@@ -76,6 +76,7 @@ a:hover {
 
 
 .container {
-    width: 80%;
+    width: 100%;
     margin-top: 60px;
+    margin: 60px auto 0;
 }

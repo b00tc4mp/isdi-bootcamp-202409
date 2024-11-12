@@ -12,14 +12,14 @@
 }
 
 img.postFrame {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     border-top: 10px solid #fff;
     border-left: 10px solid #fff;
     border-right: 10px solid #fff;
-    border-bottom: 40px solid #fff;
+    border-bottom: 50px solid #fff;
 }
 
 time {

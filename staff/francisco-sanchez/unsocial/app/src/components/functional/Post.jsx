@@ -71,27 +71,25 @@ export default function PostItem({ post, onLiked, onDeleted, onCommentAdded, onC
 
     return <article className="PostItem">
         <div className="publishedBy">
-            Published by <span className="author">{author.username}</span>: <time>{getElapsedTime(date)} ago.</time>
+            Published by <span className="author">{author.username}</span><br /><time>{getElapsedTime(date)} ago.</time>
         </div>
 
         <img src={image} className="postFrame" />
+        <p className="postText">{text}</p>
         <div className="postCommentAndLikes">
-            {/* Botón para dar me gusta a los posts */}
-            <p className="postText">{text}</p>
+
 
             {/* Botón Like */}
             <Button onClick={handleLikeClick}>{`${liked ? '💙' : '🤍'} ${likes}`}</Button>
 
+            {/* Botón para mostrar los comentarios */}
+            <Button onClick={handleCommentsClick}>💬 {comments}</Button>
 
             {/* Botón para Eliminar posts */}
             {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>❌</Button>}
-
-
-            {/* Botón para mostrar los comentarios */}
-            <Button onClick={handleCommentsClick}>💬 {comments}</Button>
         </div>
 
-        <div className="comentsTexts">
+        <div className="commentsTexts">
             {view === 'comments' && <Comments
                 postId={id}
                 onAdded={onCommentAdded}
