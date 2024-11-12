@@ -1,4 +1,4 @@
-import { validate } from "./helpers"
+import { validate } from 'com'
 
 export default (postId, callback) => {
 

@@ -1,5 +1,5 @@
 import db from '../../dat/index.js'
-import validate from './helpers/validate.js'
+import { validate } from 'com'
 
 const { ObjectId } = db
 
@@ -12,17 +12,24 @@ export default (postId, text, userId) => {
   const objectPostId = ObjectId.createFromHexString(postId)
 
   return db.users.findOne({ _id: objectUserId })
-    .catch(error => { throw new Error(error.message) })
+    .catch(error => { throw new Error(error.message) }) //Server Error
     .then(user => {
-      if (!user) throw new Error('user not found')
+      if (!user) throw new Error('user not found') // Not Found Error
 
       return db.posts.findOne({ _id: objectPostId })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { new Error(error.message) }) // Server Error
         .then(post => {
-          if (!post) throw new Error('post not found')
+          if (!post) throw new Error('post not found') // Not Found Error
 
-          return db.posts.updateOne({ _id: objectPostId }, { $push: { comments: { _id: new ObjectId, author: objectUserId, text, date: new Date } } })
-            .catch(error => { throw new Error(error.message) })
+          const comment = {
+            _id: new ObjectId,
+            author: objectUserId,
+            text,
+            date: new Date
+          }
+
+          return db.posts.updateOne({ _id: objectPostId }, { $push: { comments: comment } })
+            .catch(error => { throw new Error(error.message) }) // System Error
             .then(_ => { })
         })
     })

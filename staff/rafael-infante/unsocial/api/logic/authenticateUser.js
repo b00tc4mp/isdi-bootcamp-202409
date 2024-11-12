@@ -1,5 +1,5 @@
 import db from "../../dat/index.js";
-import { validate } from "./helpers/index.js";
+import { validate } from "com";
 
 export default (username, password) => {
   validate.username(username)

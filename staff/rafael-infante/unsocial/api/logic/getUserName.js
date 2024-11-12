@@ -1,5 +1,5 @@
 import db from "../../dat/index.js";
-import validate from "./helpers/validate.js";
+import { validate } from "com";
 
 const { ObjectId } = db
 
