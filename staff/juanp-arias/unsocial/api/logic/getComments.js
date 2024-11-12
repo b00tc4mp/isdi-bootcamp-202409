@@ -1,7 +1,8 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
@@ -14,18 +15,18 @@ export default (userId, postId) => {
         db.users.findOne({ _id: objectUserId }),
         db.posts.findOne({ _id: objectPostId }),
     ])
-        .catch(error => { throw new Error(error.mesage) })
+        .catch(error => { throw new SystemError(error.mesage) })
         .then(([user, post]) => {
-            if (!user) throw new Error('user not found')
-            if (!post) throw new Error('post not found')
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
             const { comments } = post
 
             const promises = comments.map(comment => {
                 return db.users.findOne({ _id: comment.author })
-                    .catch(error => { throw new Error(error.message) })
+                    .catch(error => { throw new SystemError(error.message) })
                     .then(user => {
-                        if (!user) throw new Error('author of comment not found')
+                        if (!user) throw new OwnershipError('author of comment not found')
 
                         const { username } = user
 
