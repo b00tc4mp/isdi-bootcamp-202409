@@ -21,7 +21,6 @@ export default function CreatePost({ onCreated }) {
             logic.createPost(image, text, error => {
                 if (error) {
                     alert(error.message)
-
                     console.error(error)
 
                     return
