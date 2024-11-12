@@ -1,7 +1,9 @@
 import db from "dat";
-import { validate } from "com";
+import { validate, errors } from "com";
 
 const { ObjectId } = db;
+
+const { NotFoundError, SystemError } = errors;
 
 export default (userId, postId) => {
   validate.id(userId, "userId");
@@ -11,15 +13,15 @@ export default (userId, postId) => {
 
   return db.users
     .findOne({ _id: objectUserId })
-    .catch((error) => new Error(error.message))
+    .catch((error) => new SystemError(error.message))
     .then((user) => {
-      if (!user) throw new Error("user not found");
+      if (!user) throw new NotFoundError("user not found");
 
       return db.posts
         .findOne({ _id: new ObjectId(postId) })
-        .catch((error) => new Error(error.message))
+        .catch((error) => new SystemError(error.message))
         .then((post) => {
-          if (!post) throw new Error("post not found");
+          if (!post) throw new NotFoundError("post not found");
 
           const { comments } = post;
 
@@ -28,7 +30,7 @@ export default (userId, postId) => {
             return db.users
               .findOne({ _id: authorId }, { username: 1 })
               .then((user) => {
-                if (!user) throw new Error("user not found");
+                if (!user) throw new NotFoundError("user not found");
                 const { username } = user;
                 comment.author = { id: authorId, username };
 

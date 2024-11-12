@@ -4,13 +4,16 @@ import removeComment from "./removeComment.js";
 db.connect("mongodb://127.0.0.1:27017/unsocial-test")
   .then(() => {
     try {
-      removeComment(
+      return removeComment(
         "672e0f93b5102bd54faa6e95",
-        "672f4c715f5175eac0203996",
-        "672f5b4e4d941f4073d4c3ff"
-      ).then(console.log("comentario eliminado"));
+        "67322e3afb197533aef9ba7a",
+        "6733617db5021f3a8feb4a4d"
+      )
+        .then(console.log)
+        .catch(console.error);
     } catch (error) {
       console.error(error);
     }
   })
-  .catch(console.error);
+  .catch(console.error)
+  .finally(() => db.disconnect());

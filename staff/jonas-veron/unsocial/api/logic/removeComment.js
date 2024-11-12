@@ -1,44 +1,53 @@
 import db from "dat";
-import { validate } from "com";
+import { validate, errors } from "com";
 
 const { ObjectId } = db;
+
+const { NotFoundError, SystemError, OwnershipError } = errors;
 
 export default (userId, postId, commentId) => {
   validate.id(userId, "userId");
   validate.id(postId, "postId");
   validate.id(commentId, "commentId");
 
-  return db.users
-    .findOne({ _id: ObjectId.createFromHexString(userId) })
-    .catch((error) => new Error(error.message))
-    .then((user) => {
-      if (!user) throw new Error("user not found");
+  const userObjectId = new ObjectId(userId);
+  const postObjectId = new ObjectId(postId);
+
+  return Promise.all([
+    db.users.findOne({ _id: userObjectId }),
+    db.posts.findOne({ _id: postObjectId }),
+  ])
+
+    .catch((error) => {
+      throw new SystemError(error.message);
+    })
+    .then(([user, post]) => {
+      if (!user) throw new NotFoundError("user not found");
+      if (!post) throw new NotFoundError("post not found");
+
+      const { comments } = post;
+
+      const comment = comments.find(({ _id }) => _id.equals(commentId));
+
+      if (!comment) throw new NotFoundError("comment not found");
+
+      const { author } = comment;
+
+      if (!author.equals(userId))
+        throw new OwnershipError("user not author of comment");
 
       return db.posts
-        .findOne({ _id: ObjectId.createFromHexString(postId) })
-        .then((post) => {
-          if (!post) throw new Error("post not found");
-
-          const { comments } = post;
-          const comment = comments.find(
-            (comment) => comment._id.toString() === commentId
-          );
-
-          if (!comment) throw new Error("comment not found");
-          if (comment.author.toString() !== userId) {
-            throw new Error("user is not author");
+        .updateOne(
+          { _id: postObjectId },
+          {
+            $pull: {
+              comments: { _id: new ObjectId(commentId) },
+            },
           }
-          return db.posts.updateOne(
-            { _id: ObjectId.createFromHexString(postId) },
-            {
-              $pull: {
-                comments: { _id: ObjectId.createFromHexString(commentId) },
-              },
-            }
-          );
-        })
+        )
         .catch((error) => {
-          throw new Error(error.message);
+          throw new SystemError(error.message);
         });
-    });
+    })
+    .then((_) => {});
 };

@@ -1,7 +1,9 @@
 import db from "dat";
-import { validate } from "com";
+import { validate, errors } from "com";
 
 const { ObjectId } = db;
+
+const { NotFoundError, SystemError } = errors;
 
 export default (userId) => {
   validate.id(userId, "userId");
@@ -9,42 +11,44 @@ export default (userId) => {
   return db.users
     .findOne({ _id: new ObjectId(userId) })
     .catch((error) => {
-      throw new Error(error.message);
+      throw new SystemError(error.message);
     })
     .then((user) => {
-      if (!user) throw new Error("user not found");
+      if (!user) throw new NotFoundError("user not found");
 
       return db.posts
         .find()
         .sort({ date: -1 })
         .toArray()
         .catch((error) => {
-          throw new Error(error.message);
+          throw new SystemError(error.message);
         });
     })
     .then((posts) => {
       const promises = posts.map((post) =>
-        db.users.findOne({ _id: post.author }, { username: 1 }).then((user) => {
-          if (!user) throw new Error("author of post not found");
+        db.users
+          .findOne({ _id: post.author }, { projection: { username: 1 } })
+          .then((user) => {
+            if (!user) throw new NotFoundError("author of post not found");
 
-          const { username } = user;
+            const { username } = user;
 
-          post.id = post._id.toString();
-          delete post._id;
+            post.id = post._id.toString();
+            delete post._id;
 
-          post.author = { id: post.author.toString(), username };
+            post.author = { id: post.author.toString(), username };
 
-          const { likes, comments } = post;
+            const { likes, comments } = post;
 
-          post.liked = likes.some((userObjectId) =>
-            userObjectId.equals(userId)
-          );
-          post.likes = likes.length;
+            post.liked = likes.some((userObjectId) =>
+              userObjectId.equals(userId)
+            );
+            post.likes = likes.length;
 
-          post.comments = comments.length;
+            post.comments = comments.length;
 
-          return post;
-        })
+            return post;
+          })
       );
       return Promise.all(promises);
     });

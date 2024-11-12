@@ -1,7 +1,8 @@
 import db from "dat";
-import { validate } from "com";
+import { validate, errors } from "com";
 
 const { ObjectId } = db;
+const { NotFoundError, SystemError, OwnershipError } = errors;
 
 export default (userId, postId) => {
   validate.id(postId, "postId");
@@ -13,11 +14,11 @@ export default (userId, postId) => {
   return db.users
     .findOne({ _id: userObjectId })
     .catch((error) => {
-      throw new Error(error.message);
+      throw new SystemError(error.message);
     })
 
     .then((user) => {
-      if (!user) throw new Error("user not found");
+      if (!user) throw new NotFoundError("user not found");
 
       return db.posts
         .findOne({ _id: postObjectId })
@@ -25,16 +26,16 @@ export default (userId, postId) => {
           throw new Error(error.message);
         })
         .then((post) => {
-          if (!post) throw new Error("post not found");
+          if (!post) throw new NotFoundError("post not found");
           if (post.author.toString() !== userId) {
-            throw new Error("Este post no te pertenece");
+            throw new OwnershipError("Este post no te pertenece");
           }
           return db.posts
             .deleteOne({
               _id: postObjectId,
             })
             .catch((error) => {
-              throw new Error(error.message);
+              throw new SystemError(error.message);
             });
         })
         .then((_) => {});

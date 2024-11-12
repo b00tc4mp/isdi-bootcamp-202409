@@ -2,6 +2,9 @@ import db from "dat";
 import express, { json } from "express";
 import logic from "./logic/index.js";
 import cors from "cors";
+import { errors } from "com";
+
+const { ValidationError, SystemError, DuplicityError, NotFoundError } = errors;
 
 db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
   console.log("connected to db");
@@ -14,7 +17,7 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
 
   server.get("/", (_, res) => res.send("Hello, API!"));
 
-  server.post("/authenticate", jsonBodyParser, (req, res) => {
+  server.post("/users/auth", jsonBodyParser, (req, res) => {
     try {
       const { username, password } = req.body;
 
@@ -22,22 +25,32 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .authenticateUser(username, password)
         .then((userId) => res.json(userId))
         .catch((error) => {
-          res
-            .status(401)
-            .json({ error: error.constructor.name, message: error.message });
+          if (error instanceof CredentialsError)
+            res
+              .status(401)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
 
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(401)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(406)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }
   });
 
-  server.post("/register", jsonBodyParser, (req, res) => {
+  server.post("/users", jsonBodyParser, (req, res) => {
     try {
       const {
         name,
@@ -51,18 +64,29 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .registerUser(name, email, username, password, passwordRepeat)
         .then(() => res.status(201).send())
         .catch((error) => {
-          res
-            .status(400)
-            .json({ error: error.constructor.name, message: error.message });
-
+          if (error instanceof DuplicityError) {
+            res
+              .status(409)
+              .json({ error: error.constructor.name, message: error.message });
+          } else {
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
+          }
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(400)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError) {
+        res
+          .status(406)
+          .json({ error: error.constructor.name, message: error.message });
+      } else {
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
-      console.error(error);
+        console.error(error);
+      }
     }
   });
 
@@ -76,16 +100,26 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .getUserName(userId, targetUserId)
         .then((name) => res.json(name))
         .catch((error) => {
-          res
-            .status(400)
-            .json({ error: error.constructor.name, message: error.message });
+          if (error instanceof NotFoundError)
+            res
+              .status(404)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
 
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(400)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(406)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }
@@ -101,16 +135,26 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .createPost(userId, image, text)
         .then(() => res.status(201).send())
         .catch((error) => {
-          res
-            .status(400)
-            .json({ error: error.constructor.name, message: error.message });
+          if (error instanceof NotFoundError)
+            res
+              .status(404)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
 
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(400)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(400)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }
@@ -124,16 +168,26 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .getPosts(userId)
         .then((posts) => res.json(posts))
         .catch((error) => {
-          res
-            .status(400)
-            .json({ error: error.constructor.name, message: error.message });
+          if (error instanceof NotFoundError)
+            res
+              .status(404)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
 
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(400)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(406)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }
@@ -146,17 +200,31 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
       logic
         .deletePost(userId, postId)
         .then(() => res.status(204).send())
-        .catch((error) =>
-          res
-            .status(404)
-            .json({ error: error.constructor.name, message: error.message })
-        );
+        .catch((error) => {
+          if (error instanceof NotFoundError)
+            res
+              .status(404)
+              .json({ error: error.constructor.name, message: error.message });
+          else if (error instanceof OwnershipError)
+            res
+              .status(403)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
+        });
 
       console.error(error);
     } catch (error) {
-      res
-        .status(404)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(406)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }
@@ -171,16 +239,26 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .toggleLikePost(userId, postId)
         .then(() => res.status(204).send())
         .catch((error) => {
-          res
-            .status(400)
-            .json({ error: error.constructor.name, message: error.message });
+          if (error instanceof NotFoundError)
+            res
+              .status(404)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
 
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(400)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(400)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }
@@ -196,16 +274,26 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .addComment(userId, postId, text)
         .then(() => res.status(201).send())
         .catch((error) => {
-          res
-            .status(400)
-            .json({ error: error.constructor.name, message: error.message });
+          if (error instanceof NotFoundError)
+            res
+              .status(404)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
 
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(400)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(406)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }
@@ -220,16 +308,26 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .getComments(userId, postId)
         .then((comments) => res.json(comments))
         .catch((error) => {
-          res
-            .status(400)
-            .json({ error: error.constructor.name, message: error.message });
+          if (error instanceof NotFoundError)
+            res
+              .status(404)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
 
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(400)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(406)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }
@@ -245,16 +343,30 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         .removeComment(userId, postId, commentId)
         .then(() => res.status(204).send())
         .catch((error) => {
-          res
-            .status(404)
-            .json({ error: error.constructor.name, message: error.message });
+          if (error instanceof NotFoundError)
+            res
+              .status(404)
+              .json({ error: error.constructor.name, message: error.message });
+          else if (error instanceof OwnershipError)
+            res
+              .status(403)
+              .json({ error: error.constructor.name, message: error.message });
+          else
+            res
+              .status(500)
+              .json({ error: SystemError.name, message: error.message });
 
           console.error(error);
         });
     } catch (error) {
-      res
-        .status(404)
-        .json({ error: error.constructor.name, message: error.message });
+      if (error instanceof ValidationError)
+        res
+          .status(406)
+          .json({ error: error.constructor.name, message: error.message });
+      else
+        res
+          .status(500)
+          .json({ error: SystemError.name, message: error.message });
 
       console.error(error);
     }

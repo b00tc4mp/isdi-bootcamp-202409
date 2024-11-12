@@ -1,42 +1,40 @@
 import db from "dat";
-import { validate } from "com";
+import { validate, errors } from "com";
 
 const { ObjectId } = db;
+
+const { NotFoundError, SystemError } = errors;
 
 export default (userId, postId, text) => {
   validate.id(userId, "userId");
   validate.id(postId, "postId");
   validate.text(text);
 
-  return db.users
-    .findOne({ _id: ObjectId.createFromHexString(userId) })
+  const userObjectId = new ObjectId(userId);
+  const postObjectId = new ObjectId(postId);
+
+  return Promise.all([
+    db.users.findOne({ _id: userObjectId }),
+    db.posts.findOne({ _id: postObjectId }),
+  ])
     .catch((error) => {
-      new Error(error.message);
+      throw new SystemError(error.message);
     })
-    .then((user) => {
-      if (!user) throw new Error("user not found");
+    .then(([user, post]) => {
+      if (!user) throw new NotFoundError("user not found");
+      if (!post) throw new NotFoundError("post not found");
 
+      const comment = {
+        _id: new ObjectId(),
+        author: userObjectId,
+        text,
+        date: new Date(),
+      };
       return db.posts
-        .findOne({ _id: ObjectId.createFromHexString(postId) })
+        .updateOne({ _id: postObjectId }, { $push: { comments: comment } })
         .catch((error) => {
-          new Error(error.message);
-        })
-        .then((post) => {
-          if (!post) throw new Error("post not found");
-
-          return db.posts.updateOne(
-            { _id: ObjectId.createFromHexString(postId) },
-            {
-              $push: {
-                comments: {
-                  _id: new ObjectId(),
-                  author: ObjectId.createFromHexString(userId),
-                  text,
-                  date: new Date(),
-                },
-              },
-            }
-          );
+          throw new SystemError(error.message);
         });
-    });
+    })
+    .then((_) => {});
 };

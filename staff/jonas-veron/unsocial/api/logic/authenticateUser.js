@@ -1,5 +1,7 @@
 import db from "dat";
-import { validate } from "com";
+import { validate, errors } from "com";
+
+const { SystemError, CredentialsError } = errors;
 
 export default (username, password) => {
   validate.username(username);
@@ -8,10 +10,10 @@ export default (username, password) => {
   return db.users
     .findOne({ username, password })
     .catch((error) => {
-      newError(error.message);
+      throw new SystemError(error.message);
     })
     .then((user) => {
-      if (!user) throw new Error("wrong credentials");
+      if (!user) throw new CredentialsError("wrong credentials");
 
       return user._id.toString();
     });

@@ -1,7 +1,9 @@
 import db from "dat";
-import { validate } from "com";
+import { validate, errors } from "com";
 
 const { ObjectId } = db;
+
+const { NotFoundError, SystemError } = errors;
 
 export default (userId, targetUserId) => {
   validate.id(userId, "userId");
@@ -10,21 +12,21 @@ export default (userId, targetUserId) => {
   return db.users
     .findOne({ _id: ObjectId.createFromHexString(userId) })
     .catch((error) => {
-      new Error(error.message);
+      new SystemError(error.message);
     })
     .then((user) => {
-      if (!user) throw new Error("user not found");
+      if (!user) throw new NotFoundError("user not found");
 
       return db.users
         .findOne({
           _id: ObjectId.createFromHexString(targetUserId),
         })
         .catch((error) => {
-          new Error(error.message);
+          new SystemError(error.message);
         });
     })
     .then((user) => {
-      if (!user) throw new Error("target user not found");
+      if (!user) throw new NotFoundError("target user not found");
 
       return user.name;
     });

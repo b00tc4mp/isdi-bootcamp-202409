@@ -6,14 +6,14 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test")
   .then(() => {
     try {
       return registerUser(
-        "Carlitos",
-        "car@litos.com",
-        "carlitos",
+        "Kerry Kachota",
+        "kerry@kachota.com",
+        "Kerry Kachota",
         "123123123",
         "123123123"
       )
-        .then(() => console.log("user registered"))
-        .catch((error) => console.error(error.message));
+        .then(console.log)
+        .catch(console.error);
     } catch (error) {
       console.error(error);
     }
