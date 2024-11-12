@@ -1,1 +1,1 @@
-curl -H 'Authorization: Basic 672e23e5344b26bc5b0f870f' -H 'Content-Type: application/json' -d'{"text": "miau"}' http://localhost:8080/posts/6730dcf6f1c5e699fd2f603f/comments -v
+curl -H 'Authorization: Basic 672e264adba2254072ee1db4' -H 'Content-Type: application/json' -d'{"text": ":)"}' http://localhost:8080/posts/67322cd9d8208c90cf28c095/comments -v

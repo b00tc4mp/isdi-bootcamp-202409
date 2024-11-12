@@ -1,39 +1,59 @@
 import db from 'dat'
-import { validate } from 'com/index.js'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
   validate.id(postId, 'postId')
   validate.id(userId, 'userId')
 
-  return db.users.findOne({ _id: new ObjectId(userId) })
-    .catch(error => { throw new Error(error.message) })
-    .then(user => {
-      if (!user) throw new Error('user not found')
+  const userObjectId = new ObjectId(userId)
+  const postObjectId = new ObjectId(postId)
 
-      return db.posts.find()
+  const { users, posts } = db
+
+  return Promise.all([
+    users.findOne({ _id: userObjectId }),
+    posts.findOne({ _id: postObjectId })
+  ])
+
+    .catch(error => { throw new SystemError(error.message) })
+    .then(([user, post]) => {
+      if (!user) throw new NotFoundError('user not found')
+      if (!post) throw new NotFoundError('post not found')
+
+      const { comments } = post
+
+      const authorObjectIds = []
+
+      comments.forEach(comment => { //de esta forma guardo una sola vez el id de author aunque tenga más de 1 comentario.
+        const { author } = comment
+
+        const found = authorObjectIds.some(authorObjectId => authorObjectId.equals(author))
+
+        if (!found) authorObjectIds.push(author)
+      })
+
+      //conseguimos hacer una sola consulta y no muchas promesas de una consulta. 
+      return users.find({ _id: { $in: authorObjectIds } }, { projection: { username: 1 } }).toArray()
+        .catch(error => { throw new SystemError(error.message) })
+        .then(authors => {
+          comments.forEach(comment => {
+            comment.id = comment._id.toString()
+
+            delete comment._id
+
+            const author = authors.find(({ _id }) => _id.equals(comment.author))
+
+            const { _id, username } = author
+
+            comment.author = {
+              id: _id.toString(),
+              username
+            }
+          })
+          return comments
+        })
     })
-  const { users, posts } = storage
-
-  const found = users.some(({ id }) => id === userId)
-
-  if (!found) throw new Error('user not found')
-
-  const post = posts.find(({ id }) => id === postId)
-
-  if (!post) throw new Error('post not found')
-
-  const { comments } = post
-
-  comments.forEach(comment => {
-    const { author: authorId } = comment
-
-    const { username } = users.find(({ id }) => id === authorId)
-
-    comment.author = { id: authorId, username }
-  })
-
-  return comments
 }
-

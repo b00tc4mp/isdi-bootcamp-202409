@@ -1,4 +1,7 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
+
 import { storage } from '../data'
 
 export default (userId, postId) => {

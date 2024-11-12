@@ -1,5 +1,7 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 const { ObjectId } = db
 
@@ -8,15 +10,15 @@ export default (userId, image, text) => {
   validate.image(image)
   validate.text(text)
 
-  const userObjectId = ObjectId.createFromHexString(userId)
+  const userObjectId = ObjectId.createFromHexString(userId) //metodo factoria
 
   return db.users.findOne({ _id: userObjectId })
-    .catch(error => { throw new Error(error.message) })
+    .catch(error => { throw new SystemError(error.message) })
     .then((user) => {
-      if (!user) throw new Error('user not found')
+      if (!user) throw new NotFoundError('user not found')
 
       return db.posts.insertOne({ author: userObjectId, image, text, date: new Date, likes: [], comments: [] })
-        .catch((error) => { throw new Error(error.message) })
+        .catch((error) => { throw new SystemError(error.message) })
     })
     .then(_ => { })
 }

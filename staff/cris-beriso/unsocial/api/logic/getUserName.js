@@ -1,5 +1,7 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
 
 const { ObjectId } = db
 

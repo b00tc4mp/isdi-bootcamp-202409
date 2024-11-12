@@ -1,4 +1,6 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
 
 
 export default (postId, text, callback) => {

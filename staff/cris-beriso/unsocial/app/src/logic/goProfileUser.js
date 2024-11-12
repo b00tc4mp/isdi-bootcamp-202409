@@ -1,5 +1,7 @@
 import getUserId from './getUserId';
-import { validate } from 'com';
+import { validate, errors } from 'com'
+
+const { SystemError } = errors;
 
 export default (name, username, password) => {
   validate.name(name)

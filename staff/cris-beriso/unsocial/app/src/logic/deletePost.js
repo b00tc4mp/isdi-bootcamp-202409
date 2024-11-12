@@ -1,5 +1,6 @@
-import { useCallback } from 'react'
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
 
 export default (postId, callback) => {
   validate.id(postId, 'postId')
@@ -18,8 +19,12 @@ export default (postId, callback) => {
 
     const { error, message } = JSON.parse(response)
 
+    const constructor = error[error]
+
     callback(new Error(message))
   })
+
+  xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
   xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
   xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
