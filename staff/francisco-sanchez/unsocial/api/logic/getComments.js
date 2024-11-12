@@ -23,6 +23,8 @@ export default (userId, postId) => {
         .then(post => {
             if (!post) throw new Error('post not found')
 
+            //TODO: Revisar lo de Manu y actualizarlo a lo manu
+
             const { comments } = post
 
             const promises = comments.map(comment => {
