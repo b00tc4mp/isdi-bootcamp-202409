@@ -24,6 +24,27 @@ export default (userId, postId) => {
             if (!post) throw new Error('post not found')
 
             //TODO: Revisar lo de Manu y actualizarlo a lo manu
+            /**
+             * Nos traemos todos los id de autores
+             * declaramos un array de autores
+             * para cada comentario mirar el id del autor
+             * De esta manera conseguimos que no tenga que buscar varias veces a cada autor en caso de eestar más de una vez
+             * 
+             * Luego podemos buscar todos los autores dentro de los posts, así evitamos buscar varias veces el nombre de usuario de un mismo autor
+             * Tenemos que hacer una projection (((( ¡¡¡¡¡ Que no se que es y tengo que entender !!!!! ))))
+             * 
+             * Luego para cada usuario ....
+             * 
+             * 
+             * 
+             * ¿?¿?¿?¿?¿?
+             * ¿?¿?¿
+             * de la liniea 37 a la 51 de manu no entiendo nada! 
+             * 
+             * 
+             * ...
+             * 
+             */
 
             const { comments } = post
 
