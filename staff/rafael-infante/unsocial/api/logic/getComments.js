@@ -1,7 +1,9 @@
 import db from "../../dat/index.js"
-import { validate } from "com"
+import { validate, errors } from "com"
 
 const { ObjectId } = db
+
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
   validate.id(userId, 'userId')
@@ -11,14 +13,14 @@ export default (userId, postId) => {
   const objectPostId = ObjectId.createFromHexString(postId)
 
   return db.users.findOne({ _id: objectUserId })
-    .catch(error => { throw new Error(error.message) }) // System Error
+    .catch(error => { throw new SystemError(error.message) })
     .then(user => {
-      if (!user) throw new Error('user not found') // Not Found Error
+      if (!user) throw new NotFoundError('user not found')
 
       return db.posts.findOne({ _id: objectPostId })
-        .catch(error => { throw new Error(error.message) }) // System Error
+        .catch(error => { throw new SystemError(error.message) })
         .then(post => {
-          if (!post) throw new Error('post not found') // Not found Error
+          if (!post) throw new NotFoundError('post not found')
 
           const { comments } = post
 
@@ -27,7 +29,7 @@ export default (userId, postId) => {
 
             return db.users.findOne({ _id: authorId }, { projection: { username: 1 } })
               .then(user => {
-                if (!user) throw new Error('user not found') // Not found error
+                if (!user) throw new NotFoundError('user not found')
 
                 const { username } = user
 

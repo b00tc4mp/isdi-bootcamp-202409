@@ -1,8 +1,11 @@
 import "./Login.css"
 import logic from "../logic/"
 import { PasswordInput, Input, Button, Label, Form } from "../components/biblio"
+import { errors } from "com"
 
-function Login(props) {
+const { SystemError } = errors
+
+export default function Login(props) {
   console.log('Login -> Render')
 
   const handleSubmit = event => {
@@ -13,13 +16,18 @@ function Login(props) {
     try {
 
       logic.loginUser(username, password, error => {
-
         if (error) {
-          alert(error.message)
+          if (error instanceof SystemError)
+            alert('Sorry, try again later')
+          else
+            alert(error.message)
+
           console.error(error)
+
           return
         }
         event.target.reset()
+
         props.onLoggedIn()
       })
 
@@ -56,5 +64,3 @@ function Login(props) {
     </main>
   )
 }
-
-export default Login
