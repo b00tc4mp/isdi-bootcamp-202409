@@ -10,7 +10,6 @@ db.connect('mongodb://localhost/unsocial-test')
         } catch (error) {
             console.error(error);
         }
-
     })
     .catch(console.error)
     .finally(() => db.disconnect());

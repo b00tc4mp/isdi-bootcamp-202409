@@ -1,10 +1,14 @@
-import './Login.css'
+import './Login.css';
 
-import {PasswordInput, Input, Button, Form, Field, Label} from '../components/library'
+import {PasswordInput, Input, Button, Form, Field, Label} from '../components/library';
 
-import logic from '../logic'
+import logic from '../logic';
 
-const Login = (props) => {
+import { errors } from 'com';
+
+const { SystemError } = errors;
+
+export default function Login(props) {
     console.log('Login -> render');
 
     const handleSubmit = event => {
@@ -15,7 +19,10 @@ const Login = (props) => {
         try {
             logic.loginUser(username, password, error => {
                 if (error) {
-                    alert(error.message);
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else 
+                        alert(error.message);
 
                     console.error(error);
 
@@ -24,7 +31,7 @@ const Login = (props) => {
 
                 event.target.reset();
 
-                props
+                props.onLoggedin();
             })
         } catch (error) {
             alert(error.message);
@@ -61,4 +68,3 @@ const Login = (props) => {
     </main>
 }
 
-export default Login;

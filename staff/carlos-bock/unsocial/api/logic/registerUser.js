@@ -1,5 +1,7 @@
 import db from 'dat';
-import {validate} from 'com';
+import { validate, errors } from 'com';
+
+const { DuplicityError, SystemError } = errors;
 
 const registerUser = (name, email, username, password, passwordRepeat) => {
     validate.name(name);
@@ -9,11 +11,11 @@ const registerUser = (name, email, username, password, passwordRepeat) => {
     validate.passwordsMatch(password,passwordRepeat);
 
     return db.users.insertOne({name, email, username, password})
-        .then(_=> {})
+        .then(_=> { })
         .catch(error => {
-            if (error.code === 11000) throw new Error('user already exists');
+            if (error.code === 11000) throw new DuplicityError('user already exists');
 
-            throw new Error(error.message);
+            throw new SystemError(error.message);
         });
 }
 export default registerUser;

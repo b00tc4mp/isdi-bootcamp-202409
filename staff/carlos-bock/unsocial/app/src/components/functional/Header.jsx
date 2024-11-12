@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import {Button} from '../library';
+import { Button } from '../library';
  
 import logic from '../../logic';
 
 import './Header.css'
 
-export default function Header ({view, onHomeClick, onLoggedOut}){
+export default function Header ({ view, onHomeClick, onLoggedOut }){
     const [name, setName] = useState(null);
 
     useEffect(()=> {

@@ -1,4 +1,6 @@
-import {validate} from 'com'
+import { validate, errors } from 'com';
+
+const { SystemError } = errors;
 
 const deletePost = (postId, callback) => {
     validate.id(postId, 'postId')
@@ -15,10 +17,14 @@ const deletePost = (postId, callback) => {
             return;
         }
 
-        const {error, message} = JSON.parse(response);
+        const { error, message } = JSON.parse(response);
 
-        callback(new Error(message));
+        const constructor = errors[error];
+
+        callback(new constructor(message));
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')));
 
     xhr.open('DELETE', `http://localhost:8080/posts/${postId}`);
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`);

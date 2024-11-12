@@ -1,30 +1,57 @@
-import {storage} from '../data/index.js';
-import {validate} from 'com';
+import db from 'dat';
+import {validate, errors} from 'com';
+
+const { ObjectId} = db;
+const {SytemError, NotFoundError} = errors;
 
 const getComments = (userId, postId) => {
     validate.id(userId, 'userId');
     validate.id(postId, 'postId');
 
-    const {users, posts} = storage;
+    const userObjectId = new ObjectId(userId);
+    const postObjectId = new ObjectId(postId);
 
-    const found = users.some(({id})=> id === userId);
+    const { users , posts } = db;
 
-    if (!found) throw new Error('user not found');
+    return Promise.all([
+        users.findOne({ _id: userObjectId}),
+        posts.findOne({ _id: postObjectId})
+    ])
+        .catch(error => { throw new SystemError(error.message)})
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found');
+            if (!post) throw new NotFoundError('post not found');
 
-    const post = posts.find(({id}) => id === postId);
+            const { comments } = post;
 
-    if (!post) throw new Error('user not found');
+            const authorObjectIds = [];
 
-    const {comments} = post;
+            comments.forEach(comment => {
+                const { author } = comment;
 
-    comments.forEach(comment => {
-        const {author: authorId } = comment;
+                const found = authorObjectIds.some(authorObjectId => authorObjectId.equals(author))
 
-        const {username} = users.find(({id}) => id === authorId);
+                if (!found) authorObjectIds.push(author);
+            });
 
-        comment.author == {id: authorId, username};
-    })
+            return users.find({ _id: { $in:authorObjectIds} }, { projection: { username: 1 } }).toArray()
+                .catch(error => {throw new SystemError(error.message) })
+                .then(authors => {
+                    comments.forEach(comment => {
+                        comment.id = comment._id.toString()
+                        delete comment._id
 
+                        const author = authors.find(({ _id }) => _id.equals(comment.author))
+
+                        const { _id, username } = author;
+
+                        comment.author = {
+                            id: _id.toString(),
+                            username
+                        }
+                    })
+                    return comments;
+                })
+        })
 };
-
 export default getComments;

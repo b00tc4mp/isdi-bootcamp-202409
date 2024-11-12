@@ -1,4 +1,6 @@
-import {validate} from 'com';
+import { validate, errors } from 'com';
+
+const { SystemError } = errors;
 
 const registerUser = (name, email, username, password, passwordRepeat, callback) => {
     validate.name(name);
@@ -21,12 +23,16 @@ const registerUser = (name, email, username, password, passwordRepeat, callback)
 
         const { error, message } = JSON.parse(response);
 
-        callback(new Error(message));
+        const constructor = errors[error];
+
+        callback(new constructor(message));
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')));
+
 
     xhr.open('POST', 'http://localhost:8080/register');
     xhr.setRequestHeader('Conent-Type', 'application/json');
     xhr.send(JSON.stringify({name,email, username, password, 'password-repeat': passwordRepeat}));
-}
-
+};
 export default registerUser;

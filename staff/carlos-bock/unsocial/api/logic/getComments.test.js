@@ -1,7 +1,15 @@
+import db from 'dat';
 import getComments from './getComments.js';
 
-try {
-    console.log(getComments('m2vvqdtgcba', 'm2vw4ucygv'))
-} catch (error) {
-    console.error(error);
-};
+db.connect('mongodb://localhost/unsocial-test')
+    .then(() => {
+        try {
+            return getComments('change this text', 'change this too')
+                .then(console.log) // expect an array of objects
+                .catch(console.error);
+        } catch (error) {
+            console.error(error);
+        }
+    })
+    .catch(console.error)
+    .finally(() => db.disconnect());

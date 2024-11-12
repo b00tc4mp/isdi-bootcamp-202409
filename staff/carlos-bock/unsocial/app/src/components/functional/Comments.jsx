@@ -1,4 +1,4 @@
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Comment from './Comment';
 import AddComment from './AddComment';
@@ -72,7 +72,7 @@ export default function Comments (props) {
             console.error(error)
         };
     };
-    console.log('Comments ->');  
+    console.log('Comments -> render ');  
 
         return <section>
             <ul>

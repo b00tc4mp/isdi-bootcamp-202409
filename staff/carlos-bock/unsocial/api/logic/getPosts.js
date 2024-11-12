@@ -41,5 +41,4 @@ const getPosts = (userId) => {
             return Promise.all(promises)
         })
 };
-
 export default getPosts;

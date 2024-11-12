@@ -1,31 +1,37 @@
 import db from 'dat';
-import {validate} from './helpers/index.js';
-import {uuid} from '../data/index.js';
+import { validate, errors} from 'com';
+
+const { ObjectId } = db;
+const { SystemError, NotFoundError} = errors;
 
 const addComment = (userId, postId, text) => {
     validate.id(userId, 'userId');
     validate.id(postId,'postId');
     validate.text(text);
 
-    const newComment = db.getCollection('posts');
+    const userObjectId = new ObjectId(userId);
+    const postObjectId = new ObjectId(postId);
 
-    return posts.updateOne( // check this line, where inserted, 2nd attempt
-        {id: postId},
-        { 
-            $push: {
-                comments: {
-                    id: uuid(),
-                    author: userId,
-                    text,
-                    date: new Date().toISOString()
-                }
+    return Promise.all([
+        db.users.findOne({ _id: userObjectId}),
+        db.posts.findOne({ _id: postObjectId})
+    ])
+        .catch(error => { throw new SystemError(error.message)})
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found');
+            if (!post) throw new NotFoundError('post not found');
+
+            const comment = {
+                _id: new ObjectId,
+                author: userObjectId,
+                text, 
+                date: new Date
             }
-    })
-        .then(_=> {})
-        .catch(_=> {
-            if (error.code === 11000) throw new Error('comment already exists') // check error code
-            else console.log(error); // remove
+
+            return db.posts.updateOne({ _id: postObjectId}, { $push: {comments: comment}})
+                .catch(error => {throw new SystemError(error.message)});
         })
+        .then(_=> { });
 };
 
 export default addComment;

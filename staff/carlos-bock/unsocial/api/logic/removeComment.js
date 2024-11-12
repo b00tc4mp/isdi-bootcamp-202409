@@ -1,36 +1,41 @@
-import {validate} from 'com';
-import {storage} from '../data/index.js';
+import db from 'dat';
+import { validate, errors } from 'com';
+
+const { ObjectId } = db;
+const { SystemError, NotFoundError, OwnershipError } = errors;
 
 const removeComments = (userId, postId, commentId) => {
     validate.id(userId, 'userId');
     validate.id(postId, 'postId');
     validate.id(commentId, 'commmentId');
 
-    const { users, posts } = storage;
+    const userObjectId = new ObjectId(userId);
+    const postObjectId = new ObjectId(postId);
 
-    const found = users.some(({id}) => id === userId);
+    const { users, posts } = db;
 
-    if(!found) throw new Error('user not found');
+    return Promise.all([
+        users.findOne({ _id: userObjectId }),
+        posts.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new SystemError(error.message)})
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found');
+            if (!post) throw new NotFoundError('post not found');
 
-    const post = posts.find(({id}) => id === postId);
+            const { comments } = post;
 
-    if (!post) throw new Error('posts not found');
+            const comment = comments.find(({ _id}) => _id.equals(commentId));
 
-    const {commments} = post;
+            if (!comment) throw new NotFoundError('comment not found');
 
-    const index = comments.findIndex(({id}) => id === commentId);
+            const { author } = comment; 
 
-    if (index < 0)
-        throw new Error('comment not found'); 
+            if (!author.equals(userId)) throw new OwnershipError('user not author of comment');
 
-    const {author} = comments[index];
-
-    if (author !== userId)
-        throw new Error('user is not author of comment');
-
-    comments.splice(index, 1);
-
-    storage.posts = posts;
+            return posts.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: new ObjectId(commentId) } }})
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(_ => {});
 }
-
 export default removeComments;

@@ -4,7 +4,7 @@ import {Label, Input, Button, Form, Field} from '../components/library'
 
 import './CreatePost.css'
 
-export default function CreatePost({onCreated}){
+export default function CreatePost({ onCreated }){
     console.log('CreatePost -> render');
 
     const handleSubmit = event => {
@@ -41,12 +41,12 @@ export default function CreatePost({onCreated}){
         <Form onSubmit={handleSubmit}>
                 <Field>
                     <Label htmlFor="image">Image</Label>
-                    <Input type="text" id="image" style= {{width: '100%', boxSizing: 'border-box'}}/>
+                    <Input type="text" id="image"/>
                 </Field>
 
                 <Field>
                     <Label htmlFor="text">Text</Label>
-                    <Input type="text" id="text" style={{width:'100%', boxSizing:"border-box"}}/>
+                    <Input type="text" id="text"/>
                 </Field>
                 
                 <Button type="submit">Create</Button>
