@@ -1,6 +1,8 @@
 import db from 'dat'
 
-import { validate } from 'apu'
+import { validate, errors } from 'apu'
+
+const { SystemError, NotFoundError } = errors
 
 const { ObjectId } = db
 
@@ -12,12 +14,12 @@ export default (userId, image, text) => {
     const userObjectId = ObjectId.createFromHexString(userId)
 
     return db.users.findOne({ _id: userObjectId })
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new NotFoundError('user not found')
 
             return db.posts.insertOne({ author: userObjectId, image, text, date: new Date, likedBy: [], comments: [] })
-                .catch(error => { throw new Error(error.message) })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
 }

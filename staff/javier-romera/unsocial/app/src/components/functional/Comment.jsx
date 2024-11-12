@@ -12,7 +12,10 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
             try {
                 logic.removeComment(postId, id, error => {
                     if (error) {
-                        alert(error.message)
+                        if (error instanceof SystemError)
+                            alert('Sorry, try again later')
+                        else
+                            alert(error.message)
 
                         console.error(error)
 

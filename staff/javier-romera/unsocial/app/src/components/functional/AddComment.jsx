@@ -15,7 +15,10 @@ export default function AddComment({ postId, onAdded }) {
         try {
             logic.addComment(postId, text, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 

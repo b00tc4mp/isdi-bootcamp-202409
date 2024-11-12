@@ -27,7 +27,10 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         try {
             logic.toggleLikePost(id, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -47,7 +50,10 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
             try {
                 logic.deletePost(id, error => {
                     if (error) {
-                        alert(error.message)
+                        if (error instanceof SystemError)
+                            alert('Sorry, try again later')
+                        else
+                            alert(error.message)
 
                         console.error(error)
 

@@ -2,6 +2,10 @@ import logic from '../logic'
 
 import { Anchor, Form, Label, Input, Field, Button } from '../components/library'
 
+import { errors } from 'apu'
+
+const { SystemError } = errors
+
 import './Login.css'
 
 export default props => {
@@ -13,7 +17,10 @@ export default props => {
         try {
             logic.loginUser(username, password, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 

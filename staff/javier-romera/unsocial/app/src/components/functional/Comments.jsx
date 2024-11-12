@@ -14,7 +14,10 @@ export default function Comments({ postId, onAdded, onRemoved }) {
         try {
             logic.getComments(postId, (error, comments) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -33,7 +36,10 @@ export default function Comments({ postId, onAdded, onRemoved }) {
         try {
             logic.getComments(postId, (error, comments) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -54,7 +60,10 @@ export default function Comments({ postId, onAdded, onRemoved }) {
         try {
             logic.getComments(postId, (error, comments) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 

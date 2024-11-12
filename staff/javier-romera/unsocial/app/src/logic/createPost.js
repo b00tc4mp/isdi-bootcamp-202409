@@ -1,4 +1,6 @@
-import { validate } from 'apu'
+import { validate, errors } from 'apu'
+
+const { SystemError } = errors
 
 export default (image, text, callback) => {
     validate.image(image)
@@ -18,8 +20,12 @@ export default (image, text, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.open('POST', 'http://localhost:8080/posts')
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.loggedInUserId}`)

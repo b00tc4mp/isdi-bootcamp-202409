@@ -15,7 +15,10 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
                 try {
                     logic.getUserName((error, name) => {
                         if (error) {
-                            alert(error.message)
+                            if (error instanceof SystemError)
+                                alert('Sorry, try again later')
+                            else
+                                alert(error.message)
 
                             console.error(error)
 

@@ -13,7 +13,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -33,7 +36,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -52,7 +58,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -71,7 +80,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -90,7 +102,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 

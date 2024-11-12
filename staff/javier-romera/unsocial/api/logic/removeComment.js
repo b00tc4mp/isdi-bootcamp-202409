@@ -1,8 +1,9 @@
 import db from 'dat'
 
-import { validate } from 'apu'
+import { validate, errors } from 'apu'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
@@ -13,29 +14,27 @@ export default (userId, postId, commentId) => {
     const objectPostId = ObjectId.createFromHexString(postId)
     const objectCommentId = ObjectId.createFromHexString(commentId)
 
-    return db.users.findOne({ _id: objectUserId })
-        .catch(error => { throw new Error(error.message) })
-        .then(user => {
-            if (!user) throw new Error('user not found')
-
-            return db.posts.findOne({ _id: objectPostId })
-                .catch(error => { throw new Error(error.message) })
-        })
-        .then(post => {
-            if (!post) throw new Error('post not found')
+    return Promise.all([
+        db.users.findOne({ _id: objectUserId }),
+        db.posts.findOne({ _id: objectPostId })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
             const { comments } = post
 
-            const comment = comments.find(comment => comment._id.equals(objectCommentId))
+            const comment = comments.find(({ _id }) => _id.equals(objectCommentId))
 
-            if (!comment) throw new Error('comment not found')
+            if (!comment) throw new NotFoundError('comment not found')
 
             const { author: authorId } = comment
 
-            if (!authorId.equals(objectUserId)) throw new Error('user is not author of comment')
+            if (!authorId.equals(userId)) throw new OwnershipError('user is not author of comment')
 
             return db.posts.updateOne({ _id: objectPostId }, { $pull: { comments: { _id: objectCommentId } } })
-                .catch(error => { throw new Error(error.message) })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
 }

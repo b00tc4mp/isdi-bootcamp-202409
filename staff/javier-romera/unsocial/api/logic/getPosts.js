@@ -1,8 +1,10 @@
 import db from 'dat'
 
-import { validate } from 'apu'
+import { validate, errors } from 'apu'
 
 const { ObjectId } = db
+
+const { SystemError, NotFoundError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')
@@ -10,23 +12,23 @@ export default userId => {
     const objectUserId = ObjectId.createFromHexString(userId)
 
     return db.users.findOne({ _id: objectUserId })
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new NotFoundError('user not found')
 
             return db.posts.find().sort({ date: -1 }).toArray()
-                .catch(error => { throw new Error(error.message) })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(posts => {
-            const promises = posts.map(post => {
-                return db.users.findOne({ _id: post.author }, { username: 1 })
-                    .catch(error => { throw new Error(error.message) })
+            const transformedPosts = posts.map(post => {
+                return db.users.findOne({ _id: post.author }, { projection: { _id: 0, username: 1 } })
+                    .catch(error => { throw new SystemError(error.message) })
                     .then(user => {
-                        if (!user) throw new Error('author of post not found')
-
-                        const { username } = user
+                        if (!user) throw new NotFoundError('author of post not found')
 
                         const { author: authorId, likedBy, comments } = post
+
+                        const { username } = user
 
                         //sanitize
                         post.id = post._id.toString()
@@ -43,6 +45,6 @@ export default userId => {
                         return post
                     })
             })
-            return Promise.all(promises)
+            return Promise.all(transformedPosts)
         })
 }
