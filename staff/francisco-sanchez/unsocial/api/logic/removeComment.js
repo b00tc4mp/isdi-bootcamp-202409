@@ -1,12 +1,49 @@
+import db from 'dat'
 import { validate } from './helpers/index.js'
-import { storage } from '../data/index.js'
+
+const { ObjectId } = db
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
 
-    const { users, posts } = storage
+    const userObjectId = new ObjectId(userId)
+    const postObjectId = new ObjectId(postId)
+    const commentObjectId = new ObjectId(commentId)
+
+
+    return Promise.all([
+        db.users.findOne({ _id: userObjectId }),
+        db.posts.findOne({ _id: postObjectId }),
+
+    ])
+
+        .catch(error => { throw new Error(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new Error('user not found')
+            if (!post) throw new Error('Post not found')
+
+            const { comments } = post
+            //if (!comments) throw new Error('Comment not found')
+
+            const found = comments.some(comment => comment._id.equals(commentObjectId))
+            if (!found) throw new Error('comment not found')
+
+            const isAuthor = post.comments.find(comment => comment.author.toString() === userObjectId.toString())
+
+            if (!isAuthor) throw new Error('User is not the author of the comment');
+
+            if (found)
+                return db.posts.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: commentObjectId } } })
+                    .catch(error => { throw new Error(error.message) })
+
+        })
+        .then(_ => { })
+
+
+
+    /* const { users, posts } = storage
 
     const found = users.some(({ id }) => id === userId)
 
@@ -31,5 +68,5 @@ export default (userId, postId, commentId) => {
 
     comments.splice(index, 1)
 
-    storage.posts = posts
+    storage.posts = posts */
 }

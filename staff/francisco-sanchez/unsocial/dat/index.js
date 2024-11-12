@@ -11,6 +11,9 @@ function connect(mongoUrl) {
 
             this.users = db.collection('users')
             this.posts = db.collection('posts')
+
+            //creamos un método para desconectar
+            this.disconnect = () => connection.close()
         })
 }
 
@@ -18,6 +21,7 @@ const db = {
     connect,
     users: null,
     posts: null,
+    disconnect: null,
     ObjectId
 }
 

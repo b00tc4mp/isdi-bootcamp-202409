@@ -5,5 +5,5 @@ xhr.addEventListener('load', () => {
 })
 
 xhr.open('GET', 'http://localhost:8080/posts')
-xhr.setRequestHeader('Authorization', 'Basic 672e2ff11dbad3a5583531bf')
+xhr.setRequestHeader('Authorization', 'Basic 672e2707de7dde80ec9233c6')
 xhr.send()

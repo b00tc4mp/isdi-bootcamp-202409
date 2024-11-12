@@ -11,11 +11,13 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
             /**
              * userId / postId
              */
-            deletePost('672e2707de7dde80ec9233c6', "672f7af04ee4e332926502ac")
+            return deletePost('672e2707de7dde80ec9233c6', "6731d0f7284742ae64625ea1")
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {
             console.error('Error in test: ', error)
         }
     })
-    .catch(console.error);
+    .catch(console.error)
+    //Despues de ejecutar una consulta deberíamos cerrar la conexión para optimizar recursos
+    .finally(() => db.disconnect())

@@ -17,33 +17,8 @@ export default (userId, postId) => {
     evaluar el usuario y el post en una misma instancia
     */
 
-    return Promise.all([
-        db.users.findOne({ _id: userObjectId }),
-        db.posts.findOne({ _id: postObjectId })
-    ])
-
-        .catch(error => { throw new Error(error.message) })
-        .then(([user, post]) => {
-            if (!user) throw new Error('user not found')
-            if (!post) throw new Error('Post not found')
-
-            const { likes } = post
-
-            const found = likes.some(userObjectId => userObjectId.equals(userId))
-
-            if (found)
-                return db.posts.updateOne({ _id: postObjectId }, { $pull: { likes: userObjectId } })
-                    .catch(error => { throw new Error(error.message) })
-
-            return db.posts.updateOne({ _id: postObjectId }, { $push: { likes: userObjectId } })
-                .catch(error => { throw new Error(error.message) })
-        })
-        .then(_ => { })
-
-}
-
-
-/*     return db.users.findOne({ _id: ObjectId.createFromHexString(userId) }) // _id: new ObjectId(userId) ¿?¿?¿?¿?
+    //busco el usuario
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) }) // _id: new ObjectId(userId) ¿?¿?¿?¿?
         .catch(error => { new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
@@ -96,4 +71,4 @@ export default (userId, postId) => {
             throw new Error(error.message)
         })
 
-} */
+}

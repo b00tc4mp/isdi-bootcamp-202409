@@ -9,20 +9,24 @@ export default (userId, image, text) => {
     validate.image(image)
     validate.text(text)
 
+
     return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
-        .catch(error => { new Error(error.message) })
+        .catch(error => { throw new Error(error.message) })
         .then(user => {
             if (!user) throw new Error('user not found')
 
+            const userObjectId = ObjectId.createFromHexString(userId)
+
+            //Si encontramos el usuario ya podemos insertar
             return db.posts.insertOne({
                 image: image,
                 text: text,
-                author: ObjectId.createFromHexString(userId),
+                author: userObjectId,
                 date: new Date,
                 likes: [],
                 comments: []
             })
-                .then(_ => { })
+                .then(_ => { }) //Este callback no devuelve nada
                 .catch(error => {
                     throw new Error(error.message)
                 })

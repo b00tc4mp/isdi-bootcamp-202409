@@ -13,18 +13,17 @@ export default (userId, postId) => {
     return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
         .then(user => {
             if (!user) throw new Error('user not found')
-
-            console.log('User found:', user);
-
+            //console.log('User found:', user);
             return db.posts.findOne({ _id: ObjectId.createFromHexString(postId) }) //Esto me devuelve el post a borrar si lo encuentra
         })
         .then(post => {
             if (!post) throw new Error('post not found')
+            //console.log('Post found:', post);
 
-            console.log('Post found:', post);
 
             if (post.author.toString() !== userId) throw new Error('User is not the author of the post')
-
+            //El if anterior también lo podríamos haber escrito con la función equals: 
+            //if (post.author.equals(userId)) throw new Error('User is not the author of the post')
             return db.posts.deleteOne({ _id: ObjectId.createFromHexString(postId) })
         })
         .then(result => {

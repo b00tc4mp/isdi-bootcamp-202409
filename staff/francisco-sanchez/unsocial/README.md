@@ -40,9 +40,51 @@
 
 # Diario de tareas en clase
 
+## **12/11/2024**
+### Introducimos errores personalizados
+
+- Crea un errors.js dentro de com
+- Crea algunos errores y los exporta en el objeto errors
+- Los importa en el index. 
+- Lo importa en el validate.js de API. 
+- Cambia todos lo new Error por new ValidationError
+- En error también crea un error para reigstros duplicados 
+    - Lo aplica en registerUser.js
+    - Añade el duplicityError y el SystemError
+- Modifica dos rutas en index.js de la api
+    - users/auth
+    - ...
+- AuthenticateUser.js --> creamos un error de credenciales
+- getUserName.js --> 
+- registerUser.js de la app --> crea un const constructor con un callback para manejar los errores
+    - Lo modifica masivamente en todas las lógicas de App
+
+- También hay que revisar los xhr de la app y los compos de front de react. 
+
+- Antes de los xhr de las llamadas, a javascript, definimos un systemError para controlar los errores del servidor. 
+
+
+
+
+
+## **11/11/2024**
+### Introducimos Mongo y conectamos nuestra API con la nueva base de datos: 
+
+- Hacemos un repaso del fin de semana y dudas. 
+
+En clase: 
+- Modificamos addComment
+- getPosts.js
+    - Montamos la cadena de promesas para sacar bien toda la información de posts 
+    - Montamos toda una nueva lógica que hay que entender 
+    - Modifica index para getPosts.  get('/posts')
+    - ToggleLikePosts 
+
 ## **08/11/2024**
 ### Introducimos Mongo y conectamos nuestra API con la nueva base de datos: 
 
+Este día hacemos una introducción a mongodb y cómo conectar los métodos con la base de datos.
+De deberes para el fin de semana se nos encarga hacer todos los métodos con mongo. 
 
 
 

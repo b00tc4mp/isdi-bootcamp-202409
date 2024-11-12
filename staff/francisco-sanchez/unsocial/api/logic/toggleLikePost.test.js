@@ -5,8 +5,9 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
     .then(() => {
         try {
             //userId / PostId
-            toggleLikePost('672e233ebd3432d3ba964533', '672f7aef4ee4e332926502a9')
-                .then((result) => console.log(result.message))
+            return toggleLikePost('672e2707de7dde80ec9233c6', '673221cc1c6692a6c62c2c0e')
+                //.then((result) => console.log(result.message))
+                .then(console.log('liked/unliked')) //undefined
                 .catch(console.error)
 
         } catch (error) {
@@ -14,3 +15,5 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
         }
     })
     .catch(console.error)
+    //Despues de ejecutar una consulta deberíamos cerrar la conexión para optimizar recursos
+    .finally(() => db.disconnect())

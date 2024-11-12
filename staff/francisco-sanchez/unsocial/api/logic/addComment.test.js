@@ -5,7 +5,7 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
     .then(() => {
         try {
             //userId, postId, text
-            addComment('672e2707de7dde80ec9233c6', '672f7aef4ee4e332926502a9', 'Texto del comentario chachi guai!')
+            return addComment('672e2707de7dde80ec9233c6', '673221cc1c6692a6c62c2c0e', 'Texto  3 del comentario chachi guai!')
                 .then(() => console.log('Comment added successfully!'))
                 .catch(console.error)
 
@@ -14,3 +14,5 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
         }
     })
     .catch(console.error)
+    //Despues de ejecutar una consulta deberíamos cerrar la conexión para optimizar recursos
+    .finally(() => db.disconnect())
