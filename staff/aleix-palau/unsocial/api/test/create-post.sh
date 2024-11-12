@@ -1,1 +1,1 @@
- curl -H 'Authorization: Basic m2vvqdtgcba' -H 'Content-Type: application/json' -d '{"image":"https://media.giphy.com/media/QLiqUx7aHg10bl5FVj/giphy.gif?cid=790b7611k9bnssjixy10hu88u0buneurbrjffxxhlxderris&ep=v1_gifs_search&rid=giphy.gif&ct=g","text":"hallo weendy"}' http://localhost:8080/posts -v
+ curl -H 'Authorization: Basic 67320fbf808fb47ab40d8190' -H 'Content-Type: application/json' -d '{"image":"https://ih1.redbubble.net/image.201921056.2236/raf,360x360,075,t,fafafa:ca443f4786.u1.jpg","text":"P. Sawyer"}' http://localhost:8080/posts -v

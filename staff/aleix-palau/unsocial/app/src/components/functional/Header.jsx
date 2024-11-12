@@ -1,89 +1,66 @@
+import { useState, useEffect } from 'react'
+
 import { Button } from '../library'
 
 import logic from '../../logic'
 
 import './Header.css'
-import { Component } from 'react'
 
-export default class extends Component {
-    constructor(props) {
-        console.log('Header -> constructor')
+export default function Header({ view, onHomeClick, onLoggedOut }) {
+    const [name, setName] = useState(null)
 
-        super(props)
+    //const {age, nsme} = myObject
 
-        this.state = { name: null }
-    }
+    //const stateVariable = ["name", changeNameValue]
 
-    componentDidMount() {
-        console.log('Header -> componentDidMount')
+    //const [name, setName] = stateVariable
 
-        if (logic.isUserLoggedIn())
-            try {
-                logic.getUserName((error, name) => {
-                    if (error) {
-                        alert(error.message)
+    useEffect(() => {
+        console.log('Header -> componentDidMount & componentWillReceiveProps')
 
-                        console.error(error)
+        if (logic.isUserLoggedIn()) {
+            if (!name)
+                try {
+                    logic.getUserName((error, name) => {
+                        if (error) {
+                            alert(error.message)
 
-                        return
-                    }
+                            console.error(error)
 
-                    this.setState({ name })
-                })
-            } catch (error) {
-                alert(error.message)
+                            return
+                        }
 
-                console.error(error)
-            }
-    }
+                        setName(name)
+                    })
+                } catch (error) {
+                    alert(error.message)
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.view !== nextProps.view)
-            if (logic.isUserLoggedIn()) {
-                if (!this.state.name)
-                    try {
-                        logic.getUserName((error, name) => {
-                            if (error) {
-                                alert(error.message)
+                    console.error(error)
+                }
+        } else setName(null)
+    }, [view])
 
-                                console.error(error)
-
-                                return
-                            }
-
-                            this.setState({ name })
-                        })
-                    } catch (error) {
-                        alert(error.message)
-
-                        console.error(error)
-                    }
-            } else this.setState({ name: null })
-    }
-
-    handleHomeClick = event => {
+    const handleHomeClick = event => {
         event.preventDefault()
 
-        this.props.onHomeClick()
+        onHomeClick()
     }
 
-    handleLogout = () => {
+    const handleLogout = () => {
         if (confirm('Logout?')) {
             logic.logoutUser()
 
-            this.props.onLoggedOut()
+            onLoggedOut()
         }
     }
 
-    render() {
-        console.log('Header -> render')
+    console.log('Header -> render')
 
-        return <header className="Header">
-            <h1>{this.props.view === 'new-post' ? <a href="" onClick={this.handleHomeClick}>Unsocial</a> : 'UNSOCIAL'}</h1>
+    return <header className="Header">
+        <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>UNSOCIAL</a> : 'UNSOCIAL'}</h1>
 
-            {logic.isUserLoggedIn() && <h3>{this.state.name}</h3>}
+        {name && <h3>{name}</h3>}
 
-            {logic.isUserLoggedIn() && <Button type="button" onClick={this.handleLogout}>Logout</Button>}
-        </header>
-    }
+        {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
+    </header>
 }

@@ -1,26 +1,44 @@
-import { storage } from '../data/index.js'
+import db from 'dat'
 import { validate } from 'com'
+
+const { ObjectId } = db
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    const { users, posts } = storage
+    return db.users.findOne({ _id: new ObjectId(userId) }) // const objectUserId = ObjectId.createFromHexString(userId)
+        .catch(error => { throw new Error(error.message) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    const found = users.some(({ id }) => id === userId)
+            return db.posts.find().sort({ date: -1 }).toArray() // si no posem toArray(), va en BSON
+                .catch(error => { throw new Error(error.message) })
+        })
+        .then(posts => {
+            const promises = posts.map(post =>
+                db.users.findOne({ _id: post.author }, { username: 1 }) // projection
+                    .then(user => {
+                        if (!user) throw new Error('author of post not found')
 
-    if (!found) throw new Error('user not found')
+                        const { username } = user
 
-    posts.forEach(post => {
-        const { author: authorId } = post
+                        // sanitize
+                        post.id = post._id.toString() // pq no retorni sempre -> post._id. No volem barrejar data amb vista i no volem que se sàpiga que fem servir Mongo.
+                        delete post._id
 
-        const { username } = users.find(({ id }) => id === authorId)
+                        post.author = { id: post.author.toString(), username } // abans era post.author = ObjectId()
 
-        post.author = { id: authorId, username }
+                        const { likes, comments } = post
 
-        post.liked = post.likes.includes(userId)
+                        post.liked = likes.some(userObjectId => userObjectId.equals(userId)) // com que són objectes, diferents referències, amb includes sempre sortiria -> false
+                        post.likes = likes.length
 
-        post.comments = post.comments.length
-    })
+                        post.comments = comments.length
 
-    return posts.toReversed()
+                        return post // return del map
+                    })
+            )
+
+            return Promise.all(promises)
+        })
 }

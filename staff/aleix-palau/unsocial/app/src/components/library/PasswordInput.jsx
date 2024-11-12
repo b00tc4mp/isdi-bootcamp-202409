@@ -1,28 +1,23 @@
-import { Component } from 'react'
+import { useState } from 'react'
 
 import Input from './Input'
 import './PasswordInput.css'
 
-export default class extends Component {
-    constructor(props) {
-        console.log('PasswordInput -> constructor') // xivato per a veure què es munta
+export default function PasswordInput({ id }) {
+    const [status, setStatus] = useState('👻')
+    const [type, setType] = useState('password')
 
-        super(props) // this.props = props
-
-        this.state = { status: '👻', type: 'password' }
+    const handleToggleClick = () => {
+        setStatus(status === '👻' ? '💀' : '👻')
+        setType(type === 'password' ? 'text' : 'password')
     }
 
-    render() {
-        console.log('PasswordInput -> render')
+    console.log('PasswordInput -> render')
 
-        return <div className="password-input">
-            <Input type={this.state.type} id={this.props.id} />
-            <span className="password-toggle"
-                onClick={() => this.setState({
-                    status: this.state.status === '👻' ? '💀' : '👻',
-                    type: this.state.type === 'password' ? 'text' : 'password'
-                })}
-            >{this.state.status}</span>
-        </div>
-    }
+    return <div className="password-input">
+        <Input type={type} id={id} />
+        <span className="password-toggle"
+            onClick={handleToggleClick}
+        >{status}</span>
+    </div>
 }
