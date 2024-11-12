@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título</title>
+</head>
+
+
+<body style="background-color: darkblue; color: aliceblue;">
+    <h1>Wello World</h1>
+    <p>Dom tree challenge</p>
+    <div>
+        <p>Hello World 2</p>
+        <ul>
+            <li>Element 1</li>
+            <li>Element 2</li>
+            <li>Element 3
+                <ul>
+                    <li>hola</li>
+                    <li>hola</li>
+                    <li>hola</li>
+                    <li>hola</li>
+                    <li>hola</li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+    <script>
+
+        var dom = function (nodo) {
+            console.log(nodo.tagName);
+
+            for (var i = 0; i < nodo.children.length; i++) {
+                dom(nodo.children[i]);
+            }
+        }
+        var html = document.children[0];
+        dom(html);
+
+    </script>
+
+</body>
+
+</html>
