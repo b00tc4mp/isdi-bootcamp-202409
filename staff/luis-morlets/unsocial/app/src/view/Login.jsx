@@ -4,6 +4,10 @@ import logic from '../logic'
 
 import './Login.css'
 
+import { errors } from 'com'
+
+const { SystemError } = errors
+
 export default function Login(props) {
 
     console.log('Login -> render')
@@ -21,7 +25,10 @@ export default function Login(props) {
         try {
             logic.loginUser(username, password, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 

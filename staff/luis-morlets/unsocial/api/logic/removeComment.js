@@ -1,8 +1,10 @@
 import db from 'dat'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
@@ -17,21 +19,21 @@ export default (userId, postId, commentId) => {
         db.users.findOne({ _id: userObjectId }),
         db.posts.findOne({ _id: postObjectId })
     ])
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
-            if (!user) throw new Error("user not found")
-            if (!post) throw new Error("post not found")
+            if (!user) throw new NotFoundError("user not found")
+            if (!post) throw new NotFoundError("post not found")
 
             const { comments } = post
 
             const comment = comments.find(comment => comment._id.equals(commentId))
 
-            if (!comment) throw new Error("comment not found")
+            if (!comment) throw new NotFoundError("comment not found")
 
             const { author } = comment
 
             if (!author.equals(userId)) {
-                throw new Error("user is not author")
+                throw new OwnershipError("user is not author")
             }
             return db.posts.updateOne({ _id: postObjectId },
                 {
@@ -40,7 +42,7 @@ export default (userId, postId, commentId) => {
                     },
                 }
             )
-                .catch(error => { throw new Error(error.message) })
+                .catch(error => { throw new SystemError(error.message) })
                 .then(_ => { })
         })
 }

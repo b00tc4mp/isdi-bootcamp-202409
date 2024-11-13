@@ -4,6 +4,10 @@ import logic from '../logic'
 
 import './CreatePost.css'
 
+import { errors } from 'com'
+
+const { SystemError } = errors
+
 export default function CreatePost({ onCreatePost }) {
 
     console.log('CreatePost -> render')
@@ -21,7 +25,10 @@ export default function CreatePost({ onCreatePost }) {
         try {
             logic.createPost(image, text, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
 
                     console.log(error)
 

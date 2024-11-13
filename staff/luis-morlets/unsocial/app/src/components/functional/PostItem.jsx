@@ -9,6 +9,10 @@ import Comments from './Comments'
 
 import './PostItem.css'
 
+import { errors } from 'com'
+
+const { SystemError } = errors
+
 export default function PostItem({ post, onLiked, onDeleted, onCommented, onCommentRemoved }) {
     const [view, setView] = useState(null)
 
@@ -18,7 +22,10 @@ export default function PostItem({ post, onLiked, onDeleted, onCommented, onComm
         try {
             logic.likesInteraction(id, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -40,7 +47,10 @@ export default function PostItem({ post, onLiked, onDeleted, onCommented, onComm
             try {
                 logic.deletePost(id, error => {
                     if (error) {
-                        alert(error.message)
+                        if (error instanceof SystemError)
+                            alert('Something went wrong, try again later.')
+                        else
+                            alert(error.message)
 
                         console.error(error)
 

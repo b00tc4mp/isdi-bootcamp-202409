@@ -1,6 +1,8 @@
 import db from 'dat'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 const { ObjectId } = db
 
@@ -16,10 +18,10 @@ export default (userId, postId, text) => {
         db.users.findOne({ _id: userObjectId }),
         db.posts.findOne({ _id: postObjectId })
     ])
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
-            if (!user) throw new Error("user not found");
-            if (!post) throw new Error("post not found")
+            if (!user) throw new NotFoundError("user not found");
+            if (!post) throw new NotFoundError("post not found")
 
             return db.posts.updateOne({ _id: postObjectId },
                 {
@@ -32,5 +34,7 @@ export default (userId, postId, text) => {
                         }
                     }
                 })
+                .catch(error => { throw new SystemError(error.message) })
         })
+        .then(_ => { })
 }

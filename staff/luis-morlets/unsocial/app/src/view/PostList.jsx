@@ -6,6 +6,10 @@ import logic from '../logic'
 
 import './PostList.css'
 
+import { errors } from 'com'
+
+const { SystemError } = errors
+
 export default function PostList() {
     const [posts, setPosts] = useState([])
 
@@ -14,7 +18,10 @@ export default function PostList() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -34,7 +41,10 @@ export default function PostList() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -53,7 +63,10 @@ export default function PostList() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -72,7 +85,10 @@ export default function PostList() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
@@ -91,7 +107,10 @@ export default function PostList() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 

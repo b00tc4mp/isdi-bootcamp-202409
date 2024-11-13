@@ -1,4 +1,6 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
 
 export default (text, postId, callback) => {
     validate.text(text)
@@ -17,8 +19,13 @@ export default (text, postId, callback) => {
         }
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
+
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('Ups something happened, try again later')))
 
     xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)

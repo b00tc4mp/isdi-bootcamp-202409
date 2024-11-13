@@ -5,6 +5,10 @@ import { Button } from '../library'
 import logic from '../../logic'
 import './Header.css'
 
+import { errors } from 'com'
+
+const { SystemError } = errors
+
 export default function Header({ view, onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
 
@@ -15,7 +19,10 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
                 try {
                     logic.getUserName((error, name) => {
                         if (error) {
-                            alert(error.message)
+                            if (error instanceof SystemError)
+                                alert('Something went wrong, try again later.')
+                            else
+                                alert(error.message)
 
                             console.error(error)
 
