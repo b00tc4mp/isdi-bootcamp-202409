@@ -1,12 +1,14 @@
 import db from 'dat'
+
 import { validate, errors } from 'com'
 
 const { ObjectId } = db
 const { SystemError, NotFoundError } = errors
 
-export default (userId, postId) => {
+export default (userId, postId, text) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
+    validate.text(text)
 
     const userObjectId = new ObjectId(userId)
     const postObjectId = new ObjectId(postId)
@@ -20,15 +22,14 @@ export default (userId, postId) => {
             if (!user) throw new NotFoundError('user not found')
             if (!post) throw new NotFoundError('post not found')
 
-            const { likes } = post
+            const comment = {
+                _id: new ObjectId,
+                author: userObjectId,
+                text,
+                date: new Date
+            }
 
-            const found = likes.some(userObjectId => userObjectId.equals(userId))
-
-            if (found)
-                return db.posts.updateOne({ _id: postObjectId }, { $pull: { likes: userObjectId } })
-                    .catch(error => { throw new SystemError(error.message) })
-
-            return db.posts.updateOne({ _id: postObjectId }, { $push: { likes: userObjectId } })
+            return db.posts.updateOne({ _id: postObjectId }, { $push: { comments: comment } })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
