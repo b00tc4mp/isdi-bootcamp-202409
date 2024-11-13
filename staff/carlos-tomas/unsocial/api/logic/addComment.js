@@ -1,32 +1,37 @@
 import db from 'dat'
 
-import { validate } from 'com'
+import { errors, validate } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId, text) => {
     validate.id(postId, 'postId')
     validate.text(text)
     validate.id(userId, 'userId')
 
-    return db.users.findOne()
+    const userObjectId = new ObjectId(userId)
+    const postObjectId = new ObjectId(postId)
 
-    const found = users.some(({ id }) => id === userId)
+    return Promise.all([
+        db.users.findOne({ _id: userObjectId }),
+        db.posts.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
-    if (!found) throw new Error("user not found");
+            const comment = {
+                _id: new ObjectId,
+                author: userObjectId,
+                text,
+                date: new Date
+            }
 
-    const post = posts.find(({ id }) => id === postId)
-
-    if (!post) throw new Error('post not found')
-
-    const { comments } = post
-
-    comments.push({
-
-        author: userId,
-        text,
-        date: new Date
-    })
-
-
+            return db.posts.updateOne({ _id: postObjectId }, { $push: { comments: comment } })
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(_ => { })
 }
+
