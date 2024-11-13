@@ -1,10 +1,11 @@
 import './Login.css'
-
 import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../components/library'
-
 import logic from '../logic'
+import { errors } from 'com'
 
-export default props => {
+const { SystemError } = errors
+
+export default function Login(props) {
     console.log('Login -> render')
 
     const handleSubmit = event => {
@@ -15,7 +16,10 @@ export default props => {
         try {
             logic.loginUser(username, password, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 

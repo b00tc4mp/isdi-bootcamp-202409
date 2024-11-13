@@ -1,7 +1,8 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
@@ -15,10 +16,10 @@ export default (userId, postId) => {
         db.posts.findOne({ _id: postObjectId })
     ])
 
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
-            if (!user) throw new Error('User not found')
-            if (!post) throw new Error('Post not found')
+            if (!user) throw new NotFoundError('User not found')
+            if (!post) throw new NotFoundError('Post not found')
 
             const { saves } = post
 
@@ -26,10 +27,10 @@ export default (userId, postId) => {
 
             if (found)
                 return db.posts.updateOne({ _id: postObjectId }, { $pull: { saves: userObjectId } })
-                    .catch(error => { throw new Error(error.message) })
+                    .catch(error => { throw new SystemError(error.message) })
 
             return db.posts.updateOne({ _id: postObjectId }, { $push: { saves: userObjectId } })
-                .catch(error => { throw new Error(error.message) })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
 }

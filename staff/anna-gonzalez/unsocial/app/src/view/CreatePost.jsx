@@ -20,7 +20,10 @@ export default ({ onCreated }) => {
         try {
             logic.createPost(image, text, error => {
                 if (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 

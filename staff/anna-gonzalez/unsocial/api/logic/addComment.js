@@ -1,7 +1,8 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId, text) => {
     validate.id(userId, 'userId')
@@ -11,18 +12,24 @@ export default (userId, postId, text) => {
     const userObjectId = new ObjectId(userId)
     const postObjectId = new ObjectId(postId)
 
-    return db.users.findOne({ _id: userObjectId })
-        .catch(error => { throw new Error(error.message) })
-        .then(user => {
-            if (!user) throw new Error('User not found')
+    return Promise.all([
+        db.users.findOne({ _id: userObjectId }),
+        db.posts.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('User not found')
+            if (!post) throw new NotFoundError('Post not found')
 
-            return db.posts.findOne({ _id: postObjectId })
-                .catch(error => { throw new Error(error.message) })
-        })
-        .then(post => {
-            if (!post) throw new Error('Post not found')
+            const comment = {
+                _id: new ObjectId,
+                author: userObjectId,
+                text,
+                date: new Date
+            }
 
-            return db.posts.updateOne({ _id: postObjectId }, { $push: { comments: { _id: new ObjectId, author: userObjectId, text, date: new Date } } })
+            return db.posts.updateOne({ _id: postObjectId }, { $push: { comments: comment } })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
 }

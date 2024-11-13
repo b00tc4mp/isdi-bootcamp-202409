@@ -1,47 +1,60 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const userIdObject = new ObjectId(userId)
-    const postIdObject = new ObjectId(postId)
+    const userObjectId = new ObjectId(userId)
+    const postObjectId = new ObjectId(postId)
 
-    return db.users.findOne({ _id: userIdObject })
-        .catch(error => { new Error(error.message) })
-        .then(user => {
-            if (!user) throw new Error('User not found')
+    const { users, posts } = db
 
-            return db.posts.findOne({ _id: postIdObject })
-        })
-        .then(post => {
-            if (!post) throw new Error('Post not found')
+    return Promise.all([
+        users.findOne({ _id: userObjectId }),
+        posts.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('User not found')
+            if (!post) throw new NotFoundError('Post not found')
 
             const { comments } = post
 
-            const promises = comments.map(comment => {
+            const authorObjectIds = []
 
-                return db.users.findOne({ _id: comment.author })
-                    .catch(error => { throw new Error(error.message) })
-                    .then(user => {
-                        if (!user) throw new Error('Author of comment not found')
+            comments.forEach(comment => {
+                const { author: authorId } = comment
 
-                        const { username } = user
+                const found = authorObjectIds.some(id => id.equals(authorId))
 
+                if (!found) authorObjectIds.push(authorId)
+            })
+
+            return users.find({ _id: { $in: authorObjectIds } },
+                { projection: { username: 1 } }).toArray()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(authors => {
+                    comments.forEach(comment => {
                         const { author: authorId } = comment
 
                         comment.id = comment._id.toString()
                         delete comment._id
 
-                        comment.author = { id: authorId.toString(), username }
+                        const author = authors.find(({ _id }) => _id.equals(authorId))
 
-                        return comment
+                        const { _id, username } = author
+
+                        comment.author = {
+                            id: _id.toString(),
+                            username
+                        }
                     })
-            })
 
-            return Promise.all(promises)
+                    return comments
+                })
         })
 }

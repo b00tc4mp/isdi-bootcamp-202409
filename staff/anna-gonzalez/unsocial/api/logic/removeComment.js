@@ -1,7 +1,8 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
@@ -10,31 +11,28 @@ export default (userId, postId, commentId) => {
 
     const userObjectId = new ObjectId(userId)
     const postObjectId = new ObjectId(postId)
-    const commentObjectId = new ObjectId(commentId)
 
-    return db.users.findOne({ _id: userObjectId })
-        .catch(error => { throw new Error(error.message) })
-        .then(user => {
-            if (!user) throw new Error('User not found')
-
-            return db.posts.findOne({ _id: postObjectId })
-                .catch(error => { throw new Error(error.message) })
-        })
-        .then(post => {
-            if (!post) throw new Error('Post not found')
+    return Promise.all([
+        db.users.findOne({ _id: userObjectId }),
+        db.posts.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('User not found')
+            if (!post) throw new NotFoundError('Post not found')
 
             const { comments } = post
 
-            const comment = comments.find(comment => comment._id.equals(commentObjectId))
+            const comment = comments.find(({ _id }) => _id.equals(commentId))
 
-            if (!comment) throw new Error('Comment not found')
+            if (!comment) throw new NotFoundError('Comment not found')
 
-            const { author: authorId } = comment
+            const { author } = comment
 
-            if (!authorId.equals(userObjectId)) throw new Error('User is not author of comment')
+            if (!author.equals(userObjectId)) throw new OwnershipError('User is not author of comment')
 
-            return db.posts.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: commentObjectId } } })
-                .catch(error => { throw new Error(error.message) })
+            return db.posts.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: new ObjectId(commentId) } } })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
 }
