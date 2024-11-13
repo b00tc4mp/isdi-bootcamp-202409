@@ -40,6 +40,49 @@
 
 # Diario de tareas en clase
 
+## **13/11/2024**
+### Continuamos con el manejo de errores personalizados
+
+- TODO: Creamos una función errorHandler en index de api para manejar los errores y simplificar el código 
+- TODO: Crea un middleware/helper (llamale como quieras), con un CreateFunctionalHandler ¿?¿??¿?¿?¿?¿?¿?¿?¿
+- TODO: También crea un authoritzationHandler. 
+- TODO: Cuando lo tiene montado, se lleva las funciones y crea nuevos archivos en api > helpers (createFunctionalHandler.js, authoritzationHandler.js)
+- TODO: Los importa desestructurando en el index. 
+
+- TODO: ENTENDEEEER!!! 
+- TODO: Revisar las versiones de index una a una 
+
+- TODO: En com > errors.js hace una cosa similar para simplificar los errores.
+- NOTA: La última versión de estos archivos podría fallar en Safari, por lo que podría ser una mejor idea no dejarlo tan avanzado 
+
+### Mongoose
+
+- TODO: en la carpeta dat tenemos que desinstalar Mongo ( > npm un mongo )
+- TODO: Instalamos Mongoose ( > npm i mongoose) (Mongoose agrega valor a mongo)
+- TODO: dat > crea demo.js
+    - Dentro podemos crear modelos de datos. 
+    - Creamos esquemas y modeles (schema y model)
+        - Dentro del esquema podemos añadir validaciones 
+        - En el campo de email le pasar la regex como match para validarla 
+- TODO: Los modelos creados en Demo los quita y los añade a un documento models.js -> Los exportaremos y posteriormente los podremos imporar del resto de la aplicación 
+- TODO: También crearemos un modelo para comments, que se guardará dentro de post. 
+
+- TODO: En index de Dat, cambia la importación de mongo por la de mongoose
+    - Modificva el connect por lo de mongoose 
+
+- TODO: en Api > logic > registerUser.js --> Importa models y modifica la lógica para arrancar con mongoose. 
+
+- TODO: Lo mismo para Api > logic > authenticateUser.js
+
+- TODO: **NOTA**: Tenemos que quitar todos los ...fromexstring... por el new Object(IdLoquesea...)
+    -- ObjectId.createFromHexString(userId)
+
+
+
+
+
+
+
 ## **12/11/2024**
 ### Introducimos errores personalizados
 

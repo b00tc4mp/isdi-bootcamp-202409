@@ -33,12 +33,15 @@ export default (name, email, username, password, passwordRepeat, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
     xhr.open('POST', 'http://localhost:8080/register')
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
     xhr.setRequestHeader('Content-Type', 'application/json')
-    //xhr.send('{"name":"Aragorn","email":"aragorn@middleearth.com","username":"aragorn","password":"111111","password-repeat":"111111"}')
     xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat }))
 }
 

@@ -24,10 +24,13 @@ export default (image, text, callback) => {
         }
 
         const { error, message } = JSON.parse(response)
+        const constructor = errors[error]
         callback(new Error(message))
     })
 
     xhr.open('POST', 'http://localhost:8080/posts')
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ image, text }))

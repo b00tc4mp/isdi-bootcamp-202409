@@ -16,10 +16,13 @@ export default (postId, callback) => {
             return
         }
         const { error, message } = JSON.parse(response)
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
     xhr.open('GET', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }

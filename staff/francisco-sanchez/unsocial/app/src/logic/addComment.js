@@ -24,9 +24,9 @@ export default (postId, text, callback) => {
         callback(new constructor(message))
     })
 
+    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify({ text }))

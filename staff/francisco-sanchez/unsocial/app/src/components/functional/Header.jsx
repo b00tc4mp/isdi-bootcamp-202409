@@ -42,12 +42,14 @@ export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }
         onHomeClick()
     }
 
+
     const handleLogout = () => {
         if (confirm('Logout?')) {
             logic.logoutUser()
             onLoggedOut()
         }
     }
+
 
     const handleProfile = event => {
         event.preventDefault()
@@ -60,9 +62,6 @@ export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }
     return <header className="Header">
         <img src={logo} alt='logo' id='logo' />
         <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
-
-
-        {/*state.name && <a href="" onClick={handleProfile}><h3 className="nombreUser">{state.name}</h3></a>*/}
 
         {name && <a href="" onClick={handleProfile}><h3 className="nombreUser">{name}</h3></a>}{/* Si nombre existe lo pinta, sino no.  */}
 

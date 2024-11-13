@@ -1,6 +1,6 @@
 //import validate from "./helpers/validate"
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (username, password, callback) => {
 
@@ -8,6 +8,7 @@ export default (username, password, callback) => {
     validate.password(password)
     validate.callback(callback)
 
+    const { SystemError } = errors
 
     const xhr = new XMLHttpRequest
 
@@ -21,10 +22,20 @@ export default (username, password, callback) => {
             return
         }
         const { error, message } = JSON.parse(response)
-        callback(new Error(error))
+        //callback(new Error(error))
+
+        //Con la siguiente modificación pasamos los custom errors a la app
+        const constructor = errors[error]
+        callback(new constructor(message))
     })
 
+
+
     xhr.open('POST', 'http://localhost:8080/authenticate')
+
+    //Para capturar los errores del sistema tenemos que hacer un eventListener
+    xhr.addEventListener('error', () => callback(new SystemError('It`s a server error')))
+
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ username, password }))
 

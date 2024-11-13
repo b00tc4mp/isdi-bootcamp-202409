@@ -4,6 +4,10 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
+import { errors } from 'com'
+
+const { OwnershipError, CredentialsError, SystemError } = errors
+
 //Función login, que será nuestra primera pantalla de la aplicación
 //export default (props) => {
 export default function Login(props) {
@@ -19,6 +23,7 @@ export default function Login(props) {
                 if (error) {
                     alert(error.message)
                     console.error(error)
+                    //console.error(new CredentialsError(error.message))
                     return
                 }
                 event.target.reset()

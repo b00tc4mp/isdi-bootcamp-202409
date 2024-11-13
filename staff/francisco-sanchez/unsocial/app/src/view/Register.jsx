@@ -1,13 +1,5 @@
 import './Register.css'
 
-//import registerUser from '../logic/registerUser'
-//import PasswordInput from '../components/library/PasswordInput'
-
-/*import Label from '../components/library/Label'
-import Input from '../components/library/Input'
-import Button from '../components/library/Button'
-import Field from '../components/library/Field'
-import Form from '../components/library/Form'*/
 
 import { PasswordInput, Label, Input, Button, Field, Form } from '../components/library'
 import logic from '../logic'

@@ -16,10 +16,14 @@ export default (postId, commentId, callback) => {
             return
         }
         const { error, message } = JSON.parse(response)
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
     xhr.open('DELETE', `http://localhost:8080/posts/${postId}/comments/${commentId}`)
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }
