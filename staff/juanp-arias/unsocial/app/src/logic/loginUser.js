@@ -1,5 +1,6 @@
-import { validate } from 'com'
+import { errors, validate } from 'com'
 
+const { SystemError } = errors
 export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
@@ -19,8 +20,10 @@ export default (username, password, callback) => {
         }
 
         const { error, message } = JSON.parse(response)
-        callback(new Error(message))
+        const constructor = errors[error]
+        callback(new constructor(message))
     })
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.open('POST', 'http://localhost:7070/authenticate')
     xhr.setRequestHeader('Content-Type', 'application/json')

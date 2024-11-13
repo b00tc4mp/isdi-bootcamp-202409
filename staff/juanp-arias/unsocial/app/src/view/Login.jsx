@@ -16,7 +16,7 @@ export default function Login(props) {
             logic.loginUser(username, password, error => {
                 if (error) {
                     if (error instanceof SystemError)
-                        alert('Soryy, try again later')
+                        alert(`We're having some troubles, please try again later.`)
                     else
                         alert(error.message)
 
