@@ -1,5 +1,7 @@
-import db from "../../dat/index.js";
+import { models } from "dat";
 import { validate, errors } from "com";
+
+const { User } = models
 
 const { DuplicityError, SystemError } = errors
 
@@ -10,7 +12,7 @@ export default (name, email, username, password, passwordRepeat) => {
   validate.password(password)
   validate.passwordsMatch(password, passwordRepeat)
 
-  return db.users.insertOne({ name, email, username, password })
+  return User.create({ name, email, username, password })
     .then(_ => { })
     .catch(error => {
       if (error.code === 11000) throw new DuplicityError('user already exists')
