@@ -4,7 +4,7 @@ import registerUser from './registerUser.js'
 db.connect('mongodb://127.0.0.1:27017/unsocial-test')
   .then(() => {
     try {
-      return registerUser('Rocket', 'rocket@gat.com', 'rocketgat', 'criscris', 'criscris')
+      return registerUser('Yannick', 'yan@nick.com', 'yanscf', 'criscris', 'criscris')
         .then(() => console.log('user registered'))
         .catch(console.error)
     } catch (error) {

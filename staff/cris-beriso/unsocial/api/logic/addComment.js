@@ -1,8 +1,9 @@
 import db from 'dat'
-
+import { models } from 'dat'
 import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default (userId, postId, text) => {
@@ -10,12 +11,12 @@ export default (userId, postId, text) => {
   validate.id(postId, 'postId')
   validate.text(text)
 
-  const userObjectId = ObjectId.createFromHexString(userId)
-  const postObjectId = ObjectId.createFromHexString(postId)
+  const userObjectId = new ObjectId(userId)
+  const postObjectId = new ObjectId(postId)
 
   return Promise.all([
-    db.users.findOne({ _id: userObjectId }),
-    db.posts.findOne({ _id: postObjectId })
+    User.findOne({ _id: userObjectId }),
+    Post.findOne({ _id: postObjectId })
   ])
     .catch(error => { throw new SystemError(error.message) })
     .then(([user, post]) => {
@@ -29,7 +30,7 @@ export default (userId, postId, text) => {
         date: new Date
       }
 
-      return db.posts.updateOne({ _id: postObjectId }, { $push: { comments: comment } })
+      return Post.updateOne({ _id: postObjectId }, { $push: { comments: comment } })
         .catch(error => { throw new SystemError(error.message) })
     })
     .then(_ => { })

@@ -4,7 +4,7 @@ import removeComment from './removeComment.js'
 db.connect('mongodb://localhost/unsocial-test')
   .then(() => {
     try {
-      return removeComment('672e264adba2254072ee1db4', '67322cd9d8208c90cf28c095', '67337bb0d2a5df321b28472b')
+      return removeComment('6734ce1c818dbb1cce23d08e', '6734d89a5e890c0e2b02a90a', '6734dea1f940e2c9b22d4eed')
         .then(console.log) //undefined
         .catch(console.error)
     } catch (error) {

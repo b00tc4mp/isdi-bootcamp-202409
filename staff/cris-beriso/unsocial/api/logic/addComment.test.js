@@ -4,7 +4,7 @@ import addComment from './addComment.js'
 db.connect('mongodb://127.0.0.1:27017/unsocial-test')
   .then(() => {
     try {
-      return addComment('672e264adba2254072ee1db4', '67322cd9d8208c90cf28c095', '(L)')
+      return addComment('6734ce1c818dbb1cce23d08e', '6734d89a5e890c0e2b02a90a', '(L)')
         .then(console.log)
         .catch(console.error)
     } catch (error) {

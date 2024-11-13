@@ -1,7 +1,9 @@
 import db from 'dat'
+import { models } from 'dat'
 import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
@@ -11,11 +13,9 @@ export default (userId, postId) => {
   const userObjectId = new ObjectId(userId)
   const postObjectId = new ObjectId(postId)
 
-  const { users, posts } = db
-
   return Promise.all([
-    users.findOne({ _id: userObjectId }),
-    posts.findOne({ _id: postObjectId })
+    User.findOne({ _id: userObjectId }),
+    Post.findOne({ _id: postObjectId })
   ])
 
     .catch(error => { throw new SystemError(error.message) })
@@ -36,7 +36,7 @@ export default (userId, postId) => {
       })
 
       //conseguimos hacer una sola consulta y no muchas promesas de una consulta. 
-      return users.find({ _id: { $in: authorObjectIds } }, { projection: { username: 1 } }).toArray()
+      return User.find({ _id: { $in: authorObjectIds } }, { username: 1 }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(authors => {
           comments.forEach(comment => {

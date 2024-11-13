@@ -1,8 +1,9 @@
 import db from 'dat'
+import { models } from 'dat'
 import { validate, errors } from 'com'
 
 const { ObjectId } = db
-
+const { User, Post } = models
 const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
@@ -13,11 +14,9 @@ export default (userId, postId, commentId) => {
   const userObjectId = new ObjectId(userId)
   const postObjectId = new ObjectId(postId)
 
-  const { users, posts } = db
-
   return Promise.all([
-    users.findOne({ _id: userObjectId }),
-    posts.findOne({ _id: postObjectId })
+    User.findOne({ _id: userObjectId }),
+    Post.findOne({ _id: postObjectId })
   ])
     .catch(error => { throw new SystemError(error.message) })
     .then(([user, post]) => {
@@ -34,7 +33,7 @@ export default (userId, postId, commentId) => {
 
       if (!author.equals(userId)) throw new OwnershipError('user not author of comment')
 
-      return posts.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: new ObjectId(commentId) } } })
+      return Post.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: new ObjectId(commentId) } } })
         .catch(error => { throw new SystemError(error.message) })
     })
     .then(_ => { })
