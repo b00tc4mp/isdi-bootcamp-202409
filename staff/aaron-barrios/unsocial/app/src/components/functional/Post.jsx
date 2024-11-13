@@ -87,8 +87,10 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         <button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</button>
 
         <button onClick={handleCommentsClick}>💬 {comments} comments</button>
+
         <label style={{ opacity: '60%', fontSize: '13px', marginTop: '2%' }}>View comments...</label>
         <br />
+
         <time style={{ fontSize: 'xx-small', marginRight: '10px', marginTop: '2.5%' }}>{getElapsedTime(date)} ago</time>
         <p></p>
 

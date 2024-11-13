@@ -16,9 +16,8 @@ export default function Comment({ postId, comment: { id, author, text, date }, o
 
                         return
                     }
+                    onRemoved()
                 })
-
-                onRemoved()
             } catch (error) {
                 alert(error.message)
 

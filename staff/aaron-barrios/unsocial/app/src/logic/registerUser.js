@@ -1,5 +1,8 @@
 import { validate } from './helpers'
 
+import { errors } from '../../../com'
+
+const { SystemError } = errors
 
 export default (name, email, username, password, passwordRepeat, callback) => {
 
@@ -23,10 +26,14 @@ export default (name, email, username, password, passwordRepeat, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
-    xhr.open('POST', 'http://localhost:8080/register')
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('POST', 'http://localhost:8080/users')
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat }))
 }

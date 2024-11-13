@@ -1,5 +1,9 @@
 import { validate } from './helpers/index.js'
 
+import { errors } from '../../../com'
+
+const { SystemError } = errors
+
 export default callback => {
     validate.callback(callback)
 
@@ -18,8 +22,12 @@ export default callback => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     //LO QUE TU LE ENVÍAS (CLIENTE)
     xhr.open('GET', `http://localhost:8080/users/${sessionStorage.userId}/name`)

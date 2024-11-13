@@ -1,6 +1,10 @@
-import db from 'dat'
-
+import { models } from 'dat'
 import validate from './helpers/validate.js'
+
+import { errors } from 'com'
+const { DuplicityError, SystemError } = errors
+
+const { User } = models
 
 export default (name, email, username, password, passwordRepeat) => {
 
@@ -11,11 +15,11 @@ export default (name, email, username, password, passwordRepeat) => {
     validate.passwordMatch(password, passwordRepeat)
 
 
-    return db.users.insertOne({ name, email, username, password })
+    return User.create({ name, email, username, password })
         .then(_ => { })
         .catch(error => {
-            if (error.code === 11000) throw new Error('user already exists')
+            if (error.code === 11000) throw new DuplicityError('user already exists')
 
-            throw new Error(error.message)
+            throw new SystemError(error.message)
         })
 }

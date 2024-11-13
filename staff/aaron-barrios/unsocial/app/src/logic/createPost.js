@@ -1,5 +1,8 @@
 import { validate } from './helpers'
 
+import { errors } from '../../../com'
+
+const { SystemError } = errors
 
 export default (text, image, callback) => {
     validate.text(text)
@@ -19,8 +22,12 @@ export default (text, image, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.open('POST', 'http://localhost:8080/posts')
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)

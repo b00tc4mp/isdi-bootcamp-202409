@@ -1,8 +1,10 @@
-import { validate } from './helpers/index.js'
-
 import db from 'dat'
+import { validate } from './helpers/index.js'
+import { errors } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError } = errors
+
 
 // ----- POSTS STUFF ------
 export default (userId, text, image) => {
@@ -10,16 +12,16 @@ export default (userId, text, image) => {
     validate.text(text)
     validate.image(image)
 
-    const userObjectId = ObjectId.createFromHexString(userId)
+    const userObjectId = new ObjectId(userId)
 
     return db.users.findOne({ _id: userObjectId })
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new NotFoundError('user not found')
 
             return db.posts
                 .insertOne({ author: userObjectId, text, image, likes: [], comments: [], date: new Date })
-                .catch((error) => { throw new Error(error.message) })
+                .catch((error) => { throw new SystemError(error.message) })
         })
-        .then((_) => { console.log('Created post') })
+        .then((_) => { })
 }

@@ -77,7 +77,7 @@ export default function Comments(props) {
 
     return <section>
         <ul>
-            {this.state.comments.map(comment =>
+            {comments.map(comment =>
                 <Comment
                     key={comment.id}
                     postId={props.postId}

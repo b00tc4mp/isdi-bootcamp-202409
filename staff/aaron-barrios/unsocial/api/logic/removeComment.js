@@ -1,36 +1,44 @@
-import { validate } from './helpers/index.js'
-
 import db from 'dat'
 
+import { validate } from './helpers/index.js'
+
+import { errors } from 'com'
+
 const { ObjectId } = db
+
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
 
+    const userObjectId = new ObjectId(userId)
+    const postObjectId = new ObjectId(postId)
 
-    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
-        .catch(error => { throw new Error(error.message) })
-        .then(user => {
-            if (!user) throw new Error('user not found')
+    const { users, posts } = db
 
-            return db.posts.findOne({ _id: ObjectId.createFromHexString(postId) })
-                .catch(error => { new Error(error.message) })
-                .then((post) => {
-                    if (!post) throw new Error('post not found')
+    return Promise.all([
+        db.users.findOne({ _id: userObjectId }),
+        db.posts.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
-                    return db.posts
-                        .updateOne({ _id: ObjectId.createFromHexString(postId) }, { $pull: { comments: { _id: ObjectId.createFromHexString(commentId) } } })
-                        .then((comment) => {
-                            if (!comment) throw new Error('comment not found')
-                        })
-                })
-                .then((_) => {
-                    console.log('comment deleted')
-                })
-                .catch((error) => {
-                    throw new Error(error.message)
-                })
+            const { comments } = post
+
+            const comment = comments.find(({ _id }) => _id.equals(commentId))
+
+            if (!comment) throw new NotFoundError('comment not found')
+
+            const { author } = comment
+
+            if (!author.equals(userId)) throw new OwnershipError('user not author of comment')
+
+            return posts.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: new ObjectId(commentId) } } })
+                .catch(error => { throw new SystemError(error.message) })
         })
+        .then(_ => { })
 }

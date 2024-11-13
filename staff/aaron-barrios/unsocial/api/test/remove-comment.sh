@@ -1,1 +1,1 @@
-curl -H 'Authorization: Basic m2vvw4xzn6d' -X DELETE https://jsonplaceholder.typicode.com/posts/m2vw4ucygv/comments/m2yojtnh2c -v
+curl -X DELETE -H 'Authorization: Basic 672e3058090fcae7fd450528' http://localhost:8080/posts/67336a1e7b45b1fef62ecd3a/comments/673382cbd4b474cd4ffeb5e8
