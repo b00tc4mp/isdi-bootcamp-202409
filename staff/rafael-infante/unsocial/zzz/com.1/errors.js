@@ -9,6 +9,8 @@ const createCustomError = name =>
     static get name() { return name }
   }
 
+
+
 const errors = {
   ValidationError: createCustomError('ValidationError'),
   DuplicityError: createCustomError('DuplicityError'),
