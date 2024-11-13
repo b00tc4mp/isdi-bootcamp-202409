@@ -1,20 +1,22 @@
 import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'apu'
 
 const { ObjectId } = db
+const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const objectUserId = ObjectId.createFromHexString(userId)
-    const objectPostId = ObjectId.createFromHexString(postId)
+    const objectUserId = new ObjectId(userId)
+    const objectPostId = new ObjectId(postId)
 
     return Promise.all([
-        db.users.findOne({ _id: objectUserId }),
-        db.posts.findOne({ _id: objectPostId }),
+        User.findOne({ _id: objectUserId }),
+        Post.findOne({ _id: objectPostId }),
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
@@ -33,7 +35,7 @@ export default (userId, postId) => {
                 if (!found) authorObjectIds.push(authorId)
             })
 
-            return db.users.find({ _id: { $in: authorObjectIds } }, { projection: { username: 1 } }).toArray()
+            return User.find({ _id: { $in: authorObjectIds } }, { username: 1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(authors => {
                     comments.forEach(comment => {

@@ -1,8 +1,10 @@
 import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'apu'
 
 const { ObjectId } = db
+const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default (userId, postId, text) => {
@@ -10,12 +12,12 @@ export default (userId, postId, text) => {
     validate.id(postId, 'postId')
     validate.text(text)
 
-    const objectUserId = ObjectId.createFromHexString(userId)
-    const objectPostId = ObjectId.createFromHexString(postId)
+    const objectUserId = new ObjectId(userId)
+    const objectPostId = new ObjectId(postId)
 
     return Promise.all([
-        db.users.findOne({ _id: objectUserId }),
-        db.posts.findOne({ _id: objectPostId })
+        User.findOne({ _id: objectUserId }),
+        Post.findOne({ _id: objectPostId })
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
@@ -29,7 +31,7 @@ export default (userId, postId, text) => {
                 date: new Date
             }
 
-            return db.posts.updateOne({ _id: objectPostId }, { $push: { comments: comment } })
+            return Post.updateOne({ _id: objectPostId }, { $push: { comments: comment } })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

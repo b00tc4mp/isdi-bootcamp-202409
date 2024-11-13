@@ -1,24 +1,25 @@
 import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'apu'
 
-const { SystemError, NotFoundError } = errors
-
 const { ObjectId } = db
+const { SystemError, NotFoundError } = errors
+const { User } = models
 
 export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
 
-    const objectUserId = ObjectId.createFromHexString(userId)
-    const objectTargetUserId = ObjectId.createFromHexString(targetUserId)
+    const objectUserId = new ObjectId(userId)
+    const objectTargetUserId = new ObjectId(targetUserId)
 
-    return db.users.findOne({ _id: objectUserId })
+    return User.findOne({ _id: objectUserId })
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return db.users.findOne({ _id: objectTargetUserId })
+            return User.findOne({ _id: objectTargetUserId })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(user => {

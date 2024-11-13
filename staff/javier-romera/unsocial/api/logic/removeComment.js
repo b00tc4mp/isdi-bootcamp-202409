@@ -1,8 +1,10 @@
 import db from 'dat'
 
 import { validate, errors } from 'apu'
+import { models } from 'dat'
 
 const { ObjectId } = db
+const { User, Post } = models
 const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
@@ -10,13 +12,13 @@ export default (userId, postId, commentId) => {
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
 
-    const objectUserId = ObjectId.createFromHexString(userId)
-    const objectPostId = ObjectId.createFromHexString(postId)
-    const objectCommentId = ObjectId.createFromHexString(commentId)
+    const objectUserId = new ObjectId(userId)
+    const objectPostId = new ObjectId(postId)
+    const objectCommentId = new ObjectId(commentId)
 
     return Promise.all([
-        db.users.findOne({ _id: objectUserId }),
-        db.posts.findOne({ _id: objectPostId })
+        User.findOne({ _id: objectUserId }),
+        Post.findOne({ _id: objectPostId })
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
@@ -33,7 +35,7 @@ export default (userId, postId, commentId) => {
 
             if (!authorId.equals(userId)) throw new OwnershipError('user is not author of comment')
 
-            return db.posts.updateOne({ _id: objectPostId }, { $pull: { comments: { _id: objectCommentId } } })
+            return Post.updateOne({ _id: objectPostId }, { $pull: { comments: { _id: objectCommentId } } })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

@@ -1,9 +1,10 @@
 import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'apu'
 
 const { ObjectId } = db
-
+const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default userId => {
@@ -11,17 +12,17 @@ export default userId => {
 
     const objectUserId = ObjectId.createFromHexString(userId)
 
-    return db.users.findOne({ _id: objectUserId })
+    return User.findOne({ _id: objectUserId })
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return db.posts.find().sort({ date: -1 }).toArray()
+            return Post.find({}).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(posts => {
             const transformedPosts = posts.map(post => {
-                return db.users.findOne({ _id: post.author }, { projection: { _id: 0, username: 1 } })
+                return User.findOne({ _id: post.author }, { username: 1 })
                     .catch(error => { throw new SystemError(error.message) })
                     .then(user => {
                         if (!user) throw new NotFoundError('author of post not found')

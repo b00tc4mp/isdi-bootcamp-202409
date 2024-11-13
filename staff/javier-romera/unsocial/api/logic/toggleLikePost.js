@@ -1,36 +1,37 @@
 import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'apu'
 
 const { SystemError, NotFoundError } = errors
-
+const { User, Post } = models
 const { ObjectId } = db
 
 export default (userId, postId) => {
     validate.id(postId, 'postId')
     validate.id(userId, 'userId')
 
-    const objectUserId = ObjectId.createFromHexString(userId)
-    const objectPostId = ObjectId.createFromHexString(postId)
+    const objectUserId = new ObjectId(userId)
+    const objectPostId = new ObjectId(postId)
 
     return Promise.all([
-        db.users.findOne({ _id: objectUserId }),
-        db.posts.findOne({ _id: objectPostId })
+        User.findOne({ _id: objectUserId }),
+        Post.findOne({ _id: objectPostId })
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
             if (!user) throw new NotFoundError('user not found')
             if (!post) throw new NotFoundError('post not found')
 
-            const { likedBy } = post
+            const { likes } = post
 
-            const found = likedBy.some(id => id.equals(objectUserId))
+            const found = likes.some(id => id.equals(userId))
 
             if (!found)
-                return db.posts.updateOne({ _id: objectPostId }, { $push: { likedBy: objectUserId } })
+                return Post.updateOne({ _id: objectPostId }, { $push: { likes: objectUserId } })
                     .catch(error => { throw new SystemError(error.message) })
 
-            return db.posts.updateOne({ _id: objectPostId }, { $pull: { likedBy: objectUserId } })
+            return Post.updateOne({ _id: objectPostId }, { $pull: { likes: objectUserId } })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
