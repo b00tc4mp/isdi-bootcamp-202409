@@ -17,7 +17,7 @@ const db = {
   connect,
   users: null,
   posts: null,
-  disconnect: null,
+  disconnect: () => { },
   ObjectId
 }
 

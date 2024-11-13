@@ -1,4 +1,4 @@
-import db from '../dat/index.js'
+import db from '../../dat/index.js'
 import express, { json } from 'express'
 import logic from './logic/index.js'
 import cors from 'cors'
