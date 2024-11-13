@@ -5,6 +5,10 @@ import Comments from './Comments'
 
 import logic from '../../logic'
 
+import { errors } from 'apu'
+
+const { SystemError } = errors
+
 import getElapsedTime from '../../utils/getElapsedTime'
 
 import './Post.css'

@@ -2,6 +2,10 @@ import { Button, Form, Field } from '../library'
 
 import logic from '../../logic'
 
+import { errors } from 'apu'
+
+const { SystemError } = errors
+
 import './AddComment.css'
 
 export default function AddComment({ postId, onAdded }) {

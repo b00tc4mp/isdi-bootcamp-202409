@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 
 import { Anchor, Button } from '../library'
 
+import { errors } from 'apu'
+
+const { SystemError } = errors
+
 import logic from '../../logic'
 
 import './Header.css'

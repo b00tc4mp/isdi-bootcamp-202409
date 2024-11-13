@@ -2,6 +2,10 @@ import logic from '../logic'
 
 import { Form, Field, Label, Input, Button } from '../components/library'
 
+import { errors } from 'apu'
+
+const { SystemError } = errors
+
 import './CreatePost.css'
 
 export default function CreatePost({ onCreated }) {

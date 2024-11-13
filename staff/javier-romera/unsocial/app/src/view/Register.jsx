@@ -2,6 +2,10 @@ import logic from '../logic'
 
 import { Anchor, Form, Label, Input, Field, Button } from '../components/library'
 
+import { errors } from 'apu'
+
+const { SystemError } = errors
+
 import './Register.css'
 
 export default props => {

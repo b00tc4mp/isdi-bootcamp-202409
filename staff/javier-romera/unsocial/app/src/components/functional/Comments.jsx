@@ -3,12 +3,17 @@ import { useState, useEffect } from 'react'
 import Comment from './Comment'
 import AddComment from './AddComment'
 
+import { errors } from 'apu'
+
+const { SystemError } = errors
+
 import logic from '../../logic'
 
 import './Comments.css'
 
 export default function Comments({ postId, onAdded, onRemoved }) {
     const [comments, setComments] = useState([])
+    const [initiated, setInitiated] = useState(false)
 
     useEffect(() => {
         try {
@@ -25,6 +30,8 @@ export default function Comments({ postId, onAdded, onRemoved }) {
                 }
 
                 setComments(comments)
+
+                setInitiated(true)
             })
         } catch (error) {
             alert(error.message)
@@ -90,9 +97,9 @@ export default function Comments({ postId, onAdded, onRemoved }) {
                     onRemoved={handleRemoved}
                 />)}
         </ul>
-        <AddComment
+        {initiated && <AddComment
             postId={postId}
             onAdded={handleAdded}
-        />
+        />}
     </section>
 }

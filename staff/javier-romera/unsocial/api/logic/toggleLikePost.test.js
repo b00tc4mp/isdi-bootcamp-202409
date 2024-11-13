@@ -5,7 +5,7 @@ import toggleLikePost from './toggleLikePost.js'
 db.connect('mongodb://127.0.0.1:27017/unsocial-test')
     .then(() => {
         try {
-            return toggleLikePost('672e08451dfe72076c0ca52c', '672e84b46a17690bf3cb1f8f')
+            return toggleLikePost('672e08451dfe72076c0ca52c', '6731042647dc73841f417602')
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {

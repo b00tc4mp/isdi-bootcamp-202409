@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 
 import { Post } from '../components/functional'
 
+import { errors } from 'apu'
+
+const { SystemError } = errors
+
 import logic from '../logic'
 
 import './Posts.css'
