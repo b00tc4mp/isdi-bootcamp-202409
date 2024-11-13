@@ -1,8 +1,9 @@
 import { Button } from '../library'
-
 import logic from '../../logic'
-
 import getElapsedTime from '../../utils/getElapsedTime'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
     console.log('Comment -> render')

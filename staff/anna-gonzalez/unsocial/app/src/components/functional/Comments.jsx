@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
-
 import Comment from './Comment'
 import AddComment from './AddComment'
-
 import logic from '../../logic'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default function Comments(props) {
     const [comments, setComments] = useState([])
+    const [initialized, setInitialized] = useState(false)
 
     useEffect(() => {
         console.log('Comments -> useEffect "componentDidMount')
@@ -25,6 +27,8 @@ export default function Comments(props) {
                 }
 
                 setComments(comments)
+
+                setInitialized(true)
             })
         } catch (error) {
             alert(error.message)
@@ -98,9 +102,9 @@ export default function Comments(props) {
             }
         </ul>
 
-        <AddComment
+        {initialized && <AddComment
             postId={props.postId}
             onAdded={handleAdded}
-        />
+        />}
     </section >
 }

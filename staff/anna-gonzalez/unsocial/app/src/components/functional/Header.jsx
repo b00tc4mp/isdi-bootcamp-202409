@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-
 import { Button, Anchor } from '../library'
-
 import logic from '../../logic'
-
 import './Header.css'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default function Header({ view, onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)

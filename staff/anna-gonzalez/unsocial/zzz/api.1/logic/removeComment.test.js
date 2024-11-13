@@ -1,10 +1,10 @@
 import db from 'dat'
-import toggleLikePost from './toggleLikePost.js'
+import removeComment from './removeComment.js'
 
 db.connect('mongodb://localhost/unsocial-test')
     .then(() => {
         try {
-            return toggleLikePost('6734bc401af0ac4373132714', '6734bc7e98af1ab3ac3cc2f9')
+            return removeComment('672e24ea47d3288ee08db8e0', '672e3b61896ebf3fbb5fb827', '673089484c34346f85700901')
                 .then(console.log) //undefined
                 .catch(console.error)
         } catch (error) {

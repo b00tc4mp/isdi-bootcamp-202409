@@ -1,13 +1,12 @@
 import { useState } from 'react'
-
 import { Button } from '../library'
 import Comments from './Comments'
-
 import logic from '../../logic'
-
 import getElapsedTime from '../../utils/getElapsedTime'
-
 import './Post.css'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded, onCommentRemoved }) {
     const [view, setView] = useState(null)

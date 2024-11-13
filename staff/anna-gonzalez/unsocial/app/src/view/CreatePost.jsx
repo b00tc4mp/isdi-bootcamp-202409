@@ -1,8 +1,9 @@
 import logic from '../logic'
-
 import { Label, Input, Button, Form, Field } from '../components/library'
-
 import './CreatePost.css'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default ({ onCreated }) => {
     console.log('CreatePost -> render')

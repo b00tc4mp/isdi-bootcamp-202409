@@ -1,5 +1,4 @@
 import './Footer.css'
-
 import Button from '../library/Button'
 
 export default ({ onNewPostClick, view }) => {

@@ -1,8 +1,9 @@
 import './Register.css'
-
 import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../components/library'
-
 import logic from '../logic'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default (props) => {
     console.log('Register -> render')

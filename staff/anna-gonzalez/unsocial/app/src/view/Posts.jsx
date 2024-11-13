@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-
 import { Post } from '../components/functional'
-
 import logic from '../logic'
-
 import './Posts.css'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default function Posts() {
     const [posts, setPosts] = useState([])
@@ -38,9 +38,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
-
-                    console.error(error)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     return
                 }
@@ -58,9 +59,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
-
-                    console.error(error)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     return
                 }
@@ -78,9 +80,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
-
-                    console.error(error)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     return
                 }
@@ -98,9 +101,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
-
-                    console.error(error)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     return
                 }
@@ -118,9 +122,10 @@ export default function Posts() {
         try {
             logic.getPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
-
-                    console.error(error)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     return
                 }

@@ -4,7 +4,7 @@ import authenticateUser from './authenticateUser.js'
 db.connect('mongodb://localhost/unsocial-test')
     .then(() => {
         try {
-            return authenticateUser('cocodrilo', '123123123')
+            return authenticateUser('peterpan', '123123123')
                 .then(console.log) //...
                 .catch(console.error)
         } catch (error) {

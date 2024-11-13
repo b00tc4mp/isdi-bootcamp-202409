@@ -1,6 +1,8 @@
 import { Label, Button, Form, Field } from '../library'
-
 import logic from '../../logic'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default function AddComment({ postId, onAdded }) {
     console.log('AddComment -> render')
