@@ -4,7 +4,7 @@ import getPosts from './getPosts.js'
 db.connect('mongodb://localhost:27017/unsocial')
     .then(() => {
         try {
-            getPosts('672cd8e6fcf48026d6c1c18e')
+            getPosts('673297bdc58730da7ad98132')
                 .then(posts => console.log(posts.map(({ id, author, image, text, date, liked, likes, comments }) => ({ id, author, image, text, date, liked, likes, comments }))))
                 .catch(console.error)
 
@@ -13,4 +13,4 @@ db.connect('mongodb://localhost:27017/unsocial')
         }
     })
     .catch(console.error)
-/* .finally(() => db.disconnect()) */
+/*    .finally(() => db.disconnect()) */

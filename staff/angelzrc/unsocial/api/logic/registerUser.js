@@ -1,6 +1,6 @@
 import db from 'dat'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (name, email, username, password, passwordRepeat) => {
     validate.name(name)

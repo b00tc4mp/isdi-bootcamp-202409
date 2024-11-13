@@ -1,5 +1,6 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
+const { SystemError } = errors
 export default (postId, text, callback) => {
     validate.id(postId, 'postId')
     validate.text(text)
@@ -18,7 +19,9 @@ export default (postId, text, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
     xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)

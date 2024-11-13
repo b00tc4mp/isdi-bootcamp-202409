@@ -1,6 +1,7 @@
 export default fromDateString => {
     const date = new Date(fromDateString)
     const now = new Date
+
     const diff = now - date
 
     const secs = Math.floor(diff / 1000)
@@ -11,12 +12,5 @@ export default fromDateString => {
     const months = Math.floor(weeks / 4)
     const years = Math.floor(months / 12)
 
-
-    const time = [years, months, weeks, days, hours, mins, secs]
-    const units = ['years', 'months', 'weeks', 'days', 'hours', 'mins', 'secs']
-    const timeElapsed = time.find((a) => a > 0)
-    const index = time.findIndex((a) => a > 0)
-    const unit = units[index]
-    const timeAgo = `${timeElapsed} ${unit} ago`
-    return timeAgo
+    return `${years > 0 ? `${years} years ` : ''}${months < 12 && months > 0 ? `${months} months ` : ''}${weeks < 4 && weeks > 0 ? `${weeks} weeks ` : ''}${days < 7 && days > 0 ? `${days} days ` : ''}${hours < 24 && hours > 0 ? `${hours} hours ` : ''}${mins < 60 && mins > 0 ? `${mins} minutes ` : ''}${secs < 60 ? `${secs} seconds` : ''}`
 }

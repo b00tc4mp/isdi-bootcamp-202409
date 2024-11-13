@@ -1,5 +1,5 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
 
@@ -10,7 +10,7 @@ export default userId => {
     return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
         .catch(error => { new Error(error.message) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new NotFoundError('user not found')
 
             /*  const posts = db.posts
              const users = db.users */
