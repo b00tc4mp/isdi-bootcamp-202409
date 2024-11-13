@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap');
+
+
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-fondo: #07074a;
+    --color-blue: #07074A;
+    --color-yellow: #ddd207;
+    --white: #ffffff;
+    --color-font: #0d0b2e;
+    --font: "Nunito", sans-serif;
+    font-family: var(--font);
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--white);
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;*/
+    height: 100%;
+    margin: 0;
+    font-weight: 400;
+    font-style: normal;
+    /*padding-left: 10%;
+    padding-right: 10%;*/
+}
+
+#root {
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    text-align: center;
+    color: var(--white);
+}
+
+p {
+    font-size: 1.1em;
+    text-align: center;
+    line-height: 1.1em;
+    color: var(--white);
+}
+
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--white);
+}
+
+a.nombreUser {
+    color: var(--color-blue)
+}
+
+
+a:hover {
+    color: #b9b007;
+}
+
+
+.registerText {
+    font-size: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+.container {
+    width: 100%;
+    margin-top: 60px;
+    margin: 60px auto 0;
+}

@@ -1,0 +1,19 @@
+//import { storage } from '../data/index.js'
+import db from 'dat'
+import { validate, errors } from 'com'
+
+const { SystemError, CredentialsError } = errors
+
+export default (username, password) => {
+    validate.username(username)
+    validate.password(password)
+
+    return db.users.findOne({ username, password })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(user => {
+            if (!user) throw new CredentialsError('User or pass incorrect')
+
+            return user._id.toString()
+        })
+
+}
