@@ -1,12 +1,12 @@
 import db from 'dat'
-
 import { validate } from './helpers/index.js'
-
 import { errors } from 'com'
+import { models } from 'dat'
 
 const { ObjectId } = db
-
 const { SystemError, NotFoundError } = errors
+const { User, Post } = models
+
 
 export default (userId, postId, text) => {
     validate.id(userId, 'userId')
@@ -18,8 +18,8 @@ export default (userId, postId, text) => {
 
 
     return Promise.all([
-        db.users.findOne({ _id: userObjectId }),
-        db.posts.findOne({ _id: postObjectId }),
+        User.findOne({ _id: userObjectId }),
+        Post.findOne({ _id: postObjectId }),
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
@@ -33,7 +33,7 @@ export default (userId, postId, text) => {
                 date: new Date
             }
 
-            return db.posts.updateOne({ _id: postObjectId }, { $push: { comments: comment } })
+            return Post.updateOne({ _id: postObjectId }, { $push: { comments: comment } })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

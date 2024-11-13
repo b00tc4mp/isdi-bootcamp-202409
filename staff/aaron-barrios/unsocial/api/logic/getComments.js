@@ -1,12 +1,11 @@
 import db from 'dat'
-
 import { validate } from './helpers/index.js'
-
 import { errors } from 'com'
+import { models } from 'dat'
 
 const { ObjectId } = db
-
 const { SystemError, NotFoundError } = errors
+const { User, Post } = models
 
 
 export default (userId, postId) => {
@@ -16,11 +15,10 @@ export default (userId, postId) => {
     const userObjectId = new ObjectId(userId)
     const postObjectId = new ObjectId(postId)
 
-    const { users, posts } = db
 
     return Promise.all([
-        users.findOne({ _id: userObjectId }),
-        posts.findOne({ _id: postObjectId })
+        User.findOne({ _id: userObjectId }),
+        Post.findOne({ _id: postObjectId })
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
@@ -39,7 +37,7 @@ export default (userId, postId) => {
                 if (!found) authorObjectsId.push(author)
             })
 
-            return users.find({ _id: { $in: authorObjectsId } }, { projection: { username: 1 } }).toArray()
+            return User.find({ _id: { $in: authorObjectsId } }, { projection: { username: 1 } }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(authors => {
                     comments.forEach(comment => {

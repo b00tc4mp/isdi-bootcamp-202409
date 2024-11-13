@@ -1,22 +1,23 @@
 import db from 'dat'
 import validate from './helpers/validate.js'
+import { errors } from 'com'
+import { models } from 'dat'
 
 const { ObjectId } = db
-
-import { errors } from 'com'
-
 const { SystemError, NotFoundError } = errors
+const { User } = models
+
 
 export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
 
-    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
+    return User.findOne({ _id: ObjectId.createFromHexString(userId) })
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return db.users.findOne({ _id: ObjectId.createFromHexString(targetUserId) })
+            return User.findOne({ _id: ObjectId.createFromHexString(targetUserId) })
                 .catch(error => { new SystemError(error.message) })
         })
         .then(user => {

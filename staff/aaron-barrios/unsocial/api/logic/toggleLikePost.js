@@ -1,11 +1,12 @@
 import db from 'dat'
 import { validate } from './helpers/index.js'
+import { errors } from 'com'
+import { models } from 'dat'
 
 const { ObjectId } = db
-
-import { errors } from 'com'
-
 const { SystemError, NotFoundError } = errors
+const { User, Post } = models
+
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
@@ -15,8 +16,8 @@ export default (userId, postId) => {
     const postObjectId = new ObjectId(postId)
 
     return Promise.all([
-        db.users.findOne({ _id: userObjectId }),
-        db.posts.findOne({ _id: postObjectId })
+        User.findOne({ _id: userObjectId }),
+        Post.findOne({ _id: postObjectId })
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
@@ -28,10 +29,10 @@ export default (userId, postId) => {
             const found = likes.some(userObjectId => userObjectId.equals(userId))
 
             if (found)
-                return db.posts.updateOne({ _id: postObjectId }, { $pull: { likes: userObjectId } })
+                return Post.updateOne({ _id: postObjectId }, { $pull: { likes: userObjectId } })
                     .catch(error => { throw new SystemError(error.message) })
 
-            return db.posts.updateOne({ _id: postObjectId }, { $push: { likes: userObjectId } })
+            return Post.updateOne({ _id: postObjectId }, { $push: { likes: userObjectId } })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
