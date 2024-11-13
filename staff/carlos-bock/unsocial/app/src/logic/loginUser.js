@@ -11,6 +11,7 @@ const loginUser = (username, password, callback) => {
 
     xhr.addEventListener('load', () => {
         const {status, response} = xhr;
+
         if (status ===200) {
             const userId = JSON.parse(response);
 
@@ -32,7 +33,7 @@ const loginUser = (username, password, callback) => {
 
     xhr.open('POST', 'http://localhost:8080/authenticate');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({username,password}));   
+    xhr.send(JSON.stringify({ username,password }));   
 }
 
 export default loginUser;
