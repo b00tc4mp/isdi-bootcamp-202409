@@ -1,11 +1,12 @@
 import db from 'dat'
-import authenticateUser from './authenticateUser.js'
+
+import registerUser from './registerUser.js'
 
 db.connect('mongodb://127.0.0.1:27017/unsocial-test')
     .then(() => {
         try {
-            return authenticateUser('pepitogrillo', '123123123')
-                .then(console.log) // ...
+            return registerUser('Coco Drilo', 'coco@drilo.com', 'cocodrilo', '123123123', '123123123')
+                .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {
             console.error(error)

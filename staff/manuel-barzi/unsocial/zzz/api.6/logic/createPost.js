@@ -9,7 +9,7 @@ export default (userId, image, text) => {
     validate.image(image)
     validate.text(text)
 
-    const userObjectId = new ObjectId(userId)
+    const userObjectId = ObjectId.createFromHexString(userId)
 
     return db.users.findOne({ _id: userObjectId })
         .catch(error => { throw new SystemError(error.message) })

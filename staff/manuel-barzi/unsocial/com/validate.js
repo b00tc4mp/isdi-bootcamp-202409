@@ -16,7 +16,7 @@ const validateEmail = email => {
 
 const validateUsername = username => {
     if (typeof username !== 'string') throw new ValidationError('invalid username')
-    if (username.length < 4 || username.length > 12)
+    if (username.length < 3 || username.length > 30)
         throw new ValidationError('invalid username length')
 }
 

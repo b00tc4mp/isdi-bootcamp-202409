@@ -4,20 +4,21 @@ import { validate, errors } from 'com'
 const { ObjectId } = db
 const { SystemError, NotFoundError } = errors
 
-export default (userId, image, text) => {
+export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
-    validate.image(image)
-    validate.text(text)
+    validate.id(targetUserId, 'targetUserId')
 
-    const userObjectId = new ObjectId(userId)
-
-    return db.users.findOne({ _id: userObjectId })
+    return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return db.posts.insertOne({ author: userObjectId, image, text, date: new Date, likes: [], comments: [] })
+            return db.users.findOne({ _id: ObjectId.createFromHexString(targetUserId) })
                 .catch(error => { throw new SystemError(error.message) })
         })
-        .then(_ => { })
+        .then(user => {
+            if (!user) throw new NotFoundError('target user not found')
+
+            return user.name
+        })
 }
