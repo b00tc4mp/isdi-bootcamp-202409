@@ -1,11 +1,12 @@
+import 'dotenv/config'
 import db from 'dat'
 import createPost from './createPost.js'
 
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL)
   .then(() => {
     try {
-      return createPost('6734ce1c818dbb1cce23d08e', 'https://los40.com/resizer/v2/YCH3KATTSRNYVPAZBX5OJENOE4.jpg?auth=55fbda9c1c71287e3b974000905762a05643553a00c767e6cce092a8ec6f64a4&quality=70&width=1200&height=544&focal=632,262', 'Miau')
+      return createPost('6734ce44dfcd991dd513e654', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR30KLozTwK_j-Gp4oU7vaomlxKWFVrs3-9Gw&s', 'I love this sport')
         .then(console.log)
         .catch(console.error)
     } catch (error) {

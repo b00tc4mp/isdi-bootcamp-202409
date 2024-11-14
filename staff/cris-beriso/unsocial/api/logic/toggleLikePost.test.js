@@ -1,10 +1,11 @@
+import 'dotenv/config'
 import db from 'dat'
 import toggleLikePost from './toggleLikePost.js'
 
-db.connect('mongodb://localhost/unsocial-test')
+db.connect(process.env.MONGO_URL)
   .then(() => {
     try {
-      return toggleLikePost('672e23e5344b26bc5b0f870f', '67321b9c1caf2dc8f4e26353')
+      return toggleLikePost('6734ce44dfcd991dd513e654', '673601edf6de2635b1f15479')
         .then(console.log)
         .catch(console.error)
     } catch (error) {
