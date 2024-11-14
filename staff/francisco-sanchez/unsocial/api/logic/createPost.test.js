@@ -1,8 +1,9 @@
+import 'dotenv/config'
 import db from 'dat'
 import createPost from './createPost.js'
 
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             //Si aquí no informamos el return no funciona el disconnect

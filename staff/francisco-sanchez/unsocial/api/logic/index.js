@@ -9,7 +9,6 @@ import addComment from './addComment.js'
 import getComments from './getComments.js'
 import removeComment from './removeComment.js'
 
-
 const logic = {
     authenticateUser,
     registerUser,

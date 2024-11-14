@@ -38,7 +38,7 @@ export default function addComment({ postId, onAdded }) {
     return <Form onSubmit={handleSubmit}>
         <Field>
             <Label htmlFor="text">New comment</Label>
-            <textarea id="text"></textarea>
+            <textarea id="text" required></textarea>
         </Field>
         <Button type="submit">Send</Button>
 

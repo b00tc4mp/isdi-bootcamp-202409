@@ -23,7 +23,6 @@ export default function Login(props) {
                 if (error) {
                     alert(error.message)
                     console.error(error)
-                    //console.error(new CredentialsError(error.message))
                     return
                 }
                 event.target.reset()
@@ -33,17 +32,6 @@ export default function Login(props) {
             alert(error.message)
             console.error(error)
         }
-        // try {
-        //     logic.loginUser(username, password)
-
-        //     event.target.reset()
-
-        //     props.onLoggedIn()
-        // } catch (error) {
-        //     alert(error.message)
-
-        //     console.error(error)
-        // }
     }
 
     const handleRegisterClick = event => {

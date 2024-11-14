@@ -2,6 +2,7 @@ import registerUser from './registerUser'
 import loginUser from './loginUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'
+import getUserData from './getUserData'
 import logoutUser from './logoutUser'
 
 import createPost from './createPost'
@@ -22,6 +23,7 @@ const logic = {
     loginUser,
     isUserLoggedIn,
     getUserName,
+    getUserData,
 
     logoutUser,
     createPost,

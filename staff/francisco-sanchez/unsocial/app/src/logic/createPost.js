@@ -28,7 +28,7 @@ export default (image, text, callback) => {
         callback(new Error(message))
     })
 
-    xhr.open('POST', 'http://localhost:8080/posts')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)

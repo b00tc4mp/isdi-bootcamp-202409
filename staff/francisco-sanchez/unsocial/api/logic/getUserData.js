@@ -1,14 +1,21 @@
+import { models } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError } = errors
+const { User } = models
+const { NotFoundError, SystemError } = errors
 
-export default () => {
-    const users = JSON.parse(localStorage.users)
+export default (userId, targetUserId) => {
+    validate.id(userId, 'userId')
+    validate.id(targetUserId, 'targetUserId')
 
-    const user = users.find(user => user.id === sessionStorage.userId)
+    return Promise.all([
+        User.findById(userId).lean(),
+        User.findById(targetUserId).lean()])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(({ user, targetUser }) => {
+            if (!user) throw new NotFoundError('User not found')
+            if (!targetUser) throw new NotFoundError('Target user is not found')
 
-    if (!user) throw new NotFoundError('user not found')
-
-    return user
+            return targetUser
+        })
 }
-

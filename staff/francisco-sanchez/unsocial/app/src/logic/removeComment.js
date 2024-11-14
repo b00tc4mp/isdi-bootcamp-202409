@@ -21,7 +21,7 @@ export default (postId, commentId, callback) => {
         callback(new constructor(message))
     })
 
-    xhr.open('DELETE', `http://localhost:8080/posts/${postId}/comments/${commentId}`)
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}`)
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)

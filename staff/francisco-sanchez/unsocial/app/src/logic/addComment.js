@@ -24,7 +24,7 @@ export default (postId, text, callback) => {
         callback(new constructor(message))
     })
 
-    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)

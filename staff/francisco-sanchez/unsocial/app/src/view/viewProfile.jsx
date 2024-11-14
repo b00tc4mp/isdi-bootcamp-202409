@@ -1,15 +1,20 @@
 import './viewProfile.css'
-import getUserData from '../logic/getUserData'
+import logic from '../logic'
 
 //import { Label, Input, Button, Field, Form, password, passwordInput } from '../components/library'
 import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
-
 
 //En esta función cargaremos el perfil del usuario
 export default function viewProfile(props) {
 
     {/*Obtenemos los datos del usuario */ }
-    const { name, email, username, password } = getUserData(sessionStorage.userId)
+    const { name, email, username, password } = logic.getUserData(sessionStorage.userId)
+
+    const handleHomeClick = event => {
+        event.preventDefault()
+        props.onHomeClick()
+    }
+
 
     return <main className="User profile">
         <div className="container">
@@ -39,11 +44,7 @@ export default function viewProfile(props) {
                 <Button type="submit">Actualizar</Button>
             </Form>
 
-            <a href=""
-                onClick={event => {
-                    event.preventDefault()
-                    props.onHomeClick()
-                }}>Go back</a>
+            <a href="" onClick={handleHomeClick}>Go back</a>
         </div>
     </main>
 }

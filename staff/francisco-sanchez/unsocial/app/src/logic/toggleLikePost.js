@@ -20,7 +20,7 @@ export default (postId, callback) => {
         callback(new constructor(message))
     })
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/likes`)
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()

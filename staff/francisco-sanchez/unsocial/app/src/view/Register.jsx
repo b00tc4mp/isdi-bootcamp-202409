@@ -1,6 +1,5 @@
 import './Register.css'
 
-
 import { PasswordInput, Label, Input, Button, Field, Form } from '../components/library'
 import logic from '../logic'
 

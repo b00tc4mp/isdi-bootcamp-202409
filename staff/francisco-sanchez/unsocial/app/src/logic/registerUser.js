@@ -1,7 +1,10 @@
 //import validate from './helpers/validate.js'
 //import { validate } from './helpers'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
+
 
 //Esto ya no lo usaremos porque calcularemos con el xhr
 //import uuid from '../data/uuid.js'
@@ -38,7 +41,7 @@ export default (name, email, username, password, passwordRepeat, callback) => {
         callback(new constructor(message))
     })
 
-    xhr.open('POST', 'http://localhost:8080/register')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/register`)
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.setRequestHeader('Content-Type', 'application/json')
