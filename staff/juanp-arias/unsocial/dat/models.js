@@ -37,7 +37,8 @@ const comment = new Schema({
     text: {
         type: String,
         required: true,
-        maxLength: 200
+        maxLength: 200,
+        minLength: 4
     },
     date: {
         type: Date,

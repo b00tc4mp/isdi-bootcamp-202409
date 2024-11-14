@@ -25,7 +25,7 @@ export default (username, password, callback) => {
     })
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('POST', 'http://localhost:7070/authenticate')
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/authenticate`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ username, password }))
 }

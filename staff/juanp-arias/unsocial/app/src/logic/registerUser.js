@@ -25,7 +25,7 @@ export default (name, email, username, password, repeatpassword, callback) => {
     })
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('POST', 'http://localhost:7070/register')
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/register`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': repeatpassword }))
 }

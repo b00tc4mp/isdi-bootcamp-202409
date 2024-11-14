@@ -1,7 +1,8 @@
-import toggleLikePosts from './toggleLikePosts.js'
+import 'dotenv/config'
 import db from 'dat'
+import toggleLikePosts from './toggleLikePosts.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             return toggleLikePosts('672e1cf7fbf40da8a565ff5d', '673219faee3859e42948275f')

@@ -1,11 +1,12 @@
 import db from 'dat'
+import 'dotenv/config'
 import express, { json } from 'express'
 import cors from 'cors'
 
 import logic from './logic/index.js'
 import { authorizationHandler, createFunctionalHandler, errorHandler } from './helpers/index.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial')
+db.connect(process.env.MONGO_URL)
     .then(() => {
         console.log(`you're connected to db baby`)
         const server = express()

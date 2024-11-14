@@ -1,7 +1,8 @@
+import 'dotenv/config'
 import db from 'dat'
 import registerUser from './registerUser.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             registerUser('Juan Pablo', 'juan@pablo.com', 'juanpablo', '123456', '123456')
