@@ -27,7 +27,7 @@ export default (image, text, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('Ups something happened, try again later')))
 
-    xhr.open('POST', 'http://localhost:8080/posts')
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send(JSON.stringify({ image, text }))
