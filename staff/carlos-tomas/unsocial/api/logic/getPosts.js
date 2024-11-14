@@ -1,45 +1,37 @@
 import { models } from 'dat'
 import { validate, errors } from 'com'
 
-
 const { User, Post } = models
-const { NotFoundError, SystemError } = errors
+const { SystemError, NotFoundError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    return User.findById(userId)
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find().populate('author', 'username').sort({ date: -1 }).lean()
+    ])
         .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
+        .then(([user, posts]) => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Post.find().sort({ date: -1 }).lean()
-                .catch(error => { throw new SystemError(error.message) })
-        })
-        .then(posts => {
-            const promises = posts.map(post =>
-                User.findById({ _id: post.author }, { username: 1 })
-                    .then(user => {
-                        if (!user) throw new NotFoundError('author of post not found')
+            posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id
 
-                        const { username } = user
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
+                    delete post.author._id
+                }
 
-                        post.id = post._id.toString()
-                        delete post._id
+                const { likes, comments } = post
 
-                        post.author = { id: post.author.toString(), username }
+                post.liked = likes.some(userObjectId => userObjectId.equals(userId))
+                post.likes = likes.length
 
-                        const { likes, comments } = post
+                post.comments = comments.length
+            })
 
-                        post.liked = likes.some(userObjectId => userObjectId.equals(userId))
-                        post.likes = likes.length
-
-                        post.comments = comments.length
-
-                        return post
-                    })
-            )
-
-            return Promise.all(promises)
+            return posts
         })
 }
