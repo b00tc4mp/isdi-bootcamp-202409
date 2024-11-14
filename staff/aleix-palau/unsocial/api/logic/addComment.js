@@ -1,38 +1,38 @@
 import db from 'dat'
-import { validate } from 'com'
+import { models } from 'dat'
+
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { User, Post } = models
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId, text) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
     validate.text(text)
 
-    const userIdObject = ObjectId.createFromHexString(userId)
-    const postIdObject = ObjectId.createFromHexString(postId)
+    const userObjectId = new ObjectId(userId) // ObjectId.createFromHexString(userId)
+    const postObjectId = new ObjectId(postId) // ObjectId.createFromHexString(postId)
 
-    return db.users.findOne({ _id: userIdObject })
-        .catch(error => { new Error(error.message) })
-        .then(user => {
-            if (!user) throw new Error('User not found')
+    return Promise.all([
+        User.findOne({ _id: userObjectId }),
+        Post.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
-            return db.posts.findOne({ _id: postIdObject })
-                .catch(error => { new Error(error.message) })
-        })
-        .then(post => {
-            if (!post) throw new Error('Post not found')
+            const comment = {
+                _id: new ObjectId,
+                author: userObjectId,
+                text,
+                date: new Date
+            }
 
-            return db.posts.updateOne({ _id: postIdObject },
-                {
-                    $push: {
-                        comments: {
-                            _id: new ObjectId,
-                            author: userIdObject,
-                            text,
-                            date: new Date
-                        }
-                    }
-                })
+            return Post.updateOne({ _id: postObjectId }, { $push: { comments: comment } })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
 }

@@ -1,6 +1,8 @@
 {
     "name": "dat",
-    "version": "1.0.0",
+    "version": "0.0.0",
+    "description": "mongodb",
+    "type": "module",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -8,9 +10,7 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "description": "",
-    "type": "module",
     "dependencies": {
-        "mongodb": "^6.10.0"
+        "mongoose": "^8.8.1"
     }
 }

@@ -1,39 +1,40 @@
 import db from 'dat'
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const { ObjectId } = db
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
 
-    const userIdObject = ObjectId.createFromHexString(userId)
-    const postIdObject = ObjectId.createFromHexString(postId)
-    const commentIdObject = ObjectId.createFromHexString(commentId)
+    const userObjectId = new ObjectId(userId) // ObjectId.createFromHexString(userId)
+    const postObjectId = new ObjectId(postId) // ObjectId.createFromHexString(postId)
 
-    return db.users.findOne({ _id: userIdObject })
-        .catch(error => { new Error(error.message) })
-        .then(user => {
-            if (!user) throw new Error('User not found')
+    const { users, posts } = db // per a la 18 i 19 no haver de fer db.users/db.posts
 
-            return db.posts.findOne({ _id: postIdObject })
-                .catch(error => { new Error(error.message) })
-        })
-        .then(post => {
-            if (!post) throw new Error('Post not found')
+    return Promise.all([
+        users.findOne({ _id: userObjectId }),
+        posts.findOne({ _id: postObjectId })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
             const { comments } = post
 
-            const comment = comments.find(comment => comment._id.equals(commentIdObject))
+            const comment = comments.find(({ _id }) => _id.equals(commentId))
 
-            if (!comment) throw new Error('Comment not found')
+            if (!comment) throw new NotFoundError('comment not found')
 
-            const { author: authorId } = comment
+            const { author } = comment
 
-            if (!authorId.equals(userIdObject)) throw new Error('User is not author of comment')
+            if (!author.equals(userId)) throw new OwnershipError('user not author of comment')
 
-            return db.posts.updateOne({ _id: postIdObject }, { $pull: { comments: { _id: commentIdObject } } })
+            return posts.updateOne({ _id: postObjectId }, { $pull: { comments: { _id: new ObjectId(commentId) } } })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })
 }
