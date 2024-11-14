@@ -1,9 +1,9 @@
+import 'dotenv/config'
 import db from 'dat'
-
 import deletePost from './deletePost.js'
 
 
-db.connect('mongodb://127.0.0.1:27017/unsocial')
+db.connect(process.env.MONGO_URL_TEST)
 
     .then(() => {
         try {

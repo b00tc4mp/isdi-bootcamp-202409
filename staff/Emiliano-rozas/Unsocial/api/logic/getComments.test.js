@@ -1,8 +1,8 @@
+import 'dotenv/config'
 import db from 'dat'
-
 import getComments from './getComments.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             getComments('67321cb077f45c936bc2b2a0', '67321e791885a22a2b68dc33')

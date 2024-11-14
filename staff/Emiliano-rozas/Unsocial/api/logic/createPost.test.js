@@ -1,11 +1,11 @@
+import 'dotenv/config'
 import db from 'dat'
-
 import createPost from './createPost.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            createPost('67321cb077f45c936bc2b2a0', 'https://cdn.memegenerator.es/imagenes/memes/full/31/72/31722367.jpg', 'Como estan los maquina?')
+            createPost('67360f27e423c4f6cd124492', 'https://cdn.memegenerator.es/imagenes/memes/full/31/72/31722367.jpg', 'Como estan los maquina?')
                 .then(() => console.log('Post created'))
                 .catch(console.error)
         } catch (error) {

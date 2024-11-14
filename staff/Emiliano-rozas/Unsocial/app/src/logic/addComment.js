@@ -21,12 +21,12 @@ export default (postId, text, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        callback(new constructor(message))
     })
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify({ text }))

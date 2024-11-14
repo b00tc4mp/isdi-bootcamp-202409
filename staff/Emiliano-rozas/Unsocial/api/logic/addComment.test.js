@@ -1,8 +1,8 @@
+import 'dotenv/config'
 import db from 'dat'
-
 import addComment from './addComment.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             addComment('67321cb077f45c936bc2b2a0', '6734e0ccdca0dc9254650fbc', 'la concha de tu madre carlit0')

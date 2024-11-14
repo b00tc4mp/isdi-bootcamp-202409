@@ -11,7 +11,7 @@ export default (userId, postId, commentId) => {
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
 
-    return Promise.all([User.findById(userId), Post.findById(postId)])
+    return Promise.all([User.findById(userId).lean(), Post.findById(postId)])
 
         .catch((error) => { throw new SystemError(error.message) })
 

@@ -26,13 +26,15 @@ export default (username, password, callback) => {
         }
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
 
-    xhr.open('POST', 'http://localhost:8080/users/auth')
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users/auth`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ username, password }))
 }

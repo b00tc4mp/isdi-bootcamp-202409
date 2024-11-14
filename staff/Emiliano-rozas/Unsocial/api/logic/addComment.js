@@ -12,11 +12,8 @@ export default (userId, postId, text) => {
     validate.id(userId, 'userId')
     validate.text(text)
 
-    // const ObjectUserId = ObjectId.createFromHexString(userId)
-    // const ObjectPostId = ObjectId.createFromHexString(postId)
-
     return Promise.all([
-        User.findById(userId),
+        User.findById(userId).lean(),
         Post.findById(postId)
     ])
         .catch((error) => { throw new SystemError(error.message) })
@@ -24,11 +21,11 @@ export default (userId, postId, text) => {
             if (!user) throw new NotFoundError('user not found')
             if (!post) throw new NotFoundError('post not found')
 
-            const comment = {
+            const comment = new Comment({
                 author: userId,
                 text,
                 date: new Date
-            }
+            })
 
             post.comments.push(comment)
 

@@ -7,7 +7,7 @@ import './PasswordInput.css'
 export default function PasswordInput({ id }) {
 
     const [status, setStatus] = useState('😌')
-    const { type, setType } = useState('password')
+    const [type, setType] = useState('password')
 
     const handleToggleClick = () => {
         setStatus(status === '😌' ? '😳' : '😌')

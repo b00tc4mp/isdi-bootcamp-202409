@@ -11,7 +11,7 @@ export default (userId, postId) => {
     validate.id(postId, 'postId')
 
     return Promise.all([
-        User.findById(userId),
+        User.findById(userId).lean(),
         Post.findById(postId)
     ])
         .catch((error) => { throw new SystemError(error.message) })
@@ -21,19 +21,14 @@ export default (userId, postId) => {
 
             const { likes } = post
 
-            const liked = likes.some((userObjecId) => userObjecId.equals(userId))
+            const index = likes.findIndex(userObjecId => userObjecId.equals(userId))
 
-            if (liked)
-                return Post.updateOne({ _id: postId },
-                    { $pull: { likes: userId } })
-                    .catch(error => {
-                        throw new SystemError(error.message)
+            if (index < 0)
+                likes.push(userId)
+            else
+                likes.splice(index, 1)
 
-                    })
-
-            return Post.updateOne({ __id: postId },
-                { $push: { likes: userId } })
-                .catch(error => { throw new SystemError(error.message) })
+            return post.save().catch((error) => { throw new SystemError(error.message) })
         })
         .then(() => { })
 }
