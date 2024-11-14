@@ -1,4 +1,4 @@
-# Period || YouRule || Syncly || Rely || Flowa
+# Period || YouRule || Syncly
 
 ## Intro
 
