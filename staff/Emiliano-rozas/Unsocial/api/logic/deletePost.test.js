@@ -7,7 +7,7 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
 
     .then(() => {
         try {
-            deletePost('672ca3dd3dbfe92085400b8c', '672cd186cd209e1d9b0d8190')
+            deletePost('67321cb077f45c936bc2b2a0', '6734de734ec863c7d3b9d238')
                 .then(() => console.log('Post deleted'))
                 .catch(console.error)
         } catch (error) {

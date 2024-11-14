@@ -1,26 +1,28 @@
-import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-const { ObjectId } = db
+const { User, Post } = models
+
+// const { ObjectId } = db
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    const ObjectUserId = ObjectId.createFromHexString(userId)
+    // const ObjectUserId = ObjectId.createFromHexString(userId)
 
-    return db.users.findOne({ _id: ObjectUserId })
+    return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError("User not found")
 
-            return db.posts.find().sort({ date: -1 }).toArray()
+            return Post.find().sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(posts => {
-            const promises = posts.map(post => db.users.findOne({ _id: post.author }, { username: 1 })
+            const promises = posts.map(post => User.findById({ _id: post.author }, { username: 1 })
 
                 .then(user => {
                     if (!user) throw new NotFoundError("Author post not found")

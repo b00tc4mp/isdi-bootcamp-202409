@@ -1,21 +1,18 @@
-import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-const { ObjectId } = db
+const { Post, User } = models
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const ObjectUserId = new ObjectId(userId)
-    const ObjectPostId = new ObjectId(postId)
-
     return Promise.all([
-        db.users.findOne({ _id: ObjectUserId }),
-        db.posts.findOne({ _id: ObjectPostId })
+        User.findById(userId),
+        Post.findById(postId)
     ])
         .catch((error) => { throw new SystemError(error.message) })
         .then(([user, post]) => {
@@ -24,15 +21,18 @@ export default (userId, postId) => {
 
             const { likes } = post
 
-            const liked = likes.some(id => id.equals(ObjectUserId))
+            const liked = likes.some((userObjecId) => userObjecId.equals(userId))
 
             if (liked)
-                return db.posts.updateOne({ _id: ObjectPostId },
-                    { $pull: { likes: ObjectUserId } })
-                    .catch(error => { throw new SystemError(error.message) })
+                return Post.updateOne({ _id: postId },
+                    { $pull: { likes: userId } })
+                    .catch(error => {
+                        throw new SystemError(error.message)
 
-            return db.posts.updateOne({ _id: ObjectPostId },
-                { $push: { likes: ObjectUserId } })
+                    })
+
+            return Post.updateOne({ __id: postId },
+                { $push: { likes: userId } })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(() => { })

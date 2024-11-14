@@ -1,10 +1,10 @@
-import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-const { ObjectId } = db
+const { User, Post } = models
 
 export default (userId, image, text) => {
     validate.id(userId, 'userId')
@@ -12,21 +12,17 @@ export default (userId, image, text) => {
     validate.text(text)
 
 
-    const ObjectUserId = ObjectId.createFromHexString(userId)
+    // const ObjectUserId = ObjectId.createFromHexString(userId)
 
-    return db.users
-        .findOne({ _id: ObjectUserId })
-        .catch((error) => {
-            throw new SystemError(error.message)
-        })
+    return User
+        .findById(userId)
+        .catch((error) => { throw new SystemError(error.message) })
         .then((user) => {
             if (!user) throw new NotFoundError('user not found');
 
-            return db.posts
-                .insertOne({ author: ObjectUserId, image, text, date: new Date, likes: [], comments: [] })
-                .catch((error) => {
-                    throw new SystemError(error.message)
-                });
+            return Post
+                .create({ author: userId, image, text, date: new Date, likes: [], comments: [] })
+                .catch((error) => { throw new SystemError(error.message) })
         })
         .then((_) => { })
 }

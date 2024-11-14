@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
-
+import { errors } from 'com'
 import Comment from './Comment'
 import AddComment from './AddComment'
 
 import logic from '../../logic'
+
+const { SystemError } = errors
 
 export default function Comments({ postId, onAdded, onRemoved }) {
     const [comments, setComments] = useState([])
@@ -11,7 +13,7 @@ export default function Comments({ postId, onAdded, onRemoved }) {
     useEffect(() => {
         try {
             logic.getComments(postId, (error, comments) => {
-                if (error) {
+                if (error instanceof SystemError) {
                     alert(error.message)
 
                     console.error(error)
@@ -32,7 +34,7 @@ export default function Comments({ postId, onAdded, onRemoved }) {
     const handleAdded = () => {
         try {
             logic.getComments(postId, (error, comments) => {
-                if (error) {
+                if (error instanceof SystemError) {
                     alert(error.message)
 
                     console.error(error)
@@ -55,7 +57,7 @@ export default function Comments({ postId, onAdded, onRemoved }) {
     const handleRemoved = () => {
         try {
             logic.getComments(postId, (error, comments) => {
-                if (error) {
+                if (error instanceof SystemError) {
                     alert(error.message)
 
                     console.error(error)

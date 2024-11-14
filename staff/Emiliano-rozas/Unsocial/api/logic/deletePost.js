@@ -1,19 +1,19 @@
-import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'com'
 
-const { NotFoundError, SystemError, OwnershipError } = errors
+const { User, Post } = models
 
-const { ObjectId } = db
+const { NotFoundError, SystemError, OwnershipError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const ObjectPostId = ObjectId.createFromHexString(postId)
+    // const ObjectPostId = ObjectId.createFromHexString(postId)
 
-    return db.users
-        .findOne({ _id: ObjectId.createFromHexString(userId) })
+    return User
+        .findById(userId)
         .catch((error) => {
             throw new SystemError(error.message)
         })
@@ -21,8 +21,8 @@ export default (userId, postId) => {
             console.log(user)
             if (!user) throw new NotFoundError('User not found')
 
-            return db.posts
-                .findOne({ _id: ObjectPostId })
+            return Post
+                .findById(postId)
                 .catch(error => {
                     throw new SystemError(error.message)
                 })
@@ -33,7 +33,7 @@ export default (userId, postId) => {
 
                     if (author.toString() !== userId) throw new OwnershipError('user is not author of post')
 
-                    return db.posts.deleteOne({ _id: ObjectPostId })
+                    return Post.deleteOne({ _id: postId })
                         .then((_) => { })
                         .catch(error => { throw new SystemError(error.message) })
                 })
