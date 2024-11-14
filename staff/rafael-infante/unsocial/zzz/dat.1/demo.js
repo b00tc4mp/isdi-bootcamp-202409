@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import models from "./models.js"
+import models from "../../dat/models.js"
 
 const { User, Post, Comment } = models
 

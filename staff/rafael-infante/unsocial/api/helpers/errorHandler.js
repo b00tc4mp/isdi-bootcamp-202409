@@ -1,6 +1,6 @@
 import { errors } from 'com'
 
-const { ValidationError, NotFoundError, CredentialsError, DuplicityError, OwnershipError } = errors
+const { ValidationError, NotFoundError, CredentialsError, DuplicityError, OwnershipError, SystemError } = errors
 
 export default (error, req, res, next) => {
   let status = 500

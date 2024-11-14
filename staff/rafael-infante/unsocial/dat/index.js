@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import './boost-mongoose.js'
 import models from "./models.js"
 
 const { ObjectId } = mongoose.Types

@@ -1,8 +1,7 @@
-import db from '../../dat/index.js'
+import { models } from 'dat'
 import { validate, errors } from 'com'
 
-const { ObjectId } = db
-
+const { User, Post, Comment } = models
 const { SystemError, NotFoundError } = errors
 
 export default (postId, text, userId) => {
@@ -10,30 +9,25 @@ export default (postId, text, userId) => {
   validate.id(userId, 'userId')
   validate.text(text)
 
-  const objectUserId = ObjectId.createFromHexString(userId)
-  const objectPostId = ObjectId.createFromHexString(postId)
-
-  return db.users.findOne({ _id: objectUserId })
+  return Promise.all([
+    User.findById(userId),
+    Post.findById(postId)
+  ])
     .catch(error => { throw new SystemError(error.message) })
-    .then(user => {
+    .then(([user, post]) => {
       if (!user) throw new NotFoundError('user not found')
+      if (!post) throw new NotFoundError('post not found')
 
-      return db.posts.findOne({ _id: objectPostId })
-        .catch(error => { new SystemError(error.message) })
-        .then(post => {
-          if (!post) throw new NotFoundError('post not found')
+      const comment = new Comment({
+        author: userId,
+        text,
+        date: new Date
+      })
 
-          const comment = {
-            _id: new ObjectId,
-            author: objectUserId,
-            text,
-            date: new Date
-          }
+      post.comments.push(comment)
 
-          return db.posts.updateOne({ _id: objectPostId }, { $push: { comments: comment } })
-            .catch(error => { throw new SystemError(error.message) })
-            .then(_ => { })
-        })
+      return post.save()
+        .catch(error => { throw new SystemError(error.message) })
     })
-
+    .then(_ => { })
 }

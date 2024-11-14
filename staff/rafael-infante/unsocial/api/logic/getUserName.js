@@ -1,26 +1,19 @@
-import db from "../../dat/index.js";
+import { models } from 'dat'
 import { validate, errors } from "com";
 
-const { ObjectId } = db
-
+const { User } = models
 const { NotFoundError, SystemError } = errors
 
 export default (userId, targetUserId) => {
   validate.id(userId, 'userId')
   validate.id(targetUserId, 'targetUserId')
 
-  return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
-    .catch(error => { new SystemError(error.message) })
-    .then(user => {
+  return Promise.all([User.findById(userId).lean(), User.findById(targetUserId).lean])
+    .catch(error => { throw new SystemError(error.message) })
+    .then(([user, targetUser]) => {
       if (!user) throw new NotFoundError('user not found')
-
-      return db.users.findOne({ _id: ObjectId.createFromHexString(targetUserId) })
-        .catch(error => { new SystemError(error.message) })
-    })
-    .then(user => {
-      if (!user) throw new NotFoundError('target user not found')
+      if (!targetUser) throw new NotFoundError('target user not found')
 
       return user.name
     })
-
 }

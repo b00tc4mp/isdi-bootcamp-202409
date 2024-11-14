@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import db from '../dat/index.js'
 import express, { json } from 'express'
 import cors from 'cors'
@@ -5,7 +6,7 @@ import cors from 'cors'
 import logic from './logic/index.js'
 import { createFunctionalHandler, errorHandler, authorizationHandler } from './helpers/index.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
   .then(() => {
     console.log('connected to db')
 
@@ -75,12 +76,11 @@ db.connect('mongodb://127.0.0.1:27017/unsocial-test')
     server.post('/posts/:postId/comments', jsonBodyParser, authorizationHandler, createFunctionalHandler((req, res) => {
       const { userId, params: { postId }, body: { text } } = req
 
-      logic.addComment(postId, text, userId)
-        .then(() => res.status(201).send())
+      return logic.addComment(postId, text, userId).then(() => res.status(201).send())
     }))
 
     server.use(errorHandler)
 
-    server.listen(8080, () => console.log('api is up'))
+    server.listen(process.env.PORT, () => console.log(`API is listening on port ${process.env.PORT}`))
   })
 
