@@ -28,7 +28,7 @@ export default (postId, callback) => {
     callback(new SystemError("server error"))
   );
 
-  xhr.open("DELETE", `http://localhost:8080/posts/${postId}`);
+  xhr.open("DELETE", `http://${import.meta.env.VITE_API_URL}/posts/${postId}`);
   xhr.setRequestHeader("Authorization", `Basic ${sessionStorage.userId}`);
   xhr.send();
 };

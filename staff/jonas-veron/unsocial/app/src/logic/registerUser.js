@@ -32,7 +32,7 @@ export default (name, email, username, password, passwordRepeat, callback) => {
     callback(new SystemError("server error"))
   );
 
-  xhr.open("POST", "http://localhost:8080/users");
+  xhr.open("POST", `http://${import.meta.env.VITE_API_URL}/users`);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(
     JSON.stringify({

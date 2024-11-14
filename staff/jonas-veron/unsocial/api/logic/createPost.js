@@ -1,7 +1,7 @@
 import { models } from "dat";
 import { validate, errors } from "com";
 
-const { User, Post, Comment } = models;
+const { User, Post } = models;
 const { NotFoundError, SystemError } = errors;
 
 export default (userId, image, text) => {

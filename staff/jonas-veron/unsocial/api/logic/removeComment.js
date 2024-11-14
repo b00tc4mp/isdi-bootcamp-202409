@@ -1,7 +1,7 @@
 import { models } from "dat";
 import { validate, errors } from "com";
 
-const { User, Post, Comment } = models;
+const { User, Post } = models;
 const { NotFoundError, SystemError, OwnershipError } = errors;
 
 export default (userId, postId, commentId) => {
@@ -9,7 +9,7 @@ export default (userId, postId, commentId) => {
   validate.id(postId, "postId");
   validate.id(commentId, "commentId");
 
-  return Promise.all([User.findById(userId), Post.findById(postId)])
+  return Promise.all([User.findById(userId).lean(), Post.findById(postId)])
 
     .catch((error) => {
       throw new SystemError(error.message);

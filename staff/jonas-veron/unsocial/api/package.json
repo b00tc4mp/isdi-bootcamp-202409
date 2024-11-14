@@ -18,6 +18,7 @@
   "dependencies": {
     "com": "file:../com",
     "dat": "file:../dat",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1"
   }
 }

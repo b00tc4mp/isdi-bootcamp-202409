@@ -8,20 +8,17 @@ export default (userId, targetUserId) => {
   validate.id(userId, "userId");
   validate.id(targetUserId, "targetUserId");
 
-  return User.findById(userId)
+  return Promise.all([
+    User.findById(userId.lean()),
+    User.findById(targetUserId).lean(),
+  ])
     .catch((error) => {
-      new SystemError(error.message);
+      throw new SystemError(error.message);
     })
-    .then((user) => {
+    .then(([user, targetUser]) => {
       if (!user) throw new NotFoundError("user not found");
+      if (!targetUser) throw new NotFoundError("target user not found");
 
-      return User.findById(targetUserId).catch((error) => {
-        new SystemError(error.message);
-      });
-    })
-    .then((user) => {
-      if (!user) throw new NotFoundError("target user not found");
-
-      return user.name;
+      return targetUser.name;
     });
 };

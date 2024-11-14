@@ -29,7 +29,10 @@ export default (postId, text, callback) => {
     callback(new SystemError("server error"))
   );
 
-  xhr.open("POST", `http://localhost:8080/posts/${postId}/comments`);
+  xhr.open(
+    "POST",
+    `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`
+  );
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.setRequestHeader("Authorization", `Basic ${sessionStorage.userId}`);
   xhr.send(JSON.stringify({ text }));

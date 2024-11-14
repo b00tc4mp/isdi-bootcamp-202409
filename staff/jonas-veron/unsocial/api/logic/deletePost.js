@@ -8,26 +8,22 @@ export default (userId, postId) => {
   validate.id(userId, "userId");
   validate.id(postId, "postId");
 
-  return User.findById(userId)
+  return Promise.all([
+    User.findById(userId).lean(),
+    Post.findById(postId).lean(),
+  ])
     .catch((error) => {
       throw new SystemError(error.message);
     })
-    .then((user) => {
+    .then(([user, post]) => {
       if (!user) throw new NotFoundError("user not found");
+      if (!post) throw new NotFoundError("post not found");
+      if (!post.author.equals(userId))
+        throw new OwnershipError("user is not author of post");
 
-      return Post.findById(postId)
-        .catch((error) => {
-          throw new SystemError(error.message);
-        })
-        .then((post) => {
-          if (!post) throw new NotFoundError("post not found");
-          if (!post.author.equals(userId))
-            throw new OwnershipError("user is not author of post");
-
-          return Post.deleteOne({ _id: postId }).catch((error) => {
-            throw new SystemError(error.message);
-          });
-        })
-        .then((_) => {});
-    });
+      return Post.deleteOne({ _id: postId }).catch((error) => {
+        throw new SystemError(error.message);
+      });
+    })
+    .then((_) => {});
 };
