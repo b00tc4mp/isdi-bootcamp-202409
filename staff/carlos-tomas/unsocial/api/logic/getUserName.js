@@ -10,12 +10,12 @@ export default (userId, targetUserId) => {
     validate.id(targetUserId, 'targetUserId')
 
     return db.users.findOne({ _id: ObjectId.createFromHexString(userId) })
-        .catch(error => { new SystemError(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
             return db.users.findOne({ _id: ObjectId.createFromHexString(targetUserId) })
-                .catch(error => { new SystemError(error.message) })
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(user => {
             if (!user) throw new NotFoundError('target user not found')

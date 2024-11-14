@@ -1,47 +1,21 @@
-class ValidationError extends Error {
-    constructor(message) {
-        super(message)
-    }
-}
+const createCustomError = name =>
+    class extends Error {
+        constructor(message) {
+            super(message)
 
-class NotFoundError extends Error {
-    constructor(message) {
-        super(message)
-    }
-}
+            this.name = name // for browsers compat (WARN safari seems to fail, it hangs)
+        }
 
-class DuplicityError extends Error {
-    constructor(message) {
-        super(message)
+        static get name() { return name }
     }
-}
-
-class SystemError extends Error {
-    constructor(message) {
-        super(message)
-    }
-}
-
-
-class CredentialsError extends Error {
-    constructor(message) {
-        super(message)
-    }
-}
-
-class OwnershipError extends Error {
-    constructor(message) {
-        super(message)
-    }
-}
 
 const errors = {
-    ValidationError,
-    NotFoundError,
-    DuplicityError,
-    SystemError,
-    CredentialsError,
-    OwnershipError
+    ValidationError: createCustomError('ValidationError'),
+    NotFoundError: createCustomError('NotFoundError'),
+    DuplicityError: createCustomError('DuplicityError'),
+    CredentialsError: createCustomError('CredentialsError'),
+    SystemError: createCustomError('SystemError'),
+    OwnershipError: createCustomError('OwnershipError')
 }
 
 export default errors

@@ -1,8 +1,8 @@
-import db from 'dat'
+import { models } from 'dat'
 
 import { validate, errors } from 'com'
 
-const { ObjectId } = db
+const { User, Post } = models
 const { NotFoundError, SystemError } = errors
 
 export default (userId, image, text) => {
@@ -10,14 +10,12 @@ export default (userId, image, text) => {
     validate.image(image)
     validate.text(text)
 
-    const userObjectId = ObjectId.createFromHexString(userId)
-
-    return db.users.findOne({ _id: userObjectId })
+    return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return db.posts.insertOne({ author: userObjectId, image, text, date: new Date, likes: [], comments: [] })
+            return Post.create({ author: userId, image, text, date: new Date, likes: [], comments: [] })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

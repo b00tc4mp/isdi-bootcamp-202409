@@ -1,24 +1,24 @@
-import db from 'dat'
-import { validate, erros, errors } from 'com'
+import { models } from 'dat'
+import { validate, errors } from 'com'
 
-const { ObjectId } = db
 
+const { User, Post } = models
 const { NotFoundError, SystemError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    return db.users.findOne({ _id: new ObjectId(userId) })
+    return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return db.posts.find().sort({ date: -1 }).toArray()
+            return Post.find().sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(posts => {
             const promises = posts.map(post =>
-                db.users.findOne({ _id: post.author }, { username: 1 })
+                User.findById({ _id: post.author }, { username: 1 })
                     .then(user => {
                         if (!user) throw new NotFoundError('author of post not found')
 
