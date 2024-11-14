@@ -1,49 +1,39 @@
-import db from 'dat'
 import { validate } from './helpers/index.js'
 import { errors } from 'com'
 import { models } from 'dat'
 
-const { ObjectId } = db
-const { SystemError, NotFoundError, OwnershipError } = errors
 const { User, Post } = models
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    return User.findOne({ _id: new ObjectId(userId) })
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find().populate('author', 'username').sort({ date: -1 }).lean()
+    ])
         .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
+        .then(([user, posts]) => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Post.find({}).sort({ date: -1 }).toArray()
-                .catch(error => { new SystemError(error.message) })
+            posts.forEach(post => {
+                //sanitize
+                post.id = post._id.toString()
+                delete post._id
+
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
+                    delete post.author._id
+                }
+
+                const { likes, comments } = post
+
+                post.liked = likes.some(userObjectId => userObjectId.equals(userId))
+                post.likes = likes.length
+
+                post.comments = comments.length
+            })
+
+            return posts
         })
-        .then(posts => {
-            const promises = posts.map(post =>
-                User.findOne({ _id: post.author }, { username: 1 }) //projection
-                    .then(user => {
-                        if (!user) throw new OwnershipError('author of post not found')
-
-                        const { username } = user
-
-                        //sanitize
-                        post.id = post._id.toString()
-                        delete post._id
-
-                        post.author = { id: post.author.toString(), username }
-
-                        const { likes, comments } = post
-
-                        post.liked = likes.some(userObjectId => userObjectId.equals(userId))
-                        post.likes = likes.length
-
-                        post.comments = comments.length
-
-                        return post
-                    })
-            )
-
-            return Promise.all(promises)
-        })
-
 }

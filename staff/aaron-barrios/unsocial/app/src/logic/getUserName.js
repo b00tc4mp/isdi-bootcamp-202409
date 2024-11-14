@@ -30,7 +30,7 @@ export default callback => {
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     //LO QUE TU LE ENVÍAS (CLIENTE)
-    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.userId}/name`)
+    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${sessionStorage.userId}/name`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }

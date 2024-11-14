@@ -1,12 +1,12 @@
+import 'dotenv/config'
 import db from 'dat'
-
 import registerUser from './registerUser.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return registerUser('Ana Bohuele', 'ana@bohuele.com', 'anabo', '123', '123')
-                .then(() => console.log('user registered'))
+            return registerUser('coco Drilo', 'coco@drilo.com', 'coco', '123', '123')
+                .then(console.log)
                 .catch(console.error)
         } catch (error) {
             console.error(error)

@@ -8,6 +8,7 @@ import logic from "../../logic"
 
 export default function Comments(props) {
     const [comments, setComments] = useState([])
+    const [initiated, setInitiated] = useState(false)
 
     useEffect(() => {
         try {
@@ -21,6 +22,7 @@ export default function Comments(props) {
                 }
 
                 setComments(comments)
+                setInitiated(true)
             })
         } catch (error) {
             alert(error.message)
@@ -87,9 +89,9 @@ export default function Comments(props) {
             }
         </ul>
 
-        <CreateComment
+        {initiated && <CreateComment
             postId={props.postId}
             onAdded={handleAdded}
-        />
+        />}
     </section>
 }
