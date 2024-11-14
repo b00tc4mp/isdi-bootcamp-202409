@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import models from './models.js'
+import './boost-mongoose.js'
 
 const { ObjectId } = mongoose.Types
 
@@ -26,5 +27,6 @@ const db = {
 export default db
 
 export {
+    ObjectId,
     models
 }

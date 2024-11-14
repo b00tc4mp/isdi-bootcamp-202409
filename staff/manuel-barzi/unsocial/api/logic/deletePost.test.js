@@ -4,7 +4,7 @@ import deletePost from './deletePost.js'
 db.connect('mongodb://localhost/unsocial-test')
     .then(() => {
         try {
-            return deletePost('672e025c405e99414c72a716', '6731d0771cde96a6b6ca0f65')
+            return deletePost('6734991dbf16fcdc897ef6fc', '67349b080b678d07e6c58755')
                 .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {
