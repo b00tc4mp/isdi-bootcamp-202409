@@ -1,8 +1,7 @@
-import db from "dat";
+import { models } from "dat";
 import { validate, errors } from "com";
 
-const { ObjectId } = db;
-
+const { User, Post, Comment } = models;
 const { NotFoundError, SystemError, OwnershipError } = errors;
 
 export default (userId, postId, commentId) => {
@@ -10,13 +9,7 @@ export default (userId, postId, commentId) => {
   validate.id(postId, "postId");
   validate.id(commentId, "commentId");
 
-  const userObjectId = new ObjectId(userId);
-  const postObjectId = new ObjectId(postId);
-
-  return Promise.all([
-    db.users.findOne({ _id: userObjectId }),
-    db.posts.findOne({ _id: postObjectId }),
-  ])
+  return Promise.all([User.findById(userId), Post.findById(postId)])
 
     .catch((error) => {
       throw new SystemError(error.message);
@@ -25,29 +18,17 @@ export default (userId, postId, commentId) => {
       if (!user) throw new NotFoundError("user not found");
       if (!post) throw new NotFoundError("post not found");
 
-      const { comments } = post;
-
-      const comment = comments.find(({ _id }) => _id.equals(commentId));
-
+      const comment = post.comments.id(commentId);
       if (!comment) throw new NotFoundError("comment not found");
 
-      const { author } = comment;
-
-      if (!author.equals(userId))
+      if (!comment.author.equals(userId))
         throw new OwnershipError("user not author of comment");
 
-      return db.posts
-        .updateOne(
-          { _id: postObjectId },
-          {
-            $pull: {
-              comments: { _id: new ObjectId(commentId) },
-            },
-          }
-        )
-        .catch((error) => {
-          throw new SystemError(error.message);
-        });
+      comment.deleteOne({ _id: commentId });
+
+      return post.save().catch((error) => {
+        throw new SystemError(error.message);
+      });
     })
     .then((_) => {});
 };

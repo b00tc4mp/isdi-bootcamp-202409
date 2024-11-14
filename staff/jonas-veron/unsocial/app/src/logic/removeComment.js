@@ -1,27 +1,38 @@
-import { validate } from 'com'
+import { validate, errors } from "com";
+
+const { SystemError } = errors;
 
 export default (postId, commentId, callback) => {
-    validate.id(postId, 'postId')
-    validate.id(commentId, 'commentId')
-    validate.callback(callback)
+  validate.id(postId, "postId");
+  validate.id(commentId, "commentId");
+  validate.callback(callback);
 
-    const xhr = new XMLHttpRequest
+  const xhr = new XMLHttpRequest();
 
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
+  xhr.addEventListener("load", () => {
+    const { status, response } = xhr;
 
-        if (status === 204) {
-            callback(null)
+    if (status === 204) {
+      callback(null);
 
-            return
-        }
+      return;
+    }
 
-        const { error, message } = JSON.parse(response)
+    const { error, message } = JSON.parse(response);
 
-        callback(new Error(message))
-    })
+    const constructor = errors[error];
 
-    xhr.open('DELETE', `http://localhost:8080/posts/${postId}/comments/${commentId}`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
-    xhr.send()
-}
+    callback(new constructor(message));
+  });
+
+  xhr.addEventListener("error", () =>
+    callback(new SystemError("server error"))
+  );
+
+  xhr.open(
+    "DELETE",
+    `http://localhost:8080/posts/${postId}/comments/${commentId}`
+  );
+  xhr.setRequestHeader("Authorization", `Basic ${sessionStorage.userId}`);
+  xhr.send();
+};

@@ -1,10 +1,13 @@
 import db from "dat";
 import express, { json } from "express";
-import logic from "./logic/index.js";
 import cors from "cors";
-import { errors } from "com";
 
-const { ValidationError, SystemError, DuplicityError, NotFoundError } = errors;
+import logic from "./logic/index.js";
+import {
+  createFunctionalHandler,
+  authorizationHandler,
+  errorHandler,
+} from "./helpers/index.js";
 
 db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
   console.log("connected to db");
@@ -17,41 +20,22 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
 
   server.get("/", (_, res) => res.send("Hello, API!"));
 
-  server.post("/users/auth", jsonBodyParser, (req, res) => {
-    try {
+  server.post(
+    "/users/auth",
+    jsonBodyParser,
+    createFunctionalHandler((req, res) => {
       const { username, password } = req.body;
 
-      logic
+      return logic
         .authenticateUser(username, password)
-        .then((userId) => res.json(userId))
-        .catch((error) => {
-          if (error instanceof CredentialsError)
-            res
-              .status(401)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
+        .then((userId) => res.json(userId));
+    })
+  );
 
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(406)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
-
-      console.error(error);
-    }
-  });
-
-  server.post("/users", jsonBodyParser, (req, res) => {
-    try {
+  server.post(
+    "/users",
+    jsonBodyParser,
+    createFunctionalHandler((req, res) => {
       const {
         name,
         email,
@@ -60,317 +44,130 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test").then(() => {
         "password-repeat": passwordRepeat,
       } = req.body;
 
-      logic
+      return logic
         .registerUser(name, email, username, password, passwordRepeat)
-        .then(() => res.status(201).send())
-        .catch((error) => {
-          if (error instanceof DuplicityError) {
-            res
-              .status(409)
-              .json({ error: error.constructor.name, message: error.message });
-          } else {
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
-          }
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        res
-          .status(406)
-          .json({ error: error.constructor.name, message: error.message });
-      } else {
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
+        .then(() => res.status(201).send());
+    })
+  );
 
-        console.error(error);
-      }
-    }
-  });
+  server.get(
+    "/users/:targetUserId/name",
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        params: { targetUserId },
+      } = req;
 
-  server.get("/users/:targetUserId/name", (req, res) => {
-    try {
-      const userId = req.headers.authorization.slice(6);
-
-      const { targetUserId } = req.params;
-
-      const name = logic
+      return logic
         .getUserName(userId, targetUserId)
-        .then((name) => res.json(name))
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res
-              .status(404)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
+        .then((name) => res.json(name));
+    })
+  );
 
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(406)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
+  server.post(
+    "/posts",
+    jsonBodyParser,
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        body: { image, text },
+      } = req;
 
-      console.error(error);
-    }
-  });
-
-  server.post("/posts", jsonBodyParser, (req, res) => {
-    try {
-      const userId = req.headers.authorization.slice(6); // 'Basic jiogfdgfdfew
-
-      const { image, text } = req.body;
-
-      logic
+      return logic
         .createPost(userId, image, text)
-        .then(() => res.status(201).send())
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res
-              .status(404)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
+        .then(() => res.status(201).send());
+    })
+  );
 
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(400)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
+  server.get(
+    "/posts",
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const { userId } = req;
 
-      console.error(error);
-    }
-  });
+      return logic.getPosts(userId).then((posts) => res.json(posts));
+    })
+  );
 
-  server.get("/posts", (req, res) => {
-    try {
-      const userId = req.headers.authorization.slice(6);
-
-      logic
-        .getPosts(userId)
-        .then((posts) => res.json(posts))
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res
-              .status(404)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
-
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(406)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
-
-      console.error(error);
-    }
-  });
-
-  server.delete("/posts/:postId", (req, res) => {
-    try {
-      const { postId } = req.params;
-      const userId = req.headers.authorization.slice(6);
-      logic
+  server.delete(
+    "/posts/:postId",
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        params: { postId },
+      } = req;
+      return logic
         .deletePost(userId, postId)
-        .then(() => res.status(204).send())
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res
-              .status(404)
-              .json({ error: error.constructor.name, message: error.message });
-          else if (error instanceof OwnershipError)
-            res
-              .status(403)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
-        });
+        .then(() => res.status(204).send());
+    })
+  );
 
-      console.error(error);
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(406)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
+  server.patch(
+    "/posts/:postId/likes",
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        params: { postId },
+      } = req;
 
-      console.error(error);
-    }
-  });
-
-  server.patch("/posts/:postId/likes", (req, res) => {
-    try {
-      const userId = req.headers.authorization.slice(6);
-      const { postId } = req.params;
-
-      logic
+      return logic
         .toggleLikePost(userId, postId)
-        .then(() => res.status(204).send())
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res
-              .status(404)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
+        .then(() => res.status(204).send());
+    })
+  );
 
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(400)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
+  server.post(
+    "/posts/:postId/comments",
+    jsonBodyParser,
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        params: { postId },
+        body: { text },
+      } = req;
 
-      console.error(error);
-    }
-  });
-
-  server.post("/posts/:postId/comments", jsonBodyParser, (req, res) => {
-    try {
-      const userId = req.headers.authorization.slice(6);
-      const { text } = req.body;
-
-      const { postId } = req.params;
-      logic
+      return logic
         .addComment(userId, postId, text)
-        .then(() => res.status(201).send())
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res
-              .status(404)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
+        .then(() => res.status(201).send());
+    })
+  );
 
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(406)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
+  server.get(
+    "/posts/:postId/comments",
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        params: { postId },
+      } = req;
 
-      console.error(error);
-    }
-  });
-
-  server.get("/posts/:postId/comments", (req, res) => {
-    try {
-      const userId = req.headers.authorization.slice(6);
-      const { postId } = req.params;
-
-      logic
+      return logic
         .getComments(userId, postId)
-        .then((comments) => res.json(comments))
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res
-              .status(404)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
+        .then((comments) => res.json(comments));
+    })
+  );
 
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(406)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
+  server.delete(
+    "/posts/:postId/comments/:commentId",
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        params: { postId, commentId },
+      } = req;
 
-      console.error(error);
-    }
-  });
-
-  server.delete("/posts/:postId/comments/:commentId", (req, res) => {
-    try {
-      const userId = req.headers.authorization.slice(6);
-
-      const { postId, commentId } = req.params;
-
-      logic
+      return logic
         .removeComment(userId, postId, commentId)
-        .then(() => res.status(204).send())
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res
-              .status(404)
-              .json({ error: error.constructor.name, message: error.message });
-          else if (error instanceof OwnershipError)
-            res
-              .status(403)
-              .json({ error: error.constructor.name, message: error.message });
-          else
-            res
-              .status(500)
-              .json({ error: SystemError.name, message: error.message });
+        .then(() => res.status(204).send());
+    })
+  );
 
-          console.error(error);
-        });
-    } catch (error) {
-      if (error instanceof ValidationError)
-        res
-          .status(406)
-          .json({ error: error.constructor.name, message: error.message });
-      else
-        res
-          .status(500)
-          .json({ error: SystemError.name, message: error.message });
-
-      console.error(error);
-    }
-  });
+  server.use(errorHandler);
 
   server.listen(8080, () => console.log("api is up"));
 });

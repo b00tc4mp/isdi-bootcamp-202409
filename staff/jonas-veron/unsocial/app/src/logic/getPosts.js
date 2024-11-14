@@ -1,27 +1,34 @@
-import { validate } from 'com'
+import { validate, errors } from "com";
 
-export default callback => {
-    validate.callback(callback)
-    
-    const xhr = new XMLHttpRequest
+const { SystemError } = errors;
 
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
-   
+export default (callback) => {
+  validate.callback(callback);
 
-    if(status === 200) {
-            const posts = JSON.parse(response)
+  const xhr = new XMLHttpRequest();
 
-            callback(null, posts)
+  xhr.addEventListener("load", () => {
+    const { status, response } = xhr;
 
-            return
-        }
-        const { error, message} = JSON.parse(response)
-    
-        callback(new Error(message))
-    })
-    xhr.open('GET','http://localhost:8080/posts/')
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
-    xhr.send()
+    if (status === 200) {
+      const posts = JSON.parse(response);
 
-}
+      callback(null, posts);
+
+      return;
+    }
+    const { error, message } = JSON.parse(response);
+
+    const constructor = errors[error];
+
+    callback(new constructor(message));
+  });
+
+  xhr.addEventListener("error", () =>
+    callback(new SystemError("server error"))
+  );
+
+  xhr.open("GET", "http://localhost:8080/posts/");
+  xhr.setRequestHeader("Authorization", `Basic ${sessionStorage.userId}`);
+  xhr.send();
+};

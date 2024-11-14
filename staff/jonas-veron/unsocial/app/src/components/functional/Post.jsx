@@ -68,7 +68,7 @@ export default function Post({
     <article className="Post">
       <div className="usernameAndDeleteButton">
         <h4 className="postUserNameTitle">{author.username}</h4>
-        {author._id === logic.getUserId() && (
+        {author.id === logic.getUserId() && (
           <Button className="deletePostButton" onClick={handleDeleteClick}>
             ❌
           </Button>

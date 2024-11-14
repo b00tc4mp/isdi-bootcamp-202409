@@ -5,9 +5,9 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test")
   .then(() => {
     try {
       return removeComment(
-        "672e0f93b5102bd54faa6e95",
-        "67322e3afb197533aef9ba7a",
-        "6733617db5021f3a8feb4a4d"
+        "673505cba2ae54c1b511dd7f",
+        "673505cba2ae54c1b511dd82",
+        "673505cba2ae54c1b511dd83"
       )
         .then(console.log)
         .catch(console.error);

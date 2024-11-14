@@ -7,7 +7,7 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test")
     try {
       return toggleLikePost(
         "672e0f93b5102bd54faa6e95",
-        "672f4aa087f9968fcab3f529"
+        "6734d59e8276dbe6b4d7e4b6"
       )
         .then(console.log)
         .catch(console.error);

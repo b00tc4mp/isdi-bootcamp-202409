@@ -1,28 +1,36 @@
-import { validate } from 'com'
+import { validate, errors } from "com";
+
+const { SystemError } = errors;
 
 export default (postId, callback) => {
-    validate.id(postId, 'postId')
-    validate.callback(callback)
+  validate.id(postId, "postId");
+  validate.callback(callback);
 
-    const xhr = new XMLHttpRequest
+  const xhr = new XMLHttpRequest();
 
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
+  xhr.addEventListener("load", () => {
+    const { status, response } = xhr;
 
-        if (status === 200) {
-            const comments = JSON.parse(response)
+    if (status === 200) {
+      const comments = JSON.parse(response);
 
-            callback(null, comments)
+      callback(null, comments);
 
-            return
-        }
+      return;
+    }
 
-        const { error, message } = JSON.parse(response)
+    const { error, message } = JSON.parse(response);
 
-        callback(new Error(message))
-    })
+    const constructor = errors[error];
 
-    xhr.open('GET', `http://localhost:8080/posts/${postId}/comments`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
-    xhr.send()
-}
+    callback(new constructor(message));
+  });
+
+  xhr.addEventListener("error", () =>
+    callback(new SystemError("server error"))
+  );
+
+  xhr.open("GET", `http://localhost:8080/posts/${postId}/comments`);
+  xhr.setRequestHeader("Authorization", `Basic ${sessionStorage.userId}`);
+  xhr.send();
+};

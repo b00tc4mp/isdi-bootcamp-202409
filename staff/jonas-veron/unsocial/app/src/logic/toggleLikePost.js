@@ -1,27 +1,34 @@
-import { validate } from 'com'
+import { validate, errors } from "com";
+
+const { SystemError } = errors;
 
 export default (postId, callback) => {
-    validate.id(postId, 'postId')
-    validate.callback(callback)
-        
-    const xhr = new XMLHttpRequest
+  validate.id(postId, "postId");
+  validate.callback(callback);
 
-xhr.addEventListener('load', () => {
-    const { status, response } = xhr
+  const xhr = new XMLHttpRequest();
 
-    if(status === 204) {
-        callback(null)
+  xhr.addEventListener("load", () => {
+    const { status, response } = xhr;
 
-        return
+    if (status === 204) {
+      callback(null);
+
+      return;
     }
 
-    const { error, message } = JSON.parse(response)
+    const { error, message } = JSON.parse(response);
 
-    callback(new Error(message))
-})
+    const constructor = errors[error];
 
-xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
-xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
-xhr.send()
-    
-}
+    callback(new constructor(message));
+  });
+
+  xhr.addEventListener("error", () =>
+    callback(new SystemError("server error"))
+  );
+
+  xhr.open("PATCH", `http://localhost:8080/posts/${postId}/likes`);
+  xhr.setRequestHeader("Authorization", `Basic ${sessionStorage.userId}`);
+  xhr.send();
+};

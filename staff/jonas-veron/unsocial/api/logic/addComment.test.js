@@ -6,7 +6,7 @@ db.connect("mongodb://127.0.0.1:27017/unsocial-test")
     try {
       return addComment(
         "672e0f93b5102bd54faa6e95",
-        "67322e3afb197533aef9ba7a",
+        "6734d59e8276dbe6b4d7e4b6",
         "PRUEBA!"
       )
         .then(console.log("comment added"))
