@@ -1,27 +1,38 @@
-import { storage } from '../data/index.js'
-import { validate } from 'com'
+import { models } from 'dat'
+import { validate, errors } from 'com'
+
+const { User, Post } = models
+const { SystemError, NotFoundError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    const { users, posts } = storage
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find().populate('author', 'username').sort({ date: -1 }).lean()
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, posts]) => {
+            if (!user) throw new NotFoundError('user not found')
 
-    const found = users.some(({ id }) => id === userId)
 
-    if (!found) throw new Error('user not found')
+            posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id
 
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
+                    delete post.author._id
+                }
 
-    posts.forEach(post => {
-        const { author: authorId } = post
+                const { likes, comments } = post
 
-        const { username } = users.find(({ id }) => id === authorId)
+                post.liked = likes.some(userObjectId => userObjectId.equals(userId))
+                post.likes = likes.length
 
-        post.author = { id: authorId, username }
+                post.comments = comments.length
+            })
+            return posts
+        })
 
-        post.liked = post.likes.includes(userId)
-
-        post.comments = post.comments.length
-    });
-
-    return posts.toReversed()
 }

@@ -1,31 +1,23 @@
-import { validate } from 'com'
-import { storage } from '../data/index.js'
+import { models } from 'dat'
+import { validate, errors } from 'com'
 
-export default (userId, postId,) => {
+const { User, Post } = models
+const { SystemError, NotFoundError, OwnershipError } = errors
+
+export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
+    return Promise.all([User.findById(userId).lean(), Post.findById(postId).lean()])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
+            if (!post.author.equals(userId)) throw new OwnershipError('user is not author of post')
 
-    const { users, posts } = storage
+            return Post.deleteById(postId)
+                .catch(error => { throw new SystemError(error.message) })
 
-    const found = users.some(({ id }) => id === userId)
-
-    if (!found) throw new Error('user not found')
-
-
-    const index = posts.findIndex(({ id }) => id === postId)
-
-    if (index < 0) throw new Error('post not found')
-
-    const post = posts[index]
-
-    const { author } = post
-
-    if (author !== userId) throw new Error('user is not author of post')
-
-    posts.splice(index, 1)
-
-    storage.posts = posts
-
-
+        })
+        .then(_ => { })
 }

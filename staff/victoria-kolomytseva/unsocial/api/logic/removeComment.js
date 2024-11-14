@@ -1,32 +1,34 @@
-import { validate } from 'com'
-import { storage } from '../data/index.js'
+import { models } from 'dat'
+import { validate, errors } from 'com'
+
+const { User, Post } = models
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
 
-    const { users, posts } = storage
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.findById(postId)
+    ])
 
-    const found = users.some(({ id }) => id === userId)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
-    if (!found) throw new Error('user not found')
+            const comment = post.comments.id(commentId)
+            if (!comment) throw new NotFoundError('comment not found')
 
-    const post = posts.find(({ id }) => id === postId)
+            if (!comment.author.equals(userId)) throw new OwnershipError('user not author of comment')
 
-    if (!post) throw new Error('post not found')
+            comment.deleteOne({ _id: commentId })
 
-    const { comments } = post
 
-    const index = comments.findIndex(({ id }) => id === commentId)
-
-    if (index < 0) throw new Error('comment not found')
-
-    const { author } = comments[index]
-
-    if (author !== userId) throw new Error('user is not author of comment')
-
-    comments.splice(index, 1)
-
-    storage.posts = posts
+            return post.save()
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(_ => { })
 }

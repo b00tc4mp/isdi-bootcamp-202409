@@ -1,27 +1,33 @@
-import { validate } from 'com'
-import { storage } from '../data/index.js'
+import { models } from 'dat'
+import { validate, errors } from 'com'
 
-export default (userId, postId,) => { //Esta función toma dos argumentos: postId (el ID de la publicación) y userId (el ID del usuario)
+const { User, Post } = models
+const { SystemError, NotFoundError } = errors
+
+export default (userId, postId) => {
     validate.id(userId, 'userId')
-    validate.id(postId, 'postId')//Asegura que postId y userId sean válidos. Si algo falla aquí, se interrumpe el proceso
+    validate.id(postId, 'postId')
 
-    const { users, posts } = storage
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.findById(postId)
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
-    const found = users.some(({ id }) => id === userId)
+            const { likes } = post
 
-    if (!found) throw new Error('user not found')
+            const index = likes.findIndex(userObjectId => userObjectId.equals(userId))
 
+            if (index < 0)
+                likes.push(userId)
+            else
+                likes.splice(index, 1)
 
-    const post = posts.find(({ id }) => id === postId) //Encuentra la publicación en posts que tenga un ID igual a postId. Si no existe, lanza un error
-
-    if (!post) throw new Error('post not found')
-
-    const { likes } = post //likedBy es una lista de usuarios a los que les gusta la publicación
-
-    const index = likes.indexOf(userId)//Busca si userId ya está en likedBy. 
-
-    if (index < 0) likes.push(userId) // Si no está (index < 0), agrega el usuario, si ya está, lo quita usando splice.
-    else likes.splice(index, 1)
-
-    storage.posts = posts //guarda la lista posts actualizada en storage
+            return post.save()
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(_ => { })
 }

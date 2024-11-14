@@ -1,29 +1,41 @@
-import { validate } from 'com'
-import { storage, uuid } from '../data/index.js'
+import { models } from 'dat'
+
+import { validate, errors } from 'com'
+
+const { User, Post, Comment } = models
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId, text) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
     validate.text(text)
 
-    const { users, posts } = storage
 
-    const found = users.some(({ id }) => id === userId)
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.findById(postId)
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, post]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
-    if (!found) throw new Error('user not found')
+            const comment = new Comment({
+                author: userId,
+                text,
+                date: new Date
+            })
 
-    const post = posts.find(({ id }) => id === postId)
+            post.comments.push(comment)
 
-    if (!post) throw new Error('post not found')
+            return post.save()
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(_ => { })
+}
 
-    const { comments } = post
 
-    comments.push({
-        id: uuid(),
-        author: userId,
-        text,
-        date: new Date().toISOString()
-    })
-    storage.posts = posts
 
-} 
+
+
+

@@ -1,4 +1,6 @@
-import { validate } from 'com'
+import { errors, validate } from 'com'
+
+const { SystemError } = errors
 
 export default (postId, text, callback) => {
     validate.id(postId, 'postId')
@@ -16,13 +18,16 @@ export default (postId, text, callback) => {
 
             return
         }
-
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
-    xhr.open('POST', `http://localhost:8080/posts/${postId}/comments`)
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify({ text }))

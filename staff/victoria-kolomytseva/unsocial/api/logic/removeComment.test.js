@@ -1,7 +1,16 @@
+import 'dotenv/config'
+import db from 'dat'
 import removeComment from './removeComment.js'
 
-try {
-    removeComment('m2vvw4xzn6d', 'm2vw4ucygv', 'm32welb3e29')
-} catch (error) {
-    console.error(error)
-}
+db.connect(process.env.MONGO_URL_TEST)
+    .then(() => {
+        try {
+            removeComment('673102adab634f097e0719f9', '67311bbc5434cee4d005fd02', '6731209fbc34b4d1cdca4d9b')
+                .then(console.log)
+                .catch(console.error)
+        } catch (error) {
+            console.error(error)
+        }
+    })
+    .catch(console.error)
+    .finally(() => db.disconnect())

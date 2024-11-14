@@ -1,29 +1,39 @@
+import { models } from 'dat'
+import { validate, errors } from 'com'
 
-import { storage } from '../data/index.js'
-import { validate } from 'com'
+const { User, Post } = models
+const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const { users, posts } = storage
+    return Promise.all([
+        User.exists({ _id: userId }),
+        Post.findById(postId).populate('comments.author', 'username').lean()
+    ])
 
-    const found = users.some(({ id }) => id === userId)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([userExists, post]) => {
+            if (!userExists) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
-    if (!found) throw new Error('user not found')
+            const { comments } = post
 
-    const post = posts.find(({ id }) => id === postId)
+            comments.forEach(comment => {
+                comment.id = comment._id.toString()
+                delete comment._id
 
-    if (!post) throw new Error('post not found')
+                const { author } = comment
 
-    const { comments } = post
+                if (author._id) {
+                    author.id = author._id.toString()
+                    delete author._id
+                }
+            })
 
-    comments.forEach(comment => {
-        const { author: authorId } = comment
-        const { username } = users.find(({ id }) => id === authorId)
+            return comments
+        })
 
-        comment.author = { id: authorId, username }
-    });
-
-    return comments
 }
+

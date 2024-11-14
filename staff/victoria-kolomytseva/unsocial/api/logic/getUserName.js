@@ -1,19 +1,25 @@
-import { storage } from '../data/index.js'
-import { validate } from 'com'
+import { models } from 'dat'
+import { validate, errors } from 'com'
+
+const { User } = models
+const { SystemError, NotFoundError } = errors
 
 export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
 
-    const { users } = storage
+    return Promise.all([User.findById(userId).lean(), User.findById(targetUserId).lean()])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, targetUser]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!targetUser) throw new NotFoundError('target user not found')
 
-    const found = users.some(({ id }) => id === userId)
+            return targetUser.name
+        })
 
-    if (!found) throw new Error('user not found')
-
-    const user = users.find(({ id }) => id === targetUserId)
-
-    if (!user) throw new Error('target user not found')
-
-    return user.name
 }
+
+
+
+
+
