@@ -1,11 +1,12 @@
+import 'dotenv/config'
 import db from 'dat';
 
 import getUserName from './getUserName.js';
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return getUserName('672e08451dfe72076c0ca52c', '672e085966498923e86dcd2b')
+            return getUserName('672e08451dfe72076c0ca52c', '672e08451dfe72076c0ca52c')
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {

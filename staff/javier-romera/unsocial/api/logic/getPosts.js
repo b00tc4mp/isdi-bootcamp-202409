@@ -1,51 +1,38 @@
-import db from 'dat'
 import { models } from 'dat'
 
 import { validate, errors } from 'apu'
 
-const { ObjectId } = db
 const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    const objectUserId = ObjectId.createFromHexString(userId)
-
-    return User.findOne({ _id: objectUserId })
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find({}).populate('author', 'username').lean().sort({ date: -1 })
+    ])
         .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
+        .then(([user, posts]) => {
             if (!user) throw new NotFoundError('user not found')
+            posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id
 
-            return Post.find({}).sort({ date: -1 }).lean()
-                .catch(error => { throw new SystemError(error.message) })
-        })
-        .then(posts => {
-            const transformedPosts = posts.map(post => {
-                return User.findOne({ _id: post.author }, { username: 1 })
-                    .catch(error => { throw new SystemError(error.message) })
-                    .then(user => {
-                        if (!user) throw new NotFoundError('author of post not found')
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
+                    delete post.author._id
+                }
 
-                        const { author: authorId, likedBy, comments } = post
+                const { likes, comments } = post
 
-                        const { username } = user
+                post.liked = likes.some(id => id.equals(userId))
 
-                        //sanitize
-                        post.id = post._id.toString()
-                        delete post._id
+                post.likes = likes.length
 
-                        post.author = { id: authorId.toString(), username }
-
-                        post.liked = likedBy.some(id => id.equals(userId))
-
-                        post.likedBy = likedBy.length
-
-                        post.comments = comments.length
-
-                        return post
-                    })
+                post.comments = comments.length
             })
-            return Promise.all(transformedPosts)
+
+            return posts
         })
 }

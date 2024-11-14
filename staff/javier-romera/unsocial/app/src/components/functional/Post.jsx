@@ -23,7 +23,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         text,
         date,
         liked,
-        likedBy,
+        likes,
         comments
     } = post
 
@@ -98,7 +98,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         <div className="likes-div">
             <Button classname="like-button" onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}</Button>
 
-            <span>{likedBy}</span>
+            <span>{likes}</span>
 
             <Button classname="comment-button" onClick={handleCommentsClick}>💬 </Button>
             <span>{comments}</span>

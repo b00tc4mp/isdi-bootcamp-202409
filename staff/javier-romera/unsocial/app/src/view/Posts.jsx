@@ -12,6 +12,7 @@ import './Posts.css'
 
 export default function Posts() {
     const [posts, setPosts] = useState([])
+    const [initiated, setInitiated] = useState(false)
 
     useEffect(() => {
         try {
@@ -28,6 +29,8 @@ export default function Posts() {
                 }
 
                 setPosts(posts)
+
+                setInitiated(true)
             })
         } catch (error) {
             alert(error.message)
@@ -125,7 +128,7 @@ export default function Posts() {
     }
 
     return <div className="Posts">
-        {posts.map(post => <Post
+        {initiated && posts.map(post => <Post
             key={post.id}
 
             post={post}

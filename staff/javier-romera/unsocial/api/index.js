@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import db from 'dat'
 import express, { json } from 'express'
 import cors from 'cors'
@@ -5,7 +6,7 @@ import cors from 'cors'
 import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial')
+db.connect(process.env.MONGO_URL)
     .then(() => {
         console.log('connected to db')
 
@@ -30,22 +31,6 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
             return logic.registerUser(name, email, username, password, passwordRepeat)
                 .then(() => res.status(201).send())
         }))
-
-        //UUUGGGHHHH
-        server.get('/users/:userId', (req, res) => { // Estos objetos en parametro son los que se envian después
-            const { userId } = req.params
-
-            try {
-                const user = logic.getUserId(userId)
-
-                res.json(user)
-            } catch (error) {
-                res.status(404).json({ error: error.constructor.name, message: error.message })
-
-                console.error(error)
-            }
-        })
-        //UUUGGGHHHH
 
         server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
             const { userId, params: { targetUserId } } = req
@@ -105,5 +90,5 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
 
         server.use(errorHandler)
 
-        server.listen(8080, () => console.log('api is up'))
+        server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
     })

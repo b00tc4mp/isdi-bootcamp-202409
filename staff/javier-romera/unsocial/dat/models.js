@@ -48,8 +48,8 @@ const comment = new Schema({
 const post = new Schema({
     author: {
         type: ObjectId,
-        required: true,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     image: {
         type: String,
