@@ -1,10 +1,10 @@
 import db from 'dat'
-import authentcateUser from './authenticateUser.js'
+import authenticateUser from './authenticateUser.js'
 
 db.connect('mongodb://127.0.0.1:27017/unsocial')
     .then(() => {
         try {
-            authentcateUser('cocodrilo', '123123123')
+            return authenticateUser('angel', '123123123')
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {
@@ -12,3 +12,4 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
         }
     })
     .catch(console.error)
+    .finally(() => db.disconnect())

@@ -4,7 +4,7 @@ import getUserName from './getUserName.js'
 db.connect('mongodb://127.0.0.1:27017/unsocial')
     .then(() => {
         try {
-            getUserName('672cd8e6fcf48026d6c1c18e', '672cd989fcf48026d6c1c190')
+            return getUserName('673504d23131d3523c5172ec', '673504d23131d3523c5172ec')
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {
@@ -12,3 +12,4 @@ db.connect('mongodb://127.0.0.1:27017/unsocial')
         }
     })
     .catch(console.error)
+    .finally(() => db.disconnect())

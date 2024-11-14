@@ -1,16 +1,18 @@
-import { MongoClient, ObjectId } from 'mongodb'
+import mongoose from 'mongoose'
+import models from './models.js'
+
+const { ObjectId } = mongoose.Types
 
 function connect(mongoUrl) {
-    const client = new MongoClient(mongoUrl)
 
-    return client.connect()
-        .then(connection => {
-            const db = connection.db()
+    return mongoose.connect(mongoUrl)
+        .then(() => {
+            const db = mongoose.connection.db
 
             this.users = db.collection('users')
             this.posts = db.collection('posts')
 
-            this.disconnect = () => client.close()
+            this.disconnect = () => mongoose.disconnect()
         })
 }
 
@@ -23,3 +25,7 @@ const db = {
 }
 
 export default db
+
+export {
+    models
+}
