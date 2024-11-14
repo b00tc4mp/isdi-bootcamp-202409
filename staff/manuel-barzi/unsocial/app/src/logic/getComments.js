@@ -28,7 +28,7 @@ export default (postId, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('GET', `http://192.168.1.156:8080/posts/${postId}/comments`)
+    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }

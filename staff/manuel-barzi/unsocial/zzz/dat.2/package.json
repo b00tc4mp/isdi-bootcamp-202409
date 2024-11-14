@@ -1,22 +1,16 @@
 {
-  "name": "api",
+  "name": "dat",
   "version": "0.0.0",
-  "description": "",
+  "description": "mongodb",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
-    "inspect": "node --inspect-brk .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "com": "file:../com",
-    "cors": "^2.8.5",
-    "dat": "file:../dat",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1"
+    "mongoose": "^8.8.1"
   }
 }

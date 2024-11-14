@@ -30,7 +30,7 @@ export default (name, email, username, password, passwordRepeat, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('POST', 'http://192.168.1.156:8080/users')
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat }))
 }

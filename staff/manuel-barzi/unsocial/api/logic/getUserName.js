@@ -1,4 +1,4 @@
-import { models, ObjectId } from 'dat'
+import { models } from 'dat'
 import { validate, errors } from 'com'
 
 const { User } = models
