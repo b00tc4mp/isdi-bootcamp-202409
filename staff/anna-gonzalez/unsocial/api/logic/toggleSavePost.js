@@ -1,21 +1,17 @@
-import db from 'dat'
+import { models } from 'dat'
 import { validate, errors } from 'com'
 
-const { ObjectId } = db
+const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const userObjectId = new ObjectId(userId)
-    const postObjectId = new ObjectId(postId)
-
     return Promise.all([
-        db.users.findOne({ _id: userObjectId }),
-        db.posts.findOne({ _id: postObjectId })
+        User.findById(userId).lean(),
+        Post.findById(postId)
     ])
-
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
             if (!user) throw new NotFoundError('User not found')
@@ -23,13 +19,14 @@ export default (userId, postId) => {
 
             const { saves } = post
 
-            const found = saves.some(userObjectId => userObjectId.equals(userId))
+            const index = saves.findIndex(userObjectId => userObjectId.equals(userId))
 
-            if (found)
-                return db.posts.updateOne({ _id: postObjectId }, { $pull: { saves: userObjectId } })
-                    .catch(error => { throw new SystemError(error.message) })
+            if (index < 0)
+                saves.push(userId)
+            else
+                saves.splice(index, 1)
 
-            return db.posts.updateOne({ _id: postObjectId }, { $push: { saves: userObjectId } })
+            return post.save()
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

@@ -1,10 +1,11 @@
+import 'dotenv/config'
 import db from 'dat'
 import deletePost from './deletePost.js'
 
-db.connect('mongodb://localhost/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return deletePost('672e1ed8d36186d1eaf683b1', '672e33294049f022635a1d6d')
+            return deletePost('6734bc401af0ac4373132714', '6735c843e1364dfcc08164e5')
                 .then(console.log) //undefined
                 .catch(console.error)
         } catch (error) {

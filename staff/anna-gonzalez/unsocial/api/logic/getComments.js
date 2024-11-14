@@ -1,60 +1,36 @@
-import db from 'dat'
+import { models } from 'dat'
 import { validate, errors } from 'com'
 
-const { ObjectId } = db
+const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    const userObjectId = new ObjectId(userId)
-    const postObjectId = new ObjectId(postId)
-
-    const { users, posts } = db
-
     return Promise.all([
-        users.findOne({ _id: userObjectId }),
-        posts.findOne({ _id: postObjectId })
+        User.exists({ _id: userId }),
+        Post.findById(postId).populate('comments.author', 'username').lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
-        .then(([user, post]) => {
-            if (!user) throw new NotFoundError('User not found')
+        .then(([userExists, post]) => {
+            if (!userExists) throw new NotFoundError('User not found')
             if (!post) throw new NotFoundError('Post not found')
 
             const { comments } = post
 
-            const authorObjectIds = []
-
             comments.forEach(comment => {
-                const { author: authorId } = comment
+                comment.id = comment._id.toString()
+                delete comment._id
 
-                const found = authorObjectIds.some(id => id.equals(authorId))
+                const { author } = comment
 
-                if (!found) authorObjectIds.push(authorId)
+                if (author._id) {
+                    author.id = author._id.toString()
+                    delete author._id
+                }
             })
 
-            return users.find({ _id: { $in: authorObjectIds } },
-                { projection: { username: 1 } }).toArray()
-                .catch(error => { throw new SystemError(error.message) })
-                .then(authors => {
-                    comments.forEach(comment => {
-                        const { author: authorId } = comment
-
-                        comment.id = comment._id.toString()
-                        delete comment._id
-
-                        const author = authors.find(({ _id }) => _id.equals(authorId))
-
-                        const { _id, username } = author
-
-                        comment.author = {
-                            id: _id.toString(),
-                            username
-                        }
-                    })
-
-                    return comments
-                })
+            return comments
         })
 }

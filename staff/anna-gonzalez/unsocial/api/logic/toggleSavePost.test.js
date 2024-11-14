@@ -1,11 +1,12 @@
+import 'dotenv/config'
 import db from 'dat'
 import toggleSavePost from './toggleSavePost.js'
 
-db.connect('mongodb://localhost/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return toggleSavePost('672e1ed8d36186d1eaf683b1', '672e3b61896ebf3fbb5fb827')
-                .then(console.log)
+            return toggleSavePost('6734bc401af0ac4373132714', '6735ca66682e9e0521f89f5e')
+                .then(console.log) //undefined
                 .catch(console.error)
         } catch (error) {
             console.error(error)
