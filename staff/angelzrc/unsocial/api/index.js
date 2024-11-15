@@ -1,12 +1,14 @@
+import 'dotenv/config'
 import db from 'dat'
 import express, { json } from 'express'
 import cors from 'cors'
+import jwt from 'jsonwebtoken'
 
 import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
 
-db.connect('mongodb://127.0.0.1:27017/unsocial').then(() => {
+db.connect(process.env.MONGO_URL).then(() => {
 
     console.log('connected to db')
 
@@ -78,5 +80,5 @@ db.connect('mongodb://127.0.0.1:27017/unsocial').then(() => {
         return logic.getComments(userId, postId).then(comments => res.json(comments))
     }))
     server.use(errorHandler)
-    server.listen(8080, () => console.log('api is up'))
+    server.listen(process.env.PORT, () => console.log(`API is listening on port ${process.env.PORT}`))
 })
