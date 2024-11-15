@@ -1,7 +1,8 @@
+import 'dotenv/config'
 import db from 'dat'
 import getPosts from './getPosts.js'
 
-db.connect('mongodb://localhost/unsocial-test')
+db.connect(process.env.MONGO_URL)
     .then(() => {
         try {
             return getPosts('67320fbf808fb47ab40d8190')

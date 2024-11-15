@@ -3,7 +3,7 @@ import express, { json } from 'express'
 import logic from './logic/index.js'
 import cors from 'cors'
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL)
     .then(() => {
         console.log('connected to db')
 

@@ -1,6 +1,6 @@
 {
     "name": "api",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "description": "",
     "type": "module",
     "main": "index.js",
@@ -16,6 +16,7 @@
         "com": "file:../com",
         "cors": "^2.8.5",
         "dat": "file:../dat",
+        "dotenv": "^16.4.5",
         "express": "^4.21.1"
     }
 }

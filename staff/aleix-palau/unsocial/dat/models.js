@@ -78,8 +78,7 @@ const Comment = model('Comment', comment)
 const models = {
     User,
     Post,
-    Comment,
-    ObjectId
+    Comment
 }
 
 export default models

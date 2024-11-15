@@ -1,45 +1,37 @@
-import db from 'dat'
+import { models } from 'dat'
 import { validate, errors } from 'com'
 
-const { ObjectId } = db
+const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')
 
-    return db.users.findOne({ _id: new ObjectId(userId) }) // const objectUserId = ObjectId.createFromHexString(userId)
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find().populate('author', 'username').sort({ date: -1 }).lean()
+    ])
         .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
+        .then(([user, posts]) => {
             if (!user) throw new NotFoundError('user not found')
 
-            return db.posts.find().sort({ date: -1 }).toArray() // si no posem toArray(), va en BSON
-                .catch(error => { throw new SystemError(error.message) })
-        })
-        .then(posts => {
-            const promises = posts.map(post =>
-                db.users.findOne({ _id: post.author }, { projection: { username: 1 } }) // projection
-                    .then(user => {
-                        if (!user) throw new NotFoundError('author of post not found')
+            posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id
 
-                        const { username } = user
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
+                    delete post.author._id
+                }
 
-                        // sanitize
-                        post.id = post._id.toString() // pq no retorni sempre -> post._id. No volem barrejar data amb vista i no volem que se sàpiga que fem servir Mongo.
-                        delete post._id
+                const { likes, comments } = post
 
-                        post.author = { id: post.author.toString(), username } // abans era post.author = ObjectId()
+                post.liked = likes.some(userObjectId => userObjectId.equals(userId)) // com que són objectes, diferents referències, amb includes sempre sortiria -> false
+                post.likes = likes.length
 
-                        const { likes, comments } = post
+                post.comments = comments.length
+            })
 
-                        post.liked = likes.some(userObjectId => userObjectId.equals(userId)) // com que són objectes, diferents referències, amb includes sempre sortiria -> false
-                        post.likes = likes.length
-
-                        post.comments = comments.length
-
-                        return post // return del map
-                    })
-            )
-
-            return Promise.all(promises)
+            return posts
         })
 }

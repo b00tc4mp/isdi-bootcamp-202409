@@ -1,10 +1,11 @@
+import 'dotenv/config'
 import db from 'dat'
 import removeComment from './removeComment.js'
 
-db.connect('mongodb://localhost/unsocial-test')
+db.connect(process.env.MONGO_URL)
     .then(() => {
         try {
-            return removeComment('67320fbf808fb47ab40d8190', '67322cb9c393d1e22528100b', '67337330a56f6f3b9d23fded')
+            return removeComment('67320fbf808fb47ab40d8190', '67322cb9c393d1e22528100b', '6735b9c6d32c630cbd86664b')
                 .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {
