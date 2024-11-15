@@ -39,7 +39,7 @@ Inspirado en el negocio en el cual pase casi toda mi vida, este sitio web permit
 
 ### 🎨 UXUI Design
 
-[Figma Wireframe](https://figma.com)
+[Figma Wireframe](https://www.figma.com/design/n9w5SAKtC9lT4FHbCasC9c/Project-E-commerce?node-id=0-1&t=m6Cd2jkL9vMvlILw-1)
 
 Here are the initial wireframes for an intuitive, responsive interface. The designs are optimized for both desktop and mobile devices.
 
