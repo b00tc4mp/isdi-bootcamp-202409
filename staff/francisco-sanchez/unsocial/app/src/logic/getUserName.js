@@ -1,4 +1,5 @@
 import { validate } from 'com'
+import { extractPayloadFromJWT } from '../utils'
 
 export default callback => {
     validate.callback(callback)
@@ -19,10 +20,14 @@ export default callback => {
         callback(new constructor(message))
     })
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${sessionStorage.userId}/name`)
-    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+    //xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${sessionStorage.userId}/name`)
+    const { sub: userId } = extractPayloadFromJWT(sessionStorage.token)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}/name`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
 
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    //xhr.addEventListener('error', () => callback(new SystemError('server error')))
+    //xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+
     xhr.send()
 }
 

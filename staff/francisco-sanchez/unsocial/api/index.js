@@ -2,6 +2,7 @@ import 'dotenv/config'
 import db from 'dat'
 import express, { json } from 'express'
 import cors from 'cors'
+import jwt from 'jsonwebtoken'
 
 import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
@@ -27,7 +28,11 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     server.post('/authenticate', jsonBodyParser, createFunctionalHandler((req, res) => {
         const { username, password } = req.body
 
-        return logic.authenticateUser(username, password).then(userId => res.json(userId))
+        //return logic.authenticateUser(username, password).then(userId => res.json(userId))
+        /*16/11/2024 - Modifico autententicate para recibir token en lugar de userId*/
+        return logic.authenticateUser(username, password)
+            .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+            .then(token => res.json(token))
     }))
 
     server.post('/register', jsonBodyParser, createFunctionalHandler((req, res) => {

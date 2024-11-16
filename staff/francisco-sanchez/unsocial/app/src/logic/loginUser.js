@@ -16,8 +16,12 @@ export default (username, password, callback) => {
         const { status, response } = xhr
 
         if (status === 200) {
-            const userId = JSON.parse(response)
-            sessionStorage.userId = userId
+            //const userId = JSON.parse(response)
+            const token = JSON.parse(response)
+
+            //sessionStorage.userId = userId
+            sessionStorage.token = token
+
             callback(null)
             return
         }

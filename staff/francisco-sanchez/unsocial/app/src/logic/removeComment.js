@@ -24,6 +24,7 @@ export default (postId, commentId, callback) => {
     xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}`)
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    //xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }
