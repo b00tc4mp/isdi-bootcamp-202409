@@ -1,4 +1,4 @@
-import getElapsedTime from "../../utils/getElapsedTime"
+import { getElapsedTime } from "../../utils/index.js"
 import logic from "../../logic"
 
 export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {

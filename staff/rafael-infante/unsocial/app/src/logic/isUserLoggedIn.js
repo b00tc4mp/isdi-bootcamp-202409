@@ -1,3 +1,3 @@
 export default () => {
-  return sessionStorage.userId !== undefined
+  return sessionStorage.token !== undefined
 }

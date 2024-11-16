@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Comments } from './index'
 import logic from '../../logic'
-import getElapsedTime from '../../utils/getElapsedTime'
+import { getElapsedTime } from '../../utils/index.js'
 import './Post.css'
 
 export default function Post({ post, onLiked, onDeleted, onCommentRemoved, onCommentAdded }) {
