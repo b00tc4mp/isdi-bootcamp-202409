@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "../library";
 import Comments from "./Comments";
-import getElapsedTime from "../../utils/getElapsedTime";
+import { getElapsedTime } from "../../utils/index.js";
 import logic from "../../logic";
 import "./Post.css";
 

@@ -9,7 +9,7 @@ export default (userId, targetUserId) => {
   validate.id(targetUserId, "targetUserId");
 
   return Promise.all([
-    User.findById(userId.lean()),
+    User.findById(userId).lean(),
     User.findById(targetUserId).lean(),
   ])
     .catch((error) => {

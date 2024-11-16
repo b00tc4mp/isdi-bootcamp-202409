@@ -1,4 +1,5 @@
 import { validate, errors } from "com";
+import { extractPayloadFromJWT } from "../utils";
 
 const { SystemError } = errors;
 
@@ -28,10 +29,12 @@ export default (callback) => {
     callback(new SystemError("server error"))
   );
 
+  const { sub: userId } = extractPayloadFromJWT(sessionStorage.token);
+
   xhr.open(
     "GET",
-    `http:/${import.meta.env.VITE_API_URL}/users/${sessionStorage.userId}/name`
+    `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`
   );
-  xhr.setRequestHeader("Authorization", `Basic ${sessionStorage.userId}`);
+  xhr.setRequestHeader("Authorization", `Bearer ${sessionStorage.token}`);
   xhr.send();
 };

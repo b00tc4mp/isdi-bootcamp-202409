@@ -2,7 +2,7 @@ import { Button } from "../library";
 
 import logic from "../../logic";
 
-import getElapsedTime from "../../utils/getElapsedTime";
+import { getElapsedTime } from "../../utils/index.js";
 
 import "./Comment.css";
 
@@ -16,7 +16,7 @@ export default function Comment({
   const handleRemove = () => {
     if (confirm("Delete comment?"))
       try {
-        logic.removeComment(postId, id, (error) => {
+        logic.removeComment(postId, _id, (error) => {
           if (error) {
             alert(error.message);
 

@@ -7,6 +7,7 @@ const {
   CredentialsError,
   NotFoundError,
   OwnershipError,
+  AuthorizationError,
 } = errors;
 
 export default (error, req, res, next) => {
@@ -18,7 +19,8 @@ export default (error, req, res, next) => {
     case error instanceof NotFoundError:
       status = 404;
       break;
-    case error instanceof CredentialsError:
+    case error instanceof CredentialsError ||
+      error instanceof AuthorizationError:
       status = 401;
       break;
     case error instanceof DuplicityError:

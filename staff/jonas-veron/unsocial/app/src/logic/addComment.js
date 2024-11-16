@@ -34,6 +34,6 @@ export default (postId, text, callback) => {
     `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`
   );
   xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.setRequestHeader("Authorization", `Basic ${sessionStorage.userId}`);
+  xhr.setRequestHeader("Authorization", `Bearer ${sessionStorage.token}`);
   xhr.send(JSON.stringify({ text }));
 };

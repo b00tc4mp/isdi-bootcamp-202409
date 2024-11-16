@@ -11,10 +11,7 @@ export default (userId, postId) => {
 
   return Promise.all([
     User.exists({ _id: userId }),
-    Post.findById(postId)
-      .populate("author", "username")
-      .populate("comments.author", "username")
-      .lean(),
+    Post.findById(postId).populate("comments.author", "username").lean(),
   ])
     .catch((error) => {
       throw new SystemError(error.message);
@@ -31,8 +28,9 @@ export default (userId, postId) => {
 
         const { author } = comment;
 
-        if (author.id) {
+        if (author._id) {
           author.id = author._id.toString();
+          delete author._id;
         }
       });
       return comments;

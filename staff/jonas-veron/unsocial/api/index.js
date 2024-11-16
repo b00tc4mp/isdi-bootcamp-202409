@@ -2,6 +2,7 @@ import "dotenv/config";
 import db from "dat";
 import express, { json } from "express";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 
 import logic from "./logic/index.js";
 import {
@@ -29,7 +30,12 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
       return logic
         .authenticateUser(username, password)
-        .then((userId) => res.json(userId));
+        .then((userId) =>
+          jwt.sign({ sub: userId }, process.env.JWT_SECRET, {
+            expiresIn: "1h",
+          })
+        )
+        .then((token) => res.json(token));
     })
   );
 

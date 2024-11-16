@@ -6,8 +6,8 @@ db.connect(process.env.MONGO_URL_TEST)
   .then(() => {
     try {
       return addComment(
-        "672e0f93b5102bd54faa6e95",
-        "6734d59e8276dbe6b4d7e4b6",
+        "673505cba2ae54c1b511dd7f",
+        "673505cba2ae54c1b511dd82",
         "PRUEBA!"
       )
         .then(console.log("comment added"))
