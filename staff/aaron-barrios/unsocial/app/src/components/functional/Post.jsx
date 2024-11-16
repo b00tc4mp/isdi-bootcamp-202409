@@ -6,7 +6,7 @@ import Comments from './Comments'
 import Button from '../library/Button'
 import Field2 from '../library/Field2'
 
-import getElapsedTime from '../../utils/getElapsedTime'
+import { getElapsedTime } from '../../util'
 
 import './Post.css'
 

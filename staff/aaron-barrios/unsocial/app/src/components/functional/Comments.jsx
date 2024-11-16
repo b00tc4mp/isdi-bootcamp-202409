@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Comment from './Comment'
 import CreateComment from './CreateComment'
 
-import logic from "../../logic"
+import logic from '../../logic'
 
 
 export default function Comments(props) {
