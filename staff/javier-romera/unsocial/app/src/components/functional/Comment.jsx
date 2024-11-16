@@ -6,7 +6,7 @@ import { errors } from 'apu'
 
 const { SystemError } = errors
 
-import getElapsedTime from "../../utils/getElapsedTime"
+import { getElapsedTime } from '../../util'
 
 import './Comment.css'
 

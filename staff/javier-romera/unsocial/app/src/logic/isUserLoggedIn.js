@@ -1,1 +1,1 @@
-export default () => sessionStorage.loggedInUserId !== undefined
+export default () => sessionStorage.token !== undefined

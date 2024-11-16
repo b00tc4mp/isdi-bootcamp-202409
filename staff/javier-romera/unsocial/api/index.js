@@ -2,93 +2,94 @@ import 'dotenv/config'
 import db from 'dat'
 import express, { json } from 'express'
 import cors from 'cors'
+import jwt from 'jsonwebtoken'
 
 import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
-db.connect(process.env.MONGO_URL)
-    .then(() => {
-        console.log('connected to db')
+db.connect(process.env.MONGO_URL).then(() => {
+    console.log('connected to db')
 
-        const server = express()
+    const server = express()
 
-        server.use(cors())
+    server.use(cors())
 
-        const jsonBodyParser = json()
+    const jsonBodyParser = json()
 
-        server.get('/', (_, res) => res.send('Hello API!'))
+    server.get('/', (_, res) => res.send('Hello API!'))
 
-        server.post('/users/auth', jsonBodyParser, createFunctionalHandler((req, res) => {
-            const { username, password } = req.body
+    server.post('/users/auth', jsonBodyParser, createFunctionalHandler((req, res) => {
+        const { username, password } = req.body
 
-            return logic.authenticateUser(username, password)
-                .then(userId => res.json(userId))
-        }))
+        return logic.authenticateUser(username, password)
+            .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+            .then(token => res.json(token))
+    }))
 
-        server.post('/users', jsonBodyParser, createFunctionalHandler((req, res) => {
-            const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
+    server.post('/users', jsonBodyParser, createFunctionalHandler((req, res) => {
+        const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
-            return logic.registerUser(name, email, username, password, passwordRepeat)
-                .then(() => res.status(201).send())
-        }))
+        return logic.registerUser(name, email, username, password, passwordRepeat)
+            .then(() => res.status(201).send())
+    }))
 
-        server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { targetUserId } } = req
+    server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { targetUserId } } = req
 
-            return logic.getUserName(userId, targetUserId)
-                .then(name => res.json(name))
-        }))
+        return logic.getUserName(userId, targetUserId)
+            .then(name => res.json(name))
+    }))
 
-        server.get('/posts', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId } = req
+    server.get('/posts', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId } = req
 
-            return logic.getPosts(userId)
-                .then(posts => res.json(posts))
-        }))
+        return logic.getPosts(userId)
+            .then(posts => res.json(posts))
+    }))
 
-        server.post('/posts', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
-            const { userId, body: { image, text } } = req
+    server.post('/posts', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
+        const { userId, body: { image, text } } = req
 
-            return logic.createPost(userId, image, text)
-                .then(() => res.status(201).send())
-        }))
+        return logic.createPost(userId, image, text)
+            .then(() => res.status(201).send())
+    }))
 
-        server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { postId } } = req
+    server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId } } = req
 
-            return logic.deletePost(userId, postId)
-                .then(() => res.status(204).send())
-        }))
+        return logic.deletePost(userId, postId)
+            .then(() => res.status(204).send())
+    }))
 
-        server.patch('/posts/:postId/likes', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { postId } } = req
+    server.patch('/posts/:postId/likes', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId } } = req
 
-            return logic.toggleLikePost(userId, postId)
-                .then(() => res.status(204).send())
-        }))
+        return logic.toggleLikePost(userId, postId)
+            .then(() => res.status(204).send())
+    }))
 
-        server.get('/posts/:postId/comments', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { postId } } = req
+    server.get('/posts/:postId/comments', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId } } = req
 
-            return logic.getComments(userId, postId)
-                .then(comments => res.json(comments))
-        }))
+        return logic.getComments(userId, postId)
+            .then(comments => res.json(comments))
+    }))
 
-        server.post('/posts/:postId/comments', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
-            const { userId, params: { postId }, body: { text } } = req
+    server.post('/posts/:postId/comments', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId }, body: { text } } = req
 
-            return logic.addComment(userId, postId, text)
-                .then(() => res.status(201).send())
-        }))
+        return logic.addComment(userId, postId, text)
+            .then(() => res.status(201).send())
+    }))
 
-        server.delete('/posts/:postId/comments/:commentId', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { postId, commentId } } = req
+    server.delete('/posts/:postId/comments/:commentId', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId, commentId } } = req
 
-            return logic.removeComment(userId, postId, commentId)
-                .then(() => { res.status(204).send() })
-        }))
+        return logic.removeComment(userId, postId, commentId)
+            .then(() => { res.status(204).send() })
+    }))
 
-        server.use(errorHandler)
+    server.use(errorHandler)
 
-        server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
-    })
+    server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
+})
