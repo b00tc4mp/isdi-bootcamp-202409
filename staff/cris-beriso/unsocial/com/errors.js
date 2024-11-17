@@ -15,6 +15,8 @@ const errors = {
   DuplicityError: createCustomError('DuplicityError'),
   CredentialsError: createCustomError('CredentialsError'),
   SystemError: createCustomError('SystemError'),
-  OwnershipError: createCustomError('OwnershipError')
+  OwnershipError: createCustomError('OwnershipError'),
+  AuthorizationError: createCustomError('AuthorizationError')
 }
+
 export default errors
