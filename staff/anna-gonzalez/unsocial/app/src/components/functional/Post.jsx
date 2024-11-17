@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '../library'
 import Comments from './Comments'
 import logic from '../../logic'
-import getElapsedTime from '../../utils/getElapsedTime'
+import { getElapsedTime } from '../../util'
 import './Post.css'
 import { errors } from 'com'
 

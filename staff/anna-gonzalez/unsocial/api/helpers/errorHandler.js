@@ -1,20 +1,10 @@
 import { errors } from 'com'
 
-const { ValidationError, SystemError, DuplicityError, CredentialsError, NotFoundError, OwnershipError } = errors
+const { ValidationError, SystemError, DuplicityError, CredentialsError, NotFoundError, OwnershipError, AuthorizationError } = errors
 
 export default (error, req, res, next) => {
     let status = 500
 
-    //if (error instanceof ValidationError)
-    //status = 406
-    //else if (error instanceof NotFoundError)
-    //status = 404
-    //else if (error instanceof CredentialsError)
-    //status = 401
-    //else if (error instanceof DuplicityError)
-    //status = 409
-    //else if (error instanceof OwnershipError)
-    //status = 403
 
     switch (true) {
         case (error instanceof ValidationError):
@@ -23,7 +13,7 @@ export default (error, req, res, next) => {
         case (error instanceof NotFoundError):
             status = 404
             break
-        case (error instanceof CredentialsError):
+        case (error instanceof CredentialsError || error instanceof AuthorizationError):
             status = 401
             break
         case (error instanceof DuplicityError):

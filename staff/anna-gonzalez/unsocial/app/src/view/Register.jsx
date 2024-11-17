@@ -33,11 +33,11 @@ export default (props) => {
 
                     return
                 }
+
+                form.reset()
+
+                props.onRegistered()
             })
-
-            form.reset()
-
-            props.onRegistered()
         } catch (error) {
             alert(error.message)
 

@@ -1,6 +1,6 @@
 import { Button } from '../library'
 import logic from '../../logic'
-import getElapsedTime from '../../utils/getElapsedTime'
+import { getElapsedTime } from '../../util'
 import { errors } from 'com'
 
 const { SystemError } = errors
