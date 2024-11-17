@@ -1,6 +1,6 @@
 import { errors } from 'com'
 
-const { ValidationError, NotFoundError, CredentialsError, DuplicityError, OwnershipError, SystemError } = errors
+const { ValidationError, NotFoundError, CredentialsError, DuplicityError, OwnershipError, SystemError, AuthorizationError } = errors
 
 export default (error, req, res, next) => {
   let status = 500
@@ -12,7 +12,7 @@ export default (error, req, res, next) => {
     case (error instanceof NotFoundError):
       status = 404
       break
-    case (error instanceof CredentialsError):
+    case (error instanceof CredentialsError || error instanceof AuthorizationError):
       status = 401
       break
     case (error instanceof DuplicityError):
