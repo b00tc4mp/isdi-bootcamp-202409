@@ -23,7 +23,9 @@ db.connect(process.env.MONGO_URL).then(() => {
     server.post('/users/auth', jsonBodyParser, createFunctionalHandler((req, res) => {
         const { username, password } = req.body
 
-        return logic.authenticateUser(username, password).then(userId => res.json(userId))
+        return logic.authenticateUser(username, password)
+            .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '2h' }))
+            .then(token => res.json(token))
     }))
 
     server.post('/users', jsonBodyParser, createFunctionalHandler((req, res) => {
