@@ -8,8 +8,10 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "inspect": "node --inspect-brk ."
+    "test": "mocha logic/*.spec.js",
+    "test-inspect": "mocha --inspect-brk logic/*.spec.js",
+    "inspect": "node --inspect-brk .",
+    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js --timeout 20000"
   },
   "keywords": [],
   "author": "",
@@ -22,5 +24,12 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "c8": "^10.1.2",
+    "chai": "^5.1.2",
+    "chai-as-promised": "^8.0.0",
+    "mocha": "^10.8.2",
+    "monocart-coverage-reports": "^2.11.2"
   }
 }

@@ -13,5 +13,8 @@
   "dependencies": {
     "mongodb": "^6.10.0",
     "mongoose": "^8.8.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }

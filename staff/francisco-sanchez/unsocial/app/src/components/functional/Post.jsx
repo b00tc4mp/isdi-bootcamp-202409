@@ -87,6 +87,10 @@ export default function PostItem({ post, onLiked, onDeleted, onCommentAdded, onC
 
             {/* Botón para Eliminar posts */}
             {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>❌</Button>}
+
+            {/* Botón para moderadores, eliminar todos los posts */}
+            {logic.isUserRoleModerator() && <Button onClick={handleDeleteClick}>🔪 Kill </Button>}
+
         </div>
 
         <div className="commentsTexts">

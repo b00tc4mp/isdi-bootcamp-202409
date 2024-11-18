@@ -1,8 +1,9 @@
-import { models } from 'dat'
+//import { models } from 'dat'
+import { User } from 'dat'
 import { validate, errors } from 'com'
-
-const { User } = models
 const { SystemError, CredentialsError } = errors
+
+//const { User } = models
 
 export default (username, password) => {
     validate.username(username)
@@ -13,7 +14,10 @@ export default (username, password) => {
         .then(user => {
             if (!user) throw new CredentialsError('User or pass incorrect')
 
-            return user._id.toString()
+            return {
+                id: user._id.toString(),
+                role: user.role
+            }
         })
 
 }

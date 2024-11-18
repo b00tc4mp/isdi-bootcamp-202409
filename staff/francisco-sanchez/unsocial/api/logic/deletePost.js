@@ -1,8 +1,6 @@
-import { models } from 'dat'
+import { User, Post } from 'dat'
 import { validate, errors } from 'com'
 
-
-const { User, Post } = models
 
 const { SystemError, NotFoundError, OwnershipError } = errors
 
@@ -18,7 +16,12 @@ export default (userId, postId) => {
         .then(([user, post]) => {
             if (!user) throw new NotFoundError('user not found')
             if (!post) throw new NotFoundError('post not found')
-            if (!post.author.equals(userId)) throw new OwnershipError('User is not the author of the post')
+
+            //Validamos! Si el usuario es moderador puedo borrar cualquier post
+            if (user.role !== 'moderator') {
+
+                if (!post.author.equals(userId)) throw new OwnershipError('User is not the author of the post')
+            }
 
             return Post.deleteById(postId)
                 .catch(error => { throw new SystemError(error.message) })

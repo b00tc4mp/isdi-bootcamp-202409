@@ -1,7 +1,7 @@
 import { errors } from 'com'
 import jwt from 'jsonwebtoken'
 
-const { authorizationError } = errors
+const { AuthorizationError } = errors
 
 export default (req, res, next) => {
     try {

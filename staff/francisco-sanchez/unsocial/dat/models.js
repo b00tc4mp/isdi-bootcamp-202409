@@ -28,6 +28,13 @@ const user = new Schema({
         type: String, // El campo "password" debe ser de tipo String
         required: true, // Este campo es obligatorio
         minLength: 4 // Longitud mínima de 8 caracteres
+    },
+    //Esto nos servirá para controlar los roles de los usuarios 
+    role: {
+        type: String,
+        required: true,
+        enum: ['regular', 'moderator'],
+        default: 'regular'
     }
 }, { versionKey: false }) // Desactivamos el campo `__v` que Mongoose añade automáticamente para controlar las versiones
 
@@ -44,7 +51,8 @@ const comment = new Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     }
 })
 
@@ -67,7 +75,8 @@ const post = new Schema({
     },
     date: {
         type: Date, // El campo "date" es de tipo Date (fecha)
-        required: true // Este campo es obligatorio
+        required: true, // Este campo es obligatorio
+        default: Date.now
     },
     likes: [{   //Añadimos un array para los likes con referencia al usuario
         type: ObjectId,
@@ -79,15 +88,17 @@ const post = new Schema({
 
 // Creamos el modelo "User" basado en el esquema "user"
 const User = model('User', user)
+
 // Creamos el modelo "Post" basado en el esquema "post"
 const Post = model('Post', post)
+
 // Creamos el model "Comments" basado en el esquema "comment"
 const Comment = model('Comment', comment)
 
-const models = {
+export {
     User,
     Post,
     Comment
 }
 
-export default models
+//export default models

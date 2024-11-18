@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
-db.connect(process.env.MONGO_URL_TEST).then(() => {
+db.connect(process.env.MONGO_URL).then(() => {
     console.log('Conected to database')
 
     //Inicializamos el server de express 
@@ -31,7 +31,9 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
         //return logic.authenticateUser(username, password).then(userId => res.json(userId))
         /*16/11/2024 - Modifico autententicate para recibir token en lugar de userId*/
         return logic.authenticateUser(username, password)
-            .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+            //Ahora también retornamos el rol
+            //.then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+            .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
             .then(token => res.json(token))
     }))
 
