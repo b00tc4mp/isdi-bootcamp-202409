@@ -1,9 +1,11 @@
-export default callback => 
+const createFunctionalHandler = callback => 
 (req, res, next) => {
     try {
         callback(req, res)
             .catch(next);
     } catch (error) {
-        next(next);
+        next(error);
     }
-};
+}
+
+export default createFunctionalHandler;

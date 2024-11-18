@@ -1,4 +1,4 @@
-import createFunctionalHandler from './createFunctionalHanler.js';
+import createFunctionalHandler from './createFunctionalHandler.js';
 import authorizationHandler from  './authorizationHandler.js';
 import errorHandler from './errorHandler.js';
 

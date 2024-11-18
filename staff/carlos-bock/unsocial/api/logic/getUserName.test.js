@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import db from 'data';
 import getUserName from './getUserName.js';
 

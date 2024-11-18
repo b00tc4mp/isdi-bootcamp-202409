@@ -1,4 +1,6 @@
+import 'dotenv/config.js'
 import db from 'dat';
+
 import registerUser from './registerUser.js';
 
 db.connect('mongodb://127.0.0.1:27017/unsocial-test')

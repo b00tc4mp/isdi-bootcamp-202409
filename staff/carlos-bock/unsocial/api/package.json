@@ -7,7 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "inspect": "node logic/*.spec.js",
+    "test-inspect": "mocha --inspect-brk logic/*.spec.js",
+    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.js --timeout 10000"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +20,14 @@
     "com": "file:../com",
     "cors": "^2.8.5",
     "dat": "file:../dat",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "c8": "^10.1.2",
+    "chai": "^5.1.2",
+    "chai-as-promised": "^8.0.0",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.8.2"
   }
 }

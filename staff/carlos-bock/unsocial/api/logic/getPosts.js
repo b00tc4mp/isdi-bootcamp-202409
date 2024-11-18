@@ -1,44 +1,37 @@
-import db from 'dat'; 
-import {validate} from 'com';
+import { User, Post } from 'dat';
+import { validate , errors} from 'com';
 
-const {ObjectId} =db;
+const { SystemError, NotFoundError } = errors;
 
 const getPosts = (userId) => {
     validate.id(userId, 'userId');
 
-    return db.users.findOne({_id: new ObjectId(userId)})
-        .catch(error => {throw new Error(error.message)})
-        .then(user => {
-            if (!user) throw new Error('user not found');
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find().populate('author', 'username').sort({ date: -1 }).lean()
+    ])
+        .catch(error => { throw new SystemError(error.message)})
+        .then(([user, posts]) => {
+            if (!user) throw new NotFoundError('userNotFound');
 
-            return db.posts.find().sort({date: -1 }).toArray()
-                .catch(error => {throw new Error(error.message)})
-        })
-        .then(posts => {
-            const promises = posts.map(post => 
-                db.users.findOne({_id: post.author}, {username: 1})// projection
-                    .then(user => {
-                        if (!user) throw new Error('author of post not found');
+            posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id;
 
-                        const { username } = user;//perviously name
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString();
+                    delete post.author._id;
+                }
 
-                        //sanitize
-                        post.id = post._id.toString();
-                        delete post._id;
+                const { likes, comments } = post; 
 
-                        post.author = { id: post.author.toString(), username };
+                post.liked = likes.some(userObjectId => userObjectId.equals(userId));
+                post.likes = likes.length;
 
-                        const { likes, comments } = post;
+                post.comments = comments.length;
+            });
 
-                        post.liked = likes.some(userObjectId => userObjectId.equals((userId)));
-                        post.likes = likes.length;
-
-                        post.comments = comments.length;
-
-                        return post;
-                    } )
-            )
-            return Promise.all(promises)
-        })
+            return posts;
+        });
 };
 export default getPosts;

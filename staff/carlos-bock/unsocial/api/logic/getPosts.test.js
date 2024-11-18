@@ -5,7 +5,7 @@ db.connect('mongodb://localhost/unsocial-test')
     .then(() => {
         try {
             return getPosts('67322777dc618687d7f2a664') //cambiar #
-                .then(posts => console.log(post.map(({id, author, image, text, date, likes,comments}))))
+                .then(posts => console.log(posts.map(({ id, author, image, text, date, likes,comments }))))
                 .catch(console.error)
         } catch (error) {
             console.error(error)

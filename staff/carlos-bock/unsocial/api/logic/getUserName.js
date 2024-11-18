@@ -1,22 +1,19 @@
-import db from 'dat';
-import { validate } from 'com';
+import { User } from 'dat';
+import { validate, errors } from 'com';
 
-const {ObjectId} = db;
+const { SystemError, NotFoundError } = errors;
 
 const getUserName = (userId, targetUserId) => {
     validate.id(userId, 'userId');
     validate.id(targetUserId, 'targetUserId');
 
-    return db.users.findOne({_id: ObjectId.createFromHexString(userId)})
-        .catch(error => { new Error(error.message)})
-        .then(user => {
-            if (!user) throw new Error('user not found')
-                return db.users.findOne({ _id: ObjectId.createFromHexString(targetUserId)})
-                    .catch(error => {new Error(error.message)});
+    return Promise.all([User.findById(userId).lean(), User.findById(targetUserId).lean()])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, targetUser]) => {
+            if (!user) throw new NotFoundError('user not found');
+            if (!targetUser) throw new NotFoundError('target user not found');
+
+            return targetUser.name;
         })
-        .then(user => {
-            if (!user) throw new Error('target user not found')
-                return user.name;
-        });
 };
 export default getUserName;

@@ -1,7 +1,6 @@
-import db from 'dat';
-import { validate, errors} from 'com';
+import { User, Post, Comment } from 'dat';
 
-const { ObjectId } = db;
+import { validate, errors } from 'com';
 const { SystemError, NotFoundError} = errors;
 
 const addComment = (userId, postId, text) => {
@@ -9,26 +8,23 @@ const addComment = (userId, postId, text) => {
     validate.id(postId,'postId');
     validate.text(text);
 
-    const userObjectId = new ObjectId(userId);
-    const postObjectId = new ObjectId(postId);
-
     return Promise.all([
-        db.users.findOne({ _id: userObjectId}),
-        db.posts.findOne({ _id: postObjectId})
+        User.findById(userId).lean(),
+        Post.findById(postId)
     ])
         .catch(error => { throw new SystemError(error.message)})
         .then(([user, post]) => {
             if (!user) throw new NotFoundError('user not found');
             if (!post) throw new NotFoundError('post not found');
 
-            const comment = {
-                _id: new ObjectId,
-                author: userObjectId,
-                text, 
-                date: new Date
-            }
+            const comment = new Comment ({
+                author: userId,
+                text
+            });
 
-            return db.posts.updateOne({ _id: postObjectId}, { $push: {comments: comment}})
+            post.comments.push(comment);
+
+            return post.save()
                 .catch(error => {throw new SystemError(error.message)});
         })
         .then(_=> { });

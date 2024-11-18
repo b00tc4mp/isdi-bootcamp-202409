@@ -1,22 +1,20 @@
-import db from 'dat';
-import {validate} from 'com';
+import { User, Post } from 'dat';
+import { validate, errors } from 'com';
 
-const {ObjectId} =db;
+const { SystemError, NotFoundError } = errors;
 
     const createPost = (userId, image, text) => {
         validate.id(userId, 'userID');
         validate.image(image);
         validate.text(text);
 
-        const userObjectId = ObjectId.createFromHexString(userId);
-
-        return db.users.findOne({_id: userObjectId})
-            .catch(error => { throw new Error (error.message)})
+        return User.findById(userId)
+            .catch(error => { throw new SystemError (error.message) })
             .then(user => {
-                if(!user) throw new Error('user not found')
+                if(!user) throw new NotFoundError('user not found')
 
-                    return db.posts.insertOne({author: userObjectId, image, text, date: new Date, likes: [], comments: []})
-                        .catch(error => {throw new Error(error.message)});
+                    return Post.create({ author: userId, image, text })
+                        .catch(error => {throw new SystemError(error.message)});
             })
             .then(_=> {});
     };

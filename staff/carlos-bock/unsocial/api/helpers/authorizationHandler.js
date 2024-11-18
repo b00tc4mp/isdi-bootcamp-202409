@@ -1,11 +1,20 @@
-export default (req, res, next) => {
-    try{
-        const userId = req.headers.authorization.slice(6);
+import { errors } from 'com';
+import jwt from 'jsonwebtoken';
+
+const { AuthorizationError } = errors;
+
+const authorizationHandler = (req, res, next) => {
+    try {
+        const token = req.headers.authorization.slice(7);
+
+        const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
         req.userId = userId;
 
-        rext()
+        next();
     } catch (error) {
-        next(error)
+        next(new AuthorizationError(error.message));
     }
 }
+
+export default authorizationHandler;

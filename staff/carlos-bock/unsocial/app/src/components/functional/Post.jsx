@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import {Button} from '../library';
+import { Button } from '../library';
 import Comments from './Comments';
 
 import logic from '../../logic';
 
-import getElapsedTime from '../../utils/getElapsedTime';
+import { getElapsedTime } from '../../util';
 
 import './Post.css';
 
@@ -82,6 +82,10 @@ export default function Post ({post, onLiked, onDeleted, onCommentAdded, onComme
       {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
 
       <Button onClick={handleCommentClick}>💬 {comments} comments</Button>
+
+      {/* {logic.getUserRole() === 'moderator' && <Button>💀</Button>} */}
+      {logic.isUserRoleModerator() && <Button>💀</Button>}
+
 
       {view === 'comments' && <Comments
         postId={id}
