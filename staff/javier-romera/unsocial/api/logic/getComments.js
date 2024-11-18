@@ -1,8 +1,7 @@
-import { models } from 'dat'
+import { User, Post } from 'dat'
 
 import { validate, errors } from 'apu'
 
-const { User, Post } = models
 const { SystemError, NotFoundError } = errors
 
 export default (userId, postId) => {

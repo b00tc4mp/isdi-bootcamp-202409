@@ -4,6 +4,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "populate": "node populate.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,5 +13,8 @@
   "description": "",
   "dependencies": {
     "mongoose": "^8.8.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }

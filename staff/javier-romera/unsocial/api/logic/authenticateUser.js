@@ -1,8 +1,5 @@
-import { models } from 'dat'
-
+import { User } from 'dat'
 import { validate, errors } from 'apu'
-
-const { User } = models
 const { SystemError, CredentialsError } = errors
 
 export default (username, password) => {
@@ -14,6 +11,9 @@ export default (username, password) => {
         .then(user => {
             if (!user) throw new CredentialsError('cagaste')
 
-            return user._id.toString()
+            return {
+                id: user._id.toString(),
+                role: user.role
+            }
         })
 }

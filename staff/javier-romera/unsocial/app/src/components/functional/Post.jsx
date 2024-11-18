@@ -91,6 +91,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
             <h4>{author.username}</h4>
 
             {logic.getUserId() === author.id && <Button classname="delete-button" type="button" onClick={handleDeleteClick}>❌</Button>}
+            {logic.isUserRoleModerator() && <Button>💀</Button>}
         </div>
 
         <img src={image}></img>

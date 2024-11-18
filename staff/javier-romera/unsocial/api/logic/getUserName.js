@@ -1,11 +1,8 @@
-import db from 'dat'
-import { models } from 'dat'
+import { User } from 'dat'
 
 import { validate, errors } from 'apu'
 
-const { ObjectId } = db
 const { SystemError, NotFoundError } = errors
-const { User } = models
 
 export default (userId, targetUserId) => {
     validate.id(userId, 'userId')

@@ -1,33 +1,30 @@
-import { validate, errors } from 'apu'
+import { errors } from 'apu'
 
 const { SystemError } = errors
 
-export default callback => {
-    validate.callback(callback)
-
-    const xhr = new XMLHttpRequest
-
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
-
-        if (status === 200) {
-            const posts = JSON.parse(response)
-
-            callback(null, posts)
-
-            return
+export default () => {
+    const options = {
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.token}`
         }
+    }
 
-        const { error, message } = JSON.parse(response)
+    return fetch(`http://${import.meta.env.VITE_API_URL}/posts`, options)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            const { status } = res;
 
-        const constructor = errors[error]
+            if (status === 200) {
+                return res.json()
+            }
 
-        callback(new constructor(message))
-    })
+            return res.json()
+                .then(res => {
+                    const { error, message } = res
 
-    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+                    const constructor = errors[error]
 
-    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/posts`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.send()
+                    throw new constructor(message)
+                });
+        })
 }

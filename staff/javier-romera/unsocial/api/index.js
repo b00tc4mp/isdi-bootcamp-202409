@@ -22,7 +22,7 @@ db.connect(process.env.MONGO_URL).then(() => {
         const { username, password } = req.body
 
         return logic.authenticateUser(username, password)
-            .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+            .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
             .then(token => res.json(token))
     }))
 

@@ -16,8 +16,13 @@ export default function Posts() {
 
     useEffect(() => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+
+                    setInitiated(true)
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
@@ -26,12 +31,7 @@ export default function Posts() {
                     console.error(error)
 
                     return
-                }
-
-                setPosts(posts)
-
-                setInitiated(true)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -41,8 +41,11 @@ export default function Posts() {
 
     const handleLiked = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
@@ -51,20 +54,21 @@ export default function Posts() {
                     console.error(error)
 
                     return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }
 
     const handleDeleted = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
@@ -73,20 +77,21 @@ export default function Posts() {
                     console.error(error)
 
                     return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }
 
     const handleCommentAdded = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
@@ -95,20 +100,21 @@ export default function Posts() {
                     console.error(error)
 
                     return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }
 
     const handleCommentRemoved = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
@@ -117,12 +123,10 @@ export default function Posts() {
                     console.error(error)
 
                     return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }
