@@ -1,4 +1,4 @@
-# Period || YouRule || Syncly
+# Period (Syncly pa los amigos)
 
 ## Intro
 
@@ -17,15 +17,14 @@ User
 - view predictions for next cycle
 - add custom events w or without reminder to calendar
 - set reminders
-- record notes or journal entries
+- record notes
 - view a history of past cycles and events
 - receive reminder notifications
-- edit profile
 - view reports
 
 Visitor
 - view calendar
-- record notes or journal entries
+- record notes
 
 ### UXUI Design
 
@@ -35,39 +34,90 @@ Visitor
 
 ### Blocks
 
-- App (the client-side application)
-- API (the server-side API)
-- DB (the database)
+- App (client-side application)
+- API (server-side API)
+- DB (database)
 
 ### Packages
 
-- doc (the documentation)
-- app (the client-side application)
-- api (the server-side API)
-- dat (the data model and driver)
-- com (the common validations, utils, ...)
+- doc (documentation)
+- app (client-side application)
+- api (server-side API)
+- dat (data model and driver)
+- com (common validations, utils, ...)
 
 ### Data Model
 
 User
-- id (UUID)
+- id (ObjectId)
 - name (string)
-- email (string)
-- username (string)
-- password (string)
+- email (string, unique)
+- birth date (date)
+- username (string, unique)
+- password (hashed string)
 
-Post
-- id (UUID)
-- author (User.id)
+
+Cycle
+- id (unique identifier)
+- userId (reference to user.id)
+- startDate (date)
+- endDate (date)
+- cycleLength: (number: endDate - startDate)
+- menstruationLength (number)
+- ovulationDate (number)
+- flowIntensity (string, enum: light | medium | heavy)
+- isRegular (boolean)
+- symptoms (array of references to symptom.id)
+- energyLevel (object with sleep and physical)
+- sexualActivity (number)
+- notes (string)
+
+Symptom
+- id (unique identifier)
+- name (string)
 - image (string)
+- category (string, enum: physical | emotional)
+
+DailyInsight
+- id (unique identifier)
+- userId (reference to user.id)
+- date (date)
+- phase (string, enum: menstruation | follicular | ovulation | luteal)
+- symptoms (array of references to Symptom.id)
+- pregnancyChance (string, enum: low | medium | high)
+- reminder (string)
+- note (string)
+
+Event
+- id (unique identifier)
+- userId (reference to user.id)
+- date (date)
+- title (string)
 - text (string)
-- date (Date)
-- likes ([User.id])
-- comments ([{ 
-    - id (UUID)
-    - author (User.id)
-    - text (string)
-    - date (Date) }])
+- reminder (boolean)
+
+Tip
+- id (unique identifier)
+- phase (string, enum: menstruation | follicular | ovulation | luteal)
+- category (string, enum: nutrition | activities | well-being | music)
+- text (string)
+
+Report
+- id (unique identifier)
+- userId (reference to user.id)
+- cycleId (reference to cycle.id)
+- cycleLength (number)
+- menstruationLength (number)
+- mostFrequentSymptoms (array of references to symptom.id)
+- isRegular (boolean)
+
+Statistics
+- userId (reference to user.id)
+- averageCycleLength (number)
+- averageMenstruationLength (number)
+- mostFrequentSymptom (reference to symptom.id)
+- isRegularPercentage (number)
+
 
 ### Techs
 
@@ -75,8 +125,8 @@ Post
 - React (...)
 - Node (...)
 - Express (...)
-- Mongo (...)
-- Mocha & Chai (...)
+- Mongo (data base)
+- Mocha & Chai (testing)
 - [...]
 
 ### Test Coverage
