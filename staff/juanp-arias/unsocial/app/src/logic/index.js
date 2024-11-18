@@ -12,6 +12,9 @@ import deletePost from './deletePost'
 import addComments from './addComments'
 import getComments from './getComments'
 import removeComment from './removeComment'
+import getUserRole from './getUserRole'
+import roleRegular from './roleRegular'
+import roleModerator from './roleModerator'
 
 const logic = {
     registerUser,
@@ -19,11 +22,15 @@ const logic = {
     isUserLoggedIn,
     getUserName,
     logoutUser,
+    getUserId,
+    
+    getUserRole,
+    roleRegular,
+    roleModerator,
 
     createPostLogic,
     getPosts,
     toggleLikePosts,
-    getUserId,
     deletePost,
     addComments,
     getComments,

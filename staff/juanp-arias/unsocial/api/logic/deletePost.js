@@ -1,7 +1,6 @@
-import { models } from 'dat'
+import { User, Post } from 'dat'
 import { validate, errors } from 'com'
 
-const { User, Post } = models
 const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId) => {
@@ -18,7 +17,8 @@ export default (userId, postId) => {
                 .then(post => {
                     if (!post) throw new NotFoundError('post not found')
 
-                    if (!post.author.equals(userId)) throw new OwnershipError('user is not author of post')
+                    if (user.role !== 'moderator')
+                        if (!post.author.equals(userId)) throw new OwnershipError('user is not author of post')
 
                     return Post.deleteById(postId)
                         .catch(error => { throw new SystemError(error.message) })

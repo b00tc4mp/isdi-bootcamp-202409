@@ -76,6 +76,8 @@ export default function PostItem({ post, onLiked, onDeleted, onCommentAdded, onC
 
             <Button className="ButtonPost" onClick={handleCommentsClick}>🗨️{comments}</Button>
 
+            {logic.roleModerator() && <button className="buttondelete" onClick={handleDeleteClick}>⚒️</button>}
+
         </div>
 
         {view === 'comments' && <Comments
