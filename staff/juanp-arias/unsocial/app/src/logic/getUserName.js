@@ -1,6 +1,8 @@
 import { errors, validate } from 'com'
+import { extractPayload } from '../utilities'
 
 const { SystemError } = errors
+
 export default callback => {
     validate.callback(callback)
 
@@ -22,8 +24,10 @@ export default callback => {
     })
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${sessionStorage.userId}/name`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    const { sub: userId } = extractPayload(sessionStorage.token)
+
+    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }
 

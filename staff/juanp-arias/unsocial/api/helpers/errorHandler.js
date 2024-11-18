@@ -1,12 +1,12 @@
 import { errors } from 'com'
 
-const { CredentialsError, OwnershipError, NotFoundError, ValidationError, DuplicityError } = errors
+const { CredentialsError, OwnershipError, NotFoundError, ValidationError, DuplicityError, AuthorizationError, SystemError } = errors
 
 export default (error, req, res, next) => {
     let status = 500
 
     switch (true) {
-        case (error instanceof CredentialsError):
+        case (error instanceof CredentialsError || error instanceof AuthorizationError):
             status = 401
             break
         case (error instanceof OwnershipError):

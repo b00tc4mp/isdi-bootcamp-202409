@@ -1,7 +1,8 @@
-import db from 'dat'
 import 'dotenv/config'
+import db from 'dat'
 import express, { json } from 'express'
 import cors from 'cors'
+import jwt from 'jsonwebtoken'
 
 import logic from './logic/index.js'
 import { authorizationHandler, createFunctionalHandler, errorHandler } from './helpers/index.js'
@@ -21,7 +22,8 @@ db.connect(process.env.MONGO_URL)
             const { username, password } = req.body
 
             return logic.authenticateUser(username, password)
-                .then(userId => res.json(userId))
+                .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+                .then(token => res.json(token))
 
         }))
 
@@ -84,5 +86,5 @@ db.connect(process.env.MONGO_URL)
         }))
 
         server.use(errorHandler)
-        server.listen(7070, () => console.log('api is up'))
+        server.listen(process.env.PORT, () => console.log(`api is up on port ${process.env.PORT}`))
     })
