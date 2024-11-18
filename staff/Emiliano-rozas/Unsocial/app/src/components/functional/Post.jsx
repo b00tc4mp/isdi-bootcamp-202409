@@ -6,7 +6,7 @@ import Comments from './Comments'
 
 import logic from '../../logic'
 
-import getElapsedTime from '../../utils/getElapsedTime'
+import { getElapsedTime } from '../../utils'
 
 import './Post.css'
 
@@ -90,13 +90,17 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
             <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
 
+            {logic.isUserRoleModerator() && <Button >💀</Button>}
+
         </div>
 
-        {view === 'comments' && <Comments
-            postId={id}
-            onAdded={onCommentAdded}
-            onRemoved={onCommentRemoved}
-        />}
+        {
+            view === 'comments' && <Comments
+                postId={id}
+                onAdded={onCommentAdded}
+                onRemoved={onCommentRemoved}
+            />
+        }
 
     </article >
 }

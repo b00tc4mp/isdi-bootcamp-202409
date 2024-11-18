@@ -1,8 +1,6 @@
-import { models } from 'dat'
-
+import { User } from 'dat'
 import { validate, errors } from 'com'
 
-const { User } = models
 const { DuplicityError, SystemError } = errors
 
 export default (name, email, username, password, passwordRepeat) => {
@@ -15,7 +13,7 @@ export default (name, email, username, password, passwordRepeat) => {
     return User.create({ name, email, username, password })
         .then(_ => { })
         .catch(error => {
-            if (error.code === 11000) throw new DuplicityError('user alreay exists')
+            if (error.code === 11000) throw new DuplicityError('user already exists')
 
             throw new SystemError(error.message);
 

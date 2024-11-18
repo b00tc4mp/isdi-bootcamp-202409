@@ -25,6 +25,12 @@ const user = new Schema({
         type: String,
         required: true,
         minLength: 8
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: ['regular', 'moderator'],
+        default: 'regular'
     }
 }, { versionKey: false })
 
@@ -41,7 +47,8 @@ const comment = new Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     }
 })
 
@@ -76,10 +83,9 @@ const User = model('User', user)
 const Post = model('Post', post)
 const Comment = model('Comment', comment)
 
-const models = {
+export {
     User,
     Post,
     Comment
 }
 
-export default models

@@ -1,10 +1,7 @@
-import { models } from 'dat'
-
+import { User, Post } from 'dat'
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError, OwnershipError } = errors
-
-const { User, Post } = models
 
 export default (userId, postId, commentId) => {
     validate.id(userId, 'userId')
