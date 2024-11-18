@@ -1,7 +1,6 @@
-import { models } from 'dat'
+import { User, Post } from 'dat'
 import { validate, errors } from 'com'
 
-const { User, Post } = models
 const { NotFoundError, SystemError } = errors
 
 export default (userId, image, text) => {
@@ -17,10 +16,7 @@ export default (userId, image, text) => {
       return Post.create({
         author: userId,
         image,
-        text,
-        date: new Date,
-        likes: [],
-        comments: []
+        text
       })
         .catch(error => error => { throw new SystemError(error.message) })
     })

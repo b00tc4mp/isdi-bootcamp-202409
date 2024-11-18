@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 import logic from './logic/index.js'
 import { createFunctionalHandler, errorHandler, authorizationHandler } from './helpers/index.js'
 
-db.connect(process.env.MONGO_URL_TEST)
+db.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('connected to db')
 
@@ -23,7 +23,7 @@ db.connect(process.env.MONGO_URL_TEST)
       const { username, password } = req.body
 
       return logic.authenticateUser(username, password)
-        .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+        .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
         .then(token => res.json(token))
     }))
 

@@ -3,6 +3,7 @@ import { Comments } from './index'
 import logic from '../../logic'
 import { getElapsedTime } from '../../utils/index.js'
 import './Post.css'
+import Button from '../biblio/Button.jsx'
 
 export default function Post({ post, onLiked, onDeleted, onCommentRemoved, onCommentAdded }) {
   const [view, setView] = useState(null)
@@ -56,6 +57,9 @@ export default function Post({ post, onLiked, onDeleted, onCommentRemoved, onCom
       <h4>{author.username}</h4>
 
       <img src={image} className="img" />
+
+      {logic.getUserRole() === 'moderator' && <Button>💀</Button>}
+      {logic.getUserRole() === 'regular' && <Button>🎃</Button>}
 
       <a onClick={handleLikeClick}>{liked ? '❤️' : '🤍'}{likes} likes</a>
 
