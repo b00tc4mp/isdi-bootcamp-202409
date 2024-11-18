@@ -16,7 +16,7 @@ import authenticateUser from './authenticateUser.js';
 debugger;
 
 describe('authenticateUser', () => {
-    before(() => db.connect(process.env.MONGO_URL_TEST) );
+    before(() => db.connect('mongodb://localhost:27017/unsocial-test') );
 
     beforeEach(() => User.deleteMany());
 

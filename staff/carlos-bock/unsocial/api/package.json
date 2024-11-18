@@ -20,6 +20,7 @@
     "com": "file:../com",
     "cors": "^2.8.5",
     "dat": "file:../dat",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2"
   },
@@ -27,7 +28,7 @@
     "c8": "^10.1.2",
     "chai": "^5.1.2",
     "chai-as-promised": "^8.0.0",
-    "dotenv": "^16.4.5",
-    "mocha": "^10.8.2"
+    "mocha": "^10.8.2",
+    "monocart-coverage-reports": "^2.11.2"
   }
 }

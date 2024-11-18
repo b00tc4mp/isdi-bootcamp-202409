@@ -14,7 +14,7 @@ const { DuplicityError } = errors;
 import registerUser from './registerUser.js';
 
 describe('registerUser', () => {
-    before(() => db.connect(process.env.MONGO_URL_TEST))
+    before(() => db.connect('mongodb://localhost:27017/unsocial-test')) // pasar string directamente para test esta fallando env
 
     beforeEach(() => User.deleteMany())
 

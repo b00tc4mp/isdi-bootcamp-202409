@@ -1,4 +1,4 @@
-import 'dotevn/config';
+import 'dotenv/config';
 
 import * as chai from 'chai';
 import chaiAsPormised from 'chai-as-promised';
@@ -14,7 +14,7 @@ const { NotFoundError } = errors;
 import getUserName from './getUserName.js';
 
 describe('getUserName', () => {
-    before(() => db.connect(process.env.MONGO_URL_TEST));
+    before(() => db.connect('mongodb://localhost:27017/unsocial-test'));
 
     beforeEach(() => User.deleteMahy());
 
