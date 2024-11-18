@@ -84,6 +84,9 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
         <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
 
+        {/* {logic.getUserRole() === 'moderator' && <Button>💀</Button>} */}
+        {logic.isUserRoleModerator() && <Button>💀</Button>}
+
         {view === 'comments' && <Comments
             postId={id}
             onAdded={onCommentAdded}
