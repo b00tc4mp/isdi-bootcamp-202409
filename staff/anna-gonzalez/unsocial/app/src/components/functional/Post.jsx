@@ -105,6 +105,9 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
         <div className="above-photo-content">
             <h4>{author.username}</h4>
 
+            {/*logic.getUserRole() === 'moderator' && <Button>💀</Button>*/}
+            {logic.isUserRoleModerator() && <Button>💀</Button>}
+
             <Button className="save-post-button"
                 onClick={handleSavedClick}>{`📌 ${saves}`}</Button>
         </div>
