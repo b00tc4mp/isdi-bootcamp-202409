@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User } from 'dat'
 import { errors } from 'com'
 
-const { DuplicityError } = errors
+const { DuplicityError, SystemError } = errors
 
 import registerUser from './registerUser.js'
 
@@ -29,11 +29,30 @@ describe('registerUser', () => {
                 expect(user.password).to.equal('123456')
             })
     )
+
     it('fails on existing user', () =>
         expect(
             User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123456' })
                 .then(() => registerUser('Coco Loco', 'coco@loco.com', 'cocoloco', '123456', '123456'))
         ).to.be.rejectedWith(DuplicityError, 'user already exists')
     )
+
+    describe('fails on User.create error', () => {
+        let create
+
+        beforeEach(() => {
+            create = User.create
+
+            User.create = () => Promise.reject(new SystemError('system error on User.create'))
+        })
+
+        it('fails on User.create error', () =>
+            expect(
+                registerUser('Coco Loco', 'coco@loco.com', 'cocoloco', '123456', '123456')
+            ).to.be.rejectedWith(SystemError, /^system error on User.create$/)
+        )
+
+        afterEach(() => User.create = create)
+    })
     after(() => db.disconnect())
 })

@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError } = errors
+const { NotFoundError, SystemError } = errors
 
 import getUserName from './getUserName.js'
 
@@ -36,5 +36,25 @@ describe('getUserName', () => {
                 .then(user => getUserName(user.id, '012345678901234567890123'))
         ).to.be.rejectedWith(NotFoundError, 'target user not found')
     )
+
+    describe('fails on User.findById error', () => {
+        let findById
+
+        beforeEach(() => {
+            findById = User.findById
+
+            User.findById = () => Promise.reject(new SystemError('system error on User.findById'))
+        })
+
+        it('fails on User.findById error', () =>
+            expect(
+                User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+                    .then(user =>
+                        getUserName(user.id, '012345678901234567890123')
+                    )
+            ).to.be.rejectedWith(SystemError, /^system error on User.findById$/)
+        )
+        afterEach(() => User.findById = findById)
+    })
     after(() => db.disconnect())
 })

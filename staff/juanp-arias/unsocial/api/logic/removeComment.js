@@ -10,7 +10,7 @@ export default (userId, postId, commentId) => {
 
     return Promise.all([
         User.findById(userId).lean(),
-        Post.findById(postId),
+        Post.findById(postId)
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
@@ -18,11 +18,12 @@ export default (userId, postId, commentId) => {
             if (!post) throw new NotFoundError('post not found')
 
             const comment = post.comments.id(commentId)
+
             if (!comment) throw new NotFoundError('comment not found')
 
-            if (!comment.author.equals(userId)) {
+            if (!comment.author.equals(userId))
                 throw new OwnershipError('not your comment')
-            }
+
             comment.deleteOne({ _id: commentId })
 
             return post.save()
