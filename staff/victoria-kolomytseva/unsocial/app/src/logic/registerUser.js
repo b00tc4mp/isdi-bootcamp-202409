@@ -23,11 +23,11 @@ export default (name, email, username, password, passwordRepeat, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-
         const constructor = errors[error]
 
         callback(new constructor(message))
     })
+
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
     xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users`)

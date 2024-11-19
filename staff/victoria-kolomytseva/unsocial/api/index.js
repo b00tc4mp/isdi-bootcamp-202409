@@ -2,12 +2,13 @@ import 'dotenv/config'
 import db from 'dat'
 import express, { json } from 'express'
 import cors from 'cors'
+import jwt from 'jsonwebtoken'
 
 import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
-
+import { User } from 'dat'
 db.connect(process.env.MONGO_URL_TEST).then(() => {
-    console.log('connected to db')
+    console.log('connected to db ==> ', process.env.MONGO_URL_TEST)
 
     const server = express()
 
@@ -20,7 +21,10 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     server.post('/users/auth', jsonBodyParser, createFunctionalHandler((req, res) => {
         const { username, password } = req.body
 
-        return logic.authenticateUser(username, password).then(userId => res.json(userId))
+        return logic.authenticateUser(username, password)
+            .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+            .then(token => res.json(token))
+
     }))
 
     server.post('/users', jsonBodyParser, createFunctionalHandler((req, res) => {

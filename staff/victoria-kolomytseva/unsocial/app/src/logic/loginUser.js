@@ -14,9 +14,9 @@ export default (username, password, callback) => {
         const { status, response } = xhr
 
         if (status === 200) {
-            const userId = JSON.parse(response)
+            const token = JSON.parse(response)
 
-            sessionStorage.userId = userId
+            sessionStorage.token = token
 
             callback(null)
 
@@ -35,4 +35,5 @@ export default (username, password, callback) => {
     xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users/auth`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ username, password }))
+
 }

@@ -2,7 +2,8 @@
 import { Button } from '../library'
 import logic from '../../logic'
 
-import getElapsedTime from '../../utils/getElapsedTime'
+import { getElapsedTime } from '../../util'
+
 export default function Comments({ postId, comment: { id, author, text, date }, onRemoved }) { //onRemoved: Una función que se ejecuta cuando el comentario es eliminado
     console.log('Comment -> render')
 

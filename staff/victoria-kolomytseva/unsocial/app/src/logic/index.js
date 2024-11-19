@@ -4,6 +4,9 @@ import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'
 import logoutUser from './logoutUser'
 import getUserId from './getUserId'
+import getUserRole from './getUserRole'
+import isUserRoleRegular from './isUserRoleRegular'
+import isUserRoleModerator from './isUserRoleModerator'
 
 import createPost from './createPost'
 import getPosts from './getPosts'
@@ -18,18 +21,21 @@ import removeComment from './removeComment'
 const logic = { //creacion del usuario
     registerUser,
     loginUser,
-    isUserLoggedIn,//leer
-    getUserName,//leer
-    logoutUser,//cambiar
+    isUserLoggedIn, //leer
+    getUserName, //leer
+    logoutUser, //cambiar
     getUserId,
+    getUserRole,
+    isUserRoleRegular,
+    isUserRoleModerator,
 
-    createPost,//crear post
-    getPosts,//leer post
-    toggleLikePost,//actualizar post
-    deletePost,//borrar
+    createPost, //crear post
+    getPosts, //leer post
+    toggleLikePost, //actualizar post
+    deletePost, //borrar
 
-    addComment,//creacion
-    getComments,//lectura
+    addComment, //creacion
+    getComments, //lectura
     removeComment
 }
 

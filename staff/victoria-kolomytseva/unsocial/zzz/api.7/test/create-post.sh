@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2vvqdtgcba' -H 'Content-Type: application/json' -d '{"image":"https://media.istockphoto.com/id/2154680719/es/foto/retrato-de-un-divertido-mapache-curioso-mirando-a-trav%C3%A9s-de-una-lupa-aislada-sobre-un-fondo.jpg?s=612x612&w=0&k=20&c=pYTBWtHYhkSqmpCGHLFczqONvdAjRdC_Sy0PjtPe_oQ=","text": "donde estas?"}' http://localhost:8080/posts -v

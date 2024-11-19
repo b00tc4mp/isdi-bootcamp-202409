@@ -1,4 +1,5 @@
-import db from 'dat';
+import 'dotenv/config'
+import db from 'dat'
 import addComment from './addComment.js'
 
 db.connect(process.env.MONGO_URL_TEST)
