@@ -12,7 +12,7 @@ export default userId => {
         ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, posts]) => {
-            if (!user) throw new NotFoundError('User not found')
+            if (!user) throw new NotFoundError('user not found')
 
             posts.forEach(post => {
                 post.id = post._id.toString()

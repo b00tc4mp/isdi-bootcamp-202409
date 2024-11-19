@@ -6,62 +6,55 @@ import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised)
 const { expect } = chai
 
-import db, { User, Post, Comment } from 'dat'
+import db, { User, Post } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError } = errors
+const { NotFoundError, ValidationError, SystemError } = errors
 
 import addComment from './addComment.js'
 
 describe('addComment', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
-    beforeEach(() => {
-        return Promise.all([
-            User.deleteMany(),
-            Post.deleteMany(),
-            Comment.deleteMany()])
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+
+    it('succeeds for existing user', () => {
+        const user = new User({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+        const post = new Post({ author: user.id, image: 'https://www.image.com', text: 'post text' })
+
+        return Promise.all([user.save(), post.save()])
+            .then(([user, post]) =>
+                addComment(user.id, post.id, 'comment text')
+                    .then(() => Post.findOne())
+                    .then(post => {
+                        expect(post).to.exist
+                        expect(post.comments).to.have.lengthOf(1)
+
+                        const [comment] = post.comments
+                        expect(comment.author.toString()).to.equal(user.id)
+                        expect(comment.text).to.equal('comment text')
+                        expect(comment.date).to.be.instanceOf(Date)
+                    })
+            )
     })
 
-    it('succeeds on adding a comment', () =>
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-            .then(() => User.findOne({ username: 'cocoloco' }))
-            .then(user =>
-                Post.create({ author: user.id, image: 'http://image.com', text: 'post text' })
-                    .then(() => Post.findOne({ author: user.id })
-                        .then(post =>
-                            addComment(user.id, post.id, 'comment text')
-                                .then(() => Comment.findOne({ author: user.id })
-                                    .then(comment => {
-                                        expect(comment).to.exist
-                                        expect(comment.id.toString()).to.equal(user.id)
-                                        expect(comment.text).to.equal('comment text')
-                                        expect(comment.date).to.exist
-                                    })
-                                )
-                        )
-                    )
-            )
+    it('fails on non-existing user', () =>
+        expect(
+            addComment('012345678901234567890123', '012345678901234567890123', 'post text')
+        ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
-    it('fails on non-existing user', () => {
-        expect(
-            User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-                .then(user => Post.create({ author: user.id, image: 'http://image1.com', text: 'post' }))
-                .then(post =>
-                    addComment('012345678901234567890123', post.id, 'comment text')
-                )
-        ).to.be.rejectedWith(NotFoundError, 'User not found')
-    })
-
-    it('fails on non-existing post', () => {
+    it('fails on non-existing post', () =>
         expect(
             User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
                 .then(user =>
-                    addComment(user.id, '012345678901234567890123', 'comment text')
+                    addComment(user.id, '012345678901234567890123', 'post text')
                 )
-        ).to.be.rejectedWith(NotFoundError, 'Post not found')
-    })
+        ).to.be.rejectedWith(NotFoundError, /^post not found$/)
+    )
+
+    //TODO add validation error test cases
+    //TODO add system error test cases
 
     after(() => db.disconnect())
 })

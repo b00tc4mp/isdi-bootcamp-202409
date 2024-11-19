@@ -27,7 +27,7 @@ describe('getUserName', () => {
     it('fails on non-existing user', () =>
         expect(
             getUserName('012345678901234567890123', '012345678901234567890123')
-        ).to.be.rejectedWith(NotFoundError, 'User not found')
+        ).to.be.rejectedWith(NotFoundError, 'user not found')
     )
 
     it('fails on non-existing target-user', () =>

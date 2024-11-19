@@ -1,6 +1,6 @@
 import './Login.css'
 
-import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../components/library'
+import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from './library'
 
 import logic from '../logic'
 

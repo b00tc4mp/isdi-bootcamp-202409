@@ -34,7 +34,7 @@ describe('authenticateUser', () => {
     it('fails on non-existing user', () =>
         expect(
             authenticateUser('cocoloco', '123123123')
-        ).to.be.rejectedWith(CredentialsError, 'Wrong credentials')
+        ).to.be.rejectedWith(CredentialsError, 'wrong credentials')
     )
 
     after(() => db.disconnect())

@@ -9,50 +9,49 @@ const { expect } = chai
 import db, { User, Post } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError } = errors
+const { NotFoundError, ValidationError, SystemError } = errors
 
 import getPosts from './getPosts.js'
 
 describe('getPosts', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
-    beforeEach(() => {
-        return Promise.all([User.deleteMany(), Post.deleteMany()])
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+
+    it('succeeds for existing user', () => {
+        const user = new User({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+        const post = new Post({ author: user.id, image: 'https://www.image.com', text: 'post text', date: new Date(2024, 10, 18) })
+        const post2 = new Post({ author: user.id, image: 'https://www.image.com/2', text: 'post2 text', date: new Date(2024, 10, 19) })
+
+        return Promise.all([user.save(), post.save(), post2.save()])
+            .then(([user, post, post2]) =>
+                getPosts(user.id)
+                    .then(posts => {
+                        expect(posts[0].id).to.equal(post2.id)
+                        expect(posts[0].author.id).to.equal(user.id)
+                        expect(posts[0].author.username).to.equal(user.username)
+                        expect(posts[0].image).to.equal(post2.image)
+                        expect(posts[0].text).to.equal(post2.text)
+                        expect(posts[0].date).to.deep.equal(post2.date)
+
+                        expect(posts[1].id).to.equal(post.id)
+                        expect(posts[1].author.id).to.equal(user.id)
+                        expect(posts[1].author.username).to.equal(user.username)
+                        expect(posts[1].image).to.equal(post.image)
+                        expect(posts[1].text).to.equal(post.text)
+                        expect(posts[1].date).to.deep.equal(post.date)
+                    })
+            )
     })
 
-    it('succeeds on getting the posts', () =>
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-            .then(() => User.findOne({ username: 'cocoloco' }))
-            .then(user => Post.create([
-                { author: user.id, image: 'http://image1.com', text: 'First post' },
-                { author: user.id, image: 'http://image2.com', text: 'Second post' }
-            ])
-                .then(() => getPosts(user.id)
-                    .then(posts => {
-                        expect(posts).to.exist
-                        expect(posts[0].author.toString()).to.equal(user.id)
-                        expect(posts[0].text).to.equal('First post')
-                        expect(posts[1].author.toString()).to.equal(user.id)
-                        expect(posts[1].text).to.equal('Second post')
-                    })
-                )
-            )
+    it('fails on non-existing user', () =>
+        expect(
+            getPosts('012345678901234567890123')
+        ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
-    it('fails on non-existing user', () => {
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-            .then(() => User.findOne({ username: 'cocoloco' }))
-            .then(user => Post.create([
-                { author: '444444444444444444444444', image: 'http://image1.com', text: 'First post' },
-                { author: '444444444444444444444444', image: 'http://image2.com', text: 'Second post' }
-            ])
-                .then(() =>
-                    expect(
-                        getPosts('012345678901234567890123')
-                    ).to.be.rejectedWith(NotFoundError, 'User not found')
-                )
-            )
-    })
+    // TODO add validation error test cases
+    // TODO add system error test cases
 
     after(() => db.disconnect())
 })

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Post } from '../components/functional'
+import { Post } from './components'
 import logic from '../logic'
 import './Posts.css'
 import { errors } from 'com'

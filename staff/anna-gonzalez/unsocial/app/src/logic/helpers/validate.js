@@ -1,47 +1,48 @@
 const validateName = name => {
-    if (typeof name !== 'string') throw new Error('Invalid name')
+    if (typeof name !== 'string') throw new Error('invalid name')
     if (name.length < 2)
-        throw new Error('Invalid name length')
+        throw new Error('invalid name length')
 }
 
 const validateEmail = email => {
-    if (typeof email !== 'string') throw new Error('Invalid email')
+    if (typeof email !== 'string') throw new Error('invalid email')
     if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
-        throw new Error('Invalid email')
+        throw new Error('invalid email')
 }
 
 const validateUsername = username => {
-    if (typeof username !== 'string') throw new Error('Invalid username')
+    if (typeof username !== 'string') throw new Error('invalid username')
     if (username.length < 4 || username.length > 12)
-        throw new Error('Invalid username length')
+        throw new Error('invalid username length')
 }
 
 const validatePassword = password => {
-    if (typeof password !== 'string') throw new Error('Invalid password')
+    if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8)
-        throw new Error('Invalid password length')
+        throw new Error('invalid password length')
 }
 
 const validatePasswordsMatch = (password, passwordRepeat) => {
-    if (typeof passwordRepeat !== 'string') throw new Error('Invalid password repeat')
+    if (typeof passwordRepeat !== 'string') throw new Error('invalid password repeat')
     if (password !== passwordRepeat)
-        throw new Error('Passwords do not match')
+        throw new Error('passwords do not match')
 }
 
 const validateImage = image => {
-    if (typeof image !== 'string') throw new Error('Invalid image')
+    if (typeof image !== 'string') throw new Error('invalid image')
 }
 
 const validateText = text => {
-    if (typeof text !== 'string') throw new Error('Invalid text')
+    if (typeof text !== 'string') throw new Error('invalid text')
 }
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new Error(`invalid ${explain}`)
+    if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
 const validateCallback = callback => {
-    if (typeof callback !== 'function') throw new Error('Invalid callback')
+    if (typeof callback !== 'function') throw new Error('invalid callback')
 }
 
 const validate = {

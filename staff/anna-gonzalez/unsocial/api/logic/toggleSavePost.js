@@ -13,8 +13,8 @@ export default (userId, postId) => {
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
-            if (!user) throw new NotFoundError('User not found')
-            if (!post) throw new NotFoundError('Post not found')
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
             const { saves } = post
 
