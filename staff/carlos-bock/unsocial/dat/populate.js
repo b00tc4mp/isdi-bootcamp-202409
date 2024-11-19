@@ -1,9 +1,10 @@
 import 'dotenv/config';
 import db, { User, Post } from './index.js';
 
-db.connect(process.env.MONGO_URL)
+db.connect('mongodb://localhost:27017/unsocial-test') //process.env.MONGO_URL
     .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
-    .then(() => Promise.all([User.create({
+    .then(() => Promise.all([
+        User.create({
         name: 'Peter Parker',
         email: 'peter@db.com',
         username: 'pparker',

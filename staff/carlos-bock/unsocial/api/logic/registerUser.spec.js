@@ -25,7 +25,9 @@ describe('registerUser', () => {
                 expect(user).to.exist;
                 expect(user.name).to.equal('Hakate Kakashi')
                 expect(user.email).to.equal('hkakashi@kh.gov')
+                expect(user.username).to.equal('hkakshi')
                 expect(user.password).to.equal('123123123')
+                
             })
         )
 
