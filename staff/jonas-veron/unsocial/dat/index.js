@@ -1,5 +1,5 @@
 import { connect, disconnect } from "mongoose";
-import models from "./models.js";
+import { User, Post, Comment } from "./models.js";
 // import "./boost-mongoose.js";
 
 const db = {
@@ -9,4 +9,4 @@ const db = {
 
 export default db;
 
-export { models };
+export { User, Post, Comment };

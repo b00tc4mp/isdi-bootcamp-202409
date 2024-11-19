@@ -11,7 +11,7 @@ import {
   errorHandler,
 } from "./helpers/index.js";
 
-db.connect(process.env.MONGO_URL_TEST).then(() => {
+db.connect(process.env.MONGO_URL).then(() => {
   console.log("connected to db");
 
   const server = express();
@@ -30,8 +30,8 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
       return logic
         .authenticateUser(username, password)
-        .then((userId) =>
-          jwt.sign({ sub: userId }, process.env.JWT_SECRET, {
+        .then(({ id, role }) =>
+          jwt.sign({ sub: id, role }, process.env.JWT_SECRET, {
             expiresIn: "1h",
           })
         )

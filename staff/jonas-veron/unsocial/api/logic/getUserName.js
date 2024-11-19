@@ -1,7 +1,6 @@
-import { models } from "dat";
+import { User } from "dat";
 import { validate, errors } from "com";
 
-const { User } = models;
 const { NotFoundError, SystemError } = errors;
 
 export default (userId, targetUserId) => {

@@ -94,6 +94,8 @@ export default function Post({
 
       <time>{getElapsedTime(date)} ago</time>
 
+      {logic.getUserRole() === "moderator" && <Button>💀</Button>}
+
       {view === "comments" && (
         <Comments
           postId={id}
