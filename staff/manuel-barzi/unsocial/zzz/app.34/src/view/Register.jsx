@@ -1,4 +1,6 @@
-import { PasswordInput, Input, Button, Form, Field, Label } from './library'
+import './Register.css'
+
+import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
 
 import logic from '../logic'
 
@@ -45,7 +47,7 @@ export default function Register(props) {
         props.onLoginClick()
     }
 
-    return <main className="flex justify-center items-center flex-col h-full box-border bg-[var(--back-color)]">
+    return <main className="Register">
         <h2>Register</h2>
 
         <Form onSubmit={handleSubmit}>

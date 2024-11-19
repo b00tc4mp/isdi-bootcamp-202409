@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { Post } from './components'
+import { Post } from '../components/functional'
 
 import logic from '../logic'
 

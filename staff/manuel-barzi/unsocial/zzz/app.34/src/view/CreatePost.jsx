@@ -1,6 +1,6 @@
 import logic from '../logic'
 
-import { Label, Input, Button, Form, Field } from './library'
+import { Label, Input, Button, Form, Field } from '../components/library'
 
 import './CreatePost.css'
 
