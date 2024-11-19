@@ -1,26 +1,31 @@
-import { validate } from './helpers'
-import getPosts from './getPosts'
-import uuid from '../data/uuid'
+import { validate, errors } from '../../../com'
 
-export default (image, text) => {
+const { SystemError } = errors
+
+export default (image, text, callback) => {
     validate.image(image)
     validate.text(text)
+    validate.callback(callback)
 
-    // const posts = JSON.parse(localStorage.posts)
-    
-    const posts = getPosts()
+    const xhr = new XMLHttpRequest
 
-    const post = {
-        id: uuid(),
-        image: image,
-        text: text,
-        author: sessionStorage.userId,
-        date: new Date,
-        likes: [],
-        comments: []
-    }
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    posts.push(post)
+        if (status === 201) {
+            callback(null)
 
-    localStorage.posts = JSON.stringify(posts)
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        callback(new Error(message))
+    })
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify({ image, text }))
 }

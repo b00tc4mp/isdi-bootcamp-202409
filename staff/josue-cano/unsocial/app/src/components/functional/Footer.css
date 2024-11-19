@@ -1,6 +1,6 @@
 .Footer {
     height: 3rem;
-    background-color: black; 
+    background-color: rgba(0, 0, 0, 0.9); /* Transparencia sutil */
     box-sizing: border-box;
     position: fixed;
     width: 100%;
@@ -8,5 +8,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ffffff; /* Texto en blanco para contraste */
+    color: #ffffff;
+    border: none; 
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.5); /* Sombra para dar un efecto flotante */
+}
+.Footer button:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
 }

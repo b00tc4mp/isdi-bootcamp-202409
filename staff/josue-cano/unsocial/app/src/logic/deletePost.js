@@ -1,21 +1,32 @@
-import { validate } from "./helpers"
+import { validate, errors } from '../../../com'
 
-export default postId => {
+const { SystemError } = errors
+
+export default (postId, callback) => {
     validate.id(postId, 'postId')
+    validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest
 
-    const index = posts.findIndex(({ id }) => id === postId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (index < 0) throw new Error('post not found')
+        if (status === 204) {
+            callback(null)
 
-    const post = posts[index]
+            return
+        }
 
-    const { author } = post
+        const { error, message } = JSON.parse(response)
 
-    if (author !== sessionStorage.userId) throw new Error('user is not author of post')
+        const constructor = errors[error]
 
-    posts.splice(index, 1)
+        callback(new constructor(message))
+    })
 
-    localStorage.posts = JSON.stringify(posts)
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('DELETE', `http://${import.meta.env.VITE_API_URL}/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.send()
 }

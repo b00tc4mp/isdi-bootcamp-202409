@@ -1,26 +1,33 @@
-export default () => {
-    
-    //si no hay nada me creas una array vacia
-    const users = JSON.parse(localStorage.users) || []
-    
+import { validate, errors } from "../../../com";
 
-    const localPosts = localStorage.posts
-    //si localposts existe o tiene un valor lo pasas a objeto o  creas una array vacio
-    const posts = localPosts ? JSON.parse(localStorage.posts) :  []
+const { SystemError } = errors
 
-    const { userId } = sessionStorage
+export default callback => {
+    validate.callback(callback)
 
-    posts.forEach(post => {
-        const { author: authorId } = post
+    const xhr = new XMLHttpRequest
 
-        const { username } = users.find(({ id }) => id === authorId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-        post.author =  authorId
+        if (status === 200) {
+            const posts = JSON.parse(response)
 
-        post.liked = post.likes.includes(userId)
+            callback(null, posts)
 
-        post.comments = post.comments.length
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
-    return posts.toReversed()
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.send()
 }

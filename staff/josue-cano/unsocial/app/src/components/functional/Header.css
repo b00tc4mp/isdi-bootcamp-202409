@@ -10,10 +10,11 @@
     top: 0;
     width: 100%;
     color: #ffffff; /* Texto en blanco */
-
-    h1 {
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    /* h1 {
         margin: 0;
         font-size: x-large;
         font-family: "Antisocial", sans-serif; 
-    }
+    } */
 }

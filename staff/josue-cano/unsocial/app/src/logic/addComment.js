@@ -1,23 +1,34 @@
-import { validate } from './helpers'
+import { validate, errors } from '../../../com'
 
-import uuid from '../data/uuid'
+const { SystemError } = errors
 
-export default (postId, text) => {
+export default (postId, text, callback) => {
     validate.id(postId, 'postId')
     validate.text(text)
+    validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest
 
-    const post = posts.find(({ id }) => id === postId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (!post) throw new Error('post not found')
+        if (status === 201) {
+            callback(null)
 
-    post.comments.push({
-        id: uuid(),
-        author: sessionStorage.userId,
-        text,
-        date: new Date
+            return
+        }
+
+        const { error, message } = JSON.parse(response)
+
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
-    localStorage.posts = JSON.stringify(posts)
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.send(JSON.stringify({ text }))
 }

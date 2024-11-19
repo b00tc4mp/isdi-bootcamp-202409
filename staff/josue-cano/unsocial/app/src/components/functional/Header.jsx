@@ -1,20 +1,37 @@
+import { useState, useEffect } from 'react'
 import { Button } from '../library'
 
 import logic from '../../logic'
 
 import './Header.css'
 
-export default ({ view, onHomeClick, onLoggedOut }) => {
-    let name
+export default function Header({ view, onHomeClick, onLoggedOut }) {
+    const [name, setName] = useState(null)
 
-    if (logic.isUserLoggedIn())
-        try {
-            name = logic.getUserName()
-        } catch (error) {
-            alert(error.message)
+    useEffect(() => {
+        console.log('Header -> componentDidMount & componentWillReceiveProps')
 
-            console.error(error)
-        }
+        if (logic.isUserLoggedIn()) {
+            if (!name)
+                try {
+                    logic.getUserName((error, name) => {
+                        if (error) {
+                            alert(error.message)
+
+                            console.error(error)
+
+                            return
+                        }
+
+                        setName(name)
+                    })
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+        } else setName(null)
+    }, [view])
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -30,10 +47,12 @@ export default ({ view, onHomeClick, onLoggedOut }) => {
         }
     }
 
-    return <header className="Header">
-        <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+    console.log('Header -> render')
 
-        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+    return <header className="Header">
+        <h1> {view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+
+        {name && <h3>{name}</h3>}
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
     </header>

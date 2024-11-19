@@ -1,24 +1,33 @@
-import { validate } from "./helpers"
+import { validate, errors } from '../../../com'
 
-export default (postId, commentId) => {
+const { SystemError } = errors
+
+export default (postId, commentId, callback) => {
     validate.id(postId, 'postId')
     validate.id(commentId, 'commentId')
+    validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest
 
-    const post = posts.find(({ id }) => id === postId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    const { comments } = post
+        if (status === 204) {
+            callback(null)
 
-    const index = comments.findIndex(({ id }) => id === commentId)
+            return
+        }
 
-    if (index < 0) throw new Error('comment not found')
+        const { error, message } = JSON.parse(response)
 
-    const { author } = comments[index]
+        const constructor = errors[error]
+        
+        callback(new constructor(message))
+    })
 
-    if (author !== sessionStorage.userId) throw new Error('user is not author of comment')
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    comments.splice(index, 1)
-
-    localStorage.posts = JSON.stringify(posts)
+    xhr.open('DELETE', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.send()
 }

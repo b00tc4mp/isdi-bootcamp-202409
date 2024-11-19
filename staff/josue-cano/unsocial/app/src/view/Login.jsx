@@ -4,29 +4,45 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import logic from '../logic'
 
-export default props => {
+export default function Login (props)  {
     console.log('Login -> render')
 
-    return <main className="Login">
-        <h2>Login</h2>
+    const handleSubmit = event => {
+        event.preventDefault()
 
-        <Form onSubmit={event => {
-            event.preventDefault()
+        const { target: { username: { value: username }, password: { value: password } } } = event
 
-            const { target: { username: { value: username }, password: { value: password } } } = event
+        try {
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    alert(error.message)
 
-            try {
-                logic.loginUser(username, password)
+                    console.error(error)
+
+                    return
+                }
 
                 event.target.reset()
 
                 props.onLoggedIn()
-            } catch (error) {
-                alert(error.message)
+            })
+        } catch (error) {
+            alert(error.message)
 
-                console.error(error)
-            }
-        }}>
+            console.error(error)
+        }
+    }
+
+    const handleRegisterClick = event => {
+        event.preventDefault()
+
+        props.onRegisterClick()
+    }
+
+    return <main className="Login">
+        <h2>Login</h2>
+
+        <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="username">Username</Label>
                 <Input type="text" id="username" />
@@ -40,10 +56,6 @@ export default props => {
             <Button type="submit">Login</Button>
         </Form>
 
-        <a href="" onClick={event => {
-            event.preventDefault()
-
-            props.onRegisterClick()
-        }}>Register</a>
+        <a href="" onClick={handleRegisterClick}>Register</a>
     </main>
 }

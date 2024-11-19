@@ -1,0 +1,7 @@
+.Label::before {
+    content: '[';
+}
+
+.Label::after {
+    content: ']';
+}

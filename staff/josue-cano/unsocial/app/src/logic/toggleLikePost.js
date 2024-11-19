@@ -1,21 +1,32 @@
-import { validate } from './helpers'
+import { validate, errors } from '../../../com'
 
-export default postId => {
+const { SystemError } = errors
+
+export default (postId, callback) => {
     validate.id(postId, 'postId')
+    validate.callback(callback)
 
-    const posts = JSON.parse(localStorage.posts)
+    const xhr = new XMLHttpRequest
 
-    const post = posts.find(({ id }) => id === postId)
+    xhr.addEventListener('load', () => {
+        const { status, response } = xhr
 
-    if (!post) throw new Error('post not found')
+        if (status === 204) {
+            callback(null)
 
-    const { likes } = post
-    const { userId } = sessionStorage
+            return
+        }
 
-    const index = likes.indexOf(userId)
+        const { error, message } = JSON.parse(response)
 
-    if (index < 0) likes.push(userId)
-    else likes.splice(index, 1)
+        const constructor = errors[error]
 
-    localStorage.posts = JSON.stringify(posts)
+        callback(new constructor(message))
+    })
+
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('PATCH', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/like`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.send()
 }
