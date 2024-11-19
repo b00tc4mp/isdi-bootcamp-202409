@@ -98,6 +98,8 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
       <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
 
       <Button onClick={handleSaveClick}>📂</Button>
+
+      {logic.isUserRoleModerator() && <Button>💀</Button>}
     </div>
 
     {view === 'comments' && <Comments

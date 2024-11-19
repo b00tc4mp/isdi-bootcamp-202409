@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
+@tailwind base;
+@tailwond components;
+@tailwind utilities;
+
 *,
 ::before,
 ::after {
