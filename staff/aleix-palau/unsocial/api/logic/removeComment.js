@@ -1,7 +1,6 @@
-import { models } from 'dat'
+import { User, Post } from 'dat'
 import { validate, errors } from 'com'
 
-const { User, Post } = models
 const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
@@ -11,7 +10,7 @@ export default (userId, postId, commentId) => {
 
     return Promise.all([
         User.findById(userId).lean(),
-        Post.findById(postId) // no pq sino n podriem fer el save d dsp
+        Post.findById(postId) // no 'lean' pq n podríem fer el save d dsp
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {

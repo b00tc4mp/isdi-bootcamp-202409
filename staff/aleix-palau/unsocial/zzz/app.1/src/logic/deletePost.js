@@ -1,4 +1,6 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
 
 export default (postId, callback) => {
     validate.id(postId, 'postId')
@@ -17,10 +19,14 @@ export default (postId, callback) => {
 
         const { error, message } = JSON.parse(response)
 
-        callback(new Error(message))
+        const constructor = errors[error]
+
+        callback(new constructor(message))
     })
 
-    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    xhr.open('DELETE', `http://${import.meta.env.VITE_API_URL}/posts/${postId}`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
     xhr.send()
 }
