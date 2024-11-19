@@ -11,12 +11,10 @@ export default (username, password, callback) => {
     xhr.addEventListener('load', () => {
         const { status, response } = xhr
 
-
-
         if (status === 200) {
-            const userId = JSON.parse(response)
+            const token = JSON.parse(response)
 
-            sessionStorage.userId = userId
+            sessionStorage.token = token
 
             callback(null)
 
@@ -27,7 +25,7 @@ export default (username, password, callback) => {
 
         const constructor = errors[error]
 
-        callback(new Error(message))
+        callback(new constructor(message))
     })
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))

@@ -1,7 +1,5 @@
-import { models } from 'dat'
+import { User } from 'dat'
 import { validate, errors } from 'com'
-
-const { User } = models
 
 const { SystemError, NotFoundError } = errors
 
@@ -15,7 +13,7 @@ export default (userId, targetUserId) => {
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, targetUser]) => {
             if (!user) throw new NotFoundError('user not found')
-            if (!targetUser) throw new NotFoundError('user not found')
+            if (!targetUser) throw new NotFoundError('target user not found')
 
             return targetUser.name
         })

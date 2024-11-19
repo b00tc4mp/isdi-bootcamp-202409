@@ -85,6 +85,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
 
         <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
+        {logic.isUserRoleModerator() && <Button>💀</Button>}
 
         {view === 'comments' && <Comments
             postId={id}
