@@ -9,7 +9,7 @@ const { expect } = chai;
 import db, { User, Post } from "dat";
 import { errors } from "com";
 
-const { NotFoundError, SystemError } = errors;
+const { NotFoundError, ValidationError, SystemError } = errors;
 
 import createPost from "./createPost.js";
 
@@ -25,20 +25,15 @@ describe("createPost", () => {
       username: "robinhood",
       password: "123123123",
     }).then((user) =>
-      createPost(
-        user.id,
-        "https://images.squarespace-cdn.com/content/v1/6137f1eafdd46630c1744367/118c6bda-87ce-422c-95eb-1c8085e160f4/DSC00486-2.jpg",
-        "PRUEBA!!!!!!!"
-      )
-        .then(() => Post.findOne({ author: user.id }))
+      createPost(user.id, "https://www.image.com", "hola mundo")
+        .then(() => Post.findOne())
+
         .then((post) => {
           expect(post).to.exist;
-          expect(post.author.toString()).to.equal(user.id.toString());
+          expect(post.author.toString()).to.equal(user.id);
           expect(post.author.toString()).to.have.lengthOf(24);
-          expect(post.image).to.equal(
-            "https://images.squarespace-cdn.com/content/v1/6137f1eafdd46630c1744367/118c6bda-87ce-422c-95eb-1c8085e160f4/DSC00486-2.jpg"
-          );
-          expect(post.text).to.equal("PRUEBA!!!!!!!");
+          expect(post.image).to.equal("https://www.image.com");
+          expect(post.text).to.equal("hola mundo");
           expect(post.text).to.be.a.string;
         })
     ));
@@ -47,20 +42,76 @@ describe("createPost", () => {
     expect(
       createPost(
         "012345678901234567890123",
-        "https://images.squarespace-cdn.com/content/v1/6137f1eafdd46630c1744367/118c6bda-87ce-422c-95eb-1c8085e160f4/DSC00486-2.jpg",
-        "PRUEBA!!!!!!!"
+        "https://www.image.com",
+        "hola mundo"
       )
     ).to.be.rejectedWith(NotFoundError, "user not found"));
 
-  it("fails a system"),
-    () =>
+  it("fails on non-string user-id", () =>
+    expect(() =>
+      createPost(true, "https://www.image.com", "hola mundo")
+    ).to.throw(ValidationError, /^invalid userId$/));
+
+  it("fails on non-24-chars-length user-id", () =>
+    expect(() =>
+      createPost("0123", "https://www.image.com", "hello world")
+    ).to.throw(ValidationError, /^invalid userId length$/));
+
+  it("fails on non-tring image", () =>
+    expect(() =>
+      createPost("012345678901234567890123", "https://www.image.com", true)
+    ).to.throw(ValidationError, /^invalid text$/));
+
+  it("fails on non string text", () =>
+    expect(() =>
+      createPost("012345678901234567890123", "https://www.image.com", true)
+    ).to.throw(ValidationError, /^invalid text$/));
+
+  describe("fails on User.findById error", () => {
+    let findById;
+
+    beforeEach(() => {
+      findById = User.findById;
+      User.findById = () =>
+        Promise.reject(new Error("system error on User.findById"));
+    });
+
+    it("fails on User.findById error", () =>
       expect(
         createPost(
-          invalid - id,
-          "https://images.squarespace-cdn.com/content/v1/6137f1eafdd46630c1744367/118c6bda-87ce-422c-95eb-1c8085e160f4/DSC00486-2.jpg",
-          "PRUEBA!!!!!!!"
+          "012345678901234567890123",
+          "https://www.image.com",
+          "hello world"
         )
-      ).to.be.rejectedWith(SystemError(error.message));
+      ).to.be.rejectedWith(SystemError, /^system error on User.findById$/));
+
+    afterEach(() => (User.findById = findById));
+  });
+
+  describe("fails on Post.create error", () => {
+    let create;
+
+    beforeEach(() => {
+      create = Post.create;
+
+      Post.create = () =>
+        Promise.reject(new Error("system error on Post.create"));
+    });
+
+    it("fails on Post.create error", () =>
+      expect(
+        User.create({
+          name: "Coco Loco",
+          email: "coco@loco.com",
+          username: "cocoloco",
+          password: "123123123",
+        }).then((user) =>
+          createPost(user.id, "https://www.image.com", "hola mundo")
+        )
+      ).to.be.rejectedWith(SystemError, /^system error on Post.create$/));
+
+    afterEach(() => (Post.create = create));
+  });
 
   after(() => db.disconnect());
 });
