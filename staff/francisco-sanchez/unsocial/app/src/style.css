@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 
 ::before,
@@ -22,17 +26,17 @@ body {
     /*display: flex;
     flex-direction: column;
     align-items: center;*/
-    height: 100%;
-    margin: 0;
+    /*  height: 100%; */
+    /*   margin: 0; */
     font-weight: 400;
     font-style: normal;
     /*padding-left: 10%;
     padding-right: 10%;*/
 }
 
-#root {
+/* #root {
     height: 100%;
-}
+} */
 
 h1,
 h2,
