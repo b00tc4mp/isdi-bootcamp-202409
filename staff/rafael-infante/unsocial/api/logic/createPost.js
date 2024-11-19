@@ -18,7 +18,7 @@ export default (userId, image, text) => {
         image,
         text
       })
-        .catch(error => error => { throw new SystemError(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
     })
     .then(_ => { })
 }
