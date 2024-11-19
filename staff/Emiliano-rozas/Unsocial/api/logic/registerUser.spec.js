@@ -35,5 +35,5 @@ describe('registerUser', () => {
                 .then(() => registerUser('Chomo Loco', 'chomo@loco.com', 'chomoloco', '123123123', '123123123'))
         ).to.be.rejectedWith(DuplicityError, 'user already exists')
     )
-    after(() => db.disconnect)
+    after(() => db.disconnect())
 })

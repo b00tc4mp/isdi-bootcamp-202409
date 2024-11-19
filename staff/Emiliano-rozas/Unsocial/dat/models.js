@@ -70,7 +70,8 @@ const post = new Schema({
     },
     date: {
         type: Date,
-        ref: 'User'
+        ref: 'User',
+        default: Date.now
     },
     likes: [{
         type: ObjectId,

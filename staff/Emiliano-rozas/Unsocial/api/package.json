@@ -1,19 +1,21 @@
 {
   "name": "api",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.0",
+  "description": "",
   "type": "module",
+  "main": "index.js",
   "scripts": {
     "start": "node .",
     "inspect": "node --inspect-brk .",
     "test": "mocha logic/*.spec.js",
+    "test-one": "mocha",
     "test-inspect": "mocha --inspect-brk logic/*.spec.js",
+    "test-inspect-one": "mocha --inspect-brk",
     "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js --timeout 20000"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "com": "file:../com",
     "cors": "^2.8.5",
