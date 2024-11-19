@@ -12,6 +12,9 @@ export default (username, password) => {
         .then(user => {
             if (!user) throw new CredentialsError('wrong credentials')
 
-            return user._id.toString()
+            return{
+                userId: user._id.toString(),
+                role: user.role
+            } 
         })
 }

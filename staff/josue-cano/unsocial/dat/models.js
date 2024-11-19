@@ -34,9 +34,9 @@ const user = new Schema(
     },
     role: {
       type: String,
-      required: false,
+      required: true,
       enum: ['regular', 'moderator'],
-      minLength: 8
+      default: 'regular',
     },
   
   },

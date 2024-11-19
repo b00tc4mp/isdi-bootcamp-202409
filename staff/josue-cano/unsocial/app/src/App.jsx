@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 import { Login, Register, Post, CreatePost } from './view'
 
-import Header from './components/functional/Header'
-import Footer from './components/functional/Footer'
+import Header from './view/components/Header'
+import Footer from './view/components/Footer'
 
 import logic from './logic'
 

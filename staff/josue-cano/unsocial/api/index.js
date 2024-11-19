@@ -29,8 +29,8 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
       return logic
         .authenticateUser(username, password)
-        .then((userId) =>
-          jwt.sign({ sub: userId,  }, process.env.JWT_SECRET, { expiresIn: "1h" })
+        .then(({userId, role}) =>
+          jwt.sign({ sub: userId, role }, process.env.JWT_SECRET, { expiresIn: "1h" })
         )
         .then((token) => res.json(token));
     })

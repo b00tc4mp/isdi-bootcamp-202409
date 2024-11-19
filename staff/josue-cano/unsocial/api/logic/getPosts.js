@@ -11,10 +11,11 @@ export default userId => {
         User.findById(userId).lean(),
         Post.find().populate('author', 'username').sort({ date: -1 }).lean()
     ])
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => { console.log(error)
+            throw new SystemError(error.message) })
         .then(([user, posts]) => {
             if (!user) throw new NotFoundError('user not found')
-
+                console.log(posts)
             posts.forEach(post => {
                 post.id = post._id.toString()
                 delete post._id
