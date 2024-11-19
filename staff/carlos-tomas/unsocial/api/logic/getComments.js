@@ -1,12 +1,12 @@
 import { User, Post } from 'dat'
+
 import { validate, errors } from 'com'
 
-const { SystemError, NotFoundError } = errors
+const { NotFoundError, SystemError } = errors
 
 export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
-
 
     return Promise.all([
         User.exists({ _id: userId }),
@@ -30,7 +30,7 @@ export default (userId, postId) => {
                     delete author._id
                 }
             })
-
             return comments
         })
+
 }

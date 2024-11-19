@@ -41,11 +41,12 @@ const validateText = text => {
 }
 
 const validateId = (id, explain = 'id') => {
-    if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
+    if (typeof id !== 'string') throw new ValidationError(`invalid${explain}`)
+    if (id.length !== 24) throw new ValidationError(`invalid${explain} length`)
 }
 
 const validateCallback = callback => {
-    if (typeof callback !== 'function') throw new ValidationError("invalid callback");
+    if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 
 }
 
