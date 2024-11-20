@@ -9,6 +9,9 @@ import loginUser from './loginUser'
 import logoutUser from './logoutUser'
 import registerUser from './registerUser'
 import getUserId from './getUserId'
+import getUserRole from './getUserRole'
+import isUserRoleModerator from './isUserRoleModerator'
+import isUserRoleRegular from './isUserRoleRegular'
 
 
 import createComment from './createComment'
@@ -22,6 +25,10 @@ const logic = {
     logoutUser,
     getUserName,
     getUserId,
+    getUserRole,
+    isUserRoleModerator,
+    isUserRoleRegular,
+
 
     getComments,
     createComment,

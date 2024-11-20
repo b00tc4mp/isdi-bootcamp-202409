@@ -96,6 +96,8 @@ export default function PostItem({ post, onLiked, onDeleted, onCommented, onComm
                 {author.id === logic.getUserId() &&
                     <Button type="button" className="delete"
                         onClick={handleDeleteCLick}>❌</Button>}
+
+                {logic.isUserRoleModerator() && <Button>🔨</Button>}
             </div>
         </div>
 
