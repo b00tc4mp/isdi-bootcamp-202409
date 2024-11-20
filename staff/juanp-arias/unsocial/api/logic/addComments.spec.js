@@ -89,7 +89,7 @@ describe('addComment', () => {
             ).to.be.rejectedWith(SystemError, /^system error on Post.findById$/)
         )
 
-        afterEach(() => User.findById = findById)
+        afterEach(() => Post.findById = findById)
     })
 
     after(() => db.disconnect())

@@ -19,7 +19,8 @@
     "cors": "^2.8.5",
     "dat": "file:../dat",
     "express": "^4.21.1",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.10.0"
   },
   "devDependencies": {
     "c8": "^10.1.2",
@@ -27,6 +28,7 @@
     "chai-as-promised": "^8.0.0",
     "dotenv": "^16.4.5",
     "mocha": "^10.8.2",
+    "mongoose": "^8.8.2",
     "monocart-coverage-reports": "^2.11.2"
   }
 }

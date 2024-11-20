@@ -4,9 +4,9 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, postId, commentId) => {
-    validate.id(userId, 'user Id')
-    validate.id(postId, 'post Id')
-    validate.id(commentId, 'comment Id')
+    validate.id(userId, 'userId')
+    validate.id(postId, 'postId')
+    validate.id(commentId, 'commentId')
 
     return Promise.all([
         User.findById(userId).lean(),
@@ -21,8 +21,7 @@ export default (userId, postId, commentId) => {
 
             if (!comment) throw new NotFoundError('comment not found')
 
-            if (!comment.author.equals(userId))
-                throw new OwnershipError('not your comment')
+            if (!comment.author.equals(userId)) throw new OwnershipError('user not author of comment')
 
             comment.deleteOne({ _id: commentId })
 

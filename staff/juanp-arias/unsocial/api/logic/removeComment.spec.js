@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Post, Comment } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError, OwnershipError } = errors
+const { NotFoundError, OwnershipError } = errors
 
 import removeComment from './removeComment.js'
 
@@ -26,7 +26,7 @@ describe('removeComment', () => {
         return Promise.all([user.save(), post.save()])
             .then(([user, post]) =>
                 removeComment(user.id, post.id, post.comments[0].id)
-                    .then(() => Post.findOne())
+                    .then(() => Post.findById(post.id))
                     .then(post => {
                         expect(post).to.exist
                         expect(post.comments).to.have.lengthOf(0)
@@ -72,7 +72,7 @@ describe('removeComment', () => {
                 .then(([user, user2, post]) =>
                     removeComment(user2.id, post.id, post.comments[0].id)
                 )
-        ).to.be.rejectedWith(OwnershipError, /^not your comment$/)
+        ).to.be.rejectedWith(OwnershipError, /^user not author of comment$/)
     })
 
     // TODO add validation error test cases
