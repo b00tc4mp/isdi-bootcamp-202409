@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Posts, CreatePost } from './view'
+import { Login, Register, Home, CreatePost } from './view'
+import Hello from './view/Hello'
+import Search from './view/Search'
 
 import Header from './view/components/Header'
 import Footer from './view/components/Footer'
@@ -8,46 +10,44 @@ import Footer from './view/components/Footer'
 import logic from './logic'
 
 export default function App() {
-  const [view, setView] = useState(logic.isUserLoggedIn() ? 'posts' : 'login')
+  const navigate = useNavigate()
 
-  const handlePostCreated = () => setView('posts')
+  const handlePostCreated = () => navigate('/')
 
-  const handleUserLoggedOut = () => setView('login')
+  const handleUserLoggedOut = () => navigate('/login')
 
-  const handleUserLoggedIn = () => setView('posts')
+  const handleUserLoggedIn = () => navigate('/')
 
-  const handleRegisterClick = () => setView('register')
+  const handleRegisterClick = () => navigate('/register')
 
-  const handleLoginClick = () => setView('login')
+  const handleLoginClick = () => navigate('/login')
 
-  const handleUserRegistered = () => setView('login')
+  const handleUserRegistered = () => navigate('/login')
 
-  const handleNewPostClick = () => setView('new-post')
+  const handleNewPostClick = () => navigate('/new-post')
 
-  const handleHomeClick = () => setView('posts')
+  const handleHomeClick = () => navigate('/')
 
   return <>
     <Header
-      view={view}
       onHomeClick={handleHomeClick}
       onLoggedOut={handleUserLoggedOut} />
 
-    {view === 'login' && <Login
-      onLoggedIn={handleUserLoggedIn}
-      onRegisterClick={handleRegisterClick}
-    />}
+    <Routes>
+      <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
-    {view === 'register' && <Register
-      onLoginClick={handleLoginClick}
-      onRegistered={handleUserRegistered}
-    />}
+      <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
 
-    {view === 'posts' && <Posts />}
+      <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
 
-    {view === 'new-post' && <CreatePost
-      onCreated={handlePostCreated} />}
+      <Route path="/new-post" element={logic.isUserLoggedIn() ? <CreatePost onCreated={handlePostCreated} /> : <Navigate to="/login" />} />
+
+      {/* extra demos */}
+      <Route path="hello/:name" element={<Hello />} />
+      <Route path="/search" element={<Search />} />
+    </Routes>
 
     <Footer
-      onNewPostClick={handleNewPostClick} view={view} />
+      onNewPostClick={handleNewPostClick} />
   </>
 }

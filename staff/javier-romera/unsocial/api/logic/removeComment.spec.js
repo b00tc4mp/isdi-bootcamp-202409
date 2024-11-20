@@ -13,7 +13,7 @@ const { NotFoundError, OwnershipError } = errors
 
 import removeComment from './removeComment.js'
 
-describe('deletePost', () => {
+describe('removeComment', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() =>

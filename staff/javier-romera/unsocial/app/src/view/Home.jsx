@@ -8,7 +8,7 @@ const { SystemError } = errors
 
 import logic from '../logic'
 
-import './Posts.css'
+import './Home.css'
 
 export default function Posts() {
     const [posts, setPosts] = useState([])
@@ -131,7 +131,7 @@ export default function Posts() {
         }
     }
 
-    return <div className="Posts">
+    return <div className="Home">
         {initiated && posts.map(post => <Post
             key={post.id}
 

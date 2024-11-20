@@ -58,8 +58,8 @@ export default props => {
                 <Input type="password" id="password" autoComplete="off"></Input>
             </Field>
 
-            <Button type="submit" classname="border-solid border-2 px-1.5 py-0.5 border-gray-500">Login</Button>
+            <Button type="submit" classname="border-solid border-2 px-1.5 py-0.5 border-gray-500 mt-4">Login</Button>
         </Form>
-        <Anchor href="" onClick={handleRegisterClick}>Register</Anchor>
+        <Anchor classname="mt-4 underline" href="" onClick={handleRegisterClick}>Register</Anchor>
     </main>
 }
