@@ -4,7 +4,7 @@ import logic from '../../logic'
 
 import getElapsedTime from '../../util'
 
-export default function Comment ({postId, comment: {id, author, text, date}, onRemoved, }) {
+export default function Comment ({ postId, comment: {id, author, text, date}, onRemoved, }) {
     console.log('Comment -> render')
 
     const handleRemove = () => {

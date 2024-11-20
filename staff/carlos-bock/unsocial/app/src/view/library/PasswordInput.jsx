@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Input from './Input';
 
-export default function PasswordInput ({id}) {
+export default function PasswordInput ({ id }) {
         const [status, setStatus] = useState('🙈');
         const [type, setType] = useState ('password');
         //console.log('PasswordInput -> constructor')

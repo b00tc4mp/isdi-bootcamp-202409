@@ -31,7 +31,7 @@ export default function Login(props) {
 
                 event.target.reset();
 
-                props.onLoggedin();
+                props.onLoggedIn();
             })
         } catch (error) {
             alert(error.message);

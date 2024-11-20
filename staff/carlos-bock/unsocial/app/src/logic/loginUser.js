@@ -31,9 +31,10 @@ const loginUser = (username, password, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')));
 
-    xhr.open('POST', 'http://localhost:8080/authenticate');
+    xhr.open('POST', 'http://localhost:8080/users/auth');//    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users/auth`)
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({ username, password }));   
+    const credentials = {username, password};
+    xhr.send(JSON.stringify(credentials));   
 }
 
 export default loginUser;

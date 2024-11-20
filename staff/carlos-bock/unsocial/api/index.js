@@ -19,7 +19,7 @@ db.connect(process.env.MONGO_URL).then(()=> {
 
         server.get('/',(_,res) => res.send('Hello, API'));
 
-        server.post('/users/auth', jsonBodyParser, createFunctionalHandler, ((req, res) => {
+        server.post('/users/auth', jsonBodyParser, createFunctionalHandler((req, res) => {
                 const {username, password} = req.body;
                 
                 return logic.authenticateUser(username, password)
@@ -33,7 +33,7 @@ db.connect(process.env.MONGO_URL).then(()=> {
                 logic.registerUser(name, email, username, password, passwordRepeat).then(() => res.status(201).send())
         }));
 
-        server.get('/users/:targetUserId/name', authorizationHandler, ((req, res) => {
+        server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
             const { userId, params: { targetUserId } } = req;
             
             return logic.getUserName(userId, targetUserId).then(name => res.json(name))
@@ -51,13 +51,13 @@ db.connect(process.env.MONGO_URL).then(()=> {
             return logic.getPosts(userId).then(post => res.json(post));
         }));
 
-        server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler ((req,res) => {
+        server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler((req,res) => {
             const { userId, params: { postId }} = req;
 
             return logic.deletePost(userId, postId).then(() => res.status(204).send());
         }));
 
-        server.patch('/posts/:postId/likes', authorizationHandler, createFunctionalHandler ((req, res) => {
+        server.patch('/posts/:postId/likes', authorizationHandler, createFunctionalHandler((req, res) => {
             const { userId, params: { postId } } = req;
 
             return logic.toggleLikePost(userId, postId).then(() => res.status(204).send())
@@ -69,13 +69,13 @@ db.connect(process.env.MONGO_URL).then(()=> {
             return logic.addComment(userId, postId, text).then(() => res.status(201).send())
         }));
 
-        server.delete('/post/:postId/comments/:commentId', authorizationHandler, createFunctionalHandler ((req, res) => {
+        server.delete('/post/:postId/comments/:commentId', authorizationHandler, createFunctionalHandler((req, res) => {
             const { userId, params: { postId, commentId } } = req;
 
             return logic.removeComment(userId, postId, commentId).then(() => res.status(204).send());
         }));
 
-        server.get('/posts/:postId/comments', authorizationHandler, createFunctionalHandler ((req, res) => {
+        server.get('/posts/:postId/comments', authorizationHandler, createFunctionalHandler((req, res) => {
             const { userId, params: { postId } } = req;
             
             return logic.getComments(userId, postId).then(comments => res.json(comments));

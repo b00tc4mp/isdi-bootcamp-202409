@@ -22,7 +22,7 @@ describe('addComment', () => {
 
     it('succeeds for exisint user', () => {
         const user = new User({ name: 'Ethan Hunt', email: 'hunt@imf.gov', username: 'ehunt', password: '123123123'});
-        const comment = new Comment({ author: user.id, text: 'mission accomplished'});
+        const post = new Post({ author: user.id, image: 'https://www.image.com',text: 'mission accomplished'});
 
         return Promise.all([user.save(), post.save()])
             .then(([user, post]) => 
@@ -34,7 +34,7 @@ describe('addComment', () => {
 
                         const [comment] = post.comments;
                         expect(comment.author.toString()).to.equal(user.id);
-                        expect(comment.text).to.equal('hello comment');
+                        expect(comment.text).to.equal('mission accomplished');
                         expect(comment.date).to.be.instanceOf(Date);
                     })
                     
@@ -49,7 +49,7 @@ describe('addComment', () => {
 
     it('fails on non-existing post', () => 
         expect(
-            user.create({ name: 'Ethan Hunt', email: 'hunt@imf.gov', username: 'ehunt', password: '123123123'})
+            User.create({ name: 'Ethan Hunt', email: 'hunt@imf.gov', username: 'ethanhunt', password: '123123123'})
                 .then(user => 
                     addComment(user.id, '012345678901234567890123', 'mission failure')
                 )

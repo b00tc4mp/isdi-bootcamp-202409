@@ -17,7 +17,7 @@ import getUserName from './getUserName.js';
 describe('getUserName', () => {
     before(() => db.connect('mongodb://localhost:27017/unsocial-test'));
 
-    beforeEach(() => User.deleteMahy());
+    beforeEach(() => User.deleteMany());
 
     it('succeeds on existing user', () => 
         User.create({ name: 'Hakate Kakashi', email: 'hkakashi@hk.gov', username: 'hkakashi', password: '123123123' })

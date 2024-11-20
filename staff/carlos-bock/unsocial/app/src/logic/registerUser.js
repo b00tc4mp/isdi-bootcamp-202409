@@ -31,7 +31,7 @@ const registerUser = (name, email, username, password, passwordRepeat, callback)
     xhr.addEventListener('error', () => callback(new SystemError('server error')));
 
 
-    xhr.open('POST', 'http://localhost:8080/register');
+    xhr.open('POST', 'http://localhost:8080/register');//    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users`)
     xhr.setRequestHeader('Conent-Type', 'application/json');
     xhr.send(JSON.stringify({name,email, username, password, 'password-repeat': passwordRepeat}));
 };

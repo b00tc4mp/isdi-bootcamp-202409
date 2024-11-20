@@ -5,7 +5,8 @@ import Comments from './Comments';
 
 import logic from '../../logic';
 
-import { getElapsedTime } from '../../util';
+import util from '../../util';
+const { getElapsedTime } = util;
 
 import './Post.css';
 

@@ -22,12 +22,12 @@ const createPost = (image, text, callback) => {
 
         const constructor = errors[error]
 
-        callback( new constructor(message));
+        callback(new constructor(message));
     })
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')));
 
-    xhr.open('POST', 'http://localhost:8080/posts');
+    xhr.open('POST', 'http://localhost:8080/posts');//xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({image,text}));

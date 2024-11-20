@@ -1,6 +1,6 @@
 import logic from '../logic'
 
-import {Label, Input, Button, Form, Field} from '../components/library'
+import { Label, Input, Button, Form, Field } from '../components/library'
 
 import './CreatePost.css'
 
@@ -36,7 +36,7 @@ export default function CreatePost({ onCreated }){
             console.error(error);
         }
     }
-    //consider removing style elements below.
+    
     return <main className="CreatePost">
         <Form onSubmit={handleSubmit}>
                 <Field>

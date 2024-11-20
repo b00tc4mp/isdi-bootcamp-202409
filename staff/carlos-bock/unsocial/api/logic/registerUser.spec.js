@@ -1,5 +1,5 @@
-import 'dotenv/config';
-//console.log(process.env.MONGO_URL_TEST)
+//import 'dotenv/config';
+console.log(process.env.MONGO_URL_TEST)
 import * as chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 

@@ -1,2 +1,1 @@
-const isUserLoggedIn =() => sessionStorage.userId !== undefined;
-export default isUserLoggedIn;
+export default () => sessionStorage.token !== undefined;
