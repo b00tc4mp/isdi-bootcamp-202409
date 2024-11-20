@@ -47,16 +47,6 @@ main {
     box-sizing: border-box;
 }
 
-/* input {
-    background-color: white;
-    font-family: inherit;
-    width: 95%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #fcf9f9;
-    border-radius: 4px;
-} */
-
 
 ul {
     list-style-type: none;
@@ -80,44 +70,6 @@ section {
     box-sizing: border-box;
 }
 
-/* @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-}
-
-section::after,
-section::before {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-image: conic-gradient(from var(--angle), blue red cyan orange);
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    z-index: -1;
-    padding: 3px;
-    border-radius: 10px;
-    animation: 3s spin linear infinite;
-
-}
-
-section::before {
-    filter: blur(1.5rem);
-    opacity: 0.5;
-}
-
-@keyframes spin {
-    from {
-        --angle: 0deg;
-    }
-
-    to {
-        --angle: 360deg;
-    }
-} */
-
 
 h2,
 h3 {
@@ -133,103 +85,6 @@ h1 {
     font-size-adjust: inherit;
 }
 
-/* p {
-    font-size: 14px;
-    line-height: 1.4;
-    color: #555;
-
-}
-
-time {
-    font-size: 12px;
-    color: #777;
-
-} */
-
-/* label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-} */
-
-/* button {
-    width: 100%;
-    padding: 10px;
-    background-color: #7F462C;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #f86109;
-} */
-
-/* a {
-    text-align: center;
-    display: block;
-    margin: auto;
-    margin-bottom: 20px;
-    color: #7F462C;
-    transition: all 0.5s ease
-}
-
-a:hover {
-    color: #cc4b0f;
-} */
-
-/* 
-form {
-    padding: 30px;
-} */
-
-/* img {
-    border: 1px solid;
-    border: 2cap;
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    border-radius: 1%;
-    transition: all 0.5s ease;
-}
-
-.PostItem img {
-    max-height: 300px;
-
-}
-
-img:hover {
-    transform: scale(1.08);
-}
-
-.PostItem {
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-} */
-
-
-
-
-/* img:hover {
-    transform: scale(1.08);
-} */
-
-/* .passwordInput {
-    height: 35px; 
-    display: flex;
-    background-color: white;
-    border: 1px solid #fcf9f9;
-    border-radius: 4px;
-    align-items: baseline;
-    display: flex;
-    align-items: baseline;
-    margin-bottom: 10px;
-
-} */
 
 .carita {
     cursor: pointer;
@@ -243,13 +98,6 @@ img:hover {
     gap: 15px;
 }
 
-/* .contenedorBotones {
-    display: inline-flex;
-    align-items: stretch;
-    column-gap: 1rem;
-    align-items: baseline;
-    margin-top: 1rem;
-} */
 
 .home {
     align-content: center;
@@ -297,16 +145,6 @@ img:hover {
     gap: 20px;
 }
 
-/* .showComents {
-    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
-    cursor: pointer;
-    border-radius: 4px;
-    padding: 10px;
-    background-color: #7F462C;
-    transition: all 0.5s ease;
-    font-size: 11px;
-    margin-left: 1rem;
-} */
 
 .showComents:hover {
     background-color: #cc4b0f;
@@ -318,23 +156,3 @@ img:hover {
     display: flex;
 }
 
-/* @media (max-width: 600px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .home {
-        max-width: 90%;
-        margin: 10px auto;
-    }
-
-    .postArticle {
-        width: 100%;
-        padding: 10px;
-    }
-
-    img {
-        width: 100%;
-    }
-} */

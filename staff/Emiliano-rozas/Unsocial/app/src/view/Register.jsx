@@ -51,7 +51,7 @@ export default function Register(props) {
 
 
     return <section className='Register'>
-        <h2>Register</h2>
+        <h2 class="text-center text-[18px] text-[#333]">Register</h2>
 
         <Form onSubmit={handleSubmit}>
 

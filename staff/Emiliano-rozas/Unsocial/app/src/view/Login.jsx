@@ -2,7 +2,7 @@ import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../com
 
 import logic from '../logic'
 
-import './Login.css'
+// import './Login.css'
 
 export default function Login(props) {
     console.log("Login -> render")
@@ -43,8 +43,8 @@ export default function Login(props) {
 
     }
 
-    return <section className='Login'>
-        <h2>Login</h2>
+    return <section className='content-center max-w-96 mt-20 bord rounded-lg'>
+        <h2 class="text-center text-[18px] text-[#333]">Login</h2>
 
         <Form onSubmit={handleSubmit}>
 

@@ -34,7 +34,7 @@ export default function comments({ postId, comment: { id, author, text, date }, 
     }
 
 
-    return <section>
+    return <section class="align-center p-5 max-w-[400px] mx-auto mt-12 mb-12 bg-[#dcd7d7] rounded-[10px] shadow-md w-full box-border">
 
         <li>
             <h4>{author.username}</h4>

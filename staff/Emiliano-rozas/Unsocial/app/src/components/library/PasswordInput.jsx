@@ -16,9 +16,9 @@ export default function PasswordInput({ id }) {
 
     console.log('PasswordInput -> render')
 
-    return <div className='passwordInput'>
+    return <div className="h-[35px] flex bg-white border border-[#fcf9f9] rounded-md items-baseline mb-2 w-[95%]  " >
         <Input type={type} id={id} />
-        <span className='carita'
+        <span className="cursor-pointer relative right-2"
             onClick={handleToggleClick}
         >{status}</span>
     </div >

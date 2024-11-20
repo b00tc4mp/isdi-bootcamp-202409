@@ -4,14 +4,14 @@ import { Post } from '../components/functional'
 
 import logic from '../logic'
 
-import './Posts.css'
+// import './Posts.css'
 
 
-export default function Posts() {
+export default function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.log('Posts -> useEffect "componentDidMount"')
+        console.log('Home -> useEffect "componentDidMount"')
 
         try {
             logic.getPosts((error, posts) => {
@@ -115,10 +115,10 @@ export default function Posts() {
     }
 
 
-    console.log('Posts -> render')
+    console.log('Home -> render')
 
     return <section className='PostList'>
-        <h3> Posts</h3>
+        <h3 class="text-center text-[18px] text-[#333]"> Posts</h3>
         {posts.map(post => <Post
             key={post.id}
 
@@ -130,7 +130,7 @@ export default function Posts() {
 
             onCommentAdded={handleCommentAdded}
 
-            onCommentRemoved={handleCommentRemoved} // = props 
+            onCommentRemoved={handleCommentRemoved}
         />)}
 
     </section >

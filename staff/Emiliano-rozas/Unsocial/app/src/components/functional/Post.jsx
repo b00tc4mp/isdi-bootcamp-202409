@@ -8,7 +8,7 @@ import logic from '../../logic'
 
 import { getElapsedTime } from '../../utils'
 
-import './Post.css'
+// import './Post.css'
 
 export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
     const [view, setView] = useState(null)
@@ -72,19 +72,19 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
     console.log('PostItem -> render')
 
-    return < article className="Post" >
+    return < article className="Post p-2.5 mb-3.5 rounded-[10px] shadow-lg" >
 
         <h4>{author.username}</h4>
+        <div className="Post p-2.5 mb-3.5 rounded-[10px] shadow-lg">
+            <img className="border border-solid border-[1px] max-w-full w-full h-auto rounded-[1%] transition-all duration-500 ease-in-out hover:scale-105" src={image} />
+        </div>
+        <p className="text-[14px] leading-[1.4] text-[#555]">{text}</p>
 
-        <img src={image} />
+        <time className="text-[12px] text-[#777]">{getElapsedTime(date)} ago </time>
 
-        <p>{text}</p>
+        <div classNameName='contenedorBotones'>
 
-        <time>{getElapsedTime(date)} ago </time>
-
-        <div className='contenedorBotones'>
-
-            <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}{`${likes} `}</Button>
+            <Button className="inline-flex items-baseline gap-4" onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}{`${likes} `}</Button>
 
             {author.id === logic.getUserId() && <Button type="button" onClick={handleDeleteClick}>🗑️</Button>}
 

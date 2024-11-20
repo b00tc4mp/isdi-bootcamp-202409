@@ -81,8 +81,8 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
     console.log('Comments -> render')
 
-    return <section>
-        <ul>
+    return <section className="align-center p-5 max-w-[400px] mx-auto mt-12 mb-12 bg-[#dcd7d7] rounded-[10px] shadow-md w-full box-border">
+        <ul className="list-none text-center p-0">
             {comments.map(comment =>
                 <Comment
                     key={comment.id}

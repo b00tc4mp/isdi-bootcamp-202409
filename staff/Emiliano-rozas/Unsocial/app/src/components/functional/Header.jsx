@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react'
 
-
-import './Header.css'
+import { useLocation } from 'react-router-dom'
 
 import { Button, Anchor } from '../library'
 
 import logic from '../../logic'
 
 
-export default function Header({ view, onHomeClick, onLoggedOut }) {
-
+export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
 
+    const location = useLocation()
 
     useEffect(() => {
         console.log('Header -> componentDidMount')
@@ -36,7 +35,7 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
                     console.error(error)
                 }
         } else setName(null)
-    }, [view])
+    }, [location.pathname])
 
 
     const handleHomeClick = event => {
@@ -60,16 +59,16 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
 
     console.log('Header -> render')
 
-    return <header className='Header'>
+    return <header className="Header fixed top-0 w-full z-10 bg-[rgba(220,215,215,0.9)] p-4 h-[6%] box-border flex justify-between items-center">
 
-        <h1> {view === 'new-post' ? <Anchor href="" onClick={handleHomeClick}>Unsocial</Anchor> : 'Unsocial'}</h1 >
+        <h1 className="text-center text-black font-bold text-[inherit]"> {location.pathname === '/new-post' ? <Anchor href="" onClick={handleHomeClick}>Unsocial</Anchor> : 'Unsocial'}</h1 >
 
-        <div className='TopNav'>
+        <div className="TopNav inline-flex items-stretch flex-row px-5 py-2.5 gap-4 whitespace-nowrap">
 
-            {name && <h3>{name}</h3>}
+            {name && <h3 className="w-full text-sm mx-1.5">{name}</h3>}
 
 
-            {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
+            {logic.isUserLoggedIn() && <Button className="text-[12px]" type="button" onClick={handleLogout}>Logout</Button>}
 
         </div>
 

@@ -2,7 +2,7 @@ import logic from '../logic'
 
 import { Form, Label, Input, Button } from '../components/library'
 
-import './CreatePost.css'
+// import './CreatePost.css'
 
 
 export default function CreatePost({ onCreated, onCancel }) {
@@ -39,9 +39,9 @@ export default function CreatePost({ onCreated, onCancel }) {
         }
     }
 
-    return <main>
-        <section className='CreatePost'>
-            <h3>Create Post</h3>
+    return <main className="w-full p-5 flex-1 box-border">
+        <section className="align-center p-5 max-w-[400px] mx-auto mt-12 mb-12 bg-[#dcd7d7] rounded-[10px] shadow-md w-full box-border">
+            <h3 className="text-center text-[18px] text-[#333]">Create Post</h3>
 
             <Form onSubmit={handleSubmit}>
                 <Label htmlFor="image">Imagen</Label>
@@ -49,13 +49,10 @@ export default function CreatePost({ onCreated, onCancel }) {
 
                 <Label htmlFor="text">Text</Label>
                 <Input type="text" id="text" />
-                <div className='botonesCreate'>
+                <div class="flex">
                     <Button type="submit">Submit</Button>
 
-                    <Button type="button" onClick={() => {
-                        onCancel()
-                    }
-                    }>↪</Button>
+                    <Button type="button" onClick={onCancel}>↪</Button>
                 </div>
 
             </Form>

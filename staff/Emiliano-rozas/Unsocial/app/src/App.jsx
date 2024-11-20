@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Posts, CreatePost } from './view'
+import { Login, Register, Home, CreatePost } from './view'
+
+import Hello from './view/Hello'
+
+import Search from './view/Search'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
@@ -8,35 +12,34 @@ import Footer from './components/functional/Footer'
 import logic from './logic'
 
 export default function App() {
+  const navigate = useNavigate()
 
-  const [view, setView] = useState(logic.isUserLoggedIn() ? "posts" : "login")
 
+  const handleHomeclick = () => navigate('/')
 
-  const handleHomeclick = () => setView('posts')
+  const handleLoggedOut = () => navigate('/login')
 
-  const handleLoggedOut = () => setView('login')
+  const handleLoggedIn = () => navigate("/")
 
-  const handleLoggedIn = () => setView("posts")
+  const handleRegister = () => navigate("/register")
 
-  const handleRegister = () => setView("register")
+  const handleLogBack = () => navigate("/login")
 
-  const handleLogBack = () => setView("login")
+  const handleUserRegistered = () => navigate('/login')
 
-  const handleUserRegistered = () => setView('login')
+  const handlePostCreated = () => navigate('/')
 
-  const handlePostCreated = () => setView('posts')
+  const handleOnCanceled = () => navigate('/')
 
-  const handleOnCanceled = () => setView('posts')
-
-  const handleNewPostClick = () => setView('new-post')
+  const handleNewPostClick = () => navigate('/new-post')
 
   console.log('App-> render')
 
   return <>
 
-    <Header view={view} onHomeClick={handleHomeclick} onLoggedOut={handleLoggedOut} />
+    <Header onHomeClick={handleHomeclick} onLoggedOut={handleLoggedOut} />
 
-    {view === "login" && <Login
+    {/* {view === "login" && <Login
       onLoggedIn={handleLoggedIn}
       registerInquire={handleRegister}
     />}
@@ -51,9 +54,24 @@ export default function App() {
     {view === 'new-post' && <CreatePost
       onCreated={handlePostCreated}
       onCancel={handleOnCanceled}
-    />}
+    />} */}
 
-    <Footer onNewPostClick={handleNewPostClick} view={view} />
+    <Routes>
+      <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleLoggedIn} registerInquire={handleRegister} />} />
+
+      <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register logBack={handleLogBack} onRegistered={handleUserRegistered} />} />
+
+      <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : < Navigate to="/login" />} />
+
+      <Route path="/new-post" element={logic.isUserLoggedIn() ? <CreatePost onCreated={handlePostCreated} OnCancel={handleOnCanceled} /> : <Navigate to="/login" />} />
+
+      {/* Demos search & hello user */}
+      <Route path="/hello/:name" element={<Hello />} />
+      <Route path="/search" element={<Search />} />
+
+    </Routes>
+
+    <Footer onNewPostClick={handleNewPostClick} />
   </>
 }
 
