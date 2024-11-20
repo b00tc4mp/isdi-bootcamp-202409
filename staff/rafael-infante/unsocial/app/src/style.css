@@ -7,22 +7,6 @@
 :root {
   --font: 'Poppins';
   font-family: var(--font);
-  background-color: #e4b83494;
-  margin: 0;
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  height: 100%;
-}
-
-#root {
-  height: 100%;
 }
 
 #bottom-text,
