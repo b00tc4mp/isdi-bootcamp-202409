@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import {Post} from '../components/functional';
+import { Post } from './components';
 
 import logic from "../logic";
 
@@ -114,7 +114,7 @@ export default function Posts() {
  
         console.log('Posts -> render')
 
-        return <div className="Posts">
+        return <div className="py-12">
             {posts.map(post => <Post
                 key={post.id}
                 post = {post}
