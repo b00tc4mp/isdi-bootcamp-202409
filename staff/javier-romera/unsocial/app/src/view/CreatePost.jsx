@@ -1,6 +1,6 @@
 import logic from '../logic'
 
-import { Form, Field, Label, Input, Button } from '../components/library'
+import { Form, Field, Label, Input, Button } from './library'
 
 import { errors } from 'apu'
 

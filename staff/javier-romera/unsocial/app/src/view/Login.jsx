@@ -1,12 +1,10 @@
 import logic from '../logic'
 
-import { Anchor, Form, Label, Input, Field, Button } from '../components/library'
+import { Anchor, Form, Label, Input, Field, Button } from './library'
 
 import { errors } from 'apu'
 
 const { SystemError } = errors
-
-import './Login.css'
 
 export default props => {
     const handleSubmit = event => {
@@ -46,10 +44,10 @@ export default props => {
         props.onRegisterClick()
     }
 
-    return <main className="Login">
-        <h2>Login</h2>
+    return <main className="Login flex items-center flex-col h-9/10 bg-[black] mt-12 box-border">
+        <h2 className="pt-8 pb-4">Login</h2>
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} classname="flex justify-center flex-col items-center w-full">
             <Field>
                 <Label htmlFor="username">Username</Label>
                 <Input type="text" id="username" autoComplete="on"></Input>
@@ -60,7 +58,7 @@ export default props => {
                 <Input type="password" id="password" autoComplete="off"></Input>
             </Field>
 
-            <Button type="submit" classname="login-button">Login</Button>
+            <Button type="submit" classname="border-solid border-2 px-1.5 py-0.5 border-gray-500">Login</Button>
         </Form>
         <Anchor href="" onClick={handleRegisterClick}>Register</Anchor>
     </main>

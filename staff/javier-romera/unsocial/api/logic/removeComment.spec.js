@@ -16,100 +16,69 @@ import removeComment from './removeComment.js'
 describe('deletePost', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
-    beforeEach(() => {
-        return Promise.all([
+    beforeEach(() =>
+        Promise.all([
             User.deleteMany(),
             Post.deleteMany()
         ])
-    })
-
-    it('succeeds on removing a comment', () =>
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-            .then(user =>
-                Post.create({ author: user.id, image: 'http://invented-image.com', text: 'post text' })
-                    .then(post => {
-                        const comment1 = new Comment({ author: user.id, text: 'comment1' })
-                        post.comments.push(comment1)
-
-                        const comment2 = new Comment({ author: user.id, text: 'comment2' })
-                        post.comments.push(comment2)
-
-                        return post.save()
-                            .then(post => {
-                                removeComment(user.id, post.id, post.comments[0].id)
-                                    .then(() => {
-                                        expect(post.comments).to.have.lengthOf(1)
-                                    })
-                            })
-                    })
-            )
     )
 
-    it('fails on non-existing user', () =>
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-            .then(user =>
-                Post.create({ author: user.id, image: 'http://invented-image.com', text: 'post text' })
+    it('succeeds on removing a comment', () => {
+        const user = new User({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+        const comment = new Comment({ author: user.id, text: 'hello comment' })
+        const post = new Post({ author: user.id, image: 'https://www.image.com', text: 'hello world', comments: [comment] })
+
+        return Promise.all([user.save(), post.save()])
+            .then(([user, post]) =>
+                removeComment(user.id, post.id, post.comments[0].id)
+                    .then(() => Post.findById(post.id))
                     .then(post => {
-                        const comment1 = new Comment({ author: user.id, text: 'comment1' })
-                        post.comments.push(comment1)
-
-                        const comment2 = new Comment({ author: user.id, text: 'comment2' })
-                        post.comments.push(comment2)
-
-                        return post.save()
-                            .then(post =>
-                                expect(
-                                    removeComment('012345678901234567890123', post.id, post.comments[0].id)
-                                ).to.be.rejectedWith(NotFoundError, 'user not found')
-                            )
+                        expect(post).to.exist
+                        expect(post.comments).to.have.lengthOf(0)
                     })
             )
+    })
+
+    it('fails on non-existing user', () =>
+        expect(
+            removeComment('012345678901234567890123', '012345678901234567890123', '012345678901234567890123')
+        ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
     it('fails on non-existing post', () =>
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-            .then(user =>
-                Post.create({ author: user.id, image: 'http://invented-image.com', text: 'post text' })
-                    .then(post => {
-                        const comment1 = new Comment({ author: user.id, text: 'comment1' })
-                        post.comments.push(comment1)
-
-                        const comment2 = new Comment({ author: user.id, text: 'comment2' })
-                        post.comments.push(comment2)
-
-                        return post.save()
-                            .then(post =>
-                                expect(
-                                    removeComment(user.id, '012345678901234567890123', post.comments[0].id)
-                                ).to.be.rejectedWith(NotFoundError, 'post not found')
-                            )
-                    })
-            )
+        expect(
+            User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+                .then(user =>
+                    removeComment(user.id, '012345678901234567890123', '012345678901234567890123')
+                )
+        ).to.be.rejectedWith(NotFoundError, /^post not found$/)
     )
 
-    it('fails on user not author of comment', () =>
-        User.create({ name: 'Coca Loca', email: 'coca@loca.com', username: 'cocaloca', password: '123123123' })
-            .then(_user =>
-                User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-                    .then(user =>
-                        Post.create({ author: user.id, image: 'http://invented-image.com', text: 'post text' })
-                            .then(post => {
-                                const comment1 = new Comment({ author: user.id, text: 'comment1' })
-                                post.comments.push(comment1)
+    it('fails on non-existing comment', () => {
+        const user = new User({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+        const post = new Post({ author: user.id, image: 'https://www.image.com', text: 'hello world' })
 
-                                const comment2 = new Comment({ author: user.id, text: 'comment2' })
-                                post.comments.push(comment2)
+        return expect(
+            Promise.all([user.save(), post.save()])
+                .then(([user, post]) =>
+                    removeComment(user.id, post.id, '012345678901234567890123')
+                )
+        ).to.be.rejectedWith(NotFoundError, /^comment not found$/)
+    })
 
-                                return post.save()
-                                    .then(post =>
-                                        expect(
-                                            removeComment(_user.id, post.id, post.comments[0].id)
-                                        ).to.be.rejectedWith(OwnershipError, 'user not author of comment')
-                                    )
-                            })
-                    )
-            )
-    )
+    it('fails on user not author of comment', () => {
+        const user = new User({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+        const user2 = new User({ name: 'Coca Loca', email: 'coca@loca.com', username: 'cocaloca', password: '123123123' })
+        const comment = new Comment({ author: user.id, text: 'hello comment' })
+        const post = new Post({ author: user.id, image: 'https://www.image.com', text: 'hello world', comments: [comment] })
+
+        return expect(
+            Promise.all([user.save(), user2.save(), post.save()])
+                .then(([user, user2, post]) =>
+                    removeComment(user2.id, post.id, post.comments[0].id)
+                )
+        ).to.be.rejectedWith(OwnershipError, /^user not author of comment$/)
+    })
 
     after(() => db.disconnect())
 })
