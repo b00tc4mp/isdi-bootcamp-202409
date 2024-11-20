@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Button, Anchor } from '../library'
 import logic from '../../logic'
 import './Header.css'
@@ -6,8 +7,10 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default function Header({ view, onHomeClick, onLoggedOut }) {
+export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
+
+    const location = useLocation()
 
     useEffect(() => {
         console.log('Header -> componentDidMount & componentWillReceiveProps')
@@ -35,7 +38,7 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
                     console.error(error)
                 }
         } else setName(null)
-    }, [view])
+    }, [location.pathname])
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -51,12 +54,14 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
         }
     }
 
-    return <header className={`Header ${view !== 'posts' && view !== 'new-post' ? 'Header--transparent' : ''}`}>
+    console.log('Header -> render')
 
-        <h1>{view === 'new-post' ? <Anchor className="header-anchor" href=""
+    return <header className={`Header ${location.pathname !== '/' && location.pathname !== '/new-post' && location.pathname !== '/search' ? 'Header--transparent' : ''}`}>
+
+        <h1>{location.pathname === '/new-post' || location.pathname === '/search' ? <Anchor className="header-anchor" href=""
             onClick={handleHomeClick}>UNSOCIAL</Anchor> : 'UNSOCIAL'}</h1>
 
-        {logic.isUserLoggedIn() && <h3>{name}</h3>}
+        {name && <h3>{name}</h3>}
 
         {logic.isUserLoggedIn() && <Button className="header-button" type="button"
             onClick={handleLogout}>Logout</Button>

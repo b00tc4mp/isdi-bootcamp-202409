@@ -1,10 +1,13 @@
+import { useLocation } from 'react-router-dom'
 import './Footer.css'
 import Button from '../library/Button'
 
-export default ({ onNewPostClick, view }) => {
+export default function Footer({ onNewPostClick }) {
     console.log('Footer -> render')
 
-    return <footer className={"Footer " + (view !== 'posts' ? 'Footer--transparent' : '')}>
-        {view === 'posts' && <Button className="footer-button" type="button" onClick={onNewPostClick}>+</Button>}
+    const location = useLocation()
+
+    return <footer className={"Footer " + (location.pathname !== '/' ? 'Footer--transparent' : '')}>
+        {location.pathname === '/' && <Button className="footer-button" type="button" onClick={onNewPostClick}>+</Button>}
     </footer>
 }

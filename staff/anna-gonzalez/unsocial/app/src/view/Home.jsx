@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import { Post } from './components'
 import logic from '../logic'
-import './Posts.css'
+import './Home.css'
 import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default function Posts() {
+export default function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.log('Posts -> useEffect "componentDidMount"')
+        console.log('Home -> useEffect "componentDidMount"')
 
         try {
             logic.getPosts((error, posts) => {
@@ -139,9 +139,9 @@ export default function Posts() {
         }
     }
 
-    console.log('Posts -> render')
+    console.log('Home -> render')
 
-    return <div className="Posts">
+    return <div className="Home">
         {posts.map(post => <Post
             key={post.id}
             post={post}
