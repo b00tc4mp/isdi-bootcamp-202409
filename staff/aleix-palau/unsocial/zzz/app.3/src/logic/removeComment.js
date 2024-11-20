@@ -2,9 +2,9 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (image, text, callback) => {
-    validate.image(image)
-    validate.text(text)
+export default (postId, commentId, callback) => {
+    validate.id(postId, 'postId')
+    validate.id(commentId, 'commentId')
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -12,7 +12,7 @@ export default (image, text, callback) => {
     xhr.addEventListener('load', () => {
         const { status, response } = xhr
 
-        if (status === 201) {
+        if (status === 204) {
             callback(null)
 
             return
@@ -27,8 +27,7 @@ export default (image, text, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({ image, text }))
+    xhr.open('DELETE', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.send()
 }

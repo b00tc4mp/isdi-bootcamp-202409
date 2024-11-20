@@ -2,8 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (postId, callback) => {
-    validate.id(postId, 'postId')
+export default callback => {
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -12,9 +11,9 @@ export default (postId, callback) => {
         const { status, response } = xhr
 
         if (status === 200) {
-            const comments = JSON.parse(response)
+            const posts = JSON.parse(response)
 
-            callback(null, comments)
+            callback(null, posts)
 
             return
         }
@@ -28,7 +27,7 @@ export default (postId, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }

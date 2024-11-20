@@ -1,10 +1,9 @@
 import { validate, errors } from 'com'
+import { extractPayloadFromJWT } from '../util'
 
 const { SystemError } = errors
 
-export default (username, password, callback) => {
-    validate.username(username)
-    validate.password(password)
+export default callback => {
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -13,11 +12,9 @@ export default (username, password, callback) => {
         const { status, response } = xhr
 
         if (status === 200) {
-            const userId = JSON.parse(response)
+            const name = JSON.parse(response)
 
-            sessionStorage.userId = userId
-
-            callback(null)
+            callback(null, name)
 
             return
         }
@@ -31,7 +28,9 @@ export default (username, password, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users/auth`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({ username, password }))
+    const { sub: userId } = extractPayloadFromJWT(sessionStorage.token)
+
+    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.send()
 }

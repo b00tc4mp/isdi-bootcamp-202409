@@ -11,8 +11,10 @@ export default (postId, callback) => {
     xhr.addEventListener('load', () => {
         const { status, response } = xhr
 
-        if (status === 204) {
-            callback(null)
+        if (status === 200) {
+            const comments = JSON.parse(response)
+
+            callback(null, comments)
 
             return
         }
@@ -26,7 +28,7 @@ export default (postId, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('DELETE', `http://${import.meta.env.VITE_API_URL}/posts/${postId}`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
+    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }

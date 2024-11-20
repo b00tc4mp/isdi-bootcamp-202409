@@ -2,8 +2,8 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (postId, text, callback) => {
-    validate.id(postId, 'postId')
+export default (image, text, callback) => {
+    validate.image(image)
     validate.text(text)
     validate.callback(callback)
 
@@ -27,8 +27,8 @@ export default (postId, text, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
 
-    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
-    xhr.setRequestHeader('Content-type', 'application/json')
-    xhr.send(JSON.stringify({ text }))
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify({ image, text }))
 }
