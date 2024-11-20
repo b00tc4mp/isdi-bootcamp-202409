@@ -19,7 +19,7 @@ export default (userId, postId) => {
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, post]) => {
             if (!user) throw new NotFoundError('user not found')
-            if (!post) throw new NotFoundError('Post not found')
+            if (!post) throw new NotFoundError('post not found')
 
             const { likes } = post
 
