@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import './Login.css';
 
 import {PasswordInput, Input, Button, Form, Field, Label} from './library';
@@ -8,7 +9,7 @@ import { errors } from 'com';
 
 const { SystemError } = errors;
 
-export default function Login(props) {
+export default function Login({onLoggedIn, onRegisterClick}) {
     console.log('Login -> render');
 
     const handleSubmit = event => {
@@ -31,7 +32,7 @@ export default function Login(props) {
 
                 event.target.reset();
 
-                props.onLoggedIn();
+                onLoggedIn();
             })
         } catch (error) {
             alert(error.message);
@@ -43,7 +44,7 @@ export default function Login(props) {
     const handleRegisterClick = event => {
         event.preventDefault();
 
-        props.onRegisterClick();
+        onRegisterClick();
     };
 
 

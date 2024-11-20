@@ -13,9 +13,9 @@ const loginUser = (username, password, callback) => {
         const { status, response } = xhr;
 
         if (status === 200) {
-            const userId = JSON.parse(response);
+            const token = JSON.parse(response);
 
-            sessionStorage.userId = userId;
+            sessionStorage.token = token;
 
             callback(null);
 
@@ -31,7 +31,7 @@ const loginUser = (username, password, callback) => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')));
 
-    xhr.open('POST', 'http://localhost:8080/users/auth');//    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users/auth`)
+    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users/auth`)
     xhr.setRequestHeader('Content-Type', 'application/json');
     const credentials = {username, password};
     xhr.send(JSON.stringify(credentials));   

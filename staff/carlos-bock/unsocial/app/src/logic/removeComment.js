@@ -28,8 +28,8 @@ const removeComment = (postId, commentId, callback) => {
     xhr.addEventListener('error', () => callback(new SystemError('server error')));
 
 
-    xhr.open('DELETE', `http://localhost:8080/posts/${postId}/comments/${commentId}`); //    xhr.open('DELETE', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`);
+    xhr.open('DELETE', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`);
     xhr.send();
 }
 

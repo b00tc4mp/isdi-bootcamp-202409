@@ -1,5 +1,7 @@
 import errors from './errors.js'
 
+const { ValidationError } = errors;
+
 const validateName = name => {
     if (typeof name !== 'string') throw new ValidationError('invalid name')
     if (name.length < 2)

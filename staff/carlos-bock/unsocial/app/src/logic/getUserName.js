@@ -1,4 +1,6 @@
-import { validate, errors } from 'com';
+import { validate, errors } from 'com'; 
+import extractPayloadFromJWT from '../util/extractPayloadFromJWT.js';
+//import { extractPayloadFromJWT } from '../util';
 
 const { SystemError } = errors;
 
@@ -27,10 +29,11 @@ const getUserName = callback => {
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')));
 
+    const { sub: userId } = extractPayloadFromJWT(sessionStorage.token)
 
-    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.userId}/name`);//    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`)
+    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`)
 
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`);
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`);
     xhr.send();
 };
 export default getUserName;

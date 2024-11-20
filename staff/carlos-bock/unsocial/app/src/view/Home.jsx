@@ -6,11 +6,11 @@ import logic from "../logic";
 
 import './Posts.css';
 
-export default function Posts() {
+export default function Home() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        console.log('Posts -> useEffect "componentDidMout"');
+        console.log('Home -> useEffect "componentDidMout"');
 
         try {
             logic.getPosts((error, posts)=> {
@@ -112,7 +112,7 @@ export default function Posts() {
     }
 
  
-        console.log('Posts -> render')
+        console.log('Home -> render')
 
         return <div className="py-12">
             {posts.map(post => <Post

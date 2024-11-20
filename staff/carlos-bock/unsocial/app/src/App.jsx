@@ -51,8 +51,6 @@ export default function App() {
     </>
 };
 
-
-
 /*
 {view === 'login' && <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick}/>} 
      
