@@ -1,6 +1,7 @@
-import './Label.css'
-
 export default ({ htmlFor, children }) => {
-    
-    return <label htmlFor={htmlFor} className="Label">{children}</label>
-}
+  return (
+    <label htmlFor={htmlFor} className="text-lg">
+      {children}
+    </label>
+  );
+};

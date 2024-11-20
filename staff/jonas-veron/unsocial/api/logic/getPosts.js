@@ -15,7 +15,6 @@ export default (userId) => {
     })
     .then(([user, posts]) => {
       if (!user) throw new NotFoundError("user not found");
-      if (!posts) throw new NotFoundError("posts not found");
 
       posts.forEach((post) => {
         post.id = post._id.toString();

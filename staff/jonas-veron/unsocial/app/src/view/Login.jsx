@@ -1,5 +1,3 @@
-import "./Login.css";
-
 import {
   PasswordInput,
   Input,
@@ -7,6 +5,7 @@ import {
   Form,
   Field,
   Label,
+  Anchor,
 } from "../components/library";
 
 import logic from "../logic";
@@ -57,8 +56,8 @@ export default function Login(props) {
   };
 
   return (
-    <main className="Login">
-      <h2>Login</h2>
+    <main className="Login m-auto mt-28 p-12 w-10/12 min-w-96 max-w-[26rem] rounded-3xl shadow-md bg-red-50">
+      <h2 className="text-2xl mb-8">Login</h2>
 
       <Form onSubmit={handleSubmit}>
         <Field>
@@ -75,10 +74,10 @@ export default function Login(props) {
           Login
         </Button>
       </Form>
-      <p>Don't you have a account ?</p>
-      <a href="" onClick={handleRegisterClick}>
+      <p className="text-center">Don't you have a account ?</p>
+      <Anchor href="" onClick={handleRegisterClick}>
         Register
-      </a>
+      </Anchor>
     </main>
   );
 }

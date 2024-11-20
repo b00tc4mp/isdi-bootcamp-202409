@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 
+import { useLocation } from "react-router-dom";
+
 import { Button } from "../library";
 
 import logic from "../../logic";
 
-import "./Header.css";
-
 export default function Header({ view, onHomeClick, onLoggedOut }) {
   const [name, setName] = useState(null);
+
+  const location = useLocation();
 
   useEffect(() => {
     console.log("Header -> componentDidMount");
@@ -31,7 +33,7 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
           console.error(error);
         }
     } else setName(null);
-  }, [view]);
+  }, [location.pathname]);
 
   const handleHomeClick = (event) => {
     try {
@@ -56,10 +58,14 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
   console.log("Header -> render");
 
   return (
-    <header className="Header">
-      <h1>
-        {view === "new-post" ? (
-          <a href="" onClick={handleHomeClick}>
+    <header className="bg-primary-color p-4 flex justify-between items-center w-full sticky top-0 z-10">
+      <h1 className="text-5xl font-cinzel font-extrabold">
+        {location.pathname === "/new-post" ? (
+          <a
+            href=""
+            onClick={handleHomeClick}
+            className="text-5xl font-cinzel font-extrabold"
+          >
             Unsocial
           </a>
         ) : (
@@ -67,8 +73,8 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
         )}
       </h1>
 
-      <div className="TopNav">
-        {name && <h3>{name}</h3>}
+      <div className="TopNav flex gap-6 items-center">
+        {name && <h3 className="text-2xl font-semibold">{name}</h3>}
 
         {logic.isUserLoggedIn() && (
           <Button type="button" className="Button" onClick={handleLogout}>

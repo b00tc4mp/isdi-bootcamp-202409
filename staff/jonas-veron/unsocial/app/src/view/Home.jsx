@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 
 import Post from "../components/functional/Post";
-import "./Posts.css";
+import "./Home.css";
 
 import logic from "../logic";
 
-export default function Posts() {
+export default function Home() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    console.log("Posts -> componentDidMount");
+    console.log("Home -> componentDidMount");
     try {
       logic.getPosts((error, posts) => {
         if (error) {

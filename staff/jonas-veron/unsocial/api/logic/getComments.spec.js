@@ -35,24 +35,29 @@ describe("getComments", () => {
     });
     const comment = new Comment({ author: user.id, text: "hello comment" });
     const comment2 = new Comment({ author: user2.id, text: "hello comment" });
-    const comment3 = new Comment({ author: user.id, text: "hello comment" });
-    const comment4 = new Comment({ author: user2.id, text: "hello comment" });
+
     const post = new Post({
       author: user.id,
       image: "https://www.image.com",
       text: "hola mundo",
-      comments: [comment, comment2, comment3, comment4],
+      comments: [comment, comment2],
     });
 
-    Promise.all([user.save(), post.save()]).then(([user, post]) =>
-      getComments(user.id, post.id)
-        .then(() => Post.findById(post.id))
-        .then((post) => {
-          expect(post).to.exist;
-          expect(post.comments[0].author.id).to.equal(user.id);
-          expect(post.comments[0].text).to.equal(comment.text);
-          expect(post.comments[0].date).to.equal(comment.date);
-          expect(post.comments).to.have.lengthOf(4);
+    return Promise.all([user.save(), user2.save(), post.save()]).then(
+      ([user, user2, post]) =>
+        getComments(user.id, post.id).then((comments) => {
+          expect(comments).to.have.lengthOf(2);
+          expect(comments[0].id).to.equal(comment.id);
+          expect(comments[0].author.id).to.equal(user.id);
+          expect(comments[0].author.username).to.equal(user.username);
+          expect(comments[0].text).to.equal(comment.text);
+          expect(comments[0].date).to.deep.equal(comment.date);
+
+          expect(comments[1].id).to.equal(comment2.id);
+          expect(comments[1].author.id).to.equal(user2.id);
+          expect(comments[1].author.username).to.equal(user2.username);
+          expect(comments[1].text).to.equal(comment2.text);
+          expect(comments[1].date).to.deep.equal(comment2.date);
         })
     );
   });

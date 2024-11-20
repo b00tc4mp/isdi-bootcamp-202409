@@ -1,17 +1,4 @@
-.Input{
-    height: 2rem;
-    width: 15rem;
-    color: rgb(16, 16, 16);
-    box-sizing: border-box;
-    font-size: 14px;
-    font-weight: 500;
-    background-color: #d6d6d6;
-    border-radius: 10px;
-    border: 1px solid black;
-    padding: 10px;
-    transition: 0.1s;
-    }
 .Input:focus {
-    background-color: #e0e0e0;
-    border-color: #009fad;
-    }
+  background-color: #e0e0e0;
+  border-color: #009fad;
+}

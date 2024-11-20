@@ -1,89 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 @media (min-width: 768px) {
-    body{
-        font-size: 1.2rem;
-    }
-}
-
-body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-color: #F4E2DE;
-    text-align: center;
-    font-size: 1rem;
-    margin-bottom: 3rem;
+  body {
+    font-size: 1.2rem;
+  }
 }
 
 :root {
-    --primary-color: #F29325;
-    --secondary-color: #000;
-    --bg-color: #F4E2DE;
-}
-
-a{  
-text-decoration: none;
-color: inerit;
-font-size: 1.2rem;
-}
-
-a:visited {
-color: inherit;
-}
-
-a:hover {
-text-decoration: underline;
+  --primary-color: #f29325;
+  --secondary-color: #000;
+  --bg-color: #f4e2de;
 }
 
 @media (min-width: 768px) {
-    body {
-        font-size: 1.2rem;
-    }
-    
-    .Header h1 {
-        font-size: 2rem;
-    }
-    
-    .Login, .Register {
-        width: 400px;
-    }
+  body {
+    font-size: 1.2rem;
+  }
 
-    .Post {
-        margin-top: 4rem;
-        padding: 1.5rem;
-    }
+  .Header h1 {
+    font-size: 2rem;
+  }
 
-    .Footer {
-        font-size: 1rem;
-    }
+  .Login,
+  .Register {
+    width: 400px;
+  }
+
+  .Post {
+    margin-top: 4rem;
+    padding: 1.5rem;
+  }
+
+  .Footer {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .Header h1 {
-        font-size: 1.5rem;
-    }
-    
-    .Login, .Register {
-        width: 90%;
-    }
-    
-    .TopNav h3 {
-        font-size: 1rem;
-    }
-    
-    a {
-        font-size: 1rem;
-    }
-    
-    .Footer {
-        font-size: 0.8rem;
-    }
+  .Header h1 {
+    font-size: 1.5rem;
+  }
 
-    .Post {
-        width: 95%;
-    }
+  .Login,
+  .Register {
+    width: 90%;
+  }
+
+  .TopNav h3 {
+    font-size: 1rem;
+  }
+
+  a {
+    font-size: 1rem;
+  }
+
+  .Footer {
+    font-size: 0.8rem;
+  }
+
+  .Post {
+    width: 95%;
+  }
 }
