@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom'
 import './Footer.css'
 
 import { Button } from '../library'
@@ -18,9 +19,11 @@ import { Button } from '../library'
 
 
 //export default ({ onNewPostClick, view }) => {
-export default function Footer({ onNewPostClick, view }) {
+export default function Footer({ onNewPostClick /*, view*/ }) {
     return <footer className="Footer">
-        {view === 'posts' && <Button type="button"
+        {/* {view === 'posts' && <Button type="button"
+            onClick={onNewPostClick}>+ New Post</Button>} */}
+        {location.pathname === '/' && <Button type="button"
             onClick={onNewPostClick}>+ New Post</Button>}
     </footer>
 }

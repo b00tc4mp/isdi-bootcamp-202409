@@ -41,10 +41,10 @@ export default ({ onCreated }) => {
         }
     }
 
-    return <article className="CreatePost">
+    return <article className="CreatePost Login flex items-center justify-center min-h-screen">
 
-        <div className="container">
-            <h3>Create new post</h3>
+        <div className="container  bg-blue-900 p-8 rounded-md">
+            <h3 className="text-3xl">Create new post</h3>
 
             <Form onSubmit={handleSubmit}>
                 <Field>

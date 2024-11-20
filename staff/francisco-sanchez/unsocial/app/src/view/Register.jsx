@@ -39,11 +39,11 @@ export default function Register(props) {
         event.preventDefault()
         props.onLoginClick()
     }
+    //flex items-center justify-center min-h-screen bg-gray-100
+    return <main className="Register flex items-center justify-center min-h-screen">
+        <div className="container bg-blue-900 p-8 rounded-md">
 
-    return <main className="Register">
-        <div className="container">
-
-            <h2>Register</h2>
+            <h2 className="text-3xl">Register</h2>
 
             <Form onSubmit={handleSubmit}>
                 <Field>

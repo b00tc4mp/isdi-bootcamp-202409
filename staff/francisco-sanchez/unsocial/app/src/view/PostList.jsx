@@ -107,8 +107,8 @@ export default function PostList() {
 
     console.log('Posts -> render')
 
-    return <main className="Home">
-        <div className="container">
+    return <main className="Home flex items-center justify-center min-h-screen">
+        <div className="container  bg-blue-900 p-8 rounded-md">
             {/* <h3>Posts</h3> */}
             {posts.map(post => <PostItem
                 key={post.id}

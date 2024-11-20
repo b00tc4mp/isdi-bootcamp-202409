@@ -5,11 +5,14 @@ import './Header.css'
 //import { Component } from 'react'
 //import logo from '../../../public/logo-unsocial-sin-fondo.png'
 import logo from '../../../public/unsocial.png'
+import { useLocation } from 'react-router-dom'
 
 
 
-export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }) {
+export default function Header({ /*view,*/ onHomeClick, onLoggedOut, onViewProfile }) {
     const [name, setName] = useState(null) //Aquí le decimos que cuando arranca el name es null
+
+    const location = useLocation()
 
     useEffect(() => {
         console.log('Header -> componentDidMount & componentWillReceiveProps')
@@ -33,7 +36,7 @@ export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }
             }
         } else setName(null)
 
-    }, [view])
+    }, [location.pathname]) //Ahora pasamos la dirección en la que nos encontramos en lugar del view que pasábamos antes
 
 
 
@@ -61,7 +64,8 @@ export default function Header({ view, onHomeClick, onLoggedOut, onViewProfile }
 
     return <header className="Header">
         <img src={logo} alt='logo' id='logo' />
-        <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+        {/* <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1> */}
+        <h1>{location.pathname === '/new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
         {name && <a href="" onClick={handleProfile}><h3 className="nombreUser">{name}</h3></a>}{/* Si nombre existe lo pinta, sino no.  */}
 
