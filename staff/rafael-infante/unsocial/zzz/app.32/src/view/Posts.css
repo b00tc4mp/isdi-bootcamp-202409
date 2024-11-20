@@ -1,0 +1,20 @@
+.Posts {
+  /* padding: 9% 0px 16% 0px; */
+  /* background-color: rgb(255, 255, 255);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; */
+}
+
+@media (min-width: 700px) {
+  .Posts {
+    width: 540px;
+  }
+}
+
+@media (max-width: 700px) {
+  .Posts {
+    width: 290px;
+  }
+}

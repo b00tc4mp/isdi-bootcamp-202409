@@ -1,10 +1,10 @@
-import Posts from "./Posts";
+import Home from "./Home";
 import Register from "./Register";
 import Login from "./Login";
 import CreatePost from "./CreatePost";
 
 export {
-  Posts,
+  Home,
   Register,
   Login,
   CreatePost
