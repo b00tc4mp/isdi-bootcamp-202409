@@ -6,7 +6,7 @@ export default function Hello() {
   const { name } = useParams()
 
   return <main className='py-20'>
-    <h1>Hello, {name}</h1>
+    <h1>Hello, {name} !</h1>
   </main>
 
 }
