@@ -40,8 +40,8 @@ export default function Login(props) {
     }
 
     return <main className="Login">
-        <div className="container">
-            <h2>Login</h2>
+        <div className="container bg-blue-900 p-8 rounded-md">
+            <h2 className="text-3xl">Login</h2>
 
             <Form onSubmit={hanleSubmit}>
                 <Field>

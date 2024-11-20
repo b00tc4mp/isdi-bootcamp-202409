@@ -5,10 +5,10 @@
 
 
 
-::before,
+/* ::before,
 ::after {
     box-sizing: border-box;
-}
+} */
 
 :root {
     --color-fondo: #07074a;
