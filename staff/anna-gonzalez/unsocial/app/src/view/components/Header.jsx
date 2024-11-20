@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Button, Anchor } from '../library'
 import logic from '../../logic'
-import './Header.css'
 import { errors } from 'com'
 
 const { SystemError } = errors
@@ -56,15 +55,16 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
     console.log('Header -> render')
 
-    return <header className={`Header ${location.pathname !== '/' && location.pathname !== '/new-post' && location.pathname !== '/search' ? 'Header--transparent' : ''}`}>
+    return <header className={location.pathname === '/' || location.pathname === '/new-post' || location.pathname === '/search' ? 'top-0 fixed flex place-content-around items-center h-16 w-full bg-black box-border py-4 font-dela-gothic-one' : 'top-0 p-4 fixed bg-transparent text-white flex justify-center items-center h-16 w-full'}>
 
-        <h1>{location.pathname === '/new-post' || location.pathname === '/search' ? <Anchor className="header-anchor" href=""
+        <h1 class="tracking-[0.1875em] font-dela-gothic-one">{location.pathname === '/new-post' || location.pathname === '/search' ? <Anchor className="header-anchor" href=""
             onClick={handleHomeClick}>UNSOCIAL</Anchor> : 'UNSOCIAL'}</h1>
 
-        {name && <h3>{name}</h3>}
+        {name && <h3 class="m-0 text-base tracking-[1px] text-[#92FF9D] font-dela-gothic-one">{name}</h3>}
 
-        {logic.isUserLoggedIn() && <Button className="header-button" type="button"
-            onClick={handleLogout}>Logout</Button>
+        {
+            logic.isUserLoggedIn() && <Button className="header-button" type="button"
+                onClick={handleLogout}>Logout</Button>
         }
     </header >
 }

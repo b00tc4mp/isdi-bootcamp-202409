@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom'
-import './Footer.css'
 import Button from '../library/Button'
 
 export default function Footer({ onNewPostClick }) {
@@ -7,7 +6,7 @@ export default function Footer({ onNewPostClick }) {
 
     const location = useLocation()
 
-    return <footer className={"Footer " + (location.pathname !== '/' ? 'Footer--transparent' : '')}>
+    return <footer className={location.pathname !== '/' ? 'bg-transparent' : 'fixed flex justify-center items-center h-16 w-full bg-black box-border bottom-0'}>
         {location.pathname === '/' && <Button className="footer-button" type="button" onClick={onNewPostClick}>+</Button>}
     </footer>
 }

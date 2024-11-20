@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'dela-gothic-one': ['"Dela Gothic One"', 'cursive'],
+      },
       backgroundImage: {
         'radial-custom': 'radial-gradient(circle at bottom left, theme("colors.green.600"), theme("colors.blue.700") 40%, theme("colors.blue.700") 50%, theme("colors.blue.700") 70%, theme("colors.green.600") 100%)',
       },
