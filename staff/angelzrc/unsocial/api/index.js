@@ -24,14 +24,14 @@ db.connect(process.env.MONGO_URL).then(() => {
         const { username, password } = req.body
 
         return logic.authenticateUser(username, password)
-            .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '2h' }))
+            .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '2h' }))
             .then(token => res.json(token))
     }))
 
     server.post('/users', jsonBodyParser, createFunctionalHandler((req, res) => {
         const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
-        return logic.registerUser(name, email, username, password, passworRepeat).then(() => res.status(201).send())
+        return logic.registerUser(name, email, username, password, passwordRepeat).then(() => res.status(201).send())
     }))
 
     server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {

@@ -1,7 +1,7 @@
-import { models } from 'dat'
+import { User, Post } from 'dat'
 import { validate, errors } from 'com'
 
-const { User, Post } = models
+
 const { SystemError, NotFoundError } = errors
 
 
@@ -22,12 +22,11 @@ export default userId => {
 
                 if (post.author._id) {
                     post.author.id = post.author._id.toString()
-                    delete post._id
+                    delete post.author._id
                 }
                 const { likes, comments } = post
 
-                post.liked = likes.some(userObjectId =>
-                    userObjectId.equals(userId))
+                post.liked = likes.some(userObjectId => userObjectId.equals(userId))
                 post.likes = likes.length
 
                 post.comments = comments.length

@@ -4,9 +4,9 @@ import { Post } from '../components/functional'
 
 import logic from '../logic'
 
-import './Posts.css'
+import './Home.css'
 
-export default function Posts() {
+export default function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -111,7 +111,7 @@ export default function Posts() {
         }
     }
 
-    console.log('Posts -> render')
+    console.log('Home -> render')
 
     return <div className="Posts">
         {posts.map(post => <Post

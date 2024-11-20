@@ -1,10 +1,8 @@
-import db from 'dat'
-import { models } from 'dat'
+import { User, Post, Comment } from 'dat'
 import { validate, errors } from 'com'
 
-const { ObjectId } = db
+
 const { SystemError, NotFoundError } = errors
-const { User, Post } = models
 
 
 export default (userId, postId, text) => {
@@ -25,7 +23,6 @@ export default (userId, postId, text) => {
             const comment = {
                 author: userId,
                 text,
-                date: new Date
             }
 
             post.comments.push(comment)
