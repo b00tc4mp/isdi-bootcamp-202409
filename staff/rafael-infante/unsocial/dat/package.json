@@ -15,6 +15,7 @@
     "mongoose": "^8.8.1"
   },
   "devDependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5"
   }
 }

@@ -1,10 +1,11 @@
+import 'dotenv/config'
 import authenticateUser from "./authenticateUser.js";
-import db from "../../dat/index.js";
+import db from "dat";
 
-db.connect('mongodb://127.0.0.1:27017/unsocial-test')
+db.connect(process.env.MONGO_URL_TEST)
   .then(() => {
     try {
-      return authenticateUser('camiloses', '123123123')
+      return authenticateUser('leopoldo', '123123123')
         .then(console.log)
         .catch(console.error)
     } catch (error) {
