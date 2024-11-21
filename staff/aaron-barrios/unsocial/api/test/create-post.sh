@@ -1,1 +1,1 @@
- curl -H 'Authorization: Basic 672e3058090fcae7fd450528' -H 'Content-Type: application/json' -d '{"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUIicSn0piVklT9EupNPzy-80j7Yt3coUccg&s","text":"Mr potato"}' http://localhost:8080/posts -v
+ curl -H 'Authorization: Bearer 673f40fb5f24beb34f7f463f' -H 'Content-Type: application/json' -d '{"text":"hallo weendy", "image":"https://media.giphy.com/media/QLiqUx7aHg10bl5FVj/giphy.gif?cid=790b7611k9bnssjixy10hu88u0buneurbrjffxxhlxderris&ep=v1_gifs_search&rid=giphy.gif&ct=g"}' http://localhost:8080/posts -v

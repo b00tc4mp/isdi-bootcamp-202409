@@ -1,1 +1,1 @@
-curl -H 'Content-Type: application/json' -d '{"name":"Pepito Grillo","email":"pepito@grillo.com","username":"pepito","password":"123","password-repeat":"123"}' http://localhost:8080/users
+curl -H 'Content-Type: application/json' -d '{"name":"aaron","email":"arr@on.com","username":"aaron","password":"123","password-repeat":"123"}' http://localhost:8080/users

@@ -1,11 +1,7 @@
-import db from 'dat'
-import { validate } from './helpers/index.js'
-import { errors } from 'com'
-import { models } from 'dat'
+import { validate, errors } from 'com'
+import { User, Post } from 'dat'
 
 const { SystemError, NotFoundError } = errors
-const { User, Post } = models
-
 
 // ----- POSTS STUFF ------
 export default (userId, text, image) => {
@@ -18,7 +14,7 @@ export default (userId, text, image) => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Post.create({ author: userId, text, image, likes: [], comments: [], date: new Date })
+            return Post.create({ author: userId, text, image })
                 .catch((error) => { throw new SystemError(error.message) })
         })
         .then((_) => { })

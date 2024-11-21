@@ -1,5 +1,4 @@
-import { validate } from './helpers/index.js'
-import { errors } from '../../../com'
+import { errors, validate } from 'com'
 import { extractPayload } from '../util'
 
 const { SystemError } = errors
@@ -31,7 +30,6 @@ export default callback => {
 
     const { sub: userId } = extractPayload(sessionStorage.token)
 
-    //LO QUE TU LE ENVÍAS (CLIENTE)
     xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`)
     xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()

@@ -52,7 +52,7 @@ export default (props) => {
     const handleLoginClick = event => {
         event.preventDefault()
 
-        props.registered()
+        props.onLoginClick()
     }
 
     return <main className="Register">
@@ -87,7 +87,7 @@ export default (props) => {
             <Button type="submit">Register</Button>
         </Form>
 
-        <a href="" onClick={event => { handleLoginClick }}>Login</a>
+        <a href="" onClick={handleLoginClick}>Login</a>
     </main >
 }
 

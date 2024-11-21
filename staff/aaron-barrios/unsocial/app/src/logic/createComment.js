@@ -1,6 +1,4 @@
-import { validate } from './helpers'
-
-import { errors } from '../../../com'
+import { errors, validate } from 'com'
 
 const { SystemError } = errors
 

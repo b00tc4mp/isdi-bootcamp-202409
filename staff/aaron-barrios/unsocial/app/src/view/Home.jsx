@@ -4,10 +4,10 @@ import { Post } from '../components/functional'
 
 import logic from '../logic'
 
-import './Posts.css'
+import './Home.css'
 
 
-export default function Posts() {
+export default function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -114,7 +114,7 @@ export default function Posts() {
 
 
 
-    return <div className="Posts" id="posts">
+    return <div className="Home" id="posts">
 
         {posts.map(post => <Post
             key={post.id}

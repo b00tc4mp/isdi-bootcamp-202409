@@ -1,13 +1,11 @@
-import { validate } from './helpers/index.js'
-
-import { errors } from '../../../com'
+import { errors, validate } from 'com'
 
 const { SystemError } = errors
 
 export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
-    // validate.callback(callback)
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 

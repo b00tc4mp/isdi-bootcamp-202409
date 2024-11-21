@@ -1,14 +1,18 @@
-import { Button } from '../library'
-
 import { useEffect, useState } from 'react'
+
+import { useLocation } from 'react-router-dom'
+
+import { Button } from '../library'
 
 import logic from '../../logic'
 
 import './Header.css'
 
 
-export default function Header({ view, onHomeClick, onLoggedOut }) {
+export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
+
+    const location = useLocation()
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
@@ -33,7 +37,7 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
                 }
             }
         } else setName(null)
-    }, [view])
+    }, [location.pathname])
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -56,7 +60,7 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
     }
 
     return <header className="Header">
-        <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+        <h1>{location.pathname === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
         {logic.isUserLoggedIn() && <a href='' style={{ fontSize: 'medium' }} onClick={onProfile}>{name}</a>}
 

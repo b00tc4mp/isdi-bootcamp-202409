@@ -41,7 +41,8 @@ const comment = new Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     }
 })
 
@@ -62,7 +63,8 @@ const post = new Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     },
     likes: [{
         type: ObjectId,
@@ -75,10 +77,8 @@ const User = model('User', user)
 const Post = model('Post', post)
 const Comment = model('Comment', comment)
 
-const models = {
+export {
     User,
     Post,
     Comment
 }
-
-export default models

@@ -54,7 +54,7 @@ export default function Login(props) {
     const handleRegisterClick = event => {
         event.preventDefault()
 
-        props.onRegisterLink()
+        props.onRegisterClick()
     }
 
     return <main className="Login">

@@ -1,9 +1,7 @@
-import { models } from 'dat'
-import { errors } from 'com'
-import validate from './helpers/validate.js'
+import { errors, validate } from 'com'
+import { User } from 'dat'
 
 const { SystemError, NotFoundError } = errors
-const { User } = models
 
 
 export default (userId, targetUserId) => {

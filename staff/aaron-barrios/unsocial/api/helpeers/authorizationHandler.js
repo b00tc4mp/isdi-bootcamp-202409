@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 
 const { AuthorizationError } = errors
 
+
 export default (req, res, next) => {
     try {
         const token = req.headers.authorization.slice(7)

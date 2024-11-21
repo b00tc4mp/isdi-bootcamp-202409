@@ -1,9 +1,7 @@
-import { validate } from './helpers/index.js'
-import { errors } from 'com'
-import { models } from 'dat'
+import { errors, validate } from 'com'
+import { User, Post } from 'dat'
 
-const { User, Post } = models
-const { SystemError, NotFoundError, OwnershipError } = errors
+const { SystemError, NotFoundError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')

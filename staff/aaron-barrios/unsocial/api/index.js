@@ -24,7 +24,7 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
         const { username, password } = req.body
 
         return logic.authenticateUser(username, password)
-            .then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+            .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
             .then(token => res.json(token))
     }))
 
@@ -33,7 +33,6 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
         return logic.registerUser(name, email, username, password, passwordRepeat).then(() => res.status(201).send())
     }))
-
 
     // ----- GET USERNAME -----
     //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
@@ -52,7 +51,6 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
         return logic.getPosts(userId).then(posts => res.json(posts))
     }))
 
-
     // ----- GET COMMENTS -----
     //SE PONE : PORQUE ESE USER ID VA IR CAMBIANDO (TIENE PARÁMETROS) -> ES DINÁMICO
     server.get('/posts/:postId/comments', authorizationHandler, createFunctionalHandler((req, res) => {
@@ -60,7 +58,6 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
         return logic.getComments(userId, postId).then(comments => res.json(comments))
     }))
-
 
     // ----- CREATE POST -----
     server.post('/posts', jsonBodyParser, authorizationHandler, createFunctionalHandler((req, res) => {
@@ -70,7 +67,7 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     }))
 
     // ----- CREATE COMMENT -----
-    server.post('/posts/:postId/comments', jsonBodyParser, authorizationHandler, createFunctionalHandler((req, res) => {
+    server.post('/posts/:postId/comments', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
         const { userId, params: { postId }, body: { text } } = req
 
         return logic.createComment(userId, postId, text).then(() => res.status(201).send())
@@ -99,6 +96,7 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
         return logic.toggleLikePost(userId, postId).then(() => res.status(204).send())
     }))
+
 
     server.use(errorHandler)
 

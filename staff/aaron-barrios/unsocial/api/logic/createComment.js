@@ -1,9 +1,7 @@
-import { validate } from './helpers/index.js'
-import { errors } from 'com'
-import { models } from 'dat'
+import { errors, validate } from 'com'
+import { User, Post, Comment } from 'dat'
 
 const { SystemError, NotFoundError } = errors
-const { User, Post, Comment } = models
 
 
 export default (userId, postId, text) => {
@@ -22,8 +20,7 @@ export default (userId, postId, text) => {
 
             const comment = new Comment({
                 author: userId,
-                text,
-                date: new Date
+                text
             })
 
             post.comments.push(comment)
