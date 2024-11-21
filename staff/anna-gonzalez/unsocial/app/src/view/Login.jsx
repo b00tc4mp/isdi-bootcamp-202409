@@ -44,7 +44,7 @@ export default function Login(props) {
     return <main className="flex justify-center items-center flex-col h-full box-border bg-radial-custom bg-[120%_120%] animate-gradient"
     >
         <Form onSubmit={handleSubmit}>
-            <h2>Login</h2>
+            <h2 class="font-dela-gothic-one pl-4 self-start	">Login</h2>
 
             <Field>
                 <Label htmlFor="username">Username</Label>
@@ -54,7 +54,7 @@ export default function Login(props) {
                 <Label htmlFor="password">Password</Label>
                 <PasswordInput id="password" />
             </Field>
-            <Button type="submit">Login</Button>
+            <Button type="submit" className="mt-4">Login</Button>
         </Form>
         <Anchor href="" onClick={handleRegisterClick}>Register</Anchor>
 

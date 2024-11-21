@@ -52,7 +52,7 @@ export default (props) => {
 
     return <main className="flex justify-center items-center flex-col h-full box-border bg-radial-custom bg-[120%_120%] animate-gradient">
         <Form onSubmit={handleSubmit}>
-            <h2>Register</h2>
+            <h2 class="font-dela-gothic-one pl-4 self-start	">Register</h2>
             <Field>
                 <Label htmlFor="name">Name</Label>
                 <Input type="text" id="name" />
@@ -74,7 +74,7 @@ export default (props) => {
                 <PasswordInput id="passwordRepeat" />
             </Field>
 
-            <Button type="submit">Register</Button>
+            <Button type="submit" className="mt-4">Register</Button>
         </Form>
         <Anchor href="" onClick={handleLoginClick}>Login</Anchor>
     </main>
