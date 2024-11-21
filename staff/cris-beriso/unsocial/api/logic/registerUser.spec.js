@@ -2,6 +2,7 @@ import 'dotenv/config'
 
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
+import bcrypt from 'bcryptjs'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
@@ -26,13 +27,13 @@ describe('registerUser', () => {
         expect(user.name).to.equal('Cris Beriso')
         expect(user.email).to.equal('cris@beriso.com')
         expect(user.username).to.equal('beriso')
-        expect(user.password).to.equal('criscris')
+        expect(bcrypt.compareSync('criscris', user.password)).to.be.true
       })
   )
 
   it('fails on existing user', () =>
     expect(
-      User.create({ name: 'Cris Beriso', email: 'cris@beriso.com', username: 'beriso', password: 'criscris' })
+      User.create({ name: 'Cris Beriso', email: 'cris@beriso.com', username: 'beriso', password: bcrypt.hashSync('criscris', 10) })
         .then(() => registerUser('Cris Beriso', 'cris@beriso.com', 'beriso', 'criscris', 'criscris'))
     ).to.be.rejectedWith(DuplicityError, 'user already exists')
   )
