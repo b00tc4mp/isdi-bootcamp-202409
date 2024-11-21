@@ -1,5 +1,3 @@
-import './Paragraph.css'
-
 export default function Paragraph({ children, className }) {
 
     console.log('Paragraph -> render')

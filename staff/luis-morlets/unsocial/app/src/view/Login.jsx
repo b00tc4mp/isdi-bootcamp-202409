@@ -49,7 +49,7 @@ export default function Login(props) {
         props.onRegisterLink()
     }
 
-    return <main className="flex flex-col justify-center items-center bg-blue-500/[0.8] border-black border-2 rounded-lg my-8 gap-7 p-2">
+    return <main className="flex flex-col justify-center items-center bg-blue-500/[0.8] border-black border-2 rounded-lg mx-8 gap-7 p-2">
         <h2>Login</h2>
 
         <Form onSubmit={handleSubmit}>
@@ -64,9 +64,9 @@ export default function Login(props) {
             </Field>
 
 
-            <Button type="submit" className=" w-fit self-end mr-2 bg-[dimgrey] border-solid border-[lightgrey] border rounded-lg text-xs text-[lightgrey] text-center p-1">Login</Button>
+            <Button type="submit" className=" w-fit self-end mr-2 bg-[dimgrey] border-solid border-[lightgrey] border rounded-lg text-xxs text-[lightgrey] text-center p-1">Login</Button>
         </Form>
 
-        <Paragraph className="text-sm text-center">Don't have an account? <a href="" onClick={handleRegisterClick}>Register</a></Paragraph>
+        <Paragraph className="text-xs text-center">Don't have an account? <a href="" onClick={handleRegisterClick}>Register</a></Paragraph>
     </main>
 }

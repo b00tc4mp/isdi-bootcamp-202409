@@ -2,8 +2,6 @@ import { Form, Label, Input, Button, Field } from '../components/library'
 
 import logic from '../logic'
 
-import './CreatePost.css'
-
 import { errors } from 'com'
 
 const { SystemError } = errors
@@ -44,7 +42,7 @@ export default function CreatePost({ onCreatePost }) {
         }
     }
 
-    return <main className="CreatePost">
+    return <main className="flex flex-col justify-center items-center bg-blue-500 rounded-lg border-black border-2 gap-7 p-1 mx-8">
         <h3>Create Post</h3>
 
         <Form onSubmit={handleSubmit}>
@@ -58,7 +56,7 @@ export default function CreatePost({ onCreatePost }) {
                 <Input type="text" id="text" required={true} />
             </Field>
 
-            <Button type="submit" className="">Create</Button>
+            <Button type="submit" className=" w-fit self-end mr-2 bg-[dimgrey] border-solid border-[lightgrey] border rounded-lg text-xxs text-[lightgrey] text-center p-1">Create</Button>
         </Form>
     </main>
 }

@@ -81,7 +81,7 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
     console.log('Comments -> render')
 
-    return <section className="Comments">
+    return <section>
         <ul>
             {comments.map(comment =>
                 <Comment

@@ -1,9 +1,0 @@
-.Home {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    box-sizing: border-box;
-    background-color: var(--back-color);
-    padding-top: 5rem;
-    padding-bottom: 3rem;
-}

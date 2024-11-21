@@ -34,12 +34,12 @@ export default function AddComment({ postId, onAdded }) {
         }
     }
 
-    return <Form onSubmit={handleSubmit}>
-        <Field>
+    return <Field>
+        <Form onSubmit={handleSubmit}>
             <Label htmlFor="text">New comment</Label>
-            <textarea id="text"></textarea>
-        </Field>
+            <textarea className="w-full box-border h-7 bg-gray-400 border-2" id="text"></textarea>
 
-        <Button className="" type="submit">Send</Button>
-    </Form>
+            <Button className="w-fit self-end mr-2 bg-[dimgrey] border-solid border-[lightgrey] border rounded-lg text-xxs text-[lightgrey] text-center p-1" type="submit">Send</Button>
+        </Form>
+    </Field>
 }

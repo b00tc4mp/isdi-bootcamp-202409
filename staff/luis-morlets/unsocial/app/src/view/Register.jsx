@@ -52,7 +52,7 @@ export default function Register(props) {
         props.onLoginLink()
     }
 
-    return <main className="flex flex-col justify-center items-center bg-blue-500/[0.8] border-black border-2 rounded-lg my-8 gap-2 p-2">
+    return <main className="flex flex-col justify-center items-center bg-blue-500/[0.8] border-black border-2 rounded-lg mx-8 gap-2 p-2">
         <h2>Register</h2>
 
         <Form onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ export default function Register(props) {
                 <PasswordInput id="password-repeat" className="pr-8" />
             </Field>
 
-            <Button type="submit" className="w-fit self-end mr-2 bg-[dimgrey] border-solid border-[lightgrey] border rounded-lg text-xs text-[lightgrey] text-center p-1">Register</Button>
+            <Button type="submit" className="w-fit self-end mr-2 bg-[dimgrey] border-solid border-[lightgrey] border rounded-lg text-xxs text-[lightgrey] text-center p-1">Register</Button>
         </Form>
 
         <Paragraph className="text-xs text-center">Already have an account? <a href="" onClick={handleLoginClick}>Login</a></Paragraph>

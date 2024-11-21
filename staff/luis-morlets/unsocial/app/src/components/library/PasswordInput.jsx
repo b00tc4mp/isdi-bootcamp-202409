@@ -16,7 +16,7 @@ export default function PasswordInput({ id }) {
 
     return <div>
         <Input type={type} id={id} required={true} />
-        <img className="cursor-pointer absolute w-6 h-7 right-4 top-7" src={status}
+        <img className="cursor-pointer absolute w-6 h-6 right-4 top-8" src={status}
             onClick={handleToggleClick}
         />
     </div>

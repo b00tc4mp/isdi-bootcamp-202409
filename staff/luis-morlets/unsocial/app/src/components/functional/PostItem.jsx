@@ -7,8 +7,6 @@ import logic from '../../logic'
 import getElapsedTime from '../../utils/getElapsedTime'
 import Comments from './Comments'
 
-import './PostItem.css'
-
 import { errors } from 'com'
 
 const { SystemError } = errors
@@ -70,39 +68,40 @@ export default function PostItem({ post, onLiked, onDeleted, onCommented, onComm
 
     console.log('PostItem -> render')
 
-    return <article className="PostItem">
-        <div className="username">
+    return <article className="w-full bg-blue-500 pb-2">
+        <div className="flex items-center text-xxs pl-4 justify-start gap-1 ">
             <span>👤</span>
-            <h4>{author.username}</h4>
+            <h4 className="my-2 text-xs">{author.username}</h4>
         </div>
 
-        <img src={image} />
+        <img src={image} className="w-full shadow-inner" />
 
-        <div className="container">
-            <div className="likes">
-                <Button type="button" className="likes" onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}</Button>
+        <div className="flex items-baseline text-sm pl-4 pr-4 justify-between">
+            <div className="flex items-baseline justify-start gap-1 text-xxs">
+                <Button type="button" className="w-fit bg-[dimgrey] rounded-md text-[lightgrey] border-solid border border-black text-xs" onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}</Button>
                 <span>{`${likes} likes`}</span>
 
-                <Button className="comments" onClick={handleCommentsClick}>💬 {comments}</Button>
-
-                {view === 'comments' && <Comments
-                    postId={id}
-                    onAdded={onCommented}
-                    onRemoved={onCommentRemoved}
-                />}
+                <Button className="w-fit bg-[dimgrey] rounded-md text-[lightgrey] border-solid border border-black text-xs" onClick={handleCommentsClick}>💬{comments}</Button>
             </div>
 
             <div>
                 {author.id === logic.getUserId() &&
-                    <Button type="button" className="delete"
+                    <Button type="button" className="w-fit bg-[dimgrey] rounded-md text-[lightgrey] border-solid border border-black text-xs"
                         onClick={handleDeleteCLick}>❌</Button>}
 
                 {logic.isUserRoleModerator() && <Button>🔨</Button>}
             </div>
         </div>
+        <div>
+            {view === 'comments' && <Comments
+                postId={id}
+                onAdded={onCommented}
+                onRemoved={onCommentRemoved}
+            />}
+        </div>
 
-        <Paragraph className="post-item">{text}</Paragraph>
+        <Paragraph className="pl-4 text-xxs">{text}</Paragraph>
 
-        <time>{getElapsedTime(date)} ago</time>
+        <time className="pl-4 text-xxs">{getElapsedTime(date)} ago</time>
     </article>
 }

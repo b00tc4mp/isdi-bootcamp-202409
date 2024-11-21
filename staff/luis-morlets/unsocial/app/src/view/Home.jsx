@@ -4,8 +4,6 @@ import { PostItem } from '../components/functional'
 
 import logic from '../logic'
 
-import './Home.css'
-
 import { errors } from 'com'
 
 const { SystemError } = errors
@@ -125,7 +123,7 @@ export default function Home() {
         }
     }
     console.log('PostList -> render')
-    return <div className="Home">
+    return <div className="flex flex-col gap-6 box-border bg-slate-400 pt-20 pb-12">
 
         {posts.map(post => <PostItem
             key={post.id}

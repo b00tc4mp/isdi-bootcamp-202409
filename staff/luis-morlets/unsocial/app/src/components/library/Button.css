@@ -1,9 +1,0 @@
-.Button {
-    width: fit-content;
-    align-self: flex-end;
-    margin-right: 10px;
-    background-color: dimgrey;
-    color: lightgrey;
-    border-style: groove;
-    border-radius: 10px;
-}

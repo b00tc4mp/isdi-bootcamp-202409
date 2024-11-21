@@ -75,14 +75,14 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
     return <header className="h-14 flex box-border items-center justify-evenly fixed top-0 bg-[var(--back-color)] w-full">
         <div className=" flex items-center">
-            <img className="w-16" src="\src\public\win-transformed.png" alt="unsocial logo" />
-            <h1 className="text-center text-lg m-0">{location.pathname === '/new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+            <img className="w-14" src="\src\public\win-transformed.png" alt="unsocial logo" />
+            <h1 className="text-center text-base m-0">{location.pathname === '/new-post' ? <a className="no-underline" href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
         </div>
 
-        <div className="profile">
-            {name && <h3 className="m-0 text-xs">{name}</h3>}
+        <div className="flex items-center">
+            {name && <h3 className="m-0 text-xxs">{name}</h3>}
 
-            {logic.isUserLoggedIn() && <Button type="button" className=" w-fit text-xs bg-[dimgrey] border-solid rounded-lg " onClick={handleLogout}>Logout</Button>
+            {logic.isUserLoggedIn() && <Button type="button" className=" w-fit self-end mr-1 bg-[dimgrey] border-solid rounded-md text-xs text-[lightgrey] text-center" onClick={handleLogout}>🔌</Button>
             }</div>
     </header>
 }
