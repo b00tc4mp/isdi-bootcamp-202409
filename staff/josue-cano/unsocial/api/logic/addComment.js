@@ -20,8 +20,7 @@ export default (userId, postId, text) => {
 
             const comment = new Comment({
                 author: userId,
-                text,
-                date: new Date
+                text
             })
 
             post.comments.push(comment)

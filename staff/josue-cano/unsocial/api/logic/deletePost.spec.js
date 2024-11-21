@@ -6,42 +6,36 @@ import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised)
 const { expect } = chai
 
-import db, { User, Post } from 'dat'
-import { errors } from "../../com/index.js"
+import db, { User } from 'dat'
+import { errors } from 'com'
 
-const { SystemError, NotFoundError, OwnershipError} = errors 
+const { NotFoundError } = errors
 
-import deletePost from './deletePost.js';
+import getUserName from './getUserName.js'
 
-//describe es para indicar de que traba la prueba
-describe('deletePost', () => {
-    before (() => db.connect(process.env.MONGO_URL_TEST))
-//antes de cada prueba
-    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
-//la prueba efectiva borrar post
-    it('succes delete post', () => {
-        const user = new User({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-        const post = new Post({ author: user.id, image: 'https://www.image.com', text: 'hello world' })
+describe('getUserName', () => {
+    before(() => db.connect(process.env.MONGO_URL_TEST))
 
-        //guarda el usuario en la base de datos
-        user.save()
-        //ahora si guarda me guardas el post
-        .then(() => post.save())
-// si se gurda el post lo borro
-        .then(()=> {
-            deletePost(user.id, post.id)
-            //si se borra lo buscas
-            .then(() =>  Post.findById(post.id))
-            //evaluo el post
-            .then(post => {
-                expect(post).to.be.null
+    beforeEach(() => User.deleteMany())
 
-            }
-            )
-        })
-            
-    })
+    it('succeeds on existing user', () =>
+        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+            .then(user => getUserName(user.id, user.id))
+            .then(name => expect(name).to.equal('Coco Loco'))
+    )
 
-   
+    it('fails on non-existing user', () =>
+        expect(
+            getUserName('012345678901234567890123', '012345678901234567890123')
+        ).to.be.rejectedWith(NotFoundError, 'user not found')
+    )
+
+    it('fails on non-existing target-user', () =>
+        expect(
+            User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+                .then(user => getUserName(user.id, '012345678901234567890123'))
+        ).to.be.rejectedWith(NotFoundError, 'target user not found')
+    )
+
+    after(() => db.disconnect())
 })
-

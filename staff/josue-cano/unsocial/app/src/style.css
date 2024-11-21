@@ -1,5 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/antisocial");
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
     --color: #ffffff;
     --back-color: black;
@@ -21,7 +23,7 @@ body {
     margin: 0;
 }
 
-a:visited {
+/* a:visited {
     color: inherit;
 }
 
@@ -39,15 +41,15 @@ article{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
+} */
 main {
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Ocupa el alto completo de la pantalla */
-    background-image: url(/src/unsocial.png);
+    align-items: center; */
+    /* min-height: 100vh; Ocupa el alto completo de la pantalla */
+    /* background-image: url(/src/unsocial.png);
     background-position: center; 
     background-size: contain; 
     background-repeat: no-repeat; 
-    background-color: #000000;
+    background-color: #000000; */
 }

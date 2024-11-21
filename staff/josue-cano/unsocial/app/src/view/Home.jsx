@@ -4,7 +4,7 @@ import { Post } from './components'
 
 import logic from '../logic'
 
-import './Post.css'
+import './Home.css'
 
 export default function Posts() {
     const [posts, setPosts] = useState([])
