@@ -2,8 +2,6 @@ import logic from '../logic'
 
 import { Label, Input, Form, Field, Button } from '../components/library'
 
-import './CreatePost.css'
-
 export default function CreatePost({ onCreated }) {
     console.log('CreatePost -> render')
 
@@ -34,7 +32,7 @@ export default function CreatePost({ onCreated }) {
         }
     }
 
-    return <main className="CreatePost">
+    return <main className="flex justify-center flex-col items-center">
         <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="image">Image</Label>

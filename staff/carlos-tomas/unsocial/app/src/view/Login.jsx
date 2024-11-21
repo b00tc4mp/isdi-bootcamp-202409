@@ -1,5 +1,3 @@
-import './Login.css'
-
 import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
 
 import logic from '../logic'
@@ -7,7 +5,6 @@ import logic from '../logic'
 import { errors } from 'com'
 
 const { SystemError } = errors
-
 
 export default function Login(props) {
     console.log('Login -> render')
@@ -47,7 +44,7 @@ export default function Login(props) {
         props.onRegisterClick()
     }
 
-    return <main className="Login">
+    return <main className='flex justify-center items-center flex-col h-full p box-border'>
         <h2>Login</h2>
 
         <Form onSubmit={handleSubmit}>

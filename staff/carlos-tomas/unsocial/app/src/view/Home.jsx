@@ -4,13 +4,11 @@ import { Post } from '../components/functional'
 
 import logic from '../logic'
 
-import './Posts.css'
-
 export default function Posts() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.log('Posts -> useEffect "componentDidMount"')
+        console.log('Home -> useEffect "componentDidMount"')
 
         try {
             logic.getPosts((error, posts) => {
@@ -111,9 +109,9 @@ export default function Posts() {
         }
     }
 
-    console.log('Posts -> render')
+    console.log('Home -> render')
 
-    return <div className="Posts">
+    return <div className="">
         {posts.map(post => <Post
             key={post.id}
             post={post}

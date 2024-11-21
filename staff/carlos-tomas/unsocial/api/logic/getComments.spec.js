@@ -26,7 +26,7 @@ describe('getComments', () => {
         const comment2 = new Comment({ author: user.id, text: 'hello world 2' })
         const post = new Post({ author: user.id, image: 'https://www.image.com', text: 'hello world', comments: [comment, comment2] })
 
-        return Promise.all([user.save(), post.save(), comment.save(), comment2.save()])
+        return Promise.all([user.save(), post.save()])
             .then(([user, post, comment, comment2]) =>
                 getComments(user.id, post.id)
                     .then(comments => {
