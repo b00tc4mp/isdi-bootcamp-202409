@@ -2,11 +2,11 @@ import 'dotenv/config'
 import db from 'dat'
 import authenticateUser from './authenticateUser.js'
 
-db.connect(process.env.MONGO_URL)
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             return authenticateUser('peix', '123123123')
-                .then(console.log)
+                .then(console.log) // ...
                 .catch(console.error)
         } catch (error) {
             console.error(error)

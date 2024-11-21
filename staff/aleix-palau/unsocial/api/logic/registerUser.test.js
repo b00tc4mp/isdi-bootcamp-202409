@@ -3,7 +3,7 @@ import db from 'dat'
 
 import registerUser from './registerUser.js'
 
-db.connect(process.env.MONGO_URL)
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             return registerUser('Coco Drilo', 'coco@drilo.com', 'cocodrilo', '123123123', '123123123')
