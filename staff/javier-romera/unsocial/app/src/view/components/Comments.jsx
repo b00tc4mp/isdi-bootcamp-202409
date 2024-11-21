@@ -9,8 +9,6 @@ const { SystemError } = errors
 
 import logic from '../../logic'
 
-import './Comments.css'
-
 export default function Comments({ postId, onAdded, onRemoved }) {
     const [comments, setComments] = useState([])
     const [initiated, setInitiated] = useState(false)
@@ -88,7 +86,7 @@ export default function Comments({ postId, onAdded, onRemoved }) {
     }
 
     return <section className="Comments">
-        <ul>
+        <ul className="pl-2 pr-4 list-none">
             {comments.map(comment =>
                 <Comment
                     key={comment.id}

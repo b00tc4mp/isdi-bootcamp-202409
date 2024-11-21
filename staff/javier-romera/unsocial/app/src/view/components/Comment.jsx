@@ -8,8 +8,6 @@ const { SystemError } = errors
 
 import { getElapsedTime } from '../../util'
 
-import './Comment.css'
-
 export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
     const handleRemove = () => {
         if (confirm('Delete comment?'))
@@ -34,14 +32,14 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
             }
     }
 
-    return <li className="Comment">
-        <div className="username-delete">
-            <h5>{author.username}</h5>
-            {logic.getUserId() === author.id && <Button classname="remove-comment" onClick={handleRemove}>❌</Button>}
+    return <li className="mb-4">
+        <div className="flex justify-between">
+            <h5 className="my-2">{author.username}</h5>
+            {logic.getUserId() === author.id && <Button classname="w-6" onClick={handleRemove}>❌</Button>}
         </div>
 
-        <p>{text}</p>
+        <p className="pl-8">{text}</p>
 
-        <time>{getElapsedTime(date)}</time>
+        <time className="pl-2">{getElapsedTime(date)}</time>
     </li>
 }

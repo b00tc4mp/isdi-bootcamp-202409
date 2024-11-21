@@ -6,8 +6,6 @@ import { errors } from 'apu'
 
 const { SystemError } = errors
 
-import './AddComment.css'
-
 export default function AddComment({ postId, onAdded }) {
     const handleSubmit = event => {
         event.preventDefault()
@@ -39,11 +37,11 @@ export default function AddComment({ postId, onAdded }) {
         }
     }
 
-    return <Form onSubmit={handleSubmit}>
-        <Field>
-            <textarea placeholder="Comment" id="text"></textarea>
+    return <Form classname="gap-10 my-4" onSubmit={handleSubmit}>
+        <Field classname>
+            <textarea className="w-full" placeholder="Comment" id="text"></textarea>
         </Field>
 
-        <Button classname="send-button" type="submit">Send</Button>
+        <Button classname="px-2 border border-gray-500" type="submit">Send</Button>
     </Form>
 }

@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default () => {
     const options = {
         headers: {
-            'Authorization': `Bearer ${sessionStorage.token}`
+            'Authorization': `Bearer ${localStorage.token}`
         }
     }
 
