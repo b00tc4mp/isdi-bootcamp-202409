@@ -4,13 +4,13 @@ import { PostItem } from '../components/functional'
 
 import logic from '../logic'
 
-import './PostList.css'
+import './Home.css'
 
 import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default function PostList() {
+export default function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -125,7 +125,7 @@ export default function PostList() {
         }
     }
     console.log('PostList -> render')
-    return <div className="PostList">
+    return <div className="Home">
 
         {posts.map(post => <PostItem
             key={post.id}

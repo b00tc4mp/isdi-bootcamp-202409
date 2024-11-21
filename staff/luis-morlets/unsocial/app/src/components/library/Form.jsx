@@ -1,8 +1,6 @@
-import './Form.css'
-
 export default function Form({ children, onSubmit }) {
 
     console.log('Form -> render')
-    return <form className="Form" onSubmit={onSubmit}>
+    return <form className="flex flex-col justify-evenly min-w-24 w-full" onSubmit={onSubmit}>
         {children}</form>
 }

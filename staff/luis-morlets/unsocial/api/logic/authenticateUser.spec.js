@@ -2,6 +2,7 @@ import 'dotenv/config'
 
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
+import bcrypt from 'bcryptjs'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
@@ -19,7 +20,7 @@ describe('authenticateUser', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', () =>
-        User.create({ name: 'Pero Lito', email: 'pero@lito.com', username: 'perolito', password: '123123123' })
+        User.create({ name: 'Pero Lito', email: 'pero@lito.com', username: 'perolito', password: bcrypt.hashSync('123123123', 8) })
             .then(() => authenticateUser('perolito', '123123123'))
             .then(user => {
                 expect(user).to.exist

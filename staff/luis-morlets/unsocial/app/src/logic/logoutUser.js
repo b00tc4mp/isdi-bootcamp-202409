@@ -1,3 +1,3 @@
 export default () => {
-    delete sessionStorage.token
+    delete localStorage.token
 }

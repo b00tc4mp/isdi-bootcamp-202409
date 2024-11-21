@@ -1,5 +1,3 @@
-import './Register.css'
-
 import logic from '../logic'
 
 import { PasswordInput, Form, Label, Input, Button, Paragraph, Field } from '../components/library'
@@ -54,7 +52,7 @@ export default function Register(props) {
         props.onLoginLink()
     }
 
-    return <main className="Register">
+    return <main className="flex flex-col justify-center items-center bg-blue-500/[0.8] border-black border-2 rounded-lg my-8 gap-2 p-2">
         <h2>Register</h2>
 
         <Form onSubmit={handleSubmit}>
@@ -75,17 +73,17 @@ export default function Register(props) {
 
             <Field>
                 <Label htmlFor="password">Password:</Label>
-                <PasswordInput id="password" />
+                <PasswordInput id="password" className="pr-8" />
             </Field>
 
             <Field>
                 <Label htmlFor="password-repeat">Repeat Password:</Label>
-                <PasswordInput id="password-repeat" />
+                <PasswordInput id="password-repeat" className="pr-8" />
             </Field>
 
-            <Button type="submit" className="">Register</Button>
+            <Button type="submit" className="w-fit self-end mr-2 bg-[dimgrey] border-solid border-[lightgrey] border rounded-lg text-xs text-[lightgrey] text-center p-1">Register</Button>
         </Form>
 
-        <Paragraph className="">Already have an account? <a href="" onClick={handleLoginClick}>Login</a></Paragraph>
+        <Paragraph className="text-xs text-center">Already have an account? <a href="" onClick={handleLoginClick}>Login</a></Paragraph>
     </main>
 }

@@ -2,8 +2,6 @@ import { PasswordInput, Form, Field, Label, Button, Paragraph, Input } from '../
 
 import logic from '../logic'
 
-import './Login.css'
-
 import { errors } from 'com'
 
 const { SystemError } = errors
@@ -51,7 +49,7 @@ export default function Login(props) {
         props.onRegisterLink()
     }
 
-    return <main className="Login">
+    return <main className="flex flex-col justify-center items-center bg-blue-500/[0.8] border-black border-2 rounded-lg my-8 gap-7 p-2">
         <h2>Login</h2>
 
         <Form onSubmit={handleSubmit}>
@@ -60,14 +58,15 @@ export default function Login(props) {
                 <Input type="text" id="username" required={true} />
             </Field>
 
-            <Field><Label htmlFor="password">Password:</Label>
-                <PasswordInput id='password' />
+            <Field>
+                <Label htmlFor="password">Password:</Label>
+                <PasswordInput id='password' className="pr-8" />
             </Field>
 
 
-            <Button type="submit" className="">Login</Button>
+            <Button type="submit" className=" w-fit self-end mr-2 bg-[dimgrey] border-solid border-[lightgrey] border rounded-lg text-xs text-[lightgrey] text-center p-1">Login</Button>
         </Form>
 
-        <Paragraph className="">Don't have an account? <a href="" onClick={handleRegisterClick}>Register</a></Paragraph>
+        <Paragraph className="text-sm text-center">Don't have an account? <a href="" onClick={handleRegisterClick}>Register</a></Paragraph>
     </main>
 }

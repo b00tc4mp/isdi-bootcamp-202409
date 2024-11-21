@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 ::before,
 ::after {
@@ -11,33 +15,10 @@
     --font: 'Press Start 2P';
     --back-color: rgb(214, 213, 213);
     font-family: var(--font);
-    height: 100%;
 }
 
 body {
-    background-color: rgb(214, 213, 213);
-    color: var(--color);
-    margin: auto;
-    height: 100%;
-}
-
-#root {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.icon {
-    cursor: pointer;
-    position: absolute;
-    width: 25px;
-    height: 30px;
-    right: 15px;
-}
-
-#password.Input {
-    padding-right: 30px;
+    color: var(--color)
 }
 
 a:visited {

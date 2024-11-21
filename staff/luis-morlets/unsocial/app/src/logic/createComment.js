@@ -28,7 +28,7 @@ export default (text, postId, callback) => {
     xhr.addEventListener('error', () => callback(new SystemError('Ups something happened, try again later')))
 
     xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(JSON.stringify({ text }))
 }
