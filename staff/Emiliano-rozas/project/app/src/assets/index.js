@@ -1,12 +1,22 @@
 import logo from './logo.png'
 import comic from './comic_img_1.webp'
 import logoBuenardo from './logoBuenardo.png'
+import menuIcon from './menuIcon.png'
+import searchIcon from './searchIcon.png'
+import cartIcon from './cartIcon.png'
+import profileIcon from './profileIcon.png'
+import isotipo from './isotipo.png'
 
 export const assets = {
 
     logo,
     comic,
-    logoBuenardo
+    logoBuenardo,
+    menuIcon,
+    searchIcon,
+    cartIcon,
+    profileIcon,
+    isotipo
 }
 
 
