@@ -56,7 +56,6 @@ User
 - username (string, unique)
 - password (hashed string)
 
-
 Cycle
 - id (unique identifier)
 - userId (reference to user.id)
@@ -102,7 +101,7 @@ Tip
 - category (string, enum: nutrition | activities | well-being | music)
 - text (string)
 
-Report
+<!-- Report
 - id (unique identifier)
 - userId (reference to user.id)
 - cycleId (reference to cycle.id)
@@ -116,7 +115,7 @@ Statistics
 - averageCycleLength (number)
 - averageMenstruationLength (number)
 - mostFrequentSymptom (reference to symptom.id)
-- isRegularPercentage (number)
+- isRegularPercentage (number) -->
 
 
 ### Techs
