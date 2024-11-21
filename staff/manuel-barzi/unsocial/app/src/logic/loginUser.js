@@ -15,7 +15,7 @@ export default (username, password, callback) => {
         if (status === 200) {
             const token = JSON.parse(response)
 
-            sessionStorage.token = token
+            localStorage.token = token
 
             callback(null)
 
