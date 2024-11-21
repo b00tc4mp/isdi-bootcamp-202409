@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Post } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError, SystemError } = errors
 
 import addComments from './addComments.js'
 
@@ -53,30 +53,11 @@ describe('addComment', () => {
         ).to.be.rejectedWith(NotFoundError, /^post not found$/)
     )
 
-    // describe('fails on User.findById error', () => {
-    //     let findById
-
-    //     beforeEach(() => {
-    //         findById = User.findById
-
-    //         User.findById = () => Promise.reject(new Error('system error on User.findById'))
-    //     })
-
-    //     it('fails on User.findById error', () =>
-    //         expect(
-    //             addComments('012345678901234567890123', '012345678901234567890123', 'hello world')
-    //         ).to.be.rejectedWith(SystemError, /^system error on User.findById$/)
-    //     )
-
-    //     afterEach(() => User.findById = findById)
-    // })
-
     describe('fails on Post.findById error', () => {
         let findById
 
         beforeEach(() => {
             findById = Post.findById
-
             Post.findById = () => Promise.reject(new Error('system error on Post.findById'))
         })
 
@@ -88,9 +69,7 @@ describe('addComment', () => {
                     )
             ).to.be.rejectedWith(SystemError, /^system error on Post.findById$/)
         )
-
         afterEach(() => Post.findById = findById)
     })
-
     after(() => db.disconnect())
 })

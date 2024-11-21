@@ -41,8 +41,8 @@ export default function Login(props) {
         props.onRegisterClick()
     }
 
-    return <main className='Login'>
-        <h2>Login</h2>
+    return <main className='Login p-8 rounded-xl'>
+        <h2 className='text-3xl'>Login</h2>
 
         <Form onSubmit={handleSubmit}>
             <Label htmlfor="username">Username</Label>

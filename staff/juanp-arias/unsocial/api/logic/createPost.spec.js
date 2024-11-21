@@ -57,7 +57,6 @@ describe('createPost', () => {
 
         beforeEach(() => {
             findById = User.findById
-
             User.findById = () => Promise.reject(new SystemError('system error on User.findById'))
         })
 
@@ -75,7 +74,6 @@ describe('createPost', () => {
 
         beforeEach(() => {
             create = Post.create
-
             Post.create = () => Promise.reject(new SystemError('system error on Post.create'))
         })
 

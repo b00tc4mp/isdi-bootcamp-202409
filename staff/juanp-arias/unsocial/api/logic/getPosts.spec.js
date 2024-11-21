@@ -48,8 +48,14 @@ describe('getPosts', () => {
             getPosts('012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
-    
-    // TODO add validation error test cases
+
+    it('fails on non-string user-id', () =>
+        expect(() => getPosts(true)).to.throw(ValidationError, /^invalid userId$/)
+    )
+
+    it('fails on non 24-chars-length user-id', () =>
+        expect(() => getPosts('01245')).to.throw(ValidationError, /^invalid userId length$/)
+    )
     // TODO add system error test cases
 
     after(() => db.disconnect())

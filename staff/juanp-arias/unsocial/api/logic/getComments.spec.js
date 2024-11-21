@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Post, Comment } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError } = errors
+const { NotFoundError, SystemError } = errors
 
 import getComments from './getComments.js'
 
@@ -58,7 +58,6 @@ describe('getComments', () => {
     )
 
     it('fails on non-existing post', () =>
-
         User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
             .then(user =>
                 expect(

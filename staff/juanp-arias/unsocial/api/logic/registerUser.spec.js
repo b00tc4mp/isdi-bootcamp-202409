@@ -1,7 +1,8 @@
 import 'dotenv/config'
 
 import * as chai from 'chai'
-import chaiAsPromised from 'chai-as-promised';
+import chaiAsPromised from 'chai-as-promised'
+import bcrypt from 'bcryptjs'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
@@ -18,7 +19,7 @@ describe('registerUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on created user', () =>
+    it('succeeds on new user', () =>
         registerUser('Coco Loco', 'coco@loco.com', 'cocoloco', '123456', '123456')
             .then(() => User.findOne({ username: 'cocoloco' }))
             .then(user => {
@@ -26,7 +27,7 @@ describe('registerUser', () => {
                 expect(user.name).to.equal('Coco Loco')
                 expect(user.email).to.equal('coco@loco.com')
                 expect(user.username).to.equal('cocoloco')
-                expect(user.password).to.equal('123456')
+                expect(bcrypt.compareSync('123456', user.password)).to.be.true
             })
     )
 

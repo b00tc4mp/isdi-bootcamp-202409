@@ -9,5 +9,5 @@ export {
     Register,
     PostList,
     CreatePost,
-    Profile
+    Profile,
 }

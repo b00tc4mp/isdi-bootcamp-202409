@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 
 import PostItem from '../components/function/PostItem'
-import './PostList.css'
 import logic from '../logic'
 
 export default function PostList() {
@@ -97,7 +96,7 @@ export default function PostList() {
         }
     }
 
-    return <div className='PostList'>
+    return <div className='PostList pb-[1.3rem] pt-[1.7rem]'>
         {posts.map(post => <PostItem
             key={post.id}
 

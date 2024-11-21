@@ -45,7 +45,7 @@ export default function Register(props) {
     }
 
     return <main className="Register" id="register">
-        <h2>Register</h2>
+        <h2 className='Register text-3xl'>Register</h2>
 
         <Form onSubmit={handleSubmit}>
             <Label htmlfor="name" >Name</Label>

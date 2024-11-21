@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Button } from '../library'
 import logic from '../../logic'
 import './Header.css'
 
-export default function Header({ view, onHomeClick, onLoggedOut, onProfileClick }) {
+export default function Header({ onHomeClick, onLoggedOut, onProfileClick }) {
     const [name, setName] = useState(null)
+
+    const location = useLocation()
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
@@ -25,7 +28,7 @@ export default function Header({ view, onHomeClick, onLoggedOut, onProfileClick 
                 }
 
         } else setName(null)
-    }, [view])
+    }, [location.pathname])
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -47,10 +50,10 @@ export default function Header({ view, onHomeClick, onLoggedOut, onProfileClick 
         }
     }
 
-    return <header className="Header">
-        <h1>{view === 'new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+    return <header className="Header flex justify-between fixed w-full">
+        <h1 className='text-white text-3xl pl-[0.6rem]' >{location.pathname === '/new-post' ? <a href="" onClick={handleHomeClick} >Unsocial</a> : 'Unsocial'}</h1>
 
-        {name && <a href="" onClick={handleProfileClick}><h3>{name}</h3></a>}
+        {name && <a href="" onClick={handleProfileClick}><h3 className='text-sm pl-[7rem] pt-[0.5rem] text-white'>{name}</h3></a>}
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
     </header>

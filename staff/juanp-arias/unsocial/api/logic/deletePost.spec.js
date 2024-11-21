@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Post } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, OwnershipError } = errors
+const { NotFoundError, OwnershipError, SystemError } = errors
 
 import deletePost from './deletePost.js'
 
@@ -72,6 +72,5 @@ describe('deletePost', () => {
                 ).to.be.rejectedWith(OwnershipError, 'user is not author of post')
             )
     })
-
     after(() => db.disconnect())
 })

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './PasswordInput.css'
 
 export default function PasswordInput({ id, placeholder }) {
     const [status, setStatus] = useState('😊')
@@ -10,8 +9,8 @@ export default function PasswordInput({ id, placeholder }) {
         setType(type === 'password' ? 'text' : 'password')
     }
     return <div>
-        <input className='Input' type={type} id={id} placeholder={placeholder} />
-        <span className="emoji"
+        <input className='Input text-black w-full pl-1 bg-orange-100 h-8' type={type} id={id} placeholder={placeholder} />
+        <span className="emoji pr-[5.4rem] pt-[0.3rem]"
             style={{ cursor: 'pointer', position: 'absolute', right: '10px' }}
             onClick={handleToggleClick}
         >{status}</span>
