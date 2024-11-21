@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import db from 'dat'
-import authenticateUser from './authenticateUser.js'
+import getUserName from './getUserName.js'
 
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return authenticateUser('cocodrilo', '123123123')
+            return getUserName('6734991dbf16fcdc897ef6fc', '6734991dbf16fcdc897ef6fc')
                 .then(console.log) // ...
                 .catch(console.error)
         } catch (error) {

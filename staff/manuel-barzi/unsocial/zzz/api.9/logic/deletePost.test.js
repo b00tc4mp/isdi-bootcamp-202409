@@ -1,12 +1,12 @@
 import 'dotenv/config'
 import db from 'dat'
-import authenticateUser from './authenticateUser.js'
+import deletePost from './deletePost.js'
 
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return authenticateUser('cocodrilo', '123123123')
-                .then(console.log) // ...
+            return deletePost('6734991dbf16fcdc897ef6fc', '67349b080b678d07e6c58755')
+                .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {
             console.error(error)

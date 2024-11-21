@@ -1,12 +1,13 @@
 import 'dotenv/config'
 import db from 'dat'
-import authenticateUser from './authenticateUser.js'
+
+import registerUser from './registerUser.js'
 
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return authenticateUser('cocodrilo', '123123123')
-                .then(console.log) // ...
+            return registerUser('Coco Drilo', 'coco@drilo.com', 'cocodrilo', '123123123', '123123123')
+                .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {
             console.error(error)
