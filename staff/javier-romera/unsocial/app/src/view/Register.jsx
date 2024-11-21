@@ -50,7 +50,7 @@ export default props => {
     }
 
     return <main className="bg-[black] Register flex items-center flex-col h-9/10 mt-12 box-border">
-        <h2 className="pt-8 pb-4">Register</h2>
+        <h2 className="pt-6 pb-4 text-xl">Register</h2>
 
         <Form onSubmit={handleSubmit}>
             <Field>
@@ -78,8 +78,8 @@ export default props => {
                 <Input type="password" id="password-repeat" autoComplete="off"></Input>
             </Field>
 
-            <Button type="submit">Register</Button>
+            <Button classname="border-solid border-2 px-1.5 py-0.5 border-gray-500 my-2" type="submit">Register</Button>
         </Form>
-        <Anchor href="" onClick={handleLoginClick}>Login</Anchor>
+        <Anchor classname="underline" href="" onClick={handleLoginClick}>Login</Anchor>
     </main>
 }

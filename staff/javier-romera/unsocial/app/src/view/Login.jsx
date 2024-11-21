@@ -44,10 +44,10 @@ export default props => {
         props.onRegisterClick()
     }
 
-    return <main className="Login flex items-center flex-col h-9/10 bg-[black] mt-12 box-border">
-        <h2 className="pt-8 pb-4">Login</h2>
+    return <main className="flex items-center flex-col h-9/10 bg-[black] mt-12 box-border">
+        <h2 className="pt-6 pb-4 text-xl">Login</h2>
 
-        <Form onSubmit={handleSubmit} classname="flex justify-center flex-col items-center w-full">
+        <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="username">Username</Label>
                 <Input type="text" id="username" autoComplete="on"></Input>
@@ -58,8 +58,8 @@ export default props => {
                 <Input type="password" id="password" autoComplete="off"></Input>
             </Field>
 
-            <Button type="submit" classname="border-solid border-2 px-1.5 py-0.5 border-gray-500 mt-4">Login</Button>
+            <Button type="submit" classname="border-solid border-2 px-1.5 py-0.5 border-gray-500 my-2">Login</Button>
         </Form>
-        <Anchor classname="mt-4 underline" href="" onClick={handleRegisterClick}>Register</Anchor>
+        <Anchor classname="underline" href="" onClick={handleRegisterClick}>Register</Anchor>
     </main>
 }

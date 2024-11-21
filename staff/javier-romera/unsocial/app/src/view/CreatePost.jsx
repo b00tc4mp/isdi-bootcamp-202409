@@ -6,8 +6,6 @@ import { errors } from 'apu'
 
 const { SystemError } = errors
 
-import './CreatePost.css'
-
 export default function CreatePost({ onCreated }) {
     const handleSubmit = event => {
         event.preventDefault()
@@ -40,8 +38,8 @@ export default function CreatePost({ onCreated }) {
         }
     }
 
-    return <main className="CreatePost">
-        <h3>Create Post</h3>
+    return <main className="flex items-center flex-col h-9/10 bg-[black] mt-12 box-border">
+        <h3 className="pt-6 pb-4 text-xl">Create Post</h3>
 
         <Form onSubmit={handleSubmit}>
             <Field>

@@ -61,7 +61,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
         <div className="name-button">
             {name && <h3>{name}</h3>}
 
-            {logic.isUserLoggedIn() && <Button classname="logout-button" type="button" onClick={handleLogout}>𐢫</Button>}
+            {logic.isUserLoggedIn() && <Button classname="flex w-6 h-6 items-center justify-center border-solid border border-gray-500" type="button" onClick={handleLogout}>𐢫</Button>}
         </div>
     </header>
 }

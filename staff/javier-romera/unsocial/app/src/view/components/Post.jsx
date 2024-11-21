@@ -11,8 +11,6 @@ const { SystemError } = errors
 
 import { getElapsedTime } from '../../util'
 
-import './Post.css'
-
 export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
     const [view, setView] = useState(null)
 
@@ -86,36 +84,36 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         setView(view ? null : 'comments')
     }
 
-    return <article className="Post">
-        <div className="post-header">
+    return <article className="text-start w-11/12 border border-[var(--color)] pb-4 pl-2 pr-2 mb-4">
+        <div className="flex justify-between items-center mt-1">
             <h4>{author.username}</h4>
 
-            {logic.getUserId() === author.id && <Button classname="delete-button" type="button" onClick={handleDeleteClick}>❌</Button>}
+            {logic.getUserId() === author.id && <Button classname="flex w-6 h-6 items-center justify-center" type="button" onClick={handleDeleteClick}>❌</Button>}
             {logic.isUserRoleModerator() && <Button>💀</Button>}
         </div>
 
-        <img src={image}></img>
+        <img className="w-full mt-1" src={image}></img>
 
-        <div className="likes-div">
-            <Button classname="like-button" onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}</Button>
+        <div className="flex items-center">
+            <Button classname="flex w-6 h-6 items-center justify-center" onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'}`}</Button>
 
-            <span>{likes}</span>
+            <span className="ml-1 mr-4">{likes}</span>
 
-            <Button classname="comment-button" onClick={handleCommentsClick}>💬 </Button>
-            <span>{comments}</span>
+            <Button classname="flex w-6 h-6 items-center justify-center" onClick={handleCommentsClick}>💬 </Button>
+            <span className="ml-1 mr-4">{comments}</span>
         </div>
 
-        <p className="caption">{text}</p>
+        <p className="text-sm">{text}</p>
 
         {view === 'comments' && <Comments
             postId={id}
             onAdded={onCommentAdded}
             onRemoved={onCommentRemoved} />}
 
-        {view === 'comments' && <p onClick={handleViewCommentsHide}>Hide comments</p>}
+        {view === 'comments' && <p className="text-xs" onClick={handleViewCommentsHide}>Hide comments</p>}
 
-        {view !== 'comments' && <p onClick={handleViewCommentsShow}>View comments...</p>}
+        {view !== 'comments' && <p className="text-xs" onClick={handleViewCommentsShow}>View comments...</p>}
 
-        <time>{getElapsedTime(date)} ago</time>
+        <time className="text-xs">{getElapsedTime(date)} ago</time>
     </article >
 }

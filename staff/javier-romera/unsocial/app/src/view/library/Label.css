@@ -1,9 +1,0 @@
-.Label {
-    &::before {
-        content: '[';
-    }
-
-    &::after {
-        content: ']';
-    }
-}

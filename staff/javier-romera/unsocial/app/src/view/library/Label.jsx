@@ -1,5 +1,3 @@
-import './Label.css'
-
 export default function Label({ htmlFor, children }) {
-    return <label className="Label" htmlFor={htmlFor}>{children}</label>
+    return <label className="[&::before]:content-['['] [&::after]:content-[']'] text-sm" htmlFor={htmlFor}>{children}</label>
 }

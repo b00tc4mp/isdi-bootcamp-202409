@@ -8,8 +8,6 @@ const { SystemError } = errors
 
 import logic from '../logic'
 
-import './Home.css'
-
 export default function Posts() {
     const [posts, setPosts] = useState([])
     const [initiated, setInitiated] = useState(false)
@@ -131,7 +129,7 @@ export default function Posts() {
         }
     }
 
-    return <div className="Home">
+    return <div className="Home flex flex-col items-center w-full mt-16 pb-12">
         {initiated && posts.map(post => <Post
             key={post.id}
 
