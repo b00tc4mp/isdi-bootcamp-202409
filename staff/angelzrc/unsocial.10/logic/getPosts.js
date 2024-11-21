@@ -1,3 +1,0 @@
-function getPosts() {
-    return posts
-}

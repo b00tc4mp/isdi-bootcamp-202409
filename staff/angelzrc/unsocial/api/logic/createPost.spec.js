@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs'
 import 'dotenv/config'
 
 import * as chai from 'chai'
@@ -19,13 +20,13 @@ describe('createPost', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     it('succeeds for existing user', () =>
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: bcrypt.hashSync('123123123', 10) })
             .then(user =>
                 createPost(user.id, 'https://www.image.com', 'hola world')
                     .then(() => Post.findOne())
                     .then(post => {
                         expect(post).to.exist
-                        expect(post.author.createFromHexString()).lessThanOrEqual(user.id)
+                        expect(post.author.toString()).to.equal(user.id)
                         expect(post.image).to.equal('https://www.image.com')
                         expect(post.text).to.equal('hola world')
                         expect(post.date).to.be.instanceOf(Date)
@@ -36,7 +37,7 @@ describe('createPost', () => {
     it('fails on non-existing user', () =>
         expect(
             createPost('111222333444555666777888', 'https://www.image.com', 'hola world')
-        ).to.be.rejectedWith(NotFounderror, /^user not found$/)
+        ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
     it('fails on non-string user-id', () =>

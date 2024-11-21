@@ -27,10 +27,10 @@ export default callback => {
     })
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
-    console.log(sessionStorage.token)
-    const { sub: userId } = extractPayloadFromJWT(sessionStorage.token)
+    console.log(localStorage.token)
+    const { sub: userId } = extractPayloadFromJWT(localStorage.token)
     console.log(userId)
     xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.token}`)
     xhr.send()
 }
