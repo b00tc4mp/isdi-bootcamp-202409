@@ -3,6 +3,7 @@ import Register from './Register'
 import PostList from './PostList'
 import CreatePost from './CreatePost'
 import ViewProfile from './viewProfile'
+import ManageUsers from './ManageUsers'
 //import Home from './Home'   Ya no existe
 
 export {
@@ -11,4 +12,5 @@ export {
     PostList,
     CreatePost,
     ViewProfile,
+    ManageUsers
 }

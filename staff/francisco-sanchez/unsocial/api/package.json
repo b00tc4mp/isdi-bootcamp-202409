@@ -26,6 +26,7 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "bcryptjs": "^2.4.3",
     "c8": "^10.1.2",
     "chai": "^5.1.2",
     "chai-as-promised": "^8.0.0",

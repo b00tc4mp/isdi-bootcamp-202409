@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import React, { Component } from 'react'
 
-import { Login, Register, CreatePost, PostList, ViewProfile } from './view'
+import { Login, Register, CreatePost, PostList, ViewProfile, ManageUsers } from './view'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
@@ -37,6 +37,8 @@ export default function App() {
 
     const handleNewPostClick = () => navigate('/new-post') //setView('new-post')
 
+    const handleManageUsers = () => navigate('/manage-users')
+
     console.log('App -> render')
 
 
@@ -61,11 +63,14 @@ export default function App() {
 
             <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleUserLoginClick} onRegistered={handleUserOnRegistered} />} />
 
-            <Route path="/" element={logic.isUserLoggedIn() ? <PostList /> : <Navigate to="/login" />} />
+            <Route path="/" element={logic.isUserLoggedIn() ? <PostList onManageUsers={handleManageUsers} /> : <Navigate to="/login" />} />
 
             <Route path="/new-post" element={logic.isUserLoggedIn() ? <CreatePost onCreated={handlePostCreated} /> : <Navigate to="/login" />} />
 
-            <Route path="/user-profile" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <ViewProfile onHomeClick={handleUserHomeClick} />} />
+            <Route path="/user-profile" element={logic.isUserLoggedIn() ? <Navigate to="/user-profile" /> : <ViewProfile onHomeClick={handleUserHomeClick} />} />
+
+            <Route path="/manage-users" element={logic.isUserLoggedIn() ? <ManageUsers /> : <Navigate to="/login" />} />
+
         </Routes>
 
         <Footer onNewPostClick={handleNewPostClick} />

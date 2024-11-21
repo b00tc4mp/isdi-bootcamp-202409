@@ -3,6 +3,8 @@ import 'dotenv/config'
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 
+import bcrypt from 'bcryptjs'
+
 chai.use(chaiAsPromised)
 const { expect } = chai
 
@@ -18,8 +20,8 @@ describe('authenticateUser', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', () =>
-        User.create({ name: 'Voromir', email: 'voromir@middleearth.com', username: 'voromir', password: 'voromir' })
-            .then(() => authenticateUser('voromir', 'voromir'))
+        User.create({ name: 'Boromir', email: 'Boromir@middleearth.com', username: 'Boromir', password: bcrypt.hashSync('Boromir', 10) })
+            .then(() => authenticateUser('Boromir', 'Boromir'))
             .then(user => {
                 expect(user).to.exist
                 expect(user.id).to.be.a.string
@@ -30,7 +32,7 @@ describe('authenticateUser', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            authenticateUser('voromir', 'lacomarca')
+            authenticateUser('Boromir', 'lacomarca')
         ).to.be.rejectedWith(CredentialsError, 'User or pass incorrect')
     )
 })

@@ -13,7 +13,7 @@ import './PostList.css'
 
 
 //export default class extends Component {
-export default function PostList() {
+export default function PostList({ onManageUsers }) {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -35,9 +35,6 @@ export default function PostList() {
             console.error(error)
         }
     }, [])
-
-
-
 
 
     const handleLiked = () => {
@@ -104,11 +101,24 @@ export default function PostList() {
         }
     }
 
+    const handleManageUsers = event => {
+        event.preventDefault()
+        onManageUsers()
+    }
+
 
     console.log('Posts -> render')
-
+    {/* Botón para moderadores, eliminar todos los posts */ }
+    /* { logic.isUserRoleModerator() && <Button onClick={handleDeleteClick}>🔪 Kill </Button> } */
     return <main className="Home flex items-center justify-center min-h-screen">
+
         <div className="container  bg-blue-900 p-8 rounded-md">
+            {logic.isUserRoleModerator() && <div className="bg-gray-600">
+                <h3 className="text-3m">Admin bar</h3>
+                <a onClick={handleManageUsers} className="cursor-pointer">Manage users</a>
+            </div>}
+
+
             {/* <h3>Posts</h3> */}
             {posts.map(post => <PostItem
                 key={post.id}
