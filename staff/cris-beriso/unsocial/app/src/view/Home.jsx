@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import { Post } from '../components/functional/'
+import { Post } from './components'
 
 import logic from '../logic'
 
-import './Posts.css'
-
-export default function Posts() {
+export default function Home() {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -111,9 +109,9 @@ export default function Posts() {
     }
   }
 
-  console.log('Posts -> render')
+  console.log('Home -> render')
 
-  return <div className="Posts">
+  return <div className="flex justify-center flex-col">
     {posts.map(post => <Post
       key={post.id}
       post={post}

@@ -1,8 +1,6 @@
-import './Input.css'
-
 export default function Input({ type, id }) {
   console.log('Input -> render')
 
-  return <input type={type} id={id} className="Input" />
+  return <input type={type} id={id} className="w-full box-border bg-slate-100 " />
 }
 
