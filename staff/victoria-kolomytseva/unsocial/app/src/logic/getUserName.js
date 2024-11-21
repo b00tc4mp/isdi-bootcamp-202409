@@ -1,4 +1,5 @@
 import { validate, errors } from 'com'
+import { extractPayloadFromJWT } from '../util'
 
 const { SystemError } = errors
 
@@ -26,6 +27,8 @@ export default callback => {
     })
 
     xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+    const { sub: userId } = extractPayloadFromJWT(sessionStorage.token)
 
     xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`)
     xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
