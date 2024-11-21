@@ -17,6 +17,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "com": "file:../com",
     "cors": "^2.8.5",
     "dat": "file:../dat",
