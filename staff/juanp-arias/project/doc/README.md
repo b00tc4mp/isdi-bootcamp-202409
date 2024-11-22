@@ -1,33 +1,30 @@
-# [App Name]
+# [App Name] //pending
 
 ## Intro
 
 [...]
 
-![](https://media.giphy.com/media/XxYsESeIStBeyuVexK/giphy.gif?cid=82a1493bwnmcgc8ej1kuwmfxpdbjvczx71e6j3n0dqgaz5ij&ep=v1_gifs_trending&rid=giphy.gif&ct=g)
+![](https://e7.pngegg.com/pngimages/220/720/png-clipart-paper-post-it-note-product-design-logo-design-text-logo.png)
 
 ## Functional
 
 ### Use Cases
 
-User
-- create post
-- view posts
-- toggle like post
-- delete post
-- add comment
-- view comments
-- remove comment
-- report user
-- report post
-- report comment
+User (student)
+- Take notes
+- Grade Checking
+- Access to Assignments and Projects
+- School Calendar
+- Communication with Teachers (future)
+- Attendance Record 
+- Personal Profile
 - [...]
 
-Admin
-- view reports
-- delete user
-- delete post
-- remove comment
+Admin (Teacher/Center)
+- Grade Management
+- Assignment Creation
+- Attendance Tracking
+- Communication with Students (future)
 - [...]
 
 ### UXUI Design
@@ -58,6 +55,7 @@ User
 - email (string)
 - username (string)
 - password (string)
+- grade (string)
 
 Post
 - id (UUID)
