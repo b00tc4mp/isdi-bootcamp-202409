@@ -1,2 +1,2 @@
-export default () => sessionStorage.token !== undefined
+export default () => localStorage.token !== undefined
 
