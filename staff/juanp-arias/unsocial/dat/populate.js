@@ -28,7 +28,7 @@ db.connect(process.env.MONGO_URL)
                     const { _id: author } = users.find(user => user.username === username)
 
                     const likes = []
-                    const likesNumber = randomNumber(0, users.length)
+                    const likesNumber = randomNumber(0, users.length)//Definición de los números de likes que tendrá cada publicación
 
                     for (let i = 0; i < likesNumber; i++) {
                         let user = randomElement(users)
