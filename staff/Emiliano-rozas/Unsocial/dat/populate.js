@@ -1,33 +1,54 @@
 import 'dotenv/config'
+
+import fs from 'fs/promises'
+import bcrypt from 'bcryptjs'
+
 import db, { User, Post } from './index.js'
 
 db.connect(process.env.MONGO_URL)
     .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
-    .then(() => Promise.all([User.create({
-        name: 'Micho Tito',
-        email: 'micho@tito.com',
-        username: 'Michotacorta',
-        password: '123123123',
-        role: 'regular'
-    }),
-    User.create({
-        name: 'Elber Galarga',
-        email: 'elber@tito.com',
-        username: 'ElberGalarga',
-        password: '123123123',
-        role: 'moderator'
-    })]))
-    .then(([micho, elber]) => Promise.all([
-        Post.create({
-            author: micho.id,
-            image: 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGc5ZWd6c214bDYzczIzbmExM3JqYmphZmt1MjE3eXhlc2JkaGZsaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hiQndt1hi1Lva/giphy.webp',
-            text: 'Un hambreeee'
-        }),
-        Post.create({
-            author: elber.id,
-            image: 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHFiZ2ttZXdnd2Vkdjl3d29kcW9nanE2cjkyZnl1eGs1aWY4dHd3cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vFtWp05vBYnMQ/giphy.webp',
-            text: 'tilin tilin'
+    .then(() => fs.readFile('./users.csv', 'utf-8'))
+    .then(csv => {
+        const lines = csv.split('\n')
+
+        const creations = lines.map(line => {
+            const [name, email, username, password, role] = line.split(',').map(item => item.trim())
+
+            return User.create({ name, email, username, password: bcrypt.hashSync(password, 10), role })
         })
-    ]))
+
+        return Promise.all(creations)
+    })
+    .then(users => {
+        return fs.readFile('./posts.csv', 'utf-8')
+            .then(csv => {
+                const lines = csv.split('\n')
+
+                const creations = lines.map(line => {
+                    const [username, image, text, date] = line.split(',').map(item => item.trim())
+
+                    const { _id: author } = users.find(user => user.username === username)
+
+                    const likes = []
+                    const likesNumber = randomNumber(0, users.length)
+
+                    for (let i = 0; i < likesNumber; i++) {
+                        let user = randomElement(users)
+
+                        while (likes.includes(user.id))
+                            user = randomElement(users)
+
+                        likes.push(user.id)
+                    }
+
+                    return Post.create({ author, image, text, date, likes })
+                })
+
+                return Promise.all(creations)
+            })
+    })
     .catch(console.error)
     .finally(() => db.disconnect())
+
+const randomElement = array => array[Math.floor(Math.random() * array.length)]
+const randomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min 
