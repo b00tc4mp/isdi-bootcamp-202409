@@ -3,7 +3,7 @@ import { validate , errors} from 'com';
 
 const { SystemError, NotFoundError } = errors;
 
-const getPosts = (userId) => {
+const getPosts = userId => {
     validate.id(userId, 'userId');
 
     return Promise.all([

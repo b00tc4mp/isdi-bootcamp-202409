@@ -1,4 +1,4 @@
-import { User } from 'dat';
+import { User, Post } from 'dat';
 import { validate, errors } from 'com';
 
 const { SystemError, NotFoundError } = errors;

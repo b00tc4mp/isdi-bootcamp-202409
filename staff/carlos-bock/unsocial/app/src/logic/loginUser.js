@@ -15,7 +15,7 @@ const loginUser = (username, password, callback) => {
         if (status === 200) {
             const token = JSON.parse(response);
 
-            sessionStorage.token = token;
+            localStorage.token = token;
 
             callback(null);
 
@@ -33,8 +33,8 @@ const loginUser = (username, password, callback) => {
 
     xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users/auth`)
     xhr.setRequestHeader('Content-Type', 'application/json');
-    const credentials = {username, password};
-    xhr.send(JSON.stringify(credentials));   
+    const credentials = { username, password };
+    xhr.send(JSON.stringify({ credentials }));   
 }
 
 export default loginUser;

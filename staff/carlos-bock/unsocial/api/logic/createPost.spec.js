@@ -9,27 +9,27 @@ const { expect } = chai;
 import db, { User, Post } from 'dat';
 import { errors } from 'com';
 
-const { NotFoundError, ValidateError, SystemError } = errors;
+const { NotFoundError, ValidationError, SystemError } = errors;
 
 import createPost from './createPost.js';
 
 debugger;
 
 describe('createPost', () => {
-    before(() => db.connect('mongodb://localhost:27017/unsocial-test'))
+    before(() => db.connect(process.env.MONGO_URL_TEST))//'mongodb://localhost:27017/unsocial-test'
 
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]));
 
     it('succeeds for existing user', () => 
         User.create({ name: 'Ethan Hunt', email: 'hunt@imf.gov', username: 'ehunt', password: '123123123'})
             .then(user => 
-                createPost(user.id, 'https://cdn.theasc.com/Mission-Impossible-Featured.jpg','well done')
+                createPost(user.id, 'https://www.image.com','hello')
                     .then(() => Post.findOne())
                     .then(post => {
                         expect(post).to.be.exist;
                         expect(post.author.toString()).to.equal(user.id);
-                        expect(post.image).to.equal('https://cdn.theasc.com/Mission-Impossible-Featured.jpg');
-                        expect(post.text).to.equal('well done');
+                        expect(post.image).to.equal('https://www.image.com');
+                        expect(post.text).to.equal('hello');
                         expect(post.date).to.be.instanceOf(Date);
                     })
             )    
@@ -37,20 +37,20 @@ describe('createPost', () => {
 
     it('fails on non-existing user', () => 
         expect(
-            createPost('012345678901234567890123','https://www.image.com', 'sup?')
+            createPost('012345678901234567890123','https://www.image.com', 'hello')
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
     it('fails on non-string user-id', () =>
-        expect(() => createPost(true, 'https://www.image.com', 'est')).to.throw(ValidateError, /^invalid userId$/)
+        expect(() => createPost(true, 'https://www.image.com', 'hello')).to.throw(ValidationError, /^invalid userId$/)
     )
 
     it('fails on non-24-chars-length user-id', () =>
-        expect(() => createPost('0123', 'https://www.image.com', 'meh')).to.throw(ValidationError, /^invalid userId length$/)
+        expect(() => createPost('0123', 'https://www.image.com', 'hello')).to.throw(ValidationError, /^invalid userId length$/)
     )
 
     it('fails on non-string image', () =>
-        expect(() => createPost('012345678901234567890123', true, 'bankai')).to.throw(ValidationError, /^invalid image$/)
+        expect(() => createPost('012345678901234567890123', true, 'hello')).to.throw(ValidationError, /^invalid image$/)
     )
 
     it('fails on non-string text', () =>
@@ -66,10 +66,9 @@ describe('createPost', () => {
             User.findById = () => Promise.reject(new Error('system error on User.findById'))
         })
     
-
         it('fails on User.findById error', () =>
             expect(
-                createPost('012345678901234567890123', 'https://www.image.com', 'hello world')
+                createPost('012345678901234567890123', 'https://www.image.com', 'hello')
             ).to.be.rejectedWith(SystemError, /^system error on User.findById$/)
         )
 
@@ -89,7 +88,7 @@ describe('createPost', () => {
             expect(
                 User.create({ name: 'Ethan Hunt', email: 'hunt@imf.gov', username: 'ehunt', password: '123123123'})
                     .then(user => 
-                        createPost(user.id, 'https://www.image.com', 'meh')
+                        createPost(user.id, 'https://www.image.com', 'hello')
                     )
             ).to.be.rejectedWith(SystemError, /^system error on Post.create$/)
         )

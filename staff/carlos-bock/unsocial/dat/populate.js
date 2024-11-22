@@ -1,41 +1,54 @@
 import 'dotenv/config';
+
+import fs from 'fs/promises';
+import bcrypt from 'bcryptjs';
+
 import db, { User, Post } from './index.js';
 
-db.connect('mongodb://localhost:27017/unsocial-test') //process.env.MONGO_URL
+db.connect(process.env.MONGO_URL) //   'mongodb://localhost:27017/unsocial-test'  rocess.env.MONGO_URL_TEST
     .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
-    .then(() => Promise.all([
-        User.create({
-        name: 'Peter Parker',
-        email: 'peter@db.com',
-        username: 'pparker',
-        password: '123123123',
-        role: 'regular'  
-    }),
-    User.create({
-        name: 'Samurai Jack',
-        email: 'jack@samurai.jp',
-        username: 'samurai',
-        password: '123123123',
-        role: 'regular'
-    }),
-    User.create({
-        name: 'Puss in Boots',
-        email: 'puss@boots.com',
-        username: 'theboots',
-        password: '123123123',
-        role: 'regular'
-    })]))
-    .then(([peter, jack, puss]) => Promise.all([
-        Post.create({
-            author: peter.id,
-            image: 'https://img2.rtve.es/i/?w=1600&i=1442912664626.jpg',
-            text: 'friendly neighboorhood...'
-        }),
-        Post.create({
-            author: puss.id,
-            image: 'https://m.media-amazon.com/images/M/MV5BZWEzN2M2MjgtYzc4YS00Yjg5LWJjMGEtNGM5NTEyMjE0ZDE2XkEyXkFqcGc@._V1_QL75_UX525_.jpg',
-            text: 'fear me!'
+    .then(() => fs.readFile('./users.csv', 'utf-8'))
+    .then( csv => {
+        const lines = csv.split('\n');
+
+        const creations = lines.map(line=> {
+            const [name, email, username, password, role] = line.split(',').map(item => item.trim())
+
+            return User.create({ name, email, username, password: bcrypt.hashSync(password, 10), role})
         })
-    ]))
+
+        return Promise.all(creations);
+    })
+    .then(users => {
+        return fs.readFile('./posts.csv','utf-8')
+            .then(csv => {
+                const lines = csv.split('\n');
+
+                const creations = lines.map(line => {
+                    const [username, image, text, date] = line.split(',').map(item => item.trim());
+
+                    const { _id: author } = users.find(user => user.username === username);
+
+                    const likes = [];
+                    const likesNumber = randomNumber(0, users.length);
+
+                    for (let i = 0; i < likesNumber; i++) {
+                        let user = randomElement(users);
+
+                        while (likes.includes(user.id))
+                            user = randomElement(users);
+
+                        likes.push(user.id);
+                    }
+
+                    return Post.create({ author, image, text, date, likes })
+                })
+
+                return Promise.all(creations);
+            })
+    })
     .catch(console.error)
     .finally(() => db.disconnect())
+
+    const randomElement = array => array[Math.floor(Math.random() * array.length)];
+    const randomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min; 
