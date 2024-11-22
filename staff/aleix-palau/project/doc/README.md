@@ -4,7 +4,7 @@
 
 [...]
 
-![](https://media.giphy.com/media/XxYsESeIStBeyuVexK/giphy.gif?cid=82a1493bwnmcgc8ej1kuwmfxpdbjvczx71e6j3n0dqgaz5ij&ep=v1_gifs_trending&rid=giphy.gif&ct=g)
+![]()
 
 ## Functional
 
@@ -58,6 +58,9 @@ User
 - email (string)
 - username (string)
 - password (string)
+- dob (Date)
+- gender (string, enum: male | female | nonbinary)
+- target (string, enum: male | female | nonbinary)
 
 Post
 - id (UUID)
