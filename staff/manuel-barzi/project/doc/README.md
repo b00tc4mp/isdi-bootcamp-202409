@@ -1,34 +1,23 @@
-# [App Name]
+# OMG aka WTF
 
 ## Intro
 
-[...]
+An for moving an emoji socially on screen.
 
-![](https://media.giphy.com/media/XxYsESeIStBeyuVexK/giphy.gif?cid=82a1493bwnmcgc8ej1kuwmfxpdbjvczx71e6j3n0dqgaz5ij&ep=v1_gifs_trending&rid=giphy.gif&ct=g)
+![](https://media.giphy.com/media/OGEbQXwNesZ6U/giphy.gif?cid=790b7611av66yersrupafs2ibwkpjrgp21bk42aawk08ru3m&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
 ## Functional
 
 ### Use Cases
 
-User
-- create post
-- view posts
-- toggle like post
-- delete post
-- add comment
-- view comments
-- remove comment
-- report user
-- report post
-- report comment
-- [...]
+Regular (User)
+- choose emoji
+- move emoji (on screen)
 
-Admin
-- view reports
-- delete user
-- delete post
-- remove comment
-- [...]
+Moderator (User)
+- view reporting list
+- view reporting detail
+- ban user
 
 ### UXUI Design
 
@@ -50,28 +39,6 @@ Admin
 - dat (the data model and driver)
 - com (the common validations, utils, ...)
 
-### Data Model
-
-User
-- id (UUID)
-- name (string)
-- email (string)
-- username (string)
-- password (string)
-
-Post
-- id (UUID)
-- author (User.id)
-- image (string)
-- text (string)
-- date (Date)
-- likes ([User.id])
-- comments ([{ 
-    - id (UUID)
-    - author (User.id)
-    - text (string)
-    - date (Date) }])
-
 ### Techs
 
 - HTML/CSS/JS (...)
@@ -82,6 +49,23 @@ Post
 - Mocha & Chai (...)
 - [...]
 
+### Data Model
+
+User
+- name (string)
+- email (string)
+- username (string)
+- password (string)
+- role (string, enum: regular | moderator)
+
 ### Test Coverage
 
-[...]
+```sh
+----------------------|---------|----------|---------|---------|-------------------
+File                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------------|---------|----------|---------|---------|-------------------
+All files             |   96.96 |       50 |     100 |   96.87 |                   
+ registerUser.js      |    92.3 |       50 |     100 |   91.66 | 23                
+ registerUser.spec.js |     100 |      100 |     100 |     100 |                   
+----------------------|---------|----------|---------|---------|-------------------
+```
