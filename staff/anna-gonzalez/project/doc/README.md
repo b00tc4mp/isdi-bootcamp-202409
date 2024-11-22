@@ -2,9 +2,11 @@
 
 ## Intro
 
-An app designed for menstruating people to simplify your daily life by tracking your menstrual cycle, organizing important events, and providing personalized insights on key aspects of your routine.
+An app designed for **menstruating people** to simplify your daily life by tracking your menstrual cycle, organizing important events, and providing personalized insights on key aspects of your routine.
 
-This app is your everyday companion to stay organized and in control.
+This app is your **everyday companion** to stay organized and in control. Whether you want to keep track of symptoms, set reminders for important dates, or discover tips and music for each phase of your cycle, Period adapts to your needs and helps you **sync with your body**.
+
+With a clean and intuitive design, Period **empowers you** to better understand your body and make informed decisions about your health and wellness. It’s more than just tracking—it’s about **embracing your rhythm** and thriving every day of the month.
 
 ![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcno0Z21nOWxudXRiNXhlajY3dWF5eDBwM3Vjdm9xMnhzaThtcDZtdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/j10NjRC0rU0IrIIbaA/giphy.gif)
 
@@ -13,18 +15,20 @@ This app is your everyday companion to stay organized and in control.
 ### Use Cases
 
 User
-- add period start and end dates to calendar
-- view predictions for next cycle
-- add custom events w or without reminder to calendar
-- set reminders
-- record notes
-- view a history of past cycles and events
-- receive reminder notifications
-- view reports
+- create/update/delete period start and end dates to calendar
+- create/update/delete events with or without reminder to calendar
+- create/update/delete a note to the home
+- create/update/delete a log of daily symptoms
+- read data about your current cycle
+- read events reminders and notes
+- read reports of the last cycles
+- read predictions for the next cycle
+- read user profile
+- read tips regarding your week of the cycle
+- read 3 new artists that change every week
 
 Visitor
-- view calendar
-- record notes
+- read home
 
 ### UXUI Design
 
@@ -48,28 +52,30 @@ Visitor
 
 ### Data Model
 
+Hacer componente viewer para q vea un resumen d los detalles
+
 User
 - id (ObjectId)
 - name (string)
 - email (string, unique)
-- birth date (date)
-- username (string, unique)
+<!-- - birth date (date) 
+- username (string, unique) -->
 - password (hashed string)
 
-Cycle
+Cycles
 - id (unique identifier)
-- userId (reference to user.id)
+- user (User.id)
 - startDate (date)
-- endDate (date)
-- cycleLength: (number: endDate - startDate)
-- menstruationLength (number)
-- ovulationDate (number)
-- flowIntensity (string, enum: light | medium | heavy)
+- endDate (date) OPTIONAL!!!!
+- cycleDays: (number: //endDate - startDate) 
+- menstruationDays (number)
 - isRegular (boolean)
-- symptoms (array of references to symptom.id)
-- energyLevel (object with sleep and physical)
-- sexualActivity (number)
-- notes (string)
+- mostFrequentSymptoms ([Symptom.id])
+<!-- - flowIntensity (string, enum: light | medium | heavy)
+- energyLevel (string, enum: low | medium | high)
+- slepQuality (string, enum: poor | average | good)
+- sexualActivity (number) optionallllllll-->
+- summary (string)
 
 Symptom
 - id (unique identifier)
@@ -77,7 +83,21 @@ Symptom
 - image (string)
 - category (string, enum: physical | emotional)
 
-DailyInsight
+Event
+- id (unique identifier)
+- user (User.id)
+- date (Date)
+- title (string)
+- description (string)
+- reminder (boolean)
+
+Tip
+- id (unique identifier)
+- phase (string, enum: menstruation | follicular | ovulation | luteal)
+- category (string, enum: nutrition | exercise | self-care | music)
+- description (string)
+
+<!-- DailyInsight
 - id (unique identifier)
 - userId (reference to user.id)
 - date (date)
@@ -87,21 +107,7 @@ DailyInsight
 - reminder (string)
 - note (string)
 
-Event
-- id (unique identifier)
-- userId (reference to user.id)
-- date (date)
-- title (string)
-- text (string)
-- reminder (boolean)
-
-Tip
-- id (unique identifier)
-- phase (string, enum: menstruation | follicular | ovulation | luteal)
-- category (string, enum: nutrition | activities | well-being | music)
-- text (string)
-
-<!-- Report
+Report
 - id (unique identifier)
 - userId (reference to user.id)
 - cycleId (reference to cycle.id)
