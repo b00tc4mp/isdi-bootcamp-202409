@@ -1,9 +1,14 @@
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+
 import { Login, Register, Home, CreatePost } from './view'
+
 import Hello from './view/Hello'
 import Search from './view/Search'
+import Profile from './view/Profile'
+
 import Header from './view/components/Header'
 import Footer from './view/components/Footer'
+
 import logic from './logic'
 
 export default function App() {
@@ -51,6 +56,7 @@ export default function App() {
       //extra demos
       <Route path="/hello/:name" element={<Hello />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/profile/:userId/*" element={<Profile />} />
     </Routes>
 
     <Footer onNewPostClick={handleNewPostClick} /*view={view}*/ />
