@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color: DarkSlateGray;
+    --back-color: white;
+    --font: 'Sixtyfour';
+    font-family: var(--font);
+}
+
+body {
+    color: var(--color);
+}
+
+a:visited {
+    color: var(--color);
+}
