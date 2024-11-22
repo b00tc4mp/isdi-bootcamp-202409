@@ -9,7 +9,7 @@ db.connect(process.env.MONGO_URL_TEST)
       return registerUser(
         "Kerry Kachota",
         "kerry@kachota.com",
-        "Kerry Kachota",
+        "KerryKachota",
         "123123123",
         "123123123"
       )

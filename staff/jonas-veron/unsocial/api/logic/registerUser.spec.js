@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";
+import bcrypt from "bcryptjs";
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
@@ -32,7 +33,7 @@ describe("registerUser", () => {
         expect(user.name).to.equal("Robin Hood");
         expect(user.email).to.equal("robin@hood.com");
         expect(user.username).to.equal("robinhood");
-        expect(user.password).to.equal("123123123");
+        expect(bcrypt.compareSync("123123123", user.password)).to.be.true;
       }));
 
   it("fails on existing user", () =>
@@ -41,7 +42,7 @@ describe("registerUser", () => {
         name: "Robin Hood",
         email: "robin@hood.com",
         username: "robinhood",
-        password: "123123123",
+        password: bcrypt.hashSync("123123123", 10),
       }).then(() =>
         registerUser(
           "Robin  Hood",
