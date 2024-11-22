@@ -6,6 +6,7 @@ import Search from './view/Search'
 
 import Header from './view/components/Header'
 import Footer from './view/components/Footer'
+import Profile from './view/Profile'
 
 import logic from './logic'
 
@@ -45,6 +46,7 @@ export default function App() {
       {/* extra demos */}
       <Route path="hello/:name" element={<Hello />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/profile/:userId/*" element={<Profile />}></Route>
     </Routes>
 
     <Footer
