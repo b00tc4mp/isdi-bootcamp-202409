@@ -1,8 +1,10 @@
-# [App Name]
+# [PetLocator]
 
 ## Intro
 
-[...]
+An application designed to help people find their lost pets or report pets they have seen lost.
+
+
 
 ![](https://media.giphy.com/media/XxYsESeIStBeyuVexK/giphy.gif?cid=82a1493bwnmcgc8ej1kuwmfxpdbjvczx71e6j3n0dqgaz5ij&ep=v1_gifs_trending&rid=giphy.gif&ct=g)
 
@@ -11,9 +13,9 @@
 ### Use Cases
 
 User
+- register
 - create post
 - view posts
-- toggle like post
 - delete post
 - add comment
 - view comments
@@ -21,18 +23,21 @@ User
 - report user
 - report post
 - report comment
-- [...]
+- contact the pet owner or the person who found the animal
+- report a found pet to help reunite it with its owner
+- flag a post when the pet has found its owner
 
-Admin
+Posts
 - view reports
-- delete user
 - delete post
 - remove comment
-- [...]
+- mark a post as "resolved" when the pet is found 
+- view detailed information and images in a post
+- contact the poster for more details via the contact info in the post
 
 ### UXUI Design
 
-[Figma](https://figma.com)
+[Figma](https://www.figma.com/proto/SdVTeLToZLgnrZbtUUohRJ/PetLocator?node-id=4-3&node-type=canvas&t=MA0wRU9n3uCKroh6-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1)
 
 ## Technical
 
@@ -56,8 +61,13 @@ User
 - id (UUID)
 - name (string)
 - email (string)
-- username (string)
+- surname (string)
 - password (string)
+- city
+- postal_code
+- phone
+
+
 
 Post
 - id (UUID)
@@ -66,6 +76,9 @@ Post
 - text (string)
 - date (Date)
 - likes ([User.id])
+- reported(boolean)
+- found(boolean)
+
 - comments ([{ 
     - id (UUID)
     - author (User.id)
