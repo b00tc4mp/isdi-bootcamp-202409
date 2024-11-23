@@ -1,0 +1,100 @@
+body {
+  background: linear-gradient(45deg, rgb(118, 201, 255), rgb(247, 255, 222));
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.face {
+  width: 360px;
+  height: 350px;
+  background-color: pink;
+  border-radius: 70% 70% 65% 65%;
+  border: black solid;
+
+}
+
+.nose {
+  width: 100px;
+  height: 80px;
+  background-color: pink;
+  border-radius: 70% 70% 65% 65%;
+  border: solid black;
+  position: relative;
+  top: 50%;
+  left: 35%;
+}
+
+.mouth {
+  border: solid black;
+  position: relative;
+  top: 60%;
+  width: 40px;
+  left: 35%;
+}
+
+.holes {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.left--hole {
+  background-color: black;
+  width: 10px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.right--hole {
+  background-color: black;
+  width: 10px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.eyes {
+  position: absolute;
+  top: 80px;
+  left: 100px;
+  display: flex;
+  gap: 35px;
+}
+
+.right--eye {
+  background-color: white;
+  width: 80px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.left--eye {
+  background-color: white;
+  width: 80px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.right--pupil {
+  background-color: black;
+  width: 20px;
+  height: 25px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+  left: 15%
+}
+
+.left--pupil {
+  background-color: black;
+  width: 20px;
+  height: 25px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+  right: 15%
+}

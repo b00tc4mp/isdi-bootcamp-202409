@@ -1,0 +1,75 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.antena {
+  background-color: rgb(111, 111, 110);
+  width: 10px;
+  height: 50px;
+}
+
+.top {
+  background-color: rgb(127, 95, 14);
+  width: 50px;
+  height: 25px;
+}
+
+.top2 {
+  background-color: rgb(127, 95, 14);
+  width: 150px;
+  height: 25px;
+}
+
+.top3 {
+  background-color: rgb(127, 95, 14);
+  width: 220px;
+  height: 25px;
+}
+
+.building {
+  background-color: rgb(197, 167, 90);
+  height: 400px;
+  width: 250px;
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  padding: 10px 10px 0px 10px;
+}
+
+.window {
+  background-color: rgb(118, 191, 255);
+  height: 100%;
+}
+
+.door {
+  background-color: rgb(127, 95, 14);
+  width: 60px;
+  height: 65px;
+  position: absolute;
+  bottom: 123px;
+  left: 190px;
+}
+
+.floor {
+  background-color: rgb(70, 70, 70);
+  width: 310px;
+  height: 15px;
+  border: 1px solid;
+}
+
+.floor1 {
+  background-color: rgb(70, 70, 70);
+  width: 330px;
+  height: 15px;
+  border: 1px solid;
+}
+
+.floor2 {
+  background-color: rgb(70, 70, 70);
+  width: 350px;
+  height: 15px;
+  border: 1px solid;
+}

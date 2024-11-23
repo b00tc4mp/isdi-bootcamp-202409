@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+  <h1 style="color:chartreuse;">How to print the DOM tree?? 🙃</h1>
+  <div>
+    <div>
+      <div>
+        <div>
+          <h2 style="color: chartreuse;">Hola...</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Debemos escribir una funcion que se llame a si misma para imprimir por pantalla todos los
+    // nombres de los tags que componen a un documento html (DOM)
+    // agregamos una logica para imprimir los elementos indentados
+
+    function printDomTree(element, indent) {
+
+      if (indent === undefined) indent = 0
+
+      console.log((indent === 0 ? '' : ' '.repeat(indent)) + element.tagName)
+      for (var i = 0; i < element.children.length; i++) {
+        printDomTree(element.children[i], indent + 1)
+      }
+    }
+    printDomTree(document.children[0])
+
+  </script>
+</body>
+
+</html>
