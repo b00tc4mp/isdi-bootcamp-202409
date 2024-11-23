@@ -48,6 +48,7 @@ export default function App() {
       {/* extra demos */}
       <Route path="/hello/:name" element={<Hello />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/profile/:userId/*" element={<Profile />} />
 
     </Routes>
 
