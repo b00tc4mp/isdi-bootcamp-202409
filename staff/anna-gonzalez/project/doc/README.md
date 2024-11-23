@@ -2,9 +2,7 @@
 
 ## Intro
 
-An app designed for **menstruating people** to simplify your daily life by tracking your menstrual cycle, organizing important events, and providing personalized insights on key aspects of your routine.
-
-This app is your **everyday companion** to stay organized and in control. Whether you want to keep track of symptoms, set reminders for important dates, or discover tips and music for each phase of your cycle, Period adapts to your needs and helps you **sync with your body**.
+This app is designed for menstruating people to be your **everyday companion** to stay organized and in control. Whether you want to keep track of symptoms, set reminders for important dates, or discover tips and music for each phase of your cycle, Period adapts to your needs and helps you **sync with your body**.
 
 With a clean and intuitive design, Period **empowers you** to better understand your body and make informed decisions about your health and wellness. It’s more than just tracking—it’s about **embracing your rhythm** and thriving every day of the month.
 
@@ -17,22 +15,20 @@ With a clean and intuitive design, Period **empowers you** to better understand 
 User
 - create/update/delete period start and end dates to calendar
 - create/update/delete events with or without reminder to calendar
-- create/update/delete a note to the home
-- create/update/delete a log of daily symptoms
+- create/update/delete a log of daily symptoms and activities
 - read data about your current cycle
-- read events reminders and notes
-- read reports of the last cycles
+- read events reminders
+- read reports of the last cycles    
 - read predictions for the next cycle
 - read user profile
 - read tips regarding your week of the cycle
-- read 3 new artists that change every week
 
 Visitor
 - read home
 
 ### UXUI Design
 
-[Figma](https://www.figma.com/proto/0axquRKAMeYzYictpTqeQX/A-punto?node-id=0-1&t=5XWGSFzZZMcMrNle-1)
+[Figma](https://www.figma.com/design/0axquRKAMeYzYictpTqeQX/Period?node-id=0-1&t=9KYWTC76WtFOT8jc-1)
 
 ## Technical
 
@@ -52,53 +48,55 @@ Visitor
 
 ### Data Model
 
-Hacer componente viewer para q vea un resumen d los detalles
-
 User
 - id (ObjectId)
 - name (string)
 - email (string, unique)
-<!-- - birth date (date) 
-- username (string, unique) -->
 - password (hashed string)
 
 Cycles
-- id (unique identifier)
+- id (ObjectId)
 - user (User.id)
-- startDate (date)
-- endDate (date) OPTIONAL!!!!
-- cycleDays: (number: //endDate - startDate) 
-- menstruationDays (number)
+- periodStart (Date)
+- periodEnd (Date)
+- cycleEnd (Date)
 - isRegular (boolean)
-- mostFrequentSymptoms ([Symptom.id])
-<!-- - flowIntensity (string, enum: light | medium | heavy)
+- dailyLogs: ([DailyLog.id])
+
+DailyLog
+- id (ObjectId)
+- cycle (Cycles.id)
+- date (Date)
+- flowIntensity (string, enum: light | medium | heavy)
 - energyLevel (string, enum: low | medium | high)
-- slepQuality (string, enum: poor | average | good)
-- sexualActivity (number) optionallllllll-->
-- summary (string)
+- sleepQuality (string, enum: poor | average | good)
+- sexualActivity (number)
+- symptoms ([Symptom.id])
 
 Symptom
-- id (unique identifier)
+- id (ObjectId)
 - name (string)
-- image (string)
+<!-- - image (string) -->
 - category (string, enum: physical | emotional)
+- severity (string, enum: mild | moderate | severe)
 
 Event
-- id (unique identifier)
+- id (ObjectId)
 - user (User.id)
 - date (Date)
 - title (string)
 - description (string)
 - reminder (boolean)
+- recurrence ({ type (string), interval (number)})
 
 Tip
-- id (unique identifier)
+- id (ObjectId)
 - phase (string, enum: menstruation | follicular | ovulation | luteal)
 - category (string, enum: nutrition | exercise | self-care | music)
 - description (string)
 
 <!-- DailyInsight
-- id (unique identifier)
+- id (ObjectId)
 - userId (reference to user.id)
 - date (date)
 - phase (string, enum: menstruation | follicular | ovulation | luteal)
@@ -108,7 +106,7 @@ Tip
 - note (string)
 
 Report
-- id (unique identifier)
+- id (ObjectId)
 - userId (reference to user.id)
 - cycleId (reference to cycle.id)
 - cycleLength (number)
