@@ -3,11 +3,13 @@ import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { Login, Register, Home, CreatePost } from "./view";
 import Hello from "./view/Hello";
 import Search from "./view/Search";
+import Profile from "./view/Profile";
 
 import Header from "./components/functional/Header";
 import Footer from "./components/functional/Footer";
 
 import logic from "./logic";
+import getUserId from "./logic/getUserId";
 
 export default function App() {
   console.log("App -> constructor");
@@ -26,6 +28,13 @@ export default function App() {
   const handleUserRegistered = () => navigate("/login");
 
   const handleNewPostClick = () => navigate("/new-post");
+
+  const handleMyProfileClick = () => {
+    try {
+      const userId = logic.getUserId();
+      navigate(`/profile/${userId}`);
+    } catch (error) {}
+  };
 
   const handleHomeClick = () => navigate("/");
 
@@ -92,12 +101,16 @@ export default function App() {
             )
           }
         />
-        extra demos
+        {/* extra demos */}
         <Route path="/hello/:name" element={<Hello />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/profile/:userId/*" element={<Profile />} />
       </Routes>
 
-      <Footer onNewPostClick={handleNewPostClick} />
+      <Footer
+        onNewPostClick={handleNewPostClick}
+        onMyProfileClick={handleMyProfileClick}
+      />
     </>
   );
 }
