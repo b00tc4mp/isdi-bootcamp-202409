@@ -8,6 +8,7 @@ import toggleLikePost from './toggleLikePost.js'
 import addComment from './addComment.js'
 import getComments from './getComments.js'
 import removeComment from './removeComment.js'
+import getUsers from './getUsers.js'
 
 const logic = {
     authenticateUser,
@@ -20,7 +21,8 @@ const logic = {
     toggleLikePost,
     addComment,
     getComments,
-    removeComment
+    removeComment,
+    getUsers
 
 }
 

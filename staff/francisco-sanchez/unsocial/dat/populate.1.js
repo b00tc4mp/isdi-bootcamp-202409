@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import db, { User, Post } from './index.js'
 
-db.connect(process.env.MONGO_URL)
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
     .then(() => Promise.all([
         User.create({

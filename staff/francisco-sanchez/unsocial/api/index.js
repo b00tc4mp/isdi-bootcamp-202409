@@ -63,6 +63,13 @@ db.connect(process.env.MONGO_URL).then(() => {
         return logic.getPosts(userId).then(posts => res.json(posts))
     }))
 
+    //Recupera los usuarios
+    server.get('/users', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId } = req
+
+        return logic.getUsers(userId).then(users => res.json(users))
+    }))
+
     //elimina un post
     server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler((req, res) => {
         const { userId, params: { postId } } = req

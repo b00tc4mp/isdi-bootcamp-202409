@@ -19,6 +19,7 @@ import getUserId from './getUserId'
 import addComment from './addComment'
 import getComments from './getComments'
 import removeComment from './removeComment'
+import getUsers from './getUsers'
 
 
 const logic = {
@@ -43,6 +44,8 @@ const logic = {
     addComment,
     getComments,
     removeComment,
+
+    getUsers
 
     //getElapsedTime //OJO !! 
 
