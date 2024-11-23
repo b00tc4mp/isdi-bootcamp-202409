@@ -10,18 +10,18 @@ This is a Mobile app for elderly people who need some assistance at home.
 
 ### Use Cases
 
-Regular (User)
-- choose emoji
-- move emoji (on screen)
+Caregiver (User)
+-
+-
 
-Moderator (User)
-- view reporting list
-- view reporting detail
-- ban user
+Elder (User)
+-
+-
+-
 
 ### UXUI Design
 
-[Figma](https://figma.com)
+[Figma](https://www.figma.com/design/vvDGYcAaFPJKgUSgKO6Gkm/LovingHands?node-id=0-1&node-type=canvas&t=QOzUYzlKPp6uLx4E-0)
 
 ## Technical
 
@@ -42,7 +42,7 @@ Moderator (User)
 ### Techs
 
 - HTML/CSS/JS (...)
-- React (...)
+- React Native (...)
 - Node (...)
 - Express (...)
 - Mongo (...)
@@ -56,7 +56,7 @@ User
 - email (string)
 - username (string)
 - password (string)
-- role (string, enum: regular | moderator)
+- role (string, enum: caregiver | elder)
 
 ### Test Coverage
 
