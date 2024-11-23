@@ -1,9 +1,9 @@
-//import { useState } from "react"
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 import { Login, Register, Home, CreatePost } from "./view"
 
 import Hello from './view/Hello'
+import Profile from './view/Profile'
 
 import { Header, Footer } from './view/components/functional'
 
@@ -31,6 +31,11 @@ export default function App() {
 
   const handleHomeClick = () => navigate('/') //setView('posts')
 
+  const handleProfileClick = () => {
+    const userId = logic.getUserId()
+    navigate(`/profile/${userId}`)
+  }
+
   console.log('App -> render')
 
   return (
@@ -38,21 +43,6 @@ export default function App() {
       <Header
         onHomeClick={handleHomeClick}
         onLoggedOut={handleUserLoggedOut} />
-
-      {/* {view === 'login' && <Login
-        onLoggedIn={handleUserloggedIn}
-        onAnchorRegister={handleAnchorRegister}
-      />} */}
-
-      {/* {view === 'register' && <Register
-        onRegistered={handleUserRegistered}
-        onAnchorLogin={handleAnchorLogin}
-      />} */}
-
-      {/* {view === 'posts' && <Posts />} */}
-
-      {/* {view === 'new-post' && <CreatePost
-        onCreated={handlePostCreated} />} */}
 
       <Routes>
         <Route
@@ -94,12 +84,14 @@ export default function App() {
 
         {/* {extra demos} */}
         <Route path="/hello/:name" element={<Hello />} />
+        <Route path="/profile/:userId" element={<Profile />} />
 
       </Routes>
 
       <Footer
         onHomeClick={handleHomeClick}
-        onNewPostClick={handleNewPostClick} />
+        onNewPostClick={handleNewPostClick}
+        onProfileClick={handleProfileClick} />
     </>
   )
 }

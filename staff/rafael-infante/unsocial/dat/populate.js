@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs'
 
 import db, { User, Post } from './index.js'
 
-db.connect(process.env.MONGO_URL_TEST)
+db.connect(process.env.MONGO_URL)
   .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
   .then(() => fs.readFile('./users.csv', 'utf-8'))
   .then(csv => {
