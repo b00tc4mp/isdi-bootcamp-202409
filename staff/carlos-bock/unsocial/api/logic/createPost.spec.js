@@ -42,7 +42,7 @@ describe('createPost', () => {
     )
 
     it('fails on non-string user-id', () =>
-        expect(() => createPost(true, 'https://www.image.com', 'hello')).to.throw(ValidationError, /^invalid userId$/)
+        expect(() => createPost(true, 'https://www.image.com', 'hello')).to.throw(ValidateError, /^invalid userId$/)
     )
 
     it('fails on non-24-chars-length user-id', () =>

@@ -1,7 +1,8 @@
 import 'dotenv/config';
-//console.log(process.env.test)
+
 import * as chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
+import bcrypt from 'bcryptjs';
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
@@ -16,12 +17,12 @@ import authenticateUser from './authenticateUser.js';
 debugger;
 
 describe('authenticateUser', () => {
-    before(() => db.connect('mongodb://localhost:27017/unsocial-test') );
+    before(() => db.connect(process.env.MONGO_URL_TEST) );//'mongodb://localhost:27017/unsocial-test'
 
     beforeEach(() => User.deleteMany());
 
     it('succeeds on existing user', () => 
-        User.create( { name: 'Hakate Kakashi', email: 'hkakashi@hk.gov', username: 'hkakshi', password: '123123123'})
+        User.create( { name: 'Hakate Kakashi', email: 'hkakashi@hk.gov', username: 'hkakashi', password: bcrypt.hashSync('123123123',10) })
             .then(() => authenticateUser('hkakashi', '123123123'))        
             .then(user => {
                 expect(user).to.exist;

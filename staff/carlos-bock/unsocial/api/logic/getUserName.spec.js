@@ -34,7 +34,7 @@ describe('getUserName', () => {
     it('fails on non-existing target-user', () =>
         expect(
             User.create({ name: 'Hakate Kakashi', email: 'hkakashi@hk.gov', username: 'hkakashi', password: '123123123' })
-                .then(user => getUserName(user.id, ''))
+                .then(user => getUserName(user.id, '012345678901234567890123'))
         ).to.be.rejectedWith(NotFoundError, 'target user not found')
     )
 
