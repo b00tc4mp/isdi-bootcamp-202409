@@ -74,34 +74,34 @@ Here are the initial wireframes for an intuitive, responsive interface. The desi
 ### User
 - id (UUID): Unique user identifier
 
-- name (string): Full name
+- Name (string): Full name
 
-- email (string): Email address
+- Email (string): Email address
 
-- username (string): Username
+- Username (string): Username
 
-- password (string): Encrypted password
+- Password (string): Encrypted password
 
 ### Product
 - id (UUID): Unique comic identifier
 
-- title (string): Comic title
+- Title (string): Comic title
 
-- author (string): Author of the comic
+- Author (string): Author of the comic
 
-- publisher (string): Publisher
+- Publisher (string): Publisher
 
-- price (number): Price
+- Price (number): Price
 
-- description (string): Description
+- Description (string): Description
 
-- category ('string):  Genre/category
+- Category ('string):  Genre/category
 
-- stock (number): Inventory stock
+- Stock (number): Inventory stock
 
-- image ('string'):  Cover image URL
+- Image ('string'):  Cover image URL
 
-- reviews ([{
+- Reviews ([{
    - id (UUID): Review identifier
    - user (User.id): Review author
    - rating (number): Rating
