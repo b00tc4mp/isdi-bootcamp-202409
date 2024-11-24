@@ -1,13 +1,39 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View, Button } from "react-native";
+import { StyleSheet, Text, TextInput, View, Button, Alert } from "react-native";
 import PasswordInput from "../components/PasswordInput";
+//import { errors } from "com";
+//import logic from "../logic";
+//const {SystemError} = errors
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
 
+  // const handleSubmit = () => {
+  //   try {
+  //     logic.registerUser(name, email, username, password, passwordRepeat, error => {
+  //       if (error) {
+  //         if(error instanceof SystemError)
+  //           Alert.alert('Sorry, try again later')
+  //         else
+  //           Alert.alert(error.message)
+
+  //         console.error(error)
+
+  //         return
+  //       }
+  //       navigation.navigate("Login")
+  //     })
+  //   } catch (error) {
+  //     Alert.alert(error.message)
+
+  //     console.error(error)
+  //   }
+  // }
+//TODO send query to API from client side
 
   return (
     <View style={styles.container}>
@@ -27,6 +53,13 @@ export default function RegisterScreen({ navigation }) {
         onChangeText={setEmail}
       />
 
+<TextInput
+        style={styles.input}
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
+      />
+
       <PasswordInput
         placeholder="Write a password"
         value={password}
@@ -41,7 +74,10 @@ export default function RegisterScreen({ navigation }) {
         style={styles.input}
       />
 
-      <Button title="register" />
+      <Button 
+      title="register"
+      onPress={() => navigation.navigate("Login")}
+      />
 
       <Button
         title="Go to Login"
