@@ -12,17 +12,14 @@ export default function Comments(props) {
         console.log('Comments -> useEffect "componentDidMount"')
 
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(setComments)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
+                })
 
-                    return
-                }
-
-                setComments(comments)
-            })
         } catch (error) {
             alert(error.message)
 
@@ -32,19 +29,18 @@ export default function Comments(props) {
 
     const handleAdded = () => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    props.onAdded()
+                })
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
+                })
 
-                    return
-                }
-
-                setComments(comments)
-
-                props.onAdded()
-            })
         } catch (error) {
             alert(error.message)
 
@@ -54,20 +50,17 @@ export default function Comments(props) {
 
     const handleRemoved = () => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    props.onRemoved()
+                })
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                props.onRemoved()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
 
