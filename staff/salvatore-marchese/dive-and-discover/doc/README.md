@@ -1,8 +1,10 @@
-# [DIVE & DISCOVER]
+# DIVE & DISCOVER
 
 ## Intro
 
-[### Dive and Discover App Overview
+![alt text](<Dive & Discover.png>)
+
+### Dive and Discover App Overview
 
 Dive and Discover is an innovative app designed to connect scuba divers with dive centers worldwide while offering comprehensive insights into local marine life. The app is tailored for two distinct user types: **Divers** and **Dive Centers**, providing features to enhance their diving adventures and operational efficiency.
 
