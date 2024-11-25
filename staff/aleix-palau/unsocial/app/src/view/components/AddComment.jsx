@@ -13,19 +13,17 @@ export default function AddComment({ postId, onAdded }) {
         const { text: { value: text } } = form
 
         try {
-            logic.addComment(postId, text, error => {
-                if (error) {
+            logic.addComment(postId, text)
+                .then(() => {
+                    form.reset()
+
+                    onAdded()
+                })
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                form.reset()
-
-                onAdded()
-            })
+                })
         } catch (error) {
             alert(error.message)
 
