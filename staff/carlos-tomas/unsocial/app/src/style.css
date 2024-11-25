@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap');
+
+
+@tailWind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color: black;
+    --balc-color: white;
+    --font: "Fontdiner Swanky", serif;
+    font-family: var(--font);
+}
+
+body {
+    color: var(--color);
+}
+
+a:visited {
+    color: var(--color);
+}

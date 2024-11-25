@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2xgkjlmh9f' -X DELETE http://localhost:8080/posts/deletePost/m34lvpwt96 -v
