@@ -1,10 +1,10 @@
 import './Register.css'
-
+import { errors } from 'com'
 import { PasswordInput, Input, Button, Form, Label } from '../components/library'
 import logic from '../logic'
 
+const { SystemError } = errors
 export default function Register(props) {
-
     const handleSubmit = event => {
         event.preventDefault()
 

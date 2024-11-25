@@ -19,23 +19,24 @@ describe('registerUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on new user', () =>
-        registerUser('Coco Loco', 'coco@loco.com', 'cocoloco', '123456', '123456')
-            .then(() => User.findOne({ username: 'cocoloco' }))
-            .then(user => {
-                expect(user).to.exist
-                expect(user.name).to.equal('Coco Loco')
-                expect(user.email).to.equal('coco@loco.com')
-                expect(user.username).to.equal('cocoloco')
-                expect(bcrypt.compareSync('123456', user.password)).to.be.true
-            })
-    )
+    it('succeeds on new user', async () => {
+        await registerUser('Coco Loco', 'coco@loco.com', 'cocoloco', '123456', '123456')
+
+        const user = await User.findOne({ username: 'cocoloco' })
+
+        expect(user).to.exist
+        expect(user.name).to.equal('Coco Loco')
+        expect(user.email).to.equal('coco@loco.com')
+        expect(user.username).to.equal('cocoloco')
+        expect(bcrypt.compareSync('123456', user.password)).to.be.true
+    })
+
 
     it('fails on existing user', () =>
-        expect(
-            User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123456' })
-                .then(() => registerUser('Coco Loco', 'coco@loco.com', 'cocoloco', '123456', '123456'))
-        ).to.be.rejectedWith(DuplicityError, 'user already exists')
+        expect((async () => {
+            await User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123456' })
+            await registerUser('Coco Loco', 'coco@loco.com', 'cocoloco', '123456', '123456')
+        })()).to.be.rejectedWith(DuplicityError, 'user already exists')
     )
 
     describe('fails on User.create error', () => {
