@@ -24,3 +24,7 @@ a.active p {
     font-weight: weight;
     font-style: normal;
 }
+
+.dropdown-menu {
+    transition: all 0.3s ease-in-out;
+}

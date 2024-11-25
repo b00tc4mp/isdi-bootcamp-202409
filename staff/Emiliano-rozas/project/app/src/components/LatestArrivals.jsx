@@ -9,13 +9,14 @@ import ProductItem from './ProductItem.jsx'
 function LatestArrivals() {
 
     const { products } = useContext(ShopContext)
+
     const [latestProducts, setLatestProducts] = useState([])
 
     useEffect(() => {
         setLatestProducts(products.slice(0, 10))
     }, [])
 
-    //No te olvides de poner el switc, que sino se rompe todoo
+    //No te olvides de poner el switc, que sino se rompe todoo, pero con products?
 
     console.log(products)
 

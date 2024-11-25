@@ -21,6 +21,7 @@ const ShopContextProvider = (props) => {
     return (
         <ShopContext.Provider value={value} >
             {props.children}
+            {/* Todos los hijo tendran acceso al value del context */}
         </ShopContext.Provider >
     )
 
