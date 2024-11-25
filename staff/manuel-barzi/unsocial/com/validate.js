@@ -34,10 +34,12 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
 
 const validateImage = image => {
     if (typeof image !== 'string') throw new ValidationError('invalid image')
+    if (image.trim().length === 0) throw new ValidationError('invalid image length')
 }
 
 const validateText = text => {
     if (typeof text !== 'string') throw new ValidationError('invalid text')
+    if (text.trim().length === 0) throw new ValidationError('invalid text length')
 }
 
 const validateId = (id, explain = 'id') => {
