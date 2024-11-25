@@ -21,7 +21,7 @@ Regular (User)
 Anonymous (User)
 - play the guessing minigame (limited daily)
 - play the sudoku minigame (limited daily)
-- access to the map (limited progress)
+- access to the map (no progress)
 
 ### UXUI Design
 
@@ -75,7 +75,7 @@ Character
     - observation (boolean)
     - armament (boolean)
     - conqueror (boolean)
-- bounty (bigint)
+- bounty (number || bigint)
 - height (number)
 - origin (Object)
     - sea (string)
@@ -88,6 +88,30 @@ Devilfruit
 - name (string)
 - type (string)
 - description (string)
+
+/////////////////
+
+RowConditions
+- id (ObjectId)
+- text (string)
+
+ColumnConditions
+- id (ObjectId)
+- text (string)
+
+/////////////////
+
+Conditions
+- id (ObjectId)
+- type (string, enum: row | column)
+- text (string)
+
+/////////////////
+
+Arcs
+- id (ObjectId)
+- name (string)
+- numberOfArc (number)
 
 ### Test Coverage
 
