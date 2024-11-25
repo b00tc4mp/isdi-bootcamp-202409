@@ -8,13 +8,22 @@ export default (userId, image, text) => {
     validate.image(image)
     validate.text(text)
 
-    return User.findById(userId)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+    return (async () => {
+        let user
 
-            return Post.create({ author: userId, image, text })
-                .catch(error => { throw new SystemError(error.message) })
-        })
-        .then(_ => { })
+        try {
+            user = await User.findById(userId)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+        if (!user) throw new NotFoundError('user not found')
+
+        try {
+            await Post.create({ author: userId, image, text })
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        //.then(_ => { })
+    })()
 }

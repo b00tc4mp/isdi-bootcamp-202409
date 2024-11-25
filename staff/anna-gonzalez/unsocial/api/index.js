@@ -42,10 +42,12 @@ db.connect(process.env.MONGO_URL).then(() => {
         return logic.getUserName(userId, targetUserId).then(name => res.json(name))
     }))
 
-    server.post('/posts', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
+    server.post('/posts', authorizationHandler, jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { userId, body: { image, text } } = req
 
-        return logic.createPost(userId, image, text).then(() => res.status(201).send())
+        await logic.createPost(userId, image, text)
+
+        res.status(201).send()
     }))
 
     server.get('/posts', authorizationHandler, createFunctionalHandler((req, res) => {

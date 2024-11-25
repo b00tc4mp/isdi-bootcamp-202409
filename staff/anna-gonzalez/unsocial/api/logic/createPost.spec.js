@@ -18,21 +18,20 @@ describe('createPost', () => {
 
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeeds for existing user', () =>
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-            .then(user =>
-                createPost(user.id, 'https://www.image.com', 'post text')
-                    .then(() => Post.findOne())
-                    .then(post => {
-                        expect(post).to.exist
-                        expect(post.author.toString()).to.equal(user.id)
-                        expect(post.id.toString()).to.have.lengthOf(24)
-                        expect(post.image).to.equal('https://www.image.com')
-                        expect(post.text).to.equal('post text')
-                        expect(post.date).to.be.instanceOf(Date)
-                    })
-            )
-    )
+    it('succeeds for existing user', async () => {
+        const user = await User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+
+        await createPost(user.id, 'https://www.image.com', 'post text')
+
+        const post = await Post.findOne()
+
+        expect(post).to.exist
+        expect(post.author.toString()).to.equal(user.id)
+        expect(post.id.toString()).to.have.lengthOf(24)
+        expect(post.image).to.equal('https://www.image.com')
+        expect(post.text).to.equal('post text')
+        expect(post.date).to.be.instanceOf(Date)
+    })
 
     it('fails on non-existing user', () => {
         expect(
