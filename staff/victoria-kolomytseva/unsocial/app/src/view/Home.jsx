@@ -12,17 +12,13 @@ export default function Home() {
 
 
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -32,17 +28,13 @@ export default function Home() {
 
     const handleLiked = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -52,17 +44,13 @@ export default function Home() {
 
     const handleDeleted = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -72,17 +60,14 @@ export default function Home() {
 
     const handleCommentAdded = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
+                })
 
-                    return
-                }
-
-                setPosts(posts)
-            })
         } catch (error) {
             alert(error.message)
 
@@ -92,17 +77,14 @@ export default function Home() {
 
     const handleCommentRemoved = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
+                })
 
-                    return
-                }
-
-                setPosts(posts)
-            })
         } catch (error) {
             alert(error.message)
 

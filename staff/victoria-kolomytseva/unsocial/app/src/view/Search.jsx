@@ -13,6 +13,7 @@ export default function Search() {
         if (q || distance)
             console.log('searchPosts', q, distance)
     }, [q, distance])
+
     const handleSubmit = event => {
         event.preventDefault()
 

@@ -1,6 +1,6 @@
 import logic from '../logic'
 
-import { Label, Input, Button, Form, Field } from '../view/library'
+import { Label, Input, Button, Form, Field } from './library'
 
 import './CreatePost.css'
 
@@ -18,22 +18,20 @@ export default function CreatePost({ onCreated }) {
         } = form
 
         try {
-            logic.createPost(image, text, error => {
-                if (error) {
+            logic.createPost(image, text)
+                .then(onCreated)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-                onCreated()
-            })
+                })
         } catch (error) {
             alert(error.message)
 
             console.error(error)
         }
     }
+
     return <main className="CreatePost">
         <Form onSubmit={handleSubmit}>
 

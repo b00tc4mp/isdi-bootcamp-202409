@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { useLocation } from 'react-router-dom'
 
-import Button from '../library/Button'
+import { Button } from '../library'
 
 import logic from '../../logic'
 
@@ -19,22 +19,19 @@ export default function Header({ onHomeClick, onLoggedOut }) {
         if (logic.isUserLoggedIn()) {
             if (!name)
                 try {
-                    logic.getUserName((error, name) => {
-                        if (error) {
+                    logic.getUserName()
+                        .then(setName)
+                        .catch(error => {
                             alert(error.message)
 
                             console.error(error)
-
-                            return
-                        }
-
-                        setName(name)
-                    })
+                        })
                 } catch (error) {
                     alert(error.message)
 
                     console.error(error)
                 }
+
         } else setName(null)
     }, [location.pathname])
 

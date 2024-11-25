@@ -1,8 +1,9 @@
-import './Register.css'
-
-import { PasswordInput, Input, Button, Form, Field, Label } from '../view/library'
+import { errors } from 'com'
+import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic'
+
+const { SystemError } = errors
 
 export default function Register(props) {
     console.log('Register -> render')
@@ -21,19 +22,20 @@ export default function Register(props) {
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat, error => {
-                if (error) {
-                    alert(error.message)
+            logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    form.reset()
+
+                    props.onRegistered()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                form.reset()
-
-                props.onRegistered()
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -47,7 +49,7 @@ export default function Register(props) {
         props.onLoginClick()
     }
 
-    return <main className="Register">
+    return <main className="flex justify-center items-center flex-col h-full box-border bg-[var(--back-color)]">
         <h2>Register</h2>
 
         <Form onSubmit={handleSubmit}>

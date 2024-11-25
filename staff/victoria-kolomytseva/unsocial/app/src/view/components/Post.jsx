@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Button } from '../library/index'
+import { Button } from '../library'
 import Comments from './Comments'
 
 import logic from '../../logic'
@@ -25,17 +25,13 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
     const handleLikeClick = () => {
         try {
-            logic.toggleLikePost(id, error => {
-                if (error) {
+            logic.toggleLikePost(id)
+                .then(onLiked)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                onLiked()
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -46,17 +42,13 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
     const handleDeleteClick = () => {
         if (confirm('Delete post?')) {
             try {
-                logic.deletePost(id, error => {
-                    if (error) {
+                logic.deletePost(id)
+                    .then(onDeleted)
+                    .catch(error => {
                         alert(error.message)
 
                         console.error(error)
-
-                        return
-                    }
-
-                    onDeleted()
-                })
+                    })
             } catch (error) {
                 alert(error.message)
 

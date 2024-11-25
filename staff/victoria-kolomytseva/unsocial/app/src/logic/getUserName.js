@@ -1,36 +1,24 @@
-import { validate, errors } from 'com'
-import { extractPayloadFromJWT } from '../util'
+import { errors } from 'com'//Importa un objeto que contiene clases de errores personalizados, como SystemError, para gestionar errores específicos.
+import { extractPayloadFromJWT } from '../util' //Una función que probablemente decodifica un token JWT para extraer información útil (como el userId) de su "payload".
+
 
 const { SystemError } = errors
 
-export default callback => {
-    validate.callback(callback)
-
-    const xhr = new XMLHttpRequest
-
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
-
-        if (status === 200) {
-            const name = JSON.parse(response)
-
-            callback(null, name)
-
-            return
-        }
-
-        const { error, message } = JSON.parse(response)
-
-        const constructor = errors[error]
-
-        callback(new constructor(message))
-    })
-
-    xhr.addEventListener('error', () => callback(new SystemError('server error')))
-
+export default () => {
     const { sub: userId } = extractPayloadFromJWT(localStorage.token)
+    return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.token}`
+        }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (res.ok)
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
 
-    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/users/${userId}/name`)
-    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.token}`)
-    xhr.send()
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => { throw new errors[error](message) })
+        })
 }
