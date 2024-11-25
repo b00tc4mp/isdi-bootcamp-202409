@@ -2,7 +2,7 @@
 
 ## Intro
 
-![alt text](<Dive & Discover.png>)
+git ![alt text](<Dive & Discover.png>)
 
 ### Dive and Discover App Overview
 
@@ -28,7 +28,7 @@ The **Discover Section** is the heart of the app, enabling users to search for d
 
 #### Vision
 
-Dive and Discover bridges the gap between scuba diving enthusiasts and dive centers while fostering awareness and appreciation of marine life. Whether you’re an experienced diver or exploring the underwater world for the first time, this app ensures you’re informed, connected, and prepared for your next adventure.]
+Dive and Discover bridges the gap between scuba diving enthusiasts and dive centers while fostering awareness and appreciation of marine life. Whether you’re an experienced diver or exploring the underwater world for the first time, this app ensures you’re informed, connected, and prepared for your next adventure.
 
 ![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2RxbmZ6MnRkdWV3NTFiNjZkano5NDFsM2R6Z2t4Mzg2Nnpsd2VtNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/cHZo4OjMQwca4iL4Pu/giphy.gif)
 
