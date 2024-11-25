@@ -1,6 +1,9 @@
+/* eslint-disable react/prop-types */
 import './Register.css'
 import logic from "../logic"
 import { PasswordInput, Input, Button, Label, Form } from "./components/library"
+import { errors } from 'com'
+const {SystemError} = errors
 
 function Register(props) {
   console.log('Render -> Register')
@@ -17,16 +20,19 @@ function Register(props) {
       confirmPassword: { value: confirmPassword } } = form
 
     try {
-      logic.registerUser(name, email, username, password, confirmPassword, error => {
-        if (error) {
-          alert(error.message)
-          console.error(error)
-          return
-        }
+      logic.registerUser(name, email, username, password, confirmPassword)
+        .then(() => {
+          form.reset()
+          props.onRegistered()
+        })
+        .catch(error => {
+          if (error instanceof SystemError)
+            alert('Sorry, try again later')
+          else
+            alert(error.message)
 
-        form.reset()
-        props.onRegistered()
-      })
+          console.error(error)
+        })
     } catch (error) {
       alert(error.message)
       console.error(error)

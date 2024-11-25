@@ -1,4 +1,4 @@
-import { useParams, Link, Routes, Route } from "react-router-dom";
+import { useParams, Link} from "react-router-dom";
 import './Profile.css'
 
 

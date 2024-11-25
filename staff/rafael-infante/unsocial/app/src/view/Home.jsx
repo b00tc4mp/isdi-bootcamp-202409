@@ -2,6 +2,9 @@ import { useState, useEffect } from "react"
 import { Post } from "./components/functional/index"
 import logic from "../logic"
 import './Home.css'
+import {errors} from 'com'
+
+const {SystemError} = errors
 
 export default function Posts() {
   const [posts, setPosts] = useState([])
@@ -10,15 +13,18 @@ export default function Posts() {
     console.log(('Posts -> useEffect "componentDidMount"'))
 
     try {
-      logic.getPosts((error, posts) => {
-        if (error) {
-          alert(error.message)
-          console.error(error)
-          return
-        }
+      logic.getPosts()
+        .then(posts => {
+          setPosts(posts)
+        })
+        .catch(error => {
+          if (error instanceof SystemError)
+            alert('Sorry, try again later')
+          else
+            alert(error.message)
 
-        setPosts(posts)
-      })
+          console.error(error)
+        })
     } catch (error) {
       alert(error.message)
       console.error(error)
@@ -27,15 +33,18 @@ export default function Posts() {
 
   const handleLiked = () => {
     try {
-      logic.getPosts((error, posts) => {
-        if (error) {
-          alert(error.message)
-          console.error(error)
-          return
-        }
+      logic.getPosts()
+        .then(posts => {
+          setPosts(posts)
+        })
+        .catch(error => {
+          if (error instanceof SystemError)
+            alert('Sorry, try again later')
+          else
+            alert(error.message)
 
-        setPosts(posts)
-      })
+          console.error(error)
+        })
     } catch (error) {
       alert(error.message)
       console.error(error)
@@ -44,14 +53,17 @@ export default function Posts() {
 
   const handleDeleted = () => {
     try {
-      logic.getPosts((error, posts) => {
-        if (error) {
-          alert(error.message)
-          console.error(error)
-          return
-        }
-
+      logic.getPosts()
+      .then(posts => {
         setPosts(posts)
+      })
+      .catch(error => {
+        if (error instanceof SystemError)
+          alert('Sorry, try again later')
+        else
+          alert(error.message)
+
+        console.error(error)
       })
     } catch (error) {
       alert(error.message)
@@ -61,15 +73,18 @@ export default function Posts() {
 
   const handleCommentRemoved = () => {
     try {
-      logic.getPosts((error, posts) => {
-        if (error) {
-          alert(error.message)
-          console.error(error)
-          return
-        }
+      logic.getPosts()
+        .then(posts => {
+          setPosts(posts)
+        })
+        .catch(error => {
+          if (error instanceof SystemError)
+            alert('Sorry, try again later')
+          else
+            alert(error.message)
 
-        setPosts(posts)
-      })
+          console.error(error)
+        })
     } catch (error) {
       alert(error.message)
       console.error(error)
@@ -78,15 +93,18 @@ export default function Posts() {
 
   const handleCommentAdded = () => {
     try {
-      logic.getPosts((error, posts) => {
-        if (error) {
-          alert(error.message)
-          console.error(error)
-          return
-        }
+      logic.getPosts()
+        .then(posts => {
+          setPosts(posts)
+        })
+        .catch(error => {
+          if (error instanceof SystemError)
+            alert('Sorry, try again later')
+          else
+            alert(error.message)
 
-        setPosts(posts)
-      })
+          console.error(error)
+        })
     } catch (error) {
       alert(error.message)
       console.error(error)

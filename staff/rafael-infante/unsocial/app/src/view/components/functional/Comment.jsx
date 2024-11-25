@@ -1,27 +1,26 @@
-import { getElapsedTime } from "../../../utils/index.js"
-import logic from "../../../logic"
+import { getElapsedTime } from "../../../utils/index.js";
+import logic from "../../../logic";
 
 export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
-  console.log('render -> Comment')
+  console.log("render -> Comment");
 
   const handleRemoved = () => {
-    if (confirm('Delete comment?'))
+    if (confirm("Delete comment?"))
       try {
-        logic.removeComment(postId, id, error => {
-          if (error) {
-            alert(error.message)
-            console.error(error)
-            return
-          }
-          onRemoved()
+        logic
+          .removeComment(postId, id)
+          .then(onRemoved)
+          .catch((error) => {
+            alert(error.message);
 
-        })
-
+            console.error(error);
+          });
       } catch (error) {
-        alert(error.message)
-        console.error(error)
+        alert(error.message);
+
+        console.error(error);
       }
-  }
+  };
 
   return (
     <li>
@@ -31,5 +30,5 @@ export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
 
       {author.id === logic.getUserId() && <a onClick={handleRemoved}>🗑️</a>}
     </li>
-  )
-}
+  );
+};

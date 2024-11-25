@@ -2,34 +2,28 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (name, email, username, password, confirmPassword, callback) => {
+export default (name, email, username, password, confirmPassword) => {
   validate.name(name)
   validate.email(email)
   validate.username(username)
   validate.password(password)
   validate.passwordsMatch(password, confirmPassword)
-  validate.callback(callback)
 
-  const xhr = new XMLHttpRequest
 
-  xhr.addEventListener('load', () => {
-    const { status, response } = xhr
-
-    if (status === 201) {
-      callback(null)
+  return fetch(`http://${import.meta.env.VITE_API_URL}/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name, email, username, password, confirmPassword })
+  })
+  .catch(error => {throw new SystemError(error.message)})
+  .then( res => {
+    if (res.ok)
       return
-    }
-
-    const { error, message } = JSON.parse(response)
-
-    const constructor = errors[error]
-
-    callback(new constructor(message))
+    return res.json()
+      .catch(error => {throw new SystemError(error.message)})
+      .then(({error, message}) => {throw new errors[error](message)})
   })
 
-  xhr.addEventListener('error', () => callback(new SystemError('server error')))
-
-  xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/users`)
-  xhr.setRequestHeader('Content-Type', 'application/json')
-  xhr.send(JSON.stringify({ name, email, username, password, confirmPassword }))
 }

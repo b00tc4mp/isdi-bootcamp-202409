@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "./Login.css"
 import logic from "../logic/"
 import { PasswordInput, Input, Button, Label, Form } from "./components/library"
@@ -15,21 +16,20 @@ export default function Login(props) {
 
     try {
 
-      logic.loginUser(username, password, error => {
-        if (error) {
+      logic.loginUser(username, password)
+        .then(() => {
+          event.target.reset()
+
+          props.onLoggedIn()
+        })
+        .catch(error => {
           if (error instanceof SystemError)
             alert('Sorry, try again later')
           else
             alert(error.message)
 
           console.error(error)
-
-          return
-        }
-        event.target.reset()
-
-        props.onLoggedIn()
-      })
+        })
 
     } catch (error) {
       alert(error.message)
@@ -60,7 +60,7 @@ export default function Login(props) {
         <Button id="btn-login" type="submit">Login</Button>
 
       </Form>
-      <p>Don't have an account? <a onClick={handleRegisterClick}>Register</a></p>
+      <p>Don&apos;t have an account? <a onClick={handleRegisterClick}>Register</a></p>
     </main>
   )
 }
