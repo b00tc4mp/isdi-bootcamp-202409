@@ -19,6 +19,8 @@ export const assets = {
     isotipo
 }
 
+// dejar id como id nada de _id eso pal back
+
 
 export const products = [
     {
