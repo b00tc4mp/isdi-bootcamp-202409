@@ -1,6 +1,6 @@
 import { User, Post, Comment } from 'dat'
 
-import { validate, errors } from 'com'
+import { validate, errors } from "../../com/index.js";
 
 const { SystemError, NotFoundError } = errors
 

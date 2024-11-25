@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import "dotenv/config";
 import db from "dat";
 import express, { json } from "express";
 import logic from "./logic/index.js";
@@ -9,7 +9,7 @@ import {
   authorizationHandler,
   errorHandler,
 } from "./helpers/index.js";
-console.log(process.env.MONGO_URL)
+console.log(process.env.MONGO_URL);
 db.connect(process.env.MONGO_URL_TEST).then(() => {
   console.log("connected to db");
 
@@ -29,9 +29,12 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
       return logic
         .authenticateUser(username, password)
-        .then(({userId, role}) =>
-          jwt.sign({ sub: userId, role }, process.env.JWT_SECRET, { expiresIn: "1h" })
-        )
+        .then(({ id, role }) => {
+          console.log({ id, role });
+          return jwt.sign({ sub: id, role }, process.env.JWT_SECRET, {
+            expiresIn: "1h",
+          });
+        })
         .then((token) => res.json(token));
     })
   );
@@ -90,7 +93,7 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     authorizationHandler,
     createFunctionalHandler((req, res) => {
       const { userId } = req;
-      
+
       return logic.getPosts(userId).then((posts) => res.json(posts));
     })
   );
