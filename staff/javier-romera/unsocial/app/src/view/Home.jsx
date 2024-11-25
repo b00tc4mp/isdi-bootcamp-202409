@@ -27,8 +27,6 @@ export default function Posts() {
                         alert(error.message)
 
                     console.error(error)
-
-                    return
                 })
         } catch (error) {
             alert(error.message)
