@@ -4,24 +4,20 @@ import { Post } from '../components/functional'
 
 import logic from '../logic'
 
-export default function Posts() {
+export default function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
         console.log('Home -> useEffect "componentDidMount"')
 
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -31,17 +27,13 @@ export default function Posts() {
 
     const handleLiked = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -51,17 +43,13 @@ export default function Posts() {
 
     const handleDeleted = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -71,17 +59,13 @@ export default function Posts() {
 
     const handleCommentAdded = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -91,17 +75,13 @@ export default function Posts() {
 
     const handleCommentRemoved = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -111,7 +91,7 @@ export default function Posts() {
 
     console.log('Home -> render')
 
-    return <div className="">
+    return <div className="py-12">
         {posts.map(post => <Post
             key={post.id}
             post={post}

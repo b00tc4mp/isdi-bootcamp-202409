@@ -33,14 +33,6 @@ export default function App() {
   return <>
     <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />
 
-    {/* {view === 'login' && <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />}
-
-    {view === 'register' && <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />}
-
-    {view === 'posts' && <Posts />}
-
-    {view === 'new-post' && <CreatePost onCreated={handlePostCreated} />} */}
-
     <Routes>
       <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
