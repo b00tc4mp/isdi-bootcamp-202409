@@ -4,7 +4,11 @@
 
 [...]
 
-#### image goes here
+#### move with confidence
+
+
+![Move](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDVnYnJpeW5qaHg2bTd4aTRhcXBxcXZwcjF2c21uZjZhYTM0a2xzNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/10LmKkoECGbzMbFzX6/giphy.gif "Moving")
+
 
 
 ## Functional 
@@ -12,7 +16,7 @@
 
 ### Use Cases
 
-User (for example)
+User
 - create posts
 - view posts
 - toggole like posts
@@ -23,7 +27,9 @@ User (for example)
 - edit review
 - remove review
 - report/flag content
-- add wiki
+- profile page 
+    -toggle posts / reviews
+    -trust rating
 
 Admin 
 - view reports
@@ -60,6 +66,10 @@ User
 - email (string)
 - username (string)
 - password (string)
+- trust rating
+- point level 
+- reference to posts
+- reference to reviews
 
 Post
 - id (UUID)
@@ -73,6 +83,18 @@ Post
     - author (User.id)
     - text (string)
     - date (Date) }])
+
+Review/Recommendation
+- id (UUID)
+- author (User.id)
+- link (website or google map)
+- text (string)
+- date (Date)
+- net votes ([User.id - internal only])
+    - not visible up votes (array - UUID)
+    - not visible downvotes (array - UUID)
+- archived review/recomendation
+
 
 ### Techs
 
