@@ -15,40 +15,56 @@ export default (name, email, username, password, passwordRepeat, callback) => {
     validate.username(username)
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
-    validate.callback(callback)
 
 
-    //Recuperamos los usuarios de la memoria
-    // 05/11/2024 --> Ya no recuperaremos los usuarios de la memoria
-    //const users = JSON.parse(localStorage.users)
-
-    // 05/11/2024 --> Codigo nuevo que va contra la api
-    const xhr = new XMLHttpRequest
-
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
-
-        if (status === 201) {
-            callback(null)
-
-            return
-        }
-
-        const { error, message } = JSON.parse(response)
-
-        const constructor = errors[error]
-
-        callback(new constructor(message))
+    return fetch(`${import.meta.env.VITE_API_URL}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat })
     })
 
-    xhr.open('POST', `${import.meta.env.VITE_API_URL}/register`)
-    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (res.ok)
+                return
 
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat }))
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => { throw new errors[error](message) })
+        })
+
+}
+//Recuperamos los usuarios de la memoria
+// 05/11/2024 --> Ya no recuperaremos los usuarios de la memoria
+//const users = JSON.parse(localStorage.users)
+
+// 05/11/2024 --> Codigo nuevo que va contra la api
+/*   const xhr = new XMLHttpRequest
+
+  xhr.addEventListener('load', () => {
+      const { status, response } = xhr
+
+      if (status === 201) {
+          callback(null)
+
+          return
+      }
+
+      const { error, message } = JSON.parse(response)
+
+      const constructor = errors[error]
+
+      callback(new constructor(message))
+  })
+
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/register`)
+  xhr.addEventListener('error', () => callback(new SystemError('server error')))
+
+  xhr.setRequestHeader('Content-Type', 'application/json')
+  xhr.send(JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat }))
 }
 
-
+*/
 
 // 05/11/2024 -->Codigo antiguo antes de ir con la api!
 

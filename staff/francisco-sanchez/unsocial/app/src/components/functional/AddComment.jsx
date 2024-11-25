@@ -18,7 +18,16 @@ export default function addComment({ postId, onAdded }) {
         const { text: { value: text } } = form
 
         try {
-            logic.addComment(postId, text, error => {
+            logic.addComment(postId, text)
+                .then(() => {
+                    form.reset()
+                    onAdded()
+                })
+                .catch(error => {
+                    alert(error.message)
+                    console.error(error)
+                })
+            /* logic.addComment(postId, text, error => {
                 if (error) {
                     alert(error.message)
                     console.error(error)
@@ -27,7 +36,7 @@ export default function addComment({ postId, onAdded }) {
 
                 form.reset()
                 onAdded()
-            })
+            }) */
 
         } catch (error) {
             alert(error.message)
@@ -38,7 +47,7 @@ export default function addComment({ postId, onAdded }) {
     return <Form onSubmit={handleSubmit}>
         <Field>
             <Label htmlFor="text">New comment</Label>
-            <textarea id="text" required></textarea>
+            <textarea id="text" required className="text-blue-950"></textarea>
         </Field>
         <Button type="submit">Send</Button>
 

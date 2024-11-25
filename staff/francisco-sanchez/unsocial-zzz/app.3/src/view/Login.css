@@ -1,0 +1,11 @@
+.Login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90%;
+    box-sizing: border-box;
+    /*background-color: var(--white);*/
+    padding-top: 10%;
+    padding-bottom: 20%;
+}

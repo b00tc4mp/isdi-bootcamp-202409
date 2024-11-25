@@ -1,31 +1,32 @@
-import { validate } from 'com'
+import { errors } from 'com'
 
-export default callback => {
-    //TODO: ¿Esto por qué? 
-    validate.callback(callback)
+const { SystemError } = errors
 
-    const xhr = new XMLHttpRequest
+export default () => {
+    //Tenemos que poer el return delate del fetch para poder capturarlo desde el .then
+    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
 
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
-
-        if (status === 200) {
-            const posts = JSON.parse(response)
-            callback(null, posts)
-            return
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.token}`
         }
-
-        const { error, message } = JSON.parse(response)
-        const constructor = errors[error]
-
-        callback(new constructor(message))
     })
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
-    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            const { status } = res;
 
-    //xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.userId}`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.send()
+            if (status === 200) {
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+            }
+
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(res => {
+                    const { error, message } = res
+                    const constructor = errors[error]
+                    throw new constructor(message)
+                });
+        })
+
 }
-

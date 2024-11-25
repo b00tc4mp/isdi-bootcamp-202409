@@ -69,7 +69,7 @@ export default function App() {
 
             <Route path="/user-profile" element={logic.isUserLoggedIn() ? <Navigate to="/user-profile" /> : <ViewProfile onHomeClick={handleUserHomeClick} />} />
 
-            <Route path="/manage-users" element={logic.isUserLoggedIn() ? <ManageUsers /> : <Navigate to="/login" />} />
+            <Route path="/manage-users" element={(logic.isUserLoggedIn() && logic.isUserRoleModerator()) ? <ManageUsers /> : <Navigate to="/login" />} />
 
         </Routes>
 

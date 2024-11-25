@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom'
 
 
 
-export default function Header({ /*view,*/ onHomeClick, onLoggedOut, onViewProfile }) {
+export default function Header({ /*view*/ onHomeClick, onLoggedOut, onViewProfile }) {
     const [name, setName] = useState(null) //Aquí le decimos que cuando arranca el name es null
 
     const location = useLocation()
@@ -20,14 +20,22 @@ export default function Header({ /*view,*/ onHomeClick, onLoggedOut, onViewProfi
         if (logic.isUserLoggedIn()) {
             if (!name) {
                 try {
-                    logic.getUserName((error, name) => {
+
+                    logic.getUserName()
+                        .then(setName)
+                        .catch(error => {
+                            alert(error.message)
+                            console.error(error)
+                        })
+
+                    /* logic.getUserName((error, name) => {
                         if (error) {
                             alert(error.message)
                             console.error(error)
                             return
                         }
                         setName(name)
-                    })
+                    }) */
 
                 } catch (error) {
                     alert(error.message)

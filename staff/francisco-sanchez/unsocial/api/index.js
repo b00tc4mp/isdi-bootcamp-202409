@@ -25,22 +25,30 @@ db.connect(process.env.MONGO_URL).then(() => {
     server.get('/', (_, res) => res.send('Hello, API! Status = Ready to go!'))
 
     //Cómo es un método usaremos siempre un try / catch
-    server.post('/authenticate', jsonBodyParser, createFunctionalHandler((req, res) => {
+    //server.post('/authenticate', jsonBodyParser, createFunctionalHandler((req, res) => {
+    server.post('/authenticate', jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { username, password } = req.body
 
         //return logic.authenticateUser(username, password).then(userId => res.json(userId))
         /*16/11/2024 - Modifico autententicate para recibir token en lugar de userId*/
-        return logic.authenticateUser(username, password)
+        /* return logic.authenticateUser(username, password)
+
             //Ahora también retornamos el rol
             //.then(userId => jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' }))
             .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
-            .then(token => res.json(token))
+            .then(token => res.json(token)) */
+        const { id, role } = await logic.authenticateUser(username, password)
+        const token = await jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' })
+        res.json(token)
     }))
 
-    server.post('/register', jsonBodyParser, createFunctionalHandler((req, res) => {
+    //server.post('/register', jsonBodyParser, createFunctionalHandler((req, res) => {
+    server.post('/register', jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
-        return logic.registerUser(name, email, username, password, passwordRepeat).then(() => res.status(201).send())
+        //return logic.registerUser(name, email, username, password, passwordRepeat).then(() => res.status(201).send())
+        await logic.registerUser(name, email, username, password, passwordRepeat)
+        res.status(201).send()
     }))
 
     server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {

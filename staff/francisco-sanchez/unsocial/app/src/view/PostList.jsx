@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-//import { Component } from "react";
+import { errors } from 'com'
 
 //aquest import el canviaré quan tregui la home i la modifiqui per postList (o Posts)
 import PostItem from "../components/functional/Post";
@@ -11,59 +11,73 @@ import logic from "../logic";
 
 import './PostList.css'
 
+const { SystemError } = errors
 
 //export default class extends Component {
 export default function PostList({ onManageUsers }) {
     const [posts, setPosts] = useState([])
+    const [initiated, setInitiated] = useState(false)
 
     useEffect(() => {
         console.log('Posts / PostList -> componentDidMount')
 
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    alert(error.message)
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                    setInitiated(true)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, there was a problem, try it again later')
+                    else
+                        alert(error.message)
+
                     console.error(error)
-                    return
-                }
-                setPosts(posts)
-            })
-
-
+                })
         } catch (error) {
             alert(error.message);
             console.error(error)
         }
     }, [])
 
-
     const handleLiked = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    alert(error.message)
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, there was a problem, try it again later')
+                    else
+                        alert(error.message)
+
                     console.error(error)
                     return
-                }
-                setPosts(posts)
-            })
+                })
         } catch (error) {
-            alert.error(error)
+            alert(error.message)
             console.error(error)
         }
     }
 
     const handleDeleted = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    alert(error.message)
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, there was a problem, try it again later')
+                    else
+                        alert(error.message)
+
                     console.error(error)
                     return
-                }
-                setPosts(posts)
-            })
-        } catch {
+                })
+        } catch (error) {
             alert(error.message)
             console.error(error)
         }
@@ -71,32 +85,41 @@ export default function PostList({ onManageUsers }) {
 
     const handleCommentAdded = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    alert(error.message)
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, there was a problem, try it again later')
+                    else
+                        alert(error.message)
+
                     console.error(error)
                     return
-                }
-                setPosts(posts)
-            })
-        } catch {
-            alert.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
             console.error(error)
         }
     }
 
     const handleCommentRemoved = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    alert(error.message)
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, there was a problem, try it again later')
+                    else
+                        alert(error.message)
+
                     console.error(error)
-                    return
-                }
-                setPosts(posts)
-            })
-        } catch {
-            alert.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
             console.error(error)
         }
     }
@@ -120,8 +143,9 @@ export default function PostList({ onManageUsers }) {
 
 
             {/* <h3>Posts</h3> */}
-            {posts.map(post => <PostItem
+            {initiated && posts.map(post => <PostItem
                 key={post.id}
+
                 post={post}
 
                 onLiked={handleLiked}
@@ -131,9 +155,7 @@ export default function PostList({ onManageUsers }) {
                 onCommentAdded={handleCommentAdded}
 
                 onCommentRemoved={handleCommentRemoved}
-
             />)}
         </div>
     </main>
-
 }

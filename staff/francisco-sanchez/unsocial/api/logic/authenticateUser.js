@@ -9,7 +9,7 @@ export default (username, password) => {
     validate.username(username)
     validate.password(password)
 
-    return User.findOne({ username })
+    /* return User.findOne({ username })
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new CredentialsError('User or pass incorrect')
@@ -23,6 +23,31 @@ export default (username, password) => {
                         role: user.role
                     }
                 })
-        })
+        }) */
+
+    return (async () => {
+        let user
+        try {
+            user = await User.findOne({ username })
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+        if (!user) throw new CredentialsError('wrong credentials')
+
+        let match
+        try {
+            match = await bcrypt.compare(password, user.password)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+        if (!match) throw new CredentialsError('wrong credentials')
+
+        return {
+            id: user._id.toString(),
+            role: user.role
+        }
+    })()
 
 }

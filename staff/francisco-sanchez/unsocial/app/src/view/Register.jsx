@@ -1,36 +1,49 @@
+import { errors } from 'com'
+
 import './Register.css'
 
 import { PasswordInput, Label, Input, Button, Field, Form } from '../components/library'
 import logic from '../logic'
 
+const { SystemError } = errors
+
 //Funcion register, que mostrará el formulario de registro
 //export default (props) => {
 export default function Register(props) {
+    console.log('Register -> render')
 
     const handleSubmit = event => {
         event.preventDefault()
 
-        const form = event.target //event.target hacer referencia al form 
+        //event.target hacer referencia al form 
+        const { target: form } = event
 
         const {
-            target: { username: { value: username },
-                password: { value: password },
-                name: { value: name },
-                email: { value: email },
-                passwordRepeat: { value: passwordRepeat } } } = event
+            name: { value: name },
+            email: { value: email },
+            username: { value: username },
+            password: { value: password },
+            ['password-repeat']: { value: passwordRepeat }
+        } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat, error => {
-                if (error) {
-                    alert(error.message)
+            logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    form.reset()
+
+                    props.onRegistered()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
+
                     console.error(error)
-                    return
-                }
-                form.reset()
-                props.onRegistered()
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }
@@ -64,8 +77,8 @@ export default function Register(props) {
                     <PasswordInput id="password" />
                 </Field>
                 <Field>
-                    <Label htmlFor="passwordRepeat">Repeat Password</Label>
-                    <PasswordInput id="passwordRepeat" />
+                    <Label htmlFor="password-repeat">Repeat Password</Label>
+                    <PasswordInput id="password-repeat" />
                 </Field>
                 <Button type="submit" className="Button" >Register</Button>
             </Form>

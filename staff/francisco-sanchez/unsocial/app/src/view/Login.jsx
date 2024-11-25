@@ -1,8 +1,7 @@
+import logic from '../logic'
 import './Login.css'
 
 import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
-
-import logic from '../logic'
 
 import { errors } from 'com'
 
@@ -10,32 +9,39 @@ const { OwnershipError, CredentialsError, SystemError } = errors
 
 //Función login, que será nuestra primera pantalla de la aplicación
 //export default (props) => {
-export default function Login(props) {
+export default props => {
     console.log('Login -> render')
 
-    const hanleSubmit = event => {
+    const handleSubmit = event => {
         event.preventDefault()
 
         const { target: { username: { value: username }, password: { value: password } } } = event
 
         try {
-            logic.loginUser(username, password, error => {
-                if (error) {
-                    alert(error.message)
+            logic.loginUser(username, password)
+                .then(() => {
+                    event.target.reset()
+                    props.onLoggedIn()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
+
                     console.error(error)
-                    return
-                }
-                event.target.reset()
-                props.onLoggedIn()
-            })
+                })
         } catch (error) {
             alert(error.message)
             console.error(error)
+
+            event.target.password.value = ""
         }
     }
 
     const handleRegisterClick = event => {
         event.preventDefault()
+
         props.onRegisterClick()
     }
 
@@ -43,10 +49,10 @@ export default function Login(props) {
         <div className="container bg-blue-900 p-8 rounded-md">
             <h2 className="text-3xl">Login</h2>
 
-            <Form onSubmit={hanleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <Field>
                     <Label htmlFor="username">Username</Label>
-                    <Input type="text" id="username" />
+                    <Input type="text" id="username" autoComplete="on" />
                 </Field>
                 <Field>
                     <Label htmlFor="password">Password</Label>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 //import { Component } from "react";
 
@@ -15,38 +15,29 @@ export default function Comments(props) {
         console.log('Comments -> useEffect "componentDidMount"')
 
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(setComments)
+                .catch(error => {
                     alert(error.message)
                     console.error(error)
-                    return
-                }
-                setComments(comments)
-            })
-
+                })
         } catch (error) {
             alert(error.message)
             console.error(error)
         }
-
     }, [])
-
-
-
-
 
     const handleAdded = () => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(comments => {
+                    setComments(comments)
+                    props.onAdded()
+                })
+                .catch(error => {
                     alert(error.message)
                     console.error(error)
-                    return
-                }
-                setComments(comments)
-                props.onAdded()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
             console.error(error)
@@ -55,22 +46,20 @@ export default function Comments(props) {
 
     const handleRemoved = () => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(comments => {
+                    setComments(comments)
+                    props.onRemoved()
+                })
+                .catch(error => {
                     alert(error.message)
                     console.error(error)
-                    return
-                }
-                setComments(comments)
-                props.onRemoved()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
             console.error(error)
         }
     }
-
 
     console.log('Comments -> render')
 
@@ -91,5 +80,4 @@ export default function Comments(props) {
             onAdded={handleAdded}
         />
     </section>
-
 }

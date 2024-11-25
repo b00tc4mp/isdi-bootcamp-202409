@@ -49,6 +49,7 @@ export default function ManageUsers() {
                         <th className="border px-4 py-2">Username</th>
                         <th className="border px-4 py-2">E-mail</th>
                         <th className="border px-4 py-2">Role</th>
+                        <th className="border px-4 py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +60,7 @@ export default function ManageUsers() {
                                 <td className='border px-4 py-2'>{user.username}</td>
                                 <td className='border px-4 py-2'>{user.email}</td>
                                 <td className='border px-4 py-2'>{user.role}</td>
+                                <td className='border px-4 py-2'>✏️ ❌ ⛔</td>
                             </tr>
                         ))
 
