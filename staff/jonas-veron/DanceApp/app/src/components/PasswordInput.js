@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  Image,
-  Pressable,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, TextInput, Image, Pressable, View } from "react-native";
 
-export default function PasswordInput({ value, onChangeText, style }) {
+export default function PasswordInput({ style, value, onChangeText }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
@@ -28,8 +21,8 @@ export default function PasswordInput({ value, onChangeText, style }) {
         <Image
           source={
             passwordVisible
-              ? require("../../../assets/eye-password-open.png")
-              : require("../../../assets/eye-password-closed.png")
+              ? require("../../assets/eye-password-open.png")
+              : require("../../assets/eye-password-closed.png")
           }
           style={styles.eyeIcon}
         />

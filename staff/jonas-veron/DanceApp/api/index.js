@@ -26,13 +26,7 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     "/users",
     jsonBodyParser,
     createFunctionalHandler((req, res) => {
-      const {
-        name,
-        email,
-        username,
-        password,
-        "password-repeat": passwordRepeat,
-      } = req.body;
+      const { name, email, username, password, passwordRepeat } = req.body;
 
       return logic
         .registerUser(name, email, username, password, passwordRepeat)
