@@ -5,26 +5,22 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default ({ postId, comment: { id, author, text, date }, onRemoved }) => {
+export default function Comment({ postId, comment: { id, author, text, date }, onRemoved }) {
     console.log('Comment -> render')
 
     const handleRemove = () => {
         if (confirm('Delete comment?'))
             try {
-                logic.removeComment(postId, id, error => {
-                    if (error) {
+                logic.removeComment(postId, id)
+                    .then(onRemoved)
+                    .catch(error => {
                         if (error instanceof SystemError)
                             alert('Sorry, try again later')
                         else
                             alert(error.message)
 
                         console.error(error)
-
-                        return
-                    }
-
-                    onRemoved()
-                })
+                    })
             } catch (error) {
                 alert(error.message)
 

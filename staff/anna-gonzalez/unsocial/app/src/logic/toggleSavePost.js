@@ -2,31 +2,22 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (postId, callback) => {
+export default postId => {
     validate.id(postId, 'postId')
-    validate.callback(callback)
 
-    const xhr = new XMLHttpRequest
-
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
-
-        if (status === 204) {
-            callback(null)
-
-            return
-        }
-
-        const { error, message } = JSON.parse(response)
-
-        const constructor = errors[error]
-
-        callback(new constructor(message))
+    return fetch(`http://${import.meta.env.VITE_API_URL}/posts/${postId}/saves`, {
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${localStorage.token}` }
     })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (res.ok)
+                return
 
-    xhr.addEventListener('error', () => callback(new SystemError('Server error')))
-
-    xhr.open('PATCH', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/saves`)
-    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.token}`)
-    xhr.send()
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => {
+                    throw new errors[error](message)
+                })
+        })
 }

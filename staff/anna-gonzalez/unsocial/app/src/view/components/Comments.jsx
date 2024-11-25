@@ -14,22 +14,19 @@ export default function Comments(props) {
         console.log('Comments -> useEffect "componentDidMount')
 
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(() => {
+                    setComments
+                    setInitialized(true)
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                setInitialized(true)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -39,22 +36,20 @@ export default function Comments(props) {
 
     const handleAdded = () => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    props.onAdded()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                props.onAdded()
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -64,23 +59,20 @@ export default function Comments(props) {
 
     const handleRemoved = () => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    props.onRemoved()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                props.onRemoved()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
 

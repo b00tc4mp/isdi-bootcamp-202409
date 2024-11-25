@@ -17,22 +17,18 @@ export default function Header({ onHomeClick, onLoggedOut }) {
         if (logic.isUserLoggedIn()) {
             if (!name)
                 try {
-                    logic.getUserName((error, name) => {
-                        if (error) {
-                            if (error instanceof SystemError)
-                                alert('Sorry, try again later')
-                            else
-                                alert(error.message)
+                    logic.getUserName()
+                        .then(setName)
+                        .catch(error => {
+                            alert(error.message)
 
                             console.error(error)
-
-                            return
-                        }
-
-                        setName(name)
-                    })
+                        })
                 } catch (error) {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
 
                     console.error(error)
                 }

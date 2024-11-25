@@ -13,22 +13,18 @@ export default function Home() {
         console.log('Home -> useEffect "componentDidMount"')
 
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later')
-                    else
-                        alert(error.message)
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
-            alert(error.message)
+            if (error instanceof SystemError)
+                alert('Sorry, try again later')
+            else
+                alert(error.message)
 
             console.error(error)
         }
@@ -36,20 +32,18 @@ export default function Home() {
 
     const handleSaved = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later')
-                    else
-                        alert(error.message)
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-                    return
-                }
-
-                setPosts(posts)
-            })
+                    console.error(error)
+                })
         } catch (error) {
-            alert(error.message)
+            if (error instanceof SystemError)
+                alert('Sorry, try again later')
+            else
+                alert(error.message)
 
             console.error(error)
         }
@@ -57,20 +51,18 @@ export default function Home() {
 
     const handleLiked = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later')
-                    else
-                        alert(error.message)
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-                    return
-                }
-
-                setPosts(posts)
-            })
+                    console.error(error)
+                })
         } catch (error) {
-            alert(error.message)
+            if (error instanceof SystemError)
+                alert('Sorry, try again later')
+            else
+                alert(error.message)
 
             console.error(error)
         }
@@ -78,20 +70,18 @@ export default function Home() {
 
     const handleDeleted = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later')
-                    else
-                        alert(error.message)
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-                    return
-                }
-
-                setPosts(posts)
-            })
+                    console.error(error)
+                })
         } catch (error) {
-            alert(error.message)
+            if (error instanceof SystemError)
+                alert('Sorry, try again later')
+            else
+                alert(error.message)
 
             console.error(error)
         }
@@ -99,20 +89,18 @@ export default function Home() {
 
     const handleCommentAdded = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later')
-                    else
-                        alert(error.message)
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-                    return
-                }
-
-                setPosts(posts)
-            })
+                    console.error(error)
+                })
         } catch (error) {
-            alert(error.message)
+            if (error instanceof SystemError)
+                alert('Sorry, try again later')
+            else
+                alert(error.message)
 
             console.error(error)
         }
@@ -120,20 +108,18 @@ export default function Home() {
 
     const handleCommentRemoved = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later')
-                    else
-                        alert(error.message)
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-                    return
-                }
-
-                setPosts(posts)
-            })
+                    console.error(error)
+                })
         } catch (error) {
-            alert(error.message)
+            if (error instanceof SystemError)
+                alert('Sorry, try again later')
+            else
+                alert(error.message)
 
             console.error(error)
         }
