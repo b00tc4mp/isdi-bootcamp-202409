@@ -43,3 +43,6 @@ function LatestArrivals() {
 }
 
 export default LatestArrivals
+
+
+// Elemento key , siempre elemento inmutable. Utilizar Index es MALA PRAXIS.
