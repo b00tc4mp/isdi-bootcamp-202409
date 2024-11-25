@@ -26,7 +26,10 @@ export default function Register(props) {
                     props.onRegistered()
                 })
                 .catch(error => {
-                    alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
                 })
