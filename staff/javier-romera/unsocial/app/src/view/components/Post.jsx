@@ -27,22 +27,21 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
     const handleLikeClick = () => {
         try {
-            logic.toggleLikePost(id, error => {
-                if (error) {
+            logic.toggleLikePost(id)
+                .then(() => {
+                    onLiked()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                onLiked()
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }
@@ -50,20 +49,18 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
     const handleDeleteClick = () => {
         if (confirm('Are you sure you want to delete this post?')) {
             try {
-                logic.deletePost(id, error => {
-                    if (error) {
+                logic.deletePost(id)
+                    .then(() => {
+                        onDeleted()
+                    })
+                    .catch(error => {
                         if (error instanceof SystemError)
                             alert('Sorry, try again later')
                         else
                             alert(error.message)
 
                         console.error(error)
-
-                        return
-                    }
-
-                    onDeleted()
-                })
+                    })
             } catch (error) {
                 alert(error.message)
 

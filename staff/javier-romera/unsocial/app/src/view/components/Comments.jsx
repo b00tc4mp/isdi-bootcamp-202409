@@ -15,72 +15,69 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
     useEffect(() => {
         try {
-            logic.getComments(postId, (error, comments) => {
-                if (error) {
+            logic.getComments(postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    setInitiated(true)
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                setInitiated(true)
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }, [])
 
     const handleAdded = () => {
         try {
-            logic.getComments(postId, (error, comments) => {
-                if (error) {
+            logic.getComments(postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    onAdded()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                onAdded()
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }
 
     const handleRemoved = () => {
         try {
-            logic.getComments(postId, (error, comments) => {
-                if (error) {
+            logic.getComments(postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    onRemoved()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                onRemoved()
-            })
+                })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
         }
     }

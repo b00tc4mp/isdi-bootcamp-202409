@@ -10,9 +10,7 @@ export default () => {
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
-            const { status } = res;
-
-            if (status === 200) {
+            if (res.ok) {
                 return res.json()
                     .catch(error => { throw new SystemError(error.message) })
             }
