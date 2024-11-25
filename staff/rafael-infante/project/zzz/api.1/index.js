@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import db from '../dat/index.js'
+import db from '../../dat/index.js'
 import express, {json} from 'express'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'

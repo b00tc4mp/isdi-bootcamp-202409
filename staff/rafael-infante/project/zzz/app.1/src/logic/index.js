@@ -1,4 +1,4 @@
-import registerUser from "./registerUser.js";
+import registerUser from "./registerUser";
 
 const logic = {
   registerUser
