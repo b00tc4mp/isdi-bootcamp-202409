@@ -17,12 +17,6 @@ export default () => {
 
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(res => {
-                    const { error, message } = res
-
-                    const constructor = errors[error]
-
-                    throw new constructor(message)
-                });
+                .then(({ error, message }) => { throw new errors[error](message) })
         })
 }
