@@ -2,32 +2,32 @@ import { validate, errors }  from 'com'
 
 const { SystemError } = errors
 
-export default callback => {
-    validate.callback(callback)
 
-    const xhr = new XMLHttpRequest
+export default () => {
+   return fetch(`http://${import.meta.env.VITE_API_URL}/posts`,{
+        headers: {
+            'Authorization': `Bearer ${localStorage.token}`
+        }
+   })
 
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
+    .catch(error => { throw new SystemError(error.message) })
+    .then(res => {
+        const { status } = res;
 
         if (status === 200) {
-            const posts = JSON.parse(response)
-
-            callback(null, posts)
-
-            return
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
         }
 
-        const { error, message } = JSON.parse(response)
+        return res.json()
+            .catch(error => { throw new SystemError(error.message) })
+            .then(res => {
+                const { error, message } = res
 
-        const constructor = errors[error]
+                const constructor = errors[error]
 
-        callback(new constructor(message))
+                throw new constructor(message)
+            })
     })
+}   
 
-    xhr.addEventListener('error', () => callback(new SystemError('server error')))
-
-    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/posts`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.send()
-}
