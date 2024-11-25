@@ -17,7 +17,7 @@ console.log(backgroundImage)
 
 
 const playerImage = new Image()
-playerImage.src = './dat/player/down.png'
+playerImage.src = './dat/player/p_down.png'
 
 
 //renderizar la imagen en pantalla

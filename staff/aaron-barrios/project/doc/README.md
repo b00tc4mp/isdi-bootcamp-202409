@@ -2,21 +2,27 @@
 
 ## Intro
 
-[...]
+Being submerged in a delinquent lifestyle leads into being incarcerate.
+In each process you are freed mysteriously; so you lead to meet your savior.
+Despite a light ray approached the issue will not develop as you might think it will...
 
-![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqTRwZQOfjasGIA_tHoojEII1_7A4n3Wb1vg&s)
+![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExamRhOTZzYms5aHJ1cjZ0aHh5bGJiNTd0dmNkc3BlcWdtM2dkeHJqMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/pUh8KWBxCjMeMI3S3y/giphy.gif)
 
 ## Functional
 
 ### Use Cases
 
 User
-- create post
-- view posts
-- toggle like..
+- Select Profile Picture
+- Update user data
 
-Admin
-- ...
+Player
+- Bi directional movement
+- Starter Pokemon election
+- 2d map view
+- Battle view - gameplay
+- Run 
+
 
 ### UXUI Design 
 
@@ -43,8 +49,7 @@ Admin
 User
 - id (UUID)
 - name (string)
-- email (string)
-- username (string)
+- nickname (string)
 - password (string)
 
 ### Techs 
