@@ -6,27 +6,19 @@ import getElapsedTime from '../../utils/getElapsedTime'
 
 
 export default function comments({ postId, comment: { id, author, text, date }, onRemoved }) {
-
     console.log('AddComment -> render')
 
     const handleRemove = () => {
-
         if (confirm('Delete comment?'))
-
             try {
-                logic.removeComments(postId, id, error => {
-                    if (error) {
+                logic.removeComments(postId, id)
+                    .then(onRemoved)
+                    .catch(error => {
                         alert(error.message)
 
                         console.log(error)
-                    }
-
-                    onRemoved()
-
-                })
-
+                    })
             } catch (error) {
-
                 alert(error.message)
 
                 console.log(error)

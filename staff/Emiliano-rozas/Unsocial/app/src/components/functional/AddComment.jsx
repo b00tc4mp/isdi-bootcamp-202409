@@ -15,19 +15,16 @@ export default function addComment({ postId, onAdded }) {
 
 
         try {
-            logic.addComment(postId, text, error => {
-                if (error) {
+            logic.addComment(postId, text)
+                .then(() => {
+                    form.reset()
+
+                    onAdded()
+                })
+                .catch(error => {
                     alert(error.message)
-
                     console.log(error)
-
-                    return
-                }
-                form.reset()
-
-                onAdded()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
 

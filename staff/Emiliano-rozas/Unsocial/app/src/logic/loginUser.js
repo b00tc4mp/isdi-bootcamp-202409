@@ -23,4 +23,3 @@ export default (username, password) => {
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
 }
-

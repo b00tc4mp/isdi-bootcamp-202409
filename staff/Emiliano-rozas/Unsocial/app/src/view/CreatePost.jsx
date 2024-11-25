@@ -20,18 +20,13 @@ export default function CreatePost({ onCreated, onCancel }) {
         } = form
 
         try {
-            logic.createPost(image, text, error => {
-                if (error) {
+            logic.createPost(image, text)
+                .then(onCreated)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                onCreated()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
 

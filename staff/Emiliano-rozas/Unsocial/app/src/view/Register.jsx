@@ -1,13 +1,9 @@
 import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../components/library'
-
 import { errors } from 'com'
+import './Register.css'
+import logic from '../logic'
 
 const { SystemError } = errors
-
-
-import './Register.css'
-
-import logic from '../logic'
 
 export default function Register(props) {
     console.log('Register -> render')
@@ -26,11 +22,12 @@ export default function Register(props) {
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat).then(() => {
-                form.reset()
+            logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    form.reset()
 
-                props.onRegistered()
-            })
+                    props.onRegistered()
+                })
                 .catch(error => {
                     if (error instanceof SystemError)
                         alert('See you later aligator')
