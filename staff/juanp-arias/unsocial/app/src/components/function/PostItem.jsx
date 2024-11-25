@@ -23,15 +23,13 @@ export default function PostItem({ post, onLiked, onDeleted, onCommentAdded, onC
 
     const handleLikeClick = () => {
         try {
-            logic.toggleLikePosts(id, error => {
-                if (error) {
+            logic.toggleLikePosts(id)
+                .then(onLiked)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-                    return
-                }
-                onLiked()
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -42,15 +40,13 @@ export default function PostItem({ post, onLiked, onDeleted, onCommentAdded, onC
     const handleDeleteClick = () => {
         if (confirm('Delete post?')) {
             try {
-                logic.deletePost(id, error => {
-                    if (error) {
+                logic.deletePost(id)
+                    .then(onDeleted)
+                    .catch(error => {
                         alert(error.message)
 
                         console.error(error)
-                        return
-                    }
-                    onDeleted()
-                })
+                    })
             } catch (error) {
                 alert(error.message)
 

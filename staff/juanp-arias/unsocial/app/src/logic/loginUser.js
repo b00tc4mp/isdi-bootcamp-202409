@@ -1,32 +1,25 @@
 import { errors, validate } from 'com'
 
 const { SystemError } = errors
-export default (username, password, callback) => {
+export default (username, password) => {
     validate.username(username)
     validate.password(password)
-    validate.callback(callback)
 
-    const xhr = new XMLHttpRequest
-
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
-
-        if (status === 200) {
-            const token = JSON.parse(response)
-
-            sessionStorage.token = token
-            callback(null)
-            return
-        }
-
-        const { error, message } = JSON.parse(response)
-        const constructor = errors[error]
-        callback(new constructor(message))
+    return fetch(`http://${import.meta.env.VITE_API_URL}/authenticate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
     })
-    xhr.addEventListener('error', () => callback(new SystemError('server error')))
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (res.ok)
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(token => { sessionStorage.token = token })
 
-    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/authenticate`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({ username, password }))
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => { throw new errors[error](message) })
+        })
 }
 

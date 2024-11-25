@@ -9,15 +9,13 @@ export default function Comment({ postId, comment: { id, author, text, date }, o
     const handleRemove = () => {
         if (confirm('Delete comment?'))
             try {
-                logic.removeComment(postId, id, error => {
-                    if (error) {
+                logic.removeComment(postId, id)
+                    .then(onRemoved)
+                    .catch(error => {
                         alert(error.message)
 
                         console.error(error)
-                        return
-                    }
-                    onRemoved()
-                })
+                    })
             } catch (error) {
 
                 alert(error.message)
