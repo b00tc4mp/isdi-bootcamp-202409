@@ -1,7 +1,8 @@
 export default callback =>
-    async (req, res, next) => {
+    (req, res, next) => {
         try {
-            await callback(req, res)
+            callback(req, res)
+                .catch(next)
         } catch (error) {
             next(error)
         }
