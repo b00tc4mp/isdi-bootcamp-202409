@@ -2,7 +2,9 @@ import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../com
 
 import logic from '../logic'
 
-// import './Login.css'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default function Login(props) {
     console.log("Login -> render")
@@ -13,29 +15,28 @@ export default function Login(props) {
         const { target: { username: { value: username }, password: { value: password } } } = event
 
         try {
-            logic.loginUser(username, password, error => {
+            logic.loginUser(username, password)
+                .then(() => {
+                    event.target.reset()
 
-                if (error) {
-                    alert(error.message)
+                    props.onLoggedIn()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Ni nos vimos perro')
+                    else
+                        alert(error.message)
 
                     console.error(error)
 
-                    return
-                }
-
-                event.target.reset()
-
-                props.onLoggedIn()
-            })
-
+                })
         } catch (error) {
-
             alert(error.message)
 
             console.error(error)
         }
-
     }
+
     const handleRegisterClick = event => {
         event.preventDefault()
 

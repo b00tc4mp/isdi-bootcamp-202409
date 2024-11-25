@@ -1,2 +1,2 @@
-export default () => delete sessionStorage.token
+export default () => delete localStorage.token
 
