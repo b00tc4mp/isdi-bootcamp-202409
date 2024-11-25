@@ -1,0 +1,105 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+li {
+    list-style: none;
+}
+
+.article1 {
+    margin-top: 40px;
+    
+    
+    
+}
+
+div {
+    display: flex;
+    justify-content: flex-end;
+    align-items:flex-start;
+    position: relative;
+    flex-direction: column;
+
+}
+.imagen1 {
+    width: 100%;
+     
+}
+
+h2,p {
+    
+    color: white;
+    
+    position: absolute;
+     
+}
+
+p {
+    bottom: 38px;
+    left: 20px;
+    font-size: 15px;
+}
+
+h2 { 
+    left: 20px;
+}
+
+
+.amarillo1 {
+    width: 90%;
+    height: 300px;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    left: 20px;
+    margin-top: 30px;
+}
+
+.shopping {
+    font-size: 24px;
+    color: black;
+}
+.amarillo2 {
+
+    width: 90%;
+    height: 100px;
+    background-color: yellow;
+    left: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.store {
+    color: black;
+}
+
+.article3 {
+    width: 100%;
+    height: 400px;
+    background-color: black;
+    margin-top: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+
+.p1 {
+    color: white;
+}
+
+.h2 {
+    color: white;
+}
+
+
+
+video {
+    width: 100%;
+    height: 50%;
+    
+}

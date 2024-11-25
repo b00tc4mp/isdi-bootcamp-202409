@@ -1,0 +1,33 @@
+
+
+header {
+    background-color: gainsboro;
+    }
+
+.imagen {
+
+}
+.hola {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+}
+
+h1,h2 {
+    letter-spacing: 2px;
+
+
+}
+
+.img {
+    border-radius: 50%;
+    height: 223px;
+    width: 189px;
+}
+
+.padre {
+    grid-template-columns: 250px 250px;
+    display: grid;
+    gap: 131px;
+}

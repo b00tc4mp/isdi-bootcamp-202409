@@ -1,0 +1,18 @@
+.mondrian {
+    width: 400px;
+    height: 400px;
+    background-color: black;
+    display: grid;
+    border: 2px solid black;
+    grid-template-columns: 100px 300px; 
+    grid-template-rows: 150px  100px; 
+}
+
+.yellow {
+    background-color: yellow;
+
+}
+
+.red {
+    background-color: red;
+}
