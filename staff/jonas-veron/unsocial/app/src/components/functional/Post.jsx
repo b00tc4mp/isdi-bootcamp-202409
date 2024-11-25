@@ -19,16 +19,14 @@ export default function Post({
 
   const handleLikeClick = () => {
     try {
-      logic.toggleLikePost(post.id, (error) => {
-        if (error) {
+      logic
+        .toggleLikePost(id)
+        .then(onLiked)
+        .catch((error) => {
           alert(error.message);
 
           console.error(error);
-
-          return;
-        }
-        onLiked();
-      });
+        });
     } catch (error) {
       alert(error.message);
 
@@ -43,17 +41,13 @@ export default function Post({
   const handleDeleteClick = () => {
     if (confirm("Estas seguro de eliminar este post ?")) {
       try {
-        logic.deletePost(post.id, (error) => {
-          if (error) {
+        logic
+          .deletePost(id)
+          .then(onDeleted)
+          .catch((error) => {
             alert(error.message);
-
             console.error(error);
-
-            return;
-          }
-
-          onDeleted();
-        });
+          });
       } catch (error) {
         alert(error.message);
 

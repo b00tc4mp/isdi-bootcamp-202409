@@ -9,7 +9,6 @@ import Header from "./components/functional/Header";
 import Footer from "./components/functional/Footer";
 
 import logic from "./logic";
-import getUserId from "./logic/getUserId";
 
 export default function App() {
   console.log("App -> constructor");
@@ -28,13 +27,6 @@ export default function App() {
   const handleUserRegistered = () => navigate("/login");
 
   const handleNewPostClick = () => navigate("/new-post");
-
-  const handleMyProfileClick = () => {
-    try {
-      const userId = logic.getUserId();
-      navigate(`/profile/${userId}`);
-    } catch (error) {}
-  };
 
   const handleHomeClick = () => navigate("/");
 
@@ -107,10 +99,7 @@ export default function App() {
         <Route path="/profile/:userId/*" element={<Profile />} />
       </Routes>
 
-      <Footer
-        onNewPostClick={handleNewPostClick}
-        onMyProfileClick={handleMyProfileClick}
-      />
+      <Footer onNewPostClick={handleNewPostClick} />
     </>
   );
 }

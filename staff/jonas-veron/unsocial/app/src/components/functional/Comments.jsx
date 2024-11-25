@@ -12,17 +12,14 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
   useEffect(() => {
     try {
-      logic.getComments(postId, (error, comments) => {
-        if (error) {
+      logic
+        .getComments(postId)
+        .then(setComments)
+        .catch((error) => {
           alert(error.message);
 
           console.error(error);
-
-          return;
-        }
-
-        setComments(comments);
-      });
+        });
     } catch (error) {
       alert(error.message);
 
@@ -32,19 +29,18 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
   const handleAdded = () => {
     try {
-      logic.getComments(postId, (error, comments) => {
-        if (error) {
+      logic
+        .getComments(postId)
+        .then((comments) => {
+          setComments(comments);
+
+          onAdded();
+        })
+        .catch((error) => {
           alert(error.message);
 
           console.error(error);
-
-          return;
-        }
-
-        setComments(comments);
-
-        onAdded();
-      });
+        });
     } catch (error) {
       alert(error.message);
 
@@ -54,19 +50,18 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
   const handleRemoved = () => {
     try {
-      logic.getComments(postId, (error, comments) => {
-        if (error) {
+      logic
+        .getComments(postId)
+        .then((comments) => {
+          setComments(comments);
+
+          onRemoved();
+        })
+        .catch((error) => {
           alert(error.message);
 
           console.error(error);
-
-          return;
-        }
-
-        setComments(comments);
-
-        onRemoved();
-      });
+        });
     } catch (error) {
       alert(error.message);
 

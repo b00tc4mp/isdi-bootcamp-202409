@@ -18,15 +18,16 @@ describe("getUserName", () => {
 
   beforeEach(() => User.deleteMany());
 
-  it("succeeds on existing user", () =>
-    User.create({
+  it("succeeds on existing user", async () => {
+    const user = await User.create({
       name: "Coco Loco",
       email: "coco@loco.com",
       username: "cocoloco",
       password: "123123123",
-    })
-      .then((user) => getUserName(user.id, user.id))
-      .then((name) => expect(name).to.equal("Coco Loco")));
+    });
+    const name = await getUserName(user.id, user.id);
+    expect(name).to.equal("Coco Loco");
+  });
 
   it("fails on non-existing user", () =>
     expect(

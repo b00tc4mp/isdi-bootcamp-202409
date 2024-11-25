@@ -1,3 +1,3 @@
 import { extractPayloadFromJWT } from "../utils";
 
-export default () => extractPayloadFromJWT(sessionStorage.token).role;
+export default () => extractPayloadFromJWT(localStorage.token).role;

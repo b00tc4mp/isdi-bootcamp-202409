@@ -2,15 +2,13 @@ import "dotenv/config";
 import db from "dat";
 import authenticateUser from "./authenticateUser.js";
 
-db.connect(process.env.MONGO_URL_TEST)
-  .then(() => {
-    try {
-      return authenticateUser("carlitos", "123123123")
-        .then(console.log)
-        .catch(console.error);
-    } catch (error) {
-      console.error(error);
-    }
-  })
-  .catch(console.error)
-  .finally(() => db.disconnect());
+await db.connect(process.env.MONGO_URL_TEST);
+
+try {
+  const user = await authenticateUser("KerryKachota", "123123123");
+  console.log(user);
+} catch (error) {
+  console.error(error);
+} finally {
+  await db.disconnect();
+}

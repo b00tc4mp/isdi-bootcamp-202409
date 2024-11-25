@@ -28,20 +28,18 @@ export default function Login(props) {
     } = event;
 
     try {
-      logic.loginUser(username, password, (error) => {
-        if (error) {
-          if (error instanceof SystemError) {
-            alert("Sorry, try again later.");
-          } else alert(error.message);
+      logic
+        .loginUser(username, password)
+        .then(() => {
+          event.target.reset();
 
+          props.onLoggedIn();
+        })
+        .catch((error) => {
+          if (error instanceof SystemError) alert("Sorry, try again later.");
+          else alert(error.message);
           console.error(error);
-
-          return;
-        }
-        event.target.reset();
-
-        props.onLoggedIn();
-      });
+        });
     } catch (error) {
       alert(error.message);
 

@@ -16,16 +16,14 @@ export default function Comment({
   const handleRemove = () => {
     if (confirm("Delete comment?"))
       try {
-        logic.removeComment(postId, _id, (error) => {
-          if (error) {
+        logic
+          .removeComment(postId, id)
+          .then(onRemoved)
+          .catch((error) => {
             alert(error.message);
 
             console.error(error);
-
-            return;
-          }
-          onRemoved();
-        });
+          });
       } catch (error) {
         alert(error.message);
 

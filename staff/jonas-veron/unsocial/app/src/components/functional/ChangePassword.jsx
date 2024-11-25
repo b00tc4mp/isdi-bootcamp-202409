@@ -1,4 +1,4 @@
-import { Password, Button, Form, Field, Label } from "../library";
+import { PasswordInput, Button, Form, Field, Label } from "../library";
 
 export default function ChangePassword(props) {
   return (
