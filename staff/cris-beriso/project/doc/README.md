@@ -14,10 +14,10 @@ And you can find all the stores where you can buy those products.
 Regular (User)
 - Search makeup.
 - Search makeup stores.
-- Save products as wish list.
+- Save products as wishlist.
 - Add comments.
 - Remove your own comments.
-- Like/dislike posts.
+- Like/dislike products.
 - Propose new products to add to the data base.
 
 Admin (User)
@@ -26,7 +26,7 @@ Admin (User)
 - Accept proposals from regular users and add then to the data base.
 
 ### UXUI Design
-[Figma]
+[Figma] https://www.figma.com/design/SoUmZ4LpGIcmGeGBqwE6Rp/MakeUp-Scanner?node-id=0-1&t=Cc3QRvBg7M2xzzaX-1
 
 ## Technical
 
@@ -44,27 +44,6 @@ Admin (User)
 - dat (the data model and driver)
 - com (the common validations, utils,...)
 
-### Data Model
-
-User
-- id (UUID)
-- name (string)
-- email (string)
-- username (string)
-- password (string)
-- role (string, enum: regular | admin)
-
-Products
-- id (UUID)
-- image (string)
-- description (string)
-- likes ([User.id])
-- comments ([{
-  - id (UUID)
-  - author (User.id)
-  - text (string)
-  - date (Date) }])
-
 ### Techs
 
 - HTML/CSS/JS (...)
@@ -74,6 +53,36 @@ Products
 - Mongo (...)
 - Mongo & Chai (...)
 - [...]
+
+### Data Model
+
+User
+- id (UUID)
+- name (string)
+- email (string)
+- username (string)
+- password (string)
+- role (string, enum: regular | admin)
+- wishlist ([Product.id])
+
+Product
+- id (UUID)
+- image (string)
+- description (string)
+- likes ([User.id])
+- dislikes ([User.id])
+- comments ([{
+  - id (UUID)
+  - author (User.id)
+  - text (string)
+  - date (Date) }])
+- store ([Store.id])
+
+Stores
+- id (UUID)
+- web (text)
+- locations ([text])
+
 
 ### Test Coverage 
 [...]
