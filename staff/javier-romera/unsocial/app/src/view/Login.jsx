@@ -6,7 +6,11 @@ import { errors } from 'apu'
 
 const { SystemError } = errors
 
-export default props => {
+import useContext from './useContext'
+
+export default function Login(props) {
+    const { alert } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -29,6 +33,7 @@ export default props => {
                 })
         } catch (error) {
             alert(error.message)
+
             console.error(error)
 
             event.target.password.value = ""

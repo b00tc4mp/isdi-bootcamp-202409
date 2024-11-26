@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useContext from '../useContext'
 
 import { Button } from '../library'
 import Comments from './Comments'
@@ -13,6 +14,8 @@ import { getElapsedTime } from '../../util'
 
 export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
     const [view, setView] = useState(null)
+
+    const { alert, confirm } = useContext()
 
     const {
         id,
@@ -47,26 +50,23 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
     }
 
     const handleDeleteClick = () => {
-        if (confirm('Are you sure you want to delete this post?')) {
-            try {
-                logic.deletePost(id)
-                    .then(() => {
-                        onDeleted()
-                    })
-                    .catch(error => {
-                        if (error instanceof SystemError)
-                            alert('Sorry, try again later')
-                        else
+        confirm('Delete post?', accepted => {
+            if (accepted) {
+                try {
+                    logic.deletePost(id)
+                        .then(onDeleted)
+                        .catch(error => {
                             alert(error.message)
 
-                        console.error(error)
-                    })
-            } catch (error) {
-                alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
 
-                console.error(error)
+                    console.error(error)
+                }
             }
-        }
+        })
     }
 
     const handleCommentsClick = () => {
