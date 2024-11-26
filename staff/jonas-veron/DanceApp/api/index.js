@@ -4,7 +4,7 @@ import express, { json } from "express";
 import cors from "cors";
 import jwt from "jsonwebtoken";
 
-// import logic from "./logic/index.js";
+import logic from "./logic/index.js";
 import {
   createFunctionalHandler,
   authorizationHandler,

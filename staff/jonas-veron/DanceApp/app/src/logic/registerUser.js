@@ -11,37 +11,30 @@ export default (name, email, username, password, passwordRepeat, callback) => {
   validate.passwordsMatch(password, passwordRepeat);
   validate.callback(callback);
 
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener("load", () => {
-    const { status, response } = xhr;
-
-    if (status === 201) {
-      callback(null);
-
-      return;
-    }
-
-    const { error, message } = JSON.parse(response);
-
-    const constructor = errors[error];
-
-    callback(new constructor(message));
-  });
-
-  xhr.addEventListener("error", () =>
-    callback(new SystemError("server error"))
-  );
-
-  xhr.open("POST", `${API_URL}/users`);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(
-    JSON.stringify({
+  return fetch(`${API_URL}/users`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
       name,
       email,
       username,
       password,
-      passwordRepeat,
+      "password-repeat": passwordRepeat,
+    }),
+  })
+    .catch((error) => {
+      throw new SystemError(error.message);
     })
-  );
+    .then((res) => {
+      if (res.ok) return;
+
+      return res
+        .json()
+        .catch((error) => {
+          throw new SystemError(error.message);
+        })
+        .then(({ error, message }) => {
+          throw new errors[error](message);
+        });
+    });
 };

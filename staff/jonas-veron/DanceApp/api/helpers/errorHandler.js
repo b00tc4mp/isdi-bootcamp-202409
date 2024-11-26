@@ -1,4 +1,4 @@
-import errors from "com";
+import { errors } from "com";
 
 const {
   ValidationError,

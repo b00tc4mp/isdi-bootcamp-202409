@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View, Button, Alert } from "react-native";
 import PasswordInput from "../components/PasswordInput";
 
-import { errors } from "com";
+// import errors from "../../../com/index.js";
 
-import logic from "../logic";
+// import logic from "../logic";
 
-const { SystemError } = errors;
+// const { SystemError } = errors;
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState("");
@@ -15,32 +15,32 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
 
-  const handleSubmit = () => {
-    try {
-      logic.registerUser(
-        name,
-        email,
-        username,
-        password,
-        passwordRepeat,
-        (error) => {
-          if (error) {
-            if (error instanceof SystemError) alert("Sorry, try again later");
-            else alert(error.message);
+  // const handleSubmit = () => {
+  //   try {
+  //     logic.registerUser(
+  //       name,
+  //       email,
+  //       username,
+  //       password,
+  //       passwordRepeat,
+  //       (error) => {
+  //         if (error) {
+  //           if (error instanceof SystemError) alert("Sorry, try again later");
+  //           else alert(error.message);
 
-            console.error(error);
+  //           console.error(error);
 
-            return;
-          }
+  //           return;
+  //         }
 
-          navigation.navigate("Login");
-        }
-      );
-    } catch (error) {
-      Alert.alert(error.message);
-      console.error(error);
-    }
-  };
+  //         navigation.navigate("Login");
+  //       }
+  //     );
+  //   } catch (error) {
+  //     Alert.alert(error.message);
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <View style={styles.container}>

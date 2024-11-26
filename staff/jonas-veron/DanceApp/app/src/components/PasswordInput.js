@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { StyleSheet, TextInput, Image, Pressable, View } from "react-native";
 
-export default function PasswordInput({ style, value, onChangeText }) {
+export default function PasswordInput({ value, onChangeText, placeholder }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Password"
         value={value}
+        placeholder={placeholder}
         onChangeText={onChangeText}
         secureTextEntry={!passwordVisible}
       />

@@ -1,4 +1,4 @@
-import errors from "com";
+import errors from "../../com/errors.js";
 import jwt from "jsonwebtoken";
 
 const { AuthorizationError } = errors;

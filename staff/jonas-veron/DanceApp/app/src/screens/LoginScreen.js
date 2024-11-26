@@ -27,9 +27,10 @@ export default function LoginScreen({ navigation }) {
       />
 
       <PasswordInput
+        style={styles.input}
+        placeholder={"password"}
         value={password}
         onChangeText={setPassword}
-        style={styles.input}
       />
 
       <Button title="login" onPress={handleLogin} />
