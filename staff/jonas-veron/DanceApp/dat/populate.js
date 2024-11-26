@@ -1,20 +1,20 @@
-import "dotenv/config";
+import "dotenv/config"
 
-import fs from "fs/promises";
-import bcrypt from "bcryptjs";
+import fs from "fs/promises"
+import bcrypt from "bcryptjs"
 
-import db, { User, Post } from "./index.js";
+import db, { User, Event } from "./index.js"
 
 db.connect(process.env.MONGO_URL_TEST)
-  .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+  .then(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
   .then(() => fs.readFile("./users.csv", "utf-8"))
   .then((csv) => {
-    const lines = csv.split("\n");
+    const lines = csv.split("\n")
 
     const creations = lines.map((line) => {
       const [name, email, username, password, role] = line
         .split(",")
-        .map((item) => item.trim());
+        .map((item) => item.trim())
 
       return User.create({
         name,
@@ -22,45 +22,41 @@ db.connect(process.env.MONGO_URL_TEST)
         username,
         password: bcrypt.hashSync(password, 10),
         role,
-      });
-    });
+      })
+    })
 
-    return Promise.all(creations);
+    return Promise.all(creations)
   })
   .then((users) => {
-    return fs.readFile("./posts.csv", "utf-8").then((csv) => {
-      const lines = csv.split("\n");
+    return fs.readFile("./events.csv", "utf-8").then((csv) => {
+      const lines = csv.split("\n")
 
       const creations = lines.map((line) => {
         const [username, image, text, date] = line
           .split(",")
-          .map((item) => item.trim());
+          .map((item) => item.trim())
 
-        const { _id: author } = users.find(
-          (user) => user.username === username
-        );
+        const { _id: author } = users.find((user) => user.username === username)
 
-        const likes = [];
-        const likesNumber = randomNumber(0, users.length);
+        const likes = []
+        const likesNumber = randomNumber(0, users.length)
 
         for (let i = 0; i < likesNumber; i++) {
-          let user = randomElement(users);
+          let user = randomElement(users)
 
-          while (likes.includes(user.id)) user = randomElement(users);
+          while (likes.includes(user.id)) user = randomElement(users)
 
-          likes.push(user.id);
+          likes.push(user.id)
         }
 
-        return Post.create({ author, image, text, date, likes });
-      });
+        return Event.create({ author, image, text, date, likes })
+      })
 
-      return Promise.all(creations);
-    });
+      return Promise.all(creations)
+    })
   })
   .catch(console.error)
-  .finally(() => db.disconnect());
+  .finally(() => db.disconnect())
 
-const randomElement = (array) =>
-  array[Math.floor(Math.random() * array.length)];
-const randomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min)) + min;
+const randomElement = (array) => array[Math.floor(Math.random() * array.length)]
+const randomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min

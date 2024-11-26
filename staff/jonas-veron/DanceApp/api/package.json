@@ -17,9 +17,15 @@
     "com": "file:../com",
     "cors": "^2.8.5",
     "dat": "file:../dat",
-    "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "jsonwebtoken": "^9.0.2",
-    "react-native-dotenv": "^3.4.11"
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "c8": "^10.1.2",
+    "chai": "^5.1.2",
+    "chai-as-promised": "^8.0.1",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.8.2",
+    "monocart-coverage-reports": "^2.11.3"
   }
 }

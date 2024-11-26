@@ -1,37 +1,32 @@
 {
-  "name": "danceapp",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "app",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@expo/metro-runtime": "~4.0.0",
-    "@react-navigation/native": "^7.0.4",
-    "@react-navigation/stack": "^7.0.6",
-    "axios": "^1.7.7",
-    "com": "file:../com",
-    "expo": "~52.0.11",
-    "expo-status-bar": "~2.0.0",
-    "mongoose": "^8.8.2",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-hook-form": "^7.53.2",
-    "react-native": "0.76.3",
-    "react-native-dotenv": "^3.4.11",
-    "react-native-gesture-handler": "^2.21.2",
-    "react-native-reanimated": "^3.16.2",
-    "react-native-safe-area-context": "^4.14.0",
-    "react-native-screens": "^4.3.0",
-    "react-native-vector-icons": "^10.2.0",
-    "react-native-web": "~0.19.13"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
-  },
-  "private": true
+    "@eslint/js": "^9.11.1",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.11.1",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "vite": "^5.4.8"
+  }
 }

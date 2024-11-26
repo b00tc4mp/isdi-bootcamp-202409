@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1.2rem;
+  }
+}
+
+:root {
+  /* --primary-color: #f29325;
+  --secondary-color: #000;
+  --bg-color: #f4e2de; */
+  height: 100%;
+  width: 100%;
+}
