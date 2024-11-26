@@ -3,7 +3,7 @@
 ## 📖 Intro
 
 Entelequia Comic-Book Store es un proyecto de e-commerce que ofrece una amplia variedad de cómics , Manga y todo lo relacionado al mundo geek 🤓. 
-Inspirado en el negocio en el cual pase casi toda mi vida, este sitio web permitirá a los usuarios explorar, seleccionar y comprar cómics, además de acceder a contenido exclusivo sobre sus personajes y series favoritos.
+Inspirado en el negocio en el cual pase casi toda mi vida, este sitio web permitirá a los usuarios explorar, seleccionar y comprar Cómics/Mangas, además de acceder a contenido exclusivo sobre sus personajes y series favoritos.
 
 ## 💡Functional Overview
 
@@ -32,9 +32,6 @@ Inspirado en el negocio en el cual pase casi toda mi vida, este sitio web permit
 - 📈 Manage clients orders
 
 - 📢 Review and respond to user feedback
-
-- 👥 Manage user accounts
-
 
 
 ### 🎨 UXUI Design
@@ -72,54 +69,82 @@ Here are the initial wireframes for an intuitive, responsive interface. The desi
 ### 🗃️ Data Model
 
 ### User
-- id (UUID): Unique user identifier
+- id (UUID)
 
-- Name (string): Full name
+- Name ('string')
 
-- Email (string): Email address
+- Email ('string')
 
-- Username (string): Username
+- Username ('string')
 
-- Password (string): Encrypted password
+- Password ('string')
+
+- role ('string'): 'user'
+
+### Admin
+- id (UUID)
+
+- Name ('string')
+
+- Email ('string')
+
+- Username ('string')
+
+- Password ('string')
+
+- role ('string'): 'admin'
+
+- modifiedProducts: 
+    - productId (UUID)
+    - action ('string'): 'create' | 'edit' | 'delete',
+    - timestamp (Date)
+  
+
+- managedOrders:
+   - orderId (UUID)
+   - action ('string'): 'status change' | 'refund' | 'cancel',
+   - timestamp (Date)
+
+
 
 ### Product
-- id (UUID): Unique comic identifier
+- id (UUID)
 
-- Title (string): Comic title
+- Title ('string')
 
-- Author (string): Author of the comic
+- Author ('string')
 
-- Publisher (string): Publisher
+- Publisher ('string')
 
-- Price (number): Price
+- Price (number)
 
-- Description (string): Description
+- Description ('string')
 
-- Category ('string):  Genre/category
+- Category ('string')
 
-- Stock (number): Inventory stock
+- Stock (boolean)
 
-- Image ('string'):  Cover image URL
+- Image ('string'')
 
-- Reviews ([{
-   - id (UUID): Review identifier
-   - user (User.id): Review author
-   - rating (number): Rating
-- comment (string): Review text }])
+- Reviews:
+   - id (UUID)
+   - user (User.id)
+   - rating (number)
+  - comment ('string'')
 
 
 ### Order
-- id (UUID): Unique order identifier
+- id (UUID)
 
-- user (User.id): User who placed the order
+- user (User.id)r
 
-- items ([Product.id]): List of purchased items
+- items ([Product.id])
 
-- totalPrice (number): Total price of the order
+- totalPrice (number)
 
-- date (Date): Date of purchase
+- date (Date)
 
-- status (Property?): Delivery status
+- status (Property?)
 
 
 ### 🚀 Technologies Used
