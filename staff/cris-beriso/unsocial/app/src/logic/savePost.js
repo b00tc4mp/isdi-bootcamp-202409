@@ -8,7 +8,7 @@ export default (postId) => {
   const posts = JSON.parse(localStorage.posts)
   const post = posts.find(({ id }) => id === postId)
 
-  const userId = sessionStorage.userId
+  const userId = localStorage.userId
   const users = JSON.parse(localStorage.users)
   const user = users.find(({ id }) => id === userId)
 

@@ -15,22 +15,20 @@ export default function Login(props) {
     const { target: { username: { value: username }, password: { value: password } } } = event
 
     try {
-      logic.loginUser(username, password, error => {
-        if (error) {
+      logic.loginUser(username, password)
+        .then(() => {
+          event.target.reset()
+
+          props.onLoggedIn()
+        })
+        .catch(error => {
           if (error instanceof SystemError)
             alert('Sorry, try again later.')
           else
             alert(error.message)
 
           console.error(error)
-
-          return
-        }
-
-        event.target.reset()
-
-        props.onLoggedIn()
-      })
+        })
     } catch (error) {
 
       alert(error.message)

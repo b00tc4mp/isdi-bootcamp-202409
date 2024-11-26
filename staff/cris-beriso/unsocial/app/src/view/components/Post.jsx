@@ -25,17 +25,13 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
   const handleLikeClick = () => {
     try {
-      logic.toggleLikePost(id, error => {
-        if (error) {
+      logic.toggleLikePost(id)
+        .then(onLiked)
+        .catch(error => {
           alert(error.message)
 
           console.error(error)
-
-          return
-        }
-
-        onLiked()
-      })
+        })
     } catch (error) {
       alert(error.message)
 
@@ -46,17 +42,13 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
   const handleDeleteClick = () => {
     if (confirm('Delete post?')) {
       try {
-        logic.deletePost(id, error => {
-          if (error) {
+        logic.deletePost(id)
+          .then(onDeleted)
+          .catch(error => {
             alert(error.message)
 
             console.error(error)
-
-            return
-          }
-
-          onDeleted()
-        })
+          })
       } catch (error) {
         alert(error.message)
 
@@ -93,7 +85,7 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
     <div className="buttons">
       <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</Button>
 
-      {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑</Button>}
+      {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
 
       <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
 

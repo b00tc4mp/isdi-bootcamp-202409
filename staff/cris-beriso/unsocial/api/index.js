@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
-db.connect(process.env.MONGO_URL).then(() => {
+db.connect(process.env.MONGO_URL_TEST).then(() => {
   console.log('connected to db')
 
   const server = express()
@@ -26,10 +26,12 @@ db.connect(process.env.MONGO_URL).then(() => {
       .then(token => res.json(token))
   }))
 
-  server.post('/users', jsonBodyParser, createFunctionalHandler((req, res) => {
+  server.post('/users', jsonBodyParser, createFunctionalHandler(async (req, res) => {
     const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
 
-    return logic.registerUser(name, email, username, password, passwordRepeat).then(() => res.status(201).send())
+    await logic.registerUser(name, email, username, password, passwordRepeat)
+
+    res.status(201).send()
   }))
 
   server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {

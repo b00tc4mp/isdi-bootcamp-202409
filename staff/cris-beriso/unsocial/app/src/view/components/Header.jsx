@@ -19,17 +19,13 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     if (logic.isUserLoggedIn()) {
       if (!name)
         try {
-          logic.getUserName((error, name) => {
-            if (error) {
+          logic.getUserName()
+            .then(setName)
+            .catch(error => {
               alert(error.message)
 
               console.error(error)
-
-              return
-            }
-
-            setName(name)
-          })
+            })
         } catch (error) {
           alert(error.message)
 
@@ -39,29 +35,16 @@ export default function Header({ onHomeClick, onLoggedOut }) {
   }, [location.pathname])
 
   const handleHomeClick = event => {
-    try {
-      event.preventDefault()
+    event.preventDefault()
 
-      onHomeClick()
-    } catch (error) {
-      alert(error.message)
-
-      console.error(error)
-    }
-
+    onHomeClick()
   }
 
   const handleLogout = () => {
-    try {
-      if (confirm('Logout?')) {
-        logic.logoutUser()
+    if (confirm('Logout?')) {
+      logic.logoutUser()
 
-        onLoggedOut()
-      }
-    } catch (error) {
-      alert(error.message)
-
-      console.error(error)
+      onLoggedOut()
     }
   }
 

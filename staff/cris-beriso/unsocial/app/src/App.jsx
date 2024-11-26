@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { Login, Register, Home, CreatePost, ProfileUser } from './view'
 import Hello from './view/Hello'
 import Search from './view/Search'
+import Profile from './view/Profile'
 
 import Header from './view/components/Header'
 import Footer from './view/components/Footer'
