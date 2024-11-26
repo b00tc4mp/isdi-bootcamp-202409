@@ -54,18 +54,18 @@ User
 - email (string, unique)
 - password (hashed string)
 
-Cycles
+Cycle
 - id (ObjectId)
 - user (User.id)
-- periodStart (Date)
+- start (Date)
+- end (Date, optional)
 - periodEnd (Date)
-- cycleEnd (Date, optional)
-- isRegular (boolean)
+<!-- - isRegular (se queda cortito | regular | muy largo) -->
 - dailyLogs: ([DailyLog.id])
 
 DailyLog
 - id (ObjectId)
-- cycle (Cycles.id)
+- cycle (Cycle.id)
 - date (Date)
 <!-- - pregnancyChance (string, enum: low | medium | high) -->
 - symptoms (string, enum: fatigue | headache | cramps | tender breasts | acne | backache | cravings | abdominal pain | dryness)
@@ -74,7 +74,7 @@ DailyLog
 - flow (string, enum: no discharge | creamy | watery)
 - sleep (string, enum: poor | average | good)
 - sexualActivity (string, enum: didn't have sex | had sex)
-- sex drive (string, enum: low | medium | high)
+- sexualEnergy (string, enum: low | medium | high)
 
 Event
 - id (ObjectId)
@@ -83,13 +83,19 @@ Event
 - title (string)
 - description (string)
 - reminder (boolean)
-- recurrence (Object { type (string, enum: daily, weekly, monthly), interval (number)})
+- recurrence (Recurrence)
+
+Recurrence
+- id (ObjectId)
+- type (string, enum: daily, weekly, monthly)
+- interval (number)
 
 Tip
 - id (ObjectId) 
 - phase (string, enum: menstruation | follicular | ovulation | luteal)
 - category (string, enum: nutrition | exercise | self-care | music)
 - description (string)
+- date (Date)
 
 ### Techs
 
