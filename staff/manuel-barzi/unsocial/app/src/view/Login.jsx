@@ -6,8 +6,12 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
+import useContext from './useContext'
+
 export default function Login(props) {
     console.log('Login -> render')
+
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
