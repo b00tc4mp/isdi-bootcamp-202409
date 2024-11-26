@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { Button, Anchor } from '../library'
 import logic from '../../logic'
 import { errors } from 'com'
+import useContext from '../useContext'
 
 const { SystemError } = errors
 
@@ -10,6 +11,8 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
 
     const location = useLocation()
+
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         console.log('Header -> componentDidMount & componentWillReceiveProps')
@@ -42,11 +45,13 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     }
 
     const handleLogout = () => {
-        if (confirm('Logout?')) {
-            logic.logoutUser()
+        confirm('Logout?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
 
-            onLoggedOut()
-        }
+                onLoggedOut()
+            }
+        }, 'warn')
     }
 
     console.log('Header -> render')
@@ -59,7 +64,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
         {name && <h3 class="m-0 text-base tracking-[1px] text-[#92FF9D] font-dela-gothic-one">{name}</h3>}
 
         {
-            logic.isUserLoggedIn() && <Button className="header-button" type="button"
+            logic.isUserLoggedIn() && <Button className="w-[6rem] py-[5px] px-0 bg-[#2A31FF] text-white text-[0.8rem] m-0 rounded-[20px]" type="button"
                 onClick={handleLogout}>Logout</Button>
         }
     </header >

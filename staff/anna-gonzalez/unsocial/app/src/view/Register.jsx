@@ -1,11 +1,14 @@
 import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from './library'
 import logic from '../logic'
 import { errors } from 'com'
+import useContext from './useContext'
 
 const { SystemError } = errors
 
-export default (props) => {
+export default function Register(props) {
     console.log('Register -> render')
+
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -72,8 +75,8 @@ export default (props) => {
                 <PasswordInput id="passwordRepeat" />
             </Field>
 
-            <Button type="submit" className="mt-4">Register</Button>
+            <Button type="submit" className="mt-4 w-[185px] box-border px-5 py-[5px] font-dela-gothic-one bg-[#2A31FF] rounded-[25px] border-0 text-lg mb-4 text-white cursor-pointer hover:bg-[#0a11cc]">Register</Button>
         </Form>
         <Anchor href="" onClick={handleLoginClick}>Login</Anchor>
-    </main>
+    </main >
 }

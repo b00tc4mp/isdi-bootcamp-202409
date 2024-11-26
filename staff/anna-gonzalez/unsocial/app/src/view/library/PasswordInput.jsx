@@ -2,8 +2,6 @@ import { useState } from 'react'
 
 import Input from './Input'
 
-import './PasswordInput.css'
-
 export default function PasswordInput({ id }) {
     const [status, setStatus] = useState('🔐')
     const [type, setType] = useState('password')
@@ -14,9 +12,9 @@ export default function PasswordInput({ id }) {
     }
     //console.log('PasswordInput -> render')
 
-    return <div className="password-input">
-        <Input type={type} id={id} />
-        <span className="password-toggle"
+    return <div className="relative">
+        <Input className="pr-6" type={type} id={id} />
+        <span className="absolute mr-2 mt-1 cursor-pointer"
             onClick={handleToggleClick}
         >{status}</span>
     </div>

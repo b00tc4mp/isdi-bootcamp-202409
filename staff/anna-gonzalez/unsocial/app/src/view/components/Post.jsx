@@ -3,13 +3,15 @@ import { Button } from '../library'
 import Comments from './Comments'
 import logic from '../../logic'
 import { getElapsedTime } from '../../util'
-import './Post.css'
+import useContext from '../useContext'
 import { errors } from 'com'
 
 const { SystemError } = errors
 
 export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded, onCommentRemoved }) {
     const [view, setView] = useState(null)
+
+    const { alert, confirm } = useContext()
 
     const {
         id,
@@ -63,24 +65,26 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
     }
 
     const handleDeleteClick = () => {
-        if (confirm('Delete post?')) {
-            try {
-                logic.deletePost(id)
-                    .then(onDeleted)
-                    .catch(error => {
-                        if (error instanceof SystemError)
-                            alert('Sorry, try again later')
-                        else
-                            alert(error.message)
+        confirm('Delete post?', accepted => {
+            if (accepted) {
+                try {
+                    logic.deletePost(id)
+                        .then(onDeleted)
+                        .catch(error => {
+                            if (error instanceof SystemError)
+                                alert('Sorry, try again later')
+                            else
+                                alert(error.message)
 
-                        console.error(error)
-                    })
-            } catch (error) {
-                alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
 
-                console.error(error)
+                    console.error(error)
+                }
             }
-        }
+        })
     }
 
     const handleCommentsClick = () => setView(view ? null : 'comments')
@@ -89,22 +93,22 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
 
     console.log('Post -> render')
 
-    return <article className="Post">
-        <div className="above-photo-content">
-            <h4>{author.username}</h4>
+    return <article className="w-96 flex flex-col border-2 border-[#2A31FF] rounded-[15px] mb-8">
+        <div className="flex flex-row justify-between items-center pr-2 text-left">
+            <h4 className="pl-4 text-[#2A31FF]">{author.username}</h4>
 
             {/*logic.getUserRole() === 'moderator' && <Button>💀</Button>*/}
             {logic.isUserRoleModerator() && <Button>💀</Button>}
 
-            <Button className="save-post-button"
+            <Button className="flex flex-end w-[200px] box-border px-5 py-[5px] font-dela-gothic-one bg-transparent rounded-[25px] border-0 text-lg mb-4 text-[#2A31FF] cursor-pointer hover:bg-transparent flex-row justify-around p-0 m-0 text-left"
                 onClick={handleSavedClick}>{`📌 ${saves}`}</Button>
         </div>
 
-        <img src={image} />
+        <img src={image} className="w-full" />
 
-        <p>{text}</p>
+        <p className="pl-4 pr-3 mb-[0.1rem]">{text}</p>
 
-        <time>{getElapsedTime(date)} ago</time>
+        <time className="pl-4 pr-3  text-xs mt-0 mb-4 text-gray-500">{getElapsedTime(date)} ago</time>
 
         {view === 'comments' && <Comments
             postId={id}
@@ -112,14 +116,14 @@ export default function Post({ post, onLiked, onSaved, onDeleted, onCommentAdded
             onRemoved={onCommentRemoved}
         />}
 
-        <div className="post-buttons">
-            <Button className="no-style-button"
+        <div className="flex flex-row justify-evenly items-center text-[#92FF9D] bg-[#2A31FF] rounded-bl-[12px] rounded-br-[12px]">
+            <Button className="w-[200px] box-border px-5 py-[5px] font-dela-gothic-one bg-[#2A31FF] rounded-[25px] border-0 text-lg mb-4 text-white cursor-pointer hover:bg-[#0a11cc]"
                 onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes}`}</Button>
 
-            {author.id === logic.getUserId() && <Button className="no-style-button"
+            {author.id === logic.getUserId() && <Button className="w-[200px] box-border px-5 py-[5px] font-dela-gothic-one bg-[#2A31FF] rounded-[25px] border-0 text-lg mb-4 text-white cursor-pointer hover:bg-[#0a11cc]"
                 onClick={handleDeleteClick}>❌</Button>}
 
-            <Button className="no-style-button"
+            <Button className="w-[200px] box-border px-5 py-[5px] font-dela-gothic-one bg-[#2A31FF] rounded-[25px] border-0 text-lg mb-4 text-white cursor-pointer hover:bg-[#0a11cc]"
                 onClick={handleCommentsClick}>💬 {comments}</Button>
         </div>
     </article >
