@@ -1,95 +1,168 @@
-# DIVE & DISCOVER
 
-## Intro
+# **DIVE & DISCOVER**
 
-git ![alt text](<Dive & Discover.png>)
+## **Intro**
+
+![alt text](<Dive & Discover.png>)
 
 ### Dive and Discover App Overview
 
 Dive and Discover is an innovative app designed to connect scuba divers with dive centers worldwide while offering comprehensive insights into local marine life. The app is tailored for two distinct user types: **Divers** and **Dive Centers**, providing features to enhance their diving adventures and operational efficiency.
 
-#### Key Features
+---
 
-**For Divers:**  
+## **Key Features**
+
+### **For Divers**  
 - A **Home Section** with personalized information, including name, username, email, profile picture, password reset, and equipment size preferences.  
 - A **Settings Menu** to update and manage personal details easily.  
 - A **Dive Logbook** for recording dive history, including date, location, depth, and notes.  
 - Access to detailed information about underwater life in specific areas, featuring photos and descriptions of local marine species.
 
-**For Dive Centers:**  
+### **For Dive Centers**  
 - A dedicated **Home Section** displaying essential details such as the center’s name, address, opening hours, website link, and a photo.  
-- A **Settings Menu** to update and manage the dive center’s profile information efficiently.
+- A **Settings Menu** to update and manage the dive center’s profile information efficiently.  
+- Exclusive **Deals and Offers** for D&D users (coming in v0.2).
 
-#### Discover Section
+### **Discover Section**
 
 The **Discover Section** is the heart of the app, enabling users to search for dive locations by city or region. Upon selecting a location, users will find:  
 1. A **Dive Center List** in the selected area, with detailed profiles to help divers choose and contact their preferred dive center.  
 2. A second screen offering educational content about the area’s marine ecosystem. This section features vivid images and descriptions of sea creatures, helping divers familiarize themselves with the local biodiversity before their dive.
 
-#### Vision
+---
+
+## **Vision**
 
 Dive and Discover bridges the gap between scuba diving enthusiasts and dive centers while fostering awareness and appreciation of marine life. Whether you’re an experienced diver or exploring the underwater world for the first time, this app ensures you’re informed, connected, and prepared for your next adventure.
 
 ![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2RxbmZ6MnRkdWV3NTFiNjZkano5NDFsM2R6Z2t4Mzg2Nnpsd2VtNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/cHZo4OjMQwca4iL4Pu/giphy.gif)
 
-## Functional
+---
 
-### Use Cases
+## **Development Roadmap**
 
-User/Divers
-- Updating personal details
-- Keep record of your equipment 'size
-- Log and keep record of your dives
-- Find dive's centers near you
-- Getting info about marine's life 
+#### Roadmap
+- **v0.1**: Implementation of basic features (user registration, dive center search, logbook).
+- **v0.2**: Introduction of push notifications and exclusive offers for users.
+- **v0.3**: Integration with map platforms to display dive center locations on an interactive map.
+- **v1.0**: Full version with advanced customization and community features.
 
-User/Dive Centers
-- Updating dive's center details
-- Adding deals and offers only for D&D users (coming into v0.1)
+---
 
+## **Use Cases**
 
+#### **For Divers**
+- Update personal details and equipment size preferences.
+- Log and track dives.
+- Discover nearby dive centers and marine life information.
 
-### UXUI Design
+#### **For Dive Centers**
+- Manage dive center details.
+- Promote exclusive deals and offers (coming in v0.1).
 
-[Figma](https://www.figma.com/design/izhbCn1siLrHnPkkMKCJuz/DIVE%26DISCOVER?node-id=0-1&node-type=canvas&t=7hdyMoMmZXfLlOZg-0)
+---
 
-## Technical
+## **UX/UI Design**
 
-### Blocks
+The app design prioritizes usability and accessibility, with a clean and ocean-inspired aesthetic.
 
-- App (the client-side application)
-- API (the server-side API)
-- DB (the database)
+- **Mockups**:  
+![Mockup Image]  
+The home screen and Discover section highlight critical functionalities, providing an intuitive experience.  
 
-### Packages
+- **Design Platform**: The design is built in Figma. View the full prototype [here](https://www.figma.com/design/izhbCn1siLrHnPkkMKCJuz/DIVE%26DISCOVER?node-id=0-1&node-type=canvas&t=7hdyMoMmZXfLlOZg-0).
 
-- doc (the documentation)
-- app (the client-side application)
-- api (the server-side API)
-- dat (the data model and driver)
-- com (the common validations, utils, ...)
+---
 
-### Data Model
+## **Technical Overview**
 
-User/divers
-- id (UUID)
-- name (string)
-- email (string)
-- username (string)
-- password (string)
+### **Key Components**
+- **Client**: Built using React for a responsive and interactive user interface.
+- **API**: Node.js with Express to handle business logic and client-server communication.
+- **Database**: MongoDB with Mongoose for a scalable and flexible data model.
 
+### **Packages and Architecture**
+- **doc**: Documentation.
+- **app**: Client-side application.
+- **api**: Server-side API.
+- **dat**: Data model and driver.
+- **com**: Common utilities and validations.
 
-### Techs
+---
 
-- HTML/CSS/JS (...)
-- React (...)
-- Node (...)
-- Express (...)
-- Mongo (...)
-- Mongoose
-- Mocha & Chai (...)
+## **Data Model**
 
+### **For Divers**
+```json
+{
+  "id": "UUID",
+  "name": "string",
+  "email": "string",
+  "username": "string",
+  "password": "string",
+  "role": "diver",
+  "logBook": [
+    {
+      "date": "date",
+      "location": "string",
+      "depth": "number",
+      "notes": "string"
+    }
+  ]
+}
+```
 
-### Test Coverage
+### **For Dive Centers**
+```json
+{
+  "id": "UUID",
+  "name": "string",
+  "email": "string",
+  "username": "string",
+  "password": "string",
+  "role": "dive center",
+  "details": {
+    "address": "string",
+    "openingHours": "string",
+    "website": "string",
+    "photo": "string"
+  }
+}
+```
 
-[...]
+---
+
+## **Security**
+
+- **Password Hashing**: Using `bcrypt` for secure password storage.
+- **Authentication**: JWT (JSON Web Token) for session management.
+- **Input Validation**: Sanitizing and validating input on both client and server sides.
+- **HTTPS**: Enforcing secure communication.
+
+---
+
+## **Testing Plan**
+
+- **Unit Tests**: Testing individual components and functions using **Mocha** and **Chai**.
+- **Integration Tests**: Verifying interactions between components (API and database).
+- **End-to-End Tests**: Simulating real-world user flows with tools like **Cypress**.
+
+---
+
+## **Metrics for Success**
+
+- **Technical Metrics**:
+  - API response time below 200ms.
+  - Test coverage of at least 90%.
+- **Business Metrics**:
+  - 1,000+ registered users within 6 months.
+  - Retention rate > 75%.
+  - Positive user feedback on app functionality.
+
+---
+
+## **Final Summary**
+
+Dive & Discover not only enhances the diving experience by connecting users with top dive centers and marine knowledge but also fosters sustainability and environmental education. With a solid technical foundation and a clear vision, this app is poised to transform the world of scuba diving. Whether you're a beginner or a seasoned diver, Dive & Discover ensures you're prepared for your next underwater adventure.
+
