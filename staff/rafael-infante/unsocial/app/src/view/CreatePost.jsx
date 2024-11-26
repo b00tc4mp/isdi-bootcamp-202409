@@ -1,35 +1,38 @@
-import logic from "../logic";
-import "./CreatePost.css";
-import { Button, Form, Label, Input } from "./components/library";
+import logic from '../logic'
+import './CreatePost.css'
+import { Button, Form, Label, Input } from './components/library'
+import useContext from './useContext'
 
 export default function CreatePost({ onCreated }) {
-  console.log("Create Post -> render");
+  console.log('Create Post -> render')
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const { target: form } = event;
+    const { target: form } = event
 
     const {
       image: { value: image },
       text: { value: text },
-    } = form;
+    } = form
 
     try {
       logic
         .createPost(image, text)
         .then(onCreated)
         .catch((error) => {
-          alert(error.message);
+          alert(error.message)
 
-          console.error(error);
-        });
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <main className="CreatePost flex items-center justify-center flex-col h-full bg-white">
@@ -44,5 +47,5 @@ export default function CreatePost({ onCreated }) {
         </Button>
       </Form>
     </main>
-  );
+  )
 }

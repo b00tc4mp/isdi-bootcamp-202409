@@ -1,8 +1,11 @@
 import logic from '../../../logic'
 import { Label } from '../library'
+import useContext from '../../useContext'
 
 export default ({ postId, onAdded }) => {
   console.log('Render -> Add Comment')
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
     event.preventDefault()
