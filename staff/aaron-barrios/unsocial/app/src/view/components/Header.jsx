@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom'
 
 import { Button } from '../library'
 
+import useContext from '../useContext'
+
 import logic from '../../logic'
 
 import './Header.css'
@@ -13,6 +15,8 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
 
     const location = useLocation()
+
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
@@ -42,12 +46,15 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     }
 
     const handleLogout = () => {
-        if (confirm('Logout?')) {
-            logic.logoutUser()
+        confirm('Logout?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
 
-            onLoggedOut()
-        }
+                onLoggedOut()
+            }
+        }, 'warn')
     }
+
 
     const onProfile = (event) => {
         event.preventDefault()

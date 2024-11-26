@@ -1,6 +1,6 @@
 import logic from '../logic'
 
-import { PasswordInput, Input, Button, Form, Label } from '../components/library'
+import { Input, Button, Form, Label } from './library'
 
 
 export default function CreatePost({ onCreated }) {

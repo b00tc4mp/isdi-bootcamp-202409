@@ -1,6 +1,8 @@
 import './Login.css'
 
-import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+import { PasswordInput, Input, Button, Form, Field, Label } from './library'
+
+import useContext from './useContext'
 
 import logic from '../logic'
 
@@ -10,6 +12,8 @@ const { SystemError } = errors
 
 
 export default function Login(props) {
+    const { alert } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 

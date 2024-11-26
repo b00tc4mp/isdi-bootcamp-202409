@@ -1,13 +1,17 @@
 import logic from '../logic'
 
-import { PasswordInput, Input, Button, Form, Field, Label } from '../components/library'
+import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import './Register.css'
+
+import useContext from './useContext'
 
 import { errors } from 'com'
 const { SystemError } = errors
 
 export default (props) => {
+    const { alert } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -31,6 +35,8 @@ export default (props) => {
                 .then(() => {
                     //RESETEO DEL FORMULARIO
                     form.reset() // => form.reset()
+
+                    alert('User succesfully registered', 'success')
 
                     //LE PASO LA FUNCIÓN "registered" DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
                     props.onRegistered()

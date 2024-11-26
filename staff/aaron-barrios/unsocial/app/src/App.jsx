@@ -1,16 +1,29 @@
+import { useState } from 'react'
+
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Login, Register, Home, CreatePost } from './view'
 
-import Header from './components/functional/Header'
-import Footer from './components/functional/Footer'
-import ProfileData from './components/functional/ProfileData'
+import { Header, Footer, ProfileData, Alert, Confirm } from './view/components'
 
+import { Context } from './view/useContext'
 
 import logic from './logic'
 
 
 export default function App() {
+  const [alert, setAlert] = useState({
+    message: null,
+    level: 'error'
+  })
+
+  const [confirm, setConfirm] = useState({
+    message: null,
+    level: 'error',
+    callback: null
+  })
+
+
   const navigate = useNavigate()
 
   const handlePostCreated = () => navigate('/')
@@ -31,8 +44,37 @@ export default function App() {
 
   const handlProfileClick = () => navigate('profile')
 
+  const handleAlertAccepted = () => setAlert({
+    message: null,
+    level: 'error'
+  })
 
-  return <>
+  const handleConfirmAccepted = () => {
+    confirm.callback(true)
+
+    setConfirm({
+      message: null,
+      level: 'error',
+      callback: null
+    })
+  }
+
+  const handleConfirmCancelled = () => {
+    confirm.callback(false)
+
+    setConfirm({
+      message: null,
+      level: 'error',
+      callback: null
+    })
+  }
+
+
+  return < Context.Provider value={{
+    alert(message, level = 'error') { setAlert({ message, level }) },
+    confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+  }}>
+
     <Header
       onHomeClick={handleHomeClick}
       onLoggedOut={handleUserLoggedOut}
@@ -62,8 +104,11 @@ export default function App() {
 
     </Routes>
 
-
     <Footer onNewPostClick={handleNewPostClick} />
-  </>
+
+    {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+
+    // {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
+  </Context.Provider>
 }
 
