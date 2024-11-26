@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+html {
+    /* background-image: url(https://img.freepik.com/vector-gratis/textura-malla-linea-cuadricula-geometrica-abstracta-fondo-blanco_1017-54597.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid); */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0%;
+    padding: 0%;
+    height: 100%;
+    color: antiquewhite;
+}
+
+:root {
+    --color: rgb(211, 211, 211);
+    --font: 'Bangers';
+    font-family: var(--font);
+    font-size: 25px;
+}
+
+body {
+    height: 100%;
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)), radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)), radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2)), radial-gradient(circle at var(--x-3) var(--y-3), var(--c-3) var(--s-start-3), transparent var(--s-end-3)), radial-gradient(circle at var(--x-4) var(--y-4), var(--c-4) var(--s-start-4), transparent var(--s-end-4));
+    animation: hero-gradient-animation 10s linear infinite alternate;
+    background-blend-mode: normal, normal, normal, normal, normal;
+    background-repeat: no-repeat;
+}
+
+input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-family: inherit;
+    font-size: 28px;
+    background-color: rgb(0, 0, 0);
+    color: antiquewhite;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Protest Strike';
+    font-size: 47px;
+    color: antiquewhite;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Protest Strike';
+    font-size: 33px;
+    color: antiquewhite;
+}
+
+button {
+    font-family: var(--font);
+    background-color: black;
+    color: antiquewhite;
+    font-size: 24px;
+    margin: 15px;
+    animation: rainbow-animation 800ms linear infinite;
+    width: 150px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+@keyframes rainbow-animation {
+    to {
+        filter: hue-rotate(0deg);
+    }
+
+    from {
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes hero-gradient-animation {
+    0% {
+        --x-0: 59%;
+        --y-0: 16%;
+        --c-0: hsla(289, 100%, 52%, 1);
+        --s-start-0: 6.018788142925232%;
+        --s-end-0: 35%;
+        --x-1: 92%;
+        --c-1: hsla(236, 96%, 40%, 1);
+        --s-start-1: 3.315649867374005%;
+        --s-end-1: 6.33664952285726%;
+        --y-1: 7%;
+        --x-2: 78%;
+        --c-2: hsla(183, 61%, 42%, 1);
+        --y-2: 75%;
+        --s-start-2: 0%;
+        --s-end-2: 7%;
+        --c-3: hsla(243, 83%, 19%, 0.5);
+        --x-3: 59%;
+        --s-start-3: 0%;
+        --s-end-3: 68%;
+        --y-3: 59%;
+        --y-4: 86%;
+        --s-start-4: 3%;
+        --s-end-4: 36%;
+        --c-4: hsla(313, 91%, 42%, 1);
+        --x-4: 7%;
+    }
+
+    100% {
+        --x-0: 63%;
+        --y-0: 23%;
+        --c-0: hsla(287, 87%, 40%, 1);
+        --s-start-0: 0%;
+        --s-end-0: 11.238503048843667%;
+        --x-1: 89%;
+        --c-1: hsla(236, 100%, 50%, 1);
+        --s-start-1: 0%;
+        --s-end-1: 36%;
+        --y-1: 14%;
+        --x-2: 92%;
+        --c-2: hsla(181, 96%, 60%, 1);
+        --y-2: 90%;
+        --s-start-2: 1%;
+        --s-end-2: 28%;
+        --c-3: hsla(246, 83%, 28%, 0.5);
+        --x-3: 2%;
+        --s-start-3: 0%;
+        --s-end-3: 36.852784336403765%;
+        --y-3: 9%;
+        --y-4: 19%;
+        --s-start-4: 12.198718286003295%;
+        --s-end-4: 40%;
+        --c-4: hsla(311, 90%, 31%, 1);
+        --x-4: 13%;
+    }
+}
+
+@property --x-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 59%
+}
+
+@property --y-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 16%
+}
+
+@property --c-0 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(289, 100%, 52%, 1)
+}
+
+@property --s-start-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 6.018788142925232%
+}
+
+@property --s-end-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 35%
+}
+
+@property --x-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 92%
+}
+
+@property --c-1 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(236, 96%, 40%, 1)
+}
+
+@property --s-start-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 3.315649867374005%
+}
+
+@property --s-end-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 6.33664952285726%
+}
+
+@property --y-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --x-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 78%
+}
+
+@property --c-2 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(183, 61%, 42%, 1)
+}
+
+@property --y-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 75%
+}
+
+@property --s-start-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%
+}
+
+@property --s-end-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --c-3 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(243, 83%, 19%, 0.5)
+}
+
+@property --x-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 59%
+}
+
+@property --s-start-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%
+}
+
+@property --s-end-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 68%
+}
+
+@property --y-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 59%
+}
+
+@property --y-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 86%
+}
+
+@property --s-start-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 3%
+}
+
+@property --s-end-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 36%
+}
+
+@property --c-4 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(313, 91%, 42%, 1)
+}
+
+@property --x-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}

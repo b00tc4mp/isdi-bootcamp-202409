@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic 672cd5fd75a608ea8d0d8199' -H 'Content-Type: application/json' -d '{"image":"https://media.giphy.com/media/3ohhwfAa9rbXaZe86c/giphy.gif?cid=790b7611vkbow49vtlhlh26tztuwge5f7tsvouu717wswm5m&ep=v1_gifs_trending&rid=giphy.gif&ct=g","text":"dancing"}' http://localhost:7070/posts -v
