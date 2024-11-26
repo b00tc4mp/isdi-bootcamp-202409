@@ -1,3 +1,6 @@
+import Image from "next/image";
+import Link from "next/link";
+
 export default function TheHeader() {
   return (
     <div className="border-b border-[#52A42D]">
@@ -43,35 +46,68 @@ export default function TheHeader() {
               </li>
             </ul>
           </div>
-          <a className="btn btn-primary text-xl">
-          <img src="/img/ekoalityLogo.png" alt="Ekoality Logo " />
-          </a>
+          <Link href="/">
+            <Image
+              src="/img/ekoalityLogo.png"
+              alt="Ekoality Logo "
+              width={80}
+              height={80}
+            />
+          </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Item 1</a>
+              <Link href="/">
+                <Image
+                  src="/icons/sobrenosotros.svg"
+                  alt="icono sobre nosotros"
+                  width={20}
+                  height={20}
+                ></Image>{" "}
+                Sobre Nosotros
+              </Link>
             </li>
             <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
+              <Link href="/">
+                <Image
+                  src="/icons/compra.svg"
+                  alt="icono compra"
+                  width={20}
+                  height={20}
+                ></Image>{" "}
+                Compra
+              </Link>
             </li>
             <li>
-              <a>Item 3</a>
+              <Link href="/">
+                <Image
+                  src="/icons/vende.svg"
+                  alt="vende"
+                  width={20}
+                  height={20}
+                ></Image>{" "}
+                Vende
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <Image
+                  src="/icons/pro.svg"
+                  alt="icono pro"
+                  width={20}
+                  height={20}
+                ></Image>{" "}
+                Hazte Pro
+              </Link>
             </li>
           </ul>
-        </div>
-        <div className="navbar-end">
-          <a className="btn btn-accent">Button!!!</a>
+
+          <a className="btn btn-primary text-white btn-sm rounded-full">Registrate</a>
+
+          <a className="btn btn-warning btn-sm ml-2 rounded-full btn-outline">
+            Inicia Sesion
+          </a>
         </div>
       </div>
     </div>
