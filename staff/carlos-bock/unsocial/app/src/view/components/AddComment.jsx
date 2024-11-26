@@ -1,8 +1,8 @@
-import {Label, Button, Form, Field } from '../library';
+import { Label, Button, Form, Field } from '../library';
 
 import logic from '../../logic';
 
-export default function AddComment ({ postId, onAdded }) {
+export default function AddComment({ postId, onAdded }) {
     console.log('Add Comment -> render')
 
     const handleSubmit = event => {
@@ -10,35 +10,33 @@ export default function AddComment ({ postId, onAdded }) {
 
         const form = event.target;
 
-        const {text: { value: text }} = form;
+        const { text: { value: text } } = form;
 
         try {
-            logic.addComment(postId, text, error => {
-                if (error) {
-                    alert(error.messsage);
+            logic.addComment(postId, text)
+                .then(() => {
+                    form.rest()
 
-                    console.error(error);
+                    onAdded()
+                })
+                .catch(error => {
+                    alert(error.message)
 
-                    return;
-                }
-
-                form.reset();
-
-                onAdded();
-            })
-        } catch (error){
+                    console.error(error)
+                })
+        } catch (error) {
             alert(error.message);
 
             console.error(error);
         }
     }
-    
-    return <Form onSubmit={{handleSubmit}}>
-    <Field>
-        <Label htmlFor="text">New Comment</Label>
-        <textarea id="text"></textarea>
-    </Field>
 
-    <Button type="submit">Send</Button>
-</Form>
+    return <Form onSubmit={{ handleSubmit }}>
+        <Field>
+            <Label htmlFor="text">New Comment</Label>
+            <textarea id="text"></textarea>
+        </Field>
+
+        <Button type="submit">Send</Button>
+    </Form>
 }

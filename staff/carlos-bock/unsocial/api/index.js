@@ -8,81 +8,83 @@ import logic from './logic/index.js';
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js';
 //const { ValidationError, SystemError, DuplicityError, CredentialsError, NotFoundError, OwnershipError } = errors;
 
-db.connect(process.env.MONGO_URL).then(()=> {
-        console.log('connected to db');
+db.connect(process.env.MONGO_URL).then(() => {
+    console.log('connected to db');
 
-        const server = express();
+    const server = express();
 
-        server.use(cors());
+    server.use(cors());
 
-        const jsonBodyParser = json();
+    const jsonBodyParser = json();
 
-        server.get('/',(_,res) => res.send('Hello, API'));
+    server.get('/', (_, res) => res.send('Hello, API'));
 
-        server.post('/users/auth', jsonBodyParser, createFunctionalHandler((req, res) => {
-                const {username, password} = req.body;
-                
-                return logic.authenticateUser(username, password)
-                    .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
-                    .then(token => res.json(token));
-        }))
+    server.post('/users/auth', jsonBodyParser, createFunctionalHandler(async (req, res) => {
+        const { username, password } = req.body;
 
-        server.post('/users', jsonBodyParser, createFunctionalHandler((req, res) => {
-                const {name, email, username, password, 'password-repeat': passwordRepeat} = req.body;
+        const { id, role } = await logic.authenticateUser(username, password)
 
-                logic.registerUser(name, email, username, password, passwordRepeat).then(() => res.status(201).send())
-        }));
+        const token = await jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expireIn: '1h' })
 
-        server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { targetUserId } } = req;
-            
-            return logic.getUserName(userId, targetUserId).then(name => res.json(name))
-        }));
+        res.json(token)
+    }))
 
-        server.post('/posts', jsonBodyParser, authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, body: { image, text } } = req;
-            
-            return logic.createPost(userId, image, text).then(() => res.status(201).send())
-        }));
+    server.post('/users', jsonBodyParser, createFunctionalHandler((req, res) => {
+        const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body;
 
-        server.get('/posts', authorizationHandler, createFunctionalHandler((req,res) => {
-            const { userId } = req;
+        logic.registerUser(name, email, username, password, passwordRepeat).then(() => res.status(201).send())
+    }));
 
-            return logic.getPosts(userId).then(post => res.json(post));
-        }));
+    server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { targetUserId } } = req;
 
-        server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler((req,res) => {
-            const { userId, params: { postId }} = req;
+        return logic.getUserName(userId, targetUserId).then(name => res.json(name))
+    }));
 
-            return logic.deletePost(userId, postId).then(() => res.status(204).send());
-        }));
+    server.post('/posts', jsonBodyParser, authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, body: { image, text } } = req;
 
-        server.patch('/posts/:postId/likes', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { postId } } = req;
+        return logic.createPost(userId, image, text).then(() => res.status(201).send())
+    }));
 
-            return logic.toggleLikePost(userId, postId).then(() => res.status(204).send())
-        }));
+    server.get('/posts', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId } = req;
 
-        server.post('/post/:postId/comments', authorizationHandler,jsonBodyParser, createFunctionalHandler((req,res) => {
-            const { userId, params: { postId }, body: { text } } = req;
+        return logic.getPosts(userId).then(post => res.json(post));
+    }));
 
-            return logic.addComment(userId, postId, text).then(() => res.status(201).send())
-        }));
+    server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId } } = req;
 
-        server.delete('/post/:postId/comments/:commentId', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { postId, commentId } } = req;
+        return logic.deletePost(userId, postId).then(() => res.status(204).send());
+    }));
 
-            return logic.removeComment(userId, postId, commentId).then(() => res.status(204).send());
-        }));
+    server.patch('/posts/:postId/likes', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId } } = req;
 
-        server.get('/posts/:postId/comments', authorizationHandler, createFunctionalHandler((req, res) => {
-            const { userId, params: { postId } } = req;
-            
-            return logic.getComments(userId, postId).then(comments => res.json(comments));
-        }));
-        
-        server.use(errorHandler);
+        return logic.toggleLikePost(userId, postId).then(() => res.status(204).send())
+    }));
 
-        server.listen(process.env.PORT, () => console.log(`api listening on port ${process.env.PORT}`));
-        });
+    server.post('/post/:postId/comments', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId }, body: { text } } = req;
+
+        return logic.addComment(userId, postId, text).then(() => res.status(201).send())
+    }));
+
+    server.delete('/post/:postId/comments/:commentId', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId, commentId } } = req;
+
+        return logic.removeComment(userId, postId, commentId).then(() => res.status(204).send());
+    }));
+
+    server.get('/posts/:postId/comments', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: { postId } } = req;
+
+        return logic.getComments(userId, postId).then(comments => res.json(comments));
+    }));
+
+    server.use(errorHandler);
+
+    server.listen(process.env.PORT, () => console.log(`api listening on port ${process.env.PORT}`));
+});
 //TODO use cookies for session management (RTFM cookies + express)

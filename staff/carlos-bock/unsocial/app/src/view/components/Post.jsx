@@ -10,7 +10,7 @@ const { getElapsedTime } = util;
 
 import './Post.css';
 
-export default function Post ({post, onLiked, onDeleted, onCommentAdded, onCommentRemoved}) {
+export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
   const [view, setView] = useState(null);
 
   const {
@@ -48,16 +48,13 @@ export default function Post ({post, onLiked, onDeleted, onCommentAdded, onComme
   const handleDeleteClick = () => {
     if (confirm('Delete post?')) {
       try {
-        logic.deletePost(id, error => {
-          if (error) {
-          alert(error.message);
-          
-          console.error(error);
+        logic.deletePost(id)
+          .then(onDeleted)
+          .catch(error => {
+            alert(error.message)
 
-          return;
-        }
-          onDeleted()
-      })
+            console.error(error)
+          })
       } catch (error) {
         alert(error.message);
 
@@ -66,32 +63,33 @@ export default function Post ({post, onLiked, onDeleted, onCommentAdded, onComme
     };
   };
 
-  const handleCommentClick  = () => setView(view ? null : 'comments');
+  const handleCommentClick = () => setView(view ? null : 'comments');
+
   console.log('Post -> render');
 
-    return <article className="Post">
-      <h4>{author.username}</h4>
+  return <article className="Post">
+    <h4>{author.username}</h4>
 
-      <img src={image}/>
+    <img src={image} />
 
-      <p>{text}</p>
+    <p>{text}</p>
 
-      <time>{getElapsedTime(date)} ago</time>
+    <time>{getElapsedTime(date)} ago</time>
 
-      <Button onClick={handleLikeClick}> {`${liked ? '💓' : '🖤' } ${likes} likes`}</Button>
+    <Button onClick={handleLikeClick}> {`${liked ? '💓' : '🖤'} ${likes} likes`}</Button>
 
-      {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
+    {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
 
-      <Button onClick={handleCommentClick}>💬 {comments} comments</Button>
+    <Button onClick={handleCommentClick}>💬 {comments} comments</Button>
 
-      {/* {logic.getUserRole() === 'moderator' && <Button>💀</Button>} */}
-      {logic.isUserRoleModerator() && <Button>💀</Button>}
+    {/* {logic.getUserRole() === 'moderator' && <Button>💀</Button>} */}
+    {logic.isUserRoleModerator() && <Button>💀</Button>}
 
 
-      {view === 'comments' && <Comments
-        postId={id}
-        onAdded={onCommentAdded}
-        onRemoved={onCommentRemoved}
-        />}
-    </article>
-  };
+    {view === 'comments' && <Comments
+      postId={id}
+      onAdded={onCommentAdded}
+      onRemoved={onCommentRemoved}
+    />}
+  </article>
+};

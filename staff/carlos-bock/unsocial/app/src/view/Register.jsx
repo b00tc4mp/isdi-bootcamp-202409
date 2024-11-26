@@ -1,44 +1,49 @@
 import './Register.css'
 
-import {PasswordInput, Input, Button, Form, Field, Label} from './library'
+import { errors } from 'com';
+
+const { SystemError } = errors;
+
+import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic';
 
-export default function Register (props) {
+export default function Register(props) {
     console.log('Register -> render');
 
     const handleSubmit = event => {
         event.preventDefault();
-        
-        const {target:form} = event;
+
+        const { target: form } = event;
 
         const {
-            name: {value: name},
-            email: {value: email},
-            username: {value: username},
-            password: {value : password},
-            ['password-repeat']: {value: passwordRepeat}
+            name: { value: name },
+            email: { value: email },
+            username: { value: username },
+            password: { value: password },
+            ['password-repeat']: { value: passwordRepeat }
         } = form;
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat, error => {
-                if (error) {
-                    alert(error.message);
+            logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    form.reset()
 
-                    console.error(error);
+                    props.onRegistered()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
 
-                    return;
-                }
-
-                form.reset();
-
-                props.onRegistered();
-            })
+                    console.error(error)
+                })
         } catch (error) {
             alert(error.message);
 
             console.error(error);
-        }     
+        }
     }
 
     const handleLoginClick = event => {
@@ -47,7 +52,7 @@ export default function Register (props) {
         props.onLoginClick();
     }
 
-    return <main className="Register">
+    return <main className="flex justify-center items-center flex-col h-full box-border bg-white">
         <h2>Register</h2>
 
         <Form onSubmit={handleSubmit}>
@@ -58,22 +63,22 @@ export default function Register (props) {
 
             <Field>
                 <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email"/>
+                <Input type="email" id="email" />
             </Field>
 
             <Field>
                 <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username"/>
+                <Input type="text" id="username" />
             </Field>
 
             <Field>
                 <Label htmlFor="password">Password</Label>
-                <PasswordInput id= "password" />
+                <PasswordInput id="password" />
             </Field>
 
             <Field>
                 <Label htmlFor="password-repeat">Repeat Password</Label>
-                <PasswordInput id= "password-repeat" />
+                <PasswordInput id="password-repeat" />
             </Field>
 
             <Button type="submit">Register</Button>

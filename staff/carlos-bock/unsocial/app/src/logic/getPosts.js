@@ -1,37 +1,23 @@
-import { validate, errors } from 'com';
+import { errors } from 'com';
 
 const { SystemError } = errors;
 
-const getPosts = callback => {
-    validate.callback(callback);
-
-    const xhr = new XMLHttpRequest;
-
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr;
-
-        if(status === 200){
-            const posts = JSON.parse(response);
-
-            callback(null, posts)
-
-            return;
+const getPosts = () => {
+    fetch(`http://${import.meta.env.VITE_API_URL}/posts`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.token}`
         }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (res.ok)
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
 
-        const { error, message } = JSON.parse(response);
-
-        const constructor = errors[error];
-
-        callback(new constructor(message));
-    });
-
-    xhr.addEventListener('error', () => callback(new SystemError('server error')));
-
-    xhr.open('GET', `http://${import.meta.env.VITE_API_URL}/posts`)
-
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`);
-    xhr.send();
-    
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => { throw new errors[error](message) })
+        })
 }
 
-export default getPosts
+export default getPosts;
