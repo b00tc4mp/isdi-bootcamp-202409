@@ -80,7 +80,7 @@ Freelance (User)
 
 ### Data Model
 
-User
+Usercd
 - name (string)
 - email (string)
 - username (string)
