@@ -8,10 +8,14 @@ import logic from '../../logic'
 
 import './Header.css'
 
+import useContext from '../../view/useContext'
+
 export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
 
     const location = useLocation()
+
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         console.log('Header -> componentDidMount & componentWillReceiveProps')
@@ -42,12 +46,15 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     }
 
     const handleLogout = () => {
-        if (confirm('Logout?')) {
-            logic.logoutUser()
+        confirm('Logout?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
 
-            onLoggedOut()
-        }
+                onLoggedOut()
+            }
+        }, 'warn')
     }
+
 
     console.log('Header -> render')
 

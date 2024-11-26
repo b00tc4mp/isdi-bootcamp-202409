@@ -16,12 +16,13 @@ describe('getUserName', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', () =>
-        User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-            .then(user => getUserName(user.id, user.id))
-            .then(name => expect(name).to.equal('Coco Loco'))
-    )
+    it('succeeds on existing user', async () => {
+        const user = await User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
 
+        const name = await getUserName(user.id, user.id)
+
+        expect(name).to.equal('Coco Loco')
+    })
     it('fails on non-existing user', () =>
         expect(
             getUserName('111222333444555666777888', '111222333444555666777888')).to.be.rejectedWith(NotFoundError, 'user not found')

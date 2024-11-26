@@ -2,15 +2,14 @@ import 'dotenv/config'
 import db from 'dat'
 import getUserName from './getUserName.js'
 
-db.connect(process.env.MONGO_URL)
-    .then(() => {
-        try {
-            return getUserName('672cd989fcf48026d6c1c190', '672e328b08a231f547bd9166')
-                .then(console.log)
-                .catch(console.error)
-        } catch (error) {
-            console.error(error)
-        }
-    })
-    .catch(console.error)
-    .finally(() => db.disconnect())
+await db.connect(process.env.MONGO_URL_TEST)
+
+try {
+    const name = await getUserName('6745ab3f7d53422281e66e09', '6745ab3f7d53422281e66e09')
+
+    console.log(name)
+} catch (error) {
+    console.error(error)
+} finally {
+    await db.disconnect()
+}
