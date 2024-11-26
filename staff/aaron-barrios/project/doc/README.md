@@ -46,11 +46,24 @@ Player
 
 ### Data model
 
-User
+User - Registered
 - id (UUID)
 - name (string)
 - nickname (string)
 - password (string)
+
+- profile Picture (image)
+- Avatar (sprite-sheet)
+
+Pokemon
+- id (UUID)
+- name (string)
+- type (string)
+- genre (string)
+- life (number)
+- level (number) ???
+- moves ([{Name, damage, uses (??)}])
+- sprites ([images])
 
 ### Techs 
 
