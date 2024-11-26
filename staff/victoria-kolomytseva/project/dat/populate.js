@@ -37,7 +37,7 @@ db.connect(process.env.MONGO_URL)
             text: 
             }),
         Post.create({
-            author: juan.id,
+            author: luis.id,
             image: ,
             text: 
             })

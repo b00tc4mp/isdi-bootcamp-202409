@@ -5,8 +5,7 @@
 An application designed to help people find their lost pets or report pets they have seen lost.
 
 
-
-![](https://media.giphy.com/media/XxYsESeIStBeyuVexK/giphy.gif?cid=82a1493bwnmcgc8ej1kuwmfxpdbjvczx71e6j3n0dqgaz5ij&ep=v1_gifs_trending&rid=giphy.gif&ct=g)
+https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDlraG02MWVsOHZzMG9oN3lnNGl4cnhrdnZtMmlrbTQ5ZmszbW82byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vNGYHxL7Rj9MA/giphy.webp
 
 ## Functional
 
