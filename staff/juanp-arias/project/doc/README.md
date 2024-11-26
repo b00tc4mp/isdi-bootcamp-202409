@@ -18,6 +18,7 @@ User (student)
 - Communication with Teachers (future)
 - Attendance Record 
 - Personal Profile
+- Role
 - [...]
 
 Admin (Teacher/Center)
@@ -25,6 +26,8 @@ Admin (Teacher/Center)
 - Assignment Creation
 - Attendance Tracking
 - Communication with Students (future)
+- Role
+- Center Profile
 - [...]
 
 ### UXUI Design
@@ -49,15 +52,16 @@ Admin (Teacher/Center)
 
 ### Data Model
 
-User
+User (student)
 - id (UUID)
 - name (string)
 - email (string)
-- username (string)
+<!-- - username (string) -->
 - password (string)
+- school
 - grade (string)
 
-Post
+Admin (teacher/center)
 - id (UUID)
 - author (User.id)
 - image (string)
