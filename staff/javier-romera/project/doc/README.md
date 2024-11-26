@@ -89,30 +89,16 @@ Devilfruit
 - type (string)
 - description (string)
 
-/////////////////
-
-RowConditions
-- id (ObjectId)
-- text (string)
-
-ColumnConditions
-- id (ObjectId)
-- text (string)
-
-/////////////////
-
 Conditions
 - id (ObjectId)
-- type (string, enum: row | column)
+- type (string, enum: ...)
+- direction (string, enum: row | column)
 - text (string)
-
-/////////////////
 
 Arcs
 - id (ObjectId)
 - name (string)
 - numberOfArc (number)
-
 ### Test Coverage
 
 - el codigo está cubierto 👍
