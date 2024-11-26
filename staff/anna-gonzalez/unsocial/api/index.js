@@ -56,10 +56,12 @@ db.connect(process.env.MONGO_URL).then(() => {
         return logic.getPosts(userId).then(posts => res.json(posts))
     }))
 
-    server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler((req, res) => {
+    server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler(async (req, res) => {
         const { userId, params: { postId } } = req
 
-        return logic.deletePost(userId, postId).then(() => res.status(204).send())
+        await logic.deletePost(userId, postId)
+
+        res.status(204).send()
     }))
 
     server.patch('/posts/:postId/likes', authorizationHandler, createFunctionalHandler((req, res) => {

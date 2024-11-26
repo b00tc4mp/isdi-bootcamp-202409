@@ -2,15 +2,14 @@ import 'dotenv/config'
 import db from 'dat'
 import deletePost from './deletePost.js'
 
-db.connect(process.env.MONGO_URL_TEST)
-    .then(() => {
-        try {
-            return deletePost('6734bc401af0ac4373132714', '6735c843e1364dfcc08164e5')
-                .then(console.log) //undefined
-                .catch(console.error)
-        } catch (error) {
-            console.error(error)
-        }
-    })
-    .catch(console.error)
-    .finally(() => db.disconnect())
+await db.connect(process.env.MONGO_URL_TEST)
+
+try {
+    const post = await deletePost('6744e5532b5774964ad2c738', '6744e5c4f7f99bb8fee13a94')
+
+    console.log(post)
+} catch (error) {
+    console.error(error)
+} finally {
+    await db.disconnect()
+}

@@ -18,18 +18,17 @@ describe('deletePost', () => {
 
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeeds for existing user', () => {
-        const user = new User({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
-        const post = new Post({ author: user.id, image: 'https://www.image.com', text: 'post text' })
+    it('succeeds for existing user', async () => {
+        const user = await new User({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
+        const post = await new Post({ author: user.id, image: 'https://www.image.com', text: 'post text' })
 
-        return Promise.all([user.save(), post.save()])
-            .then(([user, post]) =>
-                deletePost(user.id, post.id)
-                    .then(() => Post.find())
-                    .then(posts => {
-                        expect(posts).to.have.lengthOf(0)
-                    })
-            )
+        await Promise.all([user.save(), post.save()])
+
+        await deletePost(user.id, post.id)
+
+        const posts = await Post.find()
+
+        expect(posts).to.have.lengthOf(0)
     })
 
     it('fails on non-existing user', () =>

@@ -7,16 +7,26 @@ export default (userId, postId) => {
     validate.id(userId, 'userId')
     validate.id(postId, 'postId')
 
-    return Promise.all([User.findById(userId).lean(), Post.findById(postId).lean()])
-        .catch(error => { throw new SystemError(error.message) })
-        .then(([user, post]) => {
-            if (!user) throw new NotFoundError('user not found')
-            if (!post) throw new NotFoundError('post not found')
-            if (!post.author.equals(userId)) throw new OwnershipError('user is not author of post')
+    return (async () => {
+        let user
+        let post
 
-            //return Post.deleteOne({ _id: postId })
-            return Post.deleteById(postId)
-                .catch(error => { throw new SystemError(error.message) })
-        })
-        .then(_ => { })
+        try {
+            user = await User.findById(userId).lean()
+            post = await Post.findById(postId).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+        if (!user) throw new NotFoundError('user not found')
+        if (!post) throw new NotFoundError('post not found')
+        if (!post.author.equals(userId)) throw new OwnershipError('user is not author of post')
+
+        try {
+            await Post.deleteById(postId)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+    })()
+    //.then(_ => { })
 }

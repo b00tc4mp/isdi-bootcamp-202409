@@ -34,9 +34,9 @@ describe('createPost', () => {
     })
 
     it('fails on non-existing user', () => {
-        expect(
-            createPost('012345678901234567890123', 'https://www.image.com', 'post text')
-        ).to.be.rejectedWith(NotFoundError, /^user not found$/)
+        expect((async () => {
+            await createPost('012345678901234567890123', 'https://www.image.com', 'post text')
+        })()).to.be.rejectedWith(NotFoundError, /^user not found$/)
     })
 
     /*
