@@ -67,20 +67,33 @@ Contains all **Free** features and...
 - Express (...)
 - Mongo (...)
 - Mocha & Chai (...)
+- React Native (???)
 - [...]
 
 ### Data Model
 
 User
-- id (UUID)
-- name (string)
+- id (ObjectId)
+- first name (string)
 - email (string)
-- username (string)
 - password (string)
-- dob (Date)
+- dob (date)
 - gender (string, enum: male | female | nonbinary)
 - target (string, enum: male | female | nonbinary)
+- location (string)
 - role (string, enum: free | pro)
+
+Home
+-
+
+Profile
+- 
+
+Chat
+-
+
+Events
+-
 
 Post
 - id (UUID)
