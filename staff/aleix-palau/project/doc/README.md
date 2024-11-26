@@ -1,4 +1,4 @@
-# Heartbeat (WIP)
+# Heartbeat (maybe?)
 
 ## Intro
 
@@ -10,7 +10,7 @@ If music is your world and you're seeking others who resonate with your taste, H
 
 ### Use Cases
 
-#### Free (User)
+#### Free User
 - edit own profile:
     - update bio
     - update profile pictures
@@ -34,7 +34,7 @@ If music is your world and you're seeking others who resonate with your taste, H
     - a band you follow comes to your city
     - someone invites you to a concert
 
-#### Pro (User)
+#### Pro User
 Contains all **Free** features and...
 - option to view who liked you and decide whether to connect
 - **Heartbeat** unlimited people per day
@@ -61,39 +61,46 @@ Contains all **Free** features and...
 
 ### Techs
 
-- HTML/CSS/JS (...)
-- React (...)
-- Node (...)
-- Express (...)
-- Mongo (...)
-- Mocha & Chai (...)
-- React Native (???)
-- [...]
+- HTML/CSS/JS
+- React
+- React Native (?)
+- Node
+- Express
+- Mongo
+- Mocha & Chai
 
 ### Data Model
 
+Setup
+- target (string, enum: male | female | nonbinary)
+
+
 User
 - id (ObjectId)
-- first name (string)
 - email (string)
 - password (string)
-- dob (date)
-- gender (string, enum: male | female | nonbinary)
-- target (string, enum: male | female | nonbinary)
-- location (string)
 - role (string, enum: free | pro)
 
-Home
--
-
 Profile
-- 
+- first name (string)
+- dob (Date)
+- profile pics (string)
+- gender (string, enum: male | female | nonbinary)
+
+- location (string)
 
 Chat
--
+- targetId (ObjectId)
+- messages ([{
+    - id (ObjectId)
+
+ }])
+- listeningTo (string)
 
 Events
 -
+
+
 
 Post
 - id (UUID)
