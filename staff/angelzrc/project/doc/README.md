@@ -60,6 +60,7 @@ Moderator
 ### Data Model
 
 User
+- userId (Object-Id)
 - name (string)
 - email (string)
 - username (string)
@@ -67,6 +68,8 @@ User
 - role (string, enum: regular | moderator)
 
 Profile
+- profileId (Object_Id)
+- Name (string)
 - Topics/ interests (string)
 - Gender (string)
 - Age (number) optional
@@ -74,6 +77,8 @@ Profile
 
 
 Meet
+- meetId(Object_Id)
+- authorId(Object_Id)
 - location (object: gps coords)
 - time beginning (Date)
 - time end (Date)
