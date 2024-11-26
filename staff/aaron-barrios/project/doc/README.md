@@ -13,8 +13,9 @@ Despite a light ray approached the issue will not develop as you might think it 
 ### Use Cases
 
 User
-- Select Profile Picture
+- Select/Change Profile Picture
 - Update user data
+- Switch player avatar
 
 Player
 - Bi directional movement
@@ -46,12 +47,17 @@ Player
 
 ### Data model
 
+User - Anonymous(temporal)
+- id(UUID)
+- nickname (string)
+
 User - Registered
 - id (UUID)
 - name (string)
 - nickname (string)
 - password (string)
 
+Profile - User
 - profile Picture (image)
 - Avatar (sprite-sheet)
 
