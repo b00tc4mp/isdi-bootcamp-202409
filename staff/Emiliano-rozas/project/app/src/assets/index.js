@@ -6,6 +6,9 @@ import searchIcon from './searchIcon.png'
 import cartIcon from './cartIcon.png'
 import profileIcon from './profileIcon.png'
 import isotipo from './isotipo.png'
+import heart from './heart.png'
+import noFace from './noFace.png'
+import totoro from './totoro.png'
 
 export const assets = {
 
@@ -16,7 +19,10 @@ export const assets = {
     searchIcon,
     cartIcon,
     profileIcon,
-    isotipo
+    isotipo,
+    heart,
+    noFace,
+    totoro
 }
 
 // dejar id como id nada de _id eso pal back
