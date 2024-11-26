@@ -6,8 +6,12 @@ import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic'
 
+import useContext from './useContext'
+
 export default function Register(props) {
   console.log('Register -> render')
+
+  const { alert } = useContext()
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -26,6 +30,8 @@ export default function Register(props) {
       logic.registerUser(name, email, username, password, passwordRepeat)
         .then(() => {
           form.reset()
+
+          alert('User succesfully registered', 'success')
 
           props.onRegisterIn()
         })

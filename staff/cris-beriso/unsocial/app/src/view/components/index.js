@@ -4,6 +4,8 @@ import Post from './Post'
 import Comments from './Comments'
 import Comment from './Comment'
 import AddComment from './AddComment'
+import Alert from './Alert'
+import Confirm from './Confirm'
 
 export {
   Header,
@@ -11,5 +13,7 @@ export {
   Post,
   Comments,
   Comment,
-  AddComment
+  AddComment,
+  Alert,
+  Confirm
 }
