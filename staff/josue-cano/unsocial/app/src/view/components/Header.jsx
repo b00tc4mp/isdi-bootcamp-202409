@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 import { Button } from "../library";
 
 import logic from "../../logic";
@@ -8,7 +8,7 @@ import "./Header.css";
 
 export default function Header({ onHomeClick, onLoggedOut }) {
   const [name, setName] = useState(null);
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     console.log("Header -> componentDidMount & componentWillReceiveProps");
@@ -51,12 +51,26 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
   console.log("Header -> render");
 
-  return <header className="Header">
-  <h1> {location.pathname === '/new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+  return (
+    <header className="Header">
+      <h1>
+        {" "}
+        {location.pathname === "/new-post" ? (
+          <a href="" onClick={handleHomeClick}>
+            Unsocial
+          </a>
+        ) : (
+          "Unsocial"
+        )}
+      </h1>
 
-  {name && <h3>{name}</h3>}
+      {name && <h3>{name}</h3>}
 
-  {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
-</header>
- 
+      {logic.isUserLoggedIn() && (
+        <Button type="button" onClick={handleLogout}>
+          Logout
+        </Button>
+      )}
+    </header>
+  );
 }

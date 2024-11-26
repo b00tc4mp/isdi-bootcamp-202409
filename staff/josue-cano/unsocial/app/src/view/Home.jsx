@@ -4,26 +4,20 @@ import { Post } from './components'
 
 import logic from '../logic'
 
-import './Home.css'
-
-export default function Posts() {
+export default function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.log('Posts -> useEffect "componentDidMount"')
+        console.log('Home -> useEffect "componentDidMount"')
 
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts )
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -31,19 +25,15 @@ export default function Posts() {
         }
     }, [])
 
-  const handleLiked = () => {
+    const handleLiked = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -51,19 +41,15 @@ export default function Posts() {
         }
     }
 
-   const handleDeleted = () => {
+    const handleDeleted = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -71,19 +57,15 @@ export default function Posts() {
         }
     }
 
-   const handleCommentAdded = () => {
+    const handleCommentAdded = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -91,19 +73,15 @@ export default function Posts() {
         }
     }
 
-  const handleCommentRemoved = () => {
+    const handleCommentRemoved = () => {
         try {
-            logic.getPosts((error, posts) => {
-                if (error) {
+            logic.getPosts()
+                .then(setPosts)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -111,18 +89,16 @@ export default function Posts() {
         }
     }
 
-  
-        console.log('Posts -> render')
+    console.log('Home -> render')
 
-        return <div className="Posts">
-            
-            {posts.map(post => <Post
-                key={post.id}
-                post={post}
-                onLiked={handleLiked}
-                onDeleted={handleDeleted}
-                onCommentAdded={handleCommentAdded}
-                onCommentRemoved={handleCommentRemoved}
-            />)}
-        </div>
-    }
+    return <div className="py-12">
+        {posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onLiked={handleLiked}
+            onDeleted={handleDeleted}
+            onCommentAdded={handleCommentAdded}
+            onCommentRemoved={handleCommentRemoved}
+        />)}
+    </div>
+}

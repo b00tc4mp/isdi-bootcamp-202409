@@ -21,46 +21,37 @@ export default function Post({
 
   const handleLikeClick = () => {
     try {
-      logic.toggleLikePost(id, (error) => {
-        if (error) {
-          alert(error.message);
+        logic.toggleLikePost(id)
+            .then(onLiked)
+            .catch(error => {
+                alert(error.message)
 
-          console.error(error);
-
-          return;
-        }
-
-        onLiked();
-      });
+                console.error(error)
+            })
     } catch (error) {
-      alert(error.message);
+        alert(error.message)
 
-      console.error(error);
+        console.error(error)
     }
-  };
+}
 
-  const handleDeleteClick = () => {
-    if (confirm("Delete post?")) {
-      try {
-        logic.deletePost(id, (error) => {
-          if (error) {
-            alert(error.message);
+const handleDeleteClick = () => {
+    if (confirm('Delete post?')) {
+        try {
+            logic.deletePost(id)
+                .then(onDeleted)
+                .catch(error => {
+                    alert(error.message)
 
-            console.error(error);
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
 
-            return;
-          }
-
-          onDeleted();
-        });
-      } catch (error) {
-        alert(error.message);
-
-        console.error(error);
-      }
+            console.error(error)
+        }
     }
-  };
-
+}
   const handleCommentsClick = () => setView(view ? null : "comments");
 
   console.log("Post -> render");
