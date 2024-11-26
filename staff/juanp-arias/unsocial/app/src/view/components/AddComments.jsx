@@ -1,8 +1,11 @@
 import { Button, Form, Label } from '../library'
 import logic from '../../logic'
 import './AddComments.css'
+import useContext from '../useContext'
 
 export default function AddComments({ postId, onAdded }) {
+    const { alert } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -17,7 +20,6 @@ export default function AddComments({ postId, onAdded }) {
                     onAdded()
                 })
         } catch (error) {
-
             alert(error.message)
             console.error(error)
         }

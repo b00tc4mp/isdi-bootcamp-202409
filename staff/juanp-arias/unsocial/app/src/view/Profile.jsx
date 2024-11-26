@@ -1,8 +1,10 @@
 import { PasswordInput, Input, Button, Form, Label } from './library'
 import logic from '../logic'
 import './Profile.css'
+import useContext from './useContext'
 
 export default function Profile(props) {
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()

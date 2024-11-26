@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import { errors } from 'com'
 import PostItem from './components/PostItem'
 import logic from '../logic'
+import useContext from './useContext'
 
 const { SystemError } = errors
 
 export default function Home() {
     const [posts, setPosts] = useState([])
     const [initiated, setInitiated] = useState(false)
+    const { alert } = useContext()
 
     useEffect(() => {
         try {

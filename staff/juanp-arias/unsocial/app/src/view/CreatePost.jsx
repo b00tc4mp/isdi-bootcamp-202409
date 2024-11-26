@@ -2,9 +2,11 @@ import logic from '../logic'
 
 import { Label, Input, Button, Form } from './library'
 import './CreatePost.css'
+import useContext from './useContext'
 
 export default function CreatePost({ onCreated }) {
-
+    const { alert } = useContext()
+    
     const handleSubmit = event => {
         event.preventDefault()
 

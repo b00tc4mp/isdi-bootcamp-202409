@@ -4,10 +4,11 @@ import AddComments from './AddComments'
 import Comment from './Comment'
 
 import logic from '../../logic'
+import useContext from '../useContext'
 
 export default function Comments(props) {
     const [comments, setComments] = useState([])
-
+    const { alert } = useContext()
     useEffect(() => {
         try {
             logic.getComments(props.postId)
@@ -34,11 +35,9 @@ export default function Comments(props) {
                 })
                 .catch(error => {
                     alert(error.message)
-
                     console.error(error)
                 })
         } catch (error) {
-
             alert(error.message)
             console.error(error)
         }
@@ -49,16 +48,13 @@ export default function Comments(props) {
             logic.getComments(props.postId)
                 .then(comments => {
                     setComments(comments)
-
                     props.onRemoved()
                 })
                 .catch(error => {
                     alert(error.message)
-
                     console.error(error)
                 })
         } catch (error) {
-
             alert(error.message)
             console.error(error)
         }

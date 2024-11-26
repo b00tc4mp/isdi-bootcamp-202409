@@ -3,9 +3,11 @@ import { useLocation } from 'react-router-dom'
 import { Button } from '../library'
 import logic from '../../logic'
 import './Header.css'
+import useContext from '../useContext'
 
 export default function Header({ onHomeClick, onLoggedOut, onProfileClick }) {
     const [name, setName] = useState(null)
+    const { alert, confirm } = useContext()
 
     const location = useLocation()
 
@@ -40,11 +42,13 @@ export default function Header({ onHomeClick, onLoggedOut, onProfileClick }) {
     }
 
     const handleLogout = () => {
-        if (confirm('Logout?')) {
-            logic.logoutUser()
+        confirm('Logout?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
 
-            onLoggedOut()
-        }
+                onLoggedOut()
+            }
+        }, 'warn')
     }
 
     return <header className="Header flex justify-between fixed w-full">

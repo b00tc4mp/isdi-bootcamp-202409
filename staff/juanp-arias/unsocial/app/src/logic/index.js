@@ -15,6 +15,7 @@ import removeComment from './removeComment'
 import getUserRole from './getUserRole'
 import roleRegular from './roleRegular'
 import roleModerator from './roleModerator'
+import useContext from '../view/useContext'
 
 const logic = {
     registerUser,
@@ -23,7 +24,7 @@ const logic = {
     getUserName,
     logoutUser,
     getUserId,
-    
+
     getUserRole,
     roleRegular,
     roleModerator,
@@ -34,7 +35,9 @@ const logic = {
     deletePost,
     addComments,
     getComments,
-    removeComment
+    removeComment,
+
+    useContext
 }
 
 export default logic

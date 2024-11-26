@@ -2,10 +2,13 @@ import './Login.css'
 import { PasswordInput, Input, Button, Form, Label } from './library'
 import logic from '../logic'
 import { errors } from 'com'
+import useContext from './useContext'
 
 const { SystemError } = errors
 
 export default function Login(props) {
+
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -27,7 +30,6 @@ export default function Login(props) {
                     console.error(error)
                 })
         } catch (error) {
-
             alert(error.message)
             console.error(error)
         }

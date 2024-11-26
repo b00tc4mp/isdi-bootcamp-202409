@@ -2,9 +2,12 @@ import './Register.css'
 import { errors } from 'com'
 import { PasswordInput, Input, Button, Form, Label } from './library'
 import logic from '../logic'
+import useContext from './useContext'
 
 const { SystemError } = errors
 export default function Register(props) {
+    const { alert } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -22,7 +25,7 @@ export default function Register(props) {
             logic.registerUser(name, email, username, password, repeatpassword)
                 .then(() => {
                     form.reset()
-
+                    alert('User registered', 'success')
                     props.onRegistered()
                 })
                 .catch(error => {
@@ -30,8 +33,8 @@ export default function Register(props) {
                         alert('Sorry, try again later.')
                     else
                         alert(error.message)
-
                     console.error(error)
+                    form.reset()
                 })
         } catch (error) {
 
@@ -42,7 +45,6 @@ export default function Register(props) {
 
     const handleLoginClick = event => {
         event.preventDefault()
-
         props.onLoginClick()
     }
 

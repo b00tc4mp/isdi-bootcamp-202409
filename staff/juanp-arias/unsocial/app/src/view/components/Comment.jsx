@@ -3,24 +3,27 @@ import './Comment.css'
 import logic from '../../logic'
 
 import dateAgo from '../../utilities/dateAgo'
+import useContext from '../useContext'
 
 export default function Comment({ postId, comment: { id, author, text, date }, onRemoved }) {
+    const { alert, confirm } = useContext()
 
     const handleRemove = () => {
-        if (confirm('Delete comment?'))
-            try {
-                logic.removeComment(postId, id)
-                    .then(onRemoved)
-                    .catch(error => {
-                        alert(error.message)
+        confirm('Delete comment?', accepted => {
+            if (accepted)
+                try {
+                    logic.removeComment(postId, id)
+                        .then(onRemoved)
+                        .catch(error => {
+                            alert(error.message)
 
-                        console.error(error)
-                    })
-            } catch (error) {
-
-                alert(error.message)
-                console.error(error)
-            }
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
+                    console.error(error)
+                }
+        }, 'warn')
     }
 
     return <section>
