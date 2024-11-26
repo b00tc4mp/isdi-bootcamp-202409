@@ -17,4 +17,5 @@ export default (postId) => {
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error](message) })
-        }
+        })
+}
