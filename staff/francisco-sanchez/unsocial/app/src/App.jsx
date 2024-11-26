@@ -1,20 +1,39 @@
-//Añadimos router-dom para controlar las url
-//import { useState } from 'react'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { useState } from 'react'
 
-import React, { Component } from 'react'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Login, Register, CreatePost, PostList, ViewProfile, ManageUsers } from './view'
 
 import Header from './components/functional/Header'
 import Footer from './components/functional/Footer'
 
+import { Alert } from './components/library'
+import { Confirm } from './components/library'
+
+
+
+import { Context } from './view/useContext'
+
 import logic from './logic'
 
+//Añadimos router-dom para controlar las url
+//import { useState } from 'react'
 
-//La classe App extiende de component y la declaramos como class porque será dinámica e ira mutando conforme utilicemos la app
-//export default class extends Component {
+//import React, { Component } from 'react'
+
 export default function App() {
+
+    const [alert, setAlert] = useState({
+        message: null,
+        level: 'error'
+    })
+
+    const [confirm, setConfirm] = useState({
+        message: null,
+        level: 'error',
+        callback: null
+    })
+
     const navigate = useNavigate()
 
     //const [view, setView] = useState(logic.isUserLoggedIn() ? 'posts' : 'login')
@@ -39,24 +58,40 @@ export default function App() {
 
     const handleManageUsers = () => navigate('/manage-users')
 
+    const handleAlertAccepted = () => setAlert({
+        message: null,
+        level: 'error'
+    })
+
+    const handleConfirmAccepted = () => {
+        confirm.callback(true)
+
+        setConfirm({
+            message: null,
+            level: 'error',
+            callback: null
+        })
+    }
+
+    const handleConfirmCancelled = () => {
+        confirm.callback(false)
+
+        setConfirm({
+            message: null,
+            level: 'error',
+            callback: null
+        })
+    }
+
     console.log('App -> render')
 
-
-    return <>
+    return <Context.Provider value={{
+        alert(message, level = 'error') { setAlert({ message, level }) },
+        confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+    }}>
         {/* Componente Header recibe las funciones de cambio de vista como props */}
         {/* <Header view={view} onHomeClick={handleUserHomeClick} onLoggedOut={handleUserLoggedOut} onViewProfile={handleUserViewProfile} /> */}
         <Header onHomeClick={handleUserHomeClick} onLoggedOut={handleUserLoggedOut} onViewProfile={handleUserViewProfile} />
-
-
-        {/* {view === 'login' && <Login onLoggedIn={handreUserLoggedIn} onRegisterClick={handleUserNavRegister} />} */}
-
-        {/* {view === 'register' && <Register onLoginClick={handleUserLoginClick} onRegistered={handleUserOnRegistered} />} */}
-
-        {/* {view === 'posts' && <PostList />} */}
-
-        {/* {view === 'new-post' && <CreatePost onCreated={handlePostCreated} />} */}
-
-        {/* {view === 'viewProfile' && <ViewProfile onHomeClick={handleUserHomeClick} />} */}
 
         <Routes>
             <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handreUserLoggedIn} onRegisterClick={handleUserNavRegister} />} />
@@ -74,5 +109,9 @@ export default function App() {
         </Routes>
 
         <Footer onNewPostClick={handleNewPostClick} />
-    </>
+
+        {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+
+        {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
+    </Context.Provider>
 }

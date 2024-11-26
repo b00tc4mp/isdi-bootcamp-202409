@@ -5,12 +5,16 @@ import './Register.css'
 import { PasswordInput, Label, Input, Button, Field, Form } from '../components/library'
 import logic from '../logic'
 
+import useContext from './useContext'
+
 const { SystemError } = errors
 
 //Funcion register, que mostrará el formulario de registro
 //export default (props) => {
 export default function Register(props) {
     console.log('Register -> render')
+
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -30,6 +34,8 @@ export default function Register(props) {
             logic.registerUser(name, email, username, password, passwordRepeat)
                 .then(() => {
                     form.reset()
+
+                    alert('User registred sucessfully', 'success')
 
                     props.onRegistered()
                 })

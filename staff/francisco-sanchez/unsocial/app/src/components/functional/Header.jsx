@@ -6,6 +6,7 @@ import './Header.css'
 //import logo from '../../../public/logo-unsocial-sin-fondo.png'
 import logo from '../../../public/unsocial.png'
 import { useLocation } from 'react-router-dom'
+import useContext from '../../view/useContext'
 
 
 
@@ -13,6 +14,8 @@ export default function Header({ /*view*/ onHomeClick, onLoggedOut, onViewProfil
     const [name, setName] = useState(null) //Aquí le decimos que cuando arranca el name es null
 
     const location = useLocation()
+
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         console.log('Header -> componentDidMount & componentWillReceiveProps')
@@ -55,10 +58,16 @@ export default function Header({ /*view*/ onHomeClick, onLoggedOut, onViewProfil
 
 
     const handleLogout = () => {
-        if (confirm('Logout?')) {
+        confirm('Do you really want to login out from our incredible and awesome aplication?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
+            }
+        }, 'warn')
+
+        /* if (confirm('Logout?')) {
             logic.logoutUser()
             onLoggedOut()
-        }
+        } */
     }
 
 

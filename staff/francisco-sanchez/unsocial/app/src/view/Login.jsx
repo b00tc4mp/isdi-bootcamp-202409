@@ -5,12 +5,16 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import { errors } from 'com'
 
-const { OwnershipError, CredentialsError, SystemError } = errors
+import useContext from './useContext'
+
+const { SystemError } = errors
 
 //Función login, que será nuestra primera pantalla de la aplicación
 //export default (props) => {
-export default props => {
+export default function Login(props) {
     console.log('Login -> render')
+
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()

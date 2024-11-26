@@ -4,6 +4,8 @@ import Form from './Form'
 import Input from './Input'
 import Label from './Label'
 import PasswordInput from './PasswordInput'
+import Alert from './Alert'
+import Confirm from './Confirm'
 
 export {
     Button,
@@ -11,5 +13,8 @@ export {
     Form,
     Input,
     Label,
-    PasswordInput
+    PasswordInput,
+    Alert,
+    Confirm
+
 }
