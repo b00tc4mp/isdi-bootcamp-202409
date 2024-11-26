@@ -12,6 +12,7 @@ const user = new Schema(
       type: String,
       required: true,
       minLength: 2,
+      maxLength: 20,
     },
     email: {
       type: String,
@@ -25,7 +26,7 @@ const user = new Schema(
       required: true,
       unique: true,
       minLength: 3,
-      maxLength: 30,
+      maxLength: 20,
     },
     password: {
       type: String,
@@ -35,9 +36,15 @@ const user = new Schema(
     role: {
       type: String,
       required: true,
-      enum: ["regular", "moderator"],
-      default: "regular",
+      enum: ["dancer", "organizer", "moderator"],
+      default: "dancer",
     },
+    permission: {
+      type: String,
+      enum: ["read", "write"],
+      default: ["read"],
+    },
+    registeredAt: { type: Date, default: Date.now },
   },
   { versionKey: false }
 );
@@ -60,7 +67,7 @@ const comment = new Schema({
   },
 });
 
-const post = new Schema(
+const event = new Schema(
   {
     author: {
       type: ObjectId,
@@ -92,8 +99,28 @@ const post = new Schema(
   { versionKey: false }
 );
 
+// const pointSchema = new Schema({
+//   type: {
+//     type: String,
+//     enum: ['Point'],
+//     required: true
+//   },
+//   coordinates: {
+//     type: [Number],
+//     required: true
+//   }
+// });
+
+// const event = new Schema({
+//   name: String,
+//   location: {
+//     type: pointSchema,
+//     required: true
+//   }
+// });
+
 const User = model("User", user);
-const Post = model("Post", post);
+const Event = model("Event", event);
 const Comment = model("Comment", comment);
 
-export { User, Post, Comment };
+export { User, Event, Comment };

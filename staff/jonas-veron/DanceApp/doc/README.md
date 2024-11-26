@@ -4,7 +4,7 @@
 
 DanceApp is an app designed to connect dancers and dance event organizers in your area. Whether you want to find a place to enjoy the rhythm or promote your next dance event, DanceApp is your ideal platform.
 
-![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWVud2RiaXF5eTZ5ejlobXRqZDZvYjF0ZWJuam40Nm1xMWZsNzYxciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/U5Ivkja8l6jsgdxtCb/giphy.gif)
+![](https://i.gifer.com/xz.gif)
 
 ## Functional
 
@@ -16,6 +16,12 @@ DanceApp is an app designed to connect dancers and dance event organizers in you
 - Connect with other dance enthusiasts.
 
 ### Use Cases
+
+For all users
+
+- Access to an interactive map to locate nearby events in real time.
+- Use of an advanced search engine to filter events by location, dance type, or date.
+- Explore popular events highlighted on the platform.
 
 Dancer
 
@@ -30,7 +36,8 @@ Organizer
 - Give "likes" to posts.
 - Comment and participate in conversations.
 - Share events with friends.
-- Crear y administrar eventos.
+- Create and manage events.
+- Profile with your posts
 
 ### UXUI Design
 
@@ -54,15 +61,18 @@ Organizer
 
 ### Data Model
 
-User
+User:
 
 - id (UUID)
 - name (string)
 - email (string)
 - username (string)
 - password (string)
+- role (string): Role of the user (dancer | organizer | moderator)
+- permission(string, enum: read | write)
+- createdAt (Date)
 
-Post
+Event:
 
 - id (UUID)
 - author (User.id)
@@ -70,18 +80,29 @@ Post
 - text (string)
 - date (Date)
 - likes ([User.id])
-- comments ([{
-  - id (UUID)
-  - author (User.id)
-  - text (string)
-  - date (Date)}])
+
+Comment:
+
+- id (UUID)
+- author (User.id)
+- text (string)
+- date (Date)
+
+Location:
+
+- address (string): Event address.
+
+Coordinates:
+
+- latitude (number)
+- longitude (number)
 
 ### Techs
 
-- Frontend: React
+- Frontend: React, HTML, CSS, JavaScript
 - Backend: Node.js + Express
 - Database: MongoDB
-- Style: CSS for React Native (Styled Components and StyleSheet)
+- Style: Tailwind CSS
 - Authentication: JWT
 
 ### Test Coverage
