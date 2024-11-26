@@ -1,0 +1,23 @@
+h1 {
+    color: red;
+    background-color: yellow;
+    font-size: 1rem;
+}
+
+@media (min-width: 360px) {
+    h1 {
+        font-size: 5vw;
+    }
+}
+
+@media only screen and (orientation: landscape) {
+    h1 {
+        color: dodgerblue;
+    }
+}
+
+@media only screen and (orientation: landscape) and (min-width: 1024px) {
+    h1 {
+        font-size: 3rem;
+    }
+}
