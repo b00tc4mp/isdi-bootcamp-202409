@@ -59,7 +59,7 @@ Admin
 
 ### Data Model
 
-User
+User {object}
 - id (UUID)
 - role (user || admin)
 - name (string)
@@ -69,8 +69,7 @@ User
 - date of birth (string, not displayed)
 - trust rating (number)
 - point level (number)
-- reference to posts/post id (array)
-- reference to reviews /review id (array)
+
 
 Post (array of objects)
 - id (UUID)
@@ -79,30 +78,32 @@ Post (array of objects)
 - text (string)
 - date (Date)
 - likes ([User.id])
-- comments ([{ 
+
+Comments ([{ 
     - id (UUID)
     - author (User.id)
     - text (string)
     - date (Date) }])
 
-Review/Recommendation (array of objects)
+Review/Recommendation (mongo)
 - id (UUID)
 - author (User.id)
 - city (string)
 - country (string)
-- link (website or google map)
+- link (string) // url || google map
 - text (string)
 - date (Date)
-- net votes ([number (upVote.length - downVote.length)])
-    - not visible up votes (array - UUID)
-    - not visible downvotes (array - UUID)
-- archived review/recomendation
+- upVotes ([User.id])//not visible 
+- downVotes ([User.id])//not visible 
 
-Location
--countryList [array]
--country [array of objects]
-    -spain object (array of cities)
-    -germany object (array of cities)
+Destination
+-name ([string]) //country list
+
+Country {}
+-name (string)
+-citiees (string)
+    //-spain object (array of cities)
+    //-germany object (array of cities)
 
 ### Techs
 
