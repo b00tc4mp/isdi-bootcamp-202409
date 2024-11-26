@@ -1,40 +1,44 @@
-import logic from "../logic";
+import logic from "../logic"
 
-import { errors } from "com";
-const { SystemError } = errors;
+import { errors } from "com"
+const { SystemError } = errors
 
-import { Button, Label, Input, Form, Field } from "../components/library";
+import { Button, Label, Input, Form, Field } from "../components/library"
 
-import "./CreatePost.css";
+import "./CreatePost.css"
+
+import useContext from "./useContext.js"
 
 export default function createPost({ onCreated }) {
-  console.log("CreatePost -> render");
+  console.log("CreatePost -> render")
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const { target: form } = event;
+    const { target: form } = event
 
     const {
       image: { value: image },
       text: { value: text },
-    } = form;
+    } = form
 
     try {
       logic
         .createPost(image, text)
         .then(() => onCreated())
         .catch((error) => {
-          if (error instanceof SystemError) alert("sorry, try again later.");
-          else alert(error.message);
-          console.error(error);
-        });
+          if (error instanceof SystemError) alert("sorry, try again later.")
+          else alert(error.message)
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <main className="CreatePost">
@@ -54,5 +58,5 @@ export default function createPost({ onCreated }) {
         </Button>
       </Form>
     </main>
-  );
+  )
 }

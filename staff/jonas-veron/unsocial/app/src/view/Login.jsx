@@ -6,52 +6,56 @@ import {
   Field,
   Label,
   Anchor,
-} from "../components/library";
+} from "../components/library"
 
-import logic from "../logic";
+import logic from "../logic"
 
-import { errors } from "com";
+import { errors } from "com"
 
-const { SystemError } = errors;
+const { SystemError } = errors
+
+import useContext from "./useContext"
 
 export default function Login(props) {
-  console.log("Login -> render");
+  console.log("Login -> render")
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     const {
       target: {
         username: { value: username },
         password: { value: password },
       },
-    } = event;
+    } = event
 
     try {
       logic
         .loginUser(username, password)
         .then(() => {
-          event.target.reset();
+          event.target.reset()
 
-          props.onLoggedIn();
+          props.onLoggedIn()
         })
         .catch((error) => {
-          if (error instanceof SystemError) alert("Sorry, try again later.");
-          else alert(error.message);
-          console.error(error);
-        });
+          if (error instanceof SystemError) alert("Sorry, try again later.")
+          else alert(error.message)
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleRegisterClick = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    props.onRegisterClick();
-  };
+    props.onRegisterClick()
+  }
 
   return (
     <main className="Login m-auto mt-28 p-12 w-10/12 min-w-96 max-w-[26rem] rounded-3xl shadow-md bg-red-50">
@@ -77,5 +81,5 @@ export default function Login(props) {
         Register
       </Anchor>
     </main>
-  );
+  )
 }

@@ -1,14 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 
-import Comment from "./Comment";
-import AddComment from "./AddComment";
+import Comment from "./Comment"
+import AddComment from "./AddComment"
 
-import logic from "../../logic";
-import "./Comments.css";
+import logic from "../../logic"
+import "./Comments.css"
+
+import useContext from "../../view/useContext.js"
 
 export default function Comments({ postId, onAdded, onRemoved }) {
-  console.log("Comments -> constructor");
-  const [comments, setComments] = useState([]);
+  console.log("Comments -> constructor")
+  const [comments, setComments] = useState([])
+
+  const { alert } = useContext()
 
   useEffect(() => {
     try {
@@ -16,60 +20,60 @@ export default function Comments({ postId, onAdded, onRemoved }) {
         .getComments(postId)
         .then(setComments)
         .catch((error) => {
-          alert(error.message);
+          alert(error.message)
 
-          console.error(error);
-        });
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  }, []);
+  }, [])
 
   const handleAdded = () => {
     try {
       logic
         .getComments(postId)
         .then((comments) => {
-          setComments(comments);
+          setComments(comments)
 
-          onAdded();
+          onAdded()
         })
         .catch((error) => {
-          alert(error.message);
+          alert(error.message)
 
-          console.error(error);
-        });
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleRemoved = () => {
     try {
       logic
         .getComments(postId)
         .then((comments) => {
-          setComments(comments);
+          setComments(comments)
 
-          onRemoved();
+          onRemoved()
         })
         .catch((error) => {
-          alert(error.message);
+          alert(error.message)
 
-          console.error(error);
-        });
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
-  console.log("Comments -> render");
+  console.log("Comments -> render")
 
   return (
     <section className="Comments">
@@ -86,5 +90,5 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
       <AddComment postId={postId} onAdded={handleAdded} />
     </section>
-  );
+  )
 }

@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { Button } from "../library";
-import Comments from "./Comments";
-import { getElapsedTime } from "../../utils/index.js";
-import logic from "../../logic";
-import "./Post.css";
+import { useState } from "react"
+import { Button } from "../library"
+import Comments from "./Comments"
+import { getElapsedTime } from "../../utils/index.js"
+import logic from "../../logic"
+import useContext from "../../view/useContext.js"
+import "./Post.css"
 
 export default function Post({
   post,
@@ -12,10 +13,11 @@ export default function Post({
   onCommentAdded,
   onCommentRemoved,
 }) {
-  console.log("Post -> constructor");
-  const [view, setView] = useState(null);
+  console.log("Post -> constructor")
+  const [view, setView] = useState(null)
+  const { alert, confirm } = useContext()
 
-  const { id, author, image, text, date, liked, likes, comments } = post;
+  const { id, author, image, text, date, liked, likes, comments } = post
 
   const handleLikeClick = () => {
     try {
@@ -23,40 +25,42 @@ export default function Post({
         .toggleLikePost(id)
         .then(onLiked)
         .catch((error) => {
-          alert(error.message);
+          alert(error.message)
 
-          console.error(error);
-        });
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleCommentsClick = () => {
-    setView(view ? null : "comments");
-  };
+    setView(view ? null : "comments")
+  }
 
   const handleDeleteClick = () => {
-    if (confirm("Estas seguro de eliminar este post ?")) {
-      try {
-        logic
-          .deletePost(id)
-          .then(onDeleted)
-          .catch((error) => {
-            alert(error.message);
-            console.error(error);
-          });
-      } catch (error) {
-        alert(error.message);
+    confirm("Estas seguro de eliminar este post ?", (accepted) => {
+      if (accepted) {
+        try {
+          logic
+            .deletePost(id)
+            .then(onDeleted)
+            .catch((error) => {
+              alert(error.message)
+              console.error(error)
+            })
+        } catch (error) {
+          alert(error.message)
 
-        console.error(error);
+          console.error(error)
+        }
       }
-    }
-  };
+    })
+  }
 
-  console.log("Post -> render");
+  console.log("Post -> render")
 
   return (
     <article className="Post">
@@ -98,5 +102,5 @@ export default function Post({
         />
       )}
     </article>
-  );
+  )
 }

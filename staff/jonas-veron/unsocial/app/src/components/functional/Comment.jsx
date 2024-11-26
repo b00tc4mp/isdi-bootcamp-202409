@@ -1,35 +1,42 @@
-import { Button } from "../library";
+import { Button } from "../library"
 
-import logic from "../../logic";
+import logic from "../../logic"
 
-import { getElapsedTime } from "../../utils/index.js";
+import { getElapsedTime } from "../../utils/index.js"
 
-import "./Comment.css";
+import useContext from "../../view/useContext.js"
+
+import "./Comment.css"
 
 export default function Comment({
   postId,
   comment: { id, author, text, date },
   onRemoved,
 }) {
-  console.log("Comment -> render");
+  console.log("Comment -> render")
+
+  const { alert, confirm } = useContext()
 
   const handleRemove = () => {
-    if (confirm("Delete comment?"))
-      try {
-        logic
-          .removeComment(postId, id)
-          .then(onRemoved)
-          .catch((error) => {
-            alert(error.message);
+    confirm("Delete comment?", (accepted) => {
+      if (accepted) {
+        try {
+          logic
+            .removeComment(postId, id)
+            .then(onRemoved)
+            .catch((error) => {
+              alert(error.message)
 
-            console.error(error);
-          });
-      } catch (error) {
-        alert(error.message);
+              console.error(error)
+            })
+        } catch (error) {
+          alert(error.message)
 
-        console.error(error);
+          console.error(error)
+        }
       }
-  };
+    })
+  }
 
   return (
     <li>
@@ -45,5 +52,5 @@ export default function Comment({
         <Button onClick={handleRemove}>🗑️</Button>
       )}
     </li>
-  );
+  )
 }

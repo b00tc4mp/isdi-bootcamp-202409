@@ -1,38 +1,42 @@
-import { Label, Button, Form, Field } from "../library";
+import { Label, Button, Form, Field } from "../library"
 
-import logic from "../../../src/logic";
+import logic from "../../../src/logic"
+
+import useContext from "../../view/useContext.js"
 
 export default function AddComment({ postId, onAdded }) {
-  console.log("AddComment -> render");
+  console.log("AddComment -> render")
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const form = event.target;
+    const form = event.target
 
     const {
       text: { value: text },
-    } = form;
+    } = form
 
     try {
       logic
         .addComment(postId, text)
         .then(() => {
-          form.reset();
+          form.reset()
 
-          onAdded();
+          onAdded()
         })
         .catch((error) => {
-          alert(error.message);
+          alert(error.message)
 
-          console.error(error);
-        });
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -43,5 +47,5 @@ export default function AddComment({ postId, onAdded }) {
 
       <Button type="submit">Send</Button>
     </Form>
-  );
+  )
 }

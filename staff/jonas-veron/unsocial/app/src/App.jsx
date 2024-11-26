@@ -1,56 +1,90 @@
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { useState } from "react"
 
-import { Login, Register, Home, CreatePost } from "./view";
-import Hello from "./view/Hello";
-import Search from "./view/Search";
-import Profile from "./view/Profile";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom"
 
-import Header from "./components/functional/Header";
-import Footer from "./components/functional/Footer";
+import { Login, Register, Home, CreatePost } from "./view"
 
-import logic from "./logic";
+import Hello from "./view/Hello"
+import Search from "./view/Search"
+import Profile from "./view/Profile"
+
+import Header from "./components/functional/Header"
+import Footer from "./components/functional/Footer"
+import Alert from "./components/functional/Alert"
+import Confirm from "./components/functional/Confirm"
+
+import { Context } from "./view/useContext"
+
+import logic from "./logic"
 
 export default function App() {
-  console.log("App -> constructor");
-  const navigate = useNavigate();
+  console.log("App -> constructor")
+  const [alert, setAlert] = useState({
+    message: null,
+    level: "error",
+  })
+  const [confirm, setConfirm] = useState({
+    message: null,
+    level: "error",
+    callback: null,
+  })
+  const navigate = useNavigate()
 
-  const handlePostCreated = () => navigate("/");
+  const handlePostCreated = () => navigate("/")
 
-  const handleUserLoggedout = () => navigate("/login");
+  const handleUserLoggedout = () => navigate("/login")
 
-  const handleUserLoggedIn = () => navigate("/");
+  const handleUserLoggedIn = () => navigate("/")
 
-  const handleRegisterClick = () => navigate("/register");
+  const handleRegisterClick = () => navigate("/register")
 
-  const handleLoginClick = () => navigate("/login");
+  const handleLoginClick = () => navigate("/login")
 
-  const handleUserRegistered = () => navigate("/login");
+  const handleUserRegistered = () => navigate("/login")
 
-  const handleNewPostClick = () => navigate("/new-post");
+  const handleNewPostClick = () => navigate("/new-post")
 
-  const handleHomeClick = () => navigate("/");
+  const handleHomeClick = () => navigate("/")
 
-  console.log("App -> render");
+  const handleAlertAccepted = () =>
+    setAlert({
+      message: null,
+      level: "error",
+    })
+
+  const handleConfirmAccepted = () => {
+    confirm.callback(true)
+
+    setConfirm({
+      message: null,
+      level: "error",
+      callback: null,
+    })
+  }
+
+  const handleConfirmCancelled = () => {
+    confirm.callback(false)
+
+    setConfirm({
+      message: null,
+      level: "error",
+      callback: null,
+    })
+  }
+  console.log("App -> render")
 
   return (
-    <>
+    <Context.Provider
+      value={{
+        alert(message, level = "error") {
+          setAlert({ message, level })
+        },
+        confirm(message, callback, level = "error") {
+          setConfirm({ message, callback, level })
+        },
+      }}
+    >
       <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedout} />
-
-      {/* {view === "login" && (
-        <Login
-          onLoggedIn={handleUserLoggedIn}
-          onRegisterClick={handleRegisterClick}
-        />
-      )}
-      {view === "register" && (
-        <Register
-          onLoginClick={handleLoginClick}
-          onRegistered={handleUserRegistered}
-        />
-      )}
-      {view === "posts" && <Posts />}
-
-      {view === "new-post" && <CreatePost onCreated={handlePostCreated} />} */}
 
       <Routes>
         <Route
@@ -100,6 +134,23 @@ export default function App() {
       </Routes>
 
       <Footer onNewPostClick={handleNewPostClick} />
-    </>
-  );
+
+      {alert.message && (
+        <Alert
+          message={alert.message}
+          level={alert.level}
+          onAccepted={handleAlertAccepted}
+        />
+      )}
+
+      {confirm.message && (
+        <Confirm
+          message={confirm.message}
+          level={confirm.level}
+          onAccepted={handleConfirmAccepted}
+          onCancelled={handleConfirmCancelled}
+        />
+      )}
+    </Context.Provider>
+  )
 }

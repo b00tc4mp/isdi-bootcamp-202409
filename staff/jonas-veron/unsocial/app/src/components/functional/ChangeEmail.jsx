@@ -1,4 +1,4 @@
-import { Input, Button, Form, Field, Label } from "../library";
+import { Input, Button, Form, Field, Label } from "../library"
 
 export default function ChangeEmail(props) {
   return (
@@ -24,5 +24,5 @@ export default function ChangeEmail(props) {
         <Button type="submit">Change e-mail</Button>
       </Form>
     </section>
-  );
+  )
 }

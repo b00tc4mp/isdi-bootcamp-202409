@@ -1,61 +1,60 @@
-import "dotenv/config";
-import db from "dat";
-import express, { json } from "express";
-import cors from "cors";
-import jwt from "jsonwebtoken";
+import "dotenv/config"
+import db from "dat"
+import express, { json } from "express"
+import cors from "cors"
+import jwt from "jsonwebtoken"
 
-import logic from "./logic/index.js";
+import logic from "./logic/index.js"
 import {
   createFunctionalHandler,
   authorizationHandler,
   errorHandler,
-} from "./helpers/index.js";
+} from "./helpers/index.js"
 
 db.connect(process.env.MONGO_URL).then(() => {
-  console.log("connected to db");
+  console.log("connected to db")
 
-  const server = express();
+  const server = express()
 
-  server.use(cors());
+  server.use(cors())
 
-  const jsonBodyParser = json();
+  const jsonBodyParser = json()
 
-  server.get("/", (_, res) => res.send("Hello, API!"));
+  server.get("/", (_, res) => res.send("Hello, API!"))
 
   server.post(
     "/users/auth",
     jsonBodyParser,
-    createFunctionalHandler((req, res) => {
-      const { username, password } = req.body;
+    createFunctionalHandler(async (req, res) => {
+      const { username, password } = req.body
 
-      return logic
-        .authenticateUser(username, password)
-        .then(({ id, role }) =>
-          jwt.sign({ sub: id, role }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
-          })
-        )
-        .then((token) => res.json(token));
+      const { id, role } = await logic.authenticateUser(username, password)
+
+      const token = await jwt.sign({ sub: id, role }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      })
+
+      res.json(token)
     })
-  );
+  )
 
   server.post(
     "/users",
     jsonBodyParser,
-    createFunctionalHandler((req, res) => {
+    createFunctionalHandler(async (req, res) => {
       const {
         name,
         email,
         username,
         password,
         "password-repeat": passwordRepeat,
-      } = req.body;
+      } = req.body
 
-      return logic
-        .registerUser(name, email, username, password, passwordRepeat)
-        .then(() => res.status(201).send());
+      await logic.registerUser(name, email, username, password, passwordRepeat)
+
+      res.status(201).send()
     })
-  );
+  )
 
   server.get(
     "/users/:targetUserId/name",
@@ -64,13 +63,13 @@ db.connect(process.env.MONGO_URL).then(() => {
       const {
         userId,
         params: { targetUserId },
-      } = req;
+      } = req
 
       return logic
         .getUserName(userId, targetUserId)
-        .then((name) => res.json(name));
+        .then((name) => res.json(name))
     })
-  );
+  )
 
   server.post(
     "/posts",
@@ -80,23 +79,23 @@ db.connect(process.env.MONGO_URL).then(() => {
       const {
         userId,
         body: { image, text },
-      } = req;
+      } = req
 
       return logic
         .createPost(userId, image, text)
-        .then(() => res.status(201).send());
+        .then(() => res.status(201).send())
     })
-  );
+  )
 
   server.get(
     "/posts",
     authorizationHandler,
     createFunctionalHandler((req, res) => {
-      const { userId } = req;
+      const { userId } = req
 
-      return logic.getPosts(userId).then((posts) => res.json(posts));
+      return logic.getPosts(userId).then((posts) => res.json(posts))
     })
-  );
+  )
 
   server.delete(
     "/posts/:postId",
@@ -105,12 +104,11 @@ db.connect(process.env.MONGO_URL).then(() => {
       const {
         userId,
         params: { postId },
-      } = req;
-      return logic
-        .deletePost(userId, postId)
-        .then(() => res.status(204).send());
+      } = req
+
+      return logic.deletePost(userId, postId).then(() => res.status(204).send())
     })
-  );
+  )
 
   server.patch(
     "/posts/:postId/likes",
@@ -119,45 +117,30 @@ db.connect(process.env.MONGO_URL).then(() => {
       const {
         userId,
         params: { postId },
-      } = req;
+      } = req
 
       return logic
         .toggleLikePost(userId, postId)
-        .then(() => res.status(204).send());
+        .then(() => res.status(204).send())
     })
-  );
+  )
 
   server.post(
     "/posts/:postId/comments",
-    jsonBodyParser,
     authorizationHandler,
+    jsonBodyParser,
     createFunctionalHandler((req, res) => {
       const {
         userId,
         params: { postId },
         body: { text },
-      } = req;
+      } = req
 
       return logic
         .addComment(userId, postId, text)
-        .then(() => res.status(201).send());
+        .then(() => res.status(201).send())
     })
-  );
-
-  server.get(
-    "/posts/:postId/comments",
-    authorizationHandler,
-    createFunctionalHandler((req, res) => {
-      const {
-        userId,
-        params: { postId },
-      } = req;
-
-      return logic
-        .getComments(userId, postId)
-        .then((comments) => res.json(comments));
-    })
-  );
+  )
 
   server.delete(
     "/posts/:postId/comments/:commentId",
@@ -166,17 +149,32 @@ db.connect(process.env.MONGO_URL).then(() => {
       const {
         userId,
         params: { postId, commentId },
-      } = req;
+      } = req
 
       return logic
         .removeComment(userId, postId, commentId)
-        .then(() => res.status(204).send());
+        .then(() => res.status(204).send())
     })
-  );
+  )
 
-  server.use(errorHandler);
+  server.get(
+    "/posts/:postId/comments",
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        params: { postId },
+      } = req
+
+      return logic
+        .getComments(userId, postId)
+        .then((comments) => res.json(comments))
+    })
+  )
+
+  server.use(errorHandler)
 
   server.listen(process.env.PORT, () =>
     console.log(`API listening on port ${process.env.PORT}`)
-  );
-});
+  )
+})

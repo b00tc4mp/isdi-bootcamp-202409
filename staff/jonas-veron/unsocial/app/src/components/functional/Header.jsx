@@ -1,18 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom"
 
-import { Button } from "../library";
+import { Button } from "../library"
 
-import logic from "../../logic";
+import logic from "../../logic"
+
+import useContext from "../../view/useContext.js"
 
 export default function Header({ view, onHomeClick, onLoggedOut }) {
-  const [name, setName] = useState(null);
+  const [name, setName] = useState(null)
 
-  const location = useLocation();
+  const location = useLocation()
+
+  const { alert, confirm } = useContext()
 
   useEffect(() => {
-    console.log("Header -> componentDidMount");
+    console.log("Header -> componentDidMount")
     if (logic.isUserLoggedIn()) {
       if (!name)
         try {
@@ -20,38 +24,44 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
             .getUserName()
             .then(setName)
             .catch((error) => {
-              alert(error.message);
-              console.error(error);
-            });
+              alert(error.message)
+              console.error(error)
+            })
         } catch (error) {
-          alert(error.message);
+          alert(error.message)
 
-          console.error(error);
+          console.error(error)
         }
-    } else setName(null);
-  }, [location.pathname]);
+    } else setName(null)
+  }, [location.pathname])
 
   const handleHomeClick = (event) => {
     try {
-      event.preventDefault();
+      event.preventDefault()
 
-      onHomeClick();
+      onHomeClick()
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleLogout = () => {
-    if (confirm("Logout?")) {
-      logic.logoutUser();
+    confirm(
+      "Logout?",
+      (accepted) => {
+        if (accepted) {
+          logic.logoutUser()
 
-      onLoggedOut();
-    }
-  };
+          onLoggedOut()
+        }
+      },
+      "warn"
+    )
+  }
 
-  console.log("Header -> render");
+  console.log("Header -> render")
 
   return (
     <header className="bg-primary-color p-4 flex justify-between items-center w-full sticky top-0 z-10">
@@ -79,5 +89,5 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
         )}
       </div>
     </header>
-  );
+  )
 }

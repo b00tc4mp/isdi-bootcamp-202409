@@ -1,8 +1,8 @@
-import "./Register.css";
+import "./Register.css"
 
-import { errors } from "com";
+import { errors } from "com"
 
-const { SystemError } = errors;
+const { SystemError } = errors
 
 import {
   PasswordInput,
@@ -11,17 +11,21 @@ import {
   Form,
   Field,
   Label,
-} from "../components/library";
+} from "../components/library"
 
-import logic from "../logic";
+import useContext from "./useContext.js"
+
+import logic from "../logic"
 
 export default function register(props) {
-  console.log("Register -> render");
+  console.log("Register -> render")
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const { target: form } = event;
+    const { target: form } = event
 
     const {
       name: { value: name },
@@ -29,35 +33,35 @@ export default function register(props) {
       username: { value: username },
       password: { value: password },
       ["password-repeat"]: { value: passwordRepeat },
-    } = form;
+    } = form
 
     try {
       logic
         .registerUser(name, email, username, password, passwordRepeat)
         .then(() => {
-          form.reset();
+          form.reset()
 
-          props.onRegistered();
+          props.onRegistered()
         })
 
         .catch((error) => {
-          if (error instanceof SystemError) alert("Sorry, try again later.");
-          else alert(error.message);
+          if (error instanceof SystemError) alert("Sorry, try again later.")
+          else alert(error.message)
 
-          console.error(error);
-        });
+          console.error(error)
+        })
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
 
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleLoginClick = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    props.onLoginClick();
-  };
+    props.onLoginClick()
+  }
 
   return (
     <main className="Register">
@@ -98,5 +102,5 @@ export default function register(props) {
         Login
       </a>
     </main>
-  );
+  )
 }
