@@ -68,7 +68,7 @@ Dive and Discover bridges the gap between scuba diving enthusiasts and dive cent
 The app design prioritizes usability and accessibility, with a clean and ocean-inspired aesthetic.
 
 - **Mockups**:  
-![Mockup Image]  
+![alt text](image.png) 
 The home screen and Discover section highlight critical functionalities, providing an intuitive experience.  
 
 - **Design Platform**: The design is built in Figma. View the full prototype [here](https://www.figma.com/design/izhbCn1siLrHnPkkMKCJuz/DIVE%26DISCOVER?node-id=0-1&node-type=canvas&t=7hdyMoMmZXfLlOZg-0).
@@ -154,11 +154,7 @@ The home screen and Discover section highlight critical functionalities, providi
 
 - **Technical Metrics**:
   - API response time below 200ms.
-  - Test coverage of at least 90%.
-- **Business Metrics**:
-  - 1,000+ registered users within 6 months.
-  - Retention rate > 75%.
-  - Positive user feedback on app functionality.
+  - Test coverage of at least 85%.
 
 ---
 
