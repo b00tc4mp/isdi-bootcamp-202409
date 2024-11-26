@@ -1,4 +1,4 @@
-# [iMoveMe / yoMeMuevo]
+# [miRed / myNetwork]
 
 ## Intro
 
@@ -10,9 +10,7 @@
 ![Move](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDVnYnJpeW5qaHg2bTd4aTRhcXBxcXZwcjF2c21uZjZhYTM0a2xzNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/10LmKkoECGbzMbFzX6/giphy.gif "Moving")
 
 
-
 ## Functional 
-
 
 ### Use Cases
 
@@ -36,11 +34,12 @@ Admin
 - delete user
 - delete post
 - remove comment
+- archive review or post
 - [...]
 
 ### UXUI Design
 
-[Figma] (figma URL)
+[Figma] (https://www.figma.com/proto/3IrAr9aFkVc10tHArfxG2g/App?node-id=0-1&t=8uDxRWgt43JHPKKw-1)
 
 ## Techinal Aspects
 
@@ -62,16 +61,18 @@ Admin
 
 User
 - id (UUID)
+- role (user || admin)
 - name (string)
 - email (string)
 - username (string)
 - password (string)
-- trust rating
-- point level 
-- reference to posts
-- reference to reviews
+- date of birth (string, not displayed)
+- trust rating (number)
+- point level (number)
+- reference to posts/post id (array)
+- reference to reviews /review id (array)
 
-Post
+Post (array of objects)
 - id (UUID)
 - author (User.id)
 - image (string)
@@ -84,22 +85,29 @@ Post
     - text (string)
     - date (Date) }])
 
-Review/Recommendation
+Review/Recommendation (array of objects)
 - id (UUID)
 - author (User.id)
+- city (string)
+- country (string)
 - link (website or google map)
 - text (string)
 - date (Date)
-- net votes ([User.id - internal only])
+- net votes ([number (upVote.length - downVote.length)])
     - not visible up votes (array - UUID)
     - not visible downvotes (array - UUID)
 - archived review/recomendation
 
+Location
+-countryList [array]
+-country [array of objects]
+    -spain object (array of cities)
+    -germany object (array of cities)
 
 ### Techs
 
 - HTML/CSS/JS (...)
-- React (...)
+- React (...) (React Native?)
 - Node (...)
 - Express (...)
 - Mongo (...)
