@@ -15,13 +15,13 @@ balbanegla te voa desglanal
 Regular (User)
 - play the guessing minigame
 - play the sudoku minigame
-- access to the map 
-- access to the score system
+- access to the map and progress through it
+- access to the score and ranking system
 
 Anonymous (User)
 - play the guessing minigame (limited daily)
 - play the sudoku minigame (limited daily)
-- access to the map (no progress)
+- access to the map (without progress, only can access the first island)
 
 ### UXUI Design
 
@@ -62,6 +62,19 @@ User
 - username (string)
 - password (string)
 - role (string, enum: regular | anonymous)
+- score (number)
+- rank (string, enum: ...)
+
+Devilfruit
+- id (ObjectId)
+- name (string)
+- type (string)
+- description (string)
+
+Arc
+- id (ObjectId)
+- name (string)
+- number (number)
 
 Character
 - id (ObjectId)
@@ -70,35 +83,26 @@ Character
 - gender (string)
 - affiliation (string)
 - race (string)
-- devilfruit (null || Devilfruit.id)
-- haki (Object)
-    - observation (boolean)
-    - armament (boolean)
-    - conqueror (boolean)
-- bounty (number || bigint)
+- devilfruit (Devilfruit.id, optional)
+- observation (boolean)
+- armament (boolean)
+- conqueror (boolean)
+- bounty (bigint)
 - height (number)
-- origin (Object)
-    - sea (string)
-    - town (string)
-- firstArc: (string)
+- sea (string)
+- town (string)
+- firstArc (Arc.id)
 - description (string)
 
-Devilfruit
+Condition
 - id (ObjectId)
-- name (string)
-- type (string)
-- description (string)
-
-Conditions
-- id (ObjectId)
-- type (string, enum: ...)
+- type (string, enum: equal | greater than equal | lower than equal)
+- property (string)
+- value (any)
 - direction (string, enum: row | column)
+- index (number)
 - text (string)
 
-Arcs
-- id (ObjectId)
-- name (string)
-- numberOfArc (number)
 ### Test Coverage
 
 - el codigo está cubierto 👍
