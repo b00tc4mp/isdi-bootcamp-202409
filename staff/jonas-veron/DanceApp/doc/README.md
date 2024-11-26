@@ -1,30 +1,36 @@
-# Unsocial
+# [DanceApp!]
 
 ## Intro
 
-This app is just for unsocial people who do not want to interact seriously with anybody, fight with other people, ...
+DanceApp is an app designed to connect dancers and dance event organizers in your area. Whether you want to find a place to enjoy the rhythm or promote your next dance event, DanceApp is your ideal platform.
 
-![](https://media.giphy.com/media/W12KOpdv6MRa75ln4m/giphy.gif?cid=ecf05e47ql99tq9my7ifkyqfc14o5c5p2snox8s9yngpfo8g&ep=v1_gifs_search&rid=giphy.gif&ct=g)
+![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWVud2RiaXF5eTZ5ejlobXRqZDZvYjF0ZWJuam40Nm1xMWZsNzYxciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/U5Ivkja8l6jsgdxtCb/giphy.gif)
 
 ## Functional
 
+- Facilitate interaction between dancers and organizers, creating a community where users can:
+
+- Find nearby dance events.
+- Publish your own events (organizers only).
+- Like, comment and share events.
+- Connect with other dance enthusiasts.
+
 ### Use Cases
 
-Regular (User)
+Dancer
 
-- publish a post
-- delete a post
-- like / unlike a post
-- add / remove comment
-- follow / unfollow user
-- chat with user
-- report a user / post / comment
+- Search and explore events.
+- Give "likes" to posts.
+- Comment and participate in conversations.
+- Share events with friends.
 
-Moderator (User)
+Organizer
 
-- view reporting list
-- view reporting detail
-- ban user / post / comment
+- Search and explore events.
+- Give "likes" to posts.
+- Comment and participate in conversations.
+- Share events with friends.
+- Crear y administrar eventos.
 
 ### UXUI Design
 
@@ -34,50 +40,48 @@ Moderator (User)
 
 ### Blocks
 
-- App (...)
-- API (...)
-- DB (...)
+- App: The mobile application developed in React Native.
+- API: Backend to manage requests and business logic.
+- DB: MongoDB database to store users, events, and roles.
 
 ### Packages
 
-- api (...)
-- app (...)
-- com (...)
-- dat (...)
-- doc (...)
-
-### Technologies
-
-- HTML/CSS/JS (...)
-- React (...)
-- Node (...)
-- Express (...)
-- Mongo (...)
-- Mocha & Chai (...)
-- [...]
+- doc (the documentation)
+- app (the client-side application)
+- api (the server-side API)
+- dat (the data model and driver)
+- com (the common validations, utils, ...)
 
 ### Data Model
 
 User
 
+- id (UUID)
 - name (string)
 - email (string)
 - username (string)
 - password (string)
-- role (string, enum: regular | moderator)
 
 Post
 
-- ...
+- id (UUID)
+- author (User.id)
+- image (string)
+- text (string)
+- date (Date)
+- likes ([User.id])
+- comments ([{
+  - id (UUID)
+  - author (User.id)
+  - text (string)
+  - date (Date)}])
+
+### Techs
+
+- Frontend: React Native
+- Backend: Node.js + Express
+- Database: MongoDB
+- Style: CSS for React Native (Styled Components and StyleSheet)
+- Authentication: JWT
 
 ### Test Coverage
-
-```sh
-----------------------|---------|----------|---------|---------|-------------------
-File                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
-----------------------|---------|----------|---------|---------|-------------------
-All files             |   96.96 |       50 |     100 |   96.87 |
- registerUser.js      |    92.3 |       50 |     100 |   91.66 | 23
- registerUser.spec.js |     100 |      100 |     100 |     100 |
-----------------------|---------|----------|---------|---------|-------------------
-```
