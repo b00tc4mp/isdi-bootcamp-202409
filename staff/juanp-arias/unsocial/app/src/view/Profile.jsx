@@ -1,4 +1,4 @@
-import { PasswordInput, Input, Button, Form, Label } from '../components/library'
+import { PasswordInput, Input, Button, Form, Label } from './library'
 import logic from '../logic'
 import './Profile.css'
 

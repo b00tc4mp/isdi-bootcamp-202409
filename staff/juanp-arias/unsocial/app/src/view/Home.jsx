@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { errors } from 'com'
-import PostItem from '../components/function/PostItem'
+import PostItem from './components/PostItem'
 import logic from '../logic'
 
 const { SystemError } = errors
 
-export default function PostList() {
+export default function Home() {
     const [posts, setPosts] = useState([])
     const [initiated, setInitiated] = useState(false)
 

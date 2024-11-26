@@ -1,6 +1,6 @@
 import './Register.css'
 import { errors } from 'com'
-import { PasswordInput, Input, Button, Form, Label } from '../components/library'
+import { PasswordInput, Input, Button, Form, Label } from './library'
 import logic from '../logic'
 
 const { SystemError } = errors

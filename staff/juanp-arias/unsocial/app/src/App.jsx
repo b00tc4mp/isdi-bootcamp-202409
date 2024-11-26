@@ -1,9 +1,9 @@
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, PostList, CreatePost, Profile } from './view'
+import { Login, Register, Home, CreatePost, Profile } from './view'
 
-import Header from './components/function/Header'
-import Footer from './components/function/Footer'
+import Header from './view/components/Header'
+import Footer from './view/components/Footer'
 
 import logic from './logic'
 
@@ -47,7 +47,7 @@ export default function App() {
                 />} />
 
             <Route path="/"
-                element={logic.isUserLoggedIn() ? <PostList /> : <Navigate to="/login" />} />
+                element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
 
             <Route path="/new-post"
                 element={logic.isUserLoggedIn() ? <CreatePost onCreated={handlePostCreated} /> : <Navigate to="/login" />} />

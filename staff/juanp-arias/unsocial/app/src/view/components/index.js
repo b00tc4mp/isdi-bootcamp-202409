@@ -1,6 +1,6 @@
 import Header from './Header'
 import Footer from './Footer'
-import PostList from '../../view/PostList'
+import PostList from '../Home'
 import PostItem from './PostItem'
 
 import Comments from './Comments'
