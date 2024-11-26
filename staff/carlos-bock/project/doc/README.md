@@ -101,9 +101,11 @@ Destination
 
 Country {}
 -name (string)
--citiees (string)
-    //-spain object (array of cities)
-    //-germany object (array of cities)
+
+City {}
+-name (string)
+-country (Country.id)
+
 
 ### Techs
 
