@@ -6,7 +6,11 @@ import { errors } from 'apu'
 
 const { SystemError } = errors
 
-export default props => {
+import useContext from './useContext'
+
+export default function Register(props) {
+    const { alert } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -24,6 +28,8 @@ export default props => {
             logic.registerUser(name, email, username, password, passwordRepeat)
                 .then(() => {
                     form.reset()
+
+                    alert('User successfully registered', 'success')
 
                     props.onRegistered()
                 })
