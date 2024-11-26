@@ -8,7 +8,7 @@ import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpeers/index.js'
 
 
-db.connect(process.env.MONGO_URL_TEST).then(() => {
+db.connect(process.env.MONGO_URL).then(() => {
     //CREACION DEL SERVIDOR CON EL METODO EXPRESS
     const server = express()
 

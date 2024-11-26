@@ -1,12 +1,13 @@
-import { errors, validate } from 'com'
+import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default () => {
-    return fetch(`http://${import.meta.env.VITE_API_URL}/posts`, {
-        headers: { Authorization: `Bearer ${localStorage.token}` }
+export default () =>
+    fetch(`http://${import.meta.env.VITE_API_URL}/posts`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.token}`
+        }
     })
-
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (res.ok)
@@ -17,4 +18,3 @@ export default () => {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
-}
