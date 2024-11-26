@@ -1,5 +1,3 @@
-import './Register.css'
-
 import { errors } from 'com';
 
 const { SystemError } = errors;
@@ -7,9 +5,13 @@ const { SystemError } = errors;
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic';
+//import { useContext } from 'react';
+import useContext from './useContext.js'
 
 export default function Register(props) {
     console.log('Register -> render');
+
+    const { alert } = useContext();
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -28,6 +30,8 @@ export default function Register(props) {
             logic.registerUser(name, email, username, password, passwordRepeat)
                 .then(() => {
                     form.reset()
+
+                    alert('User successfully registered', 'success')
 
                     props.onRegistered()
                 })

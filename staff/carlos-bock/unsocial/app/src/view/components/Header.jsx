@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
@@ -8,8 +8,14 @@ import logic from '../../logic';
 
 import './Header.css'
 
+import useContext from '../useCo    ntext';
+
 export default function Header({ view, onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null);
+
+    const location = useLocation()
+
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         console.log('Header -> componentDidMount and componentWillRecieveProps');
@@ -39,16 +45,18 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
     };
 
     const handleLogout = () => {
-        if (confirm('Logout?')) {
-            logic.logoutUser();
+        confirm('Logout?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
 
-            onLoggedOut();
-        }
+                onLoggedOut()
+            }
+        }, 'warn')
     }
     console.log('Header -> render');
 
     return <header className='Header'>
-        <h1>{location.pathname === 'new-post' ? <a href='' onClick={handleHomeClick}>unSocial</a> : 'unSocial'}</h1>
+        <h1>{location.pathname === '/new-post' ? <a href='' onClick={handleHomeClick}>unSocial</a> : 'unSocial'}</h1>
 
         {name && <h3>{name}</h3>}
 
