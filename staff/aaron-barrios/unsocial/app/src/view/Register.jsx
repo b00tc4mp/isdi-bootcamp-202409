@@ -4,7 +4,8 @@ import { PasswordInput, Input, Button, Form, Field, Label } from '../components/
 
 import './Register.css'
 
-
+import { errors } from 'com'
+const { SystemError } = errors
 
 export default (props) => {
     const handleSubmit = event => {
@@ -26,22 +27,22 @@ export default (props) => {
         try {
 
             //LLAMO A LA FUNCION REGISTER USER CON LOS PARAMETROS CAPTURADOS
-            logic.registerUser(name, email, username, password, passwordRepeat, error => {
-                if (error) {
-                    alert(error.message)
+            logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    //RESETEO DEL FORMULARIO
+                    form.reset() // => form.reset()
+
+                    //LE PASO LA FUNCIÓN "registered" DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
+                    props.onRegistered()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                //RESETEO DEL FORMULARIO
-                form.reset() // => form.reset()
-
-                //LE PASO LA FUNCIÓN "registered" DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
-                props.registered()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
 

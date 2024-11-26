@@ -22,25 +22,22 @@ export default function Login(props) {
         } = event
 
         try {
-            logic.loginUser(username, password, error => {
-                if (error) {
+            logic.loginUser(username, password)
+                .then(() => {
+                    //RESETEO DEL FORMULARIO
+                    event.target.reset() // => form.reset()
+
+                    //LE PASO LA FUNCIÓN ONLOGGEDIN DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
+                    props.onLoggedIn()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
-                        alert('Sorry, try again later')
+                        alert('Si hombre')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                //RESETEO DEL FORMULARIO
-                event.target.reset() // => form.reset()
-
-                //LE PASO LA FUNCIÓN ONLOGGEDIN DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
-                props.onLoggedIn()
-            })
-
+                })
 
         } catch (error) {
             //passwordInput.setValue('')

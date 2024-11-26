@@ -18,18 +18,13 @@ export default function CreatePost({ onCreated }) {
 
         try {
             //LLAMO A LA FUNCION REGISTER USER CON LOS PARAMETROS CAPTURADOS
-            logic.createPost(text, image, error => {
-                if (error) {
+            logic.createPost(text, image)
+                .then(onCreated)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                //LE PASO LA FUNCIÓN "registered" DEL PARAMERTRO PROPS PARA DECIRLE A APP QUE ME HE LOGGEADO
-                onCreated()
-            })
+                })
         } catch (error) {
             alert(error.message)
 

@@ -8,22 +8,17 @@ import logic from '../../logic'
 
 export default function Comments(props) {
     const [comments, setComments] = useState([])
-    const [initiated, setInitiated] = useState(false)
+    // const [initiated, setInitiated] = useState(false)
 
     useEffect(() => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(setComments)
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-                setInitiated(true)
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -33,19 +28,17 @@ export default function Comments(props) {
 
     const handleAdded = () => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    props.onAdded()
+                })
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                props.onAdded()
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -55,20 +48,17 @@ export default function Comments(props) {
 
     const handleRemoved = () => {
         try {
-            logic.getComments(props.postId, (error, comments) => {
-                if (error) {
+            logic.getComments(props.postId)
+                .then(comments => {
+                    setComments(comments)
+
+                    props.onRemoved()
+                })
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                setComments(comments)
-
-                props.onRemoved()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
 
@@ -77,6 +67,7 @@ export default function Comments(props) {
     }
 
 
+    //SECCION DE COMENTARIOS Y CREAR COMENTARIO
     return <section>
         <ul>
             {comments.map(comment =>
@@ -89,7 +80,7 @@ export default function Comments(props) {
             }
         </ul>
 
-        {initiated && <CreateComment
+        {<CreateComment
             postId={props.postId}
             onAdded={handleAdded}
         />}

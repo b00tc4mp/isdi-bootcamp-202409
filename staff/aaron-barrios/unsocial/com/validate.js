@@ -33,14 +33,17 @@ const validatePasswordMatch = (password, passwordRepeat) => {
 
 const validateImage = image => {
     if (typeof image !== 'string') throw new Error('invalid image')
+    if (image.trim().length === 0) throw new ValidationError('invalid image length')
 }
 
 const validateText = text => {
     if (typeof text !== 'string') throw new Error('invalid text')
+    if (text.trim().length === 0) throw new ValidationError('invalid text length')
 }
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new Error(`invalid ${explain}`)
+    if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
 const validateCallback = callback => {

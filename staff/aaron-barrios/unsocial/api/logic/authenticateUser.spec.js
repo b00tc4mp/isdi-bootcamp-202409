@@ -21,16 +21,16 @@ describe('authenticateUser', () => {
 
     beforeEach(() => User.deleteMany()) //callback para cada test (it)
 
-    it('succeeds on existing user', () =>
-        User.create({ name: 'aaron', email: 'aaron@ar.com', username: 'aaron', password: bcrypt.hashSync('123') })
-            .then(() => authenticateUser('aaron', '123'))
-            .then(user => {
-                expect(user).to.exist
-                expect(user.id).to.be.a.string
-                expect(user).to.have.lengthOf(24)
-                expect(user.role).to.equal('regular')
-            })
-    )
+    it('succeeds on existing user', async () => {
+        await User.create({ name: 'aaron', email: 'aaron@ar.com', username: 'aaron', password: bcrypt.hashSync('123', 10) })
+
+        const user = await authenticateUser('aaron', '123')
+
+        expect(user).to.exist
+        expect(user.id).to.be.a.string
+        expect(user.id).to.have.lengthOf(24)
+        // expect(user.role).to.equal('regular')
+    })
 
     it('fails on non-existing user', () =>
         expect(

@@ -6,7 +6,7 @@ export default function Footer({ onNewPostClick }) {
     const location = useLocation()
 
     return <footer className="Footer">
-        {location.pathname === 'posts' &&
+        {location.pathname === '/' &&
             <button type="button" onClick={onNewPostClick}>+</button>}
 
     </footer>

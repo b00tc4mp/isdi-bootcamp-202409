@@ -41,12 +41,16 @@ export default function App() {
 
     <Routes>
 
+      {/* LOGIIIIN */}
       <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
+      {/* REGISTEEER */}
       <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
 
+      {/* HOMEEEE */}
       <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
 
+      {/* CREATEEEE POST  */}
       <Route path="/new-post" element={logic.isUserLoggedIn() ? <CreatePost onCreated={handlePostCreated} /> : <Navigate to="/login" />} />
 
       {/* profile data (WIP) */}

@@ -1,1 +1,1 @@
- curl -H 'Authorization: Basic 672e3058090fcae7fd450528' -H 'Content-Type: application/json' -d '{"text":"Mr potato"}' http://localhost:8080/posts/67336a1e7b45b1fef62ecd3a/comments -v
+ curl -H 'Authorization: Bearer 6744836625540077f6501f5a' -H 'Content-Type: application/json' -d '{"text":"Mr potato"}' http://localhost:8080/posts/67449aa0b9857ef0ad5260ea/comments -v

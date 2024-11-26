@@ -1,1 +1,1 @@
-curl -H 'Authorization: Basic 6734c629869a91c1bf87851b' http://localhost:8080/posts -v
+curl -H 'Authorization: Bearer 6734c629869a91c1bf87851b' http://localhost:8080/posts -v

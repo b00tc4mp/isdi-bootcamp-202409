@@ -11,20 +11,17 @@ export default function CreateComment({ postId, onAdded }) {
         const { text: { value: text } } = form
 
         try {
-            logic.createComment(postId, text, error => {
-                if (error) {
+            logic.createComment(postId, text)
+                .then(() => {
+                    form.reset()
+
+                    onAdded()
+                })
+                .catch(error => {
                     alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-
-                form.reset()
-
-                onAdded()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
 
