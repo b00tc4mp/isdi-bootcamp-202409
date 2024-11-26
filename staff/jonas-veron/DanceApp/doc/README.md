@@ -78,7 +78,7 @@ Post
 
 ### Techs
 
-- Frontend: React Native
+- Frontend: React
 - Backend: Node.js + Express
 - Database: MongoDB
 - Style: CSS for React Native (Styled Components and StyleSheet)
