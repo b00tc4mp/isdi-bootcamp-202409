@@ -56,7 +56,7 @@ Admin (User)
 
 ### Data Model
 
-User
+#### User
 - id (UUID)
 - name (string)
 - email (string)
@@ -65,23 +65,39 @@ User
 - role (string, enum: regular | admin)
 - wishlist ([Product.id])
 
-Product
+#### Product
 - id (UUID)
-- image (string)
+- images ([string])
 - description (string)
 - likes ([User.id])
 - dislikes ([User.id])
-- comments ([{
-  - id (UUID)
-  - author (User.id)
-  - text (string)
-  - date (Date) }])
-- store ([Store.id])
+- storePrices ([StorePrice])
+- comments ([Comment])
 
-Stores
+#### StorePrice
 - id (UUID)
-- web (text)
-- locations ([text])
+- store (Store.id)
+- price (number)
+
+#### Comment
+- id (UUID)
+- author (User.id)
+- text (string)
+- date (Date) 
+
+#### Store
+- id (UUID)
+- web (string)
+- locations ([Location])
+
+#### Location
+- id (UUID)
+- address (string)
+- location (Point)
+
+#### Point
+- type (string)
+- coords ([number])
 
 
 ### Test Coverage 
