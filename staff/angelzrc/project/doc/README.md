@@ -69,20 +69,37 @@ User
 
 Profile
 - profileId (Object_Id)
-- Name (string)
-- Topics/ interests (string)
-- Gender (string)
-- Age (number) optional
-- profile pic (string) optional
+- name (string)
+- topics/ interests (string)
+- gender (string)
+- languages ([string])
+- age (number) optional
+- profilePic (string) optional
 
 
 Meet
 - meetId(Object_Id)
 - authorId(Object_Id)
-- location (object: gps coords)
-- time beginning (Date)
-- time end (Date)
+- author's general interest/topics
+- trending topics
+- location ([number])
+- startTime (Date)
+- endTime (Date)
 - address (string) optional
-- shop/ park/ place name (string) optional
+- placeName (string) optional
+- review
+    - rating (number, 1 to 5)
+    - comment(string)
+
+History
+- meets ([meetId])
+- locations([[number]])
+- people([profileId])
+
+Report
+- authorId(ObjectId)
+- targetId(ObjectId)
+- issue(string, enum:)
+- comment(string)
 
 ### Test Coverage
