@@ -1,0 +1,9 @@
+.Button {
+    width: '100px';
+    box-sizing: 'border-box';
+    background-color: var(--color);
+    font-family: inherit;
+    color: var(--back-color);
+    border-color: var(--color);
+    border-style: solid;
+}

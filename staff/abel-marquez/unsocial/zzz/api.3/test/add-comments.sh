@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2vvw4xzn6d' -H 'Content-type: application/json' -d '{"text":"yeaaaah!"}' http://localhost:8080/posts/m2vw4ucygv/comments -v
