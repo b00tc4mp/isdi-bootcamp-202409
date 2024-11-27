@@ -8,10 +8,14 @@ import logic from '../../logic';
 import util from '../../util';
 const { getElapsedTime } = util;
 
+import useContext from '../useContext'
+
 import './Post.css';
 
 export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
   const [view, setView] = useState(null);
+
+  const { alert, confirm } = useContext()
 
   const {
     id,
@@ -27,17 +31,13 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
   const handleLikeClick = () => {
     try {
-      logic.toggleLikePost(id, error => {
-        if (error) {
-          alert(error.message);
+      logic.toggleLikePost(id)
+        .then(onLiked)
+        .catch(error => {
+          alert(error.message)
 
-          console.error(error);
-
-          return;
-        }
-
-        onLiked();
-      })
+          console.error(error)
+        })
     } catch (error) {
       alert(error.message);
 
@@ -46,22 +46,24 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
   }
 
   const handleDeleteClick = () => {
-    if (confirm('Delete post?')) {
-      try {
-        logic.deletePost(id)
-          .then(onDeleted)
-          .catch(error => {
-            alert(error.message)
+    confirm('Delete post?', accepted => {
+      if (accepted) {
+        try {
+          logic.deletePost(id)
+            .then(onDeleted)
+            .catch(error => {
+              alert(error.message)
 
-            console.error(error)
-          })
-      } catch (error) {
-        alert(error.message);
+              console.error(error)
+            })
+        } catch (error) {
+          alert(error.message)
 
-        console.error(error);
-      };
-    };
-  };
+          console.error(error)
+        }
+      }
+    })
+  }
 
   const handleCommentClick = () => setView(view ? null : 'comments');
 
