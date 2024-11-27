@@ -5,6 +5,7 @@ import Post from './Post'
 import Comments from './Comments'
 import Comment from './Comment'
 import Confirm from './Confirm'
+import ThemeButton from './ThemeButton'
 
 export {
     Alert,
@@ -13,5 +14,6 @@ export {
     Post,
     Comments,
     Comment,
-    Confirm
+    Confirm,
+    ThemeButton
 }
