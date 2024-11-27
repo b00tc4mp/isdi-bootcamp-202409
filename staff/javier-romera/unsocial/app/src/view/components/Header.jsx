@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useLocation } from 'react-router-dom'
 
+import { ThemeButton } from '.'
 import { Anchor, Button } from '../library'
 
 import { errors } from 'apu'
@@ -50,11 +51,13 @@ export default function Header({ onHomeClick, onLoggedOut }) {
         onLoggedOut()
     }
 
-    return <header className="Header bg-black w-full h-12 box-border flex justify-between items-center top-0 fixed border-b px-1 border-[var(--color)]">
+    return <header className="dark:bg-[red] bg-[black] w-full h-12 box-border flex justify-between items-center top-0 fixed border-b px-1 border-[var(--color)]">
         <h1 className="-tracking-widest">{location.pathname === '/new-post' ? <Anchor href="" onClick={handleHomeClick}>laicosnU</Anchor> : "laicosnU"}</h1>
 
         <div className="flex justify-center items-center">
             {name && <h3 className="-tracking-widest">{name}</h3>}
+
+            <ThemeButton />
 
             {logic.isUserLoggedIn() && <Button classname="flex w-6 h-6 items-center justify-center border-solid border border-gray-500 ml-2" type="button" onClick={handleLogout}>𐢫</Button>}
         </div>
