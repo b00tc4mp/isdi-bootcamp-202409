@@ -1,4 +1,3 @@
-import logo from './logo.png'
 import comic from './comic_img_1.webp'
 import logoBuenardo from './logoBuenardo.png'
 import menuIcon from './menuIcon.png'
@@ -9,10 +8,11 @@ import isotipo from './isotipo.png'
 import heart from './heart.png'
 import noFace from './noFace.png'
 import totoro from './totoro.png'
+import LogoEntelequiaVector from './LogoEntelequiaVector.png'
 
 export const assets = {
 
-    logo,
+    LogoEntelequiaVector,
     comic,
     logoBuenardo,
     menuIcon,
