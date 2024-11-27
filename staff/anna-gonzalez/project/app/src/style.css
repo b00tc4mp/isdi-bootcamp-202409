@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Kavoon&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color: #272727;
+    --back-color: #F0F0F0;
+    --back-color-dark: #272727;
+    --font: 'Noto Sans';
+    --font-title: 'Kavoon';
+}
+
+body {
+    color: var(--color);
+}
+
+h1 {
+    font-family: var(--font-title);
+    font-size: 6rem;
+}
+
+p {
+    font-family: var(--font);
+    font-size: medium;
+}
