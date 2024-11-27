@@ -2,33 +2,24 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (text, postId, callback) => {
+export default (text, postId) => {
     validate.text(text)
     validate.id(postId, 'postId')
-    validate.callback(callback)
 
-    const xhr = new XMLHttpRequest
-
-    xhr.addEventListener('load', () => {
-        const { status, response } = xhr
-
-        if (status === 201) {
-            callback(null)
-
-            return
-        }
-        const { error, message } = JSON.parse(response)
-
-        const constructor = errors[error]
-
-        callback(new constructor(message))
-
+    return fetch(`http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${localStorage.token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
     })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (res.ok)
+                return
 
-    xhr.addEventListener('error', () => callback(new SystemError('Ups something happened, try again later')))
-
-    xhr.open('POST', `http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`)
-    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.token}`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({ text }))
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => {
+                    throw new errors[error](message)
+                })
+        })
 }

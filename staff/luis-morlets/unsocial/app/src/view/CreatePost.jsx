@@ -21,20 +21,16 @@ export default function CreatePost({ onCreatePost }) {
         } = form
 
         try {
-            logic.createPost(image, text, error => {
-                if (error) {
+            logic.createPost(image, text)
+                .then(onCreatePost)
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Something went wrong, try again later.')
                     else
                         alert(error.message)
 
                     console.log(error)
-
-                    return
-                }
-                onCreatePost()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
 

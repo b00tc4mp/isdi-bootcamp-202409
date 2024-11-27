@@ -15,20 +15,21 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
     useEffect(() => {
         try {
-            logic.getComments(postId, (error, comments) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Something went wrong, try again later.')
-                    else
-                        alert(error.message)
+            logic.getComments(postId)
+                .then(comments => {
+                    setComments(comments)
+                    setInitiated(true)
+                })
+                .catch(error => {
+                    if (error) {
+                        if (error instanceof SystemError)
+                            alert('Something went wrong, try again later.')
+                        else
+                            alert(error.message)
 
-                    console.error(error)
-
-                    return
-                }
-                setComments(comments)
-                setInitiated(true)
-            })
+                        console.error(error)
+                    }
+                })
         } catch (error) {
             alert(error.message)
 
@@ -38,19 +39,21 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
     const handleAdded = () => {
         try {
-            logic.getComments(postId, (error, comments) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Something went wrong, try again later.')
-                    else
-                        alert(error.message)
+            logic.getComments(postId)
+                .then(comments => {
+                    setComments(comments)
+                    onAdded()
+                })
+                .catch(error => {
+                    if (error) {
+                        if (error instanceof SystemError)
+                            alert('Something went wrong, try again later.')
+                        else
+                            alert(error.message)
 
-                    console.error(error)
-                }
-                setComments(comments)
-
-                onAdded()
-            })
+                        console.error(error)
+                    }
+                })
         } catch (error) {
             alert(error.message)
 
@@ -60,18 +63,21 @@ export default function Comments({ postId, onAdded, onRemoved }) {
 
     const handleRemoved = () => {
         try {
-            logic.getComments(postId, (error, comments) => {
-                if (error) {
-                    if (error instanceof SystemError)
-                        alert('Something went wrong, try again later.')
-                    else
-                        alert(error.message)
+            logic.getComments(postId)
+                .then(comments => {
+                    setComments(comments)
+                    onRemoved()
+                })
+                .catch(error => {
+                    if (error) {
+                        if (error instanceof SystemError)
+                            alert('Something went wrong, try again later.')
+                        else
+                            alert(error.message)
 
-                    console.error(error)
-                }
-                setComments(comments)
-                onRemoved()
-            })
+                        console.error(error)
+                    }
+                })
         } catch (error) {
             alert(error.message)
 

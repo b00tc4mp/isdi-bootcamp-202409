@@ -18,19 +18,16 @@ export default function PostItem({ post, onLiked, onDeleted, onCommented, onComm
 
     const handleLikeClick = () => {
         try {
-            logic.likesInteraction(id, error => {
-                if (error) {
+            logic.likesInteraction(id)
+                .then(onLiked)
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Something went wrong, try again later.')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-                onLiked()
-            })
+                })
         } catch (error) {
             alert(error.message)
 
@@ -43,19 +40,16 @@ export default function PostItem({ post, onLiked, onDeleted, onCommented, onComm
 
         if (confirmDelete) {
             try {
-                logic.deletePost(id, error => {
-                    if (error) {
+                logic.deletePost(id)
+                    .then(onDeleted)
+                    .catch(error => {
                         if (error instanceof SystemError)
                             alert('Something went wrong, try again later.')
                         else
                             alert(error.message)
 
                         console.error(error)
-
-                        return
-                    }
-                    onDeleted()
-                })
+                    })
             } catch (error) {
                 alert(error.message)
 

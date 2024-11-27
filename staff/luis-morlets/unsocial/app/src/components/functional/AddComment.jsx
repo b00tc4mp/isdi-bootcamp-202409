@@ -15,18 +15,20 @@ export default function AddComment({ postId, onAdded }) {
         const { text: { value: text } } = event.target
 
         try {
-            logic.createComment(text, postId, error => {
-                if (error) {
+            logic.createComment(text, postId)
+                .then(() => {
+                    event.target.reset()
+
+                    onAdded()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Something went wrong, try again later.')
                     else
                         alert(error.message)
 
                     console.error(error)
-                }
-                event.target.reset()
-                onAdded()
-            })
+                })
         } catch (error) {
             alert(error.message)
 

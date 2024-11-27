@@ -3,15 +3,13 @@ import db from 'dat'
 
 import registerUser from './registerUser.js'
 
-db.connect(process.env.MONGO_URL_TEST)
-    .then(() => {
-        try {
-            return registerUser('Francisco Miranda', 'francisco@miranda.com', 'franciscom', '123123123', '123123123')
-                .then(console.log)
-                .catch(console.error)
-        } catch (error) {
-            console.error(error)
-        }
-    })
-    .catch(console.error)
-    .finally(() => db.disconnect())
+await db.connect(process.env.MONGO_URL_TEST)
+
+try {
+    const result = await registerUser('Doosh Dalush', 'doosh@dalush.com', 'dooshdalush', '123123123', '123123123')
+    console.log(result)
+} catch (error) {
+    console.error(error)
+} finally {
+    await db.disconnect()
+}

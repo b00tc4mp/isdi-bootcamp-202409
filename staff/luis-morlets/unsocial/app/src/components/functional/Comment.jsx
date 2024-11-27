@@ -16,17 +16,16 @@ export default function Comment({ postId, comment: { id, author, text, date }, o
         const confirmRemove = window.confirm('Do you want to delete this comment?')
         try {
             if (confirmRemove) {
-                logic.removeComment(postId, id, error => {
-                    if (error) {
+                logic.removeComment(postId, id)
+                    .then(onRemoved)
+                    .catch(error => {
                         if (error instanceof SystemError)
                             alert('Something went wrong, try again later.')
                         else
                             alert(error.message)
 
                         console.error(error)
-                    }
-                    onRemoved()
-                })
+                    })
             }
         } catch (error) {
             alert(error.message)

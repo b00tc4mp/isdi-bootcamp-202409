@@ -21,21 +21,20 @@ export default function Login(props) {
         } = form
 
         try {
-            logic.loginUser(username, password, error => {
-                if (error) {
+            logic.loginUser(username, password)
+                .then(() => {
+                    form.reset()
+
+                    props.onLoggedIn()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Something went wrong, try again later.')
                     else
                         alert(error.message)
 
                     console.error(error)
-
-                    return
-                }
-                form.reset()
-
-                props.onLoggedIn()
-            })
+                })
         } catch (error) {
             alert(error.message)
 

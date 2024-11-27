@@ -16,23 +16,19 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     const location = useLocation()
 
     useEffect(() => {
-
         if (logic.isUserLoggedIn()) {
             if (!name)
                 try {
-                    logic.getUserName((error, name) => {
-                        if (error) {
+                    logic.getUserName()
+                        .then(setName)
+                        .catch(error => {
                             if (error instanceof SystemError)
                                 alert('Something went wrong, try again later.')
                             else
                                 alert(error.message)
 
                             console.error(error)
-
-                            return
-                        }
-                        setName(name)
-                    })
+                        })
                 } catch (error) {
                     alert(error.message)
 
@@ -42,7 +38,6 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     }, [location.pathname])
 
     const handleHomeClick = event => {
-
         try {
             event.preventDefault()
 
@@ -56,7 +51,6 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     }
 
     const handleLogout = () => {
-
         try {
             const confirmLogout = window.confirm('Are you sure you want to logout?')
 
