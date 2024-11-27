@@ -7,13 +7,9 @@ function App() {
   return (
     <>
       <Header />
-      <br />
       <Login />
-      <br />
-      <Register />
-      <br />
-      <Home />
-      <br />
+      {/* <Register />
+      <Home /> */}
       <Footer />
     </>
   )

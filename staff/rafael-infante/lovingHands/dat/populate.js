@@ -7,26 +7,26 @@ import db, { User, Post } from './index.js'
 
 db.connect(process.env.MONGO_URL_TEST)
   .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
-  .then(() => fs.readFile('./lovinghands_users.csv', 'utf-8'))
+  .then(() => fs.readFile('./users.csv', 'utf-8'))
   .then((csv) => {
     const lines = csv.split('\n')
 
     const creations = lines.map((line) => {
-      const [name, email, username, password, role] = line.split(',').map((item) => item.trim())
+      const [name, email, password, role] = line.split(',').map((item) => item.trim())
 
-      return User.create({ name, email, username, password: bcrypt.hashSync(password, 10), role })
+      return User.create({ name, email, password: bcrypt.hashSync(password, 10), role })
     })
 
     return Promise.all(creations)
   })
   .then((users) => {
-    return fs.readFile('./lovinghands_posts.csv', 'utf-8').then((csv) => {
+    return fs.readFile('./posts.csv', 'utf-8').then((csv) => {
       const lines = csv.split('\n')
 
       const creations = lines.map((line) => {
-        const [username, image, text, date] = line.split(',').map((item) => item.trim())
+        const [email, image, text, date] = line.split(',').map((item) => item.trim())
 
-        const { _id: author } = users.find((user) => user.username === username)
+        const { _id: author } = users.find((user) => user.email === email)
 
         const likes = []
         const likesNumber = randomNumber(0, users.length)

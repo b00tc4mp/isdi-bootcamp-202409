@@ -2,21 +2,27 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-fetch('http://localhost:8080/users', {
+fetch('http://localhost:8080/users/auth', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    name: 'Migue Lita',
-    email: 'migue@lita.com',
+    email: 'madre@teresa.com',
     password: '123123123',
-    passwordRepeat: '123123123',
   }),
 })
   .catch((error) => {
     throw new SystemError(error.message)
   })
   .then((res) => {
-    if (res.ok) return
+    if (res.ok)
+      return res
+        .json()
+        .catch((error) => {
+          throw new SystemError(error.message)
+        })
+        .then((token) => {
+          console.log(token)
+        })
 
     return res
       .json()

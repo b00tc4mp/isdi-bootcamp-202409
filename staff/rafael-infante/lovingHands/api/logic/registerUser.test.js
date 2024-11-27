@@ -1,17 +1,26 @@
 import 'dotenv/config'
-import db from '../../dat/index.js'
+import db from 'dat'
 
 import registerUser from './registerUser.js'
 
-db.connect(process.env.MONGO_URL_TEST)
-  .then(() => {
-    try {
-      return registerUser('Rive Lino', 'rive@lino.com', 'rivelino', '123123123', '123123123')
-        .then(console.log)
-        .catch(console.error)
-    } catch (error) {
-      console.error()
-    }
-  })
-  .catch(console.error)
-  .finally(() => db.disconnect())
+await db.connect(process.env.MONGO_URL_TEST)
+
+try {
+  const result = await registerUser('Marga Rita', 'marga@rita.com', '123123123', '123123123')
+  console.log(result)
+} catch (error) {
+  console.error(error)
+} finally {
+  await db.disconnect()
+}
+
+// db.connect(process.env.MONGO_URL_TEST)
+//   .then(() => {
+//     try {
+//       return registerUser('Rive Lino', 'rive@lino.com', '123123123', '123123123').then(console.log).catch(console.error)
+//     } catch (error) {
+//       console.error()
+//     }
+//   })
+//   .catch(console.error)
+//   .finally(() => db.disconnect())

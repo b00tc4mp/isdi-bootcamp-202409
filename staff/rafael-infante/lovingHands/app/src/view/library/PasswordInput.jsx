@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import Input from './Input'
-
 export default function PasswordInput({ id }) {
   const [status, setStatus] = useState('😑')
   const [type, setType] = useState('password')
@@ -13,7 +11,7 @@ export default function PasswordInput({ id }) {
 
   return (
     <div style={{ display: 'flex' }}>
-      <Input type={type} id={id} />
+      <input type={type} id={id} />
       <span style={{ cursor: 'pointer', position: 'absolute', right: '10px' }} onClick={handleToggleClick}>
         {status}
       </span>

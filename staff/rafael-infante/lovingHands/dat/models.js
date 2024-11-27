@@ -20,13 +20,6 @@ const user = new Schema(
       match:
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
     },
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-      minLength: 3,
-      maxLength: 30,
-    },
     password: {
       type: String,
       required: true,
