@@ -1,6 +1,12 @@
+import { errors } from 'com'
+
+const { SystemError } = errors
+
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic'
+
+import useContext from './useContext'
 
 export default function Register(props) {
     console.log('Register -> render')
@@ -19,19 +25,22 @@ export default function Register(props) {
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat, error => {
-                if (error) {
-                    alert(error.message)
+            logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    form.reset()
 
-                    console.error(error)
+                    alert('User successfully registered','success')
 
-                    return
-                }
+                    props.onRegistered()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
 
-                form.reset()
-
-                props.onRegistered()
-            })
+                        console.error(error)
+                })
         } catch (error) {
             alert(error.message)
 

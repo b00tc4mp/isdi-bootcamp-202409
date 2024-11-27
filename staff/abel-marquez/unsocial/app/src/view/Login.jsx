@@ -6,8 +6,12 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
+import useContext from './useContext'
+
 export default function Login(props) {
     console.log('Login -> render')
+
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -15,21 +19,20 @@ export default function Login(props) {
         const { target: { username: { value: username }, password: { value: password } } } = event
 
         try {
-            logic.loginUser(username, password, error => {
-                if (error) {
+            logic.loginUser(username, password)
+                .then(() => {
+                    event.target.reset()
+
+                    props.onLoggedIn()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
                         alert('Sorry, try again later.')
                     else
                         alert(error.message)
 
-                    console.error(error)
-
-                    return
-                }
-
-                event.target.reset()
-
-                props.onLoggedIn()
+                        console.error(error)
+                
             })
         } catch (error) {
             alert(error.message)

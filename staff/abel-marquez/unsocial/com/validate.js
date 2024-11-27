@@ -16,7 +16,7 @@ const validateEmail = email => {
 
 const validateUsername = username => {
     if (typeof username !== 'string') throw new ValidationError('invalid username')
-    if (username.length < 4 || username.length > 12)
+    if (username.length < 3 || username.length > 30)
         throw new ValidationError('invalid username length')
 }
 
@@ -34,14 +34,17 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
 
 const validateImage = image => {
     if (typeof image !== 'string') throw new ValidationError('invalid image')
+    if (image.trim().length === 0) throw new ValidationError('invalid image length')
 }
 
 const validateText = text => {
     if (typeof text !== 'string') throw new ValidationError('invalid text')
+    if (text.trim().length === 0) throw new ValidationError('invalid text length')
 }
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
+    if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
 const validateCallback = callback => {
@@ -60,4 +63,4 @@ const validate = {
     callback: validateCallback
 }
 
-export default validate 
+export default validate
