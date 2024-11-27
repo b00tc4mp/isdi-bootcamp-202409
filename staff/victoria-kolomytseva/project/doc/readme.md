@@ -4,35 +4,42 @@
 
 An application designed to help people find their lost pets or report pets they have seen lost.
 
+![alt text](image.png)
 
-https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDlraG02MWVsOHZzMG9oN3lnNGl4cnhrdnZtMmlrbTQ5ZmszbW82byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vNGYHxL7Rj9MA/giphy.webp
 
 ## Functional
 
 ### Use Cases
 
-User
+ Regular (User)
 - register
-- create post
-- view posts
-- delete post
+- create ad
+- view ad
+- delete ad
 - add comment
 - view comments
 - remove comment
 - report user
-- report post
+- report ad
 - report comment
 - contact the pet owner or the person who found the animal
-- report a found pet to help reunite it with its owner
+- report a found pet to help reunite it with its owner(es cuando una persona ha encontrado una mascota perdida)
 - flag a post when the pet has found its owner
 
-Posts
-- view reports
+Admin (User)
+- view reporting list(posts denunciados)
+- view reporting detail
+- ban user / ad / comment
+
+
+Ad
+- view detailed information and images in a post
 - delete post
 - remove comment
 - mark a post as "resolved" when the pet is found 
-- view detailed information and images in a post
-- contact the poster for more details via the contact info in the post
+- contact the author of the ad for more details via the contact info in the post
+
+
 
 ### UXUI Design
 
@@ -62,13 +69,11 @@ User
 - email (string)
 - surname (string)
 - password (string)
-- city
-- postal_code
-- phone
+- city(string)
+- postalCode(number)
+- phone(string)
 
-
-
-Post
+Ad
 - id (UUID)
 - author (User.id)
 - image (string)
@@ -76,13 +81,13 @@ Post
 - date (Date)
 - likes ([User.id])
 - reported(boolean)
-- found(boolean)
+- isFound(boolean)
 
-- comments ([{ 
-    - id (UUID)
-    - author (User.id)
-    - text (string)
-    - date (Date) }])
+Comment 
+ - id (UUID)
+ - author (User.id)
+ - text (string)
+ - date (Date) 
 
 ### Techs
 

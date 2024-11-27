@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const { Schema, model, Types: { ObjectId } } = mongoose;
+const { Schema, model, Types: { ObjectId } } = mongoose
 
 const user = new Schema({
     name: {
@@ -28,8 +28,13 @@ const user = new Schema({
     city: {
         type: String,
     },
-    postal_code: {
+    postalCode: {
         type: String,
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'], // Diferentes niveles de administrador
+        default: 'moderator',
     }
 })
 
@@ -46,7 +51,7 @@ const post = new Schema({
     text: {
         type: String,
         required: true,
-        maxLength: 200
+        maxLength: 500
     },
     date: {
         type: Date,
@@ -57,7 +62,7 @@ const post = new Schema({
         type: ObjectId,
         ref: 'User'
     }],
-    comments: [comment]
+    comments: ["comment"]
 }, { versionKey: false })
 
 
@@ -80,7 +85,6 @@ const comment = new Schema({
     }
 })
 
-
 const User = model('User', user)
 const Post = model('Post', post)
 const Comment = model('Comment', comment)
@@ -88,5 +92,6 @@ const Comment = model('Comment', comment)
 export {
     User,
     Post,
-    Comment
+    Comment,
+
 }

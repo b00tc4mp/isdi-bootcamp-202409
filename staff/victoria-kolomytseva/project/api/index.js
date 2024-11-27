@@ -17,7 +17,5 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.get('/', (_, res) => res.send('Hello, API!'))
 
-
-
     server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
 })
