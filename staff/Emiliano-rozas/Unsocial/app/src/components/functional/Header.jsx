@@ -6,11 +6,14 @@ import { Button, Anchor } from '../library'
 
 import logic from '../../logic'
 
+import useContext from '../../view/useContext'
 
 export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
 
     const location = useLocation()
+
+    const { alert } = useContext()
 
     useEffect(() => {
         console.log('Header -> componentDidMount')

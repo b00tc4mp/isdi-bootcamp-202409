@@ -4,8 +4,12 @@ import Comments from './Comments'
 import logic from '../../logic'
 import { getElapsedTime } from '../../utils'
 
+import useContext from '../../view/useContext'
+
 export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
     const [view, setView] = useState(null)
+
+    const { alert } = useContext()
 
     const {
         id,

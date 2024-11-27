@@ -1,19 +1,31 @@
+import { useState } from 'react'
+
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Login, Register, Home, CreatePost } from './view'
 
 import Hello from './view/Hello'
-
 import Search from './view/Search'
+import { Header, Footer, Alert } from './components/functional'
 
-import Header from './components/functional/Header'
-import Footer from './components/functional/Footer'
+
+import { Context } from './view/useContext'
 
 import logic from './logic'
 
 export default function App() {
-  const navigate = useNavigate()
+  const [alert, setAlert] = useState({
+    message: null,
+    level: 'error'
+  })
 
+  const [confirm, setConfirm] = useState({
+    message: null,
+    level: 'error',
+    callback: null
+  })
+
+  const navigate = useNavigate()
 
   const handleHomeclick = () => navigate('/')
 
@@ -33,28 +45,39 @@ export default function App() {
 
   const handleNewPostClick = () => navigate('/new-post')
 
-  console.log('App-> render')
+  const handleAlertAccepted = () => setAlert({
+    message: null,
+    level: 'error'
+  })
 
-  return <>
+  const handleConfirmAccepted = () => {
+    confirm.callback(true)
+
+    setConfirm({
+      message: null,
+      level: 'error',
+      callback: null
+    })
+  }
+
+  const handleConfirmCancelled = () => {
+    confirm.callback(false)
+
+    setConfirm({
+      message: null,
+      level: 'error',
+      callback: null
+    })
+  }
+
+  console.log('App -> render')
+
+  return < Context.Provider value={{
+    alert(message, level = 'error') { setAlert({ message, level }) },
+    confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+  }}>
 
     <Header onHomeClick={handleHomeclick} onLoggedOut={handleLoggedOut} />
-
-    {/* {view === "login" && <Login
-      onLoggedIn={handleLoggedIn}
-      registerInquire={handleRegister}
-    />}
-
-    {view === "register" && <Register
-      logBack={handleLogBack}
-      onRegistered={handleUserRegistered}
-    />}
-
-    {view === "posts" && <Posts />}
-
-    {view === 'new-post' && <CreatePost
-      onCreated={handlePostCreated}
-      onCancel={handleOnCanceled}
-    />} */}
 
     <Routes>
       <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleLoggedIn} registerInquire={handleRegister} />} />
@@ -72,7 +95,13 @@ export default function App() {
     </Routes>
 
     <Footer onNewPostClick={handleNewPostClick} />
-  </>
+
+    {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+
+    {confirm.message && <Confirm message={alert.message} level={confirm.level} onAccepted={handleConfirmAccepted} OnCancelled={handleConfirmCancelled} />}
+
+
+  </Context.Provider>
 }
 
 

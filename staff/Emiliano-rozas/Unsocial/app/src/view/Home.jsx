@@ -5,10 +5,13 @@ import { Post } from '../components/functional'
 import logic from '../logic'
 
 // import './Posts.css'
+import useContext from './useContext'
 
 
 export default function Home() {
     const [posts, setPosts] = useState([])
+
+    const { alert } = useContext()
 
     useEffect(() => {
         console.log('Home -> useEffect "componentDidMount"')

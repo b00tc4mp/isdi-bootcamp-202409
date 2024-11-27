@@ -2,11 +2,14 @@ import { PasswordInput, Input, Button, Form, Field, Label, Anchor } from '../com
 import { errors } from 'com'
 import './Register.css'
 import logic from '../logic'
+import useContext from './useContext'
 
 const { SystemError } = errors
 
 export default function Register(props) {
     console.log('Register -> render')
+
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()

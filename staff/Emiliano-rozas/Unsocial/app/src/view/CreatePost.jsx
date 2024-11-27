@@ -2,12 +2,14 @@ import logic from '../logic'
 
 import { Form, Label, Input, Button } from '../components/library'
 
+import useContext from './useContext'
 // import './CreatePost.css'
 
 
 export default function CreatePost({ onCreated, onCancel }) {
     console.log("Creapost -> render")
 
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
