@@ -5,6 +5,7 @@ import Comments from './Comments'
 import Comment from './Comment'
 import Alert from './Alert'
 import Confirm from './Confirm'
+import ThemeButton from './ThemeButton'
 
 export {
     Header,
@@ -13,5 +14,6 @@ export {
     Comments,
     Comment,
     Alert,
-    Confirm
+    Confirm,
+    ThemeButton
 }
