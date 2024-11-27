@@ -24,6 +24,21 @@ Player
 - Battle view - gameplay
 - Run 
 
+Pokemon
+- Life (decrease/increase)
+- Moves (damage, uses)
+- Level (string)
+
+
+Checkpoint (column)
+- Save game progress
+
+God Mode 
+- Teleport to exit 
+
+Settings Menu
+- Modify numerous options
+
 
 ### UXUI Design 
 
@@ -49,7 +64,7 @@ Player
 
 User - Anonymous(temporal)
 - id(UUID)
-- nickname (string)
+- nickname (random string)
 
 User - Registered
 - id (UUID)
@@ -68,8 +83,24 @@ Pokemon
 - genre (string)
 - life (number)
 - level (number) ???
-- moves ([{Name, damage, uses (??)}])
-- sprites ([images])
+- moves ([{move}])
+- sprites ([{sprite}])
+
+sprites 
+- backImageSprite (string)
+- frontImageSprite (string)
+
+move
+- name (string)
+- damage (number) 
+- uses (number)
+
+Settings
+- Brightness (slider)
+- General sound (slider)
+- SFX (slider)
+- music (slider)
+- language (button)
 
 ### Techs 
 
@@ -77,7 +108,7 @@ Pokemon
 - React (...)
 - Node (...)
 - Express (...)
-- Mongo (...)
+- MongoDB/SH (...)
 - Mocha & Chai (...)
 - [...]
 
