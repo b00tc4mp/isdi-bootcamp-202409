@@ -4,11 +4,15 @@ import { Login, Register, Home } from "./view/index.js"
 import { Header, Footer } from "./view/Components/index.js"
 
 function App() {
+  const navigate = useNavigate()
+  const handleUserLoggedIn = () => navigate("/")
+
   return (
     <>
-      {/* <h1>Hola mundo !</h1> */}
       <Header />
-      <Login></Login>
+      <Login />
+      {/* <Register /> */}
+      {/* <Home /> */}
 
       <Footer />
     </>

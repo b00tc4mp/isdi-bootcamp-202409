@@ -1,7 +1,7 @@
 import {
   PasswordInput,
   Input,
-  Button,
+  ButtonForm,
   Form,
   Field,
   Label,
@@ -36,7 +36,7 @@ export default function Register() {
           <PasswordInput type="password" id="passwordRepeat" />
         </Field>
 
-        <Button type="submit">Registro</Button>
+        <ButtonForm type="submit">Registro</ButtonForm>
       </Form>
 
       <Anchor>Atras</Anchor>

@@ -1,7 +1,9 @@
+import DanceAppLogo from "../assets/DanceAppLogo.png"
+
 import {
   PasswordInput,
   Input,
-  Button,
+  ButtonForm,
   Form,
   Field,
   Label,
@@ -11,24 +13,30 @@ import {
 export default function Login() {
   console.log("Login -> render")
   return (
-    <main className="flex justify-center items-center flex-col h-full box-border pt-40">
-      <h1>DanceApp!</h1>
-      <h3 className="text-center mt-10 mb-10">
-        Encuentra los mejores sociales y promociona tus clases o eventos
-      </h3>
+    <main className="flex justify-center items-center flex-col min-h-screen box-border bg-gradient-to-b from-secondary to-primary">
+      <div className="flex flex-col items-center mb-8">
+        <img
+          src={DanceAppLogo}
+          alt="Logo de DanceApp"
+          className="w-68 h-28 mb-4"
+        />
+        <h1 className="text-lg text-center text-white m-1.5 font-body">
+          Encuentra los mejores sociales y promociona tus clases o eventos
+        </h1>
+      </div>
       <Form>
         <Field>
-          <Label htmlFor="email">E-mail</Label>
-          <Input type="email" id="email" />
+          <Label htmlFor="email" className="text-white"></Label>
+          <Input type="email" id="email" placeholder="E-mail" />
         </Field>
         <Field>
-          <Label>Contraseña</Label>
-          <PasswordInput id="password" />
+          <Label></Label>
+          <PasswordInput id="password" placeholder="Contraseña" />
         </Field>
 
-        <Button type="submit">Entra</Button>
+        <ButtonForm type="submit">Entra</ButtonForm>
       </Form>
-      <p>¿ Aún no tienes cuenta ?</p>
+      <p className="text-white p-4">¿ Aún no tienes cuenta ?</p>
       <Anchor>REGISTRATE AQUÍ</Anchor>
     </main>
   )

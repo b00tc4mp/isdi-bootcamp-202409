@@ -10,16 +10,21 @@ db.connect(process.env.MONGO_URL_TEST)
   .then(() => fs.readFile("./users.csv", "utf-8"))
   .then((csv) => {
     const lines = csv.split("\n")
+    // console.log(lines)
 
     const creations = lines.map((line) => {
-      const [name, email, username, password, role] = line
+      const [name, email, password, role] = line
         .split(",")
         .map((item) => item.trim())
+      // console.log(name, email, password, role)
+
+      if (!name || !email || !password || !role) {
+        throw new Error(`Datos faltantes en línea: ${line}`)
+      }
 
       return User.create({
         name,
         email,
-        username,
         password: bcrypt.hashSync(password, 10),
         role,
       })
@@ -32,11 +37,11 @@ db.connect(process.env.MONGO_URL_TEST)
       const lines = csv.split("\n")
 
       const creations = lines.map((line) => {
-        const [username, image, text, date] = line
+        const [email, image, text, date] = line
           .split(",")
           .map((item) => item.trim())
 
-        const { _id: author } = users.find((user) => user.username === username)
+        const { _id: author } = users.find((user) => user.email === email)
 
         const likes = []
         const likesNumber = randomNumber(0, users.length)

@@ -22,14 +22,25 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
   server.get("/", (_, res) => res.send("Hello, API!"));
 
+
+  server.post('/users/auth', jsonBodyParser, createFunctionalHandler(async(req,res) => {
+    const {email, password} = req.body
+
+    const { id, role } = await logic.authenticateUser(email, password)
+
+    const token = await jwt.sign({ sub: id, role}, process.env.JWT_SECRET, { expiresIn: '6h'})
+    
+    res.json(token)
+  }))
+
   server.post(
     "/users",
     jsonBodyParser,
-    createFunctionalHandler((req, res) => {
-      const { name, email, username, password, passwordRepeat } = req.body;
+    createFunctionalHandler(async(req, res) => {
+      const { name, email, password, passwordRepeat } = req.body;
 
-      return logic
-        .registerUser(name, email, username, password, passwordRepeat)
+      await logic
+        .registerUser(name, email, password, passwordRepeat)
         .then(() => res.status(201).send());
     })
   );

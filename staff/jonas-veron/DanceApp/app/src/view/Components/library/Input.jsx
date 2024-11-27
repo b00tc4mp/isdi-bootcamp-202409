@@ -1,9 +1,10 @@
-export default ({ type, id }) => {
+export default ({ type, id, placeholder }) => {
   return (
     <input
       type={type}
       id={id}
-      className="h-8 w-64 text-gray-950 box-border text-sm font-medium bg-gray-300 rounded-xl border-solid p-2.5 delay-75 transition-colors "
+      className="w-64 h-10 p-2 text-white bg-transparent border-2 border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition duration-300 placeholder-gray-400 hover:bg-pink-500 hover:bg-opacity-10"
+      placeholder={placeholder}
     />
   )
 }

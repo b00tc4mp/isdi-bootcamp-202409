@@ -1,5 +1,5 @@
 export default ({ children }) => {
-  return <div className="Field flex flex-col">{children}</div>
+  return <div className="Field flex flex-col gap-8">{children}</div>
 }
 //TODO pasar a tailwind
 

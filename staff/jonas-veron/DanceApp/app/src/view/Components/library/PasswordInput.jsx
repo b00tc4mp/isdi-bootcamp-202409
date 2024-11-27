@@ -1,34 +1,28 @@
-//TODO convertir a setState y tailwind
-
 import { useState } from "react"
+import passwordClosed from "./../../../assets/password-closed.png"
+import passwordOpened from "../../../assets/password-opened.png"
 
-import Input from "./Input"
-
-export default function PasswordInput({ id }) {
-  const [status, setStatus] = useState("😌")
-  const [type, setType] = useState("password")
+export default function PasswordInput({ id, placeholder }) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const type = isPasswordVisible ? "text" : "password"
 
   const handleToggleClick = () => {
-    setStatus(status === "😌" ? "😳" : "😌")
-    setType(type === "password" ? "text" : "password")
+    setIsPasswordVisible(!isPasswordVisible)
   }
 
-  // console.log('PasswordInput -> render')
-
   return (
-    <div className="w-full">
-      <Input type={type} id={id} />
-      <span
-        style={{
-          cursor: "pointer",
-          position: "relative",
-          right: "30px",
-          fontSize: "16px",
-        }}
+    <div className="w-full relative">
+      <input
+        type={type}
+        id={id}
+        placeholder={placeholder || "Contraseña"}
+        className="w-64 h-10 p-2 text-white bg-transparent border-2 border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition duration-300 placeholder-gray-400 hover:bg-pink-500 hover:bg-opacity-10"
+      />
+      <img
+        src={isPasswordVisible ? passwordOpened : passwordClosed}
         onClick={handleToggleClick}
-      >
-        {status}
-      </span>
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 cursor-pointer"
+      />
     </div>
   )
 }

@@ -21,13 +21,6 @@ const user = new Schema(
       match:
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
     },
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-      minLength: 3,
-      maxLength: 20,
-    },
     password: {
       type: String,
       required: true,
@@ -42,7 +35,7 @@ const user = new Schema(
     permission: {
       type: String,
       enum: ["read", "write"],
-      default: ["read"],
+      default: "read",
     },
     registeredAt: { type: Date, default: Date.now },
   },
