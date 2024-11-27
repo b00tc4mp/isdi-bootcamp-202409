@@ -90,6 +90,7 @@ Review/Recommendation (mongo)
 - author (User.id)
 - city (string)
 - country (string)
+- price (number)
 - link (string) // url || google map
 - text (string)
 - date (Date)
