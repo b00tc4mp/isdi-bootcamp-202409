@@ -1,0 +1,9 @@
+.Input {
+    display: flex;
+    justify-content: center;
+
+    background-color: white;
+    font-family: inherit;
+    border: 2px solid var(--color);
+    border-radius: 10px;
+}

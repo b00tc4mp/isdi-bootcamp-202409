@@ -1,0 +1,17 @@
+.Input {
+    width: 100%;
+    padding: 0.75rem; /* Asegúrate de que el padding sea el mismo para ambos inputs */
+    margin: 0.5rem 0; /* Ajusta el margen según lo necesario */
+    background-color: #ffffff;
+    color: #000;
+    font-family: inherit;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño del input */
+    outline: none;
+}
+
+
+.Input:focus {
+    border: 3px solid #005f00;
+}

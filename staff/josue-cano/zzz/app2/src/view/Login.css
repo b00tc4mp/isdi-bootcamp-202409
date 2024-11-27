@@ -1,0 +1,13 @@
+.Login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: black; 
+    color: #ffffff;
+    font-family: "Antisocial", sans-serif; 
+    border-radius: 10px;
+  
+}

@@ -1,0 +1,28 @@
+
+.Post img {
+    max-width: 100%; 
+    height: auto;
+    border-radius: 8px; 
+    margin-bottom: 15px;
+    max-height: 500px;
+}
+
+.Post h3, .Post p {
+    color: #ffffff;
+    text-align: center; 
+    margin: 5px 0;
+}
+
+
+.Posts {
+    overflow: auto;
+    padding: 1rem;
+}
+
+
+@media (max-width: 600px) {
+    .Post {
+        max-width: 95%; 
+        padding: 15px;
+    }
+}

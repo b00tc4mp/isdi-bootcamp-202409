@@ -1,0 +1,10 @@
+.CreatePost {
+    padding-top: 3rem;
+    background-color: rgba(0, 0, 0, 0.85); /* Ajuste de opacidad */
+    color: #ffffff;
+    border-radius: 12px; 
+    padding: 2rem; /* Ajustar el padding */
+    margin: auto;
+    max-width: 90%; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
+}

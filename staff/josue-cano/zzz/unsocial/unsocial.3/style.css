@@ -1,0 +1,56 @@
+@import url("https://fonts.cdnfonts.com/css/antisocial");
+
+body {
+  background-color: black;
+  font-family: "Antisocial", sans-serif;
+  color: #ffffff;
+}
+h1 {
+
+
+  text-align: center;
+}
+section {
+  
+  width: 300px; 
+  padding: 20px; 
+  background-color: #585656; 
+  border: 2px solid #ccc; /* Borde del div */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del div */
+  margin: 20px auto; 
+  text-align: center;
+
+}
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+a {
+  color: inherit; /* Mantiene el color del texto padre */
+  text-decoration: none; 
+  }
+
+a:hover {
+      color: #f31212; 
+      }
+
+input{
+        margin-bottom: 20px;
+      }
+button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  
+}

@@ -1,0 +1,15 @@
+.Input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    background-color: #ffffff;
+    color: #000;
+    font-family: inherit;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+}
+
+.Input:focus {
+    border: 3px solid #005f00;
+}

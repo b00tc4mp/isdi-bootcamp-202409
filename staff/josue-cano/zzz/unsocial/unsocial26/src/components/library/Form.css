@@ -1,0 +1,11 @@
+.Form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    margin: 1rem;
+    border: 1px solid #ffffff;
+    width: 40%;
+    height: 50%;
+}
