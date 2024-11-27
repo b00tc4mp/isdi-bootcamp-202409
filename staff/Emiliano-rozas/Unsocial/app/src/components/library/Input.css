@@ -1,0 +1,12 @@
+input {
+    background-color: white;
+    font-family: inherit;
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fcf9f9;
+    border-radius: 4px;
+    /* accent-color: #0000ff; */
+    caret-color: #7F462C;
+
+}

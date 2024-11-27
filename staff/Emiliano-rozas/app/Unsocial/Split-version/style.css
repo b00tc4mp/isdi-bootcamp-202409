@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+
+:root {
+    --color: #7F462C;
+    --font: 'Sixtyfour';
+    font-family: var(--font);
+}
+
+body {
+    background-color: lightgrey;
+    color: var(--color);
+    background-image: url(https://www.italyguides.it/images/gridfolio/rome/the-vatican-museums/the-school-of-athens/the-school-of-athens-0.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+input {
+    background-color: white;
+    font-family: inherit;
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fcf9f9;
+    border-radius: 4px;
+}
+
+a:visited {
+    color: var(--color);
+}
+
+ul {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+}
+
+section {
+    align-content: center;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #dcd7d7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+h2,
+h3 {
+    text-align: center;
+    color: black;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size-adjust: inherit;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #7F462C;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f86109;
+}
+
+a {
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    color: #7F462C;
+}
+
+a:hover {
+    color: #cc4b0f;
+}
+
+form {
+    padding: 30px;
+}
+
+img {
+    border: 1px solid;
+    border: 2cap;
+}

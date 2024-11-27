@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: rgb(0, 0, 85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .calculadora {
+            background-color: aliceblue;
+            color: antiquewhite;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            width: 350px;
+            max-width: 100%;
+            padding: 1, 5rem;
+            border-radius: 1rem;
+            gap: .5rem;
+        }
+
+        .pantalla {
+            grid-column: 1/-1;
+            background-color: rgb(14, 22, 133);
+            padding: 1.5rem;
+            font-size: 2rem;
+            text-align: right;
+            border-radius: 5.rem;
+            margin-bottom: 1rem;
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        .btn {
+            background-color: blue;
+            color: white;
+            border: 0;
+            padding: 1.5rem, 5rem;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 5rem;
+        }
+
+        .btn:hover {
+            background-color: black;
+        }
+
+        #cero {
+            grid-column: span 2;
+        }
+
+        #igual {
+            grid-row: span2;
+            background-color: brown;
+
+        }
+
+        #igual:hover {
+            background-color: brown;
+        }
+    </STYLe>
+</head>
+
+<body>
+    <div class="calculadora">
+        <div class="pantalla">0</div>
+        <button id="c" class="btn">C</button>
+        <button id="borrar" class="btn">←</button>
+        <button class="btn">/</button>
+        <button class="btn">*</button>
+        <button class="btn">7</button>
+        <button class="btn">8</button>
+        <button class="btn">9</button>
+        <button class="btn">-</button>
+        <button class="btn">4</button>
+        <button class="btn">5</button>
+        <button class="btn">6</button>
+        <button class="btn">+</button>
+        <button class="btn">1</button>
+        <button class="btn">2</button>
+        <button class="btn">3</button>
+        <button id="igual" class="btn">=</button>
+        <button id="cero" class="btn">0</button>
+        <button class="btn">.</button>
+    </div>
+
+
+    <script>
+        var pantalla = document.querySelector(".pantalla")
+        var botones = document.querySelectorAll(".btn")
+
+        botones.forEach(function (boton) {
+            boton.addEventListener("click", function () {
+                var botonApretado = boton.textContent
+
+
+                if (boton.id === "c") {
+                    pantalla.textContent = "0";
+                    return
+                }
+                if (boton.id === "borrar") {
+                    if (pantalla.textContent.length === 1) {
+                        pantalla.textContent = "0";
+                    }
+                    pantalla.textContent = pantalla.textContent.slice(0, -1);
+                    return;
+                }
+                if (boton.id === "igual") {
+                    pantalla.textContent = eval(pantalla.textContent);
+                    return
+                }
+
+                if (pantalla.textContent === "0") {
+                    pantalla.textContent = botonApretado
+                } else {
+                    pantalla.textContent += botonApretado
+                }
+            })
+        })
+
+
+    </script>
+</body>
+
+</html>

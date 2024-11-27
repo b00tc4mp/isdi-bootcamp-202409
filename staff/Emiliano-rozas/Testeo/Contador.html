@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de los pibe</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: dodgerblue;
+            margin-bottom: 20px;
+        }
+
+        section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        input {
+            width: 80px;
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            color: white;
+            background-color: dodgerblue;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1e90ff;
+            /* Color más oscuro al pasar el mouse */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Calculame esta</h1>
+
+    <section>
+        <label> Contador</label>
+        <input type="text" value="0" class="form-control" id="contador">
+        <button type="button">Sumar</button>
+        <button type="button">Restar</button>
+    </section>
+
+    <script>
+        var contador = document.getElementById("contador")
+
+        var button = document.querySelectorAll("button")
+
+        var clicks = 0;
+
+        var suma = button[0]
+
+        suma.onclick = function () {
+            var clicks = parseInt(contador.value) || 0
+            clicks += 1;
+            contador.value = clicks
+            // sumar.value = "0"
+        }
+
+        var resta = button[1]
+
+        resta.onclick = function () {
+            var clicks = parseInt(contador.value) || 0
+            if (clicks > 0) clicks -= 1;
+            contador.value = clicks
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>
