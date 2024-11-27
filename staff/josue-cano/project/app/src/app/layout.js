@@ -2,6 +2,7 @@
 import "./globals.css";
 import TheFooter from "./ui/TheFooter";
 import TheHeader from "./ui/TheHeader";
+import SearchComponent from "./ui/SearchComponent";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
         <TheHeader />
         {children}
         <TheFooter />
+       
       </body>
     </html>
   );

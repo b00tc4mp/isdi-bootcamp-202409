@@ -1,5 +1,5 @@
 # Ekoality
-
+![](https://www.icegif.com/wp-content/uploads/2021/11/icegif-934.gif)
 ## Intro
 
 Ekoality es una plataforma web que busca crear una red de colaboración entre agricultores profesionales, aficionados y consumidores interesados en adquirir frutas y verduras frescas, entre otras cosechas, saludables y de origen local. La plataforma proporcionará una interfaz fácil de usar y accesible, donde los agricultores podrán publicar y promocionar sus productos, compartiendo información relevante como la variedad, cantidad disponible, prácticas agrícolas y ubicación del huerto. Los consumidores, por su parte, podrán buscar y seleccionar productos según sus preferencias y necesidades, comunicándose directamente con los agricultores a través de la plataforma para acordar la recogida en un punto intermedio o el envío de los productos adquiridos.
@@ -18,7 +18,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - Buscar producto
 - Añadir a favoritos
 - Añadir reseña
-- Conversar
+- Conversar**?
 - Ver un producto
 - Publicar un producto
 - Modificar un producto
@@ -78,9 +78,9 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - **id_ubicacion** (ObjectId)   
 - **fechaRegistro** (date)  
 - **rol** (string, enum: "admin" | "moderator" | "user")  
-- **pro** (number or Bolean?)  
+- **pro** (string or Bolean?)  
 - **valoracion** (number)  
-- **online** (number)  
+- **online** (string or bolean)  
 - **is_banned** (boolean)  
 
 ---
@@ -132,8 +132,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - **id** (ObjectId)  
 - **puntuacion** (number)  
 - **comentario** (string)  
-- **fechaCreacion** (date)  
-- **receptor** (ObjectId)  
+- **fechaCreacion** (date)   
 - **escritor** (ObjectId)  
 - **idProducto** (ObjectId)  
 

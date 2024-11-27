@@ -50,8 +50,8 @@ export default function TheHeader() {
             <Image
               src="/img/ekoalityLogo.png"
               alt="Ekoality Logo "
-              width={80}
-              height={80}
+              width={100}
+              height={100}
             />
           </Link>
         </div>
@@ -103,9 +103,11 @@ export default function TheHeader() {
             </li>
           </ul>
 
-          <a className="btn btn-primary text-white btn-sm rounded-full">Registrate</a>
+          <a className="btn btn-primary text-white btn-sm rounded-full">
+            Registrate
+          </a>
 
-          <a className="btn btn-warning btn-sm ml-2 rounded-full btn-outline">
+          <a className="btn btn-primary btn-sm ml-2 rounded-full btn-outline">
             Inicia Sesion
           </a>
         </div>
