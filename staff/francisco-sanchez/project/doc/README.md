@@ -2,15 +2,17 @@
 
 ## Intro
 
-El presente proyecto desarrolla una aplicación enfocada en la gestión del tiempo para freelancers o cualquier persona que venda servicios o tiempo en general. 
+El presente proyecto desarrolla una aplicación enfocada en la gestión del tiempo o "unidades de sesión" para cualquier persona suceptible de vender o comprar servicios que impliquen tiempo o sesiones de otra persona. Idealmente está pensada para freelancers, aunque es extendible a prácticamente la totalidad de la población. 
 
-Cuando un profesional que vende servicios trabaja con muchos clientes simultáneamete, y cada uno de ellos contrata un numero variable de horas, la gestión puede ser algo complicada. Obligando a los profesionales a construir complejas horas de excel para saber en qué punto se encuentra con cada cliente. 
+Cuando un profesional que vende servicios trabaja con muchos clientes simultáneamete, y cada uno de ellos contrata un numero variable de horas / sesiones, la gestión se puede volver complicada. Obligando a los profesionales a construir complejas hojas de excel para saber en qué punto se encuentra con cada cliente. 
 
-El objetivo principal de esta aplicación será, por tanto, mejorar la eficiencia de los profesionales simplificando esta parte de su flujo de trabajo. 
+El objetivo principal de esta aplicación será, por tanto, mejorar la gestion del tiempo / sesiones  de personas que intercambian servicios,
 
 A modo de ejemplo, un freelance que vendre horas de programación, diseño web, ilustración, escritura... podrá gestionionar packs de horas, asignarlos a sus clientes, y controlar de forma precisa el tiempo que destina a cada uno de ellos. 
 
-La aplicación permitirá mostrar de una forma visual y sencilla, el estado de un cliente, saber si ha pagado, consultar el estado de horas disponibles, el registro de tiempo consumido, así como el envío de notificaciones al cliente cuando esto sea necesario. 
+Por otro lado, un psicologo que vende sesiones de 45 minutos, podrá usar también la aplicación gestionando unidades de sesión, y no unidades de tiempo, mejorando de esta forma la usabilidad. 
+
+La aplicación permitirá mostrar de una forma visual y sencilla, el estado de un cliente, saber si ha pagado, consultar el estado de horas o sesiones disponibles, el registro de tiempo consumido, así como el envío de notificaciones al cliente cuando esto sea necesario. 
 
 El cliente, por su lado, podrá ver el estado de su pack de horas contratadas, así como el tiempo consumido por el freelance, y en qué se ha consumido el tiempo. También podrá recibir notificaciones tras la compra de un pack, o cuando le queden pocas horas por consumir, para que pueda decidir si tiene que adquirir más tiempo. 
 
@@ -22,7 +24,7 @@ Este programa lo podrán utilizar personas como:
 - Medicos y profesionales de la salud, 
 - Pintores, ilustradores y fotógrafos, 
 - Gestores, consultores, auditores,
-- Y, en general, cualquier profesional suceptible de vender servicios a horas o franjas horarias.
+- Y, en general, cualquier persona suceptible de vender servicios a horas o sesiones.
 
 
 ![](url de la imagen a mostrar)
@@ -31,21 +33,21 @@ Este programa lo podrán utilizar personas como:
 
 ### Use Cases v.0
 
-Customer (User)
+User Standard
 - Consultar / modificar datos personales
-- Consultar estado de sus packs de horas
+- Consultar estado de sus packs de horas contratadas
 - Visualizar estado pago
-- Visualizar Tiempo consumido / disponible
+- Visualizar Tiempo o unidades consumido / disponible
 - Visualizar historial de registros
-- Mensajería con el freelance asignado
+- Mensajería con los otros usuarios de la plataforma
 
-
-Freelance (User)
+User Provider
 - Gestión de clientes (CRUD)
 - Gestión de packs (CRUD)
 - Asignación de packs a clientes
+- Crear usuarios "fake" (para poder asignar un pack si el usuario cliente todavía no existe en la plataforma)
 - Gestionar tiempo de los packs (aumentar, disminuir, via temporizador)
-- Crear log de registro
+- Gestionar unidades de los packs
 - Envio de notificaciones al cliente.   
 
 ### UXUI Design
@@ -80,12 +82,82 @@ Freelance (User)
 
 ### Data Model
 
-Usercd
-- name (string)
-- email (string)
+PackConfig
+- id (UUID)
+- userId (Users.id)
+- packName (string)
+- packDescription (string)
+- quantity (num)
+- measureUnit (string, enum: hours | units)
+- expiring (num) -> 0 to 12months (0 = infinite)
+- price (num)
+- currency (string, enum: EUR | USD, default: EUR)
+
+
+Users
+- id (UUID)
 - username (string)
 - password (string)
-- role (string, enum: regular | moderator)
+- plan (string, enum: free | pro)
+- planExpiryDate (Date)
+- roles ([string, enum: standard | provider])
+- dni (string)
+- name (string)
+- surname1 (string)
+- surname2 (string)
+- address {
+    country (string)
+    province (string)
+    city (string)
+    cp (string)
+    street (string)
+    street2 (string)
+    number (num)
+    flat (num)
+}
+- email (string)
+- legalName (string)
+- website (string)
+- CreationStatus (string, enum: true | false | confirmation pending)
+- ownPacks ([Pack.id])
+- adquiredPacks ([Pack.id])
+
+
+Pack
+- id (UUID)
+- idProviderUser (UUID)
+- idCustomerUser (UUID)
+- description
+- originalQantity (num)
+- remainingQantity (num)
+- measureUnit (string, enum: hours | units)
+- price
+- currency (string, enum: EUR | USD, default: EUR)
+- purchaseDate (date)
+- expireDate (date, enum: Date | Null)
+- paymentStatus (string, enum: Pending | Partially Payed | Payed | Refunded) 
+- packStatus (string, enum: Pending | Active | Expired | Finnished)
+
+
+History
+- id (UUID)
+- idPack (Pack.id)
+- date (date)
+- description (string)
+- operation (string, enum: add | substract)
+- quantity (num)
+- measureUnit (string, enum: hours | units) ???
+- remaingQuantity (num)  ???
+
+
+Payment
+- id (UUID)
+- idPack(Pack.id)
+- amount (num)
+- currency (string, enum: EUR | USD, default: EUR)
+- date (date)
+- paymentMethod (string, enum: card | bank_transfer | paypal | stripe)
+- paymentStatus (string, enum: pending | completed | canceled | refunded)
 
 ### Test Coverage
 
