@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useLocation } from 'react-router-dom'
 
+import { ThemeButton } from '.'
 import { Button } from '../library'
 
 import logic from '../../logic'
@@ -10,10 +11,14 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
+import useContext from '../useContext'
+
 export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
 
     const location = useLocation()
+
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
@@ -51,18 +56,13 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     }
 
     const handleLogout = () => {
-        try {
-            const confirmLogout = window.confirm('Are you sure you want to logout?')
-
-            if (confirmLogout) {
+        confirm('Are you sure you want to logout?', accepted => {
+            if (accepted) {
                 logic.logoutUser()
+
                 onLoggedOut()
             }
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
+        }, 'warn')
     }
 
     console.log('Header -> render')

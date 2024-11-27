@@ -14,6 +14,7 @@
     --color: rgb(25, 19, 18);
     --font: 'Press Start 2P';
     --back-color: rgb(214, 213, 213);
+    --back-color-dark: black;
     font-family: var(--font);
 }
 

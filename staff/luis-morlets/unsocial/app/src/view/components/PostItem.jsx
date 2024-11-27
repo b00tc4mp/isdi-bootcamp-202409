@@ -11,8 +11,12 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
+import useContext from '../useContext'
+
 export default function PostItem({ post, onLiked, onDeleted, onCommented, onCommentRemoved }) {
     const [view, setView] = useState(null)
+
+    const { alert, confirm } = useContext()
 
     const { id, author, image, text, date, liked, likes, comments } = post
 
@@ -36,26 +40,26 @@ export default function PostItem({ post, onLiked, onDeleted, onCommented, onComm
     }
 
     const handleDeleteCLick = () => {
-        const confirmDelete = window.confirm('Are you sure you want to delete this post?')
+        confirm('Are you sure you want to delete this post?', accepted => {
+            if (accepted) {
+                try {
+                    logic.deletePost(id)
+                        .then(onDeleted)
+                        .catch(error => {
+                            if (error instanceof SystemError)
+                                alert('Something went wrong, try again later.')
+                            else
+                                alert(error.message)
 
-        if (confirmDelete) {
-            try {
-                logic.deletePost(id)
-                    .then(onDeleted)
-                    .catch(error => {
-                        if (error instanceof SystemError)
-                            alert('Something went wrong, try again later.')
-                        else
-                            alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
 
-                        console.error(error)
-                    })
-            } catch (error) {
-                alert(error.message)
-
-                console.error(error)
+                    console.error(error)
+                }
             }
-        }
+        })
     }
 
     const handleCommentsClick = () => setView(view ? null : 'comments')

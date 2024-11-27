@@ -5,6 +5,9 @@ import PostItem from './PostItem'
 import Comment from './Comment'
 import Comments from './Comments'
 import AddComment from './AddComment'
+import Alert from './Alert'
+import Confirm from './Confirm'
+import ThemeButton from './ThemeButton'
 
 export {
     CreatePost,
@@ -13,5 +16,8 @@ export {
     PostItem,
     Comment,
     Comments,
-    AddComment
+    AddComment,
+    Alert,
+    Confirm,
+    ThemeButton
 }
