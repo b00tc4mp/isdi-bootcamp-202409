@@ -1,4 +1,4 @@
-const createFunctionalHandler =
+export default callback =>
     async (req, res, next) => {
         try {
             await callback(req, res)
@@ -6,5 +6,3 @@ const createFunctionalHandler =
             next(error);
         }
     }
-
-export default createFunctionalHandler;

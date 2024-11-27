@@ -1,16 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
+import { ThemeButton } from '.'
 import { Button } from '../library';
 
 import logic from '../../logic';
 
-import './Header.css'
+import useContext from '../useContext';
 
-import useContext from '../useCo    ntext';
-
-export default function Header({ view, onHomeClick, onLoggedOut }) {
+export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null);
 
     const location = useLocation()
@@ -55,10 +54,12 @@ export default function Header({ view, onHomeClick, onLoggedOut }) {
     }
     console.log('Header -> render');
 
-    return <header className='Header'>
+    return <header className='dark:bg-[var(--back-color-dark)] bg-[var(--back-color)] p-4 h-12 box-border flex justify-between items-center fixed top-0 w-full'>
         <h1>{location.pathname === '/new-post' ? <a href='' onClick={handleHomeClick}>unSocial</a> : 'unSocial'}</h1>
 
-        {name && <h3>{name}</h3>}
+        {name && <h3 className='dark:text-white'>{name}</h3>}
+
+        <ThemeButton />
 
         {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
     </header>

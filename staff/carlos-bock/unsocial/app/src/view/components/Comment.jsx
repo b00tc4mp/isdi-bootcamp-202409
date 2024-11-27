@@ -2,7 +2,7 @@ import { Button } from '../library'
 
 import logic from '../../logic'
 
-import { getElapsedTime } from '../../util'
+import getElapsedTime from '../../util/getElapsedTime.js'
 
 export default function Comment({ postId, comment: { id, author, text, date }, onRemoved, }) {
     console.log('Comment -> render')
