@@ -7,7 +7,9 @@ Inspirado en el negocio en el cual pase casi toda mi vida, este sitio web permit
 
 ## 💡Functional Overview
 
-### 🎯 User Use Cases
+### 🎯Use Cases
+
+ #### User 
 
 - 🔍 Browse comics by category, author, or publisher
 
@@ -23,13 +25,10 @@ Inspirado en el negocio en el cual pase casi toda mi vida, este sitio web permit
 
 - 📦 Track order status
 
-### Admin Functionalities
-- 🗂️ Manage product listings 
-   - add
-   - edit 
-   - delete
+#### Admin 
+- 🗂️ Manage product listings ( add | edit | delete)
 
-- 📈 Manage clients orders
+- 📈 Manage clients orders (change status)
 
 - 📢 Review and respond to user feedback
 
@@ -69,82 +68,59 @@ Here are the initial wireframes for an intuitive, responsive interface. The desi
 ### 🗃️ Data Model
 
 ### User
-- id (UUID)
-
-- Name ('string')
-
-- Email ('string')
-
-- Username ('string')
-
-- Password ('string')
-
-- role ('string'): 'user'
-
-### Admin
-- id (UUID)
-
-- Name ('string')
-
-- Email ('string')
-
-- Username ('string')
-
-- Password ('string')
-
-- role ('string'): 'admin'
-
-- modifiedProducts: 
-    - productId (UUID)
-    - action ('string'): 'create' | 'edit' | 'delete',
-    - timestamp (Date)
-  
-
-- managedOrders:
-   - orderId (UUID)
-   - action ('string'): 'status change' | 'refund' | 'cancel',
-   - timestamp (Date)
-
-
-
+- id(uuid)
+- name(string)
+- email(string)
+- username (string)
+- password (string)
+- role (string, enum: user , admin)
 ### Product
-- id (UUID)
-
-- Title ('string')
-
-- Author ('string')
-
-- Publisher ('string')
-
+- id (uuid)
+- title (string)
+- author (string)
+- publisher (string)
+- isbn (string)
 - Price (number)
+- Description (string)
+- Category (string)
+- status (string , enum: published | draft | deactivated)
+- stock(number)
+- Image (string)
+- reviews([Review])
+- created at (Date) 
+- modified at (Date,optional) 
 
-- Description ('string')
+### Review
+- id (uuid)
+- user (User.id)
+- rating (number)
+- comment (string)
+- date(date)
 
-- Category ('string')
+### CartItem
+- id (uuid)
+- product(Product.id)
+- quantity(number)
 
-- Stock (boolean)
-
-- Image ('string'')
-
-- Reviews:
-   - id (UUID)
-   - user (User.id)
-   - rating (number)
-  - comment ('string'')
-
-
-### Order
-- id (UUID)
-
-- user (User.id)r
-
-- items ([Product.id])
-
+### Cart
+- id(uuid)
+- user (User.id)
+- items ([CartItem])
 - totalPrice (number)
 
-- date (Date)
+### OrderItem
+- id (uuid)
+- product(Product)
+- quantity(number)
 
-- status (Property?)
+### Order
+- id (uuid)
+- user (User.id)
+- items ([OrderItem])
+- totalPrice (number)
+- created at (Date) 
+- modified at (Date,optional) 
+- status (string, enum:confirmed | refund | cancel)
 
 
 ### 🚀 Technologies Used

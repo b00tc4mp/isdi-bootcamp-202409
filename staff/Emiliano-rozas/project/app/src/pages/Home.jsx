@@ -4,6 +4,7 @@ import LatestArrivals from '../components/LatestArrivals.jsx'
 import BestSeller from '../components/BestSeller.jsx'
 import Policy from '../components/Policy.jsx'
 import Newsletter from '../components/Newsletter.jsx'
+import Footer from '../components/Footer.jsx'
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <BestSeller />
             <Policy />
             <Newsletter />
+            <Footer />
         </div>
     )
 }
