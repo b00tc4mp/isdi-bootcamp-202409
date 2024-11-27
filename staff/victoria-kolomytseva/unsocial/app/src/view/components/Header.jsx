@@ -8,10 +8,14 @@ import logic from '../../logic'
 
 import './Header.css'
 
+import useContext from '../useContext'
+
 export default function Header({ onHomeClick, onLoggedOut }) {
     const [name, setName] = useState(null)
 
     const location = useLocation()
+
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         console.log('Header -> componentDidMount & componentWillReceiveProps')
@@ -31,7 +35,6 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
                     console.error(error)
                 }
-
         } else setName(null)
     }, [location.pathname])
 
@@ -42,17 +45,19 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     }
 
     const handleLogout = () => {
-        if (confirm('Logout?')) {
-            logic.logoutUser()
+        confirm('Logout?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
 
-            onLoggedOut()
-        }
+                onLoggedOut()
+            }
+        }, 'warn')
     }
 
     console.log('Header -> render')
 
     return <header className="Header">
-        <h1>{location.pathname === '/new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
+        <h1> {location.pathname === '/new-post' ? <a href="" onClick={handleHomeClick}>Unsocial</a> : 'Unsocial'}</h1>
 
         {name && <h3>{name}</h3>}
 
