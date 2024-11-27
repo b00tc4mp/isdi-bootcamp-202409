@@ -1,0 +1,7 @@
+.Field {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    padding: 10px;
+    position: relative;
+}

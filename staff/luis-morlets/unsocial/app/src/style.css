@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --color: rgb(25, 19, 18);
+    --font: 'Press Start 2P';
+    --back-color: rgb(214, 213, 213);
+    --back-color-dark: black;
+    font-family: var(--font);
+}
+
+body {
+    color: var(--color)
+}
+
+a:visited {
+    color: var(--color);
+}
