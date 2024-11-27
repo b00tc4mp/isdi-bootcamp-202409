@@ -84,24 +84,24 @@ Character
 - affiliation (string)
 - race (string)
 - devilfruit (Devilfruit.id, optional)
-- observation (boolean)
-- armament (boolean)
-- conqueror (boolean)
 - bounty (bigint)
 - height (number)
-- sea (string)
-- town (string)
 - firstArc (Arc.id)
 - description (string)
+- armament (boolean)
+- conqueror (boolean)
+- observation (boolean)
+- sea (string)
+- town (string)
 
 Condition
-- id (ObjectId)
-- type (string, enum: equal | greater than equal | lower than equal)
-- property (string)
-- value (any)
-- direction (string, enum: row | column)
-- index (number)
-- text (string)
+- id (ObjectId) <!-- el id -->
+- type (string, enum: equal | greater than equal | lower than equal) <!-- para poder hacer la comparación -->
+- property (string) <!-- que propiedad queremos comparar -->
+- value (any) <!-- el valor de la propiedad que queremos comparar -->
+- direction (string, enum: row | column) <!-- la direccion de la condición para evitar exclusiones -->
+- index (number) <!-- el indice en el que estara la condición en el tablero -->
+- text (string) <!-- el texto que se imprimirá por pantalla en el minijuego para decirle la condicion al usuario -->
 
 ### Test Coverage
 
