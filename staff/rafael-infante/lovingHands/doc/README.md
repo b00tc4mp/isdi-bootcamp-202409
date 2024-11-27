@@ -2,7 +2,7 @@
 
 ## Intro
 
-This is a Mobile app for elderly people who need some assistance at home.
+This is a web app for elderly people who need some assistance at home.
 
 ![](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3BoOGxjemJqb29kdmFjbml5dWdyemhodW03aGYzM2EwMHkyNWlkYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/icamgh2X6Cego/giphy.webp)
 
@@ -65,27 +65,35 @@ User
 - email (string)
 - username (string)
 - password (string)
-- rating (object)
+- reviews ([Review])
 - role (string, enum: caregiver | elder)
-- permission (string, enum: read | write)
 
-Rating
+Review
 
-- stars (number)
+- id (uuid)
+- user (User.id)
+- rating (number)
 - reviews (string)
+- date (date)
 
 Post
 
 - id (uuid)
-- author (string)
+- author ([Author])
 - image (string)
-- text(string)
+- description (string)
 - date (Date)
-- comments (object)
+- comments ([Comment])
+
+Author
+
+- id (User.id)
+- username(User.username)
 
 Comment
 
 - id (uuid)
+- author (User.id)
 - comment (string)
 
 ### Test Coverage
