@@ -2,9 +2,11 @@
 
 ## Intro
 
-This app is designed for menstruating people to be your **everyday companion** to stay organized and in control. Whether you want to keep track of symptoms, set reminders for important dates, or discover tips and music for each phase of your cycle, Period adapts to your needs and helps you **sync with your body**.
+This app is designed for menstruating people to be your **everyday companion** to stay organized and in control.
 
-With a clean and intuitive design, Period **empowers you** to better understand your body and make informed decisions about your health and wellness. It’s more than just tracking—it’s about **embracing your rhythm** and thriving every day of the month.
+Whether you want to **keep track of symptoms**, set **reminders** for important dates, or discover **tips and music** for each phase of your cycle, Period adapts to your needs and helps you **sync with your body**.
+
+It’s more than just tracking—it’s about **embracing your rhythm** and thriving every day of the month.
 
 ![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcno0Z21nOWxudXRiNXhlajY3dWF5eDBwM3Vjdm9xMnhzaThtcDZtdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/j10NjRC0rU0IrIIbaA/giphy.gif)
 
@@ -14,10 +16,9 @@ With a clean and intuitive design, Period **empowers you** to better understand 
 
 User
 - create/update/delete period start and end dates to calendar
-- create/update/delete events with or without reminder to calendar
 - create/update/delete a log of daily symptoms and activities
+- create/read reminders
 - read data about your current cycle
-- read events reminders
 - read reports of the last cycles    
 - read predictions for the next cycle in the calendar
 - read user profile
@@ -60,14 +61,14 @@ Cycle
 - start (Date)
 - end (Date, optional)
 - periodEnd (Date)
-<!-- - isRegular (se queda cortito | regular | muy largo) -->
-- dailyLogs: ([DailyLog.id])
+<!-- - state (string, enum: ongoing | completed) -->
+- dailyLogs ([DailyLog.id])
+<!-- - preferences ({ reminderTime (Time), trackSymptoms (boolean), showTips (boolean) }) -->
 
 DailyLog
 - id (ObjectId)
 - cycle (Cycle.id)
 - date (Date)
-<!-- - pregnancyChance (string, enum: low | medium | high) -->
 - symptoms (string, enum: fatigue | headache | cramps | tender breasts | acne | backache | cravings | abdominal pain | dryness)
 - mood (string, enum: calm | happy | mood swings | sad | anxious)
 - energy (string, enum: low | medium | high)
@@ -76,26 +77,22 @@ DailyLog
 - sexualActivity (string, enum: didn't have sex | had sex)
 - sexualEnergy (string, enum: low | medium | high)
 
-Event
+<!-- Event -->
+Reminder
 - id (ObjectId)
 - user (User.id)
 - date (Date)
 - title (string)
-- description (string)
-- reminder (boolean)
-- recurrence (Recurrence)
-
-Recurrence
-- id (ObjectId)
-- type (string, enum: daily, weekly, monthly)
-- interval (number)
+<!-- - description (string) -->
+<!-- - reminder (boolean) -->
+<!-- - recurrence (string, enum: daily | weekly | monthly) -->
 
 Tip
 - id (ObjectId) 
+- date (Date)
 - phase (string, enum: menstruation | follicular | ovulation | luteal)
 - category (string, enum: nutrition | exercise | self-care | music)
 - description (string)
-- date (Date)
 
 ### Techs
 
