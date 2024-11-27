@@ -26,7 +26,7 @@ Veterinary
 
 ### UXUI Design
 
-[Figma](https://www.figma.com/proto/MdMenDvnLaNrxePvxs9ZJY/Untitled?node-id=4-3&starting-point-node-id=4%3A3)      [Figma2](https://www.figma.com/design/MdMenDvnLaNrxePvxs9ZJY/Untitled?node-id=56-1612&node-type=frame&t=C8ujcCqD3h9GtuAz-0)
+[Figma](https://www.figma.com/proto/MdMenDvnLaNrxePvxs9ZJY/Untitled?node-id=4-3&starting-point-node-id=4%3A3) [Figmaplay](https://www.figma.com/design/MdMenDvnLaNrxePvxs9ZJY/Untitled?node-id=56-1612&node-type=frame&t=C8ujcCqD3h9GtuAz-0)
 
 ## Technical
 
@@ -52,96 +52,51 @@ User
 - email (string)
 - username (string)
 - password (string)
-- pets{Pet.id}
+- phone (string, optional)
+- licenseNumber(string, optional)
+- role (string, enum: regular|veterinary)
 
 
-
-Veterinary
+Vaccine Selector !!!!
 - id(UUID)
 - name (string)
-- mail (string)
-- username(string)
-- password (string)
-- roll (string, emum: internal_medicine | ophthalmology | traumatology | dermatology)
-
-
+- date (Date)
+    
+Deworm formulario !!!
+- type (string, enum: external| internal | both )
+- name (string)
+- date (Date)
 
 Pet
 - id (UUID)
-- chip (string, QR)
+- owner (User.id)
+- chip (string)
 - name (string)
-- age (number)
 - race (string)
 - sex (string)
-- weigth (number)
-- sterilized (booleano)
-- date of birth(Date)
-- vaccine([{
-    - name (string)
-    - date (Date)
-}])
-- pipete([{
-    - name (string)
-    - date (Date)
-}])
-- flear collar([{
-    - name (string)
-    - date (Date)
-}])
-
-
+- weight (number)
+- sterilized (boolean)
+- dateOfBirth(Date)
+- vaccines ([Vaccine])
+- deworms ([Deworm])
 
 History
-- internal_medicine([{
-    - pet(Pet_id)
-    - veterinary {Veterinary.id}
-    - text (string)
-    - image (string) opcional 
-    - date(Date)
-    }])
- - ophthalmology([{
-    - pet(Pet_id)
-    - veterinary {Veterinary.id}
-    - text (string)
-    - image (string) opcional 
-    - date(Date)
-   }])
- - traumatology([{
-    - pet(Pet_id)
-    - veterinary {Veterinary.id}
-    - text (string)
-    - image (string) opcional 
-    - date(Date)
-    }])
- - dermatology([{
-    - pet(Pet_id)
-    - veterinary {Veterinary.id}
-    - text (string)
-    - image (string) opcional 
-    - date(Date)
- }])
+- id (UUID)
+- type (string, enum: internal_medicine | ophthalmology | traumatology | dermatology)
+- pet(Pet.id)
+- veterinary (User.id)
+- text (string)
+- image (string, optional)  
+- date(Date)
+    
 
-new appointment 
-- internal_medicine([{
-    - veterinary (Veterinary.id)
-    - pet (Pet.id)
-    - Date (dates)
-}])
-- ophthalmology([{
-    - veterinary (Veterinary.id)
-    - pet (Pet.id)
-    - Date (dates)
-}])
-- traumatology([{
-    - veterinary (Veterinary.id)
-    - pet (Pet.id)
-    - Date (dates)
-}])
-- dermatology([{
-    - veterinary (Veterinary.id)
-    - pet (Pet.id)
-    - Date (dates)
-}])
+Appointment 
+- id (UUID)
+- type (string, enum: internal_medicine | ophthalmology | traumatology | dermatology)
+- pet (Pet.id)
+- veterinary (User.id)
+- text (string, optional)
+- date (Date)
 
 ### Techs
 
