@@ -13,8 +13,7 @@ Despite a light ray approached the issue will not develop as you might think it 
 ### Use Cases
 
 User
-- Select/Change Profile Picture
-- Update user data
+- Update/change user data
 - Switch player avatar
 
 Player
@@ -24,11 +23,13 @@ Player
 - Battle view - gameplay
 - Run 
 
-Pokemon
-- Life (decrease/increase)
-- Moves (damage, uses)
-- Level (string)
+Pokemon (Enemy)
+- State: patrol
+- State: chase
+- State: battle
 
+Pokemon (self)
+- Attack (battle view)
 
 Checkpoint (column)
 - Save game progress
@@ -79,18 +80,19 @@ Profile - User
 Pokemon
 - id (UUID)
 - name (string)
-- type (string)
-- genre (string)
+- type (number, enum: 1 (grass) || 2: (fire) || 3: (water)...)
+- genre (number, enum: 1 (male) || 2: (female) || 3: (null))
 - life (number)
 - level (number) ???
-- moves ([{move}])
-- sprites ([{sprite}])
+- moves ([move])
+- sprites ([sprite])
 
 sprites 
 - backImageSprite (string)
 - frontImageSprite (string)
 
 move
+- id (uuid) ????
 - name (string)
 - damage (number) 
 - uses (number)
