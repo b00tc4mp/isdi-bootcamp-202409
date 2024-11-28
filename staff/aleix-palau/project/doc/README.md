@@ -10,7 +10,6 @@ If music is your world and you're seeking others who resonate with your taste, H
 
 ### Use Cases
 
-#### Free User
 - edit own profile:
     - update bio
     - update profile pictures
@@ -32,11 +31,6 @@ If music is your world and you're seeking others who resonate with your taste, H
     - you receive a message
     <!-- - a band you follow comes to your city
     - someone invites you to a concert -->
-
-<!-- #### Pro User
-Contains all **Free** features and...
-- option to view who liked you and decide whether to connect
-- **Heartbeat** unlimited people per day -->
 
 ### UXUI Design
 
