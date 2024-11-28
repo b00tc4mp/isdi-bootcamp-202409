@@ -21,7 +21,8 @@
     "dat": "file:../dat",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.10.0"
+    "mongodb": "^6.10.0",
+    "node-module": "^1.0.1"
   },
   "devDependencies": {
     "c8": "^10.1.2",
