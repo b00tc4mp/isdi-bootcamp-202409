@@ -17,8 +17,10 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "c8": "^10.1.2",
     "chai": "^5.1.2",
+    "com": "file:../com",
     "cloudinary": "^2.5.1",
     "cors": "^2.8.5",
     "D": "^1.0.0",

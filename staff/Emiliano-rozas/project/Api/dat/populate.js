@@ -2,9 +2,9 @@ import 'dotenv/config';
 import fs from 'fs/promises';
 import bcrypt from 'bcryptjs';
 
-import db, { User, Product, Review } from './index.js'; // Importa tus modelos aquí
+import db, { User, Product, Review } from './index.js';
 
-// Conexión a la base de datos
+// Conexión mongo
 db.connect(process.env.MONGO_URL)
     .then(() => Promise.all([
         User.deleteMany(),
@@ -17,7 +17,7 @@ db.connect(process.env.MONGO_URL)
     .catch(console.error)
     .finally(() => db.disconnect());
 
-// Función para poblar la colección de usuarios
+// Función para llenar la colección de usuarios
 const populateUsers = () => {
     return fs.readFile('./users.csv', 'utf-8').then(csv => {
         const lines = csv.split('\n').filter(line => line.trim());
@@ -38,7 +38,7 @@ const populateUsers = () => {
     });
 };
 
-// Función para poblar la colección de productos
+// Función para llenar la colección de productos
 const populateProducts = () => {
     return fs.readFile('./products.csv', 'utf-8').then(csv => {
         const lines = csv.split('\n').filter(line => line.trim());
@@ -75,7 +75,7 @@ const populateProducts = () => {
     });
 };
 
-// Función para poblar la colección de reseñas
+
 const populateReviews = (users, products) => {
     return fs.readFile('./reviews.csv', 'utf-8').then(csv => {
         const lines = csv.split('\n').filter(line => line.trim());
@@ -94,7 +94,7 @@ const populateReviews = (users, products) => {
                 text,
                 date: new Date(),
             }).then(review => {
-                // Asocia la reseña al producto
+                // Asociamos la reseña al producto
                 product.reviews.push(review);
                 return product.save();
             });
