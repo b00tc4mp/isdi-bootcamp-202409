@@ -1,0 +1,22 @@
+.Button {
+    background-color: var(--color);
+    font-family: inherit;
+    font-weight: bold;
+    color: #222;
+    border: none;
+    padding: 0.75rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    border-radius: 50px;
+
+    /* width: '100%';
+    box-sizing: 'border-box';
+    color: var(--back-color);
+    border-color: var(--color);
+    border-style: solid; */
+}
+
+.Button--light {
+    color: var(--color);
+    background-color: var(--back-color);
+}

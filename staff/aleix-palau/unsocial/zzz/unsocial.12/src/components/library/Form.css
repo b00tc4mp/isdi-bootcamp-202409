@@ -1,0 +1,7 @@
+.Form {
+    display: flex;
+    flex-direction: column;
+    font-family: inherit;
+    /* gap: 1rem;
+    margin: 1rem; */
+}

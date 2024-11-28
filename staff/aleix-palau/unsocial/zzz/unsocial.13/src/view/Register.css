@@ -1,0 +1,16 @@
+.Register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    box-sizing: border-box;
+    background-color: #111;
+    /* background-color: var(--back-color); */
+    padding: 0.75rem 2rem 2rem 2rem;
+    margin: 1rem 2rem;
+    border: 1px solid var(--color);
+    width: 275px;
+    border-radius: 8px;
+    color: var(--color);
+}

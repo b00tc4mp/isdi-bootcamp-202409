@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+
+:root {
+    --color: lime;
+    --back-color: #111;
+    /* bg-color newly-created variable dunno whatfor */
+    --font: 'Tiny5';
+    font-family: var(--font);
+    /* height:   100%; */
+}
+
+body {
+    background-color: #111;
+    margin: 0;
+    color: var(--color);
+    /* height: 100%; */
+}
+
+#root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+a {
+    color: var(--color);
+    text-decoration: none;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+a:hover {
+    text-decoration: underline;
+}

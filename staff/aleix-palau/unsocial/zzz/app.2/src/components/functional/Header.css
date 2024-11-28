@@ -1,0 +1,25 @@
+.Header {
+    background-color: var(--back-color);
+    padding: 2rem;
+    /* height: auto; */
+    /* box-sizing: border-box; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* position: fixed; */
+    /* top: 0; */
+    color: var(--color);
+    font-family: var(--font);
+    flex-direction: column;
+    height: auto;
+
+    h1 {
+        margin: 0;
+        font-size: 4.25rem;
+        padding-left: 0.5rem;
+    }
+
+    button {
+        margin: 0;
+    }
+}
