@@ -30,7 +30,7 @@ function Footer() {
 
             </div>
             <div>
-                <hr className='w-full' />
+                <hr className='w-full bg-green-700' />
                 <p className='py-5 text-sm text-center text-white'>Copyright 2024 © Entelequia Comic-Bookstore - All Right Reserved.</p>
             </div>
         </div >
