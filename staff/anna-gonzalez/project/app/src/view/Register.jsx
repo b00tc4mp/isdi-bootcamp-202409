@@ -4,22 +4,31 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default function Login(props) {
+export default function Register(props) {
     const handleSubmit = event => {
         event.preventDefault()
 
-        const { target: { email: { value: email }, password: { value: password } } } = event
+        const { target: form } = event
+
+        const {
+            name: { value: name },
+            email: { value: email },
+            password: { value: password },
+            ['password-repeat']: { value: passwordRepeat }
+        } = form
 
         try {
-            logic.loginUser(email, password)
+            logic.registerUser(name, email, password, passwordRepeat)
                 .then(() => {
-                    event.target.reset()
+                    form.reset()
 
-                    props.onLoggedIn()
+                    alert('User successfully registered', 'success')
+
+                    props.onRegistered()
                 })
                 .catch(error => {
                     if (error instanceof SystemError)
-                        alert('Sorry, try again later.')
+                        alert('Sorry, try again later')
                     else
                         alert(error.message)
 
@@ -32,10 +41,10 @@ export default function Login(props) {
         }
     }
 
-    const handleRegisterClick = event => {
+    const handleLoginClick = event => {
         event.preventDefault()
 
-        props.onRegisterClick()
+        props.onLoginClick()
     }
 
     const handlePartnerAccessClick = event => {
@@ -45,9 +54,14 @@ export default function Login(props) {
     }
 
     return <main>
-        <h2>Login</h2>
+        <h2>Register</h2>
 
         <Form onSubmit={handleSubmit}>
+
+            <Field>
+                <Label htmlFor="name">First name</Label>
+                <Input type="text" id="name" />
+            </Field>
 
             <Field>
                 <Label htmlFor="email">Email</Label>
@@ -59,10 +73,15 @@ export default function Login(props) {
                 <Input type="password" id="password" />
             </Field>
 
-            <Button type="submit">Login</Button>
+            <Field>
+                <Label htmlFor="password-repeat">Repeat password</Label>
+                <Input type="password" id="password-repeat" />
+            </Field>
+
+            <Button type="submit">Register</Button>
         </Form>
 
-        <Anchor href="" onClick={handleRegisterClick}>Register instead</Anchor>
+        <Anchor href="" onClick={handleLoginClick}>Login instead</Anchor>
         <Anchor href="" onClick={handlePartnerAccessClick}>Secret code instead</Anchor>
     </main>
 }

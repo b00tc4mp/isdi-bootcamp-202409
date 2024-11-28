@@ -19,19 +19,19 @@ db.connect(process.env.MONGO_URL).then(() => {
     server.get('/', (_, res) => res.send('Hello, API!'))
 
     server.post('/users/auth', jsonBodyParser, createFunctionalHandler(async (req, res) => {
-        const { username, password } = req.body
+        const { email, password } = req.body
 
-        const { id, role } = await logic.authenticateUser(username, password)
+        const { id, role } = await logic.authenticateUser(email, password)
 
-        const token = await jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' })
+        const token = await jwt.sign({ sub: id }, process.env.JWT_SECRET, { expiresIn: '1h' })
 
         res.json(token)
     }))
 
     server.post('/users', jsonBodyParser, createFunctionalHandler(async (req, res) => {
-        const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
+        const { name, email, password, 'password-repeat': passwordRepeat } = req.body
 
-        await logic.registerUser(name, email, username, password, passwordRepeat)
+        await logic.registerUser(name, email, password, passwordRepeat)
 
         res.status(201).send()
     }))

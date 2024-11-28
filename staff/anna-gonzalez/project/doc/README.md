@@ -1,5 +1,7 @@
 # Period (Syncly pa los amigos)
 
+<!-- preguntar si necesito un rol para el partner -->
+
 ## Intro
 
 This app is designed for menstruating people to be your **everyday companion** to stay organized and in control.
@@ -17,7 +19,7 @@ It’s more than just tracking—it’s about **embracing your rhythm** and thri
 User
 - create/update/delete period start and end dates to calendar
 - create/update/delete a log of daily symptoms and activities
-- create/read reminders
+- create/delete & read reminders
 - read data about your current cycle
 - read reports of the last cycles    
 - read predictions for the next cycle in the calendar
@@ -61,37 +63,31 @@ Cycle
 - start (Date)
 - end (Date, optional)
 - periodEnd (Date)
-<!-- - state (string, enum: ongoing | completed) -->
 - dailyLogs ([DailyLog.id])
-<!-- - preferences ({ reminderTime (Time), trackSymptoms (boolean), showTips (boolean) }) -->
 
 DailyLog
 - id (ObjectId)
 - cycle (Cycle.id)
 - date (Date)
-- symptoms (string, enum: fatigue | headache | cramps | tender breasts | acne | backache | cravings | abdominal pain | dryness)
-- mood (string, enum: calm | happy | mood swings | sad | anxious)
-- energy (string, enum: low | medium | high)
-- flow (string, enum: no discharge | creamy | watery)
-- sleep (string, enum: poor | average | good)
-- sexualActivity (string, enum: didn't have sex | had sex)
-- sexualEnergy (string, enum: low | medium | high)
+- symptoms (string, enum: 0 (fatigue) | 1 (headache) | 2 (cramps) | 3 (tender breasts) | 4 (acne) | 5 (backache) | 6 (cravings) | 7 (abdominal pain) | 8 (dryness))
+- mood (string, enum: 0 (calm) | 1 (happy) | 2 (mood swings) | 3 (sad) | 4 (anxious))
+- energy (string, enum: 0 (low) | 1 (medium) | 2 (high))
+- flow (string, enum: 0 (no discharge) | 1 (creamy) | 2 (watery))
+- sleep (string, enum: 0 (poor) | 1 (average) | 2 (good))
+- sexualActivity (string, enum: 0 (didn't have sex) | 1 (had sex))
+- sexualEnergy (string, enum: 0 (low) | 1 (medium) | 2 (high))
 
-<!-- Event -->
 Reminder
 - id (ObjectId)
 - user (User.id)
 - date (Date)
 - title (string)
-<!-- - description (string) -->
-<!-- - reminder (boolean) -->
-<!-- - recurrence (string, enum: daily | weekly | monthly) -->
 
 Tip
 - id (ObjectId) 
 - date (Date)
-- phase (string, enum: menstruation | follicular | ovulation | luteal)
-- category (string, enum: nutrition | exercise | self-care | music)
+- phase (string, enum: 1 (menstruation) | 2 (follicular) | 2 (ovulation) | 4 (luteal))
+- category (string, enum: 1 (nutrition) | 2 (exercise) | 3 (self-care) | 4 (music))
 - description (string)
 
 ### Techs

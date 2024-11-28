@@ -1,14 +1,39 @@
-export default function App() {
-  return <>
-    <div className="flex flex-row items-center justify-center mt-4 fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1]">
-      <div className="w-60 h-60 bg-[#5988EE] rounded-full"></div>
-      <div className="w-60 h-60 bg-[#5988EE] rounded-full"></div>
-      <div className="w-60 h-60 bg-[#5988EE] rounded-full"></div>
-    </div>
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-    <div className="flex flex-col items-center justify-center text-center h-screen">
-      <h1 className="pb-4">period</h1>
-      <p>Understand your cycle<br />Period.</p>
-    </div>
+import { Home, Login, PartnerAccess, Register, Splash } from './view'
+import { Header } from './view/components'
+
+import logic from './logic'
+
+export default function App() {
+  const navigate = useNavigate()
+
+  const handleStarted = () => navigate('/login')
+
+  const handleUserLoggedOut = () => navigate('/login')
+
+  const handleUserLoggedIn = () => navigate('/home')
+  const handleLoginClick = () => navigate('/login')
+
+  const handleUserRegistered = () => navigate('/')
+  const handleRegisterClick = () => navigate('/register')
+
+  const handlePartnerAccessClick = () => navigate('/partner')
+
+  return <>
+    <Header onLoggedOut={handleUserLoggedOut} />
+
+    <Routes>
+      <Route path="/" element={<Splash onStarted={handleStarted} />} />
+
+      <Route path="/home" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+
+      <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/home" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} onPartnerAccessClick={handlePartnerAccessClick} />} />
+
+      <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/home" /> : <Register onRegistered={handleUserRegistered} onLoginClick={handleLoginClick} onPartnerAccessClick={handlePartnerAccessClick} />} />
+
+      <Route path="/partner" element={logic.isUserLoggedIn() ? <Navigate to="/home" /> : <PartnerAccess onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />} />
+    </Routes>
+
   </>
 }

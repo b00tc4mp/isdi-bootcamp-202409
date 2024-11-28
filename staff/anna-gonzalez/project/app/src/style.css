@@ -6,19 +6,32 @@
 
 :root {
     --color: #272727;
-    --back-color: #F0F0F0;
+    --back-color-light: #F0F0F0;
     --back-color-dark: #272727;
+    --text-color-light: #F0F0F0;
+    --button-color: #1357EC;
     --font: 'Noto Sans';
     --font-title: 'Kavoon';
 }
 
 body {
     color: var(--color);
+    background-color: var(--back-color-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 h1 {
     font-family: var(--font-title);
     font-size: 6rem;
+}
+
+h2 {
+    font-family: var(--font-title);
+    font-size: x-large;
 }
 
 p {
