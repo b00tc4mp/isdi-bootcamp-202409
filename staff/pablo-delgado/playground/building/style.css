@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+
+.edificio {
+    width: 300px;
+    height: 500px;
+    background-color: rgb(122, 89, 49);
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.planta {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.fila {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+
+
+}
+
+.ventana {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(107, 164, 195);
+    border: 2px solid black;
+
+}
+
+.parte2 {
+    top: 100px;
+}
+
+
+
+
+.puerta {
+    width: 85px;
+    height: 125px;
+    background-color: rgb(189, 87, 87);
+    border: 3px solid rgb(89, 23, 23);
+    display: flex;
+    /* para que se centre bien*/
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    position: relative;
+}
+
+.puertas {
+    display: flex;
+}
+
+.puerta-izq,
+.puerta-der {
+    width: 35px;
+    height: 90px;
+    background-color: beige;
+    border: 1px solid black;
+    position: relative;
+    top: 15px;
+}
+
+.pomo {
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+}

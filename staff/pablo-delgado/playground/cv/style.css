@@ -1,0 +1,117 @@
+h2 {
+    text-align: left;
+    align-items: left;
+    margin: auto;
+    flex-direction: column;
+    padding-right: 20px;
+}
+
+
+h1 {
+    size: 100px;
+}
+
+h3 {
+    size: 2;
+    text-align: bottom;
+    padding: 0;
+    font-weight: normal;
+}
+
+html {
+    background-color: #f6eee3;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+}
+
+header {
+    padding: 60px;
+    background-color: cadetblue;
+    color: white;
+    font-size: 200;
+    font-weight: 600;
+    display: flex;
+}
+
+footer {
+    padding: 5%;
+    text-align: left;
+    background-color: rgb(178, 206, 208);
+    color: rgb(255, 255, 255);
+    font-size: 10;
+    font-weight: 300;
+    margin: 10%;
+}
+
+.futer {
+    text-align: center;
+    font-size: 15px;
+    margin: 0px;
+}
+
+.skills {
+    text-align: right;
+    background-color: rgb(178, 206, 208);
+    color: rgb(0, 0, 0);
+    font-size: 40;
+    font-weight: 300;
+
+}
+
+.contact {
+    text-align: center;
+    background-color: rgb(178, 206, 208);
+    color: rgb(0, 0, 0);
+    font-size: 40;
+    font-weight: 300;
+    margin: 10%;
+    padding: 5%;
+}
+
+.experience {
+    text-align: right;
+    background-color: rgb(178, 206, 208);
+    color: rgb(0, 0, 0);
+    font-size: 40;
+    font-weight: 300;
+    margin: 10%;
+    padding: 5%;
+}
+
+.findme {
+    text-align: right;
+    background-color: rgb(178, 206, 208);
+    color: rgb(0, 0, 0);
+    font-size: 40;
+    font-weight: 300;
+    margin: 10%;
+    padding: 5%;
+}
+
+.findme ul {
+    font-weight: 400;
+}
+
+ul {
+    list-style: none;
+
+}
+
+h4 {
+    text-align: right;
+}
+
+form {
+    text-align: right;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav li {
+    display: inline;
+    font-weight: 600;
+    color: black;
+}
