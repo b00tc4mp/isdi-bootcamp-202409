@@ -18,26 +18,25 @@ If music is your world and you're seeking others who resonate with your taste, H
 - link Spotify account to profile
 - view profiles
 - filter profiles based on:
-    - favorite genres or artists
+    - favourite genres or artists
     - age
     - location/distance
-- swipe left/right on profiles
-- **Heartbeat** someone who makes your heart skip a beat
-- report profiles
-- chat with people you matched with
+- **Heartbeat** left/right on someone who makes your heart skip a beat
+- chat with people you match with
 - display recently played tracks on the chat
 - share music in chats
-- option to join concerts in calendar
-- invite people to concerts
-- receive alerts when:
+<!-- - option to join concerts in calendar
+- invite people to concerts -->
+- get notifications when:
     - someone you previously liked likes you back
-    - a band you follow comes to your city
-    - someone invites you to a concert
+    - you receive a message
+    <!-- - a band you follow comes to your city
+    - someone invites you to a concert -->
 
-#### Pro User
+<!-- #### Pro User
 Contains all **Free** features and...
 - option to view who liked you and decide whether to connect
-- **Heartbeat** unlimited people per day
+- **Heartbeat** unlimited people per day -->
 
 ### UXUI Design
 
@@ -71,49 +70,87 @@ Contains all **Free** features and...
 
 ### Data Model
 
-Setup
-- target (string, enum: male | female | nonbinary)
-
-
 User
 - id (ObjectId)
-- email (string)
-- password (string)
-- role (string, enum: free | pro)
-
-Profile
-- first name (string)
-- dob (Date)
-- profile pics (string)
+- email (string, unique)
+- password (string, hashed)
+- firstName (string)
+- dateOfBirth (Date)
 - gender (string, enum: male | female | nonbinary)
+- preferredGender ([string], enum: male | female | nonbinary)
+- coordinates ([ latitude: float, longitude: float ])
+- spotifyAccountId (SpotifyAccount.id, optional)
+- lastActive (Date)
 
-- location (string)
+- bio (string, optional)
+- pics ([string])
+- minAge (integer, optional)
+- maxAge (integer, optional)
+- distance (integer, optional)
+- genres ([string])
+- artists ([string])
+- spotifyId (string, optional)
+- spotifyAccessToken (string)
+- spotifyRefreshToken (string)
 
-Chat
-- targetId (ObjectId)
-- messages ([{
-    - id (ObjectId)
+- spotifyTrackId (string)
+- track (string)
+- artist (string)
+- playedOn (Date)
 
- }])
-- listeningTo (string)
-
-Events
--
-
-
-
-Post
-- id (UUID)
-- author (User.id)
-- image (string)
-- text (string)
+Heartbeat (Swipe)
+- id (ObjectId)
+- sender (User.id)
+- receiver (User.id)
+- type (string, enum: left | right)
 - date (Date)
-- likes ([User.id])
-- comments ([{ 
-    - id (UUID)
-    - author (User.id)
-    - text (string)
-    - date (Date) }])
+
+Match
+- id (ObjectId)
+- users ([User.id])
+- messages ([Message])
+
+Message
+- id (ObjectId)
+- author (User.id)
+- content (string)
+- date (Date)
+- type (string, enum: text | music)
+- music (Music, optional)
+
+Music
+- id (ObjectId)
+- sharedBy (User.id)
+- spotifyTrack (string)
+- track (string)
+- artist (string)
+- date (Date)
+
+Notification
+- id (ObjectId)
+- from (User.id)
+- to (User.id)
+- type (string, enum: match | message | event)
+- date (Date)
+
+<!-- Event
+- id (ObjectId)
+- name (string)
+- artist (string)
+- venue (string)
+- city (string)
+- date (Date)
+- createdAt (Date)
+- interested ([User.id])
+- going ([User.id])
+
+Invite
+- id (ObjectId)
+- event (Event.id)
+- from (User.id)
+- to (User.id)
+- date (Date)
+- status (string, enum: pending | accepted | declined) -->
 
 ### Test Coverage
 
