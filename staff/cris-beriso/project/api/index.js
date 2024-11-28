@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 import logic from './logic/index.js'
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
-db.connect(process.env.MONGO_URL).then(() => {
+db.connect(process.env.MONGO_URL_TEST).then(() => {
   console.log('connected to db')
 
   const server = express()
@@ -18,13 +18,13 @@ db.connect(process.env.MONGO_URL).then(() => {
 
   server.get('/', (_, res) => res.send('Hello, API!'))
 
-  server.post('/users/auth', jsonBodyParser, createFunctionalHandler((req, res) => {
-    const { username, password } = req.body
+  // server.post('/users/auth', jsonBodyParser, createFunctionalHandler((req, res) => {
+  //   const { username, password } = req.body
 
-    return logic.authenticateUser(username, password)
-      .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
-      .then(token => res.json(token))
-  }))
+  //   return logic.authenticateUser(username, password)
+  //     .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }))
+  //     .then(token => res.json(token))
+  // }))
 
   server.post('/users', jsonBodyParser, createFunctionalHandler(async (req, res) => {
     const { name, email, username, password, 'password-repeat': passwordRepeat } = req.body
@@ -33,54 +33,6 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     res.status(201).send()
   }))
-
-  // server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
-  //   const { userId, params: { targetUserId } } = req
-
-  //   return logic.getUserName(userId, targetUserId).then(name => res.json(name))
-  // }))
-
-  // server.post('/posts', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
-  //   const { userId, body: { image, text } } = req
-
-  //   return logic.createPost(userId, image, text).then(() => res.status(201).send())
-  // }))
-
-  // server.get('/posts', authorizationHandler, createFunctionalHandler((req, res) => {
-  //   const { userId } = req
-
-  //   return logic.getPosts(userId).then(posts => res.json(posts))
-  // }))
-
-  // server.delete('/posts/:postId', authorizationHandler, createFunctionalHandler((req, res) => {
-  //   const { userId, params: { postId } } = req
-
-  //   return logic.deletePost(userId, postId).then(() => res.status(204).send())
-  // }))
-
-  // server.patch('/posts/:postId/likes', authorizationHandler, createFunctionalHandler((req, res) => {
-  //   const { userId, params: { postId } } = req
-
-  //   return logic.toggleLikePost(userId, postId).then(() => res.status(204).send())
-  // }))
-
-  // server.post('/posts/:postId/comments', authorizationHandler, jsonBodyParser, createFunctionalHandler((req, res) => {
-  //   const { userId, params: { postId }, body: { text } } = req
-
-  //   return logic.addComment(userId, postId, text).then(() => res.status(201).send())
-  // }))
-
-  // server.get('/posts/:postId/comments', authorizationHandler, createFunctionalHandler((req, res) => {
-  //   const { userId, params: { postId } } = req
-
-  //   return logic.getComments(userId, postId).then(comments => res.json(comments))
-  // }))
-
-  // server.delete('/posts/:postId/comments/:commentId', authorizationHandler, createFunctionalHandler((req, res) => {
-  //   const { userId, params: { postId, commentId } } = req
-
-  //   return logic.removeComment(userId, postId, commentId).then(() => res.status(204).send())
-  // }))
 
   server.use(errorHandler)
 
