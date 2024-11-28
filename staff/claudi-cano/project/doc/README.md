@@ -11,18 +11,15 @@ Gin repository to let you know about the history of the gin, the best mixers & t
 ### Use Cases
 
 #### User 
-- explorar la web libremente
-- registrarse
-- cambiar datos de usuario
-- poder like en los productos (likes, optional)
-- comentar el producto (comments, optional)
-- posibilidad de publicar tu gin (posts, optional)
+- create/update/delete own product
+- update personal info
+- like/dislike product
+- create/delete a comment
 
 #### Admin
-- gestionar los post
-- gestionar los comments
-- añadir nuevos gins
-- ban user
+- create/update/delete any product
+- create/delete any comment
+- delete user
 
 ### UXUI Design
 
@@ -57,23 +54,33 @@ Gin repository to let you know about the history of the gin, the best mixers & t
 ### Data Model
 
 ## User
+- id (uuid)
 - name (string)
 - email (string)
 - username (string)
 - password (string)
-- role (string, enum: regular | registred)
-- post (userId, string)
-- like (userId, boolean)
-- comment (userId, string)
+- role (string, enum: regular | admin)
+- products ([Product.id])
+- saved ([Product.id])
 
 ## Product
 - id (uuid)
 - name (string)
+- date (Date)
 - image (string)
 - description (string)
 - mixer (string)
 - garniture (string)
-- aprox price (number)
+- price (number)
+- likes ([User.id])
+- comments ([Comment.id])
+
+## Comment
+- id (uuid)
+- author (User.id)
+- content (string)
+- date (Date)
+
 
 ### Test Coverage
 - ...
