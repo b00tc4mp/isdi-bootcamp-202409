@@ -1,0 +1,28 @@
+.Footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 5%;
+    background-color: var(--white);
+    box-sizing: border-box;
+}
+
+.FooterMenu ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.FooterMenu ul li a {
+    font-size: 12px;
+    text-decoration: none;
+    color: var(--color-blue)
+}
+
+.texto-info-pie {
+    font-size: 10px;
+    font-style: italic;
+    color: var(--color-blue)
+}
