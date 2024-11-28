@@ -1,7 +1,8 @@
 import validate from './validate.js'
-import errors from './errors.js'
+import { errors, CustomError } from './errors.js'
 
 export {
     validate,
-    errors
+    errors,
+    CustomError
 }
