@@ -45,6 +45,19 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     })
   )
 
+  server.get(
+    '/users/:targetUserId/name',
+    authorizationHandler,
+    createFunctionalHandler((req, res) => {
+      const {
+        userId,
+        params: { targetUserId },
+      } = req
+
+      return logic.getUserName(userId, targetUserId).then((name) => res.json(name))
+    })
+  )
+
   server.use(errorHandler)
 
   server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))

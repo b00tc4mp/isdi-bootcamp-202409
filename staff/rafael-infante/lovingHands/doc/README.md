@@ -15,7 +15,8 @@ Caregiver (User)
 - Create and publish help offers: Specify the type of help offer with the availability, address and price.
 - Search for help requests: Browse active requests on the platform and communicate with assistance seekers.
 - Submit offers: Send offers to assist an elder with specific needs.
-- Manage profile: Update availability, view ratings, and manage completed tasks.
+- Save the post of a specified elder.
+- Manage profile: Update profile, view ratings and manage saved posts.
 - Rate elders: Send a review with a rating of the elder.
 
 Elder (User)
@@ -23,6 +24,7 @@ Elder (User)
 - Create help requests: Specify the type of assistance needed and publish requests.
 - Search for assistance offers: Browse active offers on the platform and communicate with caregivers.
 - Save the post of a specified caregiver.
+- Manage profile: Update profile, view rating and manage saved posts.
 - Rate the caregiver: Provide a feedback after receiving help.
 
 ### UXUI Design
@@ -61,20 +63,18 @@ User
 
 - id (uuid)
 - name (string)
-- address (string)
 - email (string)
-- username (string)
+- telephone (string)
+- location (Location)
 - password (string)
-- reviews ([Review])
 - role (string, enum: caregiver | elder)
+- reviews ([Review])
+- saved posts ([Post])
 
-Review
+Location
 
-- id (uuid)
-- user (User.id)
-- rating (number)
-- reviews (string)
-- date (date)
+- id (UUID)
+- coordinates ([Number])
 
 Post
 
@@ -83,18 +83,21 @@ Post
 - image (string)
 - description (string)
 - date (Date)
-- comments ([Comment])
+- reviews([Review])
+
+Review
+
+- id (uuid)
+- author (User.id)
+- rating (number)
+- reviews (string)
+- date (date)
 
 Author
 
 - id (User.id)
-- username(User.username)
-
-Comment
-
-- id (uuid)
-- author (User.id)
-- comment (string)
+- name (User.name)
+- email(User.email)
 
 ### Test Coverage
 
