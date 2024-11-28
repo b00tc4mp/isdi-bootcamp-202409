@@ -1,25 +1,29 @@
 # NAME TO BE DETERMINED
-
+![](https://media1.tenor.com/m/v9LkJ4lmQDIAAAAd/beer-corona.gif)
 ## Intro
 
-{name} es una app para encontrar a personas con que las charlar en ese tiempo libre entre trabajo, clases, aviones, trenes etc.. donde no tienes nada que hacer pero tampoco te puedes mover mucho de tu lugar.
-El usuario podra crear un meet, que sera un punto en el mapa, indicando el lugar y tiempo donde se encuentra/estara. Los usarios al abrir la app, podran ver una lista/un mapa con los meets, y se podran unir a el despues de abrir un chat y confirmar sitio y lugar con la persona creadora del meet.
+{name} es una aplicación diseñada para encontrar personas con quienes charlar durante ese tiempo libre entre trabajo, clases, vuelos, viajes en tren, etc., cuando no tienes nada que hacer, pero tampoco puedes moverte mucho de tu lugar.
+
+El usuario podrá crear un meet, que será un punto en el mapa, indicando el lugar y el tiempo en que se encuentra o estará. Los usuarios, al abrir la aplicación, podrán ver una lista o un mapa con los meets disponibles y podrán unirse a ellos después de abrir un chat y confirmar el sitio y la hora con la persona que creó el meet.
+
+
 
 ## Functional Overview
 
 ### Use cases
 
-User
+#### User
 - create profile
 - add/ edit/ delete interest/ topics of chat
 - add/ edit/ delete meet
-- review feedback about meet
+- review/feedback about meet
 - report if meet was not apropriate
 - join meet
 - search for meets with filters
+- use maps to find and travel to meet
 - chat
 
-Moderator
+#### Moderator
 - read reports
 - ban users
 - remove comments
@@ -49,18 +53,22 @@ Moderator
 ### Techs
 
 - HTML/CSS/JS
+- Typescript
 - React
 - React-Native
+- Expo
 - Node
 - Express
-- Mongodb
+- Bcrypt
+- JWT
+- Mongodb/Mongoose
 - Mocha & Chai
-- Typescript
+
 
 ### Data Model
 
 User
-- userId (Object-Id)
+- id (Object_Id)
 - name (string)
 - email (string)
 - username (string)
@@ -68,38 +76,56 @@ User
 - role (string, enum: regular | moderator)
 
 Profile
-- profileId (Object_Id)
+- id (Object_Id)
 - name (string)
-- topics/ interests (string)
+- interests ([string])
 - gender (string)
 - languages ([string])
 - age (number) optional
 - profilePic (string) optional
 
-
 Meet
-- meetId(Object_Id)
-- authorId(Object_Id)
-- author's general interest/topics
-- trending topics
-- location ([number])
+- id (Object_Id)
+- author (User.id)
+- joinedId ([User.id])
+- topics ([
+    - interests ([string])
+    - trending ([string]) optional
+])
+- location (coords[number, number])
 - startTime (Date)
 - endTime (Date)
 - address (string) optional
 - placeName (string) optional
-- review
-    - rating (number, 1 to 5)
-    - comment(string)
+
+Review
+- id (Object_Id)
+- auhtor (User.id)
+- meet (Meet.id)
+- rating (number, 1 to 5)
+- comment (string)
 
 History
-- meets ([meetId])
-- locations([[number]])
-- people([profileId])
+- id (Object_id)
+- meets ([Meet.id])
+- locations ([number, number])
+- people ([Profile.id])
 
 Report
-- authorId(ObjectId)
-- targetId(ObjectId)
-- issue(string, enum:)
-- comment(string)
+- id (Object_id)
+- author (User.id)
+- target (User.id)
+- issue (string, enum: No show | Inappropriate | Fake | Scam)
+- comment (string)
+
+Chat
+- id (Object_id)
+- chattersId ([User.id])
+- messages ([Object_Id])
+    - id (Object_Id)
+    - text (string)
+    - sentDate (Date)
+    - author (User.id)
+
 
 ### Test Coverage
