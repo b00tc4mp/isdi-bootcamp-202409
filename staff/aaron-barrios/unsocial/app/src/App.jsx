@@ -9,6 +9,7 @@ import { Header, Footer, ProfileData, Alert, Confirm } from './view/components'
 import { Context } from './view/useContext'
 
 import logic from './logic'
+import Profile from './view/Profile'
 
 
 export default function App() {
@@ -96,12 +97,7 @@ export default function App() {
       <Route path="/new-post" element={logic.isUserLoggedIn() ? <CreatePost onCreated={handlePostCreated} /> : <Navigate to="/login" />} />
 
       {/* profile data (WIP) */}
-      <Route path="/profile" element={logic.isUserLoggedIn() ? <ProfileData
-        home={handleHomeClick}
-        onProfile={handlProfileClick} />
-        : <Navigate to="/login" />}
-      />
-
+      <Route path="/profile/:userId/*" element={<Profile />} />
     </Routes>
 
     <Footer onNewPostClick={handleNewPostClick} />
