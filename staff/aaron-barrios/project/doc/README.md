@@ -37,8 +37,12 @@ Checkpoint (column)
 God Mode 
 - Teleport to exit 
 
-Settings Menu
-- Modify numerous options
+Settings
+- Brightness (slider)
+- General sound (slider)
+- SFX (slider)
+- music (slider)
+- language (button)
 
 
 ### UXUI Design 
@@ -63,46 +67,31 @@ Settings Menu
 
 ### Data model
 
-User - Anonymous(temporal)
+User 
+- role (string, enum: anonym | registered)
 - id(UUID)
-- nickname (random string)
-
-User - Registered
-- id (UUID)
 - name (string)
 - nickname (string)
 - password (string)
-
-Profile - User
-- profile Picture (image)
-- Avatar (sprite-sheet)
+- avatar (string)
 
 Pokemon
 - id (UUID)
 - name (string)
-- type (number, enum: 1 (grass) || 2: (fire) || 3: (water)...)
-- genre (number, enum: 1 (male) || 2: (female) || 3: (null))
+- type (number, enum: 1 (grass) | 2: (fire) | 3: (water)...)
+- genre (string, enum: male | female | null)
 - life (number)
-- level (number) ???
-- moves ([move])
-- sprites ([sprite])
-
-sprites 
+- level (number) 
+- moves ([Move])
 - backImageSprite (string)
 - frontImageSprite (string)
 
-move
-- id (uuid) ????
+Move
+- id (uuid)
+- description (string) //optional
 - name (string)
 - damage (number) 
 - uses (number)
-
-Settings
-- Brightness (slider)
-- General sound (slider)
-- SFX (slider)
-- music (slider)
-- language (button)
 
 ### Techs 
 
