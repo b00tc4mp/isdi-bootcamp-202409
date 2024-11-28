@@ -46,6 +46,8 @@ User Provider
 - Gestión de packs (CRUD)
 - Asignación de packs a clientes
 - Crear usuarios "fake" (para poder asignar un pack si el usuario cliente todavía no existe en la plataforma)
+- Mientras el usuario "cliente" no existe, el usuario proveedor puede modificar sus datos personales. 
+- Una vez el usuario "cliente" ha sido creado el proveedor que lo ha creado ya no lo podrá modificar. 
 - Gestionar tiempo de los packs (aumentar, disminuir, via temporizador)
 - Gestionar unidades de los packs
 - Envio de notificaciones al cliente.   
@@ -89,22 +91,23 @@ PackConfig
 - packDescription (string)
 - quantity (num)
 - measureUnit (string, enum: hours | units)
-- expiring (num) -> 0 to 12months (0 = infinite)
+- expiringTime (num) -> 0 to 12months (0 = infinite)
 - price (num)
 - currency (string, enum: EUR | USD, default: EUR)
 
 
 Users
 - id (UUID)
-- username (string)
-- password (string)
-- plan (string, enum: free | pro)
-- planExpiryDate (Date)
-- roles ([string, enum: standard | provider])
-- dni (string)
+- username (string)   
+- password (string)   
+- plan (string, enum: free | pro) 
+- planExpiryDate (Date) 
+- roles ([string, enum: standard | provider]) 
+- dni (string) 
 - name (string)
 - surname1 (string)
 - surname2 (string)
+- biography (string)
 - address {
     country (string)
     province (string)
@@ -118,7 +121,8 @@ Users
 - email (string)
 - legalName (string)
 - website (string)
-- CreationStatus (string, enum: true | false | confirmation pending)
+- CreationStatus (string, enum: true | false | confirm account)
+- customers ([User.id])
 - ownPacks ([Pack.id])
 - adquiredPacks ([Pack.id])
 
@@ -127,14 +131,14 @@ Pack
 - id (UUID)
 - idProviderUser (UUID)
 - idCustomerUser (UUID)
-- description
+- description (string) max...
 - originalQantity (num)
 - remainingQantity (num)
 - measureUnit (string, enum: hours | units)
-- price
+- price (num)
 - currency (string, enum: EUR | USD, default: EUR)
 - purchaseDate (date)
-- expireDate (date, enum: Date | Null)
+- expiryDate (date, enum: Date | Null)
 - paymentStatus (string, enum: Pending | Partially Payed | Payed | Refunded) 
 - packStatus (string, enum: Pending | Active | Expired | Finnished)
 
