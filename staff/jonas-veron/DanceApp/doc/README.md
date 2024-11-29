@@ -81,6 +81,7 @@ Event:
 - text (string)
 - date (Date)
 - likes ([User.id])
+- location (string)
 
 Comment:
 
