@@ -2,6 +2,32 @@ import mongoose from 'mongoose'
 
 const { Schema, model, Types: { ObjectId } } = mongoose
 
+const note = new Schema({
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    text: {
+        type: String,
+        required: true,
+        maxLenght: 400
+    }
+}, { versionKey: false })
+
+const reminder = new Schema({
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    text: {
+        type: String,
+        required: true,
+        maxLenght: 200
+    }
+}, { versionKey: false })
+
 const user = new Schema({
     name: {
         type: String,
@@ -21,14 +47,16 @@ const user = new Schema({
     password: {
         type: String,
         required: true,
-        minLength: 6
+        minLength: 5
     },
     role: {
         type: String,
         required: true,
         enum: ['student', 'teacher'],
         default: 'student'
-    }
+    },
+    notes: [note],
+    reminders: [reminder],
 }, { versionKey: false })
 
 const group = new Schema({
@@ -36,61 +64,28 @@ const group = new Schema({
         type: String,
         required: true,
     },
-    teachers: {
-        type: [],
-        required: false
-    },
-    students: {
-        type: [],
-        required: true
-    }
-}, { versionKey: false })
-
-const note = new Schema({
-    owner: {
-        type: ObjectId,
+    teacher: {
+        type: String,
         required: true,
         ref: 'User'
     },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    text: {
-        type: String,
-        required: true,
-        maxLenght: 400
-    }
+    students: [{
+        type: ObjectId,
+        ref: 'User'
+    }]
 }, { versionKey: false })
 
-const reminder = new Schema({
-    owner: {
-        type: ObjectId,
-        required: true,
-        ref: 'User'
-    },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    text: {
-        type: String,
-        required: true,
-        maxLenght: 200
-    }
-}, { versionKey: false })
 
 const task = new Schema({
-    from: {
+    creator: {
         type: ObjectId,
         required: true,
         ref: 'User'
     },
-    to: [{
-        type: String,
-        required: true
+    assignes: [{
+        type: ObjectId,
+        require: true,
+        ref: 'User'
     }],
     date: {
         type: Date,

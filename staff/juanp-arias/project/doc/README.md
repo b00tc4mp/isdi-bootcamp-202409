@@ -9,26 +9,28 @@ Studify is an application designed to help students and teachers to organise the
 
 ### Use Cases
 
-User (student)
-- take notes and edit them.
-- synchronize notes to the calendar. 
-- search through notes.
-- create alerts and reminders.
-- view and edit your schedule.
-- view assigned tasks.
-- track attendance.
-- view and edit your personal profile.
+Student
+- take notes and edit them
+- synchronize notes to the calendar
+- search through notes
+- create alerts and reminders
+- view and edit your schedule
+- view assigned tasks
+- track attendance
+- view and edit your personal profile (name, e-mail, birthdate, password)
+- view notifications
 
-Admin (teacher)
-- take notes and edit them.
-- synchronize notes to the calendar. 
-- search through notes.
-- create alerts and reminders.
-- view and edit your schedule.
-- assign assignments/tasks to students.
-- track student attendance.
-- view and edit your personal profile.
-- create groups and add students.
+Teacher
+- take notes and edit them
+- synchronize notes to the calendar
+- search through notes
+- create alerts and reminders
+- view and edit your schedule
+- assign tasks to students
+- track student attendance
+- create student groups
+- view and edit your personal profile (name, e-mail, birthdate, password)
+- view notifications
 
 
 ### UXUI Design
@@ -58,29 +60,29 @@ User
 - dateOfBirth(Date)
 - password (string, minLength 6)
 - role (string, enum: teacher | student)
+- notes ([Note])
+- reminders ([Reminder])
 
 Group
 - id (UUID)
 - name (string)
-- teachers ([User.id], optional)
+- teacher (User.id)
 - students ([User.id])
 
 Note
 - id (UUID)
-- owner (User.id)
 - date (Date)
 - text (string, maxLength 400)
 
 Reminder
 - id (UUID)
-- owner (User.id)
 - date (Date)
 - text (string, maxLength 200)
 
 Task
 - id (UUID)
-- from(User.id)
-- to ([User.id])
+- creator (User.id)
+- assignes ([User.id])
 - date (Date)
 - text (string, maxLength 400)
 

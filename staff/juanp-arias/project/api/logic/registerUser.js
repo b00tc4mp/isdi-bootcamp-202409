@@ -1,2 +1,0 @@
-import bcrypt from 'bcryptjs'
-
