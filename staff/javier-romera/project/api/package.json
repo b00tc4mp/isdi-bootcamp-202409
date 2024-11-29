@@ -30,8 +30,11 @@
     },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.6",
+        "@types/chai": "^5.0.1",
+        "@types/chai-as-promised": "^8.0.1",
         "@types/cors": "^2.8.17",
         "@types/express": "^5.0.0",
+        "@types/mocha": "^10.0.10",
         "@types/mongodb": "^4.0.6",
         "c8": "^10.1.2",
         "chai": "^5.1.2",
