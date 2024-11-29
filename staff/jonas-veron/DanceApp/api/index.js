@@ -37,13 +37,19 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     "/users",
     jsonBodyParser,
     createFunctionalHandler(async(req, res) => {
-      const { name, email, password, passwordRepeat } = req.body;
+      const { fullName, email, password, passwordRepeat } = req.body;
 
       await logic
-        .registerUser(name, email, password, passwordRepeat)
+        .registerUser(fullName, email, password, passwordRepeat)
         .then(() => res.status(201).send());
     })
   );
+
+  server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
+    const { userId, params: { targetUserId } } = req
+
+    return logic.getUserFullName(userId, targetUserId).then(fullName => res.json(fullName))
+  }))
 
   server.use(errorHandler);
 

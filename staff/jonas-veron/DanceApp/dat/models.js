@@ -8,11 +8,11 @@ const {
 
 const user = new Schema(
   {
-    name: {
+    fullName: {
       type: String,
       required: true,
       minLength: 2,
-      maxLength: 20,
+      maxLength: 20
     },
     email: {
       type: String,
@@ -20,11 +20,14 @@ const user = new Schema(
       unique: true,
       match:
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+        maxLength: 320
     },
+
     password: {
       type: String,
       required: true,
       minLength: 8,
+      maxLength: 128
     },
     role: {
       type: String,
@@ -34,9 +37,24 @@ const user = new Schema(
     },
     permission: {
       type: String,
-      enum: ["read", "write"],
-      default: "read",
+      enum: ["none", "read", "write"],
+      default: "none",
     },
+    isApproved: {
+      type: Boolean,
+      default: false,
+    },
+    city: {
+      type: String,
+      default: "Girona",
+      maxLength: 50
+    },
+    favorites: [
+      {
+        type: ObjectId,
+        ref: "Event",
+      },
+    ],
     registeredAt: { type: Date, default: Date.now },
   },
   { versionKey: false }
@@ -76,6 +94,10 @@ const event = new Schema(
       required: true,
       maxLength: 200,
     },
+    // location: {
+    //   type: pointSchema,
+    //   required: true,
+    // },
     date: {
       type: Date,
       required: true,
@@ -104,13 +126,6 @@ const event = new Schema(
 //   }
 // });
 
-// const event = new Schema({
-//   name: String,
-//   location: {
-//     type: pointSchema,
-//     required: true
-//   }
-// });
 
 const User = model("User", user);
 const Event = model("Event", event);

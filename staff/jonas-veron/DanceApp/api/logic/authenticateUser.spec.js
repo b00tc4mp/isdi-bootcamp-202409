@@ -22,7 +22,7 @@ describe("authenticateUser", () => {
 
   it("user exists", async () => {
     await User.create({
-      name: "Girona Baila",
+      fullName: "Girona Baila",
       email: "girona@baila.com",
       password: bcrypt.hashSync("123123123", 10),
       role: "dancer",

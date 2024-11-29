@@ -5,14 +5,43 @@ import { Header, Footer } from "./view/Components/index.js"
 
 function App() {
   const navigate = useNavigate()
+  // const handleUserLoggedIn = () => navigate("/")
+
+  //Login Handles
   const handleUserLoggedIn = () => navigate("/")
+  const handleRegisterClick = () => navigate("/register")
+
+  //Register Handles
+  const handleUserRegistered = () => navigate("/login")
+  const handleLoginClick = () => navigate("/login")
+
+  console.log("App -> render")
 
   return (
     <>
       <Header />
-      <Login />
-      {/* <Register /> */}
-      {/* <Home /> */}
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <Login
+              onLoggedIn={handleUserLoggedIn}
+              onRegisterClick={handleRegisterClick}
+            />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Register
+              onRegistered={handleUserRegistered}
+              onLoginClick={handleLoginClick}
+            />
+          }
+        />
+
+        <Route path="/" element={<Home />} />
+      </Routes>
 
       <Footer />
     </>

@@ -6,7 +6,7 @@ fetch("http://localhost:3000/users", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    name: "Carlos Roca",
+    fullName: "Carlos Roca",
     email: "carlos@roca.com",
     password: "123123123",
     passwordRepeat: "123123123",

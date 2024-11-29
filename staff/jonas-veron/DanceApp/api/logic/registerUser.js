@@ -5,8 +5,8 @@ import { validate, errors } from "../../com/index.js"
 
 const { DuplicityError, SystemError } = errors
 
-export default (name, email, password, passwordRepeat) => {
-  validate.name(name)
+export default (fullName, email, password, passwordRepeat) => {
+  validate.fullName(fullName)
   validate.email(email)
   validate.password(password)
   validate.passwordsMatch(password, passwordRepeat)
@@ -17,7 +17,7 @@ export default (name, email, password, passwordRepeat) => {
       throw new SystemError(error.message)
     })
     .then((hash) =>
-      User.create({ name, email, password: hash })
+      User.create({ fullName, email, password: hash })
         .then((_) => {})
         .catch((error) => {
           if (error.code === 11000)

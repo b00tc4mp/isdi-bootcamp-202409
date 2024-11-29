@@ -18,4 +18,8 @@
   --accent-color-green: #1db954;
   --accent-color-red: #ec1e32;
   height: 100%;
+  background: linear-gradient(#191414, #222222, #191414);
+}
+
+body {
 }

@@ -27,14 +27,14 @@ Dancer
 
 - Search and explore events.
 - Give "likes" to posts.
-- Comment and participate in conversations.
+- Comments.
 - Share events with friends.
 
 Organizer
 
 - Search and explore events.
 - Give "likes" to posts.
-- Comment and participate in conversations.
+- Comments.
 - Share events with friends.
 - Create and manage events.
 - Profile with your posts
@@ -66,10 +66,11 @@ User:
 - id (UUID)
 - name (string)
 - email (string)
-- username (string)
 - password (string)
 - role (string): Role of the user (dancer | organizer | moderator)
 - permission(string, enum: read | write)
+- city (string)
+- favorites (events)
 - createdAt (Date)
 
 Event:
@@ -85,12 +86,12 @@ Comment:
 
 - id (UUID)
 - author (User.id)
-- text (string)
+- text (string maxLength 200)
 - date (Date)
 
 Location:
 
-- address (string): Event address.
+- address (string)
 
 Coordinates:
 
