@@ -5,6 +5,7 @@ const { ValidationError, SystemError, DuplicityError, CredentialsError, NotFound
 
 export default (error: CustomError, req: Request, res: Response, next: NextFunction) => {
     let status = 500
+    console.dir(error)
 
     switch (true) {
         case (error instanceof ValidationError):

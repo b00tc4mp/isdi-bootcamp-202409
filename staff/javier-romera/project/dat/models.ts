@@ -6,7 +6,8 @@ const user = new Schema({
     name: {
         type: String,
         required: true,
-        minLength: 2
+        minLength: 2,
+        maxLength: 12
     },
     email: {
         type: String,
@@ -24,7 +25,7 @@ const user = new Schema({
     password: {
         type: String,
         required: true,
-        minLength: 8
+        minLength: 8,
     },
     role: {
         type: String,
@@ -36,6 +37,11 @@ const user = new Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    rank: {
+        type: String,
+        required: true,
+        default: 'Rookie'
     }
 }, { versionKey: false })
 

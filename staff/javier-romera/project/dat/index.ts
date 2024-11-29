@@ -3,7 +3,11 @@ import { User } from './models.js'
 
 const db = {
     connect,
-    disconnect
+    disconnect,
 }
 
 export default db
+
+export {
+    User
+}

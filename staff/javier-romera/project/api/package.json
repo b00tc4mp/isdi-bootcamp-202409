@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "description": "",
     "type": "module",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
         "start": "node dist/.",
         "inspect": "node --inspect-brk .",
@@ -29,6 +29,8 @@
         "jsonwebtoken": "^9.0.2"
     },
     "devDependencies": {
+        "@types/bcryptjs": "^2.4.6",
+        "@types/cors": "^2.8.17",
         "@types/express": "^5.0.0",
         "c8": "^10.1.2",
         "chai": "^5.1.2",

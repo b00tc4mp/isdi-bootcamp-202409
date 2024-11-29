@@ -2,6 +2,7 @@ import { errors } from 'com'
 import { NextFunction, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { CustomRequest } from '../types.js'
+import { CustomError } from 'com'
 
 const { AuthorizationError } = errors
 
@@ -16,9 +17,6 @@ export default (req: CustomRequest, res: Response, next: NextFunction): void => 
 
         next()
     } catch (error) {
-        if (error instanceof AuthorizationError)
-            next(new AuthorizationError(error.message))
-        else
-            next(error)
+        next(new AuthorizationError((error as CustomError).message))
     }
 }

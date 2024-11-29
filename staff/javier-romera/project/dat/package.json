@@ -1,12 +1,14 @@
 {
     "name": "dat",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "mongodb",
     "type": "module",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
         "populate": "node populate.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "build:dev": "tsc -w"
     },
     "keywords": [],
     "author": "",
@@ -15,6 +17,7 @@
         "mongoose": "^8.8.1"
     },
     "devDependencies": {
+        "@types/node": "^22.10.1",
         "bcryptjs": "^2.4.3",
         "dotenv": "^16.4.5",
         "typescript": "^5.7.2"

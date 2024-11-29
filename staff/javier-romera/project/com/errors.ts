@@ -1,18 +1,21 @@
 class CustomError extends Error {
-    constructor(message: string, name: string) {
+    constructor(message: string, public status?: number) {
         super(message)
-
-        this.name = name
+        // console.dir(this.name) // FRANK AQUI ES LA VAINA ==> CLASS ANONIMAAAAAAAA
     }
 }
 
-type CustomErrorConstructor = new (message: string) => CustomError
+type CustomErrorConstructor = new (message: string, status?: number) => CustomError
 
 const createCustomError = (name: string): CustomErrorConstructor => {
     return class extends CustomError {
-        constructor(message: string) {
-            super(message, name)
+        constructor(message: string, status?: number) {
+            super(message, status)
+
+            this.name = name
         }
+
+
 
         static get errName() { return name }
     }
