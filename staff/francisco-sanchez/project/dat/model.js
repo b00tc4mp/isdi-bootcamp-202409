@@ -3,9 +3,8 @@ import mongoose, { Schema } from 'mongoose'
 const { Shema, model, Types: { ObjectId } } = mongoose
 
 //Model for packs configuration
-const packConfig = new Schema({
-
-    userId: {
+const basePack = new Schema({
+    user: {
         type: ObjectId,
         required: true,
         ref: 'User'
@@ -17,7 +16,7 @@ const packConfig = new Schema({
         required: true
     },
 
-    packDescription: {
+    description: {
         type: String,
         maxLength: 255,
         required: false
@@ -28,16 +27,23 @@ const packConfig = new Schema({
         required: true,
     },
 
-    measureUnit: {
+    unit: {
         type: String,
         required: true,
         enum: ['hours', 'units'],
-        //default: 'hours'
+        default: 'hours'
     },
 
     expiringTime: {
         type: Number,
         required: false,
+        validate: {
+            validator: function (value) {
+                return value === -1 || (value >= 1 && value <= 12) //-1 means than don't have limit
+            },
+            message: 'expiringTime must be -1 (to unlimited) or number of month between 1 and 12'
+        },
+        default: -1
     },
 
     price: {
@@ -45,55 +51,13 @@ const packConfig = new Schema({
         required: true
     },
 
-
     currency: {
         type: String,
         required: true,
         enum: ['EUR', 'USD'],
         default: 'EUR'
     }
-
-
-
-
 }, { versionKey: false })
-
-
-
-const addressSchema = new Schema({
-    country: {
-        type: String,
-        required: false,
-    },
-    province: {
-        type: String,
-        required: false,
-    },
-    city: {
-        type: String,
-        required: false,
-    },
-    postalCode: {
-        type: String,
-        required: false,
-    },
-    street: {
-        type: String,
-        required: false,
-    },
-    street2: {
-        type: String,
-        required: false,
-    },
-    number: {
-        type: String,
-        required: false,
-    },
-    flat: {
-        type: Number,
-        required: false,
-    },
-})
 
 
 //Model for users master data
@@ -131,12 +95,12 @@ const user = new Schema({
     planExpiryDate: {
         type: Date,
         required: false,
-        default: Date.now
+        default: null
     },
 
     roles: {
         type: String,
-        required: false, //WIL BE TRUE
+        required: false, //WILL BE TRUE
         enum: ['standard', 'provider'],
         default: 'standard'
     },
@@ -145,7 +109,8 @@ const user = new Schema({
         type: String,
         required: false,
         minLength: 9,
-        maxLength: 9
+        maxLength: 9,
+        match: /^[0-9]{8}[A-Z]$/ // Valida el formato del DNI
     },
 
     name: {
@@ -172,10 +137,44 @@ const user = new Schema({
         maxLength: 1000
     },
 
-    adress: {
-        type: ObjectId,
-        ref: 'addressSchema',
-        required: false
+    country: {
+        type: String,
+        required: false,
+    },
+
+    province: {
+        type: String,
+        required: false,
+    },
+
+    city: {
+        type: String,
+        required: false,
+    },
+
+    postalCode: {
+        type: String,
+        required: false,
+    },
+
+    street: {
+        type: String,
+        required: false,
+    },
+
+    street2: {
+        type: String,
+        required: false,
+    },
+
+    number: {
+        type: String,
+        required: false,
+    },
+
+    flat: {
+        type: Number,
+        required: false,
     },
 
     legalName: {
@@ -194,7 +193,7 @@ const user = new Schema({
         type: String,
         required: true,
         enum: ['true', 'false', 'confirm account'],
-        default: 'standard'
+        default: 'true' //TODO: This will change soon
     },
 
     customers: [{
@@ -203,17 +202,17 @@ const user = new Schema({
         required: false
     }],
 
-    ownPacks: {
+    ownPacks: [{
         type: ObjectId,
         ref: 'Pack',
         required: false
-    },
+    }],
 
-    adquiredPacks: {
+    adquiredPacks: [{
         type: ObjectId,
         ref: 'Pack',
         required: false
-    },
+    }],
 
 }, { versionKey: false })
 
@@ -223,13 +222,13 @@ const user = new Schema({
 //Model por pack/customer/provider relationship
 const pack = new Schema({
 
-    idProvider: {
+    provider: {
         type: ObjectId,
         ref: 'user',
         required: true
     },
 
-    idCustomer: {
+    customer: {
         type: ObjectId,
         ref: 'user',
         required: true
@@ -244,7 +243,6 @@ const pack = new Schema({
     originalQuantity: {
         type: Number,
         required: true,
-
     },
 
     remmainingQuantity: {
@@ -252,7 +250,7 @@ const pack = new Schema({
         required: true,
     },
 
-    measureUnit: {
+    unit: {
         type: String,
         required: true,
         enum: ['hours', 'units'],
@@ -262,7 +260,6 @@ const pack = new Schema({
     price: {
         type: Number,
         required: true
-
     },
 
     currency: {
@@ -281,18 +278,11 @@ const pack = new Schema({
     expiryDate: {
         type: Date,
         required: true,
-        default: Date()
+        default: null
 
     },
 
-    paymentStatus: {
-        type: String,
-        required: true,
-        enum: ['Pending', 'Partially Payed', 'Payed', 'Refunded'],
-        default: 'Pending'
-    },
-
-    packStatus: {
+    status: {
         type: String,
         required: true,
         enum: ['Pending', 'Active', 'Expired', 'Finnished'],
@@ -302,35 +292,93 @@ const pack = new Schema({
 
 
 
-//Model history to follow up projects and repporting 
-const history = new Schema({
+//Model activity to follow up projects and repporting 
+const activity = new Schema({
+    pack: {
+        type: String,
+        required: true,
+        ref: 'Pack'
+    },
 
+    date: {
+        type: Date,
+        required: true,
+        default: null
+    },
 
+    description: {
+        type: String,
+        maxLength: 255,
+        required: false
+    },
+
+    operation: {
+        type: String,
+        required: true,
+        enum: ['add', 'substract'],
+    },
+
+    quantity: {
+        type: Number,
+        required: true,
+    },
 }, { versionKey: false })
 
 
 
 //Model to payment control. 
 const payment = new Schema({
+    pack: {
+        type: String,
+        required: true,
+        ref: 'Pack'
+    },
 
+    amount: {
+        type: Number,
+        required: true
+    },
 
+    currency: {
+        type: String,
+        required: true,
+        enum: ['EUR', 'USD'],
+        default: 'EUR'
+    },
+
+    date: {
+        type: Date,
+        required: true,
+        default: null
+    },
+
+    method: {
+        type: String,
+        required: true,
+        enum: ['card', 'bank transfer', 'paypal', 'stripe', 'others'],
+    },
+
+    status: {
+        type: String,
+        required: true,
+        enum: ['pending', 'completed', 'Partially Payed', 'canceled', 'refunded', 'partially refunded'],
+        default: 'pending'
+    },
 }, { versionKey: false })
 
 
 
-const PackConfig = model('PackConfig', packConfig)
-const AddressSchema = model('AddressSchema', addressSchema)
+const BasePack = model('BasePack', basePack)
 const User = model('User', user)
 const Pack = model('Pack', pack)
-const History = model('History', history)
+const Activity = model('Activity', activity)
 const Payment = model('Payment', payment)
 
 
 export {
-    AddressSchema,
-    PackConfig,
+    BasePack,
     User,
     Pack,
-    History,
+    Activity,
     Payment
 }

@@ -1,10 +1,15 @@
 import { useState } from 'react'
-import Header from './components/Header'
+//import Header from './view/components/Header'
+
+import { Header } from './view/components/'
+
+import { Register } from './view'
 
 function App() {
 
   return (
-    <Header />
+    <Header />,
+    <Register />
   )
 }
 

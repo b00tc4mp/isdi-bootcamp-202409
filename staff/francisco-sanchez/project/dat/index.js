@@ -1,6 +1,6 @@
 import { connect, disconnect } from 'mongoose'
 
-import { PackConfig, User, Pack, History, Payment, AddressSchema } from './model.js'
+import { BasePack, User, Pack, Activity, Payment } from './model.js'
 
 import './boost-mongoose.js'
 
@@ -12,10 +12,9 @@ const db = {
 export default db
 
 export {
-    PackConfig,
-    AddressSchema,
+    BasePack,
     User,
     Pack,
-    History,
+    Activity,
     Payment
 }

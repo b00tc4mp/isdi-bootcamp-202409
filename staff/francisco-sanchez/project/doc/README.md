@@ -31,7 +31,7 @@ Este programa lo podrán utilizar personas como:
 
 ## Functional
 
-### Use Cases v.0
+### Use Cases
 
 User Standard
 - Consultar / modificar datos personales
@@ -84,19 +84,19 @@ User Provider
 
 ### Data Model
 
-PackConfig
+BasePack
 - id (UUID)
-- userId (Users.id)
+- user (User.id)
 - packName (string)
 - packDescription (string)
 - quantity (num)
-- measureUnit (string, enum: hours | units)
-- expiringTime (num) -> 0 to 12months (0 = infinite)
+- unit (string, enum: hours | units)
+- expiringTime (num, enum: 1 to 12months (-1 = infinite))
 - price (num)
 - currency (string, enum: EUR | USD, default: EUR)
 
 
-Users
+User
 - id (UUID)
 - username (string)   
 - password (string)   
@@ -108,16 +108,14 @@ Users
 - surname1 (string)
 - surname2 (string)
 - biography (string)
-- address {
-    country (string)
-    province (string)
-    city (string)
-    cp (string)
-    street (string)
-    street2 (string)
-    number (num)
-    flat (num)
-}
+- country (string)
+- province (string)
+- city (string)
+- cp (string)
+- street (string)
+- street2 (string)
+- number (num)
+- flat (num)
 - email (string)
 - legalName (string)
 - website (string)
@@ -129,39 +127,36 @@ Users
 
 Pack
 - id (UUID)
-- idProviderUser (UUID)
-- idCustomerUser (UUID)
-- description (string) max...
+- provider (UUID)
+- customer (UUID)
+- description (string) max 255
 - originalQantity (num)
 - remainingQantity (num)
-- measureUnit (string, enum: hours | units)
+- unit (string, enum: hours | units)
 - price (num)
 - currency (string, enum: EUR | USD, default: EUR)
 - purchaseDate (date)
 - expiryDate (date, enum: Date | Null)
-- paymentStatus (string, enum: Pending | Partially Payed | Payed | Refunded) 
-- packStatus (string, enum: Pending | Active | Expired | Finnished)
+- status (string, enum: Pending | Active | Expired | Finnished)
 
 
-History
+Activity
 - id (UUID)
-- idPack (Pack.id)
+- Pack (Pack.id)
 - date (date)
 - description (string)
 - operation (string, enum: add | substract)
 - quantity (num)
-- measureUnit (string, enum: hours | units) ???
-- remaingQuantity (num)  ???
 
 
 Payment
 - id (UUID)
-- idPack(Pack.id)
+- Pack(Pack.id)
 - amount (num)
 - currency (string, enum: EUR | USD, default: EUR)
 - date (date)
-- paymentMethod (string, enum: card | bank_transfer | paypal | stripe)
-- paymentStatus (string, enum: pending | completed | canceled | refunded)
+- method (string, enum: card | bank_transfer | paypal | stripe)
+- status (string, enum: pending | completed | canceled | refunded)
 
 ### Test Coverage
 
