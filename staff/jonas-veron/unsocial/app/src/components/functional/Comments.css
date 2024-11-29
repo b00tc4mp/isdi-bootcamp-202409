@@ -1,0 +1,12 @@
+textarea{
+    color:black;
+    width: 20rem;
+    height: 5rem;
+}
+
+li{
+    list-style: none;
+}
+p{
+    text-align: start;
+}
