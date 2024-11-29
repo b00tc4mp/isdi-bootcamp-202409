@@ -1,1 +1,0 @@
- curl http://localhost:8080/users/m2x5wnj3zx/name -v
