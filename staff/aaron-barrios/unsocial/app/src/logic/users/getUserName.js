@@ -1,5 +1,5 @@
 import { errors } from 'com'
-import { extractPayload } from '../util'
+import { extractPayload } from '../../util'
 
 const { SystemError } = errors
 

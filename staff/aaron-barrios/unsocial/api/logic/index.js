@@ -1,27 +1,33 @@
-import authenticateUser from './authenticateUser.js'
-import registerUser from './registerUser.js'
-import getUserName from './getUserName.js'
-import createPost from './createPost.js'
-import deletePost from './deletePost.js'
-import getPosts from './getPosts.js'
-import createComment from './createComment.js'
-import removeComment from './removeComment.js'
-import getComments from './getComments.js'
-import toggleLikePost from './toggleLikePost.js'
+import {
+    authenticateUser,
+    registerUser,
+    getUserName
+} from './users/index.js'
+
+import {
+    createComment,
+    getComments,
+    removeComment,
+
+    getPosts,
+    createPost,
+    deletePost,
+    toggleLikePost
+} from './posts/index.js'
 
 const logic = {
     authenticateUser,
     registerUser,
     getUserName,
 
-    createPost,
-    deletePost,
-    getPosts,
-    toggleLikePost,
-
     createComment,
     getComments,
-    removeComment
+    removeComment,
+
+    getPosts,
+    createPost,
+    deletePost,
+    toggleLikePost
 }
 
 export default logic

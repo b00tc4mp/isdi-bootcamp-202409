@@ -1,3 +1,3 @@
-import { extractPayload } from '../util'
+import { extractPayload } from '../../util'
 
 export default () => extractPayload(localStorage.token).sub

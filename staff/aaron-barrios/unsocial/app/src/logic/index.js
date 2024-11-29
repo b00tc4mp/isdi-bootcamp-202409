@@ -1,22 +1,24 @@
-import registerUser from './registerUser'
-import loginUser from './loginUser.js'
+import {
+    registerUser,
+    loginUser,
+    getUserName,
+    getUser,
+    getUserId,
+    isUserLoggedIn,
+    logoutUser,
+    obtainUserData
+} from './users'
 
-import isUserLoggedIn from './isUserLoggedIn'
-import getUserName from './getUserName'
-import getUserId from './getUserId'
-import logoutUser from './logoutUser'
+import {
+    removeComment,
+    createComment,
+    getComments,
 
-import toggleLikePost from './toggleLikePost'
-import createPost from './createPost'
-import getPosts from './getPosts'
-import deletePost from './deletePost'
-
-import createComment from './createComment'
-import getComments from './getComments'
-import removeComment from './removeComment'
-
-import getUser from './getUser'
-import obtainUserData from './obtainUserData'
+    toggleLikePost,
+    createPost,
+    deletePost,
+    getPosts
+} from './posts'
 
 
 const logic = {
