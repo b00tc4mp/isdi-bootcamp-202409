@@ -1,0 +1,30 @@
+.Header {
+    background-color: var(--back-color);
+    padding: 1rem 0rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    font-family: 'Dela Gothic One';
+    width: 100%;
+    position: fixed;
+    background-color: var(--back-color);
+
+    h1 {
+        margin: 0;
+        font-size: 1rem;
+        letter-spacing: 3px;
+    }
+
+    h3 {
+        margin: 0;
+        letter-spacing: 1px;
+        font-size: 1rem;
+        color: #92FF9D;
+    }
+}
+
+.Header--transparent {
+    background-color: transparent;
+}

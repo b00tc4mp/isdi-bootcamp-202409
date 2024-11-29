@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap');
+
+:root {
+    --font: 'Playwrite GB S';
+    letter-spacing: 1px;
+    font-family: var(--font);
+
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    margin-right: 10px;
+    border-color: black;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    font: var(--font);
+}
+
+button {
+    padding: 10px;
+    border-radius: 20px;
+    border-color: black;
+    background-color: #00ff0d;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #00ff0d;
+}
+
+.app-container {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.tasks-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.delete-button {
+    background-color: rgb(255, 198, 198);
+}

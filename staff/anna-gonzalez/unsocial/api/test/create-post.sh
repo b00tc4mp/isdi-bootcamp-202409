@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzNmM2Q4M2M4ODlmNjZjMWU0OTM0MGMiLCJyb2xlIjoicmVndWxhciIsImlhdCI6MTczMjU1ODk3MiwiZXhwIjoxNzMyNTYyNTcyfQ.9V2Q8hzVLQSR-djYzIW_blUspj6_RjkeFZCeGasIX-U' -H 'Content-Type: application/json' -d '{"image":"http://invented-image.com","text":"hello world"}' http://localhost:8080/posts -v
