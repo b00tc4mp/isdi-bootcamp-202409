@@ -11,7 +11,6 @@ export default function ProductDetail({ id }) {
   }));
   //en productos busca el productoid que sea igual al ide que le estamos pasando por props, tiene que ser doble igual porque viene con string para el triple=
   const product = productos.find((p) => p.id == id);
-  debugger;
   return (
     <div className="card bg-base-100 w-1/2  mx-auto m-5">
       <div className="card-body">

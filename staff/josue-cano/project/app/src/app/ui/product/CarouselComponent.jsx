@@ -12,8 +12,8 @@ console.log(imagenes)
           height={160}
           className="w-full h-auto " alt="fotos producto"/>
         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-          <a href={"#" + index-1} className="btn btn-circle">❮</a>
-          <a href={"#"+ index+1} className="btn btn-circle">❯</a>
+          <a href={"#" + parseInt(index-1)} className="btn btn-circle">❮</a>
+          <a href={"#"+ parseInt(index+1)} className="btn btn-circle">❯</a>
         </div>
       </div>)
       )}
