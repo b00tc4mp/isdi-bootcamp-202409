@@ -1,0 +1,12 @@
+.Button {
+  font-family: var(--font);
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  width: fit-content;
+  align-self: center;
+}
+
+.Button--light {
+  color: white;
+}

@@ -1,0 +1,1 @@
+curl -H 'Authorization: Basic 6734ce44dfcd991dd513e654' http://localhost:8080/users/6734ce44dfcd991dd513e654/name -v
