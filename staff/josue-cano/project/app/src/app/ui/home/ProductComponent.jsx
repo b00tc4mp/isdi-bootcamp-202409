@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductComponent({producto}) {
     // console.log(producto)
@@ -7,7 +8,7 @@ export default function ProductComponent({producto}) {
       <div className="card bg-base-100 w-responsive shadow-xl">
         <figure>
           <Image
-            src={`/img/${producto?.imagenes[0]}`}
+            src={`/img/${producto?.imagenes[1]}`}
             alt="Shoes"
             layout="responsive"
             width={160}
@@ -24,6 +25,7 @@ export default function ProductComponent({producto}) {
           <div className="card-actions justify-end">
             <div className="badge badge-outline">Fashion</div>
             <div className="badge badge-outline">Products</div>
+            <Link href={`/product/${producto.id}`}>ver </Link>
           </div>
         </div>
       </div>

@@ -69,8 +69,8 @@ export default function register() {
             <label className="label">
               <span className="label-text font-medium">Localidad*</span>
             </label>
-            <select className="select select-bordered w-full" required>
-              <option value="" disabled selected>
+            <select className="select select-bordered w-full" defaultValue={""} required>
+              <option value="" disabled >
                 Seleccione su localidad
               </option>
               <option value="Castellar del Valles">Castellar del Valles</option>
@@ -89,7 +89,7 @@ export default function register() {
               </span>
             </label>
           </div>
-          <button type="submit" className="btn btn-primary w-full mt-4">
+          <button type="submit" className="btn btn-secondary w-full mt-4">
             Registrarse
           </button>
         </form>

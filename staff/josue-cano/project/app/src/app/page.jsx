@@ -1,5 +1,5 @@
 import SearchComponent from "./ui/SearchComponent";
-import ProductListComponent from "./home/ProductListComponent";
+import ProductListComponent from "./ui/home/ProductListComponent";
 
 export default function Index() {
   return (

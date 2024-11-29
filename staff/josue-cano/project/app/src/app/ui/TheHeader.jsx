@@ -103,13 +103,13 @@ export default function TheHeader() {
             </li>
           </ul>
 
-          <a className="btn btn-primary text-white btn-sm rounded-full">
+          <Link className="btn btn-primary text-white btn-sm rounded-full" href={"/register"}>
             Registrate
-          </a>
+          </Link>
 
-          <a className="btn btn-primary btn-sm ml-2 rounded-full btn-outline">
+          <Link className="btn btn-primary btn-sm ml-2 rounded-full btn-outline" href={"/login"}>
             Inicia Sesion
-          </a>
+          </Link>
         </div>
       </div>
     </div>
