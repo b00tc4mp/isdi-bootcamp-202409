@@ -1,0 +1,12 @@
+.Label {
+    &::before {
+        content: '[';
+    }
+
+    &::after {
+        content: ']';
+    }
+
+    font-size: x-large;
+    font-family: inherit;
+}
