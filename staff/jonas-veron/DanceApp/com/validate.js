@@ -2,9 +2,9 @@ import errors from "./errors.js"
 
 const { ValidationError } = errors
 
-const validateName = (fullName) => {
-  if (typeof fullName !== "string") throw new ValidationError("invalid name")
-  if (fullName.length < 2) throw new ValidationError("invalid name length")
+const validateName = (name) => {
+  if (typeof name !== "string") throw new ValidationError("invalid name")
+  if (name.length < 2) throw new ValidationError("invalid name length")
 }
 
 const validateEmail = (email) => {
@@ -59,7 +59,7 @@ const validateCallback = (callback) => {
 }
 
 const validate = {
-  fullName: validateName,
+  name: validateName,
   email: validateEmail,
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,

@@ -13,17 +13,17 @@ db.connect(process.env.MONGO_URL_TEST)
     // console.log(lines)
 
     const creations = lines.map((line) => {
-      const [fullName, email, password, role] = line
+      const [name, email, password, role] = line
         .split(",")
         .map((item) => item.trim())
-      // console.log(fullName, email, password, role)
+      // console.log(name, email, password, role)
 
-      if (!fullName || !email || !password || !role) {
+      if (!name || !email || !password || !role) {
         throw new Error(`Datos faltantes en línea: ${line}`)
       }
 
       return User.create({
-        fullName,
+        name,
         email,
         password: bcrypt.hashSync(password, 10),
         role,

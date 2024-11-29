@@ -11,36 +11,36 @@ import { errors } from "com"
 
 const { NotFoundError } = errors
 
-import getUserFullName from "./getUserFullName.js"
+import getUserName from "./getUserName.js"
 
-describe("getUserFullName", () => {
+describe("getUserName", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST))
 
   beforeEach(() => User.deleteMany())
 
   it("succeeds on existing user", async () => {
     const user = await User.create({
-      fullName: "Cristian Medina",
+      name: "Cristian Medina",
       email: "cristian@dancer.com",
       password: "123123123",
     })
 
-    const fullName = await getUserFullName(user.id, user.id)
-    expect(fullName).to.equal("Cristian Medina")
+    const name = await getUserName(user.id, user.id)
+    expect(name).to.equal("Cristian Medina")
   })
 
   it("fails on non-existing user", () =>
     expect(
-      getUserFullName("012345678901234567890123", "012345678901234567890123")
+      getUserName("012345678901234567890123", "012345678901234567890123")
     ).to.be.rejectedWith(NotFoundError, "user not found"))
 
   it("fails on non-existing target-user", () =>
     expect(
       User.create({
-        fullName: "Cristian Medina",
+        name: "Cristian Medina",
         email: "cristian@dancer.com",
         password: "123123123",
-      }).then((user) => getUserFullName(user.id, "012345678901234567890123"))
+      }).then((user) => getUserName(user.id, "012345678901234567890123"))
     ).to.be.rejectedWith(NotFoundError, "target user not found"))
 
   after(() => db.disconnect())

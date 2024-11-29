@@ -31,7 +31,7 @@ describe("registerUser", () => {
     const user = await User.findOne({ email: "girona@baila.com" })
 
     expect(user).to.exist
-    expect(user.fullName).to.equal("Girona Baila")
+    expect(user.name).to.equal("Girona Baila")
     expect(user.email).to.equal("girona@baila.com")
     expect(bcrypt.compareSync("123123123", user.password)).to.be.true
   })
@@ -40,7 +40,7 @@ describe("registerUser", () => {
     expect(
       (async () => {
         await User.create({
-          fullName: "Girona Baila",
+          name: "Girona Baila",
           email: "girona@baila.com",
           password: bcrypt.hashSync("123123123", 10),
         })

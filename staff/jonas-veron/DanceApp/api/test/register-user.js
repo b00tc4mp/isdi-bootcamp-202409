@@ -6,8 +6,8 @@ fetch("http://localhost:3000/users", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    fullName: "Carlos Roca",
-    email: "carlos@roca.com",
+    name: "juansito",
+    email: "juans@roca.com",
     password: "123123123",
     passwordRepeat: "123123123",
   }),
@@ -16,6 +16,7 @@ fetch("http://localhost:3000/users", {
     throw new SystemError(error.message)
   })
   .then((response) => {
+    console.log(response)
     if (response.ok) return
 
     return response

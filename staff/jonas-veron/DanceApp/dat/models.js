@@ -8,7 +8,7 @@ const {
 
 const user = new Schema(
   {
-    fullName: {
+    name: {
       type: String,
       required: true,
       minLength: 2,

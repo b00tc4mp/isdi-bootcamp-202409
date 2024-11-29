@@ -17,22 +17,16 @@ DanceApp is an app designed to connect dancers and dance event organizers in you
 
 ### Use Cases
 
-For all users
-
-- Access to an interactive map to locate nearby events in real time.
-- Use of an advanced search engine to filter events by location, dance type, or date.
-- Explore popular events highlighted on the platform.
-
 Dancer
 
-- Search and explore events.
+- Search and explore events with filters by location.
 - Give "likes" to posts.
 - Comments.
 - Share events with friends.
 
 Organizer
 
-- Search and explore events.
+- Search and explore events with filters by location.
 - Give "likes" to posts.
 - Comments.
 - Share events with friends.
@@ -90,21 +84,21 @@ Comment:
 - text (string maxLength 200)
 - date (Date)
 
-Location:
 
-- address (string)
+Location
 
-Coordinates:
+- id (UUID)
+- type (string, point )
+- coordinates ([Number])
 
-- latitude (number)
-- longitude (number)
 
 ### Techs
 
-- Frontend: React, HTML, CSS, JavaScript
+- Frontend: React, HTML, CSS, JavaScript, TailwindCSS
 - Backend: Node.js + Express
 - Database: MongoDB
-- Style: Tailwind CSS
 - Authentication: JWT
+- Testing: Mocha & Chai (for backend logic)
+- Map Integration: Leaflet.js
 
 ### Test Coverage

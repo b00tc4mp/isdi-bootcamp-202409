@@ -1,11 +1,9 @@
-import registerUser from "./registerUser.js"
-import authenticateUser from "./authenticateUser.js"
-import getUserFullName from "./getUserFullName.js"
+import { registerUser, authenticateUser, getUserName } from "./users/index.js"
 
 const logic = {
   registerUser,
   authenticateUser,
-  getUserFullName,
+  getUserName,
 }
 
 export default logic

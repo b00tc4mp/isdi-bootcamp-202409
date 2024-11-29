@@ -1,5 +1,6 @@
 import DanceAppLogo from "../assets/DanceAppLogo.png"
 import logic from "../logic"
+import { useNavigate, Link } from "react-router-dom"
 import { errors } from "com/"
 
 import {
@@ -9,13 +10,13 @@ import {
   Form,
   Field,
   Label,
-  Anchor,
 } from "../view/Components/library/index.js"
 
 const { SystemError } = errors
 
-export default function Register(props) {
+export default function Register() {
   console.log("Register -> render")
+  const navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -23,7 +24,7 @@ export default function Register(props) {
     const { target: form } = event
 
     const {
-      fullName: { value: fullName },
+      name: { value: name },
       email: { value: email },
       password: { value: password },
       passwordRepeat: { value: passwordRepeat },
@@ -31,13 +32,13 @@ export default function Register(props) {
 
     try {
       logic
-        .registerUser(fullName, email, password, passwordRepeat)
+        .registerUser(name, email, password, passwordRepeat)
         .then(() => {
           form.reset()
 
           alert("Usuario registrado")
 
-          props.onRegistered()
+          navigate("/login")
         })
         .catch((error) => {
           if (error instanceof SystemError)
@@ -51,19 +52,13 @@ export default function Register(props) {
     }
   }
 
-  const handleLoginClick = (event) => {
-    event.preventDefault()
-
-    props.onLoginClick()
-  }
-
   return (
-    <main className="flex justify-center items-center flex-col min-h-screen box-border">
+    <main className="flex flex-grow justify-center items-center flex-col min-h-screen box-border pt-16 pb-16">
       <div className="flex flex-col items-center">
         <img
           src={DanceAppLogo}
           alt="Logo de DanceApp"
-          className="w-68 h-28 mb-4"
+          className="w-[38vh] h-28 mb-4"
         />
         <h1 className="text-lg text-center text-white m-1.5 font-body">
           Regístrate para descubrir sociales, clases y promocionar tus eventos
@@ -73,8 +68,8 @@ export default function Register(props) {
 
       <Form onSubmit={handleSubmit}>
         <Field>
-          <Label htmlFor="fullName"></Label>
-          <Input type="text" id="fullName" placeholder="Nombre y Apellidos" />
+          <Label htmlFor="name"></Label>
+          <Input type="text" id="name" placeholder="Nombre y Apellidos" />
         </Field>
 
         <Field>
@@ -100,9 +95,11 @@ export default function Register(props) {
       </Form>
       <p className="text-white p-1">¿ Tienes una cuenta ?</p>
 
-      <Anchor href="" onClick={handleLoginClick}>
-        INICIAR SESIÓN
-      </Anchor>
+      <Link to="/login">
+        <p className="no-underline hover:underline hover:text-accentgreen text-white cursor-pointer pt-4 text-sm">
+          INICIAR SESIÓN
+        </p>
+      </Link>
     </main>
   )
 }

@@ -1,12 +1,12 @@
 import bcrypt from "bcryptjs"
 
 import { User } from "dat"
-import { validate, errors } from "../../com/index.js"
+import { validate, errors } from "com"
 
 const { DuplicityError, SystemError } = errors
 
-export default (fullName, email, password, passwordRepeat) => {
-  validate.fullName(fullName)
+export default (name, email, password, passwordRepeat) => {
+  validate.name(name)
   validate.email(email)
   validate.password(password)
   validate.passwordsMatch(password, passwordRepeat)
@@ -17,7 +17,7 @@ export default (fullName, email, password, passwordRepeat) => {
       throw new SystemError(error.message)
     })
     .then((hash) =>
-      User.create({ fullName, email, password: hash })
+      User.create({ name, email, password: hash })
         .then((_) => {})
         .catch((error) => {
           if (error.code === 11000)
