@@ -8,24 +8,27 @@ This is a web app for elderly people who need some assistance at home.
 
 ## Functional
 
+- The Loving Hands web app is designed to bring communication between elderly people in need of assistance and caregivers who can provide that support.
+
 ### Use Cases
 
 Caregiver (User)
 
-- Create and publish help offers: Specify the type of help offer with the availability, address and price.
-- Search for help requests: Browse active requests on the platform and communicate with assistance seekers.
-- Submit offers: Send offers to assist an elder with specific needs.
+- Create and publish help offers.
+- Search for help requests.
+- Contact an elder.
 - Save the post of a specified elder.
 - Manage profile: Update profile, view ratings and manage saved posts.
-- Rate elders: Send a review with a rating of the elder.
+- Rate elders.
 
 Elder (User)
 
-- Create help requests: Specify the type of assistance needed and publish requests.
-- Search for assistance offers: Browse active offers on the platform and communicate with caregivers.
+- Create and post help requests.
+- Search for assistance offers.
+- Contact a Caregiver.
 - Save the post of a specified caregiver.
-- Manage profile: Update profile, view rating and manage saved posts.
-- Rate the caregiver: Provide a feedback after receiving help.
+- Manage profile: Update profile, view ratings and manage saved posts.
+- Rate caregivers.
 
 ### UXUI Design
 
@@ -74,6 +77,7 @@ User
 Location
 
 - id (UUID)
+- type (string)
 - coordinates ([Number])
 
 Post
@@ -90,7 +94,7 @@ Review
 - id (uuid)
 - author (User.id)
 - rating (number)
-- reviews (string)
+- text (string)
 - date (date)
 
 Author
