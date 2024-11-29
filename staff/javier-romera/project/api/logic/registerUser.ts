@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs'
 
 import { User } from 'dat'
-import { validate, errors, CustomError } from 'com'
+import { validate, errors } from 'com'
+import { MongoError } from 'mongodb'
 
 const { DuplicityError, SystemError } = errors
 
@@ -18,15 +19,16 @@ export default (name: string, email: string, username: string, password: string,
         try {
             hash = await bcrypt.hash(password, 10)
         } catch (error) {
-            throw new SystemError((error as CustomError).message)
+            if (error instanceof Error)
+                throw new SystemError(error.message)
         }
 
         try {
             await User.create({ name, email, username, password: hash })
         } catch (error) {
-            if ((error as CustomError).status === 11000) throw new DuplicityError('user already exists')
+            if ((error as MongoError).code === 11000) throw new DuplicityError('user already exists')
 
-            throw new SystemError((error as CustomError).message)
+            throw new SystemError((error as Error).message)
         }
     })()
 }

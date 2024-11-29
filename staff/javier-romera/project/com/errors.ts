@@ -1,34 +1,53 @@
-class CustomError extends Error {
-    constructor(name: string, message: string, public status?: number) {
+class ValidationError extends Error {
+    constructor(message: string, public code?: number) {
         super(message)
-
-        this.name = name
     }
 }
 
-type CustomErrorConstructor = new (message: string, status?: number) => CustomError
+class NotFoundError extends Error {
+    constructor(message: string, public code?: number) {
+        super(message)
+    }
+}
 
-const createCustomError = (name: string): CustomErrorConstructor => {
-    return class extends CustomError {
-        constructor(message: string, status?: number) {
-            super(name, message, status)
-        }
+class DuplicityError extends Error {
+    constructor(message: string, public code?: number) {
+        super(message)
+    }
+}
 
-        static get errName() { return name }
+class CredentialsError extends Error {
+    constructor(message: string, public code?: number) {
+        super(message)
+    }
+}
+
+class SystemError extends Error {
+    constructor(message: string, public code?: number) {
+        super(message)
+    }
+}
+
+class OwnershipError extends Error {
+    constructor(message: string, public code?: number) {
+        super(message)
+    }
+}
+
+class AuthorizationError extends Error {
+    constructor(message: string, public code?: number) {
+        super(message)
     }
 }
 
 const errors = {
-    ValidationError: createCustomError('ValidationError'),
-    NotFoundError: createCustomError('NotFoundError'),
-    DuplicityError: createCustomError('DuplicityError'),
-    CredentialsError: createCustomError('CredentialsError'),
-    SystemError: createCustomError('SystemError'),
-    OwnershipError: createCustomError('OwnershipError'),
-    AuthorizationError: createCustomError('AuthorizationError')
+    ValidationError,
+    NotFoundError,
+    DuplicityError,
+    CredentialsError,
+    SystemError,
+    OwnershipError,
+    AuthorizationError
 }
 
-export {
-    errors,
-    CustomError
-}
+export default errors

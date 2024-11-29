@@ -1,9 +1,9 @@
-import { errors, CustomError } from 'com'
+import { errors } from 'com'
 import { NextFunction, Request, Response } from 'express'
 
 const { ValidationError, SystemError, DuplicityError, CredentialsError, NotFoundError, OwnershipError, AuthorizationError } = errors
 
-export default (error: CustomError, req: Request, res: Response, next: NextFunction) => {
+export default (error: Error, req: Request, res: Response, next: NextFunction) => {
     let status = 500
 
     switch (true) {
@@ -27,7 +27,7 @@ export default (error: CustomError, req: Request, res: Response, next: NextFunct
             break
     }
 
-    res.status(status).json({ error: status === 500 ? SystemError.name : error.name, message: error.message })
+    res.status(status).json({ error: status === 500 ? SystemError.name : error.constructor.name, message: error.message })
 
     console.error(error)
 }
