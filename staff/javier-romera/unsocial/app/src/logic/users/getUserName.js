@@ -1,5 +1,5 @@
 import { errors } from 'apu'
-import { extractPayloadFromJWT } from '../util'
+import { extractPayloadFromJWT } from '../../util'
 
 const { SystemError } = errors
 
