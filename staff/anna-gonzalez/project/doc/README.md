@@ -1,7 +1,5 @@
 # Period (Syncly pa los amigos)
 
-<!-- preguntar si necesito un rol para el partner -->
-
 ## Intro
 
 This app is designed for menstruating people to be your **everyday companion** to stay organized and in control.
@@ -63,19 +61,18 @@ Cycle
 - start (Date)
 - end (Date, optional)
 - periodEnd (Date)
-- dailyLogs ([DailyLog.id])
+- dayLogs ([DayLog])
 
-DailyLog
+DayLog
 - id (ObjectId)
-- cycle (Cycle.id)
 - date (Date)
 - symptoms (string, enum: fatigue | headache | cramps | tender breasts | acne | backache | cravings | abdominal pain | dryness)
 - mood (string, enum: calm | happy | mood swings | sad | anxious)
-- energy (string, enum: low | medium | high)
+- energy (string, enum: low | moderate | high)
 - flow (string, enum: no discharge | creamy | watery)
 - sleep (string, enum: poor | average | good)
-- sexualActivity (string, enum: did not have sex | had sex)
-- sexualEnergy (string, enum: low | medium | high)
+- sexualActivity (string, enum: no sex | sex)
+- sexualEnergy (string, enum: low | moderate | high)
 
 Reminder
 - id (ObjectId)

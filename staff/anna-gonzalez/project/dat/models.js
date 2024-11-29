@@ -22,6 +22,49 @@ const user = new Schema({
     }
 }, { versionKey: false })
 
+const dayLog = new Schema({
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    symptoms: {
+        type: String,
+        enum: ['fatigue', 'headache', 'cramps', 'tender breasts', 'acne', 'backache', 'cravings', 'abdominal pain', 'dryness'],
+        required: true
+    },
+    mood: {
+        type: String,
+        enum: ['calm', 'happy', 'mood swings', 'sad', 'anxious'],
+        required: true,
+    },
+    energy: {
+        type: String,
+        enum: ['low', 'moderate', 'high'],
+        required: true,
+    },
+    flow: {
+        type: String,
+        enum: ['no discharge', 'creamy', 'watery'],
+        required: true
+    },
+    sleep: {
+        type: String,
+        enum: ['poor', 'average', 'good'],
+        required: true
+    },
+    sexualActivity: {
+        type: String,
+        enum: ['no sex', 'sex'],
+        required: true
+    },
+    sexualEnergy: {
+        type: String,
+        enum: ['low', 'moderate', 'high'],
+        required: true
+    }
+})
+
 const cycle = new Schema({
     user: {
         type: ObjectId,
@@ -30,7 +73,8 @@ const cycle = new Schema({
     },
     start: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     },
     end: {
         type: Date,
@@ -40,64 +84,10 @@ const cycle = new Schema({
         type: Date,
         required: true
     },
-    dailyLogs: [{
-        ref: 'DailyLog'
+    dayLogs: [{
+        type: dayLog,
+        ref: 'DayLog'
     }]
-})
-
-const dailyLog = new Schema({
-    cycle: {
-        type: ObjectId,
-        required: true,
-        ref: 'Cycle'
-    },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    symptoms: {
-        type: String,
-        enum: ['fatigue', 'headache', 'cramps', 'tender breasts', 'acne', 'backache', 'cravings', 'abdominal pain', 'dryness'],
-        required: true,
-        default: []
-    },
-    mood: {
-        type: String,
-        enum: ['low', 'medium', 'high'],
-        required: true,
-        default: []
-    },
-    energy: {
-        type: String,
-        enum: ['low', 'medium', 'high'],
-        required: true,
-        default: []
-    },
-    flow: {
-        type: String,
-        enum: ['no discharge', 'creamy', 'watery'],
-        required: true,
-        default: []
-    },
-    sleep: {
-        type: String,
-        enum: ['poor', 'average', 'good'],
-        required: true,
-        default: []
-    },
-    sexualActivity: {
-        type: String,
-        enum: ['did not have sex', 'had sex'],
-        required: true,
-        default: []
-    },
-    sexualEnergy: {
-        type: String,
-        enum: ['low', 'medium', 'high'],
-        required: true,
-        default: []
-    }
 })
 
 const reminder = new Schema({
@@ -143,15 +133,15 @@ const tip = new Schema({
 })
 
 const User = model('User', user)
+const DayLog = model('DayLog', dayLog)
 const Cycle = model('Cycle', cycle)
-const DailyLog = model('DailyLog', dailyLog)
 const Reminder = model('Reminder', reminder)
 const Tip = model('Tip', tip)
 
 export {
     User,
+    DayLog,
     Cycle,
-    DailyLog,
     Reminder,
     Tip
 }

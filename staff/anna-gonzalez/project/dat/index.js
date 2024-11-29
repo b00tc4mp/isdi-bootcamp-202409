@@ -1,5 +1,5 @@
 import { connect, disconnect } from 'mongoose'
-import { User, Cycle, DailyLog, Reminder, Tip } from './models.js'
+import { User, DayLog, Cycle, Reminder, Tip } from './models.js'
 import './boost-mongoose.js'
 
 const db = {
@@ -11,8 +11,8 @@ export default db
 
 export {
     User,
+    DayLog,
     Cycle,
-    DailyLog,
     Reminder,
     Tip
 }
