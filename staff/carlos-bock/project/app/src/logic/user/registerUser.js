@@ -1,5 +1,4 @@
-//import { validate, errors } from 'com'
-import validate from '../../../../com/validate.js'
+import validate from '../../../../com/validate.js'//import { validate, errors } from 'com'
 import errors from '../../../../com/errors.js'
 
 const { SystemError } = errors
@@ -9,7 +8,7 @@ const registerUser = (name, email, username, password, password2) => {
     validate.email(email)
     validate.username(username)
     validate.password(password)
-    validate.passwordMatch(password2)
+    validate.passwordMatch(password, password2)
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users`, {
         method: 'POST',

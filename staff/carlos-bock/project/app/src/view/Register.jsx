@@ -1,6 +1,6 @@
-//import { errors } from 'com'
-import { main } from 'ts-node/dist/bin'
-import { errors } from '../../../com/errors.js' //index.js
+import errors from '../../../com/errors.js' //index.js //import { errors } from 'com'
+
+const { SystemError } = errors
 
 //create and import custom components for imput buttons etc....
 

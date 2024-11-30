@@ -1,6 +1,5 @@
-//import {errors} from 'com'
-import { errors } from '../../../../com/errors.js'
-import { extractPayloadFromJWT } from '../../util/extractPayloadJWT.js'
+import errors from '../../../../com/errors.js' //import {errors} from 'com'
+import extractPayloadFromJWT from '../../util/extractPayloadJWT.js'
 
 const { SystemError } = errors
 

@@ -1,5 +1,4 @@
-//import { validate, errors } from 'com'
-import validate from '../../../../com/validate.js'
+import validate from '../../../../com/validate.js' //import { validate, errors } from 'com'
 import errors from '../../../../com/errors.js'
 
 const { SystemError } = errors
@@ -12,7 +11,8 @@ const loginUser = (username, password) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
-    }).catch(error => { throw new SystemError(error.message) })
+    })
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (res.ok)
                 return res.json()

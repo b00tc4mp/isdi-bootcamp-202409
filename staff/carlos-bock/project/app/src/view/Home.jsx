@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react' // add useEffect
 
 ///create and import a recomendation component
 

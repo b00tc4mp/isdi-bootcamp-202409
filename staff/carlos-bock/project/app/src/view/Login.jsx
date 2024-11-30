@@ -1,12 +1,11 @@
 //create passwordinput, input, button, form, field, label in library
-
+import Button from './library/Button.jsx'
 //import loginUser from '../logic/user/loginUser.js'
 //import registerUser from '../logic/user/registerUser.js'
 
 import logic from '../logic/index.js'
 
-//import { errors } from 'com' // check import
-import errors from '../../../com/errors.js' // also index.js
+import errors from '../../../com/errors.js' // also index.js //import { errors } from 'com' // check import
 
 const { SystemError } = errors
 
@@ -68,7 +67,7 @@ export default function Login(props) {
                 <input type='password' id='password'></input>
             </div>
 
-            <button type='submit'>iniciar sesión</button>
+            <Button type='submit'>iniciar sesión</Button>
         </form>
         <a href='' onClick={handleRegisterClick}>Regístrate</a>
     </main>

@@ -1,4 +1,5 @@
 import loginUser from './user/loginUser.js'
+import logoutUser from './user/logoutUser.js'
 import registerUser from './user/registerUser.js'
 import isUserLoggedIn from './user/isUserLoggedIn.js'
 import isUserModerator from './user/isUserModerator.js'
@@ -10,6 +11,7 @@ import getUserRole from './user/getUserRole.js'
 
 const logic = {
     loginUser,
+    logoutUser,
     registerUser,
     isUserLoggedIn,
     isUserModerator,
