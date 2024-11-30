@@ -1,0 +1,15 @@
+.Button{
+    width: '100%';
+    box-sizing: border-box;
+    background-color: aquamarine;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: blue;
+    border-color: red;
+    border: solid;
+    cursor: pointer;
+}
+
+.Button--light{
+    color: black;
+    background-color: white;
+}

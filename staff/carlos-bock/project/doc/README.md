@@ -2,19 +2,18 @@
 
 ## Intro
 
-[...]
+miRed (myNetwork) is a social media network focused on creating an information network for individuals moving abroad. If you are already on ground share your own experiences and reviews with your fellow diaspora.
 
-#### move with confidence
-
+#### Move with confidence
 
 ![Move](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDVnYnJpeW5qaHg2bTd4aTRhcXBxcXZwcjF2c21uZjZhYTM0a2xzNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/10LmKkoECGbzMbFzX6/giphy.gif "Moving")
 
-
-## Functional 
+## Functional
 
 ### Use Cases
 
 User
+
 - create posts
 - view posts
 - toggole like posts
@@ -25,11 +24,12 @@ User
 - edit review
 - remove review
 - report/flag content
-- profile page 
-    -toggle posts / reviews
-    -trust rating
+- profile page
+  -toggle posts / reviews
+  -trust rating
 
-Admin 
+Admin
+
 - view reports
 - delete user
 - delete post
@@ -59,43 +59,40 @@ Admin
 
 ### Data Model
 
-User {object}
+User
+
 - id (UUID)
 - role (user || admin)
 - name (string)
 - email (string)
 - username (string)
 - password (string)
-- date of birth (string, not displayed)
+- date of birth (string)
 - trust rating (number)
 - point level (number)
 
+Recommendation (mongo)
 
-Post (array of objects)
 - id (UUID)
-- author (User.id)
-- image (string)
-- text (string)
-- date (Date)
-- likes ([User.id])
-
-Comments ([{ 
-    - id (UUID)
-    - author (User.id)
-    - text (string)
-    - date (Date) }])
-
-Review/Recommendation (mongo)
-- id (UUID)
+- comments ([Comment])
 - author (User.id)
 - city (string)
 - country (string)
-- price (number)
+- category (number, enum: 1 (paperwork) | 2 (utilities) | 3 (food) | 4 (events) | 5 (healthcare) | 6 (neighbourhoods) | 7 (accommodations) | 8 (transport) ) //consider using numbers?
+- price (number, enum: 1(€) | 2(€€) | 3(€€€))
 - link (string) // url || google map
 - text (string)
 - date (Date)
-- upVotes ([User.id])//not visible 
-- downVotes ([User.id])//not visible 
+- upVotes ([User.id])//not visible
+- downVotes ([User.id])//not visible
+- image (string)
+
+Comment
+
+- id (UUID)
+- author (User.id)
+- text (string)
+- date (Date)
 
 Destination
 -name ([string]) //country list
@@ -106,7 +103,6 @@ Country {}
 City {}
 -name (string)
 -country (Country.id)
-
 
 ### Techs
 
