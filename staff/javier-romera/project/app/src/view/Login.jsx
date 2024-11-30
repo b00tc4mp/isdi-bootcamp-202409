@@ -2,6 +2,8 @@ import { Form, Field, Label, Input, Button, Anchor } from './library'
 
 import logic from './../logic'
 
+import { NoUserLoggedInAlert } from './components'
+
 import { errors } from 'com'
 const { SystemError } = errors
 
@@ -45,6 +47,7 @@ export default function Login(props) {
         style={{
             backgroundImage: "url('/images/going_merry.png')"
         }}>
+
         <h2 className="mt-[10rem] text-[2.5rem]">Login</h2>
 
         <Form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-[10px]">

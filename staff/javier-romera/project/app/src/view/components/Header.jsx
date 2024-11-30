@@ -49,12 +49,12 @@ export default function Header(props) {
         props.onLoggedOut()
     }
 
-    return <header className="fixed top-0 w-full flex justify-center items-center bg-[red] h-[10rem] box-border">
+    return <header className="fixed top-0 w-full flex justify-center items-center bg-[transparent] h-[10rem] box-border">
         <div className="grid grid-cols-3">
             <div></div> {/*Chapuza o historia? */}
 
             <div className="w-[450px] flex justify-center items-center">
-                <img onClick={handleHomeClick} src="/images/allpiece.png" alt="allpiece" className="cursor-pointer"></img>
+                <img onClick={handleHomeClick} src="/images/allpiece.png" alt="allpiece" className="cursor-pointer transition-transform duration-200 ease-in-out hover:scale-110"></img>
             </div>
 
             <div className="flex justify-end items-center">
