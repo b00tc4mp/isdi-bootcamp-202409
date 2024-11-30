@@ -3,7 +3,7 @@ import db from "dat/index.js";
 import express from "express";
 import cors from "cors";
 import { errorHandler } from './routes/helpers/index.js'
-import { usersRouter } from './routes/index.js'
+import { usersRouter, eventsRouter } from './routes/index.js'
 
 db.connect(process.env.MONGO_URL_TEST).then(() => {
   console.log("connected to db");
@@ -15,6 +15,7 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
   server.get("/", (_, res) => res.send("Hello, API!"));
 
   server.use('/users', usersRouter )
+  server.use('/events', eventsRouter)
 
   server.use(errorHandler);
 

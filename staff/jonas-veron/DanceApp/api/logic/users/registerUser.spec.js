@@ -51,7 +51,7 @@ describe("registerUser", () => {
           "123123123"
         )
       })()
-    ).to.be.rejectedWith(DuplicityError, "user already exists"))
+    ).to.be.rejectedWith(DuplicityError, "User already exists"))
 
   it("fails when name is missing", () =>
     expect(
@@ -63,7 +63,7 @@ describe("registerUser", () => {
           "123123123"
         )
       })()
-    ).to.be.rejectedWith(ValidationError, "invalid name"))
+    ).to.be.rejectedWith(ValidationError, "Invalid name"))
 
   it("fails when passwords do not match", () =>
     expect(
@@ -75,7 +75,7 @@ describe("registerUser", () => {
           "321321321"
         )
       })()
-    ).to.be.rejectedWith(ValidationError, "passwords do not match"))
+    ).to.be.rejectedWith(ValidationError, "Passwords do not match"))
 
   it("fails when e-mail is invalid ", () =>
     expect(
@@ -87,7 +87,7 @@ describe("registerUser", () => {
           "123123123"
         )
       })()
-    ).to.be.rejectedWith(ValidationError, "invalid e-mail"))
+    ).to.be.rejectedWith(ValidationError, "Invalid e-mail"))
 
   after(() => db.disconnect())
 })

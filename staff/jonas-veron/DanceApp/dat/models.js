@@ -1,10 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { now } from "mongoose";
 
 const {
   Schema,
   model,
   Types: { ObjectId },
 } = mongoose;
+
+const pointSchema = new Schema({
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: true
+  },
+  coordinates: {
+    type: [Number],
+    required: true
+  }
+});
 
 const user = new Schema(
   {
@@ -74,7 +86,6 @@ const comment = new Schema({
   date: {
     type: Date,
     required: true,
-    default: Date.now,
   },
 });
 
@@ -94,14 +105,25 @@ const event = new Schema(
       required: true,
       maxLength: 200,
     },
-    // location: {
-    //   type: pointSchema,
-    //   required: true,
-    // },
     date: {
       type: Date,
       required: true,
-      default: Date.now,
+      default: Date.now
+    },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        required: true
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      },
+      address: {
+        type: String,
+        required: true
+      }
     },
     likes: [
       {
@@ -114,17 +136,11 @@ const event = new Schema(
   { versionKey: false }
 );
 
-// const pointSchema = new Schema({
-//   type: {
-//     type: String,
-//     enum: ['Point'],
-//     required: true
-//   },
-//   coordinates: {
-//     type: [Number],
-//     required: true
-//   }
-// });
+
+
+
+// herramienta para manejar datos de ubicación !! <---
+// event.index({ location.coordinates: '2dsphere'})
 
 
 const User = model("User", user);

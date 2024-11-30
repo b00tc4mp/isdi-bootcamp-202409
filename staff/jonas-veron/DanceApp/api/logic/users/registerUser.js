@@ -21,7 +21,7 @@ export default (name, email, password, passwordRepeat) => {
         .then((_) => {})
         .catch((error) => {
           if (error.code === 11000)
-            throw new DuplicityError("user already exists")
+            throw new DuplicityError("User already exists")
 
           throw new SystemError(error.message)
         })
