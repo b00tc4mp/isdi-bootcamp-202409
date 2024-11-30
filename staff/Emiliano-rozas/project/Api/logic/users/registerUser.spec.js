@@ -7,8 +7,8 @@ import bcrypt from 'bcryptjs'
 chai.use(chaiAsPromised)
 const { expect } = chai
 
-import db, { User } from '../dat/index.js'
-import { errors } from '../../com/index.js'
+import db, { User } from '../../dat/index.js'
+import { errors } from 'com'
 
 const { DuplicityError } = errors
 

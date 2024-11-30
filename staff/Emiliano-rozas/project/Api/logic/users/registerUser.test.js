@@ -1,8 +1,8 @@
 import 'dotenv/config'
 
-import db from '../dat/index.js'
+import db from '../../dat/index.js'
 
-import registerUser from './registerUser.js'
+import registerUser from '../registerUser.js'
 
 await db.connect(process.env.MONGO_URL_TEST)
 

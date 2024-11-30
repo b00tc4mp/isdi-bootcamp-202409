@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import logic from '../logic'
-import { errors } from '../../../com'
+import logic from '../logic/index'
+import { errors } from 'com'
 const { SystemError } = errors
 
 function Register() {
