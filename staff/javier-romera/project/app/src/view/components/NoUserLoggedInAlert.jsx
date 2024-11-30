@@ -34,20 +34,21 @@ export default function NoUserLoggedInAlert(props) {
     }
 
     return <div className="w-screen h-screen fixed top-0 flex justify-center items-center">
-        <div className="w-[22rem] h-[28rem] bg-[red]">
+        <div className="bg-[#D7A768] opacity-[.85] w-[22rem] h-[28rem] absolute z-[-1] rounded-[1rem]"></div>
+        <div className="w-[22rem] h-[28rem] p-8">
             <p className="text-[1.25rem]">Hey! You’re not logged in. You can either log in to access your account, register to have one or continue playing as a guest. Your choice!</p>
-            <p>If you choose to play as a guest, some features of the site won’t be available. Log in to enjoy the full experience!</p>
+            <p className="text-[.85rem] mt-[1rem]">If you choose to play as a guest, some features of the site won’t be available. Log in to enjoy the full experience!</p>
 
-            <div className="flex flex-col w-full h-[8rem] mt-[4rem] justify-center items-center">
-                <div className="bg-[green] w-full h-1/2 flex justify-center items-center">
-                    <Button onClick={handleLoginClick} className="bg-[white] text-[1.25rem] h-[2rem] px-[.5rem]">Login</Button>
+            <div className="flex flex-col w-full h-[8rem] mt-[1rem] justify-center items-center">
+                <div className="w-full h-1/2 flex justify-center items-center">
+                    <Button onClick={handleLoginClick} className="text-[1.5rem] h-[2rem] px-[1rem] rounded-[.5rem] underline">Go to login</Button>
                 </div>
-                <div className="bg-[orange] w-[14rem] h-1/2 grid grid-cols-2 justify-center items-center">
+                <div className="w-[14rem] h-[2rem] grid grid-cols-2 justify-center items-center">
                     <div>
-                        <Button onClick={handleRegisterClick} className="bg-white w-[5rem] h-[2rem] px-[.25rem]">Register</Button>
+                        <Button onClick={handleRegisterClick} className="w-[5rem] h-[2rem] px-[.5rem] underline">Register</Button>
                     </div>
                     <div>
-                        <Button onClick={handlePlayAsGuest} className="bg-[lightgreen] h-[2rem] px-[.25rem]">Play as guest</Button>
+                        <Button onClick={handlePlayAsGuest} className="h-[2rem] px-[.5rem]">Play as guest</Button>
                     </div>
                 </div>
             </div>

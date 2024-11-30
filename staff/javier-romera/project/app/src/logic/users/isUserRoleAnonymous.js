@@ -1,3 +1,7 @@
 import { extractPayloadFromJWT } from '../../util'
 
-export default () => extractPayloadFromJWT(localStorage.token).role === 'anonymous'
+export default () => {
+    if (!localStorage.token) return
+
+    return extractPayloadFromJWT(localStorage.token).role === 'anonymous'
+}

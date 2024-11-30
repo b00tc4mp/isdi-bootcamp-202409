@@ -12,7 +12,7 @@ export default function Header(props) {
             if (!name) {
                 try {
                     logic.getUserName()
-                        .then(setName)
+                        .then(name => setName(name))
                         .catch(error => {
                             if (error instanceof SystemError)
                                 alert('Sorry, try again later')
@@ -28,7 +28,7 @@ export default function Header(props) {
                 }
             }
         } else setName(null)
-    }, [localStorage.token])
+    }, [location.pathname])
 
     const handleLoginClick = () => {
         props.onLoginClick()
@@ -49,7 +49,7 @@ export default function Header(props) {
         props.onLoggedOut()
     }
 
-    return <header className="fixed top-0 w-full flex justify-center items-center bg-[transparent] h-[10rem] box-border">
+    return <header className="fixed top-0 w-full flex justify-center items-center h-[10rem] box-border bg-gradient-to-b from-white/75 to-white/0">
         <div className="grid grid-cols-3">
             <div></div> {/*Chapuza o historia? */}
 
@@ -58,14 +58,15 @@ export default function Header(props) {
             </div>
 
             <div className="flex justify-end items-center">
-                <p>{name}</p>
+                <p>{logic.isUserRoleRegular() ? name : logic.isUserLoggedIn() && 'guest'}</p>
                 {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
                     <Button onClick={handleLogoutUser}>logout</Button> :
-                    <div>
+                    logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&
+                    < div >
                         {location.pathname !== '/login' && <Button onClick={handleLoginClick}>login</Button>}
                         {location.pathname !== '/register' && <Button onClick={handleRegisterClick}>register</Button>}
                     </div>}
             </div>
         </div>
-    </header>
+    </header >
 }

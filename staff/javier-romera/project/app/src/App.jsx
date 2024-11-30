@@ -28,7 +28,7 @@ export default function App() {
     const handlePlayAsGuestClick = () => navigate('/')
 
     return <main className="h-screen, w-screen">
-        <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
+        {location.pathname !== 'map' && <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
 
         <Routes>
             <Route path="/" element={<Home onLoginClick />} />
