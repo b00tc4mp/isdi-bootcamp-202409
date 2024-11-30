@@ -49,36 +49,40 @@ export default function Register(props) {
         props.onLoginClick()
     }
 
-    return <main>
-        <Form onSubmit={handleSubmit}>
-            <Field>
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" autoComplete="on"></Input>
+    return <main className="h-screen w-screen bg-cover bg-center flex flex-col" style={{
+        backgroundImage: "url('/images/going_merry.png')"
+    }}>
+        <h2 className="mt-[10rem] text-[2.5rem]">Register</h2>
+
+        <Form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-[10px]">
+            <Field className="flex flex-col">
+                <Label htmlFor="name" className="text-[1.25rem]">Name</Label>
+                <Input type="text" id="name" autoComplete="on" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
             </Field>
 
-            <Field>
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" autoComplete="on"></Input>
+            <Field className="flex flex-col">
+                <Label htmlFor="email" className="text-[1.25rem]">Email</Label>
+                <Input type="email" id="email" autoComplete="on" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
             </Field>
 
-            <Field>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username" autoComplete="on"></Input>
+            <Field className="flex flex-col">
+                <Label htmlFor="username" className="text-[1.25rem]">Username</Label>
+                <Input type="text" id="username" autoComplete="on" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
             </Field>
 
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <Input type="password" id="password" autoComplete="off"></Input>
+            <Field className="flex flex-col">
+                <Label htmlFor="password" className="text-[1.25rem]">Password</Label>
+                <Input type="password" id="password" autoComplete="off" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
             </Field>
 
-            <Field>
-                <Label htmlFor="passwordRepeat">Confirm password</Label>
-                <Input type="password" id="password-repeat" autoComplete="off"></Input>
+            <Field className="flex flex-col">
+                <Label htmlFor="passwordRepeat" className="text-[1.25rem]">Confirm password</Label>
+                <Input type="password" id="password-repeat" autoComplete="off" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
             </Field>
 
-            <Button type="submit">Register</Button>
+            <Button type="submit" className="text-[1.25rem]">Register</Button>
         </Form>
 
-        <Anchor href="" onClick={handleLoginClick}>Login</Anchor>
+        <Anchor href="" onClick={handleLoginClick} className="underline text-[1.25rem] mt-[15px]">Login</Anchor>
     </main>
 }

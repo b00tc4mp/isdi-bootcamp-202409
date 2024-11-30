@@ -5,7 +5,17 @@ export default {
     './src/**/*.jsx'
   ],
   theme: {
-    extend: {},
+    extend: {
+      textStrokeWidth: {
+        1: "1px",
+        2: "2px",
+      },
+      textStrokeColor: {
+        white: "#FFFFFF",
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    require("@designbycode/tailwindcss-text-stroke")
+  ],
 }

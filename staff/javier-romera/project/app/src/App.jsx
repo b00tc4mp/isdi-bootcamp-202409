@@ -5,6 +5,7 @@ import logic from './logic'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Login, Register, Home } from './view'
+import { Header } from './view/components'
 
 export default function App() {
     const navigate = useNavigate()
@@ -17,7 +18,9 @@ export default function App() {
 
     const handleUserRegistered = () => navigate('/login')
 
-    return <>
+    return <main className="h-screen, w-screen">
+        <Header />
+
         <Routes>
             <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
@@ -25,5 +28,5 @@ export default function App() {
 
             <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
         </Routes>
-    </>
+    </main>
 }
