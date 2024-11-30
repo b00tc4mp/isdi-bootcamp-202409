@@ -1,5 +1,7 @@
-import authenticateUser from './authenticateUser.js'
-import registerUser from './registerUser.js'
+import {
+    authenticateUser,
+    registerUser
+} from './users/index.js'
 
 const logic = {
     authenticateUser,

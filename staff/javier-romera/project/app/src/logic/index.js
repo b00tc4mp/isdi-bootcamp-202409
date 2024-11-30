@@ -1,6 +1,8 @@
-import registerUser from './registerUser'
-import loginUser from './loginUser'
-import isUserLoggedIn from './isUserLoggedIn'
+import {
+    registerUser,
+    loginUser,
+    isUserLoggedIn
+} from './users'
 
 const logic = {
     registerUser,

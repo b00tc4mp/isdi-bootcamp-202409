@@ -1,7 +1,7 @@
 import { errors } from 'com'
 import { NextFunction, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import { CustomRequest } from '../types.js'
+import { CustomRequest } from '../../types.js'
 
 const { AuthorizationError } = errors
 
