@@ -1,20 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-// import Hero from './Hero'
-import { ShopContext } from '../logic/ShopContext.jsx'
-import Title from './Title.jsx'
-import ProductItem from './ProductItem.jsx'
+import { ShopContext } from '../context/ShopContext.jsx'
+import { Title, ProductItem } from './index.js'
 
 
-
-function LatestArrivals() {
+export default function LatestArrivals() {
 
     const { products } = useContext(ShopContext)
 
     const [latestProducts, setLatestProducts] = useState([])
 
     useEffect(() => {
-        setLatestProducts(products.slice(0, 10))
-    }, [])
+        if (products.length > 0) {
+            setLatestProducts(products.slice(0, 10))
+        }
+    }, [products])
 
     //No te olvides de poner el switc, que sino se rompe todoo, pero con products?
 
@@ -34,7 +33,7 @@ function LatestArrivals() {
                 {
                     // con esto vamos a devolver los productos en display con las props correspondientes
                     latestProducts.map((item) => (
-                        <ProductItem key={item._id} id={item._id} image={item.image} name={item.name} price={item.price} />
+                        <ProductItem key={item.id} id={item.id} image={item.image} name={item.title} price={item.price} />
                     ))
                 }
             </div>
@@ -42,7 +41,6 @@ function LatestArrivals() {
     )
 }
 
-export default LatestArrivals
 
 
 // Elemento key , siempre elemento inmutable. Utilizar Index es MALA PRAXIS.

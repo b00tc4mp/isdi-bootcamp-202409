@@ -1,11 +1,8 @@
 import React from 'react'
-import Hero from '../components/Hero.jsx'
-import LatestArrivals from '../components/LatestArrivals.jsx'
-import BestSeller from '../components/BestSeller.jsx'
-import Policy from '../components/Policy.jsx'
-import Newsletter from '../components/Newsletter.jsx'
+import { Hero, LatestArrivals, BestSeller, Policy, Newsletter } from '../components/index.js'
 
-const Home = () => {
+
+export default function Home() {
     return (
         <div >
             <Hero />
@@ -16,5 +13,3 @@ const Home = () => {
         </div>
     )
 }
-
-export default Home

@@ -1,9 +1,9 @@
 import React from 'react'
-import LatestArrivals from './LatestArrivals'
+
 
 // Con esto voy a estandarizar el tema de los titulos, ya que lo utilizare mas de una vez. de momento sera LatestArrivals, pero tenemos youmaylike + bestsellers+ all products +related products
 
-function Title({ text1, text2 }) {
+export default function Title({ text1, text2 }) {
     return (
         <div className='inline-flex gap-2 items-center mb-3'>
             <p className='text-white'>{text1}<span className='text-white font-medium'>{text2}</span></p>
@@ -12,4 +12,3 @@ function Title({ text1, text2 }) {
     )
 }
 
-export default Title

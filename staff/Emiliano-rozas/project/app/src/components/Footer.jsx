@@ -1,7 +1,8 @@
 import React from 'react'
 import { assets } from '../assets/index'
 
-function Footer() {
+
+export default function Footer() {
     return (
         <div>
             <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
@@ -29,12 +30,10 @@ function Footer() {
                 </div>
 
             </div>
-            <div>
-                <hr className='w-full bg-green-700' />
+            <div >
+                <hr className='w-full border-1 bg-green-700 border-green-700' />
                 <p className='py-5 text-sm text-center text-white'>Copyright 2024 © Entelequia Comic-Bookstore - All Right Reserved.</p>
             </div>
         </div >
     )
 }
-
-export default Footer

@@ -2,9 +2,10 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logic from '../logic/index'
 import { errors } from 'com'
+
 const { SystemError } = errors
 
-function Register() {
+export default function Register() {
     const navigate = useNavigate()
 
     const onSubmitHandler = event => {
@@ -75,4 +76,3 @@ function Register() {
     )
 }
 
-export default Register

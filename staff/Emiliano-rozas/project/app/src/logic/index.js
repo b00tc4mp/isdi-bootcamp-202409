@@ -1,3 +1,4 @@
+import { getProducts } from './products/index';
 import { registerUser, loginUser, isUserRoleModerator, isUserRoleRegular, isUserLoggedIn, logoutUser } from './users/index';
 
 
@@ -7,7 +8,8 @@ const logic = {
     isUserRoleModerator,
     isUserRoleRegular,
     isUserLoggedIn,
-    logoutUser
+    logoutUser,
+    getProducts
 }
 
 export default logic

@@ -1,19 +1,8 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Home from './views/Home'
-import Products from './views/Products'
-import About from './views/About'
-import Contact from './views/Contact'
-import ProductItem from './views/ProductItem'
-import Cart from './views/Cart'
-import Login from './views/Login'
-import PlaceOrder from './views/PlaceOrder'
-import Orders from './views/Orders'
-import NavBar from './components/NavBar'
-import Footer from './components/Footer'
-import Register from './views/Register'
-import Admin from './views/Admin'
+import { Home, Products, About, Contact, ProductItem, Cart, Login, PlaceOrder, Orders, Register, Admin } from './views/index'
 
+import { NavBar, Footer } from './components/index'
 
 const App = () => {
   return (
