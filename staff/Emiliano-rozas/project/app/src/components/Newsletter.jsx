@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Newsletter() {
+export default function Newsletter() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -18,4 +18,3 @@ function Newsletter() {
     )
 }
 
-export default Newsletter

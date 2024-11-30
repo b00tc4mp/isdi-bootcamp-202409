@@ -44,8 +44,7 @@ const populateProducts = () => {
         const lines = csv.split('\n').filter(line => line.trim());
 
         const creations = lines.map(line => {
-            const [
-                title,
+            const [title,
                 author,
                 publisher,
                 isbn,
@@ -55,7 +54,11 @@ const populateProducts = () => {
                 status,
                 stock,
                 image,
+                imagesString,
             ] = line.split(',').map(item => item.trim());
+
+            const images = imagesString ? imagesString.split(';').map(img => img.trim()) : [];
+            const bestSeller = Math.random() > 0.7
 
             return Product.create({
                 title,
@@ -66,8 +69,10 @@ const populateProducts = () => {
                 description,
                 category,
                 status,
-                stock: parseInt(stock, 10),
+                stock: parseInt(stock),
                 image,
+                images,
+                bestSeller
             });
         });
 
@@ -75,7 +80,7 @@ const populateProducts = () => {
     });
 };
 
-
+// Función para llenar la colección de reseñas
 const populateReviews = (users, products) => {
     return fs.readFile('./reviews.csv', 'utf-8').then(csv => {
         const lines = csv.split('\n').filter(line => line.trim());
@@ -86,10 +91,10 @@ const populateReviews = (users, products) => {
             const user = users.find(u => u.username === username);
             // Encuentra el producto y el usuario para asociar la reseña
             const product = products.find(prod => prod.title === productTitle);
-            if (!user || !product) return null
+            if (!user || !product) return null;
 
             return Review.create({
-                author: user._id, // Usamos 'author' en lugar de 'user', se estaba complicando el asunto
+                author: user._id,
                 rating: parseInt(rating, 10),
                 text,
                 date: new Date(),
@@ -100,6 +105,7 @@ const populateReviews = (users, products) => {
             });
         });
 
-        return Promise.all(creations.filter(Boolean));
+        return Promise.all(creations.filter(Boolean)); // solo las promesas validas continuaran en el array
+
     });
 };

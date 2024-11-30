@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Hero() {
+export default function Hero() {
     return (
         <div className='flex flex-col sm:flex-row  border-solid border-2 border-green-700'>
 
@@ -80,4 +80,3 @@ function Hero() {
     )
 }
 
-export default Hero

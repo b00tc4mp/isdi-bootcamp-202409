@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ShopContext } from '../logic/ShopContext'
+import { ShopContext } from '../context/ShopContext'
 import { Link } from 'react-router-dom'
 
 
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 // Clave lo del tema del ID :to={`/product/${id}` con esto nos vamos ahorrar una banda de tiempo a la hora de crear cada producto, estandarizando la pagina de Producto como tal, la rederizacion de cada prod casi que se hara de manera automatica, o eso espero.
 
 
-const ProductItem = ({ id, image, name, price }) => {
+export default function ProductItem({ id, image, name, price }) {
     const { currency } = useContext(ShopContext)
 
     return (
@@ -22,4 +22,3 @@ const ProductItem = ({ id, image, name, price }) => {
     )
 }
 
-export default ProductItem

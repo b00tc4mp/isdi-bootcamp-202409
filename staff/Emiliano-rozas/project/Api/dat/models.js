@@ -99,7 +99,16 @@ const product = new Schema({
         default: 0
     },
     image: {
-        type: String
+        type: String,
+        required: true
+    },
+    images: {
+        type: [String],
+        required: false,
+    },
+    bestSeller: {
+        type: Boolean,
+        default: false
     },
     reviews: [review],
     createdAt: {

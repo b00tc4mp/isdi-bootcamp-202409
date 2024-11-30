@@ -39,6 +39,7 @@ describe('getProducts', () => {
             category: 'Manga',
             status: 'published',
             stock: 50,
+            image: 'https://m.media-amazon.com/images/I/91FPoNmEUsL._UF1000,1000_QL80_.jpg',
             reviews: [
                 {
                     author: user._id,
@@ -50,7 +51,8 @@ describe('getProducts', () => {
                     rating: 4,
                     text: 'Very entertaining!',
                 }
-            ]
+            ],
+            bestSeller: true
         })
 
         const products = await getProducts()
@@ -71,7 +73,12 @@ describe('getProducts', () => {
         expect(product).to.have.property('category', 'Manga')
         expect(product).to.have.property('status', 'published')
         expect(product).to.have.property('stock', 50)
+        expect(product).to.have.property('image', 'https://m.media-amazon.com/images/I/91FPoNmEUsL._UF1000,1000_QL80_.jpg')
         expect(product).to.have.property('reviews')
+        expect(product).to.have.property('bestSeller')
+        expect(product.bestSeller).to.be.a('boolean')
+
+        expect(product.images).to.be.an('array')  // Aunque las imagenes` sean opcional, debería ser un array si está presente
         expect(product.reviews).to.be.an('array')
         expect(product.reviews).to.have.lengthOf(2)
 
