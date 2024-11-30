@@ -1,5 +1,5 @@
 import Login from './Login'
-import Register from './Register'
+import Register from './RegisterDiver'
 import Home from './Home'
 
 export {

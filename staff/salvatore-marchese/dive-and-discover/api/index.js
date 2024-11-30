@@ -1,10 +1,10 @@
 import 'dotenv/config'
-import db from 'dat'
+import db from '../dat/index.js'
 import express, { json } from 'express'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
 
-/* import logic from './logic/index.js' */
+import logic from './logic/index.js' 
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
 db.connect(process.env.MONGO_URL).then(() => {

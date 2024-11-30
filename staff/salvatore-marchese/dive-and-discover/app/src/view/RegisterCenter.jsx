@@ -3,9 +3,9 @@ import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 import logic from '../logic'
 
 export default function Register(props) {
-    console.log('Register -> render')
+    console.log('RegisterCentre -> render')
 
-    const handleSubmit = event => {
+    const handleSubmit= event => {
         event.preventDefault()
 
         const { target: form } = event
@@ -14,11 +14,16 @@ export default function Register(props) {
             name: { value: name },
             email: { value: email },
             password: { value: password },
-            ['password-repeat']: { value: passwordRepeat }
+            ['password-repeat'] : { value: passwordRepeat},
+            addressLine1: { value: addressLine1 },
+            addressLine2: { value: addressLine2 },
+            country: { value: country },
+            city: { value: city },
+            postcode: { value: postcode },
         } = form
 
         try {
-            logic.registerUser(name, email,  password, passwordRepeat, error => {
+            logic.registerUser(name, email, password, passwordRepeat, addressLine1, addressLine2, country, city, postcode, error => {
                 if (error) {
                     alert(error.message)
 
@@ -29,7 +34,7 @@ export default function Register(props) {
 
                 form.reset()
 
-                props.onRegistered()
+                props.onRegister()
             })
         } catch (error) {
             alert(error.message)
@@ -45,7 +50,7 @@ export default function Register(props) {
     }
 
     return <main>
-        <h2>Register</h2>
+        <h2>Register as Dive Center</h2>
 
         <Form onSubmit={handleSubmit}>
             <Field>
@@ -66,6 +71,31 @@ export default function Register(props) {
             <Field>
                 <Label htmlFor="password-repeat">Repeat Password</Label>
                 <PasswordInput id="password-repeat" />
+            </Field>
+
+            <Field>
+                <Label htmlFor="addressLine1">Address Line 1</Label>
+                <Input type="text" id="addressLine1" />
+            </Field>
+
+            <Field>
+                <Label htmlFor="addressLine2">Address Line 2</Label>
+                <Input type="text" id="addressLine2" />
+            </Field>
+
+            <Field>
+                <Label htmlFor="country">Country</Label>
+                <Input type="text" id="country" />
+            </Field>
+
+            <Field>
+                <Label htmlFor="city">City</Label>
+                <Input type="text" id="city" />
+            </Field>
+
+            <Field>
+                <Label htmlFor="postcode">Postcode</Label>
+                <Input type="text" id="postcode" />
             </Field>
 
             <Button type="submit">Register</Button>

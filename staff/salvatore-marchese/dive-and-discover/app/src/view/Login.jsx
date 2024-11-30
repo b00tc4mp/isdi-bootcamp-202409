@@ -2,7 +2,7 @@ import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic'
 
-import { errors } from 'com'
+import { errors } from '../../../com'
 
 export default function Login(props) {
     console.log('Login -> render')
@@ -15,7 +15,7 @@ export default function Login(props) {
         try {
             logic.loginUser(email, password, error => {
                 if (error) {
-                    if (errro instanceof SystemError)
+                    if (error instanceof SystemError)
                         alert('Try again later.')
                 else
                     alert(error.message)
@@ -59,7 +59,7 @@ export default function Login(props) {
             <Button type="submit">Login</Button>
         </Form>
 
-        <a href="" onClick={handleRegisterClick}>Register</a>
+        <Button onClick={handleRegisterClick}>Register</Button>
 
     </main>
 }

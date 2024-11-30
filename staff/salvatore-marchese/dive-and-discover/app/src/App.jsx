@@ -27,7 +27,9 @@ export default function App() {
     <Header onHomeClick= {handleHomeClick} onLoggedOut= {handleUserLoggedOut} />
 
     <Routes>
-        <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleRegisterClick} />} />
+        <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
+
+        <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
 
         <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
     </Routes>
