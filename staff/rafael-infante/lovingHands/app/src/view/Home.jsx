@@ -1,7 +1,44 @@
+import { useState, useEffect } from 'react'
 import Logo from '../assets/logo.png'
+import logic from '../logic'
 
-export default function Home({ userName, onLogout }) {
+export default function Home({ onLoggedOut }) {
+  const [name, setName] = useState(null)
+
+  useEffect(() => {
+    console.log('Header -> render componentDidMount & componentWillReceiveProps')
+    if (logic.isUserLoggedIn()) {
+      if (!name)
+        try {
+          logic.getUserName((error, name) => {
+            if (error) {
+              alert(error.message)
+
+              console.error(error)
+
+              return
+            }
+
+            setName(name)
+          })
+        } catch (error) {
+          alert(error.message)
+
+          console.error(error)
+        }
+    } else setName(null)
+  }, name)
+
   console.log('Home -> render')
+
+  const handleLogout = (event) => {
+    if (confirm('Logout?')) {
+      event.preventDefault()
+      logic.logoutUser()
+
+      onLoggedOut()
+    }
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
@@ -11,7 +48,7 @@ export default function Home({ userName, onLogout }) {
           <img src={Logo} alt="Loving Hands Logo" className="h-10" />
         </div>
         <button
-          onClick={onLogout} // Call logout function
+          onClick={handleLogout} // Call logout function
           className="bg-[#47c8e5] text-white py-1 px-4 rounded-lg shadow hover:bg-[#F56132] transition-all duration-200 text-sm font-medium"
         >
           Logout
@@ -21,7 +58,7 @@ export default function Home({ userName, onLogout }) {
       {/* Main Content */}
       <div className="flex flex-col items-center px-4 flex-grow">
         <div className="w-full max-w-md text-center mt-6 mb-6">
-          <h1 className="text-3xl font-bold text-[#2b2b2b]">Welcome Back, {userName || 'User'}!</h1>
+          <h1 className="text-3xl font-bold text-[#2b2b2b]">Welcome Back {name}!</h1>
           <p className="text-gray-600 mt-2">
             We're glad to have you here. Explore the app to find caregivers or offer your help to elders.
           </p>
