@@ -1,7 +1,13 @@
-import registerUser from './registerUser'
+import { registerUser, loginUser, isUserRoleModerator, isUserRoleRegular, isUserLoggedIn, logoutUser } from './users/index';
+
 
 const logic = {
-    registerUser
+    registerUser,
+    loginUser,
+    isUserRoleModerator,
+    isUserRoleRegular,
+    isUserLoggedIn,
+    logoutUser
 }
 
 export default logic

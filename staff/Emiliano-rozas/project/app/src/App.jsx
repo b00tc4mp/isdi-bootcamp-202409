@@ -1,17 +1,18 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Products from './pages/Products'
-import About from './pages/About'
-import Contact from './pages/Contact'
-import ProductItem from './pages/ProductItem'
-import Cart from './pages/Cart'
-import Login from './pages/Login'
-import PlaceOrder from './pages/PlaceOrder'
-import Orders from './pages/Orders'
+import Home from './views/Home'
+import Products from './views/Products'
+import About from './views/About'
+import Contact from './views/Contact'
+import ProductItem from './views/ProductItem'
+import Cart from './views/Cart'
+import Login from './views/Login'
+import PlaceOrder from './views/PlaceOrder'
+import Orders from './views/Orders'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-import Register from './pages/Register'
+import Register from './views/Register'
+import Admin from './views/Admin'
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/productItem/:productId' element={<ProductItem />} />
+        <Route path='/admin' element={<Admin />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />

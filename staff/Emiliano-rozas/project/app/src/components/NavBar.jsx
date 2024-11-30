@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { assets } from '../assets'
 import { Link, NavLink } from 'react-router-dom'
+import { isUserLoggedIn, isUserRoleModerator, logoutUser } from '../logic/users'
 
-const NavBar = () => {
 
+export default function NavBar() {
+
+    const [loggedIn, setLoggedIn] = useState(false)
+    const [isModerator, setIsModerator] = useState(false)
+
+    useEffect(() => {
+        const loggedIn = isUserLoggedIn()
+        setLoggedIn(loggedIn);
+        setIsModerator(loggedIn && isUserRoleModerator())
+    }, [loggedIn])
 
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
@@ -28,23 +38,38 @@ const NavBar = () => {
                     <p>CONTACT</p>
                     <hr className='w-2/4 border-none h-[1.5px] bg-green-700 hidden' />
                 </NavLink>
+                {isModerator && (
+                    <NavLink to='/admin' className={'flex flex-col items-center gap-1 hover:text-green-700'}>
+                        <p>ADMIN DASHBOARD</p>
+                        <hr className='w-2/4 border-none h-[1.5px] bg-green-700 hidden' />
+                    </NavLink>
+                )}
+
             </ul>
             <div className='flex items-center gap-6'>
                 <img src={assets.searchIcon} className='w-5 cursor-pointer' alt="" />
-
                 <div className='group relative'>
-                    <Link to='/login'>
+                    {loggedIn ? (
+                        <>
+                            <img src={assets.profileIcon} className='w-5 cursor-pointer' alt="" />
+
+                            <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 transition-all duration-400 ease-in-out z-50'>
+                                <div className='flex flex-col gap-2 w-36 py-3 px-5 border-solid border-2 bg-black border-green-700 text-white '>
+                                    <p className='cursor-pointer hover:text-green-700'>My Profile</p>
+                                    <NavLink to='/orders'>
+                                        <p className='cursor-pointer hover:text-green-700'>Orders</p>
+                                    </NavLink>
+                                    <p onClick={() => {
+                                        logoutUser()
+                                        window.location.reload()
+                                    }} className='cursor-pointer hover:text-green-700'>Logout</p>
+                                </div>
+                            </div>
+                        </>
+                    ) : (<Link to='/login'>
                         <img src={assets.profileIcon} className='w-5 cursor-pointer' alt="" />
                     </Link>
-                    <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 transition-all duration-400 ease-in-out z-50'>
-                        <div className='flex flex-col gap-2 w-36 py-3 px-5 border-solid border-2 bg-black border-green-700 text-white '>
-                            <p className='cursor-pointer hover:text-green-700'>My Profile</p>
-                            <NavLink to='/orders'>
-                                <p className='cursor-pointer hover:text-green-700'>Orders</p>
-                            </NavLink>
-                            <p className='cursor-pointer hover:text-green-700'>Logout</p>
-                        </div>
-                    </div>
+                    )}
                 </div>
                 <Link to='/cart' className='relative'>
                     <img src={assets.cartIcon} className='w-5 cursor-pointer' alt="" />
@@ -56,4 +81,3 @@ const NavBar = () => {
     )
 }
 
-export default NavBar
