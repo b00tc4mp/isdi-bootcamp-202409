@@ -8,7 +8,7 @@ await db.connect(process.env.MONGO_URL_TEST!)
 try {
     const result = await registerUser('Coco Drilo', 'coco@drilo.com', 'cocodrilo', '123123123', '123123123')
 
-    console.log(result) // undefined
+    console.log(result)
 } catch (error) {
     console.error(error)
 } finally {

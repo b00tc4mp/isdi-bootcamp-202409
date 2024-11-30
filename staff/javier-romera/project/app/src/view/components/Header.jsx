@@ -28,7 +28,7 @@ export default function Header(props) {
                 }
             }
         } else setName(null)
-    }, [location.pathname])
+    }, [localStorage.token])
 
     const handleLoginClick = () => {
         props.onLoginClick()
@@ -59,7 +59,7 @@ export default function Header(props) {
 
             <div className="flex justify-end items-center">
                 <p>{name}</p>
-                {logic.isUserLoggedIn() ?
+                {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
                     <Button onClick={handleLogoutUser}>logout</Button> :
                     <div>
                         {location.pathname !== '/login' && <Button onClick={handleLoginClick}>login</Button>}

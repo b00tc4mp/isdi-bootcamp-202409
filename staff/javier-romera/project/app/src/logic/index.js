@@ -1,5 +1,6 @@
 import {
     registerUser,
+    registerAnonymousUser,
     loginUser,
     isUserLoggedIn,
     logoutUser,
@@ -10,6 +11,7 @@ import {
 
 const logic = {
     registerUser,
+    registerAnonymousUser,
     loginUser,
     isUserLoggedIn,
     logoutUser,

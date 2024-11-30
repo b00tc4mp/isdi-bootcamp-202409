@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId: string, targetUserId: string) => {
+export default (userId: string, targetUserId: string): Promise<string> => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
 
