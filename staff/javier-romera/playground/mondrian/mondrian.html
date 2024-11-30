@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon"
+        href="https://lgivaud.files.wordpress.com/2015/04/cuadros-mondrian-arte-abstracto-20x20-decoracion-mondrian-11934-mla20052593222_022014-f.jpg"
+        type="image/x-icon">
+    <title>Mondrian</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        margin-top: 10%;
+    }
+
+    .card {
+        display: flex;
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 1px solid black;
+    }
+
+    .painting {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        top: 45px;
+        left: 45px;
+        border: 5px solid black;
+    }
+
+    .painting__side {
+        position: absolute;
+    }
+
+    .left-side {
+        width: 30%;
+        height: 200px;
+        border-right: 5px solid black;
+    }
+
+    .yellow {
+        width: 100%;
+        height: 50%;
+        background-color: yellow;
+        border-bottom: 5px solid black;
+    }
+
+    .white-center-left {
+        width: 100%;
+        height: 30%;
+        background-color: white;
+        border-bottom: 5px solid black;
+    }
+
+    .darkblue {
+        width: 100%;
+        height: 15%;
+        background-color: darkblue;
+    }
+
+    .right-side {
+        width: 67.4%;
+        height: 100%;
+        background-color: white;
+        left: 32.7%;
+    }
+
+    .red {
+        width: 100%;
+        height: 82.5%;
+        background-color: red;
+        border-bottom: 5px solid black;
+    }
+
+    .white-center-bottom {
+        height: 15%;
+        width: 70%;
+        border-right: 5px solid black;
+    }
+</style>
+
+<body>
+    <main>
+        <div class="card">
+            <div class="painting">
+                <div class="painting__side left-side">
+                    <div class="yellow"></div>
+                    <div class="white-center-left"></div>
+                    <div class="darkblue"></div>
+                </div>
+                <div class="painting__side right-side">
+                    <div class="red"></div>
+                    <div class="white-center-bottom"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
