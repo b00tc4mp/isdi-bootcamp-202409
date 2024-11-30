@@ -1,27 +1,50 @@
 import logic from '../../logic'
 import { Button } from '../library'
+import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 export default function Header(props) {
-    const handleLoginClick = () => {
-        event.preventDefault()
+    const [name, setName] = useState(null)
+    const location = useLocation()
 
+    useEffect(() => {
+        if (logic.isUserLoggedIn()) {
+            if (!name) {
+                try {
+                    logic.getUserName()
+                        .then(setName)
+                        .catch(error => {
+                            if (error instanceof SystemError)
+                                alert('Sorry, try again later')
+                            else
+                                alert(error.message)
+
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+            }
+        } else setName(null)
+    }, [location.pathname])
+
+    const handleLoginClick = () => {
         props.onLoginClick()
     }
 
     const handleRegisterClick = () => {
-        event.preventDefault()
-
         props.onRegisterClick()
     }
 
-    const handleHomeClick = event => {
-        event.preventDefault()
-
+    const handleHomeClick = () => {
         props.onHomeClick()
     }
 
     const handleLogoutUser = () => {
         logic.logoutUser()
+        setName()
 
         props.onLoggedOut()
     }
@@ -35,7 +58,13 @@ export default function Header(props) {
             </div>
 
             <div className="flex justify-end items-center">
-                {logic.isUserLoggedIn() ? <Button onClick={handleLogoutUser}>logout</Button> : <div><Button onClick={handleLoginClick}>login</Button> <Button onClick={handleRegisterClick}>register</Button></div>}
+                <p>{name}</p>
+                {logic.isUserLoggedIn() ?
+                    <Button onClick={handleLogoutUser}>logout</Button> :
+                    <div>
+                        {location.pathname !== '/login' && <Button onClick={handleLoginClick}>login</Button>}
+                        {location.pathname !== '/register' && <Button onClick={handleRegisterClick}>register</Button>}
+                    </div>}
             </div>
         </div>
     </header>
