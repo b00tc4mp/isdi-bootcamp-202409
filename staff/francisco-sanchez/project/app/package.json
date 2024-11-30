@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "vite --host"
+    "start": "vite --host",
+    "inspect": "node --inspect index.js"
   },
   "dependencies": {
     "com": "file:../com",

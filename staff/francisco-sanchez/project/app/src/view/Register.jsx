@@ -1,39 +1,95 @@
+import { errors } from 'com'
+
+const { SystemError } = errors
+
+//import { PasswordInput, Input, Button, Form, Field, Label } from './library'
+
+import logic from '../logic'
+
+import useContext from './useContext'
+
 export default function Register(props) {
     console.log('Register -> render')
 
-    return <main className="flex justify-center items-center flex-col h-full box-border bg-[var(--back-color)]">
+    const { alert } = useContext()
+
+    const handleSubmit = event => {
+        event.preventDefault()
+
+        const { target: form } = event
+
+        const {
+            name: { value: name },
+            email: { value: email },
+            username: { value: username },
+            password: { value: password },
+            ['password-repeat']: { value: passwordRepeat }
+        } = form
+
+        try {
+            logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    form.reset()
+
+                    alert(' New user was successfully registered', 'success')
+
+                    props.onRegistered()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    const handleLoginClick = event => {
+        event.preventDefault()
+        props.onLoginClick()
+    }
+
+
+    return <main className="flex flex-col">
         <h2 className="">Register</h2>
         <div className="flex flex-col">
-            <form>
+            <form flex flex-col justify-items-start onSubmit={handleSubmit}>
                 <field>
                     <label htmlFor="name">Name</label>
-                    <input type="text" id="name" />
+                    <input className="border-2 rounded-lg" type="text" id="name" />
                 </field>
 
                 <field>
                     <label htmlFor="email">E-mail</label>
-                    <input type="email" id="email" />
+                    <input className="border-2 rounded-lg" type="email" id="email" />
                 </field>
 
                 <field>
                     <label htmlFor="username">Username</label>
-                    <input type="text" id="username" />
+                    <input className="border-2 rounded-lg" type="text" id="username" />
                 </field>
 
                 <field>
                     <label htmlFor="password">Password</label>
-                    <input id="password" />
+                    <input className="border-2 rounded-lg" id="password" type="password" />
                 </field>
 
                 <field>
                     <label htmlFor="password-repeat">Repeat Password</label>
-                    <input id="password-repeat" />
+                    <input className="border-2 rounded-lg" id="password-repeat" type="password" />
                 </field>
 
                 <button type="submit">Register</button>
             </form>
 
-            <a href="">Login</a>
+            <a href=""></a>
+            <p>Do you have an account? <a href="" title="Create a new account" onClick={handleLoginClick}>Login here</a></p>
         </div>
     </main>
 }

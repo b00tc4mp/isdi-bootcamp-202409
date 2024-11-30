@@ -2,7 +2,9 @@ import 'dotenv/config'
 import db from 'dat'
 import express, { json } from 'express'
 import cors from 'cors'
-import jwt from 'jsonwebtoken'
+
+import { errorHandler } from './routes/helpers/index.js'
+import { usersRouter } from './routes/index.js'
 
 db.connect(process.env.MONGO_URL).then(() => {
     console.log('database connected')
@@ -15,13 +17,10 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.get('/', (_, res) => res.send('API is Up Ready to go'))
 
-    /*
+    //Here will be all the endpoints of the API. 
+    server.use('/users', usersRouter)
 
-    Here will be all the endpoints of the API. 
+    server.use(errorHandler)
 
-    */
-
-    //server.use(errorHandler)    --> To late
-
-    server.listen(process.env.PORT, () => console.log('api is up'))
+    server.listen(process.env.PORT, () => console.log(`api is up and listening on port ${process.env.PORT}`))
 })
