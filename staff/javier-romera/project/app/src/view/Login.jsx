@@ -38,7 +38,7 @@ export default function Login(props) {
     const handleRegisterClick = event => {
         event.preventDefault()
 
-        props.onRegisterClick()
+        props.onRegisterAnchorClick()
     }
 
     return <main className="h-screen w-screen bg-cover bg-center flex flex-col"

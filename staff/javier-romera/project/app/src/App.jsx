@@ -12,21 +12,29 @@ export default function App() {
 
     const handleUserLoggedIn = () => navigate('/')
 
-    const handleRegisterClick = () => navigate('/register')
+    const handleRegisterAnchorClick = () => navigate('/register')
 
-    const handleLoginClick = () => navigate('/login')
+    const handleLoginAnchorClick = () => navigate('/login')
 
     const handleUserRegistered = () => navigate('/login')
 
+    const handleLogout = () => navigate('/')
+
+    const handleHomeClick = () => navigate('/')
+
+    const handleLoginClick = () => navigate('/login')
+
+    const handleRegisterClick = () => navigate('/register')
+
     return <main className="h-screen, w-screen">
-        <Header />
+        <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
 
         <Routes>
-            <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
+            <Route path="/" element={<Home onLoginClick />} />
 
-            <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
+            <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterAnchorClick={handleRegisterAnchorClick} />} />
 
-            <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+            <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginAnchorClick={handleLoginAnchorClick} onRegistered={handleUserRegistered} />} />
         </Routes>
     </main>
 }
