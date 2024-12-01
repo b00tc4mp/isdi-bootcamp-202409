@@ -63,7 +63,7 @@ const dayLog = new Schema({
         enum: ['low', 'moderate', 'high'],
         required: true
     }
-})
+}, { versionKey: false })
 
 const cycle = new Schema({
     user: {
@@ -88,7 +88,7 @@ const cycle = new Schema({
         type: dayLog,
         ref: 'DayLog'
     }]
-})
+}, { versionKey: false })
 
 const reminder = new Schema({
     user: {
@@ -107,7 +107,7 @@ const reminder = new Schema({
         trim: true,
         maxLength: 20
     }
-})
+}, { versionKey: false })
 
 const tip = new Schema({
     date: {
@@ -130,7 +130,7 @@ const tip = new Schema({
         required: true,
         maxLength: 200
     }
-})
+}, { versionKey: false })
 
 const User = model('User', user)
 const DayLog = model('DayLog', dayLog)
