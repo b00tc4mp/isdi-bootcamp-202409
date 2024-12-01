@@ -51,23 +51,18 @@ db.connect(process.env.MONGO_URL_TEST)
   .then(({ users, posts }) => {
     const reviewCreations = []
 
-    // Crear al menos 3 reseñas por usuario
+    // Crear al menos 3 reviews por usuario
     users.forEach((user) => {
-      const eligibleReviewers = users.filter((u) => u._id.toString() !== user._id.toString() && u.role !== user.role)
-
-      const reviewers = getRandomElements(eligibleReviewers, 3) // Obtener al menos 3 revisores
+      const reviewers = getRandomElements(
+        users.filter((u) => u._id.toString() !== user._id.toString()),
+        3
+      )
 
       reviewers.forEach((reviewer) => {
-        const calification = randomNumber(1, 5)
-        const text =
-          calification <= 2
-            ? `User ${user.name} could improve. Not satisfied with the experience.`
-            : `User ${user.name} was fantastic! Highly recommend.`
-
         user.reviews.push({
           author: reviewer._id,
-          text,
-          calification,
+          text: `Review for user ${user.name} by ${reviewer.name}`,
+          calification: randomNumber(1, 5),
           date: new Date(),
         })
       })
@@ -75,24 +70,15 @@ db.connect(process.env.MONGO_URL_TEST)
       reviewCreations.push(user.save())
     })
 
-    // Crear al menos 3 reseñas por post
+    // Crear al menos 3 reviews por post
     posts.forEach((post) => {
-      const postAuthor = users.find((u) => u._id.toString() === post.author.toString())
-      const eligibleReviewers = users.filter((u) => u.role !== postAuthor.role)
-
-      const reviewers = getRandomElements(eligibleReviewers, 3) // Obtener al menos 3 revisores
+      const reviewers = getRandomElements(users, 3)
 
       reviewers.forEach((reviewer) => {
-        const calification = randomNumber(1, 5)
-        const text =
-          calification <= 2
-            ? `Post "${post.text}" was disappointing. Could be better.`
-            : `Post "${post.text}" was excellent! Really appreciated.`
-
         post.reviews.push({
           author: reviewer._id,
-          text,
-          calification,
+          text: `Review for post "${post.text}" by ${reviewer.name}`,
+          calification: randomNumber(1, 5),
           date: new Date(),
         })
       })
@@ -108,9 +94,8 @@ db.connect(process.env.MONGO_URL_TEST)
 
 // Funciones auxiliares
 const getRandomElements = (array, count) => {
-  if (array.length === 0) return []
   const shuffled = array.sort(() => 0.5 - Math.random())
-  return shuffled.slice(0, Math.min(count, array.length))
+  return shuffled.slice(0, count)
 }
 
 const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min

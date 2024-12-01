@@ -40,7 +40,7 @@ db.connect(process.env.MONGO_URL_TEST)
           author: user._id,
           image,
           text,
-          date: new Date(date),
+          date: new Date(dastaff / rafael - infante / unsocial / dat / populate.jste),
           reviews: [], // Inicializar reviews vacío
         })
       })
@@ -51,11 +51,12 @@ db.connect(process.env.MONGO_URL_TEST)
   .then(({ users, posts }) => {
     const reviewCreations = []
 
-    // Crear al menos 3 reseñas por usuario
+    // Crear al menos 3 reviews por usuario
     users.forEach((user) => {
-      const eligibleReviewers = users.filter((u) => u._id.toString() !== user._id.toString() && u.role !== user.role)
-
-      const reviewers = getRandomElements(eligibleReviewers, 3) // Obtener al menos 3 revisores
+      const reviewers = getRandomElements(
+        users.filter((u) => u._id.toString() !== user._id.toString()),
+        3
+      )
 
       reviewers.forEach((reviewer) => {
         const calification = randomNumber(1, 5)
@@ -75,12 +76,9 @@ db.connect(process.env.MONGO_URL_TEST)
       reviewCreations.push(user.save())
     })
 
-    // Crear al menos 3 reseñas por post
+    // Crear al menos 3 reviews por post
     posts.forEach((post) => {
-      const postAuthor = users.find((u) => u._id.toString() === post.author.toString())
-      const eligibleReviewers = users.filter((u) => u.role !== postAuthor.role)
-
-      const reviewers = getRandomElements(eligibleReviewers, 3) // Obtener al menos 3 revisores
+      const reviewers = getRandomElements(users, 3)
 
       reviewers.forEach((reviewer) => {
         const calification = randomNumber(1, 5)
@@ -108,9 +106,8 @@ db.connect(process.env.MONGO_URL_TEST)
 
 // Funciones auxiliares
 const getRandomElements = (array, count) => {
-  if (array.length === 0) return []
   const shuffled = array.sort(() => 0.5 - Math.random())
-  return shuffled.slice(0, Math.min(count, array.length))
+  return shuffled.slice(0, count)
 }
 
 const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
