@@ -2,7 +2,7 @@ import logic from './logic'
 
 import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom'
 
-import { Login, Register, Home } from './view'
+import { Login, Register, Home, Onepiecedle } from './view'
 import { Header, NoUserLoggedInAlert } from './view/components'
 
 export default function App() {
@@ -27,15 +27,19 @@ export default function App() {
 
     const handlePlayAsGuestClick = () => navigate('/')
 
+    const handleGuessCharacterClick = () => navigate('/onepiecedle')
+
     return <main className="h-screen, w-screen">
         {location.pathname !== 'map' && <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
 
         <Routes>
-            <Route path="/" element={<Home onLoginClick />} />
+            <Route path="/" element={<Home onGuessCharacter={handleGuessCharacterClick} />} />
 
             <Route path="/login" element={logic.isUserLoggedIn() && logic.isUserRoleRegular() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterAnchorClick={handleRegisterAnchorClick} />} />
 
             <Route path="/register" element={logic.isUserLoggedIn() && logic.isUserRoleRegular() ? <Navigate to="/" /> : <Register onLoginAnchorClick={handleLoginAnchorClick} onRegistered={handleUserRegistered} />} />
+
+            <Route path="/onepiecedle" element={<Onepiecedle />} />
         </Routes>
 
         {location.pathname !== '/login' && location.pathname !== '/register' && !logic.isUserLoggedIn() && <NoUserLoggedInAlert asGuest={handlePlayAsGuestClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
