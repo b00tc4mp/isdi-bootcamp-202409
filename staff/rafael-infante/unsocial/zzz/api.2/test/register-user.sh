@@ -1,0 +1,1 @@
+ curl -H 'Content-Type: application/json' -d '{"name":"Simon Bolivar","email":"simon@bolivar.com","username":"simonbolivar","password":"123123123","password-repeat":"123123123"}' http://localhost:8080/register -v
