@@ -1,7 +1,9 @@
-import authenticateUser from './authenticateUser'
+import loginUser from './loginUser'
+import registerUser from './registerUser'
 
 const logic = {
-    authenticateUser
+    loginUser,
+    registerUser
 }
 
 export default logic

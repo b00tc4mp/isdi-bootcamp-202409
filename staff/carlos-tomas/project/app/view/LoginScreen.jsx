@@ -1,84 +1,114 @@
-import logic from '../Logic/index'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
+
+
+import logic from '../logic'
+
 
 export default function LoginScreen() {
-    async function tryAuthenticate() {
-        try {
-            const token = await logic.authenticateUser()
-            await AsyncStorage.setItem('token', token)
-        }
-        catch (error) {
-            console.error('aaaaaaa')
 
+    const navigation = useNavigation()
+
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleSubmitLogin = async () => {
+
+        try {
+            await logic.loginUser(username, password)
+
+            navigation.goBack
+
+
+        } catch (error) {
+            Alert.alert(error.message);
+            console.error(error);
         }
     }
+
     return (
-        <>
-            <View style={loginScreen.header}>
-                <Text style={loginScreen.headerTitle}>Care4pets</Text>
-            </View>
-            <View style={loginScreen.form}>
-                <Text>Login</Text>
 
-                <TextInput style={loginScreen.text_input}
-                    placeholder='Username' />
+        <View style={loginScreen.form}>
+            <Text
+                style={loginScreen.text} >
+                Inicar sesion
+            </Text>
 
-                <TextInput style={loginScreen.text_input}
-                    secureTextEntry
-                    placeholder='Password' />
+            <TextInput
+                style={loginScreen.text_input}
+                placeholder='Nombre usuario'
+                autoCapitalize='nome'
+                value={username}
+                onChangeText={setUsername}
+            />
 
-                <TouchableOpacity style={loginScreen.submit}
-                    onPress={() => tryAuthenticate()}>
-                    <Text>Login</Text>
-                </TouchableOpacity>
+            <TextInput
+                style={loginScreen.text_input}
+                placeholder='Contraseña'
+                secureTextEntry
+                autoCapitalize='nome'
+                value={password}
+                onChangeText={setPassword}
+            />
 
-                <TouchableOpacity style={loginScreen.submit}
-                    onPress={async () => Alert.alert(await AsyncStorage.getItem('token'))}>
-                    <Text>get token</Text>
-                </TouchableOpacity>
+            <TouchableOpacity
+                style={loginScreen.submit}
+                onPress={handleSubmitLogin}>
+                <Text
+                    style={loginScreen.textSubmit}>
+                    Ingresar
+                </Text>
+            </TouchableOpacity>
 
-            </View>
+            <TouchableOpacity
+                style={loginScreen.submit}
+                onPress={() => navigation.navigate('register')}>
+                <Text
+                    style={loginScreen.textSubmit}>
+                    Registro
+                </Text>
+            </TouchableOpacity>
 
-        </>
+        </View>
+
+
     )
 }
-const loginScreen = StyleSheet.create({
-    header: {
-        flex: 1,
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "red",
-    },
 
-    headerTitle: {
-        fontSize: 60,
-        color: "white",
-    },
+
+
+const loginScreen = StyleSheet.create({
 
     form: {
         flex: 10,
         justifyContent: "center",
         alignItems: "center",
-        gap: 24,
+        gap: 30,
         paddingBottom: 120
     },
 
     text_input: {
+        width: 350,
         borderWidth: 1,
         fontSize: 22,
-        width: 200,
         padding: 16,
-        borderRadius: 8
+        borderRadius: 10
     },
 
     submit: {
-        width: 200,
+        width: 350,
         backgroundColor: "red",
-        borderRadius: 8,
+        borderRadius: 25,
         padding: 24,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+
+    },
+    text: {
+        fontSize: 35
+    },
+    textSubmit: {
+        fontSize: 20
     }
-});
+})

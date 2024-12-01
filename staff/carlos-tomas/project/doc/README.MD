@@ -53,6 +53,7 @@ User
 - username (string)
 - password (string)
 - phone (string, optional)
+- pic (string, optional)
 - licenseNumber(string, optional)
 - role (string, enum: regular|veterinary)
 
@@ -70,6 +71,7 @@ Deworm formulario !!!
 Pet
 - id (UUID)
 - owner (User.id)
+- pic (string, optional)
 - chip (string)
 - name (string)
 - race (string)

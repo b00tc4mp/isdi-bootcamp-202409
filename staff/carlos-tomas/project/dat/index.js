@@ -1,5 +1,5 @@
 import { connect, disconnect } from 'mongoose'
-import { User, Vaccine } from './models.js'
+import { User, Vaccine, Deworn, Pet, History, Appointment } from './models.js'
 
 
 const db = {
@@ -11,5 +11,9 @@ export default db
 
 export {
     User,
-    Vaccine
+    Vaccine,
+    Deworn,
+    Pet,
+    History,
+    Appointment
 }
