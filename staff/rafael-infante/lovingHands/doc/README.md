@@ -8,7 +8,7 @@ This is a web app for elderly people who need some assistance at home.
 
 ## Functional
 
-- The Loving Hands web app is designed to bring communication between elderly people in need of assistance and caregivers who can provide that support.
+- The Loving Hands web app is designed to connect caregivers and elders in need of assistance at home.
 
 ### Use Cases
 

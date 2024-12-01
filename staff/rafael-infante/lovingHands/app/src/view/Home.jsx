@@ -10,17 +10,14 @@ export default function Home({ onLoggedOut }) {
     if (logic.isUserLoggedIn()) {
       if (!name)
         try {
-          logic.getUserName((error, name) => {
-            if (error) {
+          logic
+            .getUserName()
+            .then(setName)
+            .catch((error) => {
               alert(error.message)
 
               console.error(error)
-
-              return
-            }
-
-            setName(name)
-          })
+            })
         } catch (error) {
           alert(error.message)
 
@@ -58,9 +55,10 @@ export default function Home({ onLoggedOut }) {
       {/* Main Content */}
       <div className="flex flex-col items-center px-4 flex-grow">
         <div className="w-full max-w-md text-center mt-6 mb-6">
-          <h1 className="text-3xl font-bold text-[#2b2b2b]">Welcome Back {name}!</h1>
+          <h1 className="text-3xl font-bold text-[#2b2b2b]">Welcome {name}!</h1>
           <p className="text-gray-600 mt-2">
-            We're glad to have you here. Explore the app to find caregivers or offer your help to elders.
+            We're glad to have you here. Explore the app to find elders in need of assistance or offer your help by
+            posting your service.
           </p>
         </div>
 
