@@ -27,7 +27,7 @@ export default function Home({ onLoggedOut }) {
           console.error(error)
         }
     } else setName(null)
-  }, name)
+  }, [])
 
   console.log('Home -> render')
 
@@ -72,7 +72,7 @@ export default function Home({ onLoggedOut }) {
               href="/caregivers"
               className="flex flex-col items-center justify-center bg-[#FFC9B0] text-[#E84D67] rounded-lg p-4 shadow hover:bg-[#F56132] hover:text-white transition duration-200"
             >
-              Find Caregivers
+              Find Elders Posts
             </a>
             <a
               href="/offer-help"
@@ -90,7 +90,7 @@ export default function Home({ onLoggedOut }) {
               href="/messages"
               className="flex flex-col items-center justify-center bg-[#D1AFA0] text-white rounded-lg p-4 shadow hover:bg-[#E84D67] hover:text-white transition duration-200"
             >
-              Messages
+              Saved posts
             </a>
           </div>
         </div>

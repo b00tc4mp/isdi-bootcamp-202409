@@ -5,7 +5,7 @@ import getUserName from './getUserName.js'
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-  const name = await getUserName('67489687e4bbcccf9795fdd9', '67489687e4bbcccf9795fdd9')
+  const name = await getUserName('674b3c13057b59218a6847b6', '674b3c13057b59218a6847b6')
   console.log(name)
 } catch (error) {
   console.error(error)
