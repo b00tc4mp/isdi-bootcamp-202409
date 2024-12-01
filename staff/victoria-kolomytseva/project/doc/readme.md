@@ -14,7 +14,7 @@ An application designed to help people find their lost pets or report pets they 
  Regular (User)
 - register
 - create ad
-- view ad
+- view ad (view detailed information and images in a post)
 - delete ad
 - add comment
 - view comments
@@ -22,22 +22,14 @@ An application designed to help people find their lost pets or report pets they 
 - report user
 - report ad
 - report comment
-- contact the pet owner or the person who found the animal
+- contact the pet owner or the person who found the animal ( contact the author of the ad for more details via the contact info in the post)
 - report a found pet to help reunite it with its owner(es cuando una persona ha encontrado una mascota perdida)
-- flag a post when the pet has found its owner
+- flag a post when the pet has found its owner (mark a post as "resolved" when the pet is found )
 
 Admin (User)
 - view reporting list(posts denunciados)
 - view reporting detail
 - ban user / ad / comment
-
-
-Ad
-- view detailed information and images in a post
-- delete post
-- remove comment
-- mark a post as "resolved" when the pet is found 
-- contact the author of the ad for more details via the contact info in the post
 
 
 
@@ -70,24 +62,32 @@ User
 - surname (string)
 - password (string)
 - city(string)
-- postalCode(number)
+- postalCode(string)
 - phone(string)
 
 Ad
 - id (UUID)
 - author (User.id)
-- image (string)
+- images ([string]) //poner varias para que el dueño de mascota puede enseñar detalles que tiene mascota
 - text (string)
 - date (Date)
 - likes ([User.id])
 - reported(boolean)
-- isFound(boolean)
+- found(boolean)
 
 Comment 
  - id (UUID)
  - author (User.id)
  - text (string)
  - date (Date) 
+
+Report
+  - id
+ - author (User.id)
+  - text (string)
+ - date (Date) 
+ - item (User.id | Ad.id | Comment.id)
+ - type (string, enum: user | ad | comment)/permitir para entender de que es
 
 ### Techs
 

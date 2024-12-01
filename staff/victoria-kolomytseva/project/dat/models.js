@@ -34,7 +34,7 @@ const user = new Schema({
     role: {
         type: String,
         enum: ['user', 'admin'], // Diferentes niveles de administrador
-        default: 'moderator',
+        default: 'user',
     }
 })
 
@@ -85,13 +85,42 @@ const comment = new Schema({
     }
 })
 
+const report = new Schema({
+    reportedId: {
+        type: Schema.Types.ObjectId, // ID del usuario reportado
+        ref: 'User',
+        required: true,
+    },
+    reason: {
+        type: String, // Motivo del reporte
+        required: true,
+    },
+    reportedBy: {
+        type: Schema.Types.ObjectId, // ID del usuario que hizo el reporte
+        ref: 'User',
+        required: true,
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'reviewed', 'resolved'], // Estado del reporte
+        default: 'pending',
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    }
+})
+
+
 const User = model('User', user)
 const Post = model('Post', post)
 const Comment = model('Comment', comment)
+const Report = model('Report', report)
 
 export {
     User,
     Post,
     Comment,
+    Report
 
 }
