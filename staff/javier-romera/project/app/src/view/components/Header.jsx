@@ -9,7 +9,7 @@ export default function Header(props) {
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
-            if (!name) {
+            if (!name || logic.isUserRoleRegular()) {
                 try {
                     logic.getUserName()
                         .then(name => setName(name))
@@ -28,7 +28,7 @@ export default function Header(props) {
                 }
             }
         } else setName(null)
-    }, [location.pathname])
+    }, [location.pathname, localStorage.token])
 
     const handleLoginClick = () => {
         props.onLoginClick()
@@ -58,7 +58,7 @@ export default function Header(props) {
             </div>
 
             <div className="flex justify-end items-center">
-                <p>{logic.isUserRoleRegular() ? name : logic.isUserLoggedIn() && 'guest'}</p>
+                <p>{logic.isUserLoggedIn() && name}</p>
                 {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
                     <Button onClick={handleLogoutUser}>logout</Button> :
                     logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&

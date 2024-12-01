@@ -43,6 +43,10 @@ const validateCallback = (callback: Function): void => {
     if (typeof callback !== 'function') throw new ValidationError('Invalid callback')
 }
 
+const validateCharacterName = (name: string): void => {
+    if (typeof name !== 'string') throw new ValidationError('Invalid name')
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -50,7 +54,8 @@ const validate = {
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
     id: validateId,
-    callback: validateCallback
+    callback: validateCallback,
+    characterName: validateCharacterName
 }
 
 export default validate

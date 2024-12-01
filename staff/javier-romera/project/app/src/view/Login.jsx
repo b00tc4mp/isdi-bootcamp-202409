@@ -2,8 +2,6 @@ import { Form, Field, Label, Input, Button, Anchor } from './library'
 
 import logic from './../logic'
 
-import { NoUserLoggedInAlert } from './components'
-
 import { errors } from 'com'
 const { SystemError } = errors
 

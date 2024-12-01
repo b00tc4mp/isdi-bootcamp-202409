@@ -6,7 +6,8 @@ import {
 } from './users/index.js'
 
 import {
-    getRandomCharacter
+    getRandomCharacter,
+    getCharacterByName
 } from './characters/index.js'
 
 const logic = {
@@ -15,7 +16,8 @@ const logic = {
     registerAnonymousUser,
     getUserName,
 
-    getRandomCharacter
+    getRandomCharacter,
+    getCharacterByName
 }
 
 export default logic

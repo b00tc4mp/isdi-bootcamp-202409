@@ -18,6 +18,6 @@ const devilFruit = new Schema({
     }
 })
 
-const DevilFruit = model('DevilFruit', devilFruit)
+const DevilFruit = model('DevilFruit', devilFruit, 'devilFruits')
 
 export default DevilFruit

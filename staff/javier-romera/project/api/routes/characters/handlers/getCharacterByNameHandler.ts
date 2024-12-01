@@ -4,9 +4,9 @@ import { Response } from 'express'
 import { CustomRequest } from '../../../types.js'
 
 export default createFunctionalHandler(async (req: CustomRequest, res: Response) => {
-    const { userId } = req
+    const { userId, params: { charName } } = req
 
-    const character = await logic.getRandomCharacter(userId)
+    const character = await logic.getCharacterByName(userId, charName)
 
     res.json(character)
 })

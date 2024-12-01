@@ -44,6 +44,6 @@ const user = new Schema({
     }
 }, { versionKey: false })
 
-const User = model('User', user)
+const User = model('User', user, 'users')
 
 export default User

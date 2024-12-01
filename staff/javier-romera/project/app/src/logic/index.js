@@ -10,7 +10,8 @@ import {
 } from './users'
 
 import {
-    getRandomCharacter
+    getRandomCharacter,
+    getCharacterByName
 } from './characters'
 
 const logic = {
@@ -23,7 +24,8 @@ const logic = {
     isUserRoleAnonymous,
     isUserRoleRegular,
 
-    getRandomCharacter
+    getRandomCharacter,
+    getCharacterByName
 }
 
 export default logic
