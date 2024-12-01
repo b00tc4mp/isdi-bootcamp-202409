@@ -18,10 +18,12 @@ export default function Footer({ onProfileClick, onCalendarClick, onTipsClick, o
         onReportsClick()
     }
 
-    return <footer className="fixed bottom-0 left-0 w-full flex flex-row items-center justify-between z-50 text-[var(--text-color-light)] bg-[var(--back-color-dark)]">
-        {logic.isUserLoggedIn() && <Anchor onClick={handleProfile}>Profile</Anchor>}
-        {logic.isUserLoggedIn() && <Anchor onClick={handleCalendar}>Calendar</Anchor>}
-        {logic.isUserLoggedIn() && <Anchor onClick={handleTips}>Tips</Anchor>}
-        {logic.isUserLoggedIn() && <Anchor onClick={handleReports}>Reports</Anchor>}
-    </footer>
+    return <>
+        {logic.isUserLoggedIn() && <footer className="fixed bottom-0 left-0 w-full flex flex-row items-center justify-around z-50 text-[var(--text-color-light)] bg-[var(--back-color-dark)] p-4">
+            <Anchor onClick={handleProfile}>Profile</Anchor>
+            <Anchor onClick={handleCalendar}>Calendar</Anchor>
+            <Anchor onClick={handleTips}>Tips</Anchor>
+            <Anchor onClick={handleReports}>Reports</Anchor>
+        </footer>}
+    </>
 }

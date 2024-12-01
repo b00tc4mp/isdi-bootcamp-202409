@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 
 import logic from '../logic'
-import { getCurrentHour } from '../util'
+import { getHour, getWeekDay } from '../util'
 
 export default function Home() {
     const [name, setName] = useState(null)
+    const weekDay = getWeekDay()
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
@@ -28,6 +29,11 @@ export default function Home() {
     }, [])
 
     return <>
-        {getCurrentHour() < 12 ? <h2>Good morning {name}!</h2> : <h2>Good afternoon {name}!</h2>}
+        <p>{weekDay}</p>
+
+        {getHour() > 18 ? (<h2>Good evening {name}!</h2>)
+            : getHour() > 12 ? (<h2>Good afternoon {name}!</h2>)
+                : getHour() > 6 ? (<h2>Good morning {name}!</h2>)
+                    : (<h2>Good night {name}!</h2>)}
     </>
 }

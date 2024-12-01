@@ -21,7 +21,6 @@ User
 - read data about your current cycle
 - read reports of the last cycles    
 - read predictions for the next cycle in the calendar
-- read user profile
 - read tips regarding your week of the cycle
 
 Visitor

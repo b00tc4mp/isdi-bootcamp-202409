@@ -10,8 +10,10 @@
     --back-color-dark: #272727;
     --text-color-light: #F0F0F0;
     --button-color: #1357EC;
+    --orange-color: #E3AA81;
     --font: 'Noto Sans';
     --font-title: 'Kavoon';
+    height: 100vh;
 }
 
 body {
@@ -19,8 +21,9 @@ body {
     background-color: var(--back-color-light);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 5rem 2rem 5rem 2rem;
+    /* justify-content: center;
+    align-items: center; */
     height: 100vh;
 }
 

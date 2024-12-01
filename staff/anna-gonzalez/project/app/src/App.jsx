@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Calendar, Home, Login, PartnerAccess, Profile, Register, Reports, Splash, Tips } from './view'
+import { Calendar, DayLog, Home, Login, PartnerAccess, Profile, Register, Reports, Splash, Tips } from './view'
 import { Header, Footer } from './view/components'
 
 import logic from './logic'
@@ -41,7 +41,9 @@ export default function App() {
 
       <Route path="/partner" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <PartnerAccess onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />} />
 
-      <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />} />
+      {<Route path="/profile" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />} />}
+
+      <Route path="/daylog" element={logic.isUserLoggedIn() ? <DayLog /> : <Navigate to="/login" />} />
 
       <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/login" />} />
 

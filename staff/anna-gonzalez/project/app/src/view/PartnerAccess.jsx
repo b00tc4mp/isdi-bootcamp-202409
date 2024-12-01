@@ -13,7 +13,7 @@ export default function PartnerAccess(props) {
         props.onRegisterClick()
     }
 
-    return <main>
+    return <main className="justify-self-center">
         <h2>Partner access</h2>
 
         <Form>
@@ -28,5 +28,11 @@ export default function PartnerAccess(props) {
 
         <Anchor href="" onClick={handleLoginClick}>Login instead</Anchor>
         <Anchor href="" onClick={handleRegisterClick}>Register instead</Anchor>
+
+        <div className="flex flex-row fixed top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1]">
+            <div className="w-40 h-40 bg-[var(--orange-color)] rounded-full"></div>
+            <div className="w-40 h-40 bg-[var(--orange-color)] rounded-full"></div>
+            <div className="w-40 h-40 bg-[var(--orange-color)] rounded-full"></div>
+        </div>
     </main>
 }

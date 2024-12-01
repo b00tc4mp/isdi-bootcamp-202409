@@ -12,9 +12,11 @@ export default function Header({ onLogoClick, onLoggedOut }) {
         onLoggedOut()
     }
 
-    return <header className="fixed top-0 left-0 w-full flex flex-row items-center justify-between z-50">
-        {logic.isUserLoggedIn() && <Anchor onClick={handleLogo}>period</Anchor>}
+    return <>
+        {logic.isUserLoggedIn() && <header className="fixed top-0 left-0 w-full flex flex-row items-center justify-between z-50 px-8 bg-[var(--back-color-light)]">
+            <Anchor onClick={handleLogo}>period</Anchor>
 
-        {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
-    </header>
+            <Button type="button" onClick={handleLogout}>Logout</Button>
+        </header>}
+    </>
 }
