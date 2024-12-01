@@ -39,5 +39,7 @@ describe('getUsername', () => {
         ).to.be.rejectedWith(NotFoundError, 'target user not found')
     )
 
+    // TODO SystemError tests (typescript no me deja)
+
     after(() => db.disconnect())
 })

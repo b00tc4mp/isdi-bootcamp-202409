@@ -11,7 +11,7 @@ const validateName = (name: string): void => {
 const validateEmail = (email: string): void => {
     if (typeof email !== 'string') throw new ValidationError('invalid email')
     if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
-        throw new ValidationError('invalid e-mail')
+        throw new ValidationError('Invalid e-mail')
 }
 
 const validateUsername = (username: string): void => {

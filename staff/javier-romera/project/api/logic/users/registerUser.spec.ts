@@ -10,7 +10,7 @@ const { expect } = chai
 import db, { User } from 'dat'
 import { errors } from 'com'
 
-const { DuplicityError } = errors
+const { DuplicityError, ValidationError } = errors
 
 import registerUser from './registerUser.js'
 
@@ -38,6 +38,24 @@ describe('registerUser', () => {
             await registerUser('Javi', 'javi@gmail.com', 'javi', '123123123', '123123123')
         })()).to.be.rejectedWith(DuplicityError, 'user already exists')
     )
+
+    it('fails on non-valid name length', () =>
+        expect(() => registerUser('J', 'javi@gmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Name is too short, it should be at least 2 characters long$/)
+    )
+
+    it('fails on non-valid username length', () =>
+        expect(() => registerUser('Javi', 'javi@gmail.com', 'j', '123123123', '321321321')).to.throw(ValidationError, /^Username is too short, it should be at least 4 characters long$/)
+    )
+
+    it('fails on non-valid email', () =>
+        expect(() => registerUser('Javi', 'javigmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Invalid e-mail$/)
+    )
+
+    it('fails on non-matching passwords', () =>
+        expect(() => registerUser('Javi', 'javi@gmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Passwords do not match$/)
+    )
+
+    // TODO SystemError tests (typescript no me deja)
 
     after(() => db.disconnect())
 })

@@ -7,11 +7,11 @@
     "scripts": {
         "start": "node dist/.",
         "inspect": "node --inspect-brk .",
-        "test": "mocha logic/*.spec.js",
+        "test": "mocha dist/logic/*.spec.js",
         "test-one": "mocha",
-        "test-inspect": "mocha --inspect-brk logic/*.spec.js",
+        "test-inspect": "mocha --inspect-brk dist/logic/*.spec.js",
         "test-inspect-one": "mocha --inspect-brk",
-        "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/**/*.spec.js --timeout 20000",
+        "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha dist/logic/**/*.spec.js --timeout 20000",
         "build": "tsc",
         "build:dev": "tsc -w"
     },

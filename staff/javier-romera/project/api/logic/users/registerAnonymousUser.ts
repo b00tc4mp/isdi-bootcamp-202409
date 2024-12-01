@@ -2,10 +2,9 @@ import bcrypt from 'bcryptjs'
 
 import { User } from 'dat'
 import { errors } from 'com'
-import { MongoError } from 'mongodb'
 import { uuid } from '../../util/index.js'
 
-const { DuplicityError, SystemError } = errors
+const { SystemError } = errors
 
 export default () => {
     return (async () => {
@@ -20,15 +19,13 @@ export default () => {
         try {
             hash = await bcrypt.hash('password', 1)
         } catch (error) {
-            if (error instanceof Error)
+            if (error instanceof Error) // In case there is a bcrypt hashing error
                 throw new SystemError(error.message)
         }
 
         try {
             user = await User.create({ name, email, username, password: hash, role: 'anonymous' })
-        } catch (error) {
-            if ((error as MongoError).code === 11000) throw new DuplicityError('user already exists')
-
+        } catch (error) { // No duplicity check because of uuid
             throw new SystemError((error as Error).message)
         }
 
