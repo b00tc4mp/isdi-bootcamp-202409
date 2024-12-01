@@ -11,7 +11,8 @@ import {
 
 import {
     getRandomCharacter,
-    getCharacterByName
+    getCharacterByName,
+    checkOnePiecedleAnswer
 } from './characters'
 
 const logic = {
@@ -25,7 +26,8 @@ const logic = {
     isUserRoleRegular,
 
     getRandomCharacter,
-    getCharacterByName
+    getCharacterByName,
+    checkOnePiecedleAnswer
 }
 
 export default logic

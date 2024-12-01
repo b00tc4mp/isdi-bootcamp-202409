@@ -24,7 +24,8 @@ const character = new Schema({
         required: true
     },
     devilFruit: {
-        type: ObjectId
+        type: ObjectId,
+        ref: 'DevilFruit'
     },
     bounty: {
         type: BigInt,
@@ -36,6 +37,7 @@ const character = new Schema({
     },
     firstArc: {
         type: ObjectId,
+        ref: 'Arc',
         required: true
     },
     description: {

@@ -7,6 +7,7 @@ export default function Onepiecedle() {
     try {
         logic.getRandomCharacter()
             .then(char => {
+                console.log(char) // TODO erase
                 randomChar = char
             })
             .catch(error => {
@@ -30,6 +31,7 @@ export default function Onepiecedle() {
 
         try {
             logic.getCharacterByName(guess)
+                .then(char => logic.checkOnePiecedleAnswer(randomChar, char))
                 .then(console.log)
 
             event.target.guess.value = ""

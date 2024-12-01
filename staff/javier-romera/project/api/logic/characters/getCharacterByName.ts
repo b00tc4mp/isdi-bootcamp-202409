@@ -19,7 +19,7 @@ export default (userId: string, charName: string) => {
         }
 
         try {
-            char = await Character.findOne({ $or: [{ name: charName }, { alias: charName }] }).lean()
+            char = await Character.findOne({ $or: [{ name: charName }, { alias: charName }] }).populate('firstArc', 'name number -_id').populate('devilFruit', 'type -_id').select('-_id').lean()
         } catch (error) {
             if (error instanceof SystemError)
                 throw new SystemError(error.message)
