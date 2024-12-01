@@ -1,4 +1,5 @@
 import {
+    getUserName,
     isUserLoggedIn,
     loginUser,
     logoutUser,
@@ -6,6 +7,7 @@ import {
 } from './users'
 
 const logic = {
+    getUserName,
     isUserLoggedIn,
     loginUser,
     logoutUser,

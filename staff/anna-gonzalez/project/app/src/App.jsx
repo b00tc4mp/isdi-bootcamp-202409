@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Home, Login, PartnerAccess, Register, Splash } from './view'
-import { Header } from './view/components'
+import { Calendar, Home, Login, PartnerAccess, Profile, Register, Reports, Splash, Tips } from './view'
+import { Header, Footer } from './view/components'
 
 import logic from './logic'
 
@@ -20,12 +20,17 @@ export default function App() {
   const handleUserRegistered = () => navigate('/')
   const handleRegisterClick = () => navigate('/register')
   const handlePartnerAccessClick = () => navigate('/partner')
+  const handleLogoClick = () => navigate('/')
   const handleUserLoggedOut = () => navigate('/login')
+  const handleProfileClick = () => navigate('/profile')
+  const handleCalendarClick = () => navigate('/calendar')
+  const handleTipsClick = () => navigate('/tips')
+  const handleReportsClick = () => navigate('/reports')
 
   if (showSplash) return <Splash />
 
   return <>
-    <Header onLoggedOut={handleUserLoggedOut} />
+    <Header onLogoClick={handleLogoClick} onLoggedOut={handleUserLoggedOut} />
 
     <Routes>
       <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
@@ -35,7 +40,16 @@ export default function App() {
       <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegistered={handleUserRegistered} onLoginClick={handleLoginClick} onPartnerAccessClick={handlePartnerAccessClick} />} />
 
       <Route path="/partner" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <PartnerAccess onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />} />
+
+      <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />} />
+
+      <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/login" />} />
+
+      <Route path="/tips" element={logic.isUserLoggedIn() ? <Tips /> : <Navigate to="/login" />} />
+
+      <Route path="/reports" element={logic.isUserLoggedIn() ? <Reports /> : <Navigate to="/login" />} />
     </Routes>
 
+    <Footer onProfileClick={handleProfileClick} onCalendarClick={handleCalendarClick} onTipsClick={handleTipsClick} onReportsClick={handleReportsClick} />
   </>
 }
