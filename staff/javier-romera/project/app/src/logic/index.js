@@ -9,6 +9,10 @@ import {
     isUserRoleRegular
 } from './users'
 
+import {
+    getRandomCharacter
+} from './characters'
+
 const logic = {
     registerUser,
     registerAnonymousUser,
@@ -17,7 +21,9 @@ const logic = {
     logoutUser,
     getUserName,
     isUserRoleAnonymous,
-    isUserRoleRegular
+    isUserRoleRegular,
+
+    getRandomCharacter
 }
 
 export default logic

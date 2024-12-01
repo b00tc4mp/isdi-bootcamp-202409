@@ -4,7 +4,7 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 
 import { errorHandler } from './routes/helpers/index.js'
-import { usersRouter } from './routes/index.js'
+import { charactersRouter, usersRouter } from './routes/index.js'
 
 db.connect(process.env.ALLPIECE_URL_TEST!).then(() => {
     console.log('connected to db')
@@ -16,6 +16,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!).then(() => {
     server.get('/', (_: Request, res: Response): void => { res.send('Hello API!') })
 
     server.use('/users', usersRouter)
+    server.use('/characters', charactersRouter)
 
     server.use(errorHandler)
 

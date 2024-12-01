@@ -1,14 +1,14 @@
 import 'dotenv/config'
 import db from 'dat'
 
-import getUserName from './getUserName.js'
+import getRandomCharacter from './getRandomCharacter.js'
 
 await db.connect(process.env.ALLPIECE_URL_TEST!)
 
 try {
-    const name = await getUserName('672e08451dfe72076c0ca52c', '672e08451dfe72076c0ca52c')
+    const character = await getRandomCharacter('674b8e4aba7a4dfd6c16b8ea')
 
-    console.log(name)
+    console.log(character)
 } catch (error) {
     console.error(error)
 } finally {
