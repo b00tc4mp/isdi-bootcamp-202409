@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game_Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .scene {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .box {
+            position: relative;
+            /* Necesario para posicionar el cursor */
+            width: 600px;
+            height: auto;
+            /* Permitir que la caja crezca según el contenido */
+            min-height: 50px;
+            /* Mantener un tamaño mínimo */
+            padding: 20px;
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            /* Alinear el texto a la izquierda */
+            overflow: hidden;
+            /* Mantener contenido dentro de la caja */
+        }
+
+        .text {
+            font-size: 18px;
+            color: #333;
+            white-space: normal;
+            /* Permitir saltos de línea */
+            word-wrap: break-word;
+            /* Forzar un salto de palabra si es muy larga */
+        }
+
+        /* al finalizar boz generamos un pseudo-elemento animado (cursor) */
+        .box::after {
+            content: "";
+
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+
+            width: 2px;
+            height: 18px;
+
+            background-color: #3498db;
+
+            animation: blink-cursor 0.7s steps(2) infinite;
+        }
+
+        @keyframes blink-cursor {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes blink-cursor {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Escena de introducción -->
+    <div id="intro" class="scene active">
+        <div class="box">
+            <div class="text"></div>
+        </div>
+    </div>
+
+    <!-- Escena del mapa -->
+    <div id="map" class="scene">
+        <h1>Mapa del juego</h1>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <script>
+        // Textos de la introducción
+        const texts = [
+            "¡Bienvenido al juego! Haz clic para continuar.",
+            "Explora mundos increíbles y desafíos únicos.",
+            "¡Prepárate para la aventura! Haz clic para empezar."
+        ];
+
+        //INPUT BOX_ QUIERES LOGGEARTE
+
+        // Textos de la introducción
+        const register_texts = [
+            "...",
+            "Seguramente te estarás preguntando por que no estas en prisión.",
+            "Dejémoslo en que eres una persona con suerte... Aunque la suerte es un flujo cambiante.",
+            "Soy la mano derecha de tu salvador y me han encargado hacerte pagar por esa libertad.",
+            "Como te llamas?", //name box
+            "Bien, esa persona has muerto. Vas a convivir con nosotros bajo un apodo.",
+            "Quien quieres ser?", //nickname box
+            "Encantado ${nickname}, yo soy Cosmo.",
+            "En nuestra organización utilizamos claves internas para lidiar con suplantaciones o infiltraciones.",
+            "No hay excepciones para nadie, asi que dime, cual es tu clave?", //password box
+            "Bien, ahora que hemos puesto todos los puntos sobre las íes quiero dejar clara una última cosa:",
+            "No voy a forzarte a unirte a nosotros, pero en ese caso, vas a tener que buscarte las castañas.",
+            "...",
+            "Veo que no te interesa la idea, bien. En ese caso vas a tener que demostrar tu valía.",
+            "Estás preparado?", //text box si o no
+        ];
+
+        const NO_register_Texts = [
+            "...",
+            "Seguramente te estarás preguntando por que no estas en prisión.",
+            "Dejémoslo en que eres una persona con suerte... Aunque la suerte es un flujo cambiante.",
+            "Por ahora lo único que necesitas saber es que me han encargado hacerte pagar por esa libertad.",
+            "Como yo lo veo tienes dos caminos; o te unes a nosotros o vuelves a prisión.",
+            "En caso de rechazarnos no vas a tener a nadie que te limpie tus mierdas.",
+            "...",
+            "Parece que lo tienes claro. En ese caso vas a tener que demostrar lo que vales.",
+            "Estás preparado?", //text box si o no
+        ];
+
+
+        // Escenas
+        const introScene = document.getElementById("intro");
+        const mapScene = document.getElementById("map");
+
+        // Estado actual
+        let currentTextIndex = 0;
+        let isTyping = false; // Estado para bloquear clics mientras se escribe
+
+        // Elementos HTML
+        const textElement = document.querySelector('.text');
+        const boxElement = document.querySelector('.box');
+
+        // Función para escribir texto carácter por carácter
+        function typeWriter(text, callback) {
+            isTyping = true; // Bloquear clics
+            let index = 0;
+            textElement.textContent = "";
+
+            function write() {
+                if (index < text.length) {
+                    textElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(write, 10); // Velocidad de escritura
+                } else {
+                    isTyping = false;
+                    if (callback) callback();
+                }
+            }
+
+            write();
+        }
+
+        // Función para mostrar el siguiente texto
+        function showNextText() {
+            if (isTyping) return; // Si está escribiendo, ignorar clics
+
+            if (currentTextIndex < register_texts.length - 1) {
+                currentTextIndex++;
+                typeWriter(register_texts[currentTextIndex]);
+            } else {
+                console.log("Fin del registro. Cambiar a la siguiente escena.");
+                // CAMBIAR ESCENA 
+            }
+        }
+
+        //funciones para pasar al siguiente texto
+        boxElement.addEventListener("click", showNextText);
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                showNextText();
+            }
+        });
+
+        //inicializo el diálogo
+        typeWriter(register_texts[currentTextIndex]);
+    </script>
+</body>
+
+</html>
