@@ -1,9 +1,10 @@
 import { Router, json } from 'express'
 
-//import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
-import authorizationHandler from '../helpers/authorizationHandler.js'
+import authorizationHandler from '../helpers/authorizationHandler.js' ////import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
 import jsonBodyParser from '../helpers/jsonBodyParser.js'
-import { authenticateUserHandler, registerUserHandler, getUserNameHandler } from './handlers/index.js'
+import authenticateUserHandler from './handlers/authenticateUserHandler.js' //import { authenticateUserHandler, registerUserHandler, getUserNameHandler } from './handlers/index.js'
+import registerUserHandler from './handlers/registerUserHandler.js'
+import getUserNameHandler from './handlers/getUserNameHandler.js'
 
 const usersRouter = Router()
 

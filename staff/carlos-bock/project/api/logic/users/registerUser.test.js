@@ -1,10 +1,10 @@
 import 'dotenv/config'
-//import db from 'dat' // check routes
-import db from '../../../dat/index.js'
+import db from '../../../dat/index.js' //import db from 'dat' // check routes
+
 
 import registerUser from './registerUser.js'
 
-db.connect(process.env.MONGO_URL_TEST)
+db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
     .then(() => {
         try {
             return registerUser('Puss in Boots', 'elgato@cat.net', 'elgato', '123132123', '123123123')
@@ -20,7 +20,7 @@ db.connect(process.env.MONGO_URL_TEST)
 
 async function registered() {
     try {
-        await db.connect(process.env.MONGO_URL_TEST)
+        await db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL_TEST
         try {
             const result = await registerUser('Puss in Boots2', 'elgato2@cat.net', 'elgato2', '123132123', '123123123')
             console.log(result) // undefined
