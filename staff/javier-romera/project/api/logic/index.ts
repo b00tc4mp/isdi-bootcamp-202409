@@ -7,7 +7,8 @@ import {
 
 import {
     getRandomCharacter,
-    getCharacterByName
+    getCharacterByName,
+    getAllCharactersNameAndAlias
 } from './characters/index.js'
 
 const logic = {
@@ -17,7 +18,8 @@ const logic = {
     getUserUsername,
 
     getRandomCharacter,
-    getCharacterByName
+    getCharacterByName,
+    getAllCharactersNameAndAlias
 }
 
 export default logic

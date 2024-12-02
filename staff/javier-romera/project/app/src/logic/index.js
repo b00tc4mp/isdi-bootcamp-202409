@@ -12,7 +12,8 @@ import {
 import {
     getRandomCharacter,
     getCharacterByName,
-    checkOnePiecedleAnswer
+    checkOnePiecedleAnswer,
+    getAllCharactersNameAndAlias
 } from './characters'
 
 const logic = {
@@ -27,7 +28,8 @@ const logic = {
 
     getRandomCharacter,
     getCharacterByName,
-    checkOnePiecedleAnswer
+    checkOnePiecedleAnswer,
+    getAllCharactersNameAndAlias
 }
 
 export default logic

@@ -1,6 +1,5 @@
 import { model, Schema } from 'mongoose'
 
-
 const user = new Schema({
     email: {
         type: String,
