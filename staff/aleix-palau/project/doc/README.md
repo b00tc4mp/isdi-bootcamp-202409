@@ -22,12 +22,12 @@ If music is your world and you're seeking others who resonate with your taste, H
     - location/distance
 - **Heartbeat** left/right on someone who makes your heart skip a beat
 - chat with people you match with
-- display recently played tracks on the chat
+- display recently played tracks on chats
 - share music in chats
 <!-- - option to join concerts in calendar
 - invite people to concerts -->
 - get notifications when:
-    - someone you previously liked likes you back
+    - you match with someone
     - you receive a message
     <!-- - a band you follow comes to your city
     - someone invites you to a concert -->
@@ -66,24 +66,23 @@ If music is your world and you're seeking others who resonate with your taste, H
 
 User
 - id (ObjectId)
+- name (string)
 - email (string, unique)
 - password (string, hashed)
-- firstName (string)
 - dateOfBirth (Date)
 - gender (string, enum: male | female | nonbinary)
 - preferredGender ([string], enum: male | female | nonbinary)
 - coordinates ([ latitude: float, longitude: float ])
-- spotifyAccountId (SpotifyAccount.id, optional)
 - lastActive (Date)
 
 - bio (string, optional)
-- pics ([string])
+- images ([string])
 - minAge (integer, optional)
 - maxAge (integer, optional)
 - distance (integer, optional)
 - genres ([string])
 - artists ([string])
-- spotifyId (string, optional)
+- spotifyId (string, optional, unique)
 - spotifyAccessToken (string)
 - spotifyRefreshToken (string)
 
@@ -92,11 +91,11 @@ User
 - artist (string)
 - playedOn (Date)
 
-Heartbeat (Swipe)
+Heartbeat
 - id (ObjectId)
 - sender (User.id)
 - receiver (User.id)
-- type (string, enum: left | right)
+- action (string, enum: left | right)
 - date (Date)
 
 Match
