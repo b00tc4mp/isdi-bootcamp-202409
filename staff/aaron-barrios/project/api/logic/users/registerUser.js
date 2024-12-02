@@ -11,6 +11,7 @@ export default (name, nickname, password, passwordRepeat) => {
     validate.password(password)
     validate.passwordsmatch(password, passwordRepeat)
 
+    debugger
     return (async () => {
         let hash
 
@@ -23,7 +24,7 @@ export default (name, nickname, password, passwordRepeat) => {
         try {
             await User.create({ name, nickname, password: hash })
         } catch (error) {
-            if (error.code === 1100) throw new DuplicityError('user already exists')
+            if (error.code === 11000) throw new DuplicityError('user already exists')
 
             throw new SystemError(error.message)
         }
