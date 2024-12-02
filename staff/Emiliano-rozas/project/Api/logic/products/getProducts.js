@@ -1,4 +1,4 @@
-import { Product } from "../../dat/index.js";
+import { Product } from 'dat';
 import { errors } from 'com'
 
 const { SystemError } = errors
@@ -16,6 +16,7 @@ export default async () => {
             product.reviews.forEach(review => {
                 review.id = review._id.toString()
                 delete review._id
+
                 //Si existe el autor y tiene un _id, lo ajustamos.
                 if (review.author && review.author._id) {
                     review.author.id = review.author._id.toString()

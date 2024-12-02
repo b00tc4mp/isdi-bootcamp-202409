@@ -4,12 +4,14 @@ import {
 } from './users/index.js'
 
 import {
-    getProducts
+    getProducts,
+    createProduct
 } from './products/index.js'
 
 const logic = {
     registerUser,
     authenticateUser,
-    getProducts
+    getProducts,
+    createProduct
 }
 export default logic

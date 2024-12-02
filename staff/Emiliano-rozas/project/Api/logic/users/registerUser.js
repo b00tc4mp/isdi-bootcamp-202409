@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 
-import { User } from '../../dat/index.js'
+import { User } from 'dat'
 import { validate, errors } from 'com'
 
 const { DuplicityError, SystemError } = errors

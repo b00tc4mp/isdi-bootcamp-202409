@@ -28,3 +28,7 @@ a.active p {
 .dropdown-menu {
     transition: all 0.3s ease-in-out;
 }
+
+::-webkit-scrollbar{
+    display: none;
+}

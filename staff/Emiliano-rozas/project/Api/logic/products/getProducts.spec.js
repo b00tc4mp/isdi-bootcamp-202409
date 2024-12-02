@@ -2,11 +2,13 @@ import 'dotenv/config'
 
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
+import bcrypt from 'bcryptjs'
+
 
 chai.use(chaiAsPromised)
 const { expect } = chai
 
-import db, { Product, Review, User } from '../../dat/index.js'
+import db, { Product, Review, User } from 'dat'
 import { errors } from 'com'
 
 const { SystemError } = errors
@@ -27,7 +29,7 @@ describe('getProducts', () => {
     })
     // probamos que devuelva todo bien
     it('succeeds on retrieving all products', async () => {
-        const user = await User.create({ name: 'John Doe', email: 'john@doe.com', username: 'johndoe', password: '123123123', role: 'regular' })
+        const user = await User.create({ name: 'Eddie Brook', email: 'eddie@brook.com', username: 'venom', password: bcrypt.hashSync('123123123', 10) })
 
         await Product.create({
             title: 'Naruto Vol. 1',

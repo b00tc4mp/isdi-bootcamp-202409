@@ -6,7 +6,7 @@ import Home from "./Home";
 import Login from './Login'
 import Orders from './Orders'
 import PlaceOrder from './PlaceOrder'
-import ProductItem from './ProductItem'
+import ProductDetail from './ProductDetail'
 import Products from "./Products";
 import Register from "./Register";
 
@@ -19,7 +19,7 @@ export {
     Login,
     Orders,
     PlaceOrder,
-    ProductItem,
+    ProductDetail,
     Products,
     Register
 }

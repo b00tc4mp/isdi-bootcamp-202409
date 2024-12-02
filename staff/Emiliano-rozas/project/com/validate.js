@@ -32,9 +32,69 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
         throw new ValidationError('passwords do not match')
 }
 
+const validateTitle = title => {
+    if (typeof title !== 'string') throw new ValidationError('invalid title')
+    if (title.length < 3) throw new ValidationError('title too short')
+}
+
+const validateAuthor = author => {
+    if (typeof author !== 'string') throw new ValidationError('invalid author')
+    if (author.length < 3) throw new ValidationError('author too short')
+}
+
+const validatePublisher = publisher => {
+    if (typeof publisher !== 'string') throw new ValidationError('invalid publisher')
+    if (publisher.length < 3) throw new ValidationError('publisher too short')
+}
+
+const validateIsbn = isbn => {
+    if (typeof isbn !== 'string') throw new ValidationError('invalid ISBN')
+    if (!/^\d{9}(\d|X)$/.test(isbn)) throw new ValidationError('invalid ISBN format')
+}
+
+const validatePrice = price => {
+    if (typeof price !== 'number') throw new ValidationError('invalid price')
+    if (price <= 0) throw new ValidationError('price must be above 0')
+}
+
+const validateDescription = description => {
+    if (typeof description !== 'string') throw new ValidationError('invalid description')
+    if (description.length < 3) throw new ValidationError('description too short')
+}
+
+const validateCategory = category => {
+    if (typeof category !== 'string') throw new ValidationError('invalid category')
+    if (category.length < 3) throw new ValidationError('category too short')
+}
+
+const validateStatus = status => {
+    const validStatus = ['published', 'draft', 'deactivated']
+    if (typeof status !== 'string' || !validStatus.includes(status)) {
+        throw new ValidationError('invalid status');
+    }
+}
+
+const validateStock = stock => {
+    if (typeof stock !== 'number') throw new ValidationError('invalid stock')
+    if (stock <= 0) throw new ValidationError('stock must be above 0')
+}
+
 const validateImage = image => {
     if (typeof image !== 'string') throw new ValidationError('invalid image')
     if (image.trim().length === 0) throw new ValidationError('invalid image length')
+}
+
+const validateImages = images => {
+    if (!Array.isArray(images)) throw new ValidationError('invalid images, must be an array');
+    images.forEach((image, index) => {
+        if (typeof image !== 'string' || image.trim().length === 0) {
+            throw new ValidationError(`invalid image at index ${index}`);
+        }
+    });
+};
+
+const validateBestSeller = bestSeller => {
+    if (typeof bestSeller !== 'boolean') throw new ValidationError('invalid bestSeller value');
 }
 
 const validateText = text => {
@@ -51,16 +111,33 @@ const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
 
+const validateNumber = (number, explain = 'number') => {
+    if (typeof number !== 'number' || isNaN(number)) throw new ValidationError(`invalid ${explain}`);
+    if (number < 0) throw new ValidationError(`${explain} must be positive`);
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
     username: validateUsername,
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
+    title: validateTitle,
+    author: validateAuthor,
+    publisher: validatePublisher,
+    isbn: validateIsbn,
+    price: validatePrice,
+    description: validateDescription,
+    category: validateCategory,
+    status: validateStatus,
+    stock: validateStock,
     image: validateImage,
+    images: validateImages,
+    bestSeller: validateBestSeller,
     text: validateText,
     id: validateId,
-    callback: validateCallback
+    callback: validateCallback,
+    number: validateNumber
 }
 
 export default validate
