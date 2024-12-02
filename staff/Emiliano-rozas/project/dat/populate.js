@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import db, { User, Product, Review } from './index.js';
 
 // Conexión mongo
-db.connect(process.env.MONGO_URL)
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => Promise.all([
         User.deleteMany(),
         Product.deleteMany(),

@@ -15,7 +15,7 @@ export default function LatestArrivals() {
         }
     }, [products])
 
-    //No te olvides de poner el switc, que sino se rompe todoo, pero con products?
+    //No te olvides de poner el switc, que sino se rompe todoo, pero con products? si, con products para que se actualice cada vez que cambie products
 
     console.log(products)
 
