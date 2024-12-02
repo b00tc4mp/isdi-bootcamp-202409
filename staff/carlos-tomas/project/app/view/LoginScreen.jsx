@@ -2,11 +2,9 @@ import { Text, View, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 
-
 import logic from '../logic'
 
-
-export default function LoginScreen() {
+export default function LoginScreen({ onLoginSuccess }) {
 
     const navigation = useNavigation()
 
@@ -16,10 +14,9 @@ export default function LoginScreen() {
     const handleSubmitLogin = async () => {
 
         try {
-            await logic.loginUser(username, password)
+            await logic.loginUser(username, password,)
 
-            navigation.goBack
-
+            onLoginSuccess()
 
         } catch (error) {
             Alert.alert(error.message);
@@ -38,7 +35,7 @@ export default function LoginScreen() {
             <TextInput
                 style={loginScreen.text_input}
                 placeholder='Nombre usuario'
-                autoCapitalize='nome'
+                autoCapitalize='none'
                 value={username}
                 onChangeText={setUsername}
             />
@@ -47,7 +44,7 @@ export default function LoginScreen() {
                 style={loginScreen.text_input}
                 placeholder='Contraseña'
                 secureTextEntry
-                autoCapitalize='nome'
+                autoCapitalize='none'
                 value={password}
                 onChangeText={setPassword}
             />

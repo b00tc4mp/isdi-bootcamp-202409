@@ -5,7 +5,7 @@ import RegisterScreen from '../RegisterScreen'
 
 const { Navigator, Screen } = createStackNavigator();
 
-export default function HomeNavigation() {
+export default function LoginRegisScreen({ onLoginSuccess }) {
     return (
         <Navigator
             initialRouteName='login'
@@ -17,10 +17,8 @@ export default function HomeNavigation() {
             <Screen
                 name="login"
                 options={{ title: 'Iniciar sesion' }}
-                component={LoginScreen}
-                screenOptions={{
-                    headerBackVisible: false
-                }}
+                children={(props) => (
+                    <LoginScreen {...props} onLoginSuccess={onLoginSuccess} />)}
             />
             <Screen
                 name="register"

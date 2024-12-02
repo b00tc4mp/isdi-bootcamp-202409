@@ -1,27 +1,28 @@
 import 'react-native-gesture-handler'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView, StyleSheet, Platform } from 'react-native'
-import { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import HomeNavigation from './view/Navigation/HomeNavigation'
 import MainNavigator from './view/Navigation/MainNavigator'
+import LoginRegisScreen from './view/Navigation/LoginRegisScreen'
+import logic from './logic'
+import { useState, useEffect } from 'react'
 
 export default function App() {
-  const [token, setToken] = useState('')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
-    (async () => {
-      try {
-        const storedToken = await AsyncStorage.getItem('token');
-        setToken(storedToken);
-      } catch (error) {
-        console.error('Error retrieving token:', error);
-      }
-    })();
-  }, []);
+    const checkUserStatus = async () => {
+      const loggedIn = await logic.isUserLoggendIn()
 
-  console.log(token)
+      setIsLoggedIn(loggedIn)
+    }
+
+    checkUserStatus()
+  }, [])
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true)
+  }
 
   return (
     // <SafeAreaView style={app.droidSafeArea}>
@@ -29,16 +30,13 @@ export default function App() {
       <StatusBar style='auto' />
 
       <NavigationContainer>
-        {
-          token ?
-            <MainNavigator /> :
-            <HomeNavigation />
-        }
+
+        {isLoggedIn ? <MainNavigator /> : < LoginRegisScreen onLoginSuccess={handleLoginSuccess} />}
+
       </NavigationContainer>
     </>
     // </SafeAreaView>
-
-  );
+  )
 }
 
 const app = StyleSheet.create({

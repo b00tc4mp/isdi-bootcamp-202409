@@ -9,19 +9,20 @@ export default async (username, password) => {
     validate.username(username)
     validate.password(password)
 
+
     try {
-        const response = await axios.post('http://192.168.1.62:8080/users/auth', {
+        const response = await axios.post('http://192.168.1.107:8080/users/auth', {
             username,
             password
 
         })
         const { data } = response;
         if (data && data.token) {
-            await AsyncStorage.setItem('token', data.token); // Usamos AsyncStorage para almacenar el token
-            return data;
+            await AsyncStorage.setItem('token', data.token) // Usamos AsyncStorage para almacenar el token
+            return
         }
 
-        throw new SystemError('Token not found in the response');
+        throw new SystemError('Token not found in the response')
     } catch (error) {
         if (error.response) {
             const { data } = error.response;

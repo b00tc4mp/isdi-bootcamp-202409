@@ -1,10 +1,20 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text, View, TouchableOpacity } from 'react-native'
 
-export default function HomeScreen() {
-    async function logout() {
+import logic from '../logic'
 
-        await AsyncStorage.removeItem('token')
+
+
+export default function HomeScreen() {
+    const handleSubmitLogout = async () => {
+
+        try {
+            await logic.logoutUser()
+
+
+        } catch (error) {
+            Alert.alert(error.message);
+            console.error(error);
+        }
     }
 
     return (
@@ -12,13 +22,8 @@ export default function HomeScreen() {
             <Text>Home</Text>
 
             <TouchableOpacity
-                onPress={() => logout()}>
+                onPress={handleSubmitLogout}>
                 <Text>Logout</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                onPress={() => logout()}>
-                <Text>QR</Text>
             </TouchableOpacity>
 
         </View>
