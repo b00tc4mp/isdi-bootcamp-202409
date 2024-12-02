@@ -2,7 +2,9 @@ import errors from '../../../com/errors.js' //index.js //import { errors } from 
 
 const { SystemError } = errors
 
-//create and import custom components for imput buttons etc....
+import Button from './library/Button.jsx'; import Form from './library/Form.jsx'
+import Field from './library/Field.jsx'; import Label from './library/Label.jsx';
+import Input from './library/Input.jsx'; import PasswordInput from './library/PasswordInput.jsx'; //import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic/index.js'
 
@@ -63,27 +65,27 @@ export default function Register(props) {
         <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor='name'>Nombre</label>
-                <input type='text' id='name' />
+                <input type='text' id='name' name='name' />
             </div>
 
             <div>
                 <label htmlFor='email'>Email</label>
-                <input type='email' id='email' />
+                <input type='email' id='email' name='email' />
             </div>
 
             <div>
                 <label htmlFor='username'>Nombre de Usuario</label>
-                <input type='text' id='username' />
+                <input type='text' id='username' name='username' />
             </div>
 
             <div>
                 <label htmlFor='password'>Contraseña</label>
-                <input type='password' />
+                <input type='password' id='password' />
             </div>
 
             <div>
-                <label htmlFor='passowrd2'>Confirmar contraseña</label>
-                <input type='password' />
+                <label htmlFor='password2'>Confirmar contraseña</label>
+                <input type='password' id='password2' />
             </div>
 
             <button type='submit'>Regístrarte</button>

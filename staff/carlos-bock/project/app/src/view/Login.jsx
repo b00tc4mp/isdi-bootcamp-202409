@@ -50,7 +50,7 @@ export default function Login(props) {
     const handleRegisterClick = event => {
         event.preventDefault()
 
-        props.onRgisterClick()
+        props.onRegisterClick()
     }
     //////////////////////replace form and divs with react components
     return <main>
