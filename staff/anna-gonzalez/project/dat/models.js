@@ -77,12 +77,10 @@ const cycle = new Schema({
         default: Date.now
     },
     end: {
-        type: Date,
-        required: false
+        type: Date
     },
     periodEnd: {
-        type: Date,
-        required: true
+        type: Date
     },
     dayLogs: [{
         type: dayLog,

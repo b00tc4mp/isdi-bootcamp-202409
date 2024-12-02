@@ -31,6 +31,11 @@ const validateText = text => {
     if (text.trim().length === 0) throw new ValidationError('Invalid text length')
 }
 
+const validateDate = date => {
+    if (!date instanceof Date) throw new ValidationError('Invalid date')
+    if (date > new Date()) throw new Error('The date cannot be in the future')
+}
+
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`Invalid ${explain}`)
     if (id.length !== 24) throw new ValidationError(`Invalid ${explain} length`)
@@ -46,6 +51,7 @@ const validate = {
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
     text: validateText,
+    date: validateDate,
     id: validateId,
     callback: validateCallback
 }

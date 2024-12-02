@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzMxNjAyMzksImV4cCI6MTczMzE2MzgzOX0.kyo7SIIt3csont75A8zoh6Ict-RvbM6iUfsrUlhvXyA' -H 'Content-Type: application/json' -d '{"start":"2024-11-02"}' http://localhost:8080/cycles -v

@@ -31,9 +31,9 @@ export default function Home() {
     return <>
         <p>{weekDay}</p>
 
-        {getHour() >= 18 ? (<h2>Good evening {name}!</h2>)
-            : getHour() >= 12 ? (<h2>Good afternoon {name}!</h2>)
-                : getHour() >= 6 ? (<h2>Good morning {name}!</h2>)
-                    : (<h2>Good night {name}!</h2>)}
+        {getHour() >= 18 ? (<h2>Good evening, {name}!</h2>)
+            : getHour() >= 12 ? (<h2>Good afternoon, {name}!</h2>)
+                : getHour() >= 6 ? (<h2>Good morning, {name}!</h2>)
+                    : (<h2>Good night, {name}!</h2>)}
     </>
 }

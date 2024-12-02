@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzMxNjA3NzAsImV4cCI6MTczMzE2NDM3MH0.QMzOl9yl2v3-bkSnfdk9nk9lgkrD9OVz_wvJHU7zP7c' -H 'Content-type: application/json' -d '{"periodEnd":"2024-11-01"}' http://localhost:8080/cycles/674dedeee0024360e26a5cb9 -v

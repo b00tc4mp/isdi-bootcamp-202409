@@ -1,4 +1,8 @@
 import {
+    createCycle
+} from './cycles'
+
+import {
     getUserName,
     isUserLoggedIn,
     loginUser,
@@ -7,6 +11,7 @@ import {
 } from './users'
 
 const logic = {
+    createCycle,
     getUserName,
     isUserLoggedIn,
     loginUser,

@@ -41,7 +41,7 @@ export default function App() {
 
       <Route path="/partner" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <PartnerAccess onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />} />
 
-      {<Route path="/profile" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />} />}
+      <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />} />
 
       <Route path="/daylog" element={logic.isUserLoggedIn() ? <DayLog /> : <Navigate to="/login" />} />
 
