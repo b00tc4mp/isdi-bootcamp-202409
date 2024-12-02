@@ -49,7 +49,7 @@ export default function Header(props) {
         props.onLoggedOut()
     }
 
-    return <header className="fixed top-0 w-full flex justify-center items-center h-[10rem] box-border bg-gradient-to-b from-white/75 to-white/0">
+    return <header className="fixed top-0 w-full flex justify-center items-center h-[10rem] box-border bg-gradient-to-b from-white/85 to-white/0">
         <div className="grid grid-cols-3">
             <div></div> {/*Chapuza o historia? */}
 
@@ -57,15 +57,20 @@ export default function Header(props) {
                 <img onClick={handleHomeClick} src="/images/allpiece.png" alt="allpiece" className="cursor-pointer transition-transform duration-200 ease-in-out hover:scale-110"></img>
             </div>
 
-            <div className="flex justify-end items-center">
-                <p>{logic.isUserLoggedIn() && username}</p>
-                {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
-                    <Button onClick={handleLogoutUser}>logout</Button> :
-                    logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&
-                    <div>
-                        {location.pathname !== '/login' && <Button onClick={handleLoginClick}>login</Button>}
-                        {location.pathname !== '/register' && <Button onClick={handleRegisterClick}>register</Button>}
-                    </div>}
+            <div className="grid grid-cols-2 justify-end items-center">
+                <div className="flex justify-end">
+                    <p className="text-[1.25rem]">{logic.isUserLoggedIn() && `${username}`}</p>
+                </div>
+
+                <div>
+                    {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
+                        <Button onClick={handleLogoutUser} className="bg-[rgba(175,255,255,0.8)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1rem] transition-transform duration-100 ease-in-out hover:scale-110">Logout</Button> :
+                        logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&
+                        <div className="flex justify-center items-center gap-[10px]">
+                            {location.pathname !== '/login' && <Button onClick={handleLoginClick} className="bg-[rgba(175,255,255,0.8)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Log in</Button>}
+                            {location.pathname !== '/register' && <Button onClick={handleRegisterClick} className="bg-[rgba(175,255,255,0.8)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Sign in</Button>}
+                        </div>}
+                </div>
             </div>
         </div>
     </header>

@@ -41,27 +41,30 @@ export default function Login(props) {
         props.onRegisterAnchorClick()
     }
 
-    return <main className="h-screen w-screen bg-cover bg-center flex flex-col"
+    return <main className="h-screen w-screen bg-cover bg-center flex flex-col items-center"
         style={{
             backgroundImage: "url('/images/going_merry.png')"
         }}>
 
-        <h2 className="mt-[10rem] text-[2.5rem]">Login</h2>
+        <section className="bg-[rgba(215,167,104,0.8)] mt-[10rem] w-[20rem] h-[22rem] border-[2px] border-[black] rounded-[1rem]">
 
-        <Form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-[10px]">
-            <Field className="flex flex-col">
-                <Label htmlFor="username" className="text-[1.25rem]">Username</Label>
-                <Input type="text" id="username" autoComplete="on" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
-            </Field>
+            <h2 className="text-[2rem] mt-[1rem] mb-[1rem]">Login</h2>
 
-            <Field className="flex flex-col">
-                <Label htmlFor="password" className="text-[1.25rem]">Password</Label>
-                <Input type="password" id="password" autoComplete="off" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
-            </Field>
+            <Form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-[10px] mb-[1.5rem]">
+                <Field className="flex flex-col">
+                    <Label htmlFor="username" className="text-[1.25rem]">Username</Label>
+                    <Input type="text" id="username" autoComplete="off" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
+                </Field>
 
-            <Button type="submit" className="text-[1.25rem]">Login</Button>
-        </Form>
+                <Field className="flex flex-col">
+                    <Label htmlFor="password" className="text-[1.25rem]">Password</Label>
+                    <Input type="password" id="password" autoComplete="off" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
+                </Field>
 
-        <Anchor href="" onClick={handleRegisterClick} className="underline text-[1.25rem] mt-[15px]">Register</Anchor>
+                <Button type="submit" className="text-[1.25rem] mt-[.5rem] bg-[rgba(175,255,255,0.8)] border-[2px] border-[black] rounded-[.5rem] px-[.75rem] transition-transform duration-100 ease-in-out hover:scale-110">Login</Button>
+            </Form>
+
+            <Anchor href="" onClick={handleRegisterClick} className="underline text-[1.25rem]">Register</Anchor>
+        </section>
     </main>
 }
