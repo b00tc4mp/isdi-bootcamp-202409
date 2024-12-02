@@ -10,7 +10,7 @@ export default (name, email, username, password, passwordRepeat) => {
     validate.passwordsMatch(password, passwordRepeat)
 
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, username, password, 'password-repeat': passwordRepeat })

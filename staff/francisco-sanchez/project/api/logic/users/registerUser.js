@@ -1,19 +1,19 @@
 import bcrypt from 'bcryptjs'
 
 import { User } from 'dat'
-import errors from 'com/errors.js'
-import validate from 'com/validate.js'
+
+import { validate, errors } from 'com'
 
 const { DuplicityError, SystemError } = errors
 
 export default (name,
+    email,
     username,
     password,
     passwordRepeat,
-    email,
     plan,
     planExpiryDate,
-    roles,
+    role,
     dni,
     surname1,
     surname2,
@@ -33,10 +33,18 @@ export default (name,
     ownPacks = [],
     adquiredPacks = []) => {
     validate.name(name)
-    validate.username(username)
     validate.email(email)
+    validate.username(username)
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
+
+
+    //TODO: FIX THIS "CHAPUZA"
+    if (plan === undefined)
+        plan = 'free'
+
+    if (creationStatus === undefined)
+        creationStatus = 'true'
 
 
     return (async () => {
@@ -51,12 +59,12 @@ export default (name,
         try {
             await User.create({
                 name,
+                email,
                 username,
                 password: hash,
-                email,
                 plan,
                 planExpiryDate: planExpiryDate || null,
-                roles,
+                role,
                 dni: dni || null,
                 surname1: surname1 || null,
                 surname2: surname2 || null,

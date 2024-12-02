@@ -98,7 +98,7 @@ const user = new Schema({
         default: null
     },
 
-    roles: {
+    role: {
         type: String,
         required: false, //WILL BE TRUE
         enum: ['standard', 'provider'],

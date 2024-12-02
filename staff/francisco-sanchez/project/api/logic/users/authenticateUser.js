@@ -33,7 +33,7 @@ export default (username, password) => {
 
         return {
             id: user._id.toString(),
-            roles: user.roles
+            role: user.role
         }
     })() //we add the final () in order to invoke de anonymus function inmediately
 

@@ -1,14 +1,16 @@
 import {
     registerUser,
     isUserLoggedIn,
-    loginUser
+    loginUser,
+    logoutUser
 } from './users'
 
 
 const logic = {
     registerUser,
     isUserLoggedIn,
-    loginUser
+    loginUser,
+    logoutUser
 }
 
 export default logic

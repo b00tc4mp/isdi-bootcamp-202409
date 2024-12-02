@@ -1,6 +1,6 @@
-import logic from '../logic'
-
 import { errors } from 'com'
+
+import logic from '../logic'
 
 const { SystemError } = errors
 

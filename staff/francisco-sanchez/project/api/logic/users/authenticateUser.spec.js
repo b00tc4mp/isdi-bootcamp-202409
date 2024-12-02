@@ -27,7 +27,7 @@ const creationStatus = 'true'
 
 //Testinc escenarios
 describe('authenticateUser', () => {
-    before(() => db.connect(process.env.MONGO_URL_TEST))
+    before(() => db.connect(process.env.MONGO_URL))
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', async () => {
@@ -38,7 +38,7 @@ describe('authenticateUser', () => {
         expect(user).to.exist
         expect(user.id).to.be.a.string
         expect(user.id).to.have.lengthOf(24)
-        //expect(user.roles).be.an('array').that.includes.oneOf(['standard', 'provider'])
-        //expect(user.roles).to.have.lengthOf.at.least(1)
+        //expect(user.role).be.an('array').that.includes.oneOf(['standard', 'provider'])
+        //expect(user.role).to.have.lengthOf.at.least(1)
     })
 })

@@ -20,6 +20,8 @@ db.connect(process.env.MONGO_URL).then(() => {
     //Here will be all the endpoints of the API. 
     server.use('/users', usersRouter)
 
+
+
     server.use(errorHandler)
 
     server.listen(process.env.PORT, () => console.log(`api is up and listening on port ${process.env.PORT}`))

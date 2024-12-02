@@ -23,7 +23,7 @@ const passwordRepeat = 'greygandalf';
 const email = 'greygandalf@themiddleearth.com';
 const plan = 'free';
 const planExpiryDate = null; // Dejar en null como valor predeterminado
-const roles = 'standard'; // Valor predeterminado
+const role = 'standard'; // Valor predeterminado
 const dni = '12345678Z'; // Ejemplo de DNI válido
 const surname1 = 'TheGrey';
 const surname2 = ''; // Puede estar vacío
@@ -52,7 +52,7 @@ try {
         email,
         plan,
         planExpiryDate,
-        roles,
+        role,
         dni,
         surname1,
         surname2,

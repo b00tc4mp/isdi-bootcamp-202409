@@ -102,7 +102,7 @@ User
 - password (string)   
 - plan (string, enum: free | pro) 
 - planExpiryDate (Date) 
-- roles ([string, enum: standard | provider]) 
+- role ([string, enum: standard | provider]) 
 - dni (string) 
 - name (string)
 - surname1 (string)
