@@ -68,11 +68,10 @@ User
 - name (string)
 - email (string)
 - telephone (string)
-- location (Location)
 - password (string)
 - role (string, enum: caregiver | elder)
 - reviews ([Review])
-- saved posts ([Post])
+- saved ads ([Ad.id])
 
 Location
 
@@ -80,11 +79,12 @@ Location
 - type (string)
 - coordinates ([Number])
 
-Post
+Ad
 
 - id (uuid)
-- author ([Author])
+- author (User.id)
 - image (string)
+- location (Location)
 - description (string)
 - date (Date)
 - reviews([Review])
@@ -94,14 +94,8 @@ Review
 - id (uuid)
 - author (User.id)
 - rating (number)
-- text (string)
+- comment (string)
 - date (date)
-
-Author
-
-- id (User.id)
-- name (User.name)
-- email(User.email)
 
 ### Test Coverage
 
