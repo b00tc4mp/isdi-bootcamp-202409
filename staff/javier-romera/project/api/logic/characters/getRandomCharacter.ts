@@ -18,7 +18,7 @@ export default (userId: string) => {
         }
 
         try {
-            characters = await Character.find().populate('firstArc', 'name number -_id').populate('devilFruit', 'type -_id').select('-_id -alias -description -race -town').lean()
+            characters = await Character.find().populate('firstArc', 'name number -_id').populate('devilFruit', 'type -_id').select('-_id -description -race -town').lean()
         } catch (error) {
             if (error instanceof SystemError)
                 throw new SystemError(error.message)

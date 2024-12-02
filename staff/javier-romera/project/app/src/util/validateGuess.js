@@ -1,0 +1,1 @@
+export default (characters, guess) => characters.find(char => char.name === guess || char.alias === guess)
