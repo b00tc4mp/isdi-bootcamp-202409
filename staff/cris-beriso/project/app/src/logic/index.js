@@ -1,9 +1,16 @@
-import registerUser from './registerUser'
-import loginUser from './loginUser'
+import {
+  isUserLoggedIn,
+  loginUser,
+  registerUser,
+  getUserName
+} from './users'
+
 
 const logic = {
   registerUser,
-  loginUser
+  loginUser,
+  isUserLoggedIn,
+  getUserName
 }
 
 export default logic

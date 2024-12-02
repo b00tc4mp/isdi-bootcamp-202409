@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Register, Login } from './view'
+import { Register, Login, Home } from './view'
 
-//import { Header, Footer } from './view/components'
+//import { Header, Footer, Alert, Confirm} from './view/components'
 
 import { Context } from './view/useContext'
 
@@ -52,23 +52,24 @@ export default function App() {
     })
   }
 
-  return <Context.Provider value={{
-    alert(message, level = 'error') { setAlert({ message, level }) },
-    confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
-  }}>
-    {/* <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} /> */}
+  // return <Context.Provider value={{
+  //   alert(message, level = 'error') { setAlert({ message, level }) },
+  //   confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+  // }}>
+  {/* <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} /> */ }
+  return <Routes>
+    <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
-    <Routes>
-      <Route path="/login" element={<Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
+    <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
 
-      <Route path="/register" element={<Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
+    <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
 
-    </Routes>
+  </Routes>
 
-    {/* <Footer onNewPostClick={handleNewPostClick} /> */}
+  {/* <Footer onNewPostClick={handleNewPostClick} /> */ }
 
-    {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+  {/* {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 
-    {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
-  </Context.Provider>
+    {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />} */}
+  // </Context.Provider>
 }

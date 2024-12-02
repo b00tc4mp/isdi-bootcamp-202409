@@ -5,10 +5,11 @@ const { SystemError } = errors
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic'
+
 import useContext from './useContext'
 
 export default function Register(props) {
-  // const {alert} = useContext()
+  const { alert } = useContext()
 
   const handleSubmit = event => {
     event.preventDefault()

@@ -22,7 +22,7 @@ describe('registerUser', () => {
   it('succeeds on new user', async () => {
     await registerUser('Pine Apple', 'pine@apple.com', 'pineapple', 'criscris', 'criscris')
 
-    const user = await User.findOne({ username: 'cocoloco' })
+    const user = await User.findOne({ username: 'pineapple' })
 
     expect(user).to.exist
     expect(user.name).to.equal('Pine Apple')

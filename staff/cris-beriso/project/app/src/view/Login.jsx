@@ -9,7 +9,7 @@ const { SystemError } = errors
 import useContext from './useContext'
 
 export default function Login(props) {
-  //const {alert} = useContext()
+  const { alert } = useContext()
 
   const handleSubmit = event => {
     event.preventDefault()
