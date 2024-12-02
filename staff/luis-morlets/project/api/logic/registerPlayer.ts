@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 
-import { User } from 'dat'
+import { Player } from 'dat'
 import { validate, errors } from 'com'
 import { MongoError } from 'mongodb'
 
@@ -23,7 +23,7 @@ export default (name: string, email: string, username: string, password: string,
         }
 
         try {
-            await User.create({ name, email, username, password: hash })
+            await Player.create({ name, email, username, password: hash })
         } catch (error) {
             if ((error as MongoError).code === 11000) throw new DuplicityError('user already exists')
 

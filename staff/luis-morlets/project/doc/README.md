@@ -46,7 +46,7 @@ Player
 - email (string)
 - username (string)
 - password (string)
-- games [Game.id]
+- gamesState [GameState.id]
 - settings (Settings)
 
 Settings 

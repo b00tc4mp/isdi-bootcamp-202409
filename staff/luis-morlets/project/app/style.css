@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color: gold;
+    --back-color: white;
+}
+
+body {
+    color: var(--color);
+}
+
+a:visited {
+    color: var(--color);
+}
