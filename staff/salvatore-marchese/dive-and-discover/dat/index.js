@@ -3,7 +3,6 @@ import { User } from './models.js'
 import './boost-mongoose.js'
 
 
-
 const db = {
     connect,
     disconnect

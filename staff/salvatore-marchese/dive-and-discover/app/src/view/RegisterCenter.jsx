@@ -50,7 +50,7 @@ export default function Register(props) {
     }
 
     return <main>
-        <h2>Register as Dive Center</h2>
+        <h2 className="mt-14">Register as Dive Center</h2>
 
         <Form onSubmit={handleSubmit}>
             <Field>

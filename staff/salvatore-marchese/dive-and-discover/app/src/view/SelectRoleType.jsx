@@ -1,29 +1,31 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Button } from './library'
+import { useNavigate }
+from 'react-router-dom';
 
 const SelectRoleType = () => {
     const navigate = useNavigate();
 
     const handleRoleSelection = (role) => {
-        if (role === 'driver') {
+        if (role === 'diver') {
             navigate('/registerDiver')
         } else if (role === 'center') {
             navigate('/registerCenter')
         }
     };
 
-    return (
-        <div>
+    return <main>
+        <div className="flex flex-col gap-2 p-20 space-y-7" >
             <h1>Are you a Diver or Center?</h1>
             
-            <button onClick={() => handleRoleSelection('diver')}>
+            <Button onClick={() => handleRoleSelection('diver')}>
                 I am a Diver
-            </button>
-            <button onClick={() => handleRoleSelection('center')}>
+            </Button>
+            <Button onClick={() => handleRoleSelection('center')}>
                 I am a Center
-            </button>
+            </Button>
         </div>
-    )
+    </main>
 }
 
 export default SelectRoleType;

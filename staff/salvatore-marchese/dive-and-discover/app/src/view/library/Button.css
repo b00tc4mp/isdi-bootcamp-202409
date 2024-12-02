@@ -1,11 +1,12 @@
 .Button {
-    width: '100%';
-    box-sizing: 'border-box';
     background-color: var(--color);
     font-family: inherit;
     color: var(--back-color);
     border-color: var(--color);
     border-style: solid;
+    width: 50%;
+    border-radius: 10px;
+
 }
 
 /* 

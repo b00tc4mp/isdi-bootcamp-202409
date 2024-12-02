@@ -18,7 +18,7 @@ export default function Register(props) {
         } = form
 
         try {
-            logic.registerUser(name, email,  password, passwordRepeat, error => {
+            logic.registerUserDiver(name, email,  password, passwordRepeat, error => {
                 if (error) {
                     alert(error.message)
 
@@ -45,7 +45,7 @@ export default function Register(props) {
     }
 
     return <main>
-        <h2>Register</h2>
+        <h2 className="mt-14">Register as Diver</h2>
 
         <Form onSubmit={handleSubmit}>
             <Field>
@@ -68,7 +68,7 @@ export default function Register(props) {
                 <PasswordInput id="password-repeat" />
             </Field>
 
-            <Button type="submit">Register</Button>
+            <Button  type="submit">Register</Button>
         </Form>
 
         <a href="" onClick={handleLoginClick}>Login</a>

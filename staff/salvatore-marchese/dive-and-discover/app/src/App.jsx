@@ -1,6 +1,6 @@
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home } from './view'
+import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeDiver, } from './view/index'
 
 import Header from './view/components/Header'
 
@@ -13,7 +13,7 @@ export default function App() {
 
   const handleUserLoggedIn = () => navigate('/')
 
-  const handleRegisterClick = () => navigate('/register')
+  const handleRoleSelection = () => navigate('/select-role-type')
 
   const handleLoginClick = () => navigate('/login')
 
@@ -27,11 +27,20 @@ export default function App() {
     <Header onHomeClick= {handleHomeClick} onLoggedOut= {handleUserLoggedOut} />
 
     <Routes>
-        <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
+        <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRoleSelection} />} /> 
 
-        <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
+         <Route path="/" element={<Login />} />
+        <Route path="/select-role-type" element={<SelectRoleType />} /> 
 
-        <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/registerDiver" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <RegisterDiver onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
+
+        <Route path="/registerCenter" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <RegisterCenter onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
+
+        <Route path="/" element={logic.isUserLoggedIn() ? <HomeDiver /> : <Navigate to="/login" />} />
+
+        <Route path="/" element={logic.isUserLoggedIn() ? <HomeCenter /> : <Navigate to="/login" />} />
+
+        
     </Routes>
   </>
 }

@@ -1,9 +1,15 @@
 import Login from './Login'
-import Register from './RegisterDiver'
-import Home from './Home'
+import SelectRoleType from './SelectRoleType'
+import RegisterDiver from './RegisterDiver'
+import RegisterCenter from './RegisterCenter'
+import HomeDiver from './HomeDiver'
+
+
 
 export {
     Login,
-    Register,
-    Home
+    SelectRoleType,
+    RegisterDiver,
+    RegisterCenter,
+    HomeDiver,
 }
