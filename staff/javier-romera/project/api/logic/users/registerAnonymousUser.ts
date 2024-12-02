@@ -12,7 +12,6 @@ export default () => {
         let user
         const UUID = uuid()
 
-        const name = UUID
         const email = UUID + '@gmail.com'
         const username = UUID
 
@@ -24,7 +23,7 @@ export default () => {
         }
 
         try {
-            user = await User.create({ name, email, username, password: hash, role: 'anonymous' })
+            user = await User.create({ email, username, password: hash, role: 'anonymous' })
         } catch (error) { // No duplicity check because of uuid
             throw new SystemError((error as Error).message)
         }

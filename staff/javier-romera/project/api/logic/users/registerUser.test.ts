@@ -6,7 +6,7 @@ import registerUser from './registerUser.js'
 await db.connect(process.env.ALLPIECE_URL_TEST!)
 
 try {
-    const result = await registerUser('Javi', 'javi@gmail.com', 'javi', '123123123', '123123123')
+    const result = await registerUser('javi@gmail.com', 'javi', '123123123', '123123123')
 
     console.log(result)
 } catch (error) {

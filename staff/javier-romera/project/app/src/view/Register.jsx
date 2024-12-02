@@ -12,7 +12,6 @@ export default function Register(props) {
         const { target: form } = event
 
         const {
-            name: { value: name },
             email: { value: email },
             username: { value: username },
             password: { value: password },
@@ -20,7 +19,7 @@ export default function Register(props) {
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat)
+            logic.registerUser(email, username, password, passwordRepeat)
                 .then(() => {
                     form.reset()
 
@@ -55,11 +54,6 @@ export default function Register(props) {
         <h2 className="mt-[10rem] text-[2.5rem]">Register</h2>
 
         <Form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-[10px]">
-            <Field className="flex flex-col">
-                <Label htmlFor="name" className="text-[1.25rem]">Name</Label>
-                <Input type="text" id="name" autoComplete="on" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
-            </Field>
-
             <Field className="flex flex-col">
                 <Label htmlFor="email" className="text-[1.25rem]">Email</Label>
                 <Input type="email" id="email" autoComplete="on" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>

@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import db from 'dat'
 
-import getUserName from './getUserName.js'
+import getUserName from './getUserUsername.js'
 
 await db.connect(process.env.ALLPIECE_URL_TEST!)
 

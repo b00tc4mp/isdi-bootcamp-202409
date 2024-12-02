@@ -1,11 +1,11 @@
 import authenticateUser from './authenticateUser.js'
 import registerUser from './registerUser.js'
 import registerAnonymousUser from './registerAnonymousUser.js'
-import getUserName from './getUserName.js'
+import getUserUsername from './getUserUsername.js'
 
 export {
     authenticateUser,
     registerUser,
     registerAnonymousUser,
-    getUserName
+    getUserUsername
 }

@@ -4,7 +4,7 @@ import {
     loginUser,
     isUserLoggedIn,
     logoutUser,
-    getUserName,
+    getUserUsername,
     isUserRoleAnonymous,
     isUserRoleRegular
 } from './users'
@@ -21,7 +21,7 @@ const logic = {
     loginUser,
     isUserLoggedIn,
     logoutUser,
-    getUserName,
+    getUserUsername,
     isUserRoleAnonymous,
     isUserRoleRegular,
 

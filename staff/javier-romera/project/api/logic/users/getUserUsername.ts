@@ -28,6 +28,6 @@ export default (userId: string, targetUserId: string): Promise<string> => {
         if (!user) throw new NotFoundError('user not found')
         if (!targetUser) throw new NotFoundError('target user not found')
 
-        return targetUser.name
+        return targetUser.username
     })()
 }

@@ -4,15 +4,15 @@ import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 export default function Header(props) {
-    const [name, setName] = useState(null)
+    const [username, setUsername] = useState(null)
     const location = useLocation()
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
-            if (!name || logic.isUserRoleRegular()) {
+            if (!username || logic.isUserRoleRegular()) {
                 try {
-                    logic.getUserName()
-                        .then(name => setName(name))
+                    logic.getUserUsername()
+                        .then(username => setUsername(username))
                         .catch(error => {
                             if (error instanceof SystemError)
                                 alert('Sorry, try again later')
@@ -27,7 +27,7 @@ export default function Header(props) {
                     console.error(error)
                 }
             }
-        } else setName(null)
+        } else setUsername(null)
     }, [location.pathname, localStorage.token])
 
     const handleLoginClick = () => {
@@ -44,7 +44,7 @@ export default function Header(props) {
 
     const handleLogoutUser = () => {
         logic.logoutUser()
-        setName()
+        setUsername()
 
         props.onLoggedOut()
     }
@@ -58,11 +58,11 @@ export default function Header(props) {
             </div>
 
             <div className="flex justify-end items-center">
-                <p>{logic.isUserLoggedIn() && name}</p>
+                <p>{logic.isUserLoggedIn() && username}</p>
                 {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
                     <Button onClick={handleLogoutUser}>logout</Button> :
                     logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&
-                    < div >
+                    <div>
                         {location.pathname !== '/login' && <Button onClick={handleLoginClick}>login</Button>}
                         {location.pathname !== '/register' && <Button onClick={handleRegisterClick}>register</Button>}
                     </div>}

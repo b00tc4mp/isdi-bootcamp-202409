@@ -20,12 +20,11 @@ describe('registerUser', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on new user', async () => {
-        await registerUser('Javi', 'javi@gmail.com', 'javi', '123123123', '123123123')
+        await registerUser('javi@gmail.com', 'javi', '123123123', '123123123')
 
         const user = await User.findOne({ username: 'javi' })
 
         expect(user).to.exist
-        expect(user!.name).to.equal('Javi')
         expect(user!.email).to.equal('javi@gmail.com')
         expect(user!.username).to.equal('javi')
         expect(bcrypt.compareSync('123123123', user!.password)).to.be.true
@@ -35,24 +34,20 @@ describe('registerUser', () => {
         expect((async () => {
             await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 
-            await registerUser('Javi', 'javi@gmail.com', 'javi', '123123123', '123123123')
+            await registerUser('javi@gmail.com', 'javi', '123123123', '123123123')
         })()).to.be.rejectedWith(DuplicityError, 'user already exists')
     )
 
-    it('fails on non-valid name length', () =>
-        expect(() => registerUser('J', 'javi@gmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Name is too short, it should be at least 2 characters long$/)
-    )
-
     it('fails on non-valid username length', () =>
-        expect(() => registerUser('Javi', 'javi@gmail.com', 'j', '123123123', '321321321')).to.throw(ValidationError, /^Username is too short, it should be at least 4 characters long$/)
+        expect(() => registerUser('javi@gmail.com', 'j', '123123123', '321321321')).to.throw(ValidationError, /^Username is too short, it should be at least 4 characters long$/)
     )
 
     it('fails on non-valid email', () =>
-        expect(() => registerUser('Javi', 'javigmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Invalid e-mail$/)
+        expect(() => registerUser('javigmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Invalid e-mail$/)
     )
 
     it('fails on non-matching passwords', () =>
-        expect(() => registerUser('Javi', 'javi@gmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Passwords do not match$/)
+        expect(() => registerUser('javi@gmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Passwords do not match$/)
     )
 
     // TODO SystemError tests (typescript no me deja)

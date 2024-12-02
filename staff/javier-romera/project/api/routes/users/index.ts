@@ -5,7 +5,7 @@ import {
     authenticateUserHandler,
     registerUserHandler,
     registerAnonymousUserHandler,
-    getUserNameHandler
+    getUserUsernameHandler
 } from './handlers/index.js'
 
 const usersRouter = Router()
@@ -13,6 +13,6 @@ const usersRouter = Router()
 usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.post('/', jsonBodyParser, registerUserHandler)
 usersRouter.post('/anonymous', registerAnonymousUserHandler)
-usersRouter.get('/:targetUserId/name', authorizationHandler as RequestHandler, getUserNameHandler)
+usersRouter.get('/:targetUserId/username', authorizationHandler as RequestHandler, getUserUsernameHandler)
 
 export default usersRouter

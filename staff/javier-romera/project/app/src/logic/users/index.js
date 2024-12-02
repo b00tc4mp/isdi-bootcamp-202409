@@ -3,7 +3,7 @@ import registerAnonymousUser from './registerAnonymousUser'
 import loginUser from './loginUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import logoutUser from './logoutUser'
-import getUserName from './getUserName'
+import getUserUsername from './getUserUsername'
 import isUserRoleAnonymous from './isUserRoleAnonymous'
 import isUserRoleRegular from './isUserRoleRegular'
 
@@ -13,7 +13,7 @@ export {
     loginUser,
     isUserLoggedIn,
     logoutUser,
-    getUserName,
+    getUserUsername,
     isUserRoleAnonymous,
     isUserRoleRegular
 }

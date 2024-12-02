@@ -6,8 +6,7 @@ import { MongoError } from 'mongodb'
 
 const { DuplicityError, SystemError } = errors
 
-export default (name: string, email: string, username: string, password: string, passwordRepeat: string): Promise<void> => {
-    validate.name(name)
+export default (email: string, username: string, password: string, passwordRepeat: string): Promise<void> => {
     validate.email(email)
     validate.username(username)
     validate.password(password)
@@ -24,7 +23,7 @@ export default (name: string, email: string, username: string, password: string,
         }
 
         try {
-            await User.create({ name, email, username, password: hash })
+            await User.create({ email, username, password: hash })
         } catch (error) {
             if ((error as MongoError).code === 11000) throw new DuplicityError('user already exists')
 
