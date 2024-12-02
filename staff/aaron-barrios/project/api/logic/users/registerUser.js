@@ -9,7 +9,7 @@ export default (name, nickname, password, passwordRepeat) => {
     validate.name(name)
     validate.nickname(nickname)
     validate.password(password)
-    validate.passwordsmatch(password, passwordRepeat)
+    validate.passwordsMatch(password, passwordRepeat)
 
     debugger
     return (async () => {

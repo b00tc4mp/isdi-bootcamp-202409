@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 //
 
-import { Login, Register } from './view'
+import { Home, Login, Register, Profile } from './view'
 
 import { Header } from './view/components'
 
@@ -36,6 +36,11 @@ export default function App() {
             <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
             <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
+
+
+            <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+
+            <Route path="/profile/:userId/*" element={<Profile />} />
         </Routes>
     </div>
 }

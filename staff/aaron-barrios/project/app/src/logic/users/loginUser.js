@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default (nickname, password) => {
-    validate.nickname(nickname)
+    // validate.nickname(nickname)
     validate.password(password)
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/auth`, {

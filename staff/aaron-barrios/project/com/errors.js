@@ -19,3 +19,5 @@ const errors = {
     SystemError: createCustomError('SystemError'),
     AuthorizationError: createCustomError('AuthorizationError')
 }
+
+export default errors

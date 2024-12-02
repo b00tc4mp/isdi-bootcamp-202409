@@ -4,9 +4,9 @@ const { SystemError } = errors
 
 export default (name, nickname, password, passwordRepeat) => {
     validate.name(name)
-    // validate.nickname(nickname)
+    validate.nickname(nickname)
     validate.password(password)
-    // validate.passwordsmatch(password, passwordRepeat)
+    validate.passwordsMatch(password, passwordRepeat)
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users`, {
         method: 'POST',

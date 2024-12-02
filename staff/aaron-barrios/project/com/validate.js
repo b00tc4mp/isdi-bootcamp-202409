@@ -44,7 +44,7 @@ const validate = {
     name: validateName,
     nickname: validateNickname,
     password: validatePassword,
-    passwordsmatch: validatePasswordsMatch,
+    passwordsMatch: validatePasswordsMatch,
     avatar: validateAvatar,
     id: validateId,
     callback: validateCallback
