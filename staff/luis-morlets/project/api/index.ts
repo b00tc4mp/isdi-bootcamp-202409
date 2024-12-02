@@ -1,11 +1,12 @@
 import 'dotenv/config'
 import db from 'dat'
-import express, { Request, Response, json } from 'express'
+import express, { Request, RequestHandler, Response, json } from 'express'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
 import logic from './logic/index.js'
+import IRequest from './types.js'
 
-import { createFunctionalHandler, errorHandler } from './helpers/index.js'
+import { createFunctionalHandler, errorHandler, authorizationHandler } from './helpers/index.js'
 
 db.connect(process.env.MONGO_URL_TEST!).then(() => {
     console.log('connected to db')
@@ -36,7 +37,13 @@ db.connect(process.env.MONGO_URL_TEST!).then(() => {
         res.status(201).send()
     }))
 
-    // server.get('/players/:player')
+    server.get('/players/:targetPlayerId/username', authorizationHandler as RequestHandler, createFunctionalHandler(async (req: IRequest, res: Response) => {
+        const { playerId, params: { targetPlayerId } } = req
+
+        const username = await logic.getPlayerUsername(playerId, targetPlayerId)
+
+        res.json(username)
+    }))
 
     server.use(errorHandler)
 

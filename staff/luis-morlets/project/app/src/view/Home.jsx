@@ -15,43 +15,43 @@ export default function Home({ onLoggedOut }) {
 
     const location = useLocation()
 
-    const { alert } = useContext()
+    const { alert, confirm } = useContext()
 
-    // useEffect(() => {
-    //     if (logic.isUserLoggedIn()) {
-    //         if (!username)
-    //             try {
-    //                 logic.getUsername()
-    //                     .then(setUsername)
-    //                     .catch(error => {
-    //                         if (error instanceof SystemError)
-    //                             alert('Something went wrong, try again later.')
-    //                         else
-    //                             alert(error.message)
+    useEffect(() => {
+        if (logic.isPlayerLoggedIn()) {
+            if (!username)
+                try {
+                    logic.getPlayerUsername()
+                        .then(setUsername)
+                        .catch(error => {
+                            if (error instanceof SystemError)
+                                alert('Something went wrong, try again later.')
+                            else
+                                alert(error.message)
 
-    //                         console.error(error)
-    //                     })
-    //             } catch (error) {
-    //                 alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
 
-    //                 console.error(error)
-    //             }
-    //     } else setUsername(null)
-    // }, [location.pathname])
+                    console.error(error)
+                }
+        } else setUsername(null)
+    }, [location.pathname])
 
     const handleLogout = () => {
         confirm('Are you sure you want to logout?', accepted => {
             if (accepted) {
-                logic.logoutUser()
+                logic.logoutPlayer()
 
                 onLoggedOut()
             }
         }, 'warn')
     }
 
-    return <div className="flex flex-col justify-center items-end">
-        {username && <h2>Miloco</h2>}
+    return <div className="flex justify-end gap-4 items-end">
+        {username && <h2 className='text-black'>{username}</h2>}
 
-        {logic.isUserLoggedIn() && <button onClick={handleLogout}>Milocodelepafuera</button>}
+        {logic.isPlayerLoggedIn() && <button onClick={handleLogout}>Milocodelepafuera</button>}
     </div>
 }

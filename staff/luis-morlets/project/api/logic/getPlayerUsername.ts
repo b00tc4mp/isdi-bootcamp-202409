@@ -1,6 +1,5 @@
 import { Player } from 'dat'
 import { validate, errors } from 'com'
-import { TPlayer } from '../types.js'
 
 const { SystemError, NotFoundError } = errors
 

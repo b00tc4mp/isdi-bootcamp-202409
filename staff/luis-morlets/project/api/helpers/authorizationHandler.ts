@@ -9,10 +9,10 @@ export default (req: IRequest, res: Response, next: NextFunction): void => {
     try {
         const token = req.headers.authorization!.slice(7)
 
-        const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET!)
+        const { sub: playerId } = jwt.verify(token, process.env.JWT_SECRET!)
 
-        if (userId)
-            req.userId = userId as string
+        if (playerId)
+            req.playerId = playerId as string
 
         next()
     } catch (error) {

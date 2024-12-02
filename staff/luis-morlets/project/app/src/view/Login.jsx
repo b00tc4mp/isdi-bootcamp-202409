@@ -1,4 +1,9 @@
 import useContext from './useContext'
+import logic from '../logic'
+
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default function Login(props) {
     console.log('Login -> render')
@@ -8,7 +13,33 @@ export default function Login(props) {
     const handleSubmit = event => {
         event.preventDefault()
 
+        const { target: form } = event
 
+        const {
+            username: { value: username },
+            password: { value: password }
+        } = form
+
+        try {
+            logic.loginPlayer(username, password)
+                .then(() => {
+                    form.reset()
+
+                    props.onLoggedIn()
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Something went wrong, try again later.')
+                    else
+                        alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
     }
 
     const handleRegisterClick = event => {

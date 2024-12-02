@@ -8,6 +8,7 @@ import { Context } from './view/useContext'
 
 import logic from './logic'
 import Alert from './view/components/Alert'
+import Confirm from './view/components/Confirm'
 
 export default function App() {
     console.log('App -> render')
@@ -15,6 +16,12 @@ export default function App() {
     const [alert, setAlert] = useState({
         message: null,
         level: 'error'
+    })
+
+    const [confirm, setConfirm] = useState({
+        message: null,
+        level: 'error',
+        callback: null
     })
 
     const navigate = useNavigate()
@@ -34,20 +41,42 @@ export default function App() {
         level: 'error'
     })
 
+    const handleConfirmAccepted = () => {
+        confirm.callback(true)
+
+        setConfirm({
+            message: null,
+            level: 'error',
+            callback: null
+        })
+    }
+
+    const handleConfirmCancelled = () => {
+        confirm.callback(false)
+
+        setConfirm({
+            message: null,
+            level: 'error',
+            callback: null
+        })
+    }
+
     return <Context.Provider value={{
         alert(message, level = 'error') {
             setAlert({ message, level })
-        }
+        }, confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
     }}>
 
         <Routes>
-            <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
+            <Route path="/login" element={logic.isPlayerLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
-            <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegistered={handleUserRegistered} onLoginClick={handleLoginClick} />} />
+            <Route path="/register" element={logic.isPlayerLoggedIn() ? <Navigate to="/" /> : <Register onRegistered={handleUserRegistered} onLoginClick={handleLoginClick} />} />
 
-            <Route path="/" element={logic.isUserLoggedIn() ? <Home onLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+            <Route path="/" element={logic.isPlayerLoggedIn() ? <Home onLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
         </Routes>
 
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+
+        {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
     </Context.Provider>
 }

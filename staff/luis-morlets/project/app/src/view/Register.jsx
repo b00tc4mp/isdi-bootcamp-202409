@@ -24,7 +24,7 @@ export default function Register(props) {
         } = form
 
         try {
-            logic.registerUser(name, email, username, password, passwordRepeat)
+            logic.registerPlayer(name, email, username, password, passwordRepeat)
                 .then(() => {
                     form.reset()
 
