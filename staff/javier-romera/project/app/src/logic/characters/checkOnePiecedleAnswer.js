@@ -1,34 +1,19 @@
+import { compareNumerics, isMatch, compareDevilFruit } from "../../util"
+
 export default (randomChar, userGuess) => {
     let checkedAnswers = []
-    let haki = {}
 
-    if (randomChar.name === userGuess.name) { // POSITION 0 => NAME
-        checkedAnswers.push(true, true, true, true, true, true, true, true, true)
-        return checkedAnswers
+    if (isMatch(randomChar.name, userGuess.name)) { // POSITION 0 ==> NAME
+        return Array(9).fill(true)
+    } else {
+        checkedAnswers.push(false)
     }
-    else
-        checkedAnswers.push(false)
 
+    checkedAnswers.push(isMatch(randomChar.gender, userGuess.gender)) // POSITION 1 ==> GENDER
 
-    if (randomChar.gender === userGuess.gender) // POSITION 1 => GENDER
-        checkedAnswers.push(true)
-    else
-        checkedAnswers.push(false)
+    checkedAnswers.push(isMatch(randomChar.affiliation, userGuess.affiliation)) // POSITION 2 ==> AFFILIATION
 
-    if (randomChar.affiliation === userGuess.affiliation) // POSITION 2 => AFFILIATION
-        checkedAnswers.push(true)
-    else
-        checkedAnswers.push(false)
-
-    if (randomChar.devilFruit && userGuess.devilFruit) // POSITION 3 => DEVILFRUIT
-        if (randomChar.devilFruit.type === userGuess.devilFruit.type)
-            checkedAnswers.push(true)
-        else
-            checkedAnswers.push(false)
-    else if (!randomChar.devilFruit && !userGuess.devilFruit)
-        checkedAnswers.push(true)
-    else
-        checkedAnswers.push(false)
+    checkedAnswers.push(compareDevilFruit(randomChar.devilFruit, userGuess.devilFruit)) // POSITION 3 ==> DEVILFRUIT
 
     // if () // TODO HAKI VALIDATION
     if ((randomChar.observation && randomChar.armament && randomChar.conqueror) && (userGuess.observation && userGuess.armament && userGuess.conqueror))
@@ -44,31 +29,14 @@ export default (randomChar, userGuess) => {
     else
         checkedAnswers.push('haki failed')
 
-    if (randomChar.bounty === userGuess.bounty) // POSITION 5 => BOUNTY
-        checkedAnswers.push(true)
-    else if (randomChar.bounty > userGuess.bounty)
-        checkedAnswers.push('higher')
-    else
-        checkedAnswers.push('lower')
+    checkedAnswers.push(compareNumerics(randomChar.bounty, userGuess.bounty)) // POSITION 5 ==> BOUNTY
 
-    if (randomChar.height === userGuess.height) // POSITION 6 => HEIGHT
-        checkedAnswers.push(true)
-    else if (randomChar.height > userGuess.height)
-        checkedAnswers.push('higher')
-    else
-        checkedAnswers.push('lower')
+    checkedAnswers.push(compareNumerics(randomChar.height, userGuess.height)) // POSITION 6 ==> HEIGHT
 
-    if (randomChar.sea === userGuess.sea) // POSITION 7 => SEA
-        checkedAnswers.push(true)
-    else
-        checkedAnswers.push(false)
+    checkedAnswers.push(isMatch(randomChar.sea, userGuess.sea)) // POSITION 7 ==> SEA
 
-    if (randomChar.firstArc.name === userGuess.firstArc.name) // POSITION 8 => FIRSTARC
-        checkedAnswers.push(true)
-    else if (randomChar.firstArc.number > userGuess.firstArc.number)
-        checkedAnswers.push('higher')
-    else
-        checkedAnswers.push('lower')
+    if (isMatch(randomChar.firstArc.name, userGuess.firstArc.name)) checkedAnswers.push(true) // POSITION 8 ==> FIRSTARC
+    else checkedAnswers.push(compareNumerics(randomChar.firstArc.number, userGuess.firstArc.number))
 
-    return checkedAnswers
+    return checkedAnswers // THE FULL ARRAY WITH 9 POSITIONS
 }

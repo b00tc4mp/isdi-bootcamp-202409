@@ -8,11 +8,16 @@ export default (email, username, password, passwordRepeat) => {
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
 
+    const headers = {
+        'Content-Type': 'application/json'
+    }
+
+    if (localStorage.token)
+        headers.Authorization = `Bearer ${localStorage.token}`
+
     return fetch(`http://${import.meta.env.VITE_API_URL}/users`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify({ email, username, password, 'password-repeat': passwordRepeat })
     })
         .catch(error => { throw new SystemError(error.message) })

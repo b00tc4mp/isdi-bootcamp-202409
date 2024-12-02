@@ -21,6 +21,8 @@ export default function Register(props) {
         try {
             logic.registerUser(email, username, password, passwordRepeat)
                 .then(() => {
+                    logic.isUserRoleAnonymous() && logic.logoutUser()
+
                     form.reset()
 
                     alert('User successfully registered', 'success')
