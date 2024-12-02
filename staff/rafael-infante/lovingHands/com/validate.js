@@ -27,6 +27,11 @@ const validatePasswordsMatch = (password, confirmPassword) => {
   if (password !== confirmPassword) throw new ValidationError('passwords do not match')
 }
 
+const validateTelephone = (telephone) => {
+  if (typeof telephone !== 'string') throw new ValidationError('invalid telephone')
+  if (!/^\+\d{1,3}\d{9,12}$/.test(telephone)) throw new ValidationError('invalid telephone')
+}
+
 const validateImage = (image) => {
   if (typeof image !== 'string') throw new ValidationError('invalid image')
 }
@@ -49,6 +54,7 @@ const validate = {
   email: validateEmail,
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,
+  telephone: validateTelephone,
   image: validateImage,
   text: validateText,
   id: validateId,

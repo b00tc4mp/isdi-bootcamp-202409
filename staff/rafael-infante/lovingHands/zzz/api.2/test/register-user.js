@@ -10,7 +10,6 @@ fetch('http://localhost:8080/users', {
     email: 'migue@lita.com',
     password: '123123123',
     passwordRepeat: '123123123',
-    telephone: '+34123123123',
   }),
 })
   .catch((error) => {

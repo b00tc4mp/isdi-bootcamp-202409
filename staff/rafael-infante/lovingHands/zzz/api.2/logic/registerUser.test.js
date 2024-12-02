@@ -6,7 +6,7 @@ import registerUser from './registerUser.js'
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-  const result = await registerUser('Super Man', 'super@man.com', '123123123', '123123123', '+34605828090')
+  const result = await registerUser('Marga Rita', 'marga@rita.com', '123123123', '123123123')
   console.log(result)
 } catch (error) {
   console.error(error)

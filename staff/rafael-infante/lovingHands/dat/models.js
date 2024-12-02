@@ -31,29 +31,48 @@ const user = new Schema(
       enum: ['caregiver', 'elder'],
       default: 'caregiver',
     },
+    telephone: {
+      type: String,
+      match: /^\+\d{1,3}\d{10,12}$/, // Formato internacional: +34605828090
+    },
+    savedAds: [
+      {
+        type: ObjectId,
+        ref: 'Ad',
+      },
+    ],
   },
   { versionKey: false }
 )
 
-const comment = new Schema({
-  author: {
-    type: ObjectId,
-    required: true,
-    ref: 'User',
+const review = new Schema(
+  {
+    author: {
+      type: ObjectId,
+      required: true,
+      ref: 'User',
+    },
+    comment: {
+      type: String,
+      required: true,
+      maxLength: 200,
+    },
+    date: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
+    calification: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 5,
+    },
   },
-  text: {
-    type: String,
-    required: true,
-    maxLength: 200,
-  },
-  date: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-})
+  { versionKey: false }
+)
 
-const post = new Schema(
+const ad = new Schema(
   {
     author: {
       type: ObjectId,
@@ -74,19 +93,13 @@ const post = new Schema(
       required: true,
       default: Date.now,
     },
-    likes: [
-      {
-        type: ObjectId,
-        ref: 'User',
-      },
-    ],
-    comments: [comment],
+    reviews: [review],
   },
   { versionKey: false }
 )
 
 const User = model('User', user)
-const Post = model('Post', post)
-const Comment = model('Comment', comment)
+const Ad = model('Ad', ad)
+const Review = model('Review', review)
 
-export { User, Post, Comment }
+export { User, Ad, Review }

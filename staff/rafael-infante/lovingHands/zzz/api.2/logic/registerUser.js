@@ -5,12 +5,11 @@ import { validate, errors } from 'com'
 
 const { DuplicityError, SystemError } = errors
 
-export default (name, email, password, passwordRepeat, telephone) => {
+export default (name, email, password, passwordRepeat) => {
   validate.name(name)
   validate.email(email)
   validate.password(password)
   validate.passwordsMatch(password, passwordRepeat)
-  validate.telephone(telephone)
 
   return bcrypt
     .hash(password, 10)
@@ -18,7 +17,7 @@ export default (name, email, password, passwordRepeat, telephone) => {
       throw new SystemError(error.message)
     })
     .then((hash) =>
-      User.create({ name, email, password: hash, telephone })
+      User.create({ name, email, password: hash })
         .then((_) => {})
         .catch((error) => {
           if (error.code === 11000) throw new DuplicityError('user already exists')
