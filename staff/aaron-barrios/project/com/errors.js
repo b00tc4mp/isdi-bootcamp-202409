@@ -3,9 +3,11 @@ const createCustomError = name =>
         constructor(message) {
             super(message)
 
-            this.name = name // for browsers compat (WARN safari seems to fail, it hangs)
+            this.name = name
         }
 
+        //ponemos static porque el metodo pertenece a la clase
+        //y el get para convertir el metodo en getter y asi acceder a el
         static get name() { return name }
     }
 
@@ -15,8 +17,5 @@ const errors = {
     DuplicityError: createCustomError('DuplicityError'),
     CredentialsError: createCustomError('CredentialsError'),
     SystemError: createCustomError('SystemError'),
-    OwnershipError: createCustomError('OwnershipError'),
     AuthorizationError: createCustomError('AuthorizationError')
 }
-
-export default errors
