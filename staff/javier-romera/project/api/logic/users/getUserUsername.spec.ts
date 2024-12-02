@@ -11,9 +11,9 @@ import { errors } from 'com'
 
 const { NotFoundError } = errors
 
-import getUserName from './getUserUsername.js'
+import getUserUsername from './getUserUsername.js'
 
-describe('getUsername', () => {
+describe('getUserUsername', () => {
     before(() => db.connect(process.env.ALLPIECE_URL_TEST!))
 
     beforeEach(() => User.deleteMany())
@@ -21,21 +21,21 @@ describe('getUsername', () => {
     it('succeeds on existing user', async () => {
         const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: '123123123' })
 
-        const username = await getUserName(user.id, user.id)
+        const username = await getUserUsername(user.id, user.id)
 
         expect(username).to.equal('javi')
     })
 
     it('fails on non-existing user', () =>
         expect(
-            getUserName('012345678901234567890123', '012345678901234567890123')
+            getUserUsername('012345678901234567890123', '012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, 'user not found')
     )
 
     it('fails on non-existing target-user', () =>
         expect(
             User.create({ email: 'javi@gmail.com', username: 'javi', password: '123123123' })
-                .then(user => getUserName(user.id, '012345678901234567890123'))
+                .then(user => getUserUsername(user.id, '012345678901234567890123'))
         ).to.be.rejectedWith(NotFoundError, 'target user not found')
     )
 

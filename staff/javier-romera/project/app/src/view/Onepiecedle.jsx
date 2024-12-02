@@ -1,7 +1,7 @@
 import logic from '../logic'
 import { Button, Form, Input } from './library'
 import { errors } from 'com'
-import { AnswersLegend } from './components'
+import { Options, AnswersLegend } from './components'
 
 import { useState, useEffect } from 'react'
 import { validateGuess } from '../util'
@@ -9,14 +9,13 @@ import { validateGuess } from '../util'
 const { SystemError } = errors
 
 export default function Onepiecedle() {
+    const [isFirstAnswerSent, setIsFirstAnswerSent] = useState(false)
+    const [didWin, setDidWin] = useState(false)
+    const [isTyping, setIsTyping] = useState(false)
     const [inputValue, setInputValue] = useState("")
-    const [isFirstAnswer, setIsFirstAnswer] = useState(false)
     const [randomChar, setRandomChar] = useState({})
     const [characters, setCharacters] = useState([])
-
-    const handleInputChange = (event) => {
-        setInputValue(event.target.value)
-    }
+    const [answers, setAnswers] = useState([])
 
     useEffect(() => {
         try {
@@ -60,7 +59,20 @@ export default function Onepiecedle() {
         }
     }, [])
 
-    const handleGuess = event => {
+    const handleInputChange = event => {
+        setInputValue(event.target.value)
+        event.target.value ? setIsTyping(true) : setIsTyping(false)
+    }
+
+    const handleCharacterClick = (char) => {
+        setInputValue(char)
+
+        document.getElementById("guess").focus()
+
+        setIsTyping(false)
+    }
+
+    const handleGuess = (event) => {
         event.preventDefault()
 
         const { target: { guess: { value: guess } } } = event
@@ -75,7 +87,9 @@ export default function Onepiecedle() {
                         console.log(answers)
 
                         setInputValue("")
-                        setIsFirstAnswer(true)
+                        setIsTyping(false)
+                        if (!isFirstAnswerSent)
+                            setIsFirstAnswerSent(true)
                     })
                     .catch(error => {
                         if (error instanceof SystemError)
@@ -99,13 +113,13 @@ export default function Onepiecedle() {
         backgroundImage: "url('/images/going_merry.png')",
     }}>
         <section className="mt-[12rem]">
-            <Form onSubmit={handleGuess} className="bg-[rgba(250,249,243,0.9)] w-[22rem] h-[4rem] flex justify-center items-center rounded-[.5rem] border-[2px] border-[black]" >
-                <Input id="guess" value={inputValue} onChange={handleInputChange} placeholder="Guess the character" autoComplete="off" type="text" className="w-[18rem] h-[2.5rem] pl-[.5rem] text-[1.25rem] rounded-[.25rem] border-[4px] border-[#EADEC2] bg-[#FAF9F3] focus:outline-none" />
-                <div className="w-[.8rem] h-[.8rem] bg-[rgba(250,249,243,1)] absolute ml-[13.05rem] mt-[.7rem]"></div>
+            <Form id="guessForm" onSubmit={handleGuess} className="bg-[rgba(250,249,243,0.9)] w-[22rem] h-[4rem] flex justify-center items-center rounded-[.5rem] border-[2px] border-[black]" >
+                <Input id="guess" value={inputValue} onInput={handleInputChange} placeholder="Guess the character" autoComplete="off" type="text" className="w-[18rem] h-[2.5rem] pl-[.5rem] text-[1.25rem] rounded-[.25rem] border-[4px] border-[#EADEC2] bg-[#FAF9F3] focus:outline-none" />
                 <Button className="w-[2.5rem] ml-[.25rem] cursor-pointer transition-transform duration-100 ease-in-out hover:scale-110"><img src="/images/arrow_right.png"></img></Button>
             </Form>
+            {isTyping && <Options inputValue={inputValue} characters={characters} onCharacterClick={handleCharacterClick} />}
             <div>
-                {isFirstAnswer && <AnswersLegend />}
+                {isFirstAnswerSent && <AnswersLegend />}
             </div>
         </section>
     </main>

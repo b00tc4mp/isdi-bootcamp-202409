@@ -3,6 +3,8 @@ import isMatch from './isMatch'
 import compareNumerics from './compareNumerics'
 import compareDevilFruit from './compareDevilFruit'
 import validateGuess from './validateGuess'
+import compareFirstLetters from './compareFirstLetters'
+import isAnyCharacterWithFirstLetter from './isAnyCharacterWithFirstLetter'
 
 
 export {
@@ -10,5 +12,7 @@ export {
     isMatch,
     compareNumerics,
     compareDevilFruit,
-    validateGuess
+    validateGuess,
+    compareFirstLetters,
+    isAnyCharacterWithFirstLetter
 }
