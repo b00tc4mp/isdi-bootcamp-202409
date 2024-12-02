@@ -1,5 +1,5 @@
 import { connect, disconnect } from 'mongoose'
-import { User } from './models.js'
+import { User, Recommend, Comment, Country, City, Destination } from './models.js'
 import './mongoose-plus.js'
 
 const db = {
@@ -10,5 +10,10 @@ const db = {
 export default db
 
 export {
-    User
+    User,
+    Recommend,
+    Comment,
+    Country,
+    City,
+    Destination
 }

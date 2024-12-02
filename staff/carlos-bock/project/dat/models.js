@@ -34,6 +34,103 @@ const user = new Schema({
     }
 }, { versionKey: false })
 
-const User = model('User', user)
+const comment = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    text: {
+        type: String,
+        required: true,
+        maxLength: 120
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
+})
 
-export { User }
+const recommend = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    image: {
+        type: String,
+        required: false
+    },
+    text: {
+        type: String,
+        required: true,
+        maxLength: 4000
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    upVotes: [{
+        type: ObjectId,
+        ref: 'User'
+    }],
+    downVotes: [{
+        type: ObjectId,
+        ref: 'User'
+    }],
+    comments: [comment],
+
+    country: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: Number,
+        enum: [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    price: {
+        type: Number,
+        enum: [1, 2, 3]
+    },
+    subject: {
+        type: String,
+        maxLength: 100
+    }
+
+}, { versionKey: false })
+
+const country = new Schema({
+    name: {
+        type: String,
+        required: true
+    }
+}, { versionKey: false })
+
+const city = new Schema({
+    name: {
+        type: String,
+        country: country.id, // check data field
+        required: true
+    }
+}, { versionKey: false })
+
+const destination = new Schema({
+    name: {
+        type: Array //string
+    }
+})
+
+const User = model('User', user)
+const Recommend = model('Recommend', recommend)
+const Comment = model('Comment', comment)
+const Country = model('Country', country)
+const City = model('City', city)
+const Destination = model('Destination', destination)
+
+export { User, Recommend, Comment, Country, City, Destination }
