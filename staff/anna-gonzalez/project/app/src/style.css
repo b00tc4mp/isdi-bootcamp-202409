@@ -23,10 +23,11 @@ body {
     background-color: var(--back-color-light);
     display: flex;
     flex-direction: column;
-    padding: 5rem 2rem 5rem 2rem;
+    padding: 0rem 2rem 0rem 2rem;
     /* justify-content: center;
     align-items: center; */
     height: 100vh;
+    margin-top: 5rem;
 }
 
 h1 {

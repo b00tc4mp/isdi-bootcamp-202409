@@ -1,11 +1,11 @@
-import { getMonthDay } from "../util"
+import { getMonthAndDayText } from "../util"
 
 import { Button } from './library'
 
 export default function DayLog() {
     return <>
         <h2>Symptoms and activities</h2>
-        <p className="mb-8">{getMonthDay()}</p>
+        <p className="mb-8">{getMonthAndDayText()}</p>
 
         <fieldset className="mt-4 flex flex-wrap gap-4">
             <legend>SYMPTOMS</legend>

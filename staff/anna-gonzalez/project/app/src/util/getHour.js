@@ -1,5 +1,6 @@
 export default () => {
-    const now = new Date
+    const now = new Date()
+    const hour = now.getHours()
 
-    return now.getHours()
+    return hour
 }
