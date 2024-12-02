@@ -26,12 +26,21 @@ const validatePassword = password => {
         throw new ValidationError('invalid password length')
 }
 
-const validatePasswordMatch = (password, password2) => {
+const validatePasswordsMatch = (password, password2) => {
     if (typeof password2 !== 'string') throw new ValidationError('invalid repeated password')
     if (password !== password2)
         throw new ValidationError('passwords do not match')
 }
 
+const validateImage = image => {
+    if (typeof image !== 'string') throw new ValidationError('invalid link')
+    if (image.trim().length === 0) throw new ValidationError('invalid url length')
+}
+
+const validateText = text => {
+    if (typeof text !== 'string') throw new ValidationError('invalid text')
+    if (text.trim().length === 0) throw new ValidationError('invalid text length')
+}
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
@@ -46,7 +55,9 @@ const validate = {
     email: validateEmail,
     username: validateUsername,
     password: validatePassword,
-    password2: validatePasswordMatch,
+    passwordsMatch: validatePasswordsMatch,
+    image: validateImage,
+    text: validateText,
     id: validateId
 }
 
