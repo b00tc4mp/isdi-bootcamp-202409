@@ -6,11 +6,12 @@ const event = {
   image:
     "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
   text: "¡A BAILAR!",
-  date: "2024-12-04T00:00:00Z",
+  date: new Date("2024-12-07"),
+  location: { address: "Barcelona", coordinates: [41.3870154, 2.1700471] },
 }
-
+console.log(event)
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRiNGZlNTgwZDc5NmJlODY3NGIzN2UiLCJyb2xlIjoib3JnYW5pemVyIiwiaWF0IjoxNzMyOTkwMTI1LCJleHAiOjE3MzI5OTM3MjV9.ZI-dS3AbJ0PirD6giik_x5WB9GQ7IRzf35Jh6BzE_Ms"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRkNzEyODFlNzE4Nzk5MTc1YTFiOWYiLCJyb2xlIjoiZGFuY2VyIiwiaWF0IjoxNzMzMTI4NTAzLCJleHAiOjE3MzMxMzIxMDN9.35SD8dFFfYLXtL1dLOLaPDbErXMC9SXeUWq2QdE7L6o"
 
 fetch("http://localhost:3000/events", {
   method: "POST",

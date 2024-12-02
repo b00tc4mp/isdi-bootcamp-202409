@@ -6,13 +6,14 @@ const { SystemError, NotFoundError } = errors
 export default (userId, image, text, date, location) => {
   validate.id(userId, "userId")
   validate.image(image)
+  console.log(image)
   validate.text(text)
   validate.date(date)
   validate.location(location)
 
   const parsedDate = new Date(date)
   console.log("parsedDate:", parsedDate)
-
+  debugger
   return User.findById(userId)
     .catch((error) => {
       throw new SystemError(error.message)

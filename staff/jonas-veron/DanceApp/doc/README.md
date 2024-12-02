@@ -63,8 +63,7 @@ User:
 - password (string)
 - role (string): Role of the user (dancer | organizer | moderator)
 - permission(string, enum: read | write)
-- city (string)
-- favorites (events)
+- favorites [events]
 - createdAt (Date)
 
 Event:
@@ -75,7 +74,7 @@ Event:
 - text (string)
 - date (Date)
 - likes ([User.id])
-- location (string)
+- location (Location)
 
 Comment:
 

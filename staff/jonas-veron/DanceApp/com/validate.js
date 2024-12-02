@@ -35,16 +35,21 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
 }
 
 const validateImage = (image) => {
-  if (typeof image !== "string") throw new ValidationError("Invalid image")
+  if (!image) throw new Error("You must provide an image.")
 
-  if (image.length > 200) throw new ValidationError("Image URL is too long")
+  // const validTypes = ["image/jpeg", "image/png", "image/gif"]
+  // if (!validTypes.includes(image.type)) {
+  //   throw new Error("The image must be a JPG, PNG or GIF file.")
+  // }
 
-  if (!/\.(jpg|jpeg|png|gif|webp)$/i.test(image)) {
-    throw new ValidationError("Image URL must point to a valid image file")
+  const maxSize = 5 * 1024 * 1024 // 5MB
+  if (image.size > maxSize) {
+    throw new Error("Image size should not exceed 5MB.")
   }
 }
-
 const validateText = (text) => {
+  if (!text) throw new Error("The text is required.")
+  if (text.length > 200) throw new Error("Text cannot exceed 200 characters.")
   if (typeof text !== "string") throw new ValidationError("Invalid text")
 }
 
@@ -58,20 +63,23 @@ const validateCallback = (callback) => {
     throw new ValidationError("Invalid callback")
 }
 
-const validateDate = (date) => {
+function validateDate(date) {
   const parsedDate = new Date(date)
 
-  if (isNaN(parsedDate)) throw new ValidationError("Invalid date")
+  if (isNaN(parsedDate.getTime())) {
+    throw new Error("Invalid date format")
+  }
 
   const now = new Date()
-  if (parsedDate <= now)
-    throw new ValidationError("The date must be in the future")
-
   const oneYearFromNow = new Date()
-  //agregamos un año a la fecha
   oneYearFromNow.setFullYear(now.getFullYear() + 1)
+
+  if (parsedDate < now) {
+    throw new Error("Date must be in the future")
+  }
+
   if (parsedDate > oneYearFromNow) {
-    throw new ValidationError("Date greater than one year")
+    throw new Error("Date must not exceed one year from now")
   }
 }
 

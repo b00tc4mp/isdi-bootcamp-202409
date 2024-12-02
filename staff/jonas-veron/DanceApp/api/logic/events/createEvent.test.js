@@ -6,7 +6,7 @@ await db.connect(process.env.MONGO_URL_TEST)
 
 try {
   const event = await createEvent(
-    "674b4fe580d796be8674b37e",
+    "674e073982ce3a76ab5c9e46",
     "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
     "Los esperamos !!!",
     "2024-12-07",

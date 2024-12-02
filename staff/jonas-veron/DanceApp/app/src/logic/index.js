@@ -1,9 +1,13 @@
-import registerUser from "./registerUser.js"
-import loginUser from "./loginUser"
-import logoutUser from "./logoutUser.js"
-import isUserLoggedIn from "./isUserLoggedIn.js"
-import getUserName from "./getUserName.js"
-import getUserId from "./getUserId.js"
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  isUserLoggedIn,
+  getUserName,
+  getUserId,
+} from "./users"
+
+import { createEvent, deleteEvent, getEvents } from "./events"
 
 const logic = {
   registerUser,
@@ -12,5 +16,9 @@ const logic = {
   isUserLoggedIn,
   getUserName,
   getUserId,
+
+  createEvent,
+  deleteEvent,
+  getEvents,
 }
 export default logic

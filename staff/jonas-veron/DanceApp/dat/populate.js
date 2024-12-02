@@ -1,67 +1,103 @@
 import "dotenv/config"
-
 import fs from "fs/promises"
 import bcrypt from "bcryptjs"
-
 import db, { User, Event } from "./index.js"
 
 db.connect(process.env.MONGO_URL_TEST)
-  .then(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
+  .then(() => {
+    console.log("Conectado a MongoDB")
+    return Promise.all([User.deleteMany(), Event.deleteMany()]) // Limpia las colecciones
+  })
   .then(() => fs.readFile("./users.csv", "utf-8"))
   .then((csv) => {
-    const lines = csv.split("\n")
-    // console.log(lines)
+    const lines = csv.split("\n").filter((line) => line.trim()) // Filtra líneas vacías
+    const userCreations = lines.map((line, index) => {
+      const fields = line.split(",").map((item) => item.trim())
 
-    const creations = lines.map((line) => {
-      const [name, email, password, role] = line
-        .split(",")
-        .map((item) => item.trim())
-      // console.log(name, email, password, role)
-
-      if (!name || !email || !password || !role) {
-        throw new Error(`Datos faltantes en línea: ${line}`)
+      if (fields.length !== 7) {
+        console.error(`Línea inválida en users.csv (índice ${index}):`, line)
+        return null
       }
+
+      const [name, email, password, role, permission, isApproved, city] = fields
 
       return User.create({
         name,
         email,
         password: bcrypt.hashSync(password, 10),
         role,
+        permission,
+        isApproved: isApproved === "true",
+        city,
       })
     })
 
-    return Promise.all(creations)
+    return Promise.all(userCreations.filter(Boolean))
   })
   .then((users) => {
+    console.log("Usuarios creados:", users.length)
+
     return fs.readFile("./events.csv", "utf-8").then((csv) => {
-      const lines = csv.split("\n")
+      const lines = csv.split("\n").filter((line) => line.trim()) // Filtra líneas vacías
+      const eventCreations = lines.map((line, index) => {
+        const fields = line.split(/,(?![^\[]*\])/).map((item) => item.trim())
+        // El regex separa por comas, pero ignora las comas dentro de corchetes
 
-      const creations = lines.map((line) => {
-        const [email, image, text, date] = line
-          .split(",")
-          .map((item) => item.trim())
-
-        const { _id: author } = users.find((user) => user.email === email)
-
-        const likes = []
-        const likesNumber = randomNumber(0, users.length)
-
-        for (let i = 0; i < likesNumber; i++) {
-          let user = randomElement(users)
-
-          while (likes.includes(user.id)) user = randomElement(users)
-
-          likes.push(user.id)
+        if (fields.length !== 6) {
+          console.error(`Línea inválida en events.csv (índice ${index}):`, line)
+          return null
         }
 
-        return Event.create({ author, image, text, date, likes })
+        const [email, image, text, date, address, coordinates] = fields
+
+        const author = users.find((user) => user.email === email)?._id
+
+        if (!author) {
+          console.error(
+            `No se encontró un autor para el evento (índice ${index}):`,
+            line
+          )
+          return null
+        }
+
+        const coords = coordinates
+          .replace("[", "")
+          .replace("]", "")
+          .split(",")
+          .map((coord) => parseFloat(coord.trim()))
+
+        if (coords.length !== 2 || isNaN(coords[0]) || isNaN(coords[1])) {
+          console.error(
+            `Coordenadas inválidas en línea (índice ${index}):`,
+            line
+          )
+          return null
+        }
+
+        return Event.create({
+          author,
+          image: image.startsWith("http")
+            ? image
+            : `http://localhost:3000/${image}`,
+          text,
+          date,
+          location: {
+            type: "Point",
+            coordinates: coords,
+            address,
+          },
+          likes: [],
+          comments: [],
+        })
       })
 
-      return Promise.all(creations)
+      return Promise.all(eventCreations.filter(Boolean))
     })
   })
-  .catch(console.error)
+  .then((events) => {
+    console.log("Eventos creados:", events.length)
+  })
+  .catch((error) => {
+    console.error("Error durante el proceso de populado:", error.message)
+  })
   .finally(() => db.disconnect())
-
-const randomElement = (array) => array[Math.floor(Math.random() * array.length)]
-const randomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min
