@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useLocation } from "react-router-dom"
 import burguer from "./../../../assets/burguer.png"
-import DanceAppLogo from "./../../../assets/DanceAppLogo.png"
+import DanceAppLogo from "./../../../assets/DanceAppLogo.svg"
 import { Menu } from "./index.js"
 
 export default function Header() {

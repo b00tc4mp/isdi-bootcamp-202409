@@ -46,7 +46,7 @@ export default function Home() {
     <>
       <h1 className="pt-16 text-center text-cyan-50">Bienvenido {name}!!!</h1>
 
-      <div className="items-center text-center ">
+      <div className="items-center text-center pb-16">
         {events.map((event) => (
           <Event key={event.id} event={event} />
         ))}

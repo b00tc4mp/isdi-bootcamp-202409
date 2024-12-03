@@ -1,22 +1,22 @@
-import mongoose, { now } from "mongoose";
+import mongoose, { now } from "mongoose"
 
 const {
   Schema,
   model,
   Types: { ObjectId },
-} = mongoose;
+} = mongoose
 
 const pointSchema = new Schema({
   type: {
     type: String,
-    enum: ['Point'],
-    required: true
+    enum: ["Point"],
+    required: true,
   },
   coordinates: {
     type: [Number],
-    required: true
-  }
-});
+    required: true,
+  },
+})
 
 const user = new Schema(
   {
@@ -24,7 +24,7 @@ const user = new Schema(
       type: String,
       required: true,
       minLength: 2,
-      maxLength: 20
+      maxLength: 20,
     },
     email: {
       type: String,
@@ -32,14 +32,14 @@ const user = new Schema(
       unique: true,
       match:
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-        maxLength: 320
+      maxLength: 320,
     },
 
     password: {
       type: String,
       required: true,
       minLength: 8,
-      maxLength: 128
+      maxLength: 128,
     },
     role: {
       type: String,
@@ -59,7 +59,7 @@ const user = new Schema(
     city: {
       type: String,
       default: "Girona",
-      maxLength: 50
+      maxLength: 50,
     },
     favorites: [
       {
@@ -70,7 +70,7 @@ const user = new Schema(
     registeredAt: { type: Date, default: Date.now },
   },
   { versionKey: false }
-);
+)
 
 const comment = new Schema({
   author: {
@@ -86,8 +86,9 @@ const comment = new Schema({
   date: {
     type: Date,
     required: true,
+    default: Date.now,
   },
-});
+})
 
 const event = new Schema(
   {
@@ -96,33 +97,34 @@ const event = new Schema(
       required: true,
       ref: "User",
     },
-    image: {
-      type: String,
-      required: true,
-    },
+    files: [{ type: String, required: true }],
     text: {
       type: String,
       required: true,
       maxLength: 200,
     },
-    date: {
+    eventDate: {
       type: Date,
       required: true,
+    },
+    date: {
+      type: Date,
+      default: Date.now,
     },
     location: {
       type: {
         type: String,
-        enum: ['Point'],
-        required: true
+        enum: ["Point"],
+        required: true,
       },
       coordinates: {
         type: [Number],
-        required: true
+        required: true,
       },
       address: {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     },
     likes: [
       {
@@ -133,17 +135,13 @@ const event = new Schema(
     comments: [comment],
   },
   { versionKey: false }
-);
-
-
-
+)
 
 // herramienta para manejar datos de ubicación !! <---
 // event.index({ location.coordinates: '2dsphere'})
 
+const User = model("User", user)
+const Event = model("Event", event)
+const Comment = model("Comment", comment)
 
-const User = model("User", user);
-const Event = model("Event", event);
-const Comment = model("Comment", comment);
-
-export { User, Event, Comment };
+export { User, Event, Comment }

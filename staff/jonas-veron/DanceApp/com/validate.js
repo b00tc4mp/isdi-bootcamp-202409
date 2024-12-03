@@ -47,6 +47,9 @@ const validateImage = (image) => {
     throw new Error("Image size should not exceed 5MB.")
   }
 }
+const validateFiles = (files) => {
+  if (!(files instanceof Array)) throw new Error("Files is not an array")
+}
 const validateText = (text) => {
   if (!text) throw new Error("The text is required.")
   if (text.length > 200) throw new Error("Text cannot exceed 200 characters.")
@@ -115,6 +118,7 @@ const validate = {
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,
   image: validateImage,
+  files: validateFiles,
   text: validateText,
   id: validateId,
   callback: validateCallback,

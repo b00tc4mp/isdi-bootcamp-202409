@@ -13,10 +13,12 @@ export default async (userId) => {
     ])
     if (!user) throw new ValidationError("User not found")
 
+    debugger
     return events.map((event) => ({
       id: event._id.toString(),
-      image: event.image,
+      files: event.files,
       text: event.text,
+      eventDate: event.eventDate,
       date: event.date,
       location: {
         address: event.location.address,

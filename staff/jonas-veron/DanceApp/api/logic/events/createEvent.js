@@ -3,16 +3,14 @@ import { validate, errors } from "com"
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, image, text, date, location) => {
+export default (userId, files, text, eventDate, location) => {
   validate.id(userId, "userId")
-  validate.image(image)
-  console.log(image)
+  validate.files(files)
   validate.text(text)
-  validate.date(date)
+  validate.date(eventDate)
   validate.location(location)
 
-  const parsedDate = new Date(date)
-  console.log("parsedDate:", parsedDate)
+  const parsedEventDate = new Date(eventDate)
   debugger
   return User.findById(userId)
     .catch((error) => {
@@ -23,9 +21,9 @@ export default (userId, image, text, date, location) => {
       debugger
       return Event.create({
         author: userId,
-        image,
+        files,
         text,
-        date: parsedDate,
+        eventDate: parsedEventDate,
         location: {
           type: "Point",
           coordinates: location.coordinates,

@@ -4,10 +4,10 @@ import { createFunctionalHandler } from "../../helpers/index.js"
 export default createFunctionalHandler((req, res) => {
   const {
     userId,
-    body: { files, text, eventDate, location },
+    params: { eventId },
   } = req
 
   return logic
-    .createEvent(userId, files, text, eventDate, location)
-    .then((event) => res.status(201).json({ id: event.id }))
+    .toggleLikeEvent(userId, eventId)
+    .then(() => res.status(204).send())
 })

@@ -1,4 +1,4 @@
-import DanceAppLogo from "../assets/DanceAppLogo.png"
+import DanceAppLogo from "../assets/DanceAppLogo.svg"
 import { useNavigate, Link } from "react-router-dom"
 
 import logic from "../logic"

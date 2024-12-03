@@ -2,11 +2,10 @@ import { validate, errors } from "com"
 
 const { SystemError } = errors
 
-export default (image, text, date, location) => {
-  validate.image(image)
+export default (files, text, eventDate, location) => {
+  validate.files(files)
   validate.text(text)
-  validate.date(date)
-  console.log(location)
+  validate.date(eventDate)
   validate.location(location)
 
   return fetch(`http://${import.meta.env.VITE_API_URL}/events`, {
@@ -15,7 +14,7 @@ export default (image, text, date, location) => {
       Authorization: `Bearer ${localStorage.token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ image, text, date, location }),
+    body: JSON.stringify({ files, text, eventDate, location }),
   })
     .catch((error) => {
       throw new SystemError(error.message)
