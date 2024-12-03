@@ -1,14 +1,16 @@
-import registerUser from './registerUser'
-import loginUser from './loginUser'
-import logoutUser from './logoutUser'
-import isUserLoggedIn from './isUserLoggedIn'
-import getUserId from './getUserId'
 
+import registerUser from './users/registerUser'
+import loginUser from './users/loginUser'
+import logoutUser from './users/logoutUser'
+import isUserLoggedIn from './users/isUserLoggedIn'
+import getUserId from './users/getUserId'
+import saveUser from './users/saveUser'
 
 export default {
     registerUser,
     loginUser,
-    logoutUser,
     isUserLoggedIn,
-    getUserId
+    getUserId,
+    logoutUser,
+    saveUser
 }

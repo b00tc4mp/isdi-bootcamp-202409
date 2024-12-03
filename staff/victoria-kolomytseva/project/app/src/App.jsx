@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { Login, Register, Home, } from './view'
 
 import Hello from './view/Hello'
+import Profile from './view/Profile'
 
 import { Context } from './view/useContext'
 
@@ -14,25 +15,29 @@ import { Alert, Menu } from './view/components'
 
 
 export default function App() {
-    const [alert, setAlert] = useState({
+    const [userId, alert, setAlert] = useState({
+        userId: logic.getUserId(),
         message: null,
         level: 'error'
     })
 
     const navigate = useNavigate()
 
-    const handlePostCreated = () => navigate('/')
+    //const handlePostCreated = () => navigate('/')
 
-    const handleUserLoggedOut = () => navigate('/login')
+    const handleUserLoggedOut = () => {
+        logic.logoutUser()
+        navigate('/login')
+    }
 
-    const handleUserLoggedIn = () => navigate('/')
+    const handleUserLoggedIn = () => navigate('/login')
 
     const handleRegisterClick = () => navigate('/register')
 
     const handleLoginClick = () => navigate('/login')
 
     const handleUserRegistered = () => navigate('/login')
-    const handleHomeClick = () => navigate('/')
+    const handleHomeClick = () => navigate('/login')
 
     const handleAlertAccepted = () => setAlert({
         message: null,
@@ -52,12 +57,12 @@ export default function App() {
 
             {/* extra demos */}
             <Route path="/hello/:name" element={<Hello />} />
-            {/* <Route path="/profile/:userId/*" element={<Profile />} /> */}
+            <Route path="/profile/:userId/*" element={<Profile handleUserLoggedOut={handleUserLoggedOut} />} />
         </Routes>
 
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 
-        {logic.isUserLoggedIn() && <Menu />}
+        {logic.isUserLoggedIn() && <Menu userId={userId} />}
 
 
     </Context.Provider>

@@ -33,6 +33,12 @@ db.connect(process.env.MONGO_URL).then(() => {
         return logic.registerUser(name, email, password, passwordRepeat).then(() => res.status(201).send())
     }))
 
+    server.put('/users', jsonBodyParser, createFunctionalHandler((req, res) => {
+        const { id, name, surname, phone, city, postalCode } = req.body
+
+        return logic.saveUser(id, name, surname, phone, city, postalCode).then(() => res.status(201).send())
+    }))
+
     server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
         const { userId, params: { targetUserId } } = req
 

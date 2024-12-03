@@ -49,6 +49,29 @@ const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
 
+const validateSurname = surname => {
+    if (typeof surname !== 'string') throw new ValidationError('invalid surname')
+    if (surname.length < 3 || surname.length > 30)
+        throw new ValidationError('invalid surname length')
+}
+const validatePhone = phone => {
+    if (typeof phone !== 'string') throw new ValidationError('invalid phone')
+    if (phone.length < 3)
+        throw new ValidationError('invalid number phone')
+}
+const validateCity = city => {
+    if (typeof city !== 'string') throw new ValidationError('invalid city')
+    if (city.length < 2)
+        throw new ValidationError('City is not exist')
+}
+const validatePostalCode = postalCode => {
+    if (typeof postalCode !== 'string') throw new ValidationError('invalid postal code')
+    if (postalCode.length < 4)
+        throw new ValidationError('Postal is not exist')
+}
+
+
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -58,6 +81,10 @@ const validate = {
     image: validateImage,
     text: validateText,
     id: validateId,
+    surname: validateSurname,
+    phone: validatePhone,
+    city: validateCity,
+    postalCode: validatePostalCode,
     callback: validateCallback
 }
 

@@ -2,7 +2,7 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-import { PasswordInput, Input, Button, Form, Field, Label } from './library'
+import { PasswordInput, Input, Button, Form, Field } from './library'
 
 import logic from '../logic'
 
@@ -54,7 +54,7 @@ export default function Register(props) {
         props.onLoginClick()
     }
 
-    return <main className="flex justify-center items-center flex-col h-screen box-border bg-[url('assets/background_login.png')] bg-no-repeat bg-cover">
+    return <main className="flex justify-center items-center flex-col h-screen box-border bg-[url('./assets/background_login.png')] bg-no-repeat bg-cover">
 
 
         <Form onSubmit={handleSubmit}>
