@@ -4,7 +4,7 @@ import { Button } from './library'
 
 export default function DayLog() {
     return <>
-        <h2>Symptoms and activities</h2>
+        <h2>DayLog</h2>
         <p className="mb-8">{getMonthAndDayText()}</p>
 
         <fieldset className="mt-4 flex flex-wrap gap-4">

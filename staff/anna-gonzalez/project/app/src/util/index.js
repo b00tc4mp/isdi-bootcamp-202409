@@ -1,5 +1,4 @@
 import extractPayloadFromJWT from './extractPayloadFromJWT'
-import getDate from './getDate'
 import getFirstDayOfWeek from './getFirstDayOfWeek'
 import getHour from './getHour'
 import getMonth from './getMonth'
@@ -11,7 +10,6 @@ import getYear from './getYear'
 
 export {
     extractPayloadFromJWT,
-    getDate,
     getFirstDayOfWeek,
     getMonthText,
     getHour,

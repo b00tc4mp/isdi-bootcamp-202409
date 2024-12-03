@@ -73,8 +73,7 @@ const cycle = new Schema({
     },
     start: {
         type: Date,
-        required: true,
-        default: Date.now
+        required: true
     },
     end: {
         type: Date

@@ -1,13 +1,31 @@
 import { Button, ButtonSmall } from '../library'
 import logic from '../../logic'
 
-export default function Modal({ selectedDay, now, onClose, onCycleCreated }) {
-    const handleStartPeriod = event => {
+export default function Modal({ cycleId, selectedDate, selectedDay, onCycleCreated, onClose }) {
+    const handleStartPeriodClick = event => {
         event.preventDefault()
 
         try {
-            logic.createCycle(now)
+            logic.createCycle(selectedDate.toISOString())
                 .then(onCycleCreated)
+                .catch(error => {
+                    alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    const handleEndPeriodClick = event => {
+        event.preventDefault()
+
+        try {
+            logic.addPeriodEnd(cycleId, selectedDate.toISOString())
+                .then(onEndPeriod)
                 .catch(error => {
                     alert(error.message)
 
@@ -28,8 +46,8 @@ export default function Modal({ selectedDay, now, onClose, onCycleCreated }) {
         <div>
             <div>
                 <p>Selected day: {selectedDay}</p>
-                <ButtonSmall onClick={handleStartPeriod}>Start period</ButtonSmall>
-                <ButtonSmall>End period</ButtonSmall>
+                <ButtonSmall onClick={handleStartPeriodClick}>Start period</ButtonSmall>
+                <ButtonSmall onClick={handleEndPeriodClick}>End period</ButtonSmall>
                 <ButtonSmall>Add event</ButtonSmall>
                 <ButtonSmall>Log symptoms</ButtonSmall>
                 <Button onClick={handleModalClose}>Back</Button>
