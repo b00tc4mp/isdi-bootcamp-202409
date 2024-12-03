@@ -67,6 +67,7 @@ Admin (User)
 
 #### Product
 - id (UUID)
+- name (string)
 - images ([string])
 - description (string)
 - likes ([User.id])
@@ -76,7 +77,7 @@ Admin (User)
 
 #### StorePrice
 - id (UUID)
-- store (Store.id)
+- store ([Store.id])
 - price (number)
 
 #### Comment

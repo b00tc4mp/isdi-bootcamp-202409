@@ -36,8 +36,8 @@ const validateImage = image => {
   if (typeof image !== 'string') throw new ValidationError('invalid image')
 }
 
-const validateText = text => {
-  if (typeof text !== 'string') throw new ValidationError('invalid text')
+const validateDescription = description => {
+  if (typeof description !== 'string') throw new ValidationError('invalid description')
 }
 
 const validateId = (id, explain = 'id') => {
@@ -56,7 +56,7 @@ const validate = {
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,
   image: validateImage,
-  text: validateText,
+  description: validateDescription,
   id: validateId,
   callback: validateCallback
 }

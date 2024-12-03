@@ -3,10 +3,10 @@ import 'dotenv/config'
 import fs from 'fs/promises'
 import bcrypt from 'bcryptjs'
 
-import db, { User, Post } from './index.js'
+import db, { User, Product } from './index.js'
 
-db.connect(process.env.MONGO_URL)
-  .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+db.connect(process.env.MONGO_URL_TEST)
+  .then(() => Promise.all([User.deleteMany(), Product.deleteMany()]))
   .then(() => fs.readFile('./users.csv', 'utf-8'))
   .then(csv => {
     const lines = csv.split('\n')
@@ -20,14 +20,12 @@ db.connect(process.env.MONGO_URL)
     return Promise.all(creations)
   })
   .then(users => {
-    return fs.readFile('./posts.csv', 'utf-8')
+    return fs.readFile('./products.csv', 'utf-8')
       .then(csv => {
         const lines = csv.split('\n')
 
         const creations = lines.map(line => {
-          const [username, image, text, date] = line.split(',').map(item => item.trim())
-
-          const { _id: author } = users.find(user => user.username === username)
+          const [name, image, description] = line.split(',').map(item => item.trim())
 
           const likes = []
           const likesNumber = randomNumber(0, users.length)
@@ -41,7 +39,19 @@ db.connect(process.env.MONGO_URL)
             likes.push(user.id)
           }
 
-          return Post.create({ author, image, text, date, likes })
+          const dislikes = []
+          const dislikesNumber = randomNumber(0, users.length)
+
+          for (let i = 0; i < dislikesNumber; i++) {
+            let user = randomElement(users)
+
+            while (dislikes.includes(user.id))
+              user = randomElement(users)
+
+            dislikes.push(user.id)
+          }
+
+          return Product.create({ name, image, description, likes, dislikes })
         })
 
         return Promise.all(creations)
