@@ -32,6 +32,10 @@ const validateTelephone = (telephone) => {
   if (!/^\+\d{1,3}\d{9,12}$/.test(telephone)) throw new ValidationError('invalid telephone')
 }
 
+const validateRole = (role) => {
+  if (typeof role !== 'string') throw new ValidationError('Invalid role')
+}
+
 const validateImage = (image) => {
   if (typeof image !== 'string') throw new ValidationError('invalid image')
 }
@@ -59,6 +63,7 @@ const validate = {
   text: validateText,
   id: validateId,
   callback: validateCallback,
+  role: validateRole,
 }
 
 export default validate

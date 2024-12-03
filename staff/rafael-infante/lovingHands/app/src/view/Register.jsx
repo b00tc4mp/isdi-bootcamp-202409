@@ -15,13 +15,15 @@ export default function Register(props) {
     const {
       name: { value: name },
       email: { value: email },
+      telephone: { value: telephone },
       password: { value: password },
       passwordRepeat: { value: passwordRepeat },
+      role: { value: role },
     } = form
 
     try {
       logic
-        .registerUser(name, email, password, passwordRepeat)
+        .registerUser(name, email, password, passwordRepeat, telephone, role)
         .then(() => {
           form.reset()
 
@@ -56,17 +58,13 @@ export default function Register(props) {
 
       {/* Register Form */}
       <h1 className="text-2xl font-bold text-center mb-4">Create Your Account</h1>
-      <p className="text-center text-sm text-gray-600 mb-6">
-        Fill in the details below to get started with Loving Hands.
-      </p>
+      <p className="text-center text-sm text-gray-600 mb-6">Fill in the details below to get started.</p>
 
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
         {/* Name Field */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-            Full Name
-          </label>
           <input
+            required
             type="text"
             id="name"
             placeholder="Enter your full name"
@@ -76,10 +74,8 @@ export default function Register(props) {
 
         {/* Email Field */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            Email Address
-          </label>
           <input
+            required
             type="email"
             id="email"
             placeholder="Enter your email"
@@ -87,12 +83,21 @@ export default function Register(props) {
           />
         </div>
 
+        {/* telephone Field */}
+        <div>
+          <input
+            required
+            type="text"
+            id="telephone"
+            placeholder="Enter your telephone"
+            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+          />
+        </div>
+
         {/* Password Field */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Password
-          </label>
           <input
+            required
             type="password"
             id="password"
             placeholder="Enter your password"
@@ -102,15 +107,29 @@ export default function Register(props) {
 
         {/* Repeat Password Field */}
         <div>
-          <label htmlFor="passwordRepeat" className="block text-sm font-medium text-gray-700">
-            Repeat Password
-          </label>
           <input
+            required
             type="password"
             id="passwordRepeat"
             placeholder="Repeat your password"
             className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
+        </div>
+
+        {/* Role Field */}
+        <div>
+          <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+            Role
+          </label>
+          <select
+            required
+            id="role"
+            name="role"
+            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+          >
+            <option value="caregiver">Caregiver</option>
+            <option value="elder">Elder</option>
+          </select>
         </div>
 
         {/* Register Button */}

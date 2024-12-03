@@ -1,7 +1,9 @@
-import authenticateUser from './authenticateUser.js'
-import registerUser from './registerUser.js'
-import getUserName from './getUserName.js'
-import createAd from './createAd.js'
+import authenticateUser from './users/authenticateUser.js'
+import registerUser from './users/registerUser.js'
+import getUserName from './users/getUserName.js'
+
+import createAd from './ads/createAd.js'
+import deleteAd from './ads/deleteAd.js'
 
 const logic = {
   registerUser,
@@ -9,6 +11,7 @@ const logic = {
   getUserName,
 
   createAd,
+  deleteAd,
 }
 
 export default logic

@@ -20,7 +20,7 @@ describe('registerUser', () => {
   afterEach(() => User.deleteMany())
 
   it('succeds on new user', async () => {
-    await registerUser('Rive Lino', 'rive@lino.com', '123123123', '123123123', '+34123123123')
+    await registerUser('Rive Lino', 'rive@lino.com', '123123123', '123123123', '+34123123123', 'caregiver')
 
     const user = await User.findOne({ email: 'rive@lino.com' })
 
@@ -41,7 +41,7 @@ describe('registerUser', () => {
           telephone: '+34123123123',
         })
 
-        await registerUser('Casi Miro', 'casi@miro.com', '123123123', '123123123', '+34123123123')
+        await registerUser('Casi Miro', 'casi@miro.com', '123123123', '123123123', '+34123123123', 'caregiver')
       })()
     ).to.be.rejectedWith(DuplicityError, 'user already exists'))
 
