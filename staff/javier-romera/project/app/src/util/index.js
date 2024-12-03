@@ -5,7 +5,9 @@ import compareDevilFruit from './compareDevilFruit'
 import validateGuess from './validateGuess'
 import compareFirstLetters from './compareFirstLetters'
 import isAnyCharacterWithFirstLetter from './isAnyCharacterWithFirstLetter'
-
+import capitalizeWords from './capitalizeWords'
+import formatBounty from './formatBounty'
+import formatHeight from './formatHeight'
 
 export {
     extractPayloadFromJWT,
@@ -14,5 +16,8 @@ export {
     compareDevilFruit,
     validateGuess,
     compareFirstLetters,
-    isAnyCharacterWithFirstLetter
+    isAnyCharacterWithFirstLetter,
+    capitalizeWords,
+    formatBounty,
+    formatHeight
 }

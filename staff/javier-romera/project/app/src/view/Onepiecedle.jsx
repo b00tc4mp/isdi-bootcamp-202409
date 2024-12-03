@@ -1,10 +1,10 @@
 import logic from '../logic'
 import { Button, Form, Input } from './library'
 import { errors } from 'com'
-import { Options, AnswersLegend } from './components'
+import { Options, AnswersLegend, Answers } from './components'
 
 import { useState, useEffect } from 'react'
-import { validateGuess } from '../util'
+import { capitalizeWords, validateGuess } from '../util'
 
 const { SystemError } = errors
 
@@ -13,15 +13,15 @@ export default function Onepiecedle() {
     const [didWin, setDidWin] = useState(false)
     const [isTyping, setIsTyping] = useState(false)
     const [inputValue, setInputValue] = useState("")
-    const [randomChar, setRandomChar] = useState({})
-    const [characters, setCharacters] = useState([])
+    const [randomChar, setRandomChar] = useState()
+    const [characters, setCharacters] = useState()
     const [answers, setAnswers] = useState([])
+    const [guessedCharacters, setGuessedCharacters] = useState([])
 
     useEffect(() => {
         try {
             logic.getAllCharactersNameAndAlias()
                 .then(characters => {
-                    console.log(characters) // TODO
                     setCharacters(characters)
                 })
                 .catch(error => {
@@ -41,7 +41,7 @@ export default function Onepiecedle() {
         try {
             logic.getRandomCharacter()
                 .then(char => {
-                    console.log(char) // TODO erase
+                    console.log(char)
                     setRandomChar(char)
                 })
                 .catch(error => {
@@ -78,13 +78,19 @@ export default function Onepiecedle() {
         const { target: { guess: { value: guess } } } = event
 
         try {
-            const found = validateGuess(characters, guess)
+            const parsedGuess = capitalizeWords(guess)
+
+            const found = validateGuess(characters, parsedGuess)
 
             if (found) {
-                logic.getCharacterByName(guess)
-                    .then(char => logic.checkOnePiecedleAnswer(randomChar, char))
-                    .then(answers => {
-                        console.log(answers)
+                logic.getCharacterByName(parsedGuess)
+                    .then(char => {
+                        const checkedAnswer = logic.checkOnePiecedleAnswer(randomChar, char)
+
+                        setAnswers((prevAnswers) => [...prevAnswers, checkedAnswer])
+                        setGuessedCharacters((prevGuessedCharacters) => [...prevGuessedCharacters, char])
+
+                        if (checkedAnswer[0]) setDidWin(true)
 
                         setInputValue("")
                         setIsTyping(false)
@@ -109,18 +115,21 @@ export default function Onepiecedle() {
         }
     }
 
-    return <main className="h-screen w-screen bg-cover bg-center flex justify-center" style={{
+    return <main className="h-screen w-screen bg-cover bg-center flex justify-center overflow-y-auto" style={{
         backgroundImage: "url('/images/going_merry.png')",
     }}>
-        <section className="mt-[12rem]">
-            <Form id="guessForm" onSubmit={handleGuess} className="bg-[rgba(250,249,243,0.9)] w-[22rem] h-[4rem] flex justify-center items-center rounded-[.5rem] border-[2px] border-[black]" >
+        <section className="mt-[12rem] flex flex-col items-center">
+            <Form id="guessForm" onSubmit={handleGuess} className="bg-[rgba(250,249,243,0.9)] w-[22rem] min-h-[4rem] flex justify-center items-center rounded-[.5rem] border-[2px] border-[black]">
                 <Input id="guess" value={inputValue} onInput={handleInputChange} placeholder="Guess the character" autoComplete="off" type="text" className="w-[18rem] h-[2.5rem] pl-[.5rem] text-[1.25rem] rounded-[.25rem] border-[4px] border-[#EADEC2] bg-[#FAF9F3] focus:outline-none" />
-                <Button className="w-[2.5rem] ml-[.25rem] cursor-pointer transition-transform duration-100 ease-in-out hover:scale-110"><img src="/images/arrow_right.png"></img></Button>
+                <Button id="guessButton" className="w-[2.5rem] ml-[.25rem] cursor-pointer transition-transform duration-100 ease-in-out hover:scale-110"><img src="/images/arrow_right.png"></img></Button>
             </Form>
+
             {isTyping && <Options inputValue={inputValue} characters={characters} onCharacterClick={handleCharacterClick} />}
-            <div>
-                {isFirstAnswerSent && <AnswersLegend />}
-            </div>
+
+            {isFirstAnswerSent && <div className="flex flex-col w-[fit] px-[1.5rem] pt-[1.5rem] mt-[1rem] bg-[rgba(215,167,104,0.9)] border-[2px] border-[black] rounded-[.75rem]">
+                <AnswersLegend />
+                {<Answers answers={answers.toReversed()} guessedCharacters={guessedCharacters.toReversed()} />}
+            </div>}
         </section>
     </main>
 }
