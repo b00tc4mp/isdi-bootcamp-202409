@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import logic from "../logic"
 
+import { Button } from "../library";
+
 
 export default function Home(props) {
     console.log('Home -> render')
@@ -31,11 +33,11 @@ export default function Home(props) {
                 <p>Welcome, name_of_user</p>
 
                 <div className="flex flex-col ">
-                    <button className="btn m-2">Start tracking WIP</button>
-                    <button className="btn m-2" onClick={handleManagePacks}>Manage your packs WIP</button>
-                    <button className="btn m-2" onClick={handleManageCustomers}>Manage your customers WIP</button>
-                    <button className="btn m-2" onClick={handleManagePurchasedPacks}>See purchased services WIP</button>
-                    <button className="btn m-2">Setings WIP</button>
+                    <Button className="btn m-2">Start tracking WIP</Button>
+                    <Button className="btn m-2" onClick={handleManagePacks}>Manage your packs WIP</Button>
+                    <Button className="btn m-2" onClick={handleManageCustomers}>Manage your customers WIP</Button>
+                    <Button className="btn m-2" onClick={handleManagePurchasedPacks}>See purchased services WIP</Button>
+                    <Button className="btn m-2">Settings WIP</Button>
                 </div>
             </div>
         )

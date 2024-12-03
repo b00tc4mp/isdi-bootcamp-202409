@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, ManagePacks, ManageCustomers, ManagePurchasedPacks, AssignPack } from './view'
+import { Login, Register, Home, ManagePacks, ManageCustomers, ManagePurchasedPacks, AssignPack, CreatePack } from './view'
 
 import { Header, Alert, Confirm } from './view/components'
 
@@ -50,7 +50,9 @@ export default function App() {
 
   const handleManagePurchasedPacksClick = () => navigate('/manage-purchased-packs')
 
-  const handleAssignPack = () => navigate('/assign-packs')
+  const handleAssignPack = () => navigate('/assign-pack')
+
+  const handleCreatePack = () => navigate('/create-pack')
 
 
 
@@ -80,9 +82,15 @@ export default function App() {
     })
   }
 
+  const handleNotfoundError = event => {
+    event.preventDefault(); // Previene el comportamiento por defecto del enlace
+    handleHomeClick(); // Llama a la función para navegar al inicio
+  }
+
+
   console.log('App -> render')
 
-  return <Context.Provider value={{
+  return (<Context.Provider value={{
     alert(message, level = 'error') { setAlert({ message, level }) },
     confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
   }}>
@@ -110,14 +118,22 @@ export default function App() {
         <Navigate to="/login" />} />
 
 
+
       <Route path="/manage-packs" element={logic.isUserLoggedIn() ?
         <ManagePacks onHomeClick={handleHomeClick}
-          onAssignPackClick={handleAssignPack} /> :
+          onAssignPackClick={handleAssignPack}
+          onCreatePackClick={handleCreatePack} /> :
         <Navigate to="/login" />} />
 
       <Route path="/assign-pack" element={logic.isUserLoggedIn() ?
         <AssignPack onHomeClick={handleHomeClick} /> :
         <Navigate to="/login" />} />
+
+      <Route path="/create-pack" element={logic.isUserLoggedIn() ?
+        <CreatePack onHomeClick={handleHomeClick} /> :
+        <Navigate to="/login" />} />
+
+
 
       <Route path="/manage-customers" element={logic.isUserLoggedIn() ?
         <ManageCustomers onHomeClick={handleHomeClick} /> :
@@ -127,13 +143,30 @@ export default function App() {
         <ManagePurchasedPacks onHomeClick={handleHomeClick} /> :
         <Navigate to="/login" />} />
 
-
-
-
+      <Route
+        path="*"
+        element={
+          <div className="text-center">
+            <h1 className="text-red-600 text-2xl font-bold">Error 404</h1>
+            <p className="text-gray-700">This page does not exist or it was removed.</p>
+            <p>
+              You can try to{' '}
+              <a
+                href="#"
+                className="text-blue-500 underline hover:text-blue-700"
+                onClick={handleNotfoundError} // Cambiado para referenciar la función
+              >
+                go home
+              </a>
+            </p>
+          </div>
+        }
+      />
     </Routes>
 
     {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 
     {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
-  </Context.Provider>
+  </Context.Provider >
+  )
 }

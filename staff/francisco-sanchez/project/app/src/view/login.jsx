@@ -57,7 +57,7 @@ export default function Login(props) {
                 <input className="border-2 rounded-lg" id="password" type="password" />
             </field>
 
-            <button type="submit">Login</button>
+            <Button type="submit">Login</Button>
         </form>
 
         <p>Don't have an account yet? <a href="" title="Create a new account" onClick={handleRegisterClick}>Create account</a></p>

@@ -53,12 +53,39 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
     console.log('Header -> render')
 
-    return <header>
-        <h1 className="m-0 text-3xl">{location.pathname !== '/' ? <a href="" onClick={handleHomeClick}>Hourify</a> : 'Hourify'}</h1>
+    return <header className="bg-blue-800 text-white p-4 flex justify-between items-center">
+        <h1 className="text-4xl font-bold">{location.pathname !== '/' ? <a href="" onClick={handleHomeClick}>Hourify</a> : 'Hourify'}</h1>
 
         <div className='flex justify-between'>
-            <h3 className="text-2xl">The first tracker time app for everyone</h3>
-            {logic.isUserLoggedIn() && <a href="" onClick={handleLogout}>Logout</a>}
+            {/* TODO: Arreglar i netejar - OLD VERSION HEADER
+            {logic.isUserLoggedIn() && <a href="" onClick={handleLogout}>Logout</a>} */}
+
+            {/* User Avatar y Dropdown */}
+            {logic.isUserLoggedIn() && (
+                <div className="relative group">
+                    <img
+                        src="https://via.placeholder.com/40" // Cambia por la URL de la imagen del usuario
+                        alt="User profile"
+                        className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
+                    />
+                    <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                        /* onClick={handleProfileClick} */
+                        >
+                            User profile
+                        </a>
+                        <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            )}
         </div>
 
 

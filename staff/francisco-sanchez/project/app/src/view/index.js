@@ -2,10 +2,12 @@ import Home from './Home'
 
 //Packs Managing
 import ManagePacks from './ManagePacks'
-import ManageCustomers from './ManageCustomers'
 import ManagePurchasedPacks from './ManagePurchasedPacks'
 import AssignPack from './AssignPack'
 import CreatePack from './CreatePack'
+
+//Customers Managing
+import ManageCustomers from './ManageCustomers'
 
 //Users Managing
 import Register from "./Register"

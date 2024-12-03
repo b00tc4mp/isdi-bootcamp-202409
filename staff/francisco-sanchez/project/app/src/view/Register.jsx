@@ -85,7 +85,7 @@ export default function Register(props) {
                     <input className="border-2 rounded-lg" id="password-repeat" type="password" />
                 </field>
 
-                <button type="submit">Register</button>
+                <Button type="submit">Register</Button>
             </form>
 
             <a href=""></a>

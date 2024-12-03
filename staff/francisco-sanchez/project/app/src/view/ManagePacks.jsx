@@ -6,6 +6,8 @@ const { SystemError } = errors
 
 import useContext from './useContext'
 
+import { Button } from '../library/index';
+
 export default function ManagePacks(props) {
 
     const handleHomeClick = event => {
@@ -16,6 +18,11 @@ export default function ManagePacks(props) {
     const handleAssignPacks = event => {
         console.log('Assign Pack Clicked');
         props.onAssignPackClick()
+    };
+
+    const handleCreatePacks = event => {
+        console.log('Create Pack Clicked');
+        props.onCreatePackClick()
     };
 
 
@@ -53,8 +60,8 @@ export default function ManagePacks(props) {
             </table>
 
             <div className="flex flex-col ">
-                <button className="btn m-2" onClick={handleAssignPacks}>Assign pack WIP</button>
-                <button className="btn m-2">Create new WIP</button>
+                <Button className="btn m-2" onClick={handleAssignPacks}>Assign pack WIP</Button>
+                <Button className="btn m-2" onClick={handleCreatePacks}>Create new WIP</Button>
 
             </div>
 
