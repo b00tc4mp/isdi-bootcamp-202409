@@ -4,8 +4,8 @@ import { createFunctionalHandler } from '../../helpers/index.js'
 export default createFunctionalHandler(async (req, res) => {
   const {
     userId,
-    body: { image, text },
+    body: { files, text },
   } = req
 
-  return logic.createAd(userId, image, text).then(() => res.status(201).send())
+  return logic.createAd(userId, files, text).then(() => res.status(201).send())
 })

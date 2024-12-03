@@ -40,6 +40,10 @@ const validateImage = (image) => {
   if (typeof image !== 'string') throw new ValidationError('invalid image')
 }
 
+const validateFiles = (files) => {
+  if (!(files instanceof Array)) throw new ValidationError('invalid files')
+}
+
 const validateText = (text) => {
   if (typeof text !== 'string') throw new ValidationError('invalid text')
 }
@@ -64,6 +68,7 @@ const validate = {
   id: validateId,
   callback: validateCallback,
   role: validateRole,
+  files: validateFiles,
 }
 
 export default validate

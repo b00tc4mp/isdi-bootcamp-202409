@@ -3,9 +3,9 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId, image, text) => {
+export default (userId, files, text) => {
   validate.id(userId, 'userId')
-  validate.image(image)
+  validate.files(files)
   validate.text(text)
 
   return User.findById(userId)
@@ -17,7 +17,7 @@ export default (userId, image, text) => {
 
       return Ad.create({
         author: userId,
-        image,
+        image: files[0],
         text,
       }).catch((error) => {
         throw new SystemError(error.message)

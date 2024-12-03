@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import Logo from '../assets/logo.png'
 import logic from '../logic'
 
-export default function Home({ onLoggedOut }) {
+export default function Home() {
   const [name, setName] = useState(null)
 
   useEffect(() => {
@@ -28,30 +27,8 @@ export default function Home({ onLoggedOut }) {
 
   console.log('Home -> render')
 
-  const handleLogout = (event) => {
-    if (confirm('Logout?')) {
-      event.preventDefault()
-      logic.logoutUser()
-
-      onLoggedOut()
-    }
-  }
-
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
-      {/* Header */}
-      <header className="flex items-center justify-between w-full bg-[#fbdfc7] px-4 py-3 shadow-md">
-        <div className="flex items-center">
-          <img src={Logo} alt="Loving Hands Logo" className="h-10" />
-        </div>
-        <button
-          onClick={handleLogout} // Call logout function
-          className="bg-[#47c8e5] text-white py-1 px-4 rounded-lg shadow hover:bg-[#F56132] transition-all duration-200 text-sm font-medium"
-        >
-          Logout
-        </button>
-      </header>
-
       {/* Main Content */}
       <div className="flex flex-col items-center px-4 flex-grow">
         <div className="w-full max-w-md text-center mt-6 mb-6">
@@ -82,7 +59,7 @@ export default function Home({ onLoggedOut }) {
               href="/profile"
               className="flex flex-col items-center justify-center bg-[#FFC9B0] text-[#E84D67] rounded-lg p-4 shadow hover:bg-[#F56132] hover:text-white transition duration-200"
             >
-              Profile
+              My Ads
             </a>
             <a
               href="/messages"
@@ -93,30 +70,6 @@ export default function Home({ onLoggedOut }) {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-[#fbdfc7] shadow-lg">
-        <div className="flex justify-around items-center py-3">
-          <button
-            className="flex flex-col items-center justify-center text-black hover:text-[#D1AFA0] transition duration-200"
-            onClick={() => console.log('Go to Home')}
-          >
-            <span className="text-sm font-medium">HOME</span>
-          </button>
-          <button
-            className="flex flex-col items-center justify-center text-black hover:text-[#D1AFA0] transition duration-200"
-            onClick={() => console.log('New Post')}
-          >
-            <span className="text-sm font-medium">NEW POST</span>
-          </button>
-          <button
-            className="flex flex-col items-center justify-center text-black hover:text-[#D1AFA0] transition duration-200"
-            onClick={() => console.log('Profile')}
-          >
-            <span className="text-sm font-medium">PROFILE</span>
-          </button>
-        </div>
-      </footer>
     </div>
   )
 }
