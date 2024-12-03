@@ -7,6 +7,7 @@ import Newsletter from './Newsletter'
 import Policy from './Policy'
 import ProductItem from './ProductItem'
 import Title from './Title'
+import RelatedProducts from './RelatedProducts'
 
 export {
     Hero,
@@ -17,5 +18,6 @@ export {
     Newsletter,
     Policy,
     ProductItem,
-    Title
+    Title,
+    RelatedProducts
 }

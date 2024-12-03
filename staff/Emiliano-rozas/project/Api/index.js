@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import db from './dat/index.js'
+import db from 'dat'
 import express, { json } from 'express'
 import cors from 'cors'
 // import jwt from 'jsonwebtoken'
@@ -19,6 +19,7 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.use('/users', usersRouter)
     server.use('/products', productsRouter)
+    // server.use('/cart', cartRouter)
 
     server.use(errorHandler)
 
