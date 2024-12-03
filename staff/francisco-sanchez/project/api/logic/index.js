@@ -3,10 +3,18 @@ import {
     authenticateUser
 } from './users/index.js'
 
+import {
+    createPack,
+    assignPack,
+} from './packs/index.js'
+
 
 const logic = {
     registerUser,
-    authenticateUser
+    authenticateUser,
+
+    createPack,
+    assignPack
 }
 
 export default logic

@@ -8,6 +8,8 @@ import logic from '../logic'
 
 import useContext from './useContext'
 
+import { Button } from '../library'
+
 export default function Register(props) {
     console.log('Register -> render')
 

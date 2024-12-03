@@ -127,6 +127,7 @@ User
 
 Pack
 - id (UUID)
+- refPack (UUID)
 - provider (UUID)
 - customer (UUID)
 - description (string) max 255

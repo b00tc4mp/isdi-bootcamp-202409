@@ -222,6 +222,12 @@ const user = new Schema({
 //Model por pack/customer/provider relationship
 const pack = new Schema({
 
+    refPack: {
+        type: ObjectId,
+        ref: 'basePack',
+        required: true
+    },
+
     provider: {
         type: ObjectId,
         ref: 'user',

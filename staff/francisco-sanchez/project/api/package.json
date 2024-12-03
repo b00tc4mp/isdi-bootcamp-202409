@@ -21,9 +21,11 @@
         "com": "file:../com",
         "cors": "^2.8.5",
         "dat": "file:../dat",
-        "dotenv": "^16.4.5",
+        "dotenv": "^16.4.6",
         "express": "^4.21.1",
-        "jsonwebtoken": "^9.0.2"
+        "jsonwebtoken": "^9.0.2",
+        "mongodb": "^6.11.0",
+        "mongoose": "^8.8.3"
     },
     "devDependencies": {
         "bcryptjs": "^2.4.3",

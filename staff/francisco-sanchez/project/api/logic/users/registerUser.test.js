@@ -3,24 +3,15 @@ import db from 'dat'
 
 import registerUser from './registerUser.js'
 
-console.log('MONGO_URL_TEST:', process.env.MONGO_URL_TEST); // Verifica si la variable está cargada
-console.log('MONGO_URL:', process.env.MONGO_URL); // Verifica si la variable está cargada
-
-let mongoUrl = ''
-if (process.env.MONGO_URL === undefined)
-    mongoUrl = 'mongodb://127.0.0.1:27017/hourify'
-
-console.log('MONGO_URL:', mongoUrl);
-
-await db.connect(mongoUrl)
+await db.connect(process.env.MONGO_URL)
 
 //TEST: 
 // Datos de prueba para el registro
 const name = 'Gandalf';
-const username = 'greygandalf';
+const username = 'greygandalf9';
 const password = 'greygandalf';
 const passwordRepeat = 'greygandalf';
-const email = 'greygandalf@themiddleearth.com';
+const email = 'greygandalf9@themiddleearth.com';
 const plan = 'free';
 const planExpiryDate = null; // Dejar en null como valor predeterminado
 const role = 'standard'; // Valor predeterminado
@@ -46,10 +37,10 @@ const adquiredPacks = []; // Sin packs adquiridos inicialmente
 
 try {
     const result = await registerUser(name,
+        email,
         username,
         password,
         passwordRepeat,
-        email,
         plan,
         planExpiryDate,
         role,

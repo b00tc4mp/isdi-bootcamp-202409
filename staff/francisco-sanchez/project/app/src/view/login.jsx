@@ -6,6 +6,8 @@ const { SystemError } = errors
 
 import useContex from './useContext'
 
+import { Button } from '../library'
+
 export default function Login(props) {
     console.log('Login -> render')
 
@@ -57,7 +59,7 @@ export default function Login(props) {
                 <input className="border-2 rounded-lg" id="password" type="password" />
             </field>
 
-            <Button type="submit">Login</Button>
+            <Button type="submit" >Login</Button>
         </form>
 
         <p>Don't have an account yet? <a href="" title="Create a new account" onClick={handleRegisterClick}>Create account</a></p>
