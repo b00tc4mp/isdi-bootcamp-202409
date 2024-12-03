@@ -100,7 +100,7 @@ const recommend = new Schema({
     },
     subject: {
         type: String,
-        maxLength: 100
+        maxLength: 100 // set required to true
     }
 
 }, { versionKey: false })

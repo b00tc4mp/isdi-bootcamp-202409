@@ -1,7 +1,7 @@
-import { User, Recommend, Country, City } from '../../../dat/index.js'
+import { User, Recommend, Country, City } from '../../../../dat/index.js'
 
-import validate from '../../../com/validate.js'// import { validate, errors } from 'com'
-import errors from '../../../com/errors.js'
+import validate from '../../../../com/validate.js'// import { validate, errors } from 'com'
+import errors from '../../../../com/errors.js'
 
 const { SystemError, NotFoundError } = errors
 
@@ -18,7 +18,7 @@ const createRecommend = (userId, image, text) => {
             return Recommend.create({ author: userId, image, text }).
                 catch(error => { throw new SystemError(error.message) })
         })
-        .then(_, => { })     // place holder logice 
+        .then(_, => { })     // place holder logic 
 }
 
 export default createRecommend
