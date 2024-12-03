@@ -4,8 +4,6 @@ const { SystemError } = errors
 
 export default (start) => {
     validate.date(start)
-    console.log(start)
-    console.log(JSON.stringify({ start }))
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/cycles`, {
         method: 'POST',

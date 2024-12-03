@@ -1,7 +1,7 @@
 import { Button, ButtonSmall } from '../library'
 import logic from '../../logic'
 
-export default function Modal({ cycleId, selectedDate, selectedDay, onCycleCreated, onClose }) {
+export default function Modal({ selectedDate, selectedDay, onCycleCreated, onEndPeriod, onClose }) {
     const handleStartPeriodClick = event => {
         event.preventDefault()
 
@@ -24,7 +24,7 @@ export default function Modal({ cycleId, selectedDate, selectedDay, onCycleCreat
         event.preventDefault()
 
         try {
-            logic.addPeriodEnd(cycleId, selectedDate.toISOString())
+            logic.addPeriodEnd(selectedDate.toISOString())
                 .then(onEndPeriod)
                 .catch(error => {
                     alert(error.message)
