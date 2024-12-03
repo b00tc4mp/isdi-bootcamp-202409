@@ -32,3 +32,17 @@ a.active p {
 ::-webkit-scrollbar{
     display: none;
 }
+
+.product-detail-main-image {
+    width: 100%;
+    height: 500px; /* Ajusta este valor para lograr el aspecto deseado */
+    object-fit: contain; /* Esto hace que la imagen se mantenga dentro del contenedor sin recortarse */
+}
+
+.product-thumbnail {
+    width: 80px; /* Ajusta según el diseño */
+    height: 80px;
+    object-fit: cover; /* Esto llenará el contenedor y recortará lo necesario */
+    margin-bottom: 10px; /* Espacio entre miniaturas */
+    cursor: pointer;
+}
