@@ -48,7 +48,7 @@ db.connect(process.env.MONGO_URL_TEST)
           return null
         }
 
-        const [email, image, text, date, address, coordinates] = fields
+        const [email, image, text, eventDate, address, coordinates] = fields
 
         const author = users.find((user) => user.email === email)?._id
 
@@ -80,7 +80,7 @@ db.connect(process.env.MONGO_URL_TEST)
             ? image
             : `http://localhost:3000/${image}`,
           text,
-          date,
+          eventDate,
           location: {
             type: "Point",
             coordinates: coords,

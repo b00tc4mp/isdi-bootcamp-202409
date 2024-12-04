@@ -48,8 +48,15 @@ const validateImage = (image) => {
   }
 }
 const validateFiles = (files) => {
-  if (!(files instanceof Array)) throw new Error("Files is not an array")
+  if (!Array.isArray(files)) {
+    throw new ValidationError("Files must be an array")
+  }
+
+  if (!files.every((file) => typeof file === "string")) {
+    throw new ValidationError("Each file must be a string")
+  }
 }
+
 const validateText = (text) => {
   if (!text) throw new Error("The text is required.")
   if (text.length > 200) throw new Error("Text cannot exceed 200 characters.")

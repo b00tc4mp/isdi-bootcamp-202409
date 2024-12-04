@@ -1,7 +1,7 @@
 import { Event, User } from "dat"
 import { validate, errors } from "com"
 
-const { SystemError, ValidationError } = errors
+const { SystemError, NotFoundError } = errors
 
 export default async (userId) => {
   validate.id(userId, "userId")
@@ -12,7 +12,9 @@ export default async (userId) => {
       Event.find().populate("author", "name").sort({ date: -1 }).lean(),
     ])
 
-    if (!user) throw new ValidationError("User not found")
+    if (!user) {
+      throw new Error("User not found")
+    }
 
     debugger
     return events.map((event) => ({

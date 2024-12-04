@@ -56,13 +56,35 @@ export default function Home() {
         })
     } catch (error) {}
   }
+
+  const handleDeleted = () => {
+    try {
+      logic
+        .getEvents()
+        .then(setEvents)
+        .catch((error) => {
+          alert(error.message)
+
+          console.error(error)
+        })
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
   return (
     <>
       <h1 className="pt-16 text-center text-cyan-50">Bienvenido {name}!!!</h1>
 
       <div className="items-center text-center pb-16">
         {events.map((event) => (
-          <Event key={event.id} event={event} onLiked={handleLiked} />
+          <Event
+            key={event.id}
+            event={event}
+            onLiked={handleLiked}
+            onDeleted={handleDeleted}
+          />
         ))}
       </div>
     </>

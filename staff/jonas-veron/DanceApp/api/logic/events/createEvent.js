@@ -11,14 +11,13 @@ export default (userId, files, text, eventDate, location) => {
   validate.location(location)
 
   const parsedEventDate = new Date(eventDate)
-  debugger
+
   return User.findById(userId)
     .catch((error) => {
       throw new SystemError(error.message)
     })
     .then((user) => {
       if (!user) throw new NotFoundError("User not found")
-      debugger
       return Event.create({
         author: userId,
         files,

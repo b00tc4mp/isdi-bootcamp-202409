@@ -94,6 +94,15 @@ export default function CreateEvent() {
             />
           </Field>
 
+          {/* <Field>
+            <select name="professor" id="">
+              <option value="">--Elige una opción--</option>
+              <option value="dog">Escuela</option>
+              <option value="cat">Social</option>
+              <option value="hamster">Clases</option>
+            </select>
+          </Field> */}
+
           <Field>
             <textarea
               name="text"

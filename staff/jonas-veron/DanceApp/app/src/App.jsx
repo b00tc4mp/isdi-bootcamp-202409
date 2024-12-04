@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      {isLoggedIn && <Header />}
 
       <Routes>
         <Route
@@ -33,7 +33,7 @@ function App() {
         />
       </Routes>
 
-      <Footer />
+      {isLoggedIn && <Footer />}
     </>
   )
 }

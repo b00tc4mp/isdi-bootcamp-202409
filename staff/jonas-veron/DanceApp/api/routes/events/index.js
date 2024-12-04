@@ -19,5 +19,11 @@ eventsRouter.patch(
   authorizationHandler,
   toggleLikeEventHandler
 )
+eventsRouter.post(
+  "/:eventId/comments",
+  authorizationHandler,
+  jsonBodyParser,
+  addCommentHandler
+)
 
 export default eventsRouter

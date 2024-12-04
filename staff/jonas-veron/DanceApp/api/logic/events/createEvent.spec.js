@@ -18,8 +18,6 @@ describe("createEvent", () => {
 
   beforeEach(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
 
-  debugger
-
   it("succeeds for existing user", async () => {
     const user = await User.create({
       name: "Carlos Diaz",
@@ -28,7 +26,9 @@ describe("createEvent", () => {
     })
     const event = await createEvent(
       user.id,
-      "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+      [
+        "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+      ],
       "A bailar!",
       "2024-12-07",
       {
@@ -43,11 +43,10 @@ describe("createEvent", () => {
 
     expect(createdEvent).to.exist
     expect(createdEvent.author.toString()).to.equal(user.id)
-    expect(createdEvent.image).to.equal(
-      "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg"
-    )
+    expect(createdEvent.files).to.deep.equal([
+      "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+    ])
     expect(createdEvent.text).to.equal("A bailar!")
-    console.log(createdEvent.date)
     expect(createdEvent.date).to.be.instanceOf(Date)
     expect(createdEvent.location.address).to.equal("Barcelona")
     expect(createdEvent.location.coordinates).to.deep.equal([
@@ -59,7 +58,9 @@ describe("createEvent", () => {
     expect(
       createEvent(
         "012345678901234567890123",
-        "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        [
+          "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        ],
         "A bailar!",
         "2024-12-07",
         {
@@ -73,7 +74,9 @@ describe("createEvent", () => {
     expect(() =>
       createEvent(
         "0123",
-        "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        [
+          "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        ],
         "A bailar!",
         "2024-12-07",
         {
@@ -87,7 +90,9 @@ describe("createEvent", () => {
     expect(() =>
       createEvent(
         true,
-        "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        [
+          "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        ],
         "A bailar!",
         "2024-12-07",
         {
@@ -103,13 +108,15 @@ describe("createEvent", () => {
         address: "Barcelona",
         coordinates: [41.3870154, 2.1700471],
       })
-    ).to.throw(ValidationError, /^Invalid image$/))
+    ).to.throw(ValidationError, /^Files must be an array$/))
 
   it("fails on non-string text", () =>
     expect(() =>
       createEvent(
         "012345678901234567890123",
-        "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        [
+          "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        ],
         true,
         "2024-12-07",
         {

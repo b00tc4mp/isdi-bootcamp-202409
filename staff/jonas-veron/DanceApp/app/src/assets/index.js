@@ -9,6 +9,7 @@ import starIcon from "./starIcon.svg"
 import commentIcon from "./commentIcon.svg"
 import shareIcon from "./shareIcon.svg"
 import locationIcon from "./locationIcon.svg"
+import deleteIcon from "./deleteIcon.svg"
 
 export {
   likedIcon,
@@ -22,4 +23,5 @@ export {
   commentIcon,
   shareIcon,
   locationIcon,
+  deleteIcon,
 }

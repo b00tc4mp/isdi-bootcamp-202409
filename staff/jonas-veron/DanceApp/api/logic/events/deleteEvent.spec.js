@@ -13,8 +13,6 @@ const { NotFoundError, OwnershipError, ValidationError, SystemError } = errors
 
 import deleteEvent from "./deleteEvent.js"
 
-debugger
-
 describe("deleteEvent", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST))
 
@@ -28,8 +26,9 @@ describe("deleteEvent", () => {
     })
     const event = await Event.create({
       author: user.id,
-      image:
+      files: [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+      ],
       text: "A bailar!",
       eventDate: new Date("2024-12-07"),
       location: {
