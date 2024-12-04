@@ -30,5 +30,4 @@ const registerUser = (name, email, username, password, password2) => {
         })
 }
 
-
 export default registerUser
