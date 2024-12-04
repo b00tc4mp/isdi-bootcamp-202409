@@ -1,12 +1,8 @@
 import bcrypt from 'bcryptjs'
 
-//import { User } from 'dat' ///check route
 import { User } from '../../../dat/index.js'
-//import { validate, errors } from 'com' //check route
-//import { validate, errors } from '../../com/index.js'
-import validate from '../../../com/validate.js'
+import validate from '../../../com/validate.js'//import { validate, errors } from 'com' //check route//import { validate, errors } from '../../com/index.js'
 import errors from '../../../com/errors.js'
-
 
 const { DuplicityError, SystemError } = errors
 
