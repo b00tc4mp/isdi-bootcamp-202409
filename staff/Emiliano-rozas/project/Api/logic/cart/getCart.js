@@ -14,8 +14,9 @@ export default userId => {
                 path: 'product',
                 model: 'Product',
                 select: 'title price image'
-            }
-        }).lean()
+            },
+            select: '-_id'
+        }).select('-_id -user').lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, cart]) => {
@@ -23,19 +24,13 @@ export default userId => {
             if (!cart) throw new NotFoundError('cart not found')
 
             cart.items.forEach(item => {
-                item.id = item._id.toString()
-                delete item._id
-
+                // item.id = item._id.toString()
+                // delete item._id
                 if (item.product && item.product._id) {
                     item.product.id = item.product._id.toString()
                     delete item.product._id
                 }
-
             });
-
-            cart.id = cart._id.toString()
-            delete cart._id
-
 
             return cart
         })

@@ -11,7 +11,7 @@ import {
 import {
     addToCart,
     getCart,
-    // removeAllFromCart,
+    removeAllFromCart,
     updateQuantity
 } from './cart/index.js'
 
@@ -22,7 +22,7 @@ const logic = {
     createProduct,
     addToCart,
     getCart,
-    // removeAllFromCart,
+    removeAllFromCart,
     updateQuantity
 }
 export default logic

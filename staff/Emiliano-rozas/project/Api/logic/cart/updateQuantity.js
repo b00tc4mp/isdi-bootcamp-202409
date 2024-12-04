@@ -19,10 +19,9 @@ export default (userId, cartItemId, newQuantity) => {
 
             const cartItemIndex = cart.items.findIndex(item => item._id.toString() === cartItemId)
 
-            if (cartItemIndex === -1) {
+            if (cartItemIndex < 0) {
                 throw new NotFoundError('cart item not found')
             }
-
             // Si la nueva cantidad es menor o igual a cero, eliminamos el cartItem del carrito
             if (newQuantity <= 0) {
                 return CartItem.deleteOne({ _id: cart.items[cartItemIndex]._id })
@@ -40,10 +39,8 @@ export default (userId, cartItemId, newQuantity) => {
         })
         .then(cart => {
             if (!cart) throw new NotFoundError('cart not found')
-
             // Calculamos el nuevo totalPrice.
             cart.totalPrice = cart.items.reduce((total, item) => total + item.quantity * item.product.price, 0)
-
             return cart.save()
         })
         .then(updatedCart => {
