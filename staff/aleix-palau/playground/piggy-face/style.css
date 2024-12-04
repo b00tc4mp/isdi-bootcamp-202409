@@ -1,0 +1,75 @@
+.piggy-face {
+    width: 300px;
+    height: 220px;
+    background-color: #ffe5ec;
+    border-radius: 50%;
+    position: relative;
+    margin: 150px auto;
+    border: 2px solid pink;
+}
+
+.left-ear,
+.right-ear {
+    border-top: 60px solid pink;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    position: absolute;
+    top: 12px;
+}
+
+.left-ear {
+    left: 50px;
+    transform: rotate(-30deg);
+}
+
+.right-ear {
+    right: 50px;
+    transform: rotate(30deg);
+}
+
+.left-eye,
+.right-eye {
+    width: 25px;
+    height: 30px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.left-eye {
+    top: 95px;
+    left: 100px;
+}
+
+.right-eye {
+    top: 95px;
+    right: 100px;
+}
+
+.snout {
+    width: 80px;
+    height: 40px;
+    background-color: #ffe5ec;
+    border-radius: 45%;
+    position: absolute;
+    top: 140px;
+    left: 110px;
+    border: 2px solid pink;
+}
+
+.nostril {
+    width: 10px;
+    height: 10px;
+    background-color: pink;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+}
+
+.left-nostril {
+    left: 25px;
+}
+
+.right-nostril {
+    right: 25px;
+}

@@ -1,0 +1,43 @@
+.car {
+    position: relative;
+    width: 250px;
+    height: 60px;
+    margin: 150px auto;
+}
+
+.window {
+    position: absolute;
+    top: -33px;
+    left: 30px;
+    width: 165px;
+    height: 30px;
+    background-color: lightblue;
+    border-radius: 30px 30px 0 0;
+    border: 4px solid #ff8343;
+}
+
+.bot {
+    position: absolute;
+    width: 250px;
+    height: 60px;
+    background-color: #ff8343;
+    border-radius: 40px 70px 10px 10px;
+}
+
+.wheel {
+    position: absolute;
+    bottom: -20px;
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.wheel-front {
+    left: 160px;
+}
+
+.wheel-back {
+    left: 40px;
+}
