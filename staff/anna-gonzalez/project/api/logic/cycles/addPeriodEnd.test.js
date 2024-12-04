@@ -5,7 +5,7 @@ import addPeriodEnd from './addPeriodEnd.js'
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return addPeriodEnd('674dda26d3ff217cab15e9c6', '674ddd33d565b897eea98e15', new Date())
+            return addPeriodEnd('6750665f512e6ae6631eeb15', '2024-12-02T00:00:00.000')
                 .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {

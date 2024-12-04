@@ -8,7 +8,7 @@ import {
 
 const cyclesRouter = Router()
 
-cyclesRouter.post('/', authorizationHandler, jsonBodyParser, createCycleHandler)
-cyclesRouter.post('/:cycleId', authorizationHandler, jsonBodyParser, addPeriodEndHandler)
+cyclesRouter.post('/start', authorizationHandler, jsonBodyParser, createCycleHandler)
+cyclesRouter.post('/periodEnd', authorizationHandler, jsonBodyParser, addPeriodEndHandler)
 
 export default cyclesRouter

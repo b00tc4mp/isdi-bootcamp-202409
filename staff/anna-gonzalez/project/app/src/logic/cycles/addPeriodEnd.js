@@ -2,11 +2,10 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (cycleId, periodEnd) => {
-    validate.id(cycleId, 'cycleId')
+export default (periodEnd) => {
     validate.date(periodEnd)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/cycles/${cycleId}`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/cycles/periodEnd`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localStorage.token}`,

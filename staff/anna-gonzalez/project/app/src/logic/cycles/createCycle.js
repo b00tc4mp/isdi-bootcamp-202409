@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default (start) => {
     validate.date(start)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/cycles`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/cycles/start`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localStorage.token}`,

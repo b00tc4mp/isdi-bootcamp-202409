@@ -21,7 +21,7 @@ describe('createCycle', () => {
     it('succeeds for existing user', () =>
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
-                createCycle(user.id, new Date())
+                createCycle(user.id, '2024-10-13T00:00:00.000')
                     .then(() => Cycle.findOne())
                     .then(cycle => {
                         expect(cycle).to.exist
@@ -67,7 +67,7 @@ describe('createCycle', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            createCycle('012345678901234567890123', new Date())
+            createCycle('012345678901234567890123', '2024-10-13T00:00:00.000')
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
 

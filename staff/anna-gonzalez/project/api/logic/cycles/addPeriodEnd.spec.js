@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Cycle } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError } = errors
+const { NotFoundError, ValidationError, DuplicityError } = errors
 
 import addPeriodEnd from './addPeriodEnd.js'
 
@@ -19,35 +19,69 @@ describe('addPeriodEnd', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Cycle.deleteMany()]))
 
     it('succeeds for existing user', () => {
-        const user = new User({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-        const cycle = new Cycle({ user: user.id, start: new Date() })
+        User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+            .then(user =>
+                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000' })
+                    .then(() =>
+                        expect(
+                            addPeriodEnd(user.id, '2024-10-13T00:00:00.000')
+                        ).to.be.instanceOf(Date)
+                    )
+            )
+    })
 
-        return Promise.all([user.save(), cycle.save()])
-            .then(([user, cycle]) =>
-                addPeriodEnd(user.id, cycle.id, new Date())
-                    .then(() => Cycle.findOne())
-                    .then(cycle => {
-                        expect(cycle).to.exist
-                        expect(cycle.start).to.exist
-
-                        expect(cycle.periodEnd).to.be.instanceOf(Date)
-                    })
+    it('succeeds on updating periodEnd', () => {
+        User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+            .then(user =>
+                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000', periodEnd: '2024-10-14T00:00:00.000' })
+                    .then(() =>
+                        Cycle.updateOne({ periodEnd: '2024-10-14T00:00:00.000' })
+                            .then(() =>
+                                expect(
+                                    addPeriodEnd(user.id, '2024-10-15T00:00:00.000')
+                                ).to.exist
+                            )
+                    )
             )
     })
 
     it('fails on non-existing user', () =>
         expect(
-            addPeriodEnd('012345678901234567890123', '012345678901234567890123', new Date())
+            addPeriodEnd('012345678901234567890123', '2024-10-13T00:00:00.000')
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
 
-    it('fails on non-existing cycle', () =>
-        expect(
-            User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-                .then(user =>
-                    addPeriodEnd(user.id, '012345678901234567890123', new Date())
-                )
-        ).to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
+    it('fails on future creation', () =>
+        User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+            .then(user =>
+                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000' })
+                    .then(() =>
+                        expect(
+                            addPeriodEnd(user.id, '2050-10-11T00:00:00.000')
+                        ).to.be.rejectedWith(ValidationError, /^End of period cannot be created in the future$/)
+                    )
+            )
+    )
+
+    it('fails on future creation', () =>
+        User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+            .then(user =>
+                expect(
+                    addPeriodEnd(user.id, '2024-10-11T00:00:00.000')
+                ).to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
+            )
+    )
+
+    it('fails on periodEnd already existing', () =>
+        User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+            .then(user =>
+                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000', periodEnd: '2024-10-17T00:00:00.000' })
+                    .then(() =>
+                        expect(
+                            addPeriodEnd(user.id, '2024-10-17T00:00:00.000')
+                        ).to.be.rejectedWith(DuplicityError, /^Period end already set on this day$/)
+                    )
+            )
     )
 
     after(() => db.disconnect())

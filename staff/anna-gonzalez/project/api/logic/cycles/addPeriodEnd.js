@@ -1,27 +1,35 @@
 import { User, Cycle } from 'dat'
 
 import { validate, errors } from 'com'
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, ValidationError, DuplicityError } = errors
 
 export default (userId, periodEnd) => {
     validate.id(userId, 'userId')
     validate.date(periodEnd)
-
-    //añadir q no se pueda añadir fin de periodos en el futuro de la fecha actual (custom error)
-    //impedir que puedan volver añadir un addperiod en los siguientes 7 dias (custom error: NotAllowed?)
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
 
-            return Cycle.findOne({ start: { $lt: periodEnd } })
+            const periodEndToDate = new Date(periodEnd)
+            periodEndToDate.setDate(periodEndToDate.getDate())
+
+            if (periodEndToDate.toISOString() > new Date().toISOString()) throw new ValidationError('End of period cannot be created in the future')
+
+            return Cycle.findOne({ start: { $lte: periodEnd } })
                 .sort({ start: -1 })
                 .catch(error => { throw new SystemError(error.message) })
-                .then(cycle => {
-                    if (!cycle) throw new NotFoundError('Cycle not found')
+                .then(searchedCycle => {
+                    if (!searchedCycle) throw new NotFoundError('Cycle not found')
+                    if (searchedCycle.periodEnd) {
+                        const searchedCyclePeriodEnd = new Date(searchedCycle.periodEnd).toISOString()
+                        if (searchedCyclePeriodEnd === periodEndToDate.toISOString()) {
+                            throw new DuplicityError('Period end already set on this day')
+                        }
+                    }
 
-                    return Cycle.updateOne(cycle, { periodEnd: periodEnd }, { new: true })
+                    return Cycle.updateOne(searchedCycle, { periodEnd: periodEnd }, { new: true })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })

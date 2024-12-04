@@ -76,7 +76,7 @@ export default function Calendar() {
 
                     {/* days of the month */}
                     {getMonthDays(currentDate).map((selectedDay) => {
-                        return <div onClick={() => handleCalendarDayClick(selectedDay)} key={selectedDay} className="flex justify-center cursor-pointer" >{selectedDay}</div>
+                        return <div onClick={() => handleCalendarDayClick(selectedDay)} key={selectedDay} className={`flex justify-center cursor-pointer`} >{selectedDay}</div>
                     })}
                 </div >
             </>
