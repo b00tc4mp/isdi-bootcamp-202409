@@ -1,21 +1,22 @@
 import logic from '../../../logic'
 import { errors } from 'com'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { capitalizeWords, validateGuess } from '../../../util'
 
 const { SystemError } = errors
 
 export default function useController() {
+    const [randomChar, setRandomChar] = useState(null)
+    const [characters, setCharacters] = useState(null)
+    const [status, setStatus] = useState(null)
     const [isFirstAnswerSent, setIsFirstAnswerSent] = useState(false)
     const [didWin, setDidWin] = useState(false)
     const [isTyping, setIsTyping] = useState(false)
+    const [showWinAlert, setShowWinAlert] = useState(false)
     const [inputValue, setInputValue] = useState("")
-    const [randomChar, setRandomChar] = useState()
-    const [characters, setCharacters] = useState()
     const [answers, setAnswers] = useState([])
     const [guessedCharacters, setGuessedCharacters] = useState([])
-    const [showWinAlert, setShowWinAlert] = useState(false)
 
     useEffect(() => {
         if (!characters)
@@ -59,18 +60,23 @@ export default function useController() {
                 console.error(error)
             }
 
-        if (didWin) {
-
-
+        if (!status)
             try {
                 logic.getUserStatus()
-                    .then(userStatus => {
-                        logic.setNewUserStatus(userStatus, 'onepiecedle')
-                            .then(() => {
-                                setTimeout(() => {
-                                    setShowWinAlert(true)
-                                }, 1000)
-                            })
+                    .then(setStatus)
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+
+        if (didWin) {
+            try {
+                logic.setNewUserStatus(status, 'onepiecedle')
+                    .then(() => {
+                        setTimeout(() => {
+                            setShowWinAlert(true)
+                        }, 1000)
                     })
             } catch (error) {
                 alert(error.message)
@@ -146,6 +152,7 @@ export default function useController() {
         didWin,
         isFirstAnswerSent,
         characters,
+        status,
 
         handleInputChange,
         handleCharacterClick,

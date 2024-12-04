@@ -4,8 +4,10 @@ import Options from './Options'
 import OnePieceDleWinScreen from './OnePieceDleWinScreen'
 import Answers from './Answers'
 import AnswersLegend from './AnswersLegend'
+import CantPlayAnymoreAlert from './CantPlayAnymoreAlert'
 
 import useController from './useController'
+import logic from '../../../logic'
 
 export default function OnePieceDle() {
     const { isTyping,
@@ -16,6 +18,7 @@ export default function OnePieceDle() {
         didWin,
         isFirstAnswerSent,
         characters,
+        status,
 
         handleInputChange,
         handleCharacterClick,
@@ -42,5 +45,7 @@ export default function OnePieceDle() {
         </section>
 
         {showWinAlert && <OnePieceDleWinScreen correctChar={guessedCharacters[guessedCharacters.length - 1].name} />}
+
+        {(status === 1 || status === 3) && logic.isUserRoleAnonymous() && <CantPlayAnymoreAlert />}
     </main>
 }
