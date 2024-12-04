@@ -1,18 +1,17 @@
-// import { Router } from 'express'
+import { Router } from 'express';
+import { jsonBodyParser, authorizationHandler } from '../../middleware/index.js'
+import {
+    getCartHandler,
+    addToCartHandler,
+    removeAllFromCartHandler,
+    updateQuantityHandler
+} from './handlers/index.js';
 
-// import {
-//     getCartHandler,
-//     addToCartHandler,
-//     removeAllFromCartHandler,
-//     updateQuantityHandler
-// } from './handlers/index'
+const cartRouter = Router();
 
-// const cartRouter = Router()
+cartRouter.post("/add", jsonBodyParser, authorizationHandler, addToCartHandler);
+cartRouter.get("/", authorizationHandler, getCartHandler);
+cartRouter.delete("/remove/:cartItemId", authorizationHandler, removeAllFromCartHandler);
+cartRouter.patch("/update/:cartItemId", jsonBodyParser, authorizationHandler, updateQuantityHandler);
 
-// cartRouter.get("/", getCartHandler)
-// cartRouter.post("/", addToCartHandler)
-// cartRouter.delete("/", cartRoute, removeAllFromCartHandler)
-// cartRouter.patch("/:id", cartRoute, updateQuantityHandler)
-
-// // /cart/add/:productId/quantity
-// // /cart/remove/:productId/quantity
+export default cartRouter;

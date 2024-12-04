@@ -2,7 +2,7 @@ import logic from '../../../logic/index.js';
 import { createFunctionalHandler } from '../../../middleware/index.js'
 
 export default createFunctionalHandler((req, res) => {
-    const { userId, params: { cartItemId } } = req
+    const { userId } = req
 
-    return logic.removeAllFromCart(userId, cartItemId).then(() => res.status(204).send())
+    return logic.getCart(userId).then(cart => res.json(cart))
 })

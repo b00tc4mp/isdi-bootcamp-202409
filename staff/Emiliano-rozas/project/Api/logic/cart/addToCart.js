@@ -69,11 +69,24 @@ export default (userId, productId, quantity) => {
                 throw new SystemError(error.message)
             }
         }
-        //sumamos los totales para darle precio
-        cart.totalPrice = cart.items.reduce((total, item) => {
-            return total + item.quantity * product.price
-        }, 0)
+        // smamos los totales para calcular el precio
+        try {
+            // devuelta el populate para obtener todos los items con el precio del producto, sino va a tirar NaN el precio, porque no estaba pudiendo acceder a los valores del precio, estabamos sumando manzanas con peras
+            await cart.populate({
+                path: 'items',
+                populate: {
+                    path: 'product',
+                    select: 'price'
+                }
+            })
+            // se calcula prcio total
+            cart.totalPrice = cart.items.reduce((total, item) => {
+                return total + (item.quantity * (item.product.price || 0));
+            }, 0);
 
+        } catch (error) {
+            throw new SystemError('Failed to calculate total price: ' + error.message);
+        }
         try {
             await cart.save()
         } catch (error) {

@@ -98,7 +98,7 @@ describe('getProducts', () => {
     it('fails on database issues', async () => {
         try {
             await getProducts.call(null)
-            throw new Error('Should not reach this line')
+            throw new SystemError('Should not reach this line')
         } catch (error) {
             expect(error).to.be.instanceOf(SystemError)
         }

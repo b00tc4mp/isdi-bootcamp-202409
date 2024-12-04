@@ -32,6 +32,7 @@ export default (userId, cartItemId) => {
                             }
                             return total;
                         }, 0);
+
                         return Cart.updateOne({ _id: cart._id }, { items: cart.items, totalPrice });
                     });
             } else {
