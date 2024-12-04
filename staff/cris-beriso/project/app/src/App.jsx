@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Register, Login, Home } from './view'
 
-import { Header, Alert, Confirm } from './view/components'
+import { Header, Footer, Alert, Confirm } from './view/components'
 
 import { Context } from './view/useContext'
 
@@ -68,7 +68,7 @@ export default function App() {
 
     </Routes>
 
-    {/* <Footer onNewPostClick={handleNewPostClick} /> */}
+    <Footer />
 
     {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 

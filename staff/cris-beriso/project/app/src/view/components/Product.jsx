@@ -51,14 +51,14 @@ export default function Product({ product }) {
 
     <Button >💔{dislikes} dislikes</Button>
 
-    {/* <p>{storePrices}</p>
+    {/* <p>{storePrices}</p> */}
 
-    <Button >💬{comments} comments</Button>
+    <Button >💬</Button>
 
     {view === 'comments' && <comments
       productId={id}
-      onAdded={onCommmentAdded}
-      onRemoved={onCommentRemoved}
-    />} */}
+    // onAdded={onCommmentAdded}
+    // onRemoved={onCommentRemoved}
+    />}
   </article>
 }

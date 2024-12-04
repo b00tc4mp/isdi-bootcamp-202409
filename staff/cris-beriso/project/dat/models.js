@@ -41,6 +41,24 @@ const user = new Schema({
   }]
 }, { versionKey: false })
 
+const comment = new Schema({
+  author: {
+    type: ObjectId,
+    required: true,
+    ref: 'User'
+  },
+  text: {
+    type: String,
+    required: true,
+    maxLength: 300,
+  },
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
+})
+
 const product = new Schema({
   name: {
     type: String,
@@ -67,7 +85,7 @@ const product = new Schema({
     ref: 'User'
   }],
   //storePrices: [storePrice],
-  //comments: [comment]
+  comments: [comment]
 }, { versionKey: false })
 
 // const storePrice = new Schema({
@@ -81,23 +99,7 @@ const product = new Schema({
 //   }
 // })
 
-// const comment = new Schema({
-//   author: {
-//     type: ObjectId,
-//     required: true,
-//     ref: 'User'
-//   },
-//   text: {
-//     type: string,
-//     required: true,
-//     maxLength: 300,
-//   },
-//   date: {
-//     type: Date,
-//     required: true,
-//     default: Date.now
-//   }
-// })
+
 
 // const store = new Schema({
 //   web: {
@@ -128,16 +130,16 @@ const product = new Schema({
 const User = model('User', user)
 const Product = model('Product', product)
 // const StorePrice = model('StorePrice', storePrice)
-// const Comment = model('Comment', comment)
+const Comment = model('Comment', comment)
 // const Store = model('Store', store)
 // const Location = model('Location', location)
 // const Point = model('Point', point)
 
 export {
   User,
-  Product
+  Product,
   // StorePrice,
-  // Comment,
+  Comment
   // Store,
   // Location,
   // Point
