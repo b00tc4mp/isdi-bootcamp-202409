@@ -13,10 +13,10 @@ export default function ManagePurchasedPacks(props) {
     }
 
     return (
-        <div>
+        <main>
             <h1>Manage Purchased Packs</h1>
             <p>This will be the page to manage purchased packs page</p>
             <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
-        </div>
+        </main>
     )
 }

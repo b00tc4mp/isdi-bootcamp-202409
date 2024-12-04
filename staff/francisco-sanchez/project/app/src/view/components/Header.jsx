@@ -53,7 +53,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
     console.log('Header -> render')
 
-    return <header className="bg-blue-800 text-white p-4 flex justify-between items-center">
+    return <header className="bg-color_darkBlue text-white p-4 flex justify-between items-center h-28">
         <h1 className="text-4xl font-bold">{location.pathname !== '/' ? <a href="" onClick={handleHomeClick}>Hourify</a> : 'Hourify'}</h1>
 
         <div className='flex justify-between'>

@@ -8,7 +8,8 @@ import logic from '../logic'
 
 import useContext from './useContext'
 
-import { Button } from '../library'
+import { Button, Field, Input, Label, Image } from '../library'
+
 
 export default function Register(props) {
     console.log('Register -> render')
@@ -58,34 +59,34 @@ export default function Register(props) {
     }
 
 
-    return <main className="flex flex-col">
+    return <main className="flex flex-col justify-center items-center bg-color_backgroundGrey w-full h-screen">
         <h2 className="">Register</h2>
         <div className="flex flex-col">
-            <form flex flex-col justify-items-start onSubmit={handleSubmit}>
-                <field>
-                    <label htmlFor="name">Name</label>
-                    <input className="border-2 rounded-lg" type="text" id="name" />
-                </field>
+            <form className="flex flex-col justify-items-start" onSubmit={handleSubmit}>
+                <Field>
+                    <Label htmlFor="name">Name</Label>
+                    <Input className="border-2 rounded-lg" type="text" id="name" />
+                </Field>
 
-                <field>
-                    <label htmlFor="email">E-mail</label>
-                    <input className="border-2 rounded-lg" type="email" id="email" />
-                </field>
+                <Field>
+                    <Label htmlFor="email">E-mail</Label>
+                    <Input className="border-2 rounded-lg" type="email" id="email" />
+                </Field>
 
-                <field>
-                    <label htmlFor="username">Username</label>
-                    <input className="border-2 rounded-lg" type="text" id="username" />
-                </field>
+                <Field>
+                    <Label htmlFor="username">Username</Label>
+                    <Input className="border-2 rounded-lg" type="text" id="username" />
+                </Field>
 
-                <field>
-                    <label htmlFor="password">Password</label>
-                    <input className="border-2 rounded-lg" id="password" type="password" />
-                </field>
+                <Field>
+                    <Label htmlFor="password">Password</Label>
+                    <Input className="border-2 rounded-lg" id="password" type="password" />
+                </Field>
 
-                <field>
-                    <label htmlFor="password-repeat">Repeat Password</label>
-                    <input className="border-2 rounded-lg" id="password-repeat" type="password" />
-                </field>
+                <Field>
+                    <Label htmlFor="password-repeat">Repeat Password</Label>
+                    <Input className="border-2 rounded-lg" id="password-repeat" type="password" />
+                </Field>
 
                 <Button type="submit">Register</Button>
             </form>

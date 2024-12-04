@@ -6,7 +6,7 @@ const { SystemError } = errors
 
 import useContex from './useContext'
 
-import { Button } from '../library';
+import { Button, Field, Input, Label, Image } from '../library'
 
 export default function CreatePack(props) {
     const handleHomeClick = event => {
@@ -15,10 +15,31 @@ export default function CreatePack(props) {
     }
 
     return (
-        <div>
-            <h1>Create new pack</h1>
-            <p>This page will be used create new packs</p>
-            <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
-        </div>
+        <main className="flex flex-col justify-center items-center bg-color_backgroundGrey w-full h-screen">
+            <h2 className="">Create new pack</h2>
+            <div className="flex flex-col">
+                <form className="flex flex-col justify-items-start" >
+                    <Field>
+                        <Input className="border-2 rounded-lg" type="text" id="packName" placeholder="Pack name" />
+                    </Field>
+
+                    <Field>
+                        <Input className="border-2 rounded-lg" type="email" id="description" placeholder="Pack description" />
+                    </Field>
+
+                    <Field>
+                        <Label htmlFor="quantity">Quantity</Label>
+                        <Input className="border-2 rounded-lg" type="number" id="quantity" placeholder="Quantity" />
+                    </Field>
+
+                    <Field>
+                        <Input className="border-2 rounded-lg" type="unit" id="unit" />
+                    </Field>
+
+
+                    <Button type="submit">Create Pack</Button>
+                </form>
+            </div>
+        </main>
     )
 }

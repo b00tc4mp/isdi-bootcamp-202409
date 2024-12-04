@@ -14,11 +14,11 @@ export default function ManagePacks(props) {
     }
 
     return (
-        <div>
+        <main className="flex flex-col justify-center items-center bg-color_backgroundGrey w-full h-screen">
             <h1>Manage Customers</h1>
             <p>This will be the page to manage customers</p>
             <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
-        </div>
+        </main>
     )
 
 }

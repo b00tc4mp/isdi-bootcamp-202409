@@ -13,10 +13,10 @@ export default function AssignPack(props) {
     }
 
     return (
-        <div>
+        <main>
             <h1>Assing pack to customer</h1>
             <p>This page will be used to assign packs to customers</p>
             <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
-        </div>
+        </main>
     )
 }

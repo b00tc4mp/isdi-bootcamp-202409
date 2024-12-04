@@ -94,8 +94,10 @@ export default function App() {
     alert(message, level = 'error') { setAlert({ message, level }) },
     confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
   }}>
-    <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />
 
+    {location.pathname !== '/login' && (
+      <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />
+    )}
     <Routes>
 
       <Route path="/login" element={logic.isUserLoggedIn() ?
