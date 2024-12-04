@@ -17,7 +17,7 @@ export default (userId, files, text) => {
 
       return Ad.create({
         author: userId,
-        image: files[0],
+        files: files[0],
         text,
       }).catch((error) => {
         throw new SystemError(error.message)

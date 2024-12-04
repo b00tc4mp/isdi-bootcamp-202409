@@ -13,14 +13,3 @@ try {
 } finally {
   await db.disconnect()
 }
-
-// db.connect(process.env.MONGO_URL_TEST)
-//   .then(() => {
-//     try {
-//       return registerUser('Rive Lino', 'rive@lino.com', '123123123', '123123123').then(console.log).catch(console.error)
-//     } catch (error) {
-//       console.error()
-//     }
-//   })
-//   .catch(console.error)
-//   .finally(() => db.disconnect())

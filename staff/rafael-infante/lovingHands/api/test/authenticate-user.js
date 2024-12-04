@@ -6,7 +6,7 @@ fetch('http://localhost:8080/users/auth', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    email: 'madre@teresa.com',
+    email: 'migue@lita.com',
     password: '123123123',
   }),
 })

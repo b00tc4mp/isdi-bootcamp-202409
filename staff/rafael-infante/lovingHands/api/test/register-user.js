@@ -11,6 +11,7 @@ fetch('http://localhost:8080/users', {
     password: '123123123',
     passwordRepeat: '123123123',
     telephone: '+34123123123',
+    role: 'elder',
   }),
 })
   .catch((error) => {

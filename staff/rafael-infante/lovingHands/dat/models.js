@@ -12,6 +12,7 @@ const user = new Schema(
       type: String,
       required: true,
       minLength: 2,
+      maxLength: 20,
     },
     email: {
       type: String,
@@ -24,6 +25,7 @@ const user = new Schema(
       type: String,
       required: true,
       minLength: 8,
+      maxLength: 120,
     },
     role: {
       type: String,
@@ -35,7 +37,7 @@ const user = new Schema(
       type: String,
       match: /^\+\d{1,3}\d{10,12}$/, // Formato internacional: +34605828090
     },
-    savedAds: [
+    favorites: [
       {
         type: ObjectId,
         ref: 'Ad',
@@ -79,7 +81,7 @@ const ad = new Schema(
       required: true,
       ref: 'User',
     },
-    image: {
+    files: {
       type: String,
       required: true,
     },

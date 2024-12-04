@@ -5,7 +5,7 @@ import { validate, errors } from 'com'
 
 const { DuplicityError, SystemError } = errors
 
-export default (name, email, password, passwordRepeat, telephone, role) => {
+export default (name, email, password, passwordRepeat, telephone, role = 'caregiver') => {
   validate.name(name)
   validate.email(email)
   validate.password(password)

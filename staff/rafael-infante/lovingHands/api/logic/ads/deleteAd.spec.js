@@ -20,7 +20,7 @@ describe('deleteAd', () => {
 
   it('succeeds for existing user', () => {
     const user = new User({ name: 'Spiderman', email: 'spider@man.com', password: bcrypt.hashSync('123123123', 10) })
-    const ad = new Ad({ author: user.id, image: 'http://www.image.com', text: 'hello world' })
+    const ad = new Ad({ author: user.id, files: 'http://www.image.com', text: 'hello world' })
 
     return Promise.all([user.save(), ad.save()]).then(([user, ad]) => {
       deleteAd(user.id, ad.id)

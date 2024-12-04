@@ -4,6 +4,7 @@ import getUserName from './users/getUserName.js'
 
 import createAd from './ads/createAd.js'
 import deleteAd from './ads/deleteAd.js'
+import getAds from './ads/getAds.js'
 
 const logic = {
   registerUser,
@@ -12,6 +13,7 @@ const logic = {
 
   createAd,
   deleteAd,
+  getAds,
 }
 
 export default logic

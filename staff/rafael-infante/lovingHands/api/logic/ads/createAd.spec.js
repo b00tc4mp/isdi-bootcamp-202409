@@ -27,13 +27,15 @@ describe('createAd', () => {
     }).then((user) =>
       createAd(
         user.id,
-        'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg',
+        [
+          'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg',
+        ],
         'listo para dar mi servicio de cuidados!'
       ).then(() =>
         Ad.findOne().then((ad) => {
           expect(ad).to.exist
           expect(ad.author.toString()).to.equal(user.id)
-          expect(ad.image).to.equal(
+          expect(ad.files).to.equal(
             'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg'
           )
           expect(ad.text).to.equal('listo para dar mi servicio de cuidados!')
@@ -46,7 +48,9 @@ describe('createAd', () => {
     expect(
       createAd(
         '012345678901234567890123',
-        'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg',
+        [
+          'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg',
+        ],
         'testing create Ad'
       )
     ).to.be.rejectedWith(NotFoundError, /^user not found$/))
@@ -57,14 +61,14 @@ describe('createAd', () => {
       /^invalid userId length$/
     ))
 
-  it('fails on non-string image', () =>
+  it('fails on undefined files', () =>
     expect(() => createAd('012345678901234567890123', undefined, 'hello world')).to.throw(
       ValidationError,
-      /^invalid image$/
+      /^invalid files$/
     ))
 
   it('fails on non-string text', () =>
-    expect(() => createAd('012345678901234567890123', 'http://www.image.com', undefined)).to.throw(
+    expect(() => createAd('012345678901234567890123', ['http://www.image.com'], undefined)).to.throw(
       ValidationError,
       /^invalid text$/
     ))
