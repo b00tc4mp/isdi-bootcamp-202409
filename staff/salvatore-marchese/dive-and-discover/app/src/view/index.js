@@ -3,6 +3,7 @@ import SelectRoleType from './SelectRoleType'
 import RegisterDiver from './RegisterDiver'
 import RegisterCenter from './RegisterCenter'
 import HomeDiver from './HomeDiver'
+import HomeCenter from './HomeCenter'
 
 
 
@@ -12,4 +13,5 @@ export {
     RegisterDiver,
     RegisterCenter,
     HomeDiver,
+    HomeCenter,
 }

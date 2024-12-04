@@ -1,38 +1,36 @@
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
-
 import { useNavigate } from 'react-router-dom'
+
 
 import logic from '../logic'
 
-import { errors } from '../../../com'
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 export default function Login(props) {
     console.log('Login -> render')
-
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
     const handleSubmit = async event => {
         event.preventDefault()
 
         const { target: { email: { value: email }, password: { value: password } } } = event
 
         try {
-            await logic.loginUser(email, password, error => {
-                if (error) {
+            await logic.loginUser(email, password)
+                .then(() => {
+                    event.target.reset()
+
+                    props.onLoggedIn()
+                })
+                .catch(error => {
                     if (error instanceof SystemError)
-                        alert('Try again later.')
-                else
-                    alert(error.message)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
 
-                console.error(error)
-
-                return
-                }
-
-                event.target.reset()
-
-                props.onLoggedIn()
-            })
+                    console.error(error)
+                })
         } catch (error) {
             alert(error.message)
 

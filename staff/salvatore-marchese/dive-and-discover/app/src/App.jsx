@@ -1,6 +1,6 @@
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeDiver, } from './view/index'
+import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeDiver } from './view'
 
 import Header from './view/components/Header'
 
@@ -11,11 +11,11 @@ export default function App() {
 
   const handleUserLoggedOut = () => navigate('/login')
 
-  const handleUserLoggedIn = () => navigate('/')
+  const handleUserLoggedIn = () => navigate('/home')
 
   const handleRoleSelection = () => navigate('/select-role-type')
 
-  const handleLoginClick = () => navigate('/login')
+  const handleLoginClick = () => navigate('/')
 
   const handleUserRegistered = () => navigate('/login')
 
@@ -29,16 +29,17 @@ export default function App() {
     <Routes>
         <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRoleSelection} />} /> 
 
-         <Route path="/" element={<Login />} />
+         <Route path="/" element={<Login onLoggedIn={handleUserLoggedIn}/>} />
+
         <Route path="/select-role-type" element={<SelectRoleType />} /> 
 
-        <Route path="/registerDiver" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <RegisterDiver onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
+        <Route path="/register-diver" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <RegisterDiver onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
 
-        <Route path="/registerCenter" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <RegisterCenter onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
+        <Route path="/register-center" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <RegisterCenter onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
 
-        <Route path="/" element={logic.isUserLoggedIn() ? <HomeDiver /> : <Navigate to="/login" />} />
+        <Route path="/home" element={logic.isUserRoleDiver() ?  <HomeDiver /> : < Navigate to="/login" />} onLoginClick={handleLoginClick} />
 
-        <Route path="/" element={logic.isUserLoggedIn() ? <HomeCenter /> : <Navigate to="/login" />} />
+        <Route path="/home" element={logic.isUserRoleCenter() ? <HomeCenter /> : <Navigate to="/login" />} onLoginClick={handleLoginClick} />
 
         
     </Routes>

@@ -18,7 +18,7 @@ export default (email, password) => {
             throw new SystemError(error.message)
         }
 
-        if (!User) throw new CredentialsError('wrong credentials')
+        if (!user) throw new CredentialsError('wrong credentials')
 
         let match 
 

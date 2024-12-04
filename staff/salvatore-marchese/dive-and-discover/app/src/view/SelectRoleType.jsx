@@ -1,16 +1,15 @@
 import React from 'react';
 import { Button } from './library'
-import { useNavigate }
-from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SelectRoleType = () => {
     const navigate = useNavigate();
 
     const handleRoleSelection = (role) => {
         if (role === 'diver') {
-            navigate('/registerDiver')
+            navigate('/register-diver')
         } else if (role === 'center') {
-            navigate('/registerCenter')
+            navigate('/register-center')
         }
     };
 

@@ -23,7 +23,7 @@ const user = new Schema({
         type: String,
         requiered: true,
         enum: ['diver', 'center'],
-        default: 'regular'
+        default: 'diver'
     },
         coords: {
             type: {

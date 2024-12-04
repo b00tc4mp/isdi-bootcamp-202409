@@ -98,6 +98,11 @@ export default function Register(props) {
                 <Input type="text" id="postcode" />
             </Field>
 
+            <Field>
+                <Label htmlFor="telephone">Telephone</Label>
+                <Input type="tel" id="telephone" />
+            </Field>
+
             <Button type="submit">Register</Button>
         </Form>
 

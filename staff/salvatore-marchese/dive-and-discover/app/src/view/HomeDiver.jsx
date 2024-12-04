@@ -1,14 +1,12 @@
 import React from 'react';
-
+import { Button } from './library';
 import isUserRoleDiver from '../logic/isUserRoleDiver';
 
-const HomeDiver = ({ user }) => {
-    console.log('HomeDiver -> render')
+const HomeDiver = () => {
+    console.log('home-diver -> render')
     return (
         <div>
-            <h1>Hi, diver {user.name}</h1>
-            {isUserRoleDiver(user.role) ? <CenterHome user={user} /> : <DiverHome user={user} />}
-
+            <h1>Hi, diver</h1>
             <Button onClick={() => handlePersonalInformation('personal-info')}>Personal Information</Button>
 
             <Button onClick={() => handlePersonalDocument('docs-and-insurance')}>Documents & Insurance</Button>

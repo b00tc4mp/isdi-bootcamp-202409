@@ -2,7 +2,7 @@ import { validate, errors } from '../../../com'
 
 const { SystemError } = errors
 
-export default (email, password) => {
+export default async (email, password) => {
     validate.email(email)
     validate.password(password)
 

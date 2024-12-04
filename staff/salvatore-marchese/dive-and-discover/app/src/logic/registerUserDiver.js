@@ -2,14 +2,14 @@ import { validate, errors } from '../../../com'
 
 const { SystemError } = errors
 
-export default (name, email, password, passwordRepeat) => {
+export default async (name, email, password, passwordRepeat) => {
     validate.name(name)
     validate.email(email)
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
     
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/HomeDiver`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/home`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, 'password-repeat': passwordRepeat })
