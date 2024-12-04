@@ -24,20 +24,24 @@ export default (userId, start) => {
                 })
                 .then(() => {
                     return Cycle.findOne({ start: { $lt: start } })
-                        .sort({ start: -1 })
                         .catch(error => { throw new SystemError(error.message) })
                         .then(lastCycle => {
-                            if (lastCycle) {
-                                if ((new Date(start).getTime() - new Date(lastCycle.start).getTime()) < 604800000) {
-                                    throw new ValidationError('Cycle cannot be created if a cycle was created at most 7 days ago');
-                                }
-                            }
-
                             return Cycle.findOne({ start: { $gt: start } })
-                                .sort({ start: 1 })
                                 .catch(error => { throw new SystemError(error.message) })
                                 .then(nextCycle => {
-                                    if (nextCycle) {
+                                    if (lastCycle && nextCycle) {
+                                        if ((new Date(nextCycle.start).getTime() - new Date(start).getTime()) < 604800000) {
+                                            throw new ValidationError('Cycle cannot be created if a cycle starts in 7 days or less');
+                                        }
+                                    }
+
+                                    if (lastCycle && !nextCycle) {
+                                        if ((new Date(start).getTime() - new Date(lastCycle.start).getTime()) < 604800000) {
+                                            throw new ValidationError('Cycle cannot be created if a cycle was created at most 7 days ago');
+                                        }
+                                    }
+
+                                    if (!lastCycle && nextCycle) {
                                         if ((new Date(nextCycle.start).getTime() - new Date(start).getTime()) < 604800000) {
                                             throw new ValidationError('Cycle cannot be created if a cycle starts in 7 days or less');
                                         }
@@ -46,32 +50,23 @@ export default (userId, start) => {
                                     return Cycle.create({ user, start })
                                         .catch(error => { throw new SystemError(error.message) })
                                         .then(newCycle => {
-                                            if (lastCycle) {
-                                                const newCycleAdjustedStart = new Date(start)
-                                                newCycleAdjustedStart.setDate(newCycleAdjustedStart.getDate() - 1)
 
-                                                const lastCycleEndDate = new Date(newCycleAdjustedStart).toISOString()
+                                            if (lastCycle && nextCycle) {
+                                                const lastCycleEndDate = new Date(start).toISOString()
 
                                                 return Cycle.updateOne(lastCycle, { end: lastCycleEndDate }, { new: true })
                                                     .catch(error => { throw new SystemError(error.message) })
-                                                    .then(() => {
-                                                        if (nextCycle) {
-                                                            const nextCycleAdjustedStart = new Date(nextCycle.start)
-                                                            nextCycleAdjustedStart.setDate(nextCycleAdjustedStart.getDate() - 1)
-
-                                                            const nextCycleEndDate = new Date(nextCycleAdjustedStart).toISOString()
-
-                                                            return Cycle.updateOne(newCycle, { end: nextCycleEndDate }, { new: true })
-                                                                .catch(error => { throw new SystemError(error.message) })
-                                                        }
-                                                    })
                                             }
 
-                                            if (nextCycle && !(lastCycle)) {
-                                                const nextCycleAdjustedStart = new Date(nextCycle.start)
-                                                nextCycleAdjustedStart.setDate(nextCycleAdjustedStart.getDate() - 1)
+                                            if (lastCycle && !nextCycle) {
+                                                const lastCycleEndDate = new Date(start).toISOString()
 
-                                                const nextCycleEndDate = new Date(nextCycleAdjustedStart).toISOString()
+                                                return Cycle.updateOne(lastCycle, { end: lastCycleEndDate }, { new: true })
+                                                    .catch(error => { throw new SystemError(error.message) })
+                                            }
+
+                                            if (!lastCycle && nextCycle) {
+                                                const nextCycleEndDate = new Date(nextCycle.start).toISOString()
 
                                                 return Cycle.updateOne(newCycle, { end: nextCycleEndDate }, { new: true })
                                                     .catch(error => { throw new SystemError(error.message) })
