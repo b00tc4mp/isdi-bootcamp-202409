@@ -32,8 +32,7 @@ const validateText = text => {
 }
 
 const validateDate = date => {
-    if (!date instanceof Date) throw new ValidationError('Invalid date')
-    if (date > new Date()) throw new Error('The date cannot be in the future')
+    if (!(date instanceof Date)) throw new ValidationError('Invalid date')
 }
 
 const validateId = (id, explain = 'id') => {
