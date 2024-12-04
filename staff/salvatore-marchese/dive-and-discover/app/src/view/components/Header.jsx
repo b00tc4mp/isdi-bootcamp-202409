@@ -1,51 +1,38 @@
-import { Button } from "../library";
-import logic from "../../logic";
+import { Button } from "../library"
+
+import logic from "../../logic"
+
 
 export default ({ onHomeClick, onLoggedOut }) => {
-  let name;
+    let name 
 
-  if (logic.isUserLoggedIn())
-    try {
-      name = logic.getUserName();
-    } catch (error) {
-      alert(error.message);
+    if (logic.isUserLoggedIn())
+        try {
+            name = logic.getUserName()
+        } catch (error) {
+            alert(error.message)
 
-      console.error(error);
+            console.error(error)
+        }
+    const handleHomeClick = event => {
+        event.preventDefault()
+
+        onHomeClick()
     }
 
-  const handleHomeClick = (event) => {
-    event.preventDefault();
+    const handleLogout = () => {
+        if (confirm('Logout?')) {
+            logic.logoutUser()
 
-    onHomeClick();
-  };
-
-  const handleLogout = () => {
-    if (confirm("Logout?")) {
-      logic.logoutUser();
-
-      onLoggedOut();
+            onLoggedOut()
+        }
     }
-  };
 
-  return (
-    <header className="bg-yellow-500 p-4 h-12 box-border flex justify-between items-center fixed top-0 w-full">
-      <h1 className="m-0 text-xl font-bold">
-        <a
-          href=""
-          onClick={handleHomeClick}
-          className="text-black hover:underline"
-        >
-          Dive & Discover
-        </a>
-      </h1>
+    return <header className="Header bg-yellow-500 text-white shadow-md">
+        <h1 className="text-3xl font-bold"><a href="" onClick={handleHomeClick}>Dive & Discover</a></h1>
 
-      {logic.isUserLoggedIn() && <h3 className="text-base">{name}</h3>}
+        {logic.isUserLoggedIn() && <h3>{name}</h3>}
 
-      {logic.isUserLoggedIn() && (
-        <Button type="button" onClick={handleLogout}>
-          Logout
-        </Button>
-      )}
+        {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
     </header>
-  );
-};
+}

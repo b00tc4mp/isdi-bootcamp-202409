@@ -48,28 +48,27 @@ export default function Login(props) {
         <h2 className="text-3xl font-bold text-center mb-5">Let's <span className="text-yellow-500">Dive</span> you <span className="text-yellow-500">in</span></h2>
         <p className="text-center mb-7 text-600">Discover the World <span className="block"> with Every Sign In 🤿</span></p>
 
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <Form onSubmit={handleSubmit}>
-        <Field className="mb-4">
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" />
-            </Field>
+    
+        <Form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
 
-            <Field className="mb-6">
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
-            </Field>
+        <Field>
+            <Label htmlFor="email">Email</Label>
+            <Input type="email" id="email" />
+        </Field>
 
-        <div className="mt-4 text-center">
-            <Button className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition" type="submit">Login</Button>
-        </div>
+        <Field>
+            <Label htmlFor="password">Password</Label>
+            <PasswordInput id="password" />
+        </Field>
+
+            <Button type="submit">Login</Button>
+        
         </Form>
 
-        <div className="mt-4 text-center">
-            <p className="text-center mb-1 text-600">I don't have an account?</p>
-        <Button className="w-full py-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition" onClick={handleRoleSelection}>Register</Button>
-        </div>
-        </div>
+        
+        <p className="text-center mb-1 text-600">I don't have an account?</p>
+        <Button onClick={handleRoleSelection}>Register</Button>
+        
     </main>
     )
 }

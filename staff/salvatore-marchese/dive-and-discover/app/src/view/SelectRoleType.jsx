@@ -12,9 +12,11 @@ const SelectRoleType = () => {
             navigate('/register-center')
         }
     };
+    
 
     return <main>
-        <div className="flex flex-col gap-2 p-20 space-y-7" >
+        <div className="flex flex-col justify-center items-center h-screen gap-4 bg-gray-50 mt-3">
+
             <h1>Are you a Diver or Center?</h1>
             
             <Button onClick={() => handleRoleSelection('diver')}>

@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken'
 import logic from './logic/index.js' 
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
-db.connect(process.env.MONGO_URL).then(() => {
+db.connect(process.env.MONGO_URL_TEST).then(() => {
     console.log('connected to db')
 
     const server = express()

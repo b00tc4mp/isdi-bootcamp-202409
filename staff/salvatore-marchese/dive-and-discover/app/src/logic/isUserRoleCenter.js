@@ -1,3 +1,3 @@
 import { extractPayloadFromJWT } from '../util'
 
-export default () => extractPayloadFromJWT(localStorage.token).role === 'moderator'
+export default () => extractPayloadFromJWT(localStorage.token).role === 'centre'

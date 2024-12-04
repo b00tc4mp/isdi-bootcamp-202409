@@ -5,6 +5,7 @@ import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeD
 import Header from './view/components/Header'
 
 import logic from './logic'
+import { Footer } from './view/components'
 
 export default function App() {
   const navigate = useNavigate()
@@ -41,7 +42,7 @@ export default function App() {
 
         <Route path="/home" element={logic.isUserRoleCenter() ? <HomeCenter /> : <Navigate to="/login" />} onLoginClick={handleLoginClick} />
 
-        
     </Routes>
+    {logic.isUserLoggedIn() && <Footer />}
   </>
 }

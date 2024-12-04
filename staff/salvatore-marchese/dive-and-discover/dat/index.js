@@ -1,6 +1,6 @@
 import { connect, disconnect } from 'mongoose'
-import { User } from './models.js'
-import './boost-mongoose.js'
+import { User, LogBook, Place, Point, CenterLocation } from './models.js'
+/* import './boost-mongoose.js' */
 
 
 const db = {
@@ -11,5 +11,9 @@ const db = {
 export default db
 
 export {
-    User
+    User,
+    LogBook,
+    Place,
+    Point,
+    CenterLocation
 }

@@ -15,15 +15,15 @@ export default function Register(props) {
             email: { value: email },
             password: { value: password },
             ['password-repeat'] : { value: passwordRepeat},
-            addressLine1: { value: addressLine1 },
-            addressLine2: { value: addressLine2 },
+            address: { value: address },
+            postcode: { value: postcode },
             country: { value: country },
             city: { value: city },
-            postcode: { value: postcode },
+            telephone: { value: telephone }
         } = form
 
         try {
-            logic.registerUser(name, email, password, passwordRepeat, addressLine1, addressLine2, country, city, postcode, error => {
+            logic.registerUserCenter(name, email, password, passwordRepeat, address,  postcode, country, city, telephone, error => {
                 if (error) {
                     alert(error.message)
 
@@ -74,18 +74,13 @@ export default function Register(props) {
             </Field>
 
             <Field>
-                <Label htmlFor="addressLine1">Address Line 1</Label>
-                <Input type="text" id="addressLine1" />
+                <Label htmlFor="address">Address Line</Label>
+                <Input type="text" id="address" />
             </Field>
 
             <Field>
-                <Label htmlFor="addressLine2">Address Line 2</Label>
-                <Input type="text" id="addressLine2" />
-            </Field>
-
-            <Field>
-                <Label htmlFor="country">Country</Label>
-                <Input type="text" id="country" />
+                <Label htmlFor="postcode">Postcode</Label>
+                <Input type="text" id="postcode" />
             </Field>
 
             <Field>
@@ -94,8 +89,8 @@ export default function Register(props) {
             </Field>
 
             <Field>
-                <Label htmlFor="postcode">Postcode</Label>
-                <Input type="text" id="postcode" />
+                <Label htmlFor="country">Country</Label>
+                <Input type="text" id="country" />
             </Field>
 
             <Field>

@@ -4,6 +4,7 @@ import Form from './Form'
 import Input from './Input'
 import Label from './Label'
 import PasswordInput from './PasswordInput'
+import Navigation from './Navigation'
 
 export {
     Button,
@@ -11,5 +12,6 @@ export {
     Form,
     Input,
     Label,
-    PasswordInput
+    PasswordInput,
+    Navigation
 }

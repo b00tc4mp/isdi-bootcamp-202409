@@ -1,12 +1,22 @@
 .Button {
+
+    
+    
     background-color: var(--color);
     font-family: inherit;
     color: var(--back-color);
     border-color: var(--color);
     border-style: solid;
-    width: 50%;
-    border-radius: 10px;
-
+    border-radius: 10px; /* Rounded corners */
+    width: 200px; /* Fixed width */
+    height: auto; /* Adjust height dynamically based on text */
+    padding: 10px; /* Space around text */
+    text-align: center; /* Center the text */
+    white-space: normal; /* Allow text wrapping */
+    overflow: hidden; /* Ensure long text doesn't overflow */
+    text-overflow: ellipsis; /* Add '...' for overflowing text */
+    
+    
 }
 
 /* 
