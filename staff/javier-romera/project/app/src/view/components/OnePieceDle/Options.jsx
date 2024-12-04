@@ -1,4 +1,4 @@
-import { compareFirstLetters, isAnyCharacterWithFirstLetter } from '../../util'
+import { compareFirstLetters, isAnyCharacterWithFirstLetter } from '../../../util'
 
 export default function Options({ inputValue, characters, onCharacterClick }) {
     const handleCharClick = event => {

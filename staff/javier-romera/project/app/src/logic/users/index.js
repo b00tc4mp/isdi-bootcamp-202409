@@ -6,6 +6,7 @@ import logoutUser from './logoutUser'
 import getUserUsername from './getUserUsername'
 import isUserRoleAnonymous from './isUserRoleAnonymous'
 import isUserRoleRegular from './isUserRoleRegular'
+import setNewUserStatus from './setNewUserStatus'
 
 export {
     registerUser,
@@ -15,5 +16,6 @@ export {
     logoutUser,
     getUserUsername,
     isUserRoleAnonymous,
-    isUserRoleRegular
+    isUserRoleRegular,
+    setNewUserStatus
 }

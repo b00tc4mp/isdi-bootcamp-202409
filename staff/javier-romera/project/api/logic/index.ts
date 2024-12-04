@@ -2,7 +2,8 @@ import {
     authenticateUser,
     registerUser,
     registerAnonymousUser,
-    getUserUsername
+    getUserUsername,
+    setNewUserStatus
 } from './users/index.js'
 
 import {
@@ -16,6 +17,7 @@ const logic = {
     registerUser,
     registerAnonymousUser,
     getUserUsername,
+    setNewUserStatus,
 
     getRandomCharacter,
     getCharacterByName,

@@ -1,4 +1,4 @@
-import { formatBounty, formatHeight } from "../../util"
+import { formatBounty, formatHeight } from "../../../util"
 
 export default function Answers({ answers, guessedCharacters }) {
     return <div>

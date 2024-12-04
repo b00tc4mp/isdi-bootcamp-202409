@@ -47,6 +47,11 @@ const validateCharacterName = (name: string): void => {
     if (typeof name !== 'string') throw new ValidationError('Invalid name')
 }
 
+const validateStatus = (status: Number): void => {
+    if (typeof status !== 'number') throw new ValidationError('Invalid status')
+    if (status < 0 || status > 3) throw new ValidationError('Invalid status')
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -55,7 +60,8 @@ const validate = {
     passwordsMatch: validatePasswordsMatch,
     id: validateId,
     callback: validateCallback,
-    characterName: validateCharacterName
+    characterName: validateCharacterName,
+    status: validateStatus
 }
 
 export default validate

@@ -60,9 +60,18 @@ export default function useController() {
             }
 
         if (didWin) {
-            setTimeout(() => {
-                setShowWinAlert(true)
-            }, 2000)
+            try {
+                logic.setNewUserStatus(1)
+                    .then(() => {
+                        setTimeout(() => {
+                            setShowWinAlert(true)
+                        }, 1000)
+                    })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
         }
     }, [didWin])
 

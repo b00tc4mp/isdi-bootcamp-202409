@@ -1,6 +1,9 @@
 import { Button, Form, Input } from '../../library'
 
-import { Options, AnswersLegend, Answers, OnePieceDleWinScreen } from '../'
+import Options from './Options'
+import OnePieceDleWinScreen from './OnePieceDleWinScreen'
+import Answers from './Answers'
+import AnswersLegend from './AnswersLegend'
 
 import useController from './useController'
 
@@ -38,6 +41,6 @@ export default function OnePieceDle() {
             </div>}
         </section>
 
-        {showWinAlert && <OnePieceDleWinScreen />}
+        {showWinAlert && <OnePieceDleWinScreen correctChar={guessedCharacters[guessedCharacters.length - 1].name} />}
     </main>
 }

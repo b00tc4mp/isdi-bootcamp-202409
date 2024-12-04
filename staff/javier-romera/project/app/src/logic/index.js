@@ -6,7 +6,8 @@ import {
     logoutUser,
     getUserUsername,
     isUserRoleAnonymous,
-    isUserRoleRegular
+    isUserRoleRegular,
+    setNewUserStatus
 } from './users'
 
 import {
@@ -25,6 +26,7 @@ const logic = {
     getUserUsername,
     isUserRoleAnonymous,
     isUserRoleRegular,
+    setNewUserStatus,
 
     getRandomCharacter,
     getCharacterByName,

@@ -34,6 +34,12 @@ const user = new Schema({
         type: String,
         required: true,
         default: 'Rookie'
+    },
+    status: {
+        type: Number,
+        required: true,
+        enum: [0, 1, 2, 3],
+        default: 0
     }
 }, { versionKey: false })
 

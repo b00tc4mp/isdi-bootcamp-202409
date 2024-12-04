@@ -6,16 +6,16 @@ export default {
   ],
   theme: {
     extend: {
-      textStrokeWidth: {
-        1: "1px",
-        2: "2px",
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-in-out',
       },
-      textStrokeColor: {
-        white: "#FFFFFF",
-      }
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
     },
   },
-  plugins: [
-    require("@designbycode/tailwindcss-text-stroke")
-  ],
+  plugins: [],
 }
