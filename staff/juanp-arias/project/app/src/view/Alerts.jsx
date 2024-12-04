@@ -1,13 +1,12 @@
+import { SectionContainer, SectionHeader } from './components'
 import { Button } from './library'
-import { SectionHeader, SectionContainer } from './components'
 
-export default function Home(props) {
+export default function Alerts() {
     return <main className="flex justify-center items-center min-h-screen bg-gray-100">
         <SectionContainer>
-            <SectionHeader sectionName='studify' />
+            <SectionHeader sectionName='notifications' />
             <div className="p-6 space-y-4">
-                <Button>Notifications</Button>
-                <Button>Schedule</Button>
+                <Button>New note</Button>
             </div>
         </SectionContainer>
     </main>

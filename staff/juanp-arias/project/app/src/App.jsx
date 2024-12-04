@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { Login, Register, WelcomeScreen, Home, Profile } from './view'
+import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, Alerts } from './view'
 import { Header, Footer, Alert, Confirm } from './view/components'
 import { Context } from './view/useContext'
 import logic from './logic'
@@ -72,6 +72,12 @@ export default function App() {
       <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/welcome" />} />
 
       <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/welcome" />} />
+
+      <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/welcome" />} />
+
+      <Route path="/notes" element={logic.isUserLoggedIn() ? <Notes /> : <Navigate to="/welcome" />} />
+
+      <Route path="/alerts" element={logic.isUserLoggedIn() ? <Alerts /> : <Navigate to="/welcome" />} />
 
     </Routes>
     {logic.isUserLoggedIn() && <Footer />}

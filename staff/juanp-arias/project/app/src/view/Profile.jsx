@@ -1,8 +1,8 @@
 import logic from '../logic'
-import { Field, Input, Label, Form, Button, Select } from './library'
+import { Field, Input, Label, Form, Button } from './library'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { SectionHeader } from './components'
+import { SectionHeader, SectionContainer } from './components'
 import { errors } from 'com'
 import useContext from './useContext'
 
@@ -12,7 +12,7 @@ export default function Profile() {
     const [datos, setDatos] = useState(null)
     const location = useLocation()
     const { alert } = useContext()
-    
+
     const fetchDatos = () => {
         if (logic.isUserLoggedIn()) {
             logic.getUserDatos()
@@ -66,7 +66,7 @@ export default function Profile() {
     }
 
     return <main className="flex justify-center items-center bg-gray-100 min-h-screen pb-8">
-        <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden h-full">
+        <SectionContainer>
             <SectionHeader sectionName="profile" />
             <Form onSubmit={handleSubmit} className="p-6 space-y-1">
                 <Field>
@@ -87,6 +87,6 @@ export default function Profile() {
                 </Field>
                 <Button type="submit">Done</Button>
             </Form>
-        </div>
+        </SectionContainer>
     </main>
 }

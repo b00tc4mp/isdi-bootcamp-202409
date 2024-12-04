@@ -5,6 +5,7 @@ import Button from './Button'
 import Form from './Form'
 import Navigation from './Navigation'
 import Select from './Select'
+import CalendarButton from './CalendarButton'
 
 export {
     Input,
@@ -13,5 +14,6 @@ export {
     Button,
     Form,
     Navigation,
-    Select
+    Select,
+    CalendarButton
 }
