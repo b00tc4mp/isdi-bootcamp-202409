@@ -5,6 +5,7 @@ import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'
 import createAd from './createAd'
 import getUserId from './getUserId'
+import getAds from './getAds'
 
 const logic = {
   registerUser,
@@ -14,6 +15,7 @@ const logic = {
   getUserName,
   getUserId,
   createAd,
+  getAds,
 }
 
 export default logic

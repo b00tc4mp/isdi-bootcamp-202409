@@ -5,7 +5,7 @@ const { SystemError } = errors
 fetch('http://localhost:8080/ads', {
   headers: {
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzUwNGZhMWZhN2FjMDI3NmFiOGIwNWIiLCJyb2xlIjoiZWxkZXIiLCJpYXQiOjE3MzMzMTgxNzIsImV4cCI6MTczMzMyNTM3Mn0.x8ucyoTwGRA6GEdJbP8MOGk8kElc1leriXDjyVshAzw',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzUwNjhmMWI5MjczYWI1YzdlZjA5NjYiLCJyb2xlIjoiZWxkZXIiLCJpYXQiOjE3MzMzMzE1MDEsImV4cCI6MTczMzMzODcwMX0.MPt9ouf5DcrwCGzukQ84af1RMqWonVtoZ3mTDNp0VS0',
   },
 })
   .then(async (res) => {

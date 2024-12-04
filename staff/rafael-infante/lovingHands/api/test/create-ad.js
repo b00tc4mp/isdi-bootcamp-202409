@@ -6,7 +6,7 @@ fetch('http://localhost:8080/ads', {
   method: 'POST',
   headers: {
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRkZmExNGE1NDAwMGI1YzY5MzRjMjYiLCJyb2xlIjoiY2FyZWdpdmVyIiwiaWF0IjoxNzMzMTYzNjAyLCJleHAiOjE3MzMxNzA4MDJ9.OQbS49nlNawJxeQ_Irit1WSP6i2L-kxG12toye0uZAM',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzUwNjhmMWI5MjczYWI1YzdlZjA5NjYiLCJyb2xlIjoiZWxkZXIiLCJpYXQiOjE3MzMzMzA1MTYsImV4cCI6MTczMzMzNzcxNn0.x00iT3GUXV23ggSBYpg8k6J07ULBpCnYl8A_1otCasE',
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({

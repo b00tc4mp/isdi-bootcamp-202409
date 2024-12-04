@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import logic from '../logic'
 
 export default function Home() {
   const [name, setName] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     console.log('Header -> render componentDidMount & componentWillReceiveProps')
@@ -23,7 +25,11 @@ export default function Home() {
           console.error(error)
         }
     } else setName(null)
-  }, [])
+  }, [name])
+
+  const handleFindAdsClick = () => {
+    navigate('/ads')
+  }
 
   console.log('Home -> render')
 
@@ -42,12 +48,12 @@ export default function Home() {
         {/* Actions Section */}
         <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 mb-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 cursor-pointer">
             <a
-              href="/caregivers"
+              onClick={handleFindAdsClick}
               className="flex flex-col items-center justify-center bg-[#FFC9B0] text-[#E84D67] rounded-lg p-4 shadow hover:bg-[#F56132] hover:text-white transition duration-200"
             >
-              Find Elders Posts
+              Find Ads
             </a>
             <a
               href="/offer-help"

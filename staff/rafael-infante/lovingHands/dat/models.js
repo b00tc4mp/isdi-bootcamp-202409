@@ -81,10 +81,12 @@ const ad = new Schema(
       required: true,
       ref: 'User',
     },
-    files: {
-      type: String,
-      required: true,
-    },
+    files: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     text: {
       type: String,
       required: true,

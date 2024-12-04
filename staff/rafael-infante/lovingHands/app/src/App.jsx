@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { Login, Home, Register, Welcome, CreateAd } from './view'
+import { Login, Home, Register, Welcome, CreateAd, AdList } from './view'
 import { Header, Footer } from './view/components'
 import logic from './logic'
 
@@ -43,7 +43,7 @@ export default function App() {
         />
 
         <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/welcome" />} />
-
+        <Route path="/ads" element={<AdList />} />
         <Route
           path="/new-ad"
           element={logic.isUserLoggedIn() ? <CreateAd onCreated={handleAdCreated} /> : <Navigate to="/welcome" />}
