@@ -2,15 +2,23 @@ import {
   isUserLoggedIn,
   loginUser,
   registerUser,
-  getUserName
+  getUserName,
+  logoutUser
 } from './users'
+
+import {
+  getProducts
+} from './products'
 
 
 const logic = {
   registerUser,
   loginUser,
   isUserLoggedIn,
-  getUserName
+  getUserName,
+  logoutUser,
+
+  getProducts
 }
 
 export default logic

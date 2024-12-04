@@ -1,13 +1,15 @@
 import { useState } from 'react'
 
-import logic from '../../logic'
+import { Button } from '../library'
+
+//import logic from '../../logic'
 
 import useContext from '../useContext'
 
-export default function Product({ }) {
+export default function Product({ product }) {
   const [view, setView] = useState(null)
 
-  const { alert, confirm } = useContext()
+  //const { alert, confirm } = useContext()
 
   const {
     id,
@@ -16,27 +18,27 @@ export default function Product({ }) {
     description,
     likes,
     dislikes,
-    storePrices,
-    comments
+    // storePrices,
+    // comments
   } = product
 
-  const handleLikeClick = () => {
-    try {
-      //TODO logic.toggleLikeProduct
-    } catch (error) {
+  // const handleLikeClick = () => {
+  //   try {
+  //     //TODO logic.toggleLikeProduct
+  //   } catch (error) {
 
-    }
-  }
+  //   }
+  // }
 
-  const handleDislikeClick = () => {
-    try {
-      //TODO logic.toggleDislikeProduct
-    } catch (error) {
+  // const handleDislikeClick = () => {
+  //   try {
+  //     //TODO logic.toggleDislikeProduct
+  //   } catch (error) {
 
-    }
-  }
+  //   }
+  // }
 
-  const handleCommentsClick = () => setView(view ? null : 'comments')
+  // const handleCommentsClick = () => setView(view ? null : 'comments')
 
   return <article>
     <h4>{nameProduct}</h4>
@@ -45,18 +47,18 @@ export default function Product({ }) {
 
     <p>{description}</p>
 
-    <Button onClick={handleLikeClick}> ❤️{likes} likes</Button>
+    <Button > ❤️{likes} likes</Button>
 
-    <Button onClick={handleDislikeClick}>💔{dislikes} dislikes</Button>
+    <Button >💔{dislikes} dislikes</Button>
 
-    <p>{storePrices}</p>
+    {/* <p>{storePrices}</p>
 
-    <Button onClick={handleCommentsClick}>💬{comments} comments</Button>
+    <Button >💬{comments} comments</Button>
 
     {view === 'comments' && <comments
       productId={id}
       onAdded={onCommmentAdded}
       onRemoved={onCommentRemoved}
-    />}
+    />} */}
   </article>
 }
