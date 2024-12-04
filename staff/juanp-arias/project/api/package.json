@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "inspect": "node --inspect-brk .",
-    "test": "mocha logic/*.spec.js",
+    "test": "mocha logic/users/*.spec.js",
     "test-inspect": "mocha --inspect-brk logic/*.spec.js",
     "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js --timeout 20000"
   },

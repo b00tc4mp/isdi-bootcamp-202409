@@ -2,22 +2,21 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (name, email, dateOfBirth, password, passwordRepeat) => {
-    validate.name(name)
+export default (email, password) => {
     validate.email(email)
-    validate.date(new Date(dateOfBirth))
     validate.password(password)
-    validate.passwordsMatch(password, passwordRepeat)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/users`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/users/auth`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, dateOfBirth, password, 'password-repeat': passwordRepeat })
+        body: JSON.stringify({ email, password })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (res.ok)
-                return
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(token => { sessionStorage.token = token })
 
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })

@@ -1,27 +1,90 @@
 import { errors } from 'com'
+import logo2 from '../assets/logo2.png'
+import { Input, Label, Field, Button, Form } from './library'
+import logic from '../logic'
+import useContext from './useContext'
 
 const { SystemError } = errors
 
-import logic from '../logic'
-
 export default function Register(props) {
+    const { alert } = useContext()
 
-    return <main>
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="">Name</label>
-            <input type="text" />
+    const handleSubmit = event => {
+        event.preventDefault()
+        const { target: form } = event
+        const {
+            name: { value: name },
+            email: { value: email },
+            dateOfBirth: { value: dateOfBirth },
+            password: { value: password },
+            repeatpassword: { value: repeatpassword }
+        } = form
 
-            <label htmlFor="">E-mail</label>
-            <input type="email" />
+        try {
+            logic.registerUser(name, email, dateOfBirth, password, repeatpassword)
+                .then(() => {
+                    form.reset()
+                    alert('User registered')
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
+                    console.error(error)
+                    form.reset()
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
 
-            <label htmlFor="">Birthdate</label>
-            <input type="date" />
+    const onGoBackClick = event => {
+        event.preventDefault()
+        props.onBackClick()
+    }
 
-            <label htmlFor="">Password</label>
-            <input type="password" />
+    return <main className="flex items-center justify-center max-h-screen bg-gray-50 pt-2">
+        <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
+            <div className="flex justify-between items-center mb-6">
+                <div>
+                    <h1 className="text-2xl font-bold text-gray-900">Welcome to <span className="text-sky-500">studify</span></h1>
+                    <p className="text-sm text-gray-500 mt-1">Create your account</p>
+                </div>
+                <img src={logo2} alt="logo" className="h-16 w-16 rounded-full shadow-md" />
+            </div>
 
-            <label htmlFor="">Repeat your password</label>
-            <input type="password" />
-        </form>
+            <Form onSubmit={handleSubmit} className="space-y-2">
+                <Field>
+                    <Label htmlFor="name">Your name</Label>
+                    <Input type="text" id="name" placeholder="Name" />
+                </Field>
+                <Field>
+                    <Label htmlFor="email">Email address</Label>
+                    <Input type="email"
+                        id="email" placeholder="E-mail" />
+                </Field>
+                <Field>
+                    <Label htmlFor="dateOfBirth">Birthdate</Label>
+                    <Input type="date" id="dateOfBirth" />
+                </Field>
+                <Field>
+                    <Label htmlFor="password">Password</Label>
+                    <Input type="password" id="password" placeholder="Password" />
+                </Field>
+                <Field>
+                    <Label htmlFor="repeatpassword">Password repeat</Label>
+                    <Input type="password" id="repeatpassword" placeholder="Password" />
+                </Field>
+                <Button type="submit">Create account</Button>
+            </Form>
+
+            <p className="text-xs text-center text-gray-500 mt-4">By continuing, you agree to our{" "}<a href="#" className="text-blue-500 hover:underline">Terms of Service</a>{" "}and{" "}<a href="#" className="text-blue-500 hover:underline">Privacy Policy</a>.</p>
+
+            <div className="mt-6 text-center">
+                <a href="" className="text-sm text-blue-500 hover:underline" onClick={onGoBackClick}>Go back</a>
+            </div>
+        </div>
     </main>
 }
