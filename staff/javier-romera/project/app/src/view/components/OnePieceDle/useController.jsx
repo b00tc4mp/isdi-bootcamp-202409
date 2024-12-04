@@ -42,7 +42,7 @@ export default function useController() {
             try {
                 logic.getRandomCharacter()
                     .then(char => {
-                        console.log(char)
+                        console.log(char) // TODO erase
                         setRandomChar(char)
                     })
                     .catch(error => {
@@ -60,12 +60,17 @@ export default function useController() {
             }
 
         if (didWin) {
+
+
             try {
-                logic.setNewUserStatus(1)
-                    .then(() => {
-                        setTimeout(() => {
-                            setShowWinAlert(true)
-                        }, 1000)
+                logic.getUserStatus()
+                    .then(userStatus => {
+                        logic.setNewUserStatus(userStatus, 'onepiecedle')
+                            .then(() => {
+                                setTimeout(() => {
+                                    setShowWinAlert(true)
+                                }, 1000)
+                            })
                     })
             } catch (error) {
                 alert(error.message)

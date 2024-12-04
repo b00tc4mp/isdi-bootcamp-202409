@@ -4,7 +4,9 @@ import { User } from 'dat'
 import { validate, errors } from 'com'
 const { SystemError, CredentialsError } = errors
 
-export default (username: string, password: string): Promise<{ id: string, role: string }> => {
+import { Payload } from '../../types.js'
+
+export default (username: string, password: string): Promise<Payload> => {
     validate.username(username)
     validate.password(password)
 
@@ -33,7 +35,7 @@ export default (username: string, password: string): Promise<{ id: string, role:
 
         return {
             id: user._id.toString(),
-            role: user.role
+            role: user.role,
         }
     })()
 }

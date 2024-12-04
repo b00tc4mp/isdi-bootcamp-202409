@@ -2,14 +2,14 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default status => {
+export default (status, from) => {
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/status`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.token}`
         },
-        body: JSON.stringify({ status })
+        body: JSON.stringify({ status, from })
     })
 
         .catch(error => { throw new SystemError(error.message) })

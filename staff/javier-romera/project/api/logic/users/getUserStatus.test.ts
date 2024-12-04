@@ -1,14 +1,14 @@
 import 'dotenv/config'
 import db from 'dat'
 
-import setNewUserStatus from './setNewUserStatus.js'
+import getUserStatus from './getUserStatus.js'
 
 await db.connect(process.env.ALLPIECE_URL_TEST!)
 
 try {
-    const result = await setNewUserStatus('67506750873625a867b428b9', 1, 'onepiecedle')
+    const status = await getUserStatus('67507b73057ea68270d315a1', '67507b73057ea68270d315a1')
 
-    console.log(result)
+    console.log(status)
 } catch (error) {
     console.error(error)
 } finally {

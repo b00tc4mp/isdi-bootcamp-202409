@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import db from 'dat'
+
 import authenticateUser from './authenticateUser.js'
 
 await db.connect(process.env.ALLPIECE_URL_TEST!)

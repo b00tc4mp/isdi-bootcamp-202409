@@ -7,6 +7,7 @@ import {
     getUserUsername,
     isUserRoleAnonymous,
     isUserRoleRegular,
+    getUserStatus,
     setNewUserStatus
 } from './users'
 
@@ -26,6 +27,7 @@ const logic = {
     getUserUsername,
     isUserRoleAnonymous,
     isUserRoleRegular,
+    getUserStatus,
     setNewUserStatus,
 
     getRandomCharacter,

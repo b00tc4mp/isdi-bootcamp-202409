@@ -3,9 +3,19 @@ import { User } from 'dat'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId: string, newStatus: Number) => {
+export default (userId: string, status: Number, from: string) => {
     validate.id(userId, 'userId')
-    validate.status(newStatus)
+    validate.status(status)
+
+    let newStatus
+
+    if (status === 0 && from === 'onepiecedle') newStatus = 1
+    else if (status === 0 && from === 'onedoku') newStatus = 2
+    else if (status === 1 && from === 'onepiecedle') return
+    else if (status === 1 && from !== 'onepiecedle') newStatus = 3
+    else if (status === 2 && from === 'onedoku') return
+    else if (status === 2 && from !== 'onedoku') newStatus = 3
+    else if (status === 3) return
 
     return (async () => {
         let user

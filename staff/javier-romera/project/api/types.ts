@@ -1,10 +1,15 @@
 import { Request } from 'express'
-import { Types } from 'mongoose'
 
 interface CustomRequest extends Request {
     userId: string
 }
 
+type Payload = {
+    id: string,
+    role: string
+}
+
 export {
-    CustomRequest
+    CustomRequest,
+    Payload
 }
