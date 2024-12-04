@@ -1,14 +1,13 @@
 import 'dotenv/config'
 import db from 'dat'
-
-import registerUser from './registerUser.js'
+import authenticateUser from './authenticateUser.js'
 
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-    const result = await registerUser('pe@ix.com', '123123123', '123123123')
+    const user = await authenticateUser('al@eix.com', '123123123')
 
-    console.log(result) // undefined
+    console.log(user)
 } catch (error) {
     console.error(error)
 } finally {

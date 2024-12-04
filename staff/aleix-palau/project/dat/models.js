@@ -5,7 +5,6 @@ const { Schema, model, Types: { ObjectId } } = mongoose
 const user = new Schema({
     name: {
         type: String,
-        required: true,
         minLength: 2
     },
     email: {

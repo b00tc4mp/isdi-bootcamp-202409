@@ -3,8 +3,8 @@ import db from 'dat'
 import express from 'express'
 import cors from 'cors'
 
-// import { errorHandler } from './routes/helpers/index.js'
-// import { usersRouter } from './routes/index.js'
+import { errorHandler } from './routes/helpers/index.js'
+import { usersRouter } from './routes/index.js'
 
 db.connect(process.env.MONGO_URL_TEST).then(() => {
     console.log('connected to db')
@@ -15,9 +15,9 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
     server.get('/', (_, res) => res.send('Sup, API!'))
 
-    // server.use('/users', usersRouter)
+    server.use('/users', usersRouter)
 
-    // server.use(errorHandler)
+    server.use(errorHandler)
 
     server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
 })

@@ -5,8 +5,7 @@ import { validate, errors } from 'com'
 
 const { DuplicityError, SystemError } = errors
 
-export default (name, email, password, passwordRepeat) => {
-    validate.name(name)
+export default (email, password, passwordRepeat) => {
     validate.email(email)
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
@@ -21,7 +20,7 @@ export default (name, email, password, passwordRepeat) => {
         }
 
         try {
-            await User.create({ name, email, password: hash })
+            await User.create({ email, password: hash })
         } catch (error) {
             if (error.code === 11000) throw new DuplicityError('user already exists')
 

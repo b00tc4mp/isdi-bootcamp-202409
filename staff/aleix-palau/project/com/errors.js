@@ -3,7 +3,7 @@ const createCustomError = name =>
         constructor(message) {
             super(message)
 
-            this.name = name
+            this.name = name // for browsers compat (WARN safari seems to fail, it hangs)
         }
 
         static get name() { return name }

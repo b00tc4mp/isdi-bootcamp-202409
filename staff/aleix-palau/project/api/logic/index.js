@@ -1,9 +1,13 @@
 import {
-    registerUser
+    registerUser,
+    authenticateUser,
+    getUserName
 } from './users/index.js'
 
 const logic = {
-    registerUser
+    registerUser,
+    authenticateUser,
+    getUserName
 }
 
 export default logic
