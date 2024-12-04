@@ -25,7 +25,7 @@ export default (name: string, email: string, username: string, password: string,
         try {
             await Player.create({ name, email, username, password: hash })
         } catch (error) {
-            if ((error as MongoError).code === 11000) throw new DuplicityError('user already exists')
+            if ((error as MongoError).code === 11000) throw new DuplicityError('this user already exists')
 
             if (error instanceof SystemError) throw new SystemError((error as Error).message)
         }

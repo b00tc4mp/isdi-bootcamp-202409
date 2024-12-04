@@ -13,7 +13,9 @@ const { NotFoundError } = errors
 
 import getPlayerUsername from './getPlayerUsername.js'
 
+debugger
 describe('getPlayerUsername', () => {
+
     before(() => db.connect(process.env.MONGO_URL_TEST!))
 
     beforeEach(() => Player.deleteMany())

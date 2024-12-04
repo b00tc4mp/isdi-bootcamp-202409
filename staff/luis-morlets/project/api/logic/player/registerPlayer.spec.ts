@@ -36,7 +36,7 @@ describe('registerPlayer', (): void => {
             await Player.create({ name: 'Pero Lito', email: 'pero@lito.com', username: 'perolito', password: bcrypt.hashSync('123123123', 8) })
 
             await registerPlayer('Pero Lito', 'pero@lito.com', 'perolito', '123123123', '123123123')
-        })()).to.be.rejectedWith(DuplicityError, 'this user already exists')
+        })()).to.be.rejectedWith(DuplicityError, /^this user already exists$/)
     )
 
     after(() => db.disconnect())

@@ -17,6 +17,7 @@
         "mongoose": "^8.8.1"
     },
     "devDependencies": {
+        "@types/bcryptjs": "^2.4.6",
         "@types/mongodb": "^4.0.6",
         "@types/node": "^22.10.1",
         "bcryptjs": "^2.4.3",

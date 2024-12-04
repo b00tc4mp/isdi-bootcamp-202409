@@ -1,0 +1,19 @@
+Gold Coin, Can be used in the shop, 1, , , currency, Used to buy items in the shop
+Health Potion, A small potion than can restore health points, 1, 15, , consumable, Restores 1D4 health points when used
+Cooldown Potion, A potion than can reduce a skill cooldown by 1 turn, 1, 30, , consumable, Reduces skill cooldown by 1 turn when used
+Mana Potion,  A small potion than can restore mana points, 1, 15, , consumable, Restores 1D4 mana points when used
+Fire Bomb, Deals 1D8 fire damage in an area, 1, 20, , damage, Deals 30 fire damage in an area on impact
+Acid Bomb, Deals 1d6 acid damage and reduces target AC -2, 1, 20, , damage, Deals 25 acid damage and reduces target defense for 5 turns
+Skeleton Skull, A skull of a defeated skeleton. Can be sold at the shop, 1, ,5, material
+Slime Essence, Slime's magical essence. Can be sold at the shop, 1, ,2, material
+Zombie Foot, A decayed foot from a zombie. Can be sold at the shop, 1, ,5, material
+Purse of Gold, A small purse with a 10 gold coins, 1, ,30, currency
+Pile of Bones, A pile of bones from various creatures. Can be sold at the shop, 1, ,5, material
+Harpy Beak, A sharp beak from a harpy. Can be sold at the shop, 1, ,6, material
+Harpy Feather, A rare feather from a harpy. Can be sold at the shop, 1, ,7, material
+Spider Eye, A poisonous spider's eye. Can be sold at the shop, 1, ,2, material
+Spider Silk, Valuable silk from a spider. Can be sold at the shop, 1, ,2, material
+Beast Fang, A sharp fang from a wild beast. Can be sold at the shop, 1, ,2, material
+Vine Fragment, A fragment of enchanted vine, 1, ,12, material
+Spider Queen Fang, A deadly fang from the Spider Queen, 1, ,15, material
+Shadow Orb, A mysterious orb of dark energy, 1, ,12, artifact

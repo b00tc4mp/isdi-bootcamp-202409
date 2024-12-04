@@ -7,8 +7,7 @@ import { Login, Register, Home } from './view'
 import { Context } from './view/useContext'
 
 import logic from './logic'
-import Alert from './view/components/Alert'
-import Confirm from './view/components/Confirm'
+import { Alert, Confirm } from './view/components'
 
 export default function App() {
     console.log('App -> render')

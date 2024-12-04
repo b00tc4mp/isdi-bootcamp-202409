@@ -1,6 +1,4 @@
-import authenticatePlayer from './authenticatePlayer.js'
-import registerPlayer from './registerPlayer.js'
-import getPlayerUsername from './getPlayerUsername.js'
+import { registerPlayer, authenticatePlayer, getPlayerUsername } from './player/index.js'
 
 const logic = {
     authenticatePlayer,

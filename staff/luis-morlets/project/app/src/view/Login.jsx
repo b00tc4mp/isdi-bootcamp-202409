@@ -48,10 +48,10 @@ export default function Login(props) {
         props.onRegisterClick()
     }
 
-    return <main className="flex flex-col justify-center">
+    return <main className="flex flex-col justify-center items-center">
         <h2>Login</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
             <label htmlFor="username">Username:</label>
             <input type="text" id="username" required={true} className="border-black border" />
 
