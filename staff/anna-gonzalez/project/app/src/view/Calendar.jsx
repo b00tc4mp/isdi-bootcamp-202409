@@ -32,7 +32,7 @@ export default function Calendar() {
     }
 
     const handleCalendarDayClick = selectedDay => {
-        const fullSelectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay + 1)
+        const fullSelectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay)
 
         setSelectedDate(fullSelectedDate)
         setSelectedDay(selectedDay)

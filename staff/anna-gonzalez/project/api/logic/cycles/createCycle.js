@@ -12,10 +12,10 @@ export default (userId, start) => {
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
 
-            const adjustedStart = new Date(start)
-            adjustedStart.setDate(adjustedStart.getDate() - 1)
+            const startToDate = new Date(start)
+            startToDate.setDate(startToDate.getDate())
 
-            if (adjustedStart.toISOString() > new Date().toISOString()) throw new ValidationError('Cycle cannot be created in the future')
+            if (startToDate.toISOString() > new Date().toISOString()) throw new ValidationError('Cycle cannot be created in the future')
 
             return Cycle.findOne({ start })
                 .catch(error => { throw new SystemError(error.message) })
