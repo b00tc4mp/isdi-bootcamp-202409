@@ -4,12 +4,31 @@ import {
     getUserName
 } from './users/index.js'
 
+import {
+    addComment,
+    createRecommend,
+    deleteRecommend,
+    downVote,
+    getComments,
+    getRecommend,
+    removeComment,
+    upVote
+} from './recommend/index.js'
 
 
 const logic = {
     registerUser,
     authenticateUser,
-    getUserName
+    getUserName,
+
+    addComment,
+    createRecommend,
+    deleteRecommend,
+    downVote,
+    getComments,
+    getRecommend,
+    removeComment,
+    upVote
 }
 
 
