@@ -7,7 +7,7 @@ import {
   getUserId,
 } from "./users"
 
-import { createEvent, deleteEvent, getEvents } from "./events"
+import { createEvent, deleteEvent, getEvents, toggleLikeEvent } from "./events"
 
 const logic = {
   registerUser,
@@ -20,5 +20,6 @@ const logic = {
   createEvent,
   deleteEvent,
   getEvents,
+  toggleLikeEvent,
 }
 export default logic

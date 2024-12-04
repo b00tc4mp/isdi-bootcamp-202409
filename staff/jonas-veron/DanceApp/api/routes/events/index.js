@@ -13,9 +13,9 @@ const eventsRouter = Router()
 
 eventsRouter.post("/", jsonBodyParser, authorizationHandler, createEventHandler)
 eventsRouter.delete("/:eventId", authorizationHandler, deleteEventHandler)
-eventsRouter.get("/:eventId/likes", authorizationHandler, getEventsHandler)
+eventsRouter.get("/", authorizationHandler, getEventsHandler)
 eventsRouter.patch(
-  "/:postId/likes",
+  "/:eventId/likes",
   authorizationHandler,
   toggleLikeEventHandler
 )

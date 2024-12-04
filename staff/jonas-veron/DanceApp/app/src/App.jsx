@@ -8,8 +8,6 @@ import logic from "./logic/index.js"
 function App() {
   const navigate = useNavigate()
   const isLoggedIn = logic.isUserLoggedIn()
-  console.log(isLoggedIn)
-
   console.log("App -> render")
 
   return (

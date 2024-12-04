@@ -12,8 +12,8 @@ export default (userId, eventId) => {
       throw new SystemError(error.message)
     })
     .then(([user, event]) => {
-      if (!user) throw new NotFoundEddod("User not found")
-      if (!event) throw new NotFoundEddod("Event not found")
+      if (!user) throw new NotFoundError("User not found")
+      if (!event) throw new NotFoundError("Event not found")
 
       const { likes } = event
 

@@ -25,12 +25,13 @@ export default function Home() {
           console.error(error)
         }
     }
-  }, [])
+  }, [name])
 
   useEffect(() => {
     try {
       logic
         .getEvents()
+
         .then(setEvents)
         .catch((error) => {
           alert(error.message)
@@ -42,13 +43,26 @@ export default function Home() {
       console.error(error)
     }
   }, [])
+
+  const handleLiked = () => {
+    try {
+      logic
+        .getEvents()
+        .then(setEvents)
+        .catch((error) => {
+          alert(error.message)
+
+          console.error(error)
+        })
+    } catch (error) {}
+  }
   return (
     <>
       <h1 className="pt-16 text-center text-cyan-50">Bienvenido {name}!!!</h1>
 
       <div className="items-center text-center pb-16">
         {events.map((event) => (
-          <Event key={event.id} event={event} />
+          <Event key={event.id} event={event} onLiked={handleLiked} />
         ))}
       </div>
     </>

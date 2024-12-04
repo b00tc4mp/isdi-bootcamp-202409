@@ -1,5 +1,5 @@
-import liked from "./liked.svg"
-import like from "./like.svg"
+import likedIcon from "./likedIcon.svg"
+import likeIcon from "./likeIcon.svg"
 import calendarIcon from "./calendarIcon.svg"
 import create from "./create.svg"
 import DanceAppLogo from "./DanceAppLogo.svg"
@@ -11,8 +11,8 @@ import shareIcon from "./shareIcon.svg"
 import locationIcon from "./locationIcon.svg"
 
 export {
-  liked,
-  like,
+  likedIcon,
+  likeIcon,
   calendarIcon,
   create,
   DanceAppLogo,

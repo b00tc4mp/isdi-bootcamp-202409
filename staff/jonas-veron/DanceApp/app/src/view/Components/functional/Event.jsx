@@ -1,18 +1,17 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import logic from "../../../logic"
 import { getElapsedTime } from "../../../util"
 import {
-  like,
-  liked,
+  likeIcon,
+  likedIcon,
   commentIcon,
   shareIcon,
   locationIcon,
   starIcon,
 } from "./../../../assets/index.js"
 
-export default function Event({ event }) {
+export default function Event({ event, onLiked }) {
   console.log("Post -> render")
-  const [view, setView] = useState(null)
 
   const {
     id,
@@ -22,11 +21,34 @@ export default function Event({ event }) {
     eventDate,
     date,
     location,
-    liked,
+    likedByUser,
     likes,
     comments,
   } = event
-  console.log(event)
+  const [isLiked, setIsLiked] = useState(event.likedByUser)
+
+  useEffect(() => {
+    setIsLiked(event.likedByUser) // Actualiza el estado si `event.liked` cambia
+  }, [event.likedByUser])
+
+  const handleLikeClick = () => {
+    setIsLiked(!isLiked)
+
+    try {
+      logic
+        .toggleLikeEvent(id)
+        .then(onLiked)
+        .catch((error) => {
+          alert(error.message)
+
+          console.error(error)
+        })
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
 
   return (
     <article className="bg-transparent text-white shadow-md rounded-lg p-1 mb-6 max-w-xl mx-auto">
@@ -47,7 +69,13 @@ export default function Event({ event }) {
         <img src={files[0]} className="w-full h-auto rounded-lg object-cover" />
         <div className="flex items-center justify-between mt-0.5 mr-3 ml-3">
           <div className="flex space-x-8">
-            <img src={like} alt="Like" className="w-6 h-6 cursor-pointer" />
+            <img
+              src={isLiked ? likedIcon : likeIcon}
+              alt="Like"
+              className="w-6 h-6 cursor-pointer"
+              onClick={handleLikeClick}
+            />
+            <span>{likes}</span>
 
             <img
               src={commentIcon}

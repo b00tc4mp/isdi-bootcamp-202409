@@ -5,12 +5,13 @@ const { SystemError, ValidationError } = errors
 
 export default async (userId) => {
   validate.id(userId, "userId")
-
+  debugger
   try {
     const [user, events] = await Promise.all([
       User.findById(userId).lean(),
       Event.find().populate("author", "name").sort({ date: -1 }).lean(),
     ])
+
     if (!user) throw new ValidationError("User not found")
 
     debugger
