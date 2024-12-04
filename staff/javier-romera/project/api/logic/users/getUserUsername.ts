@@ -8,16 +8,20 @@ export default (userId: string, targetUserId: string): Promise<string | undefine
     validate.id(targetUserId, 'targetUserId')
 
     return (async () => {
+        let user, targetUser
+
         try {
-            const [user, targetUser] = await Promise.all([User.findById(userId).lean(), User.findById(targetUserId).lean()])
+            const users = await Promise.all([User.findById(userId).lean(), User.findById(targetUserId).lean()])
 
-            if (!user) throw new NotFoundError('user not found')
-            if (!targetUser) throw new NotFoundError('target user not found')
-
-            return targetUser.username
+            user = users[0]
+            targetUser = users[1]
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
+
+        if (!user) { throw new NotFoundError('user not found') }
+        if (!targetUser) { throw new NotFoundError('target user not found') }
+
+        return targetUser.username
     })()
 }
