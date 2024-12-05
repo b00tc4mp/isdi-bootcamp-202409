@@ -10,7 +10,7 @@ const { expect } = chai
 import db, { User } from 'dat'
 import { errors } from 'com'
 
-const { DuplicityError, ValidationError } = errors
+const { DuplicityError, ValidationError, NotFoundError } = errors
 
 import registerUser from './registerUser.js'
 
@@ -30,12 +30,48 @@ describe('registerUser', () => {
         expect(bcrypt.compareSync('123123123', user!.password)).to.be.true
     })
 
+    it('succeeds on anonymous user registering', async () => {
+        const anonymousUser = await User.create({ email: 'qwerty@gmail.com', username: 'qwerty', password: bcrypt.hashSync('qwertyqwerty', 10), role: 'anonymous' })
+
+        const { _id } = anonymousUser
+
+        await registerUser('javi@gmail.com', 'javi', '123123123', '123123123', _id.toString())
+
+        const user = await User.findOne({ username: 'javi' })
+
+        expect(user).to.exist
+        expect(user!.email).to.equal('javi@gmail.com')
+        expect(user!.username).to.equal('javi')
+        expect(bcrypt.compareSync('123123123', user!.password)).to.be.true
+        expect(user!.role).to.equal('regular')
+    })
+
     it('fails on existing user', () =>
         expect((async () => {
-            await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+            await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 
             await registerUser('javi@gmail.com', 'javi', '123123123', '123123123')
-        })()).to.be.rejectedWith(DuplicityError, 'user already exists')
+        })()).to.be.rejectedWith(DuplicityError, /^user already exists$/)
+    )
+
+    it('fails on existing user as anonymous', () =>
+        expect((async () => {
+            await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+            const user = await User.create({ email: 'javi2@gmail.com', username: 'javi2', password: bcrypt.hashSync('123123123', 10), role: 'anonymous' })
+
+            await registerUser('javi@gmail.com', 'javi', '123123123', '123123123', user._id.toString())
+        })()).to.be.rejectedWith(DuplicityError, /^user already exists$/)
+    )
+
+    it('fails on not found user', () =>
+        expect((async () => {
+            await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+            const user = await User.create({ email: 'javi2@gmail.com', username: 'javi2', password: bcrypt.hashSync('123123123', 10), role: 'anonymous' })
+
+            await registerUser('javi@gmail.com', 'javi', '123123123', '123123123', '012345678901234567890123')
+        })()).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
     it('fails on non-valid username length', () =>

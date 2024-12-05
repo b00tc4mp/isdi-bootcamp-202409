@@ -29,14 +29,14 @@ describe('getUserUsername', () => {
     it('fails on non-existing user', () =>
         expect(
             getUserUsername('012345678901234567890123', '012345678901234567890123')
-        ).to.be.rejectedWith(NotFoundError, 'user not found')
+        ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
     it('fails on non-existing target-user', () =>
         expect(
             User.create({ email: 'javi@gmail.com', username: 'javi', password: '123123123' })
                 .then(user => getUserUsername(user.id, '012345678901234567890123'))
-        ).to.be.rejectedWith(NotFoundError, 'target user not found')
+        ).to.be.rejectedWith(NotFoundError, /^target user not found$/)
     )
 
     // TODO SystemError tests (typescript no me deja)

@@ -24,7 +24,7 @@ export default (userId: string, targetUserId: string): Promise<number> => {
         }
 
         if (!user) { throw new NotFoundError('user not found') }
-        if (!targetUser) { throw new NotFoundError('user not found') }
+        if (!targetUser) { throw new NotFoundError('target user not found') }
 
         return targetUser.status
     })()

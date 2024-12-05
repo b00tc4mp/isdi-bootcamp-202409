@@ -18,6 +18,8 @@ export default (userId: string, charName: string) => {
                 throw new SystemError(error.message)
         }
 
+        if (!user) throw new NotFoundError('user not found')
+
         try {
             char = await Character.findOne({ $or: [{ name: charName }, { alias: charName }] }).populate('firstArc', 'name number -_id').populate('devilFruit', 'type -_id').select('-_id').lean()
         } catch (error) {
@@ -25,7 +27,6 @@ export default (userId: string, charName: string) => {
                 throw new SystemError(error.message)
         }
 
-        if (!user) throw new NotFoundError('user not found')
         if (!char) throw new NotFoundError('character not found')
 
         return char

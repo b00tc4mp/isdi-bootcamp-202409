@@ -17,14 +17,14 @@ export default (userId: string) => {
                 throw new SystemError(error.message)
         }
 
+        if (!user) throw new NotFoundError('user not found')
+
         try {
             characters = await Character.find().populate('firstArc', 'name number -_id').populate('devilFruit', 'type -_id').select('-_id -description -race -town').lean()
         } catch (error) {
             if (error instanceof SystemError)
                 throw new SystemError(error.message)
         }
-
-        if (!user) throw new NotFoundError('user not found')
 
         const randomIndex = Math.floor(Math.random() * characters!.length)
 

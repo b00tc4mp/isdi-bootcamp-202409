@@ -32,9 +32,7 @@ export default (email: string, username: string, password: string, passwordRepea
 
                 throw new SystemError((error as Error).message)
             }
-        }
-
-        else {
+        } else {
             try {
                 user = await User.findById(userId).lean()
             } catch (error) {
@@ -47,10 +45,9 @@ export default (email: string, username: string, password: string, passwordRepea
             try {
                 await User.updateOne({ _id: userId }, { email: email, username: username, password: hash, role: 'regular' })
             } catch (error) {
-                if (error instanceof DuplicityError)
-                    throw new DuplicityError('user already exists')
-                if (error instanceof Error)
-                    throw new SystemError(error.message)
+                if ((error as MongoError).code === 11000) throw new DuplicityError('user already exists')
+
+                throw new SystemError((error as Error).message)
             }
         }
     })()

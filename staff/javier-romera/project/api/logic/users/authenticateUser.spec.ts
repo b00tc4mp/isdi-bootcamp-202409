@@ -32,9 +32,17 @@ describe('authenticateUser', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            authenticateUser('javi', '123123123')
+            authenticateUser('Javi', '123123123')
         ).to.be.rejectedWith(CredentialsError, 'cagaste')
     )
+
+    it('fails on non-matching password', async () => {
+        await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+        expect(
+            authenticateUser('javi', '321321321')
+        ).to.be.rejectedWith(CredentialsError, 'cagaste')
+    })
 
     after(() => db.disconnect())
 })

@@ -12,8 +12,7 @@ export default (userId: string): Promise<void> => {
         try {
             user = await User.findById(userId)
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         if (!user) throw new NotFoundError('user not found')
@@ -22,8 +21,7 @@ export default (userId: string): Promise<void> => {
         try {
             await User.deleteOne({ _id: userId })
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
     })()
 }
