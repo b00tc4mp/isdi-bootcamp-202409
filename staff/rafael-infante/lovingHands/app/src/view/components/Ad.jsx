@@ -1,8 +1,6 @@
 export default function Ad({ ad }) {
   const { id, author, files, text, date } = ad
 
-  console.log(ad)
-
   return (
     <div className="border border-gray-300 rounded-lg p-4 shadow">
       {/* Image */}
