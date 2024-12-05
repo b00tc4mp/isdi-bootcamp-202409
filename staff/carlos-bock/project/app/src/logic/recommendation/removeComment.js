@@ -1,4 +1,4 @@
-import validate from '../../../../com/validate.js' // import errors from '../../../../com/errors.js'
+import validate from '../../../../com/validate.js'; import errors from '../../../../com/errors.js'
 
 const { SystemError } = errors
 

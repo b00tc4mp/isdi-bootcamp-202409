@@ -2,17 +2,12 @@ import validate from '../../../../com/validate.js'; import errors from '../../..
 
 const { SystemError } = errors
 
-const addComment = (recommendId, text) => {
+const upVoteToggle = recommendId => {
     validate.id(recommendId, 'recommendId')
-    validate.text(text)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/reommend/${recommendId}/comments`, {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${localStorage.token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ text })
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}/upVote`, {
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${localStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
@@ -24,4 +19,5 @@ const addComment = (recommendId, text) => {
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
 }
-export default addComment
+
+export default upVoteToggle

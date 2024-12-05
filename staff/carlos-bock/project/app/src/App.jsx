@@ -41,6 +41,19 @@ export default function App() {
   console.log('App -> render')
 
   return <div>
+    <h1>Hello world</h1>
+  </div>
+}
+
+/*<Context.Provider value={{
+  alert(message, level = 'error') { setAlert({ message, level }) },
+  confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+}}>
+
+*/
+
+
+/*<div>
     <Header onHomeClick={handleHomeClick} onLoggedout={handleUserLoggedOut} />
 
     <Routes>
@@ -59,12 +72,4 @@ export default function App() {
 
 
     <Footer onNewRecommendClick={handleNewRecommendClick} />
-  </div>
-}
-
-/*<Context.Provider value={{
-  alert(message, level = 'error') { setAlert({ message, level }) },
-  confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
-}}>
-
-*/
+  </div>*/

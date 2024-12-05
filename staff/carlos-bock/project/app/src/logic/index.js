@@ -9,6 +9,18 @@ import getUserId from './user/getUserId.js'
 import getUserName from './user/getUserName.js'
 import getUserRole from './user/getUserRole.js'
 
+import addComment from './recommendation/addComment.js'
+import getComments from './recommendation/getComments.js'
+import removeComment from './recommendation/removeComment.js'
+
+import createRecommend from './recommendation/createRecommend.js'
+import deleteRecommend from './recommendation/deleteRecommend.js'
+import getRecommend from './recommendation/getRecommend.js'
+
+import downVoteToggle from './recommendation/downVoteToggle.js'
+import upVoteToggle from './recommendation/upVoteToggle.js'
+
+
 const logic = {
     loginUser,
     logoutUser,
@@ -21,7 +33,16 @@ const logic = {
     getUserName,
     getUserRole,
 
+    addComment,
+    getComments,
+    removeComment,
 
+    createRecommend,
+    deleteRecommend,
+    getRecommend,
+
+    downVoteToggle,
+    upVoteToggle
 }
 
 export default logic

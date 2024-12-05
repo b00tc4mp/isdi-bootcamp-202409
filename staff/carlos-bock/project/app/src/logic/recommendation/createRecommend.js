@@ -24,9 +24,6 @@ const createRecommend = (city, country, category, price, link, imageUrl, recomme
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
-
-
-
 }
 
 export default createRecommend
