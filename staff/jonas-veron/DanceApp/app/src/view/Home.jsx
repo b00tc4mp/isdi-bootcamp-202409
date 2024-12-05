@@ -44,35 +44,21 @@ export default function Home() {
     }
   }, [])
 
-  const handleLiked = () => {
-    try {
-      logic
-        .getEvents()
-        .then(setEvents)
-        .catch((error) => {
-          alert(error.message)
-
-          console.error(error)
-        })
-    } catch (error) {}
+  const refreshEvents = () => {
+    logic
+      .getEvents()
+      .then(setEvents)
+      .catch((error) => {
+        alert(error.message)
+        console.error(error)
+      })
   }
 
-  const handleDeleted = () => {
-    try {
-      logic
-        .getEvents()
-        .then(setEvents)
-        .catch((error) => {
-          alert(error.message)
+  const handleLiked = refreshEvents
+  const handleDeleted = refreshEvents
+  const handleCommentAdded = refreshEvents
+  const handleCommentRemoved = refreshEvents
 
-          console.error(error)
-        })
-    } catch (error) {
-      alert(error.message)
-
-      console.error(error)
-    }
-  }
   return (
     <>
       <h1 className="pt-16 text-center text-cyan-50">Bienvenido {name}!!!</h1>
@@ -84,6 +70,8 @@ export default function Home() {
             event={event}
             onLiked={handleLiked}
             onDeleted={handleDeleted}
+            onCommentAdded={handleCommentAdded}
+            onCommentRemoved={handleCommentRemoved}
           />
         ))}
       </div>

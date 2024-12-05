@@ -6,7 +6,10 @@ import {
   getEvents,
   toggleLikeEvent,
   addComment,
+  removeComment,
+  getComments,
 } from "./events/index.js"
+
 const logic = {
   registerUser,
   authenticateUser,
@@ -17,6 +20,8 @@ const logic = {
   getEvents,
   toggleLikeEvent,
   addComment,
+  removeComment,
+  getComments,
 }
 
 export default logic

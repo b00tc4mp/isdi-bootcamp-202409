@@ -3,6 +3,8 @@ import deleteEventHandler from "./deleteEventHandler.js"
 import getEventsHandler from "./getEventsHandler.js"
 import toggleLikeEventHandler from "./toggleLikeEventHandler.js"
 import addCommentHandler from "./addCommentHandler.js"
+import removeCommentHandler from "./removeCommentHandler.js"
+import getCommentsHandler from "./getCommentsHandler.js"
 
 export {
   createEventHandler,
@@ -10,4 +12,6 @@ export {
   getEventsHandler,
   toggleLikeEventHandler,
   addCommentHandler,
+  removeCommentHandler,
+  getCommentsHandler,
 }

@@ -7,6 +7,9 @@ import {
   deleteEventHandler,
   getEventsHandler,
   toggleLikeEventHandler,
+  addCommentHandler,
+  removeCommentHandler,
+  getCommentsHandler,
 } from "./handlers/index.js"
 
 const eventsRouter = Router()
@@ -25,5 +28,11 @@ eventsRouter.post(
   jsonBodyParser,
   addCommentHandler
 )
+eventsRouter.delete(
+  "/:eventId/comments/:commentId",
+  authorizationHandler,
+  removeCommentHandler
+)
+eventsRouter.get("/:eventId/comments", authorizationHandler, getCommentsHandler)
 
 export default eventsRouter

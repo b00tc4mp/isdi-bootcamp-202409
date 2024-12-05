@@ -17,7 +17,7 @@ describe("getEvents", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST))
 
   beforeEach(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
-  it("succreeds for existing user", async () => {
+  it("succeeds for existing user", async () => {
     const user = await User.create({
       name: "Carlos Diaz",
       email: "carlos@dancer.com",
@@ -77,7 +77,7 @@ describe("getEvents", () => {
 
   it("fails for non-existing user", async () => {
     await expect(getEvents("012345678901234567890123")).to.be.rejectedWith(
-      Error,
+      Error, //en la logica tuve que cambiarlo porque sino no funciona !!
       /^User not found$/
     )
   })

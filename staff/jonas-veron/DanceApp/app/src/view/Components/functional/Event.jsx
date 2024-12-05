@@ -11,7 +11,15 @@ import {
   deleteIcon,
 } from "./../../../assets/index.js"
 
-export default function Event({ event, onLiked, onDeleted }) {
+import { Comments } from "./index.js"
+
+export default function Event({
+  event,
+  onLiked,
+  onDeleted,
+  onCommentAdded,
+  onCommentRemoved,
+}) {
   console.log("Post -> render")
 
   const {
@@ -72,6 +80,8 @@ export default function Event({ event, onLiked, onDeleted }) {
     }
   }
 
+  const handleCommentsClick = () => setView(view ? null : "comments")
+
   return (
     <article className="bg-transparent text-white shadow-md rounded-lg p-1 mb-6 max-w-xl mx-auto relative">
       {/* Contenedor para autor y dirección */}
@@ -113,12 +123,15 @@ export default function Event({ event, onLiked, onDeleted }) {
               />
               <p className="ml-2">{likes}</p>
             </div>
-
-            <img
-              src={commentIcon}
-              alt="Comment"
-              className="w-6 h-6 cursor-pointer"
-            />
+            <div className="flex">
+              <img
+                src={commentIcon}
+                alt="Comment"
+                className="w-6 h-6 cursor-pointer"
+                onClick={handleCommentsClick}
+              />
+              <p className="ml-2">{comments}</p>
+            </div>
             <img
               src={shareIcon}
               alt="Share"
@@ -146,6 +159,13 @@ export default function Event({ event, onLiked, onDeleted }) {
         {text}
       </p>
       <time>{getElapsedTime(date)}</time>
+      {view === "comments" && (
+        <Comments
+          eventId={event.id}
+          onAdded={onCommentAdded}
+          onRemoved={onCommentRemoved}
+        />
+      )}
     </article>
   )
 }
