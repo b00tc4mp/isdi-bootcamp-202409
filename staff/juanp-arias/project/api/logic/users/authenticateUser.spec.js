@@ -20,7 +20,7 @@ describe('authenticateUser', () => {
     it('succeeds on existing user', async () => {
         await User.create({ name: 'Coco Loco', email: 'coco@loco.com', dateOfBirth: new Date('07/04/2000'), password: bcrypt.hashSync('123456', 10) })
 
-        const user = await authenticateUser('Coco Loco', '123456')
+        const user = await authenticateUser('coco@loco.com', '123456')
         expect(user).to.exist
         expect(user.id).to.be.a.string
         expect(user.id).to.have.lengthOf(24)
@@ -30,7 +30,7 @@ describe('authenticateUser', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            authenticateUser('Coco Loco', '123456')
+            authenticateUser('coco@loco.com', '123456')
         ).to.be.rejectedWith(CredentialsError, 'wrong credentials')
     )
 
@@ -44,7 +44,7 @@ describe('authenticateUser', () => {
 
         it('fails on User.findOne error', () =>
             expect(
-                authenticateUser('Coco Loco', '123456')
+                authenticateUser('coco@loco.com', '123456')
             ).to.be.rejectedWith(SystemError, /^system error on User.findOne$/)
         )
         afterEach(() => User.findOne = findOne)

@@ -3,6 +3,11 @@ import mongoose from 'mongoose'
 const { Schema, model, Types: { ObjectId } } = mongoose
 
 const note = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
     date: {
         type: Date,
         required: true,
@@ -55,7 +60,6 @@ const user = new Schema({
         enum: ['student', 'teacher'],
         default: 'student'
     },
-    notes: [note],
     reminders: [reminder],
 }, { versionKey: false })
 

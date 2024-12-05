@@ -4,6 +4,7 @@ import SectionHeader from './SectionHeader'
 import Alert from './Alert'
 import Confirm from './Confirm'
 import SectionContainer from './SectionContainer'
+import Note from './Note'
 
 export {
     Header,
@@ -11,5 +12,6 @@ export {
     SectionHeader,
     Alert,
     Confirm,
-    SectionContainer
+    SectionContainer,
+    Note
 }
