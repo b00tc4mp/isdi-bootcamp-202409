@@ -9,13 +9,13 @@ export default function Comment({ productId, comment: { id, author, text, date }
   const handleRemove = () => {
     if (confirm('Delete comment?'))
       try {
-        //TODO logic.removeComment(productId, id)
-        // .then(onRemoved)
-        // .catch(error => {
-        //   alert(error.message)
+        logic.removeComment(productId, id)
+          .then(onRemoved)
+          .catch(error => {
+            alert(error.message)
 
-        //   console.error(error)
-        // })
+            console.error(error)
+          })
       } catch (error) {
         alert(error.message)
 

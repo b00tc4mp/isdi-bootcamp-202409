@@ -16,7 +16,6 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
   server.get('/', (_, res) => res.send('Hello, API!'))
 
   server.use('/users', usersRouter)
-
   server.use('/products', productsRouter)
 
   server.use(errorHandler)

@@ -1,15 +1,16 @@
 import { useState } from 'react'
 
 import { Button } from '../library'
+import Comments from './Comments'
 
-//import logic from '../../logic'
+import logic from '../../logic'
 
 import useContext from '../useContext'
 
-export default function Product({ product }) {
+export default function Product({ product, onCommentAdded, onCommentRemoved }) {
   const [view, setView] = useState(null)
 
-  //const { alert, confirm } = useContext()
+  const { alert, confirm } = useContext()
 
   const {
     id,
@@ -19,7 +20,7 @@ export default function Product({ product }) {
     likes,
     dislikes,
     // storePrices,
-    // comments
+    comments
   } = product
 
   // const handleLikeClick = () => {
@@ -38,7 +39,7 @@ export default function Product({ product }) {
   //   }
   // }
 
-  // const handleCommentsClick = () => setView(view ? null : 'comments')
+  const handleCommentsClick = () => setView(view ? null : 'comments')
 
   return <article>
     <h4>{nameProduct}</h4>
@@ -53,12 +54,12 @@ export default function Product({ product }) {
 
     {/* <p>{storePrices}</p> */}
 
-    <Button >💬</Button>
+    <Button onClick={handleCommentsClick}>💬 {comments.length} comments</Button>
 
-    {view === 'comments' && <comments
+    {view === 'comments' && <Comments
       productId={id}
-    // onAdded={onCommmentAdded}
-    // onRemoved={onCommentRemoved}
+      onAdded={onCommentAdded}
+      onRemoved={onCommentRemoved}
     />}
   </article>
 }

@@ -11,17 +11,17 @@ export default function AddComment({ productId, onAdded }) {
     const { text: { value: text } } = form
 
     try {
-      // TODO logic.addComment(productId, text)
-      // .then(() => {
-      //   form.reset()
+      logic.addComment(productId, text)
+        .then(() => {
+          form.reset()
 
-      //   onAdded()
-      // })
-      // .catch(error => {
-      //   alert(error.message)
+          onAdded()
+        })
+        .catch(error => {
+          alert(error.message)
 
-      //   console.error(error)
-      // })
+          console.error(error)
+        })
     } catch (error) {
       alert(error.message)
 
@@ -36,6 +36,5 @@ export default function AddComment({ productId, onAdded }) {
     </Field>
 
     <Button type="submit">Send</Button>
-
   </Form>
 }

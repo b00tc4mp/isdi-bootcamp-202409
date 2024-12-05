@@ -10,13 +10,13 @@ export default function Comments(props) {
 
   useEffect(() => {
     try {
-      //TODO logic.getComments(props.productId)
-      // .then(setComments)
-      // .catch(error => {
-      //   alert(error.message)
+      logic.getComments(props.productId)
+        .then(setComments)
+        .catch(error => {
+          alert(error.message)
 
-      //   console.error(error)
-      // })
+          console.error(error)
+        })
     } catch (error) {
       alert(error.message)
 
@@ -24,9 +24,61 @@ export default function Comments(props) {
     }
   }, [])
 
+  const handleAdded = () => {
+    try {
+      logic.getComments(props.productId)
+        .then(comments => {
+          setComments(comments)
+
+          props.onAdded()
+        })
+        .catch(error => {
+          alert(error.message)
+
+          console.error(error)
+        })
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
+
+  const handleRemoved = () => {
+    try {
+      logic.getComments(props.productId)
+        .then(comments => {
+          setComments(comments)
+
+          props.onRemoved()
+        })
+        .catch(error => {
+          alert(error.message)
+
+          console.error(error)
+        })
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
+
   return <section>
     <ul>
-      TODO map de comments
+      {comments.map(comment =>
+        <Comment
+          key={comment.id}
+          productId={props.productId}
+          comment={comment}
+          onRemoved={handleRemoved}
+        />)
+      }
     </ul>
+
+    <AddComment
+      productId={props.productId}
+      onAdded={handleAdded}
+    />
   </section>
 }

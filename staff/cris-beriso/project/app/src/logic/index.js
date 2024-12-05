@@ -3,11 +3,15 @@ import {
   loginUser,
   registerUser,
   getUserName,
-  logoutUser
+  logoutUser,
+  getUserId
 } from './users'
 
 import {
-  getProducts
+  getProducts,
+  addComment,
+  getComments,
+  removeComment
 } from './products'
 
 
@@ -17,8 +21,12 @@ const logic = {
   isUserLoggedIn,
   getUserName,
   logoutUser,
+  getUserId,
 
-  getProducts
+  getProducts,
+  addComment,
+  getComments,
+  removeComment
 }
 
 export default logic
