@@ -35,9 +35,9 @@ describe('createAd', () => {
         Ad.findOne().then((ad) => {
           expect(ad).to.exist
           expect(ad.author.toString()).to.equal(user.id)
-          expect(ad.files).to.equal(
-            'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg'
-          )
+          expect(ad.files).to.deep.equal([
+            'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg',
+          ])
           expect(ad.text).to.equal('listo para dar mi servicio de cuidados!')
           expect(ad.date).to.be.instanceOf(Date)
         })

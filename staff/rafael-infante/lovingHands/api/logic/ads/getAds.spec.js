@@ -33,13 +33,13 @@ describe('getAds', () => {
     })
     const ad = new Ad({
       author: user.id,
-      files: 'http://www.image.com',
+      files: ['http://www.image.com'],
       text: 'this is an Ad',
       date: new Date(2024, 10, 19),
     })
     const ad2 = new Ad({
       author: user2.id,
-      files: 'http://www.image2.com',
+      files: ['http://www.image2.com'],
       text: 'this is another Ad',
       date: new Date(2024, 10, 20),
     })
@@ -51,14 +51,14 @@ describe('getAds', () => {
         expect(ads[0].id).to.equal(ad2.id)
         expect(ads[0].author.id).to.equal(user2.id)
         expect(ads[0].author.name).to.equal(user2.name)
-        expect(ads[0].files).to.equal(ad2.files)
+        expect(ads[0].files).to.deep.equal(ad2.files)
         expect(ads[0].text).to.equal(ad2.text)
         expect(ads[0].date).to.deep.equal(ad2.date)
 
         expect(ads[1].id).to.equal(ad.id)
         expect(ads[1].author.id).to.equal(user.id)
         expect(ads[1].author.name).to.equal(user.name)
-        expect(ads[1].files).to.equal(ad.files)
+        expect(ads[1].files).to.deep.equal(ad.files)
         expect(ads[1].text).to.equal(ad.text)
         expect(ads[1].date).to.deep.equal(ad.date)
       })

@@ -6,9 +6,9 @@ await db.connect(process.env.MONGO_URL_TEST)
 
 try {
   const result = await createAd(
-    '67504fa1fa7ac0276ab8b05b',
+    '6751944eaf6d1840dca49153',
     ['https://imagenes.cope.es/files/content_image/uploads/2024/07/11/669038a685834.jpeg'],
-    'necesito una persona joven para ayuda en el hogar'
+    'necesito una persona joven para ayuda en el hogar 2'
   )
   console.log(result)
 } catch (error) {
