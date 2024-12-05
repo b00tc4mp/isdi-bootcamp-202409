@@ -4,6 +4,7 @@ import getUserUsernameHandler from './getUserUsernameHandler.js'
 import registerAnonymousUserHandler from './registerAnonymousUserHandler.js'
 import setNewUserStatusHandler from './setNewUserStatusHandler.js'
 import getUserStatusHandler from './getUserStatusHandler.js'
+import deleteAnonymousUserHandler from './deleteAnonymousUserHandler.js'
 
 export {
     authenticateUserHandler,
@@ -11,5 +12,6 @@ export {
     getUserUsernameHandler,
     registerAnonymousUserHandler,
     setNewUserStatusHandler,
-    getUserStatusHandler
+    getUserStatusHandler,
+    deleteAnonymousUserHandler
 }

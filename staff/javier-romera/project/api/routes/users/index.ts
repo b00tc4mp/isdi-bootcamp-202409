@@ -7,8 +7,10 @@ import {
     registerAnonymousUserHandler,
     getUserUsernameHandler,
     setNewUserStatusHandler,
-    getUserStatusHandler
+    getUserStatusHandler,
+    deleteAnonymousUserHandler
 } from './handlers/index.js'
+
 
 const usersRouter = Router()
 
@@ -19,5 +21,7 @@ usersRouter.post('/', authorizationHandler as RequestHandler, jsonBodyParser, re
 usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.post('/anonymous', registerAnonymousUserHandler)
 usersRouter.post('/status', authorizationHandler as RequestHandler, jsonBodyParser, setNewUserStatusHandler)
+
+usersRouter.delete('/anonymous', authorizationHandler as RequestHandler, deleteAnonymousUserHandler)
 
 export default usersRouter

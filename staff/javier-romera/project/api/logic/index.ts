@@ -4,7 +4,8 @@ import {
     registerAnonymousUser,
     getUserUsername,
     setNewUserStatus,
-    getUserStatus
+    getUserStatus,
+    deleteAnonymousUser
 } from './users/index.js'
 
 import {
@@ -20,6 +21,7 @@ const logic = {
     getUserUsername,
     setNewUserStatus,
     getUserStatus,
+    deleteAnonymousUser,
 
     getRandomCharacter,
     getCharacterByName,

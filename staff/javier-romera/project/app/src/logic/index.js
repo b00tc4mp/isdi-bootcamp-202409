@@ -8,7 +8,8 @@ import {
     isUserRoleAnonymous,
     isUserRoleRegular,
     getUserStatus,
-    setNewUserStatus
+    setNewUserStatus,
+    deleteAnonymousUser
 } from './users'
 
 import {
@@ -29,6 +30,7 @@ const logic = {
     isUserRoleRegular,
     getUserStatus,
     setNewUserStatus,
+    deleteAnonymousUser,
 
     getRandomCharacter,
     getCharacterByName,

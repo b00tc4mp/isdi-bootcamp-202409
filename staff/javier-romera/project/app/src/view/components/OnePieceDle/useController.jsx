@@ -19,7 +19,7 @@ export default function useController() {
     const [guessedCharacters, setGuessedCharacters] = useState([])
 
     useEffect(() => {
-        if (!characters)
+        if (!characters && logic.isUserLoggedIn())
             try {
                 logic.getAllCharactersNameAndAlias()
                     .then(characters => {
@@ -39,7 +39,7 @@ export default function useController() {
                 console.error(error)
             }
 
-        if (!randomChar)
+        if (!randomChar && logic.isUserLoggedIn())
             try {
                 logic.getRandomCharacter()
                     .then(char => {
@@ -60,7 +60,7 @@ export default function useController() {
                 console.error(error)
             }
 
-        if (!status)
+        if (!status && logic.isUserLoggedIn())
             try {
                 logic.getUserStatus()
                     .then(setStatus)
@@ -143,6 +143,25 @@ export default function useController() {
         }
     }
 
+    const handleTryGuessAfterWin = event => {
+        event.preventDefault()
+
+        setShowWinAlert(true)
+    }
+
+    const handleRefresh = () => {
+        setRandomChar(null)
+        setCharacters(null)
+        setStatus(null)
+        setIsFirstAnswerSent(false)
+        setDidWin(false)
+        setIsTyping(false)
+        setShowWinAlert(false)
+        setInputValue("")
+        setAnswers([])
+        setGuessedCharacters([])
+    }
+
     return {
         isTyping,
         inputValue,
@@ -154,8 +173,12 @@ export default function useController() {
         characters,
         status,
 
+        setShowWinAlert,
+
         handleInputChange,
         handleCharacterClick,
         handleGuess,
+        handleTryGuessAfterWin,
+        handleRefresh
     }
 }
