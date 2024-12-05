@@ -1,45 +1,45 @@
-# OMG aka WTF
+# Nombre de la App
 
 ## Intro
 
-An for moving an emoji socially on screen.
+Esta aplicación está diseñada para ayudarte a gestionar y alcanzar tus objetivos personales de forma sencilla y eficiente. Su sección principal, Hábitos, te permite crear, personalizar y gestionar tus hábitos diarios desde cero. Incluye una Agenda Personal, donde puedes organizar tu día añadiendo actividades en bloques de tiempo especifícos. Además, cuenta con un apartado de Metas/Objetivos, donde puedes establecer tus propósitos a corto, medio y largo plazo (semanales, mensuales o anuales). Por último, la sección de Progreso te ofrece una vista detallada de tu desempeño, mostrando cuándo cumples tus hábitos, cuándo los fallas y tu avance general.
 
-![](https://media.giphy.com/media/OGEbQXwNesZ6U/giphy.gif?cid=790b7611av66yersrupafs2ibwkpjrgp21bk42aawk08ru3m&ep=v1_gifs_search&rid=giphy.gif&ct=g)
+![../assets/LOGO.png]
 
 ## Functional
 
 ### Use Cases
 
 Regular (User)
+- Añadir un hábito.
+- Crear un hábito personalizado.
+- Eliminar hábito.
+- Ver el progreso de tus hábitos.
+- Marcar unos objetivos dependiendo del periodo: semanal, mensual, anual, etc.
+- Agendar tus actividades.
+- Cambiar su foto de perfil.
 
-- choose emoji
-- move emoji (on screen)
+ Admin (User)
+- Añadir más hábitos predeterminados.
 
-Moderator (User)
-
-- view reporting list
-- view reporting detail
-- ban user
-
-### UXUI Design
-
-[Figma](https://figma.com)
+## UX/UI Design
+[Figma](https://www.figma.com/design/Xr14drDqhg4qKwW4yzaV1/H%C3%A1bitos)
 
 ## Technical
 
 ### Blocks
 
-- App (the client-side application)
-- API (the server-side API)
-- DB (the database)
+- App (client-side application)
+- API (server-side API)
+- DB (database)
 
 ### Packages
 
-- doc (the documentation)
-- app (the client-side application)
-- api (the server-side API)
-- dat (the data model and driver)
-- com (the common validations, utils, ...)
+- doc (documentation)
+- app (client-side application)
+- api (server-side API)
+- dat (data model and driver)
+- com (common validations, utils, ...)
 
 ### Techs
 
@@ -48,27 +48,52 @@ Moderator (User)
 - Node (...)
 - Express (...)
 - Mongo (...)
-- Mocha & Chai (...)
+- Mongo & Chai (...)
 - [...]
 
 ### Data Model
 
 User
-
+- id (UUID)
 - name (string)
 - email (string)
-- username (string)
 - password (string)
-- role (string, enum: regular | moderator)
+- role (string, enum: regular | admin)
+
+Habit
+- id (UUID)
+- name (string)
+- emoji (string, maxlength 4)
+- user (User.id)
+- createdAt: (Date)
+- category (string, enum: salud y bienestar | actividad fisica | desarrollo personal | negativos | finanzas | sociales)
+- subcategory (string, enum: salud y bienestar...)
+
+Goal
+- id (UUID)
+- description (string)
+- period (string, enum: weekly | monthly | yearly)
+- objective (number)
+- user (User.id)
+- habit (Habit.id) ??
+
+Progress
+- id (UUID)
+- date (Date)
+- status (enum: done | missed | half-done )
+- habit (Habit.id)
+
+Event (agenda personal)
+- id (UUID)
+- name (string)
+- description (string)
+- startDate (Date)
+- endDate (Date, optional)
+- frequency (string, enum: once | daily | weekly | monthly..., default: once)
+- user (User.id)
+- habit (Habit.id, optional)
+- goal (Goal.id, optional)
 
 ### Test Coverage
 
-```sh
-----------------------|---------|----------|---------|---------|-------------------
-File                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
-----------------------|---------|----------|---------|---------|-------------------
-All files             |   96.96 |       50 |     100 |   96.87 |
- registerUser.js      |    92.3 |       50 |     100 |   91.66 | 23
- registerUser.spec.js |     100 |      100 |     100 |     100 |
-----------------------|---------|----------|---------|---------|-------------------
-```
+vacío
