@@ -1,6 +1,8 @@
 import {
     registerUser,
-    authenticateUser
+    authenticateUser,
+    getUserName,
+    registerUser
 } from './users/index.js'
 
 import {
@@ -12,6 +14,8 @@ import {
 const logic = {
     registerUser,
     authenticateUser,
+    getUserName,
+    registerUser,
 
     createPack,
     assignPack

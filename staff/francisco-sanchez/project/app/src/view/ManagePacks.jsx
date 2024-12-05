@@ -27,7 +27,7 @@ export default function ManagePacks(props) {
 
 
     return (
-        <main className="flex flex-col justify-center items-center bg-color_backgroundGrey w-full h-screen">
+        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full h-screen pt-12">
             <h1>Manage Packs</h1>
             <p>This will be the page to manage packs</p>
 
@@ -42,7 +42,7 @@ export default function ManagePacks(props) {
                 </thead>
                 <tbody>
 
-                    {/* {users.map(user => (
+                    {/* {packs.map(user => (
                         <tr key={user.id}>
                             <td className='border px-4 py-2'>{user.name}</td>
                             <td className='border px-4 py-2'>{user.username}</td>
@@ -78,8 +78,8 @@ export default function ManagePacks(props) {
 
 
             <div className="flex flex-col ">
-                <Button className="btn m-2" onClick={handleAssignPacks}>Assign pack WIP</Button>
-                <Button className="btn m-2" onClick={handleCreatePacks}>Create new WIP</Button>
+                <Button className="btn m-2" onClick={handleAssignPacks}>Assign pack</Button>
+                <Button className="btn m-2" onClick={handleCreatePacks}>Create new</Button>
 
             </div>
 

@@ -21,7 +21,7 @@
         "com": "file:../com",
         "cors": "^2.8.5",
         "dat": "file:../dat",
-        "dotenv": "^16.4.6",
+        "dotenv": "^16.4.7",
         "express": "^4.21.1",
         "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.11.0",

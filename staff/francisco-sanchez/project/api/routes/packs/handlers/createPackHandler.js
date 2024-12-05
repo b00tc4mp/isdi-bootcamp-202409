@@ -3,11 +3,11 @@ import logic from '../../../logic/index.js';
 import { createFunctionalHandler } from '../../helpers/index.js';
 
 export default createFunctionalHandler(async (req, res) => {
-    const { user, packName, description, quantity, unit, expiringTime, price, currency } = req.body
+    const { userId, packName, packDescription, quantity, unit, expiringTime, price, currency } = req.body
 
-    await logic.createPack(user,
+    await logic.createPack(userId,
         packName,
-        description,
+        packDescription,
         quantity,
         unit,
         expiringTime,

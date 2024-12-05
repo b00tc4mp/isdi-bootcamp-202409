@@ -61,7 +61,7 @@ export default function Login(props) {
                 />
 
                 {/* Heading */}
-                <h2 className="text-2xl font-bold text-color_primary mb-4">Login</h2>
+                <h2 className="text-2xl font-bold text-color_darkBlue mb-4">Login</h2>
 
                 {/* Form */}
                 <form

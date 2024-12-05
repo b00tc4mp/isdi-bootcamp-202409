@@ -5,12 +5,20 @@ import {
     logoutUser
 } from './users'
 
+import {
+    createPack
+} from './packs'
+
 
 const logic = {
+    //Users
     registerUser,
     isUserLoggedIn,
     loginUser,
-    logoutUser
+    logoutUser,
+
+    //Packs
+    createPack
 }
 
 export default logic

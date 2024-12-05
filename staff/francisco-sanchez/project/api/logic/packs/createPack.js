@@ -1,13 +1,13 @@
-import { BasePack, Pack } from "dat";
+import { BasePack, Pack, User } from "dat";
 
 import { validate, errors } from "com";
 
-const { SystemError } = errors
+const { SystemError, NotFoundError } = errors
 
 export default (
-    user,
+    userId,
     packName,
-    description,
+    packDescription,
     quantity,
     unit,
     expiringTime,
@@ -16,14 +16,23 @@ export default (
 ) => {
     //validate.provider(provider)
 
-
     return (async () => {
+
+        /*    return User.findById(userId)
+               .catch(error => { throw new SystemError(error.message) })
+               .then(user => {
+                   if (!user) throw new NotFoundError('user not found')
+   
+                   return Post.create({ author: userId, image, text })
+                       .catch(error => { throw new SystemError(error.message) })
+               })
+               .then(_ => { }) */
 
         try {
             await BasePack.create({
-                user,
+                user: userId,
                 packName,
-                description,
+                packDescription,
                 quantity,
                 unit,
                 expiringTime,

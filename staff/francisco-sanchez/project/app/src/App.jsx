@@ -120,7 +120,6 @@ export default function App() {
         <Navigate to="/login" />} />
 
 
-
       <Route path="/manage-packs" element={logic.isUserLoggedIn() ?
         <ManagePacks onHomeClick={handleHomeClick}
           onAssignPackClick={handleAssignPack}
