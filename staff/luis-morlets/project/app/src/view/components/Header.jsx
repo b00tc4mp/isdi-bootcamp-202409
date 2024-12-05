@@ -1,21 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import logic from '../logic'
+import logic from '../../logic'
 
 import { errors } from 'com'
 import { useLocation } from 'react-router-dom'
-import useContext from './useContext'
+import useContext from '../useContext'
 
 const { SystemError } = errors
 
-export default function Home({ onLoggedOut }) {
-    console.log('Home -> render')
-
+export default function Header({ onLoggedOut }) {
     const [username, setUsername] = useState(null)
 
     const location = useLocation()
 
-    const { alert, confirm } = useContext()
+    const { alert } = useContext()
 
     useEffect(() => {
         if (logic.isPlayerLoggedIn()) {
@@ -39,19 +37,10 @@ export default function Home({ onLoggedOut }) {
         } else setUsername(null)
     }, [location.pathname])
 
-    const handleLogout = () => {
-        confirm('Are you sure you want to logout?', accepted => {
-            if (accepted) {
-                logic.logoutPlayer()
+    return <header className="flex items-center justify-start bg-transparent fixed w-screen h-20 left-20 top-5" >
 
-                onLoggedOut()
-            }
-        }, 'warn')
-    }
-
-    return <div className="flex justify-end gap-4 items-end">
-        {username && <h2 className='text-black'>{username}</h2>}
-
-        {logic.isPlayerLoggedIn() && <button onClick={handleLogout}>Milocodelepafuera</button>}
-    </div>
+        <div className="flex justify-end gap-4 items-end bg-[red]">
+            {username && <h2 className='text-black text-4xl'>{username}</h2>}
+        </div>
+    </header>
 }

@@ -28,7 +28,7 @@ const item = new Schema({
     type: {
         type: String,
         required: true,
-        enum: ['material', 'damage', 'consumable', 'currency', 'artifact']
+        enum: ['material', 'damage', 'consumable', 'artifact']
     },
     effect: {
         type: String,

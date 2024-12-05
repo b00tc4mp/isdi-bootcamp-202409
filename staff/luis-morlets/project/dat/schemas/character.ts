@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 
-const { Schema, Types: { ObjectId } } = mongoose
+import { stats, skill, currency } from './index.js'
 
-import { stats, skill } from './index.js'
+const { Schema, Types: { ObjectId } } = mongoose
 
 const character = new Schema({
     name: {
@@ -19,6 +19,7 @@ const character = new Schema({
     },
     statistics: [stats],
     skills: [skill],
+    currency: [currency],
     items: [{
         type: ObjectId,
         ref: 'Item',

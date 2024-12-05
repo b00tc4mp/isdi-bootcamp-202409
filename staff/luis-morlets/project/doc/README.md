@@ -52,7 +52,6 @@ Player
 Settings 
 - id (ObjectId)
 - music (number)
-- sfx (number)
 - brightness (number)
 - language (string)
 
@@ -60,13 +59,14 @@ Quest
 - id (ObjectId)
 - name (string)
 - description (string)
+- isCompleted (boolean)
 - parent (Quest.id)
 
 PlayerState
 - id (ObjectId)
 - player (Player.id)
 - quest (Quest.id)
-- character (Character.id)
+- character ([Character.id])
 - level (number)
 
 GameState 
@@ -86,11 +86,13 @@ Character
 - hitDie (number)
 - statistics (Stats)
 - skills ([Skill])
+- currency([Currency])
 - items ([Item.id])
 
 Stats 
 - armorClass (number)
 - hitPoints (number)
+- manaPoints (number)
 - strength(number)
 - dexterity(number)
 - constitution(number)
@@ -102,6 +104,7 @@ Skill
 - id (ObjectId)
 - name (string)
 - description (string)
+- manaCost (number)
 - levelRequirement (number)
 
 Item
@@ -113,6 +116,10 @@ Item
 - source (string, enum: buyable | looted)
 - type (string, enum: support | throwable)
 - effect (string)
+
+Currency
+-id (ObjectId)
+-quantity (number)
 
 Monster
 - id (ObjectId)

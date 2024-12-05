@@ -11,6 +11,10 @@ const skill = new Schema({
         type: String,
         required: true
     },
+    manaCost: {
+        type: Number,
+        required: false
+    },
     levelRequirement: {
         type: Number,
         required: true

@@ -9,6 +9,7 @@ import QuestType from './QuestType.js'
 import SettingsType from './SettingsType.js'
 import SkillType from './SkillType.js'
 import StatsType from './StatsType.js'
+import CurrencyType from './CurrencyType.js'
 
 export {
     CharacterType,
@@ -21,5 +22,6 @@ export {
     QuestType,
     SettingsType,
     SkillType,
-    StatsType
+    StatsType,
+    CurrencyType
 }

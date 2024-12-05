@@ -22,6 +22,9 @@ const gameState = new Schema({
     inventory: [{
         type: ObjectId,
         ref: 'Item'
+    }, {
+        type: ObjectId,
+        ref: 'Currency'
     }],
     playerStates: [playerState],
     characters: [{

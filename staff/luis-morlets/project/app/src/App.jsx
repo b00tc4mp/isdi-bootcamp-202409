@@ -2,12 +2,12 @@ import { useState } from 'react'
 
 import { Route, Routes, Navigate, useNavigate, Router } from 'react-router-dom'
 
-import { Login, Register, Home } from './view'
+import { Login, Register, Play } from './view'
 
 import { Context } from './view/useContext'
 
 import logic from './logic'
-import { Alert, Confirm } from './view/components'
+import { Alert, Confirm, Singleplayer, Multiplayer, Header } from './view/components'
 
 export default function App() {
     console.log('App -> render')
@@ -34,6 +34,8 @@ export default function App() {
     const handleUserLoggedIn = () => navigate('/')
 
     const handleUserLoggedOut = () => navigate('/login')
+
+    const handleQuitClick = () => navigate('/')
 
     const handleAlertAccepted = () => setAlert({
         message: null,
@@ -65,13 +67,17 @@ export default function App() {
             setAlert({ message, level })
         }, confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
     }}>
+        <Header />
 
         <Routes>
             <Route path="/login" element={logic.isPlayerLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
             <Route path="/register" element={logic.isPlayerLoggedIn() ? <Navigate to="/" /> : <Register onRegistered={handleUserRegistered} onLoginClick={handleLoginClick} />} />
 
-            <Route path="/" element={logic.isPlayerLoggedIn() ? <Home onLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+            <Route path="/" element={logic.isPlayerLoggedIn() ? <Play onLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+
+            <Route path="/singleplayer/*" element={logic.isPlayerLoggedIn() ? <Singleplayer onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
+            <Route path="/multiplayer/*" element={logic.isPlayerLoggedIn() ? <Multiplayer onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
         </Routes>
 
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}

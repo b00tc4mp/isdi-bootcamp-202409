@@ -11,6 +11,10 @@ const stats = new Schema({
         type: Number,
         required: true
     },
+    manaPoints: {
+        type: Number,
+        required: false
+    },
     strength: {
         type: Number,
         required: true

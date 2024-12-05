@@ -1,6 +1,7 @@
 type StatsType = {
     armorClass: number,
     hitPoints: number,
+    manaPoints: number,
     strength: number,
     dexterity: number,
     constitution: number,

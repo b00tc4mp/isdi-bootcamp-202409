@@ -5,6 +5,7 @@ import quest from './quest.js'
 import playerState from './playerState.js'
 import player from './player.js'
 import gameState from './gameState.js'
+import currency from './currency.js'
 import character from './character.js'
 import item from './item.js'
 import monsterAction from './monsterAction.js'
@@ -18,6 +19,7 @@ export {
     playerState,
     player,
     gameState,
+    currency,
     character,
     item,
     monsterAction,

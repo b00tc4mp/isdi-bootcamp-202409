@@ -53,28 +53,31 @@ export default function Register(props) {
         props.onLoginClick()
     }
 
-    return <main className="flex flex-col justify-center items-center">
-        <h2>Register</h2>
+    return <main className="flex flex-col items-center justify-center h-screen w-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/castillo.jpg')" }}>
 
-        <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
-            <label htmlFor="name">Name:</label>
-            <input type="text" id="name" required={true} className="border-black border" />
+        <div className="flex flex-col items-center justify-center bg-[url('/images/menusbg.png')] bg-center bg-cover h-[30rem] w-full" >
+            <img src="/images/registerTitle.png" alt="register title with icon" />
 
-            <label htmlFor="email">E-mail:</label>
-            <input type="email" id="email" required={true} className="border-black border" />
+            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
+                <label htmlFor="name" className="text-2xl self-start">Name:</label>
+                <input type="text" id="name" required={true} className="border-black border" />
 
-            <label htmlFor="username">Username:</label>
-            <input type="username" id="username" required={true} className="border-black border" />
+                <label htmlFor="email" className="text-2xl self-start">E-mail:</label>
+                <input type="email" id="email" required={true} className="border-black border" />
 
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="password" required={true} className="border-black border" />
+                <label htmlFor="username" className="text-2xl self-start">Username:</label>
+                <input type="username" id="username" required={true} className="border-black border" />
 
-            <label htmlFor="password-repeat">Repeat Password:</label>
-            <input type="password" id="password-repeat" required={true} className="border-black border" />
+                <label htmlFor="password" className="text-2xl self-start">Password:</label>
+                <input type="password" id="password" required={true} className="border-black border" />
 
-            <button type="submit">Sign Up</button>
-        </form>
+                <label htmlFor="password-repeat" className="text-2xl self-start">Repeat Password:</label>
+                <input type="password" id="password-repeat" required={true} className="border-black border" />
 
-        <a href="" onClick={handleLoginClick}>Login here</a>
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <a href="" onClick={handleLoginClick}>Login here</a>
+        </div>
     </main>
 }

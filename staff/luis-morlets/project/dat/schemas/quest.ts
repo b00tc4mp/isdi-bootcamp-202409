@@ -11,6 +11,10 @@ const quest = new Schema({
         type: String,
         required: true
     },
+    isCompleted: {
+        type: Boolean,
+        required: true
+    },
     parent: {
         type: ObjectId,
         ref: 'Quest',

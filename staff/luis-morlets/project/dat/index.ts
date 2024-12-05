@@ -1,5 +1,5 @@
 import { connect, disconnect } from 'mongoose'
-import { Player, Settings, Skill, Stats, GameState, Quest, Item, Monster, MonsterAction, PlayerState, Character } from './models/index.js'
+import { Player, Settings, Skill, Stats, GameState, Quest, Item, Monster, MonsterAction, PlayerState, Character, Currency } from './models/index.js'
 
 const db = {
     connect,
@@ -19,5 +19,6 @@ export {
     Monster,
     MonsterAction,
     PlayerState,
-    Character
+    Character,
+    Currency
 }

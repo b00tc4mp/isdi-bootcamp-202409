@@ -48,19 +48,28 @@ export default function Login(props) {
         props.onRegisterClick()
     }
 
-    return <main className="flex flex-col justify-center items-center">
-        <h2>Login</h2>
+    return <main className="flex flex-col items-center justify-center h-screen w-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/castillo.jpg')" }} >
 
-        <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
-            <label htmlFor="username">Username:</label>
-            <input type="text" id="username" required={true} className="border-black border" />
+        <div className="flex flex-col items-center justify-center bg-[url('/images/menusbg.png')] bg-center bg-cover h-[30rem] w-full gap-20" >
+            <img src="/images/LoginTitle.png" alt="login title with icon" />
 
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="password" required={true} className="border-black border" />
+            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center text-xl">
+                <div>
+                    <field className="flex flex-col justify-center items-center" >
+                        <label htmlFor="username" className="text-2xl self-start">Username:</label>
+                        <input type="text" id="username" required={true} className="border-black border bg-[grey]" />
+                    </field>
 
-            <button type="submit">Sign In</button>
-        </form>
+                    <field className="flex flex-col justify-center items-center">
+                        <label htmlFor="password" className="text-2xl self-start">Password:</label>
+                        <input type="password" id="password" required={true} className="border-black border bg-[grey]" />
+                    </field>
+                </div>
 
-        <a href="" onClick={handleRegisterClick}>Register here</a>
+                <button type="submit">Sign In</button>
+            </form>
+
+            <a href="" onClick={handleRegisterClick}>Register here</a>
+        </div>
     </main>
 }

@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongoose'
-import { ItemType, SkillType, StatsType } from './index.js'
+import { SkillType, StatsType, CurrencyType } from './index.js'
 
 type CharacterType = {
     name: string,
@@ -7,7 +7,8 @@ type CharacterType = {
     race: string,
     stats: StatsType,
     skills: SkillType,
-    items: [ObjectId]
+    items: [ObjectId],
+    currency: CurrencyType
 }
 
 export default CharacterType

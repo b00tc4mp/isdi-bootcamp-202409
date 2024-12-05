@@ -1,7 +1,7 @@
 type ItemType = {
     name: string,
     description: string,
-    quantity: number,
+    quiantity: number,
     buyPrice: number,
     sellPrice: number,
     type: string,
