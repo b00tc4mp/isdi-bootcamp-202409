@@ -1,6 +1,7 @@
 import {
     addPeriodEnd,
-    createCycle
+    createCycle,
+    getPeriodDays
 } from './cycles'
 
 import {
@@ -14,6 +15,7 @@ import {
 const logic = {
     addPeriodEnd,
     createCycle,
+    getPeriodDays,
     getUserName,
     isUserLoggedIn,
     loginUser,

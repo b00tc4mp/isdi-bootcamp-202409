@@ -1,7 +1,7 @@
 import { Button, ButtonSmall } from '../library'
 import logic from '../../logic'
 
-export default function Modal({ selectedDate, selectedDay, onCycleCreated, onEndPeriod, onClose }) {
+export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClose }) {
     const handleStartPeriodClick = event => {
         event.preventDefault()
 
@@ -45,7 +45,7 @@ export default function Modal({ selectedDate, selectedDay, onCycleCreated, onEnd
     return <>
         <div>
             <div>
-                <p>Selected day: {selectedDay}</p>
+                <p>Selected day: {selectedDate.toISOString()}</p>
                 <ButtonSmall onClick={handleStartPeriodClick}>Start period</ButtonSmall>
                 <ButtonSmall onClick={handleEndPeriodClick}>End period</ButtonSmall>
                 <ButtonSmall>Add event</ButtonSmall>

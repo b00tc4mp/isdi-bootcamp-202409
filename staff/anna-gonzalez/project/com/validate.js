@@ -9,7 +9,7 @@ const validateName = name => {
 }
 
 const validateEmail = email => {
-    if (typeof email !== 'string') throw new ValidationError('invalid email')
+    if (typeof email !== 'string') throw new ValidationError('Invalid email')
     if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
         throw new ValidationError('Invalid e-mail')
 }
@@ -32,7 +32,9 @@ const validateText = text => {
 }
 
 const validateDate = date => {
-    if (!(date instanceof Date)) throw new ValidationError('Invalid date')
+    const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:Z|[\+\-]\d{2}:\d{2})$/
+
+    if (!regex.test(date)) { throw new Error('Invalid ISO date format') }
 }
 
 const validateId = (id, explain = 'id') => {

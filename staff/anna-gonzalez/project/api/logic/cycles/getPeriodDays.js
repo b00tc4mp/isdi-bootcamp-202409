@@ -7,8 +7,9 @@ export default (userId, currentDate) => {
     validate.id(userId, 'userId')
     validate.date(currentDate)
 
-    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
-    const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+    const normalizedCurrentDate = new Date(currentDate)
+    const startOfMonth = new Date(normalizedCurrentDate.getFullYear(), normalizedCurrentDate.getMonth(), 1)
+    const endOfMonth = new Date(normalizedCurrentDate.getFullYear(), normalizedCurrentDate.getMonth() + 1, 0)
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -18,26 +19,35 @@ export default (userId, currentDate) => {
             return Cycle.find({ user: userId }).sort({ start: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(cycles => {
-                    if (cycles.length === 0) return []
+                    if (!cycles) throw new NotFoundError('Cycle not found')
 
-                    const currentMonthDays = []
+                    const periodDays = []
 
                     cycles.forEach(cycle => {
                         const { start, periodEnd } = cycle
 
                         if (start && periodEnd) {
-                            let startDate = new Date(start)
+                            let normalizedStart = new Date(start)
 
-                            while (startDate <= new Date(periodEnd)) { //check if current cycle is part of current month
-                                if (startDate >= startOfMonth && startDate <= endOfMonth) {
-                                    currentMonthDays.push(startDate.toISOString().split('T')[0]) //YYYY-MM-DD format
+                            while (normalizedStart <= new Date(periodEnd)) { //check if current cycle is part of current month
+                                if (normalizedStart >= startOfMonth && normalizedStart <= endOfMonth) {
+                                    periodDays.push(normalizedStart.toISOString())
                                 }
-                                startDate.setDate(startDate.getDate() + 1) //go to the next day
+                                normalizedStart.setDate(normalizedStart.getDate() + 1)
                             }
+                        }
+
+                        if (start && !periodEnd) {
+                            let normalizedStart = new Date(start)
+
+                            if (normalizedStart >= startOfMonth && normalizedStart <= endOfMonth) {
+                                periodDays.push(normalizedStart.toISOString())
+                            }
+                            normalizedStart.setDate(normalizedStart.getDate() + 1)
                         }
                     })
 
-                    return currentMonthDays
+                    return periodDays
                 })
         })
 }

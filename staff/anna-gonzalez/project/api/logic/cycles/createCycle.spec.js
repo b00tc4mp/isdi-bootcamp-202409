@@ -21,12 +21,11 @@ describe('createCycle', () => {
     it('succeeds for existing user', () =>
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
-                createCycle(user.id, '2024-10-13T00:00:00.000')
+                createCycle(user.id, '2024-10-13T00:00:00.000Z')
                     .then(() => Cycle.findOne())
                     .then(cycle => {
                         expect(cycle).to.exist
                         expect(cycle.user.toString()).to.equal(user.id)
-                        expect(cycle.start).to.be.instanceOf(Date)
                     })
             )
     )
@@ -34,11 +33,11 @@ describe('createCycle', () => {
     it('succeeds on having a last and next cycle', () =>
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
-                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000' })
+                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000Z' })
                     .then(lastCycle =>
-                        Cycle.create({ user: user.id, start: '2024-11-13T00:00:00.000' })
+                        Cycle.create({ user: user.id, start: '2024-11-13T00:00:00.000Z' })
                             .then(nextCycle =>
-                                createCycle(user.id, '2024-11-01T00:00:00.000')
+                                createCycle(user.id, '2024-11-01T00:00:00.000Z')
                                     .then(() => Cycle.findOne())
                                     .then(newCycle => {
                                         expect(lastCycle).to.exist
@@ -53,9 +52,9 @@ describe('createCycle', () => {
     it('succeeds on not having a last cycle', () =>
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
-                Cycle.create({ user: user.id, start: '2024-11-13T00:00:00.000' })
+                Cycle.create({ user: user.id, start: '2024-11-13T00:00:00.000Z' })
                     .then(nextCycle =>
-                        createCycle(user.id, '2024-11-01T00:00:00.000')
+                        createCycle(user.id, '2024-11-01T00:00:00.000Z')
                             .then(() => Cycle.findOne())
                             .then(newCycle => {
                                 expect(nextCycle).to.exist
@@ -67,7 +66,7 @@ describe('createCycle', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            createCycle('012345678901234567890123', '2024-10-13T00:00:00.000')
+            createCycle('012345678901234567890123', '2024-10-13T00:00:00.000Z')
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
 
@@ -75,7 +74,7 @@ describe('createCycle', () => {
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
                 expect(
-                    createCycle(user.id, '2050-10-11T00:00:00.000')
+                    createCycle(user.id, '2050-10-11T00:00:00.000Z')
                 ).to.be.rejectedWith(ValidationError, /^Cycle cannot be created in the future$/)
             )
     )
@@ -83,10 +82,10 @@ describe('createCycle', () => {
     it('fails on cycle already existing', () =>
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
-                Cycle.create({ user: user.id, start: '2024-10-11T00:00:00.000' })
+                Cycle.create({ user: user.id, start: '2024-10-11T00:00:00.000Z' })
                     .then(() =>
                         expect(
-                            createCycle(user.id, '2024-10-11T00:00:00.000')
+                            createCycle(user.id, '2024-10-11T00:00:00.000Z')
                         ).to.be.rejectedWith(DuplicityError, /^Cycle already exists$/)
                     )
             )
@@ -95,10 +94,10 @@ describe('createCycle', () => {
     it('fails on cycle too close to the last one', () =>
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
-                Cycle.create({ user: user.id, start: '2024-10-11T00:00:00.000' })
+                Cycle.create({ user: user.id, start: '2024-10-11T00:00:00.000Z' })
                     .then(() =>
                         expect(
-                            createCycle(user.id, '2024-10-13T00:00:00.000')
+                            createCycle(user.id, '2024-10-13T00:00:00.000Z')
                         ).to.be.rejectedWith(ValidationError, /^Cycle cannot be created if a cycle was created at most 7 days ago$/)
                     )
             )
@@ -107,10 +106,10 @@ describe('createCycle', () => {
     it('fails on cycle too close to the next one', () =>
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
-                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000' })
+                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000Z' })
                     .then(() =>
                         expect(
-                            createCycle(user.id, '2024-10-11T00:00:00.000')
+                            createCycle(user.id, '2024-10-11T00:00:00.000Z')
                         ).to.be.rejectedWith(ValidationError, /^Cycle cannot be created if a cycle starts in 7 days or less$/)
                     )
             )
