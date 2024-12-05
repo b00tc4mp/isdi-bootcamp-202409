@@ -1,4 +1,3 @@
-import { main } from 'ts-node/dist/bin'
 import logic from '../logic'
 
 import { Label, Input, Button, Form, Field } from './library/index.js'

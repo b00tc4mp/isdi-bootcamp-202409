@@ -7,7 +7,7 @@ import registerUser from './registerUser.js'
 db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
     .then(() => {
         try {
-            return registerUser('Puss in Boots', 'elgato@cat.net', 'elgato', '123132123', '123123123')
+            return registerUser('Puss in Boots', 'elgato@cat.net', 'elgato', '123456789', '123456789')
                 .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {
@@ -22,7 +22,7 @@ async function registered() {
     try {
         await db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL_TEST
         try {
-            const result = await registerUser('Puss in Boots2', 'elgato2@cat.net', 'elgato2', '123132123', '123123123')
+            const result = await registerUser('Puss in Boots2', 'elgato2@cat.net', 'elgato2', '123456789', '123456789')
             console.log(result) // undefined
         } catch (error) {
             console.error(error)

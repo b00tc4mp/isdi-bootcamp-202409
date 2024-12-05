@@ -1,10 +1,8 @@
 import bcrypt from 'bcryptjs'
-
-//import { User } from 'dat'
-import { User } from '../../../dat/index.js'
-//import { validate, errors } from '../../com/index.js'
-import validate from '../../../com/validate.js'
+import { User } from '../../../dat/index.js'//import { User } from 'dat'
+import validate from '../../../com/validate.js'//import { validate, errors } from '../../com/index.js'
 import errors from '../../../com/errors.js'
+
 const { SystemError, CredentialsError } = errors
 
 const authenticateUser = (username, password) => {
