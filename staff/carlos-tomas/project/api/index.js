@@ -23,12 +23,12 @@ db.connect(process.env.MONGO_URL).then(() => {
 
         const { id, role } = await logic.authenticateUser(username, password)
 
-        const token = jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' })
 
         res.json({ token })
     }))
 
-    server.post('/users', jsonBodyParser, createFunctionalHandler(async (req, res) => {
+    server.post('/usersRegister', jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { name, username, password, phone, email, passwordRepeat } = req.body
 
         await logic.registerUser(name, username, password, phone, email, passwordRepeat)
@@ -36,8 +36,17 @@ db.connect(process.env.MONGO_URL).then(() => {
         res.status(201).send()
     }))
 
+    server.get('/users', authorizationHandler, createFunctionalHandler(async (req, res) => {
+        const { userId } = req
+
+        const user = await logic.getUser(userId)
+
+        res.json(user)
+    }))
+
+
 
     server.use(errorHandler)
 
-    server.listen(8080, '192.168.1.107', () => console.log('API listening on /192.168.1.107:8080'))
+    server.listen(8080, '192.168.98.176', () => console.log('API listening on /192.168.1.107:8080'))
 })

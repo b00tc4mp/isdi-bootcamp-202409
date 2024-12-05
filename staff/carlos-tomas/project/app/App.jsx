@@ -1,28 +1,16 @@
+import useSession from './view/useSession'
 import 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView, StyleSheet, Platform } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import MainNavigator from './view/Navigation/MainNavigator'
+import HomeNavigatorRegular from './view/Navigation/userRegular/HomeNavigatorRegular'
+import HomeNavigatorVet from './view/Navigation/userVeterinary/HomeNavigatorVet'
 import LoginRegisScreen from './view/Navigation/LoginRegisScreen'
 import logic from './logic'
-import { useState, useEffect } from 'react'
+
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  useEffect(() => {
-    const checkUserStatus = async () => {
-      const loggedIn = await logic.isUserLoggendIn()
-
-      setIsLoggedIn(loggedIn)
-    }
-
-    checkUserStatus()
-  }, [])
-
-  const handleLoginSuccess = () => {
-    setIsLoggedIn(true)
-  }
+  const { isLoggedIn, isLoggingVeterinary } = useSession()
 
   return (
     // <SafeAreaView style={app.droidSafeArea}>
@@ -31,7 +19,7 @@ export default function App() {
 
       <NavigationContainer>
 
-        {isLoggedIn ? <MainNavigator /> : < LoginRegisScreen onLoginSuccess={handleLoginSuccess} />}
+        {isLoggedIn ? (isLoggingVeterinary ? <HomeNavigatorVet /> : <HomeNavigatorRegular />) : < LoginRegisScreen />}
 
       </NavigationContainer>
     </>
@@ -45,7 +33,4 @@ const app = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? 50 : 0,
     flex: 1
   },
-
-
-
-});
+})

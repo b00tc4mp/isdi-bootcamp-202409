@@ -1,12 +1,14 @@
+import useSession from './useSession'
 import { Text, View, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 
 import logic from '../logic'
 
-export default function LoginScreen({ onLoginSuccess }) {
+export default function LoginScreen() {
 
     const navigation = useNavigation()
+    const { setIsLoggedIn, setIsLoggingVeterinary } = useSession()
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -14,13 +16,17 @@ export default function LoginScreen({ onLoginSuccess }) {
     const handleSubmitLogin = async () => {
 
         try {
-            await logic.loginUser(username, password,)
+            await logic.loginUser(username, password)
 
-            onLoginSuccess()
+            setIsLoggedIn(true)
+
+            const isVeterinary = await logic.isLoggingVet()
+
+            setIsLoggingVeterinary(isVeterinary)
 
         } catch (error) {
-            Alert.alert(error.message);
-            console.error(error);
+            Alert.alert(error.message)
+            console.error(error)
         }
     }
 
@@ -60,7 +66,7 @@ export default function LoginScreen({ onLoginSuccess }) {
 
             <TouchableOpacity
                 style={loginScreen.submit}
-                onPress={() => navigation.navigate('register')}>
+                onPress={() => navigation.navigate('Register')}>
                 <Text
                     style={loginScreen.textSubmit}>
                     Registro
@@ -96,7 +102,7 @@ const loginScreen = StyleSheet.create({
     submit: {
         width: 350,
         backgroundColor: "red",
-        borderRadius: 25,
+        borderRadius: 45,
         padding: 24,
         justifyContent: "center",
         alignItems: "center",

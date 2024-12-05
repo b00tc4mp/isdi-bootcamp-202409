@@ -1,10 +1,10 @@
 import { Text, View } from 'react-native'
 
-export default function PetsScreen() {
+export default function CalanderSreenUserVeterinary() {
 
     return (
         <View>
-            <Text>Pets</Text>
+            <Text>Calander</Text>
         </View>
     )
 }

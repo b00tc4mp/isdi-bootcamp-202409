@@ -1,10 +1,14 @@
 import { Text, View } from 'react-native'
 
-export default function CalanderSreen() {
+export default function HomeScreenUserVeterinary() {
 
     return (
         <View>
-            <Text>Calander</Text>
+            <Text>Home</Text>
+
+
+
         </View>
+
     )
 }

@@ -1,13 +1,20 @@
 import loginUser from './loginUser'
 import registerUser from './registerUser'
-import isUserLoggendIn from './isUserLoggedIn'
+import isUserLoggedIn from './isUserLoggedIn'
 import logoutUser from './logoutUser'
+import isLoggingVet from './isLoggingVet'
+import getUser from './getUser'
+import QrCodeGeneraitor from './QrCodeGenereitor'
+
 
 const logic = {
     loginUser,
     registerUser,
-    isUserLoggendIn,
-    logoutUser
+    isUserLoggedIn,
+    logoutUser,
+    isLoggingVet,
+    getUser,
+    QrCodeGeneraitor
 
 }
 

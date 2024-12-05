@@ -21,10 +21,10 @@ export default function Register() {
         try {
             await logic.registerUser(name, username, password, phone, email, passwordRepeat)
 
-            navigation.navigate('login')
+            navigation.navigate('Login')
         } catch (error) {
-            Alert.alert(error.message);
-            console.error(error);
+            Alert.alert(error.message)
+            console.error(error)
         }
     }
     return (
@@ -35,13 +35,14 @@ export default function Register() {
             <View
                 style={signInScreen.form}>
 
-                <Text>
+                <Text
+                    style={signInScreen.text}>
                     Registro de usuario
                 </Text>
 
                 <TextInput
                     style={signInScreen.text_input}
-                    placeholder='Name'
+                    placeholder='Nombre'
                     autoCapitalize='words'
                     value={name}
                     onChangeText={setName}
@@ -49,14 +50,14 @@ export default function Register() {
 
                 <TextInput
                     style={signInScreen.text_input}
-                    placeholder='Username'
+                    placeholder='Usuario'
                     autoCapitalize='none'
                     value={username}
                     onChangeText={setUsername}
                 />
                 <TextInput
                     style={signInScreen.text_input}
-                    placeholder='Password'
+                    placeholder='Contraseña'
                     secureTextEntry={true}
                     autoCapitalize='none'
                     value={password}
@@ -64,7 +65,7 @@ export default function Register() {
                 />
                 <TextInput
                     style={signInScreen.text_input}
-                    placeholder='Password repeat'
+                    placeholder='Repetir contraseña'
                     secureTextEntry={true}
                     autoCapitalize='none'
                     value={passwordRepeat}
@@ -72,7 +73,7 @@ export default function Register() {
                 />
                 <TextInput
                     style={signInScreen.text_input}
-                    placeholder='Phone optcional'
+                    placeholder='Telefono opcional'
                     keyboardType='phone-pad'
                     value={phone}
                     onChangeText={setPhone}
@@ -102,6 +103,10 @@ export default function Register() {
 }
 const signInScreen = StyleSheet.create({
 
+    text: {
+        fontSize: 30
+    },
+
     form: {
         flex: 10,
         justifyContent: "center",
@@ -114,15 +119,15 @@ const signInScreen = StyleSheet.create({
     text_input: {
         borderWidth: 1,
         fontSize: 22,
-        width: 200,
+        width: 350,
         padding: 16,
         borderRadius: 8
     },
 
     submit: {
-        width: 200,
+        width: 300,
         backgroundColor: "red",
-        borderRadius: 8,
+        borderRadius: 45,
         padding: 24,
         justifyContent: "center",
         alignItems: "center"
