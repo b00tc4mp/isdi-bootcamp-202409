@@ -8,7 +8,6 @@ export default function Register() {
 
     const navigation = useNavigation()
 
-
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')

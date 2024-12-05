@@ -103,7 +103,7 @@ const pet = new Schema({
 
     },
     sex: {
-        type: String,
+        type: Boolean,
         required: true
     },
     weight: {

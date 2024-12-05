@@ -5,6 +5,7 @@ import logoutUser from './logoutUser'
 import isLoggingVet from './isLoggingVet'
 import getUser from './getUser'
 import QrCodeGeneraitor from './QrCodeGenereitor'
+import registerAnimals from './registerAnimals'
 
 
 const logic = {
@@ -14,7 +15,8 @@ const logic = {
     logoutUser,
     isLoggingVet,
     getUser,
-    QrCodeGeneraitor
+    QrCodeGeneraitor,
+    registerAnimals
 
 }
 
