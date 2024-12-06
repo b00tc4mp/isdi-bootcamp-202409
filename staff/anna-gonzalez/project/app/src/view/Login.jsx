@@ -1,10 +1,13 @@
 import { Anchor, Button, Field, Form, Input, Label } from './library'
 import logic from '../logic'
 import { errors } from 'com'
+import useContext from './useContext'
 
 const { SystemError } = errors
 
 export default function Login(props) {
+    const { alert } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 

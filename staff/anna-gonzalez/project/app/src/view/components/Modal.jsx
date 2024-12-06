@@ -1,7 +1,10 @@
 import { Button, ButtonSmall } from '../library'
 import logic from '../../logic'
+import useContext from '../useContext'
 
 export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClose }) {
+    const { alert } = useContext()
+
     const handleStartPeriodClick = event => {
         event.preventDefault()
 

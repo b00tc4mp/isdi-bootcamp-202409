@@ -1,3 +1,5 @@
+import calculateCycleDetails from './calculateCycleDetails'
+// import calculateNextCycleStart from './calculateNextCycleStart'
 import extractPayloadFromJWT from './extractPayloadFromJWT'
 import getFirstDayOfWeek from './getFirstDayOfWeek'
 import getHour from './getHour'
@@ -9,6 +11,8 @@ import getWeekDayText from './getWeekDayText'
 import getYear from './getYear'
 
 export {
+    calculateCycleDetails,
+    // calculateNextCycleStart,
     extractPayloadFromJWT,
     getFirstDayOfWeek,
     getMonthText,

@@ -1,6 +1,7 @@
 import {
     addPeriodEnd,
     createCycle,
+    getLastCycleStart,
     getPeriodDays
 } from './cycles/index.js'
 
@@ -13,6 +14,7 @@ import {
 const logic = {
     addPeriodEnd,
     createCycle,
+    getLastCycleStart,
     getPeriodDays,
     authenticateUser,
     getUserDetails,

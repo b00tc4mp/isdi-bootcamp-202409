@@ -2,12 +2,25 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Calendar, DayLog, Home, Login, PartnerAccess, Register, Reports, Splash, Tips } from './view'
-import { Header, Footer } from './view/components'
+import { Alert, Confirm, Header, Footer } from './view/components'
 
+import { Context } from './view/useContext'
 import logic from './logic'
 
 export default function App() {
+  const [alert, setAlert] = useState({
+    message: null,
+    level: 'error'
+  })
+
+  const [confirm, setConfirm] = useState({
+    message: null,
+    level: 'error',
+    callback: null
+  })
+
   const [showSplash, setShowSplash] = useState(true)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -27,9 +40,37 @@ export default function App() {
   const handleTipsClick = () => navigate('/tips')
   const handleReportsClick = () => navigate('/reports')
 
+  const handleAlertAccepted = () => setAlert({
+    message: null,
+    level: 'error'
+  })
+
+  const handleConfirmAccepted = () => {
+    confirm.callback(true)
+
+    setConfirm({
+      message: null,
+      level: 'error',
+      callback: null
+    })
+  }
+
+  const handleConfirmCancelled = () => {
+    confirm.callback(false)
+
+    setConfirm({
+      message: null,
+      level: 'error',
+      callback: null
+    })
+  }
+
   if (showSplash) return <Splash />
 
-  return <>
+  return <Context.Provider value={{
+    alert(message, level = 'error') { setAlert({ message, level }) },
+    confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+  }}>
     <Header onLogoClick={handleLogoClick} onLoggedOut={handleUserLoggedOut} />
 
     <Routes>
@@ -51,5 +92,9 @@ export default function App() {
     </Routes>
 
     <Footer onDayLogClick={handleDayLogClick} onCalendarClick={handleCalendarClick} onTipsClick={handleTipsClick} onReportsClick={handleReportsClick} />
-  </>
+
+    {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+
+    {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
+  </Context.Provider>
 }

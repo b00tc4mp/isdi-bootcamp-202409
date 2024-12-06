@@ -7,7 +7,7 @@ export default createFunctionalHandler(async (req, res) => {
 
     const id = await logic.authenticateUser(email, password)
 
-    const token = await jwt.sign({ sub: id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+    const token = await jwt.sign({ sub: id }, process.env.JWT_SECRET, { expiresIn: '30d' })
 
     res.json(token)
 })

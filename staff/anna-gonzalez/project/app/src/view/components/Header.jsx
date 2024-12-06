@@ -1,15 +1,23 @@
 import { Anchor, Button } from '../library'
 import logic from '../../logic'
 
+import useContext from '../useContext'
+
 export default function Header({ onLogoClick, onLoggedOut }) {
+    const { alert, confirm } = useContext()
+
     const handleLogo = () => {
         onLogoClick()
     }
 
     const handleLogout = () => {
-        logic.logoutUser()
+        confirm('Logout?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
 
-        onLoggedOut()
+                onLoggedOut()
+            }
+        }, 'warn')
     }
 
     return <>
