@@ -5,6 +5,7 @@ import getUserUsername from './getUserUsername.js'
 import setNewUserStatus from './setNewUserStatus.js'
 import getUserStatus from './getUserStatus.js'
 import deleteAnonymousUser from './deleteAnonymousUser.js'
+import deleteAllAnonymousUsers from './deleteAllAnonymousUsers.js'
 
 export {
     authenticateUser,
@@ -13,5 +14,6 @@ export {
     getUserUsername,
     setNewUserStatus,
     getUserStatus,
-    deleteAnonymousUser
+    deleteAnonymousUser,
+    deleteAllAnonymousUsers
 }

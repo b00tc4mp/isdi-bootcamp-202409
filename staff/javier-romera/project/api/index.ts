@@ -2,6 +2,7 @@ import 'dotenv/config'
 import db from 'dat'
 import express, { Request, Response } from 'express'
 import cors from 'cors'
+import { deleteAnonymousUsersCronJob } from './cron/index.js'
 
 import { errorHandler } from './routes/helpers/index.js'
 import { charactersRouter, usersRouter } from './routes/index.js'
@@ -22,3 +23,5 @@ db.connect(process.env.ALLPIECE_URL_TEST!).then(() => {
 
     server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
 })
+
+deleteAnonymousUsersCronJob()

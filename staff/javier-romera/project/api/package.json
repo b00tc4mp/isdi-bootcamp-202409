@@ -26,7 +26,8 @@
         "dat": "file:../dat",
         "dotenv": "^16.4.5",
         "express": "^4.21.1",
-        "jsonwebtoken": "^9.0.2"
+        "jsonwebtoken": "^9.0.2",
+        "node-cron": "^3.0.3"
     },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.6",
@@ -36,6 +37,7 @@
         "@types/express": "^5.0.0",
         "@types/mocha": "^10.0.10",
         "@types/mongodb": "^4.0.6",
+        "@types/node-cron": "^3.0.11",
         "c8": "^10.1.2",
         "chai": "^5.1.2",
         "chai-as-promised": "^8.0.0",
