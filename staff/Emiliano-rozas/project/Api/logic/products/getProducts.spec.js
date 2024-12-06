@@ -97,12 +97,13 @@ describe('getProducts', () => {
 
     it('fails on database issues', async () => {
         try {
-            await getProducts.call(null)
-            throw new SystemError('Should not reach this line')
+            await getProducts.call(null); // Simulamos un fallo
+            throw new SystemError('Should not reach this line');
         } catch (error) {
-            expect(error).to.be.instanceOf(SystemError)
+            expect(error).to.be.instanceOf(SystemError);
         }
-    })
+    });
+
 
     after(async () => {
         await db.disconnect()

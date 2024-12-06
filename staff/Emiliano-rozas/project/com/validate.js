@@ -68,8 +68,11 @@ const validateCategory = category => {
 }
 
 const validateStatus = status => {
-    const validStatus = ['published', 'draft', 'deactivated']
-    if (typeof status !== 'string' || !validStatus.includes(status)) {
+    const validStatus = {
+        product: ['published', 'draft', 'deactivated'],
+        order: ['pending', 'confirmed', 'refund', 'cancel']
+    }
+    if (typeof status !== 'string') {
         throw new ValidationError('invalid status');
     }
 }
@@ -113,8 +116,8 @@ const validateCallback = callback => {
 
 const validateNumber = (number, explain = 'number') => {
     if (typeof number !== 'number' || isNaN(number)) throw new ValidationError(`invalid ${explain}`);
-    if (number < 0) throw new ValidationError(`${explain} must be positive`);
-}
+    if (number <= 0) throw new ValidationError(`${explain} must be greater than 0`);
+};
 
 const validate = {
     name: validateName,

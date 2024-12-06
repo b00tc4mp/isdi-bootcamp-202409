@@ -74,7 +74,6 @@ const product = new Schema({
     },
     isbn: {
         type: String,
-        unique: true,
         required: true
     },
     price: {
@@ -153,11 +152,7 @@ const cart = new Schema({
 
 
 const orderItem = new Schema({
-    product: {
-        type: ObjectId,
-        ref: 'Product',
-        required: true
-    },
+    product: product,
     quantity: {
         type: Number,
         required: true,
@@ -190,8 +185,8 @@ const order = new Schema({
     },
     status: {
         type: String,
-        enum: ['confirmed', 'refund', 'cancel'],
-        default: 'confirmed',
+        enum: ['pending', 'confirmed', 'refund', 'cancel'],
+        default: 'pending',
     },
 }, { versionKey: false });
 

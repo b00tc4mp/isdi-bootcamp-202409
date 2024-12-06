@@ -15,6 +15,12 @@ import {
     updateQuantity
 } from './cart/index.js'
 
+import {
+    placeOrder,
+    getOrders,
+    updateOrder
+} from './orders/index.js'
+
 const logic = {
     registerUser,
     authenticateUser,
@@ -23,6 +29,9 @@ const logic = {
     addToCart,
     getCart,
     removeAllFromCart,
-    updateQuantity
+    updateQuantity,
+    placeOrder,
+    getOrders,
+    updateOrder
 }
 export default logic

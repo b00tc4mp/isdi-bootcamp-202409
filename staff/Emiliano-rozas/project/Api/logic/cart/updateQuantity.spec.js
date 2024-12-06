@@ -65,7 +65,7 @@ describe('updateQuantity', () => {
     })
     debugger
     it('fails when user does not exist', async () => {
-        await expect(updateQuantity(new ObjectId().toString(), new ObjectId().toString(), 2)).to.be.rejectedWith(NotFoundError, 'user not found')
+        expect(updateQuantity(new ObjectId().toString(), new ObjectId().toString(), 2)).to.be.rejectedWith(NotFoundError, 'user not found')
     })
 
     it('fails when cart doesnt exist', async () => {
@@ -75,7 +75,7 @@ describe('updateQuantity', () => {
             username: 'venom',
             password: bcrypt.hashSync('123123123', 10)
         });
-        await expect(updateQuantity(user._id.toString(), new ObjectId().toString(), 2)).to.be.rejectedWith(NotFoundError, 'cart item not found')
+        expect(updateQuantity(user._id.toString(), new ObjectId().toString(), 2)).to.be.rejectedWith(NotFoundError, 'cart item not found')
     })
     after(async () => {
         await db.disconnect();

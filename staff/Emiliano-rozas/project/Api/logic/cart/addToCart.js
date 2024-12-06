@@ -6,11 +6,10 @@ const { SystemError, NotFoundError } = errors;
 export default (userId, productId, quantity) => {
     validate.id(userId, 'userId')
     validate.id(productId, 'productId')
-    validate.number(quantity, 'quantity')
+    validate.number(Number(quantity), 'quantity')
 
     return (async () => {
         let user
-
         try {
             //Verificamos que el usuario exista
             user = await User.findById(userId)
@@ -19,8 +18,8 @@ export default (userId, productId, quantity) => {
         }
 
         if (!user) throw new NotFoundError('User not Found')
-        let cart
 
+        let cart
         try {
             //buscamos el carrito, si esta flama, sino lo creamo, cortita la bocha
             cart = await Cart.findOne({ user: userId })
