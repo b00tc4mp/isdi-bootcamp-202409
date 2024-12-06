@@ -18,7 +18,6 @@ export default (randomChar, userGuess) => {
     const { observation: rObservation, armament: rArmament, conqueror: rConqueror } = randomChar
     const { observation: gObservation, armament: gArmament, conqueror: gConqueror } = userGuess
 
-    // if () // TODO HAKI VALIDATION
     if (rConqueror && gConqueror) // OBS, ARM AND CON HAKIS MATCH
         checkedAnswers.push(true)
     else if (rObservation && rArmament && !rConqueror && gObservation && gArmament && !gConqueror) // OBS AND ARM HAKIS MATCH

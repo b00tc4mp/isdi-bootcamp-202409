@@ -37,7 +37,5 @@ describe('getRandomCharacter', () => {
         expect(() => getRandomCharacter('0123')).to.throw(ValidationError, /^Invalid userId length$/)
     )
 
-    // TODO SystemError validations (typescript no me deja)
-
     after(() => db.disconnect())
 })

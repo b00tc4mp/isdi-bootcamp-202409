@@ -86,7 +86,5 @@ describe('registerUser', () => {
         expect(() => registerUser('javi@gmail.com', 'javi', '123123123', '321321321')).to.throw(ValidationError, /^Passwords do not match$/)
     )
 
-    // TODO SystemError tests (typescript no me deja)
-
     after(() => db.disconnect())
 })

@@ -18,7 +18,7 @@ export default function useController() {
     const [answers, setAnswers] = useState([])
     const [guessedCharacters, setGuessedCharacters] = useState([])
     const [availableCharacters, setAvailableCharacters] = useState([])
-    console.log(randomChar)
+
     useEffect(() => {
         if (!characters && logic.isUserLoggedIn())
             try {

@@ -1,9 +1,13 @@
 import logic from '../logic'
 import { Button } from './library'
 
-export default function Home(props) {
-    const handleGuessCharacterGameMode = () => {
-        props.onGuessCharacter()
+export default function Home({ onOnePieceDleClick, onOneDokuClick }) {
+    const handleOnePieceDleGameMode = () => {
+        onOnePieceDleClick()
+    }
+
+    const handleOneDokuGameMode = () => {
+        onOneDokuClick()
     }
 
     return <main className="h-screen w-screen bg-cover bg-center flex justify-center items-center" style={{
@@ -15,10 +19,10 @@ export default function Home(props) {
                     <Button className="bg-[rgba(175,255,255,0.8)] text-[1.25rem] w-full px-[.5rem] h-[3rem] flex items-center transition-transform duration-150 ease-in-out hover:scale-110 rounded-[.5rem] border-[2px] border-[black]"><img className="mr-2 ml-2 w-[40px]" src="/images/merry_icon.png"></img>Explore the sea!</Button>
                 </div>
                 <div className="w-[17rem] flex items-center">
-                    <Button onClick={handleGuessCharacterGameMode} className="bg-[rgba(175,255,255,0.8)] text-[1.25rem] w-full px-[.5rem] h-[3rem] flex items-center transition-transform duration-150 ease-in-out hover:scale-110 rounded-[.5rem] border-[2px] border-[black]"><img className="mr-2 w-[50px]" src="/images/luffy_icon.png"></img>OnePieceDle</Button>
+                    <Button onClick={handleOnePieceDleGameMode} className="bg-[rgba(175,255,255,0.8)] text-[1.25rem] w-full px-[.5rem] h-[3rem] flex items-center transition-transform duration-150 ease-in-out hover:scale-110 rounded-[.5rem] border-[2px] border-[black]"><img className="mr-2 w-[50px]" src="/images/luffy_icon.png"></img>OnePieceDle</Button>
                 </div>
                 <div className="w-[17rem] flex items-center">
-                    <Button className="bg-[rgba(175,255,255,0.8)] text-[1.25rem] w-full px-[.5rem] h-[3rem] flex items-center transition-transform duration-150 ease-in-out hover:scale-110 rounded-[.5rem] border-[2px] border-[black]"><img className="mr-2 ml-2 w-[40px]" src="/images/zoro_icon.png"></img>OneDoku</Button>
+                    <Button onClick={handleOneDokuGameMode} className="bg-[rgba(175,255,255,0.8)] text-[1.25rem] w-full px-[.5rem] h-[3rem] flex items-center transition-transform duration-150 ease-in-out hover:scale-110 rounded-[.5rem] border-[2px] border-[black]"><img className="mr-2 ml-2 w-[40px]" src="/images/zoro_icon.png"></img>OneDoku</Button>
                 </div>
             </div>}
     </main>

@@ -25,7 +25,5 @@ describe('registerAnonymousUser', () => {
         expect(user!.role).to.equal('anonymous')
     })
 
-    // TODO SystemError tests (typescript no me deja)
-
     after(() => db.disconnect())
 })

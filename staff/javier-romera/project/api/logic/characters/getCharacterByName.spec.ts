@@ -56,7 +56,5 @@ describe('getCharacterByName', () => {
         ).to.be.rejectedWith(NotFoundError, /^character not found$/)
     })
 
-    // TODO SystemError tests (typescript no me deja)
-
     after(() => db.disconnect())
 })

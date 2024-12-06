@@ -1,7 +1,7 @@
 import { Button, Form, Input } from '../../library'
 
 import Options from './Options'
-import OnePieceDleWinScreen from './OnePieceDleWinScreen'
+import WinScreen from './WinScreen'
 import Answers from './Answers'
 import AnswersLegend from './AnswersLegend'
 import CantPlayAnymoreAlert from './CantPlayAnymoreAlert'
@@ -56,7 +56,7 @@ export default function OnePieceDle({ onHomeClick, onLoginClick, onRegisterClick
                 </div>}
             </section>}
 
-        {showWinAlert && <OnePieceDleWinScreen onHomeClick={onHomeClick} refresh={handleRefresh} setWinAlert={setShowWinAlert} correctChar={guessedCharacters[guessedCharacters.length - 1].name} />}
+        {showWinAlert && <WinScreen onHomeClick={onHomeClick} refresh={handleRefresh} setWinAlert={setShowWinAlert} correctChar={guessedCharacters[guessedCharacters.length - 1].name} />}
 
         {(status === 1 || status === 3) && logic.isUserRoleAnonymous() && !didWin && <CantPlayAnymoreAlert onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} onHomeClick={onHomeClick} />}
     </main >

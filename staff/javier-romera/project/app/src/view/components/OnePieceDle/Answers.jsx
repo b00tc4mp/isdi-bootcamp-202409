@@ -1,4 +1,6 @@
-import { formatBounty, formatHeight, getHakiString } from "../../../util"
+import { getHakiString } from '../../../util'
+
+import AnswerOption from './AnswerOption'
 
 export default function Answers({ answers, guessedCharacters }) {
     return <div>
@@ -30,35 +32,7 @@ export default function Answers({ answers, guessedCharacters }) {
                         devilFruitType = type
                     }
 
-                    //AnswerOption
-                    return <div key={index} className={`mb-[1rem] w-[80px] h-[80px] flex justify-center items-center border-[2px] border-[black] rounded-[.5rem] ${color} text-[0.75rem]`}>
-                        <p>
-                            {index === 0 && `${name}`}
-
-                            {index === 1 && `${gender}`}
-
-                            {index === 2 && `${affiliation}`}
-
-                            {index === 3 && hasDF && `${devilFruitType}`}
-                            {index === 3 && !hasDF && '𐢫'}
-
-                            {index === 4 && `${hakiString}`}
-
-                            {index === 5 && `${formatBounty(bounty)}`}
-                            {index === 5 && higher && "↑"}
-                            {index === 5 && lower && "↓"}
-
-                            {index === 6 && `${formatHeight(height)}`}
-                            {index === 6 && higher && "↑"}
-                            {index === 6 && lower && "↓"}
-
-                            {index === 7 && `${sea}`}
-
-                            {index === 8 && `${firstArcName}`}
-                            {index === 8 && higher && "↑"}
-                            {index === 8 && lower && "↓"}
-                        </p>
-                    </div>
+                    return <AnswerOption key={index} index={index} color={color} name={name} gender={gender} affiliation={affiliation} hasDF={hasDF} devilFruitType={devilFruitType} hakiString={hakiString} bounty={bounty} higher={higher} lower={lower} height={height} sea={sea} firstArcName={firstArcName} />
                 })}
             </div>
         })}
