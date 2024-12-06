@@ -1,34 +1,8 @@
-import { model, Schema } from 'mongoose'
+import { model } from 'mongoose'
 
-const condition = new Schema({
-    type: {
-        type: String,
-        required: true,
-        enum: ['equal', 'greater than equal', 'lower than equal']
-    },
-    property: {
-        type: String,
-        required: true
-    },
-    value: {
-        type: String,
-        required: true
-    },
-    direction: {
-        type: String,
-        required: true,
-        enum: ['row', 'column']
-    },
-    index: {
-        type: Number,
-        required: true
-    },
-    text: {
-        type: String,
-        required: true
-    }
-})
+import { TCondition } from '../types/index.js'
+import { condition } from '../schemas/index.js'
 
-const Condition = model('Condition', condition, 'conditions')
+const Condition = model<TCondition>('Condition', condition, 'conditions')
 
 export default Condition

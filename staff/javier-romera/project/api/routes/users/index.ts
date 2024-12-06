@@ -20,7 +20,8 @@ usersRouter.get('/:targetUserId/status', authorizationHandler as RequestHandler,
 usersRouter.post('/', authorizationHandler as RequestHandler, jsonBodyParser, registerUserHandler)
 usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.post('/anonymous', registerAnonymousUserHandler)
-usersRouter.post('/status', authorizationHandler as RequestHandler, jsonBodyParser, setNewUserStatusHandler)
+
+usersRouter.patch('/status', authorizationHandler as RequestHandler, jsonBodyParser, setNewUserStatusHandler)
 
 usersRouter.delete('/anonymous', authorizationHandler as RequestHandler, deleteAnonymousUserHandler)
 

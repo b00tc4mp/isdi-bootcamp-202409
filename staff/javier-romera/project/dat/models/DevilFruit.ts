@@ -1,23 +1,8 @@
-import { model, Schema } from 'mongoose'
+import { model } from 'mongoose'
 
-const devilFruit = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    type: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    description: {
-        type: String,
-        required: true,
-        unique: true
-    }
-})
+import { TDevilFruit } from '../types/index.js'
+import { devilFruit } from '../schemas/index.js'
 
-const DevilFruit = model('DevilFruit', devilFruit, 'devilFruits')
+const DevilFruit = model<TDevilFruit>('DevilFruit', devilFruit, 'devilFruits')
 
 export default DevilFruit

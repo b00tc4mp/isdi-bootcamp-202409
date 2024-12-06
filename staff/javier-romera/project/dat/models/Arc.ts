@@ -1,18 +1,8 @@
-import { model, Schema } from 'mongoose'
+import { model } from 'mongoose'
 
-const arc = new Schema({
-    name: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    number: {
-        type: Number,
-        unique: true,
-        required: true
-    }
-})
+import { TArc } from '../types/index.js'
+import { arc } from '../schemas/index.js'
 
-const Arc = model('Arc', arc, 'arcs')
+const Arc = model<TArc>('Arc', arc, 'arcs')
 
 export default Arc

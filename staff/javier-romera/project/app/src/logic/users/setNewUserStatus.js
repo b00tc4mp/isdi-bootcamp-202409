@@ -4,7 +4,7 @@ const { SystemError } = errors
 
 export default (status, from) => {
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/status`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.token}`

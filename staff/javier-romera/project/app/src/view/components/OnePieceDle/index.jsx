@@ -32,7 +32,7 @@ export default function OnePieceDle({ onHomeClick, onLoginClick, onRegisterClick
     return <main className="h-screen w-screen bg-cover bg-center flex justify-center overflow-y-auto" style={{
         backgroundImage: "url('/images/going_merry.png')",
     }}>
-        {logic.isUserLoggedIn() && !((logic.isUserRoleAnonymous() && status === 1) || (logic.isUserRoleAnonymous() && status === 3)) && (guessedCharacters.length > 0 || !didWin) &&
+        {logic.isUserLoggedIn() && !((logic.isUserRoleAnonymous() && status === 1) || (logic.isUserRoleAnonymous() && status === 3)) && ((guessedCharacters.length > 0 || !didWin) || (guessedCharacters.length > 0 && didWin)) &&
             <section className="mt-[12rem] flex flex-col items-center">
                 {!didWin &&
                     <Form id="guessForm" onSubmit={handleGuess} className="bg-[rgba(250,249,243,0.9)] w-[22rem] min-h-[4rem] flex justify-center items-center rounded-[.5rem] border-[2px] border-[black]">
