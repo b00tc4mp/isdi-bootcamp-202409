@@ -1,6 +1,6 @@
 import { compareFirstLetters, isAnyCharacterWithFirstLetter } from '../../../util'
 
-export default function Options({ inputValue, characters, onCharacterClick }) {
+export default function Options({ inputValue, availableCharacters, onCharacterClick }) {
     const handleCharClick = event => {
         const characterName = event.currentTarget.querySelector("p").textContent
 
@@ -9,8 +9,8 @@ export default function Options({ inputValue, characters, onCharacterClick }) {
 
     return <div className="bg-[rgba(250,249,243,1)] absolute w-[22rem] max-h-[14rem] rounded-[.5rem] border-[black] border-[2px] overflow-y-auto mt-[4rem]">
 
-        {isAnyCharacterWithFirstLetter(inputValue, characters) ?
-            characters.map(char => {
+        {isAnyCharacterWithFirstLetter(inputValue, availableCharacters) ?
+            availableCharacters.map(char => {
                 let possibleCharacter = compareFirstLetters(inputValue, char)
 
                 if (possibleCharacter[0] || possibleCharacter[1])

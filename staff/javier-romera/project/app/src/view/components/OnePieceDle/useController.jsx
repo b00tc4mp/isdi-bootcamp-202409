@@ -2,7 +2,7 @@ import logic from '../../../logic'
 import { errors } from 'com'
 
 import { useState, useEffect, useRef } from 'react'
-import { capitalizeWords, validateGuess } from '../../../util'
+import { capitalizeWords, validateGuess, adjustAvailableCharacters } from '../../../util'
 
 const { SystemError } = errors
 
@@ -17,6 +17,7 @@ export default function useController() {
     const [inputValue, setInputValue] = useState("")
     const [answers, setAnswers] = useState([])
     const [guessedCharacters, setGuessedCharacters] = useState([])
+    const [availableCharacters, setAvailableCharacters] = useState([])
 
     useEffect(() => {
         if (!characters && logic.isUserLoggedIn())
@@ -24,6 +25,7 @@ export default function useController() {
                 logic.getAllCharactersNameAndAlias()
                     .then(characters => {
                         setCharacters(characters)
+                        setAvailableCharacters(characters)
                     })
                     .catch(error => {
                         if (error instanceof SystemError)
@@ -43,7 +45,6 @@ export default function useController() {
             try {
                 logic.getRandomCharacter()
                     .then(char => {
-                        console.log(char) // TODO erase
                         setRandomChar(char)
                     })
                     .catch(error => {
@@ -76,7 +77,7 @@ export default function useController() {
                     .then(() => {
                         setTimeout(() => {
                             setShowWinAlert(true)
-                        }, 1000)
+                        }, 750)
                     })
             } catch (error) {
                 alert(error.message)
@@ -108,9 +109,12 @@ export default function useController() {
         try {
             const parsedGuess = capitalizeWords(guess)
 
-            const found = validateGuess(characters, parsedGuess)
+            const found = validateGuess(availableCharacters, parsedGuess)
 
-            if (found) {
+            const newAvailableCharacters = adjustAvailableCharacters(found, availableCharacters)
+            setAvailableCharacters(newAvailableCharacters)
+
+            if (found > -1) {
                 logic.getCharacterByName(parsedGuess)
                     .then(char => {
                         const checkedAnswer = logic.checkOnePiecedleAnswer(randomChar, char)
@@ -134,7 +138,10 @@ export default function useController() {
                         console.error(error)
                     })
             } else {
-                alert('pero q personaje de wanpi es ese muchachooo')
+                const found = validateGuess(characters, parsedGuess)
+
+                if (found > -1) alert('character already guessed')
+                else alert('pero q personaje de wanpi es ese muchachooo')
             }
         } catch (error) {
             alert(error.message)
@@ -160,6 +167,7 @@ export default function useController() {
         setInputValue("")
         setAnswers([])
         setGuessedCharacters([])
+        setAvailableCharacters([])
     }
 
     return {
@@ -170,8 +178,8 @@ export default function useController() {
         showWinAlert,
         didWin,
         isFirstAnswerSent,
-        characters,
         status,
+        availableCharacters,
 
         setShowWinAlert,
 

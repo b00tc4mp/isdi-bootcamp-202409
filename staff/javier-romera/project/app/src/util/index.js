@@ -8,6 +8,8 @@ import isAnyCharacterWithFirstLetter from './isAnyCharacterWithFirstLetter'
 import capitalizeWords from './capitalizeWords'
 import formatBounty from './formatBounty'
 import formatHeight from './formatHeight'
+import getHakiString from './getHakiString'
+import adjustAvailableCharacters from './adjustAvailableCharacters'
 
 export {
     extractPayloadFromJWT,
@@ -19,5 +21,7 @@ export {
     isAnyCharacterWithFirstLetter,
     capitalizeWords,
     formatBounty,
-    formatHeight
+    formatHeight,
+    getHakiString,
+    adjustAvailableCharacters
 }

@@ -1,9 +1,11 @@
-import { formatBounty, formatHeight } from "../../../util"
+import { formatBounty, formatHeight, getHakiString } from "../../../util"
 
 export default function Answers({ answers, guessedCharacters }) {
     return <div>
         {answers.map((answer, superIndex) => { // first map ==> iterate on answers array with bools and strings
             let hasDF = guessedCharacters[superIndex].hasOwnProperty('devilFruit') // check if current char has df
+            const { observation, armament, conqueror } = guessedCharacters[superIndex]
+            let hakiString = getHakiString(observation, armament, conqueror)
 
             return <div key={superIndex} className="grid grid-cols-9 gap-[.5rem]">
                 {answer.map((ans, index) => { // iterate on each answer in answers array (the previous one), we are now seeing bools and strings in each position
@@ -40,7 +42,7 @@ export default function Answers({ answers, guessedCharacters }) {
                             {index === 3 && hasDF && `${devilFruitType}`}
                             {index === 3 && !hasDF && '𐢫'}
 
-                            {index === 4 && 'jeje god'}
+                            {index === 4 && `${hakiString}`}
 
                             {index === 5 && `${formatBounty(bounty)}`}
                             {index === 5 && higher && "↑"}

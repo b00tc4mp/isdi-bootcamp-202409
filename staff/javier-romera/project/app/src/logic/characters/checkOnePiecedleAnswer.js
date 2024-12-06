@@ -15,31 +15,30 @@ export default (randomChar, userGuess) => {
 
     checkedAnswers.push(compareDevilFruit(randomChar.devilFruit, userGuess.devilFruit)) // POSITION 3 ==> DEVILFRUIT
 
+    const { observation: rObservation, armament: rArmament, conqueror: rConqueror } = randomChar
+    const { observation: gObservation, armament: gArmament, conqueror: gConqueror } = userGuess
+
     // if () // TODO HAKI VALIDATION
-    if (randomChar.observation && randomChar.armament && randomChar.conqueror && userGuess.observation && userGuess.armament && userGuess.conqueror) // OBS, ARM AND CON HAKIS MATCH
+    if (rConqueror && gConqueror) // OBS, ARM AND CON HAKIS MATCH
         checkedAnswers.push(true)
-    else if (randomChar.observation && randomChar.armament && !randomChar.conqueror && userGuess.observation && userGuess.armament && !userGuess.conqueror) // OBS AND ARM HAKIS MATCH
+    else if (rObservation && rArmament && !rConqueror && gObservation && gArmament && !gConqueror) // OBS AND ARM HAKIS MATCH
         checkedAnswers.push(true)
-    else if (randomChar.observation && !randomChar.armament && !randomChar.conqueror && userGuess.observation && !randomChar.armament && !randomChar.conqueror) // OBS HAKI MATCH
+    else if (rObservation && !rArmament && !rConqueror && gObservation && !gArmament && !gConqueror) // OBS HAKI MATCH
         checkedAnswers.push(true)
-    else if (!randomChar.observation && randomChar.armament && !randomChar.conqueror && !userGuess.observation && userGuess.armament && !userGuess.conqueror) // ARM HAKI MATCH
+    else if (!rObservation && rArmament && !rConqueror && !gObservation && gArmament && !gConqueror) // ARM HAKI MATCH
         checkedAnswers.push(true)
-    else if (!randomChar.observation && !randomChar.armament && !randomChar.conqueror && !userGuess.observation && !userGuess.armament && !userGuess.conqueror) // NO HAKIS MATCH
+    else if (!rObservation && !rArmament && !rConqueror && !gObservation && !gArmament && !gConqueror) // NO HAKIS MATCH
         checkedAnswers.push(true)
-    else if (randomChar.observation && !randomChar.armament && userGuess.observation && userGuess.armament)
-        checkedAnswers.push('partial') // RANDOM HAS OBS, GUESSED HAS OBS AND ARM
-    else if (!randomChar.observation && randomChar.armament && userGuess.observation && userGuess.armament)
-        checkedAnswers.push('partial') // RANDOM HAS ARM, GUESSED HAS OBS AND ARM
-    else if (randomChar.observation && randomChar.armament && userGuess.observation && !userGuess.armament)
-        checkedAnswers.push('partial') // RANDOM HAS OBS AND ARM, GUESSED HAS OBS
-    else if (randomChar.observation && randomChar.armament && !userGuess.observation && userGuess.armament)
-        checkedAnswers.push('partial') // RANDOM HAS OBS AND ARM, GUESSED HAS ARM
-    else if (randomChar.observation && !randomChar.armament && !userGuess.observation && userGuess.armament)
+    else if (rObservation && !rArmament && !gObservation && gArmament)
         checkedAnswers.push(false) // RANDOM HAS OBS, GUESSED ARM
-    else if (!randomChar.observation && randomChar.armament && userGuess.observation && !userGuess.armament)
+    else if (!rObservation && rArmament && gObservation && !gArmament)
         checkedAnswers.push(false) // RANDOM HAS ARM, GUESSED OBS
+    else if ((rObservation || rArmament) && (!gObservation && !gArmament))
+        checkedAnswers.push(false)
+    else if ((!rObservation && !rArmament) && (gObservation || gArmament))
+        checkedAnswers.push(false)
     else
-        checkedAnswers.push('haki failed')
+        checkedAnswers.push('partial')
 
     checkedAnswers.push(compareNumerics(randomChar.bounty, userGuess.bounty)) // POSITION 5 ==> BOUNTY
 
