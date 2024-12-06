@@ -60,7 +60,39 @@ const comment = new Schema({
   },
 });
 
-const post = new Schema(
+const categoria = new Schema(
+  {
+    nombre: {
+      type: String,
+      required: true,
+      minLength: 2,
+    },
+    categorias: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Subcategoria",
+      },
+    ],
+  },
+  { versionKey: false }
+);
+
+const subcategoria = new Schema(
+  {
+    nombre: {
+      type: String,
+      required: true,
+      minLength: 2,
+    },
+    idCategoria: {
+      type: ObjectId,
+      required: true,
+      ref: "Categoria",
+    },
+  },
+  { versionKey: false }
+);
+const producto = new Schema(
   {
     author: {
       type: ObjectId,
@@ -93,7 +125,9 @@ const post = new Schema(
 );
 
 const User = model("User", user);
-const Post = model("Post", post);
+const Producto = model("Producto", producto);
 const Comment = model("Comment", comment);
+const Categoria = model("Categoria", categoria);
+const Subcategoria = model("Subcategoria", subcategoria);
 
-export { User, Post, Comment };
+export { User, Producto, Comment, Categoria, Subcategoria };

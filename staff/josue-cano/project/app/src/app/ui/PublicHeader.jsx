@@ -1,7 +1,9 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { isAuthenticated } from "../utils/session";
 
-export default function TheHeader() {
+export default function PublicHeader() {
   return (
     <div className="border-b border-[#52A42D]">
       <div className="navbar bg-base-100 container mx-auto">
@@ -28,21 +30,38 @@ export default function TheHeader() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a>Item 1</a>
+                <a>Home</a>
               </li>
               <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
+                <Link
+                  className="btn btn-primary btn-sm ml-2 rounded-full btn-outline"
+                  href={"/login"}
+                >
+                  Inicia Sesion
+                </Link>
               </li>
               <li>
-                <a>Item 3</a>
+                <Link
+                  className="btn btn-primary text-white btn-sm rounded-full"
+                  href={"/register"}
+                >
+                  Registrate
+                </Link>
+              </li>
+              <li>
+                <Link href="/">
+                  <Image
+                    src="/icons/compra.svg"
+                    alt="icono compra"
+                    width={20}
+                    height={20}
+                  ></Image>{" "}
+                  Compra
+                </Link>
+              </li>
+
+              <li>
+                <a>Vende</a>
               </li>
             </ul>
           </div>
@@ -103,11 +122,17 @@ export default function TheHeader() {
             </li>
           </ul>
 
-          <Link className="btn btn-primary text-white btn-sm rounded-full" href={"/register"}>
+          <Link
+            className="btn btn-primary text-white btn-sm rounded-full"
+            href={"/register"}
+          >
             Registrate
           </Link>
 
-          <Link className="btn btn-primary btn-sm ml-2 rounded-full btn-outline" href={"/login"}>
+          <Link
+            className="btn btn-primary btn-sm ml-2 rounded-full btn-outline"
+            href={"/login"}
+          >
             Inicia Sesion
           </Link>
         </div>

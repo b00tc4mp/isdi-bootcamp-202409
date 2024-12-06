@@ -19,9 +19,12 @@ export default function ProductDetail({ id }) {
         <section>
           <CarouselComponent imagenes={product.imagenes} />
         </section>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        {/* Mostrar el precio del producto */}
+        <p>Producto: {product.nombre}</p>
+        <p>Precio: {product.precio.toFixed(2)}€</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <button className="btn btn-secondary">añadir al carrito</button>
+          <button className="btn btn-secondary">Buy Now</button>
         </div>
       </div>
     </div>
