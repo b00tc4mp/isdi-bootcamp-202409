@@ -11,7 +11,10 @@ import {
   getProducts,
   addComment,
   getComments,
-  removeComment
+  removeComment,
+  toggleLikeProduct,
+  toggleDislikeProduct,
+  saveProduct
 } from './products'
 
 
@@ -26,7 +29,10 @@ const logic = {
   getProducts,
   addComment,
   getComments,
-  removeComment
+  removeComment,
+  toggleLikeProduct,
+  toggleDislikeProduct,
+  saveProduct
 }
 
 export default logic

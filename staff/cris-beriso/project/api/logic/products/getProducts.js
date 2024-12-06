@@ -18,14 +18,15 @@ export default userId => {
         product.id = product._id.toString()
         delete product._id
 
-        const { likes, dislikes } = product
+        const { likes, dislikes, comments } = product
 
-        //product.liked = likes.some(userObjectId => userObjectId.equals(userId))
+        product.liked = likes.some(userObjectId => userObjectId.equals(userId))
         product.likes = likes.length
 
-        // if (!liked)
-        //   product.disliked = dislikes.some(userObjectId => userObjectId.equals(userId))
+        product.disliked = dislikes.some(userObjectId => userObjectId.equals(userId))
         product.dislikes = dislikes.length
+
+        products.comments = comments.length
       })
 
       return products

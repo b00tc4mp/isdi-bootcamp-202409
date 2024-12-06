@@ -8,7 +8,8 @@ import {
   removeCommentHandler,
   getCommentsHandler,
   toggleLikeProductHandler,
-  toggleDislikeProductHandler
+  toggleDislikeProductHandler,
+  saveProductHandler
 } from './handlers/index.js'
 
 
@@ -20,5 +21,6 @@ productsRouter.delete('/:productId/comments/:commentId', authorizationHandler, r
 productsRouter.get('/:productId/comments', authorizationHandler, getCommentsHandler)
 productsRouter.patch('/:productId/likes', authorizationHandler, toggleLikeProductHandler)
 productsRouter.patch('/:productId/dislikes', authorizationHandler, toggleDislikeProductHandler)
+productsRouter.patch('/:productId/save', authorizationHandler, saveProductHandler)
 
 export default productsRouter

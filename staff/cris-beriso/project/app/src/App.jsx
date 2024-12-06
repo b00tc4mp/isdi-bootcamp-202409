@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Register, Login, Home } from './view'
+import { Register, Login, Home, Product } from './view'
 
 import { Header, Footer, Alert, Confirm } from './view/components'
 
@@ -34,6 +34,10 @@ export default function App() {
 
   const handleRegisterClick = () => navigate('/register')
 
+  const handleAlertAccepted = () => setAlert({
+    message: null,
+    level: 'error'
+  })
   const handleConfirmAccepted = () => {
     confirm.callback(true)
 
@@ -65,6 +69,8 @@ export default function App() {
       <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
 
       <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+
+      <Route path="/:productId" element={logic.isUserLoggedIn() ? <Product /> : <Navigate to="/login" />} />
 
     </Routes>
 
