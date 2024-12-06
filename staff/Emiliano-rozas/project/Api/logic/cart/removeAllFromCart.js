@@ -15,10 +15,10 @@ export default (userId, cartItemId) => {
             if (cartItemIndex < 0) {
                 throw new NotFoundError('cart item not found')
             }
-            // Filtramos los items del carrito para eliminar el que coincide con el cartItemId
+            // diltramos los items del carrito para eliminar el que coincide con el cartItemId
             const filteredItems = cart.items.filter(item => item._id.toString() !== cartItemId);
 
-            // Actualizamos el carrito con los items restantes
+            // actualizamos el carrito con los items restantes
             cart.items = filteredItems;
 
             // erecalculamos el precio total del carrito solo si hay items restantes

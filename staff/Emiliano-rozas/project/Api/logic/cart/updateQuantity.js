@@ -38,8 +38,8 @@ export default (userId, cartItemId, newQuantity) => {
             return Cart.findOne({ user: userId }).populate({ path: 'items', populate: { path: 'product' } })
         })
         .then(cart => {
-            if (!cart) throw new NotFoundError('cart not found')
-            // Calculamos el nuevo totalPrice.
+            if (!cart) throw new NotFoundError('cart not found') // sera que revisamos otra vez?
+            // Calculamos el nuevo precio
             cart.totalPrice = cart.items.reduce((total, item) => total + item.quantity * item.product.price, 0)
             return cart.save()
         })

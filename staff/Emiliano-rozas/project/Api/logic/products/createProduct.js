@@ -12,7 +12,7 @@ export default (userId, title, author, publisher, isbn, price, description, cate
     validate.price(price)
     validate.description(description)
     validate.category(category)
-    validate.status(status)
+    validate.status(status, 'product')
     validate.stock(stock)
     validate.image(image)
     if (images) {

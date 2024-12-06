@@ -1,22 +1,21 @@
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRiNDFlMzFkNDkzZTZlYTFkMjU0ZWYiLCJyb2xlIjoibW9kZXJhdG9yIiwiaWF0IjoxNzMzNTAwMTc2LCJleHAiOjE3MzM1MDM3NzZ9.7NTzF8lVMqjzQRDZ4mNUWu0ww6WHW6l6jo3D2qh4BNU'
-const productId = '674b3627f5a3f200a06f4173'
-const quantity = 1
+const orderId = '67531dd5a35aeb0a651697f6'
+const status = 'confirmed'
 
-fetch('http://localhost:7000/cart/add', {
-    method: 'POST',
+
+fetch(`http://localhost:7000/orders/update/${orderId}`, {
+    method: 'PATCH',
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Necesitamos el token para autorizar la solicitud
+        'Authorization': `Bearer ${token}`
     },
     body: JSON.stringify({
-        productId,
-        quantity
+        status
     })
+}).then(response => {
+    console.log(`Status Code: ${response.status}`);
+    return response.text(); // Usamos .text() en lugar de .json() para ver la respuesta completa en caso de error.
 })
-    .then(response => {
-        console.log(`Status Code: ${response.status}`);
-        return response.text(); // Usamos .text() en lugar de .json() para ver la respuesta completa en caso de error.
-    })
     .then(data => {
         console.log('Respuesta del servidor:', data);
     })

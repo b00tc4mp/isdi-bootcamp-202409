@@ -1,5 +1,26 @@
 import { getProducts } from './products/index';
-import { registerUser, loginUser, isUserRoleModerator, isUserRoleRegular, isUserLoggedIn, logoutUser } from './users/index';
+import {
+    registerUser,
+    loginUser,
+    isUserRoleModerator,
+    isUserRoleRegular,
+    isUserLoggedIn,
+    logoutUser,
+    getUserId
+} from './users/index';
+
+import {
+    getCart,
+    addTocart,
+    removeAllFromCart,
+    updateQuantity
+} from './cart/index'
+
+import {
+    placeOrder,
+    getOrders,
+    updateOrder
+} from './orders/index'
 
 
 const logic = {
@@ -9,7 +30,15 @@ const logic = {
     isUserRoleRegular,
     isUserLoggedIn,
     logoutUser,
-    getProducts
+    getUserId,
+    getProducts,
+    getCart,
+    addTocart,
+    removeAllFromCart,
+    updateQuantity,
+    placeOrder,
+    getOrders,
+    updateOrder
 }
 
 export default logic

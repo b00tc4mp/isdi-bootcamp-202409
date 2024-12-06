@@ -1,8 +1,11 @@
 import logic from '../../../logic/index.js';
-import { createFunctionalHandler } from '../../../middleware/index.js'
+import { createFunctionalHandler } from '../../../middleware/index.js';
 
-export default createFunctionalHandler((req, res) => {
-    const { userId, body: { productId, quantity } } = req
+export default createFunctionalHandler(async (req, res) => {
+    const { userId } = req;
+    const { productId, quantity } = req.body;
 
-    return logic.addToCart(userId, productId, quantity).then(() => res.status(200).send())
-})
+    const result = await logic.addToCart(userId, productId, quantity);
+
+    res.status(200).json(result);
+});
