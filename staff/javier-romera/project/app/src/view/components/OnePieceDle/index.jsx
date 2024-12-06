@@ -46,14 +46,16 @@ export default function OnePieceDle({ onHomeClick, onLoginClick, onRegisterClick
                         <Input className="w-[18rem] h-[2.5rem] pl-[.5rem] text-[1.25rem] rounded-[.25rem] border-[4px] border-[#EADEC2] bg-[#FAF9F3] focus:outline-none" disabled />
                         <Button className="w-[2.5rem] ml-[.25rem] cursor-pointer"><img src="/images/arrow_right.png"></img></Button>
                     </Form>}
+                <div className="relative justify-center items-center w-[22rem]">
+                    {isTyping && <Options inputValue={inputValue} availableCharacters={availableCharacters} onCharacterClick={handleCharacterClick} />}
+                </div>
 
-                {isTyping && <Options inputValue={inputValue} availableCharacters={availableCharacters} onCharacterClick={handleCharacterClick} />}
+                {isFirstAnswerSent &&
+                    <div className="flex flex-col w-[fit] px-[1.5rem] pt-[1.5rem] mt-[3rem] bg-[rgba(215,167,104,0.9)] border-[2px] border-[black] rounded-[.75rem]">
+                        <AnswersLegend />
 
-                {isFirstAnswerSent && <div className="flex flex-col w-[fit] px-[1.5rem] pt-[1.5rem] mt-[1rem] bg-[rgba(215,167,104,0.9)] border-[2px] border-[black] rounded-[.75rem]">
-                    <AnswersLegend />
-
-                    {<Answers answers={answers.toReversed()} guessedCharacters={guessedCharacters.toReversed()} />}
-                </div>}
+                        {<Answers answers={answers.toReversed()} guessedCharacters={guessedCharacters.toReversed()} />}
+                    </div>}
             </section>}
 
         {showWinAlert && <WinScreen onHomeClick={onHomeClick} refresh={handleRefresh} setWinAlert={setShowWinAlert} correctChar={guessedCharacters[guessedCharacters.length - 1].name} />}

@@ -1,7 +1,7 @@
 import logic from '../../../logic'
 import { errors } from 'com'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { capitalizeWords, validateGuess, adjustAvailableCharacters } from '../../../util'
 
 const { SystemError } = errors

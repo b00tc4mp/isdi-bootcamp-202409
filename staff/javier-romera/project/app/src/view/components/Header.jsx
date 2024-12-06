@@ -49,7 +49,7 @@ export default function Header(props) {
         props.onLoggedOut()
     }
 
-    return <header className="fixed top-0 w-full flex justify-center items-center h-[10rem] box-border bg-gradient-to-b from-white/85 to-white/0">
+    return <header className="fixed top-0 w-full flex justify-center items-center h-[10rem] box-border bg-gradient-to-b from-white/90 to-white/0 z-10">
         <div className="grid grid-cols-3">
             <div></div> {/*Chapuza o historia? */}
 
@@ -64,11 +64,11 @@ export default function Header(props) {
 
                 <div>
                     {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
-                        <Button onClick={handleLogoutUser} className="bg-[rgba(175,255,255,0.8)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1rem] transition-transform duration-100 ease-in-out hover:scale-110">Logout</Button> :
+                        <Button onClick={handleLogoutUser} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1rem] transition-transform duration-100 ease-in-out hover:scale-110">Logout</Button> :
                         logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&
                         <div className="flex justify-center items-center gap-[10px]">
-                            {location.pathname !== '/login' && <Button onClick={handleLoginClick} className="bg-[rgba(175,255,255,0.8)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Log in</Button>}
-                            {location.pathname !== '/register' && <Button onClick={handleRegisterClick} className="bg-[rgba(175,255,255,0.8)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Sign in</Button>}
+                            {location.pathname !== '/login' && <Button onClick={handleLoginClick} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Log in</Button>}
+                            {location.pathname !== '/register' && <Button onClick={handleRegisterClick} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Sign in</Button>}
                         </div>}
                 </div>
             </div>

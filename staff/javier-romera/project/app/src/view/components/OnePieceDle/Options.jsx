@@ -7,7 +7,7 @@ export default function Options({ inputValue, availableCharacters, onCharacterCl
         onCharacterClick(characterName)
     }
 
-    return <div className="bg-[rgba(250,249,243,1)] absolute w-[22rem] max-h-[14rem] rounded-[.5rem] border-[black] border-[2px] overflow-y-auto mt-[4rem]">
+    return <div className="bg-[rgba(250,249,243,1)] absolute z-[1] w-[22rem] max-h-[14rem] rounded-[.5rem] border-[black] border-[2px] overflow-y-auto">
 
         {isAnyCharacterWithFirstLetter(inputValue, availableCharacters) ?
             availableCharacters.map(char => {
