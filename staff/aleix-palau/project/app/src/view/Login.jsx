@@ -63,6 +63,8 @@ export default function Login(props) {
             <Button type="submit">Log In</Button>
         </Form>
 
-        <a href="" onClick={handleRegisterClick}>Sign up</a>
+        <p>Don't have an account?
+            <a href="" onClick={handleRegisterClick}> Sign up here</a>.
+        </p>
     </main>
 }

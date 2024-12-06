@@ -4,7 +4,7 @@ const { ValidationError } = errors
 
 const validateName = name => {
     if (typeof name !== 'string') throw new ValidationError('invalid name')
-    if (name.length < 2)
+    if (name.trim().length < 2)
         throw new ValidationError('invalid name length')
 }
 
@@ -41,9 +41,27 @@ const validateId = (id, explain = 'id') => {
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
+const validateDateOfBirth = (dateOfBirth) => {
+    if (!dateOfBirth || typeof dateOfBirth !== 'string') {
+        throw new ValidationError('invalid date of birth');
+    }
+
+    const parsedDate = Date.parse(dateOfBirth);
+    if (isNaN(parsedDate)) {
+        throw new ValidationError('invalid date of birth');
+    }
+
+    // Ensure the input matches the parsed date (valid calendar date)
+    const normalizedDate = new Date(parsedDate).toISOString().slice(0, 10);
+    if (normalizedDate !== dateOfBirth) {
+        throw new ValidationError('invalid date of birth');
+    }
+}
+
 const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
+
 
 const validate = {
     name: validateName,
@@ -53,6 +71,7 @@ const validate = {
     image: validateImage,
     text: validateText,
     id: validateId,
+    dateOfBirth: validateDateOfBirth,
     callback: validateCallback
 }
 

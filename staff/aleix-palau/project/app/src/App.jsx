@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register } from './view'
+import { Login, Register, Home } from './view'
 
-import { Alert, Confirm } from './view/components'
+import { Header, Alert, Confirm } from './view/components'
 
 import { Context } from './view/useContext'
 
@@ -24,15 +24,17 @@ export default function App() {
 
     const navigate = useNavigate()
 
-    // const handleUserLoggedOut = () => navigate('/login')
-
     const handleUserLoggedIn = () => navigate('/')
+
+    const handleUserLoggedOut = () => navigate('/login')
 
     const handleRegisterClick = () => navigate('/register')
 
     const handleLoginClick = () => navigate('./login')
 
-    const handleUserRegistered = () => navigate('/login')
+    const handleUserRegistered = () => navigate('/login') // /setup
+
+    const handleHomeClick = () => navigate('/')
 
     const handleAlertAccepted = () => setAlert({
         message: null,
@@ -65,6 +67,8 @@ export default function App() {
         alert(message, level = 'error') { setAlert({ message, level }) },
         confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
     }}>
+
+        <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />
 
         <Routes>
             <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />

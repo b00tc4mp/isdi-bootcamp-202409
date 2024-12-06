@@ -87,6 +87,22 @@ const user = new Schema({
     }
 }, { versionKey: false })
 
+user.virtual('age').get(function () {
+    if (!this.dateOfBirth) return null
+
+    const today = new Date()
+    const birthDate = new Date(this.dateOfBirth)
+
+    let age = today.getFullYear() - birthDate.getFullYear()
+    const monthDiff = today.getMonth() - birthDate.getMonth()
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--
+    }
+
+    return age
+})
+
 const heartbeat = new Schema({
     sender: {
         type: ObjectId,
@@ -174,6 +190,9 @@ const notification = new Schema({
         default: Date.now
     }
 }, { versionKey: false })
+
+user.set('toObject', { virtuals: true })
+user.set('toJSON', { virtuals: true })
 
 const User = model('User', user)
 const Heartbeat = model('Heartbeat', heartbeat)

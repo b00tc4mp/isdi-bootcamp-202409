@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 
 import { User } from 'dat'
 import { validate, errors } from 'com'
+
 const { SystemError, CredentialsError } = errors
 
 export default (email, password) => {

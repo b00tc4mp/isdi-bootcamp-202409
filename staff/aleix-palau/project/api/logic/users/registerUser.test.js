@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import db from 'dat'
-
 import registerUser from './registerUser.js'
 
 await db.connect(process.env.MONGO_URL_TEST)

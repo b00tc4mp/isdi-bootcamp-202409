@@ -1,10 +1,10 @@
-import { errors } from 'com'
-
-const { SystemError } = errors
-
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic'
+
+import { errors } from 'com'
+
+const { SystemError } = errors
 
 import useContext from './useContext'
 
@@ -76,6 +76,8 @@ export default function Register(props) {
             <Button type="submit">Sign Up</Button>
         </Form>
 
-        <a href="" onClick={handleLoginClick}>Log in here</a>
+        <p>Already have an account?
+            <a href="" onClick={handleLoginClick}> Log in instead</a>.
+        </p>
     </main >
 }
