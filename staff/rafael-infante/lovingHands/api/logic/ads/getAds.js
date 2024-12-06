@@ -9,7 +9,7 @@ export default async (userId) => {
   try {
     const [user, ads] = await Promise.all([
       User.findById(userId).lean(),
-      Ad.find().populate('author', 'name').sort({ date: -1 }).lean(),
+      Ad.find().populate('author', 'name role').sort({ date: -1 }).lean(),
     ])
     if (!user) throw new NotFoundError('user not found')
 
@@ -18,6 +18,7 @@ export default async (userId) => {
       author: {
         id: ad.author._id.toString(),
         name: ad.author.name,
+        role: ad.author.role,
       },
       files: ad.files,
       text: ad.text,

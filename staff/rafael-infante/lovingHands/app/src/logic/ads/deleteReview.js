@@ -1,14 +1,14 @@
-import { errors } from 'com'
-import { extractPayloadFromJWT } from '../utils'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default () => {
-  const { sub: userId } = extractPayloadFromJWT(localStorage.token)
+export default (adId, reviewId) => {
+  validate.id(adId, 'adId')
+  validate.id(reviewId, 'reviewId')
 
-  return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
+  return fetch(`http://${import.meta.env.VITE_API_URL}/ads/${adId}/reviews/${reviewId}`, {
+    method: 'DELETE',
     headers: {
-      method: 'GET',
       Authorization: `Bearer ${localStorage.token}`,
     },
   })
@@ -16,10 +16,7 @@ export default () => {
       throw new SystemError(error.message)
     })
     .then((res) => {
-      if (res.ok)
-        return res.json().catch((error) => {
-          throw new SystemError(error.message)
-        })
+      if (res.ok) return alert('Ad deleted')
 
       return res
         .json()

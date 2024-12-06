@@ -1,11 +1,17 @@
-import registerUser from './registerUser'
-import loginUser from './loginUser'
-import logoutUser from './logoutUser'
-import isUserLoggedIn from './isUserLoggedIn'
-import getUserName from './getUserName'
-import createAd from './createAd'
-import getUserId from './getUserId'
-import getAds from './getAds'
+import registerUser from './users/registerUser'
+import loginUser from './users/loginUser'
+import logoutUser from './users/logoutUser'
+import isUserLoggedIn from './users/isUserLoggedIn'
+import getUserName from './users/getUserName'
+import getUserId from './users/getUserId'
+
+import createAd from './ads/createAd'
+import getAds from './ads/getAds'
+import deleteAd from './ads/deleteAd'
+
+import deleteReview from './ads/deleteReview'
+import addReview from './ads/addReview'
+import getReviews from './ads/getReviews'
 
 const logic = {
   registerUser,
@@ -14,8 +20,14 @@ const logic = {
   logoutUser,
   getUserName,
   getUserId,
+
   createAd,
   getAds,
+  deleteAd,
+
+  deleteReview,
+  addReview,
+  getReviews,
 }
 
 export default logic
