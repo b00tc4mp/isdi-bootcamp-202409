@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 
 const { AuthorizationError } = errors
 
-export default (req, next) => {
+export default (req, res, next) => {
     try {
         // Check if Authorization header exists and is valid
         if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {

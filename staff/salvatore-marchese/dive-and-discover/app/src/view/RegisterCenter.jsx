@@ -1,6 +1,6 @@
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
-import logic from '../logic'
+import logic from '../../../api/logic'
 
 export default function Register(props) {
     console.log('RegisterCentre -> render')
@@ -15,15 +15,11 @@ export default function Register(props) {
             email: { value: email },
             password: { value: password },
             ['password-repeat'] : { value: passwordRepeat},
-            address: { value: address },
-            postcode: { value: postcode },
-            country: { value: country },
-            city: { value: city },
-            telephone: { value: telephone }
+            
         } = form
 
         try {
-            logic.registerUserCenter(name, email, password, passwordRepeat, address,  postcode, country, city, telephone, error => {
+            logic.registerUserCenter(name, email, password, passwordRepeat, error => {
                 if (error) {
                     alert(error.message)
 
@@ -71,31 +67,6 @@ export default function Register(props) {
             <Field>
                 <Label htmlFor="password-repeat">Repeat Password</Label>
                 <PasswordInput id="password-repeat" />
-            </Field>
-
-            <Field>
-                <Label htmlFor="address">Address Line</Label>
-                <Input type="text" id="address" />
-            </Field>
-
-            <Field>
-                <Label htmlFor="postcode">Postcode</Label>
-                <Input type="text" id="postcode" />
-            </Field>
-
-            <Field>
-                <Label htmlFor="city">City</Label>
-                <Input type="text" id="city" />
-            </Field>
-
-            <Field>
-                <Label htmlFor="country">Country</Label>
-                <Input type="text" id="country" />
-            </Field>
-
-            <Field>
-                <Label htmlFor="telephone">Telephone</Label>
-                <Input type="tel" id="telephone" />
             </Field>
 
             <Button type="submit">Register</Button>

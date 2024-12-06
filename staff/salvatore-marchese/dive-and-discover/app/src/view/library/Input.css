@@ -1,4 +1,4 @@
-.Input {
+ .Input {
     width: 100%;
     box-sizing: border-box;
     background-color: whitesmoke;
@@ -8,7 +8,7 @@
     align-self: center;
     height: 30px;
    
-}
+} 
 
 /*
 input {

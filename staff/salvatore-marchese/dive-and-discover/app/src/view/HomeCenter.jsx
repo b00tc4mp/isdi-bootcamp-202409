@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import logic from '../logic'; 
+import React, { useState, useEffect } from 'react'
+
+import logic from '../../../api/logic';
 
 // HomeCenter component to display business details (view-only)
 const HomeCenter = ({ business }) => {
@@ -7,7 +8,11 @@ const HomeCenter = ({ business }) => {
 
   // useEffect hook to check if the user is a business owner (center role)
   useEffect(() => {
-    const userRole = logic.getUserRole(); // Get the user's role 
+    try {
+    logic.getUserName()
+    .then(name => { setUserName(name)})
+        } catch (error) {
+    } // Get the user's role 
     // If the user is a center, we can allow them to edit later (in the profile page).
   }, []);
 

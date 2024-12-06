@@ -16,7 +16,7 @@ export default async (email, password) => {
             if (res.ok)
                 return res.json()
                     .catch(error => { throw new SystemError(error.message) })
-                    .then(token => { localStorage.token = token })
+                    .then(body => { sessionStorage.token = body.token })
 
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })

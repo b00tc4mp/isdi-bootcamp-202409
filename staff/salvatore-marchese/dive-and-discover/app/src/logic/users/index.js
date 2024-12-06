@@ -6,6 +6,7 @@ import isUserLoggedIn from "./isUserLoggedIn";
 
 import isUserRoleCenter from "./isUserRoleCenter";
 import isUserRoleDiver from "./isUserRoleDiver";
+import getUserName from "./getUserName";
 
 
 
@@ -17,7 +18,8 @@ const logic = {
     logoutUser,
     isUserLoggedIn,
     isUserRoleDiver,
-    isUserRoleCenter
+    isUserRoleCenter,
+    getUserName
 }
 
 export default logic 

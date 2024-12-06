@@ -22,14 +22,12 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     server.post('/users/auth', jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { email, password } = req.body
 
-        const { id, role } = await logic.authenticateUser(email, password)
-
-        const token = jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' })
-
-        res.json(token)
+        return logic.authenticateUser(email, password)
+            .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, {expiresIn: '1h' }))
+            .then(token => res.json({token}))
     }))
 
-    server.post('/HomeDiver', jsonBodyParser, createFunctionalHandler(async (req, res) => {
+    server.post('/home-diver', jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { name, email, password, 'password-repeat': passwordRepeat } = req.body
 
         // Ensure that passwords match before calling the register logic
@@ -37,15 +35,45 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
             return res.status(400).send('Passwords do not match');
         }
 
-        await logic.registerUserDiver(name, email, password, passwordRepeat)
-
-        res.status(201).send()
+        await logic.registerUserDiver(name, email, password, passwordRepeat).then(() => res.status(201).send())
     }))
 
-    server.get('/Diver/Profile', authorizationHandler, async (req, res) => {
+    server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
+        const { userId, params: {
+        targetUserId } } = req
+
+        return logic.getUserName(userId, targetUserId).then(name => res.json({name}))
+    }))
+
+    server.get('/diver/profile', authorizationHandler, async (req, res) => {
         const { sub } = req.user; // Extracted from the verified JWT token
         const user = await logic.getUserById(sub);
         res.json(user);
+    })
+
+    //editing profile page 
+    server.get('/user/:id', authorizationHandler, async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id)
+            if (!user) return res.status(404).json({ message: 'User not found' })
+            
+                res.json(user)
+        } catch (err) {
+            res.status(500).json({ message: err.message })
+        }
+    })
+    
+    server.put('/user/:id', authorizationHandler, async (req, res) => {
+        try {
+            const { name, email, password} = req.body
+            const updatedUser = await User.findByIdAndUpdate(req.params.id, { name, email, password}, { new: true })
+    
+            if (!updatedUser) return res.status(404).json({ message: 'User not found!'})
+    
+            res.json(updatedUser)
+        } catch (err) {
+            res.status(500).json({ message: err.message })
+        }
     })
 
     server.use(errorHandler)

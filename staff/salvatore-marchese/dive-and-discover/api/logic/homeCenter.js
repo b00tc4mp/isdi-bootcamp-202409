@@ -16,6 +16,7 @@ export default async function createHomeCenter({ name, email, password, address,
 
     const user = new user({ name, email, password }) 
 
+    
     await user.save()
 
     return { message: 'Home Center created successfully!' }

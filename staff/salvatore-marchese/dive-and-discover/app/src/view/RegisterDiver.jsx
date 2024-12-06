@@ -1,6 +1,6 @@
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
-import logic from '../logic'
+import logic from '../../../api/logic'
 
 export default function Register(props) {
     console.log('RegisterDiver -> render')

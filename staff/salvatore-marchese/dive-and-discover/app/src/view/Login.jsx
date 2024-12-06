@@ -2,7 +2,7 @@ import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 import { useNavigate } from 'react-router-dom'
 
 
-import logic from '../logic'
+import logic from '../../../api/logic'
 
 import { errors } from 'com'
 
@@ -44,8 +44,9 @@ export default function Login(props) {
     }
 
     return (
-    <main className="flex flex-col justify-center items-center h-screen p-7 bg-gray-50 mt-3">
-        <h2 className="text-3xl font-bold text-center mb-5">Let's <span className="text-yellow-500">Dive</span> you <span className="text-yellow-500">in</span></h2>
+    <main className="flex flex-col justify-center items-center h-screen">
+        <div className="bg-gray-100 shadow-md p-4 rounded-lg w-h max-w-md ">
+        <h2 className="text-2xl font-bold text-center mb-5">Let's <span className="text-yellow-500">Dive</span> you <span className="text-yellow-500">in</span></h2>
         <p className="text-center mb-7 text-600">Discover the World <span className="block"> with Every Sign In 🤿</span></p>
 
     
@@ -67,8 +68,8 @@ export default function Login(props) {
 
         
         <p className="text-center mb-1 text-600">I don't have an account?</p>
-        <Button onClick={handleRoleSelection}>Register</Button>
-        
+        <Button onClick={handleRoleSelection} className="w-full py-2 mt-4">Register</Button>
+        </div>
     </main>
     )
 }
