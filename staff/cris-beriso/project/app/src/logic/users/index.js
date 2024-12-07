@@ -4,6 +4,7 @@ import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'
 import getUserId from './getUserId'
 import logoutUser from './logoutUser'
+import getWishlist from './getWishlist'
 
 export {
   registerUser,
@@ -11,5 +12,6 @@ export {
   isUserLoggedIn,
   getUserName,
   getUserId,
-  logoutUser
+  logoutUser,
+  getWishlist
 }

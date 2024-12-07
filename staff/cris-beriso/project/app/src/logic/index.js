@@ -4,7 +4,8 @@ import {
   registerUser,
   getUserName,
   logoutUser,
-  getUserId
+  getUserId,
+  getWishlist
 } from './users'
 
 import {
@@ -25,6 +26,7 @@ const logic = {
   getUserName,
   logoutUser,
   getUserId,
+  getWishlist,
 
   getProducts,
   addComment,

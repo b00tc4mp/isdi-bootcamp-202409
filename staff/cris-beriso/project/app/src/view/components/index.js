@@ -5,6 +5,7 @@ import Comment from './Comment'
 import Comments from './Comments'
 import Footer from './Footer'
 import AddComment from './AddComment'
+import Product from './Product'
 
 
 export {
@@ -14,5 +15,6 @@ export {
   Footer,
   Comment,
   Comments,
-  AddComment
+  AddComment,
+  Product
 }

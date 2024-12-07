@@ -7,14 +7,14 @@ import logic from '../logic'
 
 import useContext from './useContext'
 
-export default function Product({ product, onLiked, onDisliked, onSaved, onCommentAdded, onCommentRemoved }) {
+export default function ProductDetails({ product, onLiked, onDisliked, onSaved, onCommentAdded, onCommentRemoved }) {
   const [view, setView] = useState(null)
 
   const { alert, confirm } = useContext()
 
   const {
     id,
-    nameProduct,
+    name,
     image,
     description,
     likes,
@@ -76,9 +76,9 @@ export default function Product({ product, onLiked, onDisliked, onSaved, onComme
   }
 
   return <article>
-    <h4>{nameProduct}</h4>
-
     <img src={image} />
+
+    <h3>{name}</h3>
 
     <p>{description}</p>
 

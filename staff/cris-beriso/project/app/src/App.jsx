@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Register, Login, Home, Product } from './view'
+import { Register, Login, Home, ProductDetails, Wishlist } from './view'
 
 import { Header, Footer, Alert, Confirm } from './view/components'
 
@@ -33,6 +33,8 @@ export default function App() {
   const handleUserLoggedIn = () => navigate('/')
 
   const handleRegisterClick = () => navigate('/register')
+
+  const handleGoWishlist = () => navigate('/wishlist')
 
   const handleAlertAccepted = () => setAlert({
     message: null,
@@ -70,11 +72,13 @@ export default function App() {
 
       <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
 
-      <Route path="/:productId" element={logic.isUserLoggedIn() ? <Product /> : <Navigate to="/login" />} />
+      <Route path="/:productId" element={logic.isUserLoggedIn() ? <ProductDetails /> : <Navigate to="/login" />} />
+
+      <Route path="/wishlist" element={logic.isUserLoggedIn() ? <Wishlist /> : <Navigate to="/login" />} />
 
     </Routes>
 
-    <Footer />
+    <Footer onWishlist={handleGoWishlist} />
 
     {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 
