@@ -5,7 +5,7 @@ import createCycle from './createCycle.js'
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return createCycle('67535d0818fa27fa8d9f3561', '2024-10-02T00:00:00.000Z')
+            return createCycle('675479546bb4deb1bead0aea', '2024-11-02T00:00:00.000Z')
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {

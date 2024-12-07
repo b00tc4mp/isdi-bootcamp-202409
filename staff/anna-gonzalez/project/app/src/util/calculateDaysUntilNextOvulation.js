@@ -1,43 +1,44 @@
 export default (cyclesStart) => {
-    const validCyclesStart = cyclesStart
-        .map(date => new Date(date))
+    //convert to Date
+    const normalizedCyclesStart = cyclesStart.map(date => new Date(date))
 
-    validCyclesStart.sort((a, b) => a - b)
+    //from older to more recent
+    normalizedCyclesStart.sort((a, b) => a - b)
 
-    const durations = []
-    for (let i = 1; i < validCyclesStart.length; i++) {
-        const previousDate = validCyclesStart[i - 1]
-        const currentDate = validCyclesStart[i]
+    const cycleLengths = []
+    for (let i = 1; i < normalizedCyclesStart.length; i++) {
+        const previousDate = normalizedCyclesStart[i - 1]
+        const currentDate = normalizedCyclesStart[i]
         const durationInMilliseconds = currentDate - previousDate
         const durationInDays = durationInMilliseconds / (1000 * 60 * 60 * 24)
-        durations.push(durationInDays)
+        cycleLengths.push(durationInDays)
     }
 
     let averageCycleLength
     let ovulationDate
-    let normalizedOvulationDate
+    let daysUntilNextOvulation
 
-    if (durations.length > 0) {
-        averageCycleLength = durations.reduce((total, days) => total + days, 0) / durations.length
+    if (cycleLengths.length > 0) {
+        averageCycleLength = cycleLengths.reduce((total, days) => total + days, 0) / cycleLengths.length
 
         if (isNaN(averageCycleLength)) {
             return null
         }
-        const lastCycleStart = validCyclesStart[validCyclesStart.length - 1]
+        const lastCycleStart = normalizedCyclesStart[normalizedCyclesStart.length - 1]
 
         ovulationDate = new Date(lastCycleStart)
         ovulationDate.setDate(ovulationDate.getDate() + averageCycleLength / 2)
-        normalizedOvulationDate = Math.ceil((ovulationDate - new Date()) / (1000 * 60 * 60 * 24))
+        daysUntilNextOvulation = Math.ceil((ovulationDate - new Date()) / (1000 * 60 * 60 * 24))
     }
 
     if (cyclesStart.length < 2) {
         averageCycleLength = 28
-        ovulationDate = new Date(validCyclesStart)
+        ovulationDate = new Date(normalizedCyclesStart)
         ovulationDate.setDate(ovulationDate.getDate() + averageCycleLength / 2)
-        normalizedOvulationDate = Math.ceil((ovulationDate - new Date()) / (1000 * 60 * 60 * 24))
+        daysUntilNextOvulation = Math.ceil((ovulationDate - new Date()) / (1000 * 60 * 60 * 24))
 
-        return normalizedOvulationDate
+        return daysUntilNextOvulation
     }
 
-    return normalizedOvulationDate
+    return daysUntilNextOvulation
 }

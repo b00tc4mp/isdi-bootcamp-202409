@@ -1,5 +1,6 @@
 import calculateAverageCycleLength from './calculateAverageCycleLength'
 import calculateCycleDetails from './calculateCycleDetails'
+import calculateCyclePhase from './calculateCyclePhase'
 import calculateDaysUntilNextCycle from './calculateDaysUntilNextCycle'
 import calculateDaysUntilNextOvulation from './calculateDaysUntilNextOvulation'
 import extractPayloadFromJWT from './extractPayloadFromJWT'
@@ -15,6 +16,7 @@ import getYear from './getYear'
 export {
     calculateAverageCycleLength,
     calculateCycleDetails,
+    calculateCyclePhase,
     calculateDaysUntilNextCycle,
     calculateDaysUntilNextOvulation,
     extractPayloadFromJWT,

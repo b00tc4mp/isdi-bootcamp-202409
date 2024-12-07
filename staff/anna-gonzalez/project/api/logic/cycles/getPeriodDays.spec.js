@@ -24,7 +24,7 @@ describe('getPeriodDays', () => {
 
         return Promise.all([user.save(), cycle.save()])
             .then(([user, cycle]) => {
-                getPeriodDays(user.id, '2024-10-19T00:00:00.000Z')
+                getPeriodDays(user.id)
                     .then(periodDays => {
                         expect(periodDays[0]).to.equal(cycle.start)
                     })
@@ -33,7 +33,7 @@ describe('getPeriodDays', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            getPeriodDays('012345678901234567890123', '2024-10-19T00:00:00.000Z')
+            getPeriodDays('012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
 
@@ -44,7 +44,7 @@ describe('getPeriodDays', () => {
         return Promise.all([user.save(), cycle.save()])
             .then(([user, cycle]) => {
                 expect(
-                    getPeriodDays(user.id, '2024-09-19T00:00:00.000Z')
+                    getPeriodDays(user.id)
                 ).to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
             })
     })
