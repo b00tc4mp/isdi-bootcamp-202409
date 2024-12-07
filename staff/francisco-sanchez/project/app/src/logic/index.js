@@ -2,11 +2,13 @@ import {
     registerUser,
     isUserLoggedIn,
     loginUser,
-    logoutUser
+    logoutUser,
+    getUserId
 } from './users'
 
 import {
-    createPack
+    createPack,
+    getBasePacks
 } from './packs'
 
 
@@ -16,9 +18,11 @@ const logic = {
     isUserLoggedIn,
     loginUser,
     logoutUser,
+    getUserId,
 
     //Packs
-    createPack
+    createPack,
+    getBasePacks
 }
 
 export default logic

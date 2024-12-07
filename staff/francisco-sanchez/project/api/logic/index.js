@@ -8,6 +8,7 @@ import {
 import {
     createPack,
     assignPack,
+    getBasePacks
 } from './packs/index.js'
 
 
@@ -18,7 +19,8 @@ const logic = {
     registerUser,
 
     createPack,
-    assignPack
+    assignPack,
+    getBasePacks
 }
 
 export default logic

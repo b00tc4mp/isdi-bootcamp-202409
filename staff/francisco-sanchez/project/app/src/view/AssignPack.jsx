@@ -63,11 +63,8 @@ export default function Assign(props) {
             <form className="flex flex-col justify-items-start" /* onSubmit={handleSubmit} */ >
 
                 <Field>
-                    <Label htmlFor="unit">Customers</Label>
-                    <select id="unit" name="unit">
-                        <option value="hours">Customer 1</option>
-                        <option value="units">Customer 2</option>
-                    </select>
+                    <Label htmlFor="customerSearch">Find customer</Label>
+                    <Input id="customerSearch" className="border-2 rounded-lg" type="text" placeholder="Use email or username" ></Input>
                 </Field>
 
                 <Field>
