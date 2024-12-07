@@ -16,8 +16,13 @@ import {
     getRandomCharacter,
     getCharacterByName,
     checkOnePiecedleAnswer,
+    getAllCharacters,
     getAllCharactersNameAndAlias
 } from './characters'
+
+import {
+    getRandomConditions
+} from './conditions'
 
 const logic = {
     registerUser,
@@ -35,7 +40,10 @@ const logic = {
     getRandomCharacter,
     getCharacterByName,
     checkOnePiecedleAnswer,
-    getAllCharactersNameAndAlias
+    getAllCharacters,
+    getAllCharactersNameAndAlias,
+
+    getRandomConditions
 }
 
 export default logic

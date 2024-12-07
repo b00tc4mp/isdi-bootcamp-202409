@@ -5,7 +5,7 @@ import cors from 'cors'
 import { deleteAnonymousUsersCronJob } from './cron/index.js'
 
 import { errorHandler } from './routes/helpers/index.js'
-import { charactersRouter, usersRouter } from './routes/index.js'
+import { charactersRouter, usersRouter, conditionsRouter } from './routes/index.js'
 
 db.connect(process.env.ALLPIECE_URL_TEST!).then(() => {
     console.log('connected to db')
@@ -18,6 +18,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!).then(() => {
 
     server.use('/users', usersRouter)
     server.use('/characters', charactersRouter)
+    server.use('/conditions', conditionsRouter)
 
     server.use(errorHandler)
 
