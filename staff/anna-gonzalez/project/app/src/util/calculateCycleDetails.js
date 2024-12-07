@@ -1,10 +1,14 @@
 export default (lastPeriodStart) => {
+    if (!Array.isArray(cyclesStart) || cyclesStart.length < 2) {
+        return null
+    }
+
     //averages
     const now = new Date()
     const cycleLength = 28
 
     //create a getCycle instead?
-    //create a getLastCycleStart?
+    //create a getCurrentCycleStart?
 
     //period
     const nextPeriodStart = new Date(lastPeriodStart)

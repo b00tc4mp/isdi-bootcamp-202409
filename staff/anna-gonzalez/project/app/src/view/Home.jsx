@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react'
 
 import logic from '../logic'
-import { getHour, getWeekDayText } from '../util'
+import { calculateAverageCycleLength, calculateDaysUntilNextCycle, calculateDaysUntilNextOvulation, getHour, getWeekDayText } from '../util'
 import { ButtonSmall } from './library'
 
 export default function Home() {
     const [name, setName] = useState(null)
-    const [lastCycleStart, setLastCycleStart] = useState(null)
+    // const [currentCycleStart, setCurrentCycleStart] = useState(null)
+    const [cyclesStart, setCyclesStart] = useState(null)
     const weekDay = getWeekDayText()
 
     //crear getLastPeriodDate ==>
     //crear getCycles
-    //crear getLastCycleStartsStart ==> calcular lo que duran los ciclos
+    //crear getCurrentCycleStartsStart ==> calcular lo que duran los ciclos
     //crear getLastPeriodDate 
     //crear getPeriodEnds ==> calcular lo que duran las reglas
 
@@ -36,11 +37,29 @@ export default function Home() {
         } else setName(null)
     }, [])
 
+    // useEffect(() => {
+    //     try {
+    //         logic.getCurrentCycleStart()
+    //             .then(cycleStart => {
+    //                 setCurrentCycleStart(cycleStart)
+    //             })
+    //             .catch(error => {
+    //                 alert(error.message)
+
+    //                 console.error(error)
+    //             })
+    //     } catch (error) {
+    //         alert(error.message)
+
+    //         console.error(error)
+    //     }
+    // }, [])
+
     useEffect(() => {
         try {
-            logic.getLastCycleStart()
-                .then(lastCycle => {
-                    setLastCycleStart(lastCycle)
+            logic.getCyclesStart()
+                .then(pastCyclesStart => {
+                    setCyclesStart(pastCyclesStart)
                 })
                 .catch(error => {
                     alert(error.message)
@@ -66,6 +85,13 @@ export default function Home() {
         }
     }
 
+    const daysUntilNextCycle = cyclesStart ? calculateDaysUntilNextCycle(cyclesStart) : null
+    const daysUntilOvulation = cyclesStart ? calculateDaysUntilNextOvulation(cyclesStart) : null
+
+    const isBeforeOvulation = daysUntilOvulation !== null && daysUntilOvulation > 0
+    const isOvulationDay = daysUntilOvulation === 0
+    const isBeforePeriod = daysUntilNextCycle !== null && daysUntilNextCycle > 0
+
     return <>
         <div>
             <p>{weekDay}</p>
@@ -77,8 +103,27 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col justify-center items-center mt-6 mb-12">
-            <p className="mt-6">Your period starts in</p>
-            {lastCycleStart ? <h1>2 days</h1> : <p>Loading...</p>}
+            {isBeforeOvulation ? (
+                <>
+                    <p className="mt-6">Ovulation in</p>
+                    <h1>{daysUntilOvulation} days</h1>
+                </>
+            ) : isOvulationDay ? (
+                <>
+                    <p className="mt-6">Today is your day of</p>
+                    <h1>Ovulation</h1>
+                </>
+            ) : isBeforePeriod ? (
+                <>
+                    <p className="mt-6">Your period starts in</p>
+                    <h1>{daysUntilNextCycle} days</h1>
+                </>
+            ) : (
+                <>
+                    <p>Predictions</p>
+                    <h1>No data</h1>
+                </>
+            )}
             <ButtonSmall onClick={handleStartPeriodClick}>Log in period</ButtonSmall>
         </div>
 

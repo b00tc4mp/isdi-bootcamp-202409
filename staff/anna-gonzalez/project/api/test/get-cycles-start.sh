@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzM1NjEwNDEsImV4cCI6MTczNjE1MzA0MX0.P51DbpIa_BvcrwgXo-BzCrOWbrTX5tmfBAd7147jiSk' http://localhost:8080/cycles/start -v

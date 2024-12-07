@@ -1,11 +1,13 @@
 import addPeriodEnd from './addPeriodEnd.js'
 import createCycle from './createCycle.js'
-import getLastCycleStart from './getLastCycleStart.js'
+import getCyclesStart from './getCyclesStart.js'
+import getCurrentCycleStart from './getCurrentCycleStart.js'
 import getPeriodDays from './getPeriodDays.js'
 
 export {
     addPeriodEnd,
     createCycle,
-    getLastCycleStart,
+    getCyclesStart,
+    getCurrentCycleStart,
     getPeriodDays
 }

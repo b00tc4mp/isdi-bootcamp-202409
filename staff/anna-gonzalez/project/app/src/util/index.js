@@ -1,5 +1,7 @@
+import calculateAverageCycleLength from './calculateAverageCycleLength'
 import calculateCycleDetails from './calculateCycleDetails'
-// import calculateNextCycleStart from './calculateNextCycleStart'
+import calculateDaysUntilNextCycle from './calculateDaysUntilNextCycle'
+import calculateDaysUntilNextOvulation from './calculateDaysUntilNextOvulation'
 import extractPayloadFromJWT from './extractPayloadFromJWT'
 import getFirstDayOfWeek from './getFirstDayOfWeek'
 import getHour from './getHour'
@@ -11,8 +13,10 @@ import getWeekDayText from './getWeekDayText'
 import getYear from './getYear'
 
 export {
+    calculateAverageCycleLength,
     calculateCycleDetails,
-    // calculateNextCycleStart,
+    calculateDaysUntilNextCycle,
+    calculateDaysUntilNextOvulation,
     extractPayloadFromJWT,
     getFirstDayOfWeek,
     getMonthText,

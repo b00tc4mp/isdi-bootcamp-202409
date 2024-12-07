@@ -11,9 +11,9 @@ import { errors } from 'com'
 
 const { NotFoundError, ValidationError, SystemError } = errors
 
-import getLastCycleStart from './getLastCycleStart.js'
+import getCurrentCycleStart from './getCurrentCycleStart.js'
 
-describe('getLastCycleStart', () => {
+describe('getCurrentCycleStart', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => Promise.all([User.deleteMany(), Cycle.deleteMany()]))
@@ -24,16 +24,16 @@ describe('getLastCycleStart', () => {
 
         return Promise.all([user.save(), cycle.save()])
             .then(([user, cycle]) => {
-                getLastCycleStart(user.id)
-                    .then(lastCycle => {
-                        expect(lastCycle).to.exist
+                getCurrentCycleStart(user.id)
+                    .then(currentCycle => {
+                        expect(currentCycle).to.exist
                     })
             })
     })
 
     it('fails on non-existing user', () =>
         expect(
-            getLastCycleStart('012345678901234567890123')
+            getCurrentCycleStart('012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
 
@@ -41,7 +41,7 @@ describe('getLastCycleStart', () => {
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user => {
                 expect(
-                    getLastCycleStart(user.id)
+                    getCurrentCycleStart(user.id)
                 ).to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
             })
     })

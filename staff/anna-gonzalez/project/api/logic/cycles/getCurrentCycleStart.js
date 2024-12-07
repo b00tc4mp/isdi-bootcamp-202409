@@ -13,10 +13,10 @@ export default (userId) => {
 
             return Cycle.findOne({ user: userId }).sort({ start: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(lastCycle => {
-                    if (!lastCycle) throw new NotFoundError('Cycle not found')
+                .then(currentCycle => {
+                    if (!currentCycle) throw new NotFoundError('Cycle not found')
 
-                    return lastCycle.start
+                    return currentCycle.start
                 })
         })
 }
