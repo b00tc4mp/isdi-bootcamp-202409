@@ -8,6 +8,7 @@ import Policy from './Policy'
 import ProductItem from './ProductItem'
 import Title from './Title'
 import RelatedProducts from './RelatedProducts'
+import CartTotal from './CartTotal'
 
 export {
     Hero,
@@ -19,5 +20,6 @@ export {
     Policy,
     ProductItem,
     Title,
-    RelatedProducts
+    RelatedProducts,
+    CartTotal
 }

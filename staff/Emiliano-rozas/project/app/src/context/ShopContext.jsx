@@ -8,7 +8,7 @@ export const ShopContext = createContext()
 
 const ShopContextProvider = (props) => {
     const currency = '$';
-    const delivery_fee = 10;
+    const delivery_fee = 33;
 
     const [products, setProducts] = useState([]) //aca almacenamos lo productos que vamos a traer de api
 

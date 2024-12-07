@@ -36,7 +36,7 @@ export default function Login() {
     }
 
     return (
-        <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-white'>
+        <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mb-72 mt-24 gap-4 text-white'>
             <div className='inline-flex items-center gap-2 mb-2 mt-10'>
                 <p className='text-3xl text-white'>Login</p>
                 <hr className=' border-none h-[1.5px] w-8 bg-green-700' />
@@ -44,7 +44,7 @@ export default function Login() {
             <label htmlFor="username"></label>
             <input type="text" name="username" id="username" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black ' placeholder='Username' required />
             <label htmlFor="password"></label>
-            <input type="password" name="password" id="password" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Password' required />
+            <input type="password" name="password" id="password" className='w-full px-3 py-2 focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Password' required />
             <div className='w-full flex justify-between text-sm mt-[-8px]'>
                 <p className='cursor-pointer hover:text-green-700'>Forgot you password?</p>
                 <Link to='/register'>
