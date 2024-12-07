@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
@@ -11,14 +11,21 @@ import { Context } from './view/useContext'
 
 import logic from './logic'
 import { Alert, Menu } from './view/components'
+import CreatePost from './view/CreatePost'
 
 
 
 export default function App() {
-    const [userId, alert, setAlert] = useState({
-        userId: logic.getUserId(),
+    const [alert, setAlert] = useState({
         message: null,
         level: 'error'
+    })
+    const [userId, setUserId] = useState({
+        userId: null,
+    })
+
+    useEffect(() => {
+        setUserId(logic.isUserLoggedIn() ? logic.getUserId() : null)
     })
 
     const navigate = useNavigate()
@@ -58,6 +65,8 @@ export default function App() {
             {/* extra demos */}
             <Route path="/hello/:name" element={<Hello />} />
             <Route path="/profile/:userId/*" element={<Profile handleUserLoggedOut={handleUserLoggedOut} />} />
+            <Route path="/create-post" element={<CreatePost />} />
+
         </Routes>
 
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}

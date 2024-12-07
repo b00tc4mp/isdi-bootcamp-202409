@@ -1,5 +1,5 @@
-export default function Input({ type, id, placeholder, value }) {
+export default function Input({ type, id, placeholder, defaultValue, className }) {
     // console.log('Input -> render')
 
-    return <input type={type} id={id} placeholder={placeholder} value={value} className="w-full rounded-xl h-10 text-center py-2" />
+    return <input type={type} id={id} placeholder={placeholder} defaultValue={defaultValue} className="w-full rounded-xl h-10 text-center py-2" />
 }

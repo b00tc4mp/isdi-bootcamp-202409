@@ -1,7 +1,7 @@
 import './Label.css'
 
-export default function Label({ htmlFor, children }) {
+export default function Label({ htmlFor, children, className }) {
     // console.log('Label -> render')
 
-    return <label htmlFor={htmlFor} className="">{children}</label>
+    return <label htmlFor={htmlFor} className={className}>{children}</label>
 }

@@ -1,16 +1,39 @@
 
-import registerUser from './users/registerUser'
-import loginUser from './users/loginUser'
-import logoutUser from './users/logoutUser'
-import isUserLoggedIn from './users/isUserLoggedIn'
-import getUserId from './users/getUserId'
-import saveUser from './users/saveUser'
-
-export default {
+import {
     registerUser,
     loginUser,
+    logoutUser,
     isUserLoggedIn,
     getUserId,
+    saveUser,
+    getUser,
+    getUserRole,
+    isUserRoleModerator,
+    isUserRoleRegular,
+    getUserLocation
+} from './users'
+
+
+import {
+    createPost,
+    getPosts
+} from './posts'
+
+const logic = {
+    registerUser,
+    loginUser,
+    getUserId,
+    saveUser,
+    getUser,
+    getUserRole,
+    isUserLoggedIn,
+    isUserRoleModerator,
+    isUserRoleRegular,
     logoutUser,
-    saveUser
+    getUserLocation,
+
+    createPost,
+    getPosts
 }
+
+export default logic

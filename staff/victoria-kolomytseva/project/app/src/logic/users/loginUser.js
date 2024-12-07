@@ -3,7 +3,6 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default (email, password) => {
-    console.log('login user => ', email, password)
     validate.email(email)
     validate.password(password)
 

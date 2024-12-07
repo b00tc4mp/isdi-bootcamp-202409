@@ -58,10 +58,40 @@ const post = new Schema({
         required: true,
         default: Date.now
     },
+    whatHappened: {
+        type: String,
+        required: true
+    },
+    petType: {
+        type: String,
+        required: true,
+        enum: ["cat", "dog", "ferret"]
+    },
+    petGender: {
+        type: String,
+        required: true,
+        enum: ["female", "male"]
+    },
     likes: [{
         type: ObjectId,
         ref: 'User'
     }],
+
+    latitude: {
+        type: String,
+        required: true
+    },
+    longitude: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: ["lost", "found"],
+        default: 'lost'
+    },
+
     comments: ["comment"]
 }, { versionKey: false })
 
@@ -82,8 +112,9 @@ const comment = new Schema({
         type: Date,
         required: true,
         default: Date.now
-    }
+    },
 })
+
 
 const report = new Schema({
     reportedId: {

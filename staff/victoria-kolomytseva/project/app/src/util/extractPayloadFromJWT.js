@@ -1,4 +1,5 @@
 export default token => {
+    if (!token) return;
     const indexFrom = token.indexOf('.')
     const indexTo = token.lastIndexOf('.')
 

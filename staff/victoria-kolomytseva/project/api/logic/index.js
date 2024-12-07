@@ -1,15 +1,27 @@
 import {
     registerUser,
     authenticateUser,
-    saveUser
-
+    saveUser,
+    getUserById
 } from './users/index.js'
+
+
+import {
+    createPost,
+    getPosts
+
+} from './posts/index.js'
 
 
 const logic = {
     registerUser,
     authenticateUser,
-    saveUser
+    saveUser,
+    getUserById,
+
+
+    createPost,
+    getPosts
 }
 
 export default logic

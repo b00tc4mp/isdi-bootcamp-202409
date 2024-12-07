@@ -4,10 +4,10 @@ const { SystemError } = errors
 
 export default (id, name, surname, phone, city, postalCode) => {
     validate.name(name)
-    validate.surname(surname)
-    validate.phone(phone)
-    validate.city(city)
-    validate.postalCode(postalCode)
+    // validate.surname(surname)
+    // validate.phone(phone)
+    // validate.city(city)
+    // validate.postalCode(postalCode)
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users`, {
         method: 'PUT',
