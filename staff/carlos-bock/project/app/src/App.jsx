@@ -4,9 +4,10 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Login, Register, Home, CreateRecommend } from './view/index.js' // add  CreateRecommend 
 
-import Header from './view/components/Header.jsx' //import {Header, Footer} from './view/components'
-import Footer from './view/components/Footer.jsx'
 //TODO add profile page
+
+//import Header from './view/components/Header.jsx'; import Footer from './view/components/Footer.jsx'
+import { Header, Footer, Alert, Confirm } from './view/components/index.js'
 
 import { Context } from './view/useContext.js'
 
@@ -47,6 +48,16 @@ export default function App() {
     level: 'error'
   })
 
+  const handleConfirmAccepted = () => {
+    confirm.callback(true)
+
+    setConfirm({
+      message: null,
+      level: 'error',
+      callback: null
+    })
+  }
+
   const handleConfirmCancelled = () => {
     confirm.callback(false)
 
@@ -62,7 +73,7 @@ export default function App() {
 
   return <Context.Provider value={{
     alert(message, level = 'error') { setAlert({ message, level }) },
-    confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+    confirm(message, callback, level = 'error') { console.log('Confirm called with message:', message); setConfirm({ message, callback, level }) }
   }}>
     <Header onHomeClick={handleHomeClick} onLoggedout={handleUserLoggedOut} />
 
@@ -78,13 +89,12 @@ export default function App() {
       <Route path='/' element={logic.isUserLoggedIn() ? <Home /> :
         <Navigate to='/login' />} />
 
-      <Route path='/new-recommend' element={logic.isUserLoggedIn() ? <CreateRecommend onCreated={handleRecommendCreated} /> : <Navigate to='/login' />} />
+      <Route path='/new-reco' element={logic.isUserLoggedIn() ? <CreateRecommend onCreated={handleRecommendCreated} /> :
+        <Navigate to='/login' />} />
 
     </Routes>
 
-
     <Footer onNewRecommendClick={handleNewRecommendClick} />
-
 
     {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 

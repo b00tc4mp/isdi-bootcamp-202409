@@ -13,7 +13,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
     const location = useLocation()
 
-    //add custom alert
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         console.log('Header -> componentDidMount & componentWillRecieveProps')
@@ -45,7 +45,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     const handleLogout = () => {
         confirm('Logout?', accepted => {
             if (accepted) {
-                logic.logOutUser()
+                logic.logoutUser()
 
                 onLoggedOut()
             }
@@ -54,9 +54,8 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
     console.log('Header -> render')
 
-
     //add logic to return statment
-    return <header className="dark:bg-[var(--back-color-dark)] bg-[var(--back-color)] p-4 h-12 box-border flex justify-between items-center fixed top-0 w-full">
+    return <header className='header'>
         <h1>miRed</h1>
 
         {name && <h3>{name}</h3>}

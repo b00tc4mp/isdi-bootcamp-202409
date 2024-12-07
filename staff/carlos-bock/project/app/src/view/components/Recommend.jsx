@@ -65,7 +65,9 @@ export default function Recommend({ recommend, onUpVote, onDownVote, onDeleted, 
     }
 
     const handleDeleteClick = () => {
+        console.log('Delete button clicked')
         confirm('¿Borrar recommendación o guía?', accepted => { //make alert dynamic on context
+            console.log('Confirm dialog displayed')
             if (accepted) {
                 try {
                     logic.deleteRecommend(id)
@@ -90,7 +92,7 @@ export default function Recommend({ recommend, onUpVote, onDownVote, onDeleted, 
     //        <p>{text}</p>
     //        <img src={image} />
 
-    return <article className='Recommendation border border-black p-4' >
+    return <article className='recommendation' >
         <h4 className='bg-indigo-500'>{author.username}</h4>
         <div className='border-4 border-black p-1.25 bg-gray-100'>
             <h4>{subject} | {category === 1 ? 'trámites' : category === 2 ? 'servicios' :
