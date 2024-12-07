@@ -11,7 +11,7 @@ const condition = new Schema({
         required: true
     },
     value: {
-        type: String,
+        type: String || Number,
         required: true
     },
     direction: {
@@ -19,10 +19,10 @@ const condition = new Schema({
         required: true,
         enum: ['row', 'column']
     },
-    index: {
+    indexes: [{
         type: Number,
         required: true
-    },
+    }],
     text: {
         type: String,
         required: true

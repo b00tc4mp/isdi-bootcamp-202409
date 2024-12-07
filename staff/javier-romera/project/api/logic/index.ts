@@ -15,6 +15,10 @@ import {
     getAllCharactersNameAndAlias
 } from './characters/index.js'
 
+import {
+    getRandomConditions
+} from './conditions/index.js'
+
 const logic = {
     authenticateUser,
     registerUser,
@@ -27,7 +31,9 @@ const logic = {
 
     getRandomCharacter,
     getCharacterByName,
-    getAllCharactersNameAndAlias
+    getAllCharactersNameAndAlias,
+
+    getRandomConditions
 }
 
 export default logic

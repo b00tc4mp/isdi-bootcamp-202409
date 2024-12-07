@@ -34,5 +34,5 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
         }),
     ]))
     .catch(console.error)
-    .then(() => console.log('populated'))
+    .then(() => console.log('populated anonymous users'))
     .finally(() => db.disconnect())

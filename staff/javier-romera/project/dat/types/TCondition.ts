@@ -3,7 +3,7 @@ type TCondition = {
     property: string,
     value: string,
     direction: string,
-    index: number,
+    indexes: number[],
     text: string
 }
 
