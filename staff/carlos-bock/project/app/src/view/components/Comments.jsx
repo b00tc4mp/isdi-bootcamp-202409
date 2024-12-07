@@ -68,7 +68,7 @@ export default function Comments(props) {
             {comments.map(comment =>
                 <Comment
                     key={comment.id}
-                    recommendId={props.id}
+                    recommendId={props.recommendId}
                     comment={comment}
                     onRemoved={handleRemoved}
                 />)
@@ -76,7 +76,7 @@ export default function Comments(props) {
         </ul>
 
         <AddComment
-            recommendId={props.postId}
+            recommendId={props.recommendId}
             onAdded={handleAdded}
         />
     </section>

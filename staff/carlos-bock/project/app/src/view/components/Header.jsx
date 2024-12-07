@@ -56,7 +56,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
 
     //add logic to return statment
-    return <header>
+    return <header className="dark:bg-[var(--back-color-dark)] bg-[var(--back-color)] p-4 h-12 box-border flex justify-between items-center fixed top-0 w-full">
         <h1>miRed</h1>
 
         {name && <h3>{name}</h3>}

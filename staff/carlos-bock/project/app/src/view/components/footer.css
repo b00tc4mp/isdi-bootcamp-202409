@@ -1,0 +1,6 @@
+.footer {
+    border: 5px solid black;
+    padding: 5px;
+    background-color: #a81010; /* Optional background */
+    text-align: center; /* Optional alignment */
+  }

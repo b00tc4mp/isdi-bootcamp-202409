@@ -6,7 +6,7 @@ const addComment = (recommendId, text) => {
     validate.id(recommendId, 'recommendId')
     validate.text(text)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/reommend/${recommendId}/comments`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}/comments`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localStorage.token}`,

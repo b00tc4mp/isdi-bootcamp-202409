@@ -3,7 +3,7 @@ import validate from '../../../com/validate.js'; import errors from '../../../co
 
 const { SystemError, NotFoundError } = errors
 
-const createRecommend = (userId, city, country, category, price, link, imageUrl, recommend) => {
+const createRecommend = (userId, city, country, category, price, link, imageUrl, recommend, subject) => {
     validate.id(userId, 'userId')
     validate.text(city)
     validate.text(country)
@@ -12,6 +12,7 @@ const createRecommend = (userId, city, country, category, price, link, imageUrl,
     //add validate for price
     validate.image(link) // change validate image to a more generic name
     validate.image(imageUrl)
+    validate.text(subject)
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
@@ -27,6 +28,7 @@ const createRecommend = (userId, city, country, category, price, link, imageUrl,
                 link: link,
                 image: imageUrl,
                 text: recommend,//consider renaming in mongo data model
+                subject: subject
             })
                 .catch(error => { throw new SystemError(error.message) })
         })

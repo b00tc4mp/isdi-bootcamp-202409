@@ -5,7 +5,7 @@ const { SystemError } = errors
 const getComments = (recommendId) => {
     validate.id(recommendId, 'recommendId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommmendId}/comments`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}/comments`, {
         headers: { Authorization: `Bearer ${localStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })
@@ -13,7 +13,10 @@ const getComments = (recommendId) => {
             if (res.ok)
                 return res.json()
                     .catch(error => { throw new SystemError(error.message) })
-                    .then(({ error, message }) => { throw new errors[error](message) })
+
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => { throw new errors[error](message) })
         })
 }
 

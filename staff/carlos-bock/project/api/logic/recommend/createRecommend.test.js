@@ -5,7 +5,7 @@ import createRecommend from './createRecommend.js'
 db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
   .then(() => {
     try {
-      return createRecommend(userId, city, country, category, price, link, imageUrl, recommendation)
+      return createRecommend(userId, city, country, category, price, link, imageUrl, recommendation, subject)
         .then(console.log)
         .catch(console.error)
     } catch (error) {
@@ -16,13 +16,14 @@ db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
   .finally(() => db.disconnect())
 
 
-const userId = '674dd83edb9525488c8f7770'
+const userId = '6751bc52ceeccee4933330a5'
 const city = 'Madrid'
 const country = 'España'
 const category = 1
 const price = 1
 const link = 'https://sede.madrid.es/portal/site/tramites/menuitem.62876cb64654a55e2dbd7003a8a409a0/?vgnextoid=3e3debb41f6e2410VgnVCM2000000c205a0aRCRD&vgnextchannel=775ba38813180210VgnVCM100000c90da8c0RCRD&vgnextfmt=default'
 const imageUrl = 'https://tugestionespana.com/wp-content/uploads/2022/10/padron-empadronamiento-madrid-espana-768x768.jpg'
+const subject = 'proceso de empadronamiento'
 const recommendation = `
 Empadronarse en Madrid es un trámite sencillo pero esencial para establecer tu residencia oficial en la ciudad. Este proceso permite a los residentes acceder a servicios municipales, como centros de salud, colegios y ayudas sociales. Sigue estos pasos detallados para completar el proceso sin problemas:  
 

@@ -5,7 +5,7 @@ const { SystemError } = errors
 const upVoteToggle = recommendId => {
     validate.id(recommendId, 'recommendId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}/upVote`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}/upVotes`, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${localStorage.token}` }
     })

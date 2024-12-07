@@ -15,5 +15,5 @@ db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
     .catch(console.error)
     .finally(() => db.disconnect())
 
-const userId = '674dd83edb9525488c8f7770'
-const recommendId = '674eeafe3ed829aa6c224e52'
+const userId = '6751bc52ceeccee4933330a5'
+const recommendId = '67533984796a6987a202a71c'

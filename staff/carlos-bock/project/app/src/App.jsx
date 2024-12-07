@@ -2,17 +2,27 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home } from './view/index.js' // add  CreateRecommend 
+import { Login, Register, Home, CreateRecommend } from './view/index.js' // add  CreateRecommend 
 
 import Header from './view/components/Header.jsx' //import {Header, Footer} from './view/components'
 import Footer from './view/components/Footer.jsx'
+//TODO add profile page
 
-//import { Context } from './view/useContext.js'
+import { Context } from './view/useContext.js'
 
 import logic from './logic/index.js' //import loginUser from './logic/user/loginUser.js'
 
 export default function App() {
-  //const [count, setCount] = useState(0) // space saver
+  const [alert, setAlert] = useState({
+    message: null,
+    level: ''
+  })
+
+  const [confirm, setConfirm] = useState({
+    message: null,
+    level: 'error',
+    callback: null
+  })
 
   const navigate = useNavigate()
 
@@ -32,15 +42,28 @@ export default function App() {
 
   const handleHomeClick = () => navigate('/')
 
-  //create handle alert
+  const handleAlertAccepted = () => setAlert({
+    message: null,
+    level: 'error'
+  })
 
-  //create handle confirm accepted
+  const handleConfirmCancelled = () => {
+    confirm.callback(false)
 
+    setConfirm({
+      message: null,
+      level: 'error',
+      callback: null
+    })
+  }
   //create handle confirm cancel
 
   console.log('App -> render')
 
-  return <div>
+  return <Context.Provider value={{
+    alert(message, level = 'error') { setAlert({ message, level }) },
+    confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+  }}>
     <Header onHomeClick={handleHomeClick} onLoggedout={handleUserLoggedOut} />
 
     <Routes>
@@ -55,16 +78,17 @@ export default function App() {
       <Route path='/' element={logic.isUserLoggedIn() ? <Home /> :
         <Navigate to='/login' />} />
 
+      <Route path='/new-recommend' element={logic.isUserLoggedIn() ? <CreateRecommend onCreated={handleRecommendCreated} /> : <Navigate to='/login' />} />
+
     </Routes>
 
 
     <Footer onNewRecommendClick={handleNewRecommendClick} />
-  </div>
+
+
+    {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+
+    {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
+
+  </Context.Provider>
 }
-
-/*<Context.Provider value={{
-  alert(message, level = 'error') { setAlert({ message, level }) },
-  confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
-}}>
-
-*/
