@@ -3,7 +3,7 @@ import { SectionContainer, SectionHeader } from './components'
 import { Form, Button } from './library'
 import useContext from './useContext'
 
-export default function CreateNote({ onCreated }) {
+export default function EditNote({ onEdited }) {
     const { alert } = useContext()
 
     const handleSubmit = (event) => {

@@ -33,7 +33,7 @@ export default function Profile() {
     }, [location.pathname])
 
     if (!datos) {
-        return <main className="flex justify-center items-center bg-gray-100 min-h-screen">
+        return <main className='flex justify-center items-center bg-gray-100 min-h-screen'>
             <p>Loading...</p>
         </main>
     }
@@ -51,7 +51,7 @@ export default function Profile() {
         logic.updateUserData(name, email, dateOfBirth, role)
             .then(() => {
                 form.reset()
-                alert('Data changed')
+                alert('Data changed', 'success')
                 fetchDatos()
             })
             .catch((error) => {
@@ -65,27 +65,27 @@ export default function Profile() {
             })
     }
 
-    return <main className="flex justify-center items-center bg-gray-100 min-h-screen pb-8">
+    return <main className='flex justify-center items-center bg-gray-100 min-h-screen pb-8'>
         <SectionContainer>
-            <SectionHeader sectionName="profile" />
-            <Form onSubmit={handleSubmit} className="p-6 space-y-1">
+            <SectionHeader sectionName='profile' />
+            <Form onSubmit={handleSubmit} className='p-6 space-y-1'>
                 <Field>
-                    <Label htmlFor="name">Name</Label>
-                    <Input id="name" defaultValue={datos.name}></Input>
+                    <Label htmlFor='name'>Name</Label>
+                    <Input id='name' defaultValue={datos.name}></Input>
                 </Field>
                 <Field>
-                    <Label htmlFor="email">E-mail</Label>
-                    <Input id="email" defaultValue={datos.email}></Input>
+                    <Label htmlFor='email'>E-mail</Label>
+                    <Input id='email' defaultValue={datos.email}></Input>
                 </Field>
                 <Field>
-                    <Label htmlFor="dateOfBirth">Birthdate</Label>
-                    <Input id="dateOfBirth" type="date" defaultValue={datos.dateOfBirth}></Input>
+                    <Label htmlFor='dateOfBirth'>Birthdate</Label>
+                    <Input id='dateOfBirth' type='date' defaultValue={datos.dateOfBirth}></Input>
                 </Field>
                 <Field>
-                    <Label htmlFor="role">Role</Label>
-                    <Input id="role" type="text" defaultValue={datos.role} />
+                    <Label htmlFor='role'>Role</Label>
+                    <Input id='role' type='text' defaultValue={datos.role} />
                 </Field>
-                <Button type="submit">Done</Button>
+                <Button type='submit'>Done</Button>
             </Form>
         </SectionContainer>
     </main>

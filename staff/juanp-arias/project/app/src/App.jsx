@@ -4,6 +4,7 @@ import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, Alerts 
 import { Header, Footer, Alert, Confirm } from './view/components'
 import { Context } from './view/useContext'
 import logic from './logic'
+import CreateNote from './view/CreateNote'
 
 export default function App() {
   const [alert, setAlert] = useState({
@@ -27,9 +28,11 @@ export default function App() {
 
   const handleLoginClick = () => navigate('/login')
 
-  const handleUserRegistered = () => navigate('/home')
+  const handleUserRegistered = () => navigate('/welcome')
 
   const handleLogout = () => navigate('/welcome')
+
+  const handleNoteCreated = () => navigate('/notes')
 
   const handleAlertAccepted = () => setAlert({
     message: null,
@@ -76,6 +79,7 @@ export default function App() {
       <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/welcome" />} />
 
       <Route path="/notes" element={logic.isUserLoggedIn() ? <Notes /> : <Navigate to="/welcome" />} />
+      <Route path="/notes/new-note" element={logic.isUserLoggedIn() ? <CreateNote onCreated={handleNoteCreated} /> : <Navigate to="/welcome" />} />
 
       <Route path="/alerts" element={logic.isUserLoggedIn() ? <Alerts /> : <Navigate to="/welcome" />} />
 

@@ -9,7 +9,6 @@ export default (userId, targetUserId) => {
 
     return (async () => {
         let users
-
         try {
             users = await Promise.all([User.findById(userId).lean(), User.findById(targetUserId).lean()])
         } catch (error) {
@@ -17,7 +16,6 @@ export default (userId, targetUserId) => {
         }
 
         const [user, targetUser] = users
-
         if (!user) throw new NotFoundError('user not found')
         if (!targetUser) throw new NotFoundError('target user not found')
 

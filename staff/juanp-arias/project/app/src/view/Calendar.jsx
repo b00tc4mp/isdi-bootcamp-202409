@@ -41,19 +41,19 @@ export default function Calendar() {
         }
     }
 
-    return <main className="flex justify-center items-center bg-gray-100 min-h-screen pb-8">
+    return <main className='flex justify-center items-center bg-gray-100 min-h-screen pb-12'>
         <SectionContainer>
-            <SectionHeader sectionName="calendar" />
-            <div className="pt-2 flex justify-center items-center">
+            <SectionHeader sectionName='calendar' />
+            <div className='pt-2 flex justify-center items-center'>
                 <CalendarButton onClick={handlePreviousMonthClick}>&lt;</CalendarButton>
-                <span className="mx-4 text-lg font-semibold">{`${getMonthName(currentDate)} ${getYear(currentDate)}`}</span>
+                <span className='mx-4 text-lg font-semibold'>{`${getMonthName(currentDate)} ${getYear(currentDate)}`}</span>
                 <CalendarButton onClick={handleNextMonthClick}>&gt;</CalendarButton>
             </div>
 
-            <div className="grid grid-cols-7 gap-2 bg-white p-4 rounded-lg shadow-md">
+            <div className='grid grid-cols-7 gap-2 bg-white p-4 rounded-lg shadow-md'>
                 {/* Days of week */}
                 {daysOfWeek.map((day) => (
-                    <div key={day} className="text-center font-bold text-gray-700 uppercase">{day}</div>))}
+                    <div key={day} className='text-center font-bold text-gray-700 uppercase'>{day}</div>))}
 
                 {/* Empty days */}
                 {new Array(getFirstDayWeek(currentDate)).fill(null).map((_, index) => (<div key={`empty-${index}`}></div>))}
@@ -67,7 +67,9 @@ export default function Calendar() {
                     return <div key={day} onClick={() => handleCalendarDayClick(day)} className={`text-center cursor-pointer p-2 rounded-lg transition-all ${isSelected ? 'bg-blue-500 text-white' : isToday ? 'bg-blue-100 text-blue-600' : 'text-gray-800 hover:bg-gray-200'}`}>{day}</div>
                 })}
             </div>
-            <Button onClick={onNewReminderClick}>Add reminder</Button>
+            <div className='pr-4 pt-1 pl-4'>
+                <Button onClick={onNewReminderClick}>Add reminder</Button>
+            </div>
         </SectionContainer>
     </main>
 }

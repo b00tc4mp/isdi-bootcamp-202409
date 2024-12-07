@@ -2,16 +2,12 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (text) => {
-    validate.text(text)
+export default noteId => {
+    validate.id(noteId, 'noteId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/notes`, {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ text })
+    return fetch(`http://${import.meta.env.VITE_API_URL}/notes/${noteId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${sessionStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {

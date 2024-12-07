@@ -6,7 +6,7 @@ import useContext from './useContext'
 
 const { SystemError } = errors
 
-export default function Register(props) {
+export default function Register({ onRegistered, onBackClick }) {
     const { alert } = useContext()
 
     const handleSubmit = event => {
@@ -24,7 +24,8 @@ export default function Register(props) {
             logic.registerUser(name, email, dateOfBirth, password, repeatpassword)
                 .then(() => {
                     form.reset()
-                    alert('User registered')
+                    alert('User registered', 'success')
+                    onRegistered()
                 })
                 .catch(error => {
                     if (error instanceof SystemError)
@@ -42,48 +43,48 @@ export default function Register(props) {
 
     const onGoBackClick = event => {
         event.preventDefault()
-        props.onBackClick()
+        onBackClick()
     }
 
-    return <main className="flex items-center justify-center max-h-screen bg-gray-50 pt-2">
-        <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
-            <div className="flex justify-between items-center mb-6">
+    return <main className='flex items-center justify-center max-h-screen bg-gray-50 pt-2'>
+        <div className='bg-white p-6 rounded-xl shadow-lg w-full max-w-md'>
+            <div className='flex justify-between items-center mb-6'>
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Welcome to <span className="text-sky-500">studify</span></h1>
-                    <p className="text-sm text-gray-500 mt-1">Create your account</p>
+                    <h1 className='text-2xl font-bold text-gray-900'>Welcome to <span className='text-sky-500'>studify</span></h1>
+                    <p className='text-sm text-gray-500 mt-1'>Create your account</p>
                 </div>
-                <img src={logo2} alt="logo" className="h-16 w-16 rounded-full shadow-md" />
+                <img src={logo2} alt='logo' className='h-16 w-16 rounded-full shadow-md' />
             </div>
 
-            <Form onSubmit={handleSubmit} className="space-y-2">
+            <Form onSubmit={handleSubmit} className='space-y-2'>
                 <Field>
-                    <Label htmlFor="name">Your name</Label>
-                    <Input type="text" id="name" placeholder="Name" />
+                    <Label htmlFor='name'>Your name</Label>
+                    <Input type='text' id='name' placeholder='Name' />
                 </Field>
                 <Field>
-                    <Label htmlFor="email">Email address</Label>
-                    <Input type="email"
-                        id="email" placeholder="E-mail" />
+                    <Label htmlFor='email'>Email address</Label>
+                    <Input type='email'
+                        id='email' placeholder='E-mail' />
                 </Field>
                 <Field>
-                    <Label htmlFor="dateOfBirth">Birthdate</Label>
-                    <Input type="date" id="dateOfBirth" />
+                    <Label htmlFor='dateOfBirth'>Birthdate</Label>
+                    <Input type='date' id='dateOfBirth' />
                 </Field>
                 <Field>
-                    <Label htmlFor="password">Password</Label>
-                    <Input type="password" id="password" placeholder="Password" />
+                    <Label htmlFor='password'>Password</Label>
+                    <Input type='password' id='password' placeholder='Password' />
                 </Field>
                 <Field>
-                    <Label htmlFor="repeatpassword">Password repeat</Label>
-                    <Input type="password" id="repeatpassword" placeholder="Password" />
+                    <Label htmlFor='repeatpassword'>Password repeat</Label>
+                    <Input type='password' id='repeatpassword' placeholder='Password' />
                 </Field>
-                <Button type="submit">Create account</Button>
+                <Button type='submit'>Create account</Button>
             </Form>
 
-            <p className="text-xs text-center text-gray-500 mt-4">By continuing, you agree to our{" "}<a href="#" className="text-blue-500 hover:underline">Terms of Service</a>{" "}and{" "}<a href="#" className="text-blue-500 hover:underline">Privacy Policy</a>.</p>
+            <p className='text-xs text-center text-gray-500 mt-4'>By continuing, you agree to our{' '}<a href='#' className='text-blue-500 hover:underline'>Terms of Service</a>{' '}and{' '}<a href='#' className='text-blue-500 hover:underline'>Privacy Policy</a>.</p>
 
-            <div className="mt-6 text-center">
-                <a href="" className="text-sm text-blue-500 hover:underline" onClick={onGoBackClick}>Go back</a>
+            <div className='mt-6 text-center'>
+                <a href='' className='text-sm text-blue-500 hover:underline' onClick={onGoBackClick}>Go back</a>
             </div>
         </div>
     </main>

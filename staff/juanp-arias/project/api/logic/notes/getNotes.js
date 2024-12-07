@@ -6,14 +6,16 @@ const { SystemError, NotFoundError } = errors
 export default userId => {
     validate.id(userId, 'userId')
 
-    return Promise.all([
-        User.findById(userId).lean(),
-        Note.find().populate('author', 'name').sort({ date: -1 }).lean()
-    ])
-        .catch(error => { throw new SystemError(error.message) })
-        .then(([user, notes]) => {
+    return User.findById(userId).lean()
+        .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
+            return Note.find({ author: userId })
+                .populate('author', 'name')
+                .sort({ date: -1 })
+                .lean()
+        })
+        .then(notes => {
             notes.forEach(note => {
                 note.id = note._id.toString()
                 delete note._id
@@ -25,4 +27,5 @@ export default userId => {
             })
             return notes
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
