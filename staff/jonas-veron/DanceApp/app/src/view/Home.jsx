@@ -27,23 +27,6 @@ export default function Home() {
     }
   }, [name])
 
-  useEffect(() => {
-    try {
-      logic
-        .getEvents()
-
-        .then(setEvents)
-        .catch((error) => {
-          alert(error.message)
-
-          console.error(error)
-        })
-    } catch (error) {
-      alert(error.message)
-      console.error(error)
-    }
-  }, [])
-
   const refreshEvents = () => {
     logic
       .getEvents()
@@ -54,25 +37,17 @@ export default function Home() {
       })
   }
 
-  const handleLiked = refreshEvents
-  const handleDeleted = refreshEvents
-  const handleCommentAdded = refreshEvents
-  const handleCommentRemoved = refreshEvents
+  useEffect(() => {
+    refreshEvents()
+  }, [])
 
   return (
     <>
-      <h1 className="pt-16 text-center text-cyan-50">Bienvenido {name}!!!</h1>
+      <h1 className="pt-16 text-center text-cyan-50"></h1>
 
       <div className="items-center text-center pb-16">
         {events.map((event) => (
-          <Event
-            key={event.id}
-            event={event}
-            onLiked={handleLiked}
-            onDeleted={handleDeleted}
-            onCommentAdded={handleCommentAdded}
-            onCommentRemoved={handleCommentRemoved}
-          />
+          <Event key={event.id} event={event} refreshEvents={refreshEvents} />
         ))}
       </div>
     </>

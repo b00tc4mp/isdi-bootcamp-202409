@@ -33,7 +33,7 @@ export default async (userId) => {
       },
       likes: event.likes.length,
       comments: event.comments.length,
-      isFavorite: user.favorites.some(
+      favoriteByUser: user.favorites.some(
         (favoriteId) => favoriteId.toString() === event._id.toString()
       ),
       likedByUser: event.likes.some(

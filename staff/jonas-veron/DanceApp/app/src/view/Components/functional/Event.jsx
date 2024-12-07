@@ -13,13 +13,7 @@ import {
 
 import { Comments } from "./index.js"
 
-export default function Event({
-  event,
-  onLiked,
-  onDeleted,
-  onCommentAdded,
-  onCommentRemoved,
-}) {
+export default function Event({ event, refreshEvents }) {
   console.log("Post -> render")
 
   const {
@@ -31,24 +25,20 @@ export default function Event({
     date,
     location,
     likedByUser,
+    favoriteByUser,
     likes,
     comments,
   } = event
-  const [isLiked, setIsLiked] = useState(event.likedByUser)
+
   const [view, setView] = useState(null)
+
   console.log(event)
 
-  useEffect(() => {
-    setIsLiked(event.likedByUser) // Actualiza el estado si `event.liked` cambia
-  }, [event.likedByUser])
-
   const handleLikeClick = () => {
-    setIsLiked(!isLiked)
-
     try {
       logic
         .toggleLikeEvent(id)
-        .then(onLiked)
+        .then(refreshEvents)
         .catch((error) => {
           alert(error.message)
 
@@ -66,7 +56,7 @@ export default function Event({
       try {
         logic
           .deleteEvent(id)
-          .then(onDeleted)
+          .then(refreshEvents)
           .catch((error) => {
             alert(error.message)
 
@@ -82,13 +72,15 @@ export default function Event({
 
   const handleCommentsClick = () => setView(view ? null : "comments")
 
+  const handleFavoritesClick = () => {}
+
   return (
     <article className="bg-transparent text-white shadow-md rounded-lg p-1 mb-6 max-w-xl mx-auto relative">
       {/* Contenedor para autor y dirección */}
       <div className="flex items-start mb-2">
         {/* Inicial del autor */}
         <div className="flex-shrink-0">
-          <div className="w-10 h-10 rounded-full bg-tertiary flex items-center justify-center text-white font-bold">
+          <div className="w-10 h-10 rounded-full bg-accentpink flex items-center justify-center text-white font-bold">
             {author.name[0]}
           </div>
         </div>
@@ -116,7 +108,7 @@ export default function Event({
           <div className="flex space-x-8">
             <div className="flex">
               <img
-                src={isLiked ? likedIcon : likeIcon}
+                src={likedByUser ? likedIcon : likeIcon}
                 alt="Like"
                 className="w-6 h-6 cursor-pointer"
                 onClick={handleLikeClick}
@@ -147,6 +139,7 @@ export default function Event({
             src={starIcon}
             alt="Favorite"
             className="w-6 h-6 cursor-pointer"
+            onClick={handleFavoritesClick}
           />
         </div>
 
@@ -161,9 +154,9 @@ export default function Event({
       <time>{getElapsedTime(date)}</time>
       {view === "comments" && (
         <Comments
-          eventId={event.id}
-          onAdded={onCommentAdded}
-          onRemoved={onCommentRemoved}
+          eventId={id}
+          refreshEvents={refreshEvents}
+          onClose={handleCommentsClick}
         />
       )}
     </article>

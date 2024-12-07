@@ -1,6 +1,6 @@
 import logic from "../../../logic/index.js"
 
-export default function AddComment({ eventId, onAdded }) {
+export default function AddComment({ eventId, refreshComments }) {
   console.log("AddComment -> render")
 
   const handleSubmit = (event) => {
@@ -16,7 +16,7 @@ export default function AddComment({ eventId, onAdded }) {
         .then(() => {
           form.reset()
 
-          onAdded()
+          refreshComments()
         })
         .catch((error) => {
           alert(error.message)
@@ -31,16 +31,19 @@ export default function AddComment({ eventId, onAdded }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="mt-4 flex items-center border-t border-gray-600 pt-3"
+    >
       <textarea
         name="text"
         id="text"
-        placeholder="Escribe un comentario..."
-        className="text-black"
+        placeholder="Añade un comentario..."
+        className="text-white flex-1 resize-none text-sm bg-tertiary  "
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+        className="ml-2 bg-accentpink text-white py-1 px-3 rounded-lg hover:bg-accentgreen"
       >
         Añadir Comentario
       </button>
