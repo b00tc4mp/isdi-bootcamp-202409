@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { assets } from '../assets'
+import assets from '../assets'
 import { Link, NavLink } from 'react-router-dom'
 import { isUserLoggedIn, isUserRoleModerator, logoutUser } from '../logic/users/index'
 
