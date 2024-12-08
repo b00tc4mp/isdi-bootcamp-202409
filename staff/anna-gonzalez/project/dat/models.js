@@ -31,37 +31,37 @@ const dayLog = new Schema({
     symptoms: {
         type: String,
         enum: ['fatigue', 'headache', 'cramps', 'tender breasts', 'acne', 'backache', 'cravings', 'abdominal pain', 'dryness'],
-        required: true
+        required: false
     },
     mood: {
         type: String,
         enum: ['calm', 'happy', 'mood swings', 'sad', 'anxious'],
-        required: true,
+        required: false,
     },
     energy: {
         type: String,
         enum: ['low', 'moderate', 'high'],
-        required: true,
+        required: false,
     },
     flow: {
         type: String,
         enum: ['no discharge', 'creamy', 'watery'],
-        required: true
+        required: false
     },
     sleep: {
         type: String,
         enum: ['poor', 'average', 'good'],
-        required: true
+        required: false
     },
     sexualActivity: {
         type: String,
         enum: ['no sex', 'sex'],
-        required: true
+        required: false
     },
     sexualEnergy: {
         type: String,
         enum: ['low', 'moderate', 'high'],
-        required: true
+        required: false
     }
 }, { versionKey: false })
 

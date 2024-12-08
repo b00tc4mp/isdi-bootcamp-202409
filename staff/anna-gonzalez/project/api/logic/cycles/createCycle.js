@@ -28,7 +28,7 @@ export default (userId, start) => {
                         .then(lastCycle => {
                             if (lastCycle) {
                                 if ((normalizedStart.getTime() - new Date(lastCycle.start).getTime()) < 604800000) {
-                                    throw new ValidationError('Cycle cannot be created if a cycle was created at most 7 days ago');
+                                    throw new ValidationError('Cycle cannot be created if a cycle was created at most 7 days ago')
                                 }
                             }
 
@@ -41,7 +41,7 @@ export default (userId, start) => {
                                         const normalizedNextCycleStart = new Date(nextCycle.start)
 
                                         if ((normalizedNextCycleStart.getTime() - normalizedStart.getTime()) < 604800000) {
-                                            throw new ValidationError('Cycle cannot be created if a cycle starts in 7 days or less');
+                                            throw new ValidationError('Cycle cannot be created if a cycle starts in 7 days or less')
                                         }
                                     }
 

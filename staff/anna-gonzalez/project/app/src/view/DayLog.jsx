@@ -1,180 +1,81 @@
-import { getMonthAndDayText } from "../util"
+import { useState } from 'react'
+
+import logic from '../logic'
+import { getMonthAndDayText } from '../util'
 
 import { Button } from './library'
 
 export default function DayLog() {
+    const [formData, setFormData] = useState({ symptoms: [], mood: '', energy: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' })
+
+    const handleCheckboxChange = event => {
+        const { name } = event.target
+        setFormData((prev) => {
+            const updatedSymptoms = prev.symptoms.includes(name)
+                ? prev.symptoms.filter((symptom) => symptom !== name) //remove if already selected
+                : [...prev.symptoms, name] //add if not selected
+
+            return { ...prev, symptoms: updatedSymptoms }
+        })
+    }
+
+    const handleRadioChange = event => {
+        const { name, value } = event.target
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value, //update the corresponding field
+        }))
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault()
+
+        try {
+            logic.createDayLog(date)
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
     return <>
         <h2>DayLog</h2>
         <p className="mb-8">{getMonthAndDayText()}</p>
 
-        <fieldset className="mt-4 flex flex-wrap gap-4">
-            <legend>SYMPTOMS</legend>
+        <form>
+            <fieldset className="mt-4 flex flex-wrap gap-4">
+                <legend>SYMPTOMS</legend>
+                {["fatigue", "headache", "cramps", "tenderBreasts", "acne", "backache", "cravings", "abdominalPain", "dryness"]
+                    .map((symptom) => (
+                        <div key={symptom}>
+                            <input type="checkbox" id={symptom} name={symptom} onChange={handleCheckboxChange} />
+                            <label htmlFor={symptom}>{symptom.charAt(0).toUpperCase() + symptom.slice(1)}</label>
+                        </div>
+                    )
+                    )}
+            </fieldset>
 
-            <div>
-                <input type="checkbox" id="fatigue" name="fatigue" />
-                <label for="fatigue">Fatigue</label>
-            </div>
+            {[
+                { legend: "MOOD", name: "mood", options: ["calm", "happy", "moodSwings", "sad", "anxious"] },
+                { legend: "ENERGY", name: "energy", options: ["lowEnergy", "moderateEnergy", "highEnergy"] },
+                { legend: "FLOW", name: "flow", options: ["noDischarge", "creamy", "watery"] },
+                { legend: "SLEEP", name: "sleep", options: ["poorSleep", "averageSleep", "goodSleep"] },
+                { legend: "SEXUAL ACTIVITY", name: "sexualActivity", options: ["noSex", "sex"] },
+                { legend: "SEXUAL ENERGY", name: "sexualEnergy", options: ["lowSexEnergy", "moderateSexEnergy", "highSexEnergy"] },
+            ].map(({ legend, name, options }) => (
+                <fieldset key={name} className="mt-4 flex flex-wrap gap-4">
+                    <legend>{legend}</legend>
+                    {options.map((option) => (
+                        <div key={option}>
+                            <input type="radio" id={option} name={name} value={option} onChange={handleRadioChange} />
+                            <label htmlFor={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</label>
+                        </div>
+                    ))}
+                </fieldset>
+            ))}
 
-            <div>
-                <input type="checkbox" id="headache" name="headache" />
-                <label for="headache">Headache</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="cramps" name="cramps" />
-                <label for="cramps">Cramps</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="tenderBreasts" name="tenderBreasts" />
-                <label for="tenderBreasts">Tender breasts</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="acne" name="acne" />
-                <label for="acne">Acne</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="backache" name="backache" />
-                <label for="backache">Backache</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="cravings" name="cravings" />
-                <label for="cravings">Cravings</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="abdominalPain" name="abdominalPain" />
-                <label for="abdominalPain">Abdominal pain</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="dryness" name="dryness" />
-                <label for="dryness">Dryness</label>
-            </div>
-        </fieldset>
-
-        <fieldset className="mt-4 flex flex-wrap gap-4">
-            <legend>MOOD</legend>
-
-            <div>
-                <input type="radio" id="calm" name="mood" value="calm" />
-                <label for="calm">Calm</label>
-            </div>
-
-            <div>
-                <input type="radio" id="happy" name="mood" value="happy" />
-                <label for="happy">Happy</label>
-            </div>
-
-            <div>
-                <input type="radio" id="moodSwings" name="mood" value="moodSwings" />
-                <label for="moodSwings">Mood swings</label>
-            </div>
-
-            <div>
-                <input type="radio" id="sad" name="mood" value="sad" />
-                <label for="sad">Sad</label>
-            </div>
-
-            <div>
-                <input type="radio" id="anxious" name="mood" value="anxious" />
-                <label for="anxious">Anxious</label>
-            </div>
-        </fieldset>
-
-        <fieldset className="mt-4 flex flex-wrap gap-4">
-            <legend>ENERGY</legend>
-
-            <div>
-                <input type="radio" id="lowEnergy" name="energy" value="lowEnergy" />
-                <label for="lowEnergy">Low</label>
-            </div>
-
-            <div>
-                <input type="radio" id="moderateEnergy" name="energy" value="moderateEnergy" />
-                <label for="moderateEnergy">Moderate</label>
-            </div>
-
-            <div>
-                <input type="radio" id="highEnergy" name="energy" value="highEnergy" />
-                <label for="highEnergy">High</label>
-            </div>
-        </fieldset>
-
-        <fieldset className="mt-4 flex flex-wrap gap-4">
-            <legend>FLOW</legend>
-
-            <div>
-                <input type="radio" id="noDischarge" name="flow" value="noDischarge" />
-                <label for="noDischarge">No discharge</label>
-            </div>
-
-            <div>
-                <input type="radio" id="creamy" name="flow" value="creamy" />
-                <label for="creamy">Creamy</label>
-            </div>
-
-            <div>
-                <input type="radio" id="watery" name="flow" value="watery" />
-                <label for="watery">Watery</label>
-            </div>
-        </fieldset>
-
-        <fieldset className="mt-4 flex flex-wrap gap-4">
-            <legend>SLEEP</legend>
-
-            <div>
-                <input type="radio" id="poorSleep" name="sleep" value="poorSleep" />
-                <label for="poorSleep">Poor</label>
-            </div>
-
-            <div>
-                <input type="radio" id="averageSleep" name="sleep" value="averageSleep" />
-                <label for="averageSleep">Average</label>
-            </div>
-
-            <div>
-                <input type="radio" id="goodSleep" name="sleep" value="goodSleep" />
-                <label for="goodSleep">Good</label>
-            </div>
-        </fieldset>
-
-        <fieldset className="mt-4 flex flex-wrap gap-4">
-            <legend>SEXUAL ACTIVITY</legend>
-
-            <div>
-                <input type="radio" id="noSex" name="sexualActivity" value="noSex" />
-                <label for="noSex">No sex</label>
-            </div>
-
-            <div>
-                <input type="radio" id="sex" name="sexualActivity" value="sex" />
-                <label for="sex">Sex</label>
-            </div>
-        </fieldset>
-
-        <fieldset className="mt-4 flex flex-wrap gap-4">
-            <legend>SEXUAL ENERGY</legend>
-
-            <div>
-                <input type="radio" id="lowSexEnergy" name="sexualEnergy" value="lowSexEnergy" />
-                <label for="lowSexEnergy">Low</label>
-            </div>
-
-            <div>
-                <input type="radio" id="moderateSexEnergy" name="sexualEnergy" value="moderateSexEnergy" />
-                <label for="moderateSexEnergy">Moderate</label>
-            </div>
-
-            <div>
-                <input type="radio" id="highSexEnergy" name="sexualEnergy" value="highSexEnergy" />
-                <label for="highSexEnergy">High</label>
-            </div>
-
-            <Button type="submit">Save</Button>
-        </fieldset>
+            <Button onSubmit={handleSubmit} type="submit">Save</Button>
+        </form>
     </>
 }
