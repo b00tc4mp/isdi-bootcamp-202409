@@ -115,7 +115,7 @@ const pet = new Schema({
         required: true
     },
     dateOfBirth: {
-        type: Date,
+        type: String,
         required: true,
 
     },

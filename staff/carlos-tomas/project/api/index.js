@@ -44,6 +44,23 @@ db.connect(process.env.MONGO_URL).then(() => {
         res.json(user)
     }))
 
+    server.get('/veterinary/pets', authorizationHandler, createFunctionalHandler(async (req, res) => {
+        const { userId } = req
+        const pets = await logic.getPets(userId)
+
+        res.json(pets)
+    }))
+
+
+    server.post('/veterinary/registerPet', authorizationHandler, jsonBodyParser, createFunctionalHandler(async (req, res) => {
+        const { userId } = req
+        const { chip, name, race, sex, weight, sterilized, dateOfBirth } = req.body
+
+        await logic.registerPet(userId, chip, name, race, sex, weight, sterilized, dateOfBirth)
+
+        res.status(201).send()
+    }))
+
 
 
     server.use(errorHandler)

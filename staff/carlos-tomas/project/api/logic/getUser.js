@@ -9,7 +9,7 @@ export default (userId) => {
     return (async () => {
 
         try {
-            const user = await User.findById(userId).select('-password -role').lean()
+            const user = await User.findById(userId).select('-password ').lean()
 
             if (!user) {
                 throw NotFoundError('user not found')

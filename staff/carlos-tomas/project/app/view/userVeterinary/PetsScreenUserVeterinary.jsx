@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Text, View, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, TextInput, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown'
 import { DatePickerComponent } from '../Components/index'
 import logic from '../../logic'
@@ -10,23 +10,31 @@ export default function PetsScreenUserVeterinary() {
     const [name, setName] = useState('')
     const [race, setRace] = useState('')
     const [sex, setSex] = useState(null)
-    const [weigth, setWeigth] = useState('')
+    const [weight, setWeight] = useState(0)
     const [sterilized, setSterilized] = useState(null)
-    const [dataOfBirth, setDataOfBirth] = useState(new Date)
+    const [dateOfBirth, setDateOfBirth] = useState(new Date)
 
-    const handleDateChange = (selectedDate) => {
-        setDataOfBirth(selectedDate.toLocaleDateString());
-        console.log("Fecha seleccionada:", selectedDate.toLocaleDateString());
-    }
     const handleRegisterAnimal = async () => {
         try {
-            await logic.registerAnimals(chip, name, race, sex, weigth, sterilized, dataOfBirth)
+            await logic.registerPet(chip, name, race, sex, parseInt(weight), sterilized, dateOfBirth)
 
+            Alert.alert('Animal registrado')
 
+            setChip('')
+            setName('')
+            setRace('')
+            setSex(null)
+            setWeight(0)
+            setSterilized(null)
+            setDateOfBirth(new Date())
         } catch (error) {
             Alert.alert(error.message)
             console.error(error)
         }
+    }
+    const handleDateChange = (selectedDate) => {
+        setDateOfBirth(selectedDate.toLocaleDateString());
+        console.log("Fecha seleccionada:", selectedDate.toLocaleDateString());
     }
     const handleChangeSex = (sexItem) => {
         setSex(sexItem.value)
@@ -49,14 +57,12 @@ export default function PetsScreenUserVeterinary() {
 
             < View
                 style={registerPets.form} >
-                <Text
-                    style={registerPets.text}>
-                    Registro del Animal
-                </Text>
+
 
                 <TextInput
                     style={registerPets.text_input}
                     placeholder='Chip del animal'
+                    keyboardType='numeric'
                     value={chip}
                     onChangeText={setChip}
                 />
@@ -70,20 +76,24 @@ export default function PetsScreenUserVeterinary() {
 
                 <TextInput
                     style={registerPets.text_input}
-                    placeholder='Raza del animal '
+                    placeholder='Raza del animal'
                     value={race}
                     onChangeText={setRace}
                 />
+
                 <TextInput
                     style={registerPets.text_input}
-                    placeholder='Peso del animal '
-                    value={weigth}
-                    onChangeText={setWeigth}
+                    placeholder='Peso del animal'
+                    keyboardType='numeric'
+                    value={weight}
+                    onChangeText={setWeight}
                 />
+
                 <Text
                     style={registerPets.text_dropdown}>
                     Esterilización del animal ?
                 </Text>
+
                 <Dropdown
                     style={registerPets.dropdown}
                     data={sterilizedItem}
@@ -98,6 +108,7 @@ export default function PetsScreenUserVeterinary() {
                     style={registerPets.text_dropdown}>
                     Sexo del animal?
                 </Text>
+
                 <Dropdown
                     style={registerPets.dropdown}
                     data={sexItem}
@@ -110,13 +121,9 @@ export default function PetsScreenUserVeterinary() {
                 <DatePickerComponent
                     onDateChange={handleDateChange} />
 
-
-
-
                 <TouchableOpacity
                     style={registerPets.submit}
                     onPress={handleRegisterAnimal}
-
                 >
                     <Text>
                         Register animal
@@ -124,22 +131,14 @@ export default function PetsScreenUserVeterinary() {
 
                 </TouchableOpacity>
 
-
             </View >
         </ScrollView>
-
-
-
 
     )
 }
 
 const registerPets = StyleSheet.create({
 
-    text: {
-        paddingTop: 20,
-        fontSize: 30
-    },
     text_dropdown: {
         fontSize: 15
     },
@@ -149,6 +148,7 @@ const registerPets = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         gap: 20,
+        paddingTop: 35
 
     },
     form_dropdown: {
@@ -174,7 +174,6 @@ const registerPets = StyleSheet.create({
     label: {
         fontSize: 16,
     },
-
     submit: {
         width: 300,
         backgroundColor: "red",
@@ -183,8 +182,4 @@ const registerPets = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     }
-
-
-
-
 })

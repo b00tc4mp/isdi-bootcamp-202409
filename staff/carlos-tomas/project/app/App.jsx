@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import HomeNavigatorRegular from './view/Navigation/userRegular/HomeNavigatorRegular'
 import HomeNavigatorVet from './view/Navigation/userVeterinary/HomeNavigatorVet'
 import LoginRegisScreen from './view/Navigation/LoginRegisScreen'
-import logic from './logic'
+
 
 
 export default function App() {

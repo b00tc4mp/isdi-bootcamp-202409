@@ -48,10 +48,9 @@ export default function ProfileScreenUserRegular() {
             />
 
             <Text> Nombre {userInfo.name}</Text>
+            <Text> Usarname {userInfo.username}</Text>
             <Text> Email {userInfo.email}</Text>
-
-            <Text>Usarname {userInfo.username}</Text>
-            <Text>Telefono {userInfo.phone}</Text>
+            <Text> Telefono {userInfo.phone}</Text>
 
         </View>
 

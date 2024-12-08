@@ -6,7 +6,7 @@ import { TouchableOpacity, Alert } from 'react-native'
 
 import logic from '../../../logic'
 
-import { CalanderSreenUserVeterinary, HomeScreenUserVeterinary, PetsScreenUserVeterinary, ProfileScreenUserVeterinary } from '../../userVeterinary'
+import { HomeScreenVeterinary, CalanderSreenUserVeterinary, ReporScreentUserVeterinary, PetsScreenUserVeterinary, ProfileScreenUserVeterinary, } from '../../userVeterinary'
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
@@ -47,13 +47,15 @@ export default function HomeNavigatorVet() {
                 tabBarInactiveTintColor: '#888888',
                 tabBarIcon: ({ color }) => {
                     let iconName;
-                    if (route.name === 'Home') {
-                        iconName = 'home-outline';
+                    if (route.name === 'home') {
+                        iconName = 'home'
+                    } else if (route.name === 'report') {
+                        iconName = 'book';
                     } else if (route.name === 'Profile') {
                         iconName = 'person-outline';
-                    } else if (route.name === 'Pets') {
+                    } else if (route.name === 'register animals') {
                         iconName = 'paw-outline';
-                    } else if (route.name === 'Calendar') {
+                    } else if (route.name === 'calendar') {
                         iconName = 'calendar-outline';
                     }
                     return <Ionicons name={iconName} size={28} color={color} />;
@@ -71,20 +73,26 @@ export default function HomeNavigatorVet() {
             })}
         >
             <Screen
-                name="Home"
-                component={HomeScreenUserVeterinary}
-                options={{ title: 'HomeVet' }}
+                name="home"
+                component={HomeScreenVeterinary}
+                options={{ title: 'Informe del veterinario' }}
+            />
+            <Screen
+                name="report"
+                component={ReporScreentUserVeterinary}
+                options={{ title: 'Informe del veterinario' }}
             />
             <Screen
                 name="Profile"
                 component={ProfileScreenUserVeterinary}
             />
             <Screen
-                name="Pets"
+                name="register animals"
                 component={PetsScreenUserVeterinary}
+                options={{ title: 'Registro de animales' }}
             />
             <Screen
-                name="Calendar"
+                name="calendar"
                 component={CalanderSreenUserVeterinary}
             />
         </Navigator>
