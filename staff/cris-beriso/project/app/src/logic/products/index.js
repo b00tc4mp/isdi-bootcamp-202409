@@ -5,6 +5,7 @@ import removeComment from './removeComment'
 import toggleLikeProduct from './toggleLikeProduct'
 import toggleDislikeProduct from './toggleDislikeProduct'
 import saveProduct from './saveProduct'
+import getProductDetails from './getProductDetails'
 
 
 export {
@@ -14,5 +15,6 @@ export {
   removeComment,
   toggleLikeProduct,
   toggleDislikeProduct,
-  saveProduct
+  saveProduct,
+  getProductDetails
 }

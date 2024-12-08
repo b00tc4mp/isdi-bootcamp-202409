@@ -5,7 +5,7 @@ import Product from './components/Product'
 import logic from '../logic'
 
 
-export default function Home() {
+export default function Home({ onProductDetails }) {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -30,6 +30,7 @@ export default function Home() {
     {products.map(product => <Product
       key={product.id}
       product={product}
+      onProductDetails={onProductDetails}
     // onLiked={handleLiked}
     // onDisliked={handleDisliked}
     // onSaved={handleSaved}

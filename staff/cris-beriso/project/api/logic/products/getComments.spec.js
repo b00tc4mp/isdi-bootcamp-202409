@@ -18,7 +18,7 @@ describe('getComments', () => {
 
   beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany()]))
 
-  it('succeeds on gettin the comments', () => {
+  it('succeeds on getting the comments', () => {
     const user = new User({ name: 'Coco Liso', email: 'coco@liso.com', username: 'cocoliso', password: 'criscris' })
     const comment1 = new Comment({ author: user.id, text: 'text of comment1' })
     const comment2 = new Comment({ author: user.id, text: 'text of comment2' })

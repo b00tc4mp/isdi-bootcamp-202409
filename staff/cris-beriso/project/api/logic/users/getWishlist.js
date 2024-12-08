@@ -17,8 +17,16 @@ export default userId => {
         wishlist.map(productId =>
           Product.findById(productId).lean()
             .catch(() => { throw new NotFoundError('product not found') })
-            .then(products => {
-              return products
+            .then(product => {
+              product.id = product._id.toString()
+              delete product._id
+
+              const { likes, dislikes } = product
+
+              product.likes = likes.length
+              product.dislikes = dislikes.length
+
+              return product
             })
         )
       )

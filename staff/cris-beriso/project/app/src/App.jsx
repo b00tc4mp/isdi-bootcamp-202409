@@ -36,6 +36,8 @@ export default function App() {
 
   const handleGoWishlist = () => navigate('/wishlist')
 
+  const handleProductDetails = productId => navigate(`/${productId}`)
+
   const handleAlertAccepted = () => setAlert({
     message: null,
     level: 'error'
@@ -70,7 +72,7 @@ export default function App() {
 
       <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
 
-      <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+      <Route path="/" element={logic.isUserLoggedIn() ? <Home onProductDetails={handleProductDetails} /> : <Navigate to="/login" />} />
 
       <Route path="/:productId" element={logic.isUserLoggedIn() ? <ProductDetails /> : <Navigate to="/login" />} />
 

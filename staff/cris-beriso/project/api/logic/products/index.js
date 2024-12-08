@@ -5,6 +5,7 @@ import getComments from './getComments.js'
 import toggleLikeProduct from './toggleLikeProduct.js'
 import toggleDislikeProduct from './toggleDislikeProduct.js'
 import saveProduct from './saveProduct.js'
+import getProductDetails from './getProductDetails.js'
 
 export {
   getProducts,
@@ -13,5 +14,6 @@ export {
   getComments,
   toggleLikeProduct,
   toggleDislikeProduct,
-  saveProduct
+  saveProduct,
+  getProductDetails
 } 

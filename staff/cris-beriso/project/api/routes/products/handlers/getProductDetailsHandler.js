@@ -2,7 +2,7 @@ import logic from '../../../logic/index.js'
 import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler((req, res) => {
-  const { userId } = req
+  const { userId, params: { productId } } = req
 
-  return logic.getWishlist(userId).then(wishlist => res.json(wishlist))
+  return logic.getProductDetails(userId, productId).then(product => res.json(product))
 })

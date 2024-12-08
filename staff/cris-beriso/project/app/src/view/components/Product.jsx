@@ -1,5 +1,6 @@
-export default function Product({ product }) {
+export default function Product({ product, onProductDetails }) {
   const {
+    id,
     name,
     image,
     likes,
@@ -7,14 +8,23 @@ export default function Product({ product }) {
     dislikes,
     disliked
   } = product
+
+  const handleDetailsProduct = event => {
+    event.preventDefault()
+
+    onProductDetails(id)
+  }
+
   return <article>
-    <img src={image} />
+    <a href="" onClick={handleDetailsProduct}>
+      <img src={image} />
 
-    <h3>{name}</h3>
+      <h3>{name}</h3>
 
-    <p>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</p>
+      <p>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</p>
 
-    <p>{`${disliked ? '💔' : '🤍'} ${dislikes} dislikes`}</p>
+      <p>{`${disliked ? '💔' : '🤍'} ${dislikes} dislikes`}</p>
+    </a>
 
   </article>
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Button } from './library'
 import Comments from './components/Comments'
@@ -6,29 +6,40 @@ import Comments from './components/Comments'
 import logic from '../logic'
 
 import useContext from './useContext'
+import { useParams } from 'react-router-dom'
 
-export default function ProductDetails({ product, onLiked, onDisliked, onSaved, onCommentAdded, onCommentRemoved }) {
-  const [view, setView] = useState(null)
+export default function ProductDetails({ onCommentAdded, onCommentRemoved }) {
+  const { productId } = useParams()
+
+  const [view, setView] = useState(null);
+  const [product, setProduct] = useState(null)
 
   const { alert, confirm } = useContext()
 
-  const {
-    id,
-    name,
-    image,
-    description,
-    likes,
-    liked,
-    dislikes,
-    disliked,
-    // storePrices,
-    comments
-  } = product
+  useEffect(() => {
+    try {
+      logic.getProductDetails(productId)
+        .then(setProduct)
+        .catch(error => {
+          alert(error.message)
+
+          console.error(error)
+        })
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }, [productId])
+
+  // if (!product) {
+  //   return <p>Loading product details...</p>;
+  // }
 
   const handleLikeClick = () => {
     try {
-      logic.toggleLikeProduct(id)
-        .then(onLiked)
+      logic.toggleLikeProduct(productId)
+        .then(setProduct)
         .catch(error => {
           alert(error.message)
 
@@ -43,8 +54,8 @@ export default function ProductDetails({ product, onLiked, onDisliked, onSaved, 
 
   const handleDislikeClick = () => {
     try {
-      logic.toggleDislikeProduct(id)
-        .then(onDisliked)
+      logic.toggleDislikeProduct(productId)
+        .then(setProduct)
         .catch(error => {
           alert(error.message)
 
@@ -61,8 +72,8 @@ export default function ProductDetails({ product, onLiked, onDisliked, onSaved, 
 
   const handleSaveClick = () => {
     try {
-      logic.saveProduct(id)
-        .then(onSaved)
+      logic.saveProduct(productId)
+        .then(setProduct)
         .catch(error => {
           alert(error.message)
 
@@ -74,6 +85,20 @@ export default function ProductDetails({ product, onLiked, onDisliked, onSaved, 
       console.error(error)
     }
   }
+
+
+
+  const {
+    name,
+    image,
+    description,
+    likes,
+    liked,
+    dislikes,
+    disliked,
+    // storePrices,
+    comments
+  } = product
 
   return <article>
     <img src={image} />

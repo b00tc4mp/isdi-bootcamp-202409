@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import db from 'dat'
-import getComments from './getComments.js'
+import getProductDetails from './getProductDetails.js'
 
 db.connect(process.env.MONGO_URL_TEST)
   .then(() => {
     try {
-      return getComments('', '')
+      return getProductDetails('67545b9183cabedba9905786', '67545b9183cabedba990578e')
         .then(console.log)
         .catch(console.error)
     } catch (error) {
