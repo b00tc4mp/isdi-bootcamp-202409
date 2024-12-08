@@ -3,10 +3,11 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId, files, text) => {
+export default (userId, files, text, location) => {
   validate.id(userId, 'userId')
   validate.files(files)
   validate.text(text)
+  validate.location(location)
 
   return User.findById(userId)
     .catch((error) => {
@@ -19,6 +20,11 @@ export default (userId, files, text) => {
         author: userId,
         files: files[0],
         text,
+        location: {
+          type: 'Point',
+          coordinates: location.coordinates,
+          address: location.address,
+        },
       }).catch((error) => {
         throw new SystemError(error.message)
       })

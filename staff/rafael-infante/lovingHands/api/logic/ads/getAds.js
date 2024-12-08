@@ -23,6 +23,10 @@ export default async (userId) => {
       files: ad.files,
       text: ad.text,
       date: ad.date,
+      location: {
+        address: ad.location.address,
+        coordinates: ad.location.coordinates,
+      },
       reviews: ad.reviews.length,
       isFavorite: user.favorites.some((favoriteId) => favoriteId.toString() === ad._id.toString()),
     }))

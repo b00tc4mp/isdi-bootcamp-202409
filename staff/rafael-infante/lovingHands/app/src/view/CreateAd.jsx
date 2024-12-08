@@ -28,13 +28,20 @@ export default function CreateAd({ onCreated }) {
 
     const files = form.images.files
     const text = form.text.value
+    const coordinates = form.coordinates.value
+    const address = form.address.value
 
     const fileToB64Conversions = Array.prototype.map.call(files, toBase64)
+
+    const location = {
+      coordinates: coordinates.split(',').map(Number),
+      address,
+    }
 
     Promise.all(fileToB64Conversions)
       .then((filesB64) => {
         try {
-          logic.createAd(filesB64, text).then(() => {
+          logic.createAd(filesB64, text, location).then(() => {
             alert('Post created')
             form.reset()
             onCreated()
@@ -88,11 +95,37 @@ export default function CreateAd({ onCreated }) {
               required
             />
           </div>
+          {/* Location */}
+          <div>
+            <label htmlFor="coordinates" className="block text-sm font-medium text-gray-700">
+              Location
+            </label>
+            <input
+              type="text"
+              name="coordinates"
+              id="coordinates"
+              placeholder="36.659979045469115, -4.754374953289659"
+              required
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="address"></label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              placeholder="Coín, Málaga"
+              required
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
+          </div>
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-[#68E1FD] text-white py-2 px-4 rounded-lg shadow-md hover:bg-[#E84D67] transition-all duration-200"
+            className="w-full bg-[#68E1FD] text-black py-2 px-4 rounded-lg shadow-md hover:bg-[#E84D67] transition-all duration-200"
           >
             Create Ad
           </button>

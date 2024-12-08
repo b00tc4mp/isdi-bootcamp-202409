@@ -6,6 +6,18 @@ const {
   Types: { ObjectId },
 } = mongoose
 
+const pointSchema = new Schema({
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: true,
+  },
+  coordinates: {
+    type: [Number],
+    required: true,
+  },
+})
+
 const user = new Schema(
   {
     name: {
@@ -96,6 +108,21 @@ const ad = new Schema(
       type: Date,
       required: true,
       default: Date.now,
+    },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+      address: {
+        type: String,
+        required: true,
+      },
     },
     reviews: [review],
   },

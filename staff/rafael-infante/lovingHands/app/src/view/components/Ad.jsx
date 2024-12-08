@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import logic from '../../logic'
 import Reviews from './Reviews'
+import Location from './Location'
 import { getElapsedTime } from '../../utils'
 import favoriteIcon from '../../assets/favorite.png'
 import unFavoriteIcon from '../../assets/unfavorite.png'
@@ -10,7 +11,7 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
   const [isFavorite, setIsFavorite] = useState(ad.isFavorite)
 
   const { id, author, files, text, date, reviews } = ad
-
+  console.log(ad)
   const handleDeleteClick = () => {
     if (confirm('Delete ad')) {
       try {
@@ -41,6 +42,7 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
   }
 
   const handleReviewsClick = () => setView(view ? null : 'reviews')
+  const handleLocationClick = () => setView(view ? null : 'location')
 
   return (
     <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg">
@@ -64,7 +66,9 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
               📝 {reviews} reviews
             </button>
             <span className="text-gray-400">|</span>
-            <a className="text-gray-400 cursor-pointer">📍</a>
+            <a onClick={handleLocationClick} className="text-gray-400 cursor-pointer">
+              📍
+            </a>
           </div>
 
           {author.id === logic.getUserId() && (
@@ -86,6 +90,12 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
       {view === 'reviews' && (
         <div className="bg-gray-100 border-t border-gray-300 p-4">
           <Reviews adId={id} onAdded={onReviewAdded} onRemoved={onReviewRemoved} />
+        </div>
+      )}
+      {/* Vista de Location */}
+      {view === 'location' && (
+        <div className="bg-gray-100 border-t border-gray-300 p-4">
+          <Location />
         </div>
       )}
     </div>

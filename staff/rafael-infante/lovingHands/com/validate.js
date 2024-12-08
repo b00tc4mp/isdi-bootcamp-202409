@@ -48,6 +48,24 @@ const validateText = (text) => {
   if (typeof text !== 'string') throw new ValidationError('invalid text')
 }
 
+const validateLocation = (location) => {
+  // if (typeof location.address !== 'string') throw new ValidationError('Invalid location format')
+  // if (location.address.trim().length < 5) throw new ValidationError('Location must be at least 5 characters')
+  // if (location.address.trim().length > 100) throw new ValidationError('Location must not exceed 100 characters')
+  // const { coordinates } = location
+  // if (
+  //   !Array.isArray(coordinates) ||
+  //   coordinates.length !== 2 ||
+  //   typeof coordinates[0] !== 'number' ||
+  //   typeof coordinates[1] !== 'number'
+  // ) {
+  //   throw new ValidationError('The coordinates must be an array of two numbers')
+  // }
+  // const [latitude, longitude] = coordinates
+  // if (latitude < -90 || latitude > 90) throw new ValidationError('Latitude must be between -90 and 90 degrees')
+  // if (longitude < -180 || longitude > 180) throw new ValidationError('Length should be between -180 and 180 degrees')
+}
+
 const validateId = (id, explain = 'id') => {
   if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
   if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
@@ -69,6 +87,7 @@ const validate = {
   callback: validateCallback,
   role: validateRole,
   files: validateFiles,
+  location: validateLocation,
 }
 
 export default validate
