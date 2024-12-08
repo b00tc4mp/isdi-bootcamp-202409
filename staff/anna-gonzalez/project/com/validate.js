@@ -31,6 +31,12 @@ const validateText = text => {
     if (text.trim().length === 0) throw new ValidationError('Invalid text length')
 }
 
+const validatePhase = phase => {
+    if (!['menstruation', 'follicular', 'ovulation', 'luteal'].includes(phase)) {
+        throw new ValidationError('Invalid phase');
+    }
+}
+
 const validateDate = date => {
     const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:Z|[\+\-]\d{2}:\d{2})$/
 
@@ -53,6 +59,7 @@ const validate = {
     passwordsMatch: validatePasswordsMatch,
     text: validateText,
     date: validateDate,
+    phase: validatePhase,
     id: validateId,
     callback: validateCallback
 }

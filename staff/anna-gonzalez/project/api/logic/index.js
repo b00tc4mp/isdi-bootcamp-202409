@@ -7,6 +7,13 @@ import {
 } from './cycles/index.js'
 
 import {
+    getExerciseTips,
+    getMusicTips,
+    getNutritionTips,
+    getSelfCareTips
+} from './tips/index.js'
+
+import {
     authenticateUser,
     getUserDetails,
     registerUser
@@ -18,6 +25,10 @@ const logic = {
     getCyclesStart,
     getCurrentCycleStart,
     getPeriodDays,
+    getExerciseTips,
+    getMusicTips,
+    getNutritionTips,
+    getSelfCareTips,
     authenticateUser,
     getUserDetails,
     registerUser

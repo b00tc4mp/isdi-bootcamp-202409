@@ -14,6 +14,13 @@ import {
     registerUser
 } from './users'
 
+import {
+    getExerciseTips,
+    getMusicTips,
+    getNutritionTips,
+    getSelfCareTips
+} from './tips'
+
 const logic = {
     addPeriodEnd,
     createCycle,
@@ -24,7 +31,11 @@ const logic = {
     isUserLoggedIn,
     loginUser,
     logoutUser,
-    registerUser
+    registerUser,
+    getExerciseTips,
+    getMusicTips,
+    getNutritionTips,
+    getSelfCareTips
 }
 
 export default logic

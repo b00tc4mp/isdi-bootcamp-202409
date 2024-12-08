@@ -24,14 +24,14 @@ export default (cyclesStart) => {
     const phaseLength = averageCycleLength / 4
 
     if (daysSinceStart < phaseLength) {
-        return 'Menstrual phase'
+        return 'menstruation'
     } else if (daysSinceStart < phaseLength * 2) {
-        return 'Follicular phase'
+        return 'follicular'
     } else if (daysSinceStart < phaseLength * 3) {
-        return 'Ovulation phase'
+        return 'ovulation'
     } else if (daysSinceStart < averageCycleLength) {
-        return 'Luteal phase'
+        return 'luteal'
     } else {
-        return `Luteal phase (day ${daysSinceStart})`
+        return `Cannot determine (day ${daysSinceStart})`
     }
 }
