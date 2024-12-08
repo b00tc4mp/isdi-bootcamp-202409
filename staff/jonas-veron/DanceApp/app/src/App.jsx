@@ -1,6 +1,12 @@
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom"
 
-import { Login, Register, Home, CreateEvent } from "./view/index.js"
+import {
+  Login,
+  Register,
+  Home,
+  CreateEvent,
+  FavoritEvents,
+} from "./view/index.js"
 import { Header, Footer } from "./view/Components/functional/index.js"
 
 import logic from "./logic/index.js"
@@ -30,6 +36,11 @@ function App() {
         <Route
           path="/createEvent"
           element={isLoggedIn ? <CreateEvent /> : <Navigate to="/login" />}
+        />
+
+        <Route
+          path="/favorites"
+          element={isLoggedIn ? <FavoritEvents /> : <Navigate to="/login" />}
         />
       </Routes>
 

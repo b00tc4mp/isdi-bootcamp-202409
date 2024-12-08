@@ -7,7 +7,7 @@ export default (userId, eventId) => {
   validate.id(userId, "userId")
   validate.id(eventId, "eventId")
 
-  return Promise.all([User.findById(userId), Event.findById(eventId).lean()])
+  return Promise.all([User.findById(userId), Event.findById(eventId)])
     .catch((error) => {
       throw new SystemError(error.message)
     })

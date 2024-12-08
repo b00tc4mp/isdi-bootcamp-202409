@@ -5,6 +5,8 @@ import toggleLikeEventHandler from "./toggleLikeEventHandler.js"
 import addCommentHandler from "./addCommentHandler.js"
 import removeCommentHandler from "./removeCommentHandler.js"
 import getCommentsHandler from "./getCommentsHandler.js"
+import toggleFavoriteEventHandler from "./toggleFavoriteEventHandler.js"
+import getFavoriteEventsHandler from "./getFavoriteEventsHandler.js"
 
 export {
   createEventHandler,
@@ -14,4 +16,6 @@ export {
   addCommentHandler,
   removeCommentHandler,
   getCommentsHandler,
+  toggleFavoriteEventHandler,
+  getFavoriteEventsHandler,
 }

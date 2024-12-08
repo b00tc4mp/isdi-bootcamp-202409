@@ -6,6 +6,8 @@ import toggleLikeEvent from "./toggleLikeEvent.js"
 import addComment from "./addComment.js"
 import removeComment from "./removeComment.js"
 import getComments from "./getComments.js"
+import toggleFavoriteEvent from "./toggleFavoriteEvent.js"
+import getFavoriteEvents from "./getFavoriteEvents.js"
 
 export {
   createEvent,
@@ -15,4 +17,6 @@ export {
   addComment,
   removeComment,
   getComments,
+  toggleFavoriteEvent,
+  getFavoriteEvents,
 }

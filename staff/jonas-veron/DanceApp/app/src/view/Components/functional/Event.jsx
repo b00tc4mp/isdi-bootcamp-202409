@@ -9,6 +9,7 @@ import {
   locationIcon,
   starIcon,
   deleteIcon,
+  isFavoriteIcon,
 } from "./../../../assets/index.js"
 
 import { Comments } from "./index.js"
@@ -29,10 +30,9 @@ export default function Event({ event, refreshEvents }) {
     likes,
     comments,
   } = event
+  console.log(event)
 
   const [view, setView] = useState(null)
-
-  console.log(event)
 
   const handleLikeClick = () => {
     try {
@@ -69,10 +69,23 @@ export default function Event({ event, refreshEvents }) {
       }
     }
   }
-
   const handleCommentsClick = () => setView(view ? null : "comments")
+  const handleFavoritesClick = () => {
+    try {
+      logic
+        .toggleFavoriteEvent(id)
+        .then(refreshEvents)
+        .catch((error) => {
+          alert(error.message)
 
-  const handleFavoritesClick = () => {}
+          console.error(error)
+        })
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
 
   return (
     <article className="bg-transparent text-white shadow-md rounded-lg p-1 mb-6 max-w-xl mx-auto relative">
@@ -136,7 +149,7 @@ export default function Event({ event, refreshEvents }) {
             />
           </div>
           <img
-            src={starIcon}
+            src={favoriteByUser ? isFavoriteIcon : starIcon}
             alt="Favorite"
             className="w-6 h-6 cursor-pointer"
             onClick={handleFavoritesClick}

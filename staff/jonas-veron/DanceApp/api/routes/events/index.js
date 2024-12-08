@@ -10,6 +10,8 @@ import {
   addCommentHandler,
   removeCommentHandler,
   getCommentsHandler,
+  toggleFavoriteEventHandler,
+  getFavoriteEventsHandler,
 } from "./handlers/index.js"
 
 const eventsRouter = Router()
@@ -34,5 +36,12 @@ eventsRouter.delete(
   removeCommentHandler
 )
 eventsRouter.get("/:eventId/comments", authorizationHandler, getCommentsHandler)
+
+eventsRouter.patch(
+  "/:eventId/favorites",
+  authorizationHandler,
+  toggleFavoriteEventHandler
+)
+eventsRouter.get("/favorites", authorizationHandler, getFavoriteEventsHandler)
 
 export default eventsRouter

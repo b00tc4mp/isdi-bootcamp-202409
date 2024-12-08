@@ -8,6 +8,8 @@ import {
   addComment,
   removeComment,
   getComments,
+  toggleFavoriteEvent,
+  getFavoriteEvents,
 } from "./events/index.js"
 
 const logic = {
@@ -22,6 +24,8 @@ const logic = {
   addComment,
   removeComment,
   getComments,
+  toggleFavoriteEvent,
+  getFavoriteEvents,
 }
 
 export default logic

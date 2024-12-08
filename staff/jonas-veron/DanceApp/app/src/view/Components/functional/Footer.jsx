@@ -17,6 +17,9 @@ export default function Footer() {
   const handleHomeClick = () => {
     navigate("/")
   }
+  const onFavoritClick = () => {
+    navigate("/favorites")
+  }
 
   return (
     <footer className="fixed bottom-0 left-0 w-full text-white flex justify-around items-center h-[6vh] shadow-lg bg-gradient-to-t from-primary to-secondary border-t border-white/20">
@@ -31,19 +34,16 @@ export default function Footer() {
       <button className="flex flex-col items-center">
         <img src={searchIcon} alt="Buscar" title="BUSCAR" className="w-6 h-6" />
       </button>
-      {location.pathname === "/" && (
-        <button
-          className="flex flex-col items-center"
-          onClick={onNewEventClick}
-        >
-          <img
-            src={create}
-            alt="Crear evento"
-            title="CREAR EVENTO"
-            className="w-10 h-"
-          />
-        </button>
-      )}
+
+      <button className="flex flex-col items-center" onClick={onNewEventClick}>
+        <img
+          src={create}
+          alt="Crear evento"
+          title="CREAR EVENTO"
+          className="w-10 h-"
+        />
+      </button>
+
       <button className="flex flex-col items-center">
         <img
           src={calendarIcon}
@@ -58,6 +58,7 @@ export default function Footer() {
           alt="favoritos"
           title="FAVORITOS"
           className="w-8 h-8"
+          onClick={onFavoritClick}
         />
       </button>
     </footer>
