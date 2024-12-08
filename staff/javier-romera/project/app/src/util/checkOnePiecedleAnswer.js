@@ -1,4 +1,6 @@
-import { compareNumerics, isMatch, compareDevilFruit } from "../../util"
+import compareNumerics from './compareNumerics'
+import isMatch from './isMatch'
+import compareDevilFruit from './compareDevilFruit'
 
 export default (randomChar, userGuess) => {
     let checkedAnswers = []

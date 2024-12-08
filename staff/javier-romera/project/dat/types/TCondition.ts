@@ -1,7 +1,7 @@
 type TCondition = {
     type: string,
     property: string,
-    value: string,
+    value: Boolean | String | Number,
     direction: string,
     indexes: number[],
     text: string

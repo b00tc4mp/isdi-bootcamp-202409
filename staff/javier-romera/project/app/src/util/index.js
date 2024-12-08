@@ -10,6 +10,9 @@ import formatBounty from './formatBounty'
 import formatHeight from './formatHeight'
 import getHakiString from './getHakiString'
 import adjustAvailableCharacters from './adjustAvailableCharacters'
+import checkOnePiecedleAnswer from './checkOnePiecedleAnswer'
+import solveBoard from './solveBoard'
+import getConditionText from './getConditionText'
 
 export {
     extractPayloadFromJWT,
@@ -23,5 +26,8 @@ export {
     formatBounty,
     formatHeight,
     getHakiString,
-    adjustAvailableCharacters
+    adjustAvailableCharacters,
+    checkOnePiecedleAnswer,
+    solveBoard,
+    getConditionText
 }

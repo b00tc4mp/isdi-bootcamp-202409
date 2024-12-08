@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../../logic'
 import { errors } from 'com'
 
-import { capitalizeWords, validateGuess, adjustAvailableCharacters } from '../../../util'
+import { capitalizeWords, validateGuess, adjustAvailableCharacters, checkOnePiecedleAnswer } from '../../../util'
 
 const { SystemError } = errors
 
@@ -112,13 +112,13 @@ export default function useController() {
 
             const found = validateGuess(availableCharacters, parsedGuess)
 
-            const newAvailableCharacters = adjustAvailableCharacters(found, availableCharacters)
-            setAvailableCharacters(newAvailableCharacters)
-
             if (found > -1) {
+                const newAvailableCharacters = adjustAvailableCharacters(found, availableCharacters)
+                setAvailableCharacters(newAvailableCharacters)
+
                 logic.getCharacterByName(parsedGuess)
                     .then(char => {
-                        const checkedAnswer = logic.checkOnePiecedleAnswer(randomChar, char)
+                        const checkedAnswer = checkOnePiecedleAnswer(randomChar, char)
 
                         setAnswers((prevAnswers) => [...prevAnswers, checkedAnswer])
                         setGuessedCharacters((prevGuessedCharacters) => [...prevGuessedCharacters, char])
@@ -141,8 +141,8 @@ export default function useController() {
             } else {
                 const found = validateGuess(characters, parsedGuess)
 
-                if (found > -1) alert('character already guessed')
-                else alert('pero q personaje de wanpi es ese muchachooo')
+                if (found > -1) alert('Character already guessed')
+                else alert('Invalid character name or alias')
             }
         } catch (error) {
             alert(error.message)

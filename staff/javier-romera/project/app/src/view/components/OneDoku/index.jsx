@@ -9,9 +9,14 @@ export default function OneDoku() {
         showBoard,
         showGuessingDiv,
         conditions,
+        index,
+        inputValue,
+        isTyping,
 
         handleGridClick,
-        handleGridGuessingExit
+        handleGridGuessingExit,
+        handleSubmit,
+        handleInputChange
     } = useController()
 
     return <main className="h-screen w-screen bg-cover bg-center flex justify-center items-center overflow-y-auto" style={{
@@ -30,23 +35,22 @@ export default function OneDoku() {
                     <div className="grid grid-cols-5 w-[45rem] h-[24rem]">
                         <div className="flex self-center place-self-end mr-[.5rem]">{conditions[3].text}</div>
                         <div className="w-[9rem] h-[8rem]"><TopLeftButton onClick={handleGridClick}></TopLeftButton></div>
-                        <div className="w-[9rem] h-[8rem]"><TopMiddleButton></TopMiddleButton></div>
-                        <div className="w-[9rem] h-[8rem]"><TopRightButton></TopRightButton></div>
+                        <div className="w-[9rem] h-[8rem]"><TopMiddleButton onClick={handleGridClick}></TopMiddleButton></div>
+                        <div className="w-[9rem] h-[8rem]"><TopRightButton onClick={handleGridClick}></TopRightButton></div>
                         <div className="w-0"></div>
                         <div className="flex self-center place-self-end mr-[.5rem]">{conditions[4].text}</div>
-                        <div className="w-[9rem] h-[8rem]"><MiddleLeftButton></MiddleLeftButton></div>
-                        <div className="w-[9rem] h-[8rem]"><MiddleButton></MiddleButton></div>
-                        <div className="w-[9rem] h-[8rem]"><MiddleRightButton></MiddleRightButton></div>
+                        <div className="w-[9rem] h-[8rem]"><MiddleLeftButton onClick={handleGridClick}></MiddleLeftButton></div>
+                        <div className="w-[9rem] h-[8rem]"><MiddleButton onClick={handleGridClick}></MiddleButton></div>
+                        <div className="w-[9rem] h-[8rem]"><MiddleRightButton onClick={handleGridClick}></MiddleRightButton></div>
                         <div className="w-0"></div>
                         <div className="flex self-center place-self-end mr-[.5rem]">{conditions[5].text}</div>
-                        <div className="w-[9rem] h-[8rem]"><BottomLeftButton></BottomLeftButton></div>
-                        <div className="w-[9rem] h-[8rem]"><BottomMiddleButton></BottomMiddleButton></div>
-                        <div className="w-[9rem] h-[8rem]"><BottomRightButton></BottomRightButton></div>
+                        <div className="w-[9rem] h-[8rem]"><BottomLeftButton onClick={handleGridClick}></BottomLeftButton></div>
+                        <div className="w-[9rem] h-[8rem]"><BottomMiddleButton onClick={handleGridClick}></BottomMiddleButton></div>
+                        <div className="w-[9rem] h-[8rem]"><BottomRightButton onClick={handleGridClick}></BottomRightButton></div>
                         <div className="w-0"></div>
                     </div>
                 </div>
             </section>}
-
-        {showGuessingDiv && <GuessingDiv />}
+        {showGuessingDiv && <GuessingDiv currentIndex={index} conditions={conditions} handleSubmit={handleSubmit} inputValue={inputValue} onChange={handleInputChange} isTyping={isTyping} />}
     </main>
 }

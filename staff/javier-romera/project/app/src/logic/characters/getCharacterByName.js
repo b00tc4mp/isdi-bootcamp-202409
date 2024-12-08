@@ -1,5 +1,7 @@
 import { errors } from 'com'
 
+const { SystemError } = errors
+
 export default charName => {
     return fetch(`http://${import.meta.env.VITE_API_URL}/characters/${charName}`, {
         headers: {

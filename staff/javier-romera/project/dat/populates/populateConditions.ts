@@ -12,7 +12,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'affiliation',
             value: 'Straw Hat Pirates',
             direction: 'column',
-            indexes: [0, 3, 6],
+            indexes: [],
             text: 'Straw Hat Pirates'
         }),
         Condition.create({
@@ -20,7 +20,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'sea',
             value: 'East Blue',
             direction: 'column',
-            indexes: [0, 3, 6],
+            indexes: [],
             text: 'From the East Blue'
         }),
         Condition.create({
@@ -28,7 +28,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'affiliation',
             value: 'Marines',
             direction: 'column',
-            indexes: [1, 4, 7],
+            indexes: [],
             text: 'Marine'
         }),
         Condition.create({
@@ -36,7 +36,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'race',
             value: 'Human',
             direction: 'column',
-            indexes: [1, 4, 7],
+            indexes: [],
             text: 'Human race'
         }),
         Condition.create({
@@ -44,7 +44,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'sea',
             value: 'Grand Line',
             direction: 'column',
-            indexes: [2, 5, 8],
+            indexes: [],
             text: 'From the Grand Line'
         }),
         Condition.create({
@@ -52,7 +52,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'affiliation',
             value: 'Big Mom Pirates',
             direction: 'column',
-            indexes: [2, 5, 8],
+            indexes: [],
             text: 'Big Mom Pirates'
         }),
 
@@ -62,7 +62,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'bounty',
             value: 100000000,
             direction: 'row',
-            indexes: [0, 1, 2],
+            indexes: [],
             text: 'Bounty over 100M'
         }),
         Condition.create({
@@ -70,7 +70,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'bounty',
             value: 1500000000,
             direction: 'row',
-            indexes: [0, 1, 2],
+            indexes: [],
             text: 'Bounty less than 1.5B'
         }),
         Condition.create({
@@ -78,7 +78,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'conqueror',
             value: true,
             direction: 'row',
-            indexes: [3, 4, 5],
+            indexes: [],
             text: 'Conqueror\'s haki'
         }),
         Condition.create({
@@ -86,7 +86,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'conqueror',
             value: false,
             direction: 'row',
-            indexes: [3, 4, 5],
+            indexes: [],
             text: 'Without conqueror\'s haki'
         }),
         Condition.create({
@@ -94,7 +94,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'height',
             value: 300,
             direction: 'row',
-            indexes: [6, 7, 8],
+            indexes: [],
             text: 'Height lower than 3m'
         }),
         Condition.create({
@@ -102,7 +102,7 @@ db.connect(process.env.ALLPIECE_URL_TEST!)
             property: 'height',
             value: 200,
             direction: 'row',
-            indexes: [6, 7, 8],
+            indexes: [],
             text: 'Height higher than 2m'
         })
     ]))

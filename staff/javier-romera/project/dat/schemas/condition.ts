@@ -11,7 +11,7 @@ const condition = new Schema({
         required: true
     },
     value: {
-        type: String || Number,
+        type: Schema.Types.Mixed,
         required: true
     },
     direction: {
