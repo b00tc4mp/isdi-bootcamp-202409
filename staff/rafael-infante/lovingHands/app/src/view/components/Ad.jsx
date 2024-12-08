@@ -66,8 +66,11 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
               📝 {reviews} reviews
             </button>
             <span className="text-gray-400">|</span>
-            <a onClick={handleLocationClick} className="text-gray-400 cursor-pointer">
-              📍
+            <a
+              onClick={handleLocationClick}
+              className="text-blue-500 hover:underline text-sm flex items-center gap-1 cursor-pointer"
+            >
+              📍location
             </a>
           </div>
 
@@ -95,7 +98,7 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
       {/* Vista de Location */}
       {view === 'location' && (
         <div className="bg-gray-100 border-t border-gray-300 p-4">
-          <Location />
+          <Location address={ad.location.address} coordinates={ad.location.coordinates} />
         </div>
       )}
     </div>
