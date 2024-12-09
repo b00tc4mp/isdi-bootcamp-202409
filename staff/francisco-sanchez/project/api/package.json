@@ -25,7 +25,8 @@
         "express": "^4.21.1",
         "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.11.0",
-        "mongoose": "^8.8.3"
+        "mongoose": "^8.8.3",
+        "nodemailer": "^6.9.16"
     },
     "devDependencies": {
         "bcryptjs": "^2.4.3",

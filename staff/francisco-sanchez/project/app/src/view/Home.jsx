@@ -20,7 +20,7 @@ export default function Home(props) {
         console.log('Header -> componentDidMount & componentWillReceiveProps')
 
         if (logic.isUserLoggedIn()) {
-            console.log('paso por la logia is user logged in')
+            console.log('paso por la logica is user logged in')
             if (!name)
                 try {
                     logic.getUserName()

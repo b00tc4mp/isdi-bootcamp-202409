@@ -11,6 +11,10 @@ import {
     getBasePacks
 } from './packs/index.js'
 
+import {
+    sendEmail,
+} from './emailing/sendEmail.js'
+
 
 const logic = {
     registerUser,
@@ -20,7 +24,9 @@ const logic = {
 
     createPack,
     assignPack,
-    getBasePacks
+    getBasePacks,
+
+    sendEmail
 }
 
 export default logic
