@@ -1,5 +1,5 @@
-import Logo from '../../assets/logo.png'
-import logic from '../../logic'
+import Logo from '../../../assets/logo.png'
+import logic from '../../../logic'
 
 export default function Header({ onLoggedOut }) {
   console.log('Header -> render')

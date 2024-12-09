@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Logo from '../assets/logo.png'
 import logic from '../logic'
+import LocationInput from './components/functional/LocationInput'
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -12,6 +13,7 @@ const toBase64 = (file) =>
 
 export default function CreateAd({ onCreated }) {
   const [images, setImages] = useState([])
+  const [location, setLocation] = useState(null)
 
   const handleImageChange = (event) => {
     const { files } = event.target
@@ -28,20 +30,20 @@ export default function CreateAd({ onCreated }) {
 
     const files = form.images.files
     const text = form.text.value
-    const coordinates = form.coordinates.value
-    const address = form.address.value
+    // const coordinates = form.coordinates.value
+    // const address = form.address.value
 
     const fileToB64Conversions = Array.prototype.map.call(files, toBase64)
 
-    const location = {
-      coordinates: coordinates.split(',').map(Number),
-      address,
+    const locationFormatted = {
+      coordinates: [location.lat, location.lon],
+      address: location.address,
     }
 
     Promise.all(fileToB64Conversions)
       .then((filesB64) => {
         try {
-          logic.createAd(filesB64, text, location).then(() => {
+          logic.createAd(filesB64, text, locationFormatted).then(() => {
             alert('Post created')
             form.reset()
             onCreated()
@@ -96,7 +98,7 @@ export default function CreateAd({ onCreated }) {
             />
           </div>
           {/* Location */}
-          <div>
+          {/* <div>
             <label htmlFor="coordinates" className="block text-sm font-medium text-gray-700">
               Location
             </label>
@@ -108,9 +110,9 @@ export default function CreateAd({ onCreated }) {
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
-          </div>
+          </div> */}
 
-          <div>
+          {/* <div>
             <label htmlFor="address"></label>
             <input
               type="text"
@@ -119,6 +121,15 @@ export default function CreateAd({ onCreated }) {
               placeholder="Coín, Málaga"
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
+          </div> */}
+
+          <div>
+            <LocationInput
+              onLocationSelect={(location) => {
+                console.log('Ubicacion seleccionada: ', location)
+                setLocation(location)
+              }}
             />
           </div>
 

@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import logic from '../../logic'
+import logic from '../../../logic'
 import Reviews from './Reviews'
 import Location from './Location'
-import { getElapsedTime } from '../../utils'
-import favoriteIcon from '../../assets/favorite.png'
-import unFavoriteIcon from '../../assets/unfavorite.png'
+import { getElapsedTime } from '../../../utils'
+import favoriteIcon from '../../../assets/favorite.png'
+import unFavoriteIcon from '../../../assets/unfavorite.png'
 
 export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReviewRemoved }) {
   const [view, setView] = useState(null)

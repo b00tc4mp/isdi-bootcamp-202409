@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -26,7 +26,7 @@ export default function Location({ coordinates, address }) {
 
         {/* Marcador con Popup que muestra la dirección */}
         <Marker position={coordinates}>
-          <Popup>{address}</Popup>
+          <Tooltip permanent>{address}</Tooltip>
         </Marker>
       </MapContainer>
     </div>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Review from './Review'
 import AddReview from './AddReview'
 
-import logic from '../../logic'
+import logic from '../../../logic'
 
 export default function Reviews(props) {
   const [reviews, setReviews] = useState([])

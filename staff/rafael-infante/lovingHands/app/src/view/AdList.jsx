@@ -1,4 +1,4 @@
-import Ad from './components/Ad'
+import Ad from './components/functional/Ad'
 import logic from '../logic/index.js'
 import { useState, useEffect } from 'react'
 

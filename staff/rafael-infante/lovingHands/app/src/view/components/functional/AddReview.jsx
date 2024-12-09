@@ -1,4 +1,4 @@
-import logic from '../../logic'
+import logic from '../../../logic'
 
 export default function AddReview({ adId, onAdded }) {
   console.log('AddReview -> render')
