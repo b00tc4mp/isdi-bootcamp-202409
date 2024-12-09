@@ -101,9 +101,9 @@ export default function Event({ event, refreshEvents }) {
           </div>
         </div>
         {/* Nombre del autor y dirección */}
-        <div className="ml-2">
+        <div className="ml-1">
           <h4 className="font-bold text-white">{author.name}</h4>
-          <p className="text-xs italic">{location.locality}</p>
+          <p className="text-xs italic mr-28">{location.province}</p>
         </div>
       </div>
 

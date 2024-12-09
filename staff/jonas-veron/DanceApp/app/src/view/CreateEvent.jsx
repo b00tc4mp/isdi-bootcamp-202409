@@ -34,13 +34,12 @@ export default function CreateEvent() {
     const eventType = form.eventType.value
     const text = form.text.value
     const eventDate = form.eventDate.value
-    // const coordinates = form.coordinates.value
-    // const address = form.address.value
     const filetoB64Conversions = Array.prototype.map.call(files, toBase64)
 
     const locationFormatted = {
       coordinates: [location.lat, location.lon],
       address: location.address,
+      province: location.province,
     }
 
     const parsedDate = new Date(`${eventDate}:00Z`)
@@ -127,26 +126,6 @@ export default function CreateEvent() {
             />
           </Field>
 
-          {/* <Field>
-            <input
-              type="text"
-              name="coordinates"
-              id="coordinates"
-              placeholder="41.3870154, 2.1700471"
-              required
-              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
-            />
-          </Field> */}
-
-          {/* <Field>
-            <input
-              type="text"
-              name="address"
-              placeholder="Girona, España"
-              required
-              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
-            />
-          </Field> */}
           <Field>
             <LocationInput
               onLocationSelect={(location) => {

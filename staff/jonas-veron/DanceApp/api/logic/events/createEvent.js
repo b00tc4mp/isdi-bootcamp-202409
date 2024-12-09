@@ -28,6 +28,7 @@ export default (userId, files, eventType, text, eventDate, location) => {
           type: "Point",
           coordinates: location.coordinates,
           address: location.address,
+          province: location.province,
         },
       })
         .catch((error) => {

@@ -26,6 +26,7 @@ export default async (userId) => {
       date: event.date,
       location: {
         address: event.location.address,
+        province: event.location.province,
         coordinates: event.location.coordinates,
       },
       author: {

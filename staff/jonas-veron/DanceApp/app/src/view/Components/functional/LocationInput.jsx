@@ -1,16 +1,14 @@
 import React, { useState } from "react"
-import geocodeLogic from "../../../logic/geocode/geocodeLogic.js"
+import delaySearchAddress from "../../../util/delaySearchAddress.js"
 
 export default function LocationInput({ onLocationSelect }) {
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
 
   const handleInputChange = async (event) => {
     const value = event.target.value
     setQuery(value)
-    geocodeLogic.getSuggestions(value, setSuggestions, setLoading, setError)
+    delaySearchAddress.getSuggestions(value, setSuggestions)
   }
 
   const handleSelectSuggestion = (suggestion) => {
@@ -32,8 +30,7 @@ export default function LocationInput({ onLocationSelect }) {
         placeholder="Escribe una dirección"
         className="p-2 border rounded w-full"
       />
-      {loading && <p className="text-sm text-gray-500">Buscando...</p>}
-      {error && <p className="text-sm text-red-500">{error}</p>}
+
       <ul className="border border-gray-300 rounded-lg mt-2 max-h-40 overflow-y-auto">
         {suggestions.map((suggestion, index) => (
           <li

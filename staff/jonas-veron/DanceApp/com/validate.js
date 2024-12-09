@@ -100,23 +100,6 @@ const validateLocation = (location) => {
     throw new ValidationError("Location must be at least 5 characters")
   if (location.address.trim().length > 200)
     throw new ValidationError("Location must not exceed 200 characters")
-
-  //   const { coordinates } = location
-
-  //   if (
-  //     !Array.isArray(coordinates) ||
-  //     coordinates.length !== 2 ||
-  //     typeof coordinates[0] !== "number" ||
-  //     typeof coordinates[1] !== "number"
-  //   ) {
-  //     throw new ValidationError("The coordinates must be an array of two numbers")
-  //   }
-  //   const [latitude, longitude] = coordinates
-
-  //   if (latitude < -90 || latitude > 90)
-  //     throw new ValidationError("Latitude must be between -90 and 90 degrees")
-  //   if (longitude < -180 || longitude > 180)
-  //     throw new ValidationError("Length should be between -180 and 180 degrees")
 }
 
 const validate = {
