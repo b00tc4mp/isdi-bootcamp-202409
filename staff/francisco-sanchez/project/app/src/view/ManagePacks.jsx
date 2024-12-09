@@ -1,14 +1,13 @@
-import { errors } from 'com'
-
+import { useState, useEffect } from 'react'
 import logic from '../logic'
+
+import { errors } from 'com'
+import { Button } from '../library/index';
 
 const { SystemError } = errors
 
-import useContext from './useContext'
-
-import { Button } from '../library/index';
-
 export default function ManagePacks(props) {
+    const [loading, setLoading] = useState(true) //This is to show the loader as active by default
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -25,54 +24,61 @@ export default function ManagePacks(props) {
         props.onCreatePackClick()
     };
 
+    const [basePacks, setPacks] = useState([])
+
+    useEffect(() => {
+        console.log('Packs / PacksList -> componentDidMount')
+        const fetchBasePacks = async () => {
+            try {
+                setLoading(true)
+                const basePacks = await logic.getBasePacks()
+                console.log('BasePacks fetched successfully', basePacks)
+                setPacks(basePacks)
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchBasePacks()
+    }, [])
+
 
     return (
         <main className="flex flex-col  items-center bg-color_backgroundGrey w-full h-screen pt-12">
             <h1>Manage Packs</h1>
-            <p>This will be the page to manage packs</p>
+            <p>This will be the page to manage basePacks</p>
 
-            <table className="table-auto mt-4 w-[80%] bg-white text-black rounded-md">
-                <thead>
-                    <tr className='bg-amarilloCanario'>
-                        <th className="border px-4 py-2">Name</th>
-                        <th className="border px-4 py-2">Description</th>
-                        <th className="border px-4 py-2">Price</th>
-                        <th className="border px-4 py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {/* {packs.map(user => (
-                        <tr key={user.id}>
-                            <td className='border px-4 py-2'>{user.name}</td>
-                            <td className='border px-4 py-2'>{user.username}</td>
-                            <td className='border px-4 py-2'>{user.email}</td>
-                            <td className='border px-4 py-2'>{user.role}</td>
-                            <td className='border px-4 py-2'>✏️ ❌ ⛔</td>
+            {loading ? (
+                <div className="flex justify-center items-center h-full">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-color_green"></div>
+                </div>
+            ) : (
+                <table className="table-auto mt-4 w-[80%] bg-white text-black rounded-md">
+                    <thead>
+                        <tr className='bg-amarilloCanario'>
+                            <th className="border px-4 py-2">Name</th>
+                            <th className="border px-4 py-2">Description</th>
+                            <th className="border px-4 py-2">Price</th>
+                            <th className="border px-4 py-2">Actions</th>
                         </tr>
-                    ))} */}
+                    </thead>
+                    <tbody>
 
-                    <tr>
-                        <td className="border px-4 py-2">Single hour</td>
-                        <td className="border px-4 py-2">Description for the pack of 5h</td>
-                        <td className="border px-4 py-2">50 EUR</td>
-                        <td className="border px-4 py-2">✏️ ❌ ⛔</td>
-                    </tr>
-                    <tr>
-                        <td className="border px-4 py-2">5h pack</td>
-                        <td className="border px-4 py-2">Description for the pack of 10h</td>
-                        <td className="border px-4 py-2">237 EUR</td>
-                        <td className="border px-4 py-2">✏️ ❌ ⛔</td>
-                    </tr>
-                    <tr>
-                        <td className="border px-4 py-2">10h pack</td>
-                        <td className="border px-4 py-2">Description for the pack of 5h</td>
-                        <td className="border px-4 py-2">450 EUR</td>
-                        <td className="border px-4 py-2">✏️ ❌ ⛔</td>
-                    </tr>
+                        {basePacks.map(basePack => (
+                            <tr key={basePack.id}>
+                                <td className='border px-4 py-2'>{basePack.packName}</td>
+                                <td className='border px-4 py-2'>{basePack.description}</td>
+                                <td className='border px-4 py-2'>{basePack.price}</td>
+                                <td className='border px-4 py-2'>✏️ ❌ ⛔</td>
+                            </tr>
+                        ))}
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            )}
+
 
 
 

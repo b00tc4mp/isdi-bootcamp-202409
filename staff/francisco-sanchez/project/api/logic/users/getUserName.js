@@ -6,6 +6,7 @@ const { SystemError, NotFoundError } = errors
 export default (userId, targetUserId) => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
+    console.log('llego a getUserName de API')
 
     return (async () => {
         let users

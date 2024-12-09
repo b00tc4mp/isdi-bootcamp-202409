@@ -3,7 +3,8 @@ import {
     isUserLoggedIn,
     loginUser,
     logoutUser,
-    getUserId
+    getUserId,
+    getUserName
 } from './users'
 
 import {
@@ -19,6 +20,7 @@ const logic = {
     loginUser,
     logoutUser,
     getUserId,
+    getUserName,
 
     //Packs
     createPack,

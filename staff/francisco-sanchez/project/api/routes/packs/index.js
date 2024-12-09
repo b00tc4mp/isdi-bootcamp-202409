@@ -9,6 +9,6 @@ const packsRouter = Router()
 
 packsRouter.post('/create-pack', jsonBodyParser, createPackHandlers)
 packsRouter.post('/assign-pack', jsonBodyParser, assingPackHandlers)
-packsRouter.get('/get-basepack', jsonBodyParser, getBasePacks)
+packsRouter.get('/get-basepack', getBasePacks)
 
 export default packsRouter

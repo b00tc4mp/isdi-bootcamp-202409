@@ -21,6 +21,13 @@ db.connect(process.env.MONGO_URL).then(() => {
     server.use('/users', usersRouter)
     server.use('/packs', packsRouter)
 
+    //TODO: Quitar el siguiente bloque
+    server.use((req, res, next) => {
+        console.log(`Request: ${req.method} ${req.originalUrl}`);
+        console.log('Headers:', req.headers);
+        next();
+    });
+
 
     server.use(errorHandler)
 

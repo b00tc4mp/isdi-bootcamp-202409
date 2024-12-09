@@ -2,7 +2,7 @@ import {
     registerUser,
     authenticateUser,
     getUserName,
-    registerUser
+    getCustomers,
 } from './users/index.js'
 
 import {
@@ -16,7 +16,7 @@ const logic = {
     registerUser,
     authenticateUser,
     getUserName,
-    registerUser,
+    getCustomers,
 
     createPack,
     assignPack,

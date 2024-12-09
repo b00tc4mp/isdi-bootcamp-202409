@@ -5,13 +5,13 @@ import createPack from './createPack.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const user = '674f1fc3a728c03cdd10ba3c'
+const user = '675036c010473f3d809e5359'
 const packName = '5h pack '
-const description = 'test pack 5'
+const description = 'esta es la descripción del test pack 5'
 const quantity = 5
 const unit = 'hours'
 const expiringTime = 12 //means 12 month
-const price = 235
+const price = 444
 const currency = 'EUR'
 
 

@@ -2,10 +2,43 @@ import { useState, useEffect } from "react"
 import logic from "../logic"
 
 import { Button } from "../library";
+import { useLocation } from 'react-router-dom'
+
+import useContext from './useContext'
 
 
 export default function Home(props) {
     console.log('Home -> render')
+
+    const [name, setName] = useState(null)
+
+    const location = useLocation()
+
+    const { alert, confirm } = useContext()
+
+    useEffect(() => {
+        console.log('Header -> componentDidMount & componentWillReceiveProps')
+
+        if (logic.isUserLoggedIn()) {
+            console.log('paso por la logia is user logged in')
+            if (!name)
+                try {
+                    logic.getUserName()
+                        .then(setName)
+                        .catch(error => {
+                            alert(error.message)
+
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+        } else setName(null)
+    }, [location.pathname])
+    console.log(name)
+
 
     const handleManagePacks = event => {
         console.log("Manage packs clicked");
@@ -31,7 +64,7 @@ export default function Home(props) {
             <main className="flex flex-col items-center bg-color_backgroundGrey w-full h-screen p-4 pt-12">
 
                 <header className="mb-8 text-center ">
-                    <h2 className="text-3xl font-bold text-color_darkBlue mb-2">Welcome, name_of_user</h2>
+                    <h2 className="text-3xl font-bold text-color_darkBlue mb-2">Welcome, {name}</h2>
                     <p className="text-color_strongGrey">What would you like to do today?</p>
                 </header>
 

@@ -7,7 +7,7 @@ const { SystemError, NotFoundError } = errors
 export default (
     userId,
     packName,
-    packDescription,
+    description,
     quantity,
     unit,
     expiringTime,
@@ -32,7 +32,7 @@ export default (
             await BasePack.create({
                 user: userId,
                 packName,
-                packDescription,
+                description,
                 quantity,
                 unit,
                 expiringTime,
