@@ -4,10 +4,8 @@ import Product from './components/Product'
 
 import logic from '../logic'
 
-export default function Wishlist() {
+export default function Wishlist({ onProductDetails }) {
   const [wishlist, setWishlist] = useState([])
-  console.log(wishlist)
-  console.log('hola')
   useEffect(() => {
     try {
       logic.getWishlist()
@@ -28,7 +26,9 @@ export default function Wishlist() {
 
   return <div>
     {wishlist.map(product => <Product
+      key={product.id}
       product={product}
+      onProductDetails={onProductDetails}
     // onLiked={handleLiked}
     // onDisliked={handleDisliked}
     // onSaved={handleSaved}

@@ -8,7 +8,7 @@ import logic from '../logic'
 import useContext from './useContext'
 import { useParams } from 'react-router-dom'
 
-export default function ProductDetails({ onCommentAdded, onCommentRemoved }) {
+export default function ProductDetails({ onLiked, onDisliked, onSaved, onCommentAdded, onCommentRemoved }) {
   const { productId } = useParams()
 
   const [view, setView] = useState(null);
@@ -32,14 +32,14 @@ export default function ProductDetails({ onCommentAdded, onCommentRemoved }) {
     }
   }, [productId])
 
-  // if (!product) {
-  //   return <p>Loading product details...</p>;
-  // }
+  if (!product) {
+    return <p>Loading product details...</p>;
+  }
 
   const handleLikeClick = () => {
     try {
       logic.toggleLikeProduct(productId)
-        .then(setProduct)
+        .then(onLiked)
         .catch(error => {
           alert(error.message)
 
@@ -55,7 +55,7 @@ export default function ProductDetails({ onCommentAdded, onCommentRemoved }) {
   const handleDislikeClick = () => {
     try {
       logic.toggleDislikeProduct(productId)
-        .then(setProduct)
+        .then(onDisliked)
         .catch(error => {
           alert(error.message)
 
@@ -73,7 +73,7 @@ export default function ProductDetails({ onCommentAdded, onCommentRemoved }) {
   const handleSaveClick = () => {
     try {
       logic.saveProduct(productId)
-        .then(setProduct)
+        .then(onSaved)
         .catch(error => {
           alert(error.message)
 
@@ -89,6 +89,7 @@ export default function ProductDetails({ onCommentAdded, onCommentRemoved }) {
 
 
   const {
+    id,
     name,
     image,
     description,

@@ -10,7 +10,8 @@ import {
   toggleLikeProductHandler,
   toggleDislikeProductHandler,
   saveProductHandler,
-  getProductDetailsHandler
+  getProductDetailsHandler,
+  searchProductsHandler
 } from './handlers/index.js'
 
 
@@ -23,6 +24,7 @@ productsRouter.get('/:productId/comments', authorizationHandler, getCommentsHand
 productsRouter.patch('/:productId/likes', authorizationHandler, toggleLikeProductHandler)
 productsRouter.patch('/:productId/dislikes', authorizationHandler, toggleDislikeProductHandler)
 productsRouter.patch('/:productId/save', authorizationHandler, saveProductHandler)
+productsRouter.get('/search', authorizationHandler, searchProductsHandler)
 productsRouter.get('/:productId', authorizationHandler, getProductDetailsHandler)
 
 

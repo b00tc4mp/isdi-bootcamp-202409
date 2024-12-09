@@ -15,13 +15,17 @@ export default (userId, productId) => {
     .then(([userExists, product]) => {
       if (!userExists) throw new NotFoundError('user not found')
       if (!product) throw new NotFoundError('product not found')
-
-      product.id = product._id.toString()
-      delete product._id
+      if (product._id) {
+        product.id = product._id.toString()
+        delete product._id
+      }
 
       const { likes, dislikes } = product
 
+      product.liked = likes.some(userObjectId => userObjectId.equals(userId))
       product.likes = likes.length
+
+      product.disliked = dislikes.some(userObjectId => userObjectId.equals(userId))
       product.dislikes = dislikes.length
 
       return product

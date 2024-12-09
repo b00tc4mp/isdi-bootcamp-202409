@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Register, Login, Home, ProductDetails, Wishlist } from './view'
+import { Register, Login, SearchProducts, ProductDetails, Wishlist } from './view'
 
 import { Header, Footer, Alert, Confirm } from './view/components'
 
@@ -72,12 +72,11 @@ export default function App() {
 
       <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
 
-      <Route path="/" element={logic.isUserLoggedIn() ? <Home onProductDetails={handleProductDetails} /> : <Navigate to="/login" />} />
+      <Route path="/wishlist" element={logic.isUserLoggedIn() ? <Wishlist onProductDetails={handleProductDetails} /> : <Navigate to="/login" />} />
 
       <Route path="/:productId" element={logic.isUserLoggedIn() ? <ProductDetails /> : <Navigate to="/login" />} />
 
-      <Route path="/wishlist" element={logic.isUserLoggedIn() ? <Wishlist /> : <Navigate to="/login" />} />
-
+      <Route path="/*" element={logic.isUserLoggedIn() ? <SearchProducts onProductDetails={handleProductDetails} /> : <Navigate to="/login" />} />
     </Routes>
 
     <Footer onWishlist={handleGoWishlist} />

@@ -27,6 +27,7 @@ describe('getProducts', () => {
       .then(([user, product1, product2]) =>
         getProducts(user.id)
           .then(products => {
+            expect(products).to.have.lengthOf(2)
             expect(products[0].id).to.equal(product1.id)
             expect(products[0].name).to.equal(product1.name)
             expect(products[0].image).to.equal(product1.image)

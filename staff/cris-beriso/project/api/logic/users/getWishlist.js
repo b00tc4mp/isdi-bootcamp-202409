@@ -23,7 +23,10 @@ export default userId => {
 
               const { likes, dislikes } = product
 
+              product.liked = likes.some(userObjectId => userObjectId.equals(userId))
               product.likes = likes.length
+
+              product.disliked = dislikes.some(userObjectId => userObjectId.equals(userId))
               product.dislikes = dislikes.length
 
               return product

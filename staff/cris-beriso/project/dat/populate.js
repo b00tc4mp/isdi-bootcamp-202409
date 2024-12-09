@@ -25,7 +25,7 @@ db.connect(process.env.MONGO_URL_TEST)
         const lines = csv.split('\n')
 
         const creations = lines.map(line => {
-          const [name, image, description] = line.split(',').map(item => item.trim())
+          const [name, category, image, description] = line.split(',').map(item => item.trim())
 
           const likes = []
           const likesNumber = randomNumber(0, users.length)
@@ -51,7 +51,7 @@ db.connect(process.env.MONGO_URL_TEST)
             dislikes.push(user.id)
           }
 
-          return Product.create({ name, image, description, likes, dislikes })
+          return Product.create({ name, category, image, description, likes, dislikes })
         })
 
         return Promise.all(creations)

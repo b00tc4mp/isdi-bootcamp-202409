@@ -36,6 +36,14 @@ const validateImage = image => {
   if (typeof image !== 'string') throw new ValidationError('invalid image')
 }
 
+const validateCategory = category => {
+  if (typeof category !== 'string') throw new ValidationError('invalid category')
+}
+
+const validateKeyWord = keyWord => {
+  if (typeof keyWord !== 'string') throw new ValidationError('invalid keyword')
+  if (keyWord.length > 10) throw new ValidationError('key word too long')
+}
 const validateText = text => {
   if (typeof text !== 'string') throw new ValidationError('invalid text')
 }
@@ -56,6 +64,8 @@ const validate = {
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,
   image: validateImage,
+  category: validateCategory,
+  keyword: validateKeyWord,
   text: validateText,
   id: validateId,
   callback: validateCallback

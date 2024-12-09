@@ -66,6 +66,9 @@ const product = new Schema({
     minLength: 10,
     maxLength: 100,
   },
+  category: {
+    type: String,
+  },
   image: {
     type: String, //cambiar a array de strings
     required: true,
@@ -85,6 +88,7 @@ const product = new Schema({
     ref: 'User'
   }],
   //storePrices: [storePrice],
+
   comments: [comment]
 }, { versionKey: false })
 
@@ -123,8 +127,11 @@ const product = new Schema({
 // })
 
 // const point = new Schema({
-//   type: string,
-//   coord: [number]
+//   type: String,
+//   coord: {
+//     type: [Number],
+//     required: true
+//   }
 // })
 
 const User = model('User', user)
