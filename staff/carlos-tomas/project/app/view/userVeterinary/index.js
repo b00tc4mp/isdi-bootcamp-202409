@@ -1,15 +1,19 @@
 import CalanderSreenUserVeterinary from './CalanderScreenUserVeterinary'
-import ReporScreentUserVeterinary from './ReportScreenUserVeterinary'
 import PetsScreenUserVeterinary from './PetsScreenUserVeterinary'
 import ProfileScreenUserVeterinary from './ProfileScreenUserVeterinary'
 import HomeScreenVeterinary from './HomeScreenUserVeterinary'
-
+import ReporScreentUserVeterinary from './ReportScreenUserVeterinary'
+import ReportHistoryNewUserVeterinary from './ReportHistoryNewUserVeterinary'
+import ReportHistoryUserVeterinary from './ReportHistoryUserVeterinary'
 
 
 export {
     HomeScreenVeterinary,
     CalanderSreenUserVeterinary,
-    ReporScreentUserVeterinary,
     PetsScreenUserVeterinary,
-    ProfileScreenUserVeterinary
+    ProfileScreenUserVeterinary,
+
+    ReporScreentUserVeterinary,
+    ReportHistoryNewUserVeterinary,
+    ReportHistoryUserVeterinary
 }

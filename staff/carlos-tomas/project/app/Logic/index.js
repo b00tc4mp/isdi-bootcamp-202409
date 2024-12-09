@@ -7,6 +7,7 @@ import getUser from './getUser'
 import QrCodeGeneraitor from './QrCodeGenereitor'
 import registerPet from './registerPet'
 import getPets from './getPets'
+import registerHistoryPet from './registerHistoryPet'
 
 
 const logic = {
@@ -18,7 +19,8 @@ const logic = {
     getUser,
     QrCodeGeneraitor,
     registerPet,
-    getPets
+    getPets,
+    registerHistoryPet
 
 }
 

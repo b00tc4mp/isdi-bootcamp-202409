@@ -1,58 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import logic from '../../logic';
+import React, { useState, useEffect } from 'react'
+import { Text, View, TextInput, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native'
+import logic from '../../logic'
+import { useNavigation } from '@react-navigation/native'
+
+
 
 export default function SearchBarExample() {
-    const [search, setSearch] = useState('');
-    const [allData, setAllData] = useState([]); // Estado para los datos completos
-    const [filteredData, setFilteredData] = useState([]); // Estado para los datos filtrados
-    const [selectedPet, setSelectedPet] = useState(null); // Estado para almacenar la mascota seleccionada
+    const navigation = useNavigation()
+
+    const [search, setSearch] = useState('')
+    const [allData, setAllData] = useState([])
+    const [filteredData, setFilteredData] = useState([])
+    const [infoPet, setInfoPet] = useState(null)
+
+
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const data = await logic.getPets(); // Obtiene los datos de las mascotas
-                setAllData(data); // Almacena los datos completos
-                setFilteredData(data); // Inicializa los datos filtrados con todos los elementos
+                const data = await logic.getPets()
+                setAllData(data)
+                setFilteredData(data)
             } catch (error) {
-                Alert.alert('Error', error.message); // Muestra un mensaje de error
+                Alert.alert('Error', error.message)
                 console.error(error);
             }
         };
 
-        fetchUserData(); // Llama a la función para cargar los datos al inicio
-    }, []);
+        fetchUserData()
+    }, [])
 
     const handleSearch = (text) => {
-        setSearch(text); // Actualiza el texto ingresado
+        setSearch(text)
 
         if (text) {
             const newData = allData.filter((item) =>
-                item.name.toLowerCase().includes(text.toLowerCase()) // Filtra por la propiedad `name`
+                item.chip.toLowerCase().includes(text.toLowerCase())
             );
-            setFilteredData(newData); // Actualiza los datos filtrados
+            setFilteredData(newData)
         } else {
-            setFilteredData(allData); // Resetea a todos los datos si no hay texto
+            setFilteredData(allData)
         }
-    };
-
+    }
     const handleItemPress = (item) => {
-        setSelectedPet(item); // Actualiza el estado con el ítem seleccionado
-    };
 
+        setInfoPet(item)
+    }
     return (
+
         <View style={styles.container}>
             <TextInput
                 style={styles.searchBar}
                 placeholder="Buscar..."
                 value={search}
-                onChangeText={handleSearch} // Filtra al escribir
+                onChangeText={handleSearch}
+                keyboardType='number-pad'
             />
             <FlatList
-                data={filteredData} // Muestra los datos filtrados
-                keyExtractor={(item, index) => index.toString()} // Usa índices como clave
+                data={filteredData.slice(0, 4)}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => handleItemPress(item)}>
+
                         <View style={styles.item}>
                             <Text>{item.name}</Text>
                             <Text>{item.owner}</Text>
@@ -61,18 +70,42 @@ export default function SearchBarExample() {
                 )}
             />
 
-            {/* Aquí se renderiza la información del ítem seleccionado */}
-            {selectedPet && (
-                <View style={styles.selectedPetInfo}>
-                    <Text style={styles.infoText}>Información de la mascota seleccionada:</Text>
-                    <Text>Nombre: {selectedPet.name}</Text>
-                    <Text>Propietario: {selectedPet.owner}</Text>
-                    <Text>Edad: {selectedPet.age}</Text> {/* Asegúrate de que esta propiedad exista */}
-                    <Text>Raza: {selectedPet.race}</Text> {/* Asegúrate de que esta propiedad exista */}
-                </View>
-            )}
+            <View style={styles.button}>
+
+                <TouchableOpacity
+                    onPress={() => {
+                        if (infoPet) {
+                            navigation.navigate('report history', { infoPet })
+                        } else {
+                            Alert.alert('Atención', 'Selecciona a un animal')
+                        }
+                    }}
+                    style={styles.touchableOpacity}
+                >
+                    <Text>
+                        Historial del animal
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => {
+                        if (infoPet) {
+                            navigation.navigate('new report', { infoPet })
+                        } else {
+                            Alert.alert('Atención', 'Selecciona a un animal')
+                        }
+                    }}
+                    style={styles.touchableOpacity}
+                >
+                    <Text>
+                        Nuevo report
+                    </Text>
+                </TouchableOpacity>
+
+            </View>
+
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -87,21 +120,27 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 8,
         marginBottom: 10,
-        paddingHorizontal: 10, // Añade padding interno para mejorar el diseño
+        paddingHorizontal: 10
     },
     item: {
         padding: 15,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
     },
-    selectedPetInfo: {
-        marginTop: 20,
-        padding: 15,
-        backgroundColor: '#e0e0e0',
-        borderRadius: 8,
+    button: {
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 50,
+        flex: 5,
+        paddingBottom: 20
     },
-    infoText: {
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
+    touchableOpacity: {
+        width: 300,
+        backgroundColor: "red",
+        borderRadius: 45,
+        padding: 24,
+
+
+
+    }
 });

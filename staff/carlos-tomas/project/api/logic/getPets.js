@@ -17,6 +17,10 @@ export default (userId) => {
             }
 
             const pets = await Pet.find().lean()
+            pets.forEach(pet => {
+                pet.id = pet._id.toString()
+                delete pet._id
+            })
 
             return pets
 

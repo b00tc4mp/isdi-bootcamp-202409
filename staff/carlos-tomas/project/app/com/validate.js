@@ -71,9 +71,10 @@ const validateSterilized = sterilized => {
 }
 const validateDate = dateOfBirth => {
     if (typeof dateOfBirth !== 'string') throw new ValidationError('La fecha de nacimiento no está completa')
-
 }
-
+const validateType = type => {
+    if (typeof type !== 'string') throw new ValidationError('Campo no rellenado tipo de infrome')
+}
 
 const validate = {
     name: validateName,
@@ -90,7 +91,8 @@ const validate = {
     sex: validateSex,
     weight: validateWeight,
     sterilized: validateSterilized,
-    dateOfBirth: validateDate
+    dateOfBirth: validateDate,
+    type: validateType
 }
 
 export default validate

@@ -24,7 +24,6 @@ const useSessionBase = () => {
         }
     }
 
-
     useEffect(() => {
         checkUserStatus()
         checkLoggingVeterinary()

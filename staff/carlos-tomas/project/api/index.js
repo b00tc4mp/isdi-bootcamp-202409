@@ -23,7 +23,7 @@ db.connect(process.env.MONGO_URL).then(() => {
 
         const { id, role } = await logic.authenticateUser(username, password)
 
-        const token = jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' })
+        const token = jwt.sign({ sub: id, role }, process.env.JWT_SECRET, { expiresIn: '5d' })
 
         res.json({ token })
     }))
@@ -60,6 +60,16 @@ db.connect(process.env.MONGO_URL).then(() => {
 
         res.status(201).send()
     }))
+
+    server.post('/veterinary/registerHistory', authorizationHandler, jsonBodyParser, createFunctionalHandler(async (req, res) => {
+        const { userId } = req
+        const { petId, type, text } = req.body
+
+        await logic.registerHistory(userId, petId, type, text)
+
+        res.status(201).send()
+    }))
+
 
 
 

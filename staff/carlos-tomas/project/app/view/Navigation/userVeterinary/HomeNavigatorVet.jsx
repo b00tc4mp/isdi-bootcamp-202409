@@ -6,7 +6,9 @@ import { TouchableOpacity, Alert } from 'react-native'
 
 import logic from '../../../logic'
 
-import { HomeScreenVeterinary, CalanderSreenUserVeterinary, ReporScreentUserVeterinary, PetsScreenUserVeterinary, ProfileScreenUserVeterinary, } from '../../userVeterinary'
+import { HomeScreenVeterinary, CalanderSreenUserVeterinary, PetsScreenUserVeterinary, ProfileScreenUserVeterinary, } from '../../userVeterinary'
+
+import ReportStackNavigator from './ReportStackNavigator'
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
@@ -79,7 +81,7 @@ export default function HomeNavigatorVet() {
             />
             <Screen
                 name="report"
-                component={ReporScreentUserVeterinary}
+                component={ReportStackNavigator}
                 options={{ title: 'Informe del veterinario' }}
             />
             <Screen

@@ -3,6 +3,7 @@ import registerUser from './registerUser.js'
 import getUser from './getUser.js'
 import registerPet from './registerPet.js'
 import getPets from './getPets.js'
+import registerHistory from './registerHistory.js'
 
 
 
@@ -12,7 +13,8 @@ const logic = {
     registerUser,
     getUser,
     registerPet,
-    getPets
+    getPets,
+    registerHistory
 }
 
 export default logic

@@ -14,6 +14,8 @@ export default (userId) => {
             if (!user) {
                 throw NotFoundError('user not found')
             }
+            user.id = user._id.toString()
+            delete user._id
 
             return user
 
