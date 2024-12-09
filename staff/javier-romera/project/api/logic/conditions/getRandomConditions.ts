@@ -54,7 +54,6 @@ export default function getRandomConditions(userId: string) {
             if (!alreadyExists) parsedRowConditions.push(possibleCondition)
         }
 
-        // chapuza jeje god
         parsedColumnConditions[0].indexes = [0, 3, 6]
         parsedColumnConditions[1].indexes = [1, 4, 7]
         parsedColumnConditions[2].indexes = [2, 5, 8]

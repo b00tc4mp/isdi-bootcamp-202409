@@ -13,6 +13,8 @@ import adjustAvailableCharacters from './adjustAvailableCharacters'
 import checkOnePiecedleAnswer from './checkOnePiecedleAnswer'
 import solveBoard from './solveBoard'
 import getConditionText from './getConditionText'
+import validateAnswer from './validateAnswer'
+import didFinishBoard from './didFinishBoard'
 
 export {
     extractPayloadFromJWT,
@@ -29,5 +31,7 @@ export {
     adjustAvailableCharacters,
     checkOnePiecedleAnswer,
     solveBoard,
-    getConditionText
+    getConditionText,
+    validateAnswer,
+    didFinishBoard
 }

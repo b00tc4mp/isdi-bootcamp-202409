@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
 
 import logic from '../../../logic'
-import { solveBoard } from '../../../util'
+import { solveBoard, validateGuess, adjustAvailableCharacters, validateAnswer } from '../../../util'
 
 export default function useController() {
     const [characters, setCharacters] = useState(null)
     const [answers, setAnswers] = useState(null)
+    const [userAnswers, setUserAnswers] = useState(Array(9))
     const [conditions, setConditions] = useState(null)
     const [index, setIndex] = useState(null)
+    const [status, setStatus] = useState(null)
     const [inputValue, setInputValue] = useState('')
     const [isTyping, setIsTyping] = useState('')
     const [showBoard, setShowBoard] = useState(false)
     const [showGuessingDiv, setShowGuessingDiv] = useState(false)
-    const [didWin, setDidWin] = useState(false)
+    const [availableCharacters, setAvailableCharacters] = useState([])
+    const [hp, setHp] = useState(3)
 
     useEffect(() => {
         if (!characters && logic.isUserLoggedIn()) {
@@ -26,22 +29,20 @@ export default function useController() {
 
             executeMain()
         }
-    }, [didWin])
+    }, [])
 
     async function main() {
         try {
             let characters = await logic.getAllCharacters()
             setCharacters(characters)
-
-            let conditions = await logic.getRandomConditions()
-            setConditions(conditions)
+            setAvailableCharacters(characters)
 
             do {
                 let conditions = await logic.getRandomConditions()
-                console.log(conditions)
+                console.log(conditions) // TODO 🚬
 
                 let checkedAnswers = solveBoard(characters, conditions)
-                console.log(checkedAnswers) // TODO erase
+                console.log(checkedAnswers) // TODO 🚬
 
                 if (checkedAnswers !== null) {
                     setAnswers(checkedAnswers)
@@ -65,6 +66,8 @@ export default function useController() {
     const handleGridGuessingExit = () => {
         if (!showGuessingDiv) return
 
+        setInputValue("")
+        setIsTyping(false)
         setShowGuessingDiv(false)
         setIndex(null)
     }
@@ -73,6 +76,42 @@ export default function useController() {
         setInputValue(event.target.value)
 
         event.target.value ? setIsTyping(true) : setIsTyping(false)
+    }
+
+    const handleCharacterSelected = (char, currentIndex) => {
+        const found = validateGuess(availableCharacters, char)
+
+        const isCorrectAnswer = validateAnswer(char, answers, currentIndex)
+
+        if (isCorrectAnswer) {
+            const newUserAnswers = [...userAnswers]
+            newUserAnswers.splice(currentIndex, 1, char)
+            setUserAnswers(newUserAnswers)
+
+            const newAvailableCharacters = adjustAvailableCharacters(found, availableCharacters)
+            setAvailableCharacters(newAvailableCharacters)
+
+            setShowGuessingDiv(false)
+            setInputValue("")
+            setIsTyping(false)
+        }
+        else {
+            setShowGuessingDiv(false)
+            setInputValue("")
+            setIsTyping(false)
+
+            const newHp = hp - 1
+            setHp(newHp)
+
+            if (newHp > 0) {
+                setShowGuessingDiv(false)
+                setInputValue("")
+                setIsTyping(false)
+            }
+            else {
+                console.log('perdiste guachin')
+            }
+        }
     }
 
     const handleSubmit = event => {
@@ -86,10 +125,14 @@ export default function useController() {
         index,
         inputValue,
         isTyping,
+        availableCharacters,
+        userAnswers,
+        hp,
 
         handleGridClick,
         handleGridGuessingExit,
         handleSubmit,
-        handleInputChange
+        handleInputChange,
+        handleCharacterSelected
     }
 }
