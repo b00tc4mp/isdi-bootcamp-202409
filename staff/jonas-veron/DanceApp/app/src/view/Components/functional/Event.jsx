@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import logic from "../../../logic"
 import { getElapsedTime } from "../../../util"
 import {
@@ -13,6 +13,7 @@ import {
 } from "./../../../assets/index.js"
 
 import { Comments } from "./index.js"
+import EventMap from "./EventMap.jsx"
 
 export default function Event({ event, refreshEvents }) {
   console.log("Post -> render")
@@ -21,6 +22,7 @@ export default function Event({ event, refreshEvents }) {
     id,
     author,
     files,
+    eventType,
     text,
     eventDate,
     date,
@@ -70,6 +72,7 @@ export default function Event({ event, refreshEvents }) {
     }
   }
   const handleCommentsClick = () => setView(view ? null : "comments")
+  const handleLocationClick = () => setView(view ? null : "location")
   const handleFavoritesClick = () => {
     try {
       logic
@@ -100,7 +103,7 @@ export default function Event({ event, refreshEvents }) {
         {/* Nombre del autor y dirección */}
         <div className="ml-2">
           <h4 className="font-bold text-white">{author.name}</h4>
-          <p className="text-xs italic">{location.address}</p>
+          <p className="text-xs italic">{location.locality}</p>
         </div>
       </div>
 
@@ -146,6 +149,7 @@ export default function Event({ event, refreshEvents }) {
               src={locationIcon}
               alt="Location"
               className="w-6 h-6 cursor-pointer"
+              onClick={handleLocationClick}
             />
           </div>
           <img
@@ -165,6 +169,37 @@ export default function Event({ event, refreshEvents }) {
         {text}
       </p>
       <time>{getElapsedTime(date)}</time>
+
+      {view === "location" && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white rounded-lg shadow-lg w-3/4 max-w-2xl">
+            <button
+              onClick={handleLocationClick}
+              className="absolute top-3 right-3 text-gray-500 hover:text-black"
+            >
+              ✖
+            </button>
+            <div className="p-4">
+              <h2 className="text-lg font-bold mb-4 text-center text-gray-700">
+                Ubicación del evento
+              </h2>
+              <EventMap
+                coordinates={location.coordinates}
+                address={location.address}
+              />
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${location.coordinates[0]},${location.coordinates[1]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline text-xl"
+              >
+                ¿Cómo llegar?
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
       {view === "comments" && (
         <Comments
           eventId={id}

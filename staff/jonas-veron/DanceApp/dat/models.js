@@ -97,6 +97,17 @@ const event = new Schema(
       required: true,
       ref: "User",
     },
+    eventType: {
+      type: String,
+      enum: [
+        "Sociales",
+        "Escuelas de baile",
+        "Clases particulares",
+        "Congresos",
+        "Masterclases",
+      ],
+      required: true,
+    },
     files: [{ type: String, required: true }],
     text: {
       type: String,

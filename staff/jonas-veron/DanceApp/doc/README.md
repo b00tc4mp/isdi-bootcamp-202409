@@ -70,6 +70,7 @@ Event:
 
 - id (UUID)
 - author (User.id)
+- type (string)
 - image (string)
 - text (string)
 - date (Date)
@@ -83,13 +84,11 @@ Comment:
 - text (string maxLength 200)
 - date (Date)
 
-
 Location
 
 - id (UUID)
 - type (string, point )
 - coordinates ([Number])
-
 
 ### Techs
 

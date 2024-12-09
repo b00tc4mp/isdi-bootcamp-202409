@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import logic from "../logic"
 import { Form, Field, ButtonForm } from "./../view/Components/library/index.js"
+import LocationInput from "./Components/functional/LocationInput.jsx"
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -14,6 +15,7 @@ const toBase64 = (file) =>
 export default function CreateEvent() {
   console.log("CreateEvent -> render")
   const [images, setImages] = useState([])
+  const [location, setLocation] = useState(null)
   const navigate = useNavigate()
 
   const handleImageChange = (event) => {
@@ -26,35 +28,32 @@ export default function CreateEvent() {
   const handleFormSubmit = async (event) => {
     event.preventDefault()
 
-    // const { target: form } = event
-
-    // const {
-    //   image: { value: image },
-    //   text: { value: text },
-    //   eventDate: { value: eventDate },
-    //   coordinates: { value: coordinates },
-    //   address: { value: address },
-    // } = form
-
     const form = event.target
 
     const files = form.image.files
+    const eventType = form.eventType.value
     const text = form.text.value
     const eventDate = form.eventDate.value
-    const coordinates = form.coordinates.value
-    const address = form.address.value
+    // const coordinates = form.coordinates.value
+    // const address = form.address.value
     const filetoB64Conversions = Array.prototype.map.call(files, toBase64)
 
-    const location = {
-      coordinates: coordinates.split(",").map(Number),
-      address,
+    const locationFormatted = {
+      coordinates: [location.lat, location.lon],
+      address: location.address,
     }
 
     const parsedDate = new Date(`${eventDate}:00Z`)
 
     Promise.all(filetoB64Conversions).then((filesb64) => {
       try {
-        logic.createEvent(filesb64, text, parsedDate, location)
+        logic.createEvent(
+          filesb64,
+          eventType,
+          text,
+          parsedDate,
+          locationFormatted
+        )
         form.reset()
         navigate("/")
       } catch (error) {
@@ -94,14 +93,18 @@ export default function CreateEvent() {
             />
           </Field>
 
-          {/* <Field>
-            <select name="professor" id="">
-              <option value="">--Elige una opción--</option>
-              <option value="dog">Escuela</option>
-              <option value="cat">Social</option>
-              <option value="hamster">Clases</option>
+          <Field>
+            <select name="eventType" id="eventType" required>
+              <option value="" disabled>
+                --Selecciona el tipo de evento--
+              </option>
+              <option value="Sociales">Social</option>
+              <option value="Escuelas de baile">Escuelas de baile</option>
+              <option value="Clases particulares">Clases particulares</option>
+              <option value="Congresos">Congresos</option>
+              <option value="Masterclases">Masterclases</option>
             </select>
-          </Field> */}
+          </Field>
 
           <Field>
             <textarea
@@ -124,7 +127,7 @@ export default function CreateEvent() {
             />
           </Field>
 
-          <Field>
+          {/* <Field>
             <input
               type="text"
               name="coordinates"
@@ -133,9 +136,9 @@ export default function CreateEvent() {
               required
               className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
             />
-          </Field>
+          </Field> */}
 
-          <Field>
+          {/* <Field>
             <input
               type="text"
               name="address"
@@ -143,7 +146,20 @@ export default function CreateEvent() {
               required
               className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
             />
+          </Field> */}
+          <Field>
+            <LocationInput
+              onLocationSelect={(location) => {
+                console.log("Ubicación seleccionada:", location)
+                setLocation(location)
+              }}
+            />
           </Field>
+          {location && (
+            <p className="text-green-500 mt-2">
+              Dirección seleccionada: {location.address}
+            </p>
+          )}
 
           <ButtonForm type="submit">Crear Evento</ButtonForm>
         </Form>

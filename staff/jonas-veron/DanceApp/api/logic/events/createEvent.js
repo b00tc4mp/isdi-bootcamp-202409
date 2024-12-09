@@ -3,7 +3,7 @@ import { validate, errors } from "com"
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, files, text, eventDate, location) => {
+export default (userId, files, eventType, text, eventDate, location) => {
   validate.id(userId, "userId")
   validate.files(files)
   validate.text(text)
@@ -21,6 +21,7 @@ export default (userId, files, text, eventDate, location) => {
       return Event.create({
         author: userId,
         files,
+        eventType,
         text,
         eventDate: parsedEventDate,
         location: {

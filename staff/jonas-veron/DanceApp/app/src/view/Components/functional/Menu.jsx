@@ -24,19 +24,22 @@ export default function Menu({ isOpen, onClose }) {
             Mi Perfil
           </button>
           <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
-            Profesores
+            Sociales
           </button>
           <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
             Escuelas de baile
           </button>
           <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
-            Sociales
+            Clases particulares
           </button>
           <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
             Congresos
           </button>
           <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
-            Mapa
+            Marterclases
+          </button>
+          <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
+            Cerca de mí
           </button>
         </div>
         <div>

@@ -20,6 +20,7 @@ export default async (userId) => {
     return events.map((event) => ({
       id: event._id.toString(),
       files: event.files,
+      eventType: event.eventType,
       text: event.text,
       eventDate: event.eventDate,
       date: event.date,

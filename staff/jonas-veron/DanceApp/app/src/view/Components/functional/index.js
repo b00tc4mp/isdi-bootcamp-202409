@@ -5,5 +5,15 @@ import Event from "./Event"
 import Comments from "./Comments"
 import Comment from "./Comment"
 import AddComment from "./AddComment"
+import LocationInput from "./LocationInput"
 
-export { Header, Footer, Menu, Event, Comments, Comment, AddComment }
+export {
+  Header,
+  Footer,
+  Menu,
+  Event,
+  Comments,
+  Comment,
+  AddComment,
+  LocationInput,
+}

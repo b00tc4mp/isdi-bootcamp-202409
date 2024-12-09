@@ -2,7 +2,7 @@ import { validate, errors } from "com"
 
 const { SystemError } = errors
 
-export default (files, text, eventDate, location) => {
+export default (files, eventType, text, eventDate, location) => {
   validate.files(files)
   validate.text(text)
   validate.date(eventDate)
@@ -14,7 +14,7 @@ export default (files, text, eventDate, location) => {
       Authorization: `Bearer ${localStorage.token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ files, text, eventDate, location }),
+    body: JSON.stringify({ files, eventType, text, eventDate, location }),
   })
     .catch((error) => {
       throw new SystemError(error.message)
