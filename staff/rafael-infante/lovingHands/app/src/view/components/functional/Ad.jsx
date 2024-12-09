@@ -11,7 +11,7 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
   const [isFavorite, setIsFavorite] = useState(ad.isFavorite)
 
   const { id, author, files, text, date, reviews } = ad
-  console.log(ad)
+
   const handleDeleteClick = () => {
     if (confirm('Delete ad')) {
       try {
@@ -43,10 +43,10 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
 
   const handleReviewsClick = () => setView(view ? null : 'reviews')
   const handleLocationClick = () => setView(view ? null : 'location')
+  const handleCloseMap = () => setView(null)
 
   return (
     <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg">
-      {/* Imagen destacada */}
       <div className="relative">
         <img src={files[0]} alt="Ad Image" className="w-full h-48 object-cover" />
         <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center text-white font-semibold text-lg opacity-0 hover:opacity-100 transition-opacity"></div>
@@ -96,9 +96,22 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
         </div>
       )}
       {/* Vista de Location */}
+
       {view === 'location' && (
-        <div className="bg-gray-100 border-t border-gray-300 p-4">
-          <Location address={ad.location.address} coordinates={ad.location.coordinates} />
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white rounded-lg shadow-lg w-3/4 max-w-2xl">
+            <button onClick={handleCloseMap} className="absolute top-3 right-3 text-gray-500 hover:text-black">
+              ✖
+            </button>
+            <div className="p-4">
+              <h2 className="text-lg font-bold mb-4 text-center text-gray-700">Location of {ad.author.name}</h2>
+              <Location
+                center={ad.location.coordinates}
+                address={ad.location.address}
+                coordinates={ad.location.coordinates}
+              />
+            </div>
+          </div>
         </div>
       )}
     </div>

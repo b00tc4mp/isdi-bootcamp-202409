@@ -22,7 +22,7 @@ export default (query) =>
             value: {
               lat: parseFloat(item.lat),
               lon: parseFloat(item.lon),
-              address: item.address.town || item.address.village,
+              address: item.address.town || item.address.village || item.address.city,
             },
           }))
         })
