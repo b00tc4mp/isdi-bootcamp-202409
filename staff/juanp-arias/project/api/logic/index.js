@@ -1,5 +1,6 @@
 import { registerUser, authenticateUser, getUserName, getUserDatos, updateUserData } from './users/index.js'
-import { createNote, getNotes, deleteNote } from './notes/index.js'
+import { createNote, getNotes, deleteNote, getNote, updateNote } from './notes/index.js'
+import { createReminder, getReminders } from './reminders/index.js'
 
 const logic = {
     registerUser,
@@ -10,6 +11,11 @@ const logic = {
 
     createNote,
     getNotes,
-    deleteNote
+    deleteNote,
+    getNote,
+    updateNote,
+
+    createReminder,
+    getReminders
 }
 export default logic

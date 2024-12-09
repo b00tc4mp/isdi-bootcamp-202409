@@ -21,15 +21,18 @@ const note = new Schema({
 }, { versionKey: false })
 
 const reminder = new Schema({
-    date: {
-        type: Date,
+    title: {
+        type: String,
         required: true,
-        default: Date.now
     },
     text: {
         type: String,
         required: true,
-        maxLenght: 200
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
     }
 }, { versionKey: false })
 

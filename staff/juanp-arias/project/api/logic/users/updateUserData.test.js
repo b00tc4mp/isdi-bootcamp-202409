@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import db from 'dat'
-import getUserDatos from './getUserDatos.js'
 import updateUserData from './updateUserData.js'
 
 await db.connect(process.env.MONGO_URL_TEST)

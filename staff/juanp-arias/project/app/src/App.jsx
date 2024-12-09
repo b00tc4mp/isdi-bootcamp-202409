@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, Alerts } from './view'
+import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, Alerts, CreateNote, EditNote } from './view'
 import { Header, Footer, Alert, Confirm } from './view/components'
 import { Context } from './view/useContext'
 import logic from './logic'
-import CreateNote from './view/CreateNote'
 
 export default function App() {
   const [alert, setAlert] = useState({
@@ -33,6 +32,9 @@ export default function App() {
   const handleLogout = () => navigate('/welcome')
 
   const handleNoteCreated = () => navigate('/notes')
+  const handleNoteEdited = () => navigate('/notes')
+
+  const handleEditClick = (noteId) => navigate(`/notes/${noteId}`)
 
   const handleAlertAccepted = () => setAlert({
     message: null,
@@ -78,8 +80,11 @@ export default function App() {
 
       <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/welcome" />} />
 
-      <Route path="/notes" element={logic.isUserLoggedIn() ? <Notes /> : <Navigate to="/welcome" />} />
+      <Route path="/notes" element={logic.isUserLoggedIn() ? <Notes onEditClick={handleEditClick} /> : <Navigate to="/welcome" />} />
+
       <Route path="/notes/new-note" element={logic.isUserLoggedIn() ? <CreateNote onCreated={handleNoteCreated} /> : <Navigate to="/welcome" />} />
+
+      <Route path="/notes/:noteId" element={logic.isUserLoggedIn() ? <EditNote onEdited={handleNoteEdited} onCancelClick={handleNoteEdited} /> : <Navigate to="/welcome" />} />
 
       <Route path="/alerts" element={logic.isUserLoggedIn() ? <Alerts /> : <Navigate to="/welcome" />} />
 

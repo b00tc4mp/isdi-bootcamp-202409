@@ -6,6 +6,10 @@ import Profile from './Profile'
 import Calendar from './Calendar'
 import Notes from './Notes'
 import Alerts from './Alerts'
+import CreateNote from './CreateNote'
+import EditNote from './EditNote'
+import CreateReminder from './CreateReminder'
+import Reminders from './Reminders'
 
 export {
     Login,
@@ -16,5 +20,10 @@ export {
     Profile,
     Calendar,
     Notes,
-    Alerts
+    CreateNote,
+    EditNote,
+    Alerts,
+
+    CreateReminder,
+    Reminders
 }

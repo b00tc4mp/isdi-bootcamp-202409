@@ -4,7 +4,7 @@ import express from 'express'
 import cors from 'cors'
 
 import { errorHandler } from './routes/helpers/index.js'
-import { notesRouter, usersRouter } from './routes/index.js'
+import { notesRouter, usersRouter, remindersRouter } from './routes/index.js'
 
 db.connect(process.env.MONGO_URL_TEST).then(() => {
     console.log('connected to db')
@@ -17,6 +17,7 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
     server.use('/users', usersRouter)
     server.use('/notes', notesRouter)
+    server.use('/reminders', remindersRouter)
 
     server.use(errorHandler)
 

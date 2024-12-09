@@ -15,7 +15,6 @@ export default function SectionHeader({ sectionName }) {
                         .then(setName)
                         .catch(error => {
                             alert(error.message)
-
                             console.error(error)
                         })
                 } catch (error) {

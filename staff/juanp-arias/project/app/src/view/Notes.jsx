@@ -7,7 +7,7 @@ import useContext from './useContext'
 import { errors } from 'com'
 
 const { SystemError } = errors
-export default function Notes() {
+export default function Notes({ onEditClick }) {
     const [notes, setNotes] = useState([])
     const [initiated, setInitiated] = useState(false)
     const { alert } = useContext()
@@ -54,16 +54,17 @@ export default function Notes() {
             console.error(error)
         }
     }
+    
     const onNewNoteClick = () => {
         navigate('/notes/new-note')
     }
 
-    return <div className='flex justify-center items-center min-h-screen bg-gray-100 pb-12'>
+    return <div className='flex flex-col items-center px-6 py-8 bg-gray-50 min-h-screen pb-12'>
         <SectionContainer>
             <SectionHeader sectionName='notes' />
             <div className='grid grid-cols-2 gap-4 p-6'>
                 {initiated && notes.map((note) => (
-                    <Note key={note.id} note={note} onDeleted={handleDeleted} />
+                    <Note onEditClick={onEditClick} key={note.id} note={note} onDeleted={handleDeleted} />
                 ))}
             </div>
             <div className='pr-4 pl-4'>

@@ -46,7 +46,7 @@ export default function Profile() {
             email: { value: email },
             dateOfBirth: { value: dateOfBirth },
             role: { value: role },
-        } = form;
+        } = form
 
         logic.updateUserData(name, email, dateOfBirth, role)
             .then(() => {
@@ -65,7 +65,7 @@ export default function Profile() {
             })
     }
 
-    return <main className='flex justify-center items-center bg-gray-100 min-h-screen pb-8'>
+    return <main className='flex flex-col items-center px-6 py-8 bg-gray-50 min-h-screen pb-12'>
         <SectionContainer>
             <SectionHeader sectionName='profile' />
             <Form onSubmit={handleSubmit} className='p-6 space-y-1'>

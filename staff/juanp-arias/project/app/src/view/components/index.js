@@ -5,6 +5,7 @@ import Alert from './Alert'
 import Confirm from './Confirm'
 import SectionContainer from './SectionContainer'
 import Note from './Note'
+import Reminder from './Reminder'
 
 export {
     Header,
@@ -13,5 +14,7 @@ export {
     Alert,
     Confirm,
     SectionContainer,
-    Note
+
+    Note,
+    Reminder
 }

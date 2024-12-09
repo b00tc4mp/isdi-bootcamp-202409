@@ -2,8 +2,7 @@ import logic from '../../../logic/index.js'
 import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler((req, res) => {
-    const { userId } = req.params
-    const { name, email, dateOfBirth, role } = req.body
-    return logic.updateUserData(userId, name, email, dateOfBirth, role)
+    const { params: { noteId }, body: { text } } = req
+    return logic.updateNote(noteId, text)
         .then(() => res.status(201).send())
 })
