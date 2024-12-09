@@ -116,7 +116,6 @@ const validateCallback = callback => {
 
 const validateNumber = (number, explain = 'number') => {
     if (typeof number !== 'number' || isNaN(number)) throw new ValidationError(`invalid ${explain}`);
-    if (number <= 0) throw new ValidationError(`${explain} must be greater than 0`);
 };
 
 const validate = {

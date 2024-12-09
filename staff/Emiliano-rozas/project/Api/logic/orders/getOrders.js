@@ -1,65 +1,69 @@
-import { Order } from 'dat'
-import { errors } from 'com'
+import { Order, User } from 'dat'
+import { errors, validate } from 'com'
 
-const { SystemError } = errors
+const { SystemError, NotFoundError } = errors
 
-export default async () => {
-    try {
-        const orders = await Order.find().populate({
-            path: 'user', // Poblamos el usuario para obtener sus datos completos
-            select: 'name ', // Solo los campos necesarios
-        }).populate({
-            path: 'items',
-            populate: {
-                path: 'product',
-                model: 'Product',
-            },
-        }).lean()
+export default userId => { //agregar userId , token  ,trer el rol de admin, si lo es traemos todas , si no solo las del usuario.
+    validate.id(userId, 'userId');
 
-        orders.forEach(order => {
-            order.id = order._id.toString()
-            delete order._id
+    return User.findById(userId)
+        .then(user => {
+            if (!user) throw new NotFoundError('User not found');
 
-            const { user, items } = order
+            const isAdmin = user.role === 'moderator';
 
-            if (user && user._id) {
-                user.id = user._id.toString()
-                delete user._id
-            }
+            // si es admin, traer todas las órdenes, de lo contrario, solo las del usuario
+            // return isAdmin ? Order.find().lean() : Order.find({ user: userId }).lean();
+            // })
+            // .then(orders => {
+            // Hacer populate de los campos necesarios
 
-            if (items) {
-                items.forEach(item => {
-                    item.id = item._id.toString()
-                    delete item._id
-
-                    if (item.product) {
-                        item.product.id = item.product._id.toString()
-                        delete item.product._id
-                    }
-                    if (item.product.reviews) {
-                        item.product.reviews.forEach(review => {
-                            review.id = review._id.toString()
-                            delete review._id
-                            if (review.author && review.author._id) {
-                                review.author.id = review.author._id.toString();
-                                delete review.author._id;
-                            }
-                        })
-                    }
+            return Order.find(isAdmin ? {} : { user: userId }) //Hay que hacer el lean() conjunta a la operacion.
+                .populate({
+                    path: 'user',
+                    select: 'name role',
                 })
-            }
-
-            //     items.forEach(item => {
-            //         if (item.product && item.product._id) {
-            //             item.product.id = item.product._id.toString()
-            //             delete item.product._id
-            //         }
-            //     })
+                .populate({
+                    path: 'items',
+                    populate: {
+                        path: 'product',
+                        model: 'Product',
+                    },
+                })
+                .lean();
+        }).catch(error => {
+            console.error(error);
+            throw new SystemError(error.message);
         })
-        return orders
+        .then(orders => {
+            orders.forEach((order) => {
+                order.id = order._id.toString();
+                delete order._id;
 
-    } catch (error) {
-        console.error('Error while getting orders:', error)
-        throw new SystemError(error.message)
-    }
-}
+                const { user, items } = order;
+
+                if (user && user._id) {
+                    user.id = user._id.toString();
+                    delete user._id;
+                }
+
+                if (items) {
+                    items.forEach(item => {
+                        item.id = item._id.toString();
+                        delete item._id;
+
+                        if (item.product) {
+                            item.product.id = item.product._id.toString();
+                            delete item.product._id;
+                        }
+                    });
+                }
+            });
+
+            return orders;
+        })
+        .catch(error => {
+            console.error(error);
+            throw new SystemError(error.message);
+        });
+};

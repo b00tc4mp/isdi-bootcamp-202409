@@ -5,7 +5,7 @@ import getOrders from './getOrders.js'
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return getOrders()
+            return getOrders('6756fd2cf8410aeae543769d')
                 .then(orders => console.dir(orders, { colors: true, depth: 10 }))
         } catch (error) {
             console.error(error)
