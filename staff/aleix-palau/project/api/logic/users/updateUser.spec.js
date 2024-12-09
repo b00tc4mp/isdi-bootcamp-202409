@@ -2,7 +2,6 @@ import 'dotenv/config'
 
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import bcrypt from 'bcryptjs'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
@@ -20,7 +19,7 @@ describe('updateUser', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on updating existing user', async () => {
-        const user = await User.create({ email: 'al@eix.com', password: bcrypt.hashSync('123123123', 10) })
+        const user = await User.create({ email: 'al@eix.com', password: '123123123' })
 
         await updateUser(user.id, {
             name: 'Aleix',
@@ -45,7 +44,7 @@ describe('updateUser', () => {
 
     it('fails on invalid dateOfBirth', () =>
         expect(
-            User.create({ email: 'al@eix.com', password: bcrypt.hashSync('123123123', 10) })
+            User.create({ email: 'al@eix.com', password: '123123123' })
                 .then(user =>
                     updateUser(user.id, {
                         name: 'Aleix',

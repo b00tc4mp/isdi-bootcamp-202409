@@ -90,6 +90,7 @@ User
 - track (string)
 - artist (string)
 - playedOn (Date)
+- setupStage (string, enum: ...)
 
 Heartbeat
 - id (ObjectId)

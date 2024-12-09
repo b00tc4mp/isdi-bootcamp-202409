@@ -4,6 +4,9 @@ import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'
 import logoutUser from './logoutUser'
 import getUserId from './getUserId'
+import updateUser from './updateUser'
+import getUserStage from './getUserStage'
+import updateUserStage from './updateUserStage'
 
 export {
     registerUser,
@@ -11,5 +14,8 @@ export {
     isUserLoggedIn,
     getUserName,
     logoutUser,
-    getUserId
+    getUserId,
+    updateUser,
+    getUserStage,
+    updateUserStage
 }

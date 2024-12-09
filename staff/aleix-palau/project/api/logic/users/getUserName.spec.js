@@ -2,7 +2,6 @@ import 'dotenv/config'
 
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import bcrypt from 'bcryptjs'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
@@ -20,7 +19,7 @@ describe('getUserName', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', async () => {
-        const user = await User.create({ name: 'Aleix', email: 'al@eix.com', password: bcrypt.hashSync('123123123', 10) })
+        const user = await User.create({ name: 'Aleix', email: 'al@eix.com', password: '123123123' })
 
         const name = await getUserName(user.id, user.id)
 
@@ -35,7 +34,7 @@ describe('getUserName', () => {
 
     it('fails on non-existing target-user', () =>
         expect(
-            User.create({ name: 'Aleix', email: 'al@eix.com', password: bcrypt.hashSync('123123123', 10) })
+            User.create({ name: 'Aleix', email: 'al@eix.com', password: '123123123' })
                 .then(user => getUserName(user.id, '012345678901234567890123'))
         ).to.be.rejectedWith(NotFoundError, 'target user not found')
     )

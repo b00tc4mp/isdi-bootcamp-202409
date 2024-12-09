@@ -84,6 +84,11 @@ const user = new Schema({
     },
     playedOn: {
         type: Date
+    },
+    stage: {
+        type: String,
+        enum: ['name-dob', 'gender', 'genres', 'artists', 'photos', 'completed'],
+        default: 'name-dob'
     }
 }, { versionKey: false })
 

@@ -4,7 +4,10 @@ import {
     getUserName,
     isUserLoggedIn,
     getUserId,
-    logoutUser
+    logoutUser,
+    updateUser,
+    getUserStage,
+    updateUserStage
 } from './users'
 
 const logic = {
@@ -13,7 +16,10 @@ const logic = {
     getUserName,
     isUserLoggedIn,
     getUserId,
-    logoutUser
+    logoutUser,
+    updateUser,
+    getUserStage,
+    updateUserStage
 }
 
 export default logic

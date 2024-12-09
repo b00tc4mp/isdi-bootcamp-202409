@@ -41,6 +41,10 @@ const validateId = (id, explain = 'id') => {
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
+const validateCallback = callback => {
+    if (typeof callback !== 'function') throw new ValidationError('invalid callback')
+}
+
 const validateDateOfBirth = (dateOfBirth) => {
     if (!dateOfBirth || typeof dateOfBirth !== 'string') {
         throw new ValidationError('invalid date of birth');
@@ -51,17 +55,20 @@ const validateDateOfBirth = (dateOfBirth) => {
         throw new ValidationError('invalid date of birth');
     }
 
-    // Ensure the input matches the parsed date (valid calendar date)
+    // Ensures the input it's a valid calendar date
     const normalizedDate = new Date(parsedDate).toISOString().slice(0, 10);
     if (normalizedDate !== dateOfBirth) {
         throw new ValidationError('invalid date of birth');
     }
 }
 
-const validateCallback = callback => {
-    if (typeof callback !== 'function') throw new ValidationError('invalid callback')
+const validateStage = stage => {
+    const validStages = ['name-dob', 'gender', 'genres', 'artists', 'photos', 'completed']
+    if (!validStages.includes(stage)) {
+        console.log(`ValidationError thrownnn: invalid stage: ${stage}`); // Debug log
+        throw new ValidationError(`invalid stage: ${stage}`)
+    }
 }
-
 
 const validate = {
     name: validateName,
@@ -71,8 +78,9 @@ const validate = {
     image: validateImage,
     text: validateText,
     id: validateId,
+    callback: validateCallback,
     dateOfBirth: validateDateOfBirth,
-    callback: validateCallback
+    stage: validateStage
 }
 
 export default validate

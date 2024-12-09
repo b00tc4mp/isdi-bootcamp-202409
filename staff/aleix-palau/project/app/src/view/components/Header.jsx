@@ -21,13 +21,13 @@ export default function Header({ onHomeClick, onLoggedOut }) {
         if (logic.isUserLoggedIn()) {
             if (!name)
                 try {
-                    logic.getUserName()
-                        .then(setName)
-                        .catch(error => {
-                            alert(error.message)
+                    // logic.getUserName()
+                    //     .then(setName)
+                    //     .catch(error => {
+                    //         alert(error.message)
 
-                            console.error(error)
-                        })
+                    //         console.error(error)
+                    //     })
                 } catch (error) {
                     alert(error.message)
 
