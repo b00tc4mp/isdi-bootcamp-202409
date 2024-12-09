@@ -29,10 +29,12 @@ export default async (userId) => {
       date: event.date,
       location: {
         address: event.location.address,
+        province: event.location.province,
         coordinates: event.location.coordinates,
       },
       author: {
         id: event.author._id.toString(),
+
         name: event.author.name,
       },
       likes: event.likes.length,

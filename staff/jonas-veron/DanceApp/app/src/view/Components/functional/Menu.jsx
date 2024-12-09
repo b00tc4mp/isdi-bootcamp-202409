@@ -1,14 +1,45 @@
 import logic from "./../../../logic"
 import { useNavigate, Link } from "react-router-dom"
+import { useState } from "react"
+import EventMap from "./EventMap"
 
 export default function Menu({ isOpen, onClose }) {
   const navigate = useNavigate()
+  const [events, setEvents] = useState([])
+  const [view, setView] = useState(null)
 
   const handleLogout = () => {
     window.confirm("¿Estás seguro de cerrar sesión?")
     logic.logoutUser()
     navigate("/login")
     onClose()
+  }
+
+  const refreshEvents = () => {
+    try {
+      logic
+        .getEvents()
+        .then(setEvents)
+        .catch((error) => {
+          console.error(error)
+          alert(error.message)
+        })
+    } catch (error) {
+      console.error(error)
+      alert(error.message)
+    }
+  }
+
+  console.log(events)
+
+  const handleNearEvents = () => {
+    if (!view) {
+      refreshEvents()
+    }
+    setView(view ? null : "near-events")
+  }
+  const handleCloseMap = () => {
+    setView(null)
   }
 
   if (!isOpen) return null
@@ -38,7 +69,10 @@ export default function Menu({ isOpen, onClose }) {
           <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
             Marterclases
           </button>
-          <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
+          <button
+            className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
+            onClick={handleNearEvents}
+          >
             Cerca de mí
           </button>
         </div>
@@ -51,6 +85,33 @@ export default function Menu({ isOpen, onClose }) {
           </button>
         </div>
       </div>
+
+      {view === "near-events" && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white rounded-lg shadow-lg w-3/4 max-w-2xl">
+            <button
+              onClick={handleCloseMap}
+              className="absolute top-3 right-3 text-gray-500 hover:text-black"
+            >
+              ✖
+            </button>
+            <div className="p-4">
+              <h2 className="text-lg font-bold mb-4 text-center text-gray-700">
+                Ubicación del evento
+              </h2>
+              <EventMap center={[41.3870154, 2.1700471]} events={events} />
+              {/* <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${location.coordinates[0]},${location.coordinates[1]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline text-xl"
+              >
+                ¿Cómo llegar?
+              </a> */}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

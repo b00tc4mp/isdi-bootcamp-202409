@@ -184,6 +184,7 @@ export default function Event({ event, refreshEvents }) {
                 Ubicación del evento
               </h2>
               <EventMap
+                center={location.coordinates}
                 coordinates={location.coordinates}
                 address={location.address}
               />

@@ -10,16 +10,27 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png",
 })
 
-export default function EventMap({ coordinates, address }) {
+export default function EventMap({ center, events, coordinates, address }) {
   return (
-    <MapContainer center={coordinates} zoom={13} className="w-full h-96">
+    <MapContainer center={center} zoom={13} className="w-full h-96">
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; OpenStreetMap contributors"
       />
-      <Marker position={coordinates}>
-        <Tooltip permanent>{address}</Tooltip>
-      </Marker>
+      {coordinates ? (
+        <Marker position={coordinates}>
+          <Tooltip permanent>{address}</Tooltip>
+        </Marker>
+      ) : (
+        events.map((event) => (
+          <Marker key={event.id} position={event.location.coordinates}>
+            <Popup>
+              <strong>{event.name}</strong>
+              <p>{event.location.address}</p>
+            </Popup>
+          </Marker>
+        ))
+      )}
     </MapContainer>
   )
 }
