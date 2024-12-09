@@ -1,9 +1,13 @@
+import { useNavigate } from 'react-router-dom'
+
 import { Button, ButtonSmall } from '../library'
 import logic from '../../logic'
 import useContext from '../useContext'
 
 export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClose }) {
     const { alert } = useContext()
+
+    const navigate = useNavigate()
 
     const handleStartPeriodClick = event => {
         event.preventDefault()
@@ -41,6 +45,12 @@ export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClo
         }
     }
 
+    const handleCreateDayLogClick = () => {
+        const formattedDate = selectedDate.toISOString()
+
+        navigate(`/daylog/${formattedDate}`)
+    }
+
     const handleModalClose = () => {
         onClose()
     }
@@ -52,7 +62,7 @@ export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClo
                 <ButtonSmall onClick={handleStartPeriodClick}>Start period</ButtonSmall>
                 <ButtonSmall onClick={handleEndPeriodClick}>End period</ButtonSmall>
                 <ButtonSmall>Add event</ButtonSmall>
-                <ButtonSmall>Log symptoms</ButtonSmall>
+                <ButtonSmall onClick={handleCreateDayLogClick}>Log symptoms</ButtonSmall>
                 <Button onClick={handleModalClose}>Back</Button>
             </div>
         </div>

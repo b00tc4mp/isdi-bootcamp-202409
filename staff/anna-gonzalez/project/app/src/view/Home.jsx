@@ -80,8 +80,8 @@ export default function Home() {
     const isBeforePeriod = daysUntilNextCycle !== null && daysUntilNextCycle > 0
     const isPeriodDay = daysUntilNextCycle === 0
 
-    const isHighPregnancyChance = daysUntilOvulation !== null && daysUntilOvulation <= 3 && daysUntilOvulation >= 0
-    const isLowPregnancyChance = daysUntilOvulation !== null && daysUntilOvulation > 3 && (calculateDaysUntilNextCycle(cyclesStart) >= 3 || calculateDaysUntilNextCycle(cyclesStart) === null)
+    const isHighPregnancyChance = daysUntilOvulation <= 3 && daysUntilOvulation >= -3
+    const isLowPregnancyChance = daysUntilOvulation > 3 && daysUntilOvulation >= 0 || daysUntilOvulation < -3 && daysUntilNextCycle >= 0
 
     return <>
         <div>
@@ -94,7 +94,7 @@ export default function Home() {
         </div>
 
         <div className="flex justify-center items-center">
-            <div className="flex flex-col justify-center items-center bg-[var(--turquoise-color)] rounded-full w-72 h-72 mt-2 mb-2">
+            <div className="flex flex-col justify-center items-center bg-[var(--turquoise-color)] rounded-full w-64 h-64 mt-2 mb-2">
                 {!cyclesStart || cyclesStart.length === 0 ? (<><p className="mt-6">Loading predictions...</p><h1>No data</h1></>)
                     : isBeforeOvulation ? (<><p className="mt-6">Ovulation in</p><h1>{daysUntilOvulation} days</h1></>)
                         : isOvulationDay ? (<><p className="mt-6">Today is your</p><h1>Ovulation day</h1></>)

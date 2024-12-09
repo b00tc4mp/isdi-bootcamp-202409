@@ -35,7 +35,7 @@ export default function App() {
   const handlePartnerAccessClick = () => navigate('/partner')
   const handleLogoClick = () => navigate('/')
   const handleUserLoggedOut = () => navigate('/login')
-  const handleDayLogClick = () => navigate('/daylog')
+  const handleDayLogClick = () => navigate('/daylog/:formattedDate')
   const handleCalendarClick = () => navigate('/calendar')
   const handleTipsClick = () => navigate('/tips')
   const handleReportsClick = () => navigate('/reports')
@@ -82,7 +82,7 @@ export default function App() {
 
       <Route path="/partner" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <PartnerAccess onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />} />
 
-      <Route path="/daylog" element={logic.isUserLoggedIn() ? <DayLog /> : <Navigate to="/login" />} />
+      <Route path="/daylog/:formattedDate" element={logic.isUserLoggedIn() ? <DayLog /> : <Navigate to="/login" />} />
 
       <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/login" />} />
 

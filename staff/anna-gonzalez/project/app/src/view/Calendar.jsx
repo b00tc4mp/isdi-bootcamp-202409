@@ -7,7 +7,7 @@ import logic from '../logic'
 import { getFirstDayOfWeek, getMonthDays, getMonthText, getYear } from '../util'
 
 export default function Calendar() {
-    const [currentDate, setcurrentDate] = useState(new Date()) //current calendar date
+    const [currentDate, setCurrentDate] = useState(new Date()) //current calendar date
     const [selectedDate, setSelectedDate] = useState(null) //full selected date on calendar
     const [selectedDay, setSelectedDay] = useState(null) //selected day on calendar
     const [isModalOpen, setIsModalOpen] = useState(false) //modal visibility
@@ -33,12 +33,12 @@ export default function Calendar() {
                 console.error(error)
             }
         }
-    }, [currentDate])
+    }, [isModalOpen])
 
     const changeMonth = offset => {
         const updatedDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1) //offset = movement
 
-        setcurrentDate(updatedDate)
+        setCurrentDate(updatedDate)
     }
 
     const handlePreviousMonthClick = event => {
@@ -92,7 +92,7 @@ export default function Calendar() {
                     })}
 
                     {/* empty calendar boxes*/}
-                    {new Array(getFirstDayOfWeek(currentDate)).fill(null).map((_, index) => {
+                    {new Array(getFirstDayOfWeek(currentDate)).fill(null).map((_, index) => { //_ is the current value of the element, and index is the index in the array
                         return <div key={`empty-${index}`}></div>
                     })}
 

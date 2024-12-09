@@ -25,8 +25,7 @@ const user = new Schema({
 const dayLog = new Schema({
     date: {
         type: Date,
-        required: true,
-        default: Date.now
+        required: true
     },
     symptoms: {
         type: String,
@@ -81,10 +80,7 @@ const cycle = new Schema({
     periodEnd: {
         type: Date
     },
-    dayLogs: [{
-        type: dayLog,
-        ref: 'DayLog'
-    }]
+    dayLogs: [dayLog]
 }, { versionKey: false })
 
 const reminder = new Schema({
