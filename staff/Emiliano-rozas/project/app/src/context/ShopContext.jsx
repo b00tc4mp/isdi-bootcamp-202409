@@ -18,9 +18,8 @@ const ShopContextProvider = (props) => {
                 setProducts(fetchProducts)
 
             })
-
             .catch((error) => {
-                console.error("Error getting products", error)
+                console.error(error)
             })
     }, [])
 

@@ -5,9 +5,9 @@ const { SystemError } = errors
 
 export default () =>
     fetch(`http://${import.meta.env.VITE_API_URL}/products`, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
@@ -19,3 +19,5 @@ export default () =>
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
+
+// Porque dos respuestas Json?

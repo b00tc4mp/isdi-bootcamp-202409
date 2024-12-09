@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { CartTotal, Title } from '../components/index';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import assets from '../assets';
+import logic from '../logic';
 
 export default function PlaceOrder() {
 
@@ -11,6 +12,22 @@ export default function PlaceOrder() {
     const cart = location.state.cart || { items: [], totalPrice: 0 };
 
     const [method, setMethod] = useState('cash')
+
+    const navigate = useNavigate()
+
+    const handlePlaceOrder = async () => {
+        try {
+            const userId = logic.getUserId()
+
+            if (!userId) throw new NotFoundError('User not logged in')
+
+            await logic.placeOrder(userId)
+
+            navigate('/orders')
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
@@ -115,7 +132,7 @@ export default function PlaceOrder() {
                         </div>
                     </div>
                     <div className='w-full text-end mt-8'>
-                        <button className='bg-green-700 text-white px-16 py-3 text-sm'>PLACE ORDER</button>
+                        <button onClick={handlePlaceOrder} className='bg-green-700 text-white px-16 py-3 text-sm'>PLACE ORDER</button>
 
                     </div>
 

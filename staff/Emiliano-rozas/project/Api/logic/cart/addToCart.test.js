@@ -5,7 +5,7 @@ import addToCart from './addToCart.js'
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return addToCart('67544252fd819d95f42aa5e5', '67544253fd819d95f42aa5f0', 1)
+            return addToCart('6756fd2df8410aeae543769e', '6756fd2df8410aeae54376b2', 2)
                 .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {

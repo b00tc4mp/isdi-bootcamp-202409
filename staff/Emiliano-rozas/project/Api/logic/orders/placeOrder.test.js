@@ -5,7 +5,7 @@ import placeOrder from './placeOrder.js'
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return placeOrder('6753030ba68cd6e4d4ecd389')
+            return placeOrder('6756fd2df8410aeae543769f')
                 .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {

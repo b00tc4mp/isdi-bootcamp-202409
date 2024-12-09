@@ -16,7 +16,7 @@ export default function Cart() {
                 const cartData = await logic.getCart();
                 setCartInfo(cartData);
             } catch (error) {
-                console.error('Error fetching cart:', error);
+                console.error(error);
             }
         };
         fetchCart();
