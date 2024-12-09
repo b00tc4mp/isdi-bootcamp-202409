@@ -8,7 +8,7 @@ const deleteRecommend = (userId, recommendId) => {
     validate.id(recommendId, 'recommendId')
 
     return Promise.all([User.findById(userId).lean(), Recommend.findById(recommendId).lean()])
-        .catch(error => { throw new SystemError(error.messsage) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, recommend]) => {
             if (!user) throw new NotFoundError('user not found')
             if (!recommend) throw new NotFoundError('recommend not found')

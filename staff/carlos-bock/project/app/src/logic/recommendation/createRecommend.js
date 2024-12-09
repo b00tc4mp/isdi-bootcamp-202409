@@ -2,10 +2,10 @@ import validate from '../../../../com/validate.js'; import errors from '../../..
 
 const { SystemError } = errors
 
-const createRecommend = (city, country, category, price, link, image, recommend) => {
+const createRecommend = (city, country, category, price, link, imageUrl, recommend, subject) => {
     validate.text(city); validate.text(country)
     //add validate logic for number - category     //add validate logic for number - price
-    validate.image(link); validate.image(image)// update method name to be generic
+    validate.image(link); validate.image(imageUrl)// update method name to be generic
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/recommend`, {
         method: 'POST',
@@ -13,7 +13,7 @@ const createRecommend = (city, country, category, price, link, image, recommend)
             Authorization: `Bearer ${localStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ city, country, category, price, link, image, recommend })
+        body: JSON.stringify({ city, country, category, price, link, imageUrl, recommend, subject })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {

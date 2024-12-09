@@ -4,6 +4,7 @@ import deleteRecommend from './deleteRecommend.js'
 import downVote from './downVote.js'
 import getComments from './getComments.js'
 import getRecommend from './getRecommend.js'
+import getRecommendById from './getRecommendById.js'
 import removeComment from './getComments.js'
 import upVote from './upVote.js'
 
@@ -14,6 +15,7 @@ export {
     downVote,
     getComments,
     getRecommend,
+    getRecommendById,
     removeComment,
     upVote
 } 

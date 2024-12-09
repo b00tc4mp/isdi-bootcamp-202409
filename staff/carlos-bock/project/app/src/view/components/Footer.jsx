@@ -1,19 +1,31 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 import Button from '../library/Button.jsx'
 
-export default function Footer({ onNewRecommendClick }) {
+export default function Footer({ onNewRecommendClick, onCategoriesClick }) {
     console.log('Footer -> render')
 
     const location = useLocation()
 
+    const handleCategoriesclick = event => {
+        event.preventDefault()
+
+        onCategoriesClick()
+    }
+
+
     return <footer className="footer">
-        <Button>⌂</Button>
-        <Button>🔍</Button>
-        {location.pathname === '/' &&
-            <Button type='button' onClick={onNewRecommendClick}>➕</Button>}
-        <Button>🫂</Button>
-        <Button>👨🏻</Button>
+        <Link to='/'><Button>⌂</Button></Link>
+
+        <Button type='button'
+            onClick={handleCategoriesclick}>🔍</Button>
+
+        <Button type='button'
+            onClick={onNewRecommendClick}>➕</Button>
+
+        <Link to='/following'><Button>🫂</Button></Link>
+
+        <Link to='/profile/'><Button>👨🏻</Button></Link>
 
 
     </footer>

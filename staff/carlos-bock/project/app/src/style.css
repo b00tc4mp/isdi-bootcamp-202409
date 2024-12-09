@@ -29,10 +29,12 @@
 
 .header {
   top: 0;
+  padding-bottom: 10px;
 }
 
 .footer {
   bottom: 0;
+  padding-top: 5px;
 }
 
 .recommendation {
@@ -119,17 +121,12 @@ button {
 
 .alert-box {
   background-color: #ffffff;
-  /* White background for the alert */
   border: 2px solid #a78585;
-  /* Match your theme */
   border-radius: 8px;
   padding: 20px;
   max-width: 90%;
-  /* Responsive width */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  /* Subtle shadow for depth */
   text-align: center;
-  /* Center text content */
 }
 
 .alert-box button {
@@ -141,4 +138,16 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+}
+
+.categories {
+  padding: 25px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.content {
+  padding-top: 65px;
+  padding-bottom: 65px;
+
 }

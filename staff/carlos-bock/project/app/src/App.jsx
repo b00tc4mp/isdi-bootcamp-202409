@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, CreateRecommend } from './view/index.js' // add  CreateRecommend 
+import { Login, Register, Home, CreateRecommend, Profile, RecommendDetail } from './view/index.js' // add  CreateRecommend 
 
 //TODO add profile page
 
@@ -12,6 +12,7 @@ import { Header, Footer, Alert, Confirm } from './view/components/index.js'
 import { Context } from './view/useContext.js'
 
 import logic from './logic/index.js' //import loginUser from './logic/user/loginUser.js'
+import Categories from './view/components/Categories.jsx'
 
 export default function App() {
   const [alert, setAlert] = useState({
@@ -43,6 +44,8 @@ export default function App() {
 
   const handleHomeClick = () => navigate('/')
 
+  const handleCategoriesclick = () => navigate('/categories')
+
   const handleAlertAccepted = () => setAlert({
     message: null,
     level: 'error'
@@ -67,7 +70,6 @@ export default function App() {
       callback: null
     })
   }
-  //create handle confirm cancel
 
   console.log('App -> render')
 
@@ -76,25 +78,33 @@ export default function App() {
     confirm(message, callback, level = 'error') { console.log('Confirm called with message:', message); setConfirm({ message, callback, level }) }
   }}>
     <Header onHomeClick={handleHomeClick} onLoggedout={handleUserLoggedOut} />
+    <div className='content'>
+      <Routes>
+        <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/' /> :
+          <Login onLoggedIn={handleUserLoggedIn}
+            onRegisterClick={handleRegisterClick} />} />
 
-    <Routes>
-      <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/' /> :
-        <Login onLoggedIn={handleUserLoggedIn}
-          onRegisterClick={handleRegisterClick} />} />
+        <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to='/' /> :
+          <Register onLoginClick={handleLoginClick}
+            onRegistered={handleUserRegistered} />} />
 
-      <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to='/' /> :
-        <Register onLoginClick={handleLoginClick}
-          onRegistered={handleUserRegistered} />} />
+        <Route path='/' element={logic.isUserLoggedIn() ? <Home /> :
+          <Navigate to='/login' />} />
 
-      <Route path='/' element={logic.isUserLoggedIn() ? <Home /> :
-        <Navigate to='/login' />} />
+        <Route path='/new-reco' element={logic.isUserLoggedIn() ? <CreateRecommend onCreated={handleRecommendCreated} /> :
+          <Navigate to='/login' />} />
 
-      <Route path='/new-reco' element={logic.isUserLoggedIn() ? <CreateRecommend onCreated={handleRecommendCreated} /> :
-        <Navigate to='/login' />} />
+        <Route path='/categories' element={logic.isUserLoggedIn() ? <Categories /> : <Navigate to='/login' />} />
 
-    </Routes>
+        <Route path='/profile/:userId/*' element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to='/login' />} />
 
-    <Footer onNewRecommendClick={handleNewRecommendClick} />
+        <Route path='/recommend/:id' element={logic.isUserLoggedIn() ? <RecommendDetail /> : <Navigate to='/login' />}
+        />
+
+
+      </Routes>
+    </div>
+    <Footer onNewRecommendClick={handleNewRecommendClick} onCategoriesClick={handleCategoriesclick} />
 
     {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 

@@ -16,6 +16,7 @@ import removeComment from './recommendation/removeComment.js'
 import createRecommend from './recommendation/createRecommend.js'
 import deleteRecommend from './recommendation/deleteRecommend.js'
 import getRecommend from './recommendation/getRecommend.js'
+import getRecommendById from './recommendation/getRecommendById.js'
 
 import downVoteToggle from './recommendation/downVoteToggle.js'
 import upVoteToggle from './recommendation/upVoteToggle.js'
@@ -40,6 +41,7 @@ const logic = {
     createRecommend,
     deleteRecommend,
     getRecommend,
+    getRecommendById,
 
     downVoteToggle,
     upVoteToggle

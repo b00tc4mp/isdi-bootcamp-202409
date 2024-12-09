@@ -6,7 +6,7 @@ xhr.addEventListener('load', () => {
 
 xhr.open('POST', 'http://localhost:8080/users')
 xhr.setRequestHeader('Content-Type', 'application/json')
-xhr.send('{"name":"Peter Parker", "email":"pparker@db.com","username":"pparker","password","123123123", "password2":"123123123"}')
+xhr.send('{"name":"Peter Parker", "email":"pparker@db.com","username":"pparker","password":"123456789", "password2":"123456789"}')
 
 
 async function createUser() {
@@ -15,8 +15,8 @@ async function createUser() {
         name: "Ben Reily",
         email: "breily@gmail.com",
         username: "breily",
-        password: "123123123",
-        password2: "123123123"
+        password: "123456789",
+        password2: "123456789"
     }
 
     try {

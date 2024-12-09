@@ -24,7 +24,7 @@ export default function Comments(props) {
 
             console.error(error)
         }
-    }, [])
+    }, [props.recommendId])//
 
     const handleAdded = () => {
         try {
@@ -64,16 +64,7 @@ export default function Comments(props) {
     console.log('Comments -> render')
 
     return <section>
-        <ul>
-            {comments.map(comment =>
-                <Comment
-                    key={comment.id}
-                    recommendId={props.recommendId}
-                    comment={comment}
-                    onRemoved={handleRemoved}
-                />)
-            }
-        </ul>
+        <p>{props.recommendText}</p>{/**/}
 
         <AddComment
             recommendId={props.recommendId}

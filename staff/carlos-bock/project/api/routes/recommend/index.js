@@ -9,6 +9,7 @@ import {
     downVoteHandler,
     getCommentsHandler,
     getRecommendHandler,
+    getRecommendByIdHandler,
     removeCommentHandler,
     upVoteHandler
 } from './handlers/index.js'
@@ -17,11 +18,12 @@ const recommendRouter = Router()
 
 recommendRouter.post('/', jsonBodyParser, authorizationHandler, createRecommendHandler)
 recommendRouter.get('/', authorizationHandler, getRecommendHandler)
+recommendRouter.get('/:recommendId', authorizationHandler, getRecommendByIdHandler)
 recommendRouter.delete('/:recommendId', authorizationHandler, deleteRecommendHandler)
 recommendRouter.patch('/:recommendId/upVotes', authorizationHandler, upVoteHandler)
 recommendRouter.patch('/:recommendId/downVotes', authorizationHandler, downVoteHandler)
 recommendRouter.post('/:recommendId/comments', authorizationHandler, jsonBodyParser, addCommentsHandler)
-recommendRouter.delete('/:recommmendId/comments/:commentId', authorizationHandler, removeCommentHandler)
+recommendRouter.delete('/:recommendId/comments/:commentId', authorizationHandler, removeCommentHandler)
 recommendRouter.get('/:recommendId/comments', authorizationHandler, getCommentsHandler)
 
 

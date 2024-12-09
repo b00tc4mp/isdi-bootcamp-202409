@@ -19,11 +19,12 @@ export default function CreateRecommend({ onCreated }) {
             price: { value: price },
             link: { value: link },
             image: { value: image },
-            recommend: { value: recommend }
+            recommend: { value: recommend },
+            subject: { value: subject }
         } = form
 
         try {
-            logic.createRecommend(city, country, category, price, link, image, recommend)
+            logic.createRecommend(city, country, category, price, link, image, recommend, subject)
                 .then(onCreated)
                 .catch(error => {
                     alert(error.message)
@@ -65,6 +66,11 @@ export default function CreateRecommend({ onCreated }) {
                     <option value="7">Vivienda</option>
                     <option value="8">Transporte</option>
                 </select>
+            </Field>
+
+            <Field>
+                <Label>Tema</Label>
+                <Input type='text' id='subject'></Input>
             </Field>
 
             <Field>

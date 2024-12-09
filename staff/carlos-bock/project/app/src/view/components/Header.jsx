@@ -43,7 +43,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
     }
 
     const handleLogout = () => {
-        confirm('Logout?', accepted => {
+        confirm('¿Cerrar sesión?', accepted => {
             if (accepted) {
                 logic.logoutUser()
 

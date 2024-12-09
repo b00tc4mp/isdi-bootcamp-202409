@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import { Link } from 'react-router-dom'
 import { Button } from '../library/index.js'
 import Comments from './Comments.jsx'
 
@@ -31,6 +31,7 @@ export default function Recommend({ recommend, onUpVote, onDownVote, onDeleted, 
         price,
         subject
     } = recommend
+
 
     const handleUpVoteClick = () => {
         try {
@@ -88,33 +89,37 @@ export default function Recommend({ recommend, onUpVote, onDownVote, onDeleted, 
 
     const handleCommentsClick = () => setView(view ? null : 'comments')
 
+    //const handleSubjectClick = () => handleSingleRecommendClick(id);
+
+
     console.log('Recommendation -> render')
-    //        <p>{text}</p>
-    //        <img src={image} />
 
     return <article className='recommendation' >
         <h4 className='bg-indigo-500'>{author.username}</h4>
         <div className='border-4 border-black p-1.25 bg-gray-100'>
-            <h4>{subject} | {category === 1 ? 'trámites' : category === 2 ? 'servicios' :
+            <Link to={`/recommend/${id}`} ><h4 >{subject} | {category === 1 ? 'trámites' : category === 2 ? 'servicios' :
                 category === 3 ? 'alimentación' : category === 4 ? 'eventos' : category === 5 ? 'sanidad' :
-                    category === 6 ? 'barrios' : category === 7 ? 'vivienda' : category === 8 ? 'transporte' : ''} |
-                {price === 1 ? '€' : price === 2 ? '€€' : price === 3 ? '€€€' : ''}
-            </h4>
+                    category === 6 ? 'barrios' : category === 7 ? 'vivienda' : 'transporte'} |
+                {price === 1 ? '€' : price === 2 ? '€€' : '€€€'}
+            </h4></Link>
 
+            <h5>{country} | {city}</h5>
         </div>
         <time>Hacen {getElapsedTime(date)}</time>
         <br />
+
         <Button onClick={handleUpVoteClick}>♥️{upVotes.length}</Button>
         <Button onClick={handleDownVoteClick}>❌{downVotes.length}</Button>
 
         {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
 
-        <Button onClick={handleCommentsClick}>💬 {comments} </Button>
+        <Button onClick={handleCommentsClick}>💬 {comments.length} </Button>
 
         {logic.isUserModerator() && <Button>🧯</Button>}
 
         {view === 'comments' && <Comments
             recommendId={id}
+            recommendText={text} //
             onAdded={onCommentAdded}
             onRemoved={onCommentRemoved}
         />}

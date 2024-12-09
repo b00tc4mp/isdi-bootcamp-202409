@@ -116,7 +116,6 @@ export default function Home() {
     // add handle remove comment callback
 
     return <div className='py-12'>
-        <div>Hello Home</div>
 
         {recommend.map((recommend) => <Recommend
             key={recommend.id}
