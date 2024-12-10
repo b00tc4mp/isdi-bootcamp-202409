@@ -51,54 +51,6 @@ const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
 
-const validateArrayOfStrings = (array) => {
-    if (!Array.isArray(array)) throw new ValidationError('invalid input, not an array');
-
-    array.forEach((item, index) => {
-        if (typeof item !== 'string') throw new ValidationError(`invalid element at index ${index}: not a string`);
-        if (item.length < 1) throw new ValidationError(`invalid length at index ${index}: must be at least 1 characters long`);
-    });
-};
-
-const validateLocation = (coordinates) => {
-    if (!Array.isArray(coordinates)) {
-        throw new ValidationError('invalid input, not an array');
-    }
-    if (coordinates.length !== 2) {
-        throw new ValidationError('coordinates array must contain exactly two elements');
-    }
-
-    const [longitude, latitude] = coordinates;
-
-    if (typeof longitude !== 'number' || typeof latitude !== 'number') {
-        throw new ValidationError('both elements must be numbers');
-    }
-    if (longitude < -180 || longitude > 180) {
-        throw new ValidationError('longitude must be within the range of -180 to 180');
-    }
-    if (latitude < -90 || latitude > 90) {
-        throw new ValidationError('latitude must be within the range of -90 to 90');
-    }
-};
-
-const validateDate = (date) => {
-    if (!(date instanceof Date) || isNaN(date.getTime())) {
-        throw new ValidationError('invalid input, not a valid date');
-    }
-
-    const now = new Date();
-    if (date < now) {
-        throw new ValidationError('date cannot be in the past');
-    }
-
-
-};
-
-const validateString = (date) => {
-    if (typeof date !== 'string') throw new ValidationError('invalid input, not a string');
-    if (date.trim().length === 0) throw new ValidationError('invalid input, string cannot be empty');
-}
-
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -108,12 +60,7 @@ const validate = {
     image: validateImage,
     text: validateText,
     id: validateId,
-    callback: validateCallback,
-    arrayOfStrings: validateArrayOfStrings,
-    location: validateLocation,
-    date: validateDate,
-    string: validateString,
-
+    callback: validateCallback
 }
 
 export default validate

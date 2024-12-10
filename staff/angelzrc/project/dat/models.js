@@ -46,9 +46,54 @@ const user = new Schema({
     },
 }, { versionKey: false })
 
+const meet = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    joinedId: {
+        type: [ObjectId],
+        ref: 'User',
+        default: []
+    },
+
+    interests: {
+        type: [String],
+        required: true
+    },
+    trending: {
+        type: [String]
+    },
+
+    location: {
+        type: [Number], // [longitude, latitude]
+        required: true
+    },
+    startTime: {
+        type: Date,
+        required: true
+    },
+    endTime: {
+        type: Date,
+        required: true
+    },
+    address: {
+        type: String,
+        default: ''
+    }, // Optional
+    placeName: {
+        type: String,
+        default: ''
+    } // Optinonal
+}, { versionKey: false }
+)
+
 
 const User = model('User', user)
+const Meet = model('Meet', meet)
 
 export {
     User,
+    Meet
 }

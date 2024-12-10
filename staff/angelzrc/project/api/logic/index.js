@@ -1,7 +1,7 @@
 import {
     registerUser,
-    /*     authenticateUser,
-        getUserName */
+    authenticateUser,
+    getUserName
 } from './users/index.js'
 
 /* import {
@@ -17,17 +17,17 @@ import {
  */
 const logic = {
     registerUser,
-    /*     authenticateUser,
-        getUserName,
-    
-        createPost,
-        deletePost,
-        getPosts,
-        toggleLikePost,
-    
-        addComment,
-        removeComment,
-        getComments */
+    authenticateUser,
+    getUserName,
+
+    /* createPost,
+    deletePost,
+    getPosts,
+    toggleLikePost,
+
+    addComment,
+    removeComment,
+    getComments */
 }
 
 export default logic

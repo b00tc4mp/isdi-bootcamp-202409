@@ -53,7 +53,6 @@ El usuario podrá crear un meet, que será un punto en el mapa, indicando el lug
 ### Techs
 
 - HTML/CSS/JS
-- Typescript
 - React
 - React-Native
 - Expo

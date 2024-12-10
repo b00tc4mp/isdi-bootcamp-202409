@@ -4,7 +4,7 @@ import express from 'express'
 import cors from 'cors'
 
 import { errorHandler } from './routes/helpers/index.js'
-import { usersRouter, postsRouter } from './routes/index.js'
+import { usersRouter, postsRouter, meetsRouter } from './routes/index.js'
 
 console.log('MONGO URL:', process.env.MONGO_URL)
 console.log('Port:', process.env.PORT);
@@ -19,6 +19,7 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.use('/users', usersRouter)
     server.use('/posts', postsRouter)
+    server.use('/meets', meetsRouter)
 
     server.use(errorHandler)
 
