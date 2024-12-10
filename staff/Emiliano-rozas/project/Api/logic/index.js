@@ -21,6 +21,13 @@ import {
     updateOrder
 } from './orders/index.js'
 
+import {
+    processPayment,
+    retrievePayment,
+    stripePayment
+} from './payments/index.js'
+
+
 const logic = {
     registerUser,
     authenticateUser,
@@ -32,6 +39,9 @@ const logic = {
     updateQuantity,
     placeOrder,
     getOrders,
-    updateOrder
+    updateOrder,
+    processPayment,
+    retrievePayment,
+    stripePayment
 }
 export default logic

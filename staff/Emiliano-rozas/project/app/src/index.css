@@ -60,7 +60,7 @@ a.active p {
   }
   
   .animated-gradient {
-    background: radial-gradient(circle, rgba(1, 21, 1, 0.393) 20%, transparent 80%), #000000;
+    background: radial-gradient(circle, rgba(1, 40, 1, 0.295) 20%, transparent 80%), #000000;
     background-size: 250% 250%;
     animation: flowGradient 8s ease-in-out infinite;
   }

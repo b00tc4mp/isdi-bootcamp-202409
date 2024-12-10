@@ -10,8 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "flowbite": "^2.5.2",
+    "@stripe/stripe-js": "^5.2.0",
     "com": "file:../com",
+    "flowbite": "^2.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",

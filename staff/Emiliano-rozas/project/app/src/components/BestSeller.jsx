@@ -15,7 +15,7 @@ export default function BestSeller() {
 
     return (
         <div className='my-10'>
-            <div className='text-center text-3x1 py-8'>
+            <div className='text-center text-3xl py-8'>
                 <Title text1={'BEST'} text2={' SELLERS'}></Title>
                 <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-white'>
                     Top-rated comics and manga you can't miss</p>
