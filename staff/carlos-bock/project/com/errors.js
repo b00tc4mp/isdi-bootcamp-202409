@@ -16,7 +16,7 @@ const errors = {
     CredentialsError: customError('CredentialsError'),
     SystemError: customError('SystemError'),
     OwnershipError: customError('OwnershipError'),
-    AuthorizationError: customError('AuthorizatoinError')
+    AuthorizationError: customError('AuthorizationError')
 }
 
 export default errors

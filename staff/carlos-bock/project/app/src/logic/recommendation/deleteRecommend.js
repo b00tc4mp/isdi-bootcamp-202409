@@ -7,7 +7,7 @@ const deleteRecommend = recommendId => {
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}`, {
         method: 'DELETE',
-        headers: { Authorization: `Bearer ${localStorage}` }
+        headers: { Authorization: `Bearer ${localStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
