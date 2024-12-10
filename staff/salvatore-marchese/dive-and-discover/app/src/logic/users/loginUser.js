@@ -1,4 +1,4 @@
-import { validate, errors } from '../../../com'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
@@ -16,7 +16,7 @@ export default async (email, password) => {
             if (res.ok)
                 return res.json()
                     .catch(error => { throw new SystemError(error.message) })
-                    .then(body => { sessionStorage.token = body.token })
+                    .then(token => { sessionStorage.token = token })
 
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })

@@ -1,11 +1,10 @@
-import { errors } from '../../../com'
-import { extractPayloadFromJWT } from '../util'
+import { errors } from 'com'
+import { extractPayloadFromJWT } from '../../util'
 
-const { SystemError } = errors 
+const { SystemError } = errors
 
-export default async () => { 
-    let { sub: userId } = 
-    extractPayloadFromJWT(sessionStorage.token)
+export default () => {
+    const { sub: userId } = extractPayloadFromJWT(sessionStorage.token)
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
         headers: {
@@ -13,14 +12,13 @@ export default async () => {
         }
     })
         .catch(error => { throw new SystemError(error.message) })
-        .then (res => {
+        .then(res => {
             if (res.ok)
                 return res.json()
-                    .catch(error => {
-                    throw new SystemError(error.message) })
-                    .then(body => body.name)
+                    .catch(error => { throw new SystemError(error.message) })
+
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(({ error, message}) => { throw new errors[error](message) })
+                .then(({ error, message }) => { throw new errors[error](message) })
         })
 }

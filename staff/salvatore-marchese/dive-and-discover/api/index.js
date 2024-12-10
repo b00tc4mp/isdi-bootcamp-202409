@@ -1,4 +1,36 @@
 import 'dotenv/config'
+import db from 'dat'
+import express from 'express'
+import cors from 'cors'
+
+import { errorHandler } from './routes/helpers/index.js'
+import { usersRouter } from './routes/index.js'
+
+db.connect(process.env.MONGO_URL_TEST).then(() => {
+    console.log('connected to db')
+
+    const server = express()
+
+    server.use(cors())
+
+    server.get('/', (_, res) => res.send('Hello, API!'))
+
+    server.use('/users', usersRouter)
+
+    server.use(errorHandler)
+
+    server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
+})
+
+
+
+
+
+
+// TO CHECK BELOW 
+
+
+/* import 'dotenv/config'
 import db from '../dat/index.js'
 import express, { json } from 'express'
 import cors from 'cors'
@@ -6,6 +38,8 @@ import jwt from 'jsonwebtoken'
 
 
 import logic from './logic/index.js' 
+import { getUser, updateUser } from './logic/user.js'
+
 import { createFunctionalHandler, authorizationHandler, errorHandler } from './helpers/index.js'
 
 db.connect(process.env.MONGO_URL_TEST).then(() => {
@@ -19,6 +53,8 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
     server.get('/', (_, res) => res.send('API connected!'))
 
+
+    // TODO: Rename to login 
     server.post('/users/auth', jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { email, password } = req.body
 
@@ -26,8 +62,8 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
             .then(({ id, role }) => jwt.sign({ sub: id, role }, process.env.JWT_SECRET, {expiresIn: '1h' }))
             .then(token => res.json({token}))
     }))
-
-    server.post('/home-diver', jsonBodyParser, createFunctionalHandler(async (req, res) => {
+  
+    server.post('/register-diver', jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { name, email, password, 'password-repeat': passwordRepeat } = req.body
 
         // Ensure that passwords match before calling the register logic
@@ -38,39 +74,30 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
         await logic.registerUserDiver(name, email, password, passwordRepeat).then(() => res.status(201).send())
     }))
 
-    server.get('/users/:targetUserId/name', authorizationHandler, createFunctionalHandler((req, res) => {
-        const { userId, params: {
-        targetUserId } } = req
 
-        return logic.getUserName(userId, targetUserId).then(name => res.json({name}))
+
+    //READ 
+    server.get('/users/:id', authorizationHandler, createFunctionalHandler( async(req, res) => {
+        const { id } = req.params;
+        const user = await getUser(id);
+        res.json(user);
     }))
 
-    server.get('/diver/profile', authorizationHandler, async (req, res) => {
-        const { sub } = req.user; // Extracted from the verified JWT token
-        const user = await logic.getUserById(sub);
+    //USER PROFILE
+    server.get('/profile', authorizationHandler, async (req, res) => {
+        const { userId } = req; // Extracted from the verified JWT token
+        const user = await getUser(userId);
         res.json(user);
     })
 
-    //editing profile page 
-    server.get('/user/:id', authorizationHandler, async (req, res) => {
+    //UPDATE USER DATA
+    server.put('/user/:id', jsonBodyParser, authorizationHandler, async (req, res) => {
         try {
-            const user = await User.findById(req.params.id)
-            if (!user) return res.status(404).json({ message: 'User not found' })
-            
-                res.json(user)
-        } catch (err) {
-            res.status(500).json({ message: err.message })
-        }
-    })
-    
-    server.put('/user/:id', authorizationHandler, async (req, res) => {
-        try {
-            const { name, email, password} = req.body
-            const updatedUser = await User.findByIdAndUpdate(req.params.id, { name, email, password}, { new: true })
-    
-            if (!updatedUser) return res.status(404).json({ message: 'User not found!'})
-    
-            res.json(updatedUser)
+            console.log("body")
+            console.log(req.body)
+            const updated = await updateUser(req.params.id, req.body);
+            console.log(updated)
+            res.json(updated);
         } catch (err) {
             res.status(500).json({ message: err.message })
         }
@@ -81,3 +108,4 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
 })
 
+ */

@@ -1,1 +1,1 @@
-export default () => sessionStorage.token !== undefined
+export const isUserLoggedIn = () => sessionStorage.token !== undefined

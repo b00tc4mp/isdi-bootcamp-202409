@@ -1,46 +1,111 @@
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
-import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeDiver, PersonalInfoForm } from './view'
+import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeDiver, Profile } from './view'
 
-import { Header, Footer } from './view/components'
-import logic from '../../api/logic'
+import Header  from './components/Header'
+import logic from './logic/users'
+/* import Router from './navigation/Router.jsx' */
 
-export default function App() {
-  const navigate = useNavigate()
+export default function App() { 
+    const navigate = useNavigate();
 
-  const handleUserLoggedOut = () => navigate('/login')
+  // Navigation handlers
+  const handleHomeClick = () => navigate("/home");
+  const handleUserLoggedOut = () => navigate("/login");
+  const handleUserLoggedIn = () => navigate("/home");
+  const handleRoleSelection = () => navigate("/select-role-type");
+  const handleLoginClick = () => navigate("/home");
+  const handleUserRegistered = () => navigate("/login");
 
-  const handleUserLoggedIn = () => navigate('/home')
+  return (
+    <>
+      {logic.isUserLoggedIn() && <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />}
 
-  const handleRoleSelection = () => navigate('/select-role-type')
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            logic.isUserLoggedIn() ? (
+              <Navigate to="/home" />
+            ) : (
+              <Login
+                onLoggedIn={handleUserLoggedIn}
+                onRegisterClick={handleRoleSelection}
+              />
+            )
+          }
+        />
 
-  const handleLoginClick = () => navigate('/login')
+        <Route
+          path="/"
+          element={
+            logic.isUserLoggedIn() ? (
+              <Navigate to="/home" />
+            ) : (
+              <Login onLoggedIn={handleUserLoggedIn} />
+            )
+          }
+        />
 
-  const handleUserRegistered = () => navigate('/login')
+        <Route path="/select-role-type" element={<SelectRoleType />} />
 
-  const handleHomeClick = () => navigate('/')
+        <Route
+          path="/register-diver"
+          element={
+            logic.isUserLoggedIn() ? (
+              <Navigate to="/home" />
+            ) : (
+              <RegisterDiver
+                onLoginClick={handleLoginClick}
+                onRegistered={handleUserRegistered}
+              />
+            )
+          }
+        />
 
-  console.log('App -> render')
+        <Route
+          path="/register-center"
+          element={
+            logic.isUserLoggedIn() ? (
+              <Navigate to="/home" />
+            ) : (
+              <RegisterCenter
+                onLoginClick={handleLoginClick}
+                onRegistered={handleUserRegistered}
+              />
+            )
+          }
+        />
 
-  return <>
-    <Header onHomeClick= {handleHomeClick} onLoggedOut= {handleUserLoggedOut} />
+        <Route path="*" element={<Navigate to="/login" />} />
 
-    <Routes>
-        <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/home" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRoleSelection} />} /> 
+        <Route
+          path="/home"
+          element={
+            logic.isUserLoggedIn() ? (
+              logic.isUserRoleDiver() ? (
+                <HomeDiver />
+              ) : logic.isUserRoleCenter() ? (
+                <HomeCenter />
+              ) : (
+                <Navigate to="/login" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
 
-         <Route path="/" element={logic.isUserLoggedIn() ? ( <Navigate to="/home" />) : (<Login onLoggedIn={handleUserLoggedIn}/> )} />
+        <Route
+          path="/personal-info"
+          element={
+            logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />
+          }
+        />
+      </Routes>
 
-        <Route path="/select-role-type" element={<SelectRoleType />} /> 
-
-        <Route path="/register-diver" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <RegisterDiver onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
-
-        <Route path="/register-center" element={logic.isUserLoggedIn() ? <Navigate to="/home" /> : <RegisterCenter onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
-
-        <Route path="/home" element={logic.isUserLoggedIn() && logic.isUserRoleDiver() ? (logic.isUserRoleDiver() ? (<HomeDiver />) : logic.isUserLoggedIn() && logic.isUserRoleCenter() ? (<HomeCenter />) : (<Navigate to="/login" />) ) : (<Navigate to="/login" />) } />
-
-        <Route path="/personal-info-form" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/home" />} />
-
-    </Routes>
-    {logic.isUserLoggedIn() && <Footer />}
-  </>
+      {/* logic.isUserLoggedIn() &&  <Footer /> */}
+      </>
+  );
 }

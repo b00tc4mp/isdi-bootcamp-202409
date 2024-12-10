@@ -1,7 +1,5 @@
 import { errors } from "com";
 
-
-
 const { ValidationError } = errors
 
 export default async function createHomeCenter({ name, email, password, address, postcode, city, country, telephone, timetable }) {

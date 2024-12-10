@@ -10,7 +10,7 @@ export default (email, password) => {
     validate.password(password)
 
     return (async () => {
-        let user
+        let user;
 
         try {
             user = await User.findOne ({ email })

@@ -4,7 +4,7 @@ import RegisterDiver from './RegisterDiver'
 import RegisterCenter from './RegisterCenter'
 import HomeDiver from './HomeDiver'
 import HomeCenter from './HomeCenter'
-import PersonalInfoForm from './PersonalInfoForm'
+import Profile from './Profile'
 
 
 
@@ -15,5 +15,5 @@ export {
     RegisterCenter,
     HomeDiver,
     HomeCenter,
-    PersonalInfoForm,
+    Profile,
 }

@@ -1,5 +1,5 @@
-import { validate, errors } from "com";
 import { User } from 'dat'
+import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
@@ -20,7 +20,7 @@ export default (userId, targetUserId) => {
 
         if (!user) throw new NotFoundError('user not found')
         if (!targetUser) throw new NotFoundError('target user not found')
-            
+
         return targetUser.name
     })()
 }
