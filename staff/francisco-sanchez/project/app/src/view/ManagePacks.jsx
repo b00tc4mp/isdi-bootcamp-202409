@@ -3,6 +3,7 @@ import logic from '../logic'
 
 import { errors } from 'com'
 import { Button } from '../library/index';
+import { getCurrencySymbol } from '../util';
 
 const { SystemError } = errors
 
@@ -70,17 +71,13 @@ export default function ManagePacks(props) {
                             <tr key={basePack.id}>
                                 <td className='border px-4 py-2'>{basePack.packName}</td>
                                 <td className='border px-4 py-2'>{basePack.description}</td>
-                                <td className='border px-4 py-2'>{basePack.price}</td>
+                                <td className='border px-4 py-2'>{basePack.price} {getCurrencySymbol(basePack)}</td>
                                 <td className='border px-4 py-2'>✏️ ❌ ⛔</td>
                             </tr>
                         ))}
-
                     </tbody>
                 </table>
             )}
-
-
-
 
 
             <div className="flex flex-col ">

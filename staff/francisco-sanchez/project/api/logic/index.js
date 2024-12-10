@@ -3,6 +3,8 @@ import {
     authenticateUser,
     getUserName,
     getCustomers,
+    getUserByEmail,
+    getUserByUserame
 } from './users/index.js'
 
 import {
@@ -21,6 +23,8 @@ const logic = {
     authenticateUser,
     getUserName,
     getCustomers,
+    getUserByEmail,
+    getUserByUserame,
 
     createPack,
     assignPack,

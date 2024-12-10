@@ -12,8 +12,8 @@ export default (req, res, next) => {
         //console.log('token is: ' + token)
 
         req.userId = userId
-        console.log('userIdf ' + userId)
-
+        console.log('userId ' + userId)
+        next() //Next will go to the next function
     } catch (error) {
         next(new AuthorizationError(error.message))
     }

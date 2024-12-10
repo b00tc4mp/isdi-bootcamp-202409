@@ -25,7 +25,6 @@ export default (userId) => {
                 basePack.id = basePack._id.toString()
                 delete basePack._id
             })
-
             return basePack
         })
 }

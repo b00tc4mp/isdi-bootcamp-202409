@@ -11,7 +11,9 @@ export default function Home(props) {
     console.log('Home -> render')
 
     const [name, setName] = useState(null)
-
+    console.log('el nombre es: ' + name)
+    const nametrying = logic.getUserName()
+    console.log(nametrying)
     const location = useLocation()
 
     const { alert, confirm } = useContext()
@@ -64,7 +66,7 @@ export default function Home(props) {
             <main className="flex flex-col items-center bg-color_backgroundGrey w-full h-screen p-4 pt-12">
 
                 <header className="mb-8 text-center ">
-                    <h2 className="text-3xl font-bold text-color_darkBlue mb-2">Welcome, {name}</h2>
+                    <h2 className="text-3xl font-bold text-color_darkBlue mb-2">{`Welcome, ${name}`}</h2>
                     <p className="text-color_strongGrey">What would you like to do today?</p>
                 </header>
 

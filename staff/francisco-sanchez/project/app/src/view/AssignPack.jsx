@@ -1,14 +1,13 @@
+import { useState, useEffect } from 'react'
+import logic from '../logic'
 import { errors } from 'com'
-
-//import logic from '../logic'
-
-import CreatePack from './../logic/packs/createPack.js'
 
 const { SystemError } = errors
 
 import useContex from './useContext'
 
 import { Button, Field, Input, Label, Image } from '../library'
+import { getCurrencySymbol } from '../util'
 
 export default function Assign(props) {
 
@@ -52,6 +51,23 @@ export default function Assign(props) {
         }
     } */
 
+    const [basePacks, setPacks] = useState([])
+
+    useEffect(() => {
+        console.log('Packs / PacksList -> componentDidMount')
+        const fetchBasePacks = async () => {
+            try {
+                const basePacks = await logic.getBasePacks()
+                setPacks(basePacks)
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
+        }
+        fetchBasePacks()
+    }, [])
+
+
     const handleHomeClick = event => {
         event.preventDefault()
         props.onHomeClick()
@@ -68,11 +84,11 @@ export default function Assign(props) {
                 </Field>
 
                 <Field>
-                    <Label htmlFor="expiringTime">Select Pack</Label>
-                    <select id="expiringTime" name="expiringTime">
-                        <option value="-1">Pack 1</option>
-                        <option value="1">Pack 2</option>
-                        <option value="2">Pack 3</option>
+                    <Label htmlFor="selectPack">Select Pack</Label>
+                    <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2">
+                        {basePacks.map((basePack) => (
+                            <option key={basePack.id} value={basePack.id}>{basePack.packName} - {basePack.price}{getCurrencySymbol(basePack)}</option>
+                        ))}
                     </select>
                 </Field>
 

@@ -13,21 +13,11 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.use(cors())
 
-    const jsonBodyParser = json()
-
     server.get('/', (_, res) => res.send('API is Up Ready to go'))
 
     //Here will be all the endpoints of the API. 
     server.use('/users', usersRouter)
     server.use('/packs', packsRouter)
-
-    //TODO: Quitar el siguiente bloque
-    server.use((req, res, next) => {
-        console.log(`Request: ${req.method} ${req.originalUrl}`);
-        console.log('Headers:', req.headers);
-        next();
-    });
-
 
     server.use(errorHandler)
 
