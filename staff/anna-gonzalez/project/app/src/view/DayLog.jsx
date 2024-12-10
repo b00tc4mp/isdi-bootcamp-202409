@@ -1,47 +1,55 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import logic from '../logic'
-import { getMonthAndDayText } from '../util'
 
 import { Button } from './library'
 
-export default function DayLog() {
+export default function DayLog({ onCreated }) {
     const { formattedDate } = useParams()
 
+    const [dayLog, setDayLog] = useState(null)
     const [formData, setFormData] = useState({ symptoms: [], mood: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' })
 
-    /*add a useEffect executed to get Day logs
-    import { useEffect, useState } from 'react';
-import logic from '../logic'; // Ajusta la importación según tu estructura
-
-export default function DayLog() {
-    const { formattedDate } = useParams();
-    const [formData, setFormData] = useState({ symptoms: [], mood: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' });
+    //create variable for mood etc lo q sta map
 
     useEffect(() => {
-        const fetchDayLog = async () => {
+        if (logic.isUserLoggedIn()) {
             try {
-                const fetchedData = await logic.getDayLog(formattedDate);
-                if (fetchedData) {
-                    // Aquí, podrías ajustar la forma de los datos si es necesario
-                    const { symptoms, ...rest } = fetchedData;
-                    setFormData({
-                        ...rest,
-                        symptoms: symptoms ? symptoms.split(',') : [], // Convertir a array si es necesario
-                    });
-                }
+                logic.getCurrentDayLog(formattedDate)
+                    .then(currentDayLog => {
+                        console.log(currentDayLog)
+                        setDayLog(currentDayLog)
+                        setFormData(prevFormData => {
+                            let updatedSymptoms = currentDayLog.symptoms || prevFormData.symptoms
+                            let updatedMood = currentDayLog.mood ? currentDayLog.mood : prevFormData.mood
+                            let updatedFlow = currentDayLog.flow ? currentDayLog.flow : prevFormData.flow
+                            let updatedSleep = currentDayLog.sleep ? currentDayLog.sleep : prevFormData.sleep
+                            let updatedSexualActivity = currentDayLog.sexualActivity ? currentDayLog.sexualActivity : prevFormData.sexualActivity
+                            let updatedSexualEnergy = currentDayLog.sexualEnergy ? currentDayLog.sexualEnergy : prevFormData.sexualEnergy
+
+                            return {
+                                symptoms: updatedSymptoms,
+                                mood: updatedMood,
+                                flow: updatedFlow,
+                                sleep: updatedSleep,
+                                sexualActivity: updatedSexualActivity,
+                                sexualEnergy: updatedSexualEnergy
+                            }
+                        })
+                    })
+                    .catch(error => {
+                        alert(error.message)
+
+                        console.error(error)
+                    })
             } catch (error) {
-                console.error('Error fetching day log:', error);
+                alert(error.message)
+
+                console.error
             }
-        };
-
-        fetchDayLog();
-    }, [formattedDate]); // Dependencia para que se ejecute cuando cambie `formattedDate`
-
-    // El resto del código de tu componente, incluyendo el formulario y `handleSubmit`...
-}*/
-
+        }
+    }, [])
 
     const handleCheckboxChange = event => {
         const { name } = event.target
@@ -59,7 +67,7 @@ export default function DayLog() {
     }
 
     const handleRadioChange = event => {
-        const { name, value } = event.target;
+        const { name, value } = event.target
 
         setFormData(prev => {
             return {
@@ -80,7 +88,7 @@ export default function DayLog() {
             })
 
             logic.createDayLog(sentDate, formData)
-                .then()
+                .then(onCreated)
                 .catch(error => {
                     alert(error.message)
 
@@ -98,7 +106,7 @@ export default function DayLog() {
         <h2>DayLog</h2>
 
         <form>
-            <p className="mb-8">{getMonthAndDayText(formattedDate)}</p>
+            <p className="mb-8">{formattedDate}</p>
 
             <fieldset className="mt-4 flex flex-wrap gap-4">
                 <legend>SYMPTOMS</legend>

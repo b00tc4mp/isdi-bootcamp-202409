@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Calendar, DayLog, Home, Login, PartnerAccess, Register, Reports, Splash, Tips } from './view'
-import { Alert, Confirm, Header, Footer } from './view/components'
+import { Alert, Confirm, Header, Footer, Modal } from './view/components'
 
 import { Context } from './view/useContext'
 import logic from './logic'
@@ -39,6 +39,7 @@ export default function App() {
   const handleCalendarClick = () => navigate('/calendar')
   const handleTipsClick = () => navigate('/tips')
   const handleReportsClick = () => navigate('/reports')
+  const handleDayLogCreated = () => navigate('/')
 
   const handleAlertAccepted = () => setAlert({
     message: null,
@@ -82,7 +83,7 @@ export default function App() {
 
       <Route path="/partner" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <PartnerAccess onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />} />
 
-      <Route path="/daylog/:formattedDate" element={logic.isUserLoggedIn() ? <DayLog /> : <Navigate to="/login" />} />
+      <Route path="/daylog/:formattedDate" element={logic.isUserLoggedIn() ? <DayLog onCreated={handleDayLogCreated} /> : <Navigate to="/login" />} />
 
       <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/login" />} />
 

@@ -3,6 +3,7 @@ import createCycle from './createCycle'
 import createDayLog from './createDayLog'
 import getCyclesStart from './getCyclesStart'
 import getCurrentCycleStart from './getCurrentCycleStart'
+import getCurrentDayLog from './getCurrentDayLog'
 import getPeriodDays from './getPeriodDays'
 
 export {
@@ -11,5 +12,6 @@ export {
     createDayLog,
     getCyclesStart,
     getCurrentCycleStart,
+    getCurrentDayLog,
     getPeriodDays,
 }

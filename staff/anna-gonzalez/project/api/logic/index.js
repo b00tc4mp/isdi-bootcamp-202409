@@ -4,6 +4,7 @@ import {
     createDayLog,
     getCyclesStart,
     getCurrentCycleStart,
+    getCurrentDayLog,
     getPeriodDays
 } from './cycles/index.js'
 
@@ -26,6 +27,7 @@ const logic = {
     createDayLog,
     getCyclesStart,
     getCurrentCycleStart,
+    getCurrentDayLog,
     getPeriodDays,
     getExerciseTips,
     getMusicTips,

@@ -4,6 +4,7 @@ import {
     createDayLog,
     getCyclesStart,
     getCurrentCycleStart,
+    getCurrentDayLog,
     getPeriodDays
 } from './cycles'
 
@@ -28,6 +29,7 @@ const logic = {
     createDayLog,
     getCyclesStart,
     getCurrentCycleStart,
+    getCurrentDayLog,
     getPeriodDays,
     getUserName,
     isUserLoggedIn,
