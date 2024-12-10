@@ -5,6 +5,10 @@ import { stats, skill, currency } from './index.js'
 const { Schema, Types: { ObjectId } } = mongoose
 
 const character = new Schema({
+    uuid: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -17,9 +21,9 @@ const character = new Schema({
         type: String,
         required: true
     },
-    statistics: [stats],
+    statistics: stats,
     skills: [skill],
-    currency: [currency],
+    currency: currency,
     items: [{
         type: ObjectId,
         ref: 'Item',

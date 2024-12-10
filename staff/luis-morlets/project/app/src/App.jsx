@@ -8,6 +8,7 @@ import { Context } from './view/useContext'
 
 import logic from './logic'
 import { Alert, Confirm, Singleplayer, Multiplayer, Header } from './view/components'
+import Game from './view/Game'
 
 export default function App() {
     console.log('App -> render')
@@ -36,6 +37,8 @@ export default function App() {
     const handleUserLoggedOut = () => navigate('/login')
 
     const handleQuitClick = () => navigate('/')
+
+    const handleNewAdvClick = () => navigate('/singleplayer/game')
 
     const handleAlertAccepted = () => setAlert({
         message: null,
@@ -76,8 +79,11 @@ export default function App() {
 
             <Route path="/" element={logic.isPlayerLoggedIn() ? <Play onLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
-            <Route path="/singleplayer/*" element={logic.isPlayerLoggedIn() ? <Singleplayer onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
+            <Route path="/singleplayer/*" element={logic.isPlayerLoggedIn() ? <Singleplayer onQuitClick={handleQuitClick} onNewAdventure={handleNewAdvClick} /> : <Navigate to="/login" />}></Route>
+
             <Route path="/multiplayer/*" element={logic.isPlayerLoggedIn() ? <Multiplayer onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
+
+            <Route path="/singleplayer/game" element={logic.isPlayerLoggedIn() ? <Game /> : <Navigate to="/login" />}></Route>
         </Routes>
 
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}

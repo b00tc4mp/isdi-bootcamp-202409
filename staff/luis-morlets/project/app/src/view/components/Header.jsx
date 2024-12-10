@@ -37,7 +37,7 @@ export default function Header({ onLoggedOut }) {
         } else setUsername(null)
     }, [location.pathname])
 
-    return <header className="flex items-center justify-start bg-transparent fixed w-screen h-20 left-20 top-5" >
+    return <header className="flex items-center justify-start bg-transparent fixed w-screen h-20 left-20 top-5 z-10" >
 
         <div className="flex justify-end gap-4 items-end bg-[red]">
             {username && <h2 className='text-black text-4xl'>{username}</h2>}

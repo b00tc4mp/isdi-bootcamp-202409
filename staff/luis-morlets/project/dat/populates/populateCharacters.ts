@@ -10,6 +10,7 @@ db.connect(process.env.MONGO_URL_TEST!)
     .then(() => Character.deleteMany())
     .then(() => Promise.all([
         Character.create({
+            uuid: 'phinolle-dalvush',
             name: 'Phinolle Dalvush',
             class: 'Ranger',
             race: 'Half-Elf',
@@ -19,6 +20,7 @@ db.connect(process.env.MONGO_URL_TEST!)
             items: [new ObjectId('67516a89253c059da7f10f58'), new ObjectId('67516a89253c059da7f10f58')]
         }),
         Character.create({
+            uuid: 'grothar-skullcrusher',
             name: 'Grothar Skullcrusher',
             class: 'Barbarian',
             race: 'Orc',
@@ -28,6 +30,7 @@ db.connect(process.env.MONGO_URL_TEST!)
             items: [new ObjectId('67516a89253c059da7f10f58'), new ObjectId('67516a89253c059da7f10f58')]
         }),
         Character.create({
+            uuid: 'thalin-lightbringer',
             name: 'Thalin Lightbringer',
             class: 'Paladin',
             race: 'Human',
@@ -40,6 +43,7 @@ db.connect(process.env.MONGO_URL_TEST!)
             items: [new ObjectId('67516a89253c059da7f10f58'), new ObjectId('67516a89253c059da7f10f5a')]
         }),
         Character.create({
+            uuid: 'qivos-shadowstep',
             name: 'Qivos Shadowstep',
             class: 'Rogue',
             race: 'Tiefling',
@@ -49,6 +53,7 @@ db.connect(process.env.MONGO_URL_TEST!)
             items: [new ObjectId('674fabc309c47e901f27d0ec'), new ObjectId('674fabc309c47e901f27d0ec')]
         }),
         Character.create({
+            uuid: 'eldon-brightstaff',
             name: 'Eldon Brightstaff',
             class: 'Cleric',
             race: 'Dwarf',
@@ -58,6 +63,7 @@ db.connect(process.env.MONGO_URL_TEST!)
             items: [new ObjectId('67516a89253c059da7f10f5a'), new ObjectId('67516a89253c059da7f10f58')]
         }),
         Character.create({
+            uuid: 'camilla-la-croix',
             name: 'Camilla La Croix',
             class: 'Mage',
             race: 'Elf',

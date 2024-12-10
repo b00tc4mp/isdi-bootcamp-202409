@@ -1,9 +1,11 @@
 import { errors } from 'com'
 
-const { SystemError } = errors
-
 import logic from '../logic'
 import useContext from './useContext'
+
+import { Button, Field, Form, Input, Label } from './components/library'
+
+const { SystemError } = errors
 
 export default function Register(props) {
     console.log('Register -> render')
@@ -55,27 +57,37 @@ export default function Register(props) {
 
     return <main className="flex flex-col items-center justify-center h-screen w-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/castillo.jpg')" }}>
 
-        <div className="flex flex-col items-center justify-center bg-[url('/images/menusbg.png')] bg-center bg-cover h-[30rem] w-full" >
+        <div className="flex flex-col items-center justify-center bg-[url('/images/menusbg.png')] bg-center bg-cover h-[35rem] w-[35%] border-4 border-black rounded-xl p-8" >
             <img src="/images/registerTitle.png" alt="register title with icon" />
 
-            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
-                <label htmlFor="name" className="text-2xl self-start">Name:</label>
-                <input type="text" id="name" required={true} className="border-black border" />
+            <Form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
+                <Field>
+                    <Label htmlFor="name" className="text-2xl self-start">Name:</Label>
+                    <Input type="text" id="name" required={true} className="border-black border" />
+                </ Field>
 
-                <label htmlFor="email" className="text-2xl self-start">E-mail:</label>
-                <input type="email" id="email" required={true} className="border-black border" />
+                <Field>
+                    <Label htmlFor="email" className="text-2xl self-start">E-mail:</Label>
+                    <Input type="email" id="email" required={true} className="border-black border" />
+                </ Field>
 
-                <label htmlFor="username" className="text-2xl self-start">Username:</label>
-                <input type="username" id="username" required={true} className="border-black border" />
+                <Field>
+                    <Label htmlFor="username" className="text-2xl self-start">Username:</Label>
+                    <Input type="username" id="username" required={true} className="border-black border" />
+                </ Field>
 
-                <label htmlFor="password" className="text-2xl self-start">Password:</label>
-                <input type="password" id="password" required={true} className="border-black border" />
+                <Field>
+                    <Label htmlFor="password" className="text-2xl self-start">Password:</Label>
+                    <Input type="password" id="password" required={true} className="border-black border" />
+                </ Field>
 
-                <label htmlFor="password-repeat" className="text-2xl self-start">Repeat Password:</label>
-                <input type="password" id="password-repeat" required={true} className="border-black border" />
+                <Field>
+                    <Label htmlFor="password-repeat" className="text-2xl self-start">Repeat Password:</Label>
+                    <Input type="password" id="password-repeat" required={true} className="border-black border" />
+                </ Field>
 
-                <button type="submit">Sign Up</button>
-            </form>
+                <Button type="submit">Sign Up</Button>
+            </Form>
 
             <a href="" onClick={handleLoginClick}>Login here</a>
         </div>

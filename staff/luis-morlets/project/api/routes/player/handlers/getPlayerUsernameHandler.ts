@@ -1,5 +1,5 @@
 import { Response } from 'express'
-import IRequest from '../../../types.js'
+import { IRequest } from '../../../types.js'
 import logic from '../../../logic/index.js'
 
 import { createFunctionalHandler } from '../../helpers/index.js'

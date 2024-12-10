@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import logic from '../../logic'
 import useContext from '../useContext'
 
-export default function Play({ onQuitClick }) {
+export default function Play({ onQuitClick, onNewAdventure }) {
     const { playerId } = useParams()
 
     const { confirm } = useContext()
@@ -17,6 +17,12 @@ export default function Play({ onQuitClick }) {
         }, 'warn')
     }
 
+    const handleNewAdvClick = event => {
+        event.preventDefault()
+
+        onNewAdventure()
+    }
+
     return <main className="flex flex-col items-center justify-center h-screen w-screen bg-cover bg-center gap-24" style={{ backgroundImage: "url('/images/cursed.jpg')" }}>
 
         <img src="/images/Maintitle.png" alt="legend of the cursed kigndom title" className="self-center" />
@@ -24,7 +30,7 @@ export default function Play({ onQuitClick }) {
         <div className="text-4xl flex flex-col bg-black justify-center items-center">
 
             <button>Continue</button>
-            <button>New Adventure</button>
+            <button onClick={handleNewAdvClick}>New Adventure</button>
             <button>Settings</button>
             {logic.isPlayerLoggedIn() && <button onClick={handleQuitClick}>Quit</button>}
         </div>

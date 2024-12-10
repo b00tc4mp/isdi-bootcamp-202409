@@ -2,6 +2,7 @@ import useContext from './useContext'
 import logic from '../logic'
 
 import { errors } from 'com'
+import { Button, Field, Form, Input, Label } from './components/library'
 
 const { SystemError } = errors
 
@@ -50,24 +51,24 @@ export default function Login(props) {
 
     return <main className="flex flex-col items-center justify-center h-screen w-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/castillo.jpg')" }} >
 
-        <div className="flex flex-col items-center justify-center bg-[url('/images/menusbg.png')] bg-center bg-cover h-[30rem] w-full gap-20" >
+        <div className="flex flex-col items-center justify-center bg-[url('/images/menusbg.png')] bg-center bg-cover h-[35rem] w-[35%] gap-[4.5rem] border-4 border-black rounded-xl p-8" >
             <img src="/images/LoginTitle.png" alt="login title with icon" />
 
-            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center text-xl">
+            <Form onSubmit={handleSubmit} className="flex flex-col justify-center items-center text-xl">
                 <div>
-                    <field className="flex flex-col justify-center items-center" >
-                        <label htmlFor="username" className="text-2xl self-start">Username:</label>
-                        <input type="text" id="username" required={true} className="border-black border bg-[grey]" />
-                    </field>
+                    <Field className="flex flex-col justify-center items-center" >
+                        <Label htmlFor="username" className="text-2xl self-start">Username:</Label>
+                        <Input type="text" id="username" required={true} className="border-black border bg-[grey]" />
+                    </Field>
 
-                    <field className="flex flex-col justify-center items-center">
-                        <label htmlFor="password" className="text-2xl self-start">Password:</label>
-                        <input type="password" id="password" required={true} className="border-black border bg-[grey]" />
-                    </field>
+                    <Field className="flex flex-col justify-center items-center">
+                        <Label htmlFor="password" className="text-2xl self-start">Password:</Label>
+                        <Input type="password" id="password" required={true} className="border-black border bg-[grey]" />
+                    </Field>
                 </div>
 
-                <button type="submit">Sign In</button>
-            </form>
+                <Button type="submit">Sign In</Button>
+            </Form>
 
             <a href="" onClick={handleRegisterClick}>Register here</a>
         </div>

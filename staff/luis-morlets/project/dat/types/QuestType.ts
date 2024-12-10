@@ -1,10 +1,11 @@
-import { ObjectId } from 'mongoose'
+import mongoose from 'mongoose'
 
 type QuestType = {
+    _id: mongoose.Types.ObjectId
     name: string,
     description: string,
-    isCompleted: Boolean
-    parent: ObjectId
+    isCompleted: boolean,
+    parent: mongoose.Types.ObjectId
 }
 
 export default QuestType

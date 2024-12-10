@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRmODBlNzIxNDY1YWE0ODIyZjViMDIiLCJpYXQiOjE3MzM0MTgzOTksImV4cCI6MTczNDYyNzk5OX0.m-BEc7wZpzt3RYloN_vSOdRRQxs52xOPVflkVDngXqY' http://localhost:8080/game/674f80e721465aa4822f5b02/characters -v

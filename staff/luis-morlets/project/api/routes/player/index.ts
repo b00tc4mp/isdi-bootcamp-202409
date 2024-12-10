@@ -1,4 +1,4 @@
-import { RequestHandler, Router, json } from 'express'
+import { RequestHandler, Router } from 'express'
 
 import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
 import { registerPlayerHandler, authenticatePlayerHandler, getPlayerUsernameHandler } from './handlers/index.js'
