@@ -59,7 +59,7 @@ export default function Header(props) {
 
             <div className="grid grid-cols-2 justify-end items-center">
                 <div className="flex justify-end">
-                    <p className="text-[1.25rem]">{logic.isUserLoggedIn() && `${username}`}</p>
+                    <p className="text-[1.25rem]">{logic.isUserLoggedIn() && username !== null && `${username}`}</p>
                 </div>
 
                 <div>

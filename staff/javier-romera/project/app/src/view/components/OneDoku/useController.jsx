@@ -11,13 +11,15 @@ export default function useController() {
     const [index, setIndex] = useState(null)
     const [status, setStatus] = useState(null)
     const [inputValue, setInputValue] = useState('')
-    const [isTyping, setIsTyping] = useState('')
+    const [isTyping, setIsTyping] = useState(false)
     const [showBoard, setShowBoard] = useState(false)
     const [showGuessingDiv, setShowGuessingDiv] = useState(false)
     const [availableCharacters, setAvailableCharacters] = useState([])
     const [hp, setHp] = useState(3)
     const [time, setTime] = useState(Date.now())
-
+    const [winAlert, setWinAlert] = useState(false)
+    const [loseAlert, setLoseAlert] = useState(false)
+    console.log(answers)
     useEffect(() => {
         if (!characters && logic.isUserLoggedIn()) {
             const executeMain = async () => {
@@ -31,12 +33,30 @@ export default function useController() {
             executeMain()
         }
 
+        if (!status && logic.isUserLoggedIn())
+            try {
+                logic.getUserStatus()
+                    .then(setStatus)
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+
         if (didFinishBoard(userAnswers)) {
             const timeSpent = Date.now() - time
-            console.log(timeSpent)
+
             const parsedTime = getElapsedTime(timeSpent)
-            console.log(parsedTime)
+
             setTime(parsedTime)
+
+            try {
+                logic.setNewUserStatus(status, 'onedoku')
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
         }
     }, [userAnswers])
 
@@ -48,10 +68,8 @@ export default function useController() {
 
             do {
                 let conditions = await logic.getRandomConditions()
-                console.log(conditions) // TODO 🚬
 
                 let checkedAnswers = solveBoard(characters, conditions)
-                console.log(checkedAnswers) // TODO 🚬
 
                 if (checkedAnswers !== null) {
                     setAnswers(checkedAnswers)
@@ -97,6 +115,8 @@ export default function useController() {
             newUserAnswers.splice(currentIndex, 1, char)
             setUserAnswers(newUserAnswers)
 
+            if (didFinishBoard(newUserAnswers)) setWinAlert(true)
+
             const newAvailableCharacters = adjustAvailableCharacters(found, availableCharacters)
             setAvailableCharacters(newAvailableCharacters)
 
@@ -111,11 +131,31 @@ export default function useController() {
 
             const newHp = hp - 1
             setHp(newHp)
+
+            if (newHp === 0) setLoseAlert(true)
         }
     }
 
     const handleSubmit = event => {
         event.preventDefault()
+    }
+
+    const handleRefresh = () => {
+        setCharacters(null)
+        setAnswers(null)
+        setUserAnswers(Array(9))
+        setConditions(null)
+        setIndex(null)
+        setStatus(null)
+        setInputValue('')
+        setIsTyping(false)
+        setShowBoard(false)
+        setShowGuessingDiv(false)
+        setAvailableCharacters([])
+        setHp(3)
+        setTime(Date.now())
+        setLoseAlert(false)
+        setWinAlert(false)
     }
 
     return {
@@ -129,11 +169,17 @@ export default function useController() {
         userAnswers,
         hp,
         time,
+        winAlert,
+        loseAlert,
+
+        setWinAlert,
+        setLoseAlert,
 
         handleGridClick,
         handleGridGuessingExit,
         handleSubmit,
         handleInputChange,
-        handleCharacterSelected
+        handleCharacterSelected,
+        handleRefresh
     }
 }

@@ -43,7 +43,7 @@ export default function App() {
 
             <Route path="/onepiecedle" element={logic.isUserLoggedIn() ? <OnePieceDle onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
 
-            <Route path="/onedoku" element={<OneDoku />} />
+            <Route path="/onedoku" element={logic.isUserLoggedIn() ? <OneDoku onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
         </Routes>
 
         {location.pathname !== '/login' && location.pathname !== '/register' && !logic.isUserLoggedIn() && <NoUserLoggedInAlert asGuest={handlePlayAsGuestClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
