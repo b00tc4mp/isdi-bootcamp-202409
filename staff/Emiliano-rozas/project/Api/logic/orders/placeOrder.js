@@ -19,15 +19,17 @@ export default (userId) => {
         .catch(error => { throw new SystemError(error.message); })
         .then(([user, cart]) => {
             if (!user) throw new NotFoundError('user not found');
-            if (!cart) throw new NotFoundError('cart is empty');
+            if (!cart || cart.items.length === 0) throw new NotFoundError('cart is empty');
 
             // se crear OrderItem para cada item en el carrito, si no lo hacemos asi y lo hacemos como antes. se crea la orden pero sin OrderItems como tal
             const orderItems = cart.items.map(item => {
                 return OrderItem.create({
                     product: item.product,
                     quantity: item.quantity
+                }).catch(error => {
+                    throw new SystemError(error.message);
                 });
-            });
+            })
             // esperamos a que se creen todos los OrderItems
             return Promise.all(orderItems)
                 .then(orderItems => ({
@@ -43,11 +45,16 @@ export default (userId) => {
                 items: orderItems.map(orderItem => orderItem._id),
                 totalPrice: cart.totalPrice,
                 createdAt: new Date(),
+            }).catch(error => {
+                throw new SystemError(error.message);
             });
         })
         .then(order => {
             // vaciamos carrito
             return Cart.updateOne({ user: userId }, { items: [], totalPrice: 0 })
+                .catch(error => {
+                    throw new SystemError(error.message);
+                })
                 .then(() => order);
         })
         .then(order => ({

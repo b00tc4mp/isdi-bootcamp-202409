@@ -9,6 +9,8 @@ import ProductItem from './ProductItem'
 import Title from './Title'
 import RelatedProducts from './RelatedProducts'
 import CartTotal from './CartTotal'
+import PaymentForm from './PaymentForm'
+
 
 export {
     Hero,
@@ -21,5 +23,7 @@ export {
     ProductItem,
     Title,
     RelatedProducts,
-    CartTotal
+    CartTotal,
+    PaymentForm
+
 }

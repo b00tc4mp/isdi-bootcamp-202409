@@ -22,7 +22,7 @@ export default function LatestArrivals() {
     return (
         <div className='my-10' >
             {/* Metemos el compo de titulos */}
-            <div className='text-center py-8 text-3x1'>
+            <div className='text-center py-8 text-3xl'>
                 <Title text1={'LATEST '} text2={' ARRIVALS'} />
                 <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-white'>
                     Discover the newest additions to our collection, handpicked just for you.

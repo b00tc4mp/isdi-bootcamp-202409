@@ -22,6 +22,11 @@ import {
     updateOrder
 } from './orders/index'
 
+import {
+    processPayment,
+    retrievePayment
+} from './payments/index'
+
 
 const logic = {
     registerUser,
@@ -38,7 +43,9 @@ const logic = {
     updateQuantity,
     placeOrder,
     getOrders,
-    updateOrder
+    updateOrder,
+    processPayment,
+    retrievePayment
 }
 
 export default logic

@@ -1,0 +1,3 @@
+const SECRET_KEY = 'sk_test_51QU9fX2MF6fQIQKDIAReWdDOkLZgxKZeZMVSQ4WPYFGRRzz7nIbY2bRKwhgHpXWczMin2ms1PTk3s0IhmYMwIZxE00i1wkQt9D'
+
+const paymentIntent = await stripe.paymentIntents.retrieve()
