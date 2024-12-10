@@ -59,6 +59,56 @@ const comment = new Schema({
   }
 })
 
+const point = new Schema({
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: true,
+    default: 'Point'
+  },
+  coord: {
+    type: [Number],
+    required: true
+  }
+})
+
+const location = new Schema({
+  address: {
+    type: string,
+    maxLength: 100,
+    required: false
+  },
+  location: {
+    type: point,
+    required: false
+  }
+})
+
+const store = new Schema({
+  name: {
+    type: string,
+    required: true,
+    maxLength: 150
+  },
+  web: {
+    type: string,
+    required: true,
+    maxLength: 200
+  },
+  locations: [location]
+})
+
+const storePrice = new Schema({
+  store: [{
+    type: ObjectId,
+    ref: 'Store'
+  }],
+  price: {
+    type: Number,
+    required: true
+  }
+})
+
 const product = new Schema({
   name: {
     type: String,
@@ -87,67 +137,25 @@ const product = new Schema({
     type: ObjectId,
     ref: 'User'
   }],
-  //storePrices: [storePrice],
-
+  storePrices: [storePrice],
   comments: [comment]
 }, { versionKey: false })
 
-// const storePrice = new Schema({
-//   store: [{
-//     type: ObjectId,
-//     ref: 'Store'
-//   }],
-//   price: {
-//     type: Number,
-//     required: true
-//   }
-// })
-
-
-
-// const store = new Schema({
-//   web: {
-//     type: string,
-//     required: true,
-//     maxLength: 200
-//   },
-//   locations: [location]
-// })
-
-// const location = new Schema({
-//   address: {
-//     type: string,
-//     required: false,
-//     maxLength: 100,
-//   },
-//   location: {
-//     type: ObjectId,
-//     ref: 'Point'
-//   }
-// })
-
-// const point = new Schema({
-//   type: String,
-//   coord: {
-//     type: [Number],
-//     required: true
-//   }
-// })
 
 const User = model('User', user)
 const Product = model('Product', product)
-// const StorePrice = model('StorePrice', storePrice)
+const StorePrice = model('StorePrice', storePrice)
 const Comment = model('Comment', comment)
-// const Store = model('Store', store)
-// const Location = model('Location', location)
-// const Point = model('Point', point)
+const Store = model('Store', store)
+const Location = model('Location', location)
+const Point = model('Point', point)
 
 export {
   User,
-  Product,
-  // StorePrice,
-  Comment
-  // Store,
-  // Location,
-  // Point
+  Comment,
+  Point,
+  Location,
+  Store,
+  StorePrice,
+  Product
 }

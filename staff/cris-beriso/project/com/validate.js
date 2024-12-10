@@ -42,7 +42,7 @@ const validateCategory = category => {
 
 const validateKeyWord = keyWord => {
   if (typeof keyWord !== 'string') throw new ValidationError('invalid keyword')
-  if (keyWord.length > 10) throw new ValidationError('key word too long')
+  if (keyWord.length > 20) throw new ValidationError('keyword too long')
 }
 const validateText = text => {
   if (typeof text !== 'string') throw new ValidationError('invalid text')

@@ -5,7 +5,7 @@ import db from 'dat'
 db.connect(process.env.MONGO_URL_TEST)
   .then(() => {
     try {
-      return searchProducts('6756e063ba3b6f062cdb81c4', 'Rostro')
+      return searchProducts('67580aca5b4f252838815bfc', 'Rostro', 'polvo')
         .then(console.log)
         .catch(console.error)
     } catch (error) {

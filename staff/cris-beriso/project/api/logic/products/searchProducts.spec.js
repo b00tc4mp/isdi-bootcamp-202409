@@ -22,16 +22,17 @@ describe('searchProducts', () => {
     const user = new User({ name: 'Coco Liso', email: 'coco@liso.com', username: 'cocoliso', password: 'criscris' })
     const product1 = new Product({ name: 'NameProduct1', category: 'Rostro', image: 'https://www.image.com', description: 'Description of product 1' })
 
-
     return Promise.all([user.save(), product1.save()])
       .then(([user, product1]) =>
-        searchProducts(user.id, 'Rostro')
+        searchProducts(user.id, 'Rostro', 'product')
           .then(product => {
             expect(product).to.have.lengthOf(1)
             expect(product[0].id).to.equal(product1.id)
             expect(product[0].name).to.equal(product1.name)
             expect(product[0].image).to.equal(product1.image)
             expect(product[0].description).to.equal(product1.description)
+
+            expect(product[0].description).to.includes('product')
           })
       )
   })

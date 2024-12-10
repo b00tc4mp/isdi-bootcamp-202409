@@ -15,7 +15,7 @@ export default (userId, category, keyword = null) => {
   const query = { category: category }
 
   if (keyword) {
-    query.keyword = { $in: [keyword] }
+    query.description = { $regex: keyword, $options: 'i' }
   }
 
   return Promise.all([
