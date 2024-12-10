@@ -2,16 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, } from './view'
-
-import Hello from './view/Hello'
-import Profile from './view/Profile'
+import { Login, Register, Home, Hello, Profile, CreatePost, PostView } from './view'
 
 import { Context } from './view/useContext'
 
 import logic from './logic'
 import { Alert, Menu } from './view/components'
-import CreatePost from './view/CreatePost'
 
 
 
@@ -62,10 +58,11 @@ export default function App() {
 
             <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
 
-            {/* extra demos */}
+
             <Route path="/hello/:name" element={<Hello />} />
-            <Route path="/profile/:userId/*" element={<Profile handleUserLoggedOut={handleUserLoggedOut} />} />
+            <Route path="/profile/:userId" element={<Profile handleUserLoggedOut={handleUserLoggedOut} />} />
             <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/post/:postId" element={<PostView />} />
 
         </Routes>
 

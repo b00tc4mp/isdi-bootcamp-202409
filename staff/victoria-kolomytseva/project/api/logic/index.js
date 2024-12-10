@@ -8,7 +8,8 @@ import {
 
 import {
     createPost,
-    getPosts
+    getPosts,
+    getPostById
 
 } from './posts/index.js'
 
@@ -18,10 +19,12 @@ const logic = {
     authenticateUser,
     saveUser,
     getUserById,
+    getPostById,
 
 
     createPost,
-    getPosts
+    getPosts,
+    getPostById
 }
 
 export default logic

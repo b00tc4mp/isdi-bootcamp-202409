@@ -10,13 +10,14 @@ import {
     getUserRole,
     isUserRoleModerator,
     isUserRoleRegular,
-    getUserLocation
+
 } from './users'
 
 
 import {
     createPost,
-    getPosts
+    getPosts,
+    getPostById
 } from './posts'
 
 const logic = {
@@ -30,10 +31,11 @@ const logic = {
     isUserRoleModerator,
     isUserRoleRegular,
     logoutUser,
-    getUserLocation,
+
 
     createPost,
-    getPosts
+    getPosts,
+    getPostById
 }
 
 export default logic

@@ -1,56 +1,56 @@
 import logic from '../logic'
-import { getUserLocation } from '../logic/users'
 import { useEffect, useState } from 'react'
 import useContext from './useContext'
 import { Label, Input, Button, Form, Field } from './library'
-
-
+import { imageToBase64 } from '../util'
 
 export default function CreatePost() {
     console.log('CreatePost -> render')
-    const [location, setLocation] = useState({
-        latitude: null,
-        longitude: null
-    })
+    const [images, setImages] = useState([])
     const { alert } = useContext()
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault()
 
         const { target: form } = event
 
         const {
-            image: { value: image },
             petType: { value: petType },
             whatHappened: { value: whatHappened },
             petGender: { value: petGender },
             text: { value: text }
         } = form
 
-        const { latitude, longitude } = location
+        const files = form.image.files
+        const filetoB64Conversions = Array.prototype.map.call(files, imageToBase64)
 
-        try {
-            logic.createPost(image, whatHappened, petType, petGender, text, latitude, longitude)
-                .then(() => {
-                    alert('Saved successfully', 'success')
-                })
-                .catch(error => {
-                    alert(error.message)
+        Promise.all(filetoB64Conversions).then((filesb64) => {
+            try {
+                logic.createPost(filesb64[0], whatHappened, petType, petGender, text)
+                    .then((createdPost) => {
+                        alert('Saved successfully', 'success')
+                        form.reset()
+                    })
+                    .catch(error => {
+                        alert(error.message)
 
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
+                        console.error(error)
+                    })
+            } catch (error) {
+                alert(error.message)
 
-            console.error(error)
-        }
+                console.error(error)
+            }
+        })
     }
 
-    const handleLocationUser = async event => {
-        event.preventDefault()
-        const location = await logic.getUserLocation()
-        console.log(location)
-        setLocation({ latitude: location.coords.latitude, longitude: location.coords.longitude })
+
+    const handleImageChange = (event) => {
+        const { files } = event.target
+        const images = Array.prototype.map.call(files, (file) =>
+            URL.createObjectURL(file)
+        )
+        setImages(images)
     }
 
     return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
@@ -130,11 +130,8 @@ export default function CreatePost() {
             <Field>
 
                 <Label htmlFor="image" className='text-center font-medium mt-1 w-30'>Upload image</Label>
-                <Input type="text" id="image" />
+                <input type="file" name="image" id="image" onChange={handleImageChange} />
 
-            </Field>
-            <Field>
-                <Button type="button" onClick={handleLocationUser} className="from-primary-light to-primary-dark bg-gradient-to-b mt-1 w-40 mx-auto">Share my location</Button>
             </Field>
             <Button type="submit" className="from-primary-light to-primary-dark bg-gradient-to-b mt-1 w-40 mx-auto">Create</Button>
         </Form>

@@ -3,11 +3,10 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, image, whatHappened, petType, petGender, text, latitude, longitude) => {
+export default (userId, image, whatHappened, petType, petGender, text) => {
     validate.id(userId, 'userId')
-    validate.image(image)
     validate.text(petType)
-    console.log('what happened ==> ', whatHappened)
+    validate.image(image)
     validate.text(whatHappened)
     validate.text(petGender)
 
@@ -18,7 +17,7 @@ export default (userId, image, whatHappened, petType, petGender, text, latitude,
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Post.create({ author: userId, image, whatHappened, petType, petGender, text, latitude, longitude })
+            return Post.create({ author: userId, image, whatHappened, petType, petGender, text })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

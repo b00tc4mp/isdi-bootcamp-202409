@@ -2,8 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (image, whatHappened, petType, petGender, text, latitude, longitude) => {
-    validate.text(image)
+export default (image, whatHappened, petType, petGender, text) => {
     validate.text(petType)
     validate.text(whatHappened)
     validate.text(petGender)
@@ -14,7 +13,7 @@ export default (image, whatHappened, petType, petGender, text, latitude, longitu
             Authorization: `Bearer ${localStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, whatHappened, petType, petGender, text, latitude, longitude })
+        body: JSON.stringify({ image, whatHappened, petType, petGender, text })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
