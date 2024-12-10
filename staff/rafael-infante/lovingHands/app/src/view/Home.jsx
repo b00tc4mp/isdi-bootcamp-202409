@@ -7,6 +7,7 @@ export default function Home() {
   const [name, setName] = useState(null)
   const [ads, setAds] = useState([])
   const [view, setView] = useState(null)
+  const [userLocation, setUserLocation] = useState(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -50,10 +51,24 @@ export default function Home() {
   }
 
   const handleNearAds = () => {
-    if (!view) {
-      refreshAds()
+    const userConsent = window.confirm('Do you want to share your location to see ads near you?')
+
+    if (!userConsent) {
+      alert('You need to share your location to use this feature.')
+      return
     }
-    setView(view ? null : 'near-ads')
+
+    logic
+      .getUserLocation()
+      .then((location) => {
+        setUserLocation([location.lat, location.lon])
+        refreshAds()
+        setView('near-ads')
+      })
+      .catch((error) => {
+        console.error('Error getting user location:', error.message)
+        alert('Unable to fetch your location. Please enable location services.')
+      })
   }
 
   const handleCloseMap = () => setView(null)
@@ -105,7 +120,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {view === 'near-ads' && (
+      {view === 'near-ads' && userLocation && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="relative bg-white rounded-lg shadow-lg w-3/4 max-w-2xl">
             <button onClick={handleCloseMap} className="absolute top-3 right-3 text-gray-500 hover:text-black">
@@ -113,7 +128,7 @@ export default function Home() {
             </button>
             <div className="p-4">
               <h2 className="text-lg font-bold mb-4 text-center text-gray-700">Ads near me</h2>
-              <Location center={[36.65828299157615, -4.758113125318474]} ads={ads} />
+              <Location center={userLocation} ads={ads} />
             </div>
           </div>
         </div>

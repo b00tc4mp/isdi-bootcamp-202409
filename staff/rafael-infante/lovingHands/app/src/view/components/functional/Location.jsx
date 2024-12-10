@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import markerIcon from '../../../assets/gps.png'
 
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -9,14 +10,30 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 })
 
+const customIcon = new L.Icon({
+  iconUrl: markerIcon, // Cambia esta URL por la de tu icono personalizado
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconSize: [29, 35], // Tamaño del ícono
+  iconAnchor: [12, 28], // Punto de anclaje (base del ícono)
+  shadowSize: [20, 20],
+  shadowAnchor: [12, 41],
+})
+
 export default function Location({ center, ads }) {
   return (
     <div style={{ height: '300px', width: '100%' }}>
-      <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
+
+        <Marker position={center} icon={customIcon}>
+          <Tooltip permanent>
+            <strong>You are here</strong>
+          </Tooltip>
+        </Marker>
+
         {ads.map((ad) => (
           <Marker key={ad.id} position={ad.location.coordinates}>
             <Tooltip permanent>
