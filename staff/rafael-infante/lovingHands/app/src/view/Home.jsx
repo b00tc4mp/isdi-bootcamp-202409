@@ -8,6 +8,7 @@ export default function Home() {
   const [ads, setAds] = useState([])
   const [view, setView] = useState(null)
   const [userLocation, setUserLocation] = useState(null)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -31,9 +32,9 @@ export default function Home() {
     } else setName(null)
   }, [name])
 
-  const handleFindAdsClick = () => {
-    navigate('/ads')
-  }
+  const handleFindAdsClick = () => navigate('/ads')
+
+  const handleFavoritesClick = () => navigate('/favorites')
 
   const refreshAds = () => {
     try {
@@ -111,10 +112,10 @@ export default function Home() {
                 Ads near me
               </a>
               <a
-                href="/messages"
+                onClick={handleFavoritesClick}
                 className="flex flex-col items-center justify-center bg-[#D1AFA0] text-white rounded-lg p-4 shadow hover:bg-[#E84D67] hover:text-white transition duration-200"
               >
-                Saved posts
+                Favorite Ads
               </a>
             </div>
           </div>

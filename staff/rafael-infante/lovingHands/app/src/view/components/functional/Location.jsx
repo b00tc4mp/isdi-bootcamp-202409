@@ -11,15 +11,15 @@ L.Icon.Default.mergeOptions({
 })
 
 const customIcon = new L.Icon({
-  iconUrl: markerIcon, // Cambia esta URL por la de tu icono personalizado
+  iconUrl: markerIcon,
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-  iconSize: [29, 35], // Tamaño del ícono
-  iconAnchor: [12, 28], // Punto de anclaje (base del ícono)
+  iconSize: [29, 35],
+  iconAnchor: [12, 28],
   shadowSize: [20, 20],
   shadowAnchor: [12, 41],
 })
 
-export default function Location({ center, ads }) {
+export default function Location({ center, ads, showUserMarker = true }) {
   return (
     <div style={{ height: '300px', width: '100%' }}>
       <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }}>
@@ -28,11 +28,13 @@ export default function Location({ center, ads }) {
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        <Marker position={center} icon={customIcon}>
-          <Tooltip permanent>
-            <strong>You are here</strong>
-          </Tooltip>
-        </Marker>
+        {showUserMarker && (
+          <Marker position={center} icon={customIcon}>
+            <Tooltip permanent>
+              <strong>You are here</strong>
+            </Tooltip>
+          </Marker>
+        )}
 
         {ads.map((ad) => (
           <Marker key={ad.id} position={ad.location.coordinates}>

@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { Login, Home, Register, Welcome, CreateAd, AdList } from './view'
+import { Login, Home, Register, Welcome, CreateAd, AdList, FavoriteAds } from './view'
 import { Header, Footer } from './view/components'
 import logic from './logic'
 
@@ -48,6 +48,7 @@ export default function App() {
           path="/new-ad"
           element={logic.isUserLoggedIn() ? <CreateAd onCreated={handleAdCreated} /> : <Navigate to="/welcome" />}
         />
+        <Route path="/favorites" element={logic.isUserLoggedIn() ? <FavoriteAds /> : <Navigate to="/welcome" />} />
       </Routes>
       {logic.isUserLoggedIn() && (
         <Footer onNewAdClick={handleNewAdClick} onHomeClick={handleHomeClick} onProfileClick={handleProfileClick} />
