@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import { SectionHeader, SectionContainer } from './components'
-import Reminder from './CreateReminder.jsx'
 import { CalendarButton, Button } from './library'
 import { getFirstDayWeek, getMonthDays, getMonthName, getYear } from '../logic/calendar/index.js'
-import logic from '../logic/index.js'
-import { errors } from 'com'
-import useContext from './useContext.js'
 import CreateReminder from './CreateReminder.jsx'
 import Reminders from './Reminders.jsx'
 
@@ -13,8 +9,6 @@ export default function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [selectedDate, setSelectedDate] = useState(null)
     const [selectedDay, setSelectedDay] = useState(null)
-    const [reminders, setReminders] = useState(null)
-    const { alert } = useContext()
     const [view, setView] = useState(null)
 
     const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -50,10 +44,13 @@ export default function Calendar() {
     }
 
     const handleReminderCreated = () => {
-        setView(null)
+        setView('reminders')
     }
     const handleCancelClick = () => {
         setView(null)
+    }
+    const handleAcceptedClick = () => {
+        setView('new-reminder')
     }
 
     return <main className='flex flex-col items-center px-6 py-8 bg-gray-50 min-h-screen pb-14'>
@@ -91,7 +88,7 @@ export default function Calendar() {
         {selectedDate &&
             <SectionContainer>
                 {view === 'new-reminder' && <CreateReminder date={date} onCreated={handleReminderCreated} onCancelClick={handleCancelClick} />}
-                {view === 'reminders' && <Reminders date={date} onCreated={handleReminderCreated} onCancelClick={handleCancelClick} />}
+                {view === 'reminders' && <Reminders date={date} onCreated={handleReminderCreated} onCancelClick={handleCancelClick} onAcceptedClick={handleAcceptedClick} />}
             </SectionContainer>
         }
     </main >

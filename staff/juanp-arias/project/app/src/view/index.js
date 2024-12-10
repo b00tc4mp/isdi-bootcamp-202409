@@ -5,12 +5,12 @@ import Home from './Home'
 import Profile from './Profile'
 import Calendar from './Calendar'
 import Notes from './Notes'
-import Alerts from './Alerts'
+import Tasks from './Tasks'
 import CreateNote from './CreateNote'
 import EditNote from './EditNote'
 import CreateReminder from './CreateReminder'
 import Reminders from './Reminders'
-
+import Groups from './Groups'
 export {
     Login,
     Register,
@@ -22,8 +22,10 @@ export {
     Notes,
     CreateNote,
     EditNote,
-    Alerts,
+    Tasks,
 
     CreateReminder,
-    Reminders
+    Reminders,
+
+    Groups
 }

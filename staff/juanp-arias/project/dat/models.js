@@ -63,7 +63,7 @@ const user = new Schema({
         enum: ['student', 'teacher'],
         default: 'student'
     },
-    reminders: [reminder],
+    reminders: [reminder]
 }, { versionKey: false })
 
 const group = new Schema({

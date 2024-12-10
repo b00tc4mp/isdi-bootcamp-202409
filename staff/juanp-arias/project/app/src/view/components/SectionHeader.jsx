@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import logic from '../../logic'
 import logo from '../../assets/logo.png'
+import useContext from '../useContext'
 
 export default function SectionHeader({ sectionName }) {
     const [name, setName] = useState(null)
     const location = useLocation()
-
+    const { alert } = useContext()
+    
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
             if (!name)

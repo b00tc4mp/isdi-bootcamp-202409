@@ -9,6 +9,6 @@ import {
 const remindersRouter = Router()
 
 remindersRouter.post('/', jsonBodyParser, authorizationHandler, createReminderHandler)
-remindersRouter.get('/', authorizationHandler, getRemindersHandler)
+remindersRouter.get('/:date', authorizationHandler, getRemindersHandler)
 
 export default remindersRouter

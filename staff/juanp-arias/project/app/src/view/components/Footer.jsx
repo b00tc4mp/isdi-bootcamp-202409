@@ -1,4 +1,5 @@
 import { Navigation } from '../library'
+import logic from '../../logic'
 
 export default function Footer(props) {
     return <footer className='fixed bottom-0 left-0 w-full bg-blue-500 text-white py-2'>
@@ -15,9 +16,15 @@ export default function Footer(props) {
                 <span>🏠</span>
                 <span>Home</span>
             </Navigation>
-            <Navigation to='/alerts'>
+            {logic.isUserRoleTeacher() && (
+                <Navigation to='/groups'>
+                    <span>👨‍👩‍👧‍👦</span>
+                    <span>Groups</span>
+                </Navigation>
+            )}
+            <Navigation to='/tasks'>
                 <span>🔔</span>
-                <span>Alerts</span>
+                <span>Tasks</span>
             </Navigation>
             <Navigation to='/profile'>
                 <span>🙍</span>

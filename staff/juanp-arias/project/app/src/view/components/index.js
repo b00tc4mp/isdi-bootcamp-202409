@@ -6,6 +6,8 @@ import Confirm from './Confirm'
 import SectionContainer from './SectionContainer'
 import Note from './Note'
 import Reminder from './Reminder'
+import Group from './Group'
+import CreateGroup from './CreateGroup'
 
 export {
     Header,
@@ -16,5 +18,7 @@ export {
     SectionContainer,
 
     Note,
-    Reminder
+    Reminder,
+    Group,
+    CreateGroup
 }

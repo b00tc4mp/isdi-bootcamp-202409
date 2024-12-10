@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, Alerts, CreateNote, EditNote } from './view'
-import { Header, Footer, Alert, Confirm } from './view/components'
+import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, CreateNote, EditNote, Tasks, Groups } from './view'
+import { Header, Footer, Alert, Confirm, Group } from './view/components'
 import { Context } from './view/useContext'
 import logic from './logic'
 
@@ -82,11 +82,13 @@ export default function App() {
 
       <Route path="/notes" element={logic.isUserLoggedIn() ? <Notes onEditClick={handleEditClick} /> : <Navigate to="/welcome" />} />
 
-      <Route path="/notes/new-note" element={logic.isUserLoggedIn() ? <CreateNote onCreated={handleNoteCreated} /> : <Navigate to="/welcome" />} />
+      <Route path="/notes/new-note" element={logic.isUserLoggedIn() ? <CreateNote onCreated={handleNoteCreated} onCancelClick={handleNoteEdited} /> : <Navigate to="/welcome" />} />
 
       <Route path="/notes/:noteId" element={logic.isUserLoggedIn() ? <EditNote onEdited={handleNoteEdited} onCancelClick={handleNoteEdited} /> : <Navigate to="/welcome" />} />
 
-      <Route path="/alerts" element={logic.isUserLoggedIn() ? <Alerts /> : <Navigate to="/welcome" />} />
+      <Route path="/tasks" element={logic.isUserLoggedIn() ? <Tasks /> : <Navigate to="/welcome" />} />
+
+      <Route path="/groups" element={logic.isUserLoggedIn() && logic.isUserRoleTeacher ? <Groups /> : <Navigate to="/welcome" />} />
 
     </Routes>
     {logic.isUserLoggedIn() && <Footer />}

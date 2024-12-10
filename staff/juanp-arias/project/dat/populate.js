@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs'
 import db, { User, Note, Task, Group, Reminder } from './index.js'
 
 db.connect(process.env.MONGO_URL_TEST)
-    .then(() => Promise.all([User.deleteMany(), Note.deleteMany()]))
+    .then(() => Promise.all([User.deleteMany(), Note.deleteMany(), Reminder.deleteMany()]))
     .then(() => fs.readFile('./users.csv', 'utf-8'))
     .then(csv => {
         const lines = csv.split('\n')
@@ -17,26 +17,6 @@ db.connect(process.env.MONGO_URL_TEST)
 
         })
         return Promise.all(creations)
-    })
-    .then(users => {
-        return fs.readFile('./notes.csv', 'utf-8')
-            .then(csv => {
-                const lines = csv.split('\n')
-
-                const creations = lines.map(async line => {
-                    const [namefind, date, text] = line.split(',').map(item => item.trim())
-
-                    const user = users.find(user => user.name === namefind)
-
-                    const note = await Note.create({ author: user._id, date, text })
-
-                    // Update user's notes array
-                    await User.findByIdAndUpdate(user._id, { $push: { notes: note } })
-
-                    return note
-                })
-                return Promise.all(creations)
-            })
     })
     .catch(console.error)
     .finally(() => db.disconnect())
