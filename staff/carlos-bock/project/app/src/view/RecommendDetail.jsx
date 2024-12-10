@@ -4,12 +4,15 @@ import logic from '../logic/index.js'
 import Button from './library/Button.jsx'
 import getElapsedTime from '../util/getElapsedTime.js'
 import useContext from './useContext.js'
+import CommentsInRec from './components/CommentsInRec.jsx'
 
 export default function RecommendDetail() {
     const { id } = useParams()
     const [recommend, setRecommend] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [view, setView] = useState(null)
+    const [newComment, setNewComment] = useState('')
     const { alert, confirm } = useContext()
 
     useEffect(() => {
@@ -29,6 +32,9 @@ export default function RecommendDetail() {
         getRecommend()
 
     }, [id, alert])
+
+
+    const handleCommentsClick = () => setView(view ? null : 'comments')
 
     if (loading) { return <p>Cargando...</p> }
 
@@ -51,11 +57,14 @@ export default function RecommendDetail() {
 
         <p>{text}</p>
 
-        <button>💬 {comments.length}</button>
+        <button onClick={handleCommentsClick}>💬 {comments.length}</button>
+
+        {view === 'comments' && (<CommentsInRec recommendId={id} recommendText={text} />)}
+
 
         {logic.isUserModerator() && <Button>🧯</Button>}
 
-        <img src={image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/HTTP_logo.svg/180px-HTTP_logo.svg.png'} alt={subject} />
+        <img className='img' src={image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/HTTP_logo.svg/180px-HTTP_logo.svg.png'} alt={subject} />
 
     </article>
 

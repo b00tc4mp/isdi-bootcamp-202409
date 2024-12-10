@@ -151,3 +151,10 @@ button {
   padding-bottom: 65px;
 
 }
+
+.img {
+  display: block;
+  max-width: 90%;
+  height: auto;
+  margin: 0 auto;
+}

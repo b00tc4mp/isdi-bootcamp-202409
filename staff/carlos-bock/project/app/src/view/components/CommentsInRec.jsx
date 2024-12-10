@@ -5,7 +5,7 @@ import AddComment from './AddComment.jsx'
 
 import logic from '../../logic/index.js'
 
-export default function Comments(props) {
+export default function CommentsInRec(props) {
     const [comments, setComments] = useState([])
 
     useEffect(() => {
@@ -41,12 +41,39 @@ export default function Comments(props) {
         }
     }
 
+    const handleRemoved = () => {
+        try {
+            logic.getComments(props.recommendId)
+                .then(comments => {
+                    setComments(comments)
 
+                    props.onRemoved()
+                })
+                .catch(error => {
+                    alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
 
     console.log('Comments -> render')
-
+    console.log(comments)
     return <section>
-        <p>{props.recommendText}</p>{/**/}
+        <ul>
+            {comments.map(comment =>
+                <Comment
+                    key={comment.id}
+                    recommendIdId={props.recommendId}
+                    comment={comment}
+                    onRemoved={handleRemoved}
+                />)
+            }
+        </ul>
 
         <AddComment
             recommendId={props.recommendId}
