@@ -5,6 +5,7 @@ import chaiAsPromised from 'chai-as-promised';
 
 chai.use(chaiAsPromised)
 const { expect } = chai
+import bcrypt from 'bcryptjs'
 
 import db, { User } from 'dat'
 import { errors } from 'com'
@@ -19,7 +20,7 @@ describe('getCharacterByName', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user and sending name', async () => {
-        const user = await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: '123123123' })
+        const user = await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 
         const char = await getCharacterByName(user.id, 'Monkey D. Luffy')
 
@@ -29,7 +30,7 @@ describe('getCharacterByName', () => {
     })
 
     it('succeeds on existing user and sending alias', async () => {
-        const user = await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: '123123123' })
+        const user = await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 
         const char = await getCharacterByName(user.id, 'Luffy')
 
@@ -49,12 +50,16 @@ describe('getCharacterByName', () => {
     })
 
     it('fails on non-existing character', async () => {
-        const user = await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: '123123123' })
+        const user = await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 
         expect(
             getCharacterByName(user.id, 'Ruffy')
         ).to.be.rejectedWith(NotFoundError, /^character not found$/)
     })
+
+    it('fails on non-24-chars-length user-id', () =>
+        expect(() => getCharacterByName('0123', 'Luffy')).to.throw(ValidationError, /^Invalid userId length$/)
+    )
 
     after(() => db.disconnect())
 })

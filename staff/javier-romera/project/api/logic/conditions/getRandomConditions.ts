@@ -4,7 +4,7 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 export default function getRandomConditions(userId: string) {
-    validate.id(userId)
+    validate.id(userId, 'userId')
 
     return (async () => {
         let user, columnConditions, rowConditions

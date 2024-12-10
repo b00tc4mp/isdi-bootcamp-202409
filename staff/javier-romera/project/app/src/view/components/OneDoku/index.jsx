@@ -19,6 +19,7 @@ export default function OneDoku() {
         availableCharacters,
         userAnswers,
         hp,
+        time,
 
         handleGridClick,
         handleGridGuessingExit,
@@ -90,6 +91,6 @@ export default function OneDoku() {
 
         {hp === 0 && <LoseScreen />}
 
-        {didFinishBoard(userAnswers) && <WinScreen />}
+        {didFinishBoard(userAnswers) && <WinScreen timeSpent={time} />}
     </main>
 }

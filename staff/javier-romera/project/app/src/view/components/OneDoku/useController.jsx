@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import logic from '../../../logic'
-import { solveBoard, validateGuess, adjustAvailableCharacters, validateAnswer } from '../../../util'
+import { solveBoard, validateGuess, adjustAvailableCharacters, validateAnswer, didFinishBoard, getElapsedTime } from '../../../util'
 
 export default function useController() {
     const [characters, setCharacters] = useState(null)
@@ -16,6 +16,7 @@ export default function useController() {
     const [showGuessingDiv, setShowGuessingDiv] = useState(false)
     const [availableCharacters, setAvailableCharacters] = useState([])
     const [hp, setHp] = useState(3)
+    const [time, setTime] = useState(Date.now())
 
     useEffect(() => {
         if (!characters && logic.isUserLoggedIn()) {
@@ -29,7 +30,15 @@ export default function useController() {
 
             executeMain()
         }
-    }, [])
+
+        if (didFinishBoard(userAnswers)) {
+            const timeSpent = Date.now() - time
+            console.log(timeSpent)
+            const parsedTime = getElapsedTime(timeSpent)
+            console.log(parsedTime)
+            setTime(parsedTime)
+        }
+    }, [userAnswers])
 
     async function main() {
         try {
@@ -102,15 +111,6 @@ export default function useController() {
 
             const newHp = hp - 1
             setHp(newHp)
-
-            if (newHp > 0) {
-                setShowGuessingDiv(false)
-                setInputValue("")
-                setIsTyping(false)
-            }
-            else {
-                console.log('perdiste guachin')
-            }
         }
     }
 
@@ -128,6 +128,7 @@ export default function useController() {
         availableCharacters,
         userAnswers,
         hp,
+        time,
 
         handleGridClick,
         handleGridGuessingExit,

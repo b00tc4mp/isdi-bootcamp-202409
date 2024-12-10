@@ -5,6 +5,7 @@ import chaiAsPromised from 'chai-as-promised';
 
 chai.use(chaiAsPromised)
 const { expect } = chai
+import bcrypt from 'bcryptjs'
 
 import db, { User } from 'dat'
 import { errors } from 'com'
@@ -19,7 +20,7 @@ describe('getRandomCharacter', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', async () => {
-        const user = await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: '123123123' })
+        const user = await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 
         const char = await getRandomCharacter(user.id)
 

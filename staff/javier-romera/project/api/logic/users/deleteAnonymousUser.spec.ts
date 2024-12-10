@@ -43,5 +43,11 @@ describe('deleteAnonymousUser', () => {
         ).to.be.rejectedWith(ValidationError, /^user is not anonymous$/)
     })
 
+    it('fails on non-valid userId length', () =>
+        expect(() =>
+            deleteAnonymousUser('0123')
+        ).to.throw(ValidationError, /^Invalid userId length$/)
+    )
+
     after(() => db.disconnect())
 })

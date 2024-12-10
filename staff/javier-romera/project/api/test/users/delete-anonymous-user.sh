@@ -1,0 +1,1 @@
+curl -X 'DELETE' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU4MjZjNzY3NTlhM2ZkNmRkNzhlY2EiLCJyb2xlIjoiYW5vbnltb3VzIiwiaWF0IjoxNzMzODMwMzQzLCJleHAiOjE3MzUwMzk5NDN9.U9ds2wxIInY7fSpE80_3NK2BZR1BMeNTTA1KVBLN33w' http://localhost:8080/users/anonymous -v

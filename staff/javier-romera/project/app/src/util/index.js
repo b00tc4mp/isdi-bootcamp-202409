@@ -15,6 +15,7 @@ import solveBoard from './solveBoard'
 import getConditionText from './getConditionText'
 import validateAnswer from './validateAnswer'
 import didFinishBoard from './didFinishBoard'
+import getElapsedTime from './getElapsedTime'
 
 export {
     extractPayloadFromJWT,
@@ -33,5 +34,6 @@ export {
     solveBoard,
     getConditionText,
     validateAnswer,
-    didFinishBoard
+    didFinishBoard,
+    getElapsedTime
 }

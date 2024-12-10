@@ -10,7 +10,7 @@ const { expect } = chai
 import db, { User } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError } = errors
+const { NotFoundError, ValidationError } = errors
 
 import setNewUserStatus from './setNewUserStatus.js'
 
@@ -101,6 +101,20 @@ describe('setNewUserStatus', () => {
             setNewUserStatus('012345678901234567890123', 0, 'onepiecedle')
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
+
+    it('fails on non-valid userId length', () =>
+        expect(() =>
+            setNewUserStatus('0123', 1, 'onepiecedle')
+        ).to.throw(ValidationError, /^Invalid userId length$/)
+    )
+
+    it('fails on non-valid status', async () => {
+        const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+        expect(() =>
+            setNewUserStatus(user.id, 4, 'onepiecedle')
+        ).to.throw(ValidationError, /^Invalid status$/)
+    })
 
     after(() => db.disconnect())
 })

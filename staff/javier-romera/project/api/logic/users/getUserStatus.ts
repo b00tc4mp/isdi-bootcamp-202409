@@ -5,6 +5,7 @@ const { NotFoundError, SystemError } = errors
 
 export default (userId: string, targetUserId: string): Promise<number> => {
     validate.id(userId, 'userId')
+    validate.id(targetUserId, 'targetUserId')
 
     return (async () => {
         let user, targetUser
