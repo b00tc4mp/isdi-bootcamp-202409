@@ -1,1 +1,1 @@
-curl  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU2ZTA2M2JhM2I2ZjA2MmNkYjgxYzQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzM3NTQ4MjYsImV4cCI6MTczMzc1ODQyNn0.yF6VwHAdJX2HbWz3HCoQK3Dnyx8bbvcPDulSrnIK9uI' http://localhost:8080/products/search?category=Rostro -v 
+curl  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU3MjgzZTJhOWY2YzA5MGM4ODUyZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzM4MjA0NDgsImV4cCI6MTczMzgyNDA0OH0.CU7dzMoeYSZ2WHraUXXD4VqwA556E__3IPW5E-sXgu8' http://localhost:8080/products/search?category=Rostro -v 

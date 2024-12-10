@@ -3,8 +3,7 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 export default (category, keyword = null) => {
-  const url = new URL(`${import.meta.env.VITE_API_URL}/products/search`)
-  url.searchParams.append('category', category); // Siempre agregar categoría
+  const url = new URL(`http://${import.meta.env.VITE_API_URL}/products/search?category=${category}`)
 
   if (keyword) {
     url.searchParams.append('keyword', keyword); // Agregar keyword solo si está definida
