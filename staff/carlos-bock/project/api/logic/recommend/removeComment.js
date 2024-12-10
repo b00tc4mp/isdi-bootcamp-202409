@@ -24,7 +24,7 @@ const removeComment = (userId, recommendId, commentId) => {
             if (!comment.author.equals(userId)) throw new OwnershipError('user not recommendation author')
 
             comment.deleteOne({ _id: commentId })
-
+            //recommend.comments.pull(commentId)
             return recommend.save()
                 .catch(error => { throw new SystemError(error.message) })
         })

@@ -5,7 +5,7 @@ import downVote from './downVote.js'
 import getComments from './getComments.js'
 import getRecommend from './getRecommend.js'
 import getRecommendById from './getRecommendById.js'
-import removeComment from './getComments.js'
+import removeComment from './removeComment.js'
 import upVote from './upVote.js'
 
 export {

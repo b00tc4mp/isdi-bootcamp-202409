@@ -12,8 +12,7 @@ export default function RecommendDetail() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [view, setView] = useState(null)
-    const [newComment, setNewComment] = useState('')
-    const { alert, confirm } = useContext()
+    const { alert } = useContext()
 
     useEffect(() => {
         const getRecommend = async () => {
@@ -37,9 +36,7 @@ export default function RecommendDetail() {
     const handleCommentsClick = () => setView(view ? null : 'comments')
 
     if (loading) { return <p>Cargando...</p> }
-
     if (error) { return <p>Error: {error}</p> }
-
     if (!recommend || Object.keys(recommend).length === 0)
         return <p>La recomendación no está disponible en estos momentos, lo sentimos.</p>
 
@@ -59,14 +56,15 @@ export default function RecommendDetail() {
 
         <button onClick={handleCommentsClick}>💬 {comments.length}</button>
 
-        {view === 'comments' && (<CommentsInRec recommendId={id} recommendText={text} />)}
-
+        {view === 'comments' && (
+            <CommentsInRec
+                recommendId={id}
+                recommendText={text}
+            />)}
 
         {logic.isUserModerator() && <Button>🧯</Button>}
 
         <img className='img' src={image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/HTTP_logo.svg/180px-HTTP_logo.svg.png'} alt={subject} />
-
     </article>
-
 }
 

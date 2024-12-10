@@ -1,54 +1,17 @@
 import { useState, useEffect } from 'react'
-
 import Comment from './Comment.jsx'
 import AddComment from './AddComment.jsx'
-
 import logic from '../../logic/index.js'
 
-export default function CommentsInRec(props) {
+export default function CommentsInRec({ recommendId, onAdded, onRemoved }) {
     const [comments, setComments] = useState([])
 
     useEffect(() => {
         console.log('Comments -> useEffect "componentDidMount')
 
         try {
-            logic.getComments(props.recommendId)
+            logic.getComments(recommendId)
                 .then(setComments)
-                .catch(error => {
-                    alert(error)
-
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    }, [props.recommendId])//
-
-    const handleAdded = () => {
-        try {
-            logic.getComments(props.recommendId)
-                .then(comments => {
-                    setComments(comments)
-
-                    props.onAdded()
-                })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    }
-
-    const handleRemoved = () => {
-        try {
-            logic.getComments(props.recommendId)
-                .then(comments => {
-                    setComments(comments)
-
-                    props.onRemoved()
-                })
                 .catch(error => {
                     alert(error.message)
 
@@ -59,16 +22,51 @@ export default function CommentsInRec(props) {
 
             console.error(error)
         }
+    }, [recommendId])
+
+    const handleAdded = () => {
+        try {
+            logic.getComments(recommendId)
+                .then(comments => {
+                    setComments(comments)
+
+                    //onAdded()
+                })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    const handleRemoved = (commentId) => {
+        try {
+            logic.removeComment(recommendId, commentId)
+                .then(() => {
+                    setComments((prev) => prev.filter(
+                        comment => comment.id !== commentId))
+                    //onRemoved(commentId);
+
+                })
+                .catch(error => {
+                    alert(error.message)
+                    console.error(error)
+                });
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
     }
 
     console.log('Comments -> render')
-    console.log(comments)
+
     return <section>
         <ul>
             {comments.map(comment =>
                 <Comment
                     key={comment.id}
-                    recommendIdId={props.recommendId}
+                    recommendId={recommendId}
                     comment={comment}
                     onRemoved={handleRemoved}
                 />)
@@ -76,7 +74,7 @@ export default function CommentsInRec(props) {
         </ul>
 
         <AddComment
-            recommendId={props.recommendId}
+            recommendId={recommendId}
             onAdded={handleAdded}
         />
     </section>

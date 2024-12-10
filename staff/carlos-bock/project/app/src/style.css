@@ -130,7 +130,8 @@ button {
 }
 
 .alert-box button {
-  margin-top: 15px;
+  margin: 15px auto 0;
+  display: block;
   padding: 10px 20px;
   background-color: #a78585;
   color: #ffffff;
@@ -139,6 +140,7 @@ button {
   cursor: pointer;
   font-size: 1rem;
 }
+
 
 .categories {
   padding: 25px;
