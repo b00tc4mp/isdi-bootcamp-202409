@@ -17,35 +17,45 @@ export default (userId, formattedDate, formData) => {
                 throw new ValidationError('DayLog cannot be created in the future')
             }
 
-            return Cycle.findOne({
-                start: { $lte: normalizedFormattedDate },
-                $or: [{ end: { $gte: normalizedFormattedDate } }, { end: null }]
-            })
+            return Cycle.findOne({ start: { $lte: normalizedFormattedDate }, $or: [{ end: { $gte: normalizedFormattedDate } }, { end: null }] })
                 .sort({ start: -1 })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(cycle => {
                     if (!cycle) throw new NotFoundError('Cycle not found')
 
-                    //esto es un if
-                    const existingDayLog = cycle.dayLogs.find(log => new Date(log.date).toISOString() === normalizedFormattedDate.toISOString())
+                    const existingDayLogIndex = cycle.dayLogs.findIndex(log => new Date(log.date).toISOString() === normalizedFormattedDate.toISOString())
 
-                    if (existingDayLog) throw new ValidationError('DayLog already exists on this day')
+                    if (existingDayLogIndex !== -1) {
+                        const existingDayLog = cycle.dayLogs[existingDayLogIndex].toObject()
 
-                    const dayLog = new DayLog({
-                        date: formattedDate,
-                        symptoms: formData.symptoms,
-                        mood: formData.mood,
-                        energy: formData.energy,
-                        flow: formData.flow,
-                        sleep: formData.sleep,
-                        sexualActivity: formData.sexualActivity,
-                        sexualEnergy: formData.sexualEnergy
-                    })
+                        existingDayLog.symptoms = formData.symptoms
+                        existingDayLog.mood = formData.mood
+                        existingDayLog.flow = formData.flow
+                        existingDayLog.sleep = formData.sleep
+                        existingDayLog.sexualActivity = formData.sexualActivity
+                        existingDayLog.sexualEnergy = formData.sexualEnergy
+                        existingDayLog.date = formattedDate
 
-                    cycle.dayLogs.push(dayLog)
+                        cycle.dayLogs[existingDayLogIndex] = existingDayLog
 
-                    return cycle.save()
-                        .catch(error => { throw new SystemError(error.message) })
+                        return cycle.save()
+                            .catch(error => { throw new SystemError(error.message) })
+                    } else {
+                        const dayLog = new DayLog({
+                            date: formattedDate,
+                            symptoms: formData.symptoms,
+                            mood: formData.mood,
+                            flow: formData.flow,
+                            sleep: formData.sleep,
+                            sexualActivity: formData.sexualActivity,
+                            sexualEnergy: formData.sexualEnergy
+                        })
+
+                        cycle.dayLogs.push(dayLog)
+
+                        return cycle.save()
+                            .catch(error => { throw new SystemError(error.message) })
+                    }
                 })
         })
         .then(_ => { })

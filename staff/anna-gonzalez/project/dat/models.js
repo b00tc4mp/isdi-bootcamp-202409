@@ -27,19 +27,14 @@ const dayLog = new Schema({
         type: Date,
         required: true
     },
-    symptoms: {
+    symptoms: [{
         type: String,
         enum: ['fatigue', 'headache', 'cramps', 'tender breasts', 'acne', 'backache', 'cravings', 'abdominal pain', 'dryness'],
         required: false
-    },
+    }],
     mood: {
         type: String,
-        enum: ['calm', 'happy', 'mood swings', 'sad', 'anxious'],
-        required: false,
-    },
-    energy: {
-        type: String,
-        enum: ['low', 'moderate', 'high'],
+        enum: ['calm', 'energetic', 'happy', 'mood swings', 'sad', 'apathetic', 'anxious'],
         required: false,
     },
     flow: {

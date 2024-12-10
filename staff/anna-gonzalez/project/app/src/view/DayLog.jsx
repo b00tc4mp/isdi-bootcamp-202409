@@ -9,7 +9,7 @@ import { Button } from './library'
 export default function DayLog() {
     const { formattedDate } = useParams()
 
-    const [formData, setFormData] = useState({ symptoms: [], mood: '', energy: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' })
+    const [formData, setFormData] = useState({ symptoms: [], mood: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' })
 
     /*add a useEffect executed to get Day logs
     import { useEffect, useState } from 'react';
@@ -17,7 +17,7 @@ import logic from '../logic'; // Ajusta la importación según tu estructura
 
 export default function DayLog() {
     const { formattedDate } = useParams();
-    const [formData, setFormData] = useState({ symptoms: [], mood: '', energy: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' });
+    const [formData, setFormData] = useState({ symptoms: [], mood: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' });
 
     useEffect(() => {
         const fetchDayLog = async () => {
@@ -75,13 +75,11 @@ export default function DayLog() {
         try {
             const sentDate = new Date(formattedDate).toISOString()
 
-            const formattedData = { ...formData, symptoms: formData.symptoms.join(','), }
-
-            Object.keys(formattedData).forEach(key => {
-                if (formattedData[key] === '') delete formattedData[key]
+            Object.keys(formData).forEach(key => {
+                if (formData[key] === '') delete formData[key]
             })
 
-            logic.createDayLog(sentDate, formattedData)
+            logic.createDayLog(sentDate, formData)
                 .then()
                 .catch(error => {
                     alert(error.message)
@@ -115,8 +113,7 @@ export default function DayLog() {
             </fieldset>
 
             {[
-                { legend: 'MOOD', name: 'mood', options: ['calm', 'happy', 'mood swings', 'sad', 'anxious'] },
-                { legend: 'ENERGY', name: 'energy', options: ['low', 'moderate', 'high'] },
+                { legend: 'MOOD', name: 'mood', options: ['calm', 'energetic', 'happy', 'mood swings', 'sad', 'apathetic', 'anxious'] },
                 { legend: 'FLOW', name: 'flow', options: ['no discharge', 'creamy', 'watery'] },
                 { legend: 'SLEEP', name: 'sleep', options: ['poor', 'average', 'good'] },
                 { legend: 'SEXUAL ACTIVITY', name: 'sexualActivity', options: ['no sex', 'sex'] },
