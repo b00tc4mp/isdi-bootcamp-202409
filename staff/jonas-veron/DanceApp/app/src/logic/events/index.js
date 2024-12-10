@@ -8,6 +8,7 @@ import removeComment from "./removeComment.js"
 import getComments from "./getComments.js"
 import toggleFavoriteEvent from "./toggleFavoriteEvent.js"
 import getFavoriteEvents from "./getFavoriteEvents.js"
+import searchAddress from "./searchAddress.js"
 
 export {
   createEvent,
@@ -19,4 +20,5 @@ export {
   getComments,
   toggleFavoriteEvent,
   getFavoriteEvents,
+  searchAddress,
 }

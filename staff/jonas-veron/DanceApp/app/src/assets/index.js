@@ -11,6 +11,8 @@ import shareIcon from "./shareIcon.svg"
 import locationIcon from "./locationIcon.svg"
 import deleteIcon from "./deleteIcon.svg"
 import isFavoriteIcon from "./isFavoriteIcon.svg"
+import userLocationIcon from "./userLocationIcon.svg"
+import eventLocationIcon from "./eventLocationIcon.svg"
 
 export {
   likedIcon,
@@ -26,4 +28,6 @@ export {
   locationIcon,
   deleteIcon,
   isFavoriteIcon,
+  userLocationIcon,
+  eventLocationIcon,
 }

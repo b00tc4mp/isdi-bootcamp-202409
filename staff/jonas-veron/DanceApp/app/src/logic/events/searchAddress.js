@@ -1,10 +1,11 @@
-import { errors } from "com"
+import { validate, errors } from "com"
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org"
 
 const { SystemError } = errors
 
-export default (query) =>
-  fetch(
+export default function searchAddress(query) {
+  validate.text(query)
+  return fetch(
     `${NOMINATIM_URL}/search?q=${encodeURIComponent(
       query
     )}&format=json&addressdetails=1&limit=5&countrycodes=es`
@@ -13,12 +14,19 @@ export default (query) =>
       throw new SystemError(error.message)
     })
     .then((res) => {
-      if (!res.ok) {
+      if (res.ok) {
         return res.json().catch((error) => {
           throw new SystemError(error.message)
         })
       }
-      return res.json()
+      return res
+        .json()
+        .catch((error) => {
+          throw new SystemError(error.message)
+        })
+        .then(({ error, message }) => {
+          throw new errors[error](message)
+        })
     })
     .then((data) => {
       return data.map((item) => ({
@@ -31,6 +39,4 @@ export default (query) =>
         },
       }))
     })
-    .catch((error) => {
-      throw new errors[error](message)
-    })
+}

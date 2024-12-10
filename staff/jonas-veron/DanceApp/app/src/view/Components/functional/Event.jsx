@@ -183,11 +183,7 @@ export default function Event({ event, refreshEvents }) {
               <h2 className="text-lg font-bold mb-4 text-center text-gray-700">
                 Ubicación del evento
               </h2>
-              <EventMap
-                center={location.coordinates}
-                coordinates={location.coordinates}
-                address={location.address}
-              />
+              <EventMap center={event.location.coordinates} events={[event]} />
               <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=${location.coordinates[0]},${location.coordinates[1]}`}
                 target="_blank"

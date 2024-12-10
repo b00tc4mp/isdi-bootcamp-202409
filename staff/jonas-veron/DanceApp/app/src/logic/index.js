@@ -5,6 +5,7 @@ import {
   isUserLoggedIn,
   getUserName,
   getUserId,
+  getUserLocation,
 } from "./users"
 
 import {
@@ -17,6 +18,7 @@ import {
   getComments,
   toggleFavoriteEvent,
   getFavoriteEvents,
+  searchAddress,
 } from "./events"
 
 const logic = {
@@ -26,6 +28,7 @@ const logic = {
   isUserLoggedIn,
   getUserName,
   getUserId,
+  getUserLocation,
 
   createEvent,
   deleteEvent,
@@ -36,5 +39,6 @@ const logic = {
   getComments,
   toggleFavoriteEvent,
   getFavoriteEvents,
+  searchAddress,
 }
 export default logic

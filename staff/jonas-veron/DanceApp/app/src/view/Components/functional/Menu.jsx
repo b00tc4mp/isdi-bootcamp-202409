@@ -7,6 +7,7 @@ export default function Menu({ isOpen, onClose }) {
   const navigate = useNavigate()
   const [events, setEvents] = useState([])
   const [view, setView] = useState(null)
+  const [center, setCenter] = useState([41.3851, 2.1734])
 
   const handleLogout = () => {
     window.confirm("¿Estás seguro de cerrar sesión?")
@@ -30,14 +31,29 @@ export default function Menu({ isOpen, onClose }) {
     }
   }
 
-  console.log(events)
-
   const handleNearEvents = () => {
     if (!view) {
-      refreshEvents()
+      const userConsent = window.confirm("¿Quieres compartir tu ubicaciòn?")
+
+      if (userConsent) {
+        logic
+          .getUserLocation()
+          .then((location) => {
+            setCenter(location)
+            refreshEvents()
+          })
+          .catch((error) => {
+            console.error(error.message)
+            alert(error.message)
+          })
+      } else {
+        setCenter([41.3851, 2.1734])
+        refreshEvents()
+      }
+      setView(view ? null : "near-events")
     }
-    setView(view ? null : "near-events")
   }
+
   const handleCloseMap = () => {
     setView(null)
   }
@@ -99,15 +115,7 @@ export default function Menu({ isOpen, onClose }) {
               <h2 className="text-lg font-bold mb-4 text-center text-gray-700">
                 Ubicación del evento
               </h2>
-              <EventMap center={[41.3870154, 2.1700471]} events={events} />
-              {/* <a
-                href={`https://www.google.com/maps/dir/?api=1&destination=${location.coordinates[0]},${location.coordinates[1]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 underline text-xl"
-              >
-                ¿Cómo llegar?
-              </a> */}
+              <EventMap center={center} events={events} />
             </div>
           </div>
         </div>

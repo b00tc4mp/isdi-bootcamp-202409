@@ -1,14 +1,29 @@
 import React, { useState } from "react"
-import delaySearchAddress from "../../../util/delaySearchAddress.js"
+import logic from "../../../logic"
 
 export default function LocationInput({ onLocationSelect }) {
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState([])
 
+  let debounceTimer
   const handleInputChange = async (event) => {
     const value = event.target.value
     setQuery(value)
-    delaySearchAddress.getSuggestions(value, setSuggestions)
+
+    clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(async () => {
+      if (!value.trim()) {
+        setSuggestions([])
+        return
+      }
+      try {
+        const results = await logic.searchAddress(value)
+        setSuggestions(results)
+      } catch (error) {
+        console.error(error)
+        alert(error.message)
+      }
+    }, 500)
   }
 
   const handleSelectSuggestion = (suggestion) => {
