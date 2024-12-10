@@ -9,7 +9,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 })
 
-export default function Location({ center, ads, coordinates, address }) {
+export default function Location({ center, ads }) {
   return (
     <div style={{ height: '300px', width: '100%' }}>
       <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
@@ -17,20 +17,14 @@ export default function Location({ center, ads, coordinates, address }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {coordinates ? (
-          <Marker position={coordinates}>
-            <Tooltip permanent>{address}</Tooltip>
+        {ads.map((ad) => (
+          <Marker key={ad.id} position={ad.location.coordinates}>
+            <Tooltip permanent>
+              <strong>{ad.author.name}</strong>
+              <p>{ad.location.address}</p>
+            </Tooltip>
           </Marker>
-        ) : (
-          ads.map((ad) => (
-            <Marker key={ad.id} position={ad.location.coordinates}>
-              <Tooltip permanent>
-                <strong>{ad.author.name}</strong>
-                <p>{ad.location.address}</p>
-              </Tooltip>
-            </Marker>
-          ))
-        )}
+        ))}
       </MapContainer>
     </div>
   )

@@ -30,8 +30,6 @@ export default function CreateAd({ onCreated }) {
 
     const files = form.images.files
     const text = form.text.value
-    // const coordinates = form.coordinates.value
-    // const address = form.address.value
 
     const fileToB64Conversions = Array.prototype.map.call(files, toBase64)
 

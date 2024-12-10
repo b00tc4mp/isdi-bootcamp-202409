@@ -72,21 +72,3 @@ describe('addReview', () => {
 
   after(() => db.disconnect())
 })
-
-// db.connect(process.env.MONGO_URL_TEST)
-//   .then(() => {
-//     try {
-//       return addReview(
-//         '6751624f73d8041e9a318435',
-//         '67508d8f146c0e8669020ca6',
-//         'me ha gustado la experiencia, volveria a utilizar su servicio',
-//         5
-//       )
-//         .then(console.log('review added'))
-//         .catch(console.error)
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   })
-//   .catch(console.error)
-//   .finally(() => db.disconnect())

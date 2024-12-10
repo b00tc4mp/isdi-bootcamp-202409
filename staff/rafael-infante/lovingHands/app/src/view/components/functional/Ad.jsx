@@ -105,11 +105,7 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
             </button>
             <div className="p-4">
               <h2 className="text-lg font-bold mb-4 text-center text-gray-700">Location of {ad.author.name}</h2>
-              <Location
-                center={ad.location.coordinates}
-                address={ad.location.address}
-                coordinates={ad.location.coordinates}
-              />
+              <Location center={ad.location.coordinates} ads={[ad]} />
             </div>
           </div>
         </div>
