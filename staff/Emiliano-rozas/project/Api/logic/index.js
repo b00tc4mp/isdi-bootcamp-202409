@@ -12,7 +12,8 @@ import {
     addToCart,
     getCart,
     removeAllFromCart,
-    updateQuantity
+    updateQuantity,
+    updateCart
 } from './cart/index.js'
 
 import {
@@ -42,6 +43,7 @@ const logic = {
     updateOrder,
     processPayment,
     retrievePayment,
-    stripePayment
+    stripePayment,
+    updateCart
 }
 export default logic

@@ -6,7 +6,7 @@ import { RelatedProducts } from '../components/index';
 import { errors } from 'com';
 import logic from '../logic/index';
 
-const { NotFoundError } = errors
+const { NotFoundError, SystemError } = errors
 
 export default function ProductDetail() {
     let { productId } = useParams();
@@ -34,7 +34,24 @@ export default function ProductDetail() {
 
             if (!userId) throw new NotFoundError('User not logged in')
 
-            const response = await logic.addTocart(productInfo.id, quantity)
+            const response = await logic.addTocart(productInfo.id, quantity).catch(error => { throw new SystemError(error.message) })
+
+
+            alert(`${productInfo.title} has been added to your cart!`)
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+    const updateCartHandler = async () => {
+        try {
+            let quantity = 1
+            const userId = logic.getUserId()
+
+            if (!userId) throw new NotFoundError('User not logged in')
+
+            const response = await logic.updateCart(productInfo.id, quantity).catch(error => { throw new SystemError(error.message) })
 
             console.log('Cart response:', response.cart)
 
@@ -86,7 +103,7 @@ export default function ProductDetail() {
                             <li className='text-white'>ISBN: {productInfo.isbn}</li>
                             <li className='text-white'>Category: {productInfo.category}</li>
                         </ul>
-                        <button onClick={handleAddToCart} className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm active:bg-green-400'>ADD TO CART</button>
+                        <button onClick={updateCartHandler} className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm active:bg-green-400'>ADD TO CART</button>
                         <hr className='mt-8 sm:w-4/5 border-1 border-green-700' />
                         <div className='text-sm text-white mt-5 flex flex-col gap-1'>
                             <p>100% original product</p>

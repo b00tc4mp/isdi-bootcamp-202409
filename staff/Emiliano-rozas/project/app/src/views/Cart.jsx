@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { ShopContext } from '../context/ShopContext'
+import React, { useEffect, useState } from 'react'
 import { CartTotal, Title } from '../components/index'
 import { Link } from 'react-router-dom'
 import assets from '../assets'
 import logic from '../logic/index';
+import { errors } from 'com';
 
+const { NotFoundError, SystemError } = errors
 
 export default function Cart() {
 
@@ -13,7 +14,8 @@ export default function Cart() {
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                const cartData = await logic.getCart();
+                const cartData = await logic.getCart().catch(error => { throw new NotFoundError('Cart not found', error) })
+                console.log('Fetched cart:', cartData);
                 setCartInfo(cartData);
             } catch (error) {
                 console.error(error);
@@ -22,27 +24,41 @@ export default function Cart() {
         fetchCart();
     }, []);
 
-    const handleUpdateQuantity = async (cartItemId, newQuantity) => {
+    const handleUpdateQuantity = async (productId, quantity) => {
         try {
-            await logic.updateQuantity(cartItemId, Number(newQuantity));
-            const updatedCart = await logic.getCart();
-            setCartInfo(updatedCart);
+            if (!productId) throw new SystemError('Product ID is missing');
+
+            const userId = logic.getUserId();
+            if (!userId) throw new NotFoundError('User not logged in');
+
+            await logic.updateCart(productId, Number(quantity));
+            const newCart = await logic.getCart(); // con esto hacemos que se re renderice bien, sino P.E.T.A
+
+            console.log('Updated cart:', newCart);
+
+            // Actualizar el estado del carrito
+            setCartInfo(newCart);
+            console.log('Updated cartInfo:', newCart);
         } catch (error) {
-            console.error(error);
+            console.error('Error updating cart:', error);
+            alert(error.message);
         }
     };
 
     const handleRemoveFromCart = async (cartItemId) => {
         if (window.confirm("Are you sure you want to delete this item?")) {
             try {
-                await logic.removeAllFromCart(cartItemId);
-                const updatedCart = await logic.getCart();
+                await logic.removeAllFromCart(cartItemId).catch(error => { throw new SystemError(error.message) })
+
+                const updatedCart = await logic.getCart().catch(error => { throw new NotFoundError('Cart not found', error) })
+
                 setCartInfo(updatedCart);
             } catch (error) {
                 console.error(error);
             }
         }
     };
+    console.log('Updated cartInfo:', cartInfo);
 
     return (
         <div className='border-t border-green-700 pt-14'>
@@ -52,7 +68,8 @@ export default function Cart() {
             <div>
                 {cartInfo.items.length > 0 ? (
                     cartInfo.items.map((item) => (
-                        <div key={item.id} className='py-4 border-t border-b text-white grid grid-cols-[4fr_0.5_0.5] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4'>
+                        <div key={item.product.id} className='py-4 border-t border-b text-white grid grid-cols-[4fr_0.5_0.5] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4'>
+
                             <div className='flex items-start gap-6'>
                                 <img className='w-16 sm:w-20' src={item.product.image} alt="cartProduct" />
                                 <div>
@@ -61,12 +78,18 @@ export default function Cart() {
                                 </div>
                             </div>
                             <input
-                                className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black text-white'
+                                className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black text-white'
                                 type="number"
                                 min={1}
                                 max={33}
                                 defaultValue={item.quantity}
-                                onChange={(e) => handleUpdateQuantity(item.id, e.target.value)}
+                                onChange={(e) => {
+                                    if (item.product && item.product.id) {
+                                        handleUpdateQuantity(item.product.id, e.target.value);
+                                    } else {
+                                        console.error('Product ID is missing');
+                                    }
+                                }}
                             />
                             <img
                                 className='w-6 mr-4 sm:w-6 cursor-pointer'

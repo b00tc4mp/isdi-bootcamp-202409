@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Title } from '../components'
 import logic from '../logic'
+import { errors } from 'com';
+
+const { NotFoundError, SystemError } = errors
 
 export default function Orders() {
 
@@ -10,7 +13,7 @@ export default function Orders() {
 
         const fetchOrders = async () => {//Por eso hay que hacer esta llamada Asyncrona y una vez gestionada, la llamamos 
             try {
-                const Orders = await logic.getOrders();
+                const Orders = await logic.getOrders().catch(error => { throw new NotFoundError('Order not found', error) })
 
                 setOrders(Orders);
 

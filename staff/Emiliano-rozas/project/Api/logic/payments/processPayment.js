@@ -5,9 +5,10 @@ import stripePayment from './stripePayment.js'
 const { SystemError, NotFoundError } = errors;
 
 
-export default (orderId, paymentMethodId, provider) => {
+export default (orderId, paymentMethodId, provider, userId) => {
     validate.id(orderId, 'orderId')
     validate.id(paymentMethodId, 'paymentMethodId')
+    validate.id(userId, 'userId')
     validate.text(provider, 'provider')
 
     console.log('Order ID:', orderId);
@@ -18,6 +19,11 @@ export default (orderId, paymentMethodId, provider) => {
         .catch(error => { throw new SystemError(error.message) })
         .then(order => {
             if (!order) throw new NotFoundError('order not found');
+
+            // ahora verificamos que el usuario que realiza el pago es el dueño de la orden
+            if (order.user.toString() !== userId) {
+                throw new AuthorizationError('You are not authorized to pay for this order');
+            }
 
             const amount = Math.round(order.totalPrice * 100) // esto es necesario para convertir los centavos
 

@@ -9,7 +9,7 @@ export default (paymentIntentId) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${localStorage.token}`
+            'Authorization': `Bearer ${localStorage.token}`
         }
     }).catch(error => { throw new SystemError(error.message) })
         .then(res => {

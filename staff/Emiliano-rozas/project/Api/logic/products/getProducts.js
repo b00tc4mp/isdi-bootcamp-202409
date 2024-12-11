@@ -1,13 +1,18 @@
 import { Product } from 'dat';
 import { errors } from 'com'
 
-const { SystemError } = errors
+const { SystemError, NotFoundError } = errors
 
 export default async () => {
     try {
         const products = await Product.find() //buscamos todos los productos y nos lo devuelve en un array
             .populate('reviews.author', 'username') //le mandamos autores a las reseñas (sino daria un id)
             .lean()
+            .catch(error => { throw new SystemError(error.message) });
+
+        if (!products || products.length === 0) {
+            throw new NotFoundError('No products found');
+        }
 
         products.forEach(product => {
             product.id = product._id.toString()

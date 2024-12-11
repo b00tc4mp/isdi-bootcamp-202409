@@ -5,7 +5,7 @@ import getCart from './getCart.js'
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return getCart('6756fd2cf8410aeae543769c')
+            return getCart('675973b7241f04a0fa79c51a')
                 .then(cart => console.dir(cart, { colors: true, depth: 10 })) // undefined
                 .catch(console.error)
         } catch (error) {

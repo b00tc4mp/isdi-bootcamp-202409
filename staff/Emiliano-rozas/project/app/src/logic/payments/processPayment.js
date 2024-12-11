@@ -9,6 +9,7 @@ export default (orderId, paymentMethodId, provider) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.token}`
         },
         body: JSON.stringify({
             orderId,

@@ -4,12 +4,14 @@ import {
     getCartHandler,
     addToCartHandler,
     removeAllFromCartHandler,
-    updateQuantityHandler
+    updateQuantityHandler,
+    updateCartHandler
 } from './handlers/index.js';
 
 const cartRouter = Router();
 
 cartRouter.post('/add', jsonBodyParser, authorizationHandler, addToCartHandler);
+cartRouter.post('/updates/', jsonBodyParser, authorizationHandler, updateCartHandler);
 cartRouter.get('/', authorizationHandler, getCartHandler);
 cartRouter.delete('/remove/:cartItemId', authorizationHandler, removeAllFromCartHandler);
 cartRouter.patch('/update/:cartItemId', jsonBodyParser, authorizationHandler, updateQuantityHandler);

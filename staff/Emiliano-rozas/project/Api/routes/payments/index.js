@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { jsonBodyParser } from "../../middleware/index.js";
+import { jsonBodyParser, authorizationHandler } from "../../middleware/index.js";
 
 import {
     processPaymentHandler,
@@ -8,7 +8,7 @@ import {
 
 const paymentsRouter = Router();
 
-paymentsRouter.post('/intent', jsonBodyParser, processPaymentHandler);
-paymentsRouter.get('/intent/:id', retrievePaymentHandler);
+paymentsRouter.post('/intent', authorizationHandler, jsonBodyParser, processPaymentHandler);
+paymentsRouter.get('/intent/:id', authorizationHandler, retrievePaymentHandler);
 
 export default paymentsRouter;

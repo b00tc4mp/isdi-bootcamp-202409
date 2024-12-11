@@ -57,10 +57,14 @@ export default (userId) => {
                 })
                 .then(() => order);
         })
-        .then(order => ({
-            message: 'Order placed successfully',
-            order,
-        }))
+        .then(order => {
+            console.log('Order object:', order);
+            return {
+                message: 'Order placed successfully',
+                orderId: order._id.toString(),
+                order,
+            }
+        })
         .catch(error => {
             throw new SystemError(error.message);
         });

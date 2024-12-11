@@ -1,15 +1,21 @@
-import { validate, errors } from 'com'
+import { validate, errors } from 'com';
 
 const { SystemError } = errors
 
-export default () => {
+export default (productId, quantity) => {
+    validate.id(productId, 'productId')
+    validate.number(quantity)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/orders`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/cart/updates/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.token}`
-        }
+        },
+        body: JSON.stringify({
+            productId,
+            quantity
+        })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
