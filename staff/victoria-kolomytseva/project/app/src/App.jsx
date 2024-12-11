@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, Hello, Profile, CreatePost, PostView } from './view'
+import { Login, Register, Home, Hello, Profile, CreatePost, PostView, PostFoundView } from './view'
 
 import { Context } from './view/useContext'
 
@@ -63,6 +63,7 @@ export default function App() {
             <Route path="/profile/:userId" element={<Profile handleUserLoggedOut={handleUserLoggedOut} />} />
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/post/:postId" element={<PostView />} />
+            <Route path="/post-found/" element={<PostFoundView />} />
 
         </Routes>
 

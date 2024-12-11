@@ -3,11 +3,15 @@ import { useEffect, useState } from 'react'
 import useContext from './useContext'
 import { Label, Input, Button, Form, Field } from './library'
 import { imageToBase64 } from '../util'
+import LocationInput from "./components/LocationInput.jsx"
+import { useNavigate, Navigate } from 'react-router-dom'
 
 export default function CreatePost() {
     console.log('CreatePost -> render')
     const [images, setImages] = useState([])
     const { alert } = useContext()
+    const [location, setLocation] = useState(null)
+    const navigate = useNavigate()
 
     const handleSubmit = async event => {
         event.preventDefault()
@@ -24,16 +28,23 @@ export default function CreatePost() {
         const files = form.image.files
         const filetoB64Conversions = Array.prototype.map.call(files, imageToBase64)
 
+        const locationFormatted = {
+            coordinates: [location.lat, location.lon],
+            address: location.address,
+            province: location.province,
+        }
+
         Promise.all(filetoB64Conversions).then((filesb64) => {
             try {
-                logic.createPost(filesb64[0], whatHappened, petType, petGender, text)
+                console.log(locationFormatted)
+                logic.createPost(filesb64[0], whatHappened, petType, petGender, text, locationFormatted)
                     .then((createdPost) => {
                         alert('Saved successfully', 'success')
                         form.reset()
+                        navigate("/")
                     })
                     .catch(error => {
                         alert(error.message)
-
                         console.error(error)
                     })
             } catch (error) {
@@ -133,6 +144,19 @@ export default function CreatePost() {
                 <input type="file" name="image" id="image" onChange={handleImageChange} />
 
             </Field>
+            <Field>
+                <LocationInput
+                    onLocationSelect={(location) => {
+                        console.log("Ubicación seleccionada:", location)
+                        setLocation(location)
+                    }}
+                />
+            </Field>
+            {location && (
+                <p className="text-green mt-2">
+                    Dirección seleccionada: {location.address}
+                </p>
+            )}
             <Button type="submit" className="from-primary-light to-primary-dark bg-gradient-to-b mt-1 w-40 mx-auto">Create</Button>
         </Form>
     </div>

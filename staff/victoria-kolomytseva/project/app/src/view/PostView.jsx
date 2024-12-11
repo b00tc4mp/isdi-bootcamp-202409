@@ -2,11 +2,11 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import logic from '../logic'
 import { getElapsedTime } from '../util'
-
+import AdMap from './components/AdMap'
 
 export default function Post() {
     const [post, setPost] = useState([])
-    console.log(post)
+    const [view, setView] = useState(null)
     const { postId } = useParams()
     useEffect(() => {
         console.log('Post -> useEffect "componentDidMount"')
@@ -57,6 +57,9 @@ export default function Post() {
             console.error(error)
         }
     }
+    const handleLocationClick = () => setView(view ? null : 'location')
+    const handleCloseMap = () => setView(null)
+
 
     // const handleCommentAdded = () => {
     //     try {
@@ -102,8 +105,47 @@ export default function Post() {
                     <a href={"tel:" + post?.author?.phone} className="from-primary-light to-primary-dark bg-gradient-to-b text-center rounded-full -mt-9 px-10 py-2.5 ">Call</a>
                 </div>
             </div>
+            {post.location && (
+                <div className="flex items-center mt-2"
+                    onClick={handleLocationClick} // Abre el modal del mapa
+                >
+                    <img
+                        src="/assets/map.svg"
+                        alt="Location"
+                        className="w-5 h-5 mr-2 cursor-pointer"
+                    />
+                    <span className="text-sm text-gray-600">
+                        {post.location.address || 'Unknown location'}
+                    </span>
+                </div>
+            )}
         </article>
 
+        {/* Modal para el mapa */}
+        {view === 'location' && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 w-full overflow-hidden">
+                <div className="relative bg-white rounded-lg shadow-lg w-full overflow-hidden">
+                    <button
+                        onClick={handleCloseMap}
+                        className="absolute top-3 right-3 text-gray-500 hover:text-black"
+                    >
+                        ✖
+                    </button>
+                    <div className="p-4">
+                        <h2 className="text-lg font-bold mb-4 text-center text-gray-700">
+                            Ubicación
+                        </h2>
+                        <div className='overflow-hidden'>
+                            <AdMap
+                                coordinates={post.location.coordinates}
+                                address={post.location.address}
+                            />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        )}
 
     </div>
 }

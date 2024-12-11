@@ -5,6 +5,7 @@ import Hello from './Hello'
 import Profile from './Profile'
 import CreatePost from './CreatePost'
 import PostView from './PostView'
+import PostFoundView from './PostFoundView'
 
 
 export {
@@ -14,5 +15,6 @@ export {
     Hello,
     Profile,
     CreatePost,
-    PostView
+    PostView,
+    PostFoundView
 }

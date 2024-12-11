@@ -12,7 +12,7 @@ function UploadPhoto() {
         setImages(images)
     }
 
-    const handleFormSubmit = event => {
+    const handleFormSubmit = async event => {
         event.preventDefault()
 
         const formData = new FormData(event.target)

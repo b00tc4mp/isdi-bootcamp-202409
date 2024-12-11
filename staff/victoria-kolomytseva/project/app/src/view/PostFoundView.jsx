@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react'
 import logic from '../logic'
 import Post from './components/Post'
 
-export default function Home() {
+export default function PostFoundView() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
         console.log('Home -> useEffect "componentDidMount"')
 
         try {
-            logic.getPosts('')
+            logic.getPosts('found')
                 .then(setPosts)
                 .catch(error => {
                     alert(error.message)

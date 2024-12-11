@@ -14,12 +14,6 @@ const validateEmail = email => {
         throw new ValidationError('invalid e-mail')
 }
 
-const validateUsername = username => {
-    if (typeof username !== 'string') throw new ValidationError('invalid username')
-    if (username.length < 3 || username.length > 30)
-        throw new ValidationError('invalid username length')
-}
-
 const validatePassword = password => {
     if (typeof password !== 'string') throw new ValidationError('invalid password')
     if (password.length < 8)
@@ -59,6 +53,10 @@ const validatePhone = phone => {
     if (phone.length < 3)
         throw new ValidationError('invalid number phone')
 }
+const validateRole = (role) => {
+    if (typeof role !== 'string') throw new ValidationError('Invalid role')
+}
+
 const validateCity = city => {
     if (typeof city !== 'string') throw new ValidationError('invalid city')
     if (city.length < 2)
@@ -70,12 +68,17 @@ const validatePostalCode = postalCode => {
         throw new ValidationError('Postal is not exist')
 }
 
+const validateLocation = (location) => {
+    if (typeof location.address !== 'string') throw new ValidationError('Invalid location format')
+    if (location.address.trim().length < 3) throw new ValidationError('Location must be at least 3 characters')
+    if (location.address.trim().length > 200) throw new ValidationError('Location must not exceed 100 characters')
+}
+
 
 
 const validate = {
     name: validateName,
     email: validateEmail,
-    username: validateUsername,
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
     image: validateImage,
@@ -83,9 +86,12 @@ const validate = {
     id: validateId,
     surname: validateSurname,
     phone: validatePhone,
+    role: validateRole,
     city: validateCity,
     postalCode: validatePostalCode,
-    callback: validateCallback
+    callback: validateCallback,
+    location: validateLocation,
+
 }
 
 export default validate

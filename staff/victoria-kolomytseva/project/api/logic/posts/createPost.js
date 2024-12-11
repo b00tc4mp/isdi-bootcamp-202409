@@ -3,13 +3,16 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, image, whatHappened, petType, petGender, text) => {
+export default (userId, image, whatHappened, petType, petGender, text, location) => {
     validate.id(userId, 'userId')
-    validate.text(petType)
     validate.image(image)
+    validate.text(petType)
     validate.text(whatHappened)
     validate.text(petGender)
+    validate.text(text)
+    validate.location(location)
 
+    console.log(location)
 
 
     return User.findById(userId)
@@ -17,7 +20,20 @@ export default (userId, image, whatHappened, petType, petGender, text) => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Post.create({ author: userId, image, whatHappened, petType, petGender, text })
+            return Post.create({
+                author: userId,
+                image,
+                whatHappened,
+                petType,
+                petGender,
+                text,
+                location: {
+                    type: 'Point',
+                    coordinates: location.coordinates,
+                    address: location.address,
+                    province: location.province,
+                },
+            })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

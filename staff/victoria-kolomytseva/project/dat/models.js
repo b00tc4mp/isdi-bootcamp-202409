@@ -37,6 +37,17 @@ const user = new Schema({
         default: 'user',
     }
 })
+const pointSchema = new Schema({
+    type: {
+        type: String,
+        enum: ['Point'],
+        required: true,
+    },
+    coordinates: {
+        type: [Number],
+        required: true,
+    },
+})
 
 const post = new Schema({
     author: {
@@ -82,6 +93,26 @@ const post = new Schema({
         enum: ["lost", "found"],
         default: 'lost'
     },
+    location: {
+        type: {
+            type: String,
+            enum: ["Point"],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
+        },
+        address: {
+            type: String,
+            required: true,
+        },
+        province: {
+            type: String,
+            required: true,
+        }
+    },
+
 
     comments: ["comment"]
 }, { versionKey: false })

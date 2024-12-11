@@ -2,10 +2,12 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (image, whatHappened, petType, petGender, text) => {
+export default (image, whatHappened, petType, petGender, text, location) => {
     validate.text(petType)
     validate.text(whatHappened)
     validate.text(petGender)
+    validate.text(text)
+    validate.location(location)
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/posts`, {
         method: 'POST',
@@ -13,7 +15,7 @@ export default (image, whatHappened, petType, petGender, text) => {
             Authorization: `Bearer ${localStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, whatHappened, petType, petGender, text })
+        body: JSON.stringify({ image, whatHappened, petType, petGender, text, location }),
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
