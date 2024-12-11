@@ -30,7 +30,12 @@ describe('createAd', () => {
         [
           'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg',
         ],
-        'listo para dar mi servicio de cuidados!'
+        'listo para dar mi servicio de cuidados!',
+        {
+          type: 'Point',
+          coordinates: [-3.7038, 40.4168],
+          address: 'Madrid, Spain',
+        }
       ).then(() =>
         Ad.findOne().then((ad) => {
           expect(ad).to.exist
@@ -40,6 +45,7 @@ describe('createAd', () => {
           ])
           expect(ad.text).to.equal('listo para dar mi servicio de cuidados!')
           expect(ad.date).to.be.instanceOf(Date)
+          expect(ad.location.address).to.equal('Madrid, Spain')
         })
       )
     ))
@@ -51,7 +57,12 @@ describe('createAd', () => {
         [
           'https://gratisography.com/wp-content/uploads/2023/09/gratisography-duck-doctor-free-stock-photo-1170x780.jpg',
         ],
-        'testing create Ad'
+        'testing create Ad',
+        {
+          type: 'Point',
+          coordinates: [-3.7038, 40.4168],
+          address: 'Madrid, Spain',
+        }
       )
     ).to.be.rejectedWith(NotFoundError, /^user not found$/))
 
