@@ -39,7 +39,10 @@ const user = new Schema(
       type: String,
     },
   },
-  { versionKey: false }
+  {
+    timestamps: true, // Agrega campos `createdAt` y `updatedAt` automáticamente
+    versionKey: false,
+  }
 );
 
 const comment = new Schema({
@@ -94,24 +97,45 @@ const subcategoria = new Schema(
 );
 const producto = new Schema(
   {
+    name: {
+      type: String,
+      required: true,
+      maxlength: 100,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      maxlength: 500,
+    },
     author: {
       type: ObjectId,
       required: true,
       ref: "User",
     },
-    image: {
-      type: String,
-      required: true,
-    },
-    text: {
+    images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+    description: {
       type: String,
       required: true,
       maxLength: 200,
     },
-    date: {
-      type: Date,
+    idCategoria: {
+      type: ObjectId, // Relación con la colección de categorías
       required: true,
-      default: Date.now,
+      ref: "Categoria",
+    },
+    idSubcategoria: {
+      type: ObjectId, // Relación con la colección de subcategorías
+      required: true,
+      ref: "Subcategoria",
     },
     likes: [
       {
@@ -119,9 +143,12 @@ const producto = new Schema(
         ref: "User",
       },
     ],
-    comments: [comment],
   },
-  { versionKey: false }
+
+  {
+    timestamps: true, // Agrega campos `createdAt` y `updatedAt` automáticamente
+    versionKey: false,
+  }
 );
 
 const User = model("User", user);
