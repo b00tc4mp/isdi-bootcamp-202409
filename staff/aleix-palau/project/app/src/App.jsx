@@ -10,7 +10,7 @@ import logic from './logic'
 export default function App() {
     const [alert, setAlert] = useState({ message: null, level: 'error' })
     const [confirm, setConfirm] = useState({ message: null, level: 'error', callback: null })
-    const [userStage, setUserStage] = useState('name-dob') // Tracks user stage
+    const [userStage, setUserStage] = useState(null) // Tracks user stage
 
     const navigate = useNavigate()
 
@@ -19,31 +19,21 @@ export default function App() {
             logic.getUserStage()
                 .then(stage => {
                     setUserStage(stage)
-
-                    if (stage === 'completed')
-                        navigate('/')
-                    else
-                        navigate(`/setup/${stage}`)
                 })
                 .catch(error => {
                     console.error(error)
                     setAlert({ message: 'Failed to fetch setup stage. Please try again.', level: 'error' })
                 })
+        } else {
+            // If user logs out, or we detect they are not logged in, reset userStage to null
+            setUserStage(null)
         }
-    }, [])
-
-    if (!'name-dob')
-        return <div>Loading...</div>
+    }, [logic.isUserLoggedIn()])
 
     const handleSetupComplete = async nextStage => {
         try {
             await logic.updateUserStage(nextStage)
             setUserStage(nextStage)
-
-            if (nextStage === 'completed')
-                navigate('/')
-            else
-                navigate(`/setup/${nextStage}`)
         } catch (error) {
             console.error(error)
             setAlert({ message: 'Failed to update setup stage. Please try again.', level: 'error' })
@@ -65,47 +55,59 @@ export default function App() {
     // semiútil quan es pugui editar la info del setup al perfil de cada usuari
     // prevents stage skipping
     const renderSetupStage = (stage, Component, nextStage) => {
-        if (!logic.isUserLoggedIn())
-            return <Navigate to="/login" />
-        if (userStage === stage)
-            return <Component onSetupComplete={() => handleSetupComplete(nextStage)} />
+        if (!logic.isUserLoggedIn()) return <Navigate to="/login" />
+        if (userStage === null) return <div>Loading setup stage...</div>
+        if (userStage === stage) return <Component onSetupComplete={() => handleSetupComplete(nextStage)} />
         return <Navigate to={`/setup/${userStage}`} />
     }
 
     console.log('App -> render')
 
     const handleUserLoggedIn = () => navigate('/')
-
-    // const handleUserLoggedOut = () => navigate('/login')
-
     const handleRegisterClick = () => navigate('/register')
+    const handleLoginClick = () => navigate('/login')
+    const handleUserRegistered = () => navigate('/login')
 
-    const handleLoginClick = () => navigate('./login')
+    return (
+        <Context.Provider value={{
+            alert(message, level = 'error') { setAlert({ message, level }) },
+            confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+        }}>
 
-    const handleUserRegistered = () => navigate('/login') // /setup
+            <Header onLoggedOut={() => navigate('/login')} />
 
-    // const handleHomeClick = () => navigate('/')
+            {!logic.isUserLoggedIn() ? (
+                // USER NOT LOGGED IN ROUTES
+                <Routes>
+                    <Route
+                        path="/login"
+                        element={<Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />}
+                    />
+                    <Route
+                        path="/register"
+                        element={<Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />}
+                    />
+                    <Route path="*" element={<Navigate to="/login" />} />
+                </Routes>
+            ) : userStage === null ? (
+                // USER LOGGED IN BUT STAGE UNKNOWN
+                <div>Loading user data...</div>
+            ) : (
+                // USER LOGGED IN AND STAGE KNOWN
+                <Routes>
+                    <Route path="/" element={userStage === 'completed' ? <Home /> : <Navigate to={`/setup/${userStage}`} />} />
+                    <Route path="/setup/name-dob" element={renderSetupStage('name-dob', NameDOBStage, 'gender')} />
 
-    return <Context.Provider value={{
-        alert(message, level = 'error') { setAlert({ message, level }) },
-        confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
-    }}>
+                    {/* <Route path="/setup/gender" element={renderSetupStage('gender', GenderStage, 'genres')} />
+                    <Route path="/setup/genres" element={renderSetupStage('genres', GenresStage, 'artists')} />
+                    <Route path="/setup/artists" element={renderSetupStage('artists', ArtistsStage, 'photos')} /> */}
 
-        <Header onLoggedOut={() => navigate('/login')} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+            )}
 
-        <Routes>
-            <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/setup/name-dob" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
-            <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
-            <Route path="/" element={logic.isUserLoggedIn() && userStage === 'completed' ? <Home /> : <Navigate to="/login" />} />
-
-            <Route path="/setup/name-dob" element={renderSetupStage('name-dob', NameDOBStage, 'gender')} />
-
-            {/* <Route path="/setup/gender" element={renderSetupStage('gender', GenderStage, 'genres')} />
-                <Route path="/setup/genres" element={renderSetupStage('genres', GenresStage, 'artists')} />
-                <Route path="/setup/artists" element={renderSetupStage('artists', ArtistsStage, 'photos')} /> */}
-        </Routes>
-
-        {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
-        {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
-    </Context.Provider >
+            {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+            {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
+        </Context.Provider>
+    )
 }

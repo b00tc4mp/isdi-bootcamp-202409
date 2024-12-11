@@ -1,10 +1,9 @@
 import { Input, Button, Form, Field, Label } from '../library'
 import logic from '../../logic'
 import { errors } from 'com'
+import useContext from '../useContext' // per l'alerta de name i age
 
 const { SystemError } = errors
-
-import useContext from '../useContext' // per l'alerta de name i age
 
 export default function NameDOBStage(props) {
     console.log('NameDOBStage -> render')
@@ -16,30 +15,51 @@ export default function NameDOBStage(props) {
 
         const { target: { name: { value: name }, dateOfBirth: { value: dateOfBirth } } } = event
 
-        try {
-            logic.updateUser({ name, dateOfBirth })
-                .then(() => {
-                    event.target.reset()
+        const birthDate = new Date(dateOfBirth)
+        if (isNaN(birthDate.getTime())) {
+            alert('Invalid date. Please enter a valid date (YYYY-MM-DD).')
 
-                    confirm('You\'re 33. You can\'t change this later.') // edit
-
-                    props.onSetupComplete()
-                })
-                .catch(error => {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later.')
-                    else
-                        alert(error.message)
-
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
+            return
         }
-    }
 
+        const today = new Date()
+        let age = today.getFullYear() - birthDate.getFullYear()
+        const monthDiff = today.getMonth() - birthDate.getMonth()
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--
+        }
+
+        if (age < 18) {
+            alert('You must be at least 18 years old.')
+            return
+        }
+
+        confirm(
+            <div>
+                <strong>Confirm you're {age}</strong><br />
+                You can't change this later.
+            </div>,
+            confirmed => {
+                if (!confirmed) return
+
+                logic.updateUser({ name, dateOfBirth })
+                    .then(() => {
+                        event.target.reset()
+
+                        props.onSetupComplete()
+                    })
+                    .catch(error => {
+                        if (error instanceof SystemError)
+                            alert('Sorry, try again later.')
+                        else
+                            alert(error.message)
+
+                        console.error(error)
+                    })
+            }
+        )
+    }
 
     return <main className="justify-self-center">
         <h2>Hey, you! Let's start with an intro</h2>
@@ -52,7 +72,7 @@ export default function NameDOBStage(props) {
 
             <Field>
                 <Label htmlFor="dateOfBirth">What's your birthday?</Label>
-                <Input type="date" id="dateOfBirth" />
+                <Input type="text" id="dateOfBirth" placeholder="YYYY-MM-DD" />
             </Field>
 
             <Button type="submit">Next</Button>
