@@ -19,7 +19,7 @@ export default function useController() {
     const [time, setTime] = useState(Date.now())
     const [winAlert, setWinAlert] = useState(false)
     const [loseAlert, setLoseAlert] = useState(false)
-    console.log(answers)
+
     useEffect(() => {
         if (!characters && logic.isUserLoggedIn()) {
             const executeMain = async () => {
@@ -171,6 +171,7 @@ export default function useController() {
         time,
         winAlert,
         loseAlert,
+        status,
 
         setWinAlert,
         setLoseAlert,

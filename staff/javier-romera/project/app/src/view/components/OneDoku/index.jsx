@@ -3,6 +3,7 @@ import { TopLeftButton, TopMiddleButton, TopRightButton, MiddleLeftButton, Middl
 import GuessingDiv from './GuessingDiv'
 import LoseScreen from './LoseScreen'
 import WinScreen from './WinScreen'
+import CantPlayAnymoreAlert from '../OnePieceDle/CantPlayAnymoreAlert'
 
 import logic from '../../../logic'
 
@@ -10,7 +11,7 @@ import useController from './useController'
 import { Button } from '../../library'
 import { didFinishBoard } from '../../../util'
 
-export default function OneDoku({ onHomeClick }) {
+export default function OneDoku({ onHomeClick, onLoginClick, onRegisterClick }) {
     const {
         showBoard,
         showGuessingDiv,
@@ -24,6 +25,7 @@ export default function OneDoku({ onHomeClick }) {
         time,
         winAlert,
         loseAlert,
+        status,
 
         setWinAlert,
         setLoseAlert,
@@ -36,11 +38,11 @@ export default function OneDoku({ onHomeClick }) {
         handleRefresh
     } = useController()
 
-    return <main className="h-screen w-screen bg-cover bg-center flex flex-col items-center justify-center overflow-y-auto" style={{
+    return <main className="h-screen w-screen bg-cover bg-center flex flex-col justify-center items-center overflow-y-auto" style={{
         backgroundImage: "url('/images/going_merry.png')"
     }}>
-        {showBoard && logic.isUserLoggedIn() &&
-            < section className="w-full h-full flex flex-col justify-center items-center" onClick={handleGridGuessingExit}>
+        {showBoard && logic.isUserLoggedIn() && !((logic.isUserRoleAnonymous() && status === 2) || (logic.isUserRoleAnonymous() && status === 3)) && ((didFinishBoard(userAnswers) || !winAlert) || didFinishBoard(userAnswers) && winAlert) &&
+            <section className="w-full h-full flex flex-col justify-center items-center" onClick={handleGridGuessingExit}>
                 <div>
                     <div className="grid grid-cols-5 w-[45rem] h-fit mb-[.5rem]"> {/*Dios y señor de las chapuzas letsgo grid-cols-5*/}
                         <div className="w-0"></div>
@@ -104,5 +106,7 @@ export default function OneDoku({ onHomeClick }) {
         {loseAlert && <LoseScreen refresh={handleRefresh} onHomeClick={onHomeClick} setLoseAlert={setLoseAlert} />}
 
         {winAlert && <WinScreen timeSpent={time} refresh={handleRefresh} onHomeClick={onHomeClick} setWinAlert={setWinAlert} />}
-    </main >
+
+        {(status === 2 || status === 3) && logic.isUserRoleAnonymous() && !winAlert && <CantPlayAnymoreAlert onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} onHomeClick={onHomeClick} />}
+    </main>
 }

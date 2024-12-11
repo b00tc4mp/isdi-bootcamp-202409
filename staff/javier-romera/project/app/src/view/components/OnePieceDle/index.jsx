@@ -61,5 +61,5 @@ export default function OnePieceDle({ onHomeClick, onLoginClick, onRegisterClick
         {showWinAlert && <WinScreen onHomeClick={onHomeClick} refresh={handleRefresh} setWinAlert={setShowWinAlert} correctChar={guessedCharacters[guessedCharacters.length - 1].name} />}
 
         {(status === 1 || status === 3) && logic.isUserRoleAnonymous() && !didWin && <CantPlayAnymoreAlert onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} onHomeClick={onHomeClick} />}
-    </main >
+    </main>
 }
