@@ -13,6 +13,7 @@ import { Context } from './view/useContext.js'
 
 import logic from './logic/index.js' //import loginUser from './logic/user/loginUser.js'
 import Categories from './view/components/Categories.jsx'
+import RecommendCategory from './view/RecommendCategory.jsx'
 
 export default function App() {
   const [alert, setAlert] = useState({
@@ -95,6 +96,8 @@ export default function App() {
           <Navigate to='/login' />} />
 
         <Route path='/categories' element={logic.isUserLoggedIn() ? <Categories /> : <Navigate to='/login' />} />
+
+        <Route path='/categories/:category' element={logic.isUserLoggedIn() ? <RecommendCategory /> : <Navigate to='/login' />} />
 
         <Route path='/profile/:userId/*' element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to='/login' />} />
 

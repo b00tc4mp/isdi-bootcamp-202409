@@ -113,7 +113,6 @@ export default function Home() {
 
     console.log('Home -> render')
 
-    // add handle remove comment callback
 
     return <div className='py-12'>
 

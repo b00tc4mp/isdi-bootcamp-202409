@@ -3,8 +3,8 @@ import createFunctionalHandler from '../../helpers/createFunctionalHandler.js'
 
 export default createFunctionalHandler((req, res) => {
     const { userId } = req
-    const { recommendId } = req.params
+    const { category } = req.params
 
-    return logic.getRecommendById(userId, recommendId)
+    return logic.getRecommendByCategory(userId, category)
         .then(recommend => res.json(recommend))
 });

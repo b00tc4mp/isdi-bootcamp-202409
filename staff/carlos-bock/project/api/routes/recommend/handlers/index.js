@@ -5,6 +5,7 @@ import downVoteHandler from './downVoteHandler.js'
 import getCommentsHandler from './getCommentsHandler.js'
 import getRecommendHandler from './getRecommendHandler.js'
 import getRecommendByIdHandler from './getRecommendByIdHandler.js'
+import getRecommendByCategoryHandler from './getRecommendByCategoryHandler.js'
 import removeCommentHandler from './removeCommentHandler.js'
 import upVoteHandler from './upVoteHandler.js'
 
@@ -16,6 +17,7 @@ export {
     getCommentsHandler,
     getRecommendHandler,
     getRecommendByIdHandler,
+    getRecommendByCategoryHandler,
     removeCommentHandler,
     upVoteHandler
 }

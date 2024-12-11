@@ -43,7 +43,7 @@ export default function RecommendDetail() {
     const { subject, date, country, city, price, category, text, comments, image } = recommend
 
     return <article>
-        <h1>{subject}</h1>
+        <h2>{subject}</h2>
         <time>Hacen {getElapsedTime(date)}</time>
         <h3>{country} | {city} | {price === 1 ? '€' : price === 2 ? '€€' : '€€€'}</h3>
 
@@ -54,7 +54,7 @@ export default function RecommendDetail() {
 
         <p>{text}</p>
 
-        <button onClick={handleCommentsClick}>💬 {comments.length}</button>
+        <Button onClick={handleCommentsClick}>💬 </Button>
 
         {view === 'comments' && (
             <CommentsInRec
@@ -68,3 +68,4 @@ export default function RecommendDetail() {
     </article>
 }
 
+//{comments.length}

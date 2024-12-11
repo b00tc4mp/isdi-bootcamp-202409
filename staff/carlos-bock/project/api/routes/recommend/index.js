@@ -10,6 +10,7 @@ import {
     getCommentsHandler,
     getRecommendHandler,
     getRecommendByIdHandler,
+    getRecommendByCategoryHandler,
     removeCommentHandler,
     upVoteHandler
 } from './handlers/index.js'
@@ -22,9 +23,9 @@ recommendRouter.get('/:recommendId', authorizationHandler, getRecommendByIdHandl
 recommendRouter.delete('/:recommendId', authorizationHandler, deleteRecommendHandler)
 recommendRouter.patch('/:recommendId/upVotes', authorizationHandler, upVoteHandler)
 recommendRouter.patch('/:recommendId/downVotes', authorizationHandler, downVoteHandler)
+recommendRouter.get('/:recommendId/comments', authorizationHandler, getCommentsHandler)
 recommendRouter.post('/:recommendId/comments', authorizationHandler, jsonBodyParser, addCommentsHandler)
 recommendRouter.delete('/:recommendId/comments/:commentId', authorizationHandler, removeCommentHandler)
-recommendRouter.get('/:recommendId/comments', authorizationHandler, getCommentsHandler)
-
+recommendRouter.get('/:categories/:category', authorizationHandler, getRecommendByCategoryHandler)
 
 export default recommendRouter
