@@ -1,5 +1,6 @@
 import { connect, disconnect } from 'mongoose'
 import { User, Arc, DevilFruit, Character, Condition } from './models/index.js'
+import { TUser, TCharacter, TArc, TCondition } from './types/index.js'
 
 const db = {
     connect,
@@ -13,5 +14,10 @@ export {
     Arc,
     DevilFruit,
     Character,
-    Condition
+    Condition,
+
+    TUser,
+    TCharacter,
+    TArc,
+    TCondition
 }

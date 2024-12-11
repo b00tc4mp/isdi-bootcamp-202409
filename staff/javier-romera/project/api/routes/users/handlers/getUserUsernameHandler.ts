@@ -6,7 +6,7 @@ import { CustomRequest } from '../../../types.js'
 export default createFunctionalHandler(async (req: CustomRequest, res: Response): Promise<void> => {
     const { userId, params: { targetUserId } } = req
 
-    const name = await logic.getUserUsername(userId, targetUserId)
+    const name: string = await logic.getUserUsername(userId, targetUserId)
 
     res.json(name)
 })

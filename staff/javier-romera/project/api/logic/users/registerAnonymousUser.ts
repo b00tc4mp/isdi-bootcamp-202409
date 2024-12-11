@@ -1,13 +1,13 @@
 import bcrypt from 'bcryptjs'
 
-import { User } from 'dat'
+import { User, TUser } from 'dat'
 import { errors } from 'com'
 import { uuid } from '../../util/index.js'
 
 const { SystemError } = errors
 
-export default () => {
-    return (async () => {
+export default (): Promise<TUser> => {
+    return (async (): Promise<TUser> => {
         let hash
         let user
         const UUID = uuid()

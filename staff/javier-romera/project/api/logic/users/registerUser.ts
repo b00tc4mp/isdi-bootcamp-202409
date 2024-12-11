@@ -13,7 +13,7 @@ export default (email: string, username: string, password: string, passwordRepea
     validate.passwordsMatch(password, passwordRepeat)
     userId && validate.id(userId, 'userId')
 
-    return (async () => {
+    return (async (): Promise<void> => {
         let hash
         let user
 

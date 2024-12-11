@@ -1,6 +1,7 @@
 type TArc = {
+    id?: string,
     name: string,
-    number: Number
+    number: number
 }
 
 export default TArc

@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 
 const { ValidationError, SystemError, DuplicityError, CredentialsError, NotFoundError, OwnershipError, AuthorizationError } = errors
 
-export default (error: Error, req: Request, res: Response, next: NextFunction) => {
+export default (error: Error, req: Request, res: Response, next: NextFunction): void => {
     let status = 500
 
     switch (true) {

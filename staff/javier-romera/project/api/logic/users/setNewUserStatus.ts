@@ -3,7 +3,7 @@ import { User } from 'dat'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId: string, status: Number, from: string) => {
+export default (userId: string, status: Number, from: string): Promise<void> | undefined => {
     validate.id(userId, 'userId')
     validate.status(status)
 
@@ -17,7 +17,7 @@ export default (userId: string, status: Number, from: string) => {
     else if (status === 2 && from !== 'onedoku') newStatus = 3
     else if (status === 3) return
 
-    return (async () => {
+    return (async (): Promise<void> => {
         let user
 
         try {

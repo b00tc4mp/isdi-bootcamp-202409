@@ -1,18 +1,18 @@
-import { User, Condition } from 'dat'
+import { User, TUser, Condition, TCondition } from 'dat'
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default function getRandomConditions(userId: string) {
+export default function getRandomConditions(userId: string): Promise<TCondition[]> {
     validate.id(userId, 'userId')
 
-    return (async () => {
+    return (async (): Promise<TCondition[]> => {
         let user, columnConditions, rowConditions
-        let parsedColumnConditions: any = []
-        let parsedRowConditions: any = []
+        let parsedColumnConditions: TCondition[] = []
+        let parsedRowConditions: TCondition[] = []
 
         try {
-            user = await User.findById(userId).lean()
+            user = await User.findById(userId).lean<TUser>()
         } catch (error) {
             if (error instanceof SystemError)
                 throw new SystemError(error.message)
@@ -21,14 +21,14 @@ export default function getRandomConditions(userId: string) {
         if (!user) throw new NotFoundError('user not found')
 
         try {
-            columnConditions = await Condition.find({ direction: 'column' }).select('-_id').lean()
+            columnConditions = await Condition.find({ direction: 'column' }).select('-_id').lean<TCondition[]>()
         } catch (error) {
             if (error instanceof SystemError)
                 throw new SystemError(error.message)
         }
 
         try {
-            rowConditions = await Condition.find({ direction: 'row' }).select('-_id').lean()
+            rowConditions = await Condition.find({ direction: 'row' }).select('-_id').lean<TCondition[]>()
         } catch (error) {
             if (error instanceof SystemError)
                 throw new SystemError(error.message)
@@ -39,7 +39,7 @@ export default function getRandomConditions(userId: string) {
 
             const possibleCondition = columnConditions![randomNumber]
 
-            const alreadyExists = parsedColumnConditions.some((con: any) => con.value === possibleCondition.value)
+            const alreadyExists = parsedColumnConditions.some((con: TCondition) => con.value === possibleCondition.value)
 
             if (!alreadyExists) parsedColumnConditions.push(possibleCondition)
         }
@@ -49,7 +49,7 @@ export default function getRandomConditions(userId: string) {
 
             const possibleCondition = rowConditions![randomNumber]
 
-            const alreadyExists = parsedRowConditions.some((con: any) => con.text === possibleCondition.text)
+            const alreadyExists = parsedRowConditions.some((con: TCondition) => con.text === possibleCondition.text)
 
             if (!alreadyExists) parsedRowConditions.push(possibleCondition)
         }

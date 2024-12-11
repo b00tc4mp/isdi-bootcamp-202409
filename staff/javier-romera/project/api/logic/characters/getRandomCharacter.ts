@@ -1,28 +1,26 @@
-import { Character, User } from 'dat'
+import { Character, TCharacter, User, TUser } from 'dat'
 import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId: string) => {
+export default (userId: string): Promise<TCharacter> => {
     validate.id(userId, 'userId')
 
-    return (async () => {
+    return (async (): Promise<TCharacter> => {
         let user, characters
 
         try {
-            user = await User.findById(userId).lean()
+            user = await User.findById(userId).lean<TUser>()
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         if (!user) throw new NotFoundError('user not found')
 
         try {
-            characters = await Character.find().populate('firstArc', 'name number -_id').populate('devilFruit', 'type -_id').select('-_id -description -race -town').lean()
+            characters = await Character.find().populate('firstArc', 'name number -_id').populate('devilFruit', 'type -_id').select('-_id -description -race -town').lean<TCharacter[]>()
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         const randomIndex = Math.floor(Math.random() * characters!.length)

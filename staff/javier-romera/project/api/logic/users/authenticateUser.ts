@@ -10,7 +10,7 @@ export default (username: string, password: string): Promise<Payload> => {
     validate.username(username)
     validate.password(password)
 
-    return (async () => {
+    return (async (): Promise<Payload> => {
         let user
 
         try {

@@ -1,16 +1,16 @@
-import { Character, User } from 'dat'
+import { Character, TCharacter, User, TUser } from 'dat'
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId: string) => {
+export default (userId: string): Promise<TCharacter[]> => {
     validate.id(userId, 'userId')
 
-    return (async () => {
+    return (async (): Promise<TCharacter[]> => {
         let user, characters
 
         try {
-            user = await User.findById(userId)
+            user = await User.findById<TUser>(userId)
         } catch (error) {
             throw new SystemError((error as Error).message)
         }
@@ -18,7 +18,7 @@ export default (userId: string) => {
         if (!user) throw new NotFoundError('user not found')
 
         try {
-            characters = await Character.find().select('-_id').populate('devilFruit', '-_id').populate('firstArc', '-_id').lean()
+            characters = await Character.find().select('-_id').populate('devilFruit', '-_id').populate('firstArc', '-_id').lean<TCharacter[]>()
         } catch (error) {
             throw new SystemError((error as Error).message)
         }
@@ -26,3 +26,27 @@ export default (userId: string) => {
         return characters
     })()
 }
+
+// type Characters = {
+//     uuid: string,
+//     id: string,
+//     name: string,
+//     class: string,
+//     race: string,
+//     statistics: StatsType,
+//     skills: SkillType,
+//     items: [ObjectId],
+//     currency: CurrencyType
+// }
+
+// type CharacterType = {
+//     _id: ObjectId | string,
+//     uuid: string,
+//     name: string,
+//     class: string,
+//     race: string,
+//     statistics: StatsType,
+//     skills: SkillType,
+//     items: [ObjectId],
+//     currency: CurrencyType
+// }

@@ -1,40 +1,35 @@
-import { User, Arc, Character } from 'dat'
+import { User, TUser, Arc, TArc, Character, TCharacter } from 'dat'
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId: string, arc: string) => {
+export default (userId: string, arc: string): Promise<TCharacter[] | undefined> => {
     validate.id(userId, 'userId')
     validate.arc(arc)
 
     arc = arc.replaceAll('-', ' ')
 
-    return (async () => {
+    return (async (): Promise<TCharacter[] | undefined> => {
         let user, foundArc, characters
 
         try {
-            user = await User.findById(userId).lean()
+            user = await User.findById(userId).lean<TUser>()
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         if (!user) throw new NotFoundError('user not found')
 
         try {
-            foundArc = await Arc.findOne({ name: arc })
+            foundArc = await Arc.findOne<TArc>({ name: arc })
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
-        if (!foundArc) throw new NotFoundError('arc not found')
-
         try {
-            characters = await Character.find({ firstArc: foundArc.id })
+            characters = await Character.find<TCharacter>({ firstArc: foundArc!.id })
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         return characters

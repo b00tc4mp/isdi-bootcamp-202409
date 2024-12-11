@@ -3,10 +3,9 @@ import { User } from 'dat'
 
 const { SystemError } = errors
 
-export default () => {
-    delete localStorage.token
+export default (): Promise<void> => {
 
-    return (async () => {
+    return (async (): Promise<void> => {
         try {
             await User.deleteMany({ role: 'anonymous' })
         } catch (error) {

@@ -1,6 +1,7 @@
 import { ObjectId } from "mongoose"
 
 type TCharacter = {
+    _id: ObjectId,
     name: string,
     alias: string,
     gender: string

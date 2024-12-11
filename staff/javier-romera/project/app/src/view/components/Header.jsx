@@ -3,6 +3,9 @@ import { Button } from '../library'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
+import { errors } from 'com'
+const { SystemError } = errors
+
 export default function Header(props) {
     const [username, setUsername] = useState(null)
     const location = useLocation()
@@ -49,28 +52,23 @@ export default function Header(props) {
         props.onLoggedOut()
     }
 
-    return <header className="fixed top-0 w-full flex justify-center items-center h-[10rem] box-border bg-gradient-to-b from-white/90 to-white/0 z-10">
-        <div className="grid grid-cols-3">
-            <div></div> {/*Chapuza o historia? */}
+    return <header className="fixed top-0 w-full h-[10rem] box-border bg-gradient-to-b from-white/90 to-white/0 z-10 flex">
+        <div className="w-[450px] absolute left-1/2 transform -translate-x-1/2">
+            <img onClick={handleHomeClick} src="/images/allpiece.png" alt="allpiece" className="cursor-pointer transition-transform duration-200 ease-in-out hover:scale-110"></img>
+        </div>
 
-            <div className="w-[450px] flex justify-center items-center">
-                <img onClick={handleHomeClick} src="/images/allpiece.png" alt="allpiece" className="cursor-pointer transition-transform duration-200 ease-in-out hover:scale-110"></img>
+        <div className="flex items-center justify-end ml-auto h-[132px] w-[25rem]">
+            <div className="mr-[3rem]">
+                <p className="text-[1.25rem]">{logic.isUserLoggedIn() && username !== null && `${username}`}</p>
             </div>
-
-            <div className="grid grid-cols-2 justify-end items-center">
-                <div className="flex justify-end">
-                    <p className="text-[1.25rem]">{logic.isUserLoggedIn() && username !== null && `${username}`}</p>
-                </div>
-
-                <div>
-                    {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
-                        <Button onClick={handleLogoutUser} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1rem] transition-transform duration-100 ease-in-out hover:scale-110">Logout</Button> :
-                        logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&
-                        <div className="flex justify-center items-center gap-[10px]">
-                            {location.pathname !== '/login' && <Button onClick={handleLoginClick} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Log in</Button>}
-                            {location.pathname !== '/register' && <Button onClick={handleRegisterClick} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Sign in</Button>}
-                        </div>}
-                </div>
+            <div className="justify-self-start mr-[3rem]">
+                {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
+                    <Button onClick={handleLogoutUser} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1rem] transition-transform duration-100 ease-in-out hover:scale-110">Logout</Button> :
+                    logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&
+                    <div className="flex justify-center items-center gap-[10px]">
+                        {location.pathname !== '/login' && <Button onClick={handleLoginClick} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Log in</Button>}
+                        {location.pathname !== '/register' && <Button onClick={handleRegisterClick} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Sign in</Button>}
+                    </div>}
             </div>
         </div>
     </header>
