@@ -7,8 +7,7 @@ export default (userId: string) => {
     validate.id(userId, 'userId')
 
     return (async () => {
-        let user
-        let characters
+        let user, characters
 
         try {
             user = await User.findById(userId).lean()

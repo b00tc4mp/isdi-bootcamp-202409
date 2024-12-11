@@ -3,7 +3,7 @@ import logic from './logic'
 import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom'
 
 import { Login, Register, Home } from './view'
-import { Header, NoUserLoggedInAlert, OnePieceDle, OneDoku } from './view/components'
+import { Header, NoUserLoggedInAlert, OnePieceDle, OneDoku, EastBlueMap } from './view/components'
 
 export default function App() {
     const navigate = useNavigate()
@@ -31,11 +31,13 @@ export default function App() {
 
     const handleOneDokuClick = () => navigate('/onedoku')
 
+    const handleEastBlueMapClick = () => navigate('/eastblue')
+
     return <main className="h-screen, w-screen">
         {location.pathname !== 'map' && <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
 
         <Routes>
-            <Route path="/" element={<Home onOnePieceDleClick={handleOnePieceDleClick} onOneDokuClick={handleOneDokuClick} />} />
+            <Route path="/" element={<Home onOnePieceDleClick={handleOnePieceDleClick} onOneDokuClick={handleOneDokuClick} onMapClick={handleEastBlueMapClick} />} />
 
             <Route path="/login" element={logic.isUserLoggedIn() && logic.isUserRoleRegular() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterAnchorClick={handleRegisterAnchorClick} />} />
 
@@ -44,6 +46,8 @@ export default function App() {
             <Route path="/onepiecedle" element={logic.isUserLoggedIn() ? <OnePieceDle onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
 
             <Route path="/onedoku" element={logic.isUserLoggedIn() ? <OneDoku onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
+
+            <Route path="/eastblue" element={logic.isUserLoggedIn() ? <EastBlueMap onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
         </Routes>
 
         {location.pathname !== '/login' && location.pathname !== '/register' && !logic.isUserLoggedIn() && <NoUserLoggedInAlert asGuest={handlePlayAsGuestClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
