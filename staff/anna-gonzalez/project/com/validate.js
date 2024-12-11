@@ -40,9 +40,10 @@ const validateDayLogData = data => {
 }
 
 const validateDate = date => {
+    const ISODate = new Date(date).toISOString()
     const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:Z|[\+\-]\d{2}:\d{2})$/
 
-    if (!regex.test(date)) { throw new Error('Invalid ISO date format') }
+    if (!regex.test(ISODate)) { throw new Error('Invalid ISO date format') }
 }
 
 const validateId = (id, explain = 'id') => {

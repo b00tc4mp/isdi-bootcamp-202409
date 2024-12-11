@@ -46,8 +46,8 @@ export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClo
     }
 
     const handleCreateDayLogClick = () => {
-        const formattedDate = selectedDate.toISOString()
-        // const formattedDate = selectedDate.toISOString().split('T')[0]
+        // const formattedDate = selectedDate.toISOString()
+        const formattedDate = selectedDate.toISOString().split('T')[0]
 
         navigate(`/daylog/${formattedDate}`)
     }

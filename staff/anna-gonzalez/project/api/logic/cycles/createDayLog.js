@@ -7,23 +7,28 @@ export default (userId, formattedDate, formData) => {
     validate.date(formattedDate)
     validate.data(formData)
 
-    const normalizedFormattedDate = new Date(formattedDate)
+    const normalizedFormattedDate = new Date(formattedDate).toISOString()
+
+    const cycleDate = new Date(normalizedFormattedDate)
+    cycleDate.setDate(cycleDate.getDate() + 1)
+
+    const normalizedCycleDate = new Date(cycleDate).toISOString()
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
-            if (normalizedFormattedDate.toISOString() > new Date().toISOString()) {
+            if (normalizedFormattedDate > new Date().toISOString()) {
                 throw new ValidationError('DayLog cannot be created in the future')
             }
 
-            return Cycle.findOne({ start: { $lte: normalizedFormattedDate }, $or: [{ end: { $gte: normalizedFormattedDate } }, { end: null }] })
+            return Cycle.findOne({ start: { $lte: normalizedCycleDate } })
                 .sort({ start: -1 })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(cycle => {
                     if (!cycle) throw new NotFoundError('Cycle not found')
 
-                    const existingDayLogIndex = cycle.dayLogs.findIndex(log => new Date(log.date).toISOString() === normalizedFormattedDate.toISOString())
+                    const existingDayLogIndex = cycle.dayLogs.findIndex(log => new Date(log.date).toISOString() === normalizedFormattedDate)
 
                     if (existingDayLogIndex !== -1) {
                         const existingDayLog = cycle.dayLogs[existingDayLogIndex].toObject()

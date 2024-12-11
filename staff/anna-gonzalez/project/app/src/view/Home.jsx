@@ -66,10 +66,15 @@ export default function Home() {
         navigate('/calendar')
     }
 
-    const handleGoToDayLogClick = event => {
-        event.preventDefault()
+    const handleGoToDayLogClick = () => {
+        const now = new Date().toISOString()
 
-        navigate('/daylog')
+        const todayDate = new Date(now)
+        todayDate.setDate(todayDate.getDate() - 1)
+
+        const normalizedTodayDate = new Date(todayDate).toISOString().split('T')[0]
+
+        navigate(`/daylog/${normalizedTodayDate}`)
     }
 
     const daysUntilNextCycle = cyclesStart ? calculateDaysUntilNextCycle(cyclesStart) : null

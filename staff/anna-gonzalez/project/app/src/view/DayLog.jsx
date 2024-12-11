@@ -8,35 +8,36 @@ import { Button } from './library'
 export default function DayLog({ onCreated }) {
     const { formattedDate } = useParams()
 
-    const [dayLog, setDayLog] = useState(null)
     const [formData, setFormData] = useState({ symptoms: [], mood: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' })
-
-    //create variable for mood etc lo q sta map
+    const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
             try {
                 logic.getCurrentDayLog(formattedDate)
                     .then(currentDayLog => {
-                        console.log(currentDayLog)
-                        setDayLog(currentDayLog)
-                        setFormData(prevFormData => {
-                            let updatedSymptoms = currentDayLog.symptoms || prevFormData.symptoms
-                            let updatedMood = currentDayLog.mood ? currentDayLog.mood : prevFormData.mood
-                            let updatedFlow = currentDayLog.flow ? currentDayLog.flow : prevFormData.flow
-                            let updatedSleep = currentDayLog.sleep ? currentDayLog.sleep : prevFormData.sleep
-                            let updatedSexualActivity = currentDayLog.sexualActivity ? currentDayLog.sexualActivity : prevFormData.sexualActivity
-                            let updatedSexualEnergy = currentDayLog.sexualEnergy ? currentDayLog.sexualEnergy : prevFormData.sexualEnergy
+                        if (currentDayLog) {
+                            setFormData(prevFormData => {
+                                let updatedSymptoms = currentDayLog.symptoms ? currentDayLog.symptoms : prevFormData.symptoms
+                                let updatedMood = currentDayLog.mood ? currentDayLog.mood : prevFormData.mood
+                                let updatedFlow = currentDayLog.flow ? currentDayLog.flow : prevFormData.flow
+                                let updatedSleep = currentDayLog.sleep ? currentDayLog.sleep : prevFormData.sleep
+                                let updatedSexualActivity = currentDayLog.sexualActivity ? currentDayLog.sexualActivity : prevFormData.sexualActivity
+                                let updatedSexualEnergy = currentDayLog.sexualEnergy ? currentDayLog.sexualEnergy : prevFormData.sexualEnergy
 
-                            return {
-                                symptoms: updatedSymptoms,
-                                mood: updatedMood,
-                                flow: updatedFlow,
-                                sleep: updatedSleep,
-                                sexualActivity: updatedSexualActivity,
-                                sexualEnergy: updatedSexualEnergy
-                            }
-                        })
+                                return {
+                                    symptoms: updatedSymptoms,
+                                    mood: updatedMood,
+                                    flow: updatedFlow,
+                                    sleep: updatedSleep,
+                                    sexualActivity: updatedSexualActivity,
+                                    sexualEnergy: updatedSexualEnergy
+                                }
+                            })
+                        } else {
+                            console.log('DayLog for this date not found')
+                        }
+                        setIsLoaded(true)
                     })
                     .catch(error => {
                         alert(error.message)
@@ -49,7 +50,7 @@ export default function DayLog({ onCreated }) {
                 console.error
             }
         }
-    }, [])
+    }, [formattedDate])
 
     const handleCheckboxChange = event => {
         const { name } = event.target
@@ -81,13 +82,13 @@ export default function DayLog({ onCreated }) {
         event.preventDefault()
 
         try {
-            const sentDate = new Date(formattedDate).toISOString()
+            // const sentDate = new Date(formattedDate).toISOString()
 
             Object.keys(formData).forEach(key => {
                 if (formData[key] === '') delete formData[key]
             })
 
-            logic.createDayLog(sentDate, formData)
+            logic.createDayLog(formattedDate, formData)
                 .then(onCreated)
                 .catch(error => {
                     alert(error.message)
@@ -102,6 +103,10 @@ export default function DayLog({ onCreated }) {
         }
     }
 
+    if (!isLoaded) {
+        return <p>Loading...</p>
+    }
+
     return <>
         <h2>DayLog</h2>
 
@@ -113,7 +118,13 @@ export default function DayLog({ onCreated }) {
                 {['fatigue', 'headache', 'cramps', 'tender breasts', 'acne', 'backache', 'cravings', 'abdominal pain', 'dryness']
                     .map((symptom) => (
                         <div key={symptom}>
-                            <input type="checkbox" id={symptom} name={symptom} onChange={handleCheckboxChange} />
+                            <input
+                                type="checkbox"
+                                id={symptom}
+                                name={symptom}
+                                onChange={handleCheckboxChange}
+                                checked={formData.symptoms.includes(symptom)} //linking state
+                            />
                             <label htmlFor={symptom}>{symptom.charAt(0).toUpperCase() + symptom.slice(1)}</label>
                         </div>
                     )
@@ -131,7 +142,14 @@ export default function DayLog({ onCreated }) {
                     <legend>{legend}</legend>
                     {options.map((option) => (
                         <div key={option}>
-                            <input type="radio" id={option} name={name} value={option} onChange={handleRadioChange} />
+                            <input
+                                type="radio"
+                                id={option}
+                                name={name}
+                                value={option}
+                                onChange={handleRadioChange}
+                                checked={formData[name] === option} //linking state
+                            />
                             <label htmlFor={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</label>
                         </div>
                     ))}
