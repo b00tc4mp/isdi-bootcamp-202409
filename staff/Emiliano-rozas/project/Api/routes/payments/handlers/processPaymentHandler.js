@@ -4,7 +4,10 @@ import { createFunctionalHandler } from '../../../middleware/index.js'
 export default createFunctionalHandler((req, res) => {
     const { orderId, paymentMethodId, provider } = req.body;
 
-    return logic.processPayment(orderId, paymentMethodId, provider)
+    const { userId } = req
+
+    return logic.processPayment(orderId, paymentMethodId, provider, userId)
+
         .then(() => res.status(201).json({ message: 'Payment successful' }))
         .catch(error => {
             console.error('Error in processPaymentHandler:', error);

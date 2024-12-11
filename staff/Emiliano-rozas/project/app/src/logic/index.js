@@ -13,7 +13,8 @@ import {
     getCart,
     addTocart,
     removeAllFromCart,
-    updateQuantity
+    updateQuantity,
+    updateCart
 } from './cart/index'
 
 import {
@@ -41,6 +42,7 @@ const logic = {
     addTocart,
     removeAllFromCart,
     updateQuantity,
+    updateCart,
     placeOrder,
     getOrders,
     updateOrder,

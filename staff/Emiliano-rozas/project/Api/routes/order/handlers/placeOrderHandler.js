@@ -4,5 +4,7 @@ import { createFunctionalHandler } from '../../../middleware/index.js'
 export default createFunctionalHandler((req, res) => {
     const { userId } = req
 
-    return logic.placeOrder(userId).then(() => res.status(200).json({ message: 'Order Placed successfully' }))
+    return logic.placeOrder(userId)
+        .then(({ orderId }) => res.status(200).json({ orderId })) // si no se envia por aqui el orderId, nunca llega al front
+        .catch(error => res.status(500).json({ error: error.name, message: error.message }));
 })

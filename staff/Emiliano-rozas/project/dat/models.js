@@ -2,6 +2,34 @@ import mongoose from 'mongoose';
 
 const { Schema, model, Types: { ObjectId } } = mongoose;
 
+// const userProfile = new Schema({
+//     address: {
+//         type: String,
+//         default: '',
+//         trim: true
+//     },
+//     phone: {
+//         type: String,
+//         default: '',
+//         trim: true
+//     },
+//     city: {
+//         type: String,
+//         default: '',
+//         trim: true
+//     },
+//     country: {
+//         type: String,
+//         default: '',
+//         trim: true
+//     },
+//     postalCode: {
+//         type: String,
+//         default: '',
+//         trim: true
+//     }
+// }, { versionKey: false })
+
 const user = new Schema({
     name: {
         type: String,
@@ -32,6 +60,12 @@ const user = new Schema({
         enum: ['regular', 'moderator'],
         default: 'regular',
     },
+    // profile: {
+    //     type: ObjectId,
+    //     ref: 'UserProfile',
+    //     required: false,
+    //     default: {}
+    // },
 }, { versionKey: false });
 
 const review = new Schema({
@@ -190,7 +224,7 @@ const order = new Schema({
     },
 }, { versionKey: false });
 
-
+// const UserProfile = model('UserProfile', userProfile);
 const User = model('User', user);
 const Product = model('Product', product);
 const Review = model('Review', review);
@@ -207,4 +241,5 @@ export {
     Cart,
     OrderItem,
     Order,
+    // UserProfile
 };

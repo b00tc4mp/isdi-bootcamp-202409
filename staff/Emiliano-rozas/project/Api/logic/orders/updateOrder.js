@@ -12,9 +12,10 @@ export default (orderId, status) => {
         orderId,
         { status },
         { new: true }
-    ).catch(error => {
-        throw new SystemError(error.message);
-    })
+    )
+        // .catch(error => {
+        //     throw new SystemError(error.message);
+        // })
         .then(updatedOrder => {
             if (!updatedOrder) throw new NotFoundError('order not found');
 

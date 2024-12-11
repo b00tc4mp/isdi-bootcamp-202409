@@ -9,14 +9,17 @@ const { expect } = chai;
 import db, { User, Product, Order, OrderItem } from 'dat';
 import getOrders from './getOrders.js';
 import { errors } from 'com';
-const { SystemError } = errors;
+import mongoose from 'mongoose';
+
+const { Types: { ObjectId } } = mongoose;
+const { NotFoundError } = errors;
 
 describe('getOrders', () => {
     before(async () => {
         await db.connect(process.env.MONGO_URL_TEST);
     });
 
-    let user, product1, product2, orderItem1, orderItem2, order;
+    let regularUser1, regularUser2, adminUser, product1, product2, orderItem1, orderItem2, order1, order2;
 
     beforeEach(async () => {
         await Promise.all([
@@ -26,11 +29,28 @@ describe('getOrders', () => {
             OrderItem.deleteMany(),
         ]);
 
-        user = await User.create({
+        regularUser1 = await User.create({
             name: 'Eddie Brook',
             email: 'eddie@brook.com',
             username: 'venom',
             password: bcrypt.hashSync('123123123', 10),
+            role: 'regular',
+        });
+
+        regularUser2 = await User.create({
+            name: 'Eddier Brook',
+            email: 'eddier@brook.com',
+            username: 'venom2',
+            password: bcrypt.hashSync('123123124', 10),
+            role: 'regular',
+        });
+
+        adminUser = await User.create({
+            name: 'Admin User',
+            email: 'admin@store.com',
+            username: 'admin',
+            password: bcrypt.hashSync('admin123', 10),
+            role: 'moderator',
         });
 
         product1 = await Product.create({
@@ -69,46 +89,49 @@ describe('getOrders', () => {
             quantity: 1,
         });
 
-        order = await Order.create({
-            user: user._id,
+        order1 = await Order.create({
+            user: regularUser1._id,
             items: [orderItem1._id, orderItem2._id],
             totalPrice: product1.price * 2 + product2.price,
             status: 'pending',
         });
+
+        order2 = await Order.create({
+            user: regularUser2._id,
+            items: [orderItem1._id],
+            totalPrice: product1.price * 2,
+            status: 'confirmed',
+        });
     });
 
-    it('succeeds in retrieving all orders', async () => {
-        const orders = await getOrders();
+    it.only('succeeds in retrieving orders for a regular user', async () => {
+        const order = await getOrders(regularUser1._id.toString());
 
-        expect(orders).to.be.an('array').that.is.not.empty;
+        expect(order).to.be.an('array').that.has.lengthOf(1);
 
-        const retrievedOrder = orders.find(o => o.id === order._id.toString());
-
-        expect(retrievedOrder).to.exist;
-        expect(retrievedOrder.user.id).to.equal(user._id.toString());
-        expect(retrievedOrder.user.name).to.equal(user.name);
-        expect(retrievedOrder.items).to.have.lengthOf(2);
-        expect(retrievedOrder.totalPrice).to.equal(order.totalPrice);
-
-        const item1 = retrievedOrder.items.find(item => item.product.id === product1._id.toString());
-        const item2 = retrievedOrder.items.find(item => item.product.id === product2._id.toString());
-
-        expect(item1).to.exist;
-        expect(item1.product.title).to.equal(product1.title);
-        expect(item1.quantity).to.equal(2);
-
-        expect(item2).to.exist;
-        expect(item2.product.title).to.equal(product2.title);
-        expect(item2.quantity).to.equal(1);
+        expect(order).to.exist;
+        expect(order.user._id.toString()).to.equal(regularUser1._id.toString());
+        expect(order.totalPrice).to.equal(order1.totalPrice);
     });
 
-    it('fails on database issues', async () => {
-        try {
-            await getOrders.call(null); // Simulamos un fallo
-            throw new SystemError('Should not reach this line');
-        } catch (error) {
-            expect(error).to.be.instanceOf(SystemError);
-        }
+    it.only('succeeds in retrieving all orders for an admin user', async () => {
+        const orders = await getOrders(adminUser._id.toString());
+
+        expect(orders).to.be.an('array').that.has.lengthOf(2);
+
+        const [userOrder1, userOrder2] = orders;
+
+        expect(userOrder1).to.exist;
+        expect(userOrder1.user.id).to.equal(regularUser1._id.toString());
+        expect(userOrder1.totalPrice).to.equal(order1.totalPrice);
+
+        expect(userOrder2).to.exist;
+        expect(userOrder2.user.id).to.equal(regularUser2._id.toString());
+        expect(userOrder2.totalPrice).to.equal(order2.totalPrice);
+    });
+
+    it.only('fails when user does not exist', async () => {
+        await expect(getOrders(new ObjectId().toString())).to.be.rejectedWith(NotFoundError, 'User not found');
     });
 
     after(async () => {

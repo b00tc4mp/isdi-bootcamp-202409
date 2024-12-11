@@ -3,8 +3,11 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import logic from '../logic/index';
 
+import { errors } from 'com';
+
+const { SystemError } = errors;
+
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-console.log('Stripe Public Key:', import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ orderId, provider }) => {
     const stripe = useStripe();
@@ -16,53 +19,39 @@ const PaymentForm = ({ orderId, provider }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (!stripe || !elements) {
-            setError('Stripe is not loaded yet.');
-            return;
-        }
-
-        if (!orderId) {
-            setError('Order ID is missing.');
-            return;
-        }
-
         setProcessing(true);
         setError(null);
 
         try {
-            // Crear un PaymentMethod con los datos de la tarjeta
+            if (!stripe || !elements) throw new Error('Stripe is not loaded yet.');
+
+            if (!orderId) throw new Error('Order ID is missing.');
+
+            // aca se crea el PaymentMethod con los datos de la tarjeta
             const { error, paymentMethod } = await stripe.createPaymentMethod({
                 type: 'card',
                 card: elements.getElement(CardElement),
             });
 
-            if (error) {
-                setError(error.message);
-                setProcessing(false);
-                return;
-            }
+            if (error) throw new SystemError(error.message);
 
-            const paymentMethodId = paymentMethod.id; // de aca sale el paymentMethodId
+            //lo guardamos to guapo para el evento
+            const paymentMethodId = paymentMethod.id;
 
-            // aca lo enviamos al backend junto con el orderId y provider
+            // aca lo enviamos al backend junto con el orderId y provider bien acompañado
             const response = await logic.processPayment(orderId, paymentMethodId, provider);
 
+            if (!response.success) throw new SystemError(response.message || 'Payment failed.');
 
-            if (response.success) {
-                setPaymentSuccess(true);
-                console.log('Payment successful:', response);
+            // Recuperamos información del pago para confirmar su estado
+            const paymentInfo = await logic.retrievePayment(response.paymentResult.id);
 
-                // Recuperar información del pago para confirmar su estado
-                const paymentInfo = await logic.retrievePayment(response.paymentResult.id);
-                setPaymentIntent(paymentInfo);
+            setPaymentIntent(paymentInfo);
 
-
-            } else {
-                setError(response.message || 'Payment failed');
-            }
+            setPaymentSuccess(true);
         } catch (error) {
-            setError('An unexpected error occurred.');
+            console.error('Payment error:', error.message);
+            setError(error.message || 'An unexpected error occurred.');
         } finally {
             setProcessing(false);
         }
@@ -73,19 +62,20 @@ const PaymentForm = ({ orderId, provider }) => {
             <CardElement className="p-4 bg-white rounded-md" />
             <button
                 type="submit"
-                disabled={!stripe || processing}
+                disabled={!stripe || processing} // se desactiva para que no se pueda tocar nada mientras se esta ejecutando y carga para el usuario
                 className="mt-4 w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700"
             >
                 {processing ? 'Processing...' : 'Pay'}
             </button>
-
+            {/* //componente que maneja la visualización de mensajes de error */}
             {error && <p className="mt-4 text-red-500">{error}</p>}
             {paymentSuccess && <p className="mt-4 text-green-500">Payment successful!</p>}
-
             {paymentIntent && (
                 <div className="mt-4 p-2 bg-gray-700 text-white rounded-md">
+                    <h3 className="font-bold text-lg">Payment Details</h3>
                     <p><strong>Payment Intent ID:</strong> {paymentIntent.id}</p>
                     <p><strong>Status:</strong> {paymentIntent.status}</p>
+                    <p><strong>Amount:</strong> {paymentIntent.amount / 100} {paymentIntent.currency.toUpperCase()}</p>
                 </div>
             )}
         </form>

@@ -59,9 +59,9 @@ describe('updateCart', () => {
         const result = await updateCart(user._id.toString(), product1._id.toString(), 3)
 
         expect(result).to.exist
-        expect(result.cart.user.toString()).to.equal(user._id.toString());
-        expect(result.cart.items).to.be.an('array').that.has.lengthOf(1);
-        expect(result.cart.totalPrice).to.equal(3 * product1.price);
+        expect(result.user.toString()).to.equal(user._id.toString());
+        expect(result.items).to.be.an('array').that.has.lengthOf(1);
+        expect(result.totalPrice).to.equal(3 * product1.price);
     })
 
     it('suceeds on updatin quantity of a cart item', async () => {
@@ -74,9 +74,9 @@ describe('updateCart', () => {
         const result = await updateCart(user._id.toString(), product1._id.toString(), 5);
 
         expect(result).to.exist
-        expect(result.cart.items).to.have.lengthOf(1);
-        expect(result.cart.items[0].quantity).to.equal(7);
-        expect(result.cart.totalPrice).to.equal(7 * product1.price);
+        expect(result.items).to.have.lengthOf(1);
+        expect(result.items[0].quantity).to.equal(5);
+        expect(result.totalPrice).to.equal(5 * product1.price);
     })
 
     it('should remove a product from the cart when quantity is 0', async () => {
@@ -88,8 +88,8 @@ describe('updateCart', () => {
 
         const result = await updateCart(user._id.toString(), product1._id.toString(), 0);
 
-        expect(result.cart.items).to.have.lengthOf(0);
-        expect(result.cart.totalPrice).to.equal(0);
+        expect(result.items).to.have.lengthOf(0);
+        expect(result.totalPrice).to.equal(0);
     });
 
     it('fails when user does not exist', async () => {

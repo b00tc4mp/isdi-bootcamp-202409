@@ -29,7 +29,7 @@ export default userId => { //agregar userId , token  ,trer el rol de admin, si l
                         path: 'product',
                         model: 'Product',
                     },
-                })
+                }).sort({ createdAt: -1 })
                 .lean();
         }).catch(error => {
             console.error(error);

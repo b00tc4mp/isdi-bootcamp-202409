@@ -27,7 +27,7 @@ export default (userId, productId, quantity) => {
         }
         try {
             if (!cart) {
-                cart = await Cart.create({ user: userId })
+                cart = await Cart.create({ user: userId });
             }
         } catch (error) {
             throw new SystemError(error.message)
@@ -62,7 +62,7 @@ export default (userId, productId, quantity) => {
             } else {
                 // Actualizamos la cantidad si el producto ya está en el carrito
                 try {
-                    cartItem.quantity += quantity
+                    cartItem.quantity = quantity
                     await cartItem.save()
                 } catch (error) {
                     throw new SystemError(error.message)
@@ -102,6 +102,6 @@ export default (userId, productId, quantity) => {
         } catch (error) {
             throw new SystemError('Failed to calculate total price: ' + error.message);
         }
-        return { message: 'Cart updated successfully', cart };
+        return cart;
     })();
 };
