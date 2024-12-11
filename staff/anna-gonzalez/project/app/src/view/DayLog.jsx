@@ -114,34 +114,35 @@ export default function DayLog({ onCreated }) {
             <p className="mb-8">{formattedDate}</p>
 
             <fieldset className="mt-4 flex flex-wrap gap-4">
-                <legend>SYMPTOMS</legend>
+                <legend className="text-lg mb-2 font-bold">Symptoms</legend>
                 {['fatigue', 'headache', 'cramps', 'tender breasts', 'acne', 'backache', 'cravings', 'abdominal pain', 'dryness']
                     .map((symptom) => (
-                        <div key={symptom}>
+                        <div key={symptom} className="flex items-center">
                             <input
                                 type="checkbox"
                                 id={symptom}
                                 name={symptom}
                                 onChange={handleCheckboxChange}
                                 checked={formData.symptoms.includes(symptom)} //linking state
+                                className="hidden peer"
                             />
-                            <label htmlFor={symptom}>{symptom.charAt(0).toUpperCase() + symptom.slice(1)}</label>
+                            <label htmlFor={symptom} className="cursor-pointer py-1 px-4 rounded-full bg-gray-200 hover:bg-gray-300 peer-checked:bg-[var(--pink-color)]">{symptom.charAt(0).toUpperCase() + symptom.slice(1)}</label>
                         </div>
                     )
                     )}
             </fieldset>
 
             {[
-                { legend: 'MOOD', name: 'mood', options: ['calm', 'energetic', 'happy', 'mood swings', 'sad', 'apathetic', 'anxious'] },
-                { legend: 'FLOW', name: 'flow', options: ['no discharge', 'creamy', 'watery'] },
-                { legend: 'SLEEP', name: 'sleep', options: ['poor', 'average', 'good'] },
-                { legend: 'SEXUAL ACTIVITY', name: 'sexualActivity', options: ['no sex', 'sex'] },
-                { legend: 'SEXUAL ENERGY', name: 'sexualEnergy', options: ['low', 'moderate', 'high'] },
+                { legend: 'Mood', name: 'mood', options: ['calm', 'energetic', 'happy', 'mood swings', 'sad', 'apathetic', 'anxious'] },
+                { legend: 'Flow', name: 'flow', options: ['no discharge', 'creamy', 'watery'] },
+                { legend: 'Sleep', name: 'sleep', options: ['poor', 'average', 'good'] },
+                { legend: 'Sexual activity', name: 'sexualActivity', options: ['no sex', 'sex'] },
+                { legend: 'Sexual energy', name: 'sexualEnergy', options: ['low', 'moderate', 'high'] },
             ].map(({ legend, name, options }) => (
                 <fieldset key={name} className="mt-4 flex flex-wrap gap-4">
-                    <legend>{legend}</legend>
+                    <legend className="text-lg mb-2 font-bold">{legend}</legend>
                     {options.map((option) => (
-                        <div key={option}>
+                        <div key={option} className="flex items-center">
                             <input
                                 type="radio"
                                 id={option}
@@ -149,8 +150,9 @@ export default function DayLog({ onCreated }) {
                                 value={option}
                                 onChange={handleRadioChange}
                                 checked={formData[name] === option} //linking state
+                                className="hidden peer"
                             />
-                            <label htmlFor={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</label>
+                            <label htmlFor={option} className="cursor-pointer py-1 px-4 rounded-full bg-gray-200 hover:bg-gray-300 peer-checked:bg-[var(--pink-color)]">{option.charAt(0).toUpperCase() + option.slice(1)}</label>
                         </div>
                     ))}
                 </fieldset>

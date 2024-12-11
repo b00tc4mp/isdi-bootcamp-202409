@@ -45,6 +45,14 @@ export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClo
         }
     }
 
+    const handleAddReminderClick = event => {
+        event.preventDefault()
+
+        const formattedDate = selectedDate.toISOString().split('T')[0]
+
+        navigate(`/reminder/${formattedDate}`)
+    }
+
     const handleCreateDayLogClick = () => {
         // const formattedDate = selectedDate.toISOString()
         const formattedDate = selectedDate.toISOString().split('T')[0]
@@ -62,7 +70,7 @@ export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClo
                 <p>Selected day: {selectedDate.toISOString()}</p>
                 <ButtonSmall onClick={handleStartPeriodClick}>Start period</ButtonSmall>
                 <ButtonSmall onClick={handleEndPeriodClick}>End period</ButtonSmall>
-                <ButtonSmall>Add event</ButtonSmall>
+                <ButtonSmall onClick={handleAddReminderClick}>Add reminder</ButtonSmall>
                 <ButtonSmall onClick={handleCreateDayLogClick}>Log symptoms</ButtonSmall>
                 <Button onClick={handleModalClose}>Back</Button>
             </div>

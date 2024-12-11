@@ -9,6 +9,10 @@ import {
 } from './cycles'
 
 import {
+    createReminder
+} from './reminders'
+
+import {
     getUserName,
     isUserLoggedIn,
     loginUser,
@@ -31,6 +35,7 @@ const logic = {
     getCurrentCycleStart,
     getCurrentDayLog,
     getPeriodDays,
+    createReminder,
     getUserName,
     isUserLoggedIn,
     loginUser,

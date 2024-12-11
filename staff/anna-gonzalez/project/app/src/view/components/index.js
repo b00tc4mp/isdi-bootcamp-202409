@@ -3,11 +3,13 @@ import Confirm from './Confirm'
 import Header from './Header'
 import Footer from './Footer'
 import Modal from './Modal'
+import Reminder from './Reminder'
 
 export {
     Alert,
     Confirm,
     Header,
     Footer,
-    Modal
+    Modal,
+    Reminder
 }

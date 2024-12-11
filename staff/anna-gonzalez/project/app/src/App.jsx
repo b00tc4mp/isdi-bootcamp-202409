@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Calendar, DayLog, Home, Login, PartnerAccess, Register, Reports, Splash, Tips } from './view'
-import { Alert, Confirm, Header, Footer, Modal } from './view/components'
+import { Alert, Confirm, Header, Footer, Reminder } from './view/components'
 
 import { Context } from './view/useContext'
 import logic from './logic'
@@ -35,11 +35,11 @@ export default function App() {
   const handlePartnerAccessClick = () => navigate('/partner')
   const handleLogoClick = () => navigate('/')
   const handleUserLoggedOut = () => navigate('/login')
-  const handleDayLogClick = () => navigate('/daylog/:formattedDate')
   const handleCalendarClick = () => navigate('/calendar')
   const handleTipsClick = () => navigate('/tips')
   const handleReportsClick = () => navigate('/reports')
   const handleDayLogCreated = () => navigate('/')
+  const handleReminderCreated = () => navigate('/')
 
   const handleAlertAccepted = () => setAlert({
     message: null,
@@ -85,6 +85,8 @@ export default function App() {
 
       <Route path="/daylog/:formattedDate" element={logic.isUserLoggedIn() ? <DayLog onCreated={handleDayLogCreated} /> : <Navigate to="/login" />} />
 
+      <Route path="/reminder/:formattedDate" element={logic.isUserLoggedIn() ? <Reminder onCreated={handleReminderCreated} /> : <Navigate to="/login" />} />
+
       <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/login" />} />
 
       <Route path="/tips" element={logic.isUserLoggedIn() ? <Tips /> : <Navigate to="/login" />} />
@@ -92,7 +94,7 @@ export default function App() {
       <Route path="/reports" element={logic.isUserLoggedIn() ? <Reports /> : <Navigate to="/login" />} />
     </Routes>
 
-    <Footer onDayLogClick={handleDayLogClick} onCalendarClick={handleCalendarClick} onTipsClick={handleTipsClick} onReportsClick={handleReportsClick} />
+    <Footer onCalendarClick={handleCalendarClick} onTipsClick={handleTipsClick} onReportsClick={handleReportsClick} />
 
     {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 

@@ -9,6 +9,10 @@ import {
 } from './cycles/index.js'
 
 import {
+    createReminder
+} from './reminders/index.js'
+
+import {
     getExerciseTips,
     getMusicTips,
     getNutritionTips,
@@ -29,6 +33,7 @@ const logic = {
     getCurrentCycleStart,
     getCurrentDayLog,
     getPeriodDays,
+    createReminder,
     getExerciseTips,
     getMusicTips,
     getNutritionTips,
