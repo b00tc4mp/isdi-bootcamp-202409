@@ -2,7 +2,7 @@
 
 ## Intro
 
-Gin repository to let you know about the history of the gin, the best mixers & the best garniture for each one.
+Gin repository to let you know about the history of the gin, how its made, the best mixers and the best garniture for each one.
 
 ![](https://media.giphy.com/media/j5Eia63TiZi89wfoYo/giphy.gif?cid=790b7611iya77leuiq5z65s786ppy0qfugivuo3n4a5urwm7&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
@@ -13,8 +13,9 @@ Gin repository to let you know about the history of the gin, the best mixers & t
 #### User 
 - create/update/delete own product
 - update personal info
-- like/dislike product
+- like/unlike product
 - create/delete a comment
+- save/unsafe product
 
 #### Admin
 - create/update/delete any product
@@ -60,20 +61,20 @@ Gin repository to let you know about the history of the gin, the best mixers & t
 - username (string)
 - password (string)
 - role (string, enum: regular | admin)
-- products ([Product.id])
 - saved ([Product.id])
 
 ## Product
 - id (uuid)
+- author (User.id)
 - name (string)
 - date (Date)
 - image (string)
-- description (string)
+- description (string, maxLength)
 - mixer (string)
 - garniture (string)
 - price (number)
 - likes ([User.id])
-- comments ([Comment.id])
+- comments ([Comment])
 
 ## Comment
 - id (uuid)
