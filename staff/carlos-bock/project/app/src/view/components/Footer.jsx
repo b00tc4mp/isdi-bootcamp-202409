@@ -2,7 +2,7 @@ import { useLocation, Link } from 'react-router-dom'
 
 import Button from '../library/Button.jsx'
 
-export default function Footer({ onNewRecommendClick, onCategoriesClick }) {
+export default function Footer({ onNewRecommendClick, onCategoriesClick, onProfileClick }) {
     console.log('Footer -> render')
 
     const location = useLocation()
@@ -25,7 +25,9 @@ export default function Footer({ onNewRecommendClick, onCategoriesClick }) {
 
         <Link to='/following'><Button>🫂</Button></Link>
 
-        <Link to='/profile/'><Button>👨🏻</Button></Link>
+        <Button type='button'
+            onClick={onProfileClick}>👨🏻</Button>
+
 
 
     </footer>

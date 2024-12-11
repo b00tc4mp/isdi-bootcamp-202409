@@ -1,12 +1,12 @@
-import { Recommend } from '../../../dat/index.js';
-import validate from '../../../com/validate.js';
-import errors from '../../../com/errors.js';
+import { Recommend } from '../../../dat/index.js'
+import validate from '../../../com/validate.js'
+import errors from '../../../com/errors.js'
 
-const { SystemError, NotFoundError } = errors;
+const { SystemError, NotFoundError } = errors
 
 const getRecommendById = (userId, recommendId) => {
-    validate.id(userId, 'userId');
-    validate.id(recommendId, 'recommendId');
+    validate.id(userId, 'userId')
+    validate.id(recommendId, 'recommendId')
 
     return Promise.all([
         Recommend.findOne({ _id: recommendId })
@@ -15,18 +15,18 @@ const getRecommendById = (userId, recommendId) => {
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(([recommend]) => {
-            if (!recommend) throw new NotFoundError('Recommendation not found');
+            if (!recommend) throw new NotFoundError('Recommendation not found')
 
-            recommend.id = recommend._id.toString();
+            recommend.id = recommend._id.toString()
             delete recommend._id;
 
             if (recommend.author._id) {
-                recommend.author.id = recommend.author._id.toString();
-                delete recommend.author._id;
+                recommend.author.id = recommend.author._id.toString()
+                delete recommend.author._id
             }
 
-            return recommend;
+            return recommend
         });
 };
 
-export default getRecommendById;
+export default getRecommendById

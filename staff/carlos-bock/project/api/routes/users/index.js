@@ -10,4 +10,5 @@ usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.post('/', jsonBodyParser, registerUserHandler)
 usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler)
 
+
 export default usersRouter

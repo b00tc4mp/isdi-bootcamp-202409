@@ -13,6 +13,7 @@ import {
     getRecommend,
     getRecommendById,
     getRecommendByCategory,
+    getRecommendByUser,
     removeComment,
     upVote
 } from './recommend/index.js'
@@ -31,6 +32,7 @@ const logic = {
     getRecommend,
     getRecommendById,
     getRecommendByCategory,
+    getRecommendByUser,
     removeComment,
     upVote
 }

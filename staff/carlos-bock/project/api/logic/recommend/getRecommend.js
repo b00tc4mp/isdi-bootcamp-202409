@@ -22,9 +22,7 @@ const getRecommend = (userId) => {
                     recommend.author.id = recommend.author._id.toString()
                     delete recommend.author._id
                 }
-                // refactor to add weighted scoring
 
-                //weighted recommendation logic goes here
             })
 
             return recommends

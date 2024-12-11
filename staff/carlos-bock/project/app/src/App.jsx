@@ -4,9 +4,6 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Login, Register, Home, CreateRecommend, Profile, RecommendDetail } from './view/index.js' // add  CreateRecommend 
 
-//TODO add profile page
-
-//import Header from './view/components/Header.jsx'; import Footer from './view/components/Footer.jsx'
 import { Header, Footer, Alert, Confirm } from './view/components/index.js'
 
 import { Context } from './view/useContext.js'
@@ -26,6 +23,7 @@ export default function App() {
     level: 'error',
     callback: null
   })
+  const userId = logic.getUserId()
 
   const navigate = useNavigate()
 
@@ -46,6 +44,9 @@ export default function App() {
   const handleHomeClick = () => navigate('/')
 
   const handleCategoriesclick = () => navigate('/categories')
+
+  const handleProfileClick = () => navigate(`/recommends/${userId}`)
+
 
   const handleAlertAccepted = () => setAlert({
     message: null,
@@ -99,7 +100,7 @@ export default function App() {
 
         <Route path='/categories/:category' element={logic.isUserLoggedIn() ? <RecommendCategory /> : <Navigate to='/login' />} />
 
-        <Route path='/profile/:userId/*' element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to='/login' />} />
+        <Route path='/recommends/:userId/' element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to='/login' />} />
 
         <Route path='/recommend/:id' element={logic.isUserLoggedIn() ? <RecommendDetail /> : <Navigate to='/login' />}
         />
@@ -107,7 +108,10 @@ export default function App() {
 
       </Routes>
     </div>
-    <Footer onNewRecommendClick={handleNewRecommendClick} onCategoriesClick={handleCategoriesclick} />
+    <Footer onNewRecommendClick={handleNewRecommendClick}
+      onCategoriesClick={handleCategoriesclick}
+      onProfileClick={handleProfileClick}
+    />
 
     {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 
