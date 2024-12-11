@@ -7,6 +7,7 @@ import PrivateHeader from "./ui/PrivateHeader";
 import SearchComponent from "./ui/SearchComponent";
 import { validateSession, logout } from "./logic/auth/";
 import { useState, useEffect } from "react";
+import { usePathname } from 'next/navigation'
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -27,15 +28,19 @@ import { useState, useEffect } from "react";
 export default function RootLayout({ children }) {
   // variable de estado para saber si la sesion es valida
   const [authenticated, setAuthenticated] = useState(false);
-
+  const pathname = usePathname();
   function logoutHandler() {
     logout();
     setAuthenticated(false);
   }
-  validateSession().then((response) => {
-    setAuthenticated(response);
-    console.log(response);
-  });
+ 
+  useEffect(() => {
+    // Do something here...
+    validateSession().then((response) => {
+      setAuthenticated(response);
+      console.log(response);
+    });
+  }, [pathname])
 
   return (
     <html lang="en" data-theme="ekoality">

@@ -20,7 +20,7 @@ export default function PrivateHeader({ logout }) {
         {/* Menu Items */}
         <div className="hidden lg:flex space-x-4 items-center">
           <Link
-            href="/newProduct"
+            href="/products/new"
             className="text-sm font-medium text-gray-800"
           >
             Subir producto

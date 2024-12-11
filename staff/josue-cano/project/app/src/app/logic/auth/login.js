@@ -1,9 +1,16 @@
-// import { validate, errors } from "com";
+
+import { validate, errors } from "com";
 import { redirect } from "next/navigation";
 
 const login = ({ username, password }) => {
-  // validate.username(username);
-  // validate.password(password);
+  // errores de validación
+  try {
+    validate.userName(username);
+    validate.password(password);
+    console.log({ validate, errors });
+  } catch (err) {
+    return Promise.reject(err.message);
+  }
   return fetch(`http://${"localhost:8080"}/login`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
@@ -13,15 +20,18 @@ const login = ({ username, password }) => {
       console.log(error);
     })
     .then((res) => {
+      debugger;
       if (res.ok)
         return res
           .json()
           .catch((error) => {
             throw new SystemError(error.message);
           })
-          .then((token) => {
-            localStorage.token = token.token;
-            redirect("/");
+          .then((response) => {
+            debugger;
+            localStorage.token = response.data.token;
+            return true;
+            // redirect("/");
           });
 
       return res
@@ -29,8 +39,9 @@ const login = ({ username, password }) => {
         .catch((error) => {
           throw new SystemError(error.message);
         })
-        .then(({ error, message }) => {
-          //   throw new errors[error](message);
+        .then(({ error }) => {
+          debugger;
+          throw new Error(error)
         });
     });
 };

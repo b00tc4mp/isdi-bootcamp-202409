@@ -25,7 +25,7 @@ export default ({ email, password }) => {
     try {
       match = await bcrypt.compare(password, user.password);
     } catch (error) {
-      throw new SystemError(error.message);
+      throw new CredentialsError(error.message);
     }
 
     if (!match) throw new CredentialsError("wrong credentials");

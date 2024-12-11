@@ -79,7 +79,7 @@ export default function PublicHeader() {
             <li>
               <Link href="/">
                 <Image
-                  src="/icons/sobrenosotros.svg"
+                  src="/icons/sobreNosotros.svg"
                   alt="icono sobre nosotros"
                   width={20}
                   height={20}

@@ -19,7 +19,7 @@ const validateSession = () => {
             throw new SystemError(error.message);
           })
           .then((response) => {
-            return response.status;
+            return response.data.status;
           });
       return false;
     });

@@ -5,8 +5,9 @@ import logic from "./logic/index.js";
 import utils from "./utils/index.js";
 import cors from "cors";
 
+console.warn({url: process.env.MONGO_URL});
 db.connect(process.env.MONGO_URL).then(() => {
-  console.log("connected to db");
+  console.log("connected to db", {db, url: process.env.MONGO_URL});
 
   //   const jsonBodyParser = json()
   const server = express();
@@ -15,20 +16,23 @@ db.connect(process.env.MONGO_URL).then(() => {
 
   server.use(cors());
 
-  server.get("/", (req, res) => res.send("Hello, API!"));
+  server.get("/", (req, res) => {
+    console.log(req);
+    res.send("Hello, API!");
+  });
 
   server.post("/login", (req, res) => {
     const user = req.body;
     logic
       .authenticateUser(user)
-      .then((token) => res.json(token))
-      .catch((msg) => res.status(400).send(msg.message));
+      .then((token) => res.json({data: token}))
+      .catch((msg) => res.status(400).json({error: msg.message}));
   });
 
   //validatessesion
   server.get("/validate-session", (req, res) => {
     const token = req.headers.authorization.slice(7);
-    res.json({ status: utils.validateToken(token) });
+    res.json({ data: {status: utils.validateToken(token) }});
     // .then((status) => res.json(status))
   });
 
@@ -37,10 +41,10 @@ db.connect(process.env.MONGO_URL).then(() => {
     const user = req.body;
     logic
       .registerUser(user)
-      .then((created) => res.json({ created }))
-      .catch((msg) => res.status(400).send(msg));
+      .then((created) => res.json({data: created }))
+      .catch((msg) => res.status(400).json({error: msg}));
 
-    console.log(user);
+    // console.log(user);
   });
 
   server.get("/products", (req, res) =>
@@ -53,8 +57,13 @@ db.connect(process.env.MONGO_URL).then(() => {
   server.get("/categorias", (req, res) => {
     logic.getCategorias().then((categorias) => res.json({ data: categorias }));
   });
+  server.get("/subcategorias", (req, res) => {
+    logic.getSubCategorias().then((subcategorias) => res.json({ data: subcategorias }));
+  });
 
   server.listen(process.env.PORT, () =>
     console.log(`API listening on port ${process.env.PORT}`)
   );
+}).catch((error) => {
+  console.error(error);
 });

@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import { fetchCategorias } from "@/app/utils/productos/formulario";
+import React, { useEffect, useState } from "react";
 
 const NewProduct = () => {
+  const [categorias, setCategorias] = useState([]);
+  const [subcategorias, setSubCategorias] = useState([]);
+  const [subcategoriasActuales, setSubCategoriasActuales] = useState([]);
+  useEffect(() => {
+    fetchCategorias(setCategorias, setSubCategorias);
+  }, []);
+
+
+  const handleCategoriaChange = (evt) => {
+    setSubCategoriasActuales(subcategorias.filter(x => x.idCategoria == evt.target.value));
+  }
+
   const [formData, setFormData] = useState({
     nombreProducto: "",
-    categoria: "Frutas",
-    subcategoria: "aguacates",
+    categoria: "",
+    subcategoria: "",
     precio: "",
     descripcion: "",
     imagenes: Array(6).fill(null),
@@ -42,8 +55,13 @@ const NewProduct = () => {
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Nuevo producto</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+        Nuevo producto
+      </h2>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+      >
         {/* Nombre del producto */}
         <div>
           <label htmlFor="nombreProducto">Nombre del producto</label>
@@ -64,12 +82,17 @@ const NewProduct = () => {
           <select
             id="categoria"
             name="categoria"
-            value={formData.categoria}
-            onChange={handleChange}
+            defaultValue={formData.categoria}
+            onChange={handleCategoriaChange}
             style={inputStyle}
           >
-            <option value="Frutas">Frutas</option>
-            <option value="Verduras">Verduras</option>
+            <option value="">Seleccione</option>
+            {categorias?.map((categoria) => (
+              <option key={categoria._id} value={categoria._id}>
+                {categoria.nombre}
+              </option>
+            ))}
+
           </select>
         </div>
 
@@ -79,12 +102,17 @@ const NewProduct = () => {
           <select
             id="subcategoria"
             name="subcategoria"
-            value={formData.subcategoria}
+            defaultValue={formData.subcategoria}
             onChange={handleChange}
             style={inputStyle}
           >
-            <option value="aguacates">aguacates</option>
-            <option value="manzanas">manzanas</option>
+            <option value="">Seleccione</option>
+            {subcategoriasActuales?.map((subcategoria) => (
+              <option key={subcategoria._id} value={subcategoria._id}>
+                {subcategoria.nombre}
+              </option>
+            ))}
+
           </select>
         </div>
 
@@ -104,7 +132,9 @@ const NewProduct = () => {
 
         {/* Descripción */}
         <div>
-          <label htmlFor="descripcion">Descripción e información del producto</label>
+          <label htmlFor="descripcion">
+            Descripción e información del producto
+          </label>
           <textarea
             id="descripcion"
             name="descripcion"
@@ -117,7 +147,13 @@ const NewProduct = () => {
         </div>
 
         {/* Imagenes */}
-        <div style={{ display: "flex", gap: "10px", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            justifyContent: "space-between",
+          }}
+        >
           {formData.imagenes.map((_, index) => (
             <div
               key={index}
