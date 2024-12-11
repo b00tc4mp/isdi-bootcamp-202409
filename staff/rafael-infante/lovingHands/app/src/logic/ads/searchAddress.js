@@ -15,10 +15,23 @@ export default (query) => {
     })
     .then((res) => {
       if (res.ok) {
-        return res.json().catch((error) => {
-          throw new SystemError(error.message)
-        })
+        return res
+          .json()
+          .catch((error) => {
+            throw new SystemError(error.message)
+          })
+          .then((data) => {
+            return data.map((item) => ({
+              label: item.display_name,
+              value: {
+                lat: parseFloat(item.lat),
+                lon: parseFloat(item.lon),
+                address: item.address.town || item.address.village || item.address.city || item.address.province,
+              },
+            }))
+          })
       }
+
       return res
         .json()
         .catch((error) => {
@@ -27,15 +40,5 @@ export default (query) => {
         .then(({ error, message }) => {
           throw new errors[error](message)
         })
-    })
-    .then((data) => {
-      return data.map((item) => ({
-        label: item.display_name,
-        value: {
-          lat: parseFloat(item.lat),
-          lon: parseFloat(item.lon),
-          address: item.address.town || item.address.village || item.address.city,
-        },
-      }))
     })
 }

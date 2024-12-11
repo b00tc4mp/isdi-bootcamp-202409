@@ -21,7 +21,7 @@ const customIcon = new L.Icon({
 
 export default function Location({ center, ads, showUserMarker = true }) {
   return (
-    <div style={{ height: '300px', width: '100%' }}>
+    <div style={{ height: '400px', width: '100%' }}>
       <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -3,6 +3,7 @@ import deleteAdHandler from './deleteAdHandler.js'
 import getAdsHandler from './getAdsHandler.js'
 
 import toggleFavoriteAdHandler from './toggleFavoriteAdHandler.js'
+import getFavoriteAdsHandler from './getFavoriteAdsHandler.js'
 
 import addReviewHandler from './addReviewHandler.js'
 import deleteReviewHandler from './deleteReviewHandler.js'
@@ -16,4 +17,5 @@ export {
   deleteReviewHandler,
   getReviewsHandler,
   toggleFavoriteAdHandler,
+  getFavoriteAdsHandler,
 }

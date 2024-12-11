@@ -10,6 +10,7 @@ import {
   deleteReviewHandler,
   getReviewsHandler,
   toggleFavoriteAdHandler,
+  getFavoriteAdsHandler,
 } from './handlers/index.js'
 
 const adsRouter = Router()
@@ -24,5 +25,7 @@ adsRouter.post('/:adId/reviews', jsonBodyParser, authorizationHandler, addReview
 adsRouter.delete('/:adId/reviews/:reviewId', authorizationHandler, deleteReviewHandler)
 adsRouter.get('/:adId/reviews', authorizationHandler, getReviewsHandler)
 adsRouter.patch('/:adId/favorites', authorizationHandler, toggleFavoriteAdHandler)
+
+adsRouter.get('/favorites', authorizationHandler, getFavoriteAdsHandler)
 
 export default adsRouter

@@ -7,6 +7,7 @@ import deleteAd from './ads/deleteAd.js'
 import getAds from './ads/getAds.js'
 
 import toggleFavoriteAd from './ads/toggleFavoriteAd.js'
+import getFavoriteAds from './ads/getFavoriteAds.js'
 
 import addReview from './ads/addReview.js'
 import deleteReview from './ads/deleteReview.js'
@@ -22,6 +23,7 @@ const logic = {
   getAds,
 
   toggleFavoriteAd,
+  getFavoriteAds,
 
   addReview,
   deleteReview,
