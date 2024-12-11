@@ -40,6 +40,11 @@ const validateId = (id: string, explain = 'id') => {
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
+const validateUuid = (id: string, explain: string = 'uuid') => {
+    if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
+    if (!['eldon-brightstaff', 'phinolle-dalvush', 'grothar-skullcrusher', 'thalin-lightbringer', 'camilla-la-croix', 'qivos-shadowstep'].includes(id)) throw new ValidationError(`invalid ${explain}`)
+}
+
 const validateCallback = (callback: Function) => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
@@ -52,7 +57,8 @@ const validate = {
     passwordsMatch: validatePasswordsMatch,
     text: validateText,
     id: validateId,
-    callback: validateCallback
+    callback: validateCallback,
+    uuid: validateUuid
 }
 
 export default validate

@@ -13,14 +13,16 @@ const playerState = new Schema({
         ref: 'Quest',
         required: true
     },
-    character: [{
+    characters: [{
         type: ObjectId,
         ref: 'Character',
-        required: true
+        required: true,
+        default: []
     }],
     level: {
         type: Number,
-        required: true
+        required: true,
+        default: 1
     }
 }, { versionKey: false })
 

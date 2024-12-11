@@ -5,9 +5,9 @@ import logic from '../../../logic/index.js'
 import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler(async (req: IRequest, res: Response) => {
-    const { params: { playerId } } = req
+    const { params: { characterId }, playerId } = req
 
-    const character = await logic.getCharacters(playerId)
+    const character = await logic.getCharacter(playerId, characterId)
 
     res.json(character)
 })

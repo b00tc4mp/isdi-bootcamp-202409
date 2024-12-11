@@ -1,7 +1,7 @@
 import logic from '../../logic'
 import useContext from '../useContext'
 
-export default function Play({ onQuitClick }) {
+export default function Multiplayer({ onQuitClick }) {
     const { confirm } = useContext()
 
     const handleQuitClick = event => {

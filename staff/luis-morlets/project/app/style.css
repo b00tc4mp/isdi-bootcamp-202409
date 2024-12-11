@@ -48,7 +48,7 @@ a:visited {
     width: 50%;
     opacity: 99%;
     position: relative;
-    top: 1rem;
+    bottom: 2rem;
 }
 
 .img-hidden {

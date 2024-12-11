@@ -2,10 +2,8 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default playerId => {
-    validate.id(playerId, 'playerId')
-
-    return fetch(`http://${import.meta.env.VITE_API_URL}/:playerId/quests`, {
+export default () => {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/quests`, {
         headers: {
             'Authorization': `Bearer ${localStorage.token}`
         }

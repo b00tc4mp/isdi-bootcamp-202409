@@ -1,10 +1,7 @@
-import { useParams } from 'react-router-dom'
 import logic from '../../logic'
 import useContext from '../useContext'
 
-export default function Play({ onQuitClick, onNewAdventure }) {
-    const { playerId } = useParams()
-
+export default function Singleplayer({ onQuitClick, onNewAdventure }) {
     const { confirm } = useContext()
 
     const handleQuitClick = event => {

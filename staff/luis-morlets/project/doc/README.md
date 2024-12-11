@@ -71,12 +71,9 @@ PlayerState
 
 GameState 
 - id (ObjectId)
-- host (Player.id)
-- status (string, enum: playing | idle | offline)
 - createdAt (Date)
 - inventory ([Item.id])
-- playerStates ([PlayerState])
-- characters ([Character.id])
+- playerStates (PlayerState)
 
 Character
 - id (ObjectId)    

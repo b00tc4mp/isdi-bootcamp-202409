@@ -3,7 +3,7 @@ import { ObjectId } from 'mongoose'
 type PlayerStateType = {
     player: ObjectId,
     quest: ObjectId,
-    character: ObjectId,
+    characters: [ObjectId],
     level: number
 }
 

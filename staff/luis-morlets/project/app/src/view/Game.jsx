@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import Carousel from './components/Carousel'
-import images from '../utils/images'
+import { useState, useEffect } from 'react'
+import { CreateParty } from './components'
+import { useNavigate } from 'react-router-dom'
+import images from '../data/images'
+import logic from '../logic'
 
 export default function Game() {
     console.log('Game -> render')
 
-    const [avatar, setAvatar] = useState()
-
     return <main className="game-container">
-        <Carousel className='relative z-10' data={images} />
+        <CreateParty
+        />
     </main>
 }

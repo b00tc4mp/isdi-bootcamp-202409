@@ -1,5 +1,5 @@
 import { registerPlayer, loginPlayer, logoutPlayer, isPlayerLoggedIn, getPlayerId, getPlayerUsername } from './players'
-import { getCharacter, getItems } from './game'
+import { getCharacter, getItems, getCharacters } from './game'
 
 const logic = {
     registerPlayer,
@@ -10,7 +10,8 @@ const logic = {
     getPlayerUsername,
 
     getCharacter,
-    getItems
+    getItems,
+    getCharacters
 }
 
 export default logic

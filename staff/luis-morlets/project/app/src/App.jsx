@@ -7,7 +7,7 @@ import { Login, Register, Play } from './view'
 import { Context } from './view/useContext'
 
 import logic from './logic'
-import { Alert, Confirm, Singleplayer, Multiplayer, Header } from './view/components'
+import { Alert, Confirm, Singleplayer, Multiplayer, Header, CreateParty } from './view/components'
 import Game from './view/Game'
 
 export default function App() {
@@ -83,7 +83,7 @@ export default function App() {
 
             <Route path="/multiplayer/*" element={logic.isPlayerLoggedIn() ? <Multiplayer onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
 
-            <Route path="/singleplayer/game" element={logic.isPlayerLoggedIn() ? <Game /> : <Navigate to="/login" />}></Route>
+            <Route path="/singleplayer/game" element={logic.isPlayerLoggedIn() ? <Game onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
         </Routes>
 
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}

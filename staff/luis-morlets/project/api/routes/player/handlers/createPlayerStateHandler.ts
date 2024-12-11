@@ -1,13 +1,12 @@
 import { Response } from 'express'
 import { IRequest } from '../../../types.js'
 import logic from '../../../logic/index.js'
-
 import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler(async (req: IRequest, res: Response) => {
-    const { params: { playerId } } = req
+    const { playerId } = req
 
-    const character = await logic.getCharacters(playerId)
+    await logic.createPlayerState(playerId)
 
-    res.json(character)
+    res.status(201).send()
 })
