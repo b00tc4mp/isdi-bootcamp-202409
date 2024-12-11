@@ -71,7 +71,7 @@ User
 - password (string, hashed)
 - dateOfBirth (Date)
 - gender (string, enum: male | female | nonbinary)
-- preferredGender ([string], enum: male | female | nonbinary)
+- targetGender ([string], enum: male | female | nonbinary)
 - coordinates ([ latitude: float, longitude: float ])
 - lastActive (Date)
 

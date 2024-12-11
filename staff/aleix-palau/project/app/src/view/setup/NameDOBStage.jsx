@@ -1,7 +1,7 @@
 import { Input, Button, Form, Field, Label } from '../library'
 import logic from '../../logic'
 import { errors } from 'com'
-import useContext from '../useContext' // per l'alerta de name i age
+import useContext from '../useContext'
 
 const { SystemError } = errors
 
@@ -17,7 +17,7 @@ export default function NameDOBStage(props) {
 
         const birthDate = new Date(dateOfBirth)
         if (isNaN(birthDate.getTime())) {
-            alert('Invalid date. Please enter a valid date (YYYY-MM-DD).')
+            alert('Invalid date. Please enter a valid date (YYYY-MM-DD)')
 
             return
         }
@@ -31,7 +31,7 @@ export default function NameDOBStage(props) {
         }
 
         if (age < 18) {
-            alert('You must be at least 18 years old.')
+            alert('You must be at least 18 years old')
             return
         }
 
@@ -44,6 +44,7 @@ export default function NameDOBStage(props) {
                 if (!confirmed) return
 
                 logic.updateUser({ name, dateOfBirth })
+                    .then(() => logic.updateUserStage('gender'))
                     .then(() => {
                         event.target.reset()
 
@@ -61,21 +62,23 @@ export default function NameDOBStage(props) {
         )
     }
 
-    return <main className="justify-self-center">
-        <h2>Hey, you! Let's start with an intro</h2>
+    return (
+        <main className="justify-self-center">
+            <h2>Hey, you! Let's start with an intro</h2>
 
-        <Form onSubmit={handleSubmit}>
-            <Field>
-                <Label htmlFor="name">What's your first name?</Label>
-                <Input type="text" id="name" placeholder="Your first name" />
-            </Field>
+            <Form onSubmit={handleSubmit}>
+                <Field>
+                    <Label htmlFor="name">What's your first name?</Label>
+                    <Input type="text" id="name" placeholder="Your first name" />
+                </Field>
 
-            <Field>
-                <Label htmlFor="dateOfBirth">What's your birthday?</Label>
-                <Input type="text" id="dateOfBirth" placeholder="YYYY-MM-DD" />
-            </Field>
+                <Field>
+                    <Label htmlFor="dateOfBirth">What's your birthday?</Label>
+                    <Input type="text" id="dateOfBirth" placeholder="YYYY-MM-DD" />
+                </Field>
 
-            <Button type="submit">Next</Button>
-        </Form>
-    </main>
+                <Button type="submit">Next</Button>
+            </Form>
+        </main>
+    )
 }

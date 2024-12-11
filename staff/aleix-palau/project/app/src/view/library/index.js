@@ -4,6 +4,8 @@ import Form from './Form'
 import Input from './Input'
 import Label from './Label'
 import PasswordInput from './PasswordInput'
+import Checkbox from './Checkbox'
+import Radio from './Radio'
 
 export {
     Button,
@@ -11,5 +13,7 @@ export {
     Form,
     Input,
     Label,
-    PasswordInput
+    PasswordInput,
+    Checkbox,
+    Radio
 }

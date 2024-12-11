@@ -23,11 +23,11 @@ const user = new Schema({
     },
     gender: {
         type: String,
-        enum: ['male', 'female', 'nonbinary']
+        enum: ['Man', 'Woman', 'Nonbinary']
     },
-    preferredGender: [{
+    targetGender: [{
         type: String,
-        enum: ['male', 'female', 'nonbinary']
+        enum: ['Men', 'Women', 'Nonbinary people']
     }],
     coordinates: {
         type: Array, // [latitude, longitude]

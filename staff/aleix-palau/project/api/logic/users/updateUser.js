@@ -4,11 +4,15 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 export default (userId, updates) => {
-    const { name, dateOfBirth } = updates // to handle gender, targetGender, genres, artists, etc. later
+    // to handle gender, targetGender, genres, artists, etc. later
+    const { name, dateOfBirth, gender, targetGender } = updates
 
     validate.id(userId, 'userId')
-    validate.name(name)
-    validate.dateOfBirth(dateOfBirth)
+
+    if (name !== undefined) validate.name(name)
+    if (dateOfBirth !== undefined) validate.dateOfBirth(dateOfBirth)
+    if (gender !== undefined) validate.gender(gender)
+    if (targetGender !== undefined) validate.targetGender(targetGender)
 
     return (async () => {
         let user

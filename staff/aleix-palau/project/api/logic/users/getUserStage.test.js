@@ -5,7 +5,7 @@ import getUserStage from './getUserStage.js'
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-    const stage = await getUserStage('6755e0278b1c668012bbdba6')
+    const stage = await getUserStage('6759d7b99ca9518ac5b9b3b5')
 
     console.log(stage)
 } catch (error) {

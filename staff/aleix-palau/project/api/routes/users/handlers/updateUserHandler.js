@@ -3,9 +3,9 @@ import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler(async (req, res) => {
     const { userId } = req.params // req.params fa referencia a la ruta -> p.ex. /:userId/ o :/targetUserId/
-    const { name, dateOfBirth } = req.body
+    const { name, dateOfBirth, gender, targetGender } = req.body
 
-    await logic.updateUser(userId, { name, dateOfBirth })
+    await logic.updateUser(userId, { name, dateOfBirth, gender, targetGender })
 
     res.status(204).send()
 })

@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Login, Register, Home } from './view'
 import { Header, Alert, Confirm } from './view/components'
-import { NameDOBStage } from './view/setup'
+import { NameDOBStage, GenderStage } from './view/setup'
 import { Context } from './view/useContext'
 import logic from './logic'
 
@@ -17,9 +17,7 @@ export default function App() {
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
             logic.getUserStage()
-                .then(stage => {
-                    setUserStage(stage)
-                })
+                .then(setUserStage)
                 .catch(error => {
                     console.error(error)
                     setAlert({ message: 'Failed to fetch setup stage. Please try again.', level: 'error' })
@@ -28,7 +26,7 @@ export default function App() {
             // If user logs out, or we detect they are not logged in, reset userStage to null
             setUserStage(null)
         }
-    }, [logic.isUserLoggedIn()])
+    }, [])
 
     const handleSetupComplete = async nextStage => {
         try {
@@ -58,7 +56,9 @@ export default function App() {
         if (!logic.isUserLoggedIn()) return <Navigate to="/login" />
         if (userStage === null) return <div>Loading setup stage...</div>
         if (userStage === stage) return <Component onSetupComplete={() => handleSetupComplete(nextStage)} />
-        return <Navigate to={`/setup/${userStage}`} />
+
+        // Fallback to 'name-dob' if stage is invalid
+        return <Navigate to={userStage === 'completed' ? '/' : `/setup/${userStage}`} />
     }
 
     console.log('App -> render')
@@ -97,9 +97,9 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={userStage === 'completed' ? <Home /> : <Navigate to={`/setup/${userStage}`} />} />
                     <Route path="/setup/name-dob" element={renderSetupStage('name-dob', NameDOBStage, 'gender')} />
+                    <Route path="/setup/gender" element={renderSetupStage('gender', GenderStage, 'genres')} />
 
-                    {/* <Route path="/setup/gender" element={renderSetupStage('gender', GenderStage, 'genres')} />
-                    <Route path="/setup/genres" element={renderSetupStage('genres', GenresStage, 'artists')} />
+                    {/* <Route path="/setup/genres" element={renderSetupStage('genres', GenresStage, 'artists')} />
                     <Route path="/setup/artists" element={renderSetupStage('artists', ArtistsStage, 'photos')} /> */}
 
                     <Route path="*" element={<Navigate to="/" />} />
