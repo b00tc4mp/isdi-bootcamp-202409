@@ -8,25 +8,6 @@ export default function Home() {
   const [name, setName] = useState(null)
   const [events, setEvents] = useState([])
 
-  useEffect(() => {
-    if (logic.isUserLoggedIn()) {
-      if (!name)
-        try {
-          logic
-            .getUserName()
-            .then(setName)
-            .catch((error) => {
-              alert(error.message)
-              console.error
-            })
-        } catch (error) {
-          alert(error.message)
-
-          console.error(error)
-        }
-    }
-  }, [name])
-
   const refreshEvents = () => {
     logic
       .getEvents()
@@ -43,7 +24,9 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="pt-16 text-center text-cyan-50"></h1>
+      <h1 className="pt-20 text-center text-cyan-50 text-4xl pb-20 font-body">
+        EVENTOS
+      </h1>
 
       <div className="items-center text-center pb-16">
         {events.map((event) => (

@@ -28,13 +28,14 @@ export default function FavoritEvents() {
 
   return (
     <div className="items-center text-center pb-16">
-      <h1 className="pt-20 text-white text-4xl"> Mis Favoritos</h1>
+      <h1 className="pt-20 text-white text-4xl font-body pb-20">
+        {" "}
+        MIS FAVORITOS
+      </h1>
       {favoriteEvents.length === 0 ? (
-        <div className="empty-favorites">
-          <p className="text-white pt-16 text-lg">
-            No tienes eventos favoritos aún.
-          </p>
-        </div>
+        <p className="text-white pt-16 text-lg">
+          No tienes eventos favoritos aún.
+        </p>
       ) : (
         <div className="items-center text-center pb-16">
           {favoriteEvents.map((event) => (

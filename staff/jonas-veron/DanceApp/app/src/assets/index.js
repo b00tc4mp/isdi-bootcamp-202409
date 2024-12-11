@@ -1,7 +1,7 @@
 import likedIcon from "./likedIcon.svg"
 import likeIcon from "./likeIcon.svg"
 import calendarIcon from "./calendarIcon.svg"
-import create from "./create.svg"
+import createIcon from "./createIcon.svg"
 import DanceAppLogo from "./DanceAppLogo.svg"
 import homeIcon from "./homeIcon.svg"
 import searchIcon from "./searchIcon.svg"
@@ -13,12 +13,13 @@ import deleteIcon from "./deleteIcon.svg"
 import isFavoriteIcon from "./isFavoriteIcon.svg"
 import userLocationIcon from "./userLocationIcon.svg"
 import eventLocationIcon from "./eventLocationIcon.svg"
+import locationIconFooter from "./locationIconFooter.svg"
 
 export {
   likedIcon,
   likeIcon,
   calendarIcon,
-  create,
+  createIcon,
   DanceAppLogo,
   homeIcon,
   searchIcon,
@@ -30,4 +31,5 @@ export {
   isFavoriteIcon,
   userLocationIcon,
   eventLocationIcon,
+  locationIconFooter,
 }

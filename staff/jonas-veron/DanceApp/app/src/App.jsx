@@ -6,6 +6,7 @@ import {
   Home,
   CreateEvent,
   FavoritEvents,
+  FilteredEvents,
 } from "./view/index.js"
 import { Header, Footer } from "./view/Components/functional/index.js"
 
@@ -41,6 +42,10 @@ function App() {
         <Route
           path="/favorites"
           element={isLoggedIn ? <FavoritEvents /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/events/:eventType"
+          element={isLoggedIn ? <FilteredEvents /> : <Navigate to="/login" />}
         />
       </Routes>
 

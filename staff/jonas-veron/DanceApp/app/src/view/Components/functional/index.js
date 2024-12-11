@@ -6,6 +6,7 @@ import Comments from "./Comments"
 import Comment from "./Comment"
 import AddComment from "./AddComment"
 import LocationInput from "./LocationInput"
+import EventMap from "./EventMap"
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   Comment,
   AddComment,
   LocationInput,
+  EventMap,
 }

@@ -34,16 +34,16 @@ export default function LocationInput({ onLocationSelect }) {
 
   return (
     <div>
-      <label htmlFor="location" className="block text-gray-700">
+      {/* <label htmlFor="location" className="block text-gray-700">
         Dirección:
-      </label>
+      </label> */}
       <input
         type="text"
         id="location"
         value={query}
         onChange={handleInputChange}
         placeholder="Escribe una dirección"
-        className="p-2 border rounded w-full"
+        className="focus:outline-none p-2 rounded w-full mt-2 bg-tertiary text-white focus:ring-2 focus:ring-tertiary"
       />
 
       <ul className="border border-gray-300 rounded-lg mt-2 max-h-40 overflow-y-auto">
@@ -51,7 +51,7 @@ export default function LocationInput({ onLocationSelect }) {
           <li
             key={index}
             onClick={() => handleSelectSuggestion(suggestion)}
-            className="p-2 hover:bg-gray-200 cursor-pointer"
+            className="p-2 cursor-pointer text-white bg-tertiary"
           >
             {suggestion.label}
           </li>

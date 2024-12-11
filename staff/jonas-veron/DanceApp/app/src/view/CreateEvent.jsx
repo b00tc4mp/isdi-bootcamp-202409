@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import logic from "../logic"
 import { Form, Field, ButtonForm } from "./../view/Components/library/index.js"
+import { calendarIcon } from "../assets/index.js"
 import LocationInput from "./Components/functional/LocationInput.jsx"
 
 const toBase64 = (file) =>
@@ -64,44 +65,55 @@ export default function CreateEvent() {
   }
 
   return (
-    <main className="pt-28 pb-12 flex justify-center items-center">
-      <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-md border border-gray-200">
-        <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+    <main className="pt-10 pb-12 flex justify-center items-center">
+      <div className="w-full max-w-lg p-12">
+        <h1 className="text-2xl font-semibold text-white text-center mb-6 font-body">
           Crear Evento
         </h1>
-        <div className="mb-6">
+        <div>
           {images.map((image) => (
             <img
               key={image}
               src={image}
               alt="Vista previa"
-              className="w-full h-auto rounded-lg shadow-md mb-4"
+              className="w-full rounded-lg mb-2"
             />
           ))}
         </div>
         <Form onSubmit={handleFormSubmit}>
           <Field>
+            <label
+              for="image"
+              className="bg-accentpink  text-white font-bold border-2 border-transparent hover:bg-accentgreen hover:border-accentpink focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-300 rounded-lg"
+            >
+              Subir Imagen
+            </label>
             <input
               type="file"
               name="image"
               id="image"
               placeholder="http://example.com/image.jpg"
               required
-              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
+              className="hidden"
               onChange={handleImageChange}
             />
           </Field>
 
           <Field>
-            <select name="eventType" id="eventType" required>
+            <select
+              name="eventType"
+              id="eventType"
+              required
+              className="w-full p-2 bg-tertiary text-white rounded-lg mt-2"
+            >
               <option value="" disabled>
                 --Selecciona el tipo de evento--
               </option>
               <option value="Sociales">Social</option>
-              <option value="Escuelas de baile">Escuelas de baile</option>
-              <option value="Clases particulares">Clases particulares</option>
-              <option value="Congresos">Congresos</option>
-              <option value="Masterclases">Masterclases</option>
+              <option value="Escuelas de baile">Escuela de baile</option>
+              <option value="Clases particulares">Clase particular</option>
+              <option value="Congresos">Congreso</option>
+              <option value="Masterclass">Masterclass</option>
             </select>
           </Field>
 
@@ -110,19 +122,19 @@ export default function CreateEvent() {
               name="text"
               id="text"
               maxLength="200"
-              placeholder="Descripción del evento"
+              placeholder="Descripción del evento..."
               required
-              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
+              className="focus:outline-none p-2 rounded-lg bg-tertiary mt-2 text-white "
             ></textarea>
           </Field>
 
           <Field>
             <input
-              type="datetime-local"
+              type="date"
               name="eventDate"
               id="eventDate"
               required
-              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
+              className="focus:outline-none p-2 rounded-lg bg-tertiary mt-2 text-white"
             />
           </Field>
 

@@ -74,22 +74,26 @@ const validateCallback = (callback) => {
 }
 
 function validateDate(date) {
+  // Intenta convertir la fecha
   const parsedDate = new Date(date)
 
+  // Verifica si la fecha es inválida
   if (isNaN(parsedDate.getTime())) {
-    throw new Error("Invalid date format")
+    throw new ValidationError("Invalid date format")
   }
 
   const now = new Date()
   const oneYearFromNow = new Date()
   oneYearFromNow.setFullYear(now.getFullYear() + 1)
 
+  // Verifica si la fecha es pasada
   if (parsedDate < now) {
-    throw new Error("Date must be in the future")
+    throw new ValidationError("Date must be in the future")
   }
 
+  // Verifica si la fecha excede un año
   if (parsedDate > oneYearFromNow) {
-    throw new Error("Date must not exceed one year from now")
+    throw new ValidationError("Date must not exceed one year from now")
   }
 }
 

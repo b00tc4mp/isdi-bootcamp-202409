@@ -29,10 +29,12 @@ describe("createEvent", () => {
       [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
       ],
+      "Social",
       "A bailar!",
-      "2024-12-07",
+      "2025-06-07",
       {
         address: "Barcelona",
+        province: "Barcelona",
         coordinates: [41.3870154, 2.1700471],
       }
     )
@@ -61,10 +63,12 @@ describe("createEvent", () => {
         [
           "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
         ],
+        "Social",
         "A bailar!",
-        "2024-12-07",
+        "2025-06-07",
         {
           address: "Barcelona",
+          province: "Barcelona",
           coordinates: [41.3870154, 2.1700471],
         }
       )
@@ -77,10 +81,12 @@ describe("createEvent", () => {
         [
           "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
         ],
+        "Social",
         "A bailar!",
-        "2024-12-07",
+        "2025-06-07",
         {
           address: "Barcelona",
+          province: "Barcelona",
           coordinates: [41.3870154, 2.1700471],
         }
       )
@@ -93,10 +99,12 @@ describe("createEvent", () => {
         [
           "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
         ],
+        "Social",
         "A bailar!",
-        "2024-12-07",
+        "2025-06-07",
         {
           address: "Barcelona",
+          province: "Barcelona",
           coordinates: [41.3870154, 2.1700471],
         }
       )
@@ -104,10 +112,18 @@ describe("createEvent", () => {
 
   it("fails on non-string image", () =>
     expect(() =>
-      createEvent("012345678901234567890123", true, "A bailar!", "2024-12-07", {
-        address: "Barcelona",
-        coordinates: [41.3870154, 2.1700471],
-      })
+      createEvent(
+        "012345678901234567890123",
+        true,
+        "Social",
+        "A bailar!",
+        "2025-06-07",
+        {
+          address: "Barcelona",
+          province: "Barcelona",
+          coordinates: [41.3870154, 2.1700471],
+        }
+      )
     ).to.throw(ValidationError, /^Files must be an array$/))
 
   it("fails on non-string text", () =>
@@ -117,10 +133,12 @@ describe("createEvent", () => {
         [
           "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
         ],
+        "Social",
         true,
-        "2024-12-07",
+        "2025-06-07",
         {
           address: "Barcelona",
+          province: "Barcelona",
           coordinates: [41.3870154, 2.1700471],
         }
       )
