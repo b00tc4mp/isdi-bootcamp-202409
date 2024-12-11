@@ -8,10 +8,10 @@ import logic from '../logic'
 import useContext from './useContext'
 import { useParams } from 'react-router-dom'
 
-export default function ProductDetails({ onLiked, onDisliked, onSaved, onCommentAdded, onCommentRemoved }) {
+export default function ProductDetails({ onSaved, onCommentAdded, onCommentRemoved }) {
   const { productId } = useParams()
 
-  const [view, setView] = useState(null);
+  const [view, setView] = useState(null)
   const [product, setProduct] = useState(null)
 
   const { alert, confirm } = useContext()
@@ -39,7 +39,7 @@ export default function ProductDetails({ onLiked, onDisliked, onSaved, onComment
   const handleLikeClick = () => {
     try {
       logic.toggleLikeProduct(productId)
-        .then(onLiked)
+        .then()
         .catch(error => {
           alert(error.message)
 
@@ -55,7 +55,7 @@ export default function ProductDetails({ onLiked, onDisliked, onSaved, onComment
   const handleDislikeClick = () => {
     try {
       logic.toggleDislikeProduct(productId)
-        .then(onDisliked)
+        .then()
         .catch(error => {
           alert(error.message)
 
@@ -86,8 +86,6 @@ export default function ProductDetails({ onLiked, onDisliked, onSaved, onComment
     }
   }
 
-
-
   const {
     id,
     name,
@@ -97,7 +95,7 @@ export default function ProductDetails({ onLiked, onDisliked, onSaved, onComment
     liked,
     dislikes,
     disliked,
-    // storePrices,
+    //storePrices,
     comments
   } = product
 
@@ -115,6 +113,9 @@ export default function ProductDetails({ onLiked, onDisliked, onSaved, onComment
     {/* <p>{storePrices}</p> */}
 
     <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
+
+    {/* <Button onClick={handleStoresClick}>Show stores</Button> */}
+
     {/* CAMBIAR VISUALIZACIÓN BOTÓN SAVE*/}
     <Button onClick={handleSaveClick}>Save</Button>
 

@@ -30,13 +30,13 @@ export default function App() {
 
   const handleUserRegistered = () => navigate('/login')
 
-  const handleUserLoggedIn = () => navigate('/')
+  const handleUserLoggedIn = () => navigate('/products')
 
   const handleRegisterClick = () => navigate('/register')
 
   const handleGoWishlist = () => navigate('/wishlist')
 
-  const handleProductDetails = productId => navigate(`/${productId}`)
+  const handleProductDetails = productId => navigate(`/products/${productId}`)
 
   const handleAlertAccepted = () => setAlert({
     message: null,
@@ -68,15 +68,15 @@ export default function App() {
   }}>
     <Header onLoggedOut={handleUserLoggedOut} />
     <Routes>
-      <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
+      <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/products" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
-      <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
+      <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/products" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
 
-      <Route path="/wishlist" element={logic.isUserLoggedIn() ? <Wishlist onProductDetails={handleProductDetails} /> : <Navigate to="/login" />} />
+      <Route path="/wishlist" element={logic.isUserLoggedIn() ? <Wishlist /> : <Navigate to="/login" />} />
 
-      <Route path="/:productId" element={logic.isUserLoggedIn() ? <ProductDetails /> : <Navigate to="/login" />} />
+      <Route path="/products/:productId" element={logic.isUserLoggedIn() ? <ProductDetails /> : <Navigate to="/login" />} />
 
-      <Route path="/*" element={logic.isUserLoggedIn() ? <SearchProducts onProductDetails={handleProductDetails} /> : <Navigate to="/login" />} />
+      <Route path="/products/*" element={logic.isUserLoggedIn() ? <SearchProducts /> : <Navigate to="/login" />} />
     </Routes>
 
     <Footer onWishlist={handleGoWishlist} />

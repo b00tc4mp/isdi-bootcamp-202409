@@ -1,4 +1,6 @@
-export default function Product({ product, onProductDetails }) {
+import { Link } from "react-router-dom"
+
+export default function Product({ product }) {
   const {
     id,
     name,
@@ -9,14 +11,8 @@ export default function Product({ product, onProductDetails }) {
     disliked
   } = product
 
-  const handleDetailsProduct = event => {
-    event.preventDefault()
-
-    onProductDetails(id)
-  }
-
   return <article>
-    <a href="" onClick={handleDetailsProduct}>
+    <Link to={`/products/${id}`}>
       <img src={image} />
 
       <h3>{name}</h3>
@@ -24,7 +20,7 @@ export default function Product({ product, onProductDetails }) {
       <p>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</p>
 
       <p>{`${disliked ? '💔' : '🤍'} ${dislikes} dislikes`}</p>
-    </a>
+    </Link>
 
   </article>
 }

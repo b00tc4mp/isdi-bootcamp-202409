@@ -6,7 +6,7 @@ import Product from './components/Product'
 
 import logic from '../logic'
 
-export default function searchProducts({ onProductDetails }) {
+export default function searchProducts() {
   const { alert, confirm } = useContext()
   const [searchParams, setSearchPararms] = useSearchParams()
   const [products, setProducts] = useState([])
@@ -45,11 +45,11 @@ export default function searchProducts({ onProductDetails }) {
 
     <form onSubmit={handleSearch}>
       <select id="category">
-        <option value="Rostro">Rostro</option>
-        <option value="Mejillas">Mejillas</option>
-        <option value="Ojos">Ojos</option>
-        <option value="Cejas">Cejas</option>
-        <option value="Labios">Labios</option>
+        <option value="Face">Face</option>
+        <option value="Cheeks">Cheeks</option>
+        <option value="Eyes">Eyes</option>
+        <option value="Brows">Brows</option>
+        <option value="Lips">Lips</option>
       </select>
 
       <input type="text" placeholder="more info" name="keyword" />
@@ -63,7 +63,6 @@ export default function searchProducts({ onProductDetails }) {
           <Product
             key={product.id}
             product={product}
-            onProductDetails={onProductDetails}
           />
         ))
       ) : (

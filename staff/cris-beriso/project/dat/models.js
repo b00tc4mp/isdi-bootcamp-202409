@@ -74,7 +74,7 @@ const point = new Schema({
 
 const location = new Schema({
   address: {
-    type: string,
+    type: String,
     maxLength: 100,
     required: false
   },
@@ -86,12 +86,12 @@ const location = new Schema({
 
 const store = new Schema({
   name: {
-    type: string,
+    type: String,
     required: true,
     maxLength: 150
   },
   web: {
-    type: string,
+    type: String,
     required: true,
     maxLength: 200
   },
@@ -105,7 +105,7 @@ const storePrice = new Schema({
   }],
   price: {
     type: Number,
-    required: true
+    required: false //TODO
   }
 })
 
