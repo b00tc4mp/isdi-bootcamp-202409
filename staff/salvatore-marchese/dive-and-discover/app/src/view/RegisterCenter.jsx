@@ -1,6 +1,6 @@
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
-import logic from '../../../api/logic'
+import logic from '../logic/users/index.js'
 
 export default function Register(props) {
     console.log('RegisterCentre -> render')

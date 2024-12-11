@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const { Schema, model /*, Types: { ObjectId } */} = mongoose
+const { Schema, model } = mongoose
 
 const user = new Schema({
     name: {
@@ -52,23 +52,20 @@ const user = new Schema({
 
 const logBook = new Schema({
     diver: {
-        type: String, // Reference to User.id
-        required: true
+        type: mongoose.Schema.Types.ObjectId, 
+        required: true,
+        ref: 'User'
     },
     date: {
         type: Date,
         required: true
     },
-    location: {
+    depth: {
         type: String,
         required: true
     },
-    depth: {
-        type: Number,
-        required: true
-    },
     time: {
-        type: Number,
+        type: String,
         required: true
     },
     weather: {
@@ -88,18 +85,18 @@ const logBook = new Schema({
         required: true
     },
     wetSuit: {
-        type: Number,
+        type: String,
         required: true
     },
     weight: {
         type: String,
         required: true
     },
-    finns: {
+    tankSize: {
         type: String,
         required: true
     },
-    tank: {
+    tankBar: {
         type: Number,
         required: true
     },
@@ -108,6 +105,10 @@ const logBook = new Schema({
         required: true
     },
     diveCenter: {
+        type: String,
+        required: true
+    },
+    diveSite: {
         type: String,
         required: true
     },
@@ -145,7 +146,7 @@ const place = new Schema({
     location: {
         type: mongoose.Schema.Types.ObjectId, // Reference to Location schema
         ref: 'Location',
-        required: true
+        required: false
     },
 }, { versionKey: false });
 

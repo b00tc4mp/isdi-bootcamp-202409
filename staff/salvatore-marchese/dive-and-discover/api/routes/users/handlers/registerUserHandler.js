@@ -7,4 +7,4 @@ export default createFunctionalHandler(async (req, res) => {
     await logic.registerUser(name, email, password, passwordRepeat)
 
     res.status(201).send()
-})
+}) 

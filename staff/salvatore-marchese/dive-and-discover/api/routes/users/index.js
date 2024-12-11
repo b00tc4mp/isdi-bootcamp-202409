@@ -1,18 +1,28 @@
 import { Router } from 'express'
 
 import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
-import { authenticateUserHandler, registerUserHandler, getUserHandler } from './handlers/index.js'
+import { authenticateUserHandler, registerUserHandler, getUserHandler, getUserNameHandler, getProfileHandler, updateProfileHandler } from './handlers/index.js'
 
-
-import getUserHandler from './handlers/getUserHandler.js'
 
 const usersRouter = Router()
 
-usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
+//Temp: Usually will be called /register
 usersRouter.post('/', jsonBodyParser, registerUserHandler)
-usersRouter.get('/:id', authorizationHandler, getUserHandler)
-usersRouter.get('/:targetUserId/name', authorizationHandler, getUserHandler)
-usersRouter.get('/personal-info', authorizationHandler, getUserHandler)
+
+//Temp: Usually will be called /login
+usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
+
+//Profile
+//Temp: Usually will be called /profile
+usersRouter.get('/personal-info', authorizationHandler, getProfileHandler)
+usersRouter.put('/personal-info', authorizationHandler, updateProfileHandler)
+
+
+
+
+
+//usersRouter.get('/:id', authorizationHandler, getUserHandler)
+//usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler)
 
 
 export default usersRouter

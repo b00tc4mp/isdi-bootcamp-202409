@@ -18,7 +18,7 @@ export default async () => {
     };
 
     // FETCH WITH ERROR HANDLER 
-    return fetch(url, { headers: headers })
+    return fetch(url, { headers })
         .then((res) => {
             if (!res.ok) {
                 throw new Error(`Error ${res.status}: ${res.statusText}`)

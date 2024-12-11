@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import logic from '../../../api/logic';
+import logic from '../logic/users/index.js'
 
 // HomeCenter component to display business details (view-only)
 const HomeCenter = ({ business }) => {

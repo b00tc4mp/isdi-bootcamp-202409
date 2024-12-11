@@ -19,4 +19,4 @@ const errors = {
     AuthorizationError: createCustomError('AuthorizationError')
 }
 
-export default  errors
+export default errors

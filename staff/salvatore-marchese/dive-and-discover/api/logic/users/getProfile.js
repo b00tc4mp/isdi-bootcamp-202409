@@ -3,8 +3,8 @@ import { User } from 'dat'
 
 const { SystemError, NotFoundError } = errors
 
-// GET USER DATA
-export async function getUser(userId) {
+// GET USER PROFILE
+export default async (userId) => {
     try {
         const user = await User.findById(userId);
         console.log(user)

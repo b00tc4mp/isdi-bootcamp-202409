@@ -1,4 +1,4 @@
-import { User } from '../../dat/models.js';
+import { User } from 'dat/models.js';
 import { errors } from 'com';
 
 const { ValidationError } = errors;

@@ -1,17 +1,33 @@
-import authenticateUser from "./authenticateUser.js"
-import registerUserDiver from "./registerUserDiver.js"
-import registerUserCenter from "./registerUserCenter.js"
-import homeDiver from "./homeDiver.js"
-import getUserName from "./getUserName.js"
+import {
+    authenticateUser,
+    registerUserDiver,
+    registerUserCenter,
+    homeDiver,
+    homeCenter,
+    getUser,
+    getUserName,
+    getProfile,
+    updateProfile,
+} from './users/index.js'
 
-
+import {
+    createLog,
+    getLogs
+} from './log/index.js'
 
 const logic = {
     authenticateUser,
     registerUserDiver,
     registerUserCenter,
     homeDiver,
-    getUserName
+    homeCenter,
+    getUser,
+    getUserName,
+    getProfile,
+    updateProfile,
+
+    createLog,
+    getLogs,
 }
 
 export default logic 

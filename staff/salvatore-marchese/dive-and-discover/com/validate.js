@@ -66,6 +66,175 @@ const validateTelephone = telephone => {
     if (!/^\+?\d{9,15}$/.test(telephone)) throw new ValidationError('telephone must be between 9 and 15 digits, with optional "+"');
 }
 
+const validateDate = (date) => {
+    // Regular expression to match date format: dd/mm/yyyy
+    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+
+    if (!regex.test(date)) {
+        throw new Error('Invalid date format. Expected format: dd/mm/yyyy');
+    }
+}
+
+const validateDepth = (depth) => {
+    // Regex pattern to match depth in formats like "18m", "12mt", "10ft", etc.
+    const depthPattern = /^\d+(m|mt|ft)$/;
+
+    // Check if the depth matches the pattern
+    if (!depthPattern.test(depth)) {
+        throw new Error('Invalid depth format. Expected format: number followed by "m", "mt", or "ft"');
+    }
+}
+
+const validateTime = (time) => {
+    // Regex pattern to match time in format like "45min", "10min"
+    const timePattern = /^\d+min$/;
+
+    // Check if the time matches the pattern
+    if (!timePattern.test(time)) {
+        throw new Error('Invalid time format. Expected format: "Xmin" (e.g., "45min", "10min")');
+    }
+}
+
+const validateWeather = (weather) => {
+    // Ensure weather is a string
+    if (typeof weather !== 'string') {
+        throw new Error('Weather must be a string');
+    }
+
+    // Ensure weather is not empty
+    if (weather.trim().length === 0) {
+        throw new Error('Weather cannot be empty');
+    }
+
+    // Optionally, ensure a reasonable length for the weather description (3 to 50 characters)
+    if (weather.length < 3 || weather.length > 50) {
+        throw new Error('Weather description must be between 3 and 50 characters');
+    }
+}
+
+const validateTemperature = (temperature) => {
+    // Ensure temperature is a number
+    if (typeof temperature !== 'number') {
+        throw new Error('Temperature must be a number');
+    }
+
+    // Optionally, ensure temperature is within a reasonable range
+    // For example, between -100 and 100 degrees (Celsius or Fahrenheit)
+    if (temperature < -100 || temperature > 100) {
+        throw new Error('Temperature must be between -100 and 100');
+    }
+}
+
+const validateVisibility = (visibility) => {
+    // Ensure visibility is a string
+    if (typeof visibility !== 'string') {
+        throw new Error('Visibility must be a string');
+    }
+}
+
+const validateWaves = (waves) => {
+    // Ensure waves is a string
+    if (typeof waves !== 'string') {
+        throw new Error('Waves must be a string');
+    }
+}
+
+const validateWetSuit = (wetSuit) => {
+    // Ensure wetSuit is a string
+    if (typeof wetSuit !== 'string') {
+        throw new Error('WetSuit must be a string');
+    }
+
+    // Regular expression to match 'none', '3mm', '5mm', or '7mm'
+    const validWetSuits = ['none', '3mm', '5mm', '7mm'];
+    
+    if (!validWetSuits.includes(wetSuit)) {
+        throw new Error('WetSuit must be one of the following: none, 3mm, 5mm, 7mm');
+    }
+}
+
+const validateWeight = (weight) => {
+    // Ensure weight is a string
+    if (typeof weight !== 'string') {
+        throw new Error('Weight must be a string');
+    }
+
+    // Regular expression to match numbers followed by "kg" (e.g., "5kg", "10kg")
+    const weightRegex = /^[0-9]+kg$/;
+
+    if (!weightRegex.test(weight)) {
+        throw new Error('Weight must be a valid number followed by "kg" (e.g., "5kg", "10kg")');
+    }
+}
+
+const validateTankSize = (tankSize) => {
+    // Ensure tankSize is a string
+    if (typeof tankSize !== 'string') {
+        throw new Error('Tank size must be a string');
+    }
+
+    // Regular expression to match a number followed by "L" (e.g., "12L", "15L")
+    const tankSizeRegex = /^[0-9]+L$/;
+
+    if (!tankSizeRegex.test(tankSize)) {
+        throw new Error('Tank size must be a valid number followed by "L" (e.g., "12L", "15L")');
+    }
+}
+
+const validateTankBar = (tankBar) => {
+    // Ensure tankBar is a string
+    if (typeof tankBar !== 'string') {
+        throw new Error('Tank bar must be a string');
+    }
+}
+
+const validateFeeling = (feeling) => {
+    // Ensure feeling is a string
+    if (typeof feeling !== 'string') {
+        throw new Error('Feeling must be a string');
+    }
+
+    // Ensure feeling is not longer than 30 characters
+    if (feeling.length > 30) {
+        throw new Error('Feeling must be no longer than 30 characters');
+    }
+}
+
+const validateDiveCenter = (diveCenter) => {
+    // Ensure diveCenter is a string
+    if (typeof diveCenter !== 'string') {
+        throw new Error('Dive center must be a string');
+    }
+
+    // Ensure diveCenter is not longer than 30 characters
+    if (diveCenter.length > 30) {
+        throw new Error('Dive center must be no longer than 30 characters');
+    }
+}
+
+const validateDiveSite = (diveSite) => {
+    // Ensure diveSite is a string
+    if (typeof diveSite !== 'string') {
+        throw new Error('Dive site must be a string');
+    }
+
+    // Ensure diveSite is not longer than 30 characters
+    if (diveSite.length > 30) {
+        throw new Error('Dive site must be no longer than 30 characters');
+    }
+}
+
+const validateNotes = (notes) => {
+    // Ensure notes is a string
+    if (typeof notes !== 'string') {
+        throw new Error('Notes must be a string');
+    }
+
+    // Ensure notes is not longer than 300 characters
+    if (notes.length > 300) {
+        throw new Error('Notes must be no longer than 300 characters');
+    }
+}
 
 
 const validate = {
@@ -79,7 +248,22 @@ const validate = {
     city: validateCity,
     telephone: validateTelephone,
     id: validateId,
-    callback: validateCallback
+    callback: validateCallback,
+    date: validateDate,
+    depth: validateDepth,
+    time: validateTime,
+    weather: validateWeather,
+    temperature: validateTemperature,
+    visibility: validateVisibility,
+    waves: validateWaves,
+    wetSuit: validateWetSuit,
+    weight: validateWeight,
+    tankSize: validateTankSize,
+    tankBar: validateTankBar,
+    feeling: validateFeeling,
+    diveCenter: validateDiveCenter,
+    diveSite: validateDiveSite,
+    notes: validateNotes
 }
 
 export default validate

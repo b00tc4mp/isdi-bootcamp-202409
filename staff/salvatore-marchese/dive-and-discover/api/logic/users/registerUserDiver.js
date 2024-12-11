@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 
 import { User } from 'dat'
 //import { validate, errors } from '../../com'
-import errorHandler from '../routes/helpers/errorHandler.js'
+import errorHandler from '../../routes/helpers/errorHandler.js'
 
 
 //const { DuplicityError, SystemError } = errors
