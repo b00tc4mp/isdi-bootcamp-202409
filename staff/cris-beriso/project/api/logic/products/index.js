@@ -7,6 +7,7 @@ import toggleDislikeProduct from './toggleDislikeProduct.js'
 import saveProduct from './saveProduct.js'
 import getProductDetails from './getProductDetails.js'
 import searchProducts from './searchProducts.js'
+import getStorePrices from './getStorePrices.js'
 
 export {
   getProducts,
@@ -17,5 +18,6 @@ export {
   toggleDislikeProduct,
   saveProduct,
   getProductDetails,
-  searchProducts
+  searchProducts,
+  getStorePrices
 } 

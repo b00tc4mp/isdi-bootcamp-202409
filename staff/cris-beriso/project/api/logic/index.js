@@ -1,6 +1,6 @@
 import { registerUser, authenticateUser, getUserName, getWishlist } from './users/index.js'
 
-import { addComment, removeComment, getComments, getProducts, toggleLikeProduct, toggleDislikeProduct, saveProduct, getProductDetails, searchProducts } from './products/index.js'
+import { addComment, removeComment, getComments, getProducts, toggleLikeProduct, toggleDislikeProduct, saveProduct, getProductDetails, searchProducts, getStorePrices } from './products/index.js'
 
 const logic = {
   registerUser,
@@ -16,7 +16,8 @@ const logic = {
   toggleDislikeProduct,
   saveProduct,
   getProductDetails,
-  searchProducts
+  searchProducts,
+  getStorePrices
 }
 
 export default logic

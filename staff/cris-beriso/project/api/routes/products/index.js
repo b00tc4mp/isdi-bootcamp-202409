@@ -11,7 +11,8 @@ import {
   toggleDislikeProductHandler,
   saveProductHandler,
   getProductDetailsHandler,
-  searchProductsHandler
+  searchProductsHandler,
+  getStorePricesHandler
 } from './handlers/index.js'
 
 
@@ -25,7 +26,7 @@ productsRouter.patch('/:productId/likes', authorizationHandler, toggleLikeProduc
 productsRouter.patch('/:productId/dislikes', authorizationHandler, toggleDislikeProductHandler)
 productsRouter.patch('/:productId/save', authorizationHandler, saveProductHandler)
 productsRouter.get('/search', authorizationHandler, searchProductsHandler)
+productsRouter.get('/:productId/storePrices', authorizationHandler, getStorePricesHandler)
 productsRouter.get('/:productId', authorizationHandler, getProductDetailsHandler)
-
 
 export default productsRouter

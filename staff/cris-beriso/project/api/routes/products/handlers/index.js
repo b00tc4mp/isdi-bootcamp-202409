@@ -7,6 +7,7 @@ import toggleDislikeProductHandler from './toggleDislikeProductHandler.js'
 import saveProductHandler from './saveProductHandler.js'
 import getProductDetailsHandler from './getProductDetailsHandler.js'
 import searchProductsHandler from './searchProductsHandler.js'
+import getStorePricesHandler from './getStorePricesHandler.js'
 
 export {
   getProductsHandler,
@@ -17,5 +18,6 @@ export {
   toggleDislikeProductHandler,
   saveProductHandler,
   getProductDetailsHandler,
-  searchProductsHandler
+  searchProductsHandler,
+  getStorePricesHandler
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import { Button } from './library'
+import StorePrices from './components/StorePrices'
 import Comments from './components/Comments'
 
 import logic from '../logic'
@@ -11,8 +12,9 @@ import { useParams } from 'react-router-dom'
 export default function ProductDetails() {
   const { productId } = useParams()
 
-  const [view, setView] = useState(null)
+  const [viewComments, setViewComments] = useState(null)
   const [product, setProduct] = useState(null)
+  const [viewStorePrices, setViewStorePrices] = useState(null)
 
   const { alert, confirm } = useContext()
 
@@ -70,7 +72,7 @@ export default function ProductDetails() {
     }
   }
 
-  const handleCommentsClick = () => setView(view ? null : 'comments')
+  const handleCommentsClick = () => setViewComments(viewComments ? null : 'comments')
 
   const handleCommentAdded = () => {
     try {
@@ -120,6 +122,8 @@ export default function ProductDetails() {
     }
   }
 
+  const handleStoresClick = () => setViewStorePrices(viewStorePrices ? null : 'storePrices')
+
   const {
     id,
     name,
@@ -129,7 +133,7 @@ export default function ProductDetails() {
     liked,
     dislikes,
     disliked,
-    //storePrices,
+    storePrices,
     comments,
     saved
   } = product
@@ -145,19 +149,22 @@ export default function ProductDetails() {
 
     <Button onClick={handleDislikeClick}> {`${disliked ? '💔' : '🤍'} ${dislikes} dislikes`}</Button>
 
-    {/* <p>{storePrices}</p> */}
-
     <Button onClick={handleCommentsClick}>💬 {comments.length} comments</Button>
 
-    {/* <Button onClick={handleStoresClick}>Show stores</Button> */}
+    <Button onClick={handleStoresClick}>Show prices and stores</Button>
 
     {/* CAMBIAR VISUALIZACIÓN BOTÓN SAVE*/}
     <Button onClick={handleSaveClick}>{`${saved ? 'Saved' : 'Save'}`}</Button>
 
-    {view === 'comments' && <Comments
+    {viewComments === 'comments' && <Comments
       productId={id}
       onAdded={handleCommentAdded}
       onRemoved={handleCommentRemoved}
+    />}
+
+    {viewStorePrices === 'storePrices' && <StorePrices
+      productId={id}
+      storePrices={storePrices}
     />}
   </article>
 }

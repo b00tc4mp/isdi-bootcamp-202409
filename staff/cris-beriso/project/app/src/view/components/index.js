@@ -6,6 +6,8 @@ import Comments from './Comments'
 import Footer from './Footer'
 import AddComment from './AddComment'
 import Product from './Product'
+import StorePrices from './StorePrices'
+import OneStorePrice from './OneStorePrice'
 
 
 export {
@@ -16,5 +18,8 @@ export {
   Comment,
   Comments,
   AddComment,
-  Product
+  Product,
+  StorePrices,
+  OneStorePrice
+
 }

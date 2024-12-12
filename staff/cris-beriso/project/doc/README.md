@@ -68,6 +68,7 @@ Admin (User)
 #### Product
 - id (UUID)
 - name (string)
+- categor (string)
 - images ([string])
 - description (string)
 - likes ([User.id])
@@ -88,6 +89,7 @@ Admin (User)
 
 #### Store
 - id (UUID)
+- name (string)
 - web (string)
 - locations ([Location])
 

@@ -57,7 +57,7 @@ const comment = new Schema({
     required: true,
     default: Date.now
   }
-})
+}, { versionKey: false })
 
 const point = new Schema({
   type: {
@@ -70,7 +70,7 @@ const point = new Schema({
     type: [Number],
     required: true
   }
-})
+}, { versionKey: false })
 
 const location = new Schema({
   address: {
@@ -82,7 +82,7 @@ const location = new Schema({
     type: point,
     required: false
   }
-})
+}, { versionKey: false })
 
 const store = new Schema({
   name: {
@@ -96,18 +96,15 @@ const store = new Schema({
     maxLength: 200
   },
   locations: [location]
-})
+}, { versionKey: false })
 
 const storePrice = new Schema({
-  store: [{
+  store: {
     type: ObjectId,
     ref: 'Store'
-  }],
-  price: {
-    type: Number,
-    required: false //TODO
-  }
-})
+  },
+  price: Number
+}, { versionKey: false })
 
 const product = new Schema({
   name: {

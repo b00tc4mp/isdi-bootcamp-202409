@@ -7,6 +7,7 @@ import toggleDislikeProduct from './toggleDislikeProduct'
 import saveProduct from './saveProduct'
 import getProductDetails from './getProductDetails'
 import searchProducts from './searchProducts'
+import getStorePrices from './getStorePrices'
 
 
 export {
@@ -18,5 +19,6 @@ export {
   toggleDislikeProduct,
   saveProduct,
   getProductDetails,
-  searchProducts
+  searchProducts,
+  getStorePrices
 }
