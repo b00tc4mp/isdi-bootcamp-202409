@@ -8,6 +8,8 @@ import QrCodeGeneraitor from './QrCodeGenereitor'
 import registerPet from './registerPet'
 import getPets from './getPets'
 import registerHistoryPet from './registerHistoryPet'
+import getHistoriesPets from './getHistoriesPets'
+import updateVaccinesDewornsPet from './updateVaccinesDewornsPet'
 
 
 const logic = {
@@ -16,11 +18,15 @@ const logic = {
     isUserLoggedIn,
     logoutUser,
     isLoggingVet,
-    getUser,
     QrCodeGeneraitor,
+
     registerPet,
+    registerHistoryPet,
+    updateVaccinesDewornsPet,
+
     getPets,
-    registerHistoryPet
+    getUser,
+    getHistoriesPets
 
 }
 

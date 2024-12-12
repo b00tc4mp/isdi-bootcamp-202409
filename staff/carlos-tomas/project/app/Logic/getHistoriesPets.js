@@ -1,22 +1,27 @@
 import axios from 'axios'
-import { errors } from '../com'
+import { errors, validate } from '../com'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { SystemError } = errors
 
-const getPets = async () => {
+const getHistoriesPets = async (type, petId) => {
+    validate.type(type)
+    validate.id(petId, 'petId')
+
     try {
 
-        const token = await AsyncStorage.getItem('token')
+        token = await AsyncStorage.getItem('token')
         if (!token) {
             throw new SystemError('token not found')
         }
 
-        const response = await axios.get('http://192.168.98.176:8080/pets', {
-            headers: {
-                Authorization: `Bearer ${token}`
+        const response = await axios.get(`http://192.168.98.176:8080/pets/history/${type}/${petId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }
-        })
+        )
 
         return response.data
     } catch (error) {
@@ -28,5 +33,4 @@ const getPets = async () => {
         }
     }
 }
-
-export default getPets
+export default getHistoriesPets

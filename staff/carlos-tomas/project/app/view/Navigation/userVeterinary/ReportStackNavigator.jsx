@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { ReporScreentUserVeterinary, ReportHistoryNewUserVeterinary, ReportHistoryUserVeterinary } from '../../userVeterinary/index'
+import { ReporScreentUserVeterinary, ReportHistoryNewUserVeterinary, ReportHistoryUserVeterinary, ReportVaccinesDewornsUserVeterinary } from '../../userVeterinary/index'
 
 const Stack = createStackNavigator();
 
@@ -23,7 +23,12 @@ export default function ReportStackNavigator() {
             <Stack.Screen
                 name='new report'
                 component={ReportHistoryNewUserVeterinary}
-                options={{ title: 'New report' }}
+                options={{ title: 'Nuevo informe' }}
+            />
+            <Stack.Screen
+                name='preventive'
+                component={ReportVaccinesDewornsUserVeterinary}
+                options={{ title: 'Informe medicina preventiva' }}
             />
         </Stack.Navigator>
     )

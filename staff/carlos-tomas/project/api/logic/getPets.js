@@ -3,7 +3,6 @@ import { errors, validate } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-
 export default (userId) => {
     validate.id(userId, 'userid')
 

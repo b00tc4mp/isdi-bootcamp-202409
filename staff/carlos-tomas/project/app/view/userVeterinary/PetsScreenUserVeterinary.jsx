@@ -142,19 +142,16 @@ const registerPets = StyleSheet.create({
     text_dropdown: {
         fontSize: 15
     },
-
     form: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
         gap: 20,
         paddingTop: 35
-
     },
     form_dropdown: {
         justifyContent: "center",
         alignItems: "center",
-
     },
     text_input: {
         borderWidth: 1,
@@ -169,7 +166,8 @@ const registerPets = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 4,
         borderRadius: 8,
-        width: 350
+        width: 350,
+        padding: 10
     },
     label: {
         fontSize: 16,

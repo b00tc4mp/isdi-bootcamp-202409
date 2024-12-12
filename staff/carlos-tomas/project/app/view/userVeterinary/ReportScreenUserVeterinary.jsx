@@ -12,9 +12,6 @@ export default function SearchBarExample() {
     const [allData, setAllData] = useState([])
     const [filteredData, setFilteredData] = useState([])
     const [infoPet, setInfoPet] = useState(null)
-
-
-
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -25,10 +22,20 @@ export default function SearchBarExample() {
                 Alert.alert('Error', error.message)
                 console.error(error);
             }
-        };
+        }
 
         fetchUserData()
     }, [])
+
+    const reloadPetsData = async () => {
+        try {
+            const data = await logic.getPets()
+            setAllData(data)
+            setFilteredData(data)
+        } catch (error) {
+            Alert.alert('Error', error.message)
+        }
+    }
 
     const handleSearch = (text) => {
         setSearch(text)
@@ -48,10 +55,10 @@ export default function SearchBarExample() {
     }
     return (
 
-        <View style={styles.container}>
+        <View style={report.container}>
             <TextInput
-                style={styles.searchBar}
-                placeholder="Buscar..."
+                style={report.searchBar}
+                placeholder="Buscar chip del animal"
                 value={search}
                 onChangeText={handleSearch}
                 keyboardType='number-pad'
@@ -62,7 +69,7 @@ export default function SearchBarExample() {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => handleItemPress(item)}>
 
-                        <View style={styles.item}>
+                        <View style={report.item}>
                             <Text>{item.name}</Text>
                             <Text>{item.owner}</Text>
                         </View>
@@ -70,7 +77,7 @@ export default function SearchBarExample() {
                 )}
             />
 
-            <View style={styles.button}>
+            <View style={report.button}>
 
                 <TouchableOpacity
                     onPress={() => {
@@ -80,7 +87,7 @@ export default function SearchBarExample() {
                             Alert.alert('Atención', 'Selecciona a un animal')
                         }
                     }}
-                    style={styles.touchableOpacity}
+                    style={report.touchableOpacity}
                 >
                     <Text>
                         Historial del animal
@@ -90,25 +97,39 @@ export default function SearchBarExample() {
                 <TouchableOpacity
                     onPress={() => {
                         if (infoPet) {
-                            navigation.navigate('new report', { infoPet })
+                            navigation.navigate('new report', { infoPet, reloadPetsData })
                         } else {
                             Alert.alert('Atención', 'Selecciona a un animal')
                         }
                     }}
-                    style={styles.touchableOpacity}
+                    style={report.touchableOpacity}
                 >
                     <Text>
                         Nuevo report
                     </Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity
+                    onPress={() => {
+                        if (infoPet) {
+                            navigation.navigate('preventive', { infoPet, reloadPetsData })
+                        } else {
+                            Alert.alert('Atención', 'Selecciona a un animal')
+                        }
+                    }}
+                    style={report.touchableOpacity}
+                >
+                    <Text>
+                        Medicina preventiva
+                    </Text>
+                </TouchableOpacity>
             </View>
 
         </View>
     )
 }
 
-const styles = StyleSheet.create({
+const report = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
@@ -132,15 +153,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 50,
         flex: 5,
-        paddingBottom: 20
+        paddingBottom: 50
     },
     touchableOpacity: {
         width: 300,
         backgroundColor: "red",
         borderRadius: 45,
         padding: 24,
-
-
-
     }
-});
+})

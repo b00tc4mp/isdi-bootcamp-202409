@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown'
 import logic from '../../logic'
 import { useNavigation } from '@react-navigation/native'
+import { formatDate } from '../../utils'
 
 export default function ReportHistoryNewUserVeterinary({ route }) {
-    const { infoPet } = route.params
+    const { infoPet, reloadPetsData } = route.params
 
     const navigation = useNavigation()
 
@@ -13,7 +14,7 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
     const [type, setType] = useState('')
 
 
-    const handleChangetype = (typeItem) => {
+    const handleChangeType = (typeItem) => {
         setType(typeItem.value)
     }
 
@@ -21,6 +22,10 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
         try {
             await logic.registerHistoryPet(infoPet.id, type, text)
 
+            Alert.alert('Informe registrado')
+            reloadPetsData()
+            setText('')
+            setType(null)
 
             navigation.navigate('report')
         } catch (error) {
@@ -50,8 +55,22 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
                     <Text>Sexo del animal: {infoPet.sex ? 'Macho' : 'Hembra'}</Text>
                     <Text>Animal estarlizado: {infoPet.sterilized ? 'Si' : 'No'}</Text>
                     <Text>Fecha de nacimiento: {infoPet.dateOfBirth}</Text>
-                    <Text>Vacunas: {infoPet.vaccines}</Text>
-                    <Text>Desparasitacion: {infoPet.deworns}</Text>
+                    <Text>Vacunas:</Text>
+                    {infoPet.vaccines && infoPet.vaccines.length > 0 ? (
+                        infoPet.vaccines.map((vaccine, index) => (
+                            <Text key={index}>- {vaccine.name} ({formatDate(vaccine.date)})</Text>
+                        ))
+                    ) : (
+                        <Text>No hay vacunas registradas.</Text>
+                    )}
+                    <Text>Desparasitaciones:</Text>
+                    {infoPet.deworns && infoPet.deworns.length > 0 ? (
+                        infoPet.deworns.map((deworm, index) => (
+                            <Text key={index}>- {deworm.type} ({formatDate(deworm.date)})</Text>
+                        ))
+                    ) : (
+                        <Text>No hay desparasitaciones registradas.</Text>
+                    )}
                 </View>
 
                 <View style={newReport.history}>
@@ -64,7 +83,7 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
                         labelField='label'
                         valueField='value'
                         value={type}
-                        onChange={handleChangetype}
+                        onChange={handleChangeType}
                     />
 
                     <TextInput
@@ -99,8 +118,6 @@ const newReport = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-
-
     },
     history: {
         flex: 1,
@@ -108,7 +125,6 @@ const newReport = StyleSheet.create({
         gap: 15
     },
     info: {
-
         gap: 10,
         borderWidth: 3,
         borderColor: 'grey',

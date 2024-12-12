@@ -44,13 +44,20 @@ db.connect(process.env.MONGO_URL).then(() => {
         res.json(user)
     }))
 
-    server.get('/veterinary/pets', authorizationHandler, createFunctionalHandler(async (req, res) => {
+    server.get('/pets', authorizationHandler, createFunctionalHandler(async (req, res) => {
         const { userId } = req
         const pets = await logic.getPets(userId)
 
         res.json(pets)
     }))
 
+    server.get('/pets/history/:type/:petId', authorizationHandler, jsonBodyParser, createFunctionalHandler(async (req, res) => {
+        const { userId, params: { type, petId } } = req
+
+        const histories = await logic.getHistoriesPets(userId, type, petId)
+
+        res.json(histories)
+    }))
 
     server.post('/veterinary/registerPet', authorizationHandler, jsonBodyParser, createFunctionalHandler(async (req, res) => {
         const { userId } = req
@@ -66,6 +73,15 @@ db.connect(process.env.MONGO_URL).then(() => {
         const { petId, type, text } = req.body
 
         await logic.registerHistory(userId, petId, type, text)
+
+        res.status(201).send()
+    }))
+
+    server.patch('/veterinary/updatePet', authorizationHandler, jsonBodyParser, createFunctionalHandler(async (req, res) => {
+        const { userId } = req
+        const { petId, vaccine, deworn } = req.body
+
+        await logic.updateVaccinesDewornsPet(userId, petId, vaccine, deworn)
 
         res.status(201).send()
     }))

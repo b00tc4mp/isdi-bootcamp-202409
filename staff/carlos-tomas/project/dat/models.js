@@ -55,7 +55,6 @@ const vaccine = new Schema({
     },
     date: {
         type: Date,
-        required: true,
         default: Date.now
     }
 })
@@ -66,13 +65,12 @@ const deworn = new Schema({
         required: true,
         enum: ['external', 'internal', 'both']
     },
-    name: {
-        type: String,
-        required: true,
-    },
+    // name: {
+    //     type: String,
+    //     required: true,
+    // },
     date: {
         type: Date,
-        required: true,
         default: Date.now
     }
 })
@@ -147,7 +145,7 @@ const history = new Schema({
     },
     // image: {
     //     type: String,
-    // },TODO
+    // },//TODO
     date: {
         type: Date,
         default: Date.now

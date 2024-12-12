@@ -5,6 +5,8 @@ import HomeScreenVeterinary from './HomeScreenUserVeterinary'
 import ReporScreentUserVeterinary from './ReportScreenUserVeterinary'
 import ReportHistoryNewUserVeterinary from './ReportHistoryNewUserVeterinary'
 import ReportHistoryUserVeterinary from './ReportHistoryUserVeterinary'
+import ReportVaccinesDewornsUserVeterinary from './ReportVaccinesDewornsUserVeterinary'
+
 
 
 export {
@@ -15,5 +17,7 @@ export {
 
     ReporScreentUserVeterinary,
     ReportHistoryNewUserVeterinary,
-    ReportHistoryUserVeterinary
+    ReportHistoryUserVeterinary,
+    ReportVaccinesDewornsUserVeterinary,
+
 }

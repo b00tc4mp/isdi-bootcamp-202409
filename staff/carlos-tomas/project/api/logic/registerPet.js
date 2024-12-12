@@ -4,7 +4,7 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError, DuplicityError } = errors
 
 export default (userId, chip, name, race, sex, weight, sterilized, dateOfBirth) => {
-    validate.id(userId)
+    validate.id(userId, 'userId')
     validate.chip(chip)
     validate.name(name)
     validate.race(race)
