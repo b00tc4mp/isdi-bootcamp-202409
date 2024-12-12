@@ -5,6 +5,7 @@ import Location from './Location'
 import { getElapsedTime } from '../../../utils'
 import favoriteIcon from '../../../assets/favorite.png'
 import unFavoriteIcon from '../../../assets/unfavorite.png'
+import whatsappIcon from '../../../assets/whatsapp.png'
 
 export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReviewRemoved }) {
   const [view, setView] = useState(null)
@@ -49,6 +50,16 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
     <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg">
       <div className="relative">
         <img src={files[0]} alt="Ad Image" className="w-full h-48 object-cover" />
+
+        <a
+          href={`https://wa.me/${author.telephone}?text=Hi%20${author.name},%20I%20saw%20your%20ad%20and%20I%27m%20interested!`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-3 right-3 p-2 rounded-full shadow-lg bg-green-500 hover:bg-green-600 transition duration-200 z-10"
+        >
+          <img src={whatsappIcon} alt="Contact via WhatsApp" className="w-8 h-8" />
+        </a>
+
         <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center text-white font-semibold text-lg opacity-0 hover:opacity-100 transition-opacity"></div>
       </div>
 

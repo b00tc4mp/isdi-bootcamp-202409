@@ -20,7 +20,7 @@ export default function Footer({ onHomeClick, onNewAdClick, onProfileClick }) {
           className="flex flex-col items-center justify-center text-black hover:text-[#D1AFA0] transition duration-200"
           onClick={onProfileClick}
         >
-          <span className="text-sm font-medium">PROFILE</span>
+          <span className="text-sm font-medium">DARK MODE</span>
         </button>
       </div>
     </footer>
