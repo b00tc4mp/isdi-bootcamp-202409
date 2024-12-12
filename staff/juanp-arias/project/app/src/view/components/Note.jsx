@@ -1,5 +1,6 @@
 import logic from '../../logic'
 import { timeAgo } from '../../util'
+import { DeleteButton, EditButton } from '../library'
 import useContext from '../useContext'
 
 export default function Note({ note, onDeleted, onEditClick }) {
@@ -33,8 +34,8 @@ export default function Note({ note, onDeleted, onEditClick }) {
         <div className='mt-auto'>
             <time className='text-xs text-gray-400 block mb-2'>{timeAgo(date)} ago</time>
             <div className='space-x-1'>
-                <button onClick={handleDeleteClick} className='text-sm text-white bg-red-500 px-3 py-1 rounded-md hover:bg-red-600 transition'>Delete</button>
-                <button onClick={handleEditClick} className='text-sm text-white bg-yellow-500 px-3 py-1 rounded-md hover:bg-yellow-600 transition'>Edit</button>
+                <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
+                <EditButton onClick={handleEditClick}>Edit</EditButton>
             </div>
         </div>
     </article>

@@ -53,8 +53,7 @@ export default function Groups() {
                     <Group key={group.id} group={group} />
                 ))}
             </div>
-            <div className='p-4 space-y-4'>
-                <Button>Assing task</Button>
+            <div className='p-4'>
                 <Button onClick={onCreateGroupClick}>Create group</Button>
             </div>
             {view === 'create-group' && <CreateGroup onCancelClick={handleCancelClick} onCreated={handleGroupCreated} />}

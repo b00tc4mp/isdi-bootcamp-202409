@@ -9,6 +9,9 @@ import CalendarButton from './CalendarButton'
 import DoneButton from './DoneButton'
 import CancelButton from './CancelButton'
 import Main from './Main'
+import DeleteButton from './DeleteButton'
+import EditButton from './EditButton'
+
 export {
     Input,
     Label,
@@ -20,5 +23,7 @@ export {
     CalendarButton,
     DoneButton,
     CancelButton,
-    Main
+    Main,
+    DeleteButton,
+    EditButton
 }

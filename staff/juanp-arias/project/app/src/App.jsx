@@ -106,4 +106,3 @@ export default function App() {
     {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
   </Context.Provider>
 }
-
