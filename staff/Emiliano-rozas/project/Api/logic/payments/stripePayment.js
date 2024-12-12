@@ -17,7 +17,8 @@ export default (amount, paymentMethodId) => {
 
     })
         .catch(error => {
-            console.error('Stripe payment error:', error);
             throw new SystemError(error.message || 'Failed to process Stripe payment');
         });
 }
+
+// TODO HELPER 

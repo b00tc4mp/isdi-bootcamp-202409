@@ -3,9 +3,9 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError, AuthorizationError } = errors;
 
-export default (paymentIntentId, userId) => {
-    validate.id(paymentIntentId, 'paymentIntentId')
+export default (userId, paymentIntentId) => {
     validate.id(userId, 'userId')
+    validate.id(paymentIntentId, 'paymentIntentId')
 
     return stripe.paymentIntents.retrieve(paymentIntentId)
         .then(paymentIntent => {
@@ -25,8 +25,4 @@ export default (paymentIntentId, userId) => {
                     return paymentIntent
                 })
         })
-        .catch(error => {
-            console.error('Error retrieving payment intent:', error);
-            throw new SystemError(error.message);
-        });
 };

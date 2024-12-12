@@ -1,91 +1,137 @@
-import React, { useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import logic from '../logic/index';
+import React, { useState } from 'react'
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import logic from '../logic/index'
+import { ClipLoader } from 'react-spinners' // Librería para el spinner
 
-import { errors } from 'com';
-
-const { SystemError } = errors;
-
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
 const PaymentForm = ({ orderId, provider }) => {
-    const stripe = useStripe();
-    const elements = useElements();
-    const [error, setError] = useState(null);
-    const [processing, setProcessing] = useState(false);
-    const [paymentSuccess, setPaymentSuccess] = useState(false);
-    const [paymentIntent, setPaymentIntent] = useState(null);
+    const stripe = useStripe()
+    const elements = useElements()
+    const [error, setError] = useState(null)
+    const [processing, setProcessing] = useState(false)
+    const [paymentSuccess, setPaymentSuccess] = useState(false)
+    const [paymentIntent, setPaymentIntent] = useState(null)
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        setProcessing(true);
-        setError(null);
+        event.preventDefault()
+
+        if (!stripe || !elements) {
+            setError('Stripe is not loaded yet.') // Validación por si Stripe no está listo
+            return
+        }
+
+        const userId = logic.getUserId()
+        if (!userId) {
+            setError('User is not logged in.')
+            return
+        }
+
+        if (!orderId) {
+            setError('Order ID is missing.')
+            return
+        }
+
+        setProcessing(true)
+        setError(null)
 
         try {
-            if (!stripe || !elements) throw new Error('Stripe is not loaded yet.');
-
-            if (!orderId) throw new Error('Order ID is missing.');
-
-            // aca se crea el PaymentMethod con los datos de la tarjeta
+            // De acá sale el paymentMethod, lo crea Stripe, nosotros no hacemos nada
             const { error, paymentMethod } = await stripe.createPaymentMethod({
                 type: 'card',
-                card: elements.getElement(CardElement),
-            });
+                card: elements.getElement(CardElement), // Obtiene la tarjeta ingresada por el usuario
+            })
 
-            if (error) throw new SystemError(error.message);
+            if (error) {
+                setError(error.message)
+                setProcessing(false)
+                return
+            }
 
-            //lo guardamos to guapo para el evento
-            const paymentMethodId = paymentMethod.id;
+            const paymentMethodId = paymentMethod.id
 
-            // aca lo enviamos al backend junto con el orderId y provider bien acompañado
-            const response = await logic.processPayment(orderId, paymentMethodId, provider);
+            // Acá mandamos la info a la lógica de processPayment
+            const { paymentResult } = await logic.processPayment(orderId, paymentMethodId, provider)
 
-            if (!response.success) throw new SystemError(response.message || 'Payment failed.');
+            if (paymentResult.status === 'succeeded') {
 
-            // Recuperamos información del pago para confirmar su estado
-            const paymentInfo = await logic.retrievePayment(response.paymentResult.id);
+                setPaymentSuccess(true)
 
-            setPaymentIntent(paymentInfo);
-
-            setPaymentSuccess(true);
+                // Guardamos los detalles del pago para mostrarlos al usuario
+                setPaymentIntent(paymentResult)
+            } else {
+                setError('Payment failed')
+                setPaymentSuccess(false)
+            }
         } catch (error) {
-            console.error('Payment error:', error.message);
-            setError(error.message || 'An unexpected error occurred.');
+            console.error(error.message)
+            setError('An unexpected error occurred. Please try again.')
         } finally {
-            setProcessing(false);
+            setProcessing(false)
         }
-    };
+    }
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-gray-800 rounded-lg">
-            <CardElement className="p-4 bg-white rounded-md" />
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-gray-900 rounded-lg shadow-lg">
+
+            <h2 className="text-xl text-white font-semibold mb-4 text-center">Complete Your Payment</h2>
+
+            <div className="p-4 bg-gray-100 rounded-md">
+                <CardElement className="bg-white p-4 rounded-md border" />
+            </div>
             <button
                 type="submit"
-                disabled={!stripe || processing} // se desactiva para que no se pueda tocar nada mientras se esta ejecutando y carga para el usuario
-                className="mt-4 w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700"
+                disabled={!stripe || processing}
+                className={`mt-4 w-full py-2 rounded-md text-white font-semibold ${processing ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'
+                    }`}
             >
-                {processing ? 'Processing...' : 'Pay'}
+                {processing ? (
+                    <div className="flex items-center justify-center gap-2">
+                        <ClipLoader size={20} color="#fff" /> {/* Spinner de carga */}
+                        <span>Processing...</span>
+                    </div>
+                ) : (
+                    'Pay'
+                )}
             </button>
-            {/* //componente que maneja la visualización de mensajes de error */}
-            {error && <p className="mt-4 text-red-500">{error}</p>}
-            {paymentSuccess && <p className="mt-4 text-green-500">Payment successful!</p>}
+
+            {/* Mensajes de error */}
+            {error && (
+                <p className="mt-4 text-red-600 font-medium text-center bg-red-100 p-2 rounded-md">
+                    {error}
+                </p>
+            )}
+
+            {/* Mensaje de éxito */}
+            {paymentSuccess && (
+                <div className="mt-6 p-4 bg-green-100 rounded-md">
+                    <h3 className="text-green-600 font-bold text-lg text-center">Payment Successful!</h3>
+                    <p className="text-gray-700 mt-2 text-sm text-center">
+                        Thank you for your purchase. Below are your payment details:
+                    </p>
+                </div>
+            )}
+
+            {/* Detalles del pago */}
             {paymentIntent && (
-                <div className="mt-4 p-2 bg-gray-700 text-white rounded-md">
-                    <h3 className="font-bold text-lg">Payment Details</h3>
-                    <p><strong>Payment Intent ID:</strong> {paymentIntent.id}</p>
-                    <p><strong>Status:</strong> {paymentIntent.status}</p>
-                    <p><strong>Amount:</strong> {paymentIntent.amount / 100} {paymentIntent.currency.toUpperCase()}</p>
+                <div className="mt-6 p-4 bg-gray-100 rounded-md shadow-lg">
+                    <h3 className="text-gray-800 font-semibold mb-2 text-center">Payment Details</h3>
+                    <p className="text-gray-700"><strong>Payment ID:</strong> {paymentIntent.id}</p>
+                    <p className="text-gray-700"><strong>Status:</strong> {paymentIntent.status}</p>
+                    <p className="text-gray-700"><strong>Amount:</strong> {paymentIntent.amount / 100} {paymentIntent.currency.toUpperCase()}</p>
                 </div>
             )}
         </form>
-    );
-};
+    )
+}
 
+// Wrapper que contiene todo, acá pasamos por parámetro el orderId que capturamos de placeOrder y ejecuta toda la lógica del pago
 const PaymentWrapper = ({ orderId }) => (
     <Elements stripe={stripePromise}>
+        {/* El provider siempre viene seteado por defecto */}
         <PaymentForm orderId={orderId} provider="stripe" />
     </Elements>
-);
+)
 
-export default PaymentWrapper;
+export default PaymentWrapper; // Esto tiene pinta de chapuza Lombardi, preguntar.

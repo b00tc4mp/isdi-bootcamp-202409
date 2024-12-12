@@ -9,6 +9,6 @@ import {
 const paymentsRouter = Router();
 
 paymentsRouter.post('/intent', authorizationHandler, jsonBodyParser, processPaymentHandler);
-paymentsRouter.get('/intent/:id', authorizationHandler, retrievePaymentHandler);
+paymentsRouter.get('/intent/:paymentIntentId', authorizationHandler, retrievePaymentHandler);
 
 export default paymentsRouter;

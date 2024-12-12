@@ -12,20 +12,19 @@ export default (orderId, status) => {
         orderId,
         { status },
         { new: true }
-    )
-        // .catch(error => {
-        //     throw new SystemError(error.message);
-        // })
+    ).catch(error => {
+        throw new SystemError(error.message)
+    })
         .then(updatedOrder => {
-            if (!updatedOrder) throw new NotFoundError('order not found');
+            if (!updatedOrder) throw new NotFoundError('order not found')
 
-            updatedOrder.id = updatedOrder._id.toString();
-            delete updatedOrder._id;
+            updatedOrder.id = updatedOrder._id.toString()
+            delete updatedOrder._id
 
-            return updatedOrder;
+            return updatedOrder
         })
         .catch(error => {
-            console.error('Error while updating order:', error);
-            throw new SystemError(error.message);
+            console.error('Error while updating order:', error)
+            throw new SystemError(error.message)
         });
 };

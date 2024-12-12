@@ -6,7 +6,7 @@ import { RelatedProducts } from '../components/index';
 import { errors } from 'com';
 import logic from '../logic/index';
 
-const { NotFoundError, SystemError } = errors
+const { SystemError } = errors
 
 export default function ProductDetail() {
     let { productId } = useParams();
@@ -27,37 +27,36 @@ export default function ProductDetail() {
         getProductInfo();
     }, [productId, products]);
 
-    const handleAddToCart = async () => {
-        try {
-            let quantity = 1
-            const userId = logic.getUserId()
+    // const handleAddToCart = async () => {
+    //     try {
+    //         let quantity = 1
+    //         const userId = logic.getUserId()
 
-            if (!userId) throw new NotFoundError('User not logged in')
+    //         if (!userId) throw new NotFoundError('User not logged in')
 
-            const response = await logic.addTocart(productInfo.id, quantity).catch(error => { throw new SystemError(error.message) })
+    //         const response = await logic.addTocart(productInfo.id, quantity).catch(error => { throw new SystemError(error.message) })
 
 
-            alert(`${productInfo.title} has been added to your cart!`)
-        } catch (error) {
-            alert(error.message)
+    //         alert(`${productInfo.title} has been added to your cart!`)
+    //     } catch (error) {
+    //         alert(error.message)
 
-            console.error(error)
-        }
-    }
+    //         console.error(error)
+    //     }
+    // }
+
     const updateCartHandler = async () => {
         try {
             let quantity = 1
-            const userId = logic.getUserId()
 
-            if (!userId) throw new NotFoundError('User not logged in')
-
-            const response = await logic.updateCart(productInfo.id, quantity).catch(error => { throw new SystemError(error.message) })
-
-            console.log('Cart response:', response.cart)
+            await logic.updateCart(productInfo.id, quantity)
 
             alert(`${productInfo.title} has been added to your cart!`)
         } catch (error) {
-            alert(error.message)
+            if (error instanceof SystemError)
+                alert('Sorry, try again later.')
+            else
+                alert(error.message)
 
             console.error(error)
         }

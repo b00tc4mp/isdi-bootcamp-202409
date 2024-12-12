@@ -104,7 +104,7 @@ describe('getOrders', () => {
         });
     });
 
-    it.only('succeeds in retrieving orders for a regular user', async () => {
+    it('succeeds in retrieving orders for a regular user', async () => {
         const order = await getOrders(regularUser1._id.toString());
 
         expect(order).to.be.an('array').that.has.lengthOf(1);
@@ -114,7 +114,7 @@ describe('getOrders', () => {
         expect(order.totalPrice).to.equal(order1.totalPrice);
     });
 
-    it.only('succeeds in retrieving all orders for an admin user', async () => {
+    it('succeeds in retrieving all orders for an admin user', async () => {
         const orders = await getOrders(adminUser._id.toString());
 
         expect(orders).to.be.an('array').that.has.lengthOf(2);
@@ -130,7 +130,7 @@ describe('getOrders', () => {
         expect(userOrder2.totalPrice).to.equal(order2.totalPrice);
     });
 
-    it.only('fails when user does not exist', async () => {
+    it('fails when user does not exist', async () => {
         await expect(getOrders(new ObjectId().toString())).to.be.rejectedWith(NotFoundError, 'User not found');
     });
 
