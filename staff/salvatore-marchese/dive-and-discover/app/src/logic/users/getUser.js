@@ -27,7 +27,7 @@ export default async () => {
         })
         .then((data) => {
             console.log("Fetch succeeded")
-            console.log(data)
+            //console.log(data)
             if (data?.error) throw new Error(data.error)
             return data
         })

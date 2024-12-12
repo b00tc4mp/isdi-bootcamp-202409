@@ -7,7 +7,6 @@ const { SystemError, NotFoundError } = errors
 export default async function getUser(userId) {
     try {
         const user = await User.findById(userId);
-        console.log(user)
         if (!user) throw new NotFoundError('user not found');
         return user;
     } catch (error) {

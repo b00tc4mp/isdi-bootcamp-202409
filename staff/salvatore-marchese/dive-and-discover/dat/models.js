@@ -51,11 +51,7 @@ const user = new Schema({
 
 
 const logBook = new Schema({
-    diver: {
-        type: mongoose.Schema.Types.ObjectId, 
-        required: true,
-        ref: 'User'
-    },
+    
     date: {
         type: Date,
         required: true

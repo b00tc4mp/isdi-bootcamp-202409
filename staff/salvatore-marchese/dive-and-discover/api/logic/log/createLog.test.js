@@ -18,7 +18,8 @@ db.connect(process.env.MONGO_URL_TEST)
             '6kg',                        
             '12L',                        
             '200',                        
-            'Amazing',                    'Tossa Divers',                    
+            'Amazing',                    
+            'Tossa Divers',                    
             'Tossa de Mar',                    
             'First dive in Costa Brava, perfect' 
         )

@@ -9,7 +9,7 @@ export default async (userId, data) => {
     const user = extractPayloadFromJWT(sessionStorage.token);
     if (!user) return;
 
-    const url = `http://${import.meta.env.VITE_API_URL}/user/${userId}`;
+    const url = `http://${import.meta.env.VITE_API_URL}/users/${userId}`;
     const headers = {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${sessionStorage.token}`

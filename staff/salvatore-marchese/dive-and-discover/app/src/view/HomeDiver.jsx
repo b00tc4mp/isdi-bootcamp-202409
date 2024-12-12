@@ -30,7 +30,7 @@ const HomeDiver = () => {
     };
 
     const onLogDive = () => {
-        navigate('/log-new-dive')
+        navigate('/log-book')
     };
 
     const onCheckHistory = () => {

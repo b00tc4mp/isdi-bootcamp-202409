@@ -33,11 +33,11 @@ export default async (userId, date, depth, time, weather, temperature, visibilit
         if (!user) throw new NotFoundError('User not found')
 
         // Create the new log entry
-        await LogBook.create({
+        const log = await LogBook.create({
             diver: userId, date: formattedDate, depth, time, weather, temperature, visibility, waves, wetSuit, weight, 
             tankSize, tankBar, feeling, diveCenter, diveSite, notes
         })
-
+        console.log(log)
         // Return a success message (you can change this as per your needs)
         return { message: 'Log created successfully' }
     } catch (error) {

@@ -120,8 +120,8 @@ const validateTemperature = (temperature) => {
 
     // Optionally, ensure temperature is within a reasonable range
     // For example, between -100 and 100 degrees (Celsius or Fahrenheit)
-    if (temperature < -100 || temperature > 100) {
-        throw new Error('Temperature must be between -100 and 100');
+    if (temperature < -10 || temperature > 50) {
+        throw new Error('Temperature must be between -10 and 50');
     }
 }
 

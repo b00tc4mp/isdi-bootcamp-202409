@@ -2,7 +2,7 @@ import logic from '../../../logic/index.js'
 import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler((req, res) => {
-    const { userId, body: dataToBeUpdated } = req;
+    const { userId, body: dataToBeUpdated, params: {targetUserId}} = req;
 
-    return logic.updateProfile(userId, dataToBeUpdated).then(updatedData => res.json(updatedData))
+    return logic.updateProfile(userId, targetUserId, dataToBeUpdated).then(updatedData => res.json(updatedData))
 });

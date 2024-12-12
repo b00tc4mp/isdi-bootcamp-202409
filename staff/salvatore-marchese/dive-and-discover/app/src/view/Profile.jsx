@@ -27,7 +27,6 @@ const Profile = () => {
                 const userData = await logic.getUser();
                 if (userData?.error) throw new Error(data.error)
 
-                console.log(userData)
                 setUserInfo(userData)
                 setIsLoading(false)
             } catch (error) {

@@ -12,7 +12,9 @@ import {
 
 import {
     createLog,
-    getLogs
+    getLogs,
+    deleteLog,
+    updateLog,
 } from './log/index.js'
 
 const logic = {
@@ -28,6 +30,8 @@ const logic = {
 
     createLog,
     getLogs,
+    deleteLog,
+    updateLog,
 }
 
 export default logic 

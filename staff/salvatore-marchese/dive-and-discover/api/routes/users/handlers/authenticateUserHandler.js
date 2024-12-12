@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import logic from '../../../logic/index.js'
 
-import { createFunctionalHandler } from "../../helpers/index.js";
+import createFunctionalHandler from '../../helpers/createFunctionalHandler.js'
 
 export default createFunctionalHandler(async (req, res) => {
     const { email, password } = req.body
