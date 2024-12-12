@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Logo from '../assets/logo.png'
 import logic from '../logic'
 import LocationInput from './components/functional/LocationInput'
+import useContext from './useContext'
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -14,6 +14,8 @@ const toBase64 = (file) =>
 export default function CreateAd({ onCreated }) {
   const [images, setImages] = useState([])
   const [location, setLocation] = useState(null)
+
+  const { alert } = useContext()
 
   const handleImageChange = (event) => {
     const { files } = event.target
@@ -42,7 +44,7 @@ export default function CreateAd({ onCreated }) {
       .then((filesB64) => {
         try {
           logic.createAd(filesB64, text, locationFormatted).then(() => {
-            alert('Post created')
+            alert('Post created', 'good')
             form.reset()
             onCreated()
           })

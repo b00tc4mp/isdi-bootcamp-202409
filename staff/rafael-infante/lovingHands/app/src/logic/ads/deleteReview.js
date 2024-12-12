@@ -16,7 +16,7 @@ export default (adId, reviewId) => {
       throw new SystemError(error.message)
     })
     .then((res) => {
-      if (res.ok) return alert('Ad deleted')
+      if (res.ok) return
 
       return res
         .json()

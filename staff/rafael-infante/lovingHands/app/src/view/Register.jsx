@@ -1,11 +1,14 @@
 import Logo from '../assets/logo.png'
 import logic from '../logic'
 import { errors } from 'com'
+import useContext from './useContext'
 
 const { SystemError } = errors
 
 export default function Register(props) {
   console.log('Register -> render')
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
     event.preventDefault()

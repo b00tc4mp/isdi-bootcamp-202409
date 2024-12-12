@@ -1,10 +1,13 @@
 import Ad from './functional/Ad.jsx'
 import logic from '../../logic/index.js'
 import { useState, useEffect } from 'react'
+import useContext from '../useContext.js'
 
 export default function FavoriteAds() {
   console.log('Favorites - > render')
   const [favoriteAds, setFavoriteAds] = useState([])
+
+  const { alert } = useContext()
 
   const refreshFavoriteAds = () => {
     try {

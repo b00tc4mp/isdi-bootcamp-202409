@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-
 import Review from './Review'
 import AddReview from './AddReview'
-
 import logic from '../../../logic'
+import useContext from '../../useContext.js'
 
 export default function Reviews(props) {
   const [reviews, setReviews] = useState([])
+  const { alert } = useContext()
 
   useEffect(() => {
     console.log('Reviews -> useEffect "componentdidMount"')

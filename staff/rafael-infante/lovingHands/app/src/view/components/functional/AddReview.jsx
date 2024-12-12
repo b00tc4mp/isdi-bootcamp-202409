@@ -1,7 +1,10 @@
 import logic from '../../../logic'
+import useContext from '../../useContext.js'
 
 export default function AddReview({ adId, onAdded }) {
   console.log('AddReview -> render')
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
     event.preventDefault()

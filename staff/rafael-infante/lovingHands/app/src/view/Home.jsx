@@ -2,12 +2,14 @@ import logic from '../logic'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Location from './components/functional/Location'
+import useContext from './useContext'
 
 export default function Home() {
   const [name, setName] = useState(null)
   const [ads, setAds] = useState([])
   const [view, setView] = useState(null)
   const [userLocation, setUserLocation] = useState(null)
+  const { alert } = useContext()
 
   const navigate = useNavigate()
 

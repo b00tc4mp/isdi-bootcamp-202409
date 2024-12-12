@@ -1,16 +1,24 @@
 import Logo from '../../../assets/logo.png'
 import logic from '../../../logic'
+import useContext from '../../useContext.js'
 
 export default function Header({ onLoggedOut }) {
   console.log('Header -> render')
+  const { confirm } = useContext()
 
   const handleLogout = (event) => {
-    if (confirm('Logout?')) {
-      event.preventDefault()
-      logic.logoutUser()
+    confirm(
+      'Logout?',
+      (accepted) => {
+        if (accepted) {
+          event.preventDefault()
+          logic.logoutUser()
 
-      onLoggedOut()
-    }
+          onLoggedOut()
+        }
+      },
+      'warn'
+    )
   }
 
   return (

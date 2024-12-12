@@ -1,10 +1,12 @@
 import Ad from './components/functional/Ad'
 import logic from '../logic/index.js'
 import { useState, useEffect } from 'react'
+import useContext from './useContext.js'
 
 export default function AdList() {
   console.log('AdList - > render')
   const [ads, setAds] = useState([])
+  const { alert } = useContext()
 
   useEffect(() => {
     try {

@@ -1,22 +1,32 @@
 import logic from '../../../logic'
+import useContext from '../../useContext.js'
 
 export default function Review({ adId, review: { id, author, comment, date, calification }, onRemoved }) {
   console.log('Review -> render')
 
+  const { alert, confirm } = useContext()
+
   const handleDeleteReview = () => {
-    if (confirm('Delete review?'))
-      try {
-        logic
-          .deleteReview(adId, id)
-          .then(onRemoved)
-          .catch((error) => {
+    confirm(
+      'Delete review?',
+      (accepted) => {
+        if (accepted) {
+          try {
+            logic
+              .deleteReview(adId, id)
+              .then(onRemoved)
+              .catch((error) => {
+                alert(error.message)
+                console.error(error)
+              })
+          } catch (error) {
             alert(error.message)
             console.error(error)
-          })
-      } catch (error) {
-        alert(error.message)
-        console.error(error)
-      }
+          }
+        }
+      },
+      'warn'
+    )
   }
 
   return (

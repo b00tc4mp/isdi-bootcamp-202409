@@ -6,28 +6,36 @@ import { getElapsedTime } from '../../../utils'
 import favoriteIcon from '../../../assets/favorite.png'
 import unFavoriteIcon from '../../../assets/unfavorite.png'
 import whatsappIcon from '../../../assets/whatsapp.png'
+import useContext from '../../useContext.js'
 
 export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReviewRemoved }) {
   const [view, setView] = useState(null)
   const [isFavorite, setIsFavorite] = useState(ad.isFavorite)
+  const { alert, confirm } = useContext()
 
   const { id, author, files, text, date, reviews } = ad
 
   const handleDeleteClick = () => {
-    if (confirm('Delete ad')) {
-      try {
-        logic
-          .deleteAd(id)
-          .then(onDeleted)
-          .catch((error) => {
+    confirm(
+      'Delete post?',
+      (accepted) => {
+        if (accepted) {
+          try {
+            logic
+              .deleteAd(id)
+              .then(onDeleted)
+              .catch((error) => {
+                alert(error.message)
+                console.error(error)
+              })
+          } catch (error) {
             alert(error.message)
             console.error(error)
-          })
-      } catch (error) {
-        alert(error.message)
-        console.error(error)
-      }
-    }
+          }
+        }
+      },
+      'warn'
+    )
   }
 
   const handleFavoriteClick = async () => {
