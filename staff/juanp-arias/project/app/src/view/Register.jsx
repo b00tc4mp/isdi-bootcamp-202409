@@ -5,7 +5,6 @@ import logic from '../logic'
 import useContext from './useContext'
 
 const { SystemError } = errors
-
 export default function Register({ onRegistered, onBackClick }) {
     const { alert } = useContext()
 

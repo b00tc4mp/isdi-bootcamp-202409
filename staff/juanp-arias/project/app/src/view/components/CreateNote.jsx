@@ -1,7 +1,7 @@
-import logic from '../logic'
-import { SectionContainer, SectionHeader } from './components'
-import { Form, CancelButton, DoneButton } from './library'
-import useContext from './useContext'
+import logic from '../../logic'
+import { SectionContainer, SectionHeader } from '.'
+import { Form, CancelButton, DoneButton, Main } from '../library'
+import useContext from '../useContext'
 
 export default function CreateNote({ onCreated, onCancelClick }) {
     const { alert } = useContext()
@@ -12,7 +12,11 @@ export default function CreateNote({ onCreated, onCancelClick }) {
         const { textarea: { value: text } } = form
         try {
             logic.createNote(text)
-                .then(onCreated)
+                .then(() => {
+                    form.reset()
+                    alert('Note created', 'success')
+                    onCreated()
+                })
                 .catch((error) => {
                     alert(error.message)
                     console.error(error)
@@ -26,7 +30,7 @@ export default function CreateNote({ onCreated, onCancelClick }) {
         event.preventDefault()
         onCancelClick()
     }
-    return <main className='flex flex-col items-center px-6 py-8 bg-gray-50 min-h-screen pb-12'>
+    return <Main>
         <SectionContainer>
             <SectionHeader sectionName='notes' />
             <Form onSubmit={handleSubmit} className='mt-4 w-full'>
@@ -43,5 +47,5 @@ export default function CreateNote({ onCreated, onCancelClick }) {
                 </div>
             </Form>
         </SectionContainer>
-    </main>
+    </Main>
 }

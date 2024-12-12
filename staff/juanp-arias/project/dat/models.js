@@ -72,7 +72,7 @@ const group = new Schema({
         required: true,
     },
     teacher: {
-        type: String,
+        type: ObjectId,
         required: true,
         ref: 'User'
     },
@@ -91,7 +91,7 @@ const task = new Schema({
     },
     assignes: [{
         type: ObjectId,
-        require: true,
+        required: true,
         ref: 'User'
     }],
     date: {

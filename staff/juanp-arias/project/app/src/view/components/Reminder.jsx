@@ -4,7 +4,7 @@ import { formatDate } from '../../util'
 
 export default function Reminder({ reminder, onDeleted, onEditClick }) {
     const { alert, confirm } = useContext()
-    const { id, title, notes, date } = reminder
+    const { id, title, text, date } = reminder
 
     const handleDeleteClick = () => {
         confirm('Delete reminder?', accepted => {
@@ -28,15 +28,15 @@ export default function Reminder({ reminder, onDeleted, onEditClick }) {
     }
 
     const dateCustomized = formatDate(date)
-    return <article>
-        <h4>{title}</h4>
-        <p>{notes}</p>
+    return <article className='flex items-center justify-between p-4 bg-orange-100 rounded-lg shadow-sm border-l-4 border-blue-500 hover:shadow-md transition'>
         <div>
-            <time>{dateCustomized}</time>
-            <div className='space-x-1'>
-                <button onClick={handleDeleteClick} className='text-sm text-white bg-red-500 px-3 py-1 rounded-md hover:bg-red-600 transition'>Delete</button>
-                <button onClick={handleEditClick} className='text-sm text-white bg-yellow-500 px-3 py-1 rounded-md hover:bg-yellow-600 transition'>Edit</button>
-            </div>
+            <time className='block text-xs text-blue-700 font-medium mt-2'>{dateCustomized}</time>
+            <h4 className='text-base font-semibold text-gray-800'>{title}</h4>
+            <p className='text-sm text-gray-600 mt-1'>{text}</p>
+        </div>
+        <div className='justify-end ml-2 space-x-1'>
+            <button onClick={handleDeleteClick} className='text-xs text-white bg-red-500 px-3 py-1 rounded-md hover:bg-red-600 transition'>Delete</button>
+            <button onClick={handleEditClick} className='text-xs text-white bg-blue-500 px-3 py-1 rounded-md hover:bg-blue-600 transition'>Edit</button>
         </div>
     </article>
 }

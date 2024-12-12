@@ -8,6 +8,7 @@ import Select from './Select'
 import CalendarButton from './CalendarButton'
 import DoneButton from './DoneButton'
 import CancelButton from './CancelButton'
+import Main from './Main'
 export {
     Input,
     Label,
@@ -18,5 +19,6 @@ export {
     Select,
     CalendarButton,
     DoneButton,
-    CancelButton
+    CancelButton,
+    Main
 }

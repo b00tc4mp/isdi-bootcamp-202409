@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { SectionContainer, SectionHeader } from './components'
-import { Form, CancelButton, DoneButton } from './library'
+import { SectionContainer, SectionHeader } from '.'
+import { Form, CancelButton, DoneButton, Main } from '../library'
 import { errors } from 'com'
-import logic from '../logic'
-import useContext from './useContext'
+import logic from '../../logic'
+import useContext from '../useContext'
 
 const { SystemError } = errors
 export default function EditNote({ onCancelClick, onEdited }) {
@@ -32,7 +32,9 @@ export default function EditNote({ onCancelClick, onEdited }) {
         }
     }, [noteId])
 
-    if (!note) return <p>Cargando nota...</p>
+    if (!note) return <main className='flex justify-center items-center bg-gray-100 min-h-screen'>
+        <p>Loading...</p>
+    </main>
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -56,8 +58,8 @@ export default function EditNote({ onCancelClick, onEdited }) {
         onCancelClick()
     }
 
-    return <main className='flex flex-col items-center px-6 py-8 bg-gray-50 min-h-screen pb-12'>
-        <SectionContainer className='w-full max-w-4xl bg-white shadow-lg rounded-lg p-6'>
+    return <Main>
+        <SectionContainer >
             <SectionHeader sectionName='notes' />
             <Form onSubmit={handleSubmit} className='mt-4 w-full space-y-6'>
                 <div className='m-2'>
@@ -69,5 +71,5 @@ export default function EditNote({ onCancelClick, onEdited }) {
                 </div>
             </Form>
         </SectionContainer>
-    </main >
+    </Main>
 }

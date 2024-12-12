@@ -5,6 +5,7 @@ import { Button } from './library'
 import logic from '../logic'
 import useContext from './useContext'
 import { errors } from 'com'
+import { Main } from './library'
 
 const { SystemError } = errors
 export default function Notes({ onEditClick }) {
@@ -34,6 +35,8 @@ export default function Notes({ onEditClick }) {
         }
     }, [])
 
+    if (!notes) return <p>Loading...</p>
+
     const handleDeleted = () => {
         try {
             logic.getNotes()
@@ -54,12 +57,12 @@ export default function Notes({ onEditClick }) {
             console.error(error)
         }
     }
-    
+
     const onNewNoteClick = () => {
         navigate('/notes/new-note')
     }
 
-    return <div className='flex flex-col items-center px-6 py-8 bg-gray-50 min-h-screen pb-12'>
+    return <Main>
         <SectionContainer>
             <SectionHeader sectionName='notes' />
             <div className='grid grid-cols-2 gap-4 p-6'>
@@ -71,5 +74,5 @@ export default function Notes({ onEditClick }) {
                 <Button onClick={onNewNoteClick}>Add note</Button>
             </div>
         </SectionContainer>
-    </div>
+    </Main>
 }

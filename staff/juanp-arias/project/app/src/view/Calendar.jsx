@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { SectionHeader, SectionContainer } from './components'
-import { CalendarButton, Button } from './library'
+import { SectionHeader, SectionContainer, CreateReminder } from './components'
+import { CalendarButton, Button, Main } from './library'
 import { getFirstDayWeek, getMonthDays, getMonthName, getYear } from '../logic/calendar/index.js'
-import CreateReminder from './CreateReminder.jsx'
-import Reminders from './Reminders.jsx'
+import { Reminders } from './index.js'
 
-export default function Calendar() {
+export default function Calendar({ onEditClick }) {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [selectedDate, setSelectedDate] = useState(null)
     const [selectedDay, setSelectedDay] = useState(null)
@@ -13,22 +12,22 @@ export default function Calendar() {
 
     const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-    const changeMonth = (offset) => {
+    const changeMonth = offset => {
         const updatedDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1)
         setCurrentDate(updatedDate)
     }
 
-    const handlePreviousMonthClick = (event) => {
+    const handlePreviousMonthClick = event => {
         event.preventDefault()
         changeMonth(-1)
     }
 
-    const handleNextMonthClick = (event) => {
+    const handleNextMonthClick = event => {
         event.preventDefault()
         changeMonth(1)
     }
 
-    const handleCalendarDayClick = (selectedDay) => {
+    const handleCalendarDayClick = selectedDay => {
         const fullSelectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay)
         setSelectedDate(fullSelectedDate)
         setSelectedDay(selectedDay)
@@ -53,7 +52,7 @@ export default function Calendar() {
         setView('new-reminder')
     }
 
-    return <main className='flex flex-col items-center px-6 py-8 bg-gray-50 min-h-screen pb-14'>
+    return <Main>
         <SectionContainer>
             <SectionHeader sectionName='calendar' />
             <div className='pt-2 flex justify-center items-center'>
@@ -88,8 +87,8 @@ export default function Calendar() {
         {selectedDate &&
             <SectionContainer>
                 {view === 'new-reminder' && <CreateReminder date={date} onCreated={handleReminderCreated} onCancelClick={handleCancelClick} />}
-                {view === 'reminders' && <Reminders date={date} onCreated={handleReminderCreated} onCancelClick={handleCancelClick} onAcceptedClick={handleAcceptedClick} />}
+                {view === 'reminders' && <Reminders date={date} onCreated={handleReminderCreated} onCancelClick={handleCancelClick} onAcceptedClick={handleAcceptedClick} onEditClick={onEditClick} />}
             </SectionContainer>
         }
-    </main >
+    </Main>
 }

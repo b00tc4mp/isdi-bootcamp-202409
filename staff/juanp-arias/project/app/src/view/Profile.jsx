@@ -1,5 +1,5 @@
 import logic from '../logic'
-import { Field, Input, Label, Form, Button } from './library'
+import { Field, Input, Label, Form, DoneButton, CancelButton, Main } from './library'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { SectionHeader, SectionContainer } from './components'
@@ -7,8 +7,7 @@ import { errors } from 'com'
 import useContext from './useContext'
 
 const { SystemError } = errors
-
-export default function Profile() {
+export default function Profile({ onCancelClick }) {
     const [datos, setDatos] = useState(null)
     const location = useLocation()
     const { alert } = useContext()
@@ -29,7 +28,12 @@ export default function Profile() {
     }
 
     useEffect(() => {
-        fetchDatos()
+        try {
+            fetchDatos()
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
     }, [location.pathname])
 
     if (!datos) {
@@ -39,8 +43,8 @@ export default function Profile() {
     }
 
     const handleSubmit = event => {
-        event.preventDefault();
-        const { target: form } = event;
+        event.preventDefault()
+        const { target: form } = event
         const {
             name: { value: name },
             email: { value: email },
@@ -64,8 +68,12 @@ export default function Profile() {
                 form.reset()
             })
     }
+    const handleCancelClick = event => {
+        event.preventDefault()
+        onCancelClick()
+    }
 
-    return <main className='flex flex-col items-center px-6 py-8 bg-gray-50 min-h-screen pb-12'>
+    return <Main>
         <SectionContainer>
             <SectionHeader sectionName='profile' />
             <Form onSubmit={handleSubmit} className='p-6 space-y-1'>
@@ -85,8 +93,11 @@ export default function Profile() {
                     <Label htmlFor='role'>Role</Label>
                     <Input id='role' type='text' defaultValue={datos.role} />
                 </Field>
-                <Button type='submit'>Done</Button>
+                <div className='flex justify-end space-x-2 mr-1'>
+                    <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>
+                    <DoneButton type='submit'>Done</DoneButton>
+                </div>
             </Form>
         </SectionContainer>
-    </main>
+    </Main>
 }

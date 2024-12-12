@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, CreateNote, EditNote, Tasks, Groups } from './view'
-import { Header, Footer, Alert, Confirm, Group } from './view/components'
+import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, Tasks, Groups } from './view'
+import { Header, Footer, Alert, Confirm, CreateNote, EditNote, EditReminder } from './view/components'
 import { Context } from './view/useContext'
 import logic from './logic'
 
@@ -23,6 +23,8 @@ export default function App() {
 
   const handleUserLoggedIn = () => navigate('/home')
 
+  const handleCancelClick = () => navigate('/home')
+
   const handleGoBackClick = () => navigate('/welcome')
 
   const handleLoginClick = () => navigate('/login')
@@ -34,7 +36,10 @@ export default function App() {
   const handleNoteCreated = () => navigate('/notes')
   const handleNoteEdited = () => navigate('/notes')
 
-  const handleEditClick = (noteId) => navigate(`/notes/${noteId}`)
+  const handleNoteEditClick = (noteId) => navigate(`/notes/${noteId}`)
+
+  const handleReminderEditClick = (reminderId) => navigate(`/reminders/reminder/${reminderId}`)
+  const handleReminderEdited = () => navigate('/calendar')
 
   const handleAlertAccepted = () => setAlert({
     message: null,
@@ -76,15 +81,18 @@ export default function App() {
 
       <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/welcome" />} />
 
-      <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/welcome" />} />
+      <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile onCancelClick={handleCancelClick} /> : <Navigate to="/welcome" />} />
 
-      <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar /> : <Navigate to="/welcome" />} />
+      <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar onEditClick={handleReminderEditClick} /> : <Navigate to="/welcome" />} />
 
-      <Route path="/notes" element={logic.isUserLoggedIn() ? <Notes onEditClick={handleEditClick} /> : <Navigate to="/welcome" />} />
+      <Route path="/reminders/reminder/:reminderId" element={logic.isUserLoggedIn() ? <EditReminder onEdited={handleReminderEdited} onCancelClick={handleReminderEdited} /> : <Navigate to="/welcome" />} />
+
+      <Route path="/notes" element={logic.isUserLoggedIn() ? <Notes onEditClick={handleNoteEditClick} /> : <Navigate to="/welcome" />} />
 
       <Route path="/notes/new-note" element={logic.isUserLoggedIn() ? <CreateNote onCreated={handleNoteCreated} onCancelClick={handleNoteEdited} /> : <Navigate to="/welcome" />} />
 
       <Route path="/notes/:noteId" element={logic.isUserLoggedIn() ? <EditNote onEdited={handleNoteEdited} onCancelClick={handleNoteEdited} /> : <Navigate to="/welcome" />} />
+
 
       <Route path="/tasks" element={logic.isUserLoggedIn() ? <Tasks /> : <Navigate to="/welcome" />} />
 

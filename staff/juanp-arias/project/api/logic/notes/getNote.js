@@ -1,7 +1,7 @@
 import { User, Note } from 'dat'
 import { validate, errors } from 'com'
 
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, OwnershipError } = errors
 export default (userId, noteId) => {
     validate.id(userId, 'userId')
     validate.id(noteId, 'noteId')
@@ -15,6 +15,8 @@ export default (userId, noteId) => {
             if (note.author.toString() !== userId) {
                 throw new OwnershipError('user does not own the note')
             }
+            note.id = note._id.toString()
+            delete note._id
             return note
         })
         .catch(error => {

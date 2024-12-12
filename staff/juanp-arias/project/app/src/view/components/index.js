@@ -8,6 +8,10 @@ import Note from './Note'
 import Reminder from './Reminder'
 import Group from './Group'
 import CreateGroup from './CreateGroup'
+import CreateNote from './CreateNote'
+import CreateReminder from './CreateReminder'
+import EditNote from './EditNote'
+import EditReminder from './EditReminder'
 
 export {
     Header,
@@ -18,7 +22,13 @@ export {
     SectionContainer,
 
     Note,
+    CreateNote,
+    EditNote,
+
     Reminder,
+    CreateReminder,
+    EditReminder,
+
     Group,
     CreateGroup
 }

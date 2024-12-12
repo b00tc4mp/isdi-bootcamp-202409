@@ -31,6 +31,6 @@ export default function SectionHeader({ sectionName }) {
             <h1 className='text-3xl font-bold text-gray-900'>My <span className='text-sky-500'>{sectionName}</span></h1>
             <p className='text-m text-gray-500'>{name}</p>
         </div>
-        <img src={logo} alt='profile' className='h-28 w-28 rounded-full p-3' />
+        <img src={logo} alt='profile' className='h-32 w-32 rounded-full' />
     </header>
 }

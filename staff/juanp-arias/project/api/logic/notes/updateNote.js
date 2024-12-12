@@ -1,7 +1,7 @@
-import { User, Note } from 'dat'
+import { Note } from 'dat'
 import { validate, errors } from 'com'
 
-const { SystemError, NotFoundError, OwnershipError } = errors
+const { SystemError, NotFoundError } = errors
 
 export default (noteId, text) => {
     validate.id(noteId, 'noteId')

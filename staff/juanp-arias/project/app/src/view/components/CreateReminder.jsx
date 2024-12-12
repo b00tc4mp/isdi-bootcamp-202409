@@ -1,8 +1,8 @@
-import { CancelButton, Form, Input, Field, Label, DoneButton } from './library'
-import { SectionHeader } from './components'
-import useContext from './useContext'
-import logic from '../logic'
-import { formatDate } from '../util'
+import { CancelButton, Form, Input, Field, Label, DoneButton } from '../library'
+import { SectionHeader } from '.'
+import useContext from '../useContext'
+import logic from '../../logic'
+import { formatDate } from '../../util'
 
 export default function CreateReminder({ date, onCreated, onCancelClick }) {
     const { alert } = useContext()

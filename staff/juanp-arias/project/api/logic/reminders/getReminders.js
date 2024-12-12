@@ -19,6 +19,11 @@ export default (userId, date) => {
             const queryDate = new Date(date).toDateString()
             return reminderDate === queryDate
         })
+            .map(reminder => {
+                reminder.id = reminder._id.toString()
+                delete reminder._id
+                return reminder
+            })
         return reminders
     })()
 }

@@ -11,7 +11,6 @@ export default function Login(props) {
     const handleSubmit = event => {
         event.preventDefault()
         const { target: { email: { value: email }, password: { value: password } } } = event
-
         try {
             logic.loginUser(email, password)
                 .then(() => {

@@ -6,7 +6,7 @@ import useContext from './useContext'
 import { errors } from 'com'
 
 const { SystemError } = errors
-export default function Reminders({ date, onAcceptedClick, onCancelClick }) {
+export default function Reminders({ date, onAcceptedClick, onCancelClick, onEditClick }) {
     const [reminders, setReminders] = useState([])
     const [initiated, setInitiated] = useState(false)
     const { alert, confirm } = useContext()
@@ -52,15 +52,39 @@ export default function Reminders({ date, onAcceptedClick, onCancelClick }) {
         onCancelClick()
     }
 
-    return <main>
+    const handleDeleted = () => {
+        try {
+            logic.getReminders(date)
+                .then(reminders => {
+                    if (reminders.length === 0) {
+                        onCancelClick()
+                    }
+                    setReminders(reminders)
+                    setInitiated(true)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
+                    console.error(error)
+                    return
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+    return <article>
         <SectionHeader sectionName='reminders' />
         <div className='grid gap-4 p-6'>
             {initiated && reminders.map((reminder) => (
-                <Reminder key={reminder._id} reminder={reminder} />
+                <Reminder key={reminder.id} reminder={reminder} onEditClick={onEditClick} onDeleted={handleDeleted} />
             ))}
         </div>
         <div className='pr-4 pl-4'>
             <Button onClick={onDoneClick}>Done</Button>
         </div>
-    </main>
+    </article>
 }

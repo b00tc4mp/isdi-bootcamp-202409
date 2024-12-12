@@ -1,9 +1,11 @@
 import logic from '../../logic'
 import { SectionHeader } from './index.js'
-import { Label, Input, DoneButton, CancelButton } from '../library'
+import { Label, Input, DoneButton, CancelButton, Form } from '../library'
 import useContext from '../useContext.js'
 import { useState, useEffect } from 'react'
+import { errors } from 'com'
 
+const { SystemError } = errors
 export default function CreateGroup({ onCreated, onCancelClick }) {
     const { alert } = useContext()
     const [users, setUsers] = useState([])
@@ -34,10 +36,15 @@ export default function CreateGroup({ onCreated, onCancelClick }) {
     const handleSubmit = event => {
         event.preventDefault()
         const { target: form } = event
-        const { name: { value: name }, students: { value: students } } = form
+        const { name: { value: name } } = form
+        const students = selectedUsers.map(user => user.id)
         try {
-            logic.createGroup()
-                .then(onCreated)
+            logic.createGroup(name, students)
+                .then(() => {
+                    form.reset()
+                    alert('Group created', 'success')
+                    onCreated()
+                })
                 .catch((error) => {
                     alert(error.message)
                     console.error(error)
@@ -63,37 +70,35 @@ export default function CreateGroup({ onCreated, onCancelClick }) {
     return <main>
         <SectionHeader sectionName='new-group' />
         <div className='bg-white p-4'>
-            <div>
-                <Label htmlFor='name'>Group's name</Label>
-                <Input type='text' id='name' placeholder='Name' />
-            </div>
-            <div className='mt-2'>
-                <Label htmlFor='name'>Teacher</Label>
-                <Input type='text' id='name' placeholder='Juan Pablo' />
-            </div>
-            <div className='mt-2'>
-                <Label>Add users</Label>
-                <ul className='border border-gray-300 rounded-lg'>
-                    {users.map((user) => (
-                        <li key={user.id} className='cursor-pointer p-2 hover:bg-blue-100' onClick={() => handleUserClick(user)}>{user.name} ({user.email}) ({user.role})</li>
-                    ))}
-                </ul>
-            </div>
-            <div className='mt-2'>
-                <Label>Users selected</Label>
-                <ul className='border border-gray-300 rounded-lg'>
-                    {selectedUsers.map((user) => (
-                        <li key={user.id} className='flex justify-between items-center p-2 hover:bg-red-100'>
-                            <span>{user.name} ({user.email}) ({user.role})</span>
-                            <button className='text-red-500 hover:underline' onClick={() => handleRemoveUser(user.id)}>Eliminar</button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className='flex justify-end space-x-2 mr-1 mt-3'>
-                <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>
-                <DoneButton type='submit'>Done</DoneButton>
-            </div>
+            <Form onSubmit={handleSubmit}>
+                <div>
+                    <Label htmlFor='name'>Group's name</Label>
+                    <Input type='text' id='name' placeholder='Name' />
+                </div>
+                <div className='mt-2'>
+                    <Label>Add users</Label>
+                    <ul className='border border-gray-300 rounded-lg'>
+                        {users.map((user) => (
+                            <li key={user.id} className='cursor-pointer p-2 hover:bg-blue-100' onClick={() => handleUserClick(user)}>{user.name} ({user.email}) ({user.role})</li>
+                        ))}
+                    </ul>
+                </div>
+                <div className='mt-2'>
+                    <Label>Users selected</Label>
+                    <ul className='border border-gray-300 rounded-lg'>
+                        {selectedUsers.map((user) => (
+                            <li key={user.id} className='flex justify-between items-center p-2 hover:bg-red-100'>
+                                <span>{user.name} ({user.email}) ({user.role})</span>
+                                <button className='text-red-500 hover:underline' onClick={() => handleRemoveUser(user.id)}>Eliminar</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className='flex justify-end space-x-2 mr-1 mt-3'>
+                    <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>
+                    <DoneButton type='submit'>Done</DoneButton>
+                </div>
+            </Form>
         </div>
     </main>
 }
