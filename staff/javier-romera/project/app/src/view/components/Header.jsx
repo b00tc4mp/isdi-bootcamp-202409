@@ -53,17 +53,17 @@ export default function Header(props) {
     }
 
     return <header className="fixed top-0 w-full h-[10rem] box-border bg-gradient-to-b from-white/90 to-white/0 z-10 flex">
-        <div className="w-[450px] absolute left-1/2 transform -translate-x-1/2">
+        <div className="min-w-[300px] max-w-[450px] absolute left-1/2 transform -translate-x-1/2">
             <img onClick={handleHomeClick} src="/images/allpiece.png" alt="allpiece" className="cursor-pointer transition-transform duration-200 ease-in-out hover:scale-110"></img>
         </div>
 
         <div className="flex items-center justify-end ml-auto h-[132px] w-[25rem]">
-            <div className="mr-[3rem]">
+            <div className="mr-[1rem]">
                 <p className="text-[1.25rem]">{logic.isUserLoggedIn() && username !== null && `${username}`}</p>
             </div>
             <div className="justify-self-start mr-[3rem]">
                 {logic.isUserLoggedIn && logic.isUserRoleRegular() ?
-                    <Button onClick={handleLogoutUser} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1rem] transition-transform duration-100 ease-in-out hover:scale-110">Logout</Button> :
+                    <Button onClick={handleLogoutUser} className="bg-[rgba(175,255,255,0.95)] w-[40px] h-[40px] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1rem] transition-transform duration-100 ease-in-out hover:scale-110"><img src="/images/logout.png" /></Button> :
                     logic.isUserRoleAnonymous() && location.pathname !== "/login" && location.pathname !== "/register" &&
                     <div className="flex justify-center items-center gap-[10px]">
                         {location.pathname !== '/login' && <Button onClick={handleLoginClick} className="bg-[rgba(175,255,255,0.95)] border-[2px] border-[black] rounded-[.25rem] px-[.5rem] text-[1.125rem] transition-transform duration-100 ease-in-out hover:scale-110">Log in</Button>}

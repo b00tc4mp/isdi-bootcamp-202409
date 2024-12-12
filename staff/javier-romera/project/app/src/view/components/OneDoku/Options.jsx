@@ -19,7 +19,7 @@ export default function Options({ availableCharacters, inputValue, onCharacterSe
                             {!possibleCharacter[0] && possibleCharacter[1] && <span className="text-[.75rem] text-[#6c6656]">{char.alias}</span>}
                         </div>
                         <div className="flex justify-center items-center pr-[1.5rem]">
-                            <Button id={char.name} onClick={handleSelectedCharacter} className="px-[.625rem] py-[.125rem] border-[black] border-[2px] bg-[rgba(175,255,255,1)] rounded-[.25rem]">Select</Button>
+                            <Button id={char.name} onClick={handleSelectedCharacter} className="px-[.625rem] py-[.125rem] border-[black] border-[2px] bg-[#ffe6c3] rounded-[.25rem] hover:bg-[rgba(175,255,255,1)] transition duration-300">Select</Button>
                         </div>
                     </div>
             }) :

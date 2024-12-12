@@ -2,8 +2,8 @@ import { useState } from 'react'
 import logic from '../../../logic'
 
 export default function useController() {
-    const [characters, setCharacters] = useState()
-    const [selectedArc, setSelectedArc] = useState()
+    const [characters, setCharacters] = useState(null)
+    const [selectedArc, setSelectedArc] = useState(null)
 
     const handleLocationClicked = event => {
         const { target: { id: arc } } = event
@@ -20,8 +20,17 @@ export default function useController() {
             console.error(error)
         }
     }
-    console.log(selectedArc)
+
+    const handleExitLocation = () => {
+        setCharacters(null)
+        setSelectedArc(null)
+    }
+
     return {
-        handleLocationClicked
+        characters,
+        selectedArc,
+
+        handleLocationClicked,
+        handleExitLocation
     }
 }
