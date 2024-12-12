@@ -24,7 +24,7 @@ export default function GenderStage(props) {
             // Updates the targetGenders state with the new array, effectively "unchecking" the checkbox for this gender
             setTargetGenders(targetGenders.filter(g => g !== gender)) // ensures the gender being removed is excluded from the new array
         else
-            setTargetGenders([...targetGenders, gender]) // creates a new array with the added gender (immutability is important in React)
+            setTargetGenders([...targetGenders, gender]) // creates a new array with the added gender (immutability -> important in React)
     }
 
     const handleSubmit = event => {
@@ -43,7 +43,7 @@ export default function GenderStage(props) {
         }
 
         logic.updateUser({ gender: selectedGender, targetGender: targetGenders })
-            .then(() => logic.updateUserStage('genres'))
+            .then(() => logic.updateUserStage('artists'))
             .then(() => {
                 props.onSetupComplete()
             })
@@ -65,7 +65,7 @@ export default function GenderStage(props) {
             <Form onSubmit={handleSubmit}>
                 <Field>
                     <Label>Which gender best describes you?</Label>
-                    {genders.map((gender) => (
+                    {genders.map(gender => (
                         <Radio
                             key={gender}
                             id={gender}
@@ -81,7 +81,7 @@ export default function GenderStage(props) {
 
                 <Field>
                     <Label>Who would you like to meet?</Label>
-                    {preferredGenders.map((gender) => (
+                    {preferredGenders.map(gender => (
                         <Checkbox
                             key={gender}
                             id={`target-${gender}`}

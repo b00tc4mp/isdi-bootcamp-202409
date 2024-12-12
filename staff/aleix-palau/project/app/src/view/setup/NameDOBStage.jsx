@@ -35,6 +35,11 @@ export default function NameDOBStage(props) {
             return
         }
 
+        if (age >= 100) {
+            alert('Don\'t lie, you bitch')
+            return
+        }
+
         confirm(
             <div>
                 <strong>Confirm you're {age}</strong><br />

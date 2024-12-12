@@ -77,7 +77,7 @@ const validateDateOfBirth = dateOfBirth => {
 }
 
 const validateStage = stage => {
-    const validStages = ['name-dob', 'gender', 'genres', 'artists', 'photos', 'completed']
+    const validStages = ['name-dob', 'gender', 'artists', 'completed']
     if (!validStages.includes(stage)) {
         console.log(`ValidationError thrownnn: invalid stage: ${stage}`) // Debug log
         throw new ValidationError(`invalid stage: ${stage}`)
@@ -103,6 +103,13 @@ const validateTargetGender = targetGender => {
     })
 }
 
+const validateArtists = artists => {
+    if (!Array.isArray(artists)) {
+        throw new ValidationError('invalid artists: must be an array')
+    }
+    // WIP
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -115,7 +122,8 @@ const validate = {
     dateOfBirth: validateDateOfBirth,
     stage: validateStage,
     gender: validateGender,
-    targetGender: validateTargetGender
+    targetGender: validateTargetGender,
+    artists: validateArtists
 }
 
 export default validate

@@ -4,12 +4,13 @@ import { extractPayloadFromJWT } from '../../util'
 const { SystemError } = errors
 
 export default (data) => {
-    const { name, dateOfBirth, gender, targetGender } = data
+    const { name, dateOfBirth, gender, targetGender, artists } = data
 
     if (name !== undefined) validate.name(name)
     if (dateOfBirth !== undefined) validate.dateOfBirth(dateOfBirth)
     if (gender !== undefined) validate.gender(gender)
     if (targetGender !== undefined) validate.targetGender(targetGender)
+    if (artists !== undefined) validate.artists(artists)
 
     // Extract user ID from the JWT stored in localStorage
     const { sub: userId } = extractPayloadFromJWT(localStorage.token)

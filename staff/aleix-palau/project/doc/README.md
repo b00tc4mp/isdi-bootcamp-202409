@@ -80,7 +80,7 @@ User
 - minAge (integer, optional)
 - maxAge (integer, optional)
 - distance (integer, optional)
-- genres ([string])
+<!-- - genres ([string]) -->
 - artists ([string])
 - spotifyId (string, optional, unique)
 - spotifyAccessToken (string)

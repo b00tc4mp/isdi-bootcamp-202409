@@ -58,9 +58,9 @@ const user = new Schema({
         type: Number,
         default: 50
     },
-    genres: [{
-        type: String
-    }],
+    // genres: [{
+    //     type: String
+    // }],
     artists: [{
         type: String
     }],
@@ -87,7 +87,7 @@ const user = new Schema({
     },
     stage: {
         type: String,
-        enum: ['name-dob', 'gender', 'genres', 'artists', 'photos', 'completed'],
+        enum: ['name-dob', 'gender', 'artists', 'completed'],
         default: 'name-dob'
     }
 }, { versionKey: false })

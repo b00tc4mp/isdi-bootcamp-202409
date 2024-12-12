@@ -3,11 +3,9 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import { Login, Register, Home } from './view'
 import { Header, Alert, Confirm } from './view/components'
-import { NameDOBStage, GenderStage, ArtistsStage } from './view/setup'
+import { NameDOBStage, GenderStage } from './view/setup'
 import { Context } from './view/useContext'
 import logic from './logic'
-
-const VALID_STAGES = ['name-dob', 'gender', 'artists', 'completed']
 
 export default function App() {
     const [alert, setAlert] = useState({ message: null, level: 'error' })
@@ -19,12 +17,7 @@ export default function App() {
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
             logic.getUserStage()
-                .then(stage => {
-                    if (!stage || !VALID_STAGES.includes(stage)) // if the fetched stage is invalid, default to 'name-dob'
-                        setUserStage('name-dob')
-                    else
-                        setUserStage(stage)
-                })
+                .then(stage => setUserStage(stage || 'name-dob'))
                 .catch(error => {
                     console.error(error)
                     setAlert({ message: 'Failed to fetch setup stage. Please try again.', level: 'error' })
@@ -36,9 +29,8 @@ export default function App() {
 
     const handleSetupComplete = async nextStage => {
         try {
-            const stageToSet = VALID_STAGES.includes(nextStage) ? nextStage : 'name-dob' // validate nextStage before setting
-            await logic.updateUserStage(stageToSet)
-            setUserStage(stageToSet)
+            await logic.updateUserStage(nextStage)
+            setUserStage(nextStage)
         } catch (error) {
             console.error(error)
             setAlert({ message: 'Failed to update setup stage. Please try again.', level: 'error' })
@@ -57,19 +49,17 @@ export default function App() {
         setConfirm({ message: null, level: 'error', callback: null })
     }
 
-    // Since we always ensure userStage is valid or null when setting it,
-    // we don't need to fix it in renderSetupStage anymore.
     // semiútil quan es pugui editar la info del setup al perfil de cada usuari
     // prevents stage skipping
     const renderSetupStage = (stage, Component, nextStage) => {
-        // if userStage is not loaded yet, show a loading state
-        if (userStage === null) return <div>Loading setup stage...</div>
-        // if the current userStage matches the requested stage, render the component with a callback
-        if (userStage === stage) return <Component onSetupComplete={() => handleSetupComplete(nextStage)} />
+        if (userStage === null) return <div>Loading setup stage...</div> // if userStage is not loaded yet, show a loading state
+        if (userStage === stage) return <Component onSetupComplete={() => handleSetupComplete(nextStage)} /> // if the current userStage matches the requested stage, render the component with a callback
+        if (['name-dob', 'gender', 'artists', 'completed'].includes(userStage)) { // if userStage is one of these known valid stages, navigate to its route
+            return <Navigate to={`/setup/${userStage}`} />
+        }
 
-        // if userStage differs from the requested one, just redirect to userStage
-        // we no longer need to handle invalid stages here because it's guaranteed valid
-        return <Navigate to={`/setup/${userStage}`} />
+        setUserStage('name-dob'); // if userStage is somehow invalid, force set it to 'name-dob'
+        return <Navigate to="/setup/name-dob" />
     }
 
     console.log('App -> render')
@@ -109,7 +99,8 @@ export default function App() {
                     <Route path="/" element={userStage === 'completed' ? <Home /> : <Navigate to={`/setup/${userStage}`} />} />
                     <Route path="/setup/name-dob" element={renderSetupStage('name-dob', NameDOBStage, 'gender')} />
                     <Route path="/setup/gender" element={renderSetupStage('gender', GenderStage, 'artists')} />
-                    <Route path="/setup/artists" element={renderSetupStage('artists', ArtistsStage, 'completed')} />
+
+                    {/* <Route path="/setup/artists" element={renderSetupStage('artists', ArtistsStage, 'completed')} /> */}
 
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
