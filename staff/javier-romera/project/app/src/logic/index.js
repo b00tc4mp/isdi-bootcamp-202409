@@ -16,7 +16,8 @@ import {
     getRandomCharacter,
     getCharacterByName,
     getAllCharacters,
-    getAllCharactersNameAndAlias
+    getAllCharactersNameAndAlias,
+    getCharactersByArc
 } from './characters'
 
 import {
@@ -40,6 +41,7 @@ const logic = {
     getCharacterByName,
     getAllCharacters,
     getAllCharactersNameAndAlias,
+    getCharactersByArc,
 
     getRandomConditions
 }

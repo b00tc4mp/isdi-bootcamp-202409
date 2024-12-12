@@ -27,7 +27,7 @@ export default (userId: string, arc: string): Promise<TCharacter[] | undefined> 
         }
 
         try {
-            characters = await Character.find<TCharacter>({ firstArc: foundArc!.id })
+            characters = await Character.find({ firstArc: foundArc!.id }).select('-_id').lean<TCharacter[]>()
         } catch (error) {
             throw new SystemError((error as Error).message)
         }

@@ -26,27 +26,3 @@ export default (userId: string): Promise<TCharacter[]> => {
         return characters
     })()
 }
-
-// type Characters = {
-//     uuid: string,
-//     id: string,
-//     name: string,
-//     class: string,
-//     race: string,
-//     statistics: StatsType,
-//     skills: SkillType,
-//     items: [ObjectId],
-//     currency: CurrencyType
-// }
-
-// type CharacterType = {
-//     _id: ObjectId | string,
-//     uuid: string,
-//     name: string,
-//     class: string,
-//     race: string,
-//     statistics: StatsType,
-//     skills: SkillType,
-//     items: [ObjectId],
-//     currency: CurrencyType
-// }

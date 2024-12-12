@@ -54,7 +54,7 @@ const validateStatus = (status: Number): void => {
 
 const validateArc = (arc: string): void => {
     if (typeof arc !== 'string') throw new ValidationError('Invalid arc')
-    if (arc !== 'Romance-Dawn' && arc !== 'Orange-Town' && arc !== 'Syrup-Village' && arc !== 'Baratie' && arc !== 'Arlong Park' && arc !== 'Loguetown') throw new ValidationError('Invalid arc')
+    if (arc !== 'Romance-Dawn' && arc !== 'Orange-Town' && arc !== 'Syrup-Village' && arc !== 'Baratie' && arc !== 'Arlong-Park' && arc !== 'Loguetown') throw new ValidationError('Invalid arc')
 }
 
 const validate = {

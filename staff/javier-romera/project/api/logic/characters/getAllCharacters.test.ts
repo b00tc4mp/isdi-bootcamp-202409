@@ -7,9 +7,9 @@ import { TCharacter } from 'dat'
 await db.connect(process.env.ALLPIECE_URL_TEST!)
 
 try {
-    const characters: TCharacter[] = await getAllCharacters('67540f707dc9ab4a54ae8909')
+    const characters: TCharacter[] = await getAllCharacters('675a08ffec407c3e85aff04c')
 
-    console.log(characters.length)
+    console.log(characters)
 } catch (error) {
     console.error(error)
 } finally {
