@@ -95,7 +95,7 @@ export default function Tips() {
         }
     }, [cyclesStart])
 
-    return <>
+    return <div className="pb-20">
         <h2>Tips</h2>
 
         <div className="bg-[var(--yellow-color)] p-4 rounded-lg mt-4 mb-4">
@@ -116,18 +116,18 @@ export default function Tips() {
 
             <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
                 <h3>EXERCISE</h3>
-                <p>{exerciseTips || 'Loading nutrition tips...'}</p>
+                <p>{exerciseTips || 'Loading exercise tips...'}</p>
             </div >
 
             <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
                 <h3>SELF-CARE</h3>
-                <p>{selfCareTips || 'Loading nutrition tips...'}</p>
+                <p>{selfCareTips || 'Loading self care tips...'}</p>
             </div >
 
             <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
                 <h3>MUSIC</h3>
-                <p>{musicTips || 'Loading nutrition tips...'}</p>
+                <p>{musicTips || 'Loading music tips...'}</p>
             </div >
         </div>
-    </>
+    </div>
 }

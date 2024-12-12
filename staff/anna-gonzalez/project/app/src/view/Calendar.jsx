@@ -88,7 +88,7 @@ export default function Calendar() {
                 {/* header with days of the week */}
                 <div className="grid grid-cols-7 gap-4">
                     {weekDaysText.map(day => {
-                        return <div className="flex justify-center cursor-pointer" key={day}>{day}</div>
+                        return <div className="flex justify-center" key={day}>{day}</div>
                     })}
 
                     {/* empty calendar boxes*/}

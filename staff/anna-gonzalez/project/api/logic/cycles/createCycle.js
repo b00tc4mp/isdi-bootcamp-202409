@@ -16,13 +16,13 @@ export default (userId, start) => {
 
             if (normalizedStart.toISOString() > new Date().toISOString()) throw new ValidationError('Cycle cannot be created in the future')
 
-            return Cycle.findOne({ start })
+            return Cycle.findOne({ user: userId, start })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(searchedCycle => {
                     if (searchedCycle) { throw new DuplicityError('Cycle already exists') }
                 })
                 .then(() => {
-                    return Cycle.findOne({ start: { $lt: start } })
+                    return Cycle.findOne({ user: userId, start: { $lt: start } })
                         .sort({ start: -1 })
                         .catch(error => { throw new SystemError(error.message) })
                         .then(lastCycle => {
@@ -32,7 +32,7 @@ export default (userId, start) => {
                                 }
                             }
 
-                            return Cycle.findOne({ start: { $gt: start } })
+                            return Cycle.findOne({ user: userId, start: { $gt: start } })
                                 .sort({ start: 1 })
                                 .catch(error => { throw new SystemError(error.message) })
                                 .then(nextCycle => {
@@ -45,7 +45,7 @@ export default (userId, start) => {
                                         }
                                     }
 
-                                    return Cycle.create({ user, start })
+                                    return Cycle.create({ user: userId, start })
                                         .catch(error => { throw new SystemError(error.message) })
                                         .then(newCycle => {
                                             if (lastCycle) {

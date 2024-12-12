@@ -93,7 +93,7 @@ const reminder = new Schema({
         type: String,
         required: true,
         trim: true,
-        maxLength: 20
+        maxLength: 30
     }
 }, { versionKey: false })
 

@@ -14,7 +14,7 @@ export default (userId, todayDate) => {
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
 
-            return Reminder.find({ date: normalizedDate })
+            return Reminder.find({ user: userId, date: normalizedDate })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(reminders => {
 

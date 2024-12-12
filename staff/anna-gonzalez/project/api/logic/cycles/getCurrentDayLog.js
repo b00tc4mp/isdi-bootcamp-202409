@@ -19,7 +19,7 @@ export default (userId, formattedDate) => {
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
 
-            return Cycle.findOne({ start: { $lte: normalizedCycleDate } }).sort({ start: -1 })
+            return Cycle.findOne({ user: userId, start: { $lte: normalizedCycleDate } }).sort({ start: -1 })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(cycle => {
                     if (!cycle) throw new NotFoundError('Cycle not found')

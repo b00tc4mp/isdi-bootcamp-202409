@@ -16,7 +16,7 @@ export default (userId, periodEnd) => {
 
             if (normalizedPeriodEnd.toISOString() > new Date().toISOString()) throw new ValidationError('End of period cannot be created in the future')
 
-            return Cycle.findOne({ start: { $lte: periodEnd } })
+            return Cycle.findOne({ user: userId, start: { $lte: periodEnd } })
                 .sort({ start: -1 })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(searchedCycle => {

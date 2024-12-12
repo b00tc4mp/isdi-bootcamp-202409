@@ -20,7 +20,7 @@ export default (userId, formattedDate, title) => {
 
             if (reminderDate <= new Date().toISOString()) throw new ValidationError('Reminder cannot be created in the past')
 
-            return Reminder.create({ user, date: formattedDate, title })
+            return Reminder.create({ user: userId, date: formattedDate, title })
         })
         .then(_ => { })
 }

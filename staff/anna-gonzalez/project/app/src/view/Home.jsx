@@ -118,7 +118,7 @@ export default function Home() {
     const isHighPregnancyChance = daysUntilOvulation <= 3 && daysUntilOvulation >= -3
     const isLowPregnancyChance = daysUntilOvulation > 3 && daysUntilOvulation >= 0 || daysUntilOvulation < -3 && daysUntilNextCycle >= 0
 
-    return <>
+    return <div className="pb-16">
         <div>
             <p>{getWeekDayText()}</p>
 
@@ -141,7 +141,7 @@ export default function Home() {
         </div >
 
         <div>
-            <h3 className="mb-2">Your daily insights</h3>
+            <h3 className="mb-2 mt-5">Your daily insights</h3>
 
             <div className="flex flex-row gap-4">
                 <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
@@ -153,21 +153,30 @@ export default function Home() {
                     <p>Chance of getting pregnant</p>
                     {isHighPregnancyChance ? (<h3 className="text-3xl">High</h3>)
                         : isLowPregnancyChance ? (<h3 className="text-3xl">Low</h3>)
-                            : (<h3 className="text-3xl">Not defined</h3>)
+                            : (<h3 className="text-3xl">n/a</h3>)
                     }
                 </div >
             </div>
 
-            {reminder.length > 0 && (
+            {reminder.length === 1 && (
                 <div className="bg-[var(--blue-color)] p-4 rounded-lg mt-4 mb-4">
                     <h3>REMINDER</h3>
                     <p>{reminder[0].title}</p>
                 </div>
             )}
+
+            {reminder.length > 1 && (
+                <div className="bg-[var(--blue-color)] p-4 rounded-lg mt-4 mb-4">
+                    <h3>REMINDERS</h3>
+                    {reminder.map((reminderItem, index) => (
+                        <p key={index}>{reminderItem.title}</p>
+                    ))}
+                </div>
+            )}
         </div>
 
         <div>
-            <h3 className="mb-2">Listen to your body</h3>
+            <h3 className="mb-2 mt-8">Listen to your body</h3>
 
             <div className="bg-[var(--yellow-color)] p-4 rounded-lg mt-4 mb-4">
                 <h3>WEEK OF YOUR CYCLE</h3>
@@ -178,5 +187,5 @@ export default function Home() {
                                 : (<><h2>No cycles registered yet</h2><p>Log in your period in the calendar</p></>)}
             </div >
         </div>
-    </>
+    </div>
 }

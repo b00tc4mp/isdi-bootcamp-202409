@@ -22,7 +22,7 @@ export default (userId, formattedDate, formData) => {
                 throw new ValidationError('DayLog cannot be created in the future')
             }
 
-            return Cycle.findOne({ start: { $lte: normalizedCycleDate } })
+            return Cycle.findOne({ user: userId, start: { $lte: normalizedCycleDate } })
                 .sort({ start: -1 })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(cycle => {

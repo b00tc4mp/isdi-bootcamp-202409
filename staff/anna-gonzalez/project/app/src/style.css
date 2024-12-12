@@ -18,7 +18,7 @@
     --blue-color: #82a5f1;
     --font: 'Noto Sans';
     --font-title: 'Kavoon';
-    height: 100vh;
+    height: 100%;
 }
 
 body {
@@ -28,29 +28,30 @@ body {
     flex-direction: column;
     padding: 0rem 2rem 0rem 2rem;
     /* justify-content: center;
-    align-items: center; */
-    height: 100vh;
+    align-items: center;
+    height: 100vh;*/
     margin-top: 5rem;
-}
+    margin-bottom: 5rem;
 
-h1 {
-    font-family: var(--font-title);
-    font-size: 4rem;
-    margin-bottom: -0.5rem;
-}
-
-h2 {
-    font-family: var(--font-title);
-    font-size: x-large;
-}
-
-h3 {
-    font-family: var(--font);
-    font-size: large;
-    font-weight: bold;
-}
-
-p {
-    font-family: var(--font);
-    font-size: medium;
+    h1 {
+        font-family: var(--font-title);
+        font-size: 4rem;
+        margin-bottom: -0.5rem;
+    }
+    
+    h2 {
+        font-family: var(--font-title);
+        font-size: x-large;
+    }
+    
+    h3 {
+        font-family: var(--font);
+        font-size: large;
+        font-weight: bold;
+    }
+    
+    p {
+        font-family: var(--font);
+        font-size: medium;
+    }
 }

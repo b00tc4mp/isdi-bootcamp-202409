@@ -107,7 +107,7 @@ export default function DayLog({ onCreated }) {
         return <p>Loading...</p>
     }
 
-    return <>
+    return <div className="pb-20">
         <h2>DayLog</h2>
 
         <form>
@@ -160,5 +160,5 @@ export default function DayLog({ onCreated }) {
 
             <Button className="mb-12" onClick={handleSubmit} type="submit">Save</Button>
         </form>
-    </>
+    </div>
 }
