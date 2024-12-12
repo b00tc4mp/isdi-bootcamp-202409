@@ -6,6 +6,8 @@ import {
   getUserName,
   getUserId,
   getUserLocation,
+  isUserRoleOrganizer,
+  isUserPermissionWrite,
 } from "./users"
 
 import {
@@ -29,6 +31,8 @@ const logic = {
   getUserName,
   getUserId,
   getUserLocation,
+  isUserRoleOrganizer,
+  isUserPermissionWrite,
 
   createEvent,
   deleteEvent,

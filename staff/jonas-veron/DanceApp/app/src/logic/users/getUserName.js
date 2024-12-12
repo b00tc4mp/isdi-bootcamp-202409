@@ -1,5 +1,5 @@
 import { errors } from "com"
-import extractPayloadFromJWT from "../../util/extractPayloadFromJWT.js"
+import { extractPayloadFromJWT } from "../../utils"
 
 const { SystemError } = errors
 

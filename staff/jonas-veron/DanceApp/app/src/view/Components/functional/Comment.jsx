@@ -1,6 +1,8 @@
 import logic from "../../../logic/index.js"
 
-import { getElapsedTime } from "../../../util"
+import useContext from "../../useContext"
+
+import { getElapsedTime } from "../../../utils"
 
 export default function Comment({
   eventId,
@@ -8,6 +10,8 @@ export default function Comment({
   refreshComments,
 }) {
   console.log("Comment -> render")
+
+  const { alert } = useContext()
 
   const handleRemove = () => {
     if (window.confirm("Borrar comentario ?")) {

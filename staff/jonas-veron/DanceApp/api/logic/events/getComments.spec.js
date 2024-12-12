@@ -42,11 +42,13 @@ describe("getComments", () => {
       files: [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
       ],
+      eventType: "Sociales",
       text: "A bailar!",
       eventDate: new Date("2024-12-07"),
       location: {
         type: "Point",
         address: "Barcelona",
+        province: "Barcelona",
         coordinates: [41.3870154, 2.1700471],
       },
       comments: [comment, comment2],

@@ -1,10 +1,13 @@
 import logic from "../logic"
 import { useState, useEffect } from "react"
 import { Event } from "../view/Components/functional/index.js"
+import useContext from "./useContext"
 
 export default function FavoritEvents() {
   console.log("Favorites -> render")
   const [favoriteEvents, setFavoriteEvents] = useState([])
+
+  const { alert } = useContext()
 
   const refreshFavoriteEvents = () => {
     try {
@@ -28,7 +31,7 @@ export default function FavoritEvents() {
 
   return (
     <div className="items-center text-center pb-16">
-      <h1 className="pt-20 text-white text-4xl font-body pb-20">
+      <h1 className="pt-20 text-white font-semibold text-4xl font-body pb-20">
         {" "}
         MIS FAVORITOS
       </h1>

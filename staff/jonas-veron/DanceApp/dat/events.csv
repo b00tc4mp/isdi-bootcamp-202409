@@ -1,6 +1,7 @@
-liosalsabachata@dance.com, images/lio2.jpg, No te pierdas el social de este domingo!!!,2024-11-24T10:30:00.000Z,Girona,[41.3870154,2.1700471]
-latremenda@dance.com, images/laatremenda2.jpg, Social de bachata y salsa con música en vivo. ¡Te esperamos este domingo!,2024-11-23T20:00:00.000Z,Girona,[41.3870154,2.1700471]
-esencia@dance.com, images/esencia.jpg, ¡Gran noche de Concierto! Pinto Picasso en vivo! No te lo pierdas!!!,2024-11-25T18:00:00.000Z,Girona,[41.3870154,2.1700471]
-liosalsabachata@dance.com, images/liosalsabachata.jpg, Este finde van a flipar!!!,2024-11-24T10:30:00.000Z,Girona,[41.3870154,2.1700471]
-latremenda@dance.com, images/latremenda.jpg, Social de bachata y salsa con música en vivo. ¡Te esperamos este viernes!,2024-11-23T20:00:00.000Z,Girona,[41.3870154,2.1700471]
-laliada@bachatera.com, images/laliadabachatera.jpg, Te esperamos!!!,2024-11-23T20:00:00.000Z,Girona,[41.3870154,2.1700471]
+author,files,eventType,text,eventDate,locationType,coordinates,address,province
+liosalsabachata@dance.com,images/lio2.jpg,Sociales,"No te pierdas el social de este domingo!!!",2024-11-24T10:30:00.000Z,Point,"41.3870154,2.1700471","Calle Mayor 123","Girona"
+latremenda@dance.com,images/laatremenda2.jpg,Congresos,"Social de bachata y salsa con música en vivo. ¡Te esperamos este domingo!",2024-11-23T20:00:00.000Z,Point,"41.3880154,2.1710471","Calle de las Flores 45","Girona"
+esencia@dance.com,images/esencia.jpg,Masterclases,"¡Gran noche de Concierto! Pinto Picasso en vivo! No te lo pierdas!!!",2024-11-25T18:00:00.000Z,Point,"41.3890154,2.1720471","Plaza del Sol 12","Girona"
+liosalsabachata@dance.com,images/liosalsabachata.jpg,Sociales,"Este finde van a flipar!!!",2024-11-24T10:30:00.000Z,Point,"41.3900154,2.1730471","Avenida de la Paz 67","Girona"
+latremenda@dance.com,images/latremenda.jpg,Escuelas de baile,"Social de bachata y salsa con música en vivo. ¡Te esperamos este viernes!",2024-11-23T20:00:00.000Z,Point,"41.3910154,2.1740471","Calle de la Luna 89","Girona"
+laliada@bachatera.com,images/laliadabachatera.jpg,Sociales,"Te esperamos!!!",2024-11-23T20:00:00.000Z,Point,"41.3920154,2.1750471","Calle Real 5","Girona"

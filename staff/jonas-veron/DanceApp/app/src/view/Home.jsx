@@ -1,12 +1,14 @@
 import logic from "../logic"
 import { useState, useEffect } from "react"
+import useContext from "./useContext"
 
 import { Event } from "../view/Components/functional/index.js"
 
 export default function Home() {
   console.log("Home -> render")
-  const [name, setName] = useState(null)
   const [events, setEvents] = useState([])
+
+  const { alert } = useContext()
 
   const refreshEvents = () => {
     logic
@@ -19,12 +21,17 @@ export default function Home() {
   }
 
   useEffect(() => {
-    refreshEvents()
+    try {
+      refreshEvents()
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
   }, [])
 
   return (
     <>
-      <h1 className="pt-20 text-center text-cyan-50 text-4xl pb-20 font-body">
+      <h1 className="pt-20 text-center font-semibold text-cyan-50 text-4xl pb-20 font-body">
         EVENTOS
       </h1>
 

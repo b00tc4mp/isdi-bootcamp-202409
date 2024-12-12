@@ -33,6 +33,7 @@ export default (email, password) => {
     return {
       id: user._id.toString(),
       role: user.role,
+      permission: user.permission,
     }
   })()
 }

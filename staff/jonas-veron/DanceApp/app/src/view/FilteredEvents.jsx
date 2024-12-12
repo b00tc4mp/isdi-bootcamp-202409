@@ -2,10 +2,13 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import logic from "../logic"
 import { Event } from "../view/Components/functional/index.js"
+import useContext from "./useContext"
 
 export default function FilteredEvents() {
   const { eventType } = useParams()
   const [events, setEvents] = useState([])
+
+  const { alert } = useContext
 
   useEffect(() => {
     try {
@@ -30,7 +33,7 @@ export default function FilteredEvents() {
 
   return (
     <div className="items-center text-center pb-16">
-      <h1 className="pt-20 text-center text-cyan-50 text-4xl pb-20 font-body">
+      <h1 className="pt-20 text-center text-cyan-50 font-semibold text-4xl pb-20 font-body">
         {eventType.toUpperCase()}
       </h1>
       {events.length === 0 ? (

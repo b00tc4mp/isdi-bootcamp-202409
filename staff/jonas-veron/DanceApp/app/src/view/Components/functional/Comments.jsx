@@ -3,9 +3,12 @@ import { useState, useEffect } from "react"
 import { Comment, AddComment } from "./index.js"
 
 import logic from "../../../logic/index.js"
+import useContext from "../../useContext"
 
 export default function Comments({ eventId, onClose, refreshEvents }) {
   const [comments, setComments] = useState([])
+
+  const { alert } = useContext()
 
   useEffect(() => {
     console.log("Comments -> useEffect")

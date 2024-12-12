@@ -1,9 +1,12 @@
 import React, { useState } from "react"
 import logic from "../../../logic"
+import useContext from "../../useContext"
 
 export default function LocationInput({ onLocationSelect }) {
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState([])
+
+  const { alert } = useContext()
 
   let debounceTimer
   const handleInputChange = async (event) => {
@@ -34,9 +37,6 @@ export default function LocationInput({ onLocationSelect }) {
 
   return (
     <div>
-      {/* <label htmlFor="location" className="block text-gray-700">
-        Dirección:
-      </label> */}
       <input
         type="text"
         id="location"

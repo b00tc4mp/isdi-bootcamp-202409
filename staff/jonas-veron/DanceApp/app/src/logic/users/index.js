@@ -5,6 +5,8 @@ import loginUser from "./loginUser.js"
 import logoutUser from "./logoutUser.js"
 import registerUser from "./registerUser.js"
 import getUserLocation from "./getUserLocation.js"
+import isUserRoleOrganizer from "./isUserRoleOrganizer.js"
+import isUserPermissionWrite from "./isUserPermissionWrite.js"
 
 export {
   getUserId,
@@ -14,4 +16,6 @@ export {
   logoutUser,
   registerUser,
   getUserLocation,
+  isUserRoleOrganizer,
+  isUserPermissionWrite,
 }

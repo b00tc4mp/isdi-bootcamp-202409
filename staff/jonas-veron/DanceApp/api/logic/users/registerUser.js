@@ -5,9 +5,10 @@ import { validate, errors } from "com"
 
 const { DuplicityError, SystemError } = errors
 
-export default (name, email, password, passwordRepeat) => {
+export default (name, email, role, password, passwordRepeat) => {
   validate.name(name)
   validate.email(email)
+  validate.role(role)
   validate.password(password)
   validate.passwordsMatch(password, passwordRepeat)
 
@@ -17,7 +18,7 @@ export default (name, email, password, passwordRepeat) => {
       throw new SystemError(error.message)
     })
     .then((hash) =>
-      User.create({ name, email, password: hash })
+      User.create({ name, email, role, password: hash })
         .then((_) => {})
         .catch((error) => {
           if (error.code === 11000)

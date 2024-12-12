@@ -8,7 +8,7 @@ const validateName = (name) => {
 }
 
 const validateEmail = (email) => {
-  if (typeof email !== "string") throw new ValidationError("Invalid e-mail")
+  if (typeof email !== "string") throw new ValidationError("E-mail inválido")
   if (email.length > 320) throw new ValidationError("E-mail is too long")
   if (
     !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
@@ -16,6 +16,12 @@ const validateEmail = (email) => {
     )
   )
     throw new ValidationError("Invalid e-mail")
+}
+
+const validateRole = (role) => {
+  if (typeof role !== "string") throw new ValidationError("Invalid Role")
+  // const validRoles = ["dancer", "organizer"]
+  // if (!validRoles.includes(role)) throw new ValidationError("Invalid Role")
 }
 
 const validatePassword = (password) => {
@@ -118,6 +124,7 @@ const validate = {
   callback: validateCallback,
   date: validateDate,
   location: validateLocation,
+  role: validateRole,
 }
 
 export default validate

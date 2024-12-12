@@ -28,11 +28,13 @@ describe("getEvents", () => {
       files: [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
       ],
+      eventType: "Sociales",
       text: "A bailar!",
       eventDate: new Date("2024-12-07"),
       location: {
         type: "Point",
         address: "Barcelona",
+        province: "Barcelona",
         coordinates: [41.3870154, 2.1700471],
       },
     })
@@ -41,11 +43,13 @@ describe("getEvents", () => {
       files: [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
       ],
+      eventType: "Sociales",
       text: "A bailarrrrrr!",
       eventDate: new Date("2024-12-09"),
       location: {
         type: "Point",
         address: "Girona",
+        province: "Barcelona",
         coordinates: [41.3870154, 2.1700471],
       },
     })
@@ -68,16 +72,15 @@ describe("getEvents", () => {
     expect(events[1].eventDate).to.deep.equal(event.eventDate)
   })
 
-  it("fails for invalid user ID format", async () => {
-    await expect(getEvents("123")).to.be.rejectedWith(
+  it("fails for invalid user ID format", () =>
+    expect(() => getEvents("123")).to.throw(
       ValidationError,
       /^Invalid userId length$/
-    )
-  })
+    ))
 
   it("fails for non-existing user", async () => {
     await expect(getEvents("012345678901234567890123")).to.be.rejectedWith(
-      Error, //en la logica tuve que cambiarlo porque sino no funciona !!
+      NotFoundError,
       /^User not found$/
     )
   })

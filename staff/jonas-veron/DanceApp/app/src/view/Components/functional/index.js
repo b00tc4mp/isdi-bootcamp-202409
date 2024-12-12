@@ -7,6 +7,8 @@ import Comment from "./Comment"
 import AddComment from "./AddComment"
 import LocationInput from "./LocationInput"
 import EventMap from "./EventMap"
+import Alert from "./Alert"
+import Confirm from "./Confirm"
 
 export {
   Header,
@@ -18,4 +20,6 @@ export {
   AddComment,
   LocationInput,
   EventMap,
+  Alert,
+  Confirm,
 }

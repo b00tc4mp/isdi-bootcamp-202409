@@ -1,3 +1,3 @@
-import extractPayloadFromJWT from "../../util/extractPayloadFromJWT.js"
+import { extractPayloadFromJWT } from "../../utils"
 
 export default () => extractPayloadFromJWT(localStorage.token).sub

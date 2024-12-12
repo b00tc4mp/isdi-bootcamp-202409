@@ -6,18 +6,6 @@ const {
   Types: { ObjectId },
 } = mongoose
 
-const pointSchema = new Schema({
-  type: {
-    type: String,
-    enum: ["Point"],
-    required: true,
-  },
-  coordinates: {
-    type: [Number],
-    required: true,
-  },
-})
-
 const user = new Schema(
   {
     name: {
@@ -49,12 +37,8 @@ const user = new Schema(
     },
     permission: {
       type: String,
-      enum: ["none", "read", "write"],
-      default: "none",
-    },
-    isApproved: {
-      type: Boolean,
-      default: false,
+      enum: ["read", "write"],
+      default: "read",
     },
     city: {
       type: String,
@@ -138,7 +122,7 @@ const event = new Schema(
       },
       province: {
         type: String,
-        required: true,
+        // required: true,
       },
     },
     likes: [
@@ -151,9 +135,6 @@ const event = new Schema(
   },
   { versionKey: false }
 )
-
-// herramienta para manejar datos de ubicación !! <---
-// event.index({ location.coordinates: '2dsphere'})
 
 const User = model("User", user)
 const Event = model("Event", event)

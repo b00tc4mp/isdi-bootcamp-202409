@@ -1,6 +1,6 @@
 import { useState } from "react"
 import logic from "../../../logic"
-import { getElapsedTime } from "../../../util"
+import { getElapsedTime } from "../../../utils"
 import {
   likeIcon,
   likedIcon,
@@ -12,11 +12,15 @@ import {
   isFavoriteIcon,
 } from "./../../../assets/index.js"
 
+import useContext from "../../useContext"
+
 import { Comments } from "./index.js"
 import EventMap from "./EventMap.jsx"
 
 export default function Event({ event, refreshEvents }) {
-  console.log("Post -> render")
+  console.log("Event -> render")
+
+  const { alert } = useContext()
 
   const {
     id,
@@ -32,7 +36,7 @@ export default function Event({ event, refreshEvents }) {
     likes,
     comments,
   } = event
-  console.log(event)
+  // console.log(event)
 
   const [view, setView] = useState(null)
 
@@ -92,30 +96,33 @@ export default function Event({ event, refreshEvents }) {
 
   return (
     <article className="bg-transparent text-white shadow-md rounded-lg p-1 mb-6 max-w-xl mx-auto relative">
-      {/* Contenedor para autor y dirección */}
-      <div className="flex items-start mb-2">
-        {/* Inicial del autor */}
-        <div className="flex-shrink-0">
-          <div className="w-10 h-10 rounded-full bg-accentpink flex items-center justify-center text-white font-bold">
-            {author.name[0]}
+      {/* Contenedor para autor, dirección e ícono de cerrar */}
+      <div className="flex justify-between items-center mb-2">
+        {/* Contenedor para inicial, nombre y dirección */}
+        <div className="flex items-start">
+          {/* Inicial del autor */}
+          <div className="flex-shrink-0">
+            <div className="w-10 h-10 rounded-full bg-accentpink flex items-center justify-center text-white font-bold">
+              {author.name[0]}
+            </div>
+          </div>
+          {/* Nombre del autor y dirección */}
+          <div className="ml-3">
+            <h4 className="font-bold text-white">{author.name}</h4>
+            <p className="text-xs italic text-gray-300">{location.province}</p>
           </div>
         </div>
-        {/* Nombre del autor y dirección */}
-        <div className="ml-1">
-          <h4 className="font-bold text-white">{author.name}</h4>
-          <p className="text-xs italic mr-28">{location.province}</p>
-        </div>
-      </div>
 
-      {/* Ícono de eliminar en la esquina derecha */}
-      {author.id === logic.getUserId() && (
-        <img
-          src={deleteIcon}
-          alt="Delete event"
-          className="absolute top-2 right-2 w-6 h-6 cursor-pointer"
-          onClick={handleDeleteClick}
-        />
-      )}
+        {/* Ícono de eliminar */}
+        {author.id === logic.getUserId() && (
+          <img
+            src={deleteIcon}
+            alt="Delete event"
+            className="w-6 h-6 cursor-pointer"
+            onClick={handleDeleteClick}
+          />
+        )}
+      </div>
 
       {/* Imagen y botones */}
       <div className="mb-2">

@@ -1,7 +1,11 @@
 import logic from "../../../logic/index.js"
 
+import useContext from "../../useContext"
+
 export default function AddComment({ eventId, refreshComments }) {
   console.log("AddComment -> render")
+
+  const { alert } = useContext()
 
   const handleSubmit = (event) => {
     event.preventDefault()

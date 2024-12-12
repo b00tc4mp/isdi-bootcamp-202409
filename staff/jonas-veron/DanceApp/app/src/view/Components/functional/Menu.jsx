@@ -1,12 +1,12 @@
 import logic from "./../../../logic"
 import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
-import EventMap from "./EventMap"
+import useContext from "../../useContext"
 
 export default function Menu({ isOpen, onClose }) {
+  console.log("render -> menu")
   const navigate = useNavigate()
-  const [events, setEvents] = useState([])
-  const [view, setView] = useState(null)
+  const { alert, confirm } = useContext()
   const [name, setName] = useState(null)
 
   useEffect(() => {
@@ -28,16 +28,17 @@ export default function Menu({ isOpen, onClose }) {
   }, [name])
 
   const handleLogout = () => {
-    const userConfirmed = window.confirm("¿Estás seguro de cerrar sesión?")
-    if (userConfirmed) {
-      logic.logoutUser()
-      navigate("/login")
-      onClose()
-    }
-  }
-
-  const handleCloseMap = () => {
-    setView(null)
+    confirm(
+      "¿Estás seguro de cerrar sesión?",
+      (accepted) => {
+        if (accepted) {
+          logic.logoutUser()
+          navigate("/login")
+          onClose()
+        }
+      },
+      "warn"
+    )
   }
 
   const handleFilterClick = (type) => {
@@ -60,7 +61,6 @@ export default function Menu({ isOpen, onClose }) {
         {name && (
           <div className=" text-center">
             <h3 className="text-lg font-semibold text-white">¡Hola, {name}!</h3>
-            {/* <p className="text-sm text-gray-300">¿Qué te gustaría hacer hoy?</p> */}
           </div>
         )}
 
@@ -114,25 +114,6 @@ export default function Menu({ isOpen, onClose }) {
           </button>
         </div>
       </div>
-
-      {view === "near-events" && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="relative bg-white rounded-lg shadow-lg w-3/4 max-w-2xl">
-            <button
-              onClick={handleCloseMap}
-              className="absolute top-3 right-3 text-gray-500 hover:text-black"
-            >
-              ✖
-            </button>
-            <div className="p-4">
-              <h2 className="text-lg font-bold mb-4 text-center text-gray-700">
-                Ubicación del evento
-              </h2>
-              <EventMap center={center} events={events} />
-            </div>
-          </div>
-        </div>
-      )}
     </>
   )
 }

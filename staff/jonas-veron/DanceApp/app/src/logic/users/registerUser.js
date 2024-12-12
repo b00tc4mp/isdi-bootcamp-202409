@@ -2,9 +2,10 @@ import { validate, errors } from "com"
 
 const { SystemError } = errors
 
-export default (name, email, password, passwordRepeat) => {
+export default (name, email, role, password, passwordRepeat) => {
   validate.name(name)
   validate.email(email)
+  validate.role(role)
   validate.password(password)
   validate.passwordsMatch(password, passwordRepeat)
 
@@ -13,7 +14,7 @@ export default (name, email, password, passwordRepeat) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, email, password, passwordRepeat }),
+    body: JSON.stringify({ name, email, role, password, passwordRepeat }),
   }).catch((error) => {
     throw new SystemError(error.message).then((res) => {
       if (res.ok) return

@@ -3,20 +3,27 @@ import { validate, errors } from "com"
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId) => {
+export default (userId) => {
   validate.id(userId, "userId")
-  debugger
-  try {
-    const [user, events] = await Promise.all([
-      User.findById(userId).lean(),
-      Event.find().populate("author", "name").sort({ date: -1 }).lean(),
-    ])
 
-    if (!user) {
-      throw new Error("User not found")
+  return (async () => {
+    let user
+    let events
+    let results
+    try {
+      results = await Promise.all([
+        User.findById(userId).lean(),
+        Event.find().populate("author", "name").sort({ date: -1 }).lean(),
+      ])
+    } catch (error) {
+      throw new SystemError(error.message)
     }
 
-    debugger
+    user = results[0]
+    events = results[1]
+
+    if (!user) throw new NotFoundError("User not found")
+
     return events.map((event) => ({
       id: event._id.toString(),
       files: event.files,
@@ -42,7 +49,5 @@ export default async (userId) => {
         (likeId) => likeId.toString() === userId.toString()
       ),
     }))
-  } catch (error) {
-    throw new SystemError(error.message)
-  }
+  })()
 }

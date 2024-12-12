@@ -29,7 +29,7 @@ describe("createEvent", () => {
       [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
       ],
-      "Social",
+      "Sociales",
       "A bailar!",
       "2025-06-07",
       {
@@ -63,7 +63,7 @@ describe("createEvent", () => {
         [
           "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
         ],
-        "Social",
+        "Sociales",
         "A bailar!",
         "2025-06-07",
         {
@@ -81,7 +81,7 @@ describe("createEvent", () => {
         [
           "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
         ],
-        "Social",
+        "Sociales",
         "A bailar!",
         "2025-06-07",
         {
@@ -99,7 +99,7 @@ describe("createEvent", () => {
         [
           "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
         ],
-        "Social",
+        "Sociales",
         "A bailar!",
         "2025-06-07",
         {
@@ -115,7 +115,7 @@ describe("createEvent", () => {
       createEvent(
         "012345678901234567890123",
         true,
-        "Social",
+        "Sociales",
         "A bailar!",
         "2025-06-07",
         {
@@ -133,7 +133,7 @@ describe("createEvent", () => {
         [
           "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
         ],
-        "Social",
+        "Sociales",
         true,
         "2025-06-07",
         {

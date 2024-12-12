@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import logic from "../logic"
 import { Form, Field, ButtonForm } from "./../view/Components/library/index.js"
-import { calendarIcon } from "../assets/index.js"
 import LocationInput from "./Components/functional/LocationInput.jsx"
+import useContext from "./useContext"
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -18,6 +18,8 @@ export default function CreateEvent() {
   const [images, setImages] = useState([])
   const [location, setLocation] = useState(null)
   const navigate = useNavigate()
+
+  const { alert } = useContext()
 
   const handleImageChange = (event) => {
     const { files } = event.target
@@ -43,7 +45,7 @@ export default function CreateEvent() {
       province: location.province,
     }
 
-    const parsedDate = new Date(`${eventDate}:00Z`)
+    const parsedDate = new Date(eventDate)
 
     Promise.all(filetoB64Conversions).then((filesb64) => {
       try {
@@ -83,7 +85,7 @@ export default function CreateEvent() {
         <Form onSubmit={handleFormSubmit}>
           <Field>
             <label
-              for="image"
+              htmlFor="image"
               className="bg-accentpink  text-white font-bold border-2 border-transparent hover:bg-accentgreen hover:border-accentpink focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-300 rounded-lg"
             >
               Subir Imagen

@@ -2,6 +2,7 @@ import DanceAppLogo from "../assets/DanceAppLogo.svg"
 import logic from "../logic"
 import { useNavigate, Link } from "react-router-dom"
 import { errors } from "com/"
+import useContext from "./useContext"
 
 import {
   PasswordInput,
@@ -16,6 +17,7 @@ const { SystemError } = errors
 
 export default function Register() {
   console.log("Register -> render")
+  const { alert } = useContext()
   const navigate = useNavigate()
 
   const handleSubmit = (event) => {
@@ -26,17 +28,18 @@ export default function Register() {
     const {
       name: { value: name },
       email: { value: email },
+      role: { value: role },
       password: { value: password },
       passwordRepeat: { value: passwordRepeat },
     } = form
 
     try {
       logic
-        .registerUser(name, email, password, passwordRepeat)
+        .registerUser(name, email, role, password, passwordRepeat)
         .then(() => {
           form.reset()
 
-          alert("Usuario registrado")
+          alert("Usuario registrado", "success")
 
           navigate("/login")
         })
@@ -75,6 +78,14 @@ export default function Register() {
         <Field>
           <Label htmlFor="email"></Label>
           <Input type="text" id="email" placeholder="E-mail" />
+        </Field>
+
+        <Field>
+          <Label htmlFor="role"></Label>
+          <select id="role">
+            <option value="dancer">Bailarín</option>
+            <option value="organizer">Organizador</option>
+          </select>
         </Field>
 
         <Field>

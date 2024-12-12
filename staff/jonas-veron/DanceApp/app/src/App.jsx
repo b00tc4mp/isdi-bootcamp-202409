@@ -1,4 +1,10 @@
+import { useState } from "react"
+
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom"
+
+import { Context } from "./view/useContext.js"
+
+import logic from "./logic/index.js"
 
 import {
   Login,
@@ -7,18 +13,69 @@ import {
   CreateEvent,
   FavoritEvents,
   FilteredEvents,
+  EventsCalendar,
+  NearbyEvents,
 } from "./view/index.js"
-import { Header, Footer } from "./view/Components/functional/index.js"
+import {
+  Header,
+  Footer,
+  Alert,
+  Confirm,
+} from "./view/Components/functional/index.js"
 
-import logic from "./logic/index.js"
+export default function App() {
+  console.log("App -> render")
+  const [alert, setAlert] = useState({
+    message: null,
+    level: "error",
+  })
 
-function App() {
+  const [confirm, setConfirm] = useState({
+    message: null,
+    level: "error",
+    callback: null,
+  })
+
   const navigate = useNavigate()
   const isLoggedIn = logic.isUserLoggedIn()
-  console.log("App -> render")
+
+  const handleAlertAccepted = () =>
+    setAlert({
+      message: null,
+      level: "error",
+    })
+
+  const handleConfirmAccepted = () => {
+    confirm.callback(true)
+
+    setConfirm({
+      message: null,
+      level: "error",
+      callback: null,
+    })
+  }
+
+  const handleConfirmCancelled = () => {
+    confirm.callback(false)
+
+    setConfirm({
+      message: null,
+      level: "error",
+      callback: null,
+    })
+  }
 
   return (
-    <>
+    <Context.Provider
+      value={{
+        alert(message, level = "error") {
+          setAlert({ message, level })
+        },
+        confirm(message, callback, level = "error") {
+          setConfirm({ message, callback, level })
+        },
+      }}
+    >
       {isLoggedIn && <Header />}
 
       <Routes>
@@ -47,11 +104,34 @@ function App() {
           path="/events/:eventType"
           element={isLoggedIn ? <FilteredEvents /> : <Navigate to="/login" />}
         />
+        <Route
+          path="/calendar"
+          element={isLoggedIn ? <EventsCalendar /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/nearbyevents"
+          element={isLoggedIn ? <NearbyEvents /> : <Navigate to="/login" />}
+        />
       </Routes>
 
       {isLoggedIn && <Footer />}
-    </>
+
+      {alert.message && (
+        <Alert
+          message={alert.message}
+          level={alert.level}
+          onAccepted={handleAlertAccepted}
+        />
+      )}
+
+      {confirm.message && (
+        <Confirm
+          message={confirm.message}
+          level={confirm.level}
+          onAccepted={handleConfirmAccepted}
+          onCancelled={handleConfirmCancelled}
+        />
+      )}
+    </Context.Provider>
   )
 }
-
-export default App

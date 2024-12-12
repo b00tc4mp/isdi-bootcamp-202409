@@ -1,5 +1,6 @@
 import DanceAppLogo from "../assets/DanceAppLogo.svg"
 import { useNavigate, Link } from "react-router-dom"
+import useContext from "./useContext.js"
 
 import logic from "../logic"
 
@@ -18,6 +19,7 @@ import {
 
 export default function Login() {
   console.log("Login -> render")
+  const { alert } = useContext()
   const navigate = useNavigate()
 
   const handleSubmit = (event) => {
