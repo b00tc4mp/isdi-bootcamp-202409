@@ -8,17 +8,23 @@ export default (userId, productId) => {
   validate.id(productId, 'productId')
 
   return Promise.all([
-    User.exists({ _id: userId }),
+    //User.exists({ _id: userId }),
+    User.findById(userId).lean(),
     Product.findById(productId).lean()
   ])
     .catch(error => { throw new SystemError(error.message) })
-    .then(([userExists, product]) => {
-      if (!userExists) throw new NotFoundError('user not found')
+    .then(([user, product]) => {
+      if (!user) throw new NotFoundError('user not found')
       if (!product) throw new NotFoundError('product not found')
       if (product._id) {
         product.id = product._id.toString()
         delete product._id
       }
+
+      const { wishlist } = user
+      const saved = wishlist.some(productObjectId => productObjectId.equals(productId))
+
+      product.saved = saved
 
       const { likes, dislikes } = product
 

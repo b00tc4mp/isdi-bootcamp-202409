@@ -8,7 +8,7 @@ import logic from '../logic'
 import useContext from './useContext'
 import { useParams } from 'react-router-dom'
 
-export default function ProductDetails({ onSaved, onCommentAdded, onCommentRemoved }) {
+export default function ProductDetails() {
   const { productId } = useParams()
 
   const [view, setView] = useState(null)
@@ -39,7 +39,8 @@ export default function ProductDetails({ onSaved, onCommentAdded, onCommentRemov
   const handleLikeClick = () => {
     try {
       logic.toggleLikeProduct(productId)
-        .then()
+        .then(() => logic.getProductDetails(productId)
+          .then(setProduct))
         .catch(error => {
           alert(error.message)
 
@@ -55,7 +56,8 @@ export default function ProductDetails({ onSaved, onCommentAdded, onCommentRemov
   const handleDislikeClick = () => {
     try {
       logic.toggleDislikeProduct(productId)
-        .then()
+        .then(() => logic.getProductDetails(productId)
+          .then(setProduct))
         .catch(error => {
           alert(error.message)
 
@@ -70,10 +72,42 @@ export default function ProductDetails({ onSaved, onCommentAdded, onCommentRemov
 
   const handleCommentsClick = () => setView(view ? null : 'comments')
 
+  const handleCommentAdded = () => {
+    try {
+      logic.getProductDetails(productId)
+        .then(setProduct)
+        .catch(error => {
+          alert(error.message)
+
+          console.error(error)
+        })
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
+  const handleCommentRemoved = () => {
+    try {
+      logic.getProductDetails(productId)
+        .then(setProduct)
+        .catch(error => {
+          alert(error.message)
+
+          console.error(error)
+        })
+    } catch (error) {
+      alert(error.message)
+
+      console.error(error)
+    }
+  }
+
   const handleSaveClick = () => {
     try {
       logic.saveProduct(productId)
-        .then(onSaved)
+        .then(() => logic.getProductDetails(productId)
+          .then(setProduct))
         .catch(error => {
           alert(error.message)
 
@@ -96,7 +130,8 @@ export default function ProductDetails({ onSaved, onCommentAdded, onCommentRemov
     dislikes,
     disliked,
     //storePrices,
-    comments
+    comments,
+    saved
   } = product
 
   return <article>
@@ -112,18 +147,17 @@ export default function ProductDetails({ onSaved, onCommentAdded, onCommentRemov
 
     {/* <p>{storePrices}</p> */}
 
-    <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
+    <Button onClick={handleCommentsClick}>💬 {comments.length} comments</Button>
 
     {/* <Button onClick={handleStoresClick}>Show stores</Button> */}
 
     {/* CAMBIAR VISUALIZACIÓN BOTÓN SAVE*/}
-    <Button onClick={handleSaveClick}>Save</Button>
-
+    <Button onClick={handleSaveClick}>{`${saved ? 'Saved' : 'Save'}`}</Button>
 
     {view === 'comments' && <Comments
       productId={id}
-      onAdded={onCommentAdded}
-      onRemoved={onCommentRemoved}
+      onAdded={handleCommentAdded}
+      onRemoved={handleCommentRemoved}
     />}
   </article>
 }
