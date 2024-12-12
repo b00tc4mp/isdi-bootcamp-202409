@@ -25,8 +25,11 @@ describe('getCurrentCycleStart', () => {
         return Promise.all([user.save(), cycle.save()])
             .then(([user, cycle]) => {
                 getCurrentCycleStart(user.id)
-                    .then(currentCycle => {
-                        expect(currentCycle).to.exist
+                    .then(() => {
+                        Cycle.find()
+                            .then(currentCycle => {
+                                expect(currentCycle).to.equal(cycle.start)
+                            })
                     })
             })
     })
@@ -37,14 +40,14 @@ describe('getCurrentCycleStart', () => {
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
 
-    it('fails on non-existing cycle', () => {
+    it('fails on non-existing cycle', () =>
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-            .then(user => {
+            .then(user =>
                 expect(
                     getCurrentCycleStart(user.id)
                 ).to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
-            })
-    })
+            )
+    )
 
     after(() => db.disconnect())
 })

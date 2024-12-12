@@ -22,27 +22,33 @@ describe('addPeriodEnd', () => {
         User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user =>
                 Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000Z' })
-                    .then(() =>
-                        expect(
-                            addPeriodEnd(user.id, '2024-10-13T00:00:00.000Z')
-                        ).to.be.instanceOf(Date)
-                    )
+                    .then(() => {
+                        addPeriodEnd(user.id, '2024-10-13T00:00:00.000Z')
+                            .then(updatedCycle => {
+                                expect(updatedCycle).to.exist
+                                expect(updatedCycle.periodEnd).to.equal('2024-10-15T00:00:00.000Z')
+                            })
+                    })
             )
     })
 
     it('succeeds on updating periodEnd', () => {
-        User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-            .then(user =>
+        return User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+            .then(user => {
                 Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000Z', periodEnd: '2024-10-14T00:00:00.000Z' })
-                    .then(() =>
-                        Cycle.updateOne({ periodEnd: '2024-10-14T00:00:00.000Z' })
-                            .then(() =>
-                                expect(
-                                    addPeriodEnd(user.id, '2024-10-15T00:00:00.000Z')
-                                ).to.exist
-                            )
-                    )
-            )
+                    .then(cycle => {
+                        Cycle.updateOne({ _id: cycle._id }, { $set: { periodEnd: '2024-10-15T00:00:00.000Z' } }, { new: true })
+                            .then(() => {
+                                Cycle.findOne({ _id: cycle._id })
+                                    .then(updatedCycle => {
+                                        addPeriodEnd(user.id, '2024-10-15T00:00:00.000Z')
+
+                                        expect(updatedCycle).to.exist
+                                        expect(updatedCycle.periodEnd).to.equal('2024-10-15T00:00:00.000Z')
+                                    })
+                            })
+                    })
+            })
     })
 
     it('fails on non-existing user', () =>

@@ -9,6 +9,7 @@ export default function Home() {
     const [name, setName] = useState(null)
     const [cyclesStart, setCyclesStart] = useState(null)
     const [cyclePhase, setCyclePhase] = useState(null)
+    const [reminder, setReminder] = useState([])
 
     const navigate = useNavigate()
 
@@ -31,6 +32,35 @@ export default function Home() {
                     console.error(error)
                 }
         } else setName(null)
+    }, [])
+
+    useEffect(() => {
+        if (logic.isUserLoggedIn()) {
+            try {
+                const newDate = new Date()
+                newDate.setDate(newDate.getDate() - 1)
+
+                const todayDatePreFormatted = new Date(newDate).toISOString()
+
+                const todayDate = new Date(todayDatePreFormatted).toISOString().split('T')[0]
+
+                logic.getCurrentReminders(todayDate)
+                    .then(reminders => {
+                        if (reminders && reminders.length > 0) {
+                            setReminder(reminders)
+                        }
+                    })
+                    .catch(error => {
+                        alert(error.message)
+
+                        console.error(error)
+                    })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        }
     }, [])
 
     useEffect(() => {
@@ -128,11 +158,12 @@ export default function Home() {
                 </div >
             </div>
 
-            <div className="bg-[var(--blue-color)] p-4 rounded-lg mt-4 mb-4">
-                <h3>REMINDER</h3>
-                <p>Doctor appointment</p>
-                <p>7pm</p>
-            </div >
+            {reminder.length > 0 && (
+                <div className="bg-[var(--blue-color)] p-4 rounded-lg mt-4 mb-4">
+                    <h3>REMINDER</h3>
+                    <p>{reminder[0].title}</p>
+                </div>
+            )}
         </div>
 
         <div>

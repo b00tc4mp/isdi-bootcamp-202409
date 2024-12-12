@@ -26,6 +26,8 @@ describe('createCycle', () => {
                     .then(cycle => {
                         expect(cycle).to.exist
                         expect(cycle.user.toString()).to.equal(user.id)
+                        expect(new Date(cycle.start).toISOString()).to.equal('2024-10-13T00:00:00.000Z')
+                        expect(cycle.end).to.not.exist
                     })
             )
     )
@@ -38,12 +40,17 @@ describe('createCycle', () => {
                         Cycle.create({ user: user.id, start: '2024-11-13T00:00:00.000Z' })
                             .then(nextCycle =>
                                 createCycle(user.id, '2024-11-01T00:00:00.000Z')
-                                    .then(() => Cycle.findOne())
-                                    .then(newCycle => {
-                                        expect(lastCycle).to.exist
-                                        expect(nextCycle).to.exist
-                                        expect(newCycle).to.exist
-                                    })
+                                    .then(() => Cycle.findOne({ start: '2024-11-01T00:00:00.000Z' })
+                                        .then(newCycle => {
+                                            expect(lastCycle).to.exist
+                                            expect(new Date(lastCycle.start).toISOString()).to.equal('2024-10-13T00:00:00.000Z')
+                                            expect(nextCycle).to.exist
+                                            expect(new Date(nextCycle.start).toISOString()).to.equal('2024-11-13T00:00:00.000Z')
+                                            expect(newCycle).to.exist
+                                            expect(new Date(newCycle.start).toISOString()).to.equal('2024-11-01T00:00:00.000Z')
+                                            expect(new Date(newCycle.end).toISOString()).to.equal('2024-11-12T00:00:00.000Z')
+                                        })
+                                    )
                             )
                     )
             )
@@ -55,10 +62,13 @@ describe('createCycle', () => {
                 Cycle.create({ user: user.id, start: '2024-11-13T00:00:00.000Z' })
                     .then(nextCycle =>
                         createCycle(user.id, '2024-11-01T00:00:00.000Z')
-                            .then(() => Cycle.findOne())
+                            .then(() => Cycle.findOne({ start: '2024-11-01T00:00:00.000Z' }))
                             .then(newCycle => {
                                 expect(nextCycle).to.exist
+                                expect(new Date(nextCycle.start).toISOString()).to.equal('2024-11-13T00:00:00.000Z')
                                 expect(newCycle).to.exist
+                                expect(new Date(newCycle.start).toISOString()).to.equal('2024-11-01T00:00:00.000Z')
+                                expect(new Date(newCycle.end).toISOString()).to.equal('2024-11-12T00:00:00.000Z')
                             })
                     )
             )
