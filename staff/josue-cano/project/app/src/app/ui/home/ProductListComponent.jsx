@@ -1,14 +1,29 @@
+"use client";
+import { getProducts } from "@/app/logic/products/getProducts";
 import ProductComponent from "./ProductComponent";
+import { useEffect, useState } from "react";
+
 
 export default function ProductListComponent() {
-  let productos = new Array(20).fill(0);
-  productos = productos.map((producto, index) => ({
-    nombre: `producto ${index + 1}`,
-    id: index,
-    precio: Math.random() * 100 + 1,
-    imagenes: ["sandias.png","hero.jpg"],
-  }));
-  console.log(productos);
+  const [productos, setProductos] = useState([]);
+  const [error, setError] = useState(null); // Manejo de errores
+
+  // Efecto para cargar los productos al montar el componente
+  useEffect(() => {
+    // Llama a la función para obtener los productos
+    getProducts()
+      .then((data) => {
+        setProductos(data); // Actualiza los productos en el estado
+      })
+      .catch((err) => {
+        setError(err); // Maneja los errores
+      });
+  }, []);
+
+  if (error) {
+    return <p>Error al cargar productos: {error.message}</p>; // Muestra un mensaje de error
+  }
+
   return (
     <section>
       <header>
@@ -16,7 +31,7 @@ export default function ProductListComponent() {
       </header>
       <section className="grid grid-cols-3 gap-4">
         {productos.map((producto) => (
-          <ProductComponent producto={producto} key={producto.id} />
+          <ProductComponent producto={producto} key={producto._id} />
         ))}
       </section>
     </section>

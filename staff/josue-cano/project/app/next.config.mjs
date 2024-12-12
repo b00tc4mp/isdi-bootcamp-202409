@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [{ hostname: "img.daisyui.com" }],
+    remotePatterns: [{ hostname: "localhost" }],
   },
-  //coloca un / al final d elas rutas 
+  //coloca un / al final d elas rutas
   trailingSlash: true,
 };
 
