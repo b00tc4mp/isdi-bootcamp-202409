@@ -10,10 +10,10 @@ import {
 
 const cartRouter = Router();
 
-cartRouter.post('/add', jsonBodyParser, authorizationHandler, addToCartHandler);
-cartRouter.post('/updates/', jsonBodyParser, authorizationHandler, updateCartHandler);
+cartRouter.post('/add', authorizationHandler, jsonBodyParser, addToCartHandler);
+cartRouter.post('/updates/', authorizationHandler, jsonBodyParser, updateCartHandler);
 cartRouter.get('/', authorizationHandler, getCartHandler);
 cartRouter.delete('/remove/:cartItemId', authorizationHandler, removeAllFromCartHandler);
-cartRouter.patch('/update/:cartItemId', jsonBodyParser, authorizationHandler, updateQuantityHandler);
+cartRouter.patch('/update/:cartItemId', authorizationHandler, jsonBodyParser, updateQuantityHandler);
 
 export default cartRouter;

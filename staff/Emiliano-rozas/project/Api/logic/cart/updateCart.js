@@ -55,7 +55,7 @@ export default (userId, productId, quantity) => {
             if (quantity <= 0) {
                 try {
                     await CartItem.deleteOne({ _id: cartItem._id })
-                    cart.items.pull(cartItem._id)
+                    cart.items.pull(cartItem._id) // con pull no se hace cart Save
                 } catch (error) {
                     throw new SystemError(error.message)
                 }
@@ -68,7 +68,7 @@ export default (userId, productId, quantity) => {
                     throw new SystemError(error.message)
                 }
             }
-        } else {
+        } else { // escenario si no hay cartItem
             if (quantity > 0) {
                 try {
                     cartItem = await CartItem.create({ product: productId, quantity });
@@ -78,8 +78,6 @@ export default (userId, productId, quantity) => {
                     throw new SystemError(error.message);
                 }
 
-            } else {
-                throw new SystemError('Quantity must be greater than zero to add a product');
             }
         }
         // Recalculamos el total del carrito
@@ -100,7 +98,7 @@ export default (userId, productId, quantity) => {
 
             await cart.save();
         } catch (error) {
-            throw new SystemError('Failed to calculate total price: ' + error.message);
+            throw new SystemError(error.message);
         }
         return cart;
     })();

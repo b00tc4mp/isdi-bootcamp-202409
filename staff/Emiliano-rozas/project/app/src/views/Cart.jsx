@@ -5,60 +5,64 @@ import assets from '../assets'
 import logic from '../logic/index';
 import { errors } from 'com';
 
-const { NotFoundError, SystemError } = errors
+const { SystemError } = errors
 
 export default function Cart() {
 
     const [cartInfo, setCartInfo] = useState({ items: [], totalPrice: 0 });
 
     useEffect(() => {
-        const fetchCart = async () => {
+        const cart = async () => {
             try {
-                const cartData = await logic.getCart().catch(error => { throw new NotFoundError('Cart not found', error) })
-                console.log('Fetched cart:', cartData);
+                const cartData = await logic.getCart()
+
                 setCartInfo(cartData);
             } catch (error) {
                 console.error(error);
             }
         };
-        fetchCart();
+        cart();
     }, []);
 
     const handleUpdateQuantity = async (productId, quantity) => {
         try {
-            if (!productId) throw new SystemError('Product ID is missing');
-
-            const userId = logic.getUserId();
-            if (!userId) throw new NotFoundError('User not logged in');
 
             await logic.updateCart(productId, Number(quantity));
-            const newCart = await logic.getCart(); // con esto hacemos que se re renderice bien, sino P.E.T.A
 
-            console.log('Updated cart:', newCart);
+            const newCart = await logic.getCart(); // con esto hacemos que se re renderice bien, sino P.E.T.A
 
             // Actualizar el estado del carrito
             setCartInfo(newCart);
-            console.log('Updated cartInfo:', newCart);
+
         } catch (error) {
-            console.error('Error updating cart:', error);
-            alert(error.message);
+            if (error instanceof SystemError)
+                alert('Sorry, try again later.')
+            else
+                alert(error.message)
+
+            console.error(error)
         }
     };
 
     const handleRemoveFromCart = async (cartItemId) => {
         if (window.confirm("Are you sure you want to delete this item?")) {
             try {
-                await logic.removeAllFromCart(cartItemId).catch(error => { throw new SystemError(error.message) })
+                await logic.removeAllFromCart(cartItemId)
 
-                const updatedCart = await logic.getCart().catch(error => { throw new NotFoundError('Cart not found', error) })
+                const updatedCart = await logic.getCart()
 
                 setCartInfo(updatedCart);
+
             } catch (error) {
-                console.error(error);
+                if (error instanceof SystemError)
+                    alert('Sorry, try again later.')
+                else
+                    alert(error.message)
+
+                console.error(error)
             }
         }
     };
-    console.log('Updated cartInfo:', cartInfo);
 
     return (
         <div className='border-t border-green-700 pt-14'>

@@ -6,5 +6,4 @@ export default createFunctionalHandler((req, res) => {
 
     return logic.placeOrder(userId)
         .then(({ orderId }) => res.status(200).json({ orderId })) // si no se envia por aqui el orderId, nunca llega al front
-        .catch(error => res.status(500).json({ error: error.name, message: error.message }));
 })

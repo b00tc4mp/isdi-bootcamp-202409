@@ -6,11 +6,6 @@ export default createFunctionalHandler((req, res) => {
 
     const { userId } = req
 
-    return logic.processPayment(orderId, paymentMethodId, provider, userId)
-
-        .then(() => res.status(201).json({ message: 'Payment successful' }))
-        .catch(error => {
-            console.error('Error in processPaymentHandler:', error);
-            res.status(500).json({ message: 'Payment failed', error: error.message });
-        });
+    return logic.processPayment(userId, orderId, paymentMethodId, provider)
+        .then(({ paymentResult }) => res.status(201).json({ paymentResult }))
 });
