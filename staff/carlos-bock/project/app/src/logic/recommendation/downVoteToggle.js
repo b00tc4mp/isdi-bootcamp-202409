@@ -5,7 +5,7 @@ const { SystemError } = errors
 const downVoteToggle = recommendId => {
     validate.id(recommendId, 'recommendId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}/downVotes`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommends/${recommendId}/downVotes`, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${localStorage.token}` }
     })

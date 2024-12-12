@@ -5,7 +5,7 @@ const { SystemError } = errors
 const getComments = (recommendId) => {
     validate.id(recommendId, 'recommendId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}/comments`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommends/${recommendId}/comments`, {
         headers: { Authorization: `Bearer ${localStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })

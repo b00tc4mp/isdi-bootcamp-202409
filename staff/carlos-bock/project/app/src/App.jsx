@@ -23,7 +23,7 @@ export default function App() {
     level: 'error',
     callback: null
   })
-  const userId = logic.getUserId()
+
 
   const navigate = useNavigate()
 
@@ -45,7 +45,7 @@ export default function App() {
 
   const handleCategoriesclick = () => navigate('/categories')
 
-  const handleProfileClick = () => navigate(`/recommends/${userId}`)
+  const handleProfileClick = () => { const userId = logic.getUserId(); navigate(`/recommends/users/${userId}`) }
 
 
   const handleAlertAccepted = () => setAlert({
@@ -100,7 +100,7 @@ export default function App() {
 
         <Route path='/categories/:category' element={logic.isUserLoggedIn() ? <RecommendCategory /> : <Navigate to='/login' />} />
 
-        <Route path='/recommends/:userId/' element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to='/login' />} />
+        <Route path='/recommends/users/:userId/' element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to='/login' />} />
 
         <Route path='/recommend/:id' element={logic.isUserLoggedIn() ? <RecommendDetail /> : <Navigate to='/login' />}
         />

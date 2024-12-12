@@ -1,6 +1,7 @@
 import { Recommend } from '../../../dat/index.js';
 import validate from '../../../com/validate.js';
 import errors from '../../../com/errors.js';
+import mongoose from 'mongoose';
 
 const { SystemError, NotFoundError } = errors;
 
@@ -8,7 +9,9 @@ const getRecommendByUser = async (userId) => {
     validate.id(userId, 'userId');
 
     try {
-        const recommends = await Recommend.find({ author: userId })
+        const recommends = await Recommend.find({
+            author: { $in: [new mongoose.Types.ObjectId(userId)] },
+        })
             .populate('author', 'username')
             .sort({ date: -1 })
             .lean()
@@ -16,7 +19,7 @@ const getRecommendByUser = async (userId) => {
         if (!recommends) {
             throw new NotFoundError('No recomendations found for this user')
         }
-        console.log('Fetched recommendations:', recommends)
+
         return recommends.map(recommend => {
             recommend.id = recommend._id.toString()
             delete recommend._id

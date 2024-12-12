@@ -7,7 +7,7 @@ const createRecommend = (city, country, category, price, link, imageUrl, recomme
     //add validate logic for number - category     //add validate logic for number - price
     validate.image(link); validate.image(imageUrl)// update method name to be generic
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommends`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localStorage.token}`,

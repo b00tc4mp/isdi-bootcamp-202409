@@ -16,7 +16,7 @@ db.connect(process.env.MONGO_URL).then(() => { // switch to main db latter
     server.get('/', (_, res) => res.send('Hello API!'))
 
     server.use('/users', usersRouter)
-    server.use('/recommend', recommendRouter)
+    server.use('/recommends', recommendRouter)
 
     server.use(errorHandler)
 

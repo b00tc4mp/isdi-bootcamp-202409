@@ -27,8 +27,8 @@ recommendRouter.patch('/:recommendId/downVotes', authorizationHandler, downVoteH
 recommendRouter.get('/:recommendId/comments', authorizationHandler, getCommentsHandler)
 recommendRouter.post('/:recommendId/comments', authorizationHandler, jsonBodyParser, addCommentsHandler)
 recommendRouter.delete('/:recommendId/comments/:commentId', authorizationHandler, removeCommentHandler)
-recommendRouter.get('/:categories/:category', authorizationHandler, getRecommendByCategoryHandler)
-recommendRouter.get('/recommends/:userId', authorizationHandler, getRecommendByUserHandler);
+recommendRouter.get('/categories/:category', authorizationHandler, getRecommendByCategoryHandler)
+recommendRouter.get('/users/:targetUserId', authorizationHandler, getRecommendByUserHandler);
 
 
 export default recommendRouter

@@ -1,6 +1,7 @@
 import createRecommend from './createRecommend.js'
 import getRecommend from './getRecommend.js'
 import getRecommendById from './getRecommendById.js'
+import getRecommendByUser from './getRecommendByUser.js'
 import upVoteToggle from './upVoteToggle.js'
 import downVoteToggle from './downVoteToggle.js'
 import deleteRecommend from './deleteRecommend.js'
@@ -13,6 +14,7 @@ export {
     createRecommend,
     getRecommend,
     getRecommendById,
+    getRecommendByUser,
     upVoteToggle,
     downVoteToggle,
     deleteRecommend,

@@ -3,7 +3,7 @@ import errors from '../../../../com/errors.js';
 const { SystemError } = errors;
 
 const getRecommendByUser = userId =>
-    fetch(`http://${import.meta.env.VITE_API_URL}/recommends/${userId}`, {
+    fetch(`http://${import.meta.env.VITE_API_URL}/recommends/users/${userId}`, {
         headers: {
             Authorization: `Bearer ${localStorage.token}`
         }

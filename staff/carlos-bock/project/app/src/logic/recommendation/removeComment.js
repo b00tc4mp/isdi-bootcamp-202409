@@ -6,7 +6,7 @@ const removeComment = (recommendId, commentId) => {
     validate.id(recommendId, 'recommendId')
     validate.id(commentId, 'commentId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}/comments/${commentId}`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommends/${recommendId}/comments/${commentId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${localStorage.token}` }
     })

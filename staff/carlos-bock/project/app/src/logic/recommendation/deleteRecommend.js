@@ -5,7 +5,7 @@ const { SystemError } = errors
 const deleteRecommend = recommendId => {
     validate.id(recommendId, 'recommendId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/recommend/${recommendId}`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/recommends/${recommendId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${localStorage.token}` }
     })
