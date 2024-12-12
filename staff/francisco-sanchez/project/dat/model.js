@@ -1,6 +1,137 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose from 'mongoose'
 
-const { Shema, model, Types: { ObjectId } } = mongoose
+const { Schema, model, Types: { ObjectId } } = mongoose
+
+//Model for users master data
+const user = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        minLength: 5,
+        maxLength: 30
+    },
+    password: {
+        type: String,
+        required: true,
+        minLength: 8,
+        maxLength: 100
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        match: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    },
+    plan: {
+        type: String,
+        required: true,
+        enum: ['free', 'pro'],
+        default: 'free'
+    },
+    planExpiryDate: {
+        type: Date,
+        required: false,
+        default: null
+    },
+    role: {
+        type: String,
+        required: false, //WILL BE TRUE
+        enum: ['standard', 'provider'],
+        default: 'standard'
+    },
+    dni: {
+        type: String,
+        required: false,
+        minLength: 9,
+        maxLength: 9,
+        match: /^[0-9]{8}[A-Z]$/ // Valida el formato del DNI
+    },
+    name: {
+        type: String,
+        required: false,
+        maxLength: 50
+    },
+    surname1: {
+        type: String,
+        required: false,
+        maxLength: 50
+    },
+    surname2: {
+        type: String,
+        required: false,
+        maxLength: 50
+    },
+    biography: {
+        type: String,
+        required: false,
+        maxLength: 1000
+    },
+    country: {
+        type: String,
+        required: false,
+    },
+    province: {
+        type: String,
+        required: false,
+    },
+    city: {
+        type: String,
+        required: false,
+    },
+    postalCode: {
+        type: String,
+        required: false,
+    },
+    street: {
+        type: String,
+        required: false,
+    },
+    street2: {
+        type: String,
+        required: false,
+    },
+    number: {
+        type: String,
+        required: false,
+    },
+    flat: {
+        type: Number,
+        required: false,
+    },
+    legalName: {
+        type: String,
+        required: false,
+        maxLength: 255
+    },
+    website: {
+        type: String,
+        required: false,
+        maxLength: 255
+    },
+    creationStatus: {
+        type: String,
+        required: true,
+        enum: ['true', 'false', 'confirm account'],
+        default: 'true' //TODO: This will change soon
+    },
+    customers: [{
+        type: ObjectId, // Esto debe ser correcto
+        ref: 'User',    // Esto debe coincidir con el modelo de usuario
+        required: false // Este campo es opcional
+    }],
+    ownPacks: [{
+        type: ObjectId,
+        ref: 'Pack',
+        required: false
+    }],
+    adquiredPacks: [{
+        type: ObjectId,
+        ref: 'Pack',
+        required: false
+    }],
+}, { versionKey: false })
+
 
 //Model for packs configuration
 const basePack = new Schema({
@@ -60,161 +191,7 @@ const basePack = new Schema({
 }, { versionKey: false })
 
 
-//Model for users master data
-const user = new Schema({
 
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-        minLength: 5,
-        maxLength: 30
-    },
-
-    password: {
-        type: String,
-        required: true,
-        minLength: 8,
-        maxLength: 100
-    },
-
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        match: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-    },
-
-    plan: {
-        type: String,
-        required: true,
-        enum: ['free', 'pro'],
-        default: 'free'
-    },
-
-    planExpiryDate: {
-        type: Date,
-        required: false,
-        default: null
-    },
-
-    role: {
-        type: String,
-        required: false, //WILL BE TRUE
-        enum: ['standard', 'provider'],
-        default: 'standard'
-    },
-
-    dni: {
-        type: String,
-        required: false,
-        minLength: 9,
-        maxLength: 9,
-        match: /^[0-9]{8}[A-Z]$/ // Valida el formato del DNI
-    },
-
-    name: {
-        type: String,
-        required: false,
-        maxLength: 50
-    },
-
-    surname1: {
-        type: String,
-        required: false,
-        maxLength: 50
-    },
-
-    surname2: {
-        type: String,
-        required: false,
-        maxLength: 50
-    },
-
-    biography: {
-        type: String,
-        required: false,
-        maxLength: 1000
-    },
-
-    country: {
-        type: String,
-        required: false,
-    },
-
-    province: {
-        type: String,
-        required: false,
-    },
-
-    city: {
-        type: String,
-        required: false,
-    },
-
-    postalCode: {
-        type: String,
-        required: false,
-    },
-
-    street: {
-        type: String,
-        required: false,
-    },
-
-    street2: {
-        type: String,
-        required: false,
-    },
-
-    number: {
-        type: String,
-        required: false,
-    },
-
-    flat: {
-        type: Number,
-        required: false,
-    },
-
-    legalName: {
-        type: String,
-        required: false,
-        maxLength: 255
-    },
-
-    website: {
-        type: String,
-        required: false,
-        maxLength: 255
-    },
-
-    creationStatus: {
-        type: String,
-        required: true,
-        enum: ['true', 'false', 'confirm account'],
-        default: 'true' //TODO: This will change soon
-    },
-
-    customers: [{
-        type: ObjectId,
-        ref: 'User',
-        required: false
-    }],
-
-    ownPacks: [{
-        type: ObjectId,
-        ref: 'Pack',
-        required: false
-    }],
-
-    adquiredPacks: [{
-        type: ObjectId,
-        ref: 'Pack',
-        required: false
-    }],
-
-}, { versionKey: false })
 
 
 
@@ -224,19 +201,19 @@ const pack = new Schema({
 
     refPack: {
         type: ObjectId,
-        ref: 'basePack',
+        ref: 'BasePack',
         required: true
     },
 
     provider: {
         type: ObjectId,
-        ref: 'user',
+        ref: 'User',
         required: true
     },
 
     customer: {
         type: ObjectId,
-        ref: 'user',
+        ref: 'User',
         required: true
     },
 
@@ -374,16 +351,16 @@ const payment = new Schema({
 
 
 
-const BasePack = model('BasePack', basePack)
 const User = model('User', user)
+const BasePack = model('BasePack', basePack)
 const Pack = model('Pack', pack)
 const Activity = model('Activity', activity)
 const Payment = model('Payment', payment)
 
 
 export {
-    BasePack,
     User,
+    BasePack,
     Pack,
     Activity,
     Payment

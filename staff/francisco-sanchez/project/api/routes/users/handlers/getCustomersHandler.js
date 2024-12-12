@@ -12,12 +12,4 @@ export default createFunctionalHandler(async (req, res) => {
         console.error(error.message)
         throw error
     }
-
-    /* if (!userId) {
-        res.status(400).json({ error: 'Bad Request', message: 'userId is required' })
-        return
-    }
-
-    const customers = await logic.getCustomers(userId)
-    res.status(200).json(customers) */
 })

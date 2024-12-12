@@ -4,6 +4,8 @@ import loginUser from "./loginUser";
 import logoutUser from "./logoutUser";
 import getUserId from "./getUserId";
 import getUserName from "./getUserName";
+import getCustomers from "./getCustomers";
+import findUserIdbyEmailOrUsername from "./findUserIdbyEmailOrUsername";
 
 export {
     registerUser,
@@ -11,5 +13,7 @@ export {
     loginUser,
     logoutUser,
     getUserId,
-    getUserName
+    getUserName,
+    getCustomers,
+    findUserIdbyEmailOrUsername
 }

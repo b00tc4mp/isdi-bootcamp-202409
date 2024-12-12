@@ -5,10 +5,10 @@ import AssignPack from './assignPack.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const refPack = '674f203c76d076f10c8514b4'
-const provider = '674f1fc3a728c03cdd10ba3c'
-const customer = '674f1fd72be1bba168fc9d3c'
-const description = 'Description test pack 5 hours for services'
+const refPack = '6756c371d3b7b18ceb4f5cf7'
+const provider = '675036c010473f3d809e5359'
+const customer = '674f1fc3a728c03cdd10ba3c'
+const description = 'Description test creada desde el back '
 const originalQuantity = 5
 const remmainingQuantity = originalQuantity
 const unit = 'hours'

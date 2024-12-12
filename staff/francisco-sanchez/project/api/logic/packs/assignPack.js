@@ -4,6 +4,16 @@ import { validate, errors } from 'com';
 
 const { SystemError } = errors
 
+//Validar el usuario o el email aquí
+/*
+promise all
+    validar el usuario conectado userId
+    validar el customer (email o username)
+    buscar el idBasePack
+
+*/
+
+
 export default (
     refPack,
     provider,

@@ -8,50 +8,12 @@ import useContex from './useContext'
 
 import { Button, Field, Input, Label, Image } from '../library'
 import { getCurrencySymbol } from '../util'
+import { assingPack, getBasePacksDetails } from '../logic/packs'
+import { findUserIdbyEmailOrUsername } from '../logic/users'
 
-export default function Assign(props) {
-
-    /* const { alert } = useContex()
-
-    const handleSubmit = event => {
-        event.preventDefault()
-
-        const { target: form } = event
-
-        const {
-            packName: { value: packName },
-            packDescription: { value: packDescription },
-            quantity: { value: quantity },
-            unit: { value: unit },
-            expiringTime: { value: expiringTime },
-            price: { value: price },
-            currency: { value: currency }
-        } = form
-
-
-        try {
-            CreatePack(packName, packDescription, quantity, unit, expiringTime, price, currency)
-                .then(() => {
-                    form.reset()
-                    alert(' New pack was created successfully', 'success')
-                    //aquí iria un props onLoquesea() si quiero moverme 
-
-                })
-                .catch(error => {
-                    if (error instanceof SystemError)
-                        alert('There was a problem, try it again later')
-                    else
-                        alert(error.message)
-
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
-        }
-    } */
-
+export default function AssignPack(props) {
     const [basePacks, setPacks] = useState([])
+    const { alert } = useContex()
 
     useEffect(() => {
         console.log('Packs / PacksList -> componentDidMount')
@@ -68,6 +30,69 @@ export default function Assign(props) {
     }, [])
 
 
+    const handleSubmit = event => {
+        //Get form fields values
+        event.preventDefault()
+        const { target: form } = event
+        const {
+            customerSearch: { value: customerSearch },
+            selectPack: { value: selectPack }
+        } = form
+
+        //Get userId
+        /* try {
+            findUserIdbyEmailOrUsername(customerSearch)
+                .then((userId) => {
+                    console.log(userId)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('There was a problem, fetching userId')
+                    else
+                        alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        } */
+
+        //Get pack information
+        /* try {
+            const basepackDetails = getBasePacksDetails(selectPack)
+                .then(() => {
+                     form.reset()
+                    console.log(basepackDetails)
+
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('There was a problem fetching basepack details')
+                    else
+                        alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        } */
+
+        //Finnally we call the assign function with all the retrieved information 
+        try {
+            assingPack(customerSearch, basePacks)
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+
+
+
+
+
     const handleHomeClick = event => {
         event.preventDefault()
         props.onHomeClick()
@@ -76,7 +101,7 @@ export default function Assign(props) {
     return <main className="flex flex-col items-center bg-color_backgroundGrey w-full h-screen pt-12">
         <h2 className="text-2xl">Assign pack to customer</h2>
         <div className="flex flex-col">
-            <form className="flex flex-col justify-items-start" /* onSubmit={handleSubmit} */ >
+            <form className="flex flex-col justify-items-start" onSubmit={handleSubmit} >
 
                 <Field>
                     <Label htmlFor="customerSearch">Find customer</Label>

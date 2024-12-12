@@ -4,12 +4,16 @@ import {
     loginUser,
     logoutUser,
     getUserId,
-    getUserName
+    getUserName,
+    getCustomers,
+    findUserIdbyEmailOrUsername,
 } from './users'
 
 import {
     createPack,
-    getBasePacks
+    getBasePacks,
+    getBasePacksDetails,
+    assingPack,
 } from './packs'
 
 
@@ -21,10 +25,15 @@ const logic = {
     logoutUser,
     getUserId,
     getUserName,
+    getCustomers,
+    findUserIdbyEmailOrUsername,
+
 
     //Packs
     createPack,
-    getBasePacks
+    getBasePacks,
+    getBasePacksDetails,
+    assingPack
 }
 
 export default logic

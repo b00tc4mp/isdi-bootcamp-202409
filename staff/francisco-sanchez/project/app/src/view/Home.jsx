@@ -10,10 +10,10 @@ import useContext from './useContext'
 export default function Home(props) {
     console.log('Home -> render')
 
-    const [name, setName] = useState(null)
-    console.log('el nombre es: ' + name)
-    const nametrying = logic.getUserName()
-    console.log(nametrying)
+    const [name, setName] = useState('')
+    /*    console.log('el nombre es: ' + name)
+        const nametrying = logic.getUserName()
+        console.log(nametrying) */
     const location = useLocation()
 
     const { alert, confirm } = useContext()
@@ -75,7 +75,7 @@ export default function Home(props) {
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleManagePacks}>Manage your packs</Button>
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleManageCustomers}>Manage your customers</Button>
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleManagePurchasedPacks}>See purchased services</Button>
-                    <Button className="bg-color_green hover:bg-color_greenDark text-white">Settings</Button>
+                    {/* <Button className="bg-color_green hover:bg-color_greenDark text-white">Settings</Button> */}
                 </div>
             </main>
         )

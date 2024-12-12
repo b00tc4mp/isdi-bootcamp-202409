@@ -6,7 +6,7 @@ import { Button } from '../library/index';
 
 const { SystemError } = errors
 
-export default function ManagePacks(props) {
+export default function ManageCustomers(props) {
     const [loading, setLoading] = useState(true) //This is to show the loader as active by default
 
     const handleHomeClick = event => {
@@ -14,35 +14,24 @@ export default function ManagePacks(props) {
         props.onHomeClick()
     }
 
-    /*  const handleAssignPacks = event => {
-         console.log('Assign Pack Clicked');
-         props.onAssignPackClick()
-     }; */
+    const [customers, setCustomers] = useState([])
 
-    /* const handleCreatePacks = event => {
-        console.log('Create Pack Clicked');
-        props.onCreatePackClick()
-    }; */
-
-    /* const [basePacks, setPacks] = useState([]) */
-
-    /* useEffect(() => {
+    useEffect(() => {
         console.log('Customers / CustomersList -> componentDidMount')
-        const fetchBasePacks = async () => {
+        const fetchCustomers = async () => {
             try {
                 setLoading(true)
-                const basePacks = await logic.getBasePacks()
-                console.log('Customers fetched successfully', basePacks)
-                setPacks(basePacks)
+                const customers = await logic.getCustomers()
+                setCustomers(customers)
             } catch (error) {
-                alert(error.message)
                 console.error(error)
+                alert(error.message)
             } finally {
                 setLoading(false)
             }
         }
-        fetchBasePacks()
-    }, []) */
+        fetchCustomers()
+    }, [])
 
 
     return (
@@ -50,7 +39,7 @@ export default function ManagePacks(props) {
             <h1>Manage Customers</h1>
             <p>This will be the page to manage your customers</p>
 
-            {/* {loading ? (
+            {loading ? (
                 <div className="flex justify-center items-center h-full">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-color_green"></div>
                 </div>
@@ -59,29 +48,19 @@ export default function ManagePacks(props) {
                     <thead>
                         <tr className='bg-amarilloCanario'>
                             <th className="border px-4 py-2">Name</th>
-                            <th className="border px-4 py-2">Description</th>
-                            <th className="border px-4 py-2">Price</th>
                             <th className="border px-4 py-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        {basePacks.map(basePack => (
-                            <tr key={basePack.id}>
-                                <td className='border px-4 py-2'>{basePack.packName}</td>
-                                <td className='border px-4 py-2'>{basePack.description}</td>
-                                <td className='border px-4 py-2'>{basePack.price}</td>
-                                <td className='border px-4 py-2'>✏️ ❌ ⛔</td>
+                        {customers.map(customer => (
+                            <tr key={customer.id}>
+                                <td className='border px-4 py-2'>{customer.name} {customer.surname1 !== null ? customer.surname1 : ''}</td>
+                                <td className='border px-4 py-2'>✏️ ❌</td>
                             </tr>
                         ))}
-
                     </tbody>
                 </table>
-            )} */}
-
-
-
-
+            )}
 
             <div className="flex flex-col ">
                 <Button className="btn m-2">New customer </Button>

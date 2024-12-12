@@ -10,7 +10,8 @@ import {
 import {
     createPack,
     assignPack,
-    getBasePacks
+    getBasePacks,
+    getBasePackDetails
 } from './packs/index.js'
 
 import {
@@ -29,6 +30,7 @@ const logic = {
     createPack,
     assignPack,
     getBasePacks,
+    getBasePackDetails,
 
     sendEmail
 }

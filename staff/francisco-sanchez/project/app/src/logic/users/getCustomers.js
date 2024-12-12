@@ -1,6 +1,6 @@
 import { /* validate, */ errors } from 'com'
 
-import getUserId from '../users/getUserId'
+import getUserId from './getUserId.js'
 
 const { SystemError } = errors
 
@@ -8,19 +8,21 @@ export default () => {
     //Validates will come here
 
     //Get userId
-    const userId = getUserId()
-    console.log('The userID is: ' + userId)
+    /*     const userId = getUserId()
+        console.log('The userID is: ' + userId) */
 
-    //Logic and call to the api
-    return fetch(`${import.meta.env.VITE_API_URL}/packs/get-basepack?userId=${userId}`, {
+    //Logic to call api
+    return fetch(`${import.meta.env.VITE_API_URL}/users/customers/${userId}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.token}`
+        },
     })
 
         .then(res => {
             if (res.ok) {
-                // Si la respuesta es válida, devolvemos los datos
-                return res.json();
+                return res.json()
             }
 
             // Si la respuesta no es válida, procesamos el error
@@ -35,5 +37,5 @@ export default () => {
         .catch(error => {
             // Manejo de errores generales
             throw new SystemError(error.message);
-        });
+        })
 }

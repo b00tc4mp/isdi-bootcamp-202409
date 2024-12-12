@@ -9,14 +9,15 @@ const validateName = name => {
 
 const validateEmail = email => {
     if (typeof email !== 'string') throw new ValidationError('invalid email')
+    if (email.length > 254) throw new ValidationError('email is too long')
     if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
         throw new ValidationError('invalid e-mail')
 }
 
 const validateUsername = username => {
     if (typeof username !== 'string') throw new ValidationError('invalid username')
-    if (username.length < 4 || username.length > 12)
-        throw new ValidationError('invalid username length')
+    if (username.length < 4 || username.length > 25)
+        throw new ValidationError('Username should be between 4 to 25 chars')
 }
 
 const validatePassword = password => {
