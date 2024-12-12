@@ -106,11 +106,6 @@ const producto = new Schema(
       type: Number,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-      maxlength: 500,
-    },
     author: {
       type: ObjectId,
       required: true,

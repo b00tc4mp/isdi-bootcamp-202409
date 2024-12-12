@@ -20,12 +20,13 @@ db.connect(process.env.MONGO_URL)
     server.use(cors());
 
     server.get("/", (req, res) => {
-      console.log(req);
+      // console.log(req);
       res.send("Hello, API!");
     });
 
     server.post("/login", (req, res) => {
       const user = req.body;
+      console.trace(user);
       logic
         .authenticateUser(user)
         .then((token) => res.json({ data: token }))
@@ -66,11 +67,18 @@ db.connect(process.env.MONGO_URL)
      * crear producto
      */
     server.post("/products", helpers.authorizationHandler, (req, res) => {
+      // producto nuevo
       const producto = { author: req.userId };
+      // imágenes del producto
+      const imagenes = [];
       const bb = busboy({ headers: req.headers });
+
+      // console.log({'headers': req.headers, userId: req.userId});
+      
       //on es un evento, al conseguir un archivo lo guarda en el sitema operativo
-      bb.on("file", (name, file, info) =>
-        logic.saveFile(file, info.filename, (error) => {
+      bb.on('file', (name, file, info) => {
+        
+        utils.saveFile(file, info.filename, (error) => {
           if (error) {
             res
               .status(500)
@@ -78,15 +86,32 @@ db.connect(process.env.MONGO_URL)
 
             return;
           }
-          res.status(201).send("file uploaded");
+          // agregar la imagen luego de guardarla
+          // res.status(201).send("file uploaded");
         })
+          imagenes.push(info.filename);
+      }
       );
       //cada que encuentre un campo del formulario que no se aun archivo
       bb.on("field", (fieldname, value) => {
-        producto[fieldname] = value;
+        console.log('guardando campo:', {fieldname, value});
+        producto[fieldname]=  value;
       });
-      // bb.on('error', error => res.status(500).json({ error: 'SystemError', message: error.message }))
-      logic.createProducto();
+
+      bb.on('error', error => res.status(500).json({ error: 'SystemError', message: error.message }))
+      // aquí es donde se va a procesar el formulario cando busboy termine
+      // de guardar las imágenes
+      bb.on('finish', () => {
+
+        // insertar los nombres de las imágenes dentro del producto
+        producto['images'] = imagenes;
+      logic
+        .createProducto(producto)
+        .then((success) => res.json({data: success}))
+        .catch((err) => console.error(err));
+
+      });
+
       req.pipe(bb);
     });
     /**

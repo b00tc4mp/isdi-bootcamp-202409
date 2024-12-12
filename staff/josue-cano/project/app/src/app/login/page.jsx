@@ -12,7 +12,6 @@ export default function Login() {
     const fields = event.target;
 
     login({ username: fields.email.value, password: fields.password.value }).catch((err) => {
-    debugger;
      alert(err);
     }).then(()=> redirect('/'));
   }

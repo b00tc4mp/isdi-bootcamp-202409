@@ -5,7 +5,6 @@ import { validate, errors } from "com";
 const { SystemError, CredentialsError } = errors;
 
 export default ({ email, password }) => {
-  console.log({ email, password });
   validate.email(email);
   validate.password(password);
 
@@ -30,11 +29,12 @@ export default ({ email, password }) => {
 
     if (!match) throw new CredentialsError("wrong credentials");
 
-    const payload = { ...user.toObject() };
-    delete payload.password;
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    const { _id: sub, firstName, lastName, email: mail } = { ...user.toObject() };
+    
+    const token = jwt.sign({sub, firstName, lastName, email: mail}, process.env.JWT_SECRET, {
       expiresIn: "2h",
     });
+
     return {
       token,
     };
