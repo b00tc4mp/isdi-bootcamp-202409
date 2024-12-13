@@ -5,7 +5,8 @@ import {
   getUserName,
   logoutUser,
   getUserId,
-  getWishlist
+  getWishlist,
+  getUserLocation
 } from './users'
 
 import {
@@ -30,6 +31,7 @@ const logic = {
   logoutUser,
   getUserId,
   getWishlist,
+  getUserLocation,
 
   getProducts,
   addComment,

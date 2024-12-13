@@ -84,6 +84,8 @@ const location = new Schema({
   }
 }, { versionKey: false })
 
+location.index({ location: '2dsphere' });
+
 const store = new Schema({
   name: {
     type: String,

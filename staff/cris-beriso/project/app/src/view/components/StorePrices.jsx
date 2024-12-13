@@ -4,6 +4,7 @@ import OneStorePrice from './OneStorePrice'
 
 export default function StorePrices({ productId }) {
   const [storePrices, setStorePrices] = useState([])
+  const [center, setCenter] = useState(null)
 
   useEffect(() => {
     try {
@@ -19,14 +20,28 @@ export default function StorePrices({ productId }) {
 
       console.error(error)
     }
+
+    const userConsent = window.confirm('Share location?')
+    if (userConsent) {
+      try {
+        logic.getUserLocation()
+          .then((ubication) => setCenter(ubication)
+          )
+      } catch (error) {
+        alert(error.message)
+
+        console.error(error)
+      }
+    }
   }, [])
 
   return <div>
     {storePrices.map(storePrice =>
       <OneStorePrice
-        key={storePrices.id}
+        key={storePrice.id}
         productId={productId}
         storePrices={storePrice}
+        center={center}
       />
     )}
   </div>

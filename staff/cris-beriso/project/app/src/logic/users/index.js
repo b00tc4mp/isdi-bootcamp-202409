@@ -5,6 +5,7 @@ import getUserName from './getUserName'
 import getUserId from './getUserId'
 import logoutUser from './logoutUser'
 import getWishlist from './getWishlist'
+import getUserLocation from './getUserLocation'
 
 export {
   registerUser,
@@ -13,5 +14,6 @@ export {
   getUserName,
   getUserId,
   logoutUser,
-  getWishlist
+  getWishlist,
+  getUserLocation
 }

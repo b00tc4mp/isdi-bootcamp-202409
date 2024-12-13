@@ -9,7 +9,6 @@ import Product from './Product'
 import StorePrices from './StorePrices'
 import OneStorePrice from './OneStorePrice'
 
-
 export {
   Header,
   Alert,
@@ -21,5 +20,4 @@ export {
   Product,
   StorePrices,
   OneStorePrice
-
 }

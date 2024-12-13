@@ -9,7 +9,7 @@ export default (userId, productId) => {
 
   return Promise.all([
     User.findById(userId),
-    Product.findById(productId).populate('storePrices.store', 'name').lean()
+    Product.findById(productId).populate('storePrices.store', 'name web locations').lean()
   ])
     .catch(error => { throw new SystemError(error.message) })
     .then(([user, product]) => {
