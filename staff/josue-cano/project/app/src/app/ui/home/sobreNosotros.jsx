@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function EkoalitySection() {
   return (
-    <div className="flex flex-col items-center py-16 space-y-12 ">
+    <div className="flex flex-col items-center py-56 space-y-12 ">
       {/* Encabezado */}
       <div className="text-center max-w-3xl ">
         <h1 className="text-4xl font-bold mb-6">Somos una nueva opción...</h1>

@@ -5,6 +5,7 @@ import ProductListComponent from "./ui/product/ProductListComponent";
 import { getProducts } from "@/app/logic/products/getProducts";
 import EkoalitySection from "./ui/home/sobreNosotros";
 import ExCompra from "./ui/home/exCompra";
+import Contacto from "./ui/home/contacto";
 
 export default function Index() {
   const [products, setProducts] = useState([]);
@@ -31,6 +32,7 @@ export default function Index() {
       <ProductListComponent products={products} />
       <EkoalitySection />
       <ExCompra />
+      <Contacto/>
     </section>
   );
 }
