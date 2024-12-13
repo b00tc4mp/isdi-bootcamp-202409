@@ -18,8 +18,7 @@ export default (): Promise<TUser> => {
         try {
             hash = await bcrypt.hash('password', 1)
         } catch (error) {
-            if (error instanceof Error) // In case there is a bcrypt hashing error
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         try {

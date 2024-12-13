@@ -14,8 +14,7 @@ export default function getRandomConditions(userId: string): Promise<TCondition[
         try {
             user = await User.findById(userId).lean<TUser>()
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         if (!user) throw new NotFoundError('user not found')
@@ -23,15 +22,13 @@ export default function getRandomConditions(userId: string): Promise<TCondition[
         try {
             columnConditions = await Condition.find({ direction: 'column' }).select('-_id').lean<TCondition[]>()
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         try {
             rowConditions = await Condition.find({ direction: 'row' }).select('-_id').lean<TCondition[]>()
         } catch (error) {
-            if (error instanceof SystemError)
-                throw new SystemError(error.message)
+            throw new SystemError((error as Error).message)
         }
 
         while (parsedColumnConditions.length < 3) {

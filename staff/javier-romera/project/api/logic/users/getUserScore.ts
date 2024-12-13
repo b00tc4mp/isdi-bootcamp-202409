@@ -4,6 +4,7 @@ const { NotFoundError, SystemError } = errors
 
 export default (userId: string, targetUserId: string): Promise<number> => {
     validate.id(userId, 'userId')
+    validate.id(targetUserId, 'targetUserId')
 
     return (async (): Promise<number> => {
         let user, targetUser
@@ -22,7 +23,7 @@ export default (userId: string, targetUserId: string): Promise<number> => {
             throw new SystemError((error as Error).message)
         }
 
-        if (!targetUser) throw new NotFoundError('user not found')
+        if (!targetUser) throw new NotFoundError('target user not found')
 
         return targetUser.score
     })()
