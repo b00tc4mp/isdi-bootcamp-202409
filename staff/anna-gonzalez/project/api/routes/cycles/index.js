@@ -6,6 +6,7 @@ import {
     createCycleHandler,
     createDayLogHandler,
     deleteCycleHandler,
+    getCyclesDetailsHandler,
     getCyclesStartHandler,
     getCurrentCycleStartHandler,
     getCurrentDayLogHandler,
@@ -17,6 +18,7 @@ const cyclesRouter = Router()
 cyclesRouter.get('/start', authorizationHandler, getCyclesStartHandler)
 cyclesRouter.post('/', authorizationHandler, jsonBodyParser, createCycleHandler)
 cyclesRouter.delete('/:start', authorizationHandler, deleteCycleHandler)
+cyclesRouter.get('/details', authorizationHandler, getCyclesDetailsHandler)
 cyclesRouter.post('/daylog/:formattedDate', authorizationHandler, jsonBodyParser, createDayLogHandler)
 cyclesRouter.get('/daylog/:formattedDate', authorizationHandler, getCurrentDayLogHandler)
 cyclesRouter.get('/currentCycle', authorizationHandler, getCurrentCycleStartHandler)
