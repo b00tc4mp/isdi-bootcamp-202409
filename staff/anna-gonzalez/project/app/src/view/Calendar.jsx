@@ -69,6 +69,10 @@ export default function Calendar() {
         setIsModalOpen(false)
     }
 
+    const handleDeleteCycle = () => {
+        setIsModalOpen(false)
+    }
+
     const handleModalClose = () => {
         setIsModalOpen(false)
     }
@@ -106,6 +110,6 @@ export default function Calendar() {
             </>
         )}
 
-        {isModalOpen && <Modal selectedDate={selectedDate} selectedDay={selectedDay} onCycleCreated={handleStartPeriod} onEndPeriod={handleEndPeriod} onClose={handleModalClose} />}
+        {isModalOpen && <Modal selectedDate={selectedDate} selectedDay={selectedDay} onCycleCreated={handleStartPeriod} onCycleDeleted={handleDeleteCycle} onEndPeriod={handleEndPeriod} onClose={handleModalClose} />}
     </>
 }

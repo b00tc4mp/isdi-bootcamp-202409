@@ -4,7 +4,7 @@ import { Button, ButtonSmall } from '../library'
 import logic from '../../logic'
 import useContext from '../useContext'
 
-export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClose }) {
+export default function Modal({ selectedDate, onCycleCreated, onCycleDeleted, onEndPeriod, onClose }) {
     const { alert } = useContext()
 
     const navigate = useNavigate()
@@ -45,6 +45,26 @@ export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClo
         }
     }
 
+    const handleDeleteCycleClick = event => {
+        event.preventDefault()
+
+        try {
+            const start = selectedDate.toISOString().split('T')[0]
+
+            logic.deleteCycle(start)
+                .then(onCycleDeleted)
+                .catch(error => {
+                    alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
     const handleAddReminderClick = event => {
         event.preventDefault()
 
@@ -70,6 +90,7 @@ export default function Modal({ selectedDate, onCycleCreated, onEndPeriod, onClo
                 <p>Selected day: {selectedDate.toISOString()}</p>
                 <ButtonSmall onClick={handleStartPeriodClick}>Start period</ButtonSmall>
                 <ButtonSmall onClick={handleEndPeriodClick}>End period</ButtonSmall>
+                <ButtonSmall onClick={handleDeleteCycleClick}>Delete cycle</ButtonSmall>
                 <ButtonSmall onClick={handleAddReminderClick}>Add reminder</ButtonSmall>
                 <ButtonSmall onClick={handleCreateDayLogClick}>Log symptoms</ButtonSmall>
                 <Button onClick={handleModalClose}>Back</Button>

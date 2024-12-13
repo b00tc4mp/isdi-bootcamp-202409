@@ -1,6 +1,7 @@
 import addPeriodEndHandler from './addPeriodEndHandler.js'
 import createCycleHandler from './createCycleHandler.js'
 import createDayLogHandler from './createDayLogHandler.js'
+import deleteCycleHandler from './deleteCycleHandler.js'
 import getCurrentCycleStartHandler from './getCurrentCycleStartHandler.js'
 import getCurrentDayLogHandler from './getCurrentDayLogHandler.js'
 import getCyclesStartHandler from './getCyclesStartHandler.js'
@@ -10,6 +11,7 @@ export {
     addPeriodEndHandler,
     createCycleHandler,
     createDayLogHandler,
+    deleteCycleHandler,
     getCurrentCycleStartHandler,
     getCurrentDayLogHandler,
     getCyclesStartHandler,

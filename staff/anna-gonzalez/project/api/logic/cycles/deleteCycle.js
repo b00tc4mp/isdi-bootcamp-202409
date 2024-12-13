@@ -7,14 +7,19 @@ export default (userId, start) => {
     validate.id(userId, 'userId')
     validate.date(start)
 
+    const normalizedStartDate = new Date(start).toISOString()
+
+    const startDate = new Date(normalizedStartDate)
+    startDate.setDate(startDate.getDate() + 1)
+
+    const normalizedStart = new Date(startDate).toISOString()
+
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
 
-            const normalizedStart = new Date(start)
-
-            return Cycle.findOne({ user: userId, start: { $lte: start } })
+            return Cycle.findOne({ user: userId, start: { $lte: normalizedStart } })
                 .sort({ start: -1 })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(cycleToDelete => {
@@ -24,12 +29,12 @@ export default (userId, start) => {
                         .sort({ start: -1 })
                         .catch(error => { throw new SystemError(error.message) })
                         .then(previousCycle => {
-                            return Cycle.findOne({ user: userId, start: { $gt: start } })
+                            return Cycle.findOne({ user: userId, start: { $gt: normalizedStart } })
                                 .sort({ start: 1 })
                                 .catch(error => { throw new SystemError(error.message) })
                                 .then(nextCycle => {
                                     if (previousCycle) {
-                                        const previousCycleEnd = new Date(cycleToDelete.start)
+                                        const previousCycleEnd = new Date(nextCycle.start)
                                         previousCycleEnd.setDate(previousCycleEnd.getDate() - 1)
 
                                         return Cycle.updateOne(
@@ -38,39 +43,12 @@ export default (userId, start) => {
                                             { new: true }
                                         )
                                             .catch(error => { throw new SystemError(error.message) })
-                                            .then(() => {
-                                                // Ajuste del ciclo siguiente
-                                                if (nextCycle) {
-                                                    const nextCycleEnd = new Date(cycleToDelete.start)
-                                                    nextCycleEnd.setDate(nextCycleEnd.getDate() - 1)
-
-                                                    return Cycle.updateOne(
-                                                        { _id: nextCycle._id },
-                                                        { end: nextCycleEnd.toISOString() },
-                                                        { new: true }
-                                                    )
-                                                        .catch(error => { throw new SystemError(error.message) })
-                                                }
-                                            })
-                                    }
-
-                                    if (nextCycle) {
-                                        const nextCycleEnd = new Date(cycleToDelete.start)
-                                        nextCycleEnd.setDate(nextCycleEnd.getDate() - 1)
-
-                                        return Cycle.updateOne(
-                                            { _id: nextCycle._id },
-                                            { end: nextCycleEnd.toISOString() },
-                                            { new: true }
-                                        )
-                                            .catch(error => { throw new SystemError(error.message) })
                                     }
                                 })
                         })
-                })
-                .then(() => {
-                    return Cycle.deleteOne({ _id: cycleToDelete._id })
-                        .catch(error => { throw new SystemError(error.message) })
+                        .then(() => {
+                            return Cycle.deleteOne({ _id: cycleToDelete._id })
+                        })
                 })
         })
         .then(_ => { })
