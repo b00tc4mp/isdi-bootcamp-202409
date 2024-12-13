@@ -13,8 +13,8 @@ export default (userId, eventId) => {
     })
     .then(([user, event]) => {
       if (!user) throw new NotFoundError("User not found")
-      if (user.permission !== "write")
-        throw new PermissionError("User has not permission to delete event")
+      // if (user.permission !== "write")
+      //   throw new PermissionError("User has not permission to delete event")
       if (!event) throw new NotFoundError("Event not found")
       if (!event.author.equals(userId))
         throw new OwnershipError("User is not author of event")

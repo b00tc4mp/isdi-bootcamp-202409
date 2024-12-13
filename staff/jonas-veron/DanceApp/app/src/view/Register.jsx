@@ -1,6 +1,7 @@
 import DanceAppLogo from "../assets/DanceAppLogo.svg"
 import logic from "../logic"
 import { useNavigate, Link } from "react-router-dom"
+import { useState } from "react"
 import { errors } from "com/"
 import useContext from "./useContext"
 
@@ -17,8 +18,14 @@ const { SystemError } = errors
 
 export default function Register() {
   console.log("Register -> render")
+  const [role, setRole] = useState("")
+
   const { alert } = useContext()
   const navigate = useNavigate()
+
+  const handleRoleSelect = (selectedRole) => {
+    setRole(selectedRole)
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -28,7 +35,6 @@ export default function Register() {
     const {
       name: { value: name },
       email: { value: email },
-      role: { value: role },
       password: { value: password },
       passwordRepeat: { value: passwordRepeat },
     } = form
@@ -81,14 +87,6 @@ export default function Register() {
         </Field>
 
         <Field>
-          <Label htmlFor="role"></Label>
-          <select id="role">
-            <option value="dancer">Bailarín</option>
-            <option value="organizer">Organizador</option>
-          </select>
-        </Field>
-
-        <Field>
           <Label htmlFor="password"></Label>
           <PasswordInput type="password" id="password" />
         </Field>
@@ -100,6 +98,38 @@ export default function Register() {
             id="passwordRepeat"
             placeholder="Confirmar contraseña"
           />
+        </Field>
+
+        <Field>
+          <div className="mt-3">
+            <label className="block text-white font-bold font-body mb-4">
+              Selecciona tu rol
+            </label>
+            <div className="flex space-x-4">
+              <button
+                type="button"
+                className={`w-1/2 p-2 rounded-md font-bold transition-all duration-300 ${
+                  role === "dancer"
+                    ? "bg-green-500 text-white border-green-700"
+                    : "bg-pink-600 text-white border-pink-700"
+                } border-2 hover:bg-green-500 hover:text-white focus:outline-none`}
+                onClick={() => handleRoleSelect("dancer")}
+              >
+                Bailarín
+              </button>
+              <button
+                type="button"
+                className={`w-1/2 p-2 rounded-md font-bold transition-all duration-300 ${
+                  role === "organizer"
+                    ? "bg-green-500 text-white border-green-700"
+                    : "bg-pink-500 text-white border-pink-700"
+                } border-2 hover:bg-green-500 hover:text-white focus:outline-none`}
+                onClick={() => handleRoleSelect("organizer")}
+              >
+                Organizador
+              </button>
+            </div>
+          </div>
         </Field>
 
         <ButtonForm type="submit">REGISTRO</ButtonForm>

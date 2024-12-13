@@ -37,7 +37,13 @@ export default function Home() {
 
       <div className="items-center text-center pb-16">
         {events.map((event) => (
-          <Event key={event.id} event={event} refreshEvents={refreshEvents} />
+          <Event
+            key={event.id}
+            event={event}
+            refreshEvents={refreshEvents}
+            onLiked={refreshEvents}
+            onDeleted={refreshEvents}
+          />
         ))}
       </div>
     </>

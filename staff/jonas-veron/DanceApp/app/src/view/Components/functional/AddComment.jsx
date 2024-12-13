@@ -2,7 +2,7 @@ import logic from "../../../logic/index.js"
 
 import useContext from "../../useContext"
 
-export default function AddComment({ eventId, refreshComments }) {
+export default function AddComment({ eventId, onCommentAdded }) {
   console.log("AddComment -> render")
 
   const { alert } = useContext()
@@ -20,7 +20,7 @@ export default function AddComment({ eventId, refreshComments }) {
         .then(() => {
           form.reset()
 
-          refreshComments()
+          onCommentAdded()
         })
         .catch((error) => {
           alert(error.message)

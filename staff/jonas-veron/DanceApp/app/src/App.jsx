@@ -101,7 +101,7 @@ export default function App() {
           element={isLoggedIn ? <FavoritEvents /> : <Navigate to="/login" />}
         />
         <Route
-          path="/events/:eventType"
+          path="/events/:type"
           element={isLoggedIn ? <FilteredEvents /> : <Navigate to="/login" />}
         />
         <Route

@@ -71,11 +71,12 @@ Event:
 - id (UUID)
 - author (User.id)
 - type (string)
-- image (string)
+- images ([string])
 - text (string)
 - date (Date)
 - likes ([User.id])
 - location (Location)
+- createdAt (Date)
 
 Comment:
 

@@ -1,21 +1,39 @@
 export default function Alert({ message, level = "error", onAccepted }) {
-  const borderColor =
-    level === "error"
-      ? "border-[#eb4747]"
-      : level === "warn"
-      ? "border-[yellow]"
-      : "border-[green]"
+  const colors = {
+    error: {
+      border: "border-red-500",
+      bg: "bg-red-600 bg-opacity-70",
+      text: "text-red-100",
+      button: "bg-red-500 hover:bg-red-700 text-white",
+    },
+    warn: {
+      border: "border-yellow-500",
+      bg: "bg-yellow-600 bg-opacity-70",
+      text: "text-yellow-100",
+      button: "bg-yellow-500 hover:bg-yellow-700 text-white",
+    },
+    success: {
+      border: "border-green-500",
+      bg: "bg-green-600 bg-opacity-70",
+      text: "text-green-100",
+      button: "bg-green-500 hover:bg-green-700 text-white",
+    },
+  }
+
+  const currentColor = colors[level] || colors.error
 
   const handleAcceptClick = () => onAccepted()
 
   return (
-    <div className="fixed h-full w-full bg-black bg-opacity-50 top-0 flex items-center justify-center mb-12">
+    <div className="fixed h-full w-full bg-black bg-opacity-50 top-0 flex items-center justify-center z-50">
       <div
-        className={`min-w-[25rem] max-w-[50rem] min-h-[10rem] bg-gradient-to-r from-secondary to-tertiary ${borderColor} border-[0.1rem] flex flex-col items-center justify-center p-4 gap-4 rounded-xl`}
+        className={`animate-fadeIn min-w-[25rem] max-w-[50rem] min-h-[10rem] rounded-lg shadow-lg flex flex-col items-center justify-center gap-4 p-6 ${currentColor.bg} ${currentColor.border} border-2 backdrop-blur-md`}
       >
-        <p className="text-2xl text-white">{message}</p>
+        <p className={`text-xl font-bold ${currentColor.text} text-center`}>
+          {message}
+        </p>
         <button
-          className="bg-[#eb4747] w-52 mt-6 h-10 rounded-2xl text-white font-bold border-2 border-transparent hover:bg-accentgreen hover:border-accentpink focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-300"
+          className={`px-6 py-2 rounded-full text-lg font-semibold focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 shadow-lg ${currentColor.button}`}
           onClick={handleAcceptClick}
         >
           Aceptar

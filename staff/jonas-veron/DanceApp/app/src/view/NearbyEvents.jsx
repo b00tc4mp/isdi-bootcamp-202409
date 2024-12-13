@@ -9,30 +9,34 @@ export default function NearbyEvents() {
   const [events, setEvents] = useState([])
   const [filteredEvents, setFilteredEvents] = useState([])
   const [center, setCenter] = useState([41.3851, 2.1734])
-  const [eventType, setEventType] = useState("")
+  const [type, setType] = useState("")
   const [radius, setRadius] = useState(5)
 
   //   const location = useLocation()
-  const { alert } = useContext()
+  const { alert, confirm } = useContext()
   const navigate = useNavigate()
 
   useEffect(() => {
-    const userConsent = window.confirm("¿Quieres compartir tu ubicaciòn?")
-
-    if (userConsent) {
-      logic
-        .getUserLocation()
-        .then((location) => {
-          setCenter(location)
+    confirm(
+      "¿Quieres compartir tu ubicaciòn?",
+      (accepted) => {
+        if (accepted) {
+          logic
+            .getUserLocation()
+            .then((location) => {
+              setCenter(location)
+              refreshEvents()
+            })
+            .catch((error) => {
+              alert(error.message)
+              console.error(error)
+            })
+        } else {
           refreshEvents()
-        })
-        .catch((error) => {
-          alert(error.message)
-          console.error(error)
-        })
-    } else {
-      refreshEvents()
-    }
+        }
+      },
+      "warn"
+    )
   }, [])
 
   const refreshEvents = () => {
@@ -53,15 +57,11 @@ export default function NearbyEvents() {
     }
   }
 
-  const handleCloseMap = () => {
-    navigate("/")
-  }
-
   const applyFilters = () => {
     let filtered = events
 
-    if (eventType !== "") {
-      filtered = filtered.filter((event) => event.eventType === eventType)
+    if (type !== "") {
+      filtered = filtered.filter((event) => event.type === type)
     }
 
     filtered = filtered.filter((event) => {
@@ -73,7 +73,7 @@ export default function NearbyEvents() {
   }
 
   const handleFilterChange = (event) => {
-    setEventType(event.target.value)
+    setType(event.target.value)
   }
 
   const handleRadiusChange = (event) => {
@@ -83,7 +83,7 @@ export default function NearbyEvents() {
 
   useEffect(() => {
     applyFilters()
-  }, [eventType, radius, events])
+  }, [type, radius, events])
 
   return (
     <div className="fixed inset-0 flex flex-col text-white pt-20">
@@ -110,7 +110,7 @@ export default function NearbyEvents() {
           </label>
           <select
             id="eventType"
-            value={eventType}
+            value={type}
             onChange={handleFilterChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-md bg-tertiary text-white focus:outline-none focus:ring-2 focus:ring-primary"
           >

@@ -12,7 +12,7 @@ import {
 
 export default function Footer() {
   console.log("Footer -> render")
-  const { alert } = useContext()
+  const { alert, confirm } = useContext()
 
   const navigate = useNavigate()
 

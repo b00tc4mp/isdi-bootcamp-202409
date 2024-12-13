@@ -54,7 +54,7 @@ export default function EventMap({ center, events, showUserMarker = true }) {
           <Popup>
             <div className="flex flex-col items-center">
               <img
-                src={event.files[0]}
+                src={event.images[0]}
                 alt={event.author.name}
                 className="w-28 h-28 object-cover rounded-lg mb-2"
               />

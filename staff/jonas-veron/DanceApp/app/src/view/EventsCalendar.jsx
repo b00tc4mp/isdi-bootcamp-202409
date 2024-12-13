@@ -27,7 +27,7 @@ export default function EventsCalendar() {
 
   const filteredEvents = events.filter(
     (event) =>
-      new Date(event.eventDate).toDateString() === selectedDate.toDateString()
+      new Date(event.date).toDateString() === selectedDate.toDateString()
   )
 
   return (
@@ -43,8 +43,7 @@ export default function EventsCalendar() {
             if (view === "month") {
               const isEventDay = events.some((event) => {
                 return (
-                  new Date(event.eventDate).toDateString() ===
-                  date.toDateString()
+                  new Date(event.date).toDateString() === date.toDateString()
                 )
               })
               return isEventDay ? "bg-accentgreen text-white" : null
@@ -63,7 +62,7 @@ export default function EventsCalendar() {
         <ul>
           {filteredEvents.map((event) => (
             <li key={event.id} className="text-white p-4 rounded-lg mb-4">
-              <img src={event.files[0]} alt="" className="rounded-lg" />
+              <img src={event.images[0]} alt="" className="rounded-lg" />
               <p>
                 Si no sabes como llegar
                 <a
@@ -75,7 +74,7 @@ export default function EventsCalendar() {
                   haz click aquí
                 </a>
               </p>
-              <p>{new Date(event.eventDate).toLocaleDateString()}</p>
+              <p>{new Date(event.date).toLocaleDateString()}</p>
             </li>
           ))}
         </ul>

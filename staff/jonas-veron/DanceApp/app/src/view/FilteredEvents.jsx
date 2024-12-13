@@ -5,7 +5,7 @@ import { Event } from "../view/Components/functional/index.js"
 import useContext from "./useContext"
 
 export default function FilteredEvents() {
-  const { eventType } = useParams()
+  const { type } = useParams()
   const [events, setEvents] = useState([])
 
   const { alert } = useContext
@@ -15,9 +15,7 @@ export default function FilteredEvents() {
       logic
         .getEvents()
         .then((allEvents) => {
-          const filtered = allEvents.filter(
-            (event) => event.eventType === eventType
-          )
+          const filtered = allEvents.filter((event) => event.type === type)
           setEvents(filtered)
         })
         .catch((error) => {
@@ -28,13 +26,13 @@ export default function FilteredEvents() {
       alert(error.message)
       console.error(error)
     }
-  }, [eventType])
+  }, [type])
   console.log(events)
 
   return (
     <div className="items-center text-center pb-16">
       <h1 className="pt-20 text-center text-cyan-50 font-semibold text-4xl pb-20 font-body">
-        {eventType.toUpperCase()}
+        {type.toUpperCase()}
       </h1>
       {events.length === 0 ? (
         <div className="empty-favorites">

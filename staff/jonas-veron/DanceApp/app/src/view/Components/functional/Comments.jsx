@@ -5,7 +5,7 @@ import { Comment, AddComment } from "./index.js"
 import logic from "../../../logic/index.js"
 import useContext from "../../useContext"
 
-export default function Comments({ eventId, onClose, refreshEvents }) {
+export default function Comments({ eventId, refreshEvents, onClose }) {
   const [comments, setComments] = useState([])
 
   const { alert } = useContext()
@@ -42,7 +42,7 @@ export default function Comments({ eventId, onClose, refreshEvents }) {
     >
       <div
         className="w-full max-w-lg bg-secondary rounded-t-2xl p-4 shadow-lg h-3/4 overflow-y-auto transition-transform transform translate-y-0 opacity-95 "
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()} //TODO mirar esto
       >
         <div className="flex items-center justify-between border-b border-gray-600 pb-3">
           <h2 className="text-lg font-semibold text-white">Comentarios</h2>
@@ -57,14 +57,14 @@ export default function Comments({ eventId, onClose, refreshEvents }) {
           {comments.map((comment) => (
             <Comment
               key={comment.id}
-              comment={comment}
               eventId={eventId}
-              refreshComments={refreshComments}
+              comment={comment}
+              onCommentRemoved={refreshComments}
             />
           ))}
         </ul>
 
-        <AddComment eventId={eventId} refreshComments={refreshComments} />
+        <AddComment eventId={eventId} onCommentAdded={refreshComments} />
       </div>
     </div>
   )

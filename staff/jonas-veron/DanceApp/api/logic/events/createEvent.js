@@ -1,16 +1,16 @@
 import { User, Event } from "dat"
 import { validate, errors } from "com"
 
-const { SystemError, NotFoundError, PermissionError } = errors
+const { SystemError, NotFoundError } = errors
 
-export default (userId, files, eventType, text, eventDate, location) => {
+export default (userId, images, type, text, date, location) => {
   validate.id(userId, "userId")
-  validate.files(files)
+  validate.images(images)
   validate.text(text)
-  validate.date(eventDate)
+  validate.date(date)
   validate.location(location)
 
-  const parsedEventDate = new Date(eventDate)
+  const parsedDate = new Date(date)
 
   return User.findById(userId)
     .catch((error) => {
@@ -24,10 +24,10 @@ export default (userId, files, eventType, text, eventDate, location) => {
 
       return Event.create({
         author: userId,
-        files,
-        eventType,
+        images,
+        type,
         text,
-        eventDate: parsedEventDate,
+        date: parsedDate,
         location: {
           type: "Point",
           coordinates: location.coordinates,

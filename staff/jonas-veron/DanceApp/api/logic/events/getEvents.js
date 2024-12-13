@@ -13,7 +13,7 @@ export default (userId) => {
     try {
       results = await Promise.all([
         User.findById(userId).lean(),
-        Event.find().populate("author", "name").sort({ date: -1 }).lean(),
+        Event.find().populate("author", "name").sort({ createdAt: -1 }).lean(),
       ])
     } catch (error) {
       throw new SystemError(error.message)
@@ -26,11 +26,11 @@ export default (userId) => {
 
     return events.map((event) => ({
       id: event._id.toString(),
-      files: event.files,
-      eventType: event.eventType,
+      images: event.images,
+      type: event.type,
       text: event.text,
-      eventDate: event.eventDate,
       date: event.date,
+      createdAt: event.createdAt,
       location: {
         address: event.location.address,
         province: event.location.province,

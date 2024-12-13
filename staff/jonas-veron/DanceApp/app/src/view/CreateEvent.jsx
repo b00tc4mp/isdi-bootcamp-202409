@@ -23,21 +23,21 @@ export default function CreateEvent() {
 
   const handleImageChange = (event) => {
     const { files } = event.target
-    const images = Array.prototype.map.call(files, (file) =>
+    const imagePreviews = Array.prototype.map.call(files, (file) =>
       URL.createObjectURL(file)
     )
-    setImages(images)
+    setImages(imagePreviews)
   }
   const handleFormSubmit = async (event) => {
     event.preventDefault()
 
     const form = event.target
 
-    const files = form.image.files
-    const eventType = form.eventType.value
+    const images = form.images.files
+    const type = form.type.value
     const text = form.text.value
-    const eventDate = form.eventDate.value
-    const filetoB64Conversions = Array.prototype.map.call(files, toBase64)
+    const date = form.date.value
+    const filetoB64Conversions = Array.prototype.map.call(images, toBase64)
 
     const locationFormatted = {
       coordinates: [location.lat, location.lon],
@@ -45,19 +45,21 @@ export default function CreateEvent() {
       province: location.province,
     }
 
-    const parsedDate = new Date(eventDate)
+    const parsedDate = new Date(date)
 
-    Promise.all(filetoB64Conversions).then((filesb64) => {
+    Promise.all(filetoB64Conversions).then((images) => {
       try {
-        logic.createEvent(
-          filesb64,
-          eventType,
-          text,
-          parsedDate,
-          locationFormatted
-        )
-        form.reset()
-        navigate("/")
+        logic
+          .createEvent(images, type, text, parsedDate, locationFormatted)
+          .then(() => {
+            form.reset()
+            navigate("/")
+          })
+          .catch((error) => {
+            alert(error.message)
+
+            console.error(error)
+          })
       } catch (error) {
         alert(error.message)
 
@@ -85,15 +87,15 @@ export default function CreateEvent() {
         <Form onSubmit={handleFormSubmit}>
           <Field>
             <label
-              htmlFor="image"
+              htmlFor="images"
               className="bg-accentpink  text-white font-bold border-2 border-transparent hover:bg-accentgreen hover:border-accentpink focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-300 rounded-lg"
             >
               Subir Imagen
             </label>
             <input
               type="file"
-              name="image"
-              id="image"
+              name="images"
+              id="images"
               placeholder="http://example.com/image.jpg"
               required
               className="hidden"
@@ -103,19 +105,19 @@ export default function CreateEvent() {
 
           <Field>
             <select
-              name="eventType"
-              id="eventType"
+              name="type"
+              id="type"
               required
               className="w-full p-2 bg-tertiary text-white rounded-lg mt-2"
             >
-              <option value="" disabled>
+              <option value="" disabled selected>
                 --Selecciona el tipo de evento--
               </option>
               <option value="Sociales">Social</option>
               <option value="Escuelas de baile">Escuela de baile</option>
               <option value="Clases particulares">Clase particular</option>
               <option value="Congresos">Congreso</option>
-              <option value="Masterclass">Masterclass</option>
+              <option value="Masterclases">Masterclass</option>
             </select>
           </Field>
 
@@ -133,8 +135,8 @@ export default function CreateEvent() {
           <Field>
             <input
               type="date"
-              name="eventDate"
-              id="eventDate"
+              name="date"
+              id="date"
               required
               className="focus:outline-none p-2 rounded-lg bg-tertiary mt-2 text-white"
             />

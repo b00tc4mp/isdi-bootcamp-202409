@@ -17,26 +17,26 @@ import useContext from "../../useContext"
 import { Comments } from "./index.js"
 import EventMap from "./EventMap.jsx"
 
-export default function Event({ event, refreshEvents }) {
+export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
   console.log("Event -> render")
 
-  const { alert } = useContext()
+  const { alert, confirm } = useContext()
 
   const {
     id,
     author,
-    files,
-    eventType,
+    images,
+    type,
     text,
-    eventDate,
     date,
+    createdAt,
     location,
     likedByUser,
     favoriteByUser,
     likes,
     comments,
   } = event
-  // console.log(event)
+  console.log(event)
 
   const [view, setView] = useState(null)
 
@@ -44,7 +44,7 @@ export default function Event({ event, refreshEvents }) {
     try {
       logic
         .toggleLikeEvent(id)
-        .then(refreshEvents)
+        .then(onLiked)
         .catch((error) => {
           alert(error.message)
 
@@ -58,22 +58,28 @@ export default function Event({ event, refreshEvents }) {
   }
 
   const handleDeleteClick = () => {
-    if (window.confirm("Borrar evento ?")) {
-      try {
-        logic
-          .deleteEvent(id)
-          .then(refreshEvents)
-          .catch((error) => {
+    confirm(
+      "Borrar evento ?",
+      (accepted) => {
+        if (accepted) {
+          try {
+            logic
+              .deleteEvent(id)
+              .then(onDeleted)
+              .catch((error) => {
+                alert(error.message)
+
+                console.error(error)
+              })
+          } catch (error) {
             alert(error.message)
 
             console.error(error)
-          })
-      } catch (error) {
-        alert(error.message)
-
-        console.error(error)
-      }
-    }
+          }
+        }
+      },
+      "warn"
+    )
   }
   const handleCommentsClick = () => setView(view ? null : "comments")
   const handleLocationClick = () => setView(view ? null : "location")
@@ -126,7 +132,10 @@ export default function Event({ event, refreshEvents }) {
 
       {/* Imagen y botones */}
       <div className="mb-2">
-        <img src={files[0]} className="w-full h-auto rounded-lg object-cover" />
+        <img
+          src={images[0]}
+          className="w-full h-auto rounded-lg object-cover"
+        />
         <div className="flex items-center justify-between mt-0.5 mr-3 ml-3">
           <div className="flex space-x-8">
             <div className="flex">
@@ -167,15 +176,13 @@ export default function Event({ event, refreshEvents }) {
           />
         </div>
 
-        <time className="flex justify-end text-xs">
-          {getElapsedTime(eventDate)}
-        </time>
+        <time className="flex justify-end text-xs">{getElapsedTime(date)}</time>
       </div>
       <p className="text-white mb-4 text-start">
         <b>{author.name} </b>
         {text}
       </p>
-      <time>{getElapsedTime(date)}</time>
+      <time>{getElapsedTime(createdAt)}</time>
 
       {view === "location" && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

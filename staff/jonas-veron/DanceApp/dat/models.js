@@ -67,7 +67,7 @@ const comment = new Schema({
     required: true,
     maxLength: 200,
   },
-  date: {
+  createdAt: {
     type: Date,
     required: true,
     default: Date.now,
@@ -81,7 +81,7 @@ const event = new Schema(
       required: true,
       ref: "User",
     },
-    eventType: {
+    type: {
       type: String,
       enum: [
         "Sociales",
@@ -92,17 +92,19 @@ const event = new Schema(
       ],
       required: true,
     },
-    files: [{ type: String, required: true }],
+    images: [{ type: String, required: true }],
     text: {
       type: String,
       required: true,
       maxLength: 200,
     },
-    eventDate: {
+
+    date: {
       type: Date,
       required: true,
     },
-    date: {
+
+    createdAt: {
       type: Date,
       default: Date.now,
     },

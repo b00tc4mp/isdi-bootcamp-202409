@@ -5,7 +5,7 @@ import getEvents from "./getEvents.js"
 db.connect(process.env.MONGO_URL_TEST)
   .then(() => {
     try {
-      return getEvents("6755846afcda6b25745ccdb1")
+      return getEvents("675ae4af6dca5dbcf1d4f50e")
         .then((events) => console.log(events))
         .catch(console.error)
     } catch (error) {

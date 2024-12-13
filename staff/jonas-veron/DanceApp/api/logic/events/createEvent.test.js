@@ -6,12 +6,16 @@ await db.connect(process.env.MONGO_URL_TEST)
 
 try {
   const event = await createEvent(
-    "674e073982ce3a76ab5c9e46",
-    "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+    "675ae4af6dca5dbcf1d4f50e",
+    [
+      "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+    ],
+    "Sociales",
     "Los esperamos !!!",
-    "2024-12-07",
+    "2024-12-31",
     {
       address: "Barcelona",
+      province: "Barcelona",
       coordinates: [41.3870154, 2.1700471],
     }
   )

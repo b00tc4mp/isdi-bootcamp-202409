@@ -40,25 +40,12 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
     throw new ValidationError("Passwords do not match")
 }
 
-const validateImage = (image) => {
-  if (!image) throw new Error("You must provide an image.")
-
-  // const validTypes = ["image/jpeg", "image/png", "image/gif"]
-  // if (!validTypes.includes(image.type)) {
-  //   throw new Error("The image must be a JPG, PNG or GIF file.")
-  // }
-
-  const maxSize = 5 * 1024 * 1024 // 5MB
-  if (image.size > maxSize) {
-    throw new Error("Image size should not exceed 5MB.")
-  }
-}
-const validateFiles = (files) => {
-  if (!Array.isArray(files)) {
-    throw new ValidationError("Files must be an array")
+const validateImages = (images) => {
+  if (!Array.isArray(images)) {
+    throw new ValidationError("Images must be an array")
   }
 
-  if (!files.every((file) => typeof file === "string")) {
+  if (!images.every((images) => typeof images === "string")) {
     throw new ValidationError("Each file must be a string")
   }
 }
@@ -112,19 +99,33 @@ const validateLocation = (location) => {
     throw new ValidationError("Location must not exceed 200 characters")
 }
 
+const validateType = (type) => {
+  const validTypes = [
+    "Sociales",
+    "Escuelas de baile",
+    "Clases particulares",
+    "Congresos",
+    "Masterclases",
+  ]
+
+  if (!validTypes.includes(type)) {
+    throw new ValidationError("Wrong type")
+  }
+}
+
 const validate = {
   name: validateName,
   email: validateEmail,
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,
-  image: validateImage,
-  files: validateFiles,
+  images: validateImages,
   text: validateText,
   id: validateId,
   callback: validateCallback,
   date: validateDate,
   location: validateLocation,
   role: validateRole,
+  type: validateType,
 }
 
 export default validate

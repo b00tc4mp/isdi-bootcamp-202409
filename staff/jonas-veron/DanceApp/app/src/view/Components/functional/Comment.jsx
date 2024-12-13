@@ -6,30 +6,32 @@ import { getElapsedTime } from "../../../utils"
 
 export default function Comment({
   eventId,
-  comment: { id, author, text, date },
-  refreshComments,
+  comment: { id, author, text, createdAt },
+  onCommentRemoved,
 }) {
   console.log("Comment -> render")
 
-  const { alert } = useContext()
+  const { alert, confirm } = useContext()
 
   const handleRemove = () => {
-    if (window.confirm("Borrar comentario ?")) {
-      try {
-        logic
-          .removeComment(eventId, id)
-          .then(refreshComments)
-          .catch((error) => {
-            alert(error.message)
+    confirm("Borrar comentario ?", (accepted) => {
+      if (accepted) {
+        try {
+          logic
+            .removeComment(eventId, id)
+            .then(onCommentRemoved)
+            .catch((error) => {
+              alert(error.message)
 
-            console.error(error)
-          })
-      } catch (error) {
-        alert(error.message)
+              console.error(error)
+            })
+        } catch (error) {
+          alert(error.message)
 
-        console.error(error)
+          console.error(error)
+        }
       }
-    }
+    })
   }
   return (
     <li className="flex items-start space-x-3">
@@ -40,7 +42,9 @@ export default function Comment({
         <p className="text-sm break-words whitespace-normal">
           <span className="font-bold text-white">{author.name} </span> {text}
         </p>
-        <time className="text-xs text-gray-500">{getElapsedTime(date)}</time>
+        <time className="text-xs text-gray-500">
+          {getElapsedTime(createdAt)}
+        </time>
       </div>
       {logic.getUserId() === author.id && (
         <button

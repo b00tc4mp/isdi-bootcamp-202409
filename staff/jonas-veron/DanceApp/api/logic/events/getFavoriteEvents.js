@@ -22,11 +22,11 @@ export default async (userId) => {
 
     return favoriteEvents.map((event) => ({
       id: event._id.toString(),
-      files: event.files,
-      eventType: event.eventType,
+      images: event.images,
+      type: event.type,
       text: event.text,
-      eventDate: event.eventDate,
       date: event.date,
+      createdAt: event.createdAt,
       location: {
         address: event.location.address,
         province: event.location.province,
