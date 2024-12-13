@@ -46,6 +46,14 @@ const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
+
+const validateCategory = (category, explain = 'category') => {
+    if (typeof category !== 'number') throw new ValidationError(`invalid ${explain}`)
+}
+
+const validateCountry = (country, explain = 'country') => {
+    if (typeof country !== 'string') throw new ValidationError(`invalid ${explain}`)
+}
 //////////////////////////////
 
 
@@ -58,7 +66,9 @@ const validate = {
     passwordsMatch: validatePasswordsMatch,
     image: validateImage,
     text: validateText,
-    id: validateId
+    id: validateId,
+    category: validateCategory,
+    country: validateCountry
 }
 
 

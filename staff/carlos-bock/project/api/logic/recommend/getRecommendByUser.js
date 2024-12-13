@@ -16,7 +16,6 @@ const getRecommendByUser = async (userId) => {
         if (!recommends) {
             throw new NotFoundError('No recomendations found for this user')
         }
-        console.log('Fetched recommendations:', recommends)
         return recommends.map(recommend => {
             recommend.id = recommend._id.toString()
             delete recommend._id

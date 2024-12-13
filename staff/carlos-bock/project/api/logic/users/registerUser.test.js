@@ -17,7 +17,7 @@ db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
     .catch(console.error)
     .finally(() => db.disconnect())
 
-
+/*
 async function registered() {
     try {
         await db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL_TEST
@@ -35,4 +35,4 @@ async function registered() {
 }
 
 registered()
-
+*/

@@ -13,6 +13,7 @@ import {
     getRecommend,
     getRecommendById,
     getRecommendByCategory,
+    getRecommendByCategoryCountry,
     getRecommendByUser,
     removeComment,
     upVote
@@ -32,6 +33,7 @@ const logic = {
     getRecommend,
     getRecommendById,
     getRecommendByCategory,
+    getRecommendByCategoryCountry,
     getRecommendByUser,
     removeComment,
     upVote

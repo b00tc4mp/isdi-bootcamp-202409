@@ -2,18 +2,16 @@ import errors from '../../../com/errors.js' //index.js //import { errors } from 
 
 const { SystemError } = errors
 
-import Button from './library/Button.jsx'; import Form from './library/Form.jsx'
-import Field from './library/Field.jsx'; import Label from './library/Label.jsx';
-import Input from './library/Input.jsx'; import PasswordInput from './library/PasswordInput.jsx'; //import { PasswordInput, Input, Button, Form, Field, Label } from './library'
+import { PasswordInput, Input, Button, Form, Field, Label } from './library/index.js'
 
 import logic from '../logic/index.js'
 
-//import useContext from './useContext'
+import useContext from './useContext'
 
 export default function Register(props) {
     console.log('Register -> render')
 
-    // add custom alert using useContext
+    const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -25,7 +23,8 @@ export default function Register(props) {
             email: { value: email },
             username: { value: username },
             password: { value: password },
-            password2: { value: password2 }
+            password2: { value: password2 },
+
         } = form
 
         try {
@@ -62,34 +61,34 @@ export default function Register(props) {
     return <main>
         <h2>Regístarte</h2>
 
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor='name'>Nombre</label>
-                <input type='text' id='name' name='name' />
-            </div>
+        <Form onSubmit={handleSubmit}>
+            <Field>
+                <Label htmlFor='name'>Nombre</Label>
+                <Input type='text' id='name' name='name' required />
+            </Field>
 
-            <div>
-                <label htmlFor='email'>Email</label>
-                <input type='email' id='email' name='email' />
-            </div>
+            <Field>
+                <Label htmlFor='email'>Email</Label>
+                <Input type='email' id='email' name='email' required />
+            </Field>
 
-            <div>
-                <label htmlFor='username'>Nombre de Usuario</label>
-                <input type='text' id='username' name='username' />
-            </div>
+            <Field>
+                <Label htmlFor='username'>Nombre de Usuario</Label>
+                <Input type='text' id='username' name='username' required />
+            </Field>
 
-            <div>
-                <label htmlFor='password'>Contraseña</label>
-                <input type='password' id='password' />
-            </div>
+            <Field>
+                <Label htmlFor='password'>Contraseña</Label>
+                <PasswordInput type='password' id='password' required />
+            </Field>
 
-            <div>
-                <label htmlFor='password2'>Confirmar contraseña</label>
-                <input type='password' id='password2' />
-            </div>
+            <Field>
+                <Label htmlFor='password2'>Confirmar contraseña</Label>
+                <PasswordInput type='password' id='password2' required />
+            </Field>
 
-            <button type='submit'>Regístrarte</button>
-        </form>
+            <Button type='submit'>Regístrarte</Button>
+        </Form>
 
         <a href='' onClick={handleLoginClick}>Iniciar sesión</a>
     </main>

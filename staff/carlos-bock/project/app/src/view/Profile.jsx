@@ -99,7 +99,7 @@ export default function Profile() {
 
     console.log('Recommendations by User -> render')
 
-    if (!recommends.length) return <p>No hay recomendaciones asociadas con tu cuenta en este momento. Empieza a   armar tu red, nos ayudamos entre todos. </p>;
+    if (!recommends.length) return <p>No hay recomendaciones asociadas con tu cuenta en este momento. Empieza a armar tu red, nos ayudamos entre todos. </p>;
 
     return <main>
         <h4>Estas son todas las recomendaciones asociadas con tu cuenta: </h4>

@@ -30,7 +30,6 @@ export default function CommentsInRec({ recommendId, onAdded, onRemoved }) {
                 .then(comments => {
                     setComments(comments)
 
-                    //onAdded()
                 })
         } catch (error) {
             alert(error.message)
@@ -45,7 +44,6 @@ export default function CommentsInRec({ recommendId, onAdded, onRemoved }) {
                 .then(() => {
                     setComments((prev) => prev.filter(
                         comment => comment.id !== commentId))
-                    //onRemoved(commentId);
 
                 })
                 .catch(error => {

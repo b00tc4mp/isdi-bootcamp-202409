@@ -19,7 +19,7 @@ const registerUser = (name, email, username, password, password2) => {
             User.create({ name, email, username, password: hash })
                 .then(_ => { })
                 .catch(error => {
-                    if (error.code === 11000) throw DuplicityError('user already registered')
+                    if (error.code === 11000) throw new DuplicityError('user already registered')
 
                     throw new SystemError(error.message)
 
