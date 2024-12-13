@@ -5,11 +5,13 @@ import logic from '../../../logic'
 import useContext from '../../useContext.js'
 
 export default function Reviews(props) {
+  console.debug('Reviews -> render')
+
   const [reviews, setReviews] = useState([])
   const { alert } = useContext()
 
   useEffect(() => {
-    console.log('Reviews -> useEffect "componentdidMount"')
+    console.debug('Reviews -> useEffect "componentdidMount"')
 
     try {
       logic

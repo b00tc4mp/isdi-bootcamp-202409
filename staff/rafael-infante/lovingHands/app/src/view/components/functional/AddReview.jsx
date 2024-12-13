@@ -2,7 +2,7 @@ import logic from '../../../logic'
 import useContext from '../../useContext.js'
 
 export default function AddReview({ adId, onAdded }) {
-  console.log('AddReview -> render')
+  console.debug('AddReview -> render')
 
   const { alert } = useContext()
 

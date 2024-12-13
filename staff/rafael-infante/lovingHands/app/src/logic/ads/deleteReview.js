@@ -16,7 +16,7 @@ export default (adId, reviewId) => {
       throw new SystemError(error.message)
     })
     .then((res) => {
-      if (res.ok) return
+      if (res.ok) return console.debug('review deleted succesfully')
 
       return res
         .json()

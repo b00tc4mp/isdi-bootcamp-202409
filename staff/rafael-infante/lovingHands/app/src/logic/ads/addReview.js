@@ -18,7 +18,7 @@ export default (adId, comment, calification) => {
       throw new SystemError(error.message)
     })
     .then((res) => {
-      if (res.ok) return
+      if (res.ok) return console.debug('review added succesfully')
 
       return res
         .json()

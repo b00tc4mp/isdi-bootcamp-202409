@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import useContext from '../useContext.js'
 
 export default function FavoriteAds() {
-  console.log('Favorites - > render')
+  console.debug('Favorites - > render')
   const [favoriteAds, setFavoriteAds] = useState([])
 
   const { alert } = useContext()
@@ -29,7 +29,7 @@ export default function FavoriteAds() {
   }, [])
 
   return (
-    <div className="flex flex-col min-h-screen mb-12 bg-gray-50 text-gray-800">
+    <div className="pt-16 flex flex-col min-h-screen mb-12 bg-gray-50 text-gray-800">
       {/* Header */}
       <header className="bg-[#47c8e5] text-white py-4 px-6 shadow-md">
         <h1 className="text-2xl font-bold text-center">My Favorites</h1>

@@ -19,7 +19,7 @@ export default (files, text, location) => {
       throw new SystemError(error.message)
     })
     .then((res) => {
-      if (res.ok) return
+      if (res.ok) return console.debug('ad created succesfully')
 
       return res
         .json()

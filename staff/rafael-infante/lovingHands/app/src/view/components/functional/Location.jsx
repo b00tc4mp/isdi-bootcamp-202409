@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Tooltip, Popup } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import markerIcon from '../../../assets/gps.png'
@@ -20,9 +20,11 @@ const customIcon = new L.Icon({
 })
 
 export default function Location({ center, ads, showUserMarker = true }) {
+  console.debug('Map -> render')
+  console.log(ads)
   return (
     <div style={{ height: '400px', width: '100%' }}>
-      <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={center} zoom={11} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -38,10 +40,21 @@ export default function Location({ center, ads, showUserMarker = true }) {
 
         {ads.map((ad) => (
           <Marker key={ad.id} position={ad.location.coordinates}>
-            <Tooltip permanent>
-              <strong>{ad.author.name}</strong>
-              <p>{ad.location.address}</p>
-            </Tooltip>
+            <Popup>
+              <div className="flex flex-col items-center space-y-1">
+                <img src={ad.files[0]} alt={ad.author.name} className="w-20 h-20 object-cover rounded-lg mb-1" />
+                <h3 className="font-bold text-base">{ad.author.name}</h3>
+                <p className="text-xs leading-tight">{ad.location.address}</p>
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${ad.location.coordinates[0]},${ad.location.coordinates[1]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 underline text-sm"
+                >
+                  Cómo llegar
+                </a>
+              </div>
+            </Popup>
           </Marker>
         ))}
       </MapContainer>

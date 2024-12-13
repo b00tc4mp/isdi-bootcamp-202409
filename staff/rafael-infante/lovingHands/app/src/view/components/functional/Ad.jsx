@@ -9,6 +9,8 @@ import whatsappIcon from '../../../assets/whatsapp.png'
 import useContext from '../../useContext.js'
 
 export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReviewRemoved }) {
+  console.debug('Ad -> render')
+
   const [view, setView] = useState(null)
   const [isFavorite, setIsFavorite] = useState(ad.isFavorite)
   const { alert, confirm } = useContext()

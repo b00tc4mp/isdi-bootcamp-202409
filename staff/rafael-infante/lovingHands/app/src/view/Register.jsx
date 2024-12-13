@@ -6,7 +6,7 @@ import useContext from './useContext'
 const { SystemError } = errors
 
 export default function Register(props) {
-  console.log('Register -> render')
+  console.debug('Register -> render')
 
   const { alert } = useContext()
 
@@ -30,7 +30,7 @@ export default function Register(props) {
         .then(() => {
           form.reset()
 
-          alert('user succesfully registered', 'success')
+          alert('User successfully registered', 'success')
 
           props.onRegistered()
         })
@@ -53,25 +53,25 @@ export default function Register(props) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-gray-800 bg-gray-50 px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6 py-0">
       {/* Logo */}
       <div className="mb-6">
-        <img src={Logo} alt="Loving Hands Logo" className="h-12" />
+        <img src={Logo} alt="Loving Hands Logo" className="h-12 mx-auto" />
       </div>
 
       {/* Register Form */}
-      <h1 className="text-2xl font-bold text-center mb-4">Create Your Account</h1>
+      <h1 className="text-2xl font-bold text-center mb-2">Create Your Account</h1>
       <p className="text-center text-sm text-gray-600 mb-6">Fill in the details below to get started.</p>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
+      <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">
         {/* Name Field */}
         <div>
           <input
             required
             type="text"
             id="name"
-            placeholder="Enter your full name"
-            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            placeholder="Full Name"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
 
@@ -81,19 +81,19 @@ export default function Register(props) {
             required
             type="email"
             id="email"
-            placeholder="Enter your email"
-            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            placeholder="Email Address"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
 
-        {/* telephone Field */}
+        {/* Telephone Field */}
         <div>
           <input
             required
             type="text"
             id="telephone"
-            placeholder="Enter your telephone"
-            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            placeholder="Telephone"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
 
@@ -103,8 +103,8 @@ export default function Register(props) {
             required
             type="password"
             id="password"
-            placeholder="Enter your password"
-            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            placeholder="Password"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
 
@@ -114,21 +114,18 @@ export default function Register(props) {
             required
             type="password"
             id="passwordRepeat"
-            placeholder="Repeat your password"
-            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            placeholder="Repeat Password"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
 
         {/* Role Field */}
         <div>
-          <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-            Role
-          </label>
           <select
             required
             id="role"
             name="role"
-            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
           >
             <option value="caregiver">Caregiver</option>
             <option value="elder">Elder</option>
@@ -138,7 +135,7 @@ export default function Register(props) {
         {/* Register Button */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200"
+          className="w-full bg-blue-500 text-white py-2 rounded-lg shadow-md hover:bg-blue-600 focus:ring focus:ring-blue-200 transition-all duration-200"
         >
           Register
         </button>

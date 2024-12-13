@@ -1,4 +1,5 @@
 export default function Alert({ message, level = 'error', onAccepted }) {
+  console.debug('Alert -> render')
   const borderColor = level === 'error' ? 'border-[red]' : level === 'warn' ? 'border-[yellow]' : 'border-[green]'
 
   const handleAcceptClick = () => onAccepted()

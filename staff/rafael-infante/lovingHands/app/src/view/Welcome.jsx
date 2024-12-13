@@ -2,7 +2,7 @@ import Logo from '../assets/logo.png'
 import WelcomeBg from '../assets/welcome-bg.png'
 
 export default function Welcome(props) {
-  console.log('Welcome -> render')
+  console.debug('Welcome -> render')
 
   const handleLoginClick = (event) => {
     event.preventDefault()

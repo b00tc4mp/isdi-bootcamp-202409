@@ -83,7 +83,7 @@ Ad
 
 - id (uuid)
 - author (User.id)
-- image (string)
+- files ([string])
 - location (Location)
 - description (string)
 - date (Date)

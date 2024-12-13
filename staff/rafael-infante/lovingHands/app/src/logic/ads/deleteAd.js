@@ -15,7 +15,7 @@ export default (adId) => {
       throw new SystemError(error.message)
     })
     .then((res) => {
-      if (res.ok) return
+      if (res.ok) return console.debug('ad deleted succesfully')
 
       return res
         .json()

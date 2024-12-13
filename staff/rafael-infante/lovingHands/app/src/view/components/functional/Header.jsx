@@ -3,7 +3,7 @@ import logic from '../../../logic'
 import useContext from '../../useContext.js'
 
 export default function Header({ onLoggedOut }) {
-  console.log('Header -> render')
+  console.debug('Header -> render')
   const { confirm } = useContext()
 
   const handleLogout = (event) => {
@@ -22,7 +22,7 @@ export default function Header({ onLoggedOut }) {
   }
 
   return (
-    <header className="flex items-center justify-between w-full bg-[#fbdfc7] px-4 py-3 shadow-md">
+    <header className="fixed flex items-center justify-between w-full bg-[#fbdfc7] px-4 py-3 shadow-md z-20">
       <div className="flex items-center">
         <img src={Logo} alt="Loving Hands Logo" className="h-10" />
       </div>

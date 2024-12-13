@@ -1,4 +1,6 @@
 export default function Confirm({ message, level = 'error', onAccepted, onCancelled }) {
+  console.debug('Confirm -> render')
+
   const borderColor = level === 'error' ? 'border-[red]' : level === 'warn' ? 'border-[yellow]' : 'border-[green]'
 
   const handleCancelClick = () => onCancelled()

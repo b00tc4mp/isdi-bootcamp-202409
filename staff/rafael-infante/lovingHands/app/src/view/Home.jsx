@@ -14,7 +14,7 @@ export default function Home() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log('Header -> render componentDidMount & componentWillReceiveProps')
+    console.debug('Header -> render componentDidMount & componentWillReceiveProps')
     if (logic.isUserLoggedIn()) {
       if (!name)
         try {
@@ -76,11 +76,11 @@ export default function Home() {
 
   const handleCloseMap = () => setView(null)
 
-  console.log('Home -> render')
+  console.debug('Home -> render')
 
   return (
     <>
-      <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
+      <div className="pt-14 flex flex-col min-h-screen bg-gray-50 text-gray-800">
         {/* Main Content */}
         <div className="flex flex-col items-center px-4 flex-grow">
           <div className="w-full max-w-md text-center mt-6 mb-6">

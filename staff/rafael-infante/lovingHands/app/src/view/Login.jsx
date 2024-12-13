@@ -9,7 +9,7 @@ const { SystemError } = errors
 import useContext from './useContext'
 
 export default function Login(props) {
-  console.log('Login -> render')
+  console.debug('Login -> render')
 
   const { alert } = useContext()
 
