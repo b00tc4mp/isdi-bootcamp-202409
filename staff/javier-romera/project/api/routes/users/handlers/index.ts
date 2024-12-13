@@ -5,6 +5,8 @@ import registerAnonymousUserHandler from './registerAnonymousUserHandler.js'
 import setNewUserStatusHandler from './setNewUserStatusHandler.js'
 import getUserStatusHandler from './getUserStatusHandler.js'
 import deleteAnonymousUserHandler from './deleteAnonymousUserHandler.js'
+import getUserScoreHandler from './getUserScoreHandler.js'
+import updateUserScoreHandler from './updateUserScoreHandler.js'
 
 export {
     authenticateUserHandler,
@@ -13,5 +15,7 @@ export {
     registerAnonymousUserHandler,
     setNewUserStatusHandler,
     getUserStatusHandler,
-    deleteAnonymousUserHandler
+    deleteAnonymousUserHandler,
+    getUserScoreHandler,
+    updateUserScoreHandler
 }

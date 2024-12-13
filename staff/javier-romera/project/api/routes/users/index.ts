@@ -8,7 +8,9 @@ import {
     getUserUsernameHandler,
     setNewUserStatusHandler,
     getUserStatusHandler,
-    deleteAnonymousUserHandler
+    deleteAnonymousUserHandler,
+    getUserScoreHandler,
+    updateUserScoreHandler
 } from './handlers/index.js'
 
 
@@ -16,13 +18,15 @@ const usersRouter = Router()
 
 usersRouter.get('/:targetUserId/username', authorizationHandler as RequestHandler, getUserUsernameHandler)
 usersRouter.get('/:targetUserId/status', authorizationHandler as RequestHandler, getUserStatusHandler)
+usersRouter.get('/:targetUserId/score', authorizationHandler as RequestHandler, getUserScoreHandler)
 
-usersRouter.post('/', authorizationHandler as RequestHandler, jsonBodyParser, registerUserHandler)
-usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.post('/anonymous', registerAnonymousUserHandler)
-
-usersRouter.patch('/status', authorizationHandler as RequestHandler, jsonBodyParser, setNewUserStatusHandler)
+usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
+usersRouter.post('/', authorizationHandler as RequestHandler, jsonBodyParser, registerUserHandler)
 
 usersRouter.delete('/anonymous', authorizationHandler as RequestHandler, deleteAnonymousUserHandler)
+
+usersRouter.patch('/status', authorizationHandler as RequestHandler, jsonBodyParser, setNewUserStatusHandler)
+usersRouter.patch('/score', authorizationHandler as RequestHandler, jsonBodyParser, updateUserScoreHandler)
 
 export default usersRouter

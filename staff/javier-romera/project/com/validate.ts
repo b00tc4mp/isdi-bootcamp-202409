@@ -57,6 +57,11 @@ const validateArc = (arc: string): void => {
     if (arc !== 'Romance-Dawn' && arc !== 'Orange-Town' && arc !== 'Syrup-Village' && arc !== 'Baratie' && arc !== 'Arlong-Park' && arc !== 'Loguetown') throw new ValidationError('Invalid arc')
 }
 
+const validateScore = (score: number): void => {
+    if (typeof score !== 'number') throw new ValidationError('Invalid score')
+    if (score < 0 || score > 500) throw new ValidationError('Invalid score number')
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -67,7 +72,8 @@ const validate = {
     callback: validateCallback,
     characterName: validateCharacterName,
     status: validateStatus,
-    arc: validateArc
+    arc: validateArc,
+    score: validateScore
 }
 
 export default validate

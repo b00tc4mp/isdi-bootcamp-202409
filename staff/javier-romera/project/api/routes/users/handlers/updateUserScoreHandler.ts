@@ -4,9 +4,9 @@ import { createFunctionalHandler } from '../../helpers/index.js'
 import logic from '../../../logic/index.js'
 
 export default createFunctionalHandler(async (req: CustomRequest, res: Response): Promise<void> => {
-    const { userId, params: { targetUserId } } = req
+    const { userId, body: { score } } = req
 
-    const status: number = await logic.getUserStatus(userId, targetUserId)
+    await logic.updateUserScore(userId, score)
 
-    res.json(status)
+    res.status(204).send()
 })

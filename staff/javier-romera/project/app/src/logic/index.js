@@ -9,7 +9,9 @@ import {
     isUserRoleRegular,
     getUserStatus,
     setNewUserStatus,
-    deleteAnonymousUser
+    deleteAnonymousUser,
+    getUserScore,
+    updateUserScore
 } from './users'
 
 import {
@@ -36,6 +38,8 @@ const logic = {
     getUserStatus,
     setNewUserStatus,
     deleteAnonymousUser,
+    getUserScore,
+    updateUserScore,
 
     getRandomCharacter,
     getCharacterByName,

@@ -6,7 +6,9 @@ import {
     setNewUserStatus,
     getUserStatus,
     deleteAnonymousUser,
-    deleteAllAnonymousUsers
+    deleteAllAnonymousUsers,
+    getUserScore,
+    updateUserScore
 } from './users/index.js'
 
 import {
@@ -30,6 +32,8 @@ const logic = {
     getUserStatus,
     deleteAnonymousUser,
     deleteAllAnonymousUsers,
+    getUserScore,
+    updateUserScore,
 
     getRandomCharacter,
     getCharacterByName,
