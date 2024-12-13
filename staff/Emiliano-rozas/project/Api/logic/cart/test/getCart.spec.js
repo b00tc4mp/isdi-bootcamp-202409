@@ -14,7 +14,7 @@ import { errors } from 'com';
 
 const { NotFoundError } = errors;
 
-import getCart from './getCart.js';
+import getCart from '../getCart.js';
 
 describe('getCart', () => {
     before(async () => db.connect(process.env.MONGO_URL_TEST))

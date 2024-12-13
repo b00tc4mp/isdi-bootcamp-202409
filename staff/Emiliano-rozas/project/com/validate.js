@@ -88,16 +88,16 @@ const validateImage = image => {
 }
 
 const validateImages = images => {
-    if (!Array.isArray(images)) throw new ValidationError('invalid images, must be an array');
+    if (!Array.isArray(images)) throw new ValidationError('invalid images, must be an array')
     images.forEach((image, index) => {
         if (typeof image !== 'string' || image.trim().length === 0) {
-            throw new ValidationError(`invalid image at index ${index}`);
+            throw new ValidationError(`invalid image at index ${index}`)
         }
-    });
-};
+    })
+}
 
 const validateBestSeller = bestSeller => {
-    if (typeof bestSeller !== 'boolean') throw new ValidationError('invalid bestSeller value');
+    if (typeof bestSeller !== 'boolean') throw new ValidationError('invalid bestSeller value')
 }
 
 const validateText = text => {
@@ -115,8 +115,24 @@ const validateCallback = callback => {
 }
 
 const validateNumber = (number, explain = 'number') => {
-    if (typeof number !== 'number' || isNaN(number)) throw new ValidationError(`invalid ${explain}`);
-};
+    if (typeof number !== 'number' || isNaN(number)) throw new ValidationError(`invalid ${explain}`)
+}
+
+const validatePhone = phone => {
+    if (typeof phone !== 'string') throw new ValidationError('invalid phone')
+    if (!/^\+?[1-9]\d{1,14}$/.test(phone)) {
+        throw new ValidationError('invalid phone format')
+    }
+}
+
+const validatePostalCode = (postalCode) => {
+    if (typeof postalCode !== 'string') throw new ValidationError('invalid postal code')
+
+    // Regex para validar un código postal general (4-10 caracteres alfanuméricos)
+    if (!/^[A-Za-z0-9\s]{4,10}$/.test(postalCode)) {
+        throw new ValidationError('invalid postal code format')
+    }
+}
 
 const validate = {
     name: validateName,
@@ -139,7 +155,9 @@ const validate = {
     text: validateText,
     id: validateId,
     callback: validateCallback,
-    number: validateNumber
+    number: validateNumber,
+    phone: validatePhone,
+    postalCode: validatePostalCode
 }
 
 export default validate

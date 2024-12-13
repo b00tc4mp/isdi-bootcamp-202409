@@ -6,7 +6,7 @@ export default function Footer() {
     return (
         <div>
             <hr className='w-full border-1 bg-green-700 border-green-700' />
-            <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
+            <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-30 text-sm'>
                 <div className="flex flex-col items-center justify-end">
                     <img src={assets.LogoEntelequiaVector} className="mb-2 w-48" alt="" />
                     <p className='w-full md:w-2/3 text-white text-left'>We are pioneers in the sale of cult products in the country. With more than 40 years of experience in the field, we differentiate ourselves by our personalized service, our friendly customer service and our passion for art and the fantastic world.</p>

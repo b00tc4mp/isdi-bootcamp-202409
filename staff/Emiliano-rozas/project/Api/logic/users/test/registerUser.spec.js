@@ -12,7 +12,7 @@ import { errors } from 'com'
 
 const { DuplicityError } = errors
 
-import registerUser from './registerUser.js'
+import registerUser from '../registerUser.js'
 
 describe('registerUser', () => {
     // before(async () => await db.connect(process.env.MONGO_URL_TEST))

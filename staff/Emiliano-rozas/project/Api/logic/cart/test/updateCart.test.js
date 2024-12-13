@@ -1,12 +1,12 @@
 import 'dotenv/config'
 import db from 'dat'
-import removeAllFromCart from './removeAllFromCart.js'
+import updateCart from '../updateCart.js'
 
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return removeAllFromCart('67544252fd819d95f42aa5e5', '675442827dba1b0f041d03d3')
-                .then(cart => console.dir(cart, { colors: true, depth: 10 })) // undefined
+            return updateCart('675973b7241f04a0fa79c51a', '675973b8241f04a0fa79c522', 1)
+                .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {
             console.error(error)

@@ -1,6 +1,8 @@
 import {
     registerUser,
-    authenticateUser
+    authenticateUser,
+    updateUserProfile,
+    getUserProfile
 } from './users/index.js'
 
 import {
@@ -32,6 +34,8 @@ import {
 const logic = {
     registerUser,
     authenticateUser,
+    updateUserProfile,
+    getUserProfile,
     getProducts,
     createProduct,
     addToCart,
@@ -45,5 +49,6 @@ const logic = {
     retrievePayment,
     stripePayment,
     updateCart
+
 }
 export default logic

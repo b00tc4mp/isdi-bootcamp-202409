@@ -6,7 +6,8 @@ import {
     isUserRoleRegular,
     isUserLoggedIn,
     logoutUser,
-    getUserId
+    getUserId,
+    updateUserProfile
 } from './users/index';
 
 import {
@@ -37,6 +38,7 @@ const logic = {
     isUserLoggedIn,
     logoutUser,
     getUserId,
+    updateUserProfile,
     getProducts,
     getCart,
     addTocart,

@@ -14,7 +14,7 @@ import { errors } from 'com';
 
 const { NotFoundError } = errors;
 
-import updateCart from './updateCart.js';
+import updateCart from '../updateCart.js';
 
 debugger
 describe('updateCart', () => {

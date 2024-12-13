@@ -12,7 +12,7 @@ import { errors } from 'com'
 
 const { CredentialsError } = errors
 
-import authenticateUser from './authenticateUser.js'
+import authenticateUser from '../authenticateUser.js'
 
 debugger
 

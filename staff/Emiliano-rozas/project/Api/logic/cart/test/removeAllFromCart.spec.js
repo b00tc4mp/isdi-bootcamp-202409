@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import db, { User, Product, Cart, CartItem } from 'dat';
 import { errors } from 'com';
-import removeAllFromCart from './removeAllFromCart.js';
+import removeAllFromCart from '../removeAllFromCart.js';
 import bcrypt from 'bcryptjs'
 import mongoose from 'mongoose';
 
