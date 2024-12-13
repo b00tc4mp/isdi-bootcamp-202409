@@ -12,6 +12,8 @@ import LogoEntelequiaVector from './LogoEntelequiaVector.png'
 import binIcon from './binIcon.png'
 import stripeLogo from './stripeLogo.png'
 import razorPayLogo from './razorPayLogo.png'
+import favoriteIcon from './favoriteIcon.png'
+import reviewIcon from './reviewIcon.png'
 
 const assets = {
 
@@ -28,7 +30,9 @@ const assets = {
     totoro,
     binIcon,
     stripeLogo,
-    razorPayLogo
+    razorPayLogo,
+    favoriteIcon,
+    reviewIcon
 }
 
 

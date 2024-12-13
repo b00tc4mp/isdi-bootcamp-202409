@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import db from 'dat'
-import updateOrder from './updateOrder.js'
+import placeOrder from '../placeOrder.js'
 
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return updateOrder('675303e4f5d792460d83ba43', 'confirmed')
+            return placeOrder('675973b7241f04a0fa79c51a')
                 .then(console.log) // undefined
                 .catch(console.error)
         } catch (error) {

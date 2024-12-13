@@ -9,6 +9,7 @@ import PlaceOrder from './PlaceOrder'
 import ProductDetail from './ProductDetail'
 import Products from "./Products";
 import Register from "./Register";
+import UserProfile from "./UserProfile";
 
 export {
     About,
@@ -21,5 +22,6 @@ export {
     PlaceOrder,
     ProductDetail,
     Products,
-    Register
+    Register,
+    UserProfile
 }

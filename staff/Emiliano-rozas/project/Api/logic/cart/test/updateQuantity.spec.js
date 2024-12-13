@@ -14,7 +14,7 @@ import { errors } from 'com';
 
 const { NotFoundError } = errors;
 
-import updateQuantity from './updateQuantity.js';
+import updateQuantity from '../updateQuantity.js';
 
 describe('updateQuantity', () => {
     before(async () => {

@@ -7,7 +7,7 @@ chai.use(chaiAsPromised);
 const { expect } = chai;
 
 import db, { User, Product, Order, OrderItem } from 'dat';
-import getOrders from './getOrders.js';
+import getOrders from '../getOrders.js';
 import { errors } from 'com';
 import mongoose from 'mongoose';
 

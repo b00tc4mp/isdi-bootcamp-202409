@@ -10,7 +10,7 @@ chai.use(chaiAsPromised);
 const { expect } = chai;
 
 import db, { User, Product, Order, OrderItem } from 'dat';
-import updateOrder from './updateOrder.js';
+import updateOrder from '../updateOrder.js';
 import { errors } from 'com';
 
 const { NotFoundError, SystemError } = errors;

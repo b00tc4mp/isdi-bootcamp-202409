@@ -7,62 +7,67 @@
 
 
 a.active hr {
-    display: block;
+  display: block;
 }
 
 a.active p {
-    color: green;
+  color: green;
 }
 
 * {
-    font-family: "Montserrat";
+  font-family: "Montserrat";
 }
 
 .playfair-display-uniquifier {
-    font-family: "Playfair Display", serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
 }
 
 .dropdown-menu {
-    transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-::-webkit-scrollbar{
-    display: none;
+::-webkit-scrollbar {
+  display: none;
 }
 
 .product-detail-main-image {
-    width: 100%;
-    height: 500px; /* Ajusta este valor para lograr el aspecto deseado */
-    object-fit: contain; /* Esto hace que la imagen se mantenga dentro del contenedor sin recortarse */
+  width: 100%;
+  height: 500px;
+  /* Ajusta este valor para lograr el aspecto deseado */
+  object-fit: contain;
+  /* Esto hace que la imagen se mantenga dentro del contenedor sin recortarse */
 }
 
 .product-thumbnail {
-    width: 80px; /* Ajusta según el diseño */
-    height: 80px;
-    object-fit: cover; /* Esto llenará el contenedor y recortará lo necesario */
-    margin-bottom: 10px; /* Espacio entre miniaturas */
-    cursor: pointer;
+  width: 80px;
+  /* Ajusta según el diseño */
+  height: 80px;
+  object-fit: cover;
+  /* Esto llenará el contenedor y recortará lo necesario */
+  margin-bottom: 10px;
+  /* Espacio entre miniaturas */
+  cursor: pointer;
 }
 
 @keyframes flowGradient {
-    0% {
-      background-position: 0% 0%;
-    }
-    50% {
-      background-position: 100% 100%;
-    }
-    100% {
-      background-position: 0% 0%;
-    }
+  0% {
+    background-position: 0% 0%;
   }
-  
-  .animated-gradient {
-    background: radial-gradient(circle, rgba(1, 40, 1, 0.295) 20%, transparent 80%), #000000;
-    background-size: 250% 250%;
-    animation: flowGradient 8s ease-in-out infinite;
+
+  50% {
+    background-position: 100% 100%;
   }
-  
-  
+
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.animated-gradient {
+  background: radial-gradient(circle, rgba(1, 40, 1, 0.295) 20%, transparent 80%), #000000;
+  background-size: 250% 250%;
+  animation: flowGradient 8s ease-in-out infinite;
+}

@@ -5,6 +5,7 @@ import isUserRoleModerator from './isUserRoleModerator'
 import isUserLoggedIn from './isUserLoggedIn'
 import logoutUser from './logoutUser'
 import getUserId from './getUserId'
+import updateUserProfile from './updateUserProfile'
 
 export {
     registerUser,
@@ -13,6 +14,7 @@ export {
     isUserRoleRegular,
     isUserLoggedIn,
     logoutUser,
-    getUserId
+    getUserId,
+    updateUserProfile
 }
 

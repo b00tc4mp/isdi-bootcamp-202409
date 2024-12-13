@@ -10,7 +10,8 @@ import Title from './Title'
 import RelatedProducts from './RelatedProducts'
 import CartTotal from './CartTotal'
 import PaymentForm from './PaymentForm'
-
+import SideBar from './SideBar'
+import UserInfo from './UserInfo'
 
 export {
     Hero,
@@ -24,6 +25,7 @@ export {
     Title,
     RelatedProducts,
     CartTotal,
-    PaymentForm
-
+    PaymentForm,
+    SideBar,
+    UserInfo
 }

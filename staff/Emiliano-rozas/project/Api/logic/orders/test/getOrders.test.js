@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import db from 'dat'
-import getOrders from './getOrders.js'
+import getOrders from '../getOrders.js'
 
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {

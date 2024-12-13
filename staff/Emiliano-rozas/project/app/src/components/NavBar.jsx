@@ -55,7 +55,9 @@ export default function NavBar() {
 
                             <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 transition-all duration-400 ease-in-out z-50'>
                                 <div className='flex flex-col gap-2 w-36 py-3 px-5 border-solid border-2 bg-black border-green-700 text-white '>
-                                    <p className='cursor-pointer hover:text-green-700'>My Profile</p>
+                                    <NavLink to='/userProfile'>
+                                        <p className='cursor-pointer hover:text-green-700'>My Profile</p>
+                                    </NavLink>
                                     <NavLink to='/orders'>
                                         <p className='cursor-pointer hover:text-green-700'>Orders</p>
                                     </NavLink>

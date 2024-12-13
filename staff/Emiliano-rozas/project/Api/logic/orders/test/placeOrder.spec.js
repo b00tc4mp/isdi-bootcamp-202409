@@ -9,7 +9,7 @@ chai.use(chaiAsPromised);
 const { expect } = chai;
 
 import db, { User, Product, Cart, CartItem, Order, OrderItem } from 'dat';
-import placeOrder from './placeOrder.js';
+import placeOrder from '../placeOrder.js';
 import { errors } from 'com';
 
 const { NotFoundError } = errors;

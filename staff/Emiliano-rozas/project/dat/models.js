@@ -31,19 +31,33 @@ const user = new Schema({
         enum: ['regular', 'moderator'],
         default: 'regular',
     },
-    profilePicture: {
+    street: {
         type: String,
         default: '',
+        maxLength: 30
     },
-    address: {
-        street: { type: String, default: '' },
-        city: { type: String, default: '' },
-        country: { type: String, default: '' },
-        postalCode: { type: String, default: '' },
+    city: {
+        type: String,
+        default: '',
+        maxLength: 30
+
+    },
+    country: {
+        type: String,
+        default: '',
+        maxLength: 30
+    },
+    postalCode: {
+        type: String,
+        default: '',
+        maxLength: 30,
+        match: /^[A-Za-z0-9\s]{4,10}$/
     },
     phone: {
         type: String,
         default: '',
+        maxLength: 30,
+        match: /^\+?[1-9]\d{1,14}$/
     },
 }, { versionKey: false });
 

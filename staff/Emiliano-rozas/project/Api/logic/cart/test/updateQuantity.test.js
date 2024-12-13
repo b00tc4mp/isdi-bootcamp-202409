@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import db from 'dat'
-import updateQuantity from './updateQuantity.js'
+import updateQuantity from '../updateQuantity.js'
 
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
