@@ -5,6 +5,9 @@ import getSubCategorias from "./products/getSubCategorias.js";
 import createProducto from "./products/createProducto.js";
 import getProducts from "./products/getProducts.js";
 import getProductDetails from "./products/getProductDetails.js";
+import getLocations from "./getLocations.js";
+import setUserFavorites from "./users/setUserFavorites.js";
+import getUserFavorites from "./users/getUserFavorites.js";
 
 const logic = {
   authenticateUser,
@@ -14,6 +17,9 @@ const logic = {
   createProducto,
   getProducts,
   getProductDetails,
+  getLocations,
+  setUserFavorites,
+  getUserFavorites
 };
 
 export default logic;

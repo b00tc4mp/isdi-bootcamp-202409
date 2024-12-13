@@ -2,9 +2,9 @@ export const registerUser = ({
   firstName,
   lastName,
   email,
+  ubicacion,
   password,
   passwordRepeat,
-  location,
 }) => {
   return fetch(`http://${"localhost:8080"}/register`, {
     method: "POST",
@@ -13,9 +13,9 @@ export const registerUser = ({
       firstName,
       lastName,
       email,
+      ubicacion,
       password,
-      passwordRepeat,
-      location,
+      passwordRepeat
     }),
   })
     .then((res) => {

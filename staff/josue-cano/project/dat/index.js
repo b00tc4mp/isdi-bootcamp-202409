@@ -1,5 +1,5 @@
 import { connect, disconnect } from "mongoose";
-import { User, Producto, Comment, Categoria, Subcategoria } from "./models.js";
+import { User, Producto, Comment, Categoria, Subcategoria, Ubicacion } from "./models.js";
 
 const db = {
   connect,
@@ -8,4 +8,4 @@ const db = {
 
 export default db;
 
-export { User, Producto, Comment, Categoria, Subcategoria };
+export { User, Producto, Comment, Categoria, Subcategoria, Ubicacion };

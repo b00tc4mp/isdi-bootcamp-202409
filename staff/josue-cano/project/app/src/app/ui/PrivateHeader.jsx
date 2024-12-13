@@ -25,7 +25,7 @@ export default function PrivateHeader({ logout }) {
           >
             Subir producto
           </Link>
-          <Link href="/favoritos" className="text-sm font-medium text-gray-800">
+          <Link href="/users/favorites" className="text-sm font-medium text-gray-800">
             Favoritos
           </Link>
           <Link href="/mensajes" className="text-sm font-medium text-gray-800">

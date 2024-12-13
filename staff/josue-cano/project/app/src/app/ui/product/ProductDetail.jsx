@@ -17,11 +17,11 @@ export default function ProductDetail({ id }) {
       });
   }, []);
   return (
-    <div className="card bg-base-100 w-1/2  mx-auto m-5">
+    <div className="card bg-base-100 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto m-5">
       <div className="card-body">
         {/* nombre es la variable y producto el valor que insertaremos en la variable */}
         <ProductHeader name={product?.name} />
-        <section>
+        <section className="">
           <CarouselComponent images={product?.images} />
         </section>
         {/* Mostrar el precio del producto */}

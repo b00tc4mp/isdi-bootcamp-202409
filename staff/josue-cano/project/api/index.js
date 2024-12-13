@@ -28,7 +28,6 @@ db.connect(process.env.MONGO_URL)
 
     server.post("/login", (req, res) => {
       const user = req.body;
-      console.trace(user);
       logic
         .authenticateUser(user)
         .then((token) => res.json({ data: token }))
@@ -40,6 +39,30 @@ db.connect(process.env.MONGO_URL)
       const token = req.headers.authorization.slice(7);
       res.json({ data: { status: utils.validateToken(token) } });
       // .then((status) => res.json(status))
+    });
+    
+
+    // get favorite products
+    server.get("/favorites", helpers.authorizationHandler, (req, res) => {
+
+      const id = req.userId;
+
+      logic
+        .getUserFavorites({ id })
+        .then(products => res.json({ data: products }))
+        .catch((msg) => res.status(400).json({ error: msg.message }));
+    });
+
+
+    // set favorite products
+    server.patch("/favorites", helpers.authorizationHandler, (req, res) => {
+      const {favorite} = req.body;
+      const id = req.userId;
+
+      logic
+        .setUserFavorites({id, favorite})
+        .then((token) => res.json({ data: token }))
+        .catch((msg) => res.status(400).json({ error: msg.message }));
     });
 
     //register
@@ -66,8 +89,8 @@ db.connect(process.env.MONGO_URL)
      */
     server.get("/products/:id", (req, res) =>
       logic
-        .getProductDetails(req.params.id)
-        .then((producto) => res.json({ data: producto }))
+      .getProductDetails(req.params.id)
+      .then((producto) => res.json({ data: producto }))
     );
 
     /**
@@ -120,9 +143,18 @@ db.connect(process.env.MONGO_URL)
       req.pipe(bb);
     });
     /**
+     * Obtener las localidades
+     *
+     * */
+    server.get("/locations", (_, res) => {
+      logic
+        .getLocations()
+        .then((locations) => res.json({ data: locations }));
+    });
+    /**
      * obtener todas las categorias
      */
-    server.get("/categorias", (req, res) => {
+    server.get("/categorias", (_, res) => {
       logic
         .getCategorias()
         .then((categorias) => res.json({ data: categorias }));
@@ -130,7 +162,7 @@ db.connect(process.env.MONGO_URL)
     /**
      * obtener todas las subcategorias
      */
-    server.get("/subcategorias", (req, res) => {
+    server.get("/subcategorias", (_, res) => {
       logic
         .getSubCategorias()
         .then((subcategorias) => res.json({ data: subcategorias }));

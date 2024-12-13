@@ -6,5 +6,4 @@ const Home = () => (
     <NewProduct />
   </div>
 );
-
 export default Home;

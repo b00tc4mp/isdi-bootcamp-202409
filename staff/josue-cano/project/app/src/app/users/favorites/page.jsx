@@ -1,17 +1,18 @@
 'use client'
-import { useEffect, useState } from "react";
-import SearchComponent from "./ui/SearchComponent";
-import ProductListComponent from "./ui/home/ProductListComponent";
-import { getProducts } from "@/app/logic/products/getProducts";
+import {useEffect, useState} from 'react';
+import SearchComponent from "@/app/ui/SearchComponent";
+import ProductListComponent from "@/app/ui/home/ProductListComponent";
+import { getFavorites } from "@/app/logic/products/getFavorites";
 
 export default function Index() {
+
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null); // Manejo de errores
 
   // Efecto para cargar los productos al montar el componente
   useEffect(() => {
     // Llama a la función para obtener los productos
-    getProducts()
+    getFavorites()
       .then((data) => {
         setProducts(data); // Actualiza los productos en el estado
       })
@@ -23,10 +24,13 @@ export default function Index() {
   if (error) {
     return <p>Error al cargar productos: {error.message}</p>; // Muestra un mensaje de error
   }
+
+
+
   return (
     <section>
-      <SearchComponent />
       <ProductListComponent products={products}/>
     </section>
   );
 }
+

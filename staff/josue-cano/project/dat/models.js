@@ -23,7 +23,7 @@ const user = new Schema(
       required: true,
       unique: true,
       match:
-        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
     },
     password: {
       type: String,
@@ -36,49 +36,58 @@ const user = new Schema(
       required: false,
     },
     ubicacion: {
-      type: String,
+      type: ObjectId,
+      ref: 'Ubicacion'
     },
+            favorites: [
+              {
+                type: ObjectId,
+                ref: "Producto",
+              },
+            ],
   },
   {
     timestamps: true, // Agrega campos `createdAt` y `updatedAt` automáticamente
     versionKey: false,
   }
-);
+      );
 
 const comment = new Schema({
-  author: {
-    type: ObjectId,
-    required: true,
-    ref: "User",
-  },
-  text: {
-    type: String,
-    required: true,
-    maxLength: 200,
-  },
-  date: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-});
+          author: {
+            type: ObjectId,
+            required: true,
+            ref: "User",
+          },
+          text: {
+            type: String,
+            required: true,
+            maxLength: 200,
+          },
+          date: {
+            type: Date,
+            required: true,
+            default: Date.now,
+          },
+        });
 
-const categoria = new Schema(
-  {
-    nombre: {
-      type: String,
-      required: true,
-      minLength: 2,
-    },
-    subcategorias: [
-      {
-        type: ObjectId,
-        ref: "Subcategoria",
-      },
-    ],
-  },
-  { versionKey: false }
-);
+        const categoria = new Schema(
+          {
+            nombre: {
+              type: String,
+              required: true,
+              minLength: 2,
+            },
+            subcategorias: [
+              {
+                type: ObjectId,
+                ref: "Subcategoria",
+              },
+            ],
+          },
+          { 
+    timestamps: true,
+            versionKey: false }
+        );
 
 const subcategoria = new Schema(
   {
@@ -93,7 +102,9 @@ const subcategoria = new Schema(
       ref: "Categoria",
     },
   },
-  { versionKey: false }
+  { 
+    timestamps: true,
+    versionKey: false }
 );
 const producto = new Schema(
   {
@@ -106,6 +117,11 @@ const producto = new Schema(
       type: Number,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+      maxlength: 500,
+    },
     author: {
       type: ObjectId,
       required: true,
@@ -117,11 +133,6 @@ const producto = new Schema(
         required: true,
       },
     ],
-    description: {
-      type: String,
-      required: true,
-      maxLength: 200,
-    },
     idCategoria: {
       type: ObjectId, // Relación con la colección de categorías
       required: true,
@@ -145,11 +156,28 @@ const producto = new Schema(
     versionKey: false,
   }
 );
+const ubicacion = new Schema(
+  {
+    ciudad: {
+      type: String,
+      required: true,
+      minLength: 2,
+    },
+    src: {
+      type: String,
+      required: true,
+    },
+  },
+  { 
+    timestamps: true,
+    versionKey: false }
+);
 
 const User = model("User", user);
 const Producto = model("Producto", producto);
 const Comment = model("Comment", comment);
 const Categoria = model("Categoria", categoria);
 const Subcategoria = model("Subcategoria", subcategoria);
+const Ubicacion = model('Ubicacion', ubicacion, 'ubicaciones');
 
-export { User, Producto, Comment, Categoria, Subcategoria };
+export { User, Producto, Comment, Categoria, Subcategoria, Ubicacion };

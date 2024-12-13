@@ -1,8 +1,19 @@
 "use client";
 import { redirect } from "next/navigation";
 import { registerUser } from "../logic/registerUser";
+import { getLocations } from "../logic/getLocations";
+import { useEffect, useState } from "react";
 
 export default function Register() {
+    const [locations, setLocations] = useState([]);
+
+    useEffect(() => {
+        getLocations()
+        .then(locations => setLocations(locations));
+
+    }, []);
+
+
   function handleRegister(event) {
     event.preventDefault();
     const fields = event.target;
@@ -10,18 +21,18 @@ export default function Register() {
     const firstName = fields.firstName.value;
     const lastName = fields.lastName.value;
     const email = fields.email.value;
+    const ubicacion = fields.city.value;
     const password = fields.password.value;
     const passwordRepeat = fields.passwordRepeat.value;
-    const location = fields.location.value;
 
-    registerUser({
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordRepeat,
-      location,
-    })
+      registerUser({
+          firstName,
+          lastName,
+          email,
+          ubicacion,
+          password,
+          passwordRepeat,
+      })
     .then(()=> {
       redirect("/login");
     })
@@ -104,7 +115,7 @@ export default function Register() {
               <span className="label-text font-medium">Localidad*</span>
             </label>
             <select
-              name="location"
+              name="city"
               className="select select-bordered w-full"
               defaultValue={""}
               required
@@ -112,8 +123,7 @@ export default function Register() {
               <option value="" disabled>
                 Seleccione su localidad
               </option>
-              <option value="Castellar del Valles">Castellar del Valles</option>
-              <option value="Sabadell">Sabadell</option>
+      {locations.map(location => (<option key={location._id} value={location._id}>{location.ciudad}</option>)) }
             </select>
           </div>
           <div className="form-control">

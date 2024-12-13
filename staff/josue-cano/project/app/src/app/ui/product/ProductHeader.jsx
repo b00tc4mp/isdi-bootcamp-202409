@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function ProductHeader({nombre}) {
+export default function ProductHeader({name}) {
   return (
     <div className="flex flex-row  justify-between"> 
     <div className="flex flex-row">
@@ -12,7 +12,7 @@ export default function ProductHeader({nombre}) {
       </div>
 
       <div>
-        <p>{nombre}</p>
+        <p>{name}</p>
         <div className="rating">
           <input
             type="radio"
