@@ -1,12 +1,16 @@
 import { useState } from 'react'
+
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { Login, Register, Home, CreateRecommend, Profile, RecommendDetail, RecommendCategoryCountry } from './view/index.js' // add  CreateRecommend 
+
+import { Login, Register, Home, CreateRecommend, Profile, RecommendDetail } from './view/index.js' // add  CreateRecommend 
+
 import { Header, Footer, Alert, Confirm } from './view/components/index.js'
+
 import { Context } from './view/useContext.js'
 
-import logic from './logic/index.js'
+import logic from './logic/index.js' //import loginUser from './logic/user/loginUser.js'
 import Categories from './view/components/Categories.jsx'
-//import RecommendCategory from './view/RecommendCategoryCountry.jsx'
+import RecommendCategory from './view/RecommendCategory.jsx'
 
 export default function App() {
   const [alert, setAlert] = useState({
@@ -94,7 +98,7 @@ export default function App() {
 
         <Route path='/categories' element={logic.isUserLoggedIn() ? <Categories /> : <Navigate to='/login' />} />
 
-        <Route path='/categories/:category/countries/:country' element={logic.isUserLoggedIn() ? <RecommendCategoryCountry /> : <Natvigate to='/login' />}></Route>
+        <Route path='/categories/:category' element={logic.isUserLoggedIn() ? <RecommendCategory /> : <Navigate to='/login' />} />
 
         <Route path='/recommends/users/:userId/' element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to='/login' />} />
 
@@ -115,6 +119,3 @@ export default function App() {
 
   </Context.Provider>
 }
-
-
-//<Route path='/categories/:category' element={logic.isUserLoggedIn() ? <RecommendCategory /> : <Navigate to='/login' />} />
