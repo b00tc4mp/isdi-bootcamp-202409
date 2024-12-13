@@ -51,7 +51,8 @@ export default function RootLayout({ children }) {
         ) : (
           <PublicHeader />
         )}
-        {children}
+        <main className="container mx-auto">{children}</main>
+
         <TheFooter />
       </body>
     </html>

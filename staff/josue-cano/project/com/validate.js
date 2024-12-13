@@ -60,6 +60,15 @@ const validateCallback = (callback) => {
   if (typeof callback !== "function")
     throw new ValidationError("invalid callback");
 };
+const validateUbicacion = (ubicacion) => {
+  if (typeof ubicacion !== "string") {
+    throw new ValidationError("invalid ubicacion");
+  }
+  if (ubicacion.length < 3 || ubicacion.length > 50) {
+    throw new ValidationError("invalid ubicacion length");
+  }
+};
+
 
 const validate = {
   firstName: validatefirstName,
@@ -72,6 +81,7 @@ const validate = {
   id: validateId,
   callback: validateCallback,
   userName: validateUsername,
+  ubicacion: validateUbicacion,
 };
 
 export default validate;

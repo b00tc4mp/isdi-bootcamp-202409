@@ -1,7 +1,7 @@
 "use client";
 import { redirect } from "next/navigation";
-import { registerUser } from "../logic/registerUser";
-import { getLocations } from "../logic/getLocations";
+import { registerUser } from "../logic/users/registerUser";
+import { getLocations } from "../logic/users/getLocations";
 import { useEffect, useState } from "react";
 
 export default function Register() {

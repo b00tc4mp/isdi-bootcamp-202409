@@ -1,8 +1,10 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
 import SearchComponent from "./ui/SearchComponent";
-import ProductListComponent from "./ui/home/ProductListComponent";
+import ProductListComponent from "./ui/product/ProductListComponent";
 import { getProducts } from "@/app/logic/products/getProducts";
+import EkoalitySection from "./ui/home/sobreNosotros";
+import ExCompra from "./ui/home/exCompra";
 
 export default function Index() {
   const [products, setProducts] = useState([]);
@@ -26,7 +28,9 @@ export default function Index() {
   return (
     <section>
       <SearchComponent />
-      <ProductListComponent products={products}/>
+      <ProductListComponent products={products} />
+      <EkoalitySection />
+      <ExCompra />
     </section>
   );
 }

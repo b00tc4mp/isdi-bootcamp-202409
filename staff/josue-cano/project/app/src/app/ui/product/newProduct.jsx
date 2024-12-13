@@ -21,9 +21,7 @@ const NewProduct = () => {
   }, []);
 
   const handleCategoriaChange = (evt) => {
-    setSubCategoriasActuales(
-      subcategorias.filter((x) => x.idCategoria == evt.target.value)
-    );
+    setSubCategoriasActuales(subcategorias.filter((x) => x.idCategoria == evt.target.value));
     setFormData({
       ...formData,
       ["idCategoria"]: evt.target.value,
@@ -74,13 +72,8 @@ const NewProduct = () => {
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-        Nuevo producto
-      </h2>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-      >
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Nuevo producto</h2>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         {/* Nombre del producto */}
         <div>
           <label htmlFor="name">Nombre del producto</label>
@@ -103,8 +96,7 @@ const NewProduct = () => {
             name="categoria"
             defaultValue={formData.idCategoria}
             onChange={handleCategoriaChange}
-            style={inputStyle}
-          >
+            style={inputStyle}>
             <option value="">Seleccione</option>
             {categorias?.map((categoria) => (
               <option key={categoria._id} value={categoria._id}>
@@ -122,8 +114,7 @@ const NewProduct = () => {
             name="idSubcategoria"
             defaultValue={formData.idSubcategoria}
             onChange={handleChange}
-            style={inputStyle}
-          >
+            style={inputStyle}>
             <option value="">Seleccione</option>
             {subcategoriasActuales?.map((subcategoria) => (
               <option key={subcategoria._id} value={subcategoria._id}>
@@ -149,9 +140,7 @@ const NewProduct = () => {
 
         {/* Descripción */}
         <div>
-          <label htmlFor="description">
-            Descripción e información del producto
-          </label>
+          <label htmlFor="description">Descripción e información del producto</label>
           <textarea
             id="description"
             name="description"
@@ -170,8 +159,7 @@ const NewProduct = () => {
             display: "flex",
             gap: "10px",
             justifyContent: "space-between",
-          }}
-        >
+          }}>
           {formData.images.map((imagen, index) => (
             <div
               key={index}
@@ -185,11 +173,8 @@ const NewProduct = () => {
                 cursor: "pointer",
                 position: "relative",
                 overflow: "hidden",
-                background: imagen
-                  ? `url(${imagen.image}) center/cover`
-                  : "#f0f0f0",
-              }}
-            >
+                background: imagen ? `url(${imagen.image}) center/cover` : "#f0f0f0",
+              }}>
               {!imagen && "+"}
               <input
                 type="file"
@@ -218,8 +203,7 @@ const NewProduct = () => {
             border: "none",
             cursor: "pointer",
             fontSize: "16px",
-          }}
-        >
+          }}>
           Subir producto
         </button>
       </form>

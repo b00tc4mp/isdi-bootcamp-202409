@@ -43,7 +43,7 @@ export default function Login() {
               placeholder="password"
               id="password"
               className="input input-bordered"
-              required
+              requiredS
             />
             <label className="label">
               <a href="#" className="label-text-alt link link-hover">

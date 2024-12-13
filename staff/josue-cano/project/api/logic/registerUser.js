@@ -8,8 +8,8 @@ export default ({ firstName, lastName, email, ubicacion, password, passwordRepea
   try {
     validate.firstName(firstName);
     validate.lastName(lastName);
-    validate.firstName(ubicacion);
     validate.email(email);
+    validate.ubicacion(ubicacion);
     validate.password(password);
     validate.passwordsMatch(password, passwordRepeat);
 
