@@ -4,6 +4,9 @@ import isPlayerLoggedIn from './isPlayerLoggedIn'
 import logoutPlayer from './logoutPlayer'
 import getPlayerId from './getPlayerId'
 import getPlayerUsername from './getPlayerUsername'
+import getPlayerState from './getPlayerState'
+import createPlayerState from './createPlayerState'
+import deletePlayerState from './deletePlayerState'
 
 export {
     registerPlayer,
@@ -11,5 +14,8 @@ export {
     isPlayerLoggedIn,
     logoutPlayer,
     getPlayerId,
-    getPlayerUsername
+    getPlayerUsername,
+    getPlayerState,
+    createPlayerState,
+    deletePlayerState
 }

@@ -1,14 +1,15 @@
-import { MongoError } from 'mongodb'
 import { Player, PlayerState, Quest } from 'dat'
 import { validate, errors } from 'com'
+import PlayerStateType from 'dat/types/PlayerStateType.js'
+import playerState from 'dat/schemas/playerState.js'
 
-const { SystemError, NotFoundError, DuplicityError } = errors
+const { SystemError, NotFoundError } = errors
 
 export default (playerId: string): Promise<void> => {
     validate.id(playerId, 'playerId')
 
     return (async (): Promise<void> => {
-        let player, questName
+        let player, questName, playerState
 
         try {
             player = await Player.findById(playerId).lean()
@@ -25,12 +26,34 @@ export default (playerId: string): Promise<void> => {
         if (!questName) { throw new NotFoundError('quest not found') }
 
         try {
-            await PlayerState.create({
-                player: playerId,
-                quest: questName
-            })
+            playerState = await PlayerState.findOne({ player: playerId }).lean()
         } catch (error) {
             throw new SystemError((error as Error).message)
+        }
+
+        if (playerState) {
+            try {
+                await PlayerState.updateOne({
+                    player: playerId
+                }, {
+                    player: playerId,
+                    quest: questName,
+                    characters: []
+                }, {
+                    upsert: true
+                })
+            } catch (error) {
+                throw new SystemError((error as Error).message)
+            }
+        } else {
+            try {
+                await PlayerState.create({
+                    player: playerId,
+                    quest: questName
+                })
+            } catch (error) {
+                throw new SystemError((error as Error).message)
+            }
         }
     })()
 }

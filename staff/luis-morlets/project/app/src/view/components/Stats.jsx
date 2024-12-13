@@ -12,7 +12,7 @@ export default function Stats({ character }) {
             <h2 className="text-3xl text-black">{name}</h2>
             <h3 className="text-3xl text-black">{charClass}</h3>
             <h3 className="text-3xl text-black">{race}</h3>
-            <div>
+            <div className="w-[40%] self-center">
                 <p>AC: {statistics.armorClass}</p>
                 <p>HP: {statistics.hitPoints}</p>
                 <p>Strength: {statistics.strength}</p>

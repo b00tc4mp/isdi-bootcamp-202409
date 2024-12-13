@@ -2,12 +2,10 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (playerStateId, characterId) => {
-    validate.id(playerStateId, 'playerStateId')
+export default characterId => {
     validate.id(characterId, 'characterId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/game/${playerStateId}/${characterId}`, {
-        method: 'POST',
+    return fetch(`http://${import.meta.env.VITE_API_URL}/game/character/${characterId}`, {
         headers: {
             'Authorization': `Bearer ${localStorage.token}`
         }
@@ -15,12 +13,13 @@ export default (playerStateId, characterId) => {
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (res.ok)
-                return
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
 
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => {
-                    throw new errors[error(message)]
+                    throw new errors[error](message)
                 })
         })
 }

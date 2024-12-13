@@ -17,7 +17,22 @@ export default function Singleplayer({ onQuitClick, onNewAdventure }) {
     const handleNewAdvClick = event => {
         event.preventDefault()
 
-        onNewAdventure()
+        confirm('You are about to start a new adventure, old data will be deleted.', async (accepted) => {
+            if (accepted) {
+                try {
+                    await logic.createPlayerState()
+
+                    await logic.getPlayerState()
+
+                    onNewAdventure()
+
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
+            }
+        }, 'warn')
     }
 
     return <main className="flex flex-col items-center justify-center h-screen w-screen bg-cover bg-center gap-24" style={{ backgroundImage: "url('/images/cursed.jpg')" }}>

@@ -1,6 +1,5 @@
-import { create } from 'domain'
-import { getCharacters, getQuests, getItem, getCharacter, addCharacter } from './game/index.js'
-import { registerPlayer, authenticatePlayer, getPlayerUsername, createPlayerState, deletePlayerState } from './player/index.js'
+import { getCharacters, getQuests, getItem, getCharacter, addCharacter, removeCharacter, getCharacterByUuid } from './game/index.js'
+import { registerPlayer, authenticatePlayer, getPlayerUsername, createPlayerState, deletePlayerState, getPlayerState } from './player/index.js'
 
 const logic = {
     authenticatePlayer,
@@ -8,12 +7,15 @@ const logic = {
     getPlayerUsername,
     createPlayerState,
     deletePlayerState,
+    getPlayerState,
 
     getQuests,
     getCharacters,
     getItem,
     getCharacter,
-    addCharacter
+    addCharacter,
+    removeCharacter,
+    getCharacterByUuid
 }
 
 export default logic

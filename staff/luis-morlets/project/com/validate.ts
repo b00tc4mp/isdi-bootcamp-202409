@@ -40,13 +40,17 @@ const validateId = (id: string, explain = 'id') => {
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
-const validateUuid = (id: string, explain: string = 'uuid') => {
-    if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
-    if (!['eldon-brightstaff', 'phinolle-dalvush', 'grothar-skullcrusher', 'thalin-lightbringer', 'camilla-la-croix', 'qivos-shadowstep'].includes(id)) throw new ValidationError(`invalid ${explain}`)
+const validateUuid = (uuid: string, explain: string = 'uuid') => {
+    if (typeof uuid !== 'string') throw new ValidationError(`invalid ${explain}`)
+    if (!['eldon-brightstaff', 'phinolle-dalvush', 'grothar-skullcrusher', 'thalin-lightbringer', 'camilla-la-croix', 'qivos-shadowstep'].includes(uuid)) throw new ValidationError(`invalid ${explain}`)
 }
 
 const validateCallback = (callback: Function) => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
+}
+
+const validateArray = (array: string[], explain: string = 'array') => {
+    if (array.length === 4) throw new ValidationError(`${explain} length must have 4 characters`)
 }
 
 const validate = {
@@ -58,7 +62,8 @@ const validate = {
     text: validateText,
     id: validateId,
     callback: validateCallback,
-    uuid: validateUuid
+    uuid: validateUuid,
+    array: validateArray
 }
 
 export default validate

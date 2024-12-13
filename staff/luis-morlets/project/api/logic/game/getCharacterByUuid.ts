@@ -4,9 +4,8 @@ import CharacterType from 'dat/types/CharacterType.js'
 
 const { SystemError, NotFoundError } = errors
 
-export default (playerId: string, characterId: string): Promise<CharacterType> => {
+export default (playerId: string, characterUuid: string): Promise<CharacterType> => {
     validate.id(playerId, 'playerId')
-    validate.id(characterId, 'characterId')
 
     return (async (): Promise<CharacterType> => {
         let player, character
@@ -19,7 +18,7 @@ export default (playerId: string, characterId: string): Promise<CharacterType> =
         if (!player) { throw new NotFoundError('player not found') }
 
         try {
-            character = await Character.findById(characterId).populate('items').lean<CharacterType>()
+            character = await Character.findOne({ uuid: characterUuid }).populate('items').lean<CharacterType>()
         } catch (error) { throw new SystemError((error as Error).message) }
 
         if (!character) throw new NotFoundError('character not found')
