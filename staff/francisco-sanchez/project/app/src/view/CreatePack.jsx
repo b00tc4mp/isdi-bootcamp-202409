@@ -44,6 +44,7 @@ export default function Create(props) {
                     form.reset()
                     alert(' New pack was created successfully', 'success')
                     //aquí iria un props onLoquesea() si quiero moverme 
+                    props.onPackCreated()
 
                 })
                 .catch(error => {

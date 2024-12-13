@@ -3,10 +3,9 @@ import { validate, errors } from "com";
 
 const { SystemError, NotFoundError } = errors;
 
-export default async (userId, userUsername) => {
+export default async (userId, userEmail) => {
     // Validaciones de entrada
     validate.id(userId, "userId");
-    validate.username(userUsername);
 
     try {
         // Busca el usuario principal por ID
@@ -14,8 +13,8 @@ export default async (userId, userUsername) => {
         if (!user) throw new NotFoundError("User not found");
 
         // Busca el usuario objetivo por email
-        const targetUser = await User.findOne({ username: userUsername }).lean();
-        if (!targetUser) throw new NotFoundError("Target user not found");
+        const targetUser = await User.findOne({ email: userEmail }).lean();
+        if (!targetUser) throw new NotFoundError("Email not found");
 
         // Devuelve el _id del usuario objetivo
         return targetUser._id.toString();

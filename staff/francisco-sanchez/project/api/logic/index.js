@@ -4,7 +4,8 @@ import {
     getUserName,
     getCustomers,
     getUserByEmail,
-    getUserByUserame
+    getUserByUserame,
+    findUserIdbyEmailOrUsername
 } from './users/index.js'
 
 import {
@@ -15,8 +16,9 @@ import {
 } from './packs/index.js'
 
 import {
-    sendEmail,
-} from './emailing/sendEmail.js'
+    emailRegisterWelcome,
+    sendEmail
+} from './emailing/index.js'
 
 
 const logic = {
@@ -26,13 +28,16 @@ const logic = {
     getCustomers,
     getUserByEmail,
     getUserByUserame,
+    findUserIdbyEmailOrUsername,
 
     createPack,
     assignPack,
     getBasePacks,
     getBasePackDetails,
 
+    emailRegisterWelcome,
     sendEmail
+
 }
 
 export default logic

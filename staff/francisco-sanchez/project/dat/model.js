@@ -260,7 +260,7 @@ const pack = new Schema({
 
     expiryDate: {
         type: Date,
-        required: true,
+        required: false,
         default: null
 
     },

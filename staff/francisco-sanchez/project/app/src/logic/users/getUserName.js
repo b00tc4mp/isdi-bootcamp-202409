@@ -4,7 +4,6 @@ import { extractPayloadJWt } from '../../util'
 const { SystemError } = errors
 export default () => {
     const { sub: userId } = extractPayloadJWt(localStorage.token)
-    //const userId = '675036c010473f3d809e5359'
     return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
         headers: {
             Authorization: `Bearer ${localStorage.token}`

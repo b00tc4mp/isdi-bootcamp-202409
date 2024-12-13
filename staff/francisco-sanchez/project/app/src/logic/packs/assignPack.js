@@ -3,14 +3,16 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 
-export default (userId, basePackId) => {
+export default (customerSearch, selectPack) => {
     //Validates here
 
     return fetch(`${import.meta.env.VITE_API_URL}/packs/assign-pack`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerSearch, refPack, provider, customer, description, originalQuantity, remmainingQuantity, unit, price, currency, purchaseDate, expiryDate, status })
-
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.token}`
+        },
+        body: JSON.stringify({ customerSearch, selectPack })
     })
 
         .catch(error => {
@@ -29,8 +31,6 @@ export default (userId, basePackId) => {
                 })
 
         })
-
-
 
 }
 

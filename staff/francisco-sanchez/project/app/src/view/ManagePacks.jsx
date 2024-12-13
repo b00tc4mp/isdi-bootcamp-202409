@@ -72,7 +72,7 @@ export default function ManagePacks(props) {
                                 <td className='border px-4 py-2'>{basePack.packName}</td>
                                 <td className='border px-4 py-2'>{basePack.description}</td>
                                 <td className='border px-4 py-2'>{basePack.price} {getCurrencySymbol(basePack)}</td>
-                                <td className='border px-4 py-2'>✏️ ❌ ⛔</td>
+                                <td className='border px-4 py-2'><a href="">✏️</a> <a href="">❌</a></td>
                             </tr>
                         ))}
                     </tbody>

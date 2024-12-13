@@ -30,9 +30,10 @@ export default (
                 currency
             })
         } catch (error) {
-            throw new SystemError(error.message)
             console.log(error.code)
             console.error(error)
+            throw new SystemError(error.message)
+
         }
     })()
 }

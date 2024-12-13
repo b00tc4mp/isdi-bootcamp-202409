@@ -3,10 +3,10 @@ import { errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default async (basePackId) => {
+export default async (selectPack) => {
     try {
         // Busca el BasePack por su ID
-        const basePackInfo = await BasePack.findById(basePackId).lean()
+        const basePackInfo = await BasePack.findById(selectPack).lean()
 
         // Si no se encuentra, lanza un error
         if (!basePackInfo) {

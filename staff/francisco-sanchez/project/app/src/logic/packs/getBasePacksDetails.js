@@ -7,6 +7,9 @@ export default (basePackId) => {
 
     return fetch(`${import.meta.env.VITE_API_URL}/packs/get-basepack-details/${basePackId}`, {
         method: 'GET',
+        headers: {
+            Authorization: `Bearer ${localStorage.token}`
+        }
     })
 
         .then(res => {

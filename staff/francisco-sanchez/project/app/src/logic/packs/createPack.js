@@ -8,15 +8,16 @@ export default (packName, packDescription, quantity, unit, expiringTime, price, 
     //Validates will come here
 
 
-    //Get userId
-    const userId = getUserId()
-    console.log('El userID es: ' + userId)
 
     //Logic and call to the api
     return fetch(`${import.meta.env.VITE_API_URL}/packs/create-pack`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, packName, packDescription, quantity, unit, expiringTime, price, currency })
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.token}`
+        },
+
+        body: JSON.stringify({ packName, packDescription, quantity, unit, expiringTime, price, currency })
     })
         .catch(error => {
             throw new SystemError(error.message)

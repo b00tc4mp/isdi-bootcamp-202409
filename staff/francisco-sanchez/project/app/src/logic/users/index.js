@@ -1,11 +1,10 @@
-import registerUser from "./registerUser";
-import isUserLoggedIn from "./isUserLoggedIn";
-import loginUser from "./loginUser";
-import logoutUser from "./logoutUser";
-import getUserId from "./getUserId";
-import getUserName from "./getUserName";
-import getCustomers from "./getCustomers";
-import findUserIdbyEmailOrUsername from "./findUserIdbyEmailOrUsername";
+import registerUser from './registerUser';
+import isUserLoggedIn from './isUserLoggedIn';
+import loginUser from './loginUser';
+import logoutUser from './logoutUser';
+import getUserId from './getUserId';
+import getUserName from './getUserName';
+import getCustomers from './getCustomers';
 
 export {
     registerUser,
@@ -15,5 +14,4 @@ export {
     getUserId,
     getUserName,
     getCustomers,
-    findUserIdbyEmailOrUsername
 }

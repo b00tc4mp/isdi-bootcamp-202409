@@ -6,14 +6,13 @@ import {
     getUserId,
     getUserName,
     getCustomers,
-    findUserIdbyEmailOrUsername,
 } from './users'
 
 import {
     createPack,
     getBasePacks,
     getBasePacksDetails,
-    assingPack,
+    assignPack,
 } from './packs'
 
 
@@ -26,14 +25,13 @@ const logic = {
     getUserId,
     getUserName,
     getCustomers,
-    findUserIdbyEmailOrUsername,
 
 
     //Packs
     createPack,
     getBasePacks,
     getBasePacksDetails,
-    assingPack
+    assignPack
 }
 
 export default logic

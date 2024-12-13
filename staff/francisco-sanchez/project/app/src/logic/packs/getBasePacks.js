@@ -1,20 +1,16 @@
 import { /* validate, */ errors } from 'com'
 
-import getUserId from '../users/getUserId'
-
 const { SystemError } = errors
 
 export default () => {
     //Validates will come here
 
-    //Get userId
-    const userId = getUserId()
-    console.log('The userID is: ' + userId)
-
     //Logic and call to the api
-    return fetch(`${import.meta.env.VITE_API_URL}/packs/get-basepack?userId=${userId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/packs/get-basepack`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            Authorization: `Bearer ${localStorage.token}`
+        }
     })
 
         .then(res => {

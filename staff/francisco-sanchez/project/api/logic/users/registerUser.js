@@ -4,6 +4,8 @@ import { User } from 'dat'
 
 import { validate, errors } from 'com'
 
+import { emailRegisterWelcome } from '../emailing/index.js'
+
 const { DuplicityError, SystemError } = errors
 
 export default (name,
@@ -84,6 +86,20 @@ export default (name,
                 ownPacks,
                 adquiredPacks
             })
+
+            //send confirmation email
+            emailRegisterWelcome(email, name)
+            /* try {
+                const subject = 'Welcome to Hourify'
+                const text = `Helo ${name}, this is your confirmation email`
+                const html = `<p>Hello ${name}!!</p><p>this is your confirmation email. We just want to confirm you than your new account has been createt correctly and you can get in just <a href="http://localhost:5173/login">clicking here</a></p>`
+
+                await sendEmail(email, subject, text, html)
+                console.log(`Email to ${email} was sent sucessfully!`)
+            } catch (error) {
+                console.error('There was a problem sending email:', error.message)
+            } */
+
         } catch (error) {
             if (error.code === 11000) throw new DuplicityError('user elready exists')
 

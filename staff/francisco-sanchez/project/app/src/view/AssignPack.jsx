@@ -8,8 +8,7 @@ import useContex from './useContext'
 
 import { Button, Field, Input, Label, Image } from '../library'
 import { getCurrencySymbol } from '../util'
-import { assingPack, getBasePacksDetails } from '../logic/packs'
-import { findUserIdbyEmailOrUsername } from '../logic/users'
+import { assignPack } from '../logic/packs'
 
 export default function AssignPack(props) {
     const [basePacks, setPacks] = useState([])
@@ -39,59 +38,15 @@ export default function AssignPack(props) {
             selectPack: { value: selectPack }
         } = form
 
-        //Get userId
-        /* try {
-            findUserIdbyEmailOrUsername(customerSearch)
-                .then((userId) => {
-                    console.log(userId)
-                })
-                .catch(error => {
-                    if (error instanceof SystemError)
-                        alert('There was a problem, fetching userId')
-                    else
-                        alert(error.message)
-
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
-        } */
-
-        //Get pack information
-        /* try {
-            const basepackDetails = getBasePacksDetails(selectPack)
-                .then(() => {
-                     form.reset()
-                    console.log(basepackDetails)
-
-                })
-                .catch(error => {
-                    if (error instanceof SystemError)
-                        alert('There was a problem fetching basepack details')
-                    else
-                        alert(error.message)
-
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
-        } */
-
         //Finnally we call the assign function with all the retrieved information 
         try {
-            assingPack(customerSearch, basePacks)
+            assignPack(customerSearch, selectPack)
+            alert('Pack successfully assigned to customer!', 'success')
         } catch (error) {
             alert(error.message)
             console.error(error)
         }
     }
-
-
-
-
-
 
     const handleHomeClick = event => {
         event.preventDefault()
