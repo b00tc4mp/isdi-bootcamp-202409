@@ -51,7 +51,7 @@ export default function OnePieceDle({ onHomeClick, onLoginClick, onRegisterClick
                 </div>
 
                 {isFirstAnswerSent &&
-                    <div className="flex flex-col w-[fit] px-[1.5rem] pt-[1.5rem] mt-[3rem] bg-[rgba(215,167,104,0.9)] border-[2px] border-[black] rounded-[.75rem]">
+                    <div className="flex flex-col w-[fit] px-[1.5rem] pt-[1.5rem] mt-[3rem] bg-[rgba(215,167,104,0.9)] border-[2px] border-[black] rounded-[.75rem] overflow-x-auto">
                         <AnswersLegend />
 
                         {<Answers answers={answers.toReversed()} guessedCharacters={guessedCharacters.toReversed()} />}
