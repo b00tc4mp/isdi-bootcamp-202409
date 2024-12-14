@@ -1,4 +1,5 @@
 import logic from '../logic'
+import { useState } from 'react'
 
 import { Label, Input, Button, Form, Field } from './library/index.js'
 
@@ -6,6 +7,16 @@ import { Label, Input, Button, Form, Field } from './library/index.js'
 
 export default function CreateRecommend({ onCreated }) {
     console.log('CreateRecommend -> render')
+
+    const [selectedCountry, setSelectedCountry] = useState('')
+
+    const countries = [
+        'Alemania', 'Austria', 'Bélgica', 'Bulgaria', 'Chequia', 'Chipre', 'Croacia',
+        'Dinamarca', 'Eslovaquia', 'Eslovenia', 'España', 'Estonia', 'Finlandia',
+        'Francia', 'Grecia', 'Hungría', 'Islandia', 'Italia', 'Letonia', 'Liechtenstein',
+        'Lituania', 'Luxemburgo', 'Malta', 'Noruega', 'Países Bajos', 'Polonia',
+        'Portugal', 'Reino Unido', 'Rumanía', 'Suecia', 'Suiza'
+    ]
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -36,8 +47,7 @@ export default function CreateRecommend({ onCreated }) {
 
             console.error(error)
         }
-    }  // create backend logic for get country and get city 
-    // recommend inner text should be dynamic based on category selection
+    }
 
     return <main className='createrecommend'>
         <Form onSubmit={handleSubmit}>
@@ -48,7 +58,18 @@ export default function CreateRecommend({ onCreated }) {
 
             <Field>
                 <Label>País</Label>
-                <Input type='text' id='country' />
+                <select id='country' value={selectedCountry}
+                    onChange={(e) => setSelectedCountry(e.target.value)}>
+
+                    <option value='' disabled>
+                        Seleccionar país
+                    </option>
+                    {countries.map((country, i) => (
+                        <option key={i} value={country}>
+                            {country}
+                        </option>
+                    ))}
+                </select>
             </Field>
 
             <Field>
@@ -74,7 +95,7 @@ export default function CreateRecommend({ onCreated }) {
             </Field>
 
             <Field>
-                <Label>Preicio</Label>
+                <Label>Precio</Label>
                 <select id="price" defaultValue="">
                     <option value="" disabled>
                         Seleccionar precio
@@ -97,7 +118,7 @@ export default function CreateRecommend({ onCreated }) {
 
             <Field>
                 <Label>Recomendación o Guía</Label>
-                <Input type='text' id='recommend' />
+                <textarea type='text' id='recommend' />
             </Field>
 
             <Button type='submit'>Compartir</Button>
