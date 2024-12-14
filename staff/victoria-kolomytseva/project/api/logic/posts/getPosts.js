@@ -5,8 +5,8 @@ const { SystemError, NotFoundError } = errors
 
 export default (userId, status) => {
     validate.id(userId, 'userId')
-    // Si no se pasa un status, devuelve todos los posts
-    const query = status ? { status } : {};
+    // si status = 'found' o vasio
+    const query = status ? { status } : {};//query se usará para buscar registros basados en el estado (status) solo si este está definido
 
     return Promise.all([
         User.findById(userId).lean(), //.lean() convierte el resultado en un objeto JavaScript simple en lugar de un documento de Mongoose

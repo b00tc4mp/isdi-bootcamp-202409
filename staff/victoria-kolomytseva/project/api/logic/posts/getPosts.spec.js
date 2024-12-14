@@ -21,8 +21,28 @@ describe('getPosts', () => {
 
     it('succeeds for existing user', () => {
         const user = new User({ name: 'María Gomez', email: 'maria.gomez@example.com', password: '32165' })
-        const post = new Post({ author: user.id, image: 'https://www.image.com', whatHappened: 'lost', petType: 'cat', petGender: 'female', text: 'hello world', date: new Date(2024, 10, 18) })
-        const post2 = new Post({ author: user.id, image: 'https://www.image.com/2', whatHappened: 'lost', petType: 'dog', petGender: 'female', text: 'lost my dog', date: new Date(2024, 10, 19) })
+        const post = new Post({
+            author: user.id, image: 'https://www.image.com', whatHappened: 'lost', petType: 'cat', petGender: 'female', text: 'hello world', date: new Date(2024, 10, 18), location: {
+                type: 'Point',
+                "coordinates": [
+                    41.5064041,
+                    2.3913883
+                ],
+                "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                "province": "Barcelona"
+            }
+        })
+        const post2 = new Post({
+            author: user.id, image: 'https://www.image.com/2', whatHappened: 'lost', petType: 'dog', petGender: 'female', text: 'lost my dog', date: new Date(2024, 10, 19), location: {
+                type: 'Point',
+                "coordinates": [
+                    41.5064041,
+                    2.3913883
+                ],
+                "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                "province": "Barcelona"
+            }
+        })
 
 
         return Promise.all([user.save(), post.save(), post2.save()])//Guarda el usuario y las publicaciones en la base de datos

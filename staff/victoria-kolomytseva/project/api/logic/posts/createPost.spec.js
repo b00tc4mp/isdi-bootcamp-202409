@@ -22,7 +22,15 @@ describe('createPost', () => { // Agrupa todas las pruebas relacionadas con crea
     it('succeeds for existing user', () =>
         User.create({ name: 'Juan Pérez', email: 'juan.perez@example.com', password: '123123123' })
             .then(user =>
-                createPost(user.id, 'https://www.image.com', 'lost', 'cat', 'female', 'We have lost our Pug')
+                createPost(user.id, 'https://www.image.com', 'lost', 'cat', 'female', 'We have lost our Pug', {
+                    type: 'Point',
+                    "coordinates": [
+                        41.5064041,
+                        2.3913883
+                    ],
+                    "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                    "province": "Barcelona"
+                })
                     .then(() => Post.findOne())
                     .then(post => {
                         expect(post).to.exist
@@ -36,7 +44,15 @@ describe('createPost', () => { // Agrupa todas las pruebas relacionadas con crea
 
     it('fails on non-existing user', () =>
         expect(
-            createPost('012345678901234567890123', 'https://www.image.com', 'lost', 'cat', 'female', 'hello world')
+            createPost('012345678901234567890123', 'https://www.image.com', 'lost', 'cat', 'female', 'hello world', {
+                type: 'Point',
+                "coordinates": [
+                    41.5064041,
+                    2.3913883
+                ],
+                "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                "province": "Barcelona"
+            })
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
@@ -67,7 +83,15 @@ describe('createPost', () => { // Agrupa todas las pruebas relacionadas con crea
 
         it('fails on User.findById error', () =>
             expect(
-                createPost('012345678901234567890123', 'https://www.image.com', 'lost', 'cat', 'male', 'hello world')
+                createPost('012345678901234567890123', 'https://www.image.com', 'lost', 'cat', 'male', 'hello world', {
+                    type: 'Point',
+                    "coordinates": [
+                        41.5064041,
+                        2.3913883
+                    ],
+                    "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                    "province": "Barcelona"
+                })
             ).to.be.rejectedWith(SystemError, /^system error on User.findById$/)
         )
 
@@ -87,7 +111,15 @@ describe('createPost', () => { // Agrupa todas las pruebas relacionadas con crea
             expect(
                 User.create({ name: 'Coco Loco', email: 'coco@loco.com', username: 'cocoloco', password: '123123123' })
                     .then(user =>
-                        createPost(user.id, 'https://www.image.com', 'lost', 'dog', 'female', 'hello world')
+                        createPost(user.id, 'https://www.image.com', 'lost', 'dog', 'female', 'hello world', {
+                            type: 'Point',
+                            "coordinates": [
+                                41.5064041,
+                                2.3913883
+                            ],
+                            "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                            "province": "Barcelona"
+                        })
                     )
             ).to.be.rejectedWith(SystemError, /^system error on Post.create$/)
         )

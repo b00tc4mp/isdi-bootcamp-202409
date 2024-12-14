@@ -9,8 +9,13 @@ import {
 import {
     createPost,
     getPosts,
-    getPostById
+    getPostById,
+    deletePost,
+    toggleLikePost,
 
+    addComment,
+    removeComment,
+    getComments
 } from './posts/index.js'
 
 
@@ -24,7 +29,13 @@ const logic = {
 
     createPost,
     getPosts,
-    getPostById
+    getPostById,
+    deletePost,
+    toggleLikePost,
+
+    addComment,
+    removeComment,
+    getComments
 }
 
 export default logic
