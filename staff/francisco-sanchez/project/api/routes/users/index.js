@@ -13,6 +13,6 @@ const usersRouter = Router()
 usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.post('/register', jsonBodyParser, registerUserHandler)
 usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler)
-usersRouter.get('/customers/:targetUserId', authorizationHandler, getCustomersHandler)
+usersRouter.get('/customers', authorizationHandler, getCustomersHandler)
 
 export default usersRouter

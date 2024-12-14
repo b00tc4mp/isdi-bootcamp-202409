@@ -7,14 +7,13 @@ const { SystemError, NotFoundError } = errors
 export default async (userId, searchTerm) => {
     let customerUserId
 
-    try {
+    /* try {
         customerUserId = getUserByEmail(userId, searchTerm)
         if (customerUserId) {
             return customerUserId
         }
-    } catch (error) {
-        throw new SystemError(error.message);
-    }
+        //If not found by mail will search by username
+    } catch (error) { */
 
     try {
         customerUserId = getUserByUsername(userId, searchTerm)
@@ -26,5 +25,7 @@ export default async (userId, searchTerm) => {
     }
 
     throw new NotFoundError('Customer not found.')
+
+    //}
 
 }

@@ -4,16 +4,16 @@ import { errors } from 'com';
 
 const { SystemError, NotFoundError } = errors;
 
-export default async (userId, targetUserId) => {
+export default async (userId) => {
 
     try {
         //Find the users
-        const user = await User.findById(targetUserId).lean()
+        const user = await User.findById(userId).lean()
         if (!user) throw new NotFoundError('User not found')
 
         //Check and return if have customers
         if (!user.customers || user.customers.length === 0) {
-            return ('no customers found')
+            return ('no customers found yet')
             //return []
         }
 

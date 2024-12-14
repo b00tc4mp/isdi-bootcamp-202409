@@ -59,7 +59,7 @@ export default function AssignPack(props) {
             <form className="flex flex-col justify-items-start" onSubmit={handleSubmit} >
 
                 <Field>
-                    <Label htmlFor="customerSearch">Find customer</Label>
+                    <Label htmlFor="customerSearch">Find customer <span className='text-red-600'> DEVELOPER REF: just works by username!!</span></Label>
                     <Input id="customerSearch" className="border-2 rounded-lg" type="text" placeholder="Use email or username" ></Input>
                 </Field>
 

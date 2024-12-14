@@ -7,15 +7,11 @@ const { SystemError } = errors
 export default () => {
     //Validates will come here
 
-    //Get userId
-    /*     const userId = getUserId()
-        console.log('The userID is: ' + userId) */
 
     //Logic to call api
-    return fetch(`${import.meta.env.VITE_API_URL}/users/customers/${userId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/customers`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.token}`
         },
     })
