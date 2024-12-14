@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 import Input from './Input'
-import './PasswordInput.css'
 
-export default function PasswordInput({ id }) {
+
+export default function PasswordInput({ id, placeholder }) {
   const [status, setStatus] = useState('🙈')
   const [type, setType] = useState('password')
 
@@ -14,9 +14,9 @@ export default function PasswordInput({ id }) {
   console.log('PasswordInput -> render')
 
   return <div style={{ display: 'flex' }}>
-    <Input type={type} id={id} className="PasswordInput" />
+    <Input type={type} id={id} className="PasswordInput relative" placeholder={placeholder} />
     <span
-      className="PasswordSpan"
+      className="PasswordSpan absolute right-[8.75rem]"
       onClick={handleToggleClick}
     >{status}</span>
   </div>

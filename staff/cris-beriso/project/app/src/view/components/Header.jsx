@@ -23,9 +23,9 @@ export default function Header({ onLoggedOut }) {
     }, 'warn')
   }
 
-  return <header className="p-4 h-12 box-border flex justify-between items-center fixed top-0 w-full">
-    <img src="https://i.pinimg.com/564x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg" className='w-8 h-8' />
+  return <header className={location.pathname === '/login' || location.pathname === '/register' ? "h-12 box-border flex justify-between items-center fixed top-0 w-full p-2" : 'h-12 box-border flex justify-between items-center fixed top-0 w-full p-2 bg-[var(--box-color)]'}>
+    {logic.isUserLoggedIn() && <h2 className="text-4xl">MakeUp Scanner!</h2>}
 
-    {logic.isUserLoggedIn() && <Button type="button" onClick={handleLogout}>Logout</Button>}
+    {logic.isUserLoggedIn() && <button type="button" onClick={handleLogout} className=""><img src="/images/button-logout.png" /></button>}
   </header>
 }

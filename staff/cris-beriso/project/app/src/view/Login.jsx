@@ -44,25 +44,26 @@ export default function Login(props) {
     props.onRegisterClick()
   }
 
-  return <main>
-    <h2>MakeUp Scanner!</h2>
+  return <main className="pt-10 flex justify-start items-center flex-col h-screen box-border gap-16">
+    <h2 className="text-4xl pt-10 ">MakeUp Scanner!</h2>
 
-    <h3>Login</h3>
+    <div className="bg-[var(--box-color)] w-[12.5rem] h-[15rem] flex justify-center items-center flex-col box-border rounded-lg shadow-lg gap-2">
+      <h3 className="text-2xl">Login</h3>
+      <Form onSubmit={handleSubmit} >
+        <Field>
+          <Label htmlFor="username"></Label>
+          <Input type="text" id="username" placeholder="Username" className="text-[var(--back-color)]" />
+        </Field>
 
-    <Form onSubmit={handleSubmit}>
-      <Field>
-        <Label htmlFor="username">Username</Label>
-        <Input type="text" id="username" />
-      </Field>
+        <Field>
+          <Label htmlFor="password"></Label>
+          <PasswordInput id="password" placeholder="Password" />
+        </Field>
 
-      <Field>
-        <Label htmlFor="password">Password</Label>
-        <PasswordInput id="password" />
-      </Field>
+        <Button type="submit">Login</Button>
+      </Form>
 
-      <Button type="submit">Login</Button>
-    </Form>
-
-    <a href="" onClick={handleRegisterClick}>Register</a>
+      <a href="" onClick={handleRegisterClick}>Go to Register</a>
+    </div>
   </main>
 }

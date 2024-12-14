@@ -54,41 +54,45 @@ export default function Register(props) {
     props.onLoginClick()
   }
 
-  return <main>
-    <h2>MakeUp Scanner</h2>
+  return <main className="pt-10 flex justify-start items-center flex-col h-screen box-border ">
+    <h2 className="text-4xl p-10  ">MakeUp Scanner</h2>
 
-    <h3>Register</h3>
+    <div className="bg-[var(--box-color)] w-[12.5rem] h-[22rem] flex justify-center items-center flex-col box-border rounded-lg shadow-lg">
 
-    <Form onSubmit={handleSubmit}>
-      <Field>
-        <Label htmlFor="name">Name</Label>
-        <Input type="text" id="name" />
-      </Field>
+      <h3 className="text-2xl pb-1">Register</h3>
 
-      <Field>
-        <Label htmlFor="email">E-mail</Label>
-        <Input type="email" id="email" />
-      </Field>
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor="name"></Label>
+          <Input type="text" id="name" placeholder="Name" />
+        </Field>
 
-      <Field>
-        <Label htmlFor="username">Username</Label>
-        <Input type="text" id="username" />
-      </Field>
+        <Field>
+          <Label htmlFor="email"></Label>
+          <Input type="email" id="email" placeholder="E-mail" />
+        </Field>
 
-      <Field>
-        <Label htmlFor="password">Password</Label>
-        <PasswordInput id="password" />
-      </Field>
+        <Field>
+          <Label htmlFor="username"></Label>
+          <Input type="text" id="username" placeholder="Username" />
+        </Field>
 
-      <Field>
-        <Label htmlFor="password-repeat">Repeat Password</Label>
-        <PasswordInput id="password-repeat" />
-      </Field>
+        <Field>
+          <Label htmlFor="password"></Label>
+          <PasswordInput id="password" placeholder="Password" />
+        </Field>
 
-      <Button type="submit">Register</Button>
-    </Form>
+        <Field>
+          <Label htmlFor="password-repeat"></Label>
+          <PasswordInput id="password-repeat" placeholder="Repeat Password" />
+        </Field>
 
-    <a href="" onClick={handleLoginClick}>Login</a>
+        <Button type="submit" >Register</Button>
+      </Form>
+
+      <a href="" onClick={handleLoginClick}>Go to Login</a>
+
+    </div>
   </main>
 
 }

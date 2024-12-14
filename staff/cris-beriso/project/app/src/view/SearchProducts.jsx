@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useContext from './useContext'
 
+import { Button } from './library'
 import Product from './components/Product'
 
 import logic from '../logic'
@@ -40,23 +41,23 @@ export default function searchProducts() {
       setSearchPararms({ category: categoryNew, keyword: keywordNew })
     }
   }
-  return <main className="pt-10">
-    <h2>Search your product</h2>
+  return <main className="pt-10 flex flex-col items-center justify-between">
+    < h2 className="text-3xl pt-10" > Search your product</h2 >
+    <div className="bg-[var(--box-color)] w-[15rem] flex flex-col items-center rounded-lg shadow-lg gap-2 pt-5">
+      <form onSubmit={handleSearch} className=" flex flex-col items-center ">
+        <select id="category" className='w-[10rem]'>
+          <option value="Face">Face</option>
+          <option value="Cheeks">Cheeks</option>
+          <option value="Eyes">Eyes</option>
+          <option value="Brows">Brows</option>
+          <option value="Lips">Lips</option>
+        </select>
 
-    <form onSubmit={handleSearch}>
-      <select id="category">
-        <option value="Face">Face</option>
-        <option value="Cheeks">Cheeks</option>
-        <option value="Eyes">Eyes</option>
-        <option value="Brows">Brows</option>
-        <option value="Lips">Lips</option>
-      </select>
+        <input type="text" placeholder="more info" name="keyword" className="w-[10rem]" />
 
-      <input type="text" placeholder="more info" name="keyword" />
-
-      <button type="submit">Search</button>
-    </form>
-
+        <Button type="submit">Search</Button>
+      </form>
+    </div>
     <ul>
       {products.length > 0 ? (
         products.map(product => (
@@ -66,8 +67,9 @@ export default function searchProducts() {
           />
         ))
       ) : (
-        <p>No products found.</p>
+        <p className="pt-10">No products found.</p>
       )}
     </ul>
-  </main>
+
+  </main >
 }

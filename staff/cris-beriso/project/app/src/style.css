@@ -1,19 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Lilita+One&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color: DarkSlateGray;
-  --back-color: white;
-  --back-color-dark: black;
-  --font: 'Sixtyfour';
+  box-sizing: border-box;
+  --color: #0B0B0D;
+  --back-color: #8CEDC7;
+  --font: "Karantina", system-ui;
   font-family: var(--font);
+  --box-color: #DAF3EA;
+  --button-color: #6BB39B;
 }
 
 body {
   color: var(--color);
+  background-color: var(--back-color);
 }
 
 a:visited {
