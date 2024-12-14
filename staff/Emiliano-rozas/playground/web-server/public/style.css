@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: grey;
+
+}
+
+img {
+    max-width: 60%;
+    max-height: min-content;
+    border-radius: 1cap;
+}
