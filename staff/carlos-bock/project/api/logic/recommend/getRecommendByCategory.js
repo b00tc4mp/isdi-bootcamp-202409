@@ -6,7 +6,7 @@ const { SystemError, NotFoundError } = errors
 
 const getRecommendByCategory = (userId, category) => {
     validate.id(userId, 'userId');
-    //validate.number(categoryId, 'categoryId') // create category id validation
+    validate.number(category, 'category')
 
     return Promise.all([
         Recommend.find({ category: category })

@@ -23,8 +23,6 @@ export default function Footer({ onNewRecommendClick, onCategoriesClick, onProfi
         <Button type='button'
             onClick={onNewRecommendClick}>➕</Button>
 
-        <Link to='/following'><Button>🫂</Button></Link>
-
         <Button type='button'
             onClick={onProfileClick}>👨🏻</Button>
 

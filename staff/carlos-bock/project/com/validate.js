@@ -32,9 +32,9 @@ const validatePasswordsMatch = (password, password2) => {
         throw new ValidationError('passwords do not match')
 }
 
-const validateImage = image => {
-    if (typeof image !== 'string') throw new ValidationError('invalid link')
-    if (image.trim().length === 0) throw new ValidationError('invalid url length')
+const validateLink = link => {
+    if (typeof link !== 'string') throw new ValidationError('invalid link')
+    if (link.trim().length === 0) throw new ValidationError('invalid url length')
 }
 
 const validateText = text => {
@@ -54,21 +54,23 @@ const validateCategory = (category, explain = 'category') => {
 const validateCountry = (country, explain = 'country') => {
     if (typeof country !== 'string') throw new ValidationError(`invalid ${explain}`)
 }
-//////////////////////////////
 
+const validatePrice = (price, explain = 'price') => {
+    if (typeof price !== 'number') throw new ValidationError(`invalid ${explain}`)
+}
 
-/////////////////////////////
 const validate = {
     name: validateName,
     email: validateEmail,
     username: validateUsername,
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
-    image: validateImage,
+    link: validateLink,
     text: validateText,
     id: validateId,
     category: validateCategory,
-    country: validateCountry
+    country: validateCountry,
+    price: validatePrice
 }
 
 

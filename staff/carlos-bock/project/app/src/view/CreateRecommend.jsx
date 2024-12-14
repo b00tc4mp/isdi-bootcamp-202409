@@ -35,7 +35,7 @@ export default function CreateRecommend({ onCreated }) {
         } = form
 
         try {
-            logic.createRecommend(city, country, category, price, link, image, recommend, subject)
+            logic.createRecommend(city, country, parseInt(category, 10), parseInt(price, 10), link, image, recommend, subject)
                 .then(onCreated)
                 .catch(error => {
                     alert(error.message)
@@ -78,14 +78,14 @@ export default function CreateRecommend({ onCreated }) {
                     <option value="" disabled>
                         Seleccionar categoría
                     </option>
-                    <option value="1">Trámites</option>
-                    <option value="2">Servicios</option>
-                    <option value="3">Alimentación</option>
-                    <option value="4">Eventos</option>
-                    <option value="5">Sanidad</option>
-                    <option value="6">Barrios</option>
-                    <option value="7">Vivienda</option>
-                    <option value="8">Transporte</option>
+                    <option value='1'>Trámites</option>
+                    <option value='2'>Servicios</option>
+                    <option value='3'>Alimentación</option>
+                    <option value='4'>Eventos</option>
+                    <option value='5'>Sanidad</option>
+                    <option value='6'>Barrios</option>
+                    <option value='7'>Vivienda</option>
+                    <option value='8'>Transporte</option>
                 </select>
             </Field>
 
@@ -96,13 +96,13 @@ export default function CreateRecommend({ onCreated }) {
 
             <Field>
                 <Label>Precio</Label>
-                <select id="price" defaultValue="">
-                    <option value="" disabled>
+                <select id='price' defaultValue=''>
+                    <option value='' disabled>
                         Seleccionar precio
                     </option>
-                    <option value="1">€ - Barato</option>
-                    <option value="2">€€ - Moderado</option>
-                    <option value="3">€€€ - Caro</option>
+                    <option value='1'>€ - Barato</option>
+                    <option value='2'>€€ - Moderado</option>
+                    <option value='3'>€€€ - Caro</option>
                 </select>
             </Field>
 

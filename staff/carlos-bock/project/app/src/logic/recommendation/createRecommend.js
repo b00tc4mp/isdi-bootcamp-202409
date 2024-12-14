@@ -4,8 +4,9 @@ const { SystemError } = errors
 
 const createRecommend = (city, country, category, price, link, imageUrl, recommend, subject) => {
     validate.text(city); validate.text(country)
-    //add validate logic for number - category     //add validate logic for number - price
-    validate.image(link); validate.image(imageUrl)// update method name to be generic
+    validate.category(category); validate.price(price)
+    validate.link(link); validate.link(imageUrl)
+
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/recommends`, {
         method: 'POST',

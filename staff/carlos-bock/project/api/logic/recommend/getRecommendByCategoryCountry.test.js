@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import db from '../../../dat/index.js' //import db from 'dat' // check routes
+import db from '../../../dat/index.js'
 import getRecommendByCategory from './getRecommendByCategory.js'
 
 const userId = '6754a8149c175644a60dad82'

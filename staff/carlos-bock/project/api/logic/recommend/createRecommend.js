@@ -8,10 +8,10 @@ const createRecommend = (userId, city, country, category, price, link, imageUrl,
     validate.text(city)
     validate.text(country)
     validate.text(recommend)
-    //add validate for catory
-    //add validate for price
-    validate.image(link) // change validate image to a more generic name
-    validate.image(imageUrl)
+    validate.category(category)
+    validate.price(price)
+    validate.link(link)
+    validate.link(imageUrl)
     validate.text(subject)
 
     return User.findById(userId)
@@ -27,7 +27,7 @@ const createRecommend = (userId, city, country, category, price, link, imageUrl,
                 price: price,
                 link: link,
                 image: imageUrl,
-                text: recommend,//consider renaming in mongo data model
+                text: recommend,
                 subject: subject
             })
                 .catch(error => { throw new SystemError(error.message) })

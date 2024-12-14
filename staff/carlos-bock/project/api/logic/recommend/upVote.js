@@ -36,6 +36,3 @@ const upVote = (userId, recommendId) => {
 }
 
 export default upVote
-
-/*control netVote logic from the front-end for version 0.0, but 
-consider a refactor to protect vote arrays from the back end */

@@ -36,7 +36,7 @@ export default function Profile() {
     const handleUpVote = () => {
         try {
             logic.getRecommend()
-                .then(setRecommend)
+                .then(setRecommends)
                 .catch(error => {
                     alert(error.message)
 
@@ -52,7 +52,7 @@ export default function Profile() {
     const handleDownVote = () => {
         try {
             logic.getRecommend()
-                .then(setRecommend)
+                .then(setRecommends)
                 .catch(error => {
                     alert(error.message)
 

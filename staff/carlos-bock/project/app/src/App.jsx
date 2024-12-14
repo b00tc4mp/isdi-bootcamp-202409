@@ -6,7 +6,6 @@ import { Context } from './view/useContext.js'
 
 import logic from './logic/index.js'
 import Categories from './view/components/Categories.jsx'
-//import RecommendCategory from './view/RecommendCategoryCountry.jsx'
 
 export default function App() {
   const [alert, setAlert] = useState({
@@ -115,6 +114,3 @@ export default function App() {
 
   </Context.Provider>
 }
-
-
-//<Route path='/categories/:category' element={logic.isUserLoggedIn() ? <RecommendCategory /> : <Navigate to='/login' />} />
