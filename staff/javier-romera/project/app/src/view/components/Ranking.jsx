@@ -92,10 +92,10 @@ export default function Ranking({ onCloseRankingClick }) {
             </div>
         })}
 
-        {!isUserInRanking && userDetails &&
+        {!isUserInRanking && userDetails && !logic.isUserRoleAnonymous() &&
             <div className="h-[2rem] flex mt-[2rem] mb-[.5rem] border-t-[2px] border-b-[2px] bg-[rgba(175,255,255,1)] border-[black]">
                 <div className="flex items-center pl-[1rem]">
-                    <p>n/a: </p>
+                    <p>{userDetails.index + 1}: </p>
                 </div>
                 <div className="flex items-center w-full">
                     <p className="pl-[.375rem]">{userDetails.username}</p>
@@ -103,6 +103,6 @@ export default function Ranking({ onCloseRankingClick }) {
                 </div>
             </div>}
 
-        {ranking.length < 21 && <Button className="mb-[.75rem] mt-[.25rem]" onClick={handleShowMoreClick}>Show more</Button>}
+        {ranking.length < 21 && <Button className="underline mb-[.75rem] mt-[.25rem]" onClick={handleShowMoreClick}>Show more</Button>}
     </div>
 }

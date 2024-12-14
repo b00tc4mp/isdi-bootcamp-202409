@@ -43,7 +43,7 @@ export default function Home({ onOnePieceDleClick, onOneDokuClick, onMapClick })
                 </div>
             </div>}
 
-        <Button onClick={handleRankingClick}>View Ranking</Button>
+        <Button className="border-[2px] border-[black] py-[.125rem] px-[1rem] mt-[2rem] text-[1.125rem] bg-[rgba(175,255,255,0.9)] rounded-[.25rem] transition-transform duration-150 ease-in-out hover:scale-110" onClick={handleRankingClick}>View Ranking</Button>
         {viewRanking && <Ranking onCloseRankingClick={handleCloseRanking} />}
     </main>
 }

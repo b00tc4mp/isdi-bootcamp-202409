@@ -21,7 +21,7 @@ export default (userId: string, rankingLength: number): Promise<TUser[]> => {
         newRankingLength = rankingLength + 10
 
         try {
-            scores = await User.find().sort({ score: -1 }).select('score username -_id').limit(newRankingLength).lean<TUser[]>()
+            scores = await User.find({ role: 'regular' }).sort({ score: -1 }).select('score username -_id').limit(newRankingLength).lean<TUser[]>()
         } catch (error) {
             throw new SystemError((error as Error).message)
         }

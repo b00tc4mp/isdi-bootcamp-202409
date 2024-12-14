@@ -11,7 +11,8 @@ type Payload = {
 
 type UserScoreAndUsername = {
     username: string,
-    score: number
+    score: number,
+    index?: number
 }
 
 export {

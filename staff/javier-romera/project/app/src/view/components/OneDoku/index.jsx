@@ -107,6 +107,9 @@ export default function OneDoku({ onHomeClick, onLoginClick, onRegisterClick }) 
 
         {winAlert && <WinScreen timeSpent={time} refresh={handleRefresh} onHomeClick={onHomeClick} setWinAlert={setWinAlert} />}
 
-        {(status === 2 || status === 3) && logic.isUserRoleAnonymous() && !winAlert && <CantPlayAnymoreAlert onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} onHomeClick={onHomeClick} />}
+        {(status === 2 || status === 3) && logic.isUserRoleAnonymous() && !winAlert &&
+            <div className="absolute w-full h-full">
+                <CantPlayAnymoreAlert onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} onHomeClick={onHomeClick} />
+            </div>}
     </main>
 }

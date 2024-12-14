@@ -33,7 +33,7 @@ export default function useController() {
             executeMain()
         }
 
-        if (!status && logic.isUserLoggedIn())
+        if (!status && logic.isUserLoggedIn() && !answers)
             try {
                 logic.getUserStatus()
                     .then(setStatus)

@@ -8,7 +8,7 @@ export default (userId: string, targetUserId: string): Promise<UserScoreAndUsern
     validate.id(targetUserId, 'targetUserId')
 
     return (async (): Promise<UserScoreAndUsername> => {
-        let user, targetUser
+        let user, targetUser, allScores
 
         try {
             user = await User.findById(userId).lean<TUser>()
@@ -26,9 +26,18 @@ export default (userId: string, targetUserId: string): Promise<UserScoreAndUsern
 
         if (!targetUser) throw new NotFoundError('target user not found')
 
+        try {
+            allScores = await User.find().select('username score -_id').sort({ score: -1 }).lean<UserScoreAndUsername[]>()
+        } catch (error) {
+            throw new SystemError((error as Error).message)
+        }
+
+        const index = allScores.findIndex((item: UserScoreAndUsername) => item.username === targetUser.username)
+
         return {
             username: targetUser.username,
-            score: targetUser.score
+            score: targetUser.score,
+            index: index
         }
     })()
 }

@@ -62,10 +62,12 @@ export default function useController() {
                 console.error(error)
             }
 
-        if (!status && logic.isUserLoggedIn())
+        if (!status && logic.isUserLoggedIn() && !didWin)
             try {
                 logic.getUserStatus()
-                    .then(setStatus)
+                    .then(userStatus => {
+                        setStatus(userStatus)
+                    })
             } catch (error) {
                 alert(error.message)
 
