@@ -1,0 +1,51 @@
+.plate {
+    position: absolute;
+    background-color: #02B2F2;
+    border: 2px solid #026fb8;
+    width: 400px;
+    height: 200px;
+    border-top-left-radius: 50% 100%;
+    border-top-right-radius: 50% 100%;
+}
+
+.window {
+    background-color: white;
+    border: 2px solid black;
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    position: relative;
+}
+.front-window {
+    top: 30px;
+    left: 220px;
+}
+.back-window {
+    top: -50px;
+    left: 90px;
+}
+.door {
+    background-color: #026fb8;
+    width: 2px;
+    height: 200px;
+    position: relative;
+    bottom: 168px;
+    left: 200px;
+}
+.wheel {
+    background-color: darkgray;
+    border: 40px solid black;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    z-index: -1;
+}
+.front-wheel {
+    left: 230px;
+    bottom: 230px;
+}
+.back-wheel {
+    bottom: 360px;
+    left: 30px;
+}
