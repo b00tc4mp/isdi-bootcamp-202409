@@ -93,7 +93,7 @@ export default function App() {
 
         <Route path='/categories' element={logic.isUserLoggedIn() ? <Categories /> : <Navigate to='/login' />} />
 
-        <Route path='/categories/:category/countries/:country' element={logic.isUserLoggedIn() ? <RecommendCategoryCountry /> : <Natvigate to='/login' />}></Route>
+        <Route path='/categories/:category/countries/:country' element={logic.isUserLoggedIn() ? <RecommendCategoryCountry /> : <Navigate to='/login' />} />
 
         <Route path='/recommends/users/:userId/' element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to='/login' />} />
 
