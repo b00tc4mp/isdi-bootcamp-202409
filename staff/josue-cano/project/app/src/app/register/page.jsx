@@ -5,14 +5,11 @@ import { getLocations } from "../logic/users/getLocations";
 import { useEffect, useState } from "react";
 
 export default function Register() {
-    const [locations, setLocations] = useState([]);
+  const [locations, setLocations] = useState([]);
 
-    useEffect(() => {
-        getLocations()
-        .then(locations => setLocations(locations));
-
-    }, []);
-
+  useEffect(() => {
+    getLocations().then((locations) => setLocations(locations));
+  }, []);
 
   function handleRegister(event) {
     event.preventDefault();
@@ -25,38 +22,29 @@ export default function Register() {
     const password = fields.password.value;
     const passwordRepeat = fields.passwordRepeat.value;
 
-      registerUser({
-          firstName,
-          lastName,
-          email,
-          ubicacion,
-          password,
-          passwordRepeat,
-      })
-    .then(()=> {
+    registerUser({
+      firstName,
+      lastName,
+      email,
+      ubicacion,
+      password,
+      passwordRepeat,
+    }).then(() => {
       redirect("/login");
-    })
-  
+    });
   }
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-gray-50">
+    <section className="flex items-center justify-center min-h-screen bg-gray-50 pt-[5rem]">
+      {/* Agregué pt-[5rem] para ajustar el margen superior según la altura del header */}
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 m-5">
-        <h1 className="text-2xl font-bold text-center mb-6">
-          ¡Bienvenido a ekoality!
-        </h1>
+        <h1 className="text-2xl font-bold text-center mb-6">¡Bienvenido a ekoality!</h1>
         <form onSubmit={handleRegister} className="space-y-4">
           <div className="form-control">
             <label className="label">
               <span className="label-text font-medium">Nombre*</span>
             </label>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="Nombre"
-              className="input input-bordered w-full"
-              required
-            />
+            <input type="text" name="firstName" placeholder="Nombre" className="input input-bordered w-full" required />
           </div>
           <div className="form-control">
             <label className="label">
@@ -72,9 +60,7 @@ export default function Register() {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">
-                Correo electrónico*
-              </span>
+              <span className="label-text font-medium">Correo electrónico*</span>
             </label>
             <input
               type="email"
@@ -98,9 +84,7 @@ export default function Register() {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">
-                Confirmar contraseña*
-              </span>
+              <span className="label-text font-medium">Confirmar contraseña*</span>
             </label>
             <input
               type="password"
@@ -114,28 +98,21 @@ export default function Register() {
             <label className="label">
               <span className="label-text font-medium">Localidad*</span>
             </label>
-            <select
-              name="city"
-              className="select select-bordered w-full"
-              defaultValue={""}
-              required
-            >
+            <select name="city" className="select select-bordered w-full" defaultValue={""} required>
               <option value="" disabled>
                 Seleccione su localidad
               </option>
-      {locations.map(location => (<option key={location._id} value={location._id}>{location.ciudad}</option>)) }
+              {locations.map((location) => (
+                <option key={location._id} value={location._id}>
+                  {location.ciudad}
+                </option>
+              ))}
             </select>
           </div>
           <div className="form-control">
             <label className="cursor-pointer flex items-center">
-              <input
-                type="checkbox"
-                className="checkbox checkbox-primary"
-                required
-              />
-              <span className="label-text ml-2">
-                Acepto los términos y condiciones.
-              </span>
+              <input type="checkbox" className="checkbox checkbox-primary" required />
+              <span className="label-text ml-2">Acepto los términos y condiciones.</span>
             </label>
           </div>
           <button type="submit" className="btn btn-secondary w-full mt-4">

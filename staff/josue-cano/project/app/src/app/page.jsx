@@ -32,7 +32,7 @@ export default function Index() {
       <ProductListComponent products={products} />
       <EkoalitySection />
       <ExCompra />
-      <Contacto/>
+      <Contacto />
     </section>
   );
 }

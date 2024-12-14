@@ -1,87 +1,114 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { isAuthenticated } from "../utils/session";
 
 export default function PublicHeader() {
   return (
-    <div className="border-b border-[#52A42D]">
-      <div className="navbar bg-base-100 container mx-auto">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+    <div className="fixed top-0 left-0 w-full z-50 bg-white border-b border-[#52A42D] shadow-md">
+      <div className="navbar bg-base-100 container mx-auto flex justify-between items-center px-4">
+        {/* Navbar Start */}
+        <div className="flex items-center space-x-4">
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <Image src="/img/ekoalityLogo.png" alt="Ekoality Logo" width={100} height={40} className="object-contain" />
+          </Link>
+
+          {/* Dropdown para dispositivos móviles */}
+          <div className="dropdown lg:hidden">
+            <button tabIndex={0} className="btn btn-ghost" aria-label="Toggle navigation menu">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
               </svg>
-            </div>
+            </button>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              className="menu menu-sm dropdown-content bg-white rounded-lg z-10 mt-3 w-60 p-4 shadow-lg space-y-3">
+              {/* Botón Inicia Sesión */}
               <li>
-                <a>Home</a>
-              </li>
-              <li>
-                <Link className="btn btn-primary btn-sm ml-2 rounded-full btn-outline" href={"/login"}>
-                  Inicia Sesion
-                </Link>
-              </li>
-              <li>
-                <Link className="btn btn-primary text-white btn-sm rounded-full" href={"/register"}>
-                  Registrate
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <Image src="/icons/compra.svg" alt="icono compra" width={20} height={20}></Image> Compra
+                <Link
+                  className="btn btn-outline border-green-600 text-green-600 hover:bg-green-600 hover:text-white btn-sm w-full"
+                  href="/login">
+                  Inicia Sesión
                 </Link>
               </li>
 
+              {/* Botón Regístrate */}
               <li>
-                <a>Vende</a>
+                <Link className="btn bg-green-600 text-white hover:bg-green-700 btn-sm w-full" href="/register">
+                  Regístrate
+                </Link>
+              </li>
+
+              {/* Opción Sobre Nosotros */}
+              <li>
+                <Link href="/#sobrenosotros" className="flex items-center space-x-3 text-gray-800 hover:text-green-600">
+                  <Image src="/icons/sobreNosotros.svg" alt="icono sobre nosotros" width={24} height={24} />
+                  <span>Sobre Nosotros</span>
+                </Link>
+              </li>
+
+              {/* Opción Compra */}
+              <li>
+                <Link href="/#listComponent" className="flex items-center space-x-3 text-gray-800 hover:text-green-600">
+                  <Image src="/icons/compra.svg" alt="icono compra" width={24} height={24} />
+                  <span>Compra</span>
+                </Link>
+              </li>
+
+              {/* Opción Vende */}
+              <li>
+                <Link href="/#exCompra" className="flex items-center space-x-3 text-gray-800 hover:text-green-600">
+                  <Image src="/icons/vende.svg" alt="icono vende" width={24} height={24} />
+                  <span>Vende</span>
+                </Link>
               </li>
             </ul>
           </div>
-          <Link href="/">
-            <Image src="/img/ekoalityLogo.png" alt="Ekoality Logo " width={100} height={100} />
-          </Link>
         </div>
-        <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+
+        {/* Navbar End - Menú Horizontal para Escritorio */}
+        <div className="hidden lg:flex items-center space-x-4">
+          <ul className="menu menu-horizontal px-1 space-x-4">
             <li>
-              <Link href="/">
-                <Image src="/icons/sobreNosotros.svg" alt="icono sobre nosotros" width={20} height={20}></Image> Sobre
-                Nosotros
+              <Link href="/#sobrenosotros" className="flex items-center">
+                <Image src="/icons/sobreNosotros.svg" alt="icono sobre nosotros" width={20} height={20} />
+                <span className="ml-2">Sobre Nosotros</span>
               </Link>
             </li>
             <li>
-              <Link href="/">
-                <Image src="/icons/compra.svg" alt="icono compra" width={20} height={20}></Image> Compra
+              <Link href="/#listComponent" className="flex items-center">
+                <Image src="/icons/compra.svg" alt="icono compra" width={20} height={20} />
+                <span className="ml-2">Compra</span>
               </Link>
             </li>
             <li>
-              <Link href="/">
-                <Image src="/icons/vende.svg" alt="vende" width={20} height={20}></Image> Vende
+              <Link href="/#exCompra" className="flex items-center">
+                <Image src="/icons/vende.svg" alt="icono vende" width={20} height={20} />
+                <span className="ml-2">Vende</span>
               </Link>
             </li>
             <li>
-              <Link href="/">
-                <Image src="/icons/pro.svg" alt="icono pro" width={20} height={20}></Image> Hazte Pro
+              <Link href="/" className="flex items-center">
+                <Image src="/icons/pro.svg" alt="icono pro" width={20} height={20} />
+                <span className="ml-2">Hazte Pro</span>
               </Link>
             </li>
           </ul>
 
-          <Link className="btn btn-primary text-white btn-sm rounded-full" href={"/register"}>
-            Registrate
-          </Link>
+          <div className="flex space-x-2">
+            <Link className="btn btn-primary text-white btn-sm rounded-full" href="/register">
+              Regístrate
+            </Link>
 
-          <Link className="btn btn-primary btn-sm ml-2 rounded-full btn-outline" href={"/login"}>
-            Inicia Sesion
-          </Link>
+            <Link className="btn btn-primary btn-sm rounded-full btn-outline" href="/login">
+              Inicia Sesión
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function ExCompra() {
   return (
-    <div className="flex flex-col items-center py-20">
+    <div id="exCompra" className="flex flex-col items-center py-20">
       <h2 className="text-2xl font-bold text-center mb-4">En Ekoality tú decides...</h2>
       <h3 className="text-xl text-center mb-8">¿Quieres productos de proximidad y calidad?</h3>
       <div className="flex justify-center items-center space-x-4">

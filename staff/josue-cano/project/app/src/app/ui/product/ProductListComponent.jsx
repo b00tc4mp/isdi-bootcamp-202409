@@ -4,7 +4,7 @@ import { addtoFavorites } from "@/app/logic/products/addtoFavorites.js";
 
 export default function ProductListComponent({ products }) {
   return (
-    <section className="flex flex-col items-center px-8 py-20 bg-gray-50">
+    <section id="listComponent" className="flex flex-col items-center px-8 py-20 bg-gray-50">
       {/* Encabezado */}
       <header className="mb-8 text-center">
         <h2 className="text-3xl font-bold text-gray-800">

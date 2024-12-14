@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-export default function EkoalitySection() {
+export default function sobreNosotros() {
   return (
-    <div className="flex flex-col items-center py-56 space-y-12 ">
+    <div id="sobrenosotros" className="flex flex-col items-center py-56 space-y-12 ">
       {/* Encabezado */}
       <div className="text-center max-w-3xl ">
         <h1 className="text-4xl font-bold mb-6">Somos una nueva opción...</h1>
@@ -19,9 +19,7 @@ export default function EkoalitySection() {
         {/* Bloque 1 */}
         <div className="flex flex-col items-center text-center space-y-4 max-w-xs">
           <Image src="/icons/ahorro.svg" alt="Icono ahorro" width={80} height={80} />
-          <h2 className="text-lg font-semibold text-gray-800">
-            Para gastar menos en tu compra de la semana
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-800">Para gastar menos en tu compra de la semana</h2>
           <p className="text-sm text-gray-600">
             Encontrarás frutas y verduras a precios con los que tu supermercado de confianza no puede competir.
           </p>
@@ -30,9 +28,7 @@ export default function EkoalitySection() {
         {/* Bloque 2 */}
         <div className="flex flex-col items-center text-center space-y-4 max-w-xs">
           <Image src="/icons/proximidad.svg" alt="Icono proximidad" width={80} height={80} />
-          <h2 className="text-lg font-semibold text-gray-800">
-            Para conseguir alimentos de proximidad
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-800">Para conseguir alimentos de proximidad</h2>
           <p className="text-sm text-gray-600">
             Promovemos el comercio local y sostenible. Podrás buscar alimentos cultivados cerca de donde vives de una
             forma sencilla.
@@ -42,9 +38,7 @@ export default function EkoalitySection() {
         {/* Bloque 3 */}
         <div className="flex flex-col items-center text-center space-y-4 max-w-xs">
           <Image src="/icons/dinero.svg" alt="Icono dinero" width={80} height={80} />
-          <h2 className="text-lg font-semibold text-gray-800">
-            Para aprovechar al máximo tus cosechas
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-800">Para aprovechar al máximo tus cosechas</h2>
           <p className="text-sm text-gray-600">
             Si tienes cosechas, podrás subir tus alimentos y venderlos o intercambiarlos, para que no desaproveches los
             frutos de tus tierras.
