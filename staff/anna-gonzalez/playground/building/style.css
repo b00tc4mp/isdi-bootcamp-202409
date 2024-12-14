@@ -1,0 +1,88 @@
+body {
+    background-image: url(https://cdn.mos.cms.futurecdn.net/FRdq8ZbPetwNDRV9R3hYpP.jpg);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.building {
+    position: relative;
+    background-color: rgb(193, 238, 150);
+    width: 300px;
+    height: 275px;
+    transform: rotate(-15deg);
+    border-radius: 15px;
+    box-shadow: 10px black;
+}
+
+.upper-house {
+    position: absolute;
+    top: -50%;
+    left: -8%;
+    width: 0;
+    height: 0;
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
+    border-bottom: 150px solid rgb(152, 197, 255);
+}
+
+.door {
+    position: absolute;
+    background-color: brown;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 100px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.window {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 15%;
+    border-radius: 10%;
+    border: 5px solid white;
+}
+
+.left-window {
+    left: 10%;
+    background-image: url(https://d23.com/app/uploads/2019/05/1180-x-600_up-easter-eggs-1-780x440.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.right-window {
+    right: 10%;
+    background-image: url(https://furnisheduk.com/media/catalog/product/s/i/silver_aluminium_venetian_blind-edited.jpg?v=5284fb2bdf544f1edf3106239725eaec);
+    background-size: cover;
+    background-position: center;
+}
+
+.chimney {
+    position: absolute;
+    top: -40%;
+    right: 10%;
+    width: 40px;
+    height: 80px;
+    background-color: brown;
+}
+
+.balloon {
+    position: absolute;
+    width: 150px;
+    height: 210px;
+    top: -105%;
+    left: 63%;
+    border-radius: 10%;
+    background-image: url(https://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Balloons-PNG/Bunch_of_Balloons_PNG_Clipart.png?m=1629782827);
+    background-size: cover;
+    background-position: center;
+    transform: rotate(15deg);
+    z-index: -2;
+}

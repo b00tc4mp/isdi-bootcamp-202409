@@ -1,0 +1,70 @@
+/*
+console.dir(document)
+console.dir(window): objeto que representa la ventana. contiene el document
+window.document === document
+
+cada tag es un nodo, cada nodo es un objeto de memoria
+document.children: el doc tiene hijos(nodos) (HTMLCollection es un iterable)
+document.children[0] = HTML
+html tiene dos hijos: head y body
+document.children[0].children[0].children
+document.childNodes[1] === document.children[0]: el texto no es html, es un nodo. Los nodos abarcan todo
+
+*/
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+    <h1 style="color: magenta;">Hola, Mundo!</h1>
+
+    <script>
+        /*
+        HTML
+         HEAD
+          META
+          META
+          TITLE
+           text
+         BODY
+          H1
+           text
+          SCRIPT
+           text
+          SCRIPT
+           text
+        */
+        /*
+                var html = document.children[0]
+                var head = document.children[0].children[0]
+                var meta = document.children[0].children[0].children[0]
+                var meta = document.children[0].children[0].children[1]
+                var meta = document.children[0].children[0].children[2]
+                var body = document.children[0].children[1]
+                var h1 = document.children[0].children[1].children[0]
+                var script = document.children[0].children[1].children[1]
+                var script = document.children[0].children[1].children[2]
+        */
+
+        var html = document.children[0]
+
+        var nameTheChildren = function (node) {
+            console.log(node.tagName)
+
+            for (var i = 0; i < node.children.length; i++) {
+                nameTheChildren(node.children[i])
+            }
+        }
+
+        nameTheChildren(html)
+
+    </script>
+</body>
+
+</html>

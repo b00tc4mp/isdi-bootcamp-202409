@@ -1,0 +1,175 @@
+* ::before,
+::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 20px;
+    margin: 20px;
+    width: 100vw;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    font-size: 300%;
+}
+
+p,
+label,
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 80%;
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: rgb(49, 29, 203);
+    text-decoration: underline;
+}
+
+.articles {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 0;
+}
+
+.big-article {
+    width: 40%;
+    height: 100%;
+    position: relative;
+    min-width: 350px;
+    overflow: hidden;
+}
+
+.medium-article {
+    width: 25%;
+    height: 100%;
+    position: relative;
+    min-width: 350px;
+    overflow: hidden;
+}
+
+.small-article {
+    width: 25%;
+    height: 100%;
+    position: relative;
+    min-width: 350px;
+    overflow: hidden;
+}
+
+.img-article1,
+.img-article3 {
+    width: 100%;
+    height: auto;
+}
+
+.img-article2 {
+    width: 100%;
+    height: auto;
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.testimonios {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+
+.testimonio1,
+.testimonio2,
+.testimonio3 {
+    list-style-type: none;
+    border: 1px solid rgb(240, 240, 240);
+    border-radius: 25px;
+    width: 25%;
+    padding: 25px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    min-width: 350px;
+    justify-content: center;
+    background-color: rgb(240, 240, 240);
+}
+
+.img-testimonio {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    justify-items: center;
+}
+
+form {
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    width: 300px;
+    gap: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form button {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    width: 100px;
+    background-color: black;
+    color: white;
+}
+
+.video-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 100px;
+    flex-wrap: wrap;
+}
+
+.video-container {
+    margin-top: 20px;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    gap: 15px;
+}
