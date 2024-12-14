@@ -9,7 +9,8 @@ import {
     setNewUserStatusHandler,
     getUserStatusHandler,
     getUserScoreHandler,
-    updateUserScoreHandler
+    updateUserScoreHandler,
+    getRankingScoresHandler
 } from './handlers/index.js'
 
 
@@ -18,6 +19,7 @@ const usersRouter = Router()
 usersRouter.get('/:targetUserId/username', authorizationHandler as RequestHandler, getUserUsernameHandler)
 usersRouter.get('/:targetUserId/status', authorizationHandler as RequestHandler, getUserStatusHandler)
 usersRouter.get('/:targetUserId/score', authorizationHandler as RequestHandler, getUserScoreHandler)
+usersRouter.get('/scores/:rankingLength', authorizationHandler as RequestHandler, getRankingScoresHandler)
 
 usersRouter.post('/anonymous', registerAnonymousUserHandler)
 usersRouter.post('/auth', authorizationHandler as RequestHandler, jsonBodyParser, authenticateUserHandler)

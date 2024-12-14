@@ -20,7 +20,7 @@ describe('authenticateUser', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', async () => {
-        await User.create({ name: 'Javi', email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+        await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 
         const user = await authenticateUser('javi', '123123123')
 
@@ -28,6 +28,18 @@ describe('authenticateUser', () => {
         expect(user.id).to.be.a.string
         expect(user.id).to.have.lengthOf(24)
         expect(user.role).to.equal('regular')
+    })
+
+    it('succeeds on anonymous user logging in', async () => {
+        await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+        const anonymousUser = await User.create({ email: 'javi2@gmail.com', username: 'javi2', password: bcrypt.hashSync('123123123', 10), role: 'anonymous' })
+
+        await authenticateUser('javi', '123123123', anonymousUser.id)
+
+        const anonymousUsers = await User.find({ role: 'anonymous' }).lean()
+
+        expect(anonymousUsers.length).to.equal(0)
     })
 
     it('fails on non-existing user', () =>

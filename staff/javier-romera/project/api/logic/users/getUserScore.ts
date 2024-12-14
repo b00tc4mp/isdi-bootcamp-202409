@@ -1,12 +1,13 @@
 import { validate, errors } from 'com'
 import { TUser, User } from 'dat'
+import { UserScoreAndUsername } from '../../types.js'
 const { NotFoundError, SystemError } = errors
 
-export default (userId: string, targetUserId: string): Promise<number> => {
+export default (userId: string, targetUserId: string): Promise<UserScoreAndUsername> => {
     validate.id(userId, 'userId')
     validate.id(targetUserId, 'targetUserId')
 
-    return (async (): Promise<number> => {
+    return (async (): Promise<UserScoreAndUsername> => {
         let user, targetUser
 
         try {
@@ -25,6 +26,9 @@ export default (userId: string, targetUserId: string): Promise<number> => {
 
         if (!targetUser) throw new NotFoundError('target user not found')
 
-        return targetUser.score
+        return {
+            username: targetUser.username,
+            score: targetUser.score
+        }
     })()
 }

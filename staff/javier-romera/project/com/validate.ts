@@ -62,6 +62,11 @@ const validateScore = (score: number): void => {
     if (score < 0 || score > 500) throw new ValidationError('Invalid score number')
 }
 
+const validateRankingLength = (rankingLength: number): void => {
+    if (typeof rankingLength !== 'number') throw new ValidationError('Invalid ranking length')
+    if (rankingLength > 20) throw new ValidationError('Ranking length already reached it\'s maximum')
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -73,7 +78,8 @@ const validate = {
     characterName: validateCharacterName,
     status: validateStatus,
     arc: validateArc,
-    score: validateScore
+    score: validateScore,
+    rankingLength: validateRankingLength
 }
 
 export default validate

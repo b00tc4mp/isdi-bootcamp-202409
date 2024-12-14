@@ -6,6 +6,7 @@ import setNewUserStatusHandler from './setNewUserStatusHandler.js'
 import getUserStatusHandler from './getUserStatusHandler.js'
 import getUserScoreHandler from './getUserScoreHandler.js'
 import updateUserScoreHandler from './updateUserScoreHandler.js'
+import getRankingScoresHandler from './getRankingScoresHandler.js'
 
 export {
     authenticateUserHandler,
@@ -15,5 +16,6 @@ export {
     setNewUserStatusHandler,
     getUserStatusHandler,
     getUserScoreHandler,
-    updateUserScoreHandler
+    updateUserScoreHandler,
+    getRankingScoresHandler
 }

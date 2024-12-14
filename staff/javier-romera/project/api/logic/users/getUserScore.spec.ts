@@ -22,9 +22,10 @@ describe('getUserScore', () => {
     it('succeeds on existing user', async () => {
         const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10), score: 3000 })
 
-        const score = await getUserScore(user.id, user.id)
+        const userDetails = await getUserScore(user.id, user.id)
 
-        expect(score).to.equal(3000)
+        expect(userDetails.score).to.equal(3000)
+        expect(userDetails.username).to.equal('javi')
     })
 
     it('fails on non-existing user', () =>

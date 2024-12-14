@@ -7,6 +7,7 @@ import getUserStatus from './getUserStatus.js'
 import deleteAllAnonymousUsers from './deleteAllAnonymousUsers.js'
 import getUserScore from './getUserScore.js'
 import updateUserScore from './updateUserScore.js'
+import getRankingScores from './getRankingScores.js'
 
 export {
     authenticateUser,
@@ -17,5 +18,6 @@ export {
     getUserStatus,
     deleteAllAnonymousUsers,
     getUserScore,
-    updateUserScore
+    updateUserScore,
+    getRankingScores
 }

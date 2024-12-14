@@ -7,7 +7,8 @@ import {
     getUserStatus,
     deleteAllAnonymousUsers,
     getUserScore,
-    updateUserScore
+    updateUserScore,
+    getRankingScores
 } from './users/index.js'
 
 import {
@@ -29,10 +30,11 @@ const logic = {
     getUserUsername,
     setNewUserStatus,
     getUserStatus,
-
     deleteAllAnonymousUsers,
     getUserScore,
     updateUserScore,
+    getRankingScores,
+
     getRandomCharacter,
     getCharacterByName,
     getAllCharacters,

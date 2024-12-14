@@ -10,7 +10,8 @@ import {
     getUserStatus,
     setNewUserStatus,
     getUserScore,
-    updateUserScore
+    updateUserScore,
+    getRankingScores
 } from './users'
 
 import {
@@ -38,6 +39,7 @@ const logic = {
     setNewUserStatus,
     getUserScore,
     updateUserScore,
+    getRankingScores,
 
     getRandomCharacter,
     getCharacterByName,

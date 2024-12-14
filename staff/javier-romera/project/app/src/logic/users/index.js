@@ -10,6 +10,7 @@ import setNewUserStatus from './setNewUserStatus'
 import getUserStatus from './getUserStatus'
 import getUserScore from './getUserScore'
 import updateUserScore from './updateUserScore'
+import getRankingScores from './getRankingScores'
 
 export {
     registerUser,
@@ -23,5 +24,6 @@ export {
     setNewUserStatus,
     getUserStatus,
     getUserScore,
-    updateUserScore
+    updateUserScore,
+    getRankingScores
 }

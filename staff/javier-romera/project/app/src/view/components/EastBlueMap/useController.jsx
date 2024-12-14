@@ -10,8 +10,8 @@ export default function useController() {
         if (!score && logic.isUserLoggedIn()) {
             try {
                 logic.getUserScore()
-                    .then(score => {
-                        setScore(score)
+                    .then(userScoreAndUsername => {
+                        setScore(userScoreAndUsername.score)
                     })
                     .catch(error => {
                         if (error instanceof SystemError)
