@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../../logic'
 import { errors } from 'com'
 
-import { capitalizeWords, validateGuess, adjustAvailableCharacters, checkOnePiecedleAnswer } from '../../../util'
+import { capitalizeWords, validateGuess, adjustAvailableCharacters, checkOnePiecedleAnswer, calculateOnePieceDleScore } from '../../../util'
 
 const { SystemError } = errors
 
@@ -85,6 +85,17 @@ export default function useController() {
 
                 console.error(error)
             }
+
+            const score = calculateOnePieceDleScore(guessedCharacters.length)
+
+            if (score !== undefined)
+                try {
+                    logic.updateUserScore(score)
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
         }
     }, [didWin])
 

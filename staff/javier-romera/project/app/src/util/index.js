@@ -16,6 +16,8 @@ import getConditionText from './getConditionText'
 import validateAnswer from './validateAnswer'
 import didFinishBoard from './didFinishBoard'
 import getElapsedTime from './getElapsedTime'
+import calculateOnePieceDleScore from './calculateOnePieceDleScore'
+import calculateOneDokuScore from './calculateOneDokuScore'
 
 export {
     extractPayloadFromJWT,
@@ -35,5 +37,7 @@ export {
     getConditionText,
     validateAnswer,
     didFinishBoard,
-    getElapsedTime
+    getElapsedTime,
+    calculateOnePieceDleScore,
+    calculateOneDokuScore
 }

@@ -8,7 +8,6 @@ import isUserRoleAnonymous from './isUserRoleAnonymous'
 import isUserRoleRegular from './isUserRoleRegular'
 import setNewUserStatus from './setNewUserStatus'
 import getUserStatus from './getUserStatus'
-import deleteAnonymousUser from './deleteAnonymousUser'
 import getUserScore from './getUserScore'
 import updateUserScore from './updateUserScore'
 
@@ -23,7 +22,6 @@ export {
     isUserRoleRegular,
     setNewUserStatus,
     getUserStatus,
-    deleteAnonymousUser,
     getUserScore,
     updateUserScore
 }

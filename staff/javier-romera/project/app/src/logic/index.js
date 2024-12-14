@@ -9,7 +9,6 @@ import {
     isUserRoleRegular,
     getUserStatus,
     setNewUserStatus,
-    deleteAnonymousUser,
     getUserScore,
     updateUserScore
 } from './users'
@@ -37,7 +36,6 @@ const logic = {
     isUserRoleRegular,
     getUserStatus,
     setNewUserStatus,
-    deleteAnonymousUser,
     getUserScore,
     updateUserScore,
 

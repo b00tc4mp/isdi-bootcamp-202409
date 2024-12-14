@@ -12,24 +12,6 @@ export default function Login(props) {
         const { target: { username: { value: username }, password: { value: password } } } = event
 
         try {
-            if (logic.isUserRoleAnonymous())
-                logic.deleteAnonymousUser()
-                    .then(() => { })
-                    .catch(error => {
-                        if (error instanceof SystemError)
-                            alert('Sorry, try again later')
-                        else
-                            alert(error.message)
-
-                        console.error(error)
-                    })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-
-        try {
             logic.loginUser(username, password)
                 .then(() => {
                     event.target.reset()

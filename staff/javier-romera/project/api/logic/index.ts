@@ -5,7 +5,6 @@ import {
     getUserUsername,
     setNewUserStatus,
     getUserStatus,
-    deleteAnonymousUser,
     deleteAllAnonymousUsers,
     getUserScore,
     updateUserScore
@@ -30,11 +29,10 @@ const logic = {
     getUserUsername,
     setNewUserStatus,
     getUserStatus,
-    deleteAnonymousUser,
+
     deleteAllAnonymousUsers,
     getUserScore,
     updateUserScore,
-
     getRandomCharacter,
     getCharacterByName,
     getAllCharacters,

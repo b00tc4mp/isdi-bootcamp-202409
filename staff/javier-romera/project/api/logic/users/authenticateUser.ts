@@ -6,9 +6,10 @@ const { SystemError, CredentialsError } = errors
 
 import { Payload } from '../../types.js'
 
-export default (username: string, password: string): Promise<Payload> => {
+export default (username: string, password: string, userId?: string): Promise<Payload> => {
     validate.username(username)
     validate.password(password)
+    userId && validate.id(userId, 'userId')
 
     return (async (): Promise<Payload> => {
         let user
@@ -32,6 +33,14 @@ export default (username: string, password: string): Promise<Payload> => {
         }
 
         if (!match) throw new CredentialsError('cagaste')
+
+        if (userId) {
+            try {
+                await User.deleteOne({ _id: userId })
+            } catch (error) {
+                throw new SystemError((error as Error).message)
+            }
+        }
 
         return {
             id: user._id.toString(),

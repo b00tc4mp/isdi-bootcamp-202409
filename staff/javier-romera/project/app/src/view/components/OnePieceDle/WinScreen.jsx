@@ -1,6 +1,6 @@
 import { Button, Anchor } from '../../library'
 
-export default function OnePieceDleWinScreen({ correctChar, setWinAlert, refresh, onHomeClick }) {
+export default function OnePieceDleWinScreen({ correctChar, setWinAlert, refresh, onHomeClick, tries }) {
     const handleCloseScreen = () => {
         setWinAlert(false)
     }
@@ -20,6 +20,7 @@ export default function OnePieceDleWinScreen({ correctChar, setWinAlert, refresh
             <h1 className="text-[2rem] ">Victory!</h1>
             <p className="mt-[3rem]">You guessed</p>
             <p className="text-[2.5rem]">{correctChar}</p>
+            <p className="mt-[1rem]">It took you {tries.length} tries</p>
 
             <div className="flex flex-col items-center mt-[1rem] gap-[1.5rem]">
                 <Button className="bg-[rgba(250,249,243,1)] w-[8rem] text-[1.25rem] mt-[1.5rem] px-[.5rem] rounded-[.25rem] border-[1.5px] border-[black]" onClick={refresh}>Play again</Button>

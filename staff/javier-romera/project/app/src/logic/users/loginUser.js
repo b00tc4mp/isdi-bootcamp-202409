@@ -6,11 +6,16 @@ export default (username, password) => {
     validate.username(username)
     validate.password(password)
 
+    const headers = {
+        'Content-Type': 'application/json'
+    }
+
+    if (localStorage.token)
+        headers.Authorization = `Bearer ${localStorage.token}`
+
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/auth`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify({ username, password })
     })
         .catch(error => { throw new SystemError(error.message) })

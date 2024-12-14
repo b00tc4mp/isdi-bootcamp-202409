@@ -4,7 +4,6 @@ import registerAnonymousUser from './registerAnonymousUser.js'
 import getUserUsername from './getUserUsername.js'
 import setNewUserStatus from './setNewUserStatus.js'
 import getUserStatus from './getUserStatus.js'
-import deleteAnonymousUser from './deleteAnonymousUser.js'
 import deleteAllAnonymousUsers from './deleteAllAnonymousUsers.js'
 import getUserScore from './getUserScore.js'
 import updateUserScore from './updateUserScore.js'
@@ -16,7 +15,6 @@ export {
     getUserUsername,
     setNewUserStatus,
     getUserStatus,
-    deleteAnonymousUser,
     deleteAllAnonymousUsers,
     getUserScore,
     updateUserScore

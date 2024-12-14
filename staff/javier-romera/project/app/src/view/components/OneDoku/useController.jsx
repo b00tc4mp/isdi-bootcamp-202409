@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import logic from '../../../logic'
-import { solveBoard, validateGuess, adjustAvailableCharacters, validateAnswer, didFinishBoard, getElapsedTime } from '../../../util'
+import { solveBoard, validateGuess, adjustAvailableCharacters, validateAnswer, didFinishBoard, getElapsedTime, calculateOneDokuScore } from '../../../util'
 
 export default function useController() {
     const [characters, setCharacters] = useState(null)
@@ -52,6 +52,16 @@ export default function useController() {
 
             try {
                 logic.setNewUserStatus(status, 'onedoku')
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+
+            const score = calculateOneDokuScore(timeSpent, hp)
+
+            try {
+                logic.updateUserScore(score)
             } catch (error) {
                 alert(error.message)
 
