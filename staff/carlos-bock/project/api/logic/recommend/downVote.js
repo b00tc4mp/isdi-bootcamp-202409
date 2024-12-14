@@ -16,7 +16,11 @@ const downVote = (userId, recommendId) => {
             if (!user) throw new NotFoundError('user not found')
             if (!recommend) throw new NotFoundError('recommendation not found')
 
-            const { downVotes } = recommend
+            const { downVotes, upVotes } = recommend
+
+            const upVoteIndex = upVotes.findIndex(userObjectId => userObjectId.equals(userId))
+
+            if (upVoteIndex > -1) upVotes.splice(upVoteIndex, 1)
 
             const index = downVotes.findIndex(userObjectId => userObjectId.equals(userId))
 
