@@ -5,7 +5,7 @@ import chaiAsPromised from 'chai-as-promised'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
-//import { describe } from 'mocha'
+import { describe } from 'mocha'
 
 
 import db, { User, Recommend } from '../../../dat/index.js'
@@ -39,7 +39,8 @@ describe('addComment', () => {
             price: 1,
             link: 'https:/www.example.com',
             imageUrl: 'https:/www.example.com/image.jpg',
-            recommend: 'guten tag'
+            text: 'guten tag',
+            subject: 'la vida en Lisboa'
         })
 
         return Promise.all([user.save(), recommend.save()])
@@ -50,7 +51,7 @@ describe('addComment', () => {
                         expect(recommend).to.exist
                         expect(recommend.comments).to.have.lengthOf(1)
 
-                        const [comment] = post.comments
+                        const [comment] = recommend.comments
                         expect(comment.author.toString()).to.equal(user.id)
                         expect(comment.text).to.equal('guten tag')
                         expect(comment.date).to.be.instanceOf(Date)
@@ -60,7 +61,7 @@ describe('addComment', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            addComment('012345678901234567890123', '012345678901234567890123', 'guten tag')
+            addComment('012345678901234567890123', '012345678901234567890124', 'guten tag')
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 

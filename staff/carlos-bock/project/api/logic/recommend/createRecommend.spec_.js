@@ -30,7 +30,7 @@ const recommend1 = { //don't include user.id not
 
 debugger
 
-describe('createPost', () => {
+describe('createRecommend', () => {
     before(() => db.connect('mongodb://127.0.0.1:27017/mired-test')) //process.env.MONGO_ULR_TEST
 
     beforeEach(() => Promise.all([User.deleteMany(), Recommend.deleteMany()]))
@@ -65,7 +65,7 @@ describe('createPost', () => {
                         expect(recommend.link).to.equal('https:/www.example.com')
                         expect(recommend.image).to.equal('https:/www.example.com/image.jpg')
                         expect(recommend.text).to.equal('guten tage')
-                        expect(recomment.date).to.be.instanceOf(Date)
+                        expect(recommend.date).to.be.instanceOf(Date)
                     })
             )
 
