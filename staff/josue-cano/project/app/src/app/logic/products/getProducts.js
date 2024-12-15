@@ -1,7 +1,21 @@
+import { getToken } from "../../utils/session";
+
 export function getProducts() {
-  return fetch(`http://${"localhost:8080"}/products`, {
+  const token = getToken();
+  let headers = { "Content-type": "application/json" }
+  let url = `http://${"localhost:8080"}/`;
+
+
+  if(token) {
+    headers = { ...headers, AUTHORIZATION: `Bearer ${token}` }
+    url = `${url}products`;
+  } else {
+    url = `${url}public/products`;
+  }
+
+  return fetch(`${url}`, {
     method: "get",
-    headers: { "Content-type": "application/json" },
+    headers: headers,
   })
     .then((response) => response.json())
     .then((response) => response.data)

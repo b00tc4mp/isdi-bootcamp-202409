@@ -22,7 +22,7 @@ export default ({ email, password }) => {
     let match;
 
     try {
-      match = await bcrypt.compare(password, user.password);
+      match = bcrypt.compare(password, user.password);
     } catch (error) {
       throw new CredentialsError(error.message);
     }
@@ -30,11 +30,12 @@ export default ({ email, password }) => {
     if (!match) throw new CredentialsError("wrong credentials");
 
     const { _id: sub, firstName, lastName, email: mail } = { ...user.toObject() };
-    
-    const token = jwt.sign({sub, firstName, lastName, email: mail}, process.env.JWT_SECRET, {
+
+    const token = jwt.sign({ sub, firstName, lastName, email: mail }, process.env.JWT_SECRET, {
       expiresIn: "2h",
     });
 
+    // devolver token de sesión y lista de productos favoritos
     return {
       token,
     };

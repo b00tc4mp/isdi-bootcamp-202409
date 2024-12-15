@@ -8,8 +8,8 @@ export default ({ firstName, lastName, email, ubicacion, password, passwordRepea
   try {
     validate.firstName(firstName);
     validate.lastName(lastName);
-    validate.email(email);
     validate.ubicacion(ubicacion);
+    validate.email(email);
     validate.password(password);
     validate.passwordsMatch(password, passwordRepeat);
 
@@ -22,9 +22,7 @@ export default ({ firstName, lastName, email, ubicacion, password, passwordRepea
         User.create({ firstName, lastName, email, ubicacion, password: hash })
           .then((user) => ({ ...user.toObject(), password: null }))
           .catch((error) => {
-
-            if (error.code === 11000)
-              throw new DuplicityError("user already exists");
+            if (error.code === 11000) throw new DuplicityError("user already exists");
 
             throw new SystemError(error.message);
           })

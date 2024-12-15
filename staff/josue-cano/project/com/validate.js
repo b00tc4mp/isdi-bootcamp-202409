@@ -2,15 +2,9 @@ import errors from "./errors.js";
 
 const { ValidationError } = errors;
 
-const validateUsername = (userName) => {
-  if (typeof userName !== "string")
-    throw new ValidationError("invalid username");
-  if (userName.length < 2) throw new ValidationError("invalid username length");
-};
-
-const validatefirstName = (firstName) => {
-  if (typeof firstName !== "string") throw new ValidationError("invalid name");
-  if (firstName.length < 2) throw new ValidationError("invalid name length");
+const validateUsername = (name) => {
+  if (typeof name !== "string") throw new ValidationError("invalid name");
+  if (name.length < 2) throw new ValidationError("invalid name length");
 };
 
 const validateEmail = (email) => {
@@ -24,23 +18,18 @@ const validateEmail = (email) => {
 };
 
 const lastName = (lastName) => {
-  if (typeof lastName !== "string")
-    throw new ValidationError("invalid lastName");
-  if (lastName.length < 3 || lastName.length > 30)
-    throw new ValidationError("invalid lastName length");
+  if (typeof lastName !== "string") throw new ValidationError("invalid lastName");
+  if (lastName.length < 3 || lastName.length > 30) throw new ValidationError("invalid lastName length");
 };
 
 const validatePassword = (password) => {
-  if (typeof password !== "string")
-    throw new ValidationError("invalid password");
+  if (typeof password !== "string") throw new ValidationError("invalid password");
   if (password.length < 8) throw new ValidationError("invalid password length");
 };
 
 const validatePasswordsMatch = (password, passwordRepeat) => {
-  if (typeof passwordRepeat !== "string")
-    throw new ValidationError("invalid password repeat");
-  if (password !== passwordRepeat)
-    throw new ValidationError("passwords do not match");
+  if (typeof passwordRepeat !== "string") throw new ValidationError("invalid password repeat");
+  if (password !== passwordRepeat) throw new ValidationError("passwords do not match");
 };
 
 const validateImage = (image) => {
@@ -57,8 +46,7 @@ const validateId = (id, explain = "id") => {
 };
 
 const validateCallback = (callback) => {
-  if (typeof callback !== "function")
-    throw new ValidationError("invalid callback");
+  if (typeof callback !== "function") throw new ValidationError("invalid callback");
 };
 const validateUbicacion = (ubicacion) => {
   if (typeof ubicacion !== "string") {
@@ -69,9 +57,9 @@ const validateUbicacion = (ubicacion) => {
   }
 };
 
-
 const validate = {
-  firstName: validatefirstName,
+  firstName: validateUsername,
+  userName: validateUsername,  
   email: validateEmail,
   lastName: lastName,
   password: validatePassword,
@@ -80,7 +68,6 @@ const validate = {
   text: validateText,
   id: validateId,
   callback: validateCallback,
-  userName: validateUsername,
   ubicacion: validateUbicacion,
 };
 

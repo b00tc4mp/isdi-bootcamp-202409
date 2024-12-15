@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,9 +10,10 @@ export default function ProductComponent({ producto, addtoFavorites, refetch, se
     if (result.valid) {
       if (setRefetch) setRefetch(!refetch);
     } else {
-      alert(result.message);
+      // alert(result.message);
     }
   };
+
   return (
     <section>
       {/* Usar `passHref` asegura que los hijos del `Link` reciban el href si es necesario */}
@@ -29,7 +31,7 @@ export default function ProductComponent({ producto, addtoFavorites, refetch, se
         </figure>
         <div className="card-body">
           <h2 className="card-title">
-            <Link href={`/products/${producto._id}`} passHref>
+            <Link href={`/product/${producto._id}`} passHref>
               {producto.name}
             </Link>
             <div className="badge badge-secondary">NEW</div>
@@ -41,10 +43,10 @@ export default function ProductComponent({ producto, addtoFavorites, refetch, se
               onClick={favoritesHandler}
               className={producto.isFavorite == "true" ? "swap swap-active" : "swap swap-inactive"}>
               <div className="swap-off">
-                <Image src="/icons/non-favorite.svg" width={24} height={24} alt="favorit yes" layout="" />
+                <Image src="/icons/non-favorite.svg" width={24} height={24} layout="" />
               </div>
               <div className="swap-on">
-                <Image src="/icons/favorite.svg" width={24} height={24} alt="favorit no" layout="" />
+                <Image src="/icons/favorite.svg" width={24} height={24} layout="" />
               </div>
             </div>
           </div>

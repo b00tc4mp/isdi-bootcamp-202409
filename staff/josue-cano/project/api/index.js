@@ -34,6 +34,22 @@ db.connect(process.env.MONGO_URL)
         .catch((msg) => res.status(400).json({ error: msg.message }));
     });
 
+    server.get("/users/details/:id?", helpers.authorizationHandler, (req, res) => {
+      let userId;
+      if(req.params.id){
+        userId = req.params.id;
+      }else {
+        userId = req.userId;
+      }
+      console.log({id: req.params.id, userId: req.userId});
+      console.log({userId});
+
+      logic
+        .getUserDetails(userId)
+        .then((user) => res.json({ data: user }))
+        .catch((msg) => res.status(400).json({ error: msg.message }));
+    });
+
     //validatessesion
     server.get("/validate-session", (req, res) => {
       const token = req.headers.authorization.slice(7);
@@ -76,9 +92,20 @@ db.connect(process.env.MONGO_URL)
       // console.log(user);
     });
     /**
-     * obtener listadoo de todos los productos
+     * obtener listado de todos los productos (usuario autenticado)
      */
-    server.get("/products", (req, res) => {
+    server.get("/products", helpers.authorizationHandler, (req, res) => {
+      const userId = req.userId;
+      logic
+        .getProducts(userId)
+        .then((getProducts) => res.json({ data: getProducts }));
+    });
+
+    /**
+     * obtener listado de todos los productos (usuario no autenticado)
+     */
+    server.get("/public/products", (_, res) => {
+
       logic
         .getProducts()
         .then((getProducts) => res.json({ data: getProducts }));

@@ -5,8 +5,8 @@ import Link from "next/link";
 export default function PrivateHeader({ logout }) {
   // function handlelogout()
   return (
-    <div className="border-b border-[#52A42D] bg-white">
-      <div className="navbar container mx-auto flex justify-between items-center py-2">
+    <div className="fixed top-0 left-0 w-full z-50 bg-white border-b border-[#52A42D] shadow-md">
+      <div className="navbar bg-base-100 container mx-auto flex justify-between items-center px-4">
         {/* Logo Section */}
         <Link href="/">
           <Image

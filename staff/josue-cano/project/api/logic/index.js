@@ -8,6 +8,7 @@ import getProductDetails from "./products/getProductDetails.js";
 import getLocations from "./getLocations.js";
 import setUserFavorites from "./users/setUserFavorites.js";
 import getUserFavorites from "./users/getUserFavorites.js";
+import getUserDetails from "./users/getUserDetails.js";
 
 const logic = {
   authenticateUser,
@@ -19,7 +20,8 @@ const logic = {
   getProductDetails,
   getLocations,
   setUserFavorites,
-  getUserFavorites
+  getUserFavorites,
+  getUserDetails
 };
 
 export default logic;

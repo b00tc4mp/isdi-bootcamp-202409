@@ -5,20 +5,22 @@ const { AuthorizationError } = errors
 
 export default (req, res, next) => {
 
-    console.log('entrando en authorization handler');
-    
-    try {
-        const token = req.headers.authorization.slice(7)
+  console.log('entrando en authorization handler');
 
-        const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+  const token = req.headers.authorization?.slice(7)
 
-        req.userId = userId
+  if(!token){
+    return next(new AuthorizationError('No token provided'));
+  }
 
-        console.log('agregando el id desde el token: ', userId);
-        
+  try {
 
-        next()
-    } catch (error) {
-        next(new AuthorizationError(error.message))
-    }
+    const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+    req.userId = userId
+
+    next()
+  } catch (error) {
+    return next(new AuthorizationError(error.message))
+  }
 }

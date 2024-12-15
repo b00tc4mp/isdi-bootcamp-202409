@@ -7,11 +7,11 @@
   "scripts": {
     "start": "nodemon index.js",
     "inspect": "node --inspect-brk .",
-    "test": "mocha logic/*.spec.js",
+    "test": "mocha logic/*.spec.js utils/*.spec.js" ,
     "test-one": "mocha",
     "test-inspect": "mocha --inspect-brk logic/*.spec.js",
     "test-inspect-one": "mocha --inspect-brk",
-    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js --timeout 20000"
+    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js utils/*.spec.js --timeout 20000"
   },
   "author": "Josuecanod@gmail.com",
   "license": "ISC",
@@ -32,6 +32,7 @@
     "chai": "^5.1.2",
     "chai-as-promised": "^8.0.1",
     "mocha": "^10.8.2",
-    "monocart-coverage-reports": "^2.11.2"
+    "monocart-coverage-reports": "^2.11.2",
+    "nyc": "^17.1.0"
   }
 }

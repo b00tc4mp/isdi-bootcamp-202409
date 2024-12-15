@@ -11,10 +11,13 @@ export default async ({id }) => {
 
     const user = await User.findOne({_id: id}); 
 
-    const favorites = await Producto.find({_id: { $in: user.favorites}});
+    const favorites = await Producto.find({_id: { $in: user.favorites}}).lean();
 
 
-    return favorites;
+    return favorites.map(product => ({
+      ...product,
+      isFavorite: 'true'
+    }));
     
   } catch (error) {
     console.log(error);

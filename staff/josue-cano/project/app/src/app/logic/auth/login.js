@@ -20,7 +20,6 @@ const login = ({ username, password }) => {
       console.log(error);
     })
     .then((res) => {
-      debugger;
       if (res.ok)
         return res
           .json()
@@ -28,10 +27,9 @@ const login = ({ username, password }) => {
             throw new SystemError(error.message);
           })
           .then((response) => {
-            debugger;
             localStorage.token = response.data.token;
+            localStorage.favorites = response.data.favorites;
             return true;
-            // redirect("/");
           });
 
       return res

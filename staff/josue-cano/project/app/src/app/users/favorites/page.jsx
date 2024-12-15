@@ -7,6 +7,7 @@ import { getFavorites } from "@/app/logic/products/getFavorites";
 export default function Index() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null); // Manejo de errores
+  const [refetch, setRefetch] = useState(false);
 
   // Efecto para cargar los productos al montar el componente
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function Index() {
       .catch((err) => {
         setError(err); // Maneja los errores
       });
-  }, []);
+  }, [refetch]);
 
   if (error) {
     return <p>Error al cargar productos: {error.message}</p>; // Muestra un mensaje de error
@@ -26,7 +27,7 @@ export default function Index() {
 
   return (
     <section>
-      <ProductListComponent products={products} />
+      <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch}/>
     </section>
   );
 }

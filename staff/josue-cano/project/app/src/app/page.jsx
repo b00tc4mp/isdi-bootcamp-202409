@@ -10,6 +10,7 @@ import Contacto from "./ui/home/contacto";
 export default function Index() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null); // Manejo de errores
+  const [refetch, setRefetch] = useState(false);
 
   // Efecto para cargar los productos al montar el componente
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function Index() {
       .catch((err) => {
         setError(err); // Maneja los errores
       });
-  }, []);
+  }, [refetch]); //se encarga de refrescar la lista de productos cuando alguno se elige como favorito
 
   if (error) {
     return <p>Error al cargar productos: {error.message}</p>; // Muestra un mensaje de error
@@ -29,7 +30,7 @@ export default function Index() {
   return (
     <section>
       <SearchComponent />
-      <ProductListComponent products={products} />
+      <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} />
       <EkoalitySection />
       <ExCompra />
       <Contacto />
