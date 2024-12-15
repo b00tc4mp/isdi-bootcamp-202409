@@ -50,7 +50,7 @@ export default function Login(props) {
             backgroundImage: "url('/images/going_merry.png')"
         }}>
 
-        <section className="bg-[rgba(215,167,104,0.9)] mt-[10rem] w-[20rem] h-[22rem] border-[2px] border-[black] rounded-[1rem]">
+        <section className="bg-[rgba(215,167,104,0.9)] mt-[10rem] w-[20rem] h-[22rem] border-[2.5px] border-[black] rounded-[1rem]">
 
             <h2 className="text-[2rem] mt-[1rem] mb-[1rem]">Login</h2>
 

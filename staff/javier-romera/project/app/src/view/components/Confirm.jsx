@@ -1,3 +1,5 @@
+import { Button } from '../library'
+
 export default function Confirm({ message, level = 'error', onAccepted, onCancelled }) {
     const borderColor = level === 'error' ? 'border-[red]' : level === 'warn' ? 'border-[yellow]' : 'border-[green]'
 
@@ -6,12 +8,12 @@ export default function Confirm({ message, level = 'error', onAccepted, onCancel
     const handleAcceptClick = () => onAccepted()
 
     return <div className="fixed h-full w-full top-0 flex items-center justify-center">
-        <div className={`min-w-[20rem] max-w-[40rem] min-h-[10rem] bg-white ${borderColor} border-[1rem] flex flex-col items-center justify-center p-2 gap-2`}>
-            <p>{message}</p>
+        <div className={`min-w-[20rem] max-w-[40rem] min-h-[10rem] bg-white ${borderColor} border-[.5rem] rounded-[.5rem] flex flex-col items-center justify-center px-[1.5rem] gap-2`}>
+            <p className="mb-[.75rem] text-[1.25rem]">{message}</p>
 
-            <button className="border-2 border-black pt-1 bg-gray-400" onClick={handleCancelClick}>Cancel</button>
+            <Button className="px-[0.5rem] bg-[rgba(175,255,255,1)] rounded-[.125rem] py-[0.125rem] text-center border-2 border-black" onClick={handleCancelClick}>Cancel</Button>
 
-            <button className="border-2 border-black pt-1" onClick={handleAcceptClick}>Accept</button>
+            <Button className="px-[0.5rem] rounded-[.125rem] py-[0.125rem] text-center border-2 border-black" onClick={handleAcceptClick}>Accept</Button>
         </div>
     </div>
 }

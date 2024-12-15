@@ -57,7 +57,7 @@ export default function Register(props) {
     return <main className="h-screen w-screen bg-cover bg-center flex flex-col items-center" style={{
         backgroundImage: "url('/images/going_merry.png')"
     }}>
-        <section className="bg-[rgba(215,167,104,0.9)] mt-[10rem] w-[20rem] h-[30rem] border-[2px] border-[black] rounded-[1rem]">
+        <section className="bg-[rgba(215,167,104,0.9)] mt-[10rem] w-[20rem] h-[30rem] border-[2.5px] border-[black] rounded-[1rem]">
 
             <h2 className="mt-[1rem] text-[2rem] mb-[1rem]">Register</h2>
 

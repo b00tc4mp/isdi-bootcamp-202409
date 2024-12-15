@@ -6,9 +6,13 @@ import { useEffect, useState } from 'react'
 import { errors } from 'com'
 const { SystemError } = errors
 
+import useContext from '../useContext'
+
 export default function Header(props) {
     const [username, setUsername] = useState(null)
     const location = useLocation()
+
+    const { alert, confirm } = useContext()
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
@@ -46,10 +50,14 @@ export default function Header(props) {
     }
 
     const handleLogoutUser = () => {
-        logic.logoutUser()
-        setUsername()
+        confirm('Logout?', accepted => {
+            if (accepted) {
+                logic.logoutUser()
+                setUsername()
 
-        props.onLoggedOut()
+                props.onLoggedOut()
+            }
+        }, 'warn')
     }
 
     return <header className="fixed top-0 w-full h-[10rem] box-border bg-gradient-to-b from-white/90 to-white/0 z-10 flex">

@@ -19,6 +19,7 @@ export default function useController() {
     const [answers, setAnswers] = useState([])
     const [guessedCharacters, setGuessedCharacters] = useState([])
     const [availableCharacters, setAvailableCharacters] = useState([])
+    const [wrongGuessMessage, setWrongGuessMessage] = useState('')
 
     useEffect(() => {
         if (!characters && logic.isUserLoggedIn())
@@ -128,6 +129,8 @@ export default function useController() {
             const found = validateGuess(availableCharacters, parsedGuess)
 
             if (found > -1) {
+                setWrongGuessMessage('')
+
                 const newAvailableCharacters = adjustAvailableCharacters(found, availableCharacters)
                 setAvailableCharacters(newAvailableCharacters)
 
@@ -156,8 +159,8 @@ export default function useController() {
             } else {
                 const found = validateGuess(characters, parsedGuess)
 
-                if (found > -1) alert('Character already guessed')
-                else alert('Invalid character name or alias')
+                if (found > -1) setWrongGuessMessage('Character already guessed')
+                else setWrongGuessMessage('Character not found')
             }
         } catch (error) {
             alert(error.message)
@@ -184,6 +187,7 @@ export default function useController() {
         setAnswers([])
         setGuessedCharacters([])
         setAvailableCharacters([])
+        setWrongGuessMessage('')
     }
 
     return {
@@ -196,6 +200,7 @@ export default function useController() {
         isFirstAnswerSent,
         status,
         availableCharacters,
+        wrongGuessMessage,
 
         setShowWinAlert,
 

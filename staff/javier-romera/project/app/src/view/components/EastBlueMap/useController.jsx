@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import logic from '../../../logic'
 
+import useContext from '../../useContext'
+
 export default function useController() {
+    const { alert } = useContext()
+
     const [characters, setCharacters] = useState(null)
     const [selectedArc, setSelectedArc] = useState(null)
     const [score, setScore] = useState(0)
@@ -52,7 +56,7 @@ export default function useController() {
         if (logic.isUserRoleAnonymous())
             alert('If you want to progress through the map and have access to the details, you will have to login so you can gain score playing the minigames!')
         else
-            alert(`OIOIOIOI BAAAKAAAAA you need more score to access ${parsedArc} details, go play some minigames KSO YAROOO`)
+            alert(`OIOIOIOI BAAAKAAAAA you need more score to access ${parsedArc} details, go play some minigames KSO YAROOO`, 'warn')
     }
 
     const handleExitLocation = () => {

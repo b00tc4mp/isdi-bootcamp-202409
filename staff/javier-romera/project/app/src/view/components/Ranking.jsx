@@ -25,7 +25,6 @@ export default function Ranking({ onCloseRankingClick }) {
 
                             if (found) setIsUserInRanking(true)
                         })
-
                 })
                 .catch(error => {
                     if (error instanceof SystemError)
@@ -56,7 +55,6 @@ export default function Ranking({ onCloseRankingClick }) {
 
                             if (found) setIsUserInRanking(true)
                         })
-
                 })
         } catch (error) {
             alert(error.message)
@@ -69,12 +67,12 @@ export default function Ranking({ onCloseRankingClick }) {
         onCloseRankingClick()
     }
 
-    return <div className="w-screen h-screen absolute flex justify-center items-center">
+    return <div className="w-screen h-screen fixed flex justify-center items-center">
         <div className="absolute z-[50] w-[17.5rem] h-[30rem] bg-[rgba(250,249,243,1)] rounded-[1rem] border-[2px] border-[black] overflow-y-auto">
             <header className="h-[2rem] w-[17.3rem] mt-0 flex justify-end fixed z-[10] rounded-tl-[.9rem] rounded-tr-[.9rem] border-t-1 border-black px-[1rem] bg-[rgba(175,255,255,1)] border-b-[2px]">
                 <Button className="w-[full] text-[1.25rem]" onClick={handleCloseRanking}>𐢫</Button>
             </header>
-            <div className="mb-[2rem]"></div>
+            <div className="mb-[2.5rem]"></div>
             {ranking.map((user, index) => {
                 let customClassName = ''
                 let customFontBold = ''
