@@ -128,9 +128,19 @@ const validatePhone = phone => {
 const validatePostalCode = (postalCode) => {
     if (typeof postalCode !== 'string') throw new ValidationError('invalid postal code')
 
-    // Regex para validar un código postal general (4-10 caracteres alfanuméricos)
     if (!/^[A-Za-z0-9\s]{4,10}$/.test(postalCode)) {
         throw new ValidationError('invalid postal code format')
+    }
+}
+const validateStreet = street => {
+    if (typeof street !== 'string') {
+        throw new ValidationError('invalid street');
+    }
+    if (street.trim().length < 3 || street.trim().length > 50) {
+        throw new ValidationError('invalid street length');
+    }
+    if (!/^[a-zA-Z0-9\s,.\-]+$/.test(street)) {
+        throw new ValidationError('invalid street format');
     }
 }
 
@@ -157,7 +167,8 @@ const validate = {
     callback: validateCallback,
     number: validateNumber,
     phone: validatePhone,
-    postalCode: validatePostalCode
+    postalCode: validatePostalCode,
+    street: validateStreet
 }
 
 export default validate

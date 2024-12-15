@@ -5,7 +5,7 @@ const { SystemError, NotFoundError } = errors
 
 export default (userId, street, phone, city, country, postalCode) => {
     validate.id(userId, 'userId')
-    validate.text(street, 'street')
+    // validate.street(street, 'street')
     validate.phone(phone, 'phone')
     validate.text(city, 'city')
     validate.text(country, 'country')

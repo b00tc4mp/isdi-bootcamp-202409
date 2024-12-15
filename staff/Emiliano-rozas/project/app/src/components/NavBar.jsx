@@ -1,19 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import assets from '../assets'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { isUserLoggedIn, isUserRoleModerator, logoutUser } from '../logic/users/index'
+import logic from '../logic/index';
 
 
 export default function NavBar() {
 
     const [loggedIn, setLoggedIn] = useState(false)
     const [isModerator, setIsModerator] = useState(false)
+    const [cartItemCount, setCartItemCount] = useState(0)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const loggedIn = isUserLoggedIn()
+
         setLoggedIn(loggedIn);
+
         setIsModerator(loggedIn && isUserRoleModerator())
+
+        const cart = async () => {
+            if (!loggedIn) {
+                return
+            }
+            else {
+                try {
+                    const cartInfo = await logic.getCart()
+
+                    setCartItemCount(cartInfo.items.length)
+
+                } catch (error) {
+                    console.error(error)
+                }
+            }
+        }
+        cart()
     }, [loggedIn])
+
+
+
+    const handleLogout = () => {
+        logoutUser();
+        setLoggedIn(false)
+        setCartItemCount(0)
+        navigate('/')
+    };
 
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
@@ -61,10 +93,9 @@ export default function NavBar() {
                                     <NavLink to='/orders'>
                                         <p className='cursor-pointer hover:text-green-700'>Orders</p>
                                     </NavLink>
-                                    <p onClick={() => {
-                                        logoutUser()
-                                        window.location.reload()
-                                    }} className='cursor-pointer hover:text-green-700'>Logout</p>
+                                    <p onClick={
+                                        handleLogout
+                                    } className='cursor-pointer hover:text-green-700'>Logout</p>
                                 </div>
                             </div>
                         </>
@@ -75,7 +106,7 @@ export default function NavBar() {
                 </div>
                 <Link to='/cart' className='relative'>
                     <img src={assets.cartIcon} className='w-5 cursor-pointer' alt="" />
-                    <p className='absolute right-[-9px] bottom-[-11px] w-5 text-center leading-4 bg-black text-white aspect-square rounded-full border-solid border-[1px] border-green-700 text[6px] '>2</p>
+                    <p className='absolute right-[-9px] bottom-[-11px] w-5 text-center leading-4 bg-black text-white aspect-square rounded-full border-solid border-[1px] border-green-700 text[6px] '>{cartItemCount}</p>
                 </Link>
                 <img src={assets.menuIcon} className='w-5 cursor-pointer ' alt="" />
             </div>

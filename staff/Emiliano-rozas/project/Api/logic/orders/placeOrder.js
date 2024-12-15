@@ -60,7 +60,6 @@ export default (userId) => {
         })
         .then(order => {
             return {
-                message: 'Order placed successfully',
                 orderId: order._id.toString(),
                 order,
             }

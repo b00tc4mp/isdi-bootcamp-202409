@@ -34,7 +34,7 @@ const user = new Schema({
     street: {
         type: String,
         default: '',
-        maxLength: 30
+        maxLength: 100
     },
     city: {
         type: String,
