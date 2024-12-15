@@ -2,13 +2,11 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (userId) => {
-    validate.userId(userId)
+export default (postId) => {
+    validate.id(postId, 'postId')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.token}` }
-
+    return fetch(`http://${import.meta.env.VITE_API_URL}/posts/${postId}/comments`, {
+        headers: { Authorization: `Bearer ${localStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {

@@ -31,7 +31,6 @@ describe('removeComment', () => {
             text: "We have lost our Pug named Lolo on Sant Oleguer Street 12, Vilassar de Mar, on 11/22/24. He is beige with a black muzzle, and his belly has lighter fur. If you see him, please contact us. A reward is offered. Thank you for your help!",
             petType: 'dog',
             petGender: 'male',
-            status: 'lost',
             whatHappened: 'lost',
             comments: [comment],
             location: {

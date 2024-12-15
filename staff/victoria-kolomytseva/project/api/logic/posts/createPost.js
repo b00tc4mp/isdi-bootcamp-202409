@@ -6,9 +6,9 @@ const { SystemError, NotFoundError } = errors
 export default (userId, image, whatHappened, petType, petGender, text, location) => {
     validate.id(userId, 'userId')
     validate.image(image)
-    validate.text(petType)
-    validate.text(whatHappened)
-    validate.text(petGender)
+    validate.petType(petType)
+    validate.whatHappened(whatHappened)
+    validate.petGender(petGender)
     validate.text(text)
     validate.location(location)
 

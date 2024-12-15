@@ -2,8 +2,8 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default (status) =>
-    fetch(`http://${import.meta.env.VITE_API_URL}/posts?status=${status}`, {
+export default (whatHappened) =>
+    fetch(`http://${import.meta.env.VITE_API_URL}/posts?whatHappened=${whatHappened}`, {
         headers: {
             Authorization: `Bearer ${localStorage.token}`
         }

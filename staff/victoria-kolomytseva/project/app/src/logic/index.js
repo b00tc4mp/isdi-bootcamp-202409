@@ -16,8 +16,14 @@ import {
 
 import {
     createPost,
+    deletePost,
     getPosts,
-    getPostById
+    getPostById,
+    toggleLikePost,
+
+    addComment,
+    removeComment,
+    getComments
 } from './posts'
 
 const logic = {
@@ -35,7 +41,13 @@ const logic = {
 
     createPost,
     getPosts,
-    getPostById
+    getPostById,
+    deletePost,
+    toggleLikePost,
+
+    addComment,
+    removeComment,
+    getComments
 }
 
 export default logic

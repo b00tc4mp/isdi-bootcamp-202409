@@ -4,11 +4,12 @@ import { User } from 'dat'
 const { SystemError } = errors
 
 export default (id, name, surname, phone, city, postalCode) => {
+    validate.id(id)
     validate.name(name)
-    // validate.surname(surname)
-    // validate.phone(phone)
-    // validate.city(city)
-    // validate.postalCode(postalCode)
+    validate.surname(surname)
+    validate.phone(phone)
+    validate.city(city)
+    validate.postalCode(postalCode)
 
     return (async () => {
         try {

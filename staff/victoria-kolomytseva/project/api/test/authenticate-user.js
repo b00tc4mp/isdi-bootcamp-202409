@@ -14,7 +14,11 @@ fetch('http://localhost:8080/users/auth', {
         console.log(error)
         throw new SystemError(error.message)
     })
-    .then((res) => {
-        if (res.ok) console.log(res.status)
+    .then(async (res) => {
+        if (res.ok) {
+            console.log(res.status)
+            const body = await res.json()
+            console.log(body)
+        }
         else console.log(res.status)
     })

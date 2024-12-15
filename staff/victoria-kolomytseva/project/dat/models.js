@@ -37,6 +37,8 @@ const user = new Schema({
         default: 'user',
     }
 })
+
+
 const pointSchema = new Schema({
     type: {
         type: String,
@@ -48,6 +50,27 @@ const pointSchema = new Schema({
         required: true,
     },
 })
+
+
+const comment = new Schema({
+
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    text: {
+        type: String,
+        required: true,
+        maxLength: 200
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+})
+
 
 const post = new Schema({
     author: {
@@ -71,6 +94,7 @@ const post = new Schema({
     },
     whatHappened: {
         type: String,
+        enum: ["lost", "found"],
         required: true
     },
     petType: {
@@ -87,12 +111,6 @@ const post = new Schema({
         type: ObjectId,
         ref: 'User'
     }],
-    status: {
-        type: String,
-        required: true,
-        enum: ["lost", "found"],
-        default: 'lost'
-    },
     location: {
         type: {
             type: String,
@@ -114,28 +132,8 @@ const post = new Schema({
     },
 
 
-    comments: ["comment"]
+    comments: [comment]
 }, { versionKey: false })
-
-
-const comment = new Schema({
-
-    author: {
-        type: ObjectId,
-        required: true,
-        ref: 'User'
-    },
-    text: {
-        type: String,
-        required: true,
-        maxLength: 200
-    },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-})
 
 
 const report = new Schema({

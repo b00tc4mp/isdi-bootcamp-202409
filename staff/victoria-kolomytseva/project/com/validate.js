@@ -3,6 +3,7 @@ import errors from './errors.js'
 const { ValidationError } = errors
 
 const validateName = name => {
+    console.log(name)
     if (typeof name !== 'string') throw new ValidationError('invalid name')
     if (name.length < 2)
         throw new ValidationError('invalid name length')
@@ -74,7 +75,35 @@ const validateLocation = (location) => {
     if (location.address.trim().length > 200) throw new ValidationError('Location must not exceed 100 characters')
 }
 
+const validateWhatHappened = (whatHappened) => {
+    console.log(whatHappened)
+    if (typeof whatHappened !== 'string') {
+        throw new ValidationError('Invalid whatHappened format')
+    }
+    const whatHappenedEnum = ['lost', 'found']
+    if (!whatHappenedEnum.includes(whatHappened)) {
+        throw new ValidationError('Invalid enum')
+    }
+}
+const validatePetType = (petType) => {
+    if (typeof petType !== 'string') {
+        throw new ValidationError('Invalid petType format')
+    }
+    const petTypesEnum = ['cat', 'dog', 'ferret']
+    if (!petTypesEnum.includes(petType)) {
+        throw new ValidationError('Invalid enum')
+    }
+}
+const validatePetGender = (petGender) => {
+    if (typeof petGender !== 'string') {
+        throw new ValidationError('Invalid petGender format');
+    }
+    const petGenderEnum = ['male', 'female']
+    if (!petGenderEnum.includes(petGender)) {
+        throw new ValidationError('Invalid enum')
 
+    }
+}
 
 const validate = {
     name: validateName,
@@ -91,7 +120,9 @@ const validate = {
     postalCode: validatePostalCode,
     callback: validateCallback,
     location: validateLocation,
-
+    whatHappened: validateWhatHappened,
+    petType: validatePetType,
+    petGender: validatePetGender
 }
 
 export default validate

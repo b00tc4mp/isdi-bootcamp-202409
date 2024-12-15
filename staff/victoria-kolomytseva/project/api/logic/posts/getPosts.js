@@ -3,10 +3,11 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, status) => {
+export default (userId, whatHappened) => {
     validate.id(userId, 'userId')
-    // si status = 'found' o vasio
-    const query = status ? { status } : {};//query se usará para buscar registros basados en el estado (status) solo si este está definido
+    validate.whatHappened(whatHappened)
+    // si whatHappened = 'found' o vacio
+    const query = whatHappened ? { whatHappened } : {};//query se usará para buscar registros basados en el estado (whatHappened) solo si este está definido
 
     return Promise.all([
         User.findById(userId).lean(), //.lean() convierte el resultado en un objeto JavaScript simple en lugar de un documento de Mongoose

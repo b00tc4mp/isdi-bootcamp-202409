@@ -3,7 +3,7 @@ import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler((req, res) => {
     const { userId } = req
-    const { status } = req.query;//obtener el valor de `status` desde los query params
+    const { whatHappened } = req.query;//obtener el valor de `whatHappened` desde los query params
 
-    return logic.getPosts(userId, status).then(posts => res.json(posts))
+    return logic.getPosts(userId, whatHappened).then(posts => res.json(posts))
 })

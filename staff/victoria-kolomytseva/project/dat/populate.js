@@ -1,9 +1,9 @@
 import 'dotenv/config'
-import db, { User, Post, Report } from './index.js'
+import db, { User, Post, Report, Comment } from './index.js'
 import bcrypt from 'bcryptjs'
 
-db.connect(process.env.MONGO_URL)
-    .then(() => Promise.all([User.deleteMany(), Post.deleteMany(), Report.deleteMany()]))
+db.connect(process.env.MONGO_URL_TEST)
+    .then(() => Promise.all([User.deleteMany(), Post.deleteMany(), Report.deleteMany(), Comment.deleteMany()]))
     .then(async () => Promise.all([
         User.create({
             name: "Juan Pérez",
@@ -33,8 +33,16 @@ db.connect(process.env.MONGO_URL)
             text: "We have lost our Pug named Lolo on Sant Oleguer Street 12, Vilassar de Mar, on 11/22/24. He is beige with a black muzzle, and his belly has lighter fur. If you see him, please contact us. A reward is offered. Thank you for your help!",
             petType: 'dog',
             petGender: 'male',
-            status: 'lost',
-            whatHappened: 'lost'
+            whatHappened: 'lost',
+            location: {
+                "type": "Point",
+                "coordinates": [
+                    41.5064041,
+                    2.3913883
+                ],
+                "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                "province": "Barcelona"
+            }
         }),
         Post.create({
             author: maria.id,
@@ -42,8 +50,16 @@ db.connect(process.env.MONGO_URL)
             text: "We have found a white cat with blue eyes in Vilassar de Mar, near the house on Arquitecto Eduard Ferres Street, 48. She seems lost and is very gentle. If you think she is yours or know her owner, please contact us. Thank you!",
             petType: 'cat',
             petGender: 'female',
-            status: 'lost',
-            whatHappened: 'lost'
+            whatHappened: 'lost',
+            location: {
+                "type": "Point",
+                "coordinates": [
+                    41.4064041,
+                    2.3913883
+                ],
+                "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                "province": "Barcelona"
+            }
         }),
         Post.create({
             author: luis.id,
@@ -51,11 +67,21 @@ db.connect(process.env.MONGO_URL)
             text: "We have lost our Poodle near Ametller Origen, Vilassar de Mar. We went out, and he was gone. He is brown, very friendly, and was wearing a black collar. If anyone has seen him, please contact us. A reward is offered. Please help us find him!",
             petType: 'cat',
             petGender: 'male',
-            status: 'lost',
-            whatHappened: 'lost'
+            whatHappened: 'lost',
+            location: {
+                "type": "Point",
+                "coordinates": [
+                    41.5064041,
+                    2.3413883
+                ],
+                "address": "Vilassar de Mar, Maresme, Barcelona, Catalonia, 08340, Spain",
+                "province": "Barcelona"
+            }
         }),
     ]))
     .then((([maria, post1]) => Promise.all([
+        maria,
+        post1,
         Report.create({
             type: 'post',
             reportedId: post1.author,
@@ -64,6 +90,18 @@ db.connect(process.env.MONGO_URL)
             reportedBy: maria.id
         })
     ])))
-    .then(report => console.log('Reporte creado:', report))
+    .then(([maria, post1]) => Promise.all([
+        maria,
+        post1,
+        Comment.create({
+            author: maria.id,
+            text: 'I\'m, glad you have found your pet'
+        })
+    ]))
+    .then(([maria, post1, comment]) => {
+        post1.comments.push(comment);
+
+        return Promise.all([post1.save()])
+    })
     .catch(console.error)
     .finally(() => db.disconnect())
