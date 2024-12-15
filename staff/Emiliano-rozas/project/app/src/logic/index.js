@@ -7,7 +7,8 @@ import {
     isUserLoggedIn,
     logoutUser,
     getUserId,
-    updateUserProfile
+    updateUserProfile,
+    getUserProfile
 } from './users/index';
 
 import {
@@ -39,6 +40,7 @@ const logic = {
     logoutUser,
     getUserId,
     updateUserProfile,
+    getUserProfile,
     getProducts,
     getCart,
     addTocart,

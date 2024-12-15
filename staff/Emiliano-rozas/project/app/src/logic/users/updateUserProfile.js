@@ -3,14 +3,14 @@ import { validate, errors } from '../../../../com/index'
 const { SystemError } = errors
 
 export default (street, phone, city, country, postalCode) => {
-    validate.text(street, 'street')
+    // validate.street(street, 'street')
     validate.phone(phone, 'phone')
     validate.text(city, 'city')
     validate.text(country, 'country')
     validate.postalCode(postalCode, 'postalCode')
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/users/profile/`, {
-        method: 'POST',
+    return fetch(`http://${import.meta.env.VITE_API_URL}/users/profile`, {
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.token}`

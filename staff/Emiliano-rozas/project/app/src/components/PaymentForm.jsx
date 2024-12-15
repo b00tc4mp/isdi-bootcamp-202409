@@ -134,4 +134,4 @@ const PaymentWrapper = ({ orderId }) => (
     </Elements>
 )
 
-export default PaymentWrapper; // Esto tiene pinta de chapuza Lombardi, preguntar.
+export default PaymentWrapper; 

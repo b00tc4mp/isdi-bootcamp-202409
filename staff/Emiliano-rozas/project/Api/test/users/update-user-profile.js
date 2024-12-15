@@ -1,4 +1,4 @@
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRiNjkwMjFkNDkzZTZlYTFkMjU1MzIiLCJyb2xlIjoicmVndWxhciIsImlhdCI6MTczNDA5MDM4MSwiZXhwIjoxNzM0MDkzOTgxfQ.GW84fpKkX3Z49ZcLKy_SdQzJ-5XKR8Ey7Fe0VyxfbsM'
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzVjNzNmZGVhOWZiMGEyYTk2N2E5NzQiLCJyb2xlIjoicmVndWxhciIsImlhdCI6MTczNDE5Njg2NywiZXhwIjoxNzM0MjAwNDY3fQ.6JN5d48tx-UBCyHeKk1rohEp6IVV8ZfezdjhjHYclWo'
 
 const street = 'calle falsa 123'
 const phone = '+54321234321'

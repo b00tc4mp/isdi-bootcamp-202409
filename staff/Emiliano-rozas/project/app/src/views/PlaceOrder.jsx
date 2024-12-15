@@ -1,36 +1,51 @@
-import React, { useState } from 'react';
-import { CartTotal, Title } from '../components/index';
-import { useLocation, useNavigate } from 'react-router-dom';
-import assets from '../assets';
-import logic from '../logic';
-import PaymentWrapper from '../components/PaymentForm.jsx';
-import { errors } from 'com';
+import React, { useState, useEffect } from 'react'
+import { CartTotal, Title } from '../components/index'
+import { useLocation, useNavigate } from 'react-router-dom'
+import assets from '../assets'
+import logic from '../logic'
+import PaymentWrapper from '../components/PaymentForm.jsx'
+import { errors } from 'com'
 
-const { SystemError } = errors;
+const { SystemError } = errors
 
 export default function PlaceOrder() {
-    const location = useLocation();
+    const [method, setMethod] = useState('cash')
+    const [orderId, setOrderId] = useState(null) // Nuevo estado para almacenar el orderId
+    const [showPaymentForm, setShowPaymentForm] = useState(false) // Estado para mostrar el formulario de pago
+    const [userProfile, setUserProfile] = useState({})
 
-    const cart = location.state?.cart || { items: [], totalPrice: 0 }; // esto es lo que nos traemos de cart desde las props/estado del link
+    const location = useLocation()
 
-    const [method, setMethod] = useState('cash');
-    const [orderId, setOrderId] = useState(null); // Nuevo estado para almacenar el orderId
-    const [showPaymentForm, setShowPaymentForm] = useState(false); // Estado para mostrar el formulario de pago
+    const cart = location.state?.cart || { items: [], totalPrice: 0 } // esto es lo que nos traemos de cart desde las props/estado del link
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const userInfo = async () => {
+            try {
+                const userData = await logic.getUserProfile()
+                setUserProfile(userData)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        userInfo()
+    }, [])
+
+
 
     const handlePlaceOrder = async () => {
         try {
-            // Realizamos la orden y obtengo el orderId directamente, sin necesidad de la chapuza del getOrder fantasma
-            const { orderId } = await logic.placeOrder();
+            // Realizamos la orden y obtengo el orderId directamente
+            const { orderId } = await logic.placeOrder()
 
             // se guarda el orderId en el estado y pa lanteee nomaaa
-            setOrderId(orderId);
+            setOrderId(orderId)
 
             if (method === 'stripe') {
-                setShowPaymentForm(true);  // aca entra en accion el method, establece como estado el metodo de pago para mostrar el formulario
+                setShowPaymentForm(true)  // aca entra en accion el method, establece como estado el metodo de pago para mostrar el formulario
             } else {
-                navigate('/orders'); // Redirigir a la página de órdenes
+                navigate('/orders') // Redirigir a la página de órdenes
             }
         } catch (error) {
             if (error instanceof SystemError)
@@ -41,7 +56,7 @@ export default function PlaceOrder() {
             console.error(error)
 
         }
-    };
+    }
 
     return (
         <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
@@ -51,20 +66,19 @@ export default function PlaceOrder() {
                     <Title text1={'DELIVERY'} text2={' INFORMATION'} />
                 </div>
                 <div className='flex gap-3'>
-                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Name' id='name' />
-                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Surname' id='surname' />
+                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Name' id='name' defaultValue={userProfile.name || ""} />
+
                 </div>
-                <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="email" placeholder='Email' id='email' />
-                <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Street' id='street' />
+                <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="email" placeholder='Email' id='email' defaultValue={userProfile.email || ""} />
+                <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Street' id='street' defaultValue={userProfile.street || ""} />
                 <div className='flex gap-3'>
-                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='City' id='city' />
-                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Province' id='province' />
+                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='City' id='city' defaultValue={userProfile.city || ""} />
                 </div>
                 <div className='flex gap-3'>
-                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="number" placeholder='ZipCode' id='zipcode' />
-                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Country' id='country' />
+                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Postal Code' id='postalCode' defaultValue={userProfile.postalCode || ""} />
+                    <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="text" placeholder='Country' id='country' defaultValue={userProfile.country || ""} />
                 </div>
-                <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="tel" placeholder='Phone' id='phone' />
+                <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="tel" placeholder='Phone' id='phone' defaultValue={userProfile.phone || ""} />
             </div>
             {/* Información del carrito y método de pago */}
             <div className='mt-8 flex flex-col lg:flex-row gap-8'> {/* Cambiado de columna a fila en pantallas grandes */}
@@ -116,5 +130,5 @@ export default function PlaceOrder() {
                 )}
             </div>
         </div>
-    );
+    )
 }

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { CartTotal, Title } from '../components/index'
 import { Link } from 'react-router-dom'
 import assets from '../assets'
-import logic from '../logic/index';
-import { errors } from 'com';
+import logic from '../logic/index'
+import { errors } from 'com'
 
 const { SystemError } = errors
 
@@ -12,17 +12,24 @@ export default function Cart() {
     const [cartInfo, setCartInfo] = useState({ items: [], totalPrice: 0 });
 
     useEffect(() => {
-        const cart = async () => {
-            try {
-                const cartData = await logic.getCart()
+        const loggedIn = logic.isUserLoggedIn()
 
-                setCartInfo(cartData);
-            } catch (error) {
-                console.error(error);
+        const freshCart = async () => {
+            if (!loggedIn) {
+                return
             }
-        };
-        cart();
-    }, []);
+            else {
+                try {
+                    const cartData = await logic.getCart()
+
+                    setCartInfo(cartData)
+                } catch (error) {
+                    console.error(error)
+                }
+            }
+        }
+        freshCart()
+    }, [])
 
     const handleUpdateQuantity = async (productId, quantity) => {
         try {
@@ -44,10 +51,10 @@ export default function Cart() {
         }
     };
 
-    const handleRemoveFromCart = async (cartItemId) => {
+    const handleRemoveFromCart = async (productId) => {
         if (window.confirm("Are you sure you want to delete this item?")) {
             try {
-                await logic.removeAllFromCart(cartItemId)
+                await logic.updateCart(productId, 0)
 
                 const updatedCart = await logic.getCart()
 
@@ -99,12 +106,19 @@ export default function Cart() {
                                 className='w-6 mr-4 sm:w-6 cursor-pointer'
                                 src={assets.binIcon}
                                 alt="delete icon"
-                                onClick={() => handleRemoveFromCart(item.id)}
+                                onClick={() => handleRemoveFromCart(item.product.id)}
                             />
                         </div>
                     ))
                 ) : (
-                    <p className='text-white'>Your Cart is empty.</p>
+                    <>
+                        <p className='text-white'>Your Cart is empty.</p>
+
+                        <br />
+                        <Link to='/login'>
+                            <h2 className="text-xl font-bold text-green-500 hover:text-green-300 mb-4">Log in to start Buying!</h2>
+                        </Link>
+                    </>
                 )}
             </div>
             <div className='flex justify-end my-20'>
