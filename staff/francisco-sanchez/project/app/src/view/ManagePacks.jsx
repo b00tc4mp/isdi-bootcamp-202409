@@ -13,6 +13,24 @@ export default function ManagePacks(props) {
     const [loading, setLoading] = useState(true) //This is to show the loader as active by default
     const { alert, confirm } = useContext()
 
+    useEffect(() => {
+        console.log('Packs / PacksList -> componentDidMount')
+        const fetchBasePacks = async () => {
+            try {
+                setLoading(true)
+                const basePacks = await logic.getBasePacks()
+                console.log('BasePacks fetched successfully', basePacks)
+                setPacks(basePacks)
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchBasePacks()
+    }, [])
+
     const handleDeleteClick = (event, basePackId) => {
         event.preventDefault()
         confirm('Do you want delete this item? -This action can\'t be reversed', accepted => {
@@ -34,6 +52,11 @@ export default function ManagePacks(props) {
         }, 'warn')
     }
 
+    const handleUpdateClick = (event, basePackId) => {
+        event.preventDefault()
+        console.log('To update: ' + basePackId)
+    }
+
     const handleHomeClick = event => {
         event.preventDefault()
         props.onHomeClick()
@@ -51,23 +74,7 @@ export default function ManagePacks(props) {
 
     const [basePacks, setPacks] = useState([])
 
-    useEffect(() => {
-        console.log('Packs / PacksList -> componentDidMount')
-        const fetchBasePacks = async () => {
-            try {
-                setLoading(true)
-                const basePacks = await logic.getBasePacks()
-                console.log('BasePacks fetched successfully', basePacks)
-                setPacks(basePacks)
-            } catch (error) {
-                alert(error.message)
-                console.error(error)
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchBasePacks()
-    }, [])
+
 
 
     return (
@@ -98,7 +105,9 @@ export default function ManagePacks(props) {
                                 <td className='border px-4 py-2'>{basePack.description}</td>
                                 <td className='border px-4 py-2'>{basePack.price} {getCurrencySymbol(basePack)}</td>
                                 <td className='border px-4 py-2'><span className="inline-block bg-gray-200 text-gray-800 text-sm font-semibold rounded-full px-3 py-1">{basePack.refCount}</span></td>
-                                <td className='border px-4 py-2'><a href="">✏️</a> <a href="" onClick={(event) => handleDeleteClick(event, basePack.id)}>❌</a></td>
+                                <td className='border px-4 py-2'>
+                                    <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => handleUpdateClick(event, basePack.id)}>✏️ Edit</a>
+                                    <a href="" className="inline-block bg-red-100 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => handleDeleteClick(event, basePack.id)}>❌ Delete</a></td>
                             </tr>
                         ))}
                     </tbody>
