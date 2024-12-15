@@ -34,7 +34,7 @@ export default function NoUserLoggedInAlert(props) {
     }
 
     return <div className="w-screen h-screen fixed top-0 flex justify-center items-center">
-        <div className="bg-[#D7A768] opacity-[.85] w-[22rem] h-[28rem] absolute z-[-1] rounded-[1rem] border-[2px] border-[black]"></div>
+        <div className="bg-[#D7A768] opacity-[.95] w-[22rem] h-[28rem] absolute z-[-1] rounded-[1rem] border-[2px] border-[black]"></div>
         <div className="w-[22rem] h-[28rem] p-8">
             <p className="text-[1.25rem]">Hey! You’re not logged in. You can either log in to access your account, register to have one or continue playing as a guest. Your choice!</p>
             <p className="text-[.85rem] mt-[1rem]">If you choose to play as a guest, some features of the site won’t be available. Log in to enjoy the full experience!</p>

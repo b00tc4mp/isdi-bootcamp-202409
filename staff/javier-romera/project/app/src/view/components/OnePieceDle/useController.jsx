@@ -107,10 +107,12 @@ export default function useController() {
         event.target.value ? setIsTyping(true) : setIsTyping(false)
     }
 
-    const handleCharacterClick = (char) => {
-        setInputValue(char)
+    const handleCharacterClick = async (char) => {
+        await setInputValue(char)
 
-        document.getElementById("guess").focus() // TODO useRef
+        document.getElementById("guess").focus()
+
+        document.getElementById("guessButton").click()
 
         setIsTyping(false)
     }

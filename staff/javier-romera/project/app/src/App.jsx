@@ -2,11 +2,27 @@ import logic from './logic'
 
 import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom'
 
+import { useState } from 'react'
+
+import { Context } from './view/useContext'
+
 import { Login, Register, Home } from './view'
-import { Header, NoUserLoggedInAlert, OnePieceDle, OneDoku, EastBlueMap } from './view/components'
+import { Header, NoUserLoggedInAlert, OnePieceDle, OneDoku, EastBlueMap, Alert, Confirm } from './view/components'
 
 export default function App() {
+    const [alert, setAlert] = useState({
+        message: null,
+        level: 'error'
+    })
+
+    const [confirm, setConfirm] = useState({
+        message: null,
+        level: 'error',
+        callback: null
+    })
+
     const navigate = useNavigate()
+
     const location = useLocation()
 
     const handleUserLoggedIn = () => navigate('/')
@@ -33,23 +49,57 @@ export default function App() {
 
     const handleEastBlueMapClick = () => navigate('/eastblue')
 
-    return <main className="h-screen, w-screen">
-        {location.pathname !== 'map' && <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
+    const handleAlertAccepted = () => setAlert({
+        message: null,
+        level: 'error'
+    })
 
-        <Routes>
-            <Route path="/" element={<Home onOnePieceDleClick={handleOnePieceDleClick} onOneDokuClick={handleOneDokuClick} onMapClick={handleEastBlueMapClick} />} />
+    const handleConfirmAccepted = () => {
+        confirm.callback(true)
 
-            <Route path="/login" element={logic.isUserLoggedIn() && logic.isUserRoleRegular() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterAnchorClick={handleRegisterAnchorClick} />} />
+        setConfirm({
+            message: null,
+            level: 'error',
+            callback: null
+        })
+    }
 
-            <Route path="/register" element={logic.isUserLoggedIn() && logic.isUserRoleRegular() ? <Navigate to="/" /> : <Register onLoginAnchorClick={handleLoginAnchorClick} onRegistered={handleUserRegistered} />} />
+    const handleConfirmCancelled = () => {
+        confirm.callback(false)
 
-            <Route path="/onepiecedle" element={logic.isUserLoggedIn() ? <OnePieceDle onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
+        setConfirm({
+            message: null,
+            level: 'error',
+            callback: null
+        })
+    }
 
-            <Route path="/onedoku" element={logic.isUserLoggedIn() ? <OneDoku onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
+    return <Context.Provider value={{
+        alert(message, level = 'error') { setAlert({ message, level }) },
+        confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
+    }}>
+        <main className="h-screen, w-screen">
+            {location.pathname !== 'map' && <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
 
-            <Route path="/eastblue" element={logic.isUserLoggedIn() ? <EastBlueMap onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
-        </Routes>
+            <Routes>
+                <Route path="/" element={<Home onOnePieceDleClick={handleOnePieceDleClick} onOneDokuClick={handleOneDokuClick} onMapClick={handleEastBlueMapClick} />} />
 
-        {location.pathname !== '/login' && location.pathname !== '/register' && !logic.isUserLoggedIn() && <NoUserLoggedInAlert asGuest={handlePlayAsGuestClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
-    </main>
+                <Route path="/login" element={logic.isUserLoggedIn() && logic.isUserRoleRegular() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterAnchorClick={handleRegisterAnchorClick} />} />
+
+                <Route path="/register" element={logic.isUserLoggedIn() && logic.isUserRoleRegular() ? <Navigate to="/" /> : <Register onLoginAnchorClick={handleLoginAnchorClick} onRegistered={handleUserRegistered} />} />
+
+                <Route path="/onepiecedle" element={logic.isUserLoggedIn() ? <OnePieceDle onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
+
+                <Route path="/onedoku" element={logic.isUserLoggedIn() ? <OneDoku onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
+
+                <Route path="/eastblue" element={logic.isUserLoggedIn() ? <EastBlueMap onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} /> : <Navigate to="/" />} />
+            </Routes>
+
+            {location.pathname !== '/login' && location.pathname !== '/register' && !logic.isUserLoggedIn() && <NoUserLoggedInAlert asGuest={handlePlayAsGuestClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
+
+            {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+
+            {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
+        </main>
+    </Context.Provider>
 }

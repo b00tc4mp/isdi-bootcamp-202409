@@ -19,7 +19,7 @@ export default function LoseScreen({ refresh, onHomeClick, setLoseAlert }) {
 
         <h1 className="text-[1.5rem] mt-[2.5rem] font-bold">You lost!</h1>
 
-        <p className="text-[1.25rem] mt-[1rem] px-[1rem]">You couldn't finish the puzzle, but you can still play!</p>
+        <p className="text-[1.25rem] mt-[1rem] px-[1rem]">You couldn't finish the puzzle, but you can try again!</p>
 
         <div className="flex flex-col items-center mt-[1rem] gap-[1.5rem]">
             <Button className="bg-[rgba(250,249,243,1)] w-[8rem] text-[1.25rem] mt-[1.5rem] px-[.5rem] rounded-[.25rem] border-[1.5px] border-[black]" onClick={refresh}>Play again</Button>

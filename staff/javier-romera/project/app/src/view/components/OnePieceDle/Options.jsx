@@ -14,7 +14,7 @@ export default function Options({ inputValue, availableCharacters, onCharacterCl
                 let possibleCharacter = compareFirstLetters(inputValue, char)
 
                 if (possibleCharacter[0] || possibleCharacter[1])
-                    return <div key={char.name} onClick={handleCharClick} className="h-[4rem] flex flex-col justify-center items-start px-[1rem] border-b-[1px] border-t-[1px] border-[black] bg-[rgba(250,249,243,1)] hover:bg-[#EAE9E4] transition duration-200 z-50">
+                    return <div key={char.name} onClick={handleCharClick} className="h-[4rem] flex flex-col justify-center items-start px-[1rem] border-b-[1px] border-t-[1px] border-[black] bg-[rgba(250,249,243,1)] hover:bg-[#EAE9E4] transition duration-200 z-50 cursor-pointer">
                         <p>{char.name}</p>
                         {!possibleCharacter[0] && possibleCharacter[1] && <span className="text-[.75rem] text-[#6c6656]">{char.alias}</span>}
                     </div>

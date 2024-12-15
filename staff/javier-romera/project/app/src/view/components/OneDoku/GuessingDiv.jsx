@@ -14,7 +14,7 @@ export default function GuessingDiv({ currentIndex, conditions, handleSubmit, in
             </div>
             <div className="flex justify-center">
                 <Form onSubmit={handleSubmit} className="flex justify-center items-center mt-[1rem]">
-                    <Input autoComplete="off" id="guess" value={inputValue} onInput={onChange} className="text-[1.125rem] w-[25rem] h-[2.5rem] pl-[.5rem] rounded-[.25rem] border-[2px] border-[black] focus:outline-none" />
+                    <Input autoFocus autoComplete="off" id="guess" value={inputValue} onInput={onChange} className="text-[1.125rem] w-[25rem] h-[2.5rem] pl-[.5rem] rounded-[.25rem] border-[2px] border-[black] focus:outline-none" />
                 </Form>
 
                 {isTyping && <Options availableCharacters={availableCharacters} inputValue={inputValue} onCharacterSelected={handleCharacterSelected} currentIndex={currentIndex} />}

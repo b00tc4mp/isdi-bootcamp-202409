@@ -5,7 +5,11 @@ const { SystemError } = errors
 
 import logic from '../logic'
 
+import useContext from './useContext'
+
 export default function Register(props) {
+    const { alert } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -53,14 +57,14 @@ export default function Register(props) {
     return <main className="h-screen w-screen bg-cover bg-center flex flex-col items-center" style={{
         backgroundImage: "url('/images/going_merry.png')"
     }}>
-        <section className="bg-[rgba(215,167,104,0.8)] mt-[10rem] w-[20rem] h-[30rem] border-[2px] border-[black] rounded-[1rem]">
+        <section className="bg-[rgba(215,167,104,0.9)] mt-[10rem] w-[20rem] h-[30rem] border-[2px] border-[black] rounded-[1rem]">
 
             <h2 className="mt-[1rem] text-[2rem] mb-[1rem]">Register</h2>
 
             <Form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-[10px] mb-[1.5rem]">
                 <Field className="flex flex-col">
                     <Label htmlFor="email" className="text-[1.25rem]">E-mail</Label>
-                    <Input type="email" id="email" autoComplete="off" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
+                    <Input autoFocus type="email" id="email" autoComplete="off" className="w-[220px] rounded-[.5rem] border-[2px] border-black px-[.35rem] focus:outline-none"></Input>
                 </Field>
 
                 <Field className="flex flex-col">

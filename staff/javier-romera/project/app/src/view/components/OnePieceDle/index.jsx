@@ -35,14 +35,14 @@ export default function OnePieceDle({ onHomeClick, onLoginClick, onRegisterClick
         {logic.isUserLoggedIn() && !((logic.isUserRoleAnonymous() && status === 1) || (logic.isUserRoleAnonymous() && status === 3)) && ((guessedCharacters.length > 0 || !didWin) || (guessedCharacters.length > 0 && didWin)) &&
             <section className="mt-[12rem] flex flex-col items-center">
                 {!didWin &&
-                    <Form id="guessForm" onSubmit={handleGuess} className="bg-[rgba(250,249,243,0.9)] w-[22rem] min-h-[4rem] flex justify-center items-center rounded-[.5rem] border-[2px] border-[black]">
-                        <Input id="guess" value={inputValue} onInput={handleInputChange} placeholder="Guess the character name" autoComplete="off" type="text" className="w-[18rem] h-[2.5rem] pl-[.5rem] text-[1.25rem] rounded-[.25rem] border-[4px] border-[#EADEC2] bg-[#FAF9F3] focus:outline-none" />
+                    <Form id="guessForm" onSubmit={handleGuess} className="bg-[rgba(250,249,243,0.9)] w-[22rem] min-h-[4rem] flex justify-center items-center rounded-[.5rem] border-[3px] border-[black]">
+                        <Input autoFocus id="guess" value={inputValue} onInput={handleInputChange} placeholder="Guess the character name" autoComplete="off" type="text" className="w-[18rem] h-[2.5rem] pl-[.5rem] text-[1.25rem] rounded-[.25rem] border-[4px] border-[#EADEC2] bg-[#FAF9F3] focus:outline-none" />
 
                         <Button id="guessButton" className="w-[2.5rem] ml-[.25rem] cursor-pointer transition-transform duration-100 ease-in-out hover:scale-110"><img src="/images/arrow_right.png"></img></Button>
                     </Form>}
 
                 {didWin &&
-                    <Form id="guessForm" onSubmit={handleTryGuessAfterWin} className="bg-[rgba(250,249,243,0.9)] w-[22rem] min-h-[4rem] flex justify-center items-center rounded-[.5rem] border-[2px] border-[black]">
+                    <Form id="guessForm" onSubmit={handleTryGuessAfterWin} className="bg-[rgba(250,249,243,0.9)] w-[22rem] min-h-[4rem] flex justify-center items-center rounded-[.5rem] border-[3px] border-[black]">
                         <Input className="w-[18rem] h-[2.5rem] pl-[.5rem] text-[1.25rem] rounded-[.25rem] border-[4px] border-[#EADEC2] bg-[#FAF9F3] focus:outline-none" disabled />
                         <Button className="w-[2.5rem] ml-[.25rem] cursor-pointer"><img src="/images/arrow_right.png"></img></Button>
                     </Form>}
@@ -51,7 +51,7 @@ export default function OnePieceDle({ onHomeClick, onLoginClick, onRegisterClick
                 </div>
 
                 {isFirstAnswerSent &&
-                    <div className="flex flex-col w-[fit] px-[1.5rem] pt-[1.5rem] mt-[3rem] bg-[rgba(215,167,104,0.9)] border-[2px] border-[black] rounded-[.75rem] overflow-x-auto">
+                    <div className="flex flex-col w-[fit] px-[1.5rem] pt-[1.5rem] mt-[3rem] bg-[rgba(215,167,104,0.9)] border-[2px] border-[black] rounded-[.75rem]">
                         <AnswersLegend />
 
                         {<Answers answers={answers.toReversed()} guessedCharacters={guessedCharacters.toReversed()} />}

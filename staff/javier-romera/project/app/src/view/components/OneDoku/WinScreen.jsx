@@ -18,9 +18,9 @@ export default function WinScreen({ timeSpent, refresh, onHomeClick, setWinAlert
 
         <h1 className="text-[1.5rem] mt-[2.5rem] font-bold">You won!</h1>
 
-        <p className="mt-[1rem]">Congratulations, you finished the game!</p>
-        <p>You spent:</p>
-        <p className="mt-[1rem] text-[2rem]">{timeSpent}</p>
+        <p className="mt-[1rem] mb-[1rem]">Congratulations, you finished the game!</p>
+        <p>It took you:</p>
+        <p className="mt-[.5rem] text-[2rem]">{timeSpent}</p>
 
         <div className="flex flex-col items-center mt-[1rem] gap-[1.5rem]">
             <Button className="bg-[rgba(250,249,243,1)] w-[8rem] text-[1.25rem] mt-[1.5rem] px-[.5rem] rounded-[.25rem] border-[1.5px] border-[black]" onClick={refresh}>Play again</Button>
