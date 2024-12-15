@@ -13,7 +13,8 @@ import {
     assignPack,
     getBasePacks,
     getBasePackDetails,
-    deleteBasePack
+    deleteBasePack,
+    updateBasePack,
 } from './packs/index.js'
 
 import {
@@ -38,6 +39,7 @@ const logic = {
     getBasePacks,
     getBasePackDetails,
     deleteBasePack,
+    updateBasePack,
 
     //emailing
     emailRegisterWelcome,

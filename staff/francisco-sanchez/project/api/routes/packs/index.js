@@ -7,8 +7,10 @@ import {
     assingPackHandlers,
     getBasePacks,
     getBasePacksDetailsHandler,
-    deleteBasePackHandler
+    deleteBasePackHandler,
+    updateBasePackHandler
 } from './handlers/index.js'
+import updateBasePack from "../../logic/packs/updateBasePack.js"
 
 const packsRouter = Router()
 
@@ -17,5 +19,6 @@ packsRouter.post('/assign-pack', authorizationHandler, jsonBodyParser, assingPac
 packsRouter.get('/get-basepack', authorizationHandler, getBasePacks)
 packsRouter.get('/get-basepack-details/:basePackId', getBasePacksDetailsHandler)
 packsRouter.delete('/delete/:basePackId', authorizationHandler, deleteBasePackHandler)
+packsRouter.put('/update/:basePackId', authorizationHandler, jsonBodyParser, updateBasePackHandler)
 
 export default packsRouter
