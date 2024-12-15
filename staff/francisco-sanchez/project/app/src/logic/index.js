@@ -13,6 +13,7 @@ import {
     getBasePacks,
     getBasePacksDetails,
     assignPack,
+    deleteBasePack
 } from './packs'
 
 
@@ -31,7 +32,8 @@ const logic = {
     createPack,
     getBasePacks,
     getBasePacksDetails,
-    assignPack
+    assignPack,
+    deleteBasePack
 }
 
 export default logic

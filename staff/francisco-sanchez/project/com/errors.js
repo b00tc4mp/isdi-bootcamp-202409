@@ -38,7 +38,12 @@ class AuthorizationError extends Error {
     constructor(message) {
         super(message)
     }
+}
 
+class DataIntegrityError extends Error {
+    constructor(message) {
+        super(message)
+    }
 }
 
 const errors = {
@@ -48,7 +53,8 @@ const errors = {
     CredentialsError,
     SystemError,
     OwnershipError,
-    AuthorizationError
+    AuthorizationError,
+    DataIntegrityError
 }
 
 export default errors

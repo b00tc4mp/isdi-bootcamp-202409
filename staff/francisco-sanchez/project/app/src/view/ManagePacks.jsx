@@ -5,10 +5,34 @@ import { errors } from 'com'
 import { Button } from '../library/index';
 import { getCurrencySymbol } from '../util';
 
+import useContext from './useContext'
+
 const { SystemError } = errors
 
 export default function ManagePacks(props) {
     const [loading, setLoading] = useState(true) //This is to show the loader as active by default
+    const { alert, confirm } = useContext()
+
+    const handleDeleteClick = (event, basePackId) => {
+        event.preventDefault()
+        confirm('Do you want delete this item? -This action can\'t be reversed', accepted => {
+            if (accepted) {
+                try {
+                    logic.deleteBasePack(basePackId)
+                        .then(() => {
+                            props.onPackDeleted()
+                        })
+                        .catch(error => {
+                            alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
+                    console.error(error)
+                }
+            }
+        }, 'warn')
+    }
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -62,6 +86,7 @@ export default function ManagePacks(props) {
                             <th className="border px-4 py-2">Name</th>
                             <th className="border px-4 py-2">Description</th>
                             <th className="border px-4 py-2">Price</th>
+                            <th className="border px-4 py-2">In use</th>
                             <th className="border px-4 py-2">Actions</th>
                         </tr>
                     </thead>
@@ -72,7 +97,8 @@ export default function ManagePacks(props) {
                                 <td className='border px-4 py-2'>{basePack.packName}</td>
                                 <td className='border px-4 py-2'>{basePack.description}</td>
                                 <td className='border px-4 py-2'>{basePack.price} {getCurrencySymbol(basePack)}</td>
-                                <td className='border px-4 py-2'><a href="">✏️</a> <a href="">❌</a></td>
+                                <td className='border px-4 py-2'><span className="inline-block bg-gray-200 text-gray-800 text-sm font-semibold rounded-full px-3 py-1">{basePack.refCount}</span></td>
+                                <td className='border px-4 py-2'><a href="">✏️</a> <a href="" onClick={(event) => handleDeleteClick(event, basePack.id)}>❌</a></td>
                             </tr>
                         ))}
                     </tbody>
@@ -81,7 +107,7 @@ export default function ManagePacks(props) {
 
 
             <div className="flex flex-col ">
-                <Button className="btn m-2" onClick={handleAssignPacks}>Assign pack</Button>
+                {basePacks.length !== 0 ? <Button className="btn m-2" onClick={handleAssignPacks}>Assign pack</Button> : ''}
                 <Button className="btn m-2" onClick={handleCreatePacks}>Create new</Button>
 
             </div>

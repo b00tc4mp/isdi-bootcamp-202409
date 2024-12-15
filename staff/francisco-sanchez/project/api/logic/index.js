@@ -12,7 +12,8 @@ import {
     createPack,
     assignPack,
     getBasePacks,
-    getBasePackDetails
+    getBasePackDetails,
+    deleteBasePack
 } from './packs/index.js'
 
 import {
@@ -22,6 +23,7 @@ import {
 
 
 const logic = {
+    //Customers
     registerUser,
     authenticateUser,
     getUserName,
@@ -30,11 +32,14 @@ const logic = {
     getUserByUserame,
     findUserIdbyEmailOrUsername,
 
+    //Packs and basebacks
     createPack,
     assignPack,
     getBasePacks,
     getBasePackDetails,
+    deleteBasePack,
 
+    //emailing
     emailRegisterWelcome,
     sendEmail
 

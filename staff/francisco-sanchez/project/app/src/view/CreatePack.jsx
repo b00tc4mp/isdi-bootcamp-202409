@@ -29,21 +29,12 @@ export default function Create(props) {
             currency: { value: currency }
         } = form
 
-        /*     console.log(packName, " - ",
-                packDescription, " - ",
-                quantity, " - ",
-                unit, " - ",
-                expiringTime, " - ",
-                price, " - ",
-                currency) */
-
 
         try {
             CreatePack(packName, packDescription, quantity, unit, expiringTime, price, currency)
                 .then(() => {
                     form.reset()
                     alert(' New pack was created successfully', 'success')
-                    //aquí iria un props onLoquesea() si quiero moverme 
                     props.onPackCreated()
 
                 })

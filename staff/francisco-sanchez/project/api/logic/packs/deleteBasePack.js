@@ -1,7 +1,7 @@
 import { BasePack, User, Pack } from 'dat';
 import { validate, errors } from 'com';
 
-const { SystemError, NotFoundError, OwnershipError, ValidationError } = errors
+const { SystemError, NotFoundError, OwnershipError, DataIntegrityError } = errors
 
 export default (userId, basePackId) => {
     //Validations will come here
@@ -22,7 +22,7 @@ export default (userId, basePackId) => {
             return Pack.findOne({ refPack: basePackId, status: 'Active' }).lean()
                 .then(packReferenced => {
                     if (packReferenced) {
-                        throw new ValidationError('This pack is assigned to one or more customers and cannot be deleted')
+                        throw new DataIntegrityError('This pack is assigned to one or more customers and cannot be deleted')
                     }
 
 
