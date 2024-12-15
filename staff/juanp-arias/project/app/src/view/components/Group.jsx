@@ -1,23 +1,44 @@
 import logic from '../../logic'
 import useContext from '../useContext'
 import { useState, useEffect } from 'react'
-import { errors } from 'com'
 import { DeleteButton, EditButton } from '../library'
+import { CreateTask } from './index.js'
 
-const { SystemError } = errors
-export default function Group({ group }) {
+export default function Group({ group, onDeleted }) {
     const { name, teacher, students } = group
     const [buttons, setButtons] = useState(false)
-
-    const handleAssignTask = () => {
-
-    }
+    const { confirm } = useContext()
+    const [view, setView] = useState(null)
 
     const handleDeleteGroup = () => {
-
+        confirm('Delete group?', accepted => {
+            if (accepted) {
+                try {
+                    logic.deleteGroup(group.id)
+                        .then(onDeleted)
+                        .catch(error => {
+                            alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
+                    console.error(error)
+                }
+            }
+        })
     }
+
+    const handleAssignTask = () => {
+        setView(view ? null : 'new-task')
+    }
+
+    const handleGroupClick = () => {
+        setButtons(!buttons)
+        setView(null)
+    }
+
     return <article>
-        <div className='border border-gray-300 rounded-lg shadow-md p-4 hover:bg-blue-100 cursor-pointer' onClick={() => setButtons(!buttons)}>
+        <div className='border border-gray-300 rounded-lg shadow-md p-4 hover:bg-blue-100 cursor-pointer' onClick={handleGroupClick}>
             <h4 className='text-xl font-bold text-blue-600 mb-4'>{name}</h4>
             <h5 className='text-md font-semibold text-gray-700 mb-4'>Teacher: {teacher.name}</h5>
             <div className='mt-4'>
@@ -36,6 +57,11 @@ export default function Group({ group }) {
             <div className='flex mt-1 space-x-2 justify-center'>
                 <EditButton onClick={handleAssignTask}>Assign Task</EditButton>
                 <DeleteButton onClick={handleDeleteGroup}>Delete Group</DeleteButton>
+            </div>
+        )}
+        {view === 'new-task' && (
+            <div className='flex mt-1 space-x-2 justify-center'>
+                <CreateTask onCancelClick={handleAssignTask} group={group} onCreated={handleGroupClick} />
             </div>
         )}
     </article>

@@ -14,7 +14,7 @@ export default function EditReminder({ onCancelClick, onEdited }) {
 
     useEffect(() => {
         try {
-            logic.getReminder(reminderId)
+            logic.editReminder(reminderId)
                 .then(reminderData => {
                     setReminder(reminderData)
                 })
@@ -60,7 +60,7 @@ export default function EditReminder({ onCancelClick, onEdited }) {
 
     return <Main>
         <SectionContainer>
-            <SectionHeader sectionName='new-reminder' />
+            <SectionHeader sectionName='reminder' />
             <Form onSubmit={handleSubmit} className='space-y-4 flex flex-col mx-4 mt-2'>
                 <Field>
                     <Label htmlFor='title'>Title</Label>

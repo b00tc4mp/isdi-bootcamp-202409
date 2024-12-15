@@ -4,8 +4,8 @@ import getReminders from './getReminders.js'
 
 await db.connect(process.env.MONGO_URL_TEST)
 try {
-    const reminders = await getReminders('67521389c89514449e0e3adb', '2024-12-12')
-    console.log(reminders)
+    const reminder = await getReminders('675ad425dd1adb0c6dda2b96')
+    console.log(reminder)
 } catch (error) {
     console.error(error)
 } finally {

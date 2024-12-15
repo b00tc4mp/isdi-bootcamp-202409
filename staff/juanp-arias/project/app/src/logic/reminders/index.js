@@ -1,13 +1,15 @@
 import createReminder from './createReminder'
-import getReminders from './getReminders'
+import getRemindersByDate from './getRemindersByDate'
 import deleteReminder from './deleteReminder'
-import getReminder from './getReminder'
+import editReminder from './editReminder'
 import updateReminder from './updateReminder'
+import getReminders from './getReminders'
 
 export {
     createReminder,
-    getReminders,
+    getRemindersByDate,
     deleteReminder,
-    getReminder,
-    updateReminder
+    editReminder,
+    updateReminder,
+    getReminders
 }

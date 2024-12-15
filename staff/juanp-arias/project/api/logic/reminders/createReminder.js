@@ -8,6 +8,14 @@ export default (userId, title, text, date) => {
     validate.text(title)
     validate.text(text)
     validate.date(new Date(date))
+
+    const reminderDate = new Date(date)
+    const now = new Date()
+
+    const reminderDateOnly = new Date(reminderDate.getFullYear(), reminderDate.getMonth(), reminderDate.getDate())
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    if (reminderDateOnly < today) { throw new SystemError('Cannot create reminders for past dates.') }
+
     return User.findById(userId)
         .catch(error => {
             throw new SystemError(error.message)
@@ -20,7 +28,5 @@ export default (userId, title, text, date) => {
                     return user.save()
                 })
         })
-        .catch(error => {
-            throw new SystemError(error.message)
-        })
+        .catch(error => { throw new SystemError(error.message) })
 }

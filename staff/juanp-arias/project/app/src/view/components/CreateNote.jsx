@@ -2,7 +2,9 @@ import logic from '../../logic'
 import { SectionContainer, SectionHeader } from '.'
 import { Form, CancelButton, DoneButton, Main } from '../library'
 import useContext from '../useContext'
+import { errors } from 'com'
 
+const { SystemError } = errors
 export default function CreateNote({ onCreated, onCancelClick }) {
     const { alert } = useContext()
 
@@ -17,9 +19,13 @@ export default function CreateNote({ onCreated, onCancelClick }) {
                     alert('Note created', 'success')
                     onCreated()
                 })
-                .catch((error) => {
-                    alert(error.message)
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
                     console.error(error)
+                    return
                 })
         } catch (error) {
             alert(error.message)

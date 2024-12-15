@@ -16,7 +16,6 @@ export default (userId, targetUserId) => {
         }
 
         const [user, targetUser] = users
-
         if (!user) throw new NotFoundError('user not found')
         if (!targetUser) throw new NotFoundError('target user not found')
 

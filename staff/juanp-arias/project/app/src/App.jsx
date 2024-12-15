@@ -21,9 +21,15 @@ export default function App() {
 
   const handleStartedClick = () => navigate('/register')
 
+  const handleConfigurationClick = () => navigate('/profile')
+
   const handleUserLoggedIn = () => navigate('/home')
 
   const handleCancelClick = () => navigate('/home')
+  const handleCreateNoteClick = () => navigate('/notes/new-note')
+  const handleViewRemindersClick = () => navigate('/calendar')
+  const handleCheckTasksClick = () => navigate('/tasks')
+  const handleCreateGroupClick = () => navigate('/groups')
 
   const handleGoBackClick = () => navigate('/welcome')
 
@@ -69,7 +75,8 @@ export default function App() {
     alert(message, level = 'error') { setAlert({ message, level }) },
     confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
   }}>
-    {logic.isUserLoggedIn() && <Header onLoggedOut={handleLogout} />}
+    {logic.isUserLoggedIn() && <Header onLoggedOut={handleLogout} configurationClick={handleConfigurationClick} />}
+
     <Routes>
       <Route path="/welcome" element={logic.isUserLoggedIn() ? <Home /> : <WelcomeScreen onStartedClick={handleStartedClick} onLoginClick={handleLoginClick} />} />
 
@@ -77,9 +84,9 @@ export default function App() {
 
       <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} onBackClick={handleGoBackClick} />} />
 
-      <Route path="/home" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/welcome" />} />
+      <Route path="/home" element={logic.isUserLoggedIn() ? <Home onCreateNoteClick={handleCreateNoteClick} onViewRemindersClick={handleViewRemindersClick} onCheckTasksClick={handleCheckTasksClick} onCreateGroupClick={handleCreateGroupClick} /> : <Navigate to="/welcome" />} />
 
-      <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/welcome" />} />
+      {/* <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/welcome" />} /> */}
 
       <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile onCancelClick={handleCancelClick} /> : <Navigate to="/welcome" />} />
 
@@ -93,8 +100,7 @@ export default function App() {
 
       <Route path="/notes/:noteId" element={logic.isUserLoggedIn() ? <EditNote onEdited={handleNoteEdited} onCancelClick={handleNoteEdited} /> : <Navigate to="/welcome" />} />
 
-
-      <Route path="/tasks" element={logic.isUserLoggedIn() ? <Tasks /> : <Navigate to="/welcome" />} />
+      <Route path="/tasks" element={logic.isUserRoleStudent && logic.isUserLoggedIn() ? <Tasks /> : <Navigate to="/welcome" />} />
 
       <Route path="/groups" element={logic.isUserLoggedIn() && logic.isUserRoleTeacher ? <Groups /> : <Navigate to="/welcome" />} />
 

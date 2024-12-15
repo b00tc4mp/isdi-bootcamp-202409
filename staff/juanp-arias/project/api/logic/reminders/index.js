@@ -1,13 +1,15 @@
 import createReminder from './createReminder.js'
-import getReminders from './getReminders.js'
+import getRemindersByDate from './getRemindersByDate.js'
 import deleteReminder from './deleteReminder.js'
-import getReminder from './getReminder.js'
+import editReminder from './editReminder.js'
 import updateReminder from './updateReminder.js'
+import getReminders from './getReminders.js'
 
 export {
     createReminder,
-    getReminders,
+    getRemindersByDate,
     deleteReminder,
-    getReminder,
-    updateReminder
+    editReminder,
+    updateReminder,
+    getReminders
 }

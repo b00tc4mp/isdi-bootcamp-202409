@@ -33,6 +33,29 @@ export default function Groups() {
         }
     }, [])
 
+    if (!groups) return <p>Loading...</p>
+
+    const handleDeleted = () => {
+        try {
+            logic.getGroups()
+                .then(groups => {
+                    setGroups(groups)
+                    setInitiated(true)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
+                    console.error(error)
+                    return
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
     const onCreateGroupClick = () => {
         setView(view ? null : 'create-group')
     }
@@ -42,7 +65,25 @@ export default function Groups() {
     }
 
     const handleGroupCreated = () => {
-        setView(null)
+        try {
+            logic.getGroups()
+                .then(groups => {
+                    setGroups(groups)
+                    setInitiated(true)
+                    setView(null)
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later')
+                    else
+                        alert(error.message)
+                    console.error(error)
+                    return
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
     }
 
     return <Main>
@@ -50,7 +91,7 @@ export default function Groups() {
             <SectionHeader sectionName='groups' />
             <div className='grid grid-cols-2 gap-4 p-6'>
                 {initiated && groups.map((group) => (
-                    <Group key={group.id} group={group} />
+                    <Group key={group.id} group={group} onDeleted={handleDeleted} />
                 ))}
             </div>
             <div className='p-4'>

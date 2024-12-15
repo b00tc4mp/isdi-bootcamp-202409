@@ -3,6 +3,5 @@ import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler((req, res) => {
     const { userId } = req
-    const { reminderId } = req.params
-    return logic.getReminder(userId, reminderId).then(reminder => res.json(reminder))
+    return logic.getTasks(userId).then(tasks => res.json(tasks))
 })

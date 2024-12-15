@@ -16,16 +16,16 @@ export default function Footer(props) {
                 <span>🏠</span>
                 <span>Home</span>
             </Navigation>
-            {logic.isUserRoleTeacher() && (
+            {logic.isUserRoleTeacher() &&
                 <Navigation to='/groups'>
                     <span>👨‍👩‍👧‍👦</span>
                     <span>Groups</span>
-                </Navigation>
-            )}
-            <Navigation to='/tasks'>
-                <span>🔔</span>
-                <span>Tasks</span>
-            </Navigation>
+                </Navigation>}
+            {logic.isUserRoleStudent() &&
+                <Navigation to='/tasks'>
+                    <span>🔔</span>
+                    <span>Tasks</span>
+                </Navigation>}
             <Navigation to='/profile'>
                 <span>🙍</span>
                 <span>Profile</span>

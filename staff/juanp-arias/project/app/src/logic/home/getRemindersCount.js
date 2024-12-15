@@ -1,11 +1,8 @@
-import { validate, errors } from 'com'
+import { errors } from 'com'
 
 const { SystemError } = errors
-
-export default reminderId => {
-    validate.id(reminderId, 'reminderId')
-
-    return fetch(`http://${import.meta.env.VITE_API_URL}/reminders/reminder/${reminderId}`, {
+export default () => {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/home/reminders`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

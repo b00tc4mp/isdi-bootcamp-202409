@@ -2,8 +2,9 @@ import { CancelButton, Form, Input, Field, Label, DoneButton } from '../library'
 import { SectionHeader } from '.'
 import useContext from '../useContext'
 import logic from '../../logic'
-import { formatDate } from '../../util'
+import { errors } from 'com'
 
+const { SystemError } = errors
 export default function CreateReminder({ date, onCreated, onCancelClick }) {
     const { alert } = useContext()
 
@@ -20,12 +21,14 @@ export default function CreateReminder({ date, onCreated, onCancelClick }) {
                     onCreated()
                 })
                 .catch(error => {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later')
-                    else
+                    if (error instanceof SystemError) {
+                        alert('Cannot create reminders for past dates', 'warn')
+                        onCancelClick()
+                    } else {
                         alert(error.message)
-                    console.error(error)
-                    return
+                        console.error(error)
+                        return
+                    }
                 })
         } catch (error) {
             alert(error.message)
@@ -37,6 +40,7 @@ export default function CreateReminder({ date, onCreated, onCancelClick }) {
         event.preventDefault()
         onCancelClick()
     }
+
     return <main>
         <SectionHeader sectionName='new-reminder' />
         <div className='bg-white p-4'>

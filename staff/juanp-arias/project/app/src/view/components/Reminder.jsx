@@ -2,9 +2,9 @@ import logic from '../../logic'
 import useContext from '../useContext'
 import { formatDate } from '../../util'
 
-export default function Reminder({ reminder, onDeleted, onEditClick }) {
+export default function Reminder({ dateReminder, onDeleted, onEditClick }) {
     const { alert, confirm } = useContext()
-    const { id, title, text, date } = reminder
+    const { id, title, text, date } = dateReminder
 
     const handleDeleteClick = () => {
         confirm('Delete reminder?', accepted => {
@@ -23,10 +23,8 @@ export default function Reminder({ reminder, onDeleted, onEditClick }) {
             }
         })
     }
-    const handleEditClick = () => {
-        onEditClick(reminder.id)
-    }
 
+    const handleEditClick = () => { onEditClick(dateReminder.id) }
     const dateCustomized = formatDate(date)
     return <article className='flex items-center justify-between p-4 bg-orange-100 rounded-lg shadow-sm border-l-4 border-blue-500 hover:shadow-md transition'>
         <div>

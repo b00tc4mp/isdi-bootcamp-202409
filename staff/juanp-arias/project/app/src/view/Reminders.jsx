@@ -6,32 +6,17 @@ import useContext from './useContext'
 import { errors } from 'com'
 
 const { SystemError } = errors
-export default function Reminders({ date, onAcceptedClick, onCancelClick, onEditClick }) {
-    const [reminders, setReminders] = useState([])
+export default function Reminders({ date, onDoneClick, onEditClick, onNotRemindersFound }) {
+    const [dateReminders, setDateReminders] = useState([])
     const [initiated, setInitiated] = useState(false)
-    const { alert, confirm } = useContext()
+    const { alert } = useContext()
 
     useEffect(() => {
         try {
-            logic.getReminders(date)
-                .then(reminders => {
-                    if (reminders.length === 0)
-                        confirm(`It looks like you don't have any reminder for this day, want to create it?`, accepted => {
-                            if (accepted) {
-                                try {
-                                    onAcceptedClick()
-                                } catch (error) {
-                                    alert(error.message)
-                                    console.error(error)
-                                }
-                            } else {
-                                onCancelClick()
-                            }
-                        }, 'warn')
-                    else {
-                        setReminders(reminders)
-                        setInitiated(true)
-                    }
+            logic.getRemindersByDate(date)
+                .then(dateReminders => {
+                    setDateReminders(dateReminders)
+                    setInitiated(true)
                 })
                 .catch(error => {
                     if (error instanceof SystemError)
@@ -47,19 +32,19 @@ export default function Reminders({ date, onAcceptedClick, onCancelClick, onEdit
         }
     }, [])
 
-    const onDoneClick = event => {
+    const handleDoneClick = event => {
         event.preventDefault()
-        onCancelClick()
+        onDoneClick()
     }
 
     const handleDeleted = () => {
         try {
-            logic.getReminders(date)
-                .then(reminders => {
-                    if (reminders.length === 0) {
-                        onCancelClick()
+            logic.getRemindersByDate(date)
+                .then(dateReminders => {
+                    if (dateReminders.length === 0) {
+                        onNotRemindersFound()
                     }
-                    setReminders(reminders)
+                    setDateReminders(dateReminders)
                     setInitiated(true)
                 })
                 .catch(error => {
@@ -79,12 +64,12 @@ export default function Reminders({ date, onAcceptedClick, onCancelClick, onEdit
     return <article>
         <SectionHeader sectionName='reminders' />
         <div className='grid gap-4 p-6'>
-            {initiated && reminders.map((reminder) => (
-                <Reminder key={reminder.id} reminder={reminder} onEditClick={onEditClick} onDeleted={handleDeleted} />
+            {initiated && dateReminders.map((dateReminder) => (
+                <Reminder key={dateReminder.id} dateReminder={dateReminder} onEditClick={onEditClick} onDeleted={handleDeleted} />
             ))}
         </div>
         <div className='pr-4 pl-4'>
-            <Button onClick={onDoneClick}>Done</Button>
+            <Button onClick={handleDoneClick}>Done</Button>
         </div>
     </article>
 }

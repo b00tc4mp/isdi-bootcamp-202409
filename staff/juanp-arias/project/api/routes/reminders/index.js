@@ -3,17 +3,19 @@ import { Router } from 'express'
 import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
 import {
     createReminderHandler,
-    getRemindersHandler,
+    getRemindersByDateHandler,
     deleteReminderHandler,
-    getReminderHandler,
-    updateReminderHandler
+    editReminderHandler,
+    updateReminderHandler,
+    getRemindersHandler
 } from './handlers/index.js'
 
 const remindersRouter = Router()
 
 remindersRouter.post('/', jsonBodyParser, authorizationHandler, createReminderHandler)
-remindersRouter.get('/:date', authorizationHandler, getRemindersHandler)
-remindersRouter.get('/reminder/:reminderId', authorizationHandler, getReminderHandler)
+remindersRouter.get('/:date', authorizationHandler, getRemindersByDateHandler)
+remindersRouter.get('/', authorizationHandler, getRemindersHandler)
+remindersRouter.get('/edit/:reminderId', authorizationHandler, editReminderHandler)
 remindersRouter.delete('/:reminderId', authorizationHandler, deleteReminderHandler)
 remindersRouter.put('/reminder/:reminderId', authorizationHandler, jsonBodyParser, updateReminderHandler)
 

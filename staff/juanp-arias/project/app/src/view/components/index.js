@@ -12,7 +12,8 @@ import CreateNote from './CreateNote'
 import CreateReminder from './CreateReminder'
 import EditNote from './EditNote'
 import EditReminder from './EditReminder'
-
+import CreateTask from './CreateTask'
+import Task from './Task'
 export {
     Header,
     Footer,
@@ -30,5 +31,7 @@ export {
     EditReminder,
 
     Group,
-    CreateGroup
+    CreateGroup,
+    CreateTask,
+    Task
 }
