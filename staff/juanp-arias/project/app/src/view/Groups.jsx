@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { SectionContainer, SectionHeader, Group, CreateGroup } from './components'
-import { Button, Main } from './library'
+import { Button, Loading, Main } from './library'
 import logic from '../logic'
 import useContext from './useContext'
 import { errors } from 'com'
@@ -11,6 +11,7 @@ export default function Groups() {
     const [initiated, setInitiated] = useState(false)
     const [view, setView] = useState(null)
     const { alert } = useContext()
+    const createGroupView = useRef(null)
 
     useEffect(() => {
         try {
@@ -33,7 +34,11 @@ export default function Groups() {
         }
     }, [])
 
-    if (!groups) return <p>Loading...</p>
+    useEffect(() => {
+        if (view && createGroupView.current) { createGroupView.current.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
+    }, [view])
+
+    if (!groups) return <Loading />
 
     const handleDeleted = () => {
         try {
@@ -56,13 +61,8 @@ export default function Groups() {
         }
     }
 
-    const onCreateGroupClick = () => {
-        setView(view ? null : 'create-group')
-    }
-
-    const handleCancelClick = () => {
-        setView(null)
-    }
+    const onCreateGroupClick = () => { setView(view ? null : 'create-group') }
+    const handleCancelClick = () => { setView(null) }
 
     const handleGroupCreated = () => {
         try {
@@ -85,19 +85,18 @@ export default function Groups() {
             console.error(error)
         }
     }
-
     return <Main>
         <SectionContainer>
-            <SectionHeader sectionName='groups' />
-            <div className='grid grid-cols-2 gap-4 p-6'>
-                {initiated && groups.map((group) => (
-                    <Group key={group.id} group={group} onDeleted={handleDeleted} />
-                ))}
+            <SectionHeader sectionName="groups" />
+            <div className="grid grid-cols-2 gap-4 p-6">
+                {initiated && groups.map(group => <Group key={group.id} group={group} onDeleted={handleDeleted} />)}
             </div>
-            <div className='p-4'>
+            <div className="p-4">
                 <Button onClick={onCreateGroupClick}>Create group</Button>
             </div>
-            {view === 'create-group' && <CreateGroup onCancelClick={handleCancelClick} onCreated={handleGroupCreated} />}
+            <div ref={createGroupView}>
+                {view === 'create-group' && <CreateGroup onCancelClick={handleCancelClick} onCreated={handleGroupCreated} />}
+            </div>
         </SectionContainer>
     </Main>
 }

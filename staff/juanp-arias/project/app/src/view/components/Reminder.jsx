@@ -1,6 +1,7 @@
 import logic from '../../logic'
 import useContext from '../useContext'
 import { formatDate } from '../../util'
+import ReminderButton from '../library/ReminderButton'
 
 export default function Reminder({ dateReminder, onDeleted, onEditClick }) {
     const { alert, confirm } = useContext()
@@ -33,8 +34,8 @@ export default function Reminder({ dateReminder, onDeleted, onEditClick }) {
             <p className='text-sm text-gray-600 mt-1'>{text}</p>
         </div>
         <div className='justify-end ml-2 space-x-1'>
-            <button onClick={handleDeleteClick} className='text-xs text-white bg-red-500 px-3 py-1 rounded-md hover:bg-red-600 transition'>Delete</button>
-            <button onClick={handleEditClick} className='text-xs text-white bg-blue-500 px-3 py-1 rounded-md hover:bg-blue-600 transition'>Edit</button>
+            <ReminderButton onClick={handleDeleteClick} >Delete</ReminderButton>
+            <ReminderButton level='blue' onClick={handleEditClick}>Edit</ReminderButton>
         </div>
     </article>
 }

@@ -9,7 +9,7 @@ export default userId => {
         .lean()
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
-            return Task.countDocuments({ assignes: userId })
+            return Task.countDocuments({ creator: userId })
         })
         .then(taskCount => {
             return taskCount

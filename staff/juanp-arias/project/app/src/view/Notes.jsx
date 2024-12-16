@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SectionContainer, SectionHeader, Note } from './components'
-import { Button } from './library'
+import { Button, Loading } from './library'
 import logic from '../logic'
 import useContext from './useContext'
 import { errors } from 'com'
@@ -35,7 +35,7 @@ export default function Notes({ onEditClick }) {
         }
     }, [])
 
-    if (!notes) return <p>Loading...</p>
+    if (!notes) return <Loading />
 
     const handleDeleted = () => {
         try {

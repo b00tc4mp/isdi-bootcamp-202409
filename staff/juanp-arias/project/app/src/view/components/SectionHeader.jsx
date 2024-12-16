@@ -3,7 +3,7 @@ import logic from '../../logic'
 import logo from '../../assets/logo.png'
 import useContext from '../useContext'
 
-export default function SectionHeader({ sectionName }) {
+export default function SectionHeader({ sectionName, loadUserName }) {
     const [name, setName] = useState(null)
     const { alert } = useContext()
 
@@ -12,7 +12,11 @@ export default function SectionHeader({ sectionName }) {
             if (!name)
                 try {
                     logic.getUserName()
-                        .then(setName)
+                        .then((username) => {
+                            setName(username)
+
+                            if (loadUserName) { loadUserName(username) }
+                        })
                         .catch(error => {
                             alert(error.message)
                             console.error(error)

@@ -10,7 +10,7 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
             const now = new Date()
-            return Task.find({ assignes: userId, date: { $gt: now } })
+            return Task.find({ creator: userId })
                 .populate('assignes', 'name')
                 .populate('creator', 'name')
                 .sort({ date: 1 })

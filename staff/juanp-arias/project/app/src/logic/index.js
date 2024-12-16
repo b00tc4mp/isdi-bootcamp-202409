@@ -2,8 +2,8 @@ import { registerUser, loginUser, logoutUser, isUserLoggedIn, getUserName, getUs
 import { createNote, getNotes, deleteNote, getNote, updateNote } from './notes'
 import { createReminder, getRemindersByDate, deleteReminder, editReminder, updateReminder, getReminders } from './reminders'
 import { createGroup, getGroups, deleteGroup } from './groups'
-import { createTask, getTasks } from './tasks'
-import { getLastNote, getRemindersCount, getTasksCount } from './home'
+import { createTask, getTasks, getTasksCreated, deleteTask } from './tasks'
+import { getLastNote, getRemindersCount, getTasksCount, getTasksCreatedCount } from './home'
 
 const logic = {
     registerUser,
@@ -39,9 +39,12 @@ const logic = {
 
     createTask,
     getTasks,
+    getTasksCreated,
+    deleteTask,
 
     getLastNote,
     getRemindersCount,
-    getTasksCount
+    getTasksCount, 
+    getTasksCreatedCount
 }
 export default logic

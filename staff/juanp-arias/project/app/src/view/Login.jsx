@@ -35,7 +35,7 @@ export default function Login(props) {
         props.onBackClick()
     }
 
-    return <main className='flex items-center justify-center h-screen bg-gray-50'>
+    return <main className='flex items-center justify-center h-screen bg-gradient-to-b from-gray-50 to-blue-100'>
         <div className='bg-white p-6 rounded-xl shadow-lg w-full max-w-sm'>
             <div className='flex justify-between items-center'>
                 <div>
@@ -58,7 +58,6 @@ export default function Login(props) {
                 <div className='forgot-link'>
                     <a href='#' className='text-sm text-blue-500 hover:underline'>Forgot password?</a>
                 </div>
-
                 <Button type='submit'>Log in</Button>
             </Form>
             <p className='text-xs text-center text-gray-500 mt-4'>By continuing, you agree to our{' '}<a href='#' className='text-blue-500 hover:underline'>Terms of Service</a>{' '}and{' '}<a href='#' className='text-blue-500 hover:underline'>Privacy Policy</a>.</p>

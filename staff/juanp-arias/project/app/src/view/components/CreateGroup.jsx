@@ -55,13 +55,9 @@ export default function CreateGroup({ onCreated, onCancelClick }) {
         }
     }
 
-    const handleUserClick = user => {
-        if (!selectedUsers.find((u) => u.id === user.id)) { setSelectedUsers([...selectedUsers, user]) }
-    }
+    const handleUserClick = user => { if (!selectedUsers.find((u) => u.id === user.id)) { setSelectedUsers([...selectedUsers, user]) } }
 
-    const handleRemoveUser = userId => {
-        setSelectedUsers(selectedUsers.filter((user) => user.id !== userId))
-    }
+    const handleRemoveUser = userId => { setSelectedUsers(selectedUsers.filter((user) => user.id !== userId)) }
 
     const handleCancelClick = event => {
         event.preventDefault()

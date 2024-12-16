@@ -45,7 +45,7 @@ export default function Register({ onRegistered, onBackClick }) {
         onBackClick()
     }
 
-    return <main className='flex items-center justify-center max-h-screen bg-gray-50 pt-2'>
+    return <main className='flex items-center justify-center max-h-screen bg-gradient-to-b from-gray-50 to-blue-100 pt-2'>
         <div className='bg-white p-6 rounded-xl shadow-lg w-full max-w-md'>
             <div className='flex justify-between items-center mb-6'>
                 <div>

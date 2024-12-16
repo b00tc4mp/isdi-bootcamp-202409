@@ -1,13 +1,17 @@
 import logic from '../../logic'
-import { ConfigurationIcon, LogoutIcon } from '../icons'
+import { ConfigurationIcon, LogoutIcon, BackHomeIcon } from '../icons'
 import useContext from '../useContext'
 
-export default function Header({ onLoggedOut, configurationClick }) {
+export default function Header({ onLoggedOut, configurationClick, backHomeClick }) {
     const { confirm } = useContext()
 
     const onConfigurationClick = event => {
         event.preventDefault()
         configurationClick()
+    }
+    const onBackHomeClick = event => {
+        event.preventDefault()
+        backHomeClick()
     }
 
     const handleLogout = () => {
@@ -18,8 +22,13 @@ export default function Header({ onLoggedOut, configurationClick }) {
             }
         }, 'warn')
     }
-    return <header className='flex text-white bg-white shadow-md min-w-full fixed justify-end pr-2'>
-        {logic.isUserLoggedIn() && <ConfigurationIcon onClick={onConfigurationClick} />}
-        {logic.isUserLoggedIn() && <LogoutIcon onClick={handleLogout} />}
+    return <header className='flex items-center justify-between bg-white shadow-md fixed w-full px-2'>
+        <div className='flex items-center'>
+            {logic.isUserLoggedIn() && <BackHomeIcon onClick={onBackHomeClick} />}
+        </div>
+        <div className='flex items-center'>
+            {logic.isUserLoggedIn() && <ConfigurationIcon onClick={onConfigurationClick} />}
+            {logic.isUserLoggedIn() && <LogoutIcon onClick={handleLogout} />}
+        </div>
     </header>
 }

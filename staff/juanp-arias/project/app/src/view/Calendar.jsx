@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { SectionHeader, SectionContainer, CreateReminder } from './components'
 import { CalendarButton, Button, Main } from './library'
 import { getFirstDayWeek, getMonthDays, getMonthName, getYear } from '../logic/calendar/index.js'
@@ -16,6 +16,8 @@ export default function Calendar({ onEditClick }) {
     const [selectedDate, setSelectedDate] = useState(null)
     const [selectedDay, setSelectedDay] = useState(null)
     const [view, setView] = useState(null)
+    const remindersView = useRef(null)
+    const createRemindersView = useRef(null)
 
     useEffect(() => {
         try {
@@ -35,8 +37,14 @@ export default function Calendar({ onEditClick }) {
         }
     }, [])
 
+    useEffect(() => {
+        if (view === 'reminders' && remindersView.current) { remindersView.current.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
+        if (view === 'new-reminder' && createRemindersView.current) { createRemindersView.current.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
+    }, [view])
+
     const onNewReminderClick = () => { setView(view ? null : 'new-reminder') }
     const handleDoneClick = () => { setView(view ? null : 'reminders') }
+    
     const onRemindersClick = () => {
         try {
             logic.getRemindersByDate(date)
@@ -166,17 +174,21 @@ export default function Calendar({ onEditClick }) {
         </SectionContainer>
         {selectedDate &&
             <SectionContainer>
-                {view === 'new-reminder' && <CreateReminder
-                    date={date}
-                    onCreated={onReminderCreated}
-                    onCancelClick={onNewReminderClick} />
-                }
-                {view === 'reminders' && <Reminders
-                    date={date}
-                    onEditClick={onEditClick}
-                    onDoneClick={handleDoneClick}
-                    onNotRemindersFound={handleReminderDeleted} />
-                }
+                <div ref={createRemindersView}>
+                    {view === 'new-reminder' && <CreateReminder
+                        date={date}
+                        onCreated={onReminderCreated}
+                        onCancelClick={onNewReminderClick} />
+                    }
+                </div>
+                <div ref={remindersView}>
+                    {view === 'reminders' && <Reminders
+                        date={date}
+                        onEditClick={onEditClick}
+                        onDoneClick={handleDoneClick}
+                        onNotRemindersFound={handleReminderDeleted} />
+                    }
+                </div>
             </SectionContainer>}
     </Main>
 }

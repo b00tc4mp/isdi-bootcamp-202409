@@ -1,5 +1,5 @@
 import logic from '../logic'
-import { Field, Input, Label, Form, DoneButton, CancelButton, Main } from './library'
+import { Field, Input, Label, Form, DoneButton, CancelButton, Main, Loading } from './library'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { SectionHeader, SectionContainer } from './components'
@@ -36,11 +36,7 @@ export default function Profile({ onCancelClick }) {
         }
     }, [location.pathname])
 
-    if (!datos) {
-        return <main className='flex justify-center items-center bg-gray-100 min-h-screen'>
-            <p>Loading...</p>
-        </main>
-    }
+    if (!datos) return <Loading />
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -87,11 +83,11 @@ export default function Profile({ onCancelClick }) {
                 </Field>
                 <Field>
                     <Label htmlFor='dateOfBirth'>Birthdate</Label>
-                    <Input id='dateOfBirth' type='date' defaultValue={datos.dateOfBirth}></Input>
+                    <Input id='dateOfBirth' type='text' defaultValue={datos.dateOfBirth} readOnly></Input>
                 </Field>
                 <Field>
                     <Label htmlFor='role'>Role</Label>
-                    <Input id='role' type='text' defaultValue={datos.role} />
+                    <Input id='role' type='text' defaultValue={datos.role} disabled />
                 </Field>
                 <div className='flex justify-end space-x-2 mr-1'>
                     <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>

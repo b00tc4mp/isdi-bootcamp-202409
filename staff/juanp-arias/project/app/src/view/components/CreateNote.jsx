@@ -1,6 +1,6 @@
 import logic from '../../logic'
 import { SectionContainer, SectionHeader } from '.'
-import { Form, CancelButton, DoneButton, Main } from '../library'
+import { Form, CancelButton, DoneButton, Main, Textarea } from '../library'
 import useContext from '../useContext'
 import { errors } from 'com'
 
@@ -41,11 +41,7 @@ export default function CreateNote({ onCreated, onCancelClick }) {
             <SectionHeader sectionName='notes' />
             <Form onSubmit={handleSubmit} className='mt-4 w-full'>
                 <div className='m-2'>
-                    <textarea
-                        id='textarea'
-                        placeholder='Write your note here...'
-                        className='w-full h-60 p-4  border border-gray-300 bg-gray-100 rounded-md shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none'
-                    ></textarea>
+                    <Textarea id='textarea' placeholder='Write your note here...'></Textarea>
                     <div className='flex justify-end space-x-2 mr-1'>
                         <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>
                         <DoneButton type='submit'>Create</DoneButton>

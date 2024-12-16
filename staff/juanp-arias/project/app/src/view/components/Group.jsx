@@ -1,6 +1,6 @@
 import logic from '../../logic'
 import useContext from '../useContext'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { DeleteButton, EditButton } from '../library'
 import { CreateTask } from './index.js'
 
@@ -9,6 +9,13 @@ export default function Group({ group, onDeleted }) {
     const [buttons, setButtons] = useState(false)
     const { confirm } = useContext()
     const [view, setView] = useState(null)
+    const createTaskView = useRef(null)
+
+    useEffect(() => {
+        if (view === 'new-task' && createTaskView.current) {
+            createTaskView.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    })
 
     const handleDeleteGroup = () => {
         confirm('Delete group?', accepted => {
@@ -60,7 +67,7 @@ export default function Group({ group, onDeleted }) {
             </div>
         )}
         {view === 'new-task' && (
-            <div className='flex mt-1 space-x-2 justify-center'>
+            <div className='flex mt-1 space-x-2 justify-center' ref={createTaskView}>
                 <CreateTask onCancelClick={handleAssignTask} group={group} onCreated={handleGroupClick} />
             </div>
         )}

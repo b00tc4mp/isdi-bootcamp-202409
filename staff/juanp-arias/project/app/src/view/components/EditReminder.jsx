@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { SectionContainer, SectionHeader } from '.'
-import { Form, CancelButton, DoneButton, Field, Label, Input, Main } from '../library'
+import { Form, CancelButton, DoneButton, Field, Label, Input, Main, Loading } from '../library'
 import { errors } from 'com'
 import logic from '../../logic'
 import useContext from '../useContext'
@@ -32,9 +32,7 @@ export default function EditReminder({ onCancelClick, onEdited }) {
         }
     }, [reminderId])
 
-    if (!reminder) return <main className='flex justify-center items-center bg-gray-100 min-h-screen'>
-        <p>Loading...</p>
-    </main>
+    if (!reminder) return <Loading />
 
     const handleSubmit = event => {
         event.preventDefault()

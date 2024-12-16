@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { Login, Register, WelcomeScreen, Home, Profile, Calendar, Notes, Tasks, Groups } from './view'
-import { Header, Footer, Alert, Confirm, CreateNote, EditNote, EditReminder } from './view/components'
+import { Header, Footer, Alert, Confirm, CreateNote, EditNote, EditReminder, TeacherTasks } from './view/components'
 import { Context } from './view/useContext'
 import logic from './logic'
 
@@ -22,6 +22,7 @@ export default function App() {
   const handleStartedClick = () => navigate('/register')
 
   const handleConfigurationClick = () => navigate('/profile')
+  const handleHomeClick = () => navigate('/home')
 
   const handleUserLoggedIn = () => navigate('/home')
 
@@ -30,6 +31,8 @@ export default function App() {
   const handleViewRemindersClick = () => navigate('/calendar')
   const handleCheckTasksClick = () => navigate('/tasks')
   const handleCreateGroupClick = () => navigate('/groups')
+  const handleViewNotesClick = () => navigate('/notes')
+  const handleTasksCreatedClick = () => navigate('/teacher/tasks')
 
   const handleGoBackClick = () => navigate('/welcome')
 
@@ -75,7 +78,7 @@ export default function App() {
     alert(message, level = 'error') { setAlert({ message, level }) },
     confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
   }}>
-    {logic.isUserLoggedIn() && <Header onLoggedOut={handleLogout} configurationClick={handleConfigurationClick} />}
+    {logic.isUserLoggedIn() && <Header onLoggedOut={handleLogout} configurationClick={handleConfigurationClick} backHomeClick={handleHomeClick} />}
 
     <Routes>
       <Route path="/welcome" element={logic.isUserLoggedIn() ? <Home /> : <WelcomeScreen onStartedClick={handleStartedClick} onLoginClick={handleLoginClick} />} />
@@ -84,9 +87,9 @@ export default function App() {
 
       <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} onBackClick={handleGoBackClick} />} />
 
-      <Route path="/home" element={logic.isUserLoggedIn() ? <Home onCreateNoteClick={handleCreateNoteClick} onViewRemindersClick={handleViewRemindersClick} onCheckTasksClick={handleCheckTasksClick} onCreateGroupClick={handleCreateGroupClick} /> : <Navigate to="/welcome" />} />
+      <Route path="/home" element={logic.isUserLoggedIn() ? <Home onCreateNoteClick={handleCreateNoteClick} onViewRemindersClick={handleViewRemindersClick} onCheckTasksClick={handleCheckTasksClick} onCreateGroupClick={handleCreateGroupClick} onViewNotesClick={handleViewNotesClick} onTasksCreatedClick={handleTasksCreatedClick} /> : <Navigate to="/welcome" />} />
 
-      {/* <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/welcome" />} /> */}
+      <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/welcome" />} />
 
       <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile onCancelClick={handleCancelClick} /> : <Navigate to="/welcome" />} />
 
@@ -100,9 +103,11 @@ export default function App() {
 
       <Route path="/notes/:noteId" element={logic.isUserLoggedIn() ? <EditNote onEdited={handleNoteEdited} onCancelClick={handleNoteEdited} /> : <Navigate to="/welcome" />} />
 
-      <Route path="/tasks" element={logic.isUserRoleStudent && logic.isUserLoggedIn() ? <Tasks /> : <Navigate to="/welcome" />} />
+      <Route path="/tasks" element={logic.isUserLoggedIn() && logic.isUserRoleStudent() ? <Tasks /> : <Navigate to="/welcome" />} />
 
-      <Route path="/groups" element={logic.isUserLoggedIn() && logic.isUserRoleTeacher ? <Groups /> : <Navigate to="/welcome" />} />
+      <Route path="/teacher/tasks" element={logic.isUserLoggedIn() && logic.isUserRoleTeacher() ? <TeacherTasks /> : <Navigate to="/welcome" />} />
+
+      <Route path="/groups" element={logic.isUserLoggedIn() && logic.isUserRoleTeacher() ? <Groups /> : <Navigate to="/welcome" />} />
 
     </Routes>
     {logic.isUserLoggedIn() && <Footer />}

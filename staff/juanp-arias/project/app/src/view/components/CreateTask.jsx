@@ -1,5 +1,5 @@
 import logic from '../../logic'
-import { Form, CancelButton, DoneButton, Label, Input } from '../library'
+import { Form, CancelButton, DoneButton, Label, Input, TextareaTask } from '../library'
 import useContext from '../useContext'
 import { errors } from 'com'
 
@@ -42,12 +42,7 @@ export default function CreateTask({ group, onCancelClick, onCreated }) {
         <Form onSubmit={handleSubmit} className='space-y-4'>
             <div>
                 <Label htmlFor='textarea'>Task Description</Label>
-                <textarea
-                    id='textarea'
-                    rows='3'
-                    className='w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                    placeholder='Write the task details here...'
-                ></textarea>
+                <TextareaTask id='textarea' placeholder='Write the task details here...'></TextareaTask>
             </div>
             <div>
                 <Label htmlFor='date'>Due Date</Label>

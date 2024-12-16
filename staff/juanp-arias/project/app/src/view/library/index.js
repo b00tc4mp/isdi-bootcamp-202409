@@ -11,6 +11,13 @@ import CancelButton from './CancelButton'
 import Main from './Main'
 import DeleteButton from './DeleteButton'
 import EditButton from './EditButton'
+import HomeButton from './HomeButton'
+import Span from './Span'
+import Loading from './Loading'
+import TaskButton from './TaskButton'
+import ReminderButton from './ReminderButton'
+import Textarea from './Textarea'
+import TextareaTask from './TextareaTask'
 
 export {
     Input,
@@ -25,5 +32,12 @@ export {
     CancelButton,
     Main,
     DeleteButton,
-    EditButton
+    EditButton,
+    HomeButton,
+    Span,
+    Loading,
+    TaskButton,
+    ReminderButton,
+    Textarea,
+    TextareaTask
 }
