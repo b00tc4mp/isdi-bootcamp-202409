@@ -1,1 +1,1 @@
-curl -H 'Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRiNDFlMzFkNDkzZTZlYTFkMjU0ZWYiLCJyb2xlIjoibW9kZXJhdG9yIiwiaWF0IjoxNzMzMzMxNzI1LCJleHAiOjE3MzMzMzUzMjV9.TuBj6FGOp00mIcY0SPJI5SCF5Y7-tspk2uTe2dSn8ao'' http://localhost:7000/cart -v
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRiNDFlMzFkNDkzZTZlYTFkMjU0ZWYiLCJyb2xlIjoibW9kZXJhdG9yIiwiaWF0IjoxNzMzMzMxNzI1LCJleHAiOjE3MzMzMzUzMjV9.TuBj6FGOp00mIcY0SPJI5SCF5Y7-tspk2uTe2dSn8ao' http://localhost:7000/cart -v

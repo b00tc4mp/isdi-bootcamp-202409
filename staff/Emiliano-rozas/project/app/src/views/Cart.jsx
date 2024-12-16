@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CartTotal, Title } from '../components/index'
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import { Link } from 'react-router-dom'
 import assets from '../assets'
 import logic from '../logic/index'
@@ -9,10 +11,13 @@ const { SystemError } = errors
 
 export default function Cart() {
 
-    const [cartInfo, setCartInfo] = useState({ items: [], totalPrice: 0 });
+    const [cartInfo, setCartInfo] = useState({ items: [], totalPrice: 0 })
+    const [userLoggedIn, setUserLoggedIn] = useState(false)
 
     useEffect(() => {
         const loggedIn = logic.isUserLoggedIn()
+
+        setUserLoggedIn(loggedIn)
 
         const freshCart = async () => {
             if (!loggedIn) {
@@ -34,12 +39,13 @@ export default function Cart() {
     const handleUpdateQuantity = async (productId, quantity) => {
         try {
 
-            await logic.updateCart(productId, Number(quantity));
+            await logic.updateCart(productId, Number(quantity))
 
-            const newCart = await logic.getCart(); // con esto hacemos que se re renderice bien, sino P.E.T.A
+            const newCart = await logic.getCart() // con esto hacemos que se re renderice bien, sino P.E.T.A
 
             // Actualizar el estado del carrito
-            setCartInfo(newCart);
+            setCartInfo(newCart)
+
 
         } catch (error) {
             if (error instanceof SystemError)
@@ -51,28 +57,28 @@ export default function Cart() {
         }
     };
 
-    const handleRemoveFromCart = async (productId) => {
-        if (window.confirm("Are you sure you want to delete this item?")) {
-            try {
-                await logic.updateCart(productId, 0)
+    const handleRemoveFromCart = async (productId, productTitle) => {
+        try {
+            await logic.updateCart(productId, 0)
 
-                const updatedCart = await logic.getCart()
+            const updatedCart = await logic.getCart()
 
-                setCartInfo(updatedCart);
+            setCartInfo(updatedCart)
 
-            } catch (error) {
-                if (error instanceof SystemError)
-                    alert('Sorry, try again later.')
-                else
-                    alert(error.message)
+            toast.warning(`${productTitle} has been removed from your cart!`)
+        } catch (error) {
+            if (error instanceof SystemError)
+                alert('Sorry, try again later.')
+            else
+                alert(error.message)
 
-                console.error(error)
-            }
+            console.error(error)
         }
     };
 
     return (
         <div className='border-t border-green-700 pt-14'>
+            <ToastContainer />
             <div className='text-2xl mb-3'>
                 <Title text1={'YOUR'} text2={' CART'} />
             </div>
@@ -106,18 +112,21 @@ export default function Cart() {
                                 className='w-6 mr-4 sm:w-6 cursor-pointer'
                                 src={assets.binIcon}
                                 alt="delete icon"
-                                onClick={() => handleRemoveFromCart(item.product.id)}
+                                onClick={() => handleRemoveFromCart(item.product.id, item.product.title)}
                             />
                         </div>
                     ))
                 ) : (
                     <>
                         <p className='text-white'>Your Cart is empty.</p>
-
-                        <br />
-                        <Link to='/login'>
-                            <h2 className="text-xl font-bold text-green-500 hover:text-green-300 mb-4">Log in to start Buying!</h2>
-                        </Link>
+                        {!userLoggedIn && (
+                            <>
+                                < br />
+                                <Link to='/login'>
+                                    <h2 className="text-xl font-bold text-green-500 hover:text-green-300 mb-4">Log in to start Buying!</h2>
+                                </Link>
+                            </>
+                        )}
                     </>
                 )}
             </div>
@@ -128,7 +137,7 @@ export default function Cart() {
                         {cartInfo.items.length > 0 ? (
                             // muy loco esto, le podemos pasar las movidas del url o estados de este componente a travez del link al que sigue
                             <Link to='/place-order' state={{ cart: cartInfo }} >
-                                <button className='bg-green-700 text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>
+                                <button className='bg-green-700  active:bg-green-400 rounded text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>
                             </Link>
                         ) : (
                             <button className='bg-green-700 text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>

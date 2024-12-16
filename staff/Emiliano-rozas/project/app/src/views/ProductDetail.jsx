@@ -1,34 +1,41 @@
-import React, { useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { ShopContext } from '../context/ShopContext';
-import { RelatedProducts } from '../components/index';
-import { errors } from 'com';
-import logic from '../logic/index';
-import { isUserLoggedIn } from '../logic/users';
+import React, { useContext } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { ShopContext } from '../context/ShopContext'
+import { RelatedProducts } from '../components/index'
+import { errors } from 'com'
+import logic from '../logic/index'
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const { SystemError } = errors
 
 export default function ProductDetail() {
-    let { productId } = useParams();
-    const { products } = useContext(ShopContext);
-    const [productInfo, setProductInfo] = useState(null);
-    const [image, setImage] = useState('');
+    let { productId } = useParams()
+    const { products } = useContext(ShopContext)
+    const [productInfo, setProductInfo] = useState(null)
+    const [image, setImage] = useState('')
 
-    const loggedIn = isUserLoggedIn()
+    const loggedIn = logic.isUserLoggedIn()
 
     const getProductInfo = async () => {
         products.forEach((item) => {
             if (item.id === productId) {
-                setProductInfo(item);
-                setImage(item.image);
+                setProductInfo(item)
+                setImage(item.image)
             }
-        });
-    };
+        })
+    }
 
     useEffect(() => {
-        getProductInfo();
-    }, [productId, products]);
+        getProductInfo()
+    }, [productId, products])
+
+    const showToastMessage = () => {
+        toast.success(`${productInfo.title} has been added to your cart!`, {
+            position: "top-right"
+        })
+    }
 
     const updateCartHandler = async () => {
         try {
@@ -36,7 +43,8 @@ export default function ProductDetail() {
 
             await logic.updateCart(productInfo.id, quantity)
 
-            alert(`${productInfo.title} has been added to your cart!`)
+            // alert(`${productInfo.title} has been added to your cart!`)
+            showToastMessage()
         } catch (error) {
             if (error instanceof SystemError)
                 alert('Sorry, try again later.')
@@ -89,8 +97,8 @@ export default function ProductDetail() {
                         </ul>
                         {
                             loggedIn ? (
-                                <button onClick={updateCartHandler} className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm active:bg-green-400'>ADD TO CART</button>
-
+                                <button onClick={updateCartHandler} className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm rounded active:bg-green-400'>ADD TO CART
+                                    <ToastContainer /></button>
                             ) : (
                                 <Link to='/login'>
                                     <button className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm active:bg-green-400'>ADD TO CART</button>
@@ -133,5 +141,5 @@ export default function ProductDetail() {
         </div>
     ) : (
         <div className="opacity-0"></div>
-    );
+    )
 }

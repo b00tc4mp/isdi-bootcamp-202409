@@ -12,11 +12,11 @@ import {
 } from './users/index';
 
 import {
+    updateCart,
     getCart,
-    addTocart,
-    removeAllFromCart,
-    updateQuantity,
-    updateCart
+    // addTocart,
+    // removeAllFromCart,
+    // updateQuantity,
 } from './cart/index'
 
 import {
@@ -27,7 +27,6 @@ import {
 
 import {
     processPayment,
-    retrievePayment
 } from './payments/index'
 
 
@@ -43,15 +42,14 @@ const logic = {
     getUserProfile,
     getProducts,
     getCart,
-    addTocart,
-    removeAllFromCart,
-    updateQuantity,
     updateCart,
     placeOrder,
     getOrders,
     updateOrder,
     processPayment,
-    retrievePayment
+    // addTocart,
+    // removeAllFromCart,
+    // updateQuantity,
 }
 
 export default logic

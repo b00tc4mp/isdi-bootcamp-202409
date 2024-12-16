@@ -6,7 +6,6 @@ import logic from '../logic/index';
 
 
 export default function NavBar() {
-
     const [loggedIn, setLoggedIn] = useState(false)
     const [isModerator, setIsModerator] = useState(false)
     const [cartItemCount, setCartItemCount] = useState(0)
@@ -41,7 +40,7 @@ export default function NavBar() {
 
 
     const handleLogout = () => {
-        logoutUser();
+        logoutUser()
         setLoggedIn(false)
         setCartItemCount(0)
         navigate('/')

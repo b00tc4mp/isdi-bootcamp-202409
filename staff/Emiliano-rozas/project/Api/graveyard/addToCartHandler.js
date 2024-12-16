@@ -1,5 +1,5 @@
-import logic from '../../../logic/index.js';
-import { createFunctionalHandler } from '../../../middleware/index.js';
+import logic from '../logic/index.js';
+import { createFunctionalHandler } from '../middleware/index.js';
 
 export default createFunctionalHandler(async (req, res) => {
     const { userId } = req;

@@ -74,8 +74,8 @@ describe('updateOrder', () => {
         expect(updatedOrder.id).to.equal(order._id.toString())
     })
 
-    it('fails when order does not exist', async () => {
-        await expect(updateOrder(new ObjectId().toString(), 'confirmed')).to.be.rejectedWith(NotFoundError, 'order not found');
+    it('fails when order does not exist', () => {
+        expect(updateOrder(new ObjectId().toString(), 'confirmed')).to.be.rejectedWith(NotFoundError, 'order not found');
     });
 
     after(async () => {

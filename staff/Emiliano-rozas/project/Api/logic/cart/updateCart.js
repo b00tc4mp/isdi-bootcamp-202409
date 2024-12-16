@@ -16,7 +16,7 @@ export default (userId, productId, quantity) => {
         } catch (error) {
             throw new SystemError(error.message)
         }
-        if (!user) throw new NotFoundError('User not Found')
+        if (!user) throw new NotFoundError('User not found')
 
         let cart
         try {
@@ -27,7 +27,7 @@ export default (userId, productId, quantity) => {
         }
         try {
             if (!cart) {
-                cart = await Cart.create({ user: userId });
+                cart = await Cart.create({ user: userId })
             }
         } catch (error) {
             throw new SystemError(error.message)
@@ -71,11 +71,11 @@ export default (userId, productId, quantity) => {
         } else { // escenario si no hay cartItem
             if (quantity > 0) {
                 try {
-                    cartItem = await CartItem.create({ product: productId, quantity });
-                    cart.items.push(cartItem._id); // Añadir solo el ID del CartItem
-                    await cart.save(); // Guardar el garrito después de modificar los items
+                    cartItem = await CartItem.create({ product: productId, quantity })
+                    cart.items.push(cartItem._id) // Añadir solo el ID del CartItem
+                    await cart.save() // Guardar el garrito después de modificar los items
                 } catch (error) {
-                    throw new SystemError(error.message);
+                    throw new SystemError(error.message)
                 }
 
             }
@@ -89,17 +89,17 @@ export default (userId, productId, quantity) => {
                     path: 'product',
                     select: 'price',
                 },
-            });
+            })
             console.log(cart.items)
 
             cart.totalPrice = cart.items.reduce((total, item) => {
-                return total + item.quantity * (item.product.price || 0);
-            }, 0);
+                return total + item.quantity * (item.product.price || 0)
+            }, 0)
 
-            await cart.save();
+            await cart.save()
         } catch (error) {
-            throw new SystemError(error.message);
+            throw new SystemError(error.message)
         }
-        return cart;
-    })();
-};
+        return cart
+    })()
+}

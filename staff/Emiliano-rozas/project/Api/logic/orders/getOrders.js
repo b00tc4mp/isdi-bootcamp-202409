@@ -8,7 +8,6 @@ export default userId => { //agregar userId , token  ,trer el rol de admin, si l
 
     return User.findById(userId)
         .catch(error => {
-            console.error(error)
             throw new SystemError(error.message)
         })
         .then(user => {

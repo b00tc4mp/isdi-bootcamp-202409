@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import logic from '../logic/index'
 import { errors } from 'com'
 
@@ -24,10 +26,8 @@ export default function Register() {
             logic.registerUser(name, email, username, password, passwordRepeat)
                 .then(() => {
                     form.reset()
-
-                    alert('User successfully registered', 'success')
-
                     navigate('/login')
+                    toast.success('User successfully registered', 'success')
                 })
                 .catch(error => {
                     if (error instanceof SystemError)
@@ -45,11 +45,11 @@ export default function Register() {
 
     return (
         <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-white'>
+            <ToastContainer />
             <div className='inline-flex items-center gap-2 mb-2 mt-10'>
                 <p className='text-3xl text-white'>Register</p>
                 <hr className=' border-none h-[1.5px] w-8 bg-green-700' />
             </div>
-
             <label htmlFor="name"></label>
             <input type="text" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black ' id="name" placeholder='Name' required />
 

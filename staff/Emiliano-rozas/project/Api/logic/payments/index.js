@@ -1,9 +1,5 @@
-import processPayment from './processPayment.js';
-import stripePayment from './stripePayment.js';
-import retrievePayment from './retrievePayment.js'
+import processPayment from './processPayment.js'
 
 export {
     processPayment,
-    stripePayment,
-    retrievePayment
 }

@@ -134,4 +134,4 @@ const PaymentWrapper = ({ orderId }) => (
     </Elements>
 )
 
-export default PaymentWrapper; 
+export default PaymentWrapper

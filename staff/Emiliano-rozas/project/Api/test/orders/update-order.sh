@@ -1,0 +1,1 @@
+curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzVlZGI2MDY0YzRhYjI4ZjE0MzRkZGEiLCJyb2xlIjoibW9kZXJhdG9yIiwiaWF0IjoxNzM0MzQyODkzLCJleHAiOjE3MzQzNDY0OTN9.dxa_X_0kiQI8o2tjefobjTnbJ2SIh5J94jp3k1Qivec' http://localhost:7000/orders/update/675b34e726f9103ecf1add8f -d '{"status": "pending"}' -v
