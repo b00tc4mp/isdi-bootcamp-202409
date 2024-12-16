@@ -17,6 +17,9 @@ export default function Profile({ setProfileView }) {
         <div onClick={handleCloseClick} className="w-screen h-screen top-0 fixed bg-[black] opacity-50"></div>
 
         {userDetails && <div className="w-[55%] h-[70%] bg-[rgba(241,241,241,0.98)] z-[30] rounded-[.5rem] border-[2px] border-[black] overflow-y-auto flex flex-col items-start px-[2rem] pt-[1rem]">
+            <div className="fixed h-[3rem] w-[inherit] flex justify-end">
+                <Button onClick={handleCloseClick} className="text-[2rem] px-[.5rem] mr-[3.5rem]">𐢫</Button>
+            </div>
             <div className="flex flex-col items-start">
                 <h2 className="text-[2rem]">Profile</h2>
                 <span className="mt-[-1rem]">____________________________</span>

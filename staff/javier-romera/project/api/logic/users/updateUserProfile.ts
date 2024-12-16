@@ -23,9 +23,21 @@ export default (userId: string, username: string | undefined, email: string | un
 
         if (!user) throw new NotFoundError('user not found')
 
-        if (username) {
-            if (username === user.username) throw new DuplicityError('This is your present username')
+        if (username === user.username) throw new DuplicityError('This is your present username')
+        if (email === user.email) throw new DuplicityError('This is your present email')
 
+        if (oldPassword) {
+            try {
+                oldPasswordMatch = await bcrypt.compare(oldPassword, user.password)
+            } catch (error) {
+                throw new SystemError((error as Error).message)
+            }
+
+            if (!oldPasswordMatch) throw new ValidationError('Incorrect old password match')
+            if (newPassword === oldPassword) throw new ValidationError('Your new password can\'t be your old password')
+        }
+
+        if (username) {
             try {
                 await User.updateOne({ _id: userId }, { $set: { username: username } })
             } catch (error) {
@@ -35,8 +47,6 @@ export default (userId: string, username: string | undefined, email: string | un
         }
 
         if (email) {
-            if (email === user.email) throw new DuplicityError('This is your present email')
-
             try {
                 await User.updateOne({ _id: userId }, { $set: { email: email } })
             } catch (error) {
@@ -46,16 +56,6 @@ export default (userId: string, username: string | undefined, email: string | un
         }
 
         if (oldPassword && newPassword && newPasswordRepeat) {
-            try {
-                oldPasswordMatch = await bcrypt.compare(oldPassword, user.password)
-            } catch (error) {
-                throw new SystemError((error as Error).message)
-            }
-
-            if (!oldPasswordMatch) throw new ValidationError('Incorrect old password match')
-
-            if (newPassword === oldPassword) throw new ValidationError('Your new password can\'t be your old password')
-
             try {
                 hash = await bcrypt.hash(newPassword, 10)
             } catch (error) {

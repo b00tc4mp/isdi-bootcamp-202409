@@ -109,7 +109,7 @@ export default function useController() {
     }
 
     const handleCharacterClick = async (char) => {
-        await setInputValue(char)
+        await setInputValue(char) // jeje god
 
         document.getElementById("guess").focus()
 

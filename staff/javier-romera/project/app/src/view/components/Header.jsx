@@ -72,7 +72,8 @@ export default function Header(props) {
 
         <div className="flex items-center justify-end ml-auto h-[132px] w-[25rem]">
             <div className="mr-[2rem]">
-                <p onClick={handleUsernameClick} className="text-[1.25rem] cursor-pointer">{logic.isUserLoggedIn() && username !== null && `${username}`}</p>
+                {logic.isUserRoleRegular() ? <p onClick={handleUsernameClick} className="text-[1.25rem] cursor-pointer">{logic.isUserLoggedIn() && username !== null && `${username}`}</p> :
+                    <p className="text-[1.25rem]">{logic.isUserLoggedIn() && username !== null && `${username}`}</p>}
             </div>
             <div className="justify-self-start mr-[3rem]">
                 {logic.isUserLoggedIn && logic.isUserRoleRegular() ?

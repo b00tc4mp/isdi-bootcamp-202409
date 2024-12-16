@@ -54,9 +54,9 @@ export default function useController() {
         let parsedArc = arc.replaceAll('-', ' ')
 
         if (logic.isUserRoleAnonymous())
-            alert('If you want to progress through the map and have access to the details, you will have to login so you can gain score playing the minigames!')
+            alert('You have to log in to be able to gain score and progress through the map!')
         else
-            alert(`OIOIOIOI BAAAKAAAAA you need more score to access ${parsedArc} details, go play some minigames KSO YAROOO`, 'warn')
+            alert(`You\'ll have to gain more score to access to ${parsedArc} details`, 'warn')
     }
 
     const handleExitLocation = () => {
