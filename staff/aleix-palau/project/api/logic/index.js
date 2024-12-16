@@ -4,7 +4,8 @@ import {
     getUserName,
     updateUser,
     getUserStage,
-    updateUserStage
+    updateUserStage,
+    getUserProfile
 } from './users/index.js'
 
 const logic = {
@@ -13,7 +14,8 @@ const logic = {
     getUserName,
     updateUser,
     getUserStage,
-    updateUserStage
+    updateUserStage,
+    getUserProfile
 }
 
 export default logic

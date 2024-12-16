@@ -4,6 +4,7 @@ import registerUserHandler from './registerUserHandler.js'
 import updateUserHandler from './updateUserHandler.js'
 import getUserStageHandler from './getUserStageHandler.js'
 import updateUserStageHandler from './updateUserStageHandler.js'
+import getUserProfileHandler from './getUserProfileHandler.js'
 
 export {
     authenticateUserHandler,
@@ -11,5 +12,6 @@ export {
     registerUserHandler,
     updateUserHandler,
     getUserStageHandler,
-    updateUserStageHandler
+    updateUserStageHandler,
+    getUserProfileHandler
 }

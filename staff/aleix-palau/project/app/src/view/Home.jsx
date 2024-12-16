@@ -1,29 +1,37 @@
-// import { useState, useEffect } from 'react'
-
-// import logic from '../logic'
+import { useState } from 'react'
+import { Header, Footer } from './components'
+import { Profile, Heartbeats, People, Chat, Concerts } from './pages'
 
 export default function Home() {
-    // // const [name, setName] = useState(null)
+    const [activePage, setActivePage] = useState('people')
 
-    // useEffect(() => {
-    //     console.log('Home -> useEffect "componentDidMount"')
+    const renderActivePage = () => {
+        switch (activePage) {
+            case 'profile':
+                return <Profile />
+            case 'heartbeats':
+                return <Heartbeats />
+            case 'people':
+                return <People />
+            case 'chat':
+                return <Chat />
+            case 'concerts':
+                return <Concerts />
+            default:
+                return <People />
+        }
+    }
 
-    //     try {
-    //         logic.getUserName()
-    //             .then()
-    //             .catch(error => {
-    //                 alert(error.message)
+    return (
+        <div className="flex flex-col h-screen">
+            <div className="flex-none">
+            </div>
 
-    //                 console.error(error)
-    //             })
-    //     } catch (error) {
-    //         alert(error.message)
+            <main className="flex-grow overflow-auto">
+                {renderActivePage()}
+            </main>
 
-    //         console.error(error)
-    //     }
-    // }, [])
-
-    console.log('Home -> render')
-
-    return <p>Hola!</p>
+            <Footer activePage={activePage} setActivePage={setActivePage} />
+        </div >
+    )
 }

@@ -4,6 +4,7 @@ import getUserName from './getUserName.js'
 import updateUser from './updateUser.js'
 import getUserStage from './getUserStage.js'
 import updateUserStage from './updateUserStage.js'
+import getUserProfile from './getUserProfile.js'
 
 export {
     authenticateUser,
@@ -11,5 +12,6 @@ export {
     getUserName,
     updateUser,
     getUserStage,
-    updateUserStage
+    updateUserStage,
+    getUserProfile
 }

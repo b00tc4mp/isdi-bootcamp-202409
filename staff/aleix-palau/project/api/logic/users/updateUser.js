@@ -5,7 +5,7 @@ const { SystemError, NotFoundError } = errors
 
 export default (userId, updates) => {
     // to handle gender, targetGender, artists, etc. later
-    const { name, dateOfBirth, gender, targetGender, artists } = updates
+    const { name, dateOfBirth, gender, targetGender, artists, bio, location } = updates
 
     validate.id(userId, 'userId')
 
@@ -14,6 +14,8 @@ export default (userId, updates) => {
     if (gender !== undefined) validate.gender(gender)
     if (targetGender !== undefined) validate.targetGender(targetGender)
     if (artists !== undefined) validate.artists(artists)
+    if (bio !== undefined) validate.artists(bio)
+    if (location !== undefined) validate.artists(location)
 
     return (async () => {
         let user

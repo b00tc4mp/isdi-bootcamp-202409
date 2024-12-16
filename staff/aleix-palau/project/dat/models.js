@@ -39,6 +39,10 @@ const user = new Schema({
     bio: {
         type: String
     },
+    location: {
+        type: String,
+        default: 'Barcelona'
+    },
     images: [{
         type: String
     }],

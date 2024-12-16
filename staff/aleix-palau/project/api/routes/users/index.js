@@ -7,7 +7,8 @@ import {
     getUserNameHandler,
     updateUserHandler,
     getUserStageHandler,
-    updateUserStageHandler
+    updateUserStageHandler,
+    getUserProfileHandler
 } from './handlers/index.js'
 
 const usersRouter = Router()
@@ -19,5 +20,7 @@ usersRouter.patch('/:userId/', jsonBodyParser, authorizationHandler, updateUserH
 
 usersRouter.get('/:userId/stage', authorizationHandler, getUserStageHandler)
 usersRouter.patch('/:userId/stage', jsonBodyParser, authorizationHandler, updateUserStageHandler)
+
+usersRouter.get('/:userId/profile', authorizationHandler, getUserProfileHandler)
 
 export default usersRouter

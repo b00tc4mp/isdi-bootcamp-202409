@@ -26,24 +26,19 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
         throw new ValidationError('passwords do not match')
 }
 
-const validateImage = image => {
-    if (typeof image !== 'string') throw new ValidationError('invalid image')
-    if (image.trim().length === 0) throw new ValidationError('invalid image length')
-}
-
-const validateText = text => {
-    if (typeof text !== 'string') throw new ValidationError('invalid text')
-    if (text.trim().length === 0) throw new ValidationError('invalid text length')
-}
+// const validateText = text => {
+//     if (typeof text !== 'string') throw new ValidationError('invalid text')
+//     if (text.trim().length === 0) throw new ValidationError('invalid text length')
+// }
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
-const validateCallback = callback => {
-    if (typeof callback !== 'function') throw new ValidationError('invalid callback')
-}
+// const validateCallback = callback => {
+//     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
+// }
 
 const validateDateOfBirth = dateOfBirth => {
     if (!dateOfBirth || typeof dateOfBirth !== 'string') {
@@ -103,27 +98,43 @@ const validateTargetGender = targetGender => {
     })
 }
 
+// WIP
 const validateArtists = artists => {
-    if (!Array.isArray(artists)) {
+    if (!Array.isArray(artists))
         throw new ValidationError('invalid artists: must be an array')
-    }
-    // WIP
 }
+
+const validateImages = images => {
+    if (!Array.isArray(images))
+        throw new ValidationError('images should be an array')
+
+    images.forEach(image => {
+        if (typeof image !== 'string')
+            throw new ValidationError('invalid image')
+        // if (!image.startsWith('data:image/'))
+        //     throw new ValidationError('image must be base64 encoded')
+        if (image.length === 0)
+            throw new ValidationError('invalid image length')
+    })
+}
+
 
 const validate = {
     name: validateName,
     email: validateEmail,
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
-    image: validateImage,
-    text: validateText,
+    // text: validateText,
     id: validateId,
-    callback: validateCallback,
+    // callback: validateCallback,
     dateOfBirth: validateDateOfBirth,
     stage: validateStage,
     gender: validateGender,
     targetGender: validateTargetGender,
-    artists: validateArtists
+    artists: validateArtists,
+    bio: ,
+    location: ,
+    images: validateImages,
 }
 
 export default validate
