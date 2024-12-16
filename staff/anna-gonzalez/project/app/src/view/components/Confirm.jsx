@@ -1,7 +1,7 @@
 import { Button } from "../library"
 
 export default function Confirm({ message, level = 'error', onAccepted, onCancelled }) {
-    const borderColor = level === 'error' ? 'border-[red]' : level === 'warn' ? 'border-[yellow]' : 'border-[green]'
+    const borderColor = level === 'error' ? 'border-[#f5795a]' : level === 'warn' ? 'border-[#f5e75a]' : 'border-[#75fa66]'
 
     const handleCancelClick = () => onCancelled()
 

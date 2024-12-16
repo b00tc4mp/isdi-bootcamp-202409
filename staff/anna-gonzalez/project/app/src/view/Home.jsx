@@ -132,7 +132,7 @@ export default function Home() {
             <div className="flex flex-col justify-center items-center bg-[var(--turquoise-color)] rounded-full w-64 h-64 mt-2 mb-2">
                 {!cyclesStart || cyclesStart.length === 0 ? (<><p className="mt-6">Loading predictions...</p><h1>No data</h1></>)
                     : isBeforeOvulation ? (<><p className="mt-6">Ovulation in</p><h1>{daysUntilOvulation} days</h1></>)
-                        : isOvulationDay ? (<><p className="mt-6">Today is your</p><h1>Ovulation day</h1></>)
+                        : isOvulationDay ? (<><p className="mt-6">Today is your day of</p><h1>ovulation</h1></>)
                             : isBeforePeriod ? (<><p className="mt-6">Your period starts in</p><h1>{daysUntilNextCycle} days</h1></>)
                                 : isPeriodDay ? (<><p className="mt-6">Today starts your</p><h1>period</h1></>)
                                     : (<><p>Your period is late for</p><h1>{-daysUntilNextCycle} days</h1></>)}

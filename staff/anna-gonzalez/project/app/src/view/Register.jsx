@@ -85,7 +85,6 @@ export default function Register(props) {
         </Form>
 
         <Anchor href="" onClick={handleLoginClick}>Login instead</Anchor>
-        <Anchor href="" onClick={handlePartnerAccessClick}>Secret code instead</Anchor>
 
         <div className="flex flex-row fixed top-full left-1/2 transform -translate-x-1/2 -translate-y-2/4 z-[-1]">
             <div className="w-40 h-40 bg-[var(--orange-color)] rounded-full"></div>

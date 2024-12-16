@@ -29,7 +29,7 @@ export default (cyclesStart) => {
         return 'follicular'
     } else if (daysSinceStart < phaseLength * 3) {
         return 'ovulation'
-    } else if (daysSinceStart < averageCycleLength) {
+    } else if (daysSinceStart <= averageCycleLength) {
         return 'luteal'
     } else {
         return `Cannot determine (day ${daysSinceStart})`

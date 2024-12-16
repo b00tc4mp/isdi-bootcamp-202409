@@ -1,5 +1,5 @@
-import calculateAverageCycleLength from './calculateAverageCycleLength'
 import calculateCycleDetails from './calculateCycleDetails'
+import calculateCycleDuration from './calculateCycleDuration'
 import calculateCyclePhase from './calculateCyclePhase'
 import calculateDaysUntilNextCycle from './calculateDaysUntilNextCycle'
 import calculateDaysUntilNextOvulation from './calculateDaysUntilNextOvulation'
@@ -14,8 +14,8 @@ import getWeekDayText from './getWeekDayText'
 import getYear from './getYear'
 
 export {
-    calculateAverageCycleLength,
     calculateCycleDetails,
+    calculateCycleDuration,
     calculateCyclePhase,
     calculateDaysUntilNextCycle,
     calculateDaysUntilNextOvulation,

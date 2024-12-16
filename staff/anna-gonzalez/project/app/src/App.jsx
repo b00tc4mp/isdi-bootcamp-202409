@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Calendar, DayLog, Home, Login, PartnerAccess, Register, Reports, Splash, Tips } from './view'
+import { Calendar, DayLog, Home, Login, Register, Reports, Splash, Tips } from './view'
 import { Alert, Confirm, Header, Footer, Reminder } from './view/components'
 
 import { Context } from './view/useContext'
@@ -32,7 +32,6 @@ export default function App() {
   const handleLoginClick = () => navigate('/login')
   const handleUserRegistered = () => navigate('/')
   const handleRegisterClick = () => navigate('/register')
-  const handlePartnerAccessClick = () => navigate('/partner')
   const handleLogoClick = () => navigate('/')
   const handleUserLoggedOut = () => navigate('/login')
   const handleCalendarClick = () => navigate('/calendar')
@@ -77,11 +76,9 @@ export default function App() {
     <Routes>
       <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
 
-      <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} onPartnerAccessClick={handlePartnerAccessClick} />} />
+      <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
-      <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegistered={handleUserRegistered} onLoginClick={handleLoginClick} onPartnerAccessClick={handlePartnerAccessClick} />} />
-
-      <Route path="/partner" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <PartnerAccess onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />} />
+      <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegistered={handleUserRegistered} onLoginClick={handleLoginClick} />} />
 
       <Route path="/daylog/:formattedDate" element={logic.isUserLoggedIn() ? <DayLog onCreated={handleDayLogCreated} /> : <Navigate to="/login" />} />
 

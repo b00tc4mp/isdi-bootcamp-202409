@@ -29,25 +29,29 @@ export default (userId, start) => {
                         .sort({ start: -1 })
                         .catch(error => { throw new SystemError(error.message) })
                         .then(previousCycle => {
-                            return Cycle.findOne({ user: userId, start: { $gt: normalizedStart } })
-                                .sort({ start: 1 })
-                                .catch(error => { throw new SystemError(error.message) })
-                                .then(nextCycle => {
-                                    if (previousCycle) {
-                                        const previousCycleEnd = new Date(nextCycle.start)
-                                        previousCycleEnd.setDate(previousCycleEnd.getDate() - 1)
+                            if (previousCycle) {
 
-                                        return Cycle.updateOne(
-                                            { _id: previousCycle._id },
-                                            { end: previousCycleEnd.toISOString() },
-                                            { new: true }
-                                        )
-                                            .catch(error => { throw new SystemError(error.message) })
-                                    }
-                                })
+                                return Cycle.findOne({ user: userId, start: { $gt: normalizedStart } })
+                                    .sort({ start: 1 })
+                                    .catch(error => { throw new SystemError(error.message) })
+                                    .then(nextCycle => {
+                                        if (nextCycle) {
+                                            const previousCycleEnd = new Date(nextCycle.start)
+                                            previousCycleEnd.setDate(previousCycleEnd.getDate() - 1)
+
+                                            return Cycle.updateOne(
+                                                { _id: previousCycle._id },
+                                                { end: previousCycleEnd.toISOString() },
+                                                { new: true }
+                                            )
+                                                .catch(error => { throw new SystemError(error.message) })
+                                        }
+                                    })
+                            }
                         })
                         .then(() => {
                             return Cycle.deleteOne({ _id: cycleToDelete._id })
+                                .catch(error => { throw new SystemError(error.message) })
                         })
                 })
         })

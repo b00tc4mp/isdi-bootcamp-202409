@@ -21,7 +21,7 @@ export default (userId) => {
                     cycles.forEach(cycle => {
                         const { start, end, periodEnd, dayLogs } = cycle
 
-                        cycleDetails.push(start, end, periodEnd, dayLogs)
+                        cycleDetails.push({ start, end, periodEnd, dayLogs })
                     })
 
                     return cycleDetails

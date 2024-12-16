@@ -4,5 +4,5 @@ import { createFunctionalHandler } from '../../helpers/index.js'
 export default createFunctionalHandler((req, res) => {
     const { userId } = req
 
-    return logic.getCyclesStart(userId).then(cyclesDetails => res.json(cyclesDetails))
+    return logic.getCyclesDetails(userId).then(cyclesDetails => res.json(cyclesDetails))
 })

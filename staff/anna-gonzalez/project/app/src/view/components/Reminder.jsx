@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom'
 import logic from '../../logic'
 
 import { Button, Input, Label } from '../library'
+import useContext from '../useContext'
 
 export default function Reminder({ onCreated }) {
     const { formattedDate } = useParams()
+
+    const { alert } = useContext()
 
     const normalizedFormattedDate = new Date(formattedDate).toISOString()
 

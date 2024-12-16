@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import useContext from './useContext'
 
 import logic from '../logic'
 
@@ -7,6 +8,8 @@ import { Button } from './library'
 
 export default function DayLog({ onCreated }) {
     const { formattedDate } = useParams()
+
+    const { alert } = useContext()
 
     const [formData, setFormData] = useState({ symptoms: [], mood: '', flow: '', sleep: '', sexualActivity: '', sexualEnergy: '' })
     const [isLoaded, setIsLoaded] = useState(false)
