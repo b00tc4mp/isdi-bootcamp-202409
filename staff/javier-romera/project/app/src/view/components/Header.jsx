@@ -36,7 +36,7 @@ export default function Header(props) {
                 }
             }
         } else setUsername(null)
-    }, [location.pathname, localStorage.token])
+    }, [location.pathname, localStorage.token, props.profileView])
 
     const handleLoginClick = () => {
         props.onLoginClick()

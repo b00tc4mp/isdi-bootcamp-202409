@@ -54,6 +54,8 @@ export default function useController() {
                         .then(() => {
                             alert('Your profile has been successfully updated!', 'success')
                             setHasUpdatedProfile(true)
+
+                            form.reset()
                         })
                         .catch(error => {
                             if (error instanceof SystemError)

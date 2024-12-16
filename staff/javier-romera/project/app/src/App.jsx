@@ -81,7 +81,7 @@ export default function App() {
         confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
     }}>
         <main className="h-screen, w-screen">
-            <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} setProfileView={setProfileView} />
+            <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} profileView={profileView} setProfileView={setProfileView} />
 
             {profileView && <Profile setProfileView={setProfileView} />}
 
