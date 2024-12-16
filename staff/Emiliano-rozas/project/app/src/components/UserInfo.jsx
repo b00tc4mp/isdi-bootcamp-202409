@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import logic from '../logic/index'
 import { errors } from 'com'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const { SystemError } = errors
 
@@ -9,16 +11,16 @@ export default function UserInfo() {
     const [isSubmitting, setIsSubmitting] = useState(false) // Estado para manejar el submit
 
 
-    const userInfo = async () => {
-        try {
-            const userData = await logic.getUserProfile()
-            setUserProfile(userData)
-        } catch (error) {
-            console.error(error)
-        }
-    }
 
     useEffect(() => {
+        const userInfo = async () => {
+            try {
+                const userData = await logic.getUserProfile()
+                setUserProfile(userData)
+            } catch (error) {
+                console.error(error)
+            }
+        }
         userInfo()
     }, [])
 
@@ -39,10 +41,9 @@ export default function UserInfo() {
 
         try {
             await logic.updateUserProfile(street, phone, city, country, postalCode)
-
-            alert('Profile Updated!')
-
-            await userInfo() // Recargar los datos actualizados
+            toast.success('Profile Updated!')
+            const updatedProfile = await logic.getUserProfile()
+            setUserProfile(updatedProfile) // Recargar los datos actualizados
         } catch (error) {
             if (error instanceof SystemError) alert('Sorry, try again later.')
 
@@ -58,6 +59,7 @@ export default function UserInfo() {
         <form className="flex flex-col w-full space-y-4" onSubmit={onSubmitHandler}>
             {/* Sección de información básica */}
             <div>
+                <ToastContainer />
                 <h2 className="text-xl font-bold text-green-500 mb-4">User Information</h2>
                 <div className="mb-4">
                     <label htmlFor="username" className="block mb-1 text-sm">Username</label>

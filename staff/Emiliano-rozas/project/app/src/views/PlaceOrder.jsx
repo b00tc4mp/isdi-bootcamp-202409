@@ -32,8 +32,6 @@ export default function PlaceOrder() {
         userInfo()
     }, [])
 
-
-
     const handlePlaceOrder = async () => {
         try {
             // Realizamos la orden y obtengo el orderId directamente
@@ -81,9 +79,9 @@ export default function PlaceOrder() {
                 <input className='border border-green-700 rounded py-1.5 px-3.5 w-full bg-black text-white' type="tel" placeholder='Phone' id='phone' defaultValue={userProfile.phone || ""} />
             </div>
             {/* Información del carrito y método de pago */}
-            <div className='mt-8 flex flex-col lg:flex-row gap-8'> {/* Cambiado de columna a fila en pantallas grandes */}
+            <div className='mt-8 flex flex-col lg:flex-row gap-8'>
                 {/* Carrito */}
-                <div className='flex-1'> {/* Ajusta el ancho para que ocupe proporcionalmente */}
+                <div className='flex-1'>
                     <div className='mt-8 min-w-80'>
                         <CartTotal cart={cart} />
                     </div>
@@ -114,7 +112,7 @@ export default function PlaceOrder() {
                         <div className='w-full text-end mt-8'>
                             <button
                                 onClick={handlePlaceOrder}
-                                className='bg-green-700 text-white px-16 py-3 text-sm'
+                                className='bg-green-700 active:bg-green-400 rounded text-white px-16 py-3 text-sm'
                             >
                                 PLACE ORDER
                             </button>

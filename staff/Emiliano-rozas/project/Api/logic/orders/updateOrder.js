@@ -18,13 +18,6 @@ export default (orderId, status) => {
         .then(updatedOrder => {
             if (!updatedOrder) throw new NotFoundError('order not found')
 
-            updatedOrder.id = updatedOrder._id.toString()
-            delete updatedOrder._id
-
             return updatedOrder
         })
-        .catch(error => {
-            console.error('Error while updating order:', error)
-            throw new SystemError(error.message)
-        });
-};
+}

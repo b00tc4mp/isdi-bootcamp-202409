@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Title } from '../components'
 import logic from '../logic'
-import { errors } from 'com';
-
-const { NotFoundError, SystemError } = errors
 
 export default function Orders() {
 
@@ -13,18 +10,16 @@ export default function Orders() {
 
         const fetchOrders = async () => {//Por eso hay que hacer esta llamada Asyncrona y una vez gestionada, la llamamos 
             try {
-                const Orders = await logic.getOrders().catch(error => { throw new NotFoundError('Order not found', error) })
+                const Orders = await logic.getOrders()
 
-                setOrders(Orders);
-
-                console.log(Orders)
+                setOrders(Orders)
             } catch (error) {
-                console.error(error);
+                alert(error.message)
+                console.error(error)
             }
-        };
-
-        fetchOrders(); //ACA la ejecutamos
-    }, []);
+        }
+        fetchOrders() //ACA la ejecutamos
+    }, [])
 
     return (
         <div className=' border-t pt-16'>
@@ -70,5 +65,5 @@ export default function Orders() {
                 )}
             </div>
         </div>
-    );
+    )
 }

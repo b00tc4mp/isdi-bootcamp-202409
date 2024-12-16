@@ -21,11 +21,11 @@ fetch(`http://localhost:7000/users/profile/`, {
     })
 })
     .then(response => {
-        console.log(`Status Code: ${response.status}`);
+        console.log(response.status)
         return response.text(); // Usamos .text() en lugar de .json() para ver la respuesta completa en caso de error.
     })
     .then(data => {
-        console.log('Respuesta del servidor:', data);
+        console.log(data);
     })
     .catch(error => {
         console.error('Error:', error);

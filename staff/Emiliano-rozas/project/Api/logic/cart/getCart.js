@@ -1,5 +1,5 @@
-import { User, Cart } from 'dat';
-import { validate, errors } from 'com';
+import { User, Cart } from 'dat'
+import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
@@ -29,7 +29,7 @@ export default userId => {
                     item.product.id = item.product._id.toString()
                     delete item.product._id
                 }
-            });
+            })
 
             return cart
         })

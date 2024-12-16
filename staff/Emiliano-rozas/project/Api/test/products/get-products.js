@@ -9,7 +9,7 @@ fetch('http://localhost:7000/products', {
         return response.json();
     })
     .then(data => {
-        console.log('Productos:', data);
+        console.log(data);
     })
     .catch(error => {
         console.log('Error:', error);

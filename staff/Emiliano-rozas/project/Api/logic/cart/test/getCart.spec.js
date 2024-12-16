@@ -1,20 +1,20 @@
-import 'dotenv/config';
-import * as chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
+import 'dotenv/config'
+import * as chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
 import bcrypt from 'bcryptjs'
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const { Types: { ObjectId } } = mongoose;
+const { Types: { ObjectId } } = mongoose
 
-chai.use(chaiAsPromised);
-const { expect } = chai;
+chai.use(chaiAsPromised)
+const { expect } = chai
 
-import db, { User, Product, Cart, CartItem } from 'dat';
-import { errors } from 'com';
+import db, { User, Product, Cart, CartItem } from 'dat'
+import { errors } from 'com'
 
-const { NotFoundError } = errors;
+const { NotFoundError } = errors
 
-import getCart from '../getCart.js';
+import getCart from '../getCart.js'
 
 describe('getCart', () => {
     before(async () => db.connect(process.env.MONGO_URL_TEST))
@@ -66,17 +66,16 @@ describe('getCart', () => {
 
         await Cart.create({ user: user._id, items: [cartItem._id], totalPrice: 2 * product.price })
 
-        const result = await getCart(user._id.toString())
+        const cart = await getCart(user._id.toString())
 
-        expect(result).to.exist;
-        // expect(result.user._id.toString()).to.equal(user._id.toString())
-        expect(result.items).to.be.an('array').that.has.lengthOf(1);
-        expect(result.items[0]).to.have.property('quantity', 2);
-        expect(result.totalPrice).to.equal(2 * product.price);
+        expect(cart).to.exist
+        expect(cart.items).to.be.an('array').that.has.lengthOf(1)
+        expect(cart.items[0]).to.have.property('quantity', 2)
+        expect(cart.totalPrice).to.equal(2 * product.price)
     })
 
     it('fails when user dont exist', async () => {
-        await expect(getCart(new ObjectId().toString())).to.be.rejectedWith(NotFoundError, 'user not found');
+        await expect(getCart(new ObjectId().toString())).to.be.rejectedWith(NotFoundError, 'user not found')
     })
 
     it('fails when cart doesnt exist', async () => {
@@ -86,9 +85,9 @@ describe('getCart', () => {
             username: 'venom',
             password: bcrypt.hashSync('123123123', 10)
         })
-        await expect(getCart(user._id.toString())).to.be.rejectedWith(NotFoundError, 'cart not found');
+        await expect(getCart(user._id.toString())).to.be.rejectedWith(NotFoundError, 'cart not found')
     })
     after(async () => {
-        await db.disconnect();
-    });
+        await db.disconnect()
+    })
 })

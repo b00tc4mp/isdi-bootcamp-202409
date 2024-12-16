@@ -1,5 +1,5 @@
-import React from 'react';
-import assets from '../assets';
+import React from 'react'
+import assets from '../assets'
 
 export default function SideBar({ activeTab, setActiveTab }) {
     return (
@@ -31,5 +31,5 @@ export default function SideBar({ activeTab, setActiveTab }) {
                 </button>
             </div>
         </div>
-    );
+    )
 }

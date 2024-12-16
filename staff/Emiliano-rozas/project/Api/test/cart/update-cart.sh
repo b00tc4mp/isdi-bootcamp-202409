@@ -1,0 +1,1 @@
+curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzVlZGI2MDY0YzRhYjI4ZjE0MzRkZGEiLCJyb2xlIjoibW9kZXJhdG9yIiwiaWF0IjoxNzM0MzQyODkzLCJleHAiOjE3MzQzNDY0OTN9.dxa_X_0kiQI8o2tjefobjTnbJ2SIh5J94jp3k1Qivec' http://localhost:7000/cart/updates/ -d '{"productId":"675ed870b6656fdb54093553" , "quantity": 5}' -v

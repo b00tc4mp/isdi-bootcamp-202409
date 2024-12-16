@@ -1,5 +1,5 @@
-import logic from '../../../logic/index.js';
-import { createFunctionalHandler } from '../../../middleware/index.js'
+import logic from '../logic/index.js';
+import { createFunctionalHandler } from '../middleware/index.js'
 
 export default createFunctionalHandler((req, res) => {
     const { userId, params: { cartItemId } } = req

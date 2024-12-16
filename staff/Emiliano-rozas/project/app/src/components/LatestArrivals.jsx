@@ -17,8 +17,6 @@ export default function LatestArrivals() {
 
     //No te olvides de poner el switc, que sino se rompe todoo, pero con products? si, con products para que se actualice cada vez que cambie products
 
-    console.log(products)
-
     return (
         <div className='my-10' >
             {/* Metemos el compo de titulos */}

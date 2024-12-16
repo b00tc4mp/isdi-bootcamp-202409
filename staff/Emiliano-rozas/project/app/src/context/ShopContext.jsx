@@ -1,5 +1,5 @@
-import { createContext, useState, useEffect } from "react";
-import logic from "../logic/index";
+import { createContext, useState, useEffect } from "react"
+import logic from "../logic/index"
 
 
 // Vamos a utilizar este hook para poder acceder siempre a las los productos con sus respectivas propiedades
@@ -7,14 +7,14 @@ import logic from "../logic/index";
 export const ShopContext = createContext()
 
 const ShopContextProvider = (props) => {
-    const currency = '$';
-    const delivery_fee = 33;
+    const currency = '$'
+    const delivery_fee = 5
 
     const [products, setProducts] = useState([]) //aca almacenamos lo productos que vamos a traer de api
 
     useEffect(() => {
         logic.getProducts()
-            .then((fetchProducts) => {
+            .then(fetchProducts => {
                 setProducts(fetchProducts)
 
             })

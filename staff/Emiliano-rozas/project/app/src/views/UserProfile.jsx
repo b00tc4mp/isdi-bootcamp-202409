@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { SideBar, UserInfo } from '../components';
+import React, { useState } from 'react'
+import { SideBar, UserInfo } from '../components'
 
 export default function UserProfile() {
 
-    const [activeTab, setActiveTab] = useState('profile'); // con esto controlamos las vistas
+    const [activeTab, setActiveTab] = useState('profile') // con esto controlamos las vistas
 
     return (
         <div className="flex w-full">
@@ -16,5 +16,5 @@ export default function UserProfile() {
                 https://hips.hearstapps.com/hmg-prod/images/thumb-1920-892817-1567104591.jpg" alt="" /></div>}
             </div>
         </div >
-    );
+    )
 }

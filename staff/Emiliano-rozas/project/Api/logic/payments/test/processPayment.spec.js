@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import db, { User, Order } from 'dat';
-import processPayment from './processPayment.js';
-import * as stripePaymentModule from './stripePayment.js'; // Importa el módulo completo para stubbing
+import processPayment from '../processPayment.js';
+import * as stripePaymentModule from '../../../helpers/stripePayment.js'; // Importa el módulo completo para stubbing
 import sinon from 'sinon';
 
 import * as chai from 'chai';

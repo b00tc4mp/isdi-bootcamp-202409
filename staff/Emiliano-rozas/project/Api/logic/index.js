@@ -7,14 +7,10 @@ import {
 
 import {
     getProducts,
-    createProduct
 } from './products/index.js'
 
 import {
-    addToCart,
     getCart,
-    removeAllFromCart,
-    updateQuantity,
     updateCart
 } from './cart/index.js'
 
@@ -26,8 +22,6 @@ import {
 
 import {
     processPayment,
-    retrievePayment,
-    stripePayment
 } from './payments/index.js'
 
 
@@ -37,17 +31,11 @@ const logic = {
     updateUserProfile,
     getUserProfile,
     getProducts,
-    createProduct,
-    addToCart,
     getCart,
-    removeAllFromCart,
-    updateQuantity,
     placeOrder,
     getOrders,
     updateOrder,
     processPayment,
-    retrievePayment,
-    stripePayment,
     updateCart
 
 }

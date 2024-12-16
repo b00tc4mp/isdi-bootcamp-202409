@@ -1,4 +1,4 @@
-import stripe from '../../config/stripe.js'
+import stripe from '../config/stripe.js'
 import { errors } from 'com'
 
 const { SystemError } = errors

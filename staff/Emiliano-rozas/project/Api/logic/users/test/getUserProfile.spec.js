@@ -18,7 +18,7 @@ describe('getUserProfile', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it.only('succeeds on existing user', async () => {
+    it('succeeds on existing user', async () => {
         const user = await User.create({ name: 'Eddie Brook', email: 'eddie@brook.com', username: 'venom', password: '123123123', street: 'calle falsa 123', phone: '+54321234321', city: 'Barcelona', country: 'ESPAÑA', postalCode: '1712' })
 
         const userProfile = await getUserProfile(user.id, user.id)
@@ -34,13 +34,13 @@ describe('getUserProfile', () => {
         expect(city).to.equal('Barcelona')
     })
 
-    it.only('fails on non-existing user', () =>
+    it('fails on non-existing user', () =>
         expect(
             getUserProfile('012345678901234567890123', '012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, 'user not found')
     )
 
-    it.only('fails on non-existing target-user', () =>
+    it('fails on non-existing target-user', () =>
         expect(
             User.create({ name: 'Eddie Brook', email: 'eddie@brook.com', username: 'venom', password: '123123123', street: 'calle falsa 123', phone: '+54321234321', city: 'Barcelona', country: 'ESPAÑA', postalCode: '1712' })
                 .then(user => getUserProfile(user.id, '012345678901234567890123'))

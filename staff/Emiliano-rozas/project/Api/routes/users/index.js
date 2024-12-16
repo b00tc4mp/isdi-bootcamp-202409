@@ -1,4 +1,4 @@
-import { Router, json } from 'express'
+import { Router } from 'express'
 
 import { jsonBodyParser, authorizationHandler } from '../../middleware/index.js'
 import {

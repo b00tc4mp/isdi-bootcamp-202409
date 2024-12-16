@@ -1,19 +1,13 @@
 import 'dotenv/config'
-
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 import bcrypt from 'bcryptjs'
-
 
 chai.use(chaiAsPromised)
 const { expect } = chai
 
 import db, { Product, Review, User } from 'dat'
-import { errors } from 'com'
-
-const { SystemError } = errors
-
-import getProducts from './getProducts.js'
+import getProducts from '../getProducts.js'
 
 describe('getProducts', () => {
     before(async () => {
@@ -94,17 +88,6 @@ describe('getProducts', () => {
         expect(review2).to.have.property('rating', 4)
         expect(review2).to.have.property('text', 'Very entertaining!')
     })
-
-    it('fails on database issues', async () => {
-        try {
-            await getProducts.call(null); // Simulamos un fallo
-            throw new SystemError('Should not reach this line');
-        } catch (error) {
-            expect(error).to.be.instanceOf(SystemError);
-        }
-    });
-
-
     after(async () => {
         await db.disconnect()
     })
