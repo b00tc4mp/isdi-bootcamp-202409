@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import logic from '../logic/log/index.js'
-import { Label, Input, Button, Form, Field } from './library'
+import logic from '../../logic/log/index.js'
+import { Label, Input, Button, Form, Field } from '../library/index.js'
 
 
 export default function LogBook({ onCreated }) {
@@ -11,12 +11,27 @@ export default function LogBook({ onCreated }) {
 
     const { target: form } = event
 
-    const {
+   /*  const {
       date: { value: date }, depth: { value: depth }, time: { value: time }, weather: { value: weather }, temperature: { value: temperature }, visibility: { value: visibility }, waves: { value: waves }, wetSuit: { value: wetSuit }, weight: { value: weight }, tankSize: { value: tankSize }, tankBar: { value: tankBar }, feeling: { value: feeling }, diveCenter: { value: diveCenter }, divingSite: { value: divingSite }, notes: { value: notes }
-    } = form
+    } = form */
+
+    const {
+      date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, 
+      tankSize, tankBar, feeling, diveCenter, divingSite, notes
+    } = form;
+    
+    if (!date || !depth || !time || !weather || !temperature || !visibility || !waves || !wetSuit || !weight || !tankSize || !tankBar || !feeling || !diveCenter || !divingSite || !notes) {
+  alert("Please fill out all fields.");
+      return;
+    }
 
     try {
-      await logic.createLog(date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, divingSite, notes)
+      await logic.createLog(
+        date.value, depth.value, time.value, weather.value, temperature.value, 
+        visibility.value, waves.value, wetSuit.value, weight.value, tankSize.value, 
+        tankBar.value, feeling.value, diveCenter.value, divingSite.value, notes.value
+      )
+      /* await logic.createLog(date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, divingSite, notes) */
       alert("Log created successfully!")
     } catch (error) {
       alert(error.message)
@@ -29,7 +44,7 @@ export default function LogBook({ onCreated }) {
     
     <h2 className="text-2xl font-bold mb-4">Dive Log Form</h2>
 
-    <Form id="diveLogForm" className="space-y-4">
+    <Form id="diveLogForm" className="space-y-4" onSubmit={handleSubmit}>
 
       <Field className="flex flex-col">
         <Label htmlFor="divingSite" className="font-semibold">Diving Site:</Label>
@@ -82,8 +97,8 @@ export default function LogBook({ onCreated }) {
       </Field>
 
       <Field className="flex flex-col">
-        <Label htmlFor="tankType" className="font-semibold">Tank Size (Lt):</Label>
-        <Input type="text" id="tankType" name="tankType" placeholder="10L" className="input" />
+        <Label htmlFor="tankSize" className="font-semibold">Tank Size (Lt):</Label>
+        <Input type="text" id="tankSize" name="tankSize" placeholder="10L" className="input" />
       </Field>
 
       <Field className="flex flex-col">
@@ -102,8 +117,8 @@ export default function LogBook({ onCreated }) {
       </Field>
 
       <Field className="flex flex-col">
-        <Label htmlFor="note" className="font-semibold">Notes:</Label>
-        <Input as="textarea" id="note" name="note" className="input h-24" />
+        <Label htmlFor="notes" className="font-semibold">Notes:</Label>
+        <Input as="textarea" id="notes" name="notes" className="input h-24" />
       </Field>
 
       <Button type="submit" className="btn-primary mt-4" onClick={handleSubmit}>Submit</Button>

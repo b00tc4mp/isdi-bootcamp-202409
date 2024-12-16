@@ -1,11 +1,11 @@
-import { PasswordInput, Input, Button, Form, Field, Label } from './library'
+import { PasswordInput, Input, Button, Form, Field, Label } from '../library/index.js'
 
-import logic from '../logic/users/index.js'
+import logic from '../../logic/users/index.js'
 
 export default function Register(props) {
-    console.log('RegisterCentre -> render')
+    console.log('RegisterDiver -> render')
 
-    const handleSubmit= event => {
+    const handleSubmit = async event => {
         event.preventDefault()
 
         const { target: form } = event
@@ -14,12 +14,20 @@ export default function Register(props) {
             name: { value: name },
             email: { value: email },
             password: { value: password },
-            ['password-repeat'] : { value: passwordRepeat},
-            
+            ['password-repeat'] : { value: passwordRepeat }
         } = form
 
         try {
-            logic.registerUserCenter(name, email, password, passwordRepeat, error => {
+            await logic.registerUserDiver(name, email, password, passwordRepeat)
+            form.reset()
+            props.onRegistered()
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+
+        /* try {
+            logic.registerUserDiver(name, email,  password, passwordRepeat, error => {
                 if (error) {
                     alert(error.message)
 
@@ -30,13 +38,13 @@ export default function Register(props) {
 
                 form.reset()
 
-                props.onRegister()
+                props.onRegistered()
             })
         } catch (error) {
             alert(error.message)
 
             console.error(error)
-        }
+        } */
     }
 
     const handleLoginClick = event => {
@@ -46,30 +54,30 @@ export default function Register(props) {
     }
 
     return <main>
-        <h2 className="mt-14">Register as Dive Center</h2>
+        <h2 className="mt-14">Register as Diver</h2>
 
         <Form onSubmit={handleSubmit}>
             <Field>
                 <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" />
+                <Input type="text" id="name" name="name"/>
             </Field>
 
             <Field>
                 <Label htmlFor="email">E-mail</Label>
-                <Input type="email" id="email" />
+                <Input type="email" id="email" name="email"/>
             </Field>
 
             <Field>
                 <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
+                <PasswordInput id="password" name="password"/>
             </Field>
 
             <Field>
                 <Label htmlFor="password-repeat">Repeat Password</Label>
-                <PasswordInput id="password-repeat" />
+                <PasswordInput id="password-repeat" name="password-repeat"/>
             </Field>
 
-            <Button type="submit">Register</Button>
+            <Button  type="submit">Register</Button>
         </Form>
 
         <a href="" onClick={handleLoginClick}>Login</a>

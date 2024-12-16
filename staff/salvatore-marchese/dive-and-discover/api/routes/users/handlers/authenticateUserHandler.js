@@ -10,7 +10,5 @@ export default createFunctionalHandler(async (req, res) => {
 
     const token = await jwt.sign({ sub: id, role}, process.env.JWT_SECRET, {expiresIn: '1h' });
 
-    console.log(token)
-
     res.json(token)
 })

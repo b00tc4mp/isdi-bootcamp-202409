@@ -20,4 +20,8 @@ logsRouter.put('/:id', authorizationHandler, updateLogHandler )
 //Delete - Delete a log
 //logsRouter.delete('...', authorizationHandler, deleteLogHandler)
 
+//LogBook
+//logsRouter.get('/log-book', authorizationHandler, createLogHandler)
+//logsRouter.get('/log-book-history', authorizationHandler, getLogsHandler)
+
 export default logsRouter

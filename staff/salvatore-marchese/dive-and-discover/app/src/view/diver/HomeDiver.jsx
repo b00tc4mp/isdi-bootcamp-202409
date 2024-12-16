@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import getUserName from '../logic/users/getUserName'
-import { Button } from './library'
+import getUserName from '../../logic/users/getUserName'
+import { Button } from '../library'
 
 const HomeDiver = () => {
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ const HomeDiver = () => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center h-screen bg-gray-50 overflow-hidden">
+        <main className="flex flex-col justify-center items-center h-screen bg-gray-50 overflow-hidden">
 
             <h1 className="text-xl font-bold text-center mb-5">Hi, diver 🤿 {userName}</h1>
             <div className="flex flex-col justify-center items-center space-y-4">
@@ -50,7 +50,7 @@ const HomeDiver = () => {
 
                 <Button onClick={onCheckHistory}>Dive's History</Button>
             </div>
-        </div>
+        </main>
     )
 }
 

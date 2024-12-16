@@ -1,9 +1,10 @@
+import { User } from "dat";
 import { errors } from "com";
 
 const { ValidationError } = errors
 
-export default async function createHomeCenter({ name, email, password, address, postcode, city, country, telephone, timetable }) {
-    if (!name || !email || !password || !address || !postcode || !city || !country || !telephone || !timetable ) {
+export default async function createHomeCenter({ name, email, password, address, postcode, city, country }) {
+    if (!name || !email || !password || !address || !city || !country || !postcode ) {
         throw new ValidationError('All fields are required.')
     }
 
@@ -12,7 +13,7 @@ export default async function createHomeCenter({ name, email, password, address,
         throw new ValidationError('User with this email already exist.')
     }
 
-    const user = new user({ name, email, password }) 
+    const user = new User({ name, email, password, address, country, city, postcode }) 
 
     
     await user.save()

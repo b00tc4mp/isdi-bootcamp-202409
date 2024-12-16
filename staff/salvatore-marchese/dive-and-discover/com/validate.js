@@ -44,7 +44,7 @@ const validateAddress = address => {
 
 const validatePostcode = postcode => {
     if (typeof postcode !== 'string') throw new ValidationError('invalid postcode');
-    if (!/^\d{5}$/.test(postcode)) throw new ValidationError('postcode must be a 5-digit number');
+/*     if (!/^\d{5}$/.test(postcode)) throw new ValidationError('postcode must be a 5-digit number'); */
 }
 
 const validateCountry = country => {
@@ -236,6 +236,13 @@ const validateNotes = (notes) => {
     }
 }
 
+const validateProfile = (data) => {
+    Object.keys(data).forEach(key => {
+        if(validate[key]) {
+            validate[key](data[key])
+        }
+    })
+}
 
 const validate = {
     name: validateName,
@@ -263,7 +270,8 @@ const validate = {
     feeling: validateFeeling,
     diveCenter: validateDiveCenter,
     diveSite: validateDiveSite,
-    notes: validateNotes
+    notes: validateNotes,
+    profileData: validateProfile
 }
 
 export default validate

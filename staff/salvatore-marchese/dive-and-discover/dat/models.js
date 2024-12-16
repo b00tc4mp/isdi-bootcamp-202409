@@ -2,6 +2,21 @@ import mongoose from 'mongoose'
 
 const { Schema, model } = mongoose
 
+const openingHours = new Schema({
+    day: {
+        type: Number,
+        required: true
+    },
+    openTime: {
+        type: String,
+        required: true
+    },
+    closeTime: {
+        type: String,
+        required: true
+    },
+}, { versionKey: false });
+
 const user = new Schema({
     name: {
         type: String,
@@ -31,14 +46,39 @@ const user = new Schema({
     insurance: {
         type: String,
     },
+    wetSuit: {
+        type: String,
+        required: false
+    },
+    weight: {
+        type: String,
+        required: false
+    },
+    finns: {
+        type: String,
+        required: false
+    },
+    tankSize: {
+        type: String,
+        required: false
+    },
     address: {
         type: String,
         required: false,
     },
-    openingHours: {
+    country: {
         type: String,
         required: false,
     },
+    city: {
+        type: String,
+        required: false,
+    },
+    postcode: {
+        type: String,
+        required: false,
+    },
+    openingHours: [openingHours],
     website: {
         type: String,
         required: false,
@@ -46,7 +86,9 @@ const user = new Schema({
     photo: {
         type: String,
         required: false,
-    }
+    },
+    businessHours: [openingHours]
+
 }, { versionKey: false });
 
 
@@ -169,11 +211,16 @@ const centerLocation = new Schema({
 }, { versionKey: false });
 
 
+
+
+
+
 const User = model('User', user)
 const LogBook = model('Logbook', logBook)
 const Place = model('Place', place)
 const Point = model('Point', point)
 const CenterLocation = model('CenterLocation', centerLocation)
+const OpeningHours = model('OpeningHours', openingHours)
 
 export {
     User,
@@ -181,4 +228,5 @@ export {
     Place,
     Point,
     CenterLocation,
+    OpeningHours
 }

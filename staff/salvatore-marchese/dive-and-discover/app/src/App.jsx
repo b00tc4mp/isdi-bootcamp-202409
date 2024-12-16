@@ -1,11 +1,11 @@
 import { RouterProvider } from 'react-router-dom'
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
-import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeDiver, Profile, LogBook, Search } from './view'
+import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeDiver, ProfileCenter, Profile, LogBook, Search } from './view'
 
 import { Header } from './components/index.js'
 import logic from './logic/users'
-/* import Router from './navigation/Router.jsx' */
+
 
 export default function App() {
   const navigate = useNavigate();
@@ -43,6 +43,8 @@ export default function App() {
         (<HomeDiver />) : logic.isUserRoleCenter() ? (<HomeCenter /> ) : (<Navigate to="/login" /> ) ) : (<Navigate to="/login" /> ) } />
 
         <Route path="/personal-info" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" /> } />
+
+        <Route path="/center-info" element={logic.isUserLoggedIn() ? <ProfileCenter /> : <Navigate to="/login" /> } />
 
         <Route path="/log-book" element={logic.isUserLoggedIn() ? <LogBook /> : <Navigate to="/login" /> } />
 

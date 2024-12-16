@@ -1,18 +1,20 @@
 import { validate, errors } from 'com'
-
 const { SystemError } = errors
 
-export default async (name, email, password, passwordRepeat) => {
+export default async (name, email, password, passwordRepeat, address, country, city, postcode, role ) => {
     validate.name(name)
     validate.email(email)
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
+    validate.address(address)
+    validate.country(country)
+    validate.city(city)
+    validate.postcode(postcode)
     
-
-    return fetch(`http://${import.meta.env.VITE_API_URL}/home-center`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/users/center`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, 'password-repeat': passwordRepeat })
+        body: JSON.stringify({ name, email, password, 'password-repeat': passwordRepeat, address, country, city, postcode, role })
     })
 
         .catch(error => { throw new SystemError (error.message) })

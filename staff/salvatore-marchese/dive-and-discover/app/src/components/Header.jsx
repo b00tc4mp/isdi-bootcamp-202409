@@ -40,8 +40,11 @@ export default ({ onHomeClick, onLoggedOut }) => {
                 {/* Desktop Menu Items - Hidden On Mobile  */}
                 <ul className="md:flex space-x-8 hidden text-base font-semibold">
                     <li><NavLink to="#" className="cursor-pointer hover:underline">Home</NavLink></li>
+
                     <li><NavLink to="#" className="cursor-pointer hover:underline">Search</NavLink></li>
+
                     <li><NavLink to="#" className="cursor-pointer hover:underline">Profile</NavLink></li>
+                    
                     <li><NavLink to="#" className="cursor-pointer hover:underline">Log Book</NavLink></li>
 
                     <li><Button className="ButtonLogout" type="button" onClick={handleLogout}>Logout</Button>

@@ -1,23 +1,27 @@
 import 'dotenv/config'
 import db from 'dat'
-import homeDiver from './homeDiver.js'
+import createHomeCenter from './createHomeCenter.js'
 
 const data = {
-    name: "John",
-    email: "nemo2@gmail.com",
-    password: "123123123"
+    name: "TestDiveCenter",
+    email: "test@divecenter.com",
+    password: "123123123",
+    address: "seafront avenue 1",
+    country: "Spain",
+    city: "Barcelona",
+    postcode: "08002"
 }
 
-async function createHomeDiver() {
+async function createHomeCenter() {
     try {
         await db.connect(process.env.MONGO_URL_TEST)
 
-        const result = await homeDiver(data)
+        const result = await createHomeCenter(data)
         console.log(result)
 
         const existingUser = await db.models.User.findOne({ email: data.email })
         if (existingUser) {
-            console.log("USer found:", existingUser)
+            console.log("User found:", existingUser)
         } else {
             console.error("User creation failed.")
         }
@@ -28,4 +32,4 @@ async function createHomeDiver() {
     }
 }
 
-createHomeDiver()
+createHomeCenter()

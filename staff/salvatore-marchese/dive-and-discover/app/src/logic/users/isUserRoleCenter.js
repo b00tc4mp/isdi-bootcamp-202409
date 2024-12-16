@@ -1,3 +1,3 @@
 import { extractPayloadFromJWT } from '../../util'
 
-export default () => extractPayloadFromJWT(sessionStorage.token).role === 'centre'
+export default () => extractPayloadFromJWT(sessionStorage.token).role === 'center'

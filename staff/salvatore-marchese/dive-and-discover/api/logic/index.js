@@ -2,12 +2,13 @@ import {
     authenticateUser,
     registerUserDiver,
     registerUserCenter,
-    homeDiver,
-    homeCenter,
+    createHomeDiver,
+    createHomeCenter,
     getUser,
     getUserName,
     getProfile,
     updateProfile,
+    addOpeningHours
 } from './users/index.js'
 
 import {
@@ -21,17 +22,20 @@ const logic = {
     authenticateUser,
     registerUserDiver,
     registerUserCenter,
-    homeDiver,
-    homeCenter,
+    createHomeDiver,
+    createHomeCenter,
     getUser,
     getUserName,
     getProfile,
     updateProfile,
+    addOpeningHours,
 
     createLog,
     getLogs,
     deleteLog,
     updateLog,
+
+    
 }
 
 export default logic 

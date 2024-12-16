@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Button } from './library'
-import logic from '../logic/users'
+import { Button } from '../library'
+import logic from '../../logic/users'
 
-import { extractPayloadFromJWT } from '../util';
+import { extractPayloadFromJWT } from '../../util';
 
-const FormField = ({ filedKey, label, value, onChange }) => {
+const FormField = ({ fieldKey, label, value, onChange }) => {
     return (
         <>
-            <label htmlFor={filedKey} className="block text-sm font-semibold mb-1">
-                {label}
+            <label htmlFor={fieldKey} className="block text-sm font-semibold mb-1">{label}
             </label>
-            <input type="text" id={filedKey} name={filedKey} value={value} onChange={onChange} className="w-full p-2 border rounded-md" />
+            <input type="text" id={fieldKey} name={fieldKey} value={value} onChange={onChange} className="w-full p-2 border rounded-md" />
         </>
     )
 }
@@ -24,7 +23,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const userData = await logic.getUser();
+                const userData = await logic.getUser()
                 if (userData?.error) throw new Error(data.error)
 
                 setUserInfo(userData)
@@ -54,12 +53,12 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log(userInfo)
+        console.log(userInfo) 
 
         try {
             const user = extractPayloadFromJWT(sessionStorage.token);
-            await logic.updateUser(user.sub, userInfo)
-            alert('Information updated succefully')
+            await logic.updateProfile(user.sub, userInfo)
+            alert('Information updated successfully')
         } catch (error) {
             setError('Error updating information')
         }
@@ -77,25 +76,22 @@ const Profile = () => {
                             Personal Info
                         </p>
                         <div>
-                            <FormField filedKey="name" label={"Name"} value={userInfo.name} onChange={handleChange} />
-                            <FormField filedKey="email" label={"Email Address"} value={userInfo.email} onChange={handleChange} />
+                            <FormField fieldKey="name" label={"Name"} value={userInfo.name} onChange={handleChange} />
+
+                            <FormField fieldKey="email" label={"Email Address"} value={userInfo.email} onChange={handleChange} />
+
+                            <FormField fieldKey="wet_suit" label={"Wet Suit"} value={userInfo.wet_suit} onChange={handleChange} />
+
+                            <FormField fieldKey="weight" label={"Weight"} value={userInfo.weight} onChange={handleChange} />
+
+                            <FormField fieldKey="tank" label={"Tank"} value={userInfo.tank} onChange={handleChange} />
+
+                            <FormField fieldKey="finns" label={"Finns"} value={userInfo.finns} onChange={handleChange} />
                         </div>
                     </div>
 
-                    {/* Diver Info  */}
-                    {/*                     <div>
-                        <p className="text-xl font-semibold text-blue-900 cursor-pointer transition-all hover:text-black">
-                            Diver Info
-                        </p>
-                        <div>
-                            <FormField filedKey="wet_suit" label={"Wet Suit"} value={userInfo.wet_suit} onChange={handleChange} />
-                            <FormField filedKey="weight" label={"Weight"} value={userInfo.weight} onChange={handleChange} />
-                            <FormField filedKey="tank" label={"Tank"} value={userInfo.tank} onChange={handleChange} />
-                            <FormField filedKey="finns" label={"Finns"} value={userInfo.finns} onChange={handleChange} />
-                        </div>
-                    </div> */}
                     <div className="flex justify-between mt-2">
-                        <Button className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">
+                        <Button type="submit" className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">
                             Save
                         </Button>
                     </div>

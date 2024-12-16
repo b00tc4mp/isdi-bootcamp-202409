@@ -1,5 +1,5 @@
 import { connect, disconnect } from 'mongoose'
-import { User, LogBook, Place, Point, CenterLocation } from './models.js'
+import { User, LogBook, Place, Point, CenterLocation, OpeningHours } from './models.js'
 /* import './boost-mongoose.js' */
 
 
@@ -15,5 +15,6 @@ export {
     LogBook,
     Place,
     Point,
-    CenterLocation
+    CenterLocation,
+    OpeningHours
 }
