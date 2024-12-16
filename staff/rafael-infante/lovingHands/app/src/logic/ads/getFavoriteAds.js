@@ -19,7 +19,7 @@ export default () =>
             throw new SystemError(error.message)
           })
           .then((data) => {
-            console.log('Succesfully fetched favorite ads:', data)
+            console.debug('Succesfully fetched favorite ads:', data)
             return data
           })
 

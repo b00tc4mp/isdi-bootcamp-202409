@@ -5,5 +5,6 @@ import Home from './Home'
 import CreateAd from './CreateAd'
 import AdList from './AdList'
 import FavoriteAds from './components/FavoriteAds'
+import Settings from './Settings'
 
-export { Login, Register, Home, Welcome, CreateAd, AdList, FavoriteAds }
+export { Login, Register, Home, Welcome, CreateAd, AdList, FavoriteAds, Settings }

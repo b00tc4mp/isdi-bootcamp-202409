@@ -15,7 +15,7 @@ export default (adId) => {
       throw new SystemError(error.message)
     })
     .then((res) => {
-      if (res.ok) return console.log('favorite toggled succesfully')
+      if (res.ok) return console.debug('favorite toggled succesfully')
       return res
         .json()
         .catch((error) => {

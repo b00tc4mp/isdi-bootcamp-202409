@@ -84,7 +84,7 @@ export default function Home() {
         {/* Main Content */}
         <div className="flex flex-col items-center px-4 flex-grow">
           <div className="w-full max-w-md text-center mt-6 mb-6">
-            <h1 className="text-3xl font-bold text-[#2b2b2b]">Welcome {name}!</h1>
+            <h1 className="text-3xl font-bold text-[#2b2b2b]">Hello {name}!</h1>
             <p className="text-gray-600 mt-2">
               We're glad to have you here. Explore the app to find elders in need of assistance or offer your help by
               posting your service.

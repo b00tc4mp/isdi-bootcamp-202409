@@ -5,6 +5,8 @@ import isUserLoggedIn from './users/isUserLoggedIn'
 import getUserName from './users/getUserName'
 import getUserId from './users/getUserId'
 import getUserLocation from './users/getUserLocation'
+import changePassword from './users/changePassword'
+import changeEmail from './users/changeEmail'
 
 import createAd from './ads/createAd'
 import getAds from './ads/getAds'
@@ -25,6 +27,8 @@ const logic = {
   getUserName,
   getUserId,
   getUserLocation,
+  changePassword,
+  changeEmail,
 
   createAd,
   getAds,

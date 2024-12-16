@@ -1,4 +1,4 @@
-export default function Footer({ onHomeClick, onNewAdClick, onProfileClick }) {
+export default function Footer({ onHomeClick, onNewAdClick, onDarkModeClick, onSettingsClick }) {
   console.debug('Footer -> Render')
 
   return (
@@ -18,10 +18,12 @@ export default function Footer({ onHomeClick, onNewAdClick, onProfileClick }) {
         </button>
         <button
           className="flex flex-col items-center justify-center text-black hover:text-[#D1AFA0] transition duration-200"
-          onClick={onProfileClick}
+          onClick={onDarkModeClick}
         >
           <span className="text-sm font-medium">DARK MODE</span>
         </button>
+
+        <button onClick={onSettingsClick}>⚙️</button>
       </div>
     </footer>
   )

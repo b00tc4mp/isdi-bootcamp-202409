@@ -33,7 +33,7 @@ describe('toggleFavoriteAd', () => {
     await toggleFavoriteAd(user._id.toString(), ad._id.toString())
 
     const updatedUser = await User.findById(user._id.toString()).lean()
-    console.log(ad, updatedUser)
+
     expect(updatedUser.favorites).to.have.lengthOf(1)
     expect(updatedUser.favorites[0].toString()).to.equal(ad._id.toString())
   })

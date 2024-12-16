@@ -24,7 +24,7 @@ export default function Header({ onLoggedOut }) {
   return (
     <header className="fixed flex items-center justify-between w-full bg-[#fbdfc7] px-4 py-3 shadow-md z-20">
       <div className="flex items-center">
-        <img src={Logo} alt="Loving Hands Logo" className="h-10" />
+        <img src={Logo} alt="Loving Hands Logo" className="h-8" />
       </div>
       <button
         onClick={handleLogout}

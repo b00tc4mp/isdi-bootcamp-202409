@@ -64,7 +64,7 @@ export default function CreateAd({ onCreated }) {
     <div className="pt-11 flex flex-col min-h-screen bg-gray-50 text-gray-800">
       {/* Form Section */}
       <div className="flex-grow flex flex-col items-center px-4">
-        <form onSubmit={handleFormSubmit} className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 mt-6 space-y-4">
+        <form onSubmit={handleFormSubmit} className="w-full max-w-md bg-white rounded-lg shadow-lg p-4 mt-6 space-y-4">
           <h1 className="text-xl font-bold text-gray-800 text-center">Create New Ad</h1>
 
           {/* Image Upload */}

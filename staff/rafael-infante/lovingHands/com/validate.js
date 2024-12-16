@@ -17,6 +17,11 @@ const validateEmail = (email) => {
     throw new ValidationError('Invalid email')
 }
 
+const validateEmailsMatch = (email, confirmEmail) => {
+  if (typeof confirmEmail !== 'string') throw new ValidationError('emails do not match')
+  if (email !== confirmEmail) throw new ValidationError('emails do not match')
+}
+
 const validatePassword = (password) => {
   if (typeof password !== 'string') throw new ValidationError('Invalid password')
   if (password.length < 8) throw new ValidationError('Invalid password')
@@ -66,6 +71,7 @@ const validateCallback = (callback) => {
 const validate = {
   name: validateName,
   email: validateEmail,
+  emailsMatch: validateEmailsMatch,
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,
   telephone: validateTelephone,
