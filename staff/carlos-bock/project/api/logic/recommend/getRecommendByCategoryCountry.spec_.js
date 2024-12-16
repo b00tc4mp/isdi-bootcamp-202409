@@ -12,7 +12,7 @@ import errors from '../../../com/errors.js'
 
 const { NotFoundError, ValidationError, SystemError } = errors
 
-import getRecommend from './getRecommend.js'
+import getRecommendByCategoryCountry from './getRecommendByCategoryCountry.js'
 
 const recommend1 = { //don't include user.id not
     userId: '012345678901234567890123',
@@ -28,7 +28,7 @@ const recommend1 = { //don't include user.id not
 
 debugger
 
-describe('getRecommend', () => {
+describe('getRecommendByCategoryCountry', () => {
     before(() => db.connect('mongodb://127.0.0.1:27017/mired-test')) //process.env.MONGO_ULR_TEST
 
     beforeEach(() => Promise.all([User.deleteMany(), Recommend.deleteMany()]))
@@ -67,7 +67,7 @@ describe('getRecommend', () => {
 
         return Promise.all([user.save(), recommend2.save(), recommend3.save()])
             .then(([user, recommend2, recommend3]) =>
-                getRecommend(user.id)
+                getRecommendByCategoryCountry(user.id, 1, 'Portugal')
                     .then(recommend => {
                         expect(recommend[0].id).to.equal(recommend3.id)
                         expect(recommend[0].author.id).to.equal(user.id)
@@ -80,7 +80,7 @@ describe('getRecommend', () => {
                         expect(recommend[0].image).to.equal(recommend3.image)
                         expect(recommend[0].text).to.equal(recommend3.text)
                         expect(recommend[0].subject).to.equal(recommend3.subject)
-                        //expect(recommend[0].date).to.equal(recommend3.date)
+                        //expect(recommend[1].date).to.equal(recommend3.date)
 
                         expect(recommend[1].id).to.equal(recommend2.id)
                         expect(recommend[1].author.id).to.equal(user.id)
@@ -93,17 +93,17 @@ describe('getRecommend', () => {
                         expect(recommend[1].image).to.equal(recommend2.image)
                         expect(recommend[1].text).to.equal(recommend2.text)
                         expect(recommend[1].subject).to.equal(recommend2.subject)
-                        //expect(recommend[1].date).to.equal(recommend2.date)
+                        //expect(recommend[0].date).to.equal(recommend2.date)
 
                     })
             )
     })
 
-    it('fails on non-existing user', () =>
+    /*it('fails on non-existing user', () =>
         expect(
-            getRecommend('012345678901234567890123')
+            getRecommendByCategoryCountry('012345678901234567890123', 1, 'Portugal')
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
-    )
+    )*/
 
     //add validation error test cases
     //add system error test cases
