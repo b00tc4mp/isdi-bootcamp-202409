@@ -18,7 +18,6 @@ describe("registerUser", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST))
 
   beforeEach(() => User.deleteMany())
-  afterEach(() => User.deleteMany())
 
   it("succeeds on new user", async () => {
     await registerUser(

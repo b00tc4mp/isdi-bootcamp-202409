@@ -18,6 +18,14 @@ const validateEmail = (email) => {
     throw new ValidationError("Invalid e-mail")
 }
 
+const validateEmailsMatch = (email, emailRepeat) => {
+  if (typeof emailRepeat !== "string")
+    throw new ValidationError("Invalid email repeat")
+  if (email.length > 320) throw new ValidationError("E-mail is too long")
+
+  if (email !== emailRepeat) throw new ValidationError("Emails do not match")
+}
+
 const validateRole = (role) => {
   if (typeof role !== "string") throw new ValidationError("Invalid Role")
   const validRoles = ["dancer", "organizer", "moderator"]
@@ -41,9 +49,9 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
 }
 
 const validateImages = (images) => {
-  if (!Array.isArray(images)) {
-    throw new ValidationError("Images must be an array")
-  }
+  // if (!Array.isArray(images)) {
+  //   throw new ValidationError("Images must be an array")
+  // }
 
   if (!images.every((images) => typeof images === "string")) {
     throw new ValidationError("Each file must be a string")
@@ -116,6 +124,7 @@ const validateType = (type) => {
 const validate = {
   name: validateName,
   email: validateEmail,
+  emailsMatch: validateEmailsMatch,
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,
   images: validateImages,

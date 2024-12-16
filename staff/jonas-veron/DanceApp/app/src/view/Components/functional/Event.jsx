@@ -86,15 +86,12 @@ export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
 
   const handleShareEvent = (event) => {
     if (navigator.share) {
-      navigator
-        .share({
-          title: event.image[0],
-          text: `¡Echa un vistazo a este evento: ${event.text}!`,
-          url: `http://'ponerAppAcaDespues'/events/${event.id}`,
-        })
-        .then(() => console.log("evento compartido con exito"))
-        .catch((error) => console.error(error))
+      navigator.share({
+        text: `¡Echa un vistazo a este evento: ${event.text}!`,
+        url: `http://'ponerAppAcaDespues'/events/${event.id}`,
+      })
     } else {
+      console.error(error)
       alert(error.message)
     }
   }

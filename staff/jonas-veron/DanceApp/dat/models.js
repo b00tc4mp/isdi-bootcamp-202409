@@ -22,6 +22,7 @@ const user = new Schema(
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
       maxLength: 320,
     },
+    profilePicture: [{ type: String }],
 
     password: {
       type: String,

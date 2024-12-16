@@ -9,7 +9,7 @@ import LocationInput from "./LocationInput"
 import EventMap from "./EventMap"
 import Alert from "./Alert"
 import Confirm from "./Confirm"
-import ChangePhoto from "./ChangePhoto"
+import ChangeProfilePicture from "./ChangeProfilePicture"
 import ChangePassword from "./ChangePassword"
 import ChangeEmail from "./ChangeEmail"
 
@@ -25,7 +25,7 @@ export {
   EventMap,
   Alert,
   Confirm,
-  ChangePhoto,
+  ChangeProfilePicture,
   ChangePassword,
   ChangeEmail,
 }

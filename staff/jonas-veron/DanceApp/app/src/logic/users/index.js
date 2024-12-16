@@ -7,6 +7,9 @@ import registerUser from "./registerUser.js"
 import getUserLocation from "./getUserLocation.js"
 import isUserRoleOrganizer from "./isUserRoleOrganizer.js"
 import isUserPermissionWrite from "./isUserPermissionWrite.js"
+import changePassword from "./changePassword.js"
+import changeEmail from "./changeEmail.js"
+import changeProfilePicture from "./changeProfilePicture.js"
 
 export {
   getUserId,
@@ -18,4 +21,7 @@ export {
   getUserLocation,
   isUserRoleOrganizer,
   isUserPermissionWrite,
+  changePassword,
+  changeEmail,
+  changeProfilePicture,
 }

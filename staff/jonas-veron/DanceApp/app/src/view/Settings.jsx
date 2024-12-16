@@ -2,7 +2,7 @@ import { useState } from "react"
 import {
   ChangeEmail,
   ChangePassword,
-  ChangePhoto,
+  ChangeProfilePicture,
 } from "./Components/functional/index.js"
 
 export default function Settings() {
@@ -52,7 +52,7 @@ export default function Settings() {
         </div>
 
         {view === "password" && <ChangePassword />}
-        {view === "photo" && <ChangePhoto />}
+        {view === "photo" && <ChangeProfilePicture />}
         {view === "email" && <ChangeEmail />}
         {view === "none" && (
           <p className="text-center text-gray-400">

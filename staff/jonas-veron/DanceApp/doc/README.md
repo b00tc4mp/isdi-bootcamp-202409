@@ -60,6 +60,7 @@ User:
 - id (UUID)
 - name (string)
 - email (string)
+- profile picture ([string])
 - password (string)
 - role (string): Role of the user (dancer | organizer | moderator)
 - permission(string, enum: read | write)

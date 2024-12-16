@@ -1,4 +1,11 @@
-import { registerUser, authenticateUser, getUserName } from "./users/index.js"
+import {
+  registerUser,
+  authenticateUser,
+  getUserName,
+  changePassword,
+  changeEmail,
+  changeProfilePicture,
+} from "./users/index.js"
 
 import {
   createEvent,
@@ -16,6 +23,9 @@ const logic = {
   registerUser,
   authenticateUser,
   getUserName,
+  changePassword,
+  changeEmail,
+  changeProfilePicture,
 
   createEvent,
   deleteEvent,

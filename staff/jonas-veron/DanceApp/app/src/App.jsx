@@ -15,7 +15,6 @@ import {
   FilteredEvents,
   EventsCalendar,
   NearbyEvents,
-  EditProfile,
   Settings,
 } from "./view/index.js"
 import {
