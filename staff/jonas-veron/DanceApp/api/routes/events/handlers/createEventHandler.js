@@ -9,5 +9,5 @@ export default createFunctionalHandler((req, res) => {
 
   return logic
     .createEvent(userId, images, type, text, date, location)
-    .then((event) => res.status(201).json())
+    .then(() => res.status(201).send())
 })

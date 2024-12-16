@@ -24,6 +24,7 @@ describe("registerUser", () => {
     await registerUser(
       "Girona Baila",
       "girona@baila.com",
+      "dancer",
       "123123123",
       "123123123"
     )
@@ -42,11 +43,13 @@ describe("registerUser", () => {
         await User.create({
           name: "Girona Baila",
           email: "girona@baila.com",
+          role: "dancer",
           password: bcrypt.hashSync("123123123", 10),
         })
         await registerUser(
           "Girona Baila",
           "girona@baila.com",
+          "dancer",
           "123123123",
           "123123123"
         )
@@ -59,6 +62,7 @@ describe("registerUser", () => {
         await registerUser(
           undefined,
           "girona@baila.com",
+          "dancer",
           "123123123",
           "123123123"
         )
@@ -71,6 +75,7 @@ describe("registerUser", () => {
         await registerUser(
           "Girona Baila",
           "girona@baila.com",
+          "dancer",
           "123123123",
           "321321321"
         )
@@ -83,6 +88,7 @@ describe("registerUser", () => {
         await registerUser(
           "Girona Baila",
           "girona@baila",
+          "dancer",
           "123123123",
           "123123123"
         )

@@ -5,12 +5,11 @@
   margin: auto;
   color: white;
   border-radius: 10px;
-  padding: 2rem;
 }
 
 .react-calendar__tile {
   background: transparent;
-  /* border: 1px solid #f9a8d4; */
+  font-size: 1.2rem;
   border-radius: 5px;
   text-align: center;
   padding: 1rem;

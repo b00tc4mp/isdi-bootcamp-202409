@@ -27,12 +27,12 @@ describe("addComment", () => {
 
     const event = await Event.create({
       author: user._id,
-      files: [
+      images: [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
       ],
-      eventType: "Sociales",
+      type: "Sociales",
       text: "A bailar!",
-      eventDate: new Date("2024-12-07"),
+      date: new Date("2025-05-07"),
       location: {
         type: "Point",
         address: "Barcelona",
@@ -50,7 +50,7 @@ describe("addComment", () => {
     const [comment] = updatedEvent.comments
     expect(comment.author.toString()).to.equal(user.id)
     expect(comment.text).to.equal("hello comment")
-    expect(comment.date).to.be.instanceof(Date)
+    expect(comment.createdAt).to.be.instanceof(Date)
   })
 
   it("fails on non-existing user", () =>

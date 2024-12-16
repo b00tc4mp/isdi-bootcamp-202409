@@ -20,8 +20,8 @@ const validateEmail = (email) => {
 
 const validateRole = (role) => {
   if (typeof role !== "string") throw new ValidationError("Invalid Role")
-  // const validRoles = ["dancer", "organizer"]
-  // if (!validRoles.includes(role)) throw new ValidationError("Invalid Role")
+  const validRoles = ["dancer", "organizer", "moderator"]
+  if (!validRoles.includes(role)) throw new ValidationError("Invalid Role")
 }
 
 const validatePassword = (password) => {

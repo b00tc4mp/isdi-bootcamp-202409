@@ -14,6 +14,8 @@ import isFavoriteIcon from "./isFavoriteIcon.svg"
 import userLocationIcon from "./userLocationIcon.svg"
 import eventLocationIcon from "./eventLocationIcon.svg"
 import locationIconFooter from "./locationIconFooter.svg"
+import configIcon from "./configIcon.svg"
+import logoutIcon from "./logoutIcon.svg"
 
 export {
   likedIcon,
@@ -32,4 +34,6 @@ export {
   userLocationIcon,
   eventLocationIcon,
   locationIconFooter,
+  configIcon,
+  logoutIcon,
 }

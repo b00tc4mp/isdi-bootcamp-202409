@@ -31,11 +31,11 @@ export default function EventsCalendar() {
   )
 
   return (
-    <div className="flex flex-col items-center min-hscreen p-6">
+    <div className="flex flex-col items-center min-hscreen">
       <h2 className="text-white text-2xl font-bold mb-8 pt-16">
         Calendario de Eventos
       </h2>
-      <div className="text-white p-4">
+      <div className="text-white p-2">
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
@@ -62,7 +62,7 @@ export default function EventsCalendar() {
         <ul>
           {filteredEvents.map((event) => (
             <li key={event.id} className="text-white p-4 rounded-lg mb-4">
-              <img src={event.images[0]} alt="" className="rounded-lg" />
+              <img src={event.images[0]} alt="" className="rounded-xl" />
               <p>
                 Si no sabes como llegar
                 <a
@@ -74,7 +74,9 @@ export default function EventsCalendar() {
                   haz click aquí
                 </a>
               </p>
-              <p>{new Date(event.date).toLocaleDateString()}</p>
+              <p className="pb-6">
+                {new Date(event.date).toLocaleDateString()}
+              </p>
             </li>
           ))}
         </ul>

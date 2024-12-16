@@ -88,7 +88,7 @@ export default function CreateEvent() {
           <Field>
             <label
               htmlFor="images"
-              className="bg-accentpink  text-white font-bold border-2 border-transparent hover:bg-accentgreen hover:border-accentpink focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-300 rounded-lg"
+              className="bg-accentpink text-white font-bold border-2  border-transparent hover:bg-accentgreen hover:border-accentpink focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-300 rounded-lg w-full h-10 pt-1"
             >
               Subir Imagen
             </label>
@@ -96,7 +96,6 @@ export default function CreateEvent() {
               type="file"
               name="images"
               id="images"
-              placeholder="http://example.com/image.jpg"
               required
               className="hidden"
               onChange={handleImageChange}

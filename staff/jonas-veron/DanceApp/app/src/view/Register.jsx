@@ -122,7 +122,7 @@ export default function Register() {
                 className={`w-1/2 p-2 rounded-md font-bold transition-all duration-300 ${
                   role === "organizer"
                     ? "bg-green-500 text-white border-green-700"
-                    : "bg-pink-500 text-white border-pink-700"
+                    : "bg-pink-600 text-white border-pink-700"
                 } border-2 hover:bg-green-500 hover:text-white focus:outline-none`}
                 onClick={() => handleRoleSelect("organizer")}
               >

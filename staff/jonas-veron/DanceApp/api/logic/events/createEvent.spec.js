@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Event } from "dat"
 import { errors } from "com"
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError, ValidationError, PermissionError } = errors
 
 import createEvent from "./createEvent.js"
 
@@ -22,6 +22,8 @@ describe("createEvent", () => {
     const user = await User.create({
       name: "Carlos Diaz",
       email: "carlos@dancer.com",
+      role: "organizer",
+      permission: "write",
       password: "123123123",
     })
     const event = await createEvent(
@@ -39,13 +41,13 @@ describe("createEvent", () => {
       }
     )
 
-    expect(event).to.exist
-    expect(event).to.have.property("id")
-    const createdEvent = await Event.findById(event.id)
+    const createdEvent = await Event.findOne({ author: user.id })
 
     expect(createdEvent).to.exist
+    expect(createdEvent).to.have.property("id")
+    expect(createdEvent).to.exist
     expect(createdEvent.author.toString()).to.equal(user.id)
-    expect(createdEvent.files).to.deep.equal([
+    expect(createdEvent.images).to.deep.equal([
       "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
     ])
     expect(createdEvent.text).to.equal("A bailar!")
@@ -124,7 +126,7 @@ describe("createEvent", () => {
           coordinates: [41.3870154, 2.1700471],
         }
       )
-    ).to.throw(ValidationError, /^Files must be an array$/))
+    ).to.throw(ValidationError, /^Images must be an array$/))
 
   it("fails on non-string text", () =>
     expect(() =>
@@ -143,6 +145,35 @@ describe("createEvent", () => {
         }
       )
     ).to.throw(ValidationError, /^Invalid text$/))
+
+  it("failure in permission that is not an write", async () => {
+    const user = await User.create({
+      name: "Carlos Diaz",
+      email: "carlos@dancer.com",
+      role: "organizer",
+      permission: "read",
+      password: "123123123",
+    })
+    await expect(
+      createEvent(
+        user.id,
+        [
+          "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
+        ],
+        "Sociales",
+        "A bailar!",
+        "2025-06-07",
+        {
+          address: "Barcelona",
+          province: "Barcelona",
+          coordinates: [41.3870154, 2.1700471],
+        }
+      )
+    ).to.be.rejectedWith(
+      PermissionError,
+      /^User has not permission to create event$/
+    )
+  })
 
   //TODO hacer test si falla desde el servidor
 

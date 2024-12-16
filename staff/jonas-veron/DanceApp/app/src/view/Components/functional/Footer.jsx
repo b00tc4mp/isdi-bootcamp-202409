@@ -21,11 +21,10 @@ export default function Footer() {
   }
 
   const onNewEventClick = () => {
-    //TODO
-    // if (!logic.isUserPermissionWrite()) {
-    //   alert("No tienes permiso aún para publicar.")
-    //   return
-    // }
+    if (!logic.isUserPermissionWrite()) {
+      alert("Aún no tienes permiso para publicar.")
+      return
+    }
     navigate("/createEvent")
   }
   const handleHomeClick = () => {

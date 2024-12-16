@@ -2,6 +2,7 @@ import logic from "./../../../logic"
 import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import useContext from "../../useContext"
+import { configIcon, logoutIcon } from "../../../assets/index.js"
 
 export default function Menu({ isOpen, onClose }) {
   console.log("render -> menu")
@@ -50,6 +51,11 @@ export default function Menu({ isOpen, onClose }) {
     onClose()
   }
 
+  const handleSettingsClick = () => {
+    navigate("/settings")
+    onClose()
+  }
+
   if (!isOpen) return null
   return (
     <>
@@ -65,9 +71,6 @@ export default function Menu({ isOpen, onClose }) {
         )}
 
         <div className="space-y-4">
-          <button className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full">
-            Mi Perfil
-          </button>
           <button
             onClick={handleHomeClick}
             className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
@@ -106,12 +109,24 @@ export default function Menu({ isOpen, onClose }) {
           </button>
         </div>
         <div>
-          <button
-            className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
-            onClick={handleLogout}
-          >
-            Cerrar Sesión
-          </button>
+          <div className="flex">
+            <button
+              onClick={handleSettingsClick}
+              className="flex items-center gap-2 bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full mb-4"
+            >
+              <img src={configIcon} alt="Configuración" className="w-6 h-6" />
+              Configuración
+            </button>
+          </div>
+          <div className="flex">
+            <button
+              className="flex items-center gap-2 bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
+              onClick={handleLogout}
+            >
+              <img src={logoutIcon} alt="Cerrar sesión" className="w-5 h-5" />
+              Cerrar Sesión
+            </button>
+          </div>
         </div>
       </div>
     </>

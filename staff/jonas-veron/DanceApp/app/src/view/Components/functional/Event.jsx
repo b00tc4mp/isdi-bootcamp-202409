@@ -83,6 +83,22 @@ export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
   }
   const handleCommentsClick = () => setView(view ? null : "comments")
   const handleLocationClick = () => setView(view ? null : "location")
+
+  const handleShareEvent = (event) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: event.image[0],
+          text: `¡Echa un vistazo a este evento: ${event.text}!`,
+          url: `http://'ponerAppAcaDespues'/events/${event.id}`,
+        })
+        .then(() => console.log("evento compartido con exito"))
+        .catch((error) => console.error(error))
+    } else {
+      alert(error.message)
+    }
+  }
+
   const handleFavoritesClick = () => {
     try {
       logic
@@ -160,6 +176,7 @@ export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
               src={shareIcon}
               alt="Share"
               className="w-6 h-6 cursor-pointer"
+              onClick={() => handleShareEvent(event)}
             />
             <img
               src={locationIcon}

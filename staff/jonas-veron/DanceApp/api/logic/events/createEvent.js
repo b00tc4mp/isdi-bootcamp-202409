@@ -1,7 +1,7 @@
 import { User, Event } from "dat"
 import { validate, errors } from "com"
 
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, PermissionError } = errors
 
 export default (userId, images, type, text, date, location) => {
   validate.id(userId, "userId")
@@ -18,9 +18,8 @@ export default (userId, images, type, text, date, location) => {
     })
     .then((user) => {
       if (!user) throw new NotFoundError("User not found")
-      // if (user.role !== "organizer")
-      //despues cambiar a permission !== 'write'
-      // throw new PermissionError("User has not permission to create event")
+      if (user.permission !== "write")
+        throw new PermissionError("User has not permission to create event")
 
       return Event.create({
         author: userId,
@@ -38,6 +37,6 @@ export default (userId, images, type, text, date, location) => {
         .catch((error) => {
           throw new SystemError(error.message)
         })
-        .then(() => {})
+        .then((_) => {})
     })
 }

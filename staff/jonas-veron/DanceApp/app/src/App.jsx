@@ -15,6 +15,8 @@ import {
   FilteredEvents,
   EventsCalendar,
   NearbyEvents,
+  EditProfile,
+  Settings,
 } from "./view/index.js"
 import {
   Header,
@@ -111,6 +113,10 @@ export default function App() {
         <Route
           path="/nearbyevents"
           element={isLoggedIn ? <NearbyEvents /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/settings"
+          element={isLoggedIn ? <Settings /> : <Navigate to="/login" />}
         />
       </Routes>
 

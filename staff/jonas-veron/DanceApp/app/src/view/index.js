@@ -6,6 +6,8 @@ import FavoritEvents from "./FavoritEvents.jsx"
 import FilteredEvents from "./FilteredEvents.jsx"
 import EventsCalendar from "./EventsCalendar.jsx"
 import NearbyEvents from "./NearbyEvents.jsx"
+import EditProfile from "./EditProfile.jsx"
+import Settings from "./Settings.jsx"
 
 export {
   Login,
@@ -16,4 +18,6 @@ export {
   FilteredEvents,
   EventsCalendar,
   NearbyEvents,
+  EditProfile,
+  Settings,
 }

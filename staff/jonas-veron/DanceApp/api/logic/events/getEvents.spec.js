@@ -25,12 +25,12 @@ describe("getEvents", () => {
     })
     const event = await Event.create({
       author: user._id,
-      files: [
+      images: [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
       ],
-      eventType: "Sociales",
+      type: "Sociales",
       text: "A bailar!",
-      eventDate: new Date("2024-12-07"),
+      date: new Date("2024-12-07"),
       location: {
         type: "Point",
         address: "Barcelona",
@@ -40,12 +40,12 @@ describe("getEvents", () => {
     })
     const event2 = await Event.create({
       author: user._id,
-      files: [
+      images: [
         "https://www.salsero.es/images/events/2024-10-30-09-42-29_67229a35011f7.jpg",
       ],
-      eventType: "Sociales",
+      type: "Sociales",
       text: "A bailarrrrrr!",
-      eventDate: new Date("2024-12-09"),
+      date: new Date("2024-12-09"),
       location: {
         type: "Point",
         address: "Girona",
@@ -60,16 +60,16 @@ describe("getEvents", () => {
     expect(events[0].id).to.equal(event2._id.toString())
     expect(events[0].author.id).to.equal(user._id.toString())
     expect(events[0].author.name).to.equal(user.name)
-    expect(events[0].files[0]).to.equal(event2.files[0])
+    expect(events[0].images[0]).to.equal(event2.images[0])
     expect(events[0].text).to.equal(event2.text)
-    expect(events[0].eventDate).to.deep.equal(event2.eventDate)
+    expect(events[0].date).to.deep.equal(event2.date)
 
     expect(events[1].id).to.equal(event._id.toString())
     expect(events[1].author.id).to.equal(user._id.toString())
     expect(events[1].author.name).to.equal(user.name)
-    expect(events[1].files[0]).to.equal(event.files[0])
+    expect(events[1].images[0]).to.equal(event.images[0])
     expect(events[1].text).to.equal(event.text)
-    expect(events[1].eventDate).to.deep.equal(event.eventDate)
+    expect(events[1].date).to.deep.equal(event.date)
   })
 
   it("fails for invalid user ID format", () =>
