@@ -27,59 +27,59 @@ db.connect(process.env.MONGO_URL_TEST)
         web: 'https://www.primor.eu/es_es/',
         locations: [
           {
-            address: 'Calle de Aragón, 123, Barcelona, España',
+            address: 'P.º de la Florida, 2, Moncloa - Aravaca, 28008 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3851, 2.1734]
+              coord: [40.42133179225622, -3.71998665480542]
             }
           },
           {
-            address: 'Calle de Balmes, 456, Barcelona, España',
+            address: 'Calle de Fuencarral, 133, Chamberí, 28010 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3872, 2.157]
+              coord: [40.43202296556586, -3.7037814136988527]
             }
           },
           {
-            address: 'Gran Vía, 789, Barcelona, España',
+            address: 'Gran Vía, 39, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3779, 2.1826]
+              coord: [40.420092766337895, -3.705580105164164]
             }
           },
           {
-            address: 'Avenida Diagonal 208, Barcelona, España',
+            address: 'Prta del Sol, 11, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [41.4044, 2.1968]
+              coord: [40.4173764754467, -3.7039096581332616]
             }
           },
           {
-            address: 'Avenida del Portal de l\'Àngel 40, Barcelona, España',
+            address: 'Calle de Fuencarral, 46, Centro, 28004 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3854, 2.1737]
+              coord: [40.42338310972359, -3.700571627834522]
             }
           },
           {
-            address: 'Calle Pelai 10, Barcelona, España',
+            address: 'Calle de Goya, 59, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [40.7128, 2.1649]
+              coord: [40.42527941846422, -3.681164760439192]
             }
           },
           {
-            address: 'Moll d\'Espanya 5, Local 8/15/16, Barcelona, España',
+            address: 'Calle de Goya, 22, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3733, 2.1843]
+              coord: [40.424842159111385, -3.6833200596476123]
             }
           },
           {
-            address: 'Calle de Potosí 2, Barcelona, España',
+            address: 'C. de Orense, 16, Tetuán, 28020 Madrid',
             location: {
               type: 'Point',
-              coord: [41.4377, 2.1944]
+              coord: [40.44990262299382, -3.694946771790625]
             }
           }
         ]
@@ -89,59 +89,59 @@ db.connect(process.env.MONGO_URL_TEST)
         web: 'https://www.druni.es/',
         locations: [
           {
-            address: 'Carrer de Pelayo, 7, 09001, Barcelona, España',
+            address: 'Gran Vía, 61, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3855, 2.1657]
+              coord: [40.42261179231897, -3.7096452772076205]
             }
           },
           {
-            address: 'Carrer Pelai, 24, 08001, Barcelona, España',
+            address: 'Calle de Fuencarral, 149, Chamberí, 28010 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3858, 2.1661]
+              coord: [40.43308835164264, -3.7043862503609573]
             }
           },
           {
-            address: 'Carrer de la Portaferrissa, 13, 08002 Barcelona, España',
+            address: 'P.º de las Acacias, 20, Arganzuela, 28005 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3839, 2.1735]
+              coord: [40.40389760435808, -3.706943250804547]
             }
           },
           {
-            address: 'Moll d\'Espanya, 5, 08039 Barcelona (Centro Comercial Maremagnum), España',
+            address: 'C. de Orense, 4, Tetuán, 28020 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3743, 2.1836]
+              coord: [40.44762661023306, -3.695382950926849]
             }
           },
           {
-            address: 'Gran Via de les Corts Catalanes, 373, 08015 Barcelona, España',
+            address: 'C. de Bravo Murillo, 187, Tetuán, 28020 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3795, 2.1443]
+              coord: [40.45352969286624, -3.7031403056038426]
             }
           },
           {
-            address: 'Avinguda Diagonal, 208, 08018 Barcelona, España',
+            address: 'C. de Velázquez, 34, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3989, 2.1918]
+              coord: [40.425873936953366, -3.683951059823913]
             }
           },
           {
-            address: 'Avinguda de Rio de Janeiro, 42, 08016 Barcelona, España',
+            address: 'C. de Clara del Rey, 51, Chamartín, 28002 Madrid',
             location: {
               type: 'Point',
-              coord: [41.4368, 2.1795]
+              coord: [40.44467487446922, -3.668844632295032]
             }
           },
           {
-            address: 'Avinguda Diagonal, 3, 08019 Barcelona, España',
+            address: 'C. de Alcalá, 367, Cdad. Lineal, 28027 Madrid',
             location: {
               type: 'Point',
-              coord: [41.4075, 2.2044]
+              coord: [40.43468817103967, -3.6442677138646937]
             }
           }
         ]
@@ -151,59 +151,59 @@ db.connect(process.env.MONGO_URL_TEST)
         web: 'https://www.sephora.es/',
         locations: [
           {
-            address: 'Plaça Catalunya, 1-4, 08002 Barcelona, España',
+            address: 'ECI Princessa GROUND FLOOR, Calle de la Princesa, 56, Centro, 28008 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3869, 2.1701]
+              coord: [40.4301174666671, -3.715486779609403]
             }
           },
           {
-            address: 'Paseo de Gracia, 37, 08007 Barcelona, España',
+            address: 'Eci Preciados, C. de Preciados, 3, Ground Floor, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3915, 2.1655]
+              coord: [40.419401819753595, -3.7051870979150845]
             }
           },
           {
-            address: 'Rambla de Cataluña, 121, 08008 Barcelona, España',
+            address: 'Prta del Sol, 11, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3922, 2.1629]
+              coord: [40.41744145574421, -3.703813807022509]
             }
           },
           {
-            address: 'Calle Tarragona, 89, 08015 Barcelona, España',
+            address: 'ECI Castellana, C. de Raimundo Fernández Villaverde, 79, Ground floor, Tetuán, 28003 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3754, 2.1491]
+              coord: [40.44710218875655, -3.6943724321360514]
             }
           },
           {
-            address: 'Avenida Diagonal, 208 (C.C. Glòries), 08018 Barcelona, España',
+            address: 'C. de Serrano, 36, Ground Floor, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [41.4065, 2.1918]
+              coord: [40.42541324652857, -3.687505977673172]
             }
           },
           {
-            address: 'Avenida Diagonal, 617 (El Corte Inglés Diagonal), 08028 Barcelona, España',
+            address: 'C. de Velázquez, 41, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3912, 2.1315]
+              coord: [40.42685068203562, -3.6840727504417328]
             }
           },
           {
-            address: 'Calle Josep Pla, 2 (C.C. Diagonal Mar), 08019 Barcelona, España',
+            address: 'C. de Alfonso XII, 34, Retiro, 28014 Madrid',
             location: {
               type: 'Point',
-              coord: [41.4094, 2.2166]
+              coord: [40.41390672535115, -3.6893159710600725]
             }
           },
           {
-            address: 'Calle Literatura, 1-3 (C.C. Gran Via 2), 08908 L\'Hospitalet de Llobregat, España',
+            address: 'ECI Goya, Calle de Goya, 76, GROUND FLOOR, Salamanca, 28009 Madrid',
             location: {
               type: 'Point',
-              coord: [41.3547, 2.1244]
+              coord: [40.42468412910668, -3.67484248353112]
             }
           }
         ]
