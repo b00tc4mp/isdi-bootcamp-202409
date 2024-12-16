@@ -43,7 +43,7 @@ export default function ProductHeader({name}) {
         </div>
       </div>
     </div>
-        <div className="flex flex-row items-end">
+      {/*<div className="flex flex-row items-end">
             <button className="btn btn-sm btn-square">
             <Image
                   src="/icons/favoritos.svg"
@@ -60,7 +60,7 @@ export default function ProductHeader({name}) {
                   height={20}
                 ></Image>{" "}
             </button>
-        </div>
+        </div>*/}
     </div>
   );
 }

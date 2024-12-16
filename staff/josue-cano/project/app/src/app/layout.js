@@ -4,10 +4,10 @@ import "./globals.css";
 import TheFooter from "./ui/TheFooter";
 import PublicHeader from "./ui/PublicHeader";
 import PrivateHeader from "./ui/PrivateHeader";
-import SearchComponent from "./ui/SearchComponent";
-import { validateSession, logout } from "./logic/auth/";
+import { logout } from "./logic/auth/";
 import { useState, useEffect } from "react";
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from "next/navigation";
+import { getToken } from "./utils/session";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -29,28 +29,41 @@ export default function RootLayout({ children }) {
   // variable de estado para saber si la sesion es valida
   const [authenticated, setAuthenticated] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
   function logoutHandler() {
     logout();
     setAuthenticated(false);
+    router.push("/");
   }
- 
+
   useEffect(() => {
-    // Do something here...
-    validateSession().then((response) => {
-      setAuthenticated(response);
-      console.log(response);
-    });
-  }, [pathname])
+    const token = getToken();
+
+    setAuthenticated(token != undefined);
+  }, [pathname]);
+
+  // useEffect(() => {
+  //   // Do something here...
+  //   validateSession().then((response) => {
+  //     debugger;
+  //     if(response.status){
+  //       setAuthenticated(response.status);
+  //     } else {
+
+  //       router.replace('/');
+  //     }
+  //   }).catch(error=>{
+  //       router.replace('/');
+
+  //   });
+  // }, [pathname])
 
   return (
     <html lang="en" data-theme="ekoality">
       <body>
         {/* si esta autenticado private si no public */}
-        {authenticated ? (
-          <PrivateHeader logout={logoutHandler} />
-        ) : (
-          <PublicHeader />
-        )}
+        {authenticated ? <PrivateHeader logout={logoutHandler} /> : <PublicHeader />}
         <main className="container mx-auto">{children}</main>
 
         <TheFooter />

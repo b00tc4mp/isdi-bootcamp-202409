@@ -13,15 +13,13 @@ export default function Login() {
 
     login({ username: fields.email.value, password: fields.password.value })
       .catch((err) => {
-        alert(err);
+        // alert(err);
       })
       .then(() => redirect("/"));
   }
 
   return (
-    <section
-      className="flex items-center justify-center min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('/path-to-your-background-image.jpg')" }}>
+    <section className="flex items-center justify-center min-h-screen bg-cover bg-center">
       {/* video */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"

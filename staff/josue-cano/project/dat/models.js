@@ -52,23 +52,29 @@ const user = new Schema(
   }
 );
 
-const comment = new Schema({
-  author: {
-    type: ObjectId,
-    required: true,
-    ref: "User",
+const comment = new Schema(
+  {
+    author: {
+      type: ObjectId,
+      required: true,
+      ref: "User",
+    },
+    text: {
+      type: String,
+      required: true,
+      maxLength: 200,
+    },
+    product: {
+      type: ObjectId,
+      required: true,
+      ref: "User",
+    },
   },
-  text: {
-    type: String,
-    required: true,
-    maxLength: 200,
-  },
-  date: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-});
+  {
+    timestamps: true, // Agrega campos `createdAt` y `updatedAt` automáticamente
+    versionKey: false,
+  }
+);
 
 const categoria = new Schema(
   {

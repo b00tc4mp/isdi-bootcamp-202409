@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import ProductListComponent from "@/app/ui/product/ProductListComponent";
-import { getFavorites } from "@/app/logic/products/getFavorites";
+import { getProducts } from "@/app/logic/users/getProducts";
 import useAuth from "@/app/utils/handlers/useAuth";
 
 export default function Index() {
@@ -13,7 +13,7 @@ export default function Index() {
   // Efecto para cargar los productos al montar el componente
   useEffect(() => {
     // Llama a la función para obtener los productos
-    getFavorites()
+    getProducts()
       .then((data) => {
         setProducts(data); // Actualiza los productos en el estado
       })
@@ -29,9 +29,9 @@ export default function Index() {
   return (
     <article className="">
       <h2 className="text-3xl font-bold text-center mt-5 text-gray-800">
-        {products.length ? "Favoritos " : "No hay productos favoritos"}
+        {products.length ? "Tus Productos " : "Aún no has subido productos"}
       </h2>
-      <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} />
+      <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} admin={true} />
     </article>
   );
 }

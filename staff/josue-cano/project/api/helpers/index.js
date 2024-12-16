@@ -1,6 +1,5 @@
-import authorizationHandler from "./authorizationHandler.js"
-
+import authorizationHandler from "./authorizationHandler.js";
 
 export default {
-    authorizationHandler,
-}
+  authorizationHandler,
+};

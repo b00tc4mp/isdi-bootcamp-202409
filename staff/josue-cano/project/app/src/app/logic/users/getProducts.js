@@ -3,22 +3,21 @@ import fetchHandler from "@/app/utils/handlers/fetchHandler";
 
 export async function getProducts() {
   const token = getToken();
-  let url = "";
-
+  const url = 'user/products';
   const isPublic = token == undefined;
 
-  if (isPublic) {
-    url = "public/products";
-  } else {
-    url = "products";
-  }
 
-  try {
+
+  try{
     const response = await fetchHandler(url, {}, isPublic);
 
     return response.data;
-  } catch (error) {
+
+  } catch(error) {
+
     // alert(error);
     return error;
+
   }
+
 }

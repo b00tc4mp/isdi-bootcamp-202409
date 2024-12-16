@@ -7,14 +7,14 @@ export default async (userId) => {
   // console.log({userId} );
 
   if (userId) {
-    const user = await User.findOne({ _id: userId });
+    // const user = await User.findOne({_id:userId});
 
-    const products = await Producto.find().lean();
-    const result = products.map((product) => ({
-      ...product,
-      isFavorite: user.favorites.includes(product._id),
-    }));
-    return result;
+    const products = await Producto.find({ author: userId }).lean();
+    // const result =  products.map(product => ({
+    //   ...product,
+    //   isFavorite: user.favorites.includes(product._id)
+    // }));
+    return products;
   }
 
   const products = await Producto.find();

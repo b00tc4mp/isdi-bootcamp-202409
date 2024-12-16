@@ -22,9 +22,7 @@ export default ({ firstName, lastName, email, ubicacion, password, passwordRepea
         User.create({ firstName, lastName, email, ubicacion, password: hash })
           .then((user) => ({ ...user.toObject(), password: null }))
           .catch((error) => {
-
-            if (error.code === 11000)
-              throw new DuplicityError("user already exists");
+            if (error.code === 11000) throw new DuplicityError("user already exists");
 
             throw new SystemError(error.message);
           })

@@ -9,9 +9,7 @@ export const createProduct = (product) => {
 
     if (Array.isArray(value)) {
       // images array
-      value
-        .filter((x) => x)
-        .forEach((image) => formData.append(`images[]`, image.file));
+      value.filter((x) => x).forEach((image) => formData.append(`images[]`, image.file));
     } else {
       formData.append(key, value);
     }

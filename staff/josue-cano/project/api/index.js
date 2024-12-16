@@ -36,16 +36,26 @@ db.connect(process.env.MONGO_URL)
 
     server.get("/users/details/:id?", helpers.authorizationHandler, (req, res) => {
       let userId;
-      if(req.params.id){
+      if (req.params.id) {
         userId = req.params.id;
-      }else {
+      } else {
         userId = req.userId;
       }
-      console.log({id: req.params.id, userId: req.userId});
-      console.log({userId});
 
       logic
         .getUserDetails(userId)
+        .then((user) => res.json({ data: user }))
+        .catch((msg) => res.status(400).json({ error: msg.message }));
+    });
+
+    /**
+     * Get All products created by the user
+     * */
+    server.get("/user/products", helpers.authorizationHandler, (req, res) => {
+      const userId = req.params.id;
+
+      logic
+        .getUserProducts(userId)
         .then((user) => res.json({ data: user }))
         .catch((msg) => res.status(400).json({ error: msg.message }));
     });
@@ -56,27 +66,24 @@ db.connect(process.env.MONGO_URL)
       res.json({ data: { status: utils.validateToken(token) } });
       // .then((status) => res.json(status))
     });
-    
 
     // get favorite products
     server.get("/favorites", helpers.authorizationHandler, (req, res) => {
-
       const id = req.userId;
 
       logic
         .getUserFavorites({ id })
-        .then(products => res.json({ data: products }))
+        .then((products) => res.json({ data: products }))
         .catch((msg) => res.status(400).json({ error: msg.message }));
     });
 
-
     // set favorite products
     server.patch("/favorites", helpers.authorizationHandler, (req, res) => {
-      const {favorite} = req.body;
+      const { favorite } = req.body;
       const id = req.userId;
 
       logic
-        .setUserFavorites({id, favorite})
+        .setUserFavorites({ id, favorite })
         .then((token) => res.json({ data: token }))
         .catch((msg) => res.status(400).json({ error: msg.message }));
     });
@@ -96,29 +103,29 @@ db.connect(process.env.MONGO_URL)
      */
     server.get("/products", helpers.authorizationHandler, (req, res) => {
       const userId = req.userId;
-      logic
-        .getProducts(userId)
-        .then((getProducts) => res.json({ data: getProducts }));
+      logic.getProducts(userId).then((getProducts) => res.json({ data: getProducts }));
     });
 
     /**
      * obtener listado de todos los productos (usuario no autenticado)
      */
     server.get("/public/products", (_, res) => {
-
-      logic
-        .getProducts()
-        .then((getProducts) => res.json({ data: getProducts }));
+      logic.getProducts().then((getProducts) => res.json({ data: getProducts }));
     });
 
     /**
-     * obtener detalles dle producto
+     * obtener detalles del producto
      */
-    server.get("/products/:id", (req, res) =>
-      logic
-      .getProductDetails(req.params.id)
-      .then((producto) => res.json({ data: producto }))
+    server.get("/public/products/:id", (req, res) =>
+      logic.getProductDetails(req.params.id).then((producto) => res.json({ data: producto }))
     );
+    /**
+     * obtener detalles del producto
+     */
+    server.get("/products/:id", helpers.authorizationHandler, (req, res) => {
+      const userId = req.userId;
+      logic.getProductDetails(req.params.id, userId).then((producto) => res.json({ data: producto }));
+    });
 
     /**
      * crear producto
@@ -136,9 +143,7 @@ db.connect(process.env.MONGO_URL)
       bb.on("file", (name, file, info) => {
         utils.saveFile(file, info.filename, (error) => {
           if (error) {
-            res
-              .status(500)
-              .json({ error: "SystemError", message: error.message });
+            res.status(500).json({ error: "SystemError", message: error.message });
 
             return;
           }
@@ -153,9 +158,7 @@ db.connect(process.env.MONGO_URL)
         producto[fieldname] = value;
       });
 
-      bb.on("error", (error) =>
-        res.status(500).json({ error: "SystemError", message: error.message })
-      );
+      bb.on("error", (error) => res.status(500).json({ error: "SystemError", message: error.message }));
       // aquí es donde se va a procesar el formulario cando busboy termine
       // de guardar las imágenes
       bb.on("finish", () => {
@@ -169,35 +172,35 @@ db.connect(process.env.MONGO_URL)
 
       req.pipe(bb);
     });
+
+    /**
+     * Eliminar producto
+     */
+    server.delete("/products/:id", helpers.authorizationHandler, (req, res) => {
+      logic.deleteProduct(req.params.id).then((result) => res.json({ data: result }));
+    });
+
     /**
      * Obtener las localidades
      *
      * */
     server.get("/locations", (_, res) => {
-      logic
-        .getLocations()
-        .then((locations) => res.json({ data: locations }));
+      logic.getLocations().then((locations) => res.json({ data: locations }));
     });
     /**
      * obtener todas las categorias
      */
     server.get("/categorias", (_, res) => {
-      logic
-        .getCategorias()
-        .then((categorias) => res.json({ data: categorias }));
+      logic.getCategorias().then((categorias) => res.json({ data: categorias }));
     });
     /**
      * obtener todas las subcategorias
      */
     server.get("/subcategorias", (_, res) => {
-      logic
-        .getSubCategorias()
-        .then((subcategorias) => res.json({ data: subcategorias }));
+      logic.getSubCategorias().then((subcategorias) => res.json({ data: subcategorias }));
     });
 
-    server.listen(process.env.PORT, () =>
-      console.log(`API listening on port ${process.env.PORT}`)
-    );
+    server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`));
   })
   .catch((error) => {
     console.error(error);

@@ -1,10 +1,9 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 function validateToken(token) {
   try {
-    
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
+
     if (!decoded) {
       return false;
     } else if (decoded.exp < Math.floor(Date.now() / 1000)) {
@@ -19,4 +18,4 @@ function validateToken(token) {
   }
 }
 
-export default validateToken
+export default validateToken;

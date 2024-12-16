@@ -30,7 +30,15 @@ export default function Index() {
   return (
     <section>
       <SearchComponent />
-      <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} />
+      <article className="mt-10">
+        {/* Encabezado */}
+        <header className="mb-8 text-center">
+          <h2 className="text-black text-3xl font-bold">
+            Descubre los mejores productos seleccionados especialmente para ti.
+          </h2>
+        </header>
+        <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} />
+      </article>
       <EkoalitySection />
       <ExCompra />
       <Contacto />

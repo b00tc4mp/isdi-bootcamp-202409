@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function PublicHeader() {
   return (
-    <div className="fixed top-0 left-0 w-full z-50 bg-white border-b border-[#52A42D] shadow-md">
+    <div className="sticky top-0 left-0 w-full z-50 bg-white border-b border-[#52A42D] shadow-md">
       <div className="navbar bg-base-100 container mx-auto flex justify-between items-center px-4">
         {/* Navbar Start */}
         <div className="flex items-center space-x-4">

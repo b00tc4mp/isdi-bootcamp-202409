@@ -1,12 +1,13 @@
-import { getToken } from "../../utils/session";
+import fetchHandler from "@/app/utils/handlers/fetchHandler";
 
-export function getFavorites() {
-  const token = `Bearer ${getToken()}`;
-  return fetch(`http://${"localhost:8080"}/favorites`, {
-    method: "get",
-    headers: { "Content-type": "application/json" , AUTHORIZATION: token },
-  })
-    .then((response) => response.json())
-    .then((response) => response.data)
-    .catch((error) => error);
+export async function getFavorites() {
+  const url = "favorites";
+  try {
+    const response = await fetchHandler(url, {});
+
+    return response.data;
+  } catch (error) {
+    // alert(error);
+    return error;
+  }
 }

@@ -21,23 +21,22 @@ describe("authenticateUser", () => {
 
   it("succeeds on existing user", () =>
     User.create({
-        firstName: "josue",
-        lastName: "cano",
-        email: "josuecano@delgado.com",
+      firstName: "josue",
+      lastName: "cano",
+      email: "josuecano@delgado.com",
       password: bcrypt.hashSync("123123123", 10),
     })
-      .then(() => authenticateUser({email:"josuecano@delgado.com", password:"123123123"}))
+      .then(() => authenticateUser({ email: "josuecano@delgado.com", password: "123123123" }))
       .then((token) => {
         expect(token).to.exist;
         expect(token).to.be.a.string;
       }));
 
   it("fails on non-existing user", () =>
-    expect(
-      authenticateUser({email:"josuecano@de565lgado.com", password: "123123123"})
-    ).to.be.rejectedWith(CredentialsError, "user does not exist"));
+    expect(authenticateUser({ email: "josuecano@de565lgado.com", password: "123123123" })).to.be.rejectedWith(
+      CredentialsError,
+      "user does not exist"
+    ));
 
   after(() => db.disconnect());
-
-  
 });

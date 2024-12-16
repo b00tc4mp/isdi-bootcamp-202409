@@ -1,20 +1,20 @@
-import { getToken } from "../../utils/session";
+import fetchHandler from "@/app/utils/handlers/fetchHandler";
 
-export const addtoFavorites = async id => {
-  
+export const addtoFavorites = async (id) => {
+  const url = "favorites";
+
   try {
-    
-  const token = `Bearer ${getToken()}`;
-  const response = await fetch(`http://${"localhost:8080"}/favorites/`, {
-    method: "PATCH",
-    headers: { "Content-type": "application/json" , AUTHORIZATION: token },
-    body: JSON.stringify({favorite: id}) 
-  });
-    const result = await response.json();
+    const response = await fetchHandler(url, {
+      method: "PATCH",
+      body: JSON.stringify({ favorite: id }),
+    });
 
-    return {valid: true, data: result.data };
-  } catch (e) {
-    /* handle error */
-    return {valid: false, message: 'Failed adding / removing favorite'}
+    if (response.data) return { valid: true, data: response.data };
+
+    return { valid: false, message: "error" };
+  } catch (error) {
+    console.trace(error);
+    // alert(error);
+    return { valid: false, mesage: error.message };
   }
 };

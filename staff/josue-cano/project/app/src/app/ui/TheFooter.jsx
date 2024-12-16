@@ -23,12 +23,7 @@ export default function TheFooter() {
 
         {/* Logo */}
         <div className="flex items-center justify-center">
-          <Image
-            src="/img/ekoalityLogo.png"
-            alt="ekoality logo"
-            width={150}
-            height={50}
-          />
+          <Image src="/img/ekoalityLogo.png" alt="ekoality logo" width={150} height={50} />
         </div>
 
         {/* Copyright */}
