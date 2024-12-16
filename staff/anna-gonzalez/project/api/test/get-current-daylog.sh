@@ -1,1 +1,1 @@
-curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzM4NDI3MDMsImV4cCI6MTczNjQzNDcwM30.WKEEz_eRQPAV_RUp3i4NGhRnAy1qJ1fvJaZl-AwrM6M' http://localhost:8080/cycles/daylog/2024-12-08 -v
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzQzNjAxNjQsImV4cCI6MTczNjk1MjE2NH0.Zdu_CCjdspGEDmI1ujQ6U7iQ3acbU1bQfJJbTEt1730' http://localhost:8080/cycles/daylog/2024-12-08 -v

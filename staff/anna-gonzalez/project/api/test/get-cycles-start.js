@@ -5,7 +5,7 @@ xhr.addEventListener('load', () => {
 })
 
 xhr.open('GET', 'http://localhost:8080/cycles/start')
-xhr.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzM1MTY5NjQsImV4cCI6MTczNjEwODk2NH0.PWXf7m0iaJJgntVVCAEsMnlx83Nk4IDVHWhjn0vsOAY')
+xhr.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzQzNjAxNjQsImV4cCI6MTczNjk1MjE2NH0.Zdu_CCjdspGEDmI1ujQ6U7iQ3acbU1bQfJJbTEt1730')
 xhr.send()
 
-//
+//200 '["2024-10-11T00:00:00.000Z","2023-09-20T00:00:00.000Z"]'

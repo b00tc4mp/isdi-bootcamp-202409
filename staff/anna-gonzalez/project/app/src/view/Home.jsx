@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import logic from '../logic'
-import { calculateCyclePhase, calculateDaysUntilNextCycle, calculateDaysUntilNextOvulation, getHour, getWeekDayText } from '../util'
+import { calculateCyclePhase, calculateDaysUntilNextCycle, calculateDaysUntilNextOvulation, getWeekDayText } from '../util'
 import { ButtonSmall } from './library'
 
 export default function Home() {
@@ -118,13 +118,15 @@ export default function Home() {
     const isHighPregnancyChance = daysUntilOvulation <= 3 && daysUntilOvulation >= -3
     const isLowPregnancyChance = daysUntilOvulation > 3 && daysUntilOvulation >= 0 || daysUntilOvulation < -3 && daysUntilNextCycle >= 0
 
+    const now = new Date()
+
     return <div className="pb-16">
         <div>
             <p>{getWeekDayText()}</p>
 
-            {getHour() >= 18 ? (<h2>Good evening, {name}!</h2>)
-                : getHour() >= 12 ? (<h2>Good afternoon, {name}!</h2>)
-                    : getHour() >= 6 ? (<h2>Good morning, {name}!</h2>)
+            {now.getHours() >= 18 ? (<h2>Good evening, {name}!</h2>)
+                : now.getHours() >= 12 ? (<h2>Good afternoon, {name}!</h2>)
+                    : now.getHours() >= 6 ? (<h2>Good morning, {name}!</h2>)
                         : (<h2>Good night, {name}!</h2>)}
         </div>
 
@@ -184,7 +186,7 @@ export default function Home() {
                     : cyclePhase === 'follicular' ? (<><h2>Follicular phase</h2><p>Plan ahead, exercise, and try new things</p></>)
                         : cyclePhase === 'ovulation' ? (<><h2>Ovulation phase</h2><p>Socialize, focus on communication, and eat protein</p></>)
                             : cyclePhase === 'luteal' ? (<><h2>Luteal phase</h2><p>Simplify tasks, manage stress, and eat magnesium-rich foods</p></>)
-                                : (<><h2>No cycles registered yet</h2><p>Log in your period in the calendar</p></>)}
+                                : (<><h2>Not available</h2><p>Log in your period in the calendar</p></>)}
             </div >
         </div>
     </div>

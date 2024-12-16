@@ -1,1 +1,1 @@
-curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzM1MTY5NjQsImV4cCI6MTczNjEwODk2NH0.PWXf7m0iaJJgntVVCAEsMnlx83Nk4IDVHWhjn0vsOAY' http://localhost:8080/cycles/lastCycle -v
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRjNGYxMmY4ZTY3ODkxNDRjNWQxYTkiLCJpYXQiOjE3MzQzNjAxNjQsImV4cCI6MTczNjk1MjE2NH0.Zdu_CCjdspGEDmI1ujQ6U7iQ3acbU1bQfJJbTEt1730' http://localhost:8080/cycles/currentCycle -v

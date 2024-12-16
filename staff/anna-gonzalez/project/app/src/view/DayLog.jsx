@@ -5,6 +5,7 @@ import useContext from './useContext'
 import logic from '../logic'
 
 import { Button } from './library'
+import { getFormattedDate } from '../util'
 
 export default function DayLog({ onCreated }) {
     const { formattedDate } = useParams()
@@ -114,7 +115,7 @@ export default function DayLog({ onCreated }) {
         <h2>DayLog</h2>
 
         <form>
-            <p className="mb-8">{formattedDate}</p>
+            <p className="mb-8"><strong>Selected day: </strong>{getFormattedDate(formattedDate)}</p>
 
             <fieldset className="mt-4 flex flex-wrap gap-4">
                 <legend className="text-lg mb-2 font-bold">Symptoms</legend>

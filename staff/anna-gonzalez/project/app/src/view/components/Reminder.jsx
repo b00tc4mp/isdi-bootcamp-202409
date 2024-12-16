@@ -4,13 +4,12 @@ import logic from '../../logic'
 
 import { Button, Input, Label } from '../library'
 import useContext from '../useContext'
+import { getFormattedDate } from '../../util'
 
 export default function Reminder({ onCreated }) {
     const { formattedDate } = useParams()
 
     const { alert } = useContext()
-
-    const normalizedFormattedDate = new Date(formattedDate).toISOString()
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -38,7 +37,7 @@ export default function Reminder({ onCreated }) {
 
     return <>
         <h2>Reminder</h2>
-        {<p>Selected day: {formattedDate}</p>}
+        {<p><strong>Selected day: </strong>{getFormattedDate(formattedDate)}</p>}
 
         <div>
             <form onSubmit={handleSubmit}>

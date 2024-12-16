@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import { Button, ButtonSmall } from '../library'
+import { getFormattedDate } from '../../util'
 import logic from '../../logic'
 import useContext from '../useContext'
 
@@ -87,7 +88,7 @@ export default function Modal({ selectedDate, onCycleCreated, onCycleDeleted, on
     return <>
         <div>
             <div>
-                <p>Selected day: {selectedDate.toISOString()}</p>
+                <p><strong>Selected day: </strong>{getFormattedDate(selectedDate.toISOString())}</p>
                 <ButtonSmall onClick={handleStartPeriodClick}>Start period</ButtonSmall>
                 <ButtonSmall onClick={handleEndPeriodClick}>End period</ButtonSmall>
                 <ButtonSmall onClick={handleDeleteCycleClick}>Delete cycle</ButtonSmall>

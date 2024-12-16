@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import { Modal } from './components'
-import { Button } from './library'
+import { ButtonSmall } from './library'
 
 import logic from '../logic'
 import { getFirstDayOfWeek, getMonthDays, getMonthText, getYear } from '../util'
@@ -61,21 +61,13 @@ export default function Calendar() {
         setIsModalOpen(true)
     }
 
-    const handleStartPeriod = () => {
-        setIsModalOpen(false)
-    }
+    const handleStartPeriod = () => { setIsModalOpen(false) }
 
-    const handleEndPeriod = () => {
-        setIsModalOpen(false)
-    }
+    const handleEndPeriod = () => { setIsModalOpen(false) }
 
-    const handleDeleteCycle = () => {
-        setIsModalOpen(false)
-    }
+    const handleDeleteCycle = () => { setIsModalOpen(false) }
 
-    const handleModalClose = () => {
-        setIsModalOpen(false)
-    }
+    const handleModalClose = () => { setIsModalOpen(false) }
 
     return <>
         <h2>Calendar</h2>
@@ -84,9 +76,9 @@ export default function Calendar() {
             <>
                 {/* months navigator*/}
                 < div className="flex justify-center items-center mb-4">
-                    <Button onClick={handlePreviousMonthClick}>&lt;</Button>
-                    <span className="p-4">{`${getMonthText(currentDate)} ${getYear(currentDate)}`}</span>
-                    <Button onClick={handleNextMonthClick}>&gt;</Button>
+                    <ButtonSmall onClick={handlePreviousMonthClick}>&lt;</ButtonSmall>
+                    <span className="px-4 w-28 text-center">{`${getMonthText(currentDate)} ${getYear(currentDate)}`}</span>
+                    <ButtonSmall onClick={handleNextMonthClick}>&gt;</ButtonSmall>
                 </div >
 
                 {/* header with days of the week */}
