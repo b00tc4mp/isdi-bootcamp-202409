@@ -12,9 +12,7 @@ import errors from '../../../com/errors.js'
 const { NotFoundError, ValidationError, SystemError } = errors
 
 import createRecommend from './createRecommend.js'
-import { beforeEach } from 'mocha'
-import { describe } from 'mocha'
-import e from 'cors'
+import { beforeEach, describe } from 'mocha'
 
 const recommend1 = { //don't include user.id not
     userId: '012345678901234567890123',
@@ -45,31 +43,30 @@ describe('createRecommend', () => {
             .then(user =>
                 createRecommend(
                     user.id,
-                    'Lisboa',
-                    'Portugal',
-                    1,
-                    1,
-                    'https://sede.madrid.es',
-                    'https:/www.example.com/image.jpg',
-                    'guten tag',
-                    'Vida en Lisboa'
+                    recommend1.city,
+                    recommend1.country,
+                    recommend1.category,
+                    recommend1.price,
+                    recommend1.link,
+                    recommend1.imageUrl,
+                    recommend1.recommend,
+                    recommend1.subject
                 )
                     .then(() => Recommend.findOne())
                     .then(recommend => {
                         expect(recommend).to.exist
                         expect(recommend.author.toString()).to.equal(user.id)
-                        expect(recommend.city).to.equal('Lisboa')
-                        expect(recommend.country).to.equal('Portugal')
-                        expect(recommend.category).to.equal(1)
-                        expect(recommend.price).to.equal(1)
-                        expect(recommend.link).to.equal('https:/www.example.com')
-                        expect(recommend.image).to.equal('https:/www.example.com/image.jpg')
-                        expect(recommend.text).to.equal('guten tage')
+                        expect(recommend.city).to.equal(recommend1.city)
+                        expect(recommend.country).to.equal(recommend1.country)
+                        expect(recommend.category).to.equal(recommend1.category)
+                        expect(recommend.price).to.equal(recommend1.price)
+                        expect(recommend.link).to.equal(recommend1.link)
+                        expect(recommend.image).to.equal(recommend1.imageUrl)
+                        expect(recommend.text).to.equal(recommend1.recommend)
+                        expect(recommend.subject).to.equal(recommend1.subject)
                         expect(recommend.date).to.be.instanceOf(Date)
                     })
             )
-
-
     )
 
     it('fails on non-existing user', () =>
@@ -214,7 +211,7 @@ describe('createRecommend', () => {
     ///add length test for validation
 
 
-    it('fails on non-string recommendation', () =>
+    it('fails on non-string subject', () =>
         expect(() => createRecommend(recommend1.userId,
             recommend1.city,
             recommend1.country,

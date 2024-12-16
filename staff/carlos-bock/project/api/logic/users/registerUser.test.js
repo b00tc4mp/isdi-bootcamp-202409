@@ -4,7 +4,7 @@ import db from '../../../dat/index.js' //import db from 'dat' // check routes
 
 import registerUser from './registerUser.js'
 
-db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
+db.connect('mongodb://127.0.0.1:27017/mired-test')//process.env.MONGO_URL
     .then(() => {
         try {
             return registerUser('Puss in Boots', 'elgato@cat.net', 'elgato', '123456789', '123456789')

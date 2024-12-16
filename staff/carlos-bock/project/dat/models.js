@@ -62,6 +62,10 @@ const recommend = new Schema({
         type: String,
         required: false
     },
+    link: {
+        type: String,
+        required: false
+    },
     text: {
         type: String,
         required: true,
