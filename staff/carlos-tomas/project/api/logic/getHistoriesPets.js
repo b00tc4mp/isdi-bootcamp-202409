@@ -29,9 +29,9 @@ export default (userId, type, petId) => {
             histories.forEach(history => {
                 history.id = history._id.toString()
                 delete history._id
+                history.veterinary.id = history.veterinary._id.toString()
+                delete history.veterinary._id
             })
-
-
             return histories
 
         } catch (error) {

@@ -1,46 +1,68 @@
-import { User, Pet } from 'dat';
-import { validate, errors } from 'com';
+import { User, Pet } from 'dat'
+import { validate, errors } from 'com'
 
-const { SystemError, NotFoundError, DuplicityError } = errors;
+const { SystemError, NotFoundError, DuplicityError } = errors
 
 export default (userId, petId, vaccineName, dewornData) => {
-    validate.id(userId, 'userId');
-    validate.id(petId, 'petId');
+    validate.id(userId, 'userId')
+    validate.id(petId, 'petId')
+
+    if (vaccineName) {
+        validate.vaccineName(vaccineName)
+    }
+    if (dewornData) {
+        validate.deworn(dewornData)
+    }
 
     return (async () => {
         try {
-
-            const user = await User.findById(userId).lean();
-            if (!user) throw new NotFoundError('user not found');
+            const user = await User.findById(userId).lean()
+            if (!user) throw new NotFoundError('user not found')
 
             const pet = await Pet.findById(petId);
-            if (!pet) throw new NotFoundError('pet not found');
+            if (!pet) throw new NotFoundError('pet not found')
 
-            // Validar duplicidad de vacuna
-            const isVaccineDuplicated = pet.vaccines.some(vaccine => vaccine.name === vaccineName);
-            if (isVaccineDuplicated) {
-                throw new DuplicityError(`La vacuna "${vaccineName}" ya ha sido administarda al Animal.`);
+            if (vaccineName) {
+                const isVaccineDuplicated = pet.vaccines.some(vaccine => vaccine.name === vaccineName);
+                if (isVaccineDuplicated) {
+                    throw new DuplicityError(`La vacuna "${vaccineName}" ya ha sido administarda al Animal.`)
+                }
+                const vaccine = { name: vaccineName }
+                pet.vaccines.push(vaccine)
             }
 
-            // Añadir vacuna
-            const vaccine = { name: vaccineName };
-            pet.vaccines.push(vaccine);
-
-            // Añadir desparasitante si existe
             if (dewornData) {
-                const deworn = { type: dewornData };
-                pet.deworns.push(deworn);
+                const isExistingDeworn = pet.deworns.some(deworn => deworn.type === dewornData);
+                if (isExistingDeworn) {
+                    throw new DuplicityError(`La desparacitación de tipo '${dewornData}' ya está registrada.`)
+                }
+                if (dewornData === 'both') {
+
+                    const hasExternal = pet.deworns.some(deworn => deworn.type === 'external');
+                    const hasInternal = pet.deworns.some(deworn => deworn.type === 'internal');
+                    if (hasExternal || hasInternal) {
+                        throw new DuplicityError("No se puede agregar 'Ambas' si ya se han administrado 'external' o 'internal'.")
+                    }
+                } else if (dewornData === 'external' || dewornData === 'internal') {
+                    const hasBoth = pet.deworns.some(deworn => deworn.type === 'both')
+                    if (hasBoth) {
+                        throw new DuplicityError(`No se puede agregar '${dewornData}' porque ya está registrado 'both'.`)
+                    }
+                }
+
+
+                const deworn = { type: dewornData }
+                pet.deworns.push(deworn)
             }
 
-            // Guardar los cambios
-            await pet.save();
+            await pet.save()
 
-            return { message: 'Vaccines and deworns updated successfully.' };
+            return
         } catch (error) {
             if (error instanceof NotFoundError || error instanceof DuplicityError) {
-                throw error;
+                throw error
             }
-            throw new SystemError(error.message);
+            throw new SystemError(error.message)
         }
-    })();
-};
+    })()
+}

@@ -7,7 +7,7 @@ import { formatDate } from '../../utils'
 export default function ReportHistoryUserVeterinary({ route }) {
     const { infoPet } = route.params
 
-    const [reportType, setReportType] = useState('')
+    const [reportType, setReportType] = useState(null)
 
     const handleChangeReportType = (reportTypeItem) => {
         setReportType(reportTypeItem.value)
@@ -28,10 +28,11 @@ export default function ReportHistoryUserVeterinary({ route }) {
                 <View style={reportHistory.info}>
                     <Text> Nombre del animal: {infoPet.name}</Text>
                     <Text>Chip del animal: {infoPet.chip}</Text>
+                    <Text>Peso del animal: {infoPet.weight}</Text>
                     <Text>Raza del animal: {infoPet.race}</Text>
                     <Text>Sexo del animal: {infoPet.sex ? 'Macho' : 'Hembra'}</Text>
                     <Text>Animal estarlizado: {infoPet.sterilized ? 'Si' : 'No'}</Text>
-                    <Text>Fecha de nacimiento: {infoPet.dateOfBirth}</Text>
+                    <Text>Fecha de nacimiento: {formatDate(infoPet.dateOfBirth)}</Text>
                     <Text>Vacunas:</Text>
                     {infoPet.vaccines && infoPet.vaccines.length > 0 ? (
                         infoPet.vaccines.map((vaccine, index) => (

@@ -7,35 +7,29 @@ const validateName = name => {
     if (name.length < 2)
         throw new ValidationError('El nombre es muy corto minimo 2 caracteres')
 }
-
 const validateEmail = email => {
     if (typeof email !== 'string') throw new ValidationError('El campo de email no está completo')
     if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
         throw new ValidationError('invalid e-mail')
 }
-
 const validateUsername = username => {
     if (typeof username !== 'string') throw new ValidationError('El campo de nombre de usuario no está completo')
     if (username.length < 4 || username.length > 12)
         throw new ValidationError('El nombre de usuario tiene que ser entre 4 y 12 caracteres')
 }
-
 const validatePassword = password => {
     if (typeof password !== 'string') throw new ValidationError('El campo de contraseña no está completo')
     if (password.length < 8)
         throw new ValidationError('El password solo puede contener 8 caracteres')
 }
-
 const validatePasswordsMatch = (password, passwordRepeat) => {
     if (typeof passwordRepeat !== 'string') throw new ValidationError('El campo de repetir contraseña no está completo')
     if (password !== passwordRepeat)
         throw new ValidationError('Las contraseñas no coinciden')
 }
-
 const validateImage = image => {
     if (typeof image !== 'string') throw new ValidationError('Campo de la imagen no está completo')
 }
-
 const validatePhone = phone => {
     if (typeof phone !== 'string') throw new ValidationError('Campo del número de teléfono no está completo')
     if (phone.length < 12 || phone.length > 15)
@@ -43,13 +37,12 @@ const validatePhone = phone => {
 }
 const validateText = text => {
     if (typeof text !== 'string') throw new ValidationError('Campo del texto no está completo')
+    if (text.length < 1 || text.length > 500) throw new ValidationError('El texto tiene un mínimo de 1 caracteres y máximo de 500')
 }
-
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid${explain}`)
     if (id.length !== 24) throw new ValidationError(`invalid${explain} length`)
 }
-
 const validateChip = chip => {
     if (typeof chip !== 'string') throw new ValidationError('El campo del chip no está completo')
     if (chip.length !== 15) throw new ValidationError('Tiene que tener 15 caracteres el chip del animal')
@@ -73,7 +66,13 @@ const validateDate = dateOfBirth => {
     if (typeof dateOfBirth !== 'string') throw new ValidationError('La fecha de nacimiento no está completa')
 }
 const validateType = type => {
-    if (typeof type !== 'string') throw new ValidationError('Campo no rellenado tipo de infrome')
+    if (typeof type !== 'string') throw new ValidationError('Campo no rellenado tipo de informe')
+}
+const validateVaccineName = vaccineName => {
+    if (typeof vaccineName !== 'string') throw new ValidationError('Campo del tipo de vacuna no esta completo')
+}
+const validateDeworn = deworn => {
+    if (typeof deworn !== 'string') throw new ValidationError('Campo del tipo dedesparasitacion no esta completa ')
 }
 const validate = {
     name: validateName,
@@ -91,7 +90,9 @@ const validate = {
     weight: validateWeight,
     sterilized: validateSterilized,
     dateOfBirth: validateDate,
-    type: validateType
+    type: validateType,
+    vaccineName: validateVaccineName,
+    deworn: validateDeworn
 }
 
 export default validate

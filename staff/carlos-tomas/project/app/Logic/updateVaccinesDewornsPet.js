@@ -6,6 +6,12 @@ const { SystemError } = errors
 
 const updateVaccinesDewornsPet = async (petId, vaccine, deworn) => {
     validate.id(petId, 'petId')
+    if (vaccine) {
+        validate.vaccineName(vaccine)
+    }
+    if (deworn) {
+        validate.deworn(deworn)
+    }
 
     try {
         const token = await AsyncStorage.getItem('token')
@@ -13,7 +19,7 @@ const updateVaccinesDewornsPet = async (petId, vaccine, deworn) => {
             throw new SystemError('token not found')
         }
 
-        const response = await axios.patch('http://192.168.98.176:8080/veterinary/updatePet',
+        const response = await axios.patch(`${process.env.EXPO_PUBLIC_API_URL}/veterinary/updatePet`,
             {
                 petId,
                 vaccine,

@@ -13,8 +13,6 @@ export default function ProfileScreenUserVeterinary() {
         const fethcUserData = async () => {
 
             try {
-
-
                 const user = await logic.getUser()
                 setUserInfo(user)
 

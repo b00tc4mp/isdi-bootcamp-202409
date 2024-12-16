@@ -13,7 +13,7 @@ const getUser = async () => {
             throw new SystemError('token not found')
         }
 
-        const response = await axios.get('http://192.168.98.176:8080/users', {
+        const response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/users`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

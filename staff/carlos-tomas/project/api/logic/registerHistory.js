@@ -4,8 +4,8 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 export default (userId, petId, type, text) => {
-    validate.id(userId)
-    validate.id(petId)
+    validate.id(userId, 'userId')
+    validate.id(petId, 'petId')
     validate.type(type)
     validate.text(text)
 

@@ -10,8 +10,8 @@ export default function LoginScreen() {
     const navigation = useNavigation()
     const { setIsLoggedIn, setIsLoggingVeterinary } = useSession()
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [username, setUsername] = useState(null)
+    const [password, setPassword] = useState(null)
 
     const handleSubmitLogin = async () => {
 

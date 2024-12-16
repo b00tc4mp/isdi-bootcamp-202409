@@ -26,7 +26,6 @@ export default (name, username, password, phone, email, passwordRepeat) => {
             await User.create({ name, username, password: hash, phone, email })
         } catch (error) {
             if (error.code === 11000) throw new DuplicityError('user already exists')
-
             throw new SystemError(error.message)
         }
     })()

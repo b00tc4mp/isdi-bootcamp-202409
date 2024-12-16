@@ -6,9 +6,9 @@ import logic from '../../logic'
 
 export default function PetsScreenUserVeterinary() {
 
-    const [chip, setChip] = useState('')
-    const [name, setName] = useState('')
-    const [race, setRace] = useState('')
+    const [chip, setChip] = useState(null)
+    const [name, setName] = useState(null)
+    const [race, setRace] = useState(null)
     const [sex, setSex] = useState(null)
     const [weight, setWeight] = useState(0)
     const [sterilized, setSterilized] = useState(null)

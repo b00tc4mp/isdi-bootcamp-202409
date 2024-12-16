@@ -8,8 +8,8 @@ import { useNavigation } from '@react-navigation/native'
 export default function SearchBarExample() {
     const navigation = useNavigation()
 
-    const [search, setSearch] = useState('')
-    const [allData, setAllData] = useState([])
+    const [search, setSearch] = useState(null)
+    const [allData, setAllData] = useState(null)
     const [filteredData, setFilteredData] = useState([])
     const [infoPet, setInfoPet] = useState(null)
     useEffect(() => {
@@ -98,6 +98,7 @@ export default function SearchBarExample() {
                     onPress={() => {
                         if (infoPet) {
                             navigation.navigate('new report', { infoPet, reloadPetsData })
+                            navigation.setOptions
                         } else {
                             Alert.alert('Atención', 'Selecciona a un animal')
                         }

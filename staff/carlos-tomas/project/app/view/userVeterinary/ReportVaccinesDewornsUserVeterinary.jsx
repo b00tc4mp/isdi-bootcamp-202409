@@ -4,19 +4,21 @@ import { Dropdown } from 'react-native-element-dropdown'
 import { DropdownTypePets } from '../Components/index'
 import { formatDate } from '../../utils/'
 import logic from '../../logic'
+import { useNavigation } from '@react-navigation/native'
 
 export default function ReportVaccinesDewornsUserVeterinary({ route }) {
-    const { infoPet, reloadPetsData } = route.params;
+    const { infoPet, reloadPetsData } = route.params
+    const navigation = useNavigation()
 
-    const [vaccine, setVaccine] = useState('')
-    const [deworn, setDeworn] = useState('')
+    const [vaccine, setVaccine] = useState(null)
+    const [deworn, setDeworn] = useState(null)
 
     const handleUpdatePets = async () => {
 
         try {
             await logic.updateVaccinesDewornsPet(infoPet.id, vaccine, deworn)
             Alert.alert('Registro de la medicina interna')
-            setDeworn('')
+            setDeworn(null)
             reloadPetsData()
             navigation.navigate('report')
         } catch (error) {
@@ -42,8 +44,9 @@ export default function ReportVaccinesDewornsUserVeterinary({ route }) {
             <View style={reportVaccinesDeworns.info}>
                 <Text> Nombre del animal: {infoPet.name}</Text>
                 <Text>Chip del animal: {infoPet.chip}</Text>
+                <Text>Peso del animal: {infoPet.weight}</Text>
                 <Text>Animal estarlizado: {infoPet.sterilized ? 'Si' : 'No'}</Text>
-                <Text>Fecha de nacimiento: {infoPet.dateOfBirth}</Text>
+                <Text>Fecha de nacimiento: {formatDate(infoPet.dateOfBirth)}</Text>
                 <Text>Vacunas:</Text>
                 {infoPet.vaccines && infoPet.vaccines.length > 0 ? (
                     infoPet.vaccines.map((vaccine, index) => (

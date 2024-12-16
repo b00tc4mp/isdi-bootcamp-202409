@@ -8,12 +8,12 @@ export default function Register() {
 
     const navigation = useNavigation()
 
-    const [name, setName] = useState('')
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('')
-    const [passwordRepeat, setPasswordRepeat] = useState('')
+    const [name, setName] = useState(null)
+    const [username, setUsername] = useState(null)
+    const [password, setPassword] = useState(null)
+    const [phone, setPhone] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [passwordRepeat, setPasswordRepeat] = useState(null)
 
     const handleRegister = async () => {
 

@@ -12,7 +12,7 @@ export default async (name, username, password, phone, email, passwordRepeat) =>
     validate.passwordsMatch(password, passwordRepeat)
 
     try {
-        const response = await axios.post('http://192.168.98.176:8080/usersRegister', {
+        const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}usersRegister`, {
             name,
             username,
             password,

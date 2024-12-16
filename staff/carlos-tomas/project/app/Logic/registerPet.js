@@ -20,7 +20,7 @@ export default async (chip, name, race, sex, weight, sterilized, dateOfBirth) =>
             throw new SystemError('token not found')
         }
 
-        const response = await axios.post('http://192.168.98.176:8080/veterinary/registerPet',
+        const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/veterinary/registerPet`,
             {
                 chip,
                 name,

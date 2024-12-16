@@ -11,7 +11,7 @@ export default async (username, password) => {
 
 
     try {
-        const response = await axios.post('http://192.168.98.176:8080/users/auth', {
+        const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/users/auth`, {
             username,
             password
 

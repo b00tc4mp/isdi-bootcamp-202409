@@ -10,8 +10,8 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
 
     const navigation = useNavigation()
 
-    const [text, setText] = useState('')
-    const [type, setType] = useState('')
+    const [text, setText] = useState(null)
+    const [type, setType] = useState(null)
 
 
     const handleChangeType = (typeItem) => {
@@ -24,7 +24,7 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
 
             Alert.alert('Informe registrado')
             reloadPetsData()
-            setText('')
+            setText(null)
             setType(null)
 
             navigation.navigate('report')
@@ -51,10 +51,11 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
                 <View style={newReport.info}>
                     <Text> Nombre del animal: {infoPet.name}</Text>
                     <Text>Chip del animal: {infoPet.chip}</Text>
+                    <Text>Peso del animal: {infoPet.weight}</Text>
                     <Text>Raza del animal: {infoPet.race}</Text>
                     <Text>Sexo del animal: {infoPet.sex ? 'Macho' : 'Hembra'}</Text>
                     <Text>Animal estarlizado: {infoPet.sterilized ? 'Si' : 'No'}</Text>
-                    <Text>Fecha de nacimiento: {infoPet.dateOfBirth}</Text>
+                    <Text>Fecha de nacimiento: {formatDate(infoPet.dateOfBirth)}</Text>
                     <Text>Vacunas:</Text>
                     {infoPet.vaccines && infoPet.vaccines.length > 0 ? (
                         infoPet.vaccines.map((vaccine, index) => (
