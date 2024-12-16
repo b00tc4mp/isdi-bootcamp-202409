@@ -8,9 +8,10 @@ import isUserRoleAnonymous from './isUserRoleAnonymous'
 import isUserRoleRegular from './isUserRoleRegular'
 import setNewUserStatus from './setNewUserStatus'
 import getUserStatus from './getUserStatus'
-import getUserScore from './getUserScore'
+import getUserDetails from './getUserDetails'
 import updateUserScore from './updateUserScore'
 import getRankingScores from './getRankingScores'
+import updateUserProfile from './updateUserProfile'
 
 export {
     registerUser,
@@ -23,7 +24,8 @@ export {
     isUserRoleRegular,
     setNewUserStatus,
     getUserStatus,
-    getUserScore,
+    getUserDetails,
     updateUserScore,
-    getRankingScores
+    getRankingScores,
+    updateUserProfile
 }

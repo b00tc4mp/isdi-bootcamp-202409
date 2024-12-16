@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import { errors } from 'com'
+const { SystemError } = errors
+
 import logic from '../../../logic'
 import { solveBoard, validateGuess, adjustAvailableCharacters, validateAnswer, didFinishBoard, getElapsedTime, calculateOneDokuScore } from '../../../util'
 
@@ -26,7 +29,9 @@ export default function useController() {
                 try {
                     await main()
                 } catch (error) {
-                    console.error('Error executing main:', error)
+                    alert(error.message)
+
+                    console.error(error)
                 }
             }
 
@@ -37,6 +42,14 @@ export default function useController() {
             try {
                 logic.getUserStatus()
                     .then(setStatus)
+                    .catch(error => {
+                        if (error instanceof SystemError)
+                            alert('Sorry, try again later')
+                        else
+                            alert(error.message)
+
+                        console.error(error)
+                    })
             } catch (error) {
                 alert(error.message)
 
@@ -52,6 +65,14 @@ export default function useController() {
 
             try {
                 logic.setNewUserStatus(status, 'onedoku')
+                    .catch(error => {
+                        if (error instanceof SystemError)
+                            alert('Sorry, try again later')
+                        else
+                            alert(error.message)
+
+                        console.error(error)
+                    })
             } catch (error) {
                 alert(error.message)
 
@@ -62,6 +83,14 @@ export default function useController() {
 
             try {
                 logic.updateUserScore(score)
+                    .catch(error => {
+                        if (error instanceof SystemError)
+                            alert('Sorry, try again later')
+                        else
+                            alert(error.message)
+
+                        console.error(error)
+                    })
             } catch (error) {
                 alert(error.message)
 
@@ -89,12 +118,18 @@ export default function useController() {
                 }
             } while (answers === null)
         } catch (error) {
-            console.error('Error:', error)
+            if (error instanceof SystemError)
+                alert('Sorry, try again later')
+            else
+                alert(error.message)
+
+            console.error(error)
         }
     }
 
     const handleGridClick = event => {
         if (showGuessingDiv) return
+
         const { target: { id: index } } = event
         setIndex(index)
         setShowGuessingDiv(true)
@@ -133,8 +168,7 @@ export default function useController() {
             setShowGuessingDiv(false)
             setInputValue("")
             setIsTyping(false)
-        }
-        else {
+        } else {
             setShowGuessingDiv(false)
             setInputValue("")
             setIsTyping(false)

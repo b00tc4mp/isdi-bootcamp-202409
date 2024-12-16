@@ -10,6 +10,7 @@ import useContext from '../useContext'
 
 export default function Header(props) {
     const [username, setUsername] = useState(null)
+
     const location = useLocation()
 
     const { alert, confirm } = useContext()
@@ -49,6 +50,10 @@ export default function Header(props) {
         props.onHomeClick()
     }
 
+    const handleUsernameClick = () => {
+        props.setProfileView(true)
+    }
+
     const handleLogoutUser = () => {
         confirm('Logout?', accepted => {
             if (accepted) {
@@ -66,8 +71,8 @@ export default function Header(props) {
         </div>
 
         <div className="flex items-center justify-end ml-auto h-[132px] w-[25rem]">
-            <div className="mr-[1rem]">
-                <p className="text-[1.25rem]">{logic.isUserLoggedIn() && username !== null && `${username}`}</p>
+            <div className="mr-[2rem]">
+                <p onClick={handleUsernameClick} className="text-[1.25rem] cursor-pointer">{logic.isUserLoggedIn() && username !== null && `${username}`}</p>
             </div>
             <div className="justify-self-start mr-[3rem]">
                 {logic.isUserLoggedIn && logic.isUserRoleRegular() ?

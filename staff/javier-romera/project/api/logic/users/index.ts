@@ -5,9 +5,10 @@ import getUserUsername from './getUserUsername.js'
 import setNewUserStatus from './setNewUserStatus.js'
 import getUserStatus from './getUserStatus.js'
 import deleteAllAnonymousUsers from './deleteAllAnonymousUsers.js'
-import getUserScore from './getUserScore.js'
+import getUserDetails from './getUserDetails.js'
 import updateUserScore from './updateUserScore.js'
 import getRankingScores from './getRankingScores.js'
+import updateUserProfile from './updateUserProfile.js'
 
 export {
     authenticateUser,
@@ -17,7 +18,8 @@ export {
     setNewUserStatus,
     getUserStatus,
     deleteAllAnonymousUsers,
-    getUserScore,
+    getUserDetails,
     updateUserScore,
-    getRankingScores
+    getRankingScores,
+    updateUserProfile
 }

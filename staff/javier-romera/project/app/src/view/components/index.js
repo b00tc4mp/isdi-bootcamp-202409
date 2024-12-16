@@ -7,6 +7,7 @@ import Confirm from './Confirm'
 import OnePieceDle from './OnePieceDle'
 import OneDoku from './OneDoku'
 import EastBlueMap from './EastBlueMap'
+import Profile from './Profile'
 
 export {
     Header,
@@ -17,5 +18,6 @@ export {
 
     OnePieceDle,
     OneDoku,
-    EastBlueMap
+    EastBlueMap,
+    Profile
 }

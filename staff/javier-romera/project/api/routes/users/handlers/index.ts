@@ -4,9 +4,10 @@ import getUserUsernameHandler from './getUserUsernameHandler.js'
 import registerAnonymousUserHandler from './registerAnonymousUserHandler.js'
 import setNewUserStatusHandler from './setNewUserStatusHandler.js'
 import getUserStatusHandler from './getUserStatusHandler.js'
-import getUserScoreHandler from './getUserScoreHandler.js'
+import getUserDetailsHandler from './getUserDetailsHandler.js'
 import updateUserScoreHandler from './updateUserScoreHandler.js'
 import getRankingScoresHandler from './getRankingScoresHandler.js'
+import updateUserProfileHandler from './updateUserProfileHandler.js'
 
 export {
     authenticateUserHandler,
@@ -15,7 +16,8 @@ export {
     registerAnonymousUserHandler,
     setNewUserStatusHandler,
     getUserStatusHandler,
-    getUserScoreHandler,
+    getUserDetailsHandler,
     updateUserScoreHandler,
-    getRankingScoresHandler
+    getRankingScoresHandler,
+    updateUserProfileHandler
 }

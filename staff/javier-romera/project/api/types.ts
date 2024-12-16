@@ -9,14 +9,15 @@ type Payload = {
     role: string
 }
 
-type UserScoreAndUsername = {
+type UserDetails = {
     username: string,
     score: number,
+    email: string,
     index?: number
 }
 
 export {
     CustomRequest,
     Payload,
-    UserScoreAndUsername
+    UserDetails
 }

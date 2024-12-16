@@ -5,7 +5,7 @@ export default function Alert({ message, level = 'error', onAccepted }) {
 
     const handleAcceptClick = () => onAccepted()
 
-    return <div className="fixed h-full w-full top-0 flex items-center justify-center">
+    return <div className="fixed h-full w-full top-0 flex items-center justify-center z-[50]">
         <div className={`min-w-[20rem] max-w-[40rem] min-h-[10rem] bg-white ${borderColor} border-[.5rem] rounded-[.5rem] flex flex-col items-center justify-center px-[1.5rem] gap-2`}>
             <p className="mb-[1.5rem]">{message}</p>
 

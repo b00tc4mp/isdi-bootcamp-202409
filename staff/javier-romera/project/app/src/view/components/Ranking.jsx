@@ -17,7 +17,7 @@ export default function Ranking({ onCloseRankingClick }) {
                 .then(newScores => {
                     setRanking(newScores)
 
-                    logic.getUserScore()
+                    logic.getUserDetails()
                         .then(newUserDetails => {
                             setUserDetails(newUserDetails)
 
@@ -72,6 +72,7 @@ export default function Ranking({ onCloseRankingClick }) {
             <header className="h-[2rem] w-[17.3rem] mt-0 flex justify-end fixed z-[10] rounded-tl-[.9rem] rounded-tr-[.9rem] border-t-1 border-black px-[1rem] bg-[rgba(175,255,255,1)] border-b-[2px]">
                 <Button className="w-[full] text-[1.25rem]" onClick={handleCloseRanking}>𐢫</Button>
             </header>
+
             <div className="mb-[2.5rem]"></div>
             {ranking.map((user, index) => {
                 let customClassName = ''

@@ -7,9 +7,11 @@ import { useState } from 'react'
 import { Context } from './view/useContext'
 
 import { Login, Register, Home } from './view'
-import { Header, NoUserLoggedInAlert, OnePieceDle, OneDoku, EastBlueMap, Alert, Confirm } from './view/components'
+import { Header, NoUserLoggedInAlert, OnePieceDle, OneDoku, EastBlueMap, Alert, Confirm, Profile } from './view/components'
 
 export default function App() {
+    const [profileView, setProfileView] = useState(false)
+
     const [alert, setAlert] = useState({
         message: null,
         level: 'error'
@@ -21,9 +23,9 @@ export default function App() {
         callback: null
     })
 
-    const navigate = useNavigate()
-
     const location = useLocation()
+
+    const navigate = useNavigate()
 
     const handleUserLoggedIn = () => navigate('/')
 
@@ -79,7 +81,9 @@ export default function App() {
         confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
     }}>
         <main className="h-screen, w-screen">
-            {location.pathname !== 'map' && <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />}
+            <Header onLoggedOut={handleLogout} onHomeClick={handleHomeClick} onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} setProfileView={setProfileView} />
+
+            {profileView && <Profile setProfileView={setProfileView} />}
 
             <Routes>
                 <Route path="/" element={<Home onOnePieceDleClick={handleOnePieceDleClick} onOneDokuClick={handleOneDokuClick} onMapClick={handleEastBlueMapClick} />} />

@@ -24,14 +24,12 @@ const validateUsername = (username: string): void => {
 
 const validatePassword = (password: string): void => {
     if (typeof password !== 'string') throw new ValidationError('Invalid password')
-    if (password.length < 8)
-        throw new ValidationError('Password has to be at least 8 characters long')
+    if (password.length < 8) throw new ValidationError('Password has to be at least 8 characters long')
 }
 
 const validatePasswordsMatch = (password: string, passwordRepeat: string): void => {
     if (typeof passwordRepeat !== 'string') throw new ValidationError('Invalid password repeat')
-    if (password !== passwordRepeat)
-        throw new ValidationError('Passwords do not match')
+    if (password !== passwordRepeat) throw new ValidationError('Passwords do not match')
 }
 
 const validateId = (id: string, explain: string = 'id'): void => {
@@ -67,6 +65,27 @@ const validateRankingLength = (rankingLength: number): void => {
     if (rankingLength > 20) throw new ValidationError('Ranking length already reached it\'s maximum')
 }
 
+const validateUpdateProfile = (username: string | undefined, email: string | undefined, oldPassword: string | undefined, newPassword: string | undefined, newPasswordRepeat: string | undefined) => {
+    if (!(username || email || oldPassword || newPassword || newPasswordRepeat)) throw new ValidationError('Invalid form')
+}
+
+const validatePasswordUpdate = (oldPassword: string | undefined, newPassword: string | undefined, newPasswordRepeat: string | undefined): void => {
+    if (oldPassword || newPassword || newPasswordRepeat)
+        if (!(oldPassword && newPassword && newPasswordRepeat))
+            throw new ValidationError('You have to fill all the password fields')
+
+    if (typeof oldPassword !== 'string') throw new ValidationError('Invalid old password')
+    if (oldPassword.length < 8) throw new ValidationError('Old password has to be at least 8 characters long')
+
+    if (typeof newPassword !== 'string') throw new ValidationError('Invalid new password')
+    if (newPassword.length < 8) throw new ValidationError('New password has to be at least 8 characters long')
+
+    if (typeof newPasswordRepeat !== 'string') throw new ValidationError('Invalid new password repeat')
+    if (newPasswordRepeat.length < 8) throw new ValidationError('New password repeat has to be at least 8 characters long')
+
+    if (newPassword !== newPasswordRepeat) throw new ValidationError('New passwords do not match')
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -79,7 +98,9 @@ const validate = {
     status: validateStatus,
     arc: validateArc,
     score: validateScore,
-    rankingLength: validateRankingLength
+    rankingLength: validateRankingLength,
+    updateProfile: validateUpdateProfile,
+    passwordUpdate: validatePasswordUpdate
 }
 
 export default validate

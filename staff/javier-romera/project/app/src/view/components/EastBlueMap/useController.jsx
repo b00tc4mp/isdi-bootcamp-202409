@@ -13,7 +13,7 @@ export default function useController() {
     useEffect(() => {
         if (!score && logic.isUserLoggedIn()) {
             try {
-                logic.getUserScore()
+                logic.getUserDetails()
                     .then(userScoreAndUsername => {
                         setScore(userScoreAndUsername.score)
                     })
