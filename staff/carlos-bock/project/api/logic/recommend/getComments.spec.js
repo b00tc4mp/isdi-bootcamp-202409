@@ -7,14 +7,14 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 import { beforeEach, describe } from 'mocha'
 
-import db, { User, Recommend } from '../../../dat/index.js'
+import db, { User, Recommend, Comment } from '../../../dat/index.js'
 import errors from '../../../com/errors.js'
 
 const { NotFoundError, ValidationError, SystemError } = errors
 
-import deleteRecommend from './deleteRecommend.js'
+import getComments from './getComments.js'
 
-const recommend1 = { //don't include user.id not
+const recommend1 = { //don't include user.id 
     userId: '012345678901234567890123',
     city: 'Lisboa',
     country: 'Portugal',
@@ -28,7 +28,7 @@ const recommend1 = { //don't include user.id not
 
 debugger
 
-describe('getRecommend', () => {
+describe('getComment', () => {
     before(() => db.connect('mongodb://127.0.0.1:27017/mired-test')) //process.env.MONGO_ULR_TEST
 
     beforeEach(() => Promise.all([User.deleteMany(), Recommend.deleteMany()]))
@@ -40,6 +40,14 @@ describe('getRecommend', () => {
             username: 'banderas',
             password: '123456789'
         })
+        const user2 = new User({
+            name: 'Antonio Banderas2',
+            email: 'abanderas2@spain.net',
+            username: 'banderas2',
+            password: '123456789'
+        })
+        const comment1 = { author: user.id, text: 'guten tag' }
+        const comment2 = { author: user2.id, text: 'guten tag' }
         const recommend2 = new Recommend({
             author: user.id,
             city: recommend1.city,
@@ -50,22 +58,34 @@ describe('getRecommend', () => {
             image: recommend1.imageUrl,
             text: recommend1.recommend,
             subject: recommend1.subject,
+            comments: [comment1, comment2],
             date: new Date(2024, 11, 11)
         })
 
-        return Promise.all([user.save(), recommend2.save()])
-            .then(([user, recommend2]) =>
-                deleteRecommend(user.id, recommend2.id)
-                    .then(recommend => {
-                        expect(recommend).to.be.undefined
+
+        return Promise.all([user.save(), user2.save(), recommend2.save()])
+            .then(([user, user2, recommend2]) =>
+                getComments(user.id, recommend2.id)
+                    .then(comments => {
+                        console.log(comments)
+                        expect(comments[0].id).to.exist
+                        expect(comments[0].text).to.equal(comment2.text)
+                        expect(comments[0].author.id).to.equal(user.id)
+                        expect(comments[0].author.username).to.equal(user.username)
+
+                        expect(comments[1].id).to.exist
+                        expect(comments[1].text).to.equal(comment1.text)
+                        expect(comments[1].author.id).to.equal(user2.id)
+                        expect(comments[1].author.username).to.equal(user2.username)
+
 
                     })
             )
     })
 
-    it('fails on non-existing recommendation', () =>
+    it('fails on non-existing user', () =>
         expect(
-            deleteRecommend('012345678901234567890123', '012345678901234567890123')
+            getComments('012345678901234567890123', '012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 

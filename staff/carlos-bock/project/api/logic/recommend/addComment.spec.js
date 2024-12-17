@@ -13,7 +13,7 @@ import errors from '../../../com/errors.js'
 
 const { NotFoundError, ValidationError, SystemError } = errors
 
-import downVote from './downVote.js'
+import addComment from './addComment.js'
 
 const user1 = {
     name: 'Antonio Banderas',
@@ -24,7 +24,7 @@ const user1 = {
 
 debugger
 
-describe('downvote', () => {
+describe('addComment', () => {
     before(() => db.connect('mongodb://127.0.0.1:27017/mired-test')) //process.env.MONGO_URL_TEST
 
     beforeEach(() => Promise.all([User.deleteMany(), Recommend.deleteMany()]))
@@ -45,35 +45,36 @@ describe('downvote', () => {
 
         return Promise.all([user.save(), recommend.save()])
             .then(([user, recommend]) =>
-                downVote(user.id, recommend.id)
+                addComment(user.id, recommend.id, 'guten tag')
                     .then(() => Recommend.findOne())
                     .then(recommend => {
-                        console.log(recommend)
-                        expect(recommend.downVotes).to.exist
-                        expect(recommend.downVotes).to.have.lengthOf(1)
-                        expect(recommend.downVotes[0].toString()).to.equal(user.id)
+                        expect(recommend).to.exist
+                        expect(recommend.comments).to.have.lengthOf(1)
 
-
+                        const [comment] = recommend.comments
+                        expect(comment.author.toString()).to.equal(user.id)
+                        expect(comment.text).to.equal('guten tag')
+                        expect(comment.date).to.be.instanceOf(Date)
                     })
             )
     })
 
     it('fails on non-existing user', () =>
         expect(
-            downVote('012345678901234567890123', '012345678901234567890124')
+            addComment('012345678901234567890123', '012345678901234567890124', 'guten tag')
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
     it('fails on non-existing post', () =>
         expect(
             User.create({
-                name: 'Antonio Banderas',
-                email: 'abanderas@spain.net',
-                username: 'banderas',
+                name: 'Luis Fonci',
+                email: 'fonci@pr.net',
+                username: 'lfonci25',
                 password: '123456789'
             })
                 .then(user =>
-                    downVote(user.id, '012345678901234567890123')
+                    addComment(user.id, '012345678901234567890123', 'guten tag')
                 )
         ).to.be.rejectedWith(NotFoundError, /^recommendation not found$/)
     )

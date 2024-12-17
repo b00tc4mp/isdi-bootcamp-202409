@@ -99,6 +99,66 @@ describe('getRecommendByCategoryCountry', () => {
             )
     })
 
+
+    it('fails on non number category', () => {
+        const user = new User({
+            name: 'Antonio Banderas',
+            email: 'abanderas@spain.net',
+            username: 'banderas',
+            password: '123456789'
+        })
+        const recommend2 = new Recommend({
+            author: user.id,
+            city: recommend1.city,
+            country: recommend1.country,
+            category: recommend1.category,
+            price: recommend1.price,
+            link: recommend1.link,
+            image: recommend1.imageUrl,
+            text: recommend1.recommend,
+            subject: recommend1.subject,
+            date: new Date(2024, 11, 11)
+        })
+
+        return Promise.all([user.save(), recommend2.save(),])
+            .then(([user, recommend2]) =>
+                expect(getRecommendByCategoryCountry(user.id, true, recommend2.country)
+                ).to.be.rejectedWith(ValidationError, /^invalid category$/)
+
+            )
+    })
+
+    it('fails on non string country', () => {
+        const user = new User({
+            name: 'Antonio Banderas',
+            email: 'abanderas@spain.net',
+            username: 'banderas',
+            password: '123456789'
+        })
+        const recommend2 = new Recommend({
+            author: user.id,
+            city: recommend1.city,
+            country: recommend1.country,
+            category: recommend1.category,
+            price: recommend1.price,
+            link: recommend1.link,
+            image: recommend1.imageUrl,
+            text: recommend1.recommend,
+            subject: recommend1.subject,
+            date: new Date(2024, 11, 11)
+        })
+
+        return Promise.all([user.save(), recommend2.save(),])
+            .then(([user, recommend2]) =>
+                expect(getRecommendByCategoryCountry(user.id, 1, true)
+                ).to.be.rejectedWith(ValidationError, /^invalid country$/)
+
+            )
+    })
+
+
+
+
     /*it('fails on non-existing user', () =>
         expect(
             getRecommendByCategoryCountry('012345678901234567890123', 1, 'Portugal')

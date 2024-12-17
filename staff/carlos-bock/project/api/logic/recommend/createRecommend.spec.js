@@ -110,7 +110,6 @@ describe('createRecommend', () => {
         )).to.throw(ValidationError, /^invalid userId length$/)
     )
 
-
     it('fails on non-string city', () =>
         expect(() => createRecommend(recommend1.userId,
             true,
@@ -123,7 +122,6 @@ describe('createRecommend', () => {
             recommend1.subject
         )).to.throw(ValidationError, /^invalid text/)
     )
-    ///might have to add min length test
 
     it('fails on non-string country', () =>
         expect(() => createRecommend(recommend1.userId,
@@ -137,8 +135,6 @@ describe('createRecommend', () => {
             recommend1.subject
         )).to.throw(ValidationError, /^invalid text/)
     )
-
-    ///might have to add min length test
 
 
     it('fails on non-number category', () =>
@@ -167,7 +163,6 @@ describe('createRecommend', () => {
         )).to.throw(ValidationError, /^invalid price/)
     )
 
-
     it('fails on non-string link', () =>
         expect(() => createRecommend(recommend1.userId,
             recommend1.city,
@@ -180,7 +175,6 @@ describe('createRecommend', () => {
             recommend1.subject
         )).to.throw(ValidationError, /^invalid link/)
     )
-    // add test for link length
 
     it('fails on non-string imageUrl', () =>
         expect(() => createRecommend(recommend1.userId,
@@ -194,7 +188,6 @@ describe('createRecommend', () => {
             recommend1.subject
         )).to.throw(ValidationError, /^invalid link$/)
     )
-    ///add length test for validation
 
     it('fails on non-string recommendation', () =>
         expect(() => createRecommend(recommend1.userId,
@@ -208,8 +201,6 @@ describe('createRecommend', () => {
             recommend1.subject
         )).to.throw(ValidationError, /^invalid text/)
     )
-    ///add length test for validation
-
 
     it('fails on non-string subject', () =>
         expect(() => createRecommend(recommend1.userId,
@@ -223,7 +214,6 @@ describe('createRecommend', () => {
             true
         )).to.throw(ValidationError, /^invalid text/)
     )
-    ///add length test for validation
 
     describe('fails on Recommend.create error', () => {
         let create

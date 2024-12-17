@@ -12,9 +12,7 @@ import errors from '../../../com/errors.js'
 const { NotFoundError, OwnershipError, ValidationError, SystemError } = errors
 
 import removeComment from './removeComment.js'
-import { beforeEach } from 'mocha'
-import { describe } from 'mocha'
-//import e from 'cors'
+import { beforeEach, describe } from 'mocha'
 
 const recommend1 = { //don't include user.id not
     userId: '012345678901234567890123',

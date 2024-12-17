@@ -36,18 +36,18 @@ export default function Header({ onHomeClick, onLoggedOut }) {
         } else setName(null)
     }, [location.pathname])
 
-    const handleHomeClick = event => {
+    /*const handleHomeClick = event => {
         event.preventDefault()
 
         onHomeClick()
-    }
+    }*/
 
     const handleLogout = () => {
         confirm('¿Cerrar sesión?', accepted => {
             if (accepted) {
                 logic.logoutUser()
 
-                onLoggedOut()
+                //onLoggedOut()
             }
         }, 'warn')
     }

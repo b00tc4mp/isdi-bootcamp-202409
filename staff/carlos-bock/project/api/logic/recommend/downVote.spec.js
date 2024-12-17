@@ -13,7 +13,7 @@ import errors from '../../../com/errors.js'
 
 const { NotFoundError, ValidationError, SystemError } = errors
 
-import upVote from './upVote.js'
+import downVote from './downVote.js'
 
 const user1 = {
     name: 'Antonio Banderas',
@@ -45,13 +45,38 @@ describe('downvote', () => {
 
         return Promise.all([user.save(), recommend.save()])
             .then(([user, recommend]) =>
-                upVote(user.id, recommend.id)
+                downVote(user.id, recommend.id)
                     .then(() => Recommend.findOne())
                     .then(recommend => {
-                        console.log(recommend)
-                        expect(recommend.upVotes).to.exist
-                        expect(recommend.upVotes).to.have.lengthOf(1)
-                        expect(recommend.upVotes[0].toString()).to.equal(user.id)
+                        expect(recommend.downVotes).to.exist
+                        expect(recommend.downVotes).to.have.lengthOf(1)
+                        expect(recommend.downVotes[0].toString()).to.equal(user.id)
+                    })
+            )
+    })
+
+    it('succeds for existing downVote', () => {
+        const user = new User(user1)
+        const recommend = new Recommend({
+            author: user.id,
+            city: 'Lisboa',
+            country: 'Portugal',
+            category: 1,
+            price: 1,
+            link: 'https:/www.example.com',
+            imageUrl: 'https:/www.example.com/image.jpg',
+            text: 'guten tag',
+            subject: 'la vida en Lisboa',
+            downVotes: [user.id]
+        })
+
+        return Promise.all([user.save(), recommend.save()])
+            .then(([user, recommend]) =>
+                downVote(user.id, recommend.id)
+                    .then(() => Recommend.findOne())
+                    .then(recommend => {
+                        expect(recommend.downVotes).to.exist
+                        expect(recommend.downVotes).to.have.lengthOf(0)
 
 
                     })
@@ -60,7 +85,7 @@ describe('downvote', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            upVote('012345678901234567890123', '012345678901234567890124')
+            downVote('012345678901234567890123', '012345678901234567890124')
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
@@ -73,7 +98,7 @@ describe('downvote', () => {
                 password: '123456789'
             })
                 .then(user =>
-                    upVote(user.id, '012345678901234567890123')
+                    downVote(user.id, '012345678901234567890123')
                 )
         ).to.be.rejectedWith(NotFoundError, /^recommendation not found$/)
     )
