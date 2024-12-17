@@ -5,6 +5,7 @@ import getCharacter from './getCharacter.js'
 import addCharacter from './addCharacter.js'
 import removeCharacter from './removeCharacter.js'
 import getCharacterByUuid from './getCharacterByUuid.js'
+import createGameState from './createGameState.js'
 
 export {
     getQuests,
@@ -13,5 +14,6 @@ export {
     getCharacter,
     addCharacter,
     removeCharacter,
-    getCharacterByUuid
+    getCharacterByUuid,
+    createGameState
 }

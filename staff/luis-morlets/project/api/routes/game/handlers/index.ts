@@ -5,6 +5,7 @@ import getCharacterHandler from './getCharacterHandler.js'
 import addCharacterHandler from './addCharacterHandler.js'
 import removeCharacterHandler from './removeCharacterHandler.js'
 import getCharacterByUuidHandler from './getCharacterByUuidHandler.js'
+import createGameStateHandler from './createGameStateHandler.js'
 
 export {
     getCharactersHandler,
@@ -13,5 +14,6 @@ export {
     getCharacterHandler,
     addCharacterHandler,
     removeCharacterHandler,
-    getCharacterByUuidHandler
+    getCharacterByUuidHandler,
+    createGameStateHandler
 }

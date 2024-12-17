@@ -1,21 +1,40 @@
 import { useNavigate } from 'react-router-dom'
+import { errors } from 'com'
 
 import logic from '../../logic'
 
 import { CharacterCarousel, Stats } from '.'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useContext from '../useContext'
 
-export default function CreateParty() {
+const { SystemError } = errors
+
+export default function CreateParty({ onStartAdventure }) {
     console.log('CreateParty -> render')
 
-    const navigate = useNavigate()
+    const [selectedCharacter, setSelectedCharacter] = useState(null)
+    const [partySize, setPartySize] = useState(0)
+    const [playerState, setPlayerState] = useState(null)
+
 
     const { alert } = useContext()
+    const navigate = useNavigate()
 
     const handleQuitClick = () => navigate('/')
 
-    const [selectedCharacter, setSelectedCharacter] = useState(null)
+    useEffect(() => {
+        (async () => {
+            try {
+                const playerState = await logic.getPlayerState()
+
+                setPlayerState(playerState)
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        })()
+    }, [partySize])
 
     const handleCharacterChange = (character) => {
         setSelectedCharacter(character)
@@ -23,31 +42,26 @@ export default function CreateParty() {
 
     const handleOnSelected = async () => {
         try {
-            const playerState = await logic.getPlayerState()
+            if (partySize < 4) {
+                const character = await logic.getCharacterById(selectedCharacter._id)
 
-            if (playerState.characters.length >= 4) {
-                alert('Party is full! You cannot add more characters.', 'error')
-                return
+                await logic.createParty(playerState._id, character._id)
+
+                setPartySize(partySize + 1)
+
+                alert('character added', 'success')
             }
-
-            const character = await logic.getCharacterById(selectedCharacter._id)
-
-            await logic.createParty(playerState._id, character._id)
-
-            alert('character added', 'success')
         } catch (error) {
-            alert(error.message)
-
-            console.error(error)
+            throw new SystemError(error.message)
         }
     }
 
-    const handleStartAdventure = () => navigate('/adventure')
+    const handleStartAdventure = () => onStartAdventure()
 
     return <main className="relative w-full h-full flex justify-center items-center">
         <div className="flex bg-[url('/images/background2.png')] h-[95%] relative bg-cover w-[95%] border-orange-900 border-8 p-4">
 
-            <CharacterCarousel onCharacterChange={handleCharacterChange} onQuitClick={handleQuitClick} onSelect={handleOnSelected} onStartAdventure={handleStartAdventure} />
+            {<CharacterCarousel onCharacterChange={handleCharacterChange} onQuitClick={handleQuitClick} onSelect={handleOnSelected} onStartAdventure={handleStartAdventure} />}
 
             {selectedCharacter && <Stats
                 key={selectedCharacter.id}

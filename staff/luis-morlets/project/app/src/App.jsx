@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-import { Route, Routes, Navigate, useNavigate, Router } from 'react-router-dom'
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
 
 import { Login, Register, Play } from './view'
 
 import { Context } from './view/useContext'
 
 import logic from './logic'
-import { Alert, Confirm, Singleplayer, Multiplayer, Header, CreateParty } from './view/components'
+import { Alert, Confirm, Header } from './view/components'
 import Game from './view/Game'
 
 export default function App() {
@@ -38,7 +38,9 @@ export default function App() {
 
     const handleQuitClick = () => navigate('/')
 
-    const handleNewAdvClick = () => navigate('/singleplayer/game')
+    const handleNewAdvClick = () => navigate('/game')
+
+    const handleContinueAdv = () => navigate('/game')
 
     const handleAlertAccepted = () => setAlert({
         message: null,
@@ -77,13 +79,9 @@ export default function App() {
 
             <Route path="/register" element={logic.isPlayerLoggedIn() ? <Navigate to="/" /> : <Register onRegistered={handleUserRegistered} onLoginClick={handleLoginClick} />} />
 
-            <Route path="/" element={logic.isPlayerLoggedIn() ? <Play onLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+            <Route path="/" element={logic.isPlayerLoggedIn() ? <Play onQuitClick={handleUserLoggedOut} onNewAdventure={handleNewAdvClick} onContinue={handleContinueAdv} /> : <Navigate to="/login" />} />
 
-            <Route path="/singleplayer/*" element={logic.isPlayerLoggedIn() ? <Singleplayer onQuitClick={handleQuitClick} onNewAdventure={handleNewAdvClick} /> : <Navigate to="/login" />}></Route>
-
-            <Route path="/multiplayer/*" element={logic.isPlayerLoggedIn() ? <Multiplayer onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
-
-            <Route path="/singleplayer/game" element={logic.isPlayerLoggedIn() ? <Game onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
+            <Route path="/game" element={logic.isPlayerLoggedIn() ? <Game onQuitClick={handleQuitClick} /> : <Navigate to="/login" />}></Route>
         </Routes>
 
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}

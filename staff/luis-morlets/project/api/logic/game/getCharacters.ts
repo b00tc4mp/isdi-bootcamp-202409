@@ -27,7 +27,7 @@ export default (playerId: string): Promise<Characters[]> => {
                 select: '-_id'
             }).lean<CharacterType[]>()
 
-            const allCharacters: Characters[] = characters.map((character: CharacterType): Characters => {
+            const allCharacters = characters.map<Characters>((character: CharacterType): Characters => {
                 return {
                     id: character._id.toString(),
                     uuid: character.uuid,

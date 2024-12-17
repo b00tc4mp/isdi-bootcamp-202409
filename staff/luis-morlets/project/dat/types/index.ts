@@ -10,6 +10,7 @@ import SettingsType from './SettingsType.js'
 import SkillType from './SkillType.js'
 import StatsType from './StatsType.js'
 import CurrencyType from './CurrencyType.js'
+import InventoryType from './InventoryType.js'
 
 export {
     CharacterType,
@@ -23,5 +24,6 @@ export {
     SettingsType,
     SkillType,
     StatsType,
-    CurrencyType
+    CurrencyType,
+    InventoryType
 }

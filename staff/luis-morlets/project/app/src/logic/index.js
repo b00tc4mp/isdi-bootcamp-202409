@@ -16,7 +16,7 @@ const logic = {
     getItems,
     getCharacters,
     createParty,
-    getCharacterById
+    getCharacterById,
 }
 
 export default logic

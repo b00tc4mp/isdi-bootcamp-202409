@@ -8,7 +8,7 @@ import useContext from '../useContext'
 
 const { SystemError } = errors
 
-export default function Header({ onLoggedOut }) {
+export default function Header() {
     const [username, setUsername] = useState(null)
 
     const location = useLocation()
@@ -39,8 +39,8 @@ export default function Header({ onLoggedOut }) {
 
     return <header className="flex items-center justify-start bg-transparent fixed w-screen h-20 left-20 top-5 z-10" >
 
-        <div className="flex justify-end gap-4 items-end bg-[red]">
-            {username && <h2 className='text-black text-4xl'>{username}</h2>}
+        <div>
+            {username && <h2 className="bg-red-700 text-white text-2xl px-4 py-1 rounded-md shadow-lg">{username}</h2>}
         </div>
     </header>
 }

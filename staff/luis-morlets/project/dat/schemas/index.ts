@@ -10,6 +10,7 @@ import character from './character.js'
 import item from './item.js'
 import monsterAction from './monsterAction.js'
 import monster from './monster.js'
+import inventory from './inventory.js'
 
 export {
     stats,
@@ -23,5 +24,6 @@ export {
     character,
     item,
     monsterAction,
-    monster
+    monster,
+    inventory
 }

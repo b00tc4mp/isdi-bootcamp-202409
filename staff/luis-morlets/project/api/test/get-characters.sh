@@ -1,1 +1,1 @@
-curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRmODBlNzIxNDY1YWE0ODIyZjViMDIiLCJpYXQiOjE3MzM0MTgzOTksImV4cCI6MTczNDYyNzk5OX0.m-BEc7wZpzt3RYloN_vSOdRRQxs52xOPVflkVDngXqY' http://localhost:8080/game/674f80e721465aa4822f5b02/characters -v
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzVmZTZjNDU2NTk4N2M2OTk2ZjMyNjMiLCJpYXQiOjE3MzQzNTEwNzUsImV4cCI6MTczNTU2MDY3NX0.rV0m4L-3j_YAKZLr-e0FikO3FthADqtXAyIEPHOKsDs' http://localhost:8080/game/characters -v

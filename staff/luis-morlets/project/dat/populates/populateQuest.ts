@@ -3,7 +3,7 @@ import 'dotenv/config'
 import db from '../index.js'
 import { Quest } from '../models/index.js'
 
-db.connect(process.env.MONGO_URL_TEST!)
+db.connect(process.env.MONGO_URL!)
     .then(() => Quest.deleteMany())
     .then(() => Promise.all([Quest.create({
         name: 'The Cursed Kingdom',

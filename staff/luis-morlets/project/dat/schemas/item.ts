@@ -22,7 +22,7 @@ const item = new Schema({
     },
     sellPrice: {
         type: Number,
-        enum: [2, 5, 30, 6, 7, 12, 15, 10],
+        enum: [2, 5, 30, 6, 7, 12, 15, 10, 20],
         required: false
     },
     type: {

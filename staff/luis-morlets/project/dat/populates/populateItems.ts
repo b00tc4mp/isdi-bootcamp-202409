@@ -5,7 +5,7 @@ import fs from 'fs/promises'
 import db from '../index.js'
 import { Item } from '../models/index.js'
 
-db.connect(process.env.MONGO_URL_TEST!)
+db.connect(process.env.MONGO_URL!)
     .then(() => Promise.all([Item.deleteMany()]))
     .then(() => fs.readFile('./csv/items.csv', 'utf-8'))
     .then(csv => {

@@ -9,7 +9,7 @@ const currency = new Schema({
     },
     quantity: {
         type: Number,
-        required: false
+        default: 50
     }
 })
 

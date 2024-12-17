@@ -1,19 +1,61 @@
-import { Link, Route, Routes } from 'react-router-dom'
-import { Singleplayer, Multiplayer } from './components'
-import useContext from './useContext'
+import { useEffect, useState } from 'react'
+import { errors } from 'com'
 import logic from '../logic'
+import useContext from './useContext'
+import { Button } from './components/library'
 
-export default function Play({ onLoggedOut }) {
-    console.log('Play -> render')
+const { SystemError } = errors
 
-    const { confirm } = useContext()
+export default function Play({ onQuitClick, onNewAdventure, onContinue }) {
+    const { confirm, alert } = useContext()
 
-    const handleLogout = () => {
-        confirm('Are you sure you want to logout?', accepted => {
+    const [continueButton, setContinueButton] = useState(false)
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const playerState = await logic.getPlayerState()
+
+                setContinueButton(!!playerState)
+            } catch (error) {
+                console.error(error)
+            }
+        })()
+    }, [])
+
+    const handleQuitClick = () => {
+        confirm('Are you sure you want to quit the game? You will also logout.', accepted => {
             if (accepted) {
                 logic.logoutPlayer()
 
-                onLoggedOut()
+                onQuitClick()
+            }
+        }, 'warn')
+    }
+
+    const handleContinueButton = event => {
+        event.preventDefault()
+
+        onContinue()
+    }
+
+    const handleNewAdvClick = event => {
+        event.preventDefault()
+
+        confirm('You are about to start a new adventure, old data will be deleted.', async (accepted) => {
+            if (accepted) {
+                try {
+                    await logic.createPlayerState()
+
+                    await logic.getPlayerState()
+
+                    onNewAdventure()
+
+                } catch (error) {
+                    alert(error.message)
+
+                    console.error(error)
+                }
             }
         }, 'warn')
     }
@@ -22,16 +64,15 @@ export default function Play({ onLoggedOut }) {
 
         <img src="/images/Maintitle.png" alt="legend of the cursed kigndom title" className="self-center" />
 
-        <div className="text-4xl flex flex-col bg-black justify-center items-center">
-            <Link to="singleplayer">Singleplayer</Link>
-            <Link to="multiplayer">Multiplayer</Link>
-            <button>Settings</button>
-            {logic.isPlayerLoggedIn() && <button onClick={handleLogout}>Logout</button>}
+        <div className="flex flex-col gap-4 items-center w-[15%]">
 
-            <Routes>
-                <Route path='singleplayer' element={<Singleplayer />}></Route>
-                <Route path='multiplayer' element={<Multiplayer />}></Route>
-            </Routes>
+            {continueButton && <Button className="bg-red-700 text-white text-2xl px-6 py-2 rounded-md border-4 border-black shadow-lg transform transition-transform hover:scale-105 hover:bg-red-800 active:bg-red-600 w-full" onClick={handleContinueButton}>Continue</Button>}
+
+            <Button onClick={handleNewAdvClick} className="bg-red-700 text-white text-2xl px-6 py-2 rounded-md border-4 border-black shadow-lg transform transition-transform hover:scale-105 hover:bg-red-800 active:bg-red-600 w-full ">New Adventure</Button>
+
+            <Button className="bg-red-700 text-white text-2xl px-6 py-2 rounded-md border-4 border-black shadow-lg transform transition-transform hover:scale-105 hover:bg-red-800 active:bg-red-600 w-full">Settings</Button>
+
+            {logic.isPlayerLoggedIn() && <Button onClick={handleQuitClick} className="bg-red-700 text-white text-2xl px-6 py-2 rounded-md border-4 border-black shadow-lg transform transition-transform hover:scale-105 hover:bg-red-800 active:bg-red-600 w-full">Quit</Button>}
         </div>
     </main>
 }

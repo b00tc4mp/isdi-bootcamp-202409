@@ -1,1 +1,1 @@
- curl -H 'Content-Type: application/json' -d '{"username":"manivela","password":"123123123"}' http://localhost:8080/players/auth -v
+ curl -H 'Content-Type: application/json' -d '{"username":"luiseduardo","password":"123123123"}' http://localhost:8080/players/auth -v

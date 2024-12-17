@@ -1,11 +1,10 @@
 import { ObjectId } from 'mongoose'
+import PlayerStateType from './PlayerStateType.js'
 
 type GameStateType = {
-    host: ObjectId,
-    status: string,
     createdAt: Date,
-    inventory: [ObjectId],
-    characters: [ObjectId]
+    playerStates: [PlayerStateType]
+    inventory: [ObjectId]
 }
 
 export default GameStateType

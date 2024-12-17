@@ -1,7 +1,5 @@
 import { Player, PlayerState, Quest } from 'dat'
 import { validate, errors } from 'com'
-import PlayerStateType from 'dat/types/PlayerStateType.js'
-import playerState from 'dat/schemas/playerState.js'
 
 const { SystemError, NotFoundError } = errors
 

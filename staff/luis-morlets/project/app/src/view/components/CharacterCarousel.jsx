@@ -11,7 +11,7 @@ export default function Carousel({ onQuitClick, onCharacterChange, onSelect, onS
 
     const [imageIndex, setImageIndex] = useState(0)
     const [party, setParty] = useState([])
-    const { confirm } = useContext()
+    const { confirm, alert } = useContext()
 
 
     useEffect(() => {
@@ -61,6 +61,8 @@ export default function Carousel({ onQuitClick, onCharacterChange, onSelect, onS
         if (!party.includes(currentImage.id) && party.length < 4) {
             setParty([...party, currentImage.id]) // Añade el personaje seleccionado
             await onSelect(currentImage.id)
+        } else {
+            alert('Party is full! You cannot add more characters.', 'error')
         }
     }
 
@@ -69,7 +71,7 @@ export default function Carousel({ onQuitClick, onCharacterChange, onSelect, onS
     return <section className="flex relative
     left-[3rem] h-[90%] w-[45%] self-center top-4">
         <div className="flex justify-center items-center w-full gap-12">
-            <ImArrowLeft className='w-[50px] h-[50px] text-black hover:cursor-pointer items-start relative bottom-8' onClick={handlePrevImage} />
+            <ImArrowLeft className='w-[50px] h-[50px] text-black hover:cursor-pointer items-start relative bottom-8 transform transition-transform hover:scale-125' onClick={handlePrevImage} />
 
             {images.map((image, newIndex) => {
                 return <img src={image.src}
@@ -81,22 +83,26 @@ export default function Carousel({ onQuitClick, onCharacterChange, onSelect, onS
                     }} />
             })}
 
-            <ImArrowRight className='w-[50px] h-[50px] text-black hover:cursor-pointer items-start relative bottom-8' onClick={handleNextImage} />
+            <ImArrowRight className='w-[50px] h-[50px] text-black hover:cursor-pointer items-start relative bottom-8 transform transition-transform hover:scale-125' onClick={handleNextImage} />
         </div>
 
-        <div className="relative flex self-end right-[50%] bottom-[5%] gap-4 w-[15%]">
-            <button className="bg-black w-full" onClick={handleOnSelected} disabled={isSelected(images[imageIndex].id)}>Select</button>
-            {logic.isPlayerLoggedIn() && <button className="bg-black w-full" onClick={handleQuitClick}>Quit</button>}
+        <div className="relative flex self-end right-[48%] bottom-[10%] gap-4 w-[14%] justify-center">
+            <button className={` text-white text-2xl px-6 py-2 rounded-md border-4 border-black shadow-lg transform transition-transform hover:scale-105   w-full text-center flex justify-center ${isSelected(images[imageIndex].id) ? "bg-gray-500 cursor-not-allowed" : "bg-red-700 hover:bg-red-800 active:bg-red-600"}`}
+                onClick={handleOnSelected}
+                disabled={isSelected(images[imageIndex].id)}
+            >{isSelected(images[imageIndex].id) ? 'Selected' : 'Select'}</button>
 
-            <div className="absolute top-[90%] left-[50%] transform -translate-x-1/2">
-                <button
-                    className="bg-gray-800 px-4 py-2 rounded"
-                    onClick={onStartAdventure}
-                    disabled={party.length < 4}
-                >
-                    Start Adventure
-                </button>
-            </div>
+            {logic.isPlayerLoggedIn() && <button className="bg-red-700 text-white text-2xl px-6 py-2 rounded-md border-4 border-black shadow-lg transform transition-transform hover:scale-105 hover:bg-red-800 active:bg-red-600 w-full  text-center flex justify-center" onClick={handleQuitClick}>Quit</button>}
+        </div>
+
+        <div className="absolute top-[91%] left-[45%] transform -translate-x-1/2 text-center">
+            <button
+                className="bg-red-700 text-white text-2xl px-6 py-2 rounded-md border-4 border-black shadow-lg transform transition-transform hover:scale-105 hover:bg-red-800 active:bg-red-600 w-full disabled:bg-gray-900"
+                onClick={onStartAdventure}
+                disabled={party.length < 4}
+            >
+                Start Adventure
+            </button>
         </div>
     </section>
 }
