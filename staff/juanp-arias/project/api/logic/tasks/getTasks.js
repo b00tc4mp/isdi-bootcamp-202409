@@ -2,7 +2,6 @@ import { User, Task } from 'dat'
 import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
-
 export default userId => {
     validate.id(userId, 'userId')
 
@@ -23,5 +22,8 @@ export default userId => {
             })
             return tasks
         })
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => {
+            if (error instanceof NotFoundError || error instanceof ValidationError) throw error
+            throw new SystemError(error.message)
+        })
 }

@@ -1,7 +1,7 @@
 import { User, Reminder } from 'dat'
 import { validate, errors } from 'com'
 
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, ValidationError } = errors
 export default (userId, reminderId, title, text, date) => {
     validate.id(userId, 'userId')
     validate.id(reminderId, 'reminderId')
@@ -10,9 +10,8 @@ export default (userId, reminderId, title, text, date) => {
     validate.date(new Date(date))
 
     return User.findById(userId)
-        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new NotFoundError('User not found')
+            if (!user) throw new NotFoundError('user not found')
 
             return Reminder.findByIdAndUpdate(
                 reminderId,
@@ -21,6 +20,7 @@ export default (userId, reminderId, title, text, date) => {
             )
                 .then(updatedReminder => {
                     if (!updatedReminder) throw new NotFoundError('Reminder not found')
+
                     const reminderIndex = user.reminders.findIndex(reminder => reminder._id.toString() === reminderId)
 
                     if (reminderIndex !== -1) {
@@ -28,10 +28,12 @@ export default (userId, reminderId, title, text, date) => {
                     } else {
                         throw new NotFoundError('Reminder not found in user')
                     }
-                    return user.save()
+
+                    return user.save().then(() => updatedReminder)
                 })
-                .catch(error => {
-                    throw new SystemError(error.message)
-                })
+        })
+        .catch(error => {
+            if (error instanceof NotFoundError || error instanceof ValidationError) throw error
+            throw new SystemError(error.message)
         })
 }

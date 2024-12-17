@@ -10,7 +10,7 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
             return Note.findOne({ author: userId })
-                .sort({ createdAt: -1 })
+                .sort({ date: -1 })
                 .lean()
         })
         .then(note => {
@@ -21,6 +21,8 @@ export default userId => {
             delete note._id
             return note
         })
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => {
+            if (error instanceof NotFoundError) throw error
+            throw new SystemError(error.message)
+        })
 }
-

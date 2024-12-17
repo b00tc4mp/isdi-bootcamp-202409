@@ -28,11 +28,13 @@ export default function Note({ note, onDeleted, onEditClick }) {
         onEditClick(note.id)
     }
 
-    return <article className='bg-gray-100 p-4 rounded-md shadow-md border border-gray-200 flex flex-col'>
-        <h4 className='font-bold text-gray-700 mb-2'>{author.username}</h4>
-        <p className='text-sm text-gray-600 mb-2'>{text.length > 100 ? `${text.substring(0, 100)}...` : text}</p>
+    return <article className='bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-md border border-gray-200 dark:border-gray-700 flex flex-col'>
+        <h4 className='font-bold text-gray-700 dark:text-gray-200 mb-2'>{author.username}</h4>
+        <p className='text-sm text-gray-600 dark:text-gray-300 mb-2'>
+            {text.length > 100 ? `${text.substring(0, 100)}...` : text}
+        </p>
         <div className='mt-auto'>
-            <time className='text-xs text-gray-400 block mb-2'>{timeAgo(date)} ago</time>
+            <time className='text-xs text-gray-400 dark:text-gray-500 block mb-2'>{timeAgo(date)} ago</time>
             <div className='space-x-1'>
                 <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
                 <EditButton onClick={handleEditClick}>Edit</EditButton>

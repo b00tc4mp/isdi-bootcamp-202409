@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId) => {
+export default userId => {
     validate.id(userId, 'userId')
 
     return User.findById(userId).lean()
@@ -31,5 +31,8 @@ export default (userId) => {
             })
             return groups
         })
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => {
+            if (error instanceof NotFoundError) throw error
+            throw new SystemError(error.message)
+        })
 }

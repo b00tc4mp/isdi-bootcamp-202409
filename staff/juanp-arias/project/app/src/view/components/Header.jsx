@@ -1,6 +1,7 @@
 import logic from '../../logic'
 import { ConfigurationIcon, LogoutIcon, BackHomeIcon } from '../icons'
 import useContext from '../useContext'
+import { ThemeButton } from '.'
 
 export default function Header({ onLoggedOut, configurationClick, backHomeClick }) {
     const { confirm } = useContext()
@@ -22,9 +23,10 @@ export default function Header({ onLoggedOut, configurationClick, backHomeClick 
             }
         }, 'warn')
     }
-    return <header className='flex items-center justify-between bg-white shadow-md fixed w-full px-2'>
+    return <header className='flex items-center justify-between bg-white dark:bg-gray-800 shadow-md fixed w-full px-2'>
         <div className='flex items-center'>
             {logic.isUserLoggedIn() && <BackHomeIcon onClick={onBackHomeClick} />}
+            <ThemeButton />
         </div>
         <div className='flex items-center'>
             {logic.isUserLoggedIn() && <ConfigurationIcon onClick={onConfigurationClick} />}

@@ -5,14 +5,16 @@ const { SystemError, NotFoundError } = errors
 
 export default userId => {
     validate.id(userId, 'userId')
-    return User.findById(userId)
-        .lean()
+    return User.findById(userId).lean()
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
-            return Task.countDocuments({ assignes: userId })
+            return Task.countDocuments({ assignes: userId }) //funcion de consulta en mongo que te dice el número de documentos en los que se cumple la condición.
         })
         .then(taskCount => {
             return taskCount
         })
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => {
+            if (error instanceof NotFoundError) throw error
+            throw new SystemError(error.message)
+        })
 }

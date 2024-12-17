@@ -5,7 +5,11 @@ const { SystemError, NotFoundError } = errors
 export default userId => {
     validate.id(userId, 'userId')
 
-    return User.find({ role: 'student' }).lean()
+    return User.findById(userId).lean()
+        .then(user => {
+            if (!user) throw new NotFoundError('user not found')
+            return User.find({ role: 'student' }).lean()
+        })
         .then(users => {
             if (!users || users.length === 0) throw new NotFoundError('No students found')
             users.forEach(user => {
@@ -16,6 +20,4 @@ export default userId => {
             })
             return users
         })
-        .catch(error => { throw new SystemError(error.message) })
 }
-

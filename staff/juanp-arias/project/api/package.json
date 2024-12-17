@@ -9,8 +9,12 @@
     "inspect": "node --inspect-brk .",
     "test-users": "mocha logic/users/*.spec.js",
     "test-notes": "mocha logic/notes/*.spec.js",
+    "test-reminders": "mocha logic/reminders/*.spec.js",
+    "test-tasks": "mocha logic/tasks/*.spec.js",
+    "test-groups": "mocha logic/groups/*.spec.js",
+    "test-home": "mocha logic/home/*.spec.js",
     "test-inspect": "mocha --inspect-brk logic/*.spec.js",
-    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js --timeout 20000"
+    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/**/*.spec.js --timeout 20000"
   },
   "keywords": [],
   "author": "",

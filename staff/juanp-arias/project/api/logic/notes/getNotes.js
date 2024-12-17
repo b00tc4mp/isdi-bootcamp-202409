@@ -9,7 +9,6 @@ export default userId => {
     return User.findById(userId).lean()
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
-
             return Note.find({ author: userId })
                 .populate('author', 'name')
                 .sort({ date: -1 })
@@ -27,5 +26,8 @@ export default userId => {
             })
             return notes
         })
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => {
+            if (error instanceof NotFoundError) throw error
+            throw new SystemError(error.message)
+        })
 }

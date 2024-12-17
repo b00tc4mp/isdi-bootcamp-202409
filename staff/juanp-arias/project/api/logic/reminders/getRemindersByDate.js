@@ -2,7 +2,6 @@ import { User } from 'dat'
 import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
-
 export default (userId, date) => {
     validate.id(userId, 'userId')
     validate.date(new Date(date))
@@ -27,4 +26,3 @@ export default (userId, date) => {
         return reminders
     })()
 }
-

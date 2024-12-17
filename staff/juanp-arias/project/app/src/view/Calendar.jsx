@@ -44,7 +44,7 @@ export default function Calendar({ onEditClick }) {
 
     const onNewReminderClick = () => { setView(view ? null : 'new-reminder') }
     const handleDoneClick = () => { setView(view ? null : 'reminders') }
-    
+
     const onRemindersClick = () => {
         try {
             logic.getRemindersByDate(date)
@@ -143,11 +143,17 @@ export default function Calendar({ onEditClick }) {
                 <span className='mx-4 text-lg font-semibold'>{`${getMonthName(currentDate)} ${getYear(currentDate)}`}</span>
                 <CalendarButton onClick={handleNextMonthClick}>&gt;</CalendarButton>
             </div>
-            <div className='grid grid-cols-7 gap-2 bg-white p-4 rounded-lg'>
+            <div className='grid grid-cols-7 gap-2 bg-white dark:bg-gray-800 p-4 rounded-lg'>
                 {/* Days of week */}
-                {daysOfWeek.map(day => <div key={day} className='text-center font-bold text-gray-700 uppercase'>{day}</div>)}
+                {daysOfWeek.map(day => (
+                    <div key={day} className='text-center font-bold text-gray-700 dark:text-gray-300 uppercase'>
+                        {day}
+                    </div>
+                ))}
                 {/* Empty days */}
-                {new Array(getFirstDayWeek(currentDate)).fill(null).map((_, index) => <div key={`empty-${index}`}></div>)}
+                {new Array(getFirstDayWeek(currentDate)).fill(null).map((_, index) => (
+                    <div key={`empty-${index}`}></div>
+                ))}
                 {/* Days of month */}
                 {getMonthDays(currentDate).map((day) => {
                     const isToday = new Date().getDate() === day &&
@@ -158,12 +164,14 @@ export default function Calendar({ onEditClick }) {
                     const currentDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString()
                     const hasReminders = reminders.some(reminder => new Date(reminder.date).toDateString() === currentDayDate)
 
-                    return <div key={day} onClick={() => handleCalendarDayClick(day)}
-                        className={`text-center cursor-pointer p-2 rounded-lg transition-all
-                                ${isSelected ? 'bg-blue-500 text-white' :
-                                isToday ? 'bg-blue-100 text-blue-600' :
-                                    hasReminders ? 'bg-yellow-100 text-yellow-600' :
-                                        'text-gray-800 hover:bg-gray-200'}`}>{day}</div>
+                    return <div
+                        key={day}
+                        onClick={() => handleCalendarDayClick(day)}
+                        className={`text-center cursor-pointer p-2 rounded-lg transition-all ${isSelected ? 'bg-blue-500 text-white' :
+                            isToday ? 'bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-blue-300' :
+                                hasReminders ? 'bg-yellow-100 dark:bg-yellow-700 text-yellow-600 dark:text-yellow-300' :
+                                    'text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+                    >{day}</div>
                 })}
             </div>
             {selectedDate &&

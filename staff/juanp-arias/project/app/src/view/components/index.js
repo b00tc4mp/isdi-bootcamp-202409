@@ -15,7 +15,7 @@ import EditReminder from './EditReminder'
 import CreateTask from './CreateTask'
 import Task from './Task'
 import TeacherTasks from './TeacherTasks'
-
+import ThemeButton from './ThemeButton'
 export {
     Header,
     Footer,
@@ -36,5 +36,6 @@ export {
     CreateGroup,
     CreateTask,
     Task,
-    TeacherTasks
+    TeacherTasks,
+    ThemeButton
 }

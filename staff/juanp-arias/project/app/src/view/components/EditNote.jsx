@@ -61,7 +61,7 @@ export default function EditNote({ onCancelClick, onEdited }) {
             <SectionHeader sectionName='notes' />
             <Form onSubmit={handleSubmit} className='mt-4 w-full space-y-6'>
                 <div className='m-2'>
-                    <textarea id='textarea' className='w-full h-60 p-4 border border-gray-300 bg-gray-50 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none text-gray-800' defaultValue={note.text} />
+                    <textarea id='textarea' className='w-full h-60 p-4 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-600 focus:outline-none resize-none text-gray-800 dark:text-gray-200' defaultValue={note.text} />
                     <div className='flex justify-end space-x-2 mr-1'>
                         <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>
                         <DoneButton type='submit'>Done</DoneButton>
