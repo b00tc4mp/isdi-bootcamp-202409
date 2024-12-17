@@ -31,7 +31,8 @@ export default async (userId, customerSearch, selectPack, payedAmount, paymentMe
 
 
         const purchaseDate = new Date();
-        const expiryDate = expiringTime === -1 ? null : new Date(new Date().setMonth(new Date().getMonth() + expiringTime));
+        const expiryDate = expiringTime === -1 ? new Date('9999-12-31') :
+            new Date(new Date().setMonth(new Date().getMonth() + expiringTime));
 
         const status = 'Active';
 

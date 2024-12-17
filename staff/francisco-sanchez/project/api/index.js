@@ -4,7 +4,7 @@ import express, { json } from 'express'
 import cors from 'cors'
 
 import { errorHandler } from './routes/helpers/index.js'
-import { usersRouter, packsRouter } from './routes/index.js'
+import { usersRouter, packsRouter, trackerRouter } from './routes/index.js'
 
 db.connect(process.env.MONGO_URL).then(() => {
     console.log('database connected')
@@ -18,6 +18,7 @@ db.connect(process.env.MONGO_URL).then(() => {
     //Here will be all the endpoints of the API. 
     server.use('/users', usersRouter)
     server.use('/packs', packsRouter)
+    server.use('/tracker', trackerRouter)
 
     server.use(errorHandler)
 

@@ -1,3 +1,4 @@
+//USERS
 import {
     registerUser,
     authenticateUser,
@@ -8,6 +9,7 @@ import {
     findUserIdbyEmailOrUsername
 } from './users/index.js'
 
+//PACKS & BASEPACKS
 import {
     createPack,
     assignPack,
@@ -17,10 +19,16 @@ import {
     updateBasePack,
 } from './packs/index.js'
 
+//EMAILING
 import {
     emailRegisterWelcome,
-    sendEmail
+    sendEmail,
 } from './emailing/index.js'
+
+//TRACKER
+import {
+    toggleTimeTracker,
+} from './tracker/index.js'
 
 
 const logic = {
@@ -43,7 +51,10 @@ const logic = {
 
     //emailing
     emailRegisterWelcome,
-    sendEmail
+    sendEmail,
+
+    //Tracker
+    toggleTimeTracker
 
 }
 

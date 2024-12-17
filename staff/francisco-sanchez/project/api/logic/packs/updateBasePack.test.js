@@ -16,9 +16,9 @@ const price = 50
 const currency = 'EUR'
 
 try {
-    const note = await updateBasePack(userId, basePackId,
+    const basePack = await updateBasePack(userId, basePackId,
         packName, description, quantity, unit, expiringTime, price, currency)
-    console.log(note)
+    console.log(basePack)
 } catch (error) {
     console.error(error)
 } finally {

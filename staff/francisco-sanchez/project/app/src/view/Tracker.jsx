@@ -50,36 +50,64 @@ export default function ManagePacks(props) {
             <h1 className='text-3xl'>Tracker</h1>
             <p>This will be the page to track your projects</p>
             <div className="flex flex-col">
-                <h2 className='text-2xl'>Customer and Pack</h2>
-                <form className="flex flex-col justify-items-start" /* onSubmit={handleSubmit} */ >
-
-
-                    <Field>
+                <h2 className="text-2xl">Customer and Pack</h2>
+                <form className="flex flex-col justify-items-start">
+                    {/* Select Customer */}
+                    <Field className="mb-4">
                         <Label htmlFor="selectCustomer">Select Customer</Label>
                         <select id="selectCustomer" name="selectCustomer" className="border-2 rounded-lg w-full p-2">
-                            {/*  {basePacks.map((basePack) => (
-            <option key={basePack.id} value={basePack.id}>{basePack.packName} - {basePack.price}{getCurrencySymbol(basePack)}</option>
-        ))} */}
                             <option>Customer 1</option>
                             <option>Customer 2</option>
                             <option>Customer 3</option>
                         </select>
                     </Field>
 
-                    <Field>
+                    {/* Select Pack */}
+                    <Field className="mb-4">
                         <Label htmlFor="selectPack">Select Pack</Label>
                         <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2">
-                            {/* {basePacks.map((basePack) => (
-            <option key={basePack.id} value={basePack.id}>{basePack.packName} - {basePack.price}{getCurrencySymbol(basePack)}</option>
-        ))} */}
                             <option>Pack 1</option>
                             <option>Pack 2</option>
                             <option>Pack 3</option>
                         </select>
                     </Field>
 
-                </form>
+                    {/* Description and Timer Section */}
+                    <div className="flex flex-wrap gap-4 mt-4 items-start">
+                        {/* Description Field */}
+                        <Field className="flex-1">
+                            <Label htmlFor="description">Description</Label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="3"
+                                className="border-2 rounded-lg w-full p-2"
+                                placeholder="Add a description..."
+                            ></textarea>
+                        </Field>
 
+                        {/* Timer Field */}
+                        <div className="flex items-center space-x-2">
+                            <Field>
+                                <Label htmlFor="timer">Time</Label>
+                                <input
+                                    type="text"
+                                    id="timer"
+                                    name="timer"
+                                    placeholder="00:00:00"
+                                    className="border-2 rounded-lg p-2 w-32 text-center"
+                                />
+                            </Field>
+                            <button
+                                type="button"
+                                className="bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600"
+                                onClick={() => console.log("Start Timer")}
+                            >
+                                Start Timer
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
 
