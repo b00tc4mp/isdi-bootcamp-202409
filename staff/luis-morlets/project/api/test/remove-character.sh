@@ -1,0 +1,1 @@
+curl -X DELETE -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRmODBlNzIxNDY1YWE0ODIyZjViMDIiLCJpYXQiOjE3MzM5MTE4NjUsImV4cCI6MTczNTEyMTQ2NX0.TdLzpv55l91cxhzqHvWsMukJoqx480hjh7ElO1ercmg' http://localhost:8080/game/6759caee21dbc59aa2ffb78a/675746495c490d431cd2a1f9 -v
