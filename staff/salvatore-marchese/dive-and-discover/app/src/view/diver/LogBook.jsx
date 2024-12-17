@@ -11,25 +11,16 @@ export default function LogBook({ onCreated }) {
 
     const { target: form } = event
 
-   /*  const {
+   const {
       date: { value: date }, depth: { value: depth }, time: { value: time }, weather: { value: weather }, temperature: { value: temperature }, visibility: { value: visibility }, waves: { value: waves }, wetSuit: { value: wetSuit }, weight: { value: weight }, tankSize: { value: tankSize }, tankBar: { value: tankBar }, feeling: { value: feeling }, diveCenter: { value: diveCenter }, divingSite: { value: divingSite }, notes: { value: notes }
-    } = form */
+    } = form 
 
-    const {
-      date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, 
-      tankSize, tankBar, feeling, diveCenter, divingSite, notes
-    } = form;
-    
-    if (!date || !depth || !time || !weather || !temperature || !visibility || !waves || !wetSuit || !weight || !tankSize || !tankBar || !feeling || !diveCenter || !divingSite || !notes) {
-  alert("Please fill out all fields.");
-      return;
-    }
 
     try {
       await logic.createLog(
-        date.value, depth.value, time.value, weather.value, temperature.value, 
-        visibility.value, waves.value, wetSuit.value, weight.value, tankSize.value, 
-        tankBar.value, feeling.value, diveCenter.value, divingSite.value, notes.value
+        date, depth, time, weather, temperature, 
+        visibility, waves, wetSuit, weight, tankSize, 
+        tankBar, feeling, diveCenter, divingSite, notes
       )
       /* await logic.createLog(date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, divingSite, notes) */
       alert("Log created successfully!")
@@ -58,12 +49,12 @@ export default function LogBook({ onCreated }) {
 
       <Field className="flex flex-col">
         <Label htmlFor="depth" className="font-semibold">Depth (m):</Label>
-        <Input type="text" id="depth" name="depth" placeholder="18m" className="input" />
+        <Input type="number" id="depth" name="depth" placeholder="18m" className="input" />
       </Field>
 
       <Field className="flex flex-col">
         <Label htmlFor="time" className="font-semibold">Time (mins):</Label>
-        <Input type="text" id="time" name="time" placeholder="45 mins" className="input" />
+        <Input type="number" id="time" name="time" placeholder="45 mins" className="input" />
       </Field>
 
       <Field className="flex flex-col">
@@ -88,17 +79,17 @@ export default function LogBook({ onCreated }) {
 
       <Field className="flex flex-col">
         <Label htmlFor="wetSuit" className="font-semibold">Wet Suit (mm):</Label>
-        <Input type="text" id="wetSuit" name="wetSuit" placeholder="3mm, 5mm, 7mm, none" className="input" />
+        <Input type="number" id="wetSuit" name="wetSuit" placeholder="0, 3, 5, 7" className="input" />
       </Field>
 
       <Field className="flex flex-col">
         <Label htmlFor="weight" className="font-semibold">Weight (Kg):</Label>
-        <Input type="text" id="weight" name="weight" placeholder="6Kg" className="input" />
+        <Input type="number" id="weight" name="weight" placeholder="6Kg" className="input" />
       </Field>
 
       <Field className="flex flex-col">
         <Label htmlFor="tankSize" className="font-semibold">Tank Size (Lt):</Label>
-        <Input type="text" id="tankSize" name="tankSize" placeholder="10L" className="input" />
+        <Input type="number" id="tankSize" name="tankSize" placeholder="10L" className="input" />
       </Field>
 
       <Field className="flex flex-col">
@@ -121,7 +112,7 @@ export default function LogBook({ onCreated }) {
         <Input as="textarea" id="notes" name="notes" className="input h-24" />
       </Field>
 
-      <Button type="submit" className="btn-primary mt-4" onClick={handleSubmit}>Submit</Button>
+      <Button type="submit" className="btn-primary mt-4" >Submit</Button>
     </Form>
   </main>
 }

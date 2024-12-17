@@ -37,6 +37,10 @@ const HomeDiver = () => {
         navigate('/check-logbook')
     };
 
+    const onSearch = () => {
+        navigate('/search')
+    };
+
     return (
         <main className="flex flex-col justify-center items-center h-screen bg-gray-50 overflow-hidden">
 
@@ -49,6 +53,8 @@ const HomeDiver = () => {
                 <Button onClick={onLogDive}>Log a New Dive</Button>
 
                 <Button onClick={onCheckHistory}>Dive's History</Button>
+
+                <Button onClick={onSearch}>Search Site</Button>
             </div>
         </main>
     )

@@ -113,7 +113,7 @@ The home screen and Discover section highlight critical functionalities, providi
  - visibility (string)
  - waves (string)
  - wetSuit (number)
- - weight (string)
+ - weight (number)
  - finns (string)
  - tank (number)
  - feeling (string)

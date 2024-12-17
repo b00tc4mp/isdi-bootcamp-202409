@@ -15,9 +15,10 @@ const FormField = ({ fieldKey, label, value, onChange }) => {
 }
 
 const ProfileCenter = () => {
-    const [userInfo, setUserInfo] = useState ({ name: '', email: '', address: '', country: '', city:'', postcode: '', openingHours: '' })
+    const [userInfo, setUserInfo] = useState ({ name: '', email: '', address: '', country: '', city:'', postcode: '', openingHours: [] })
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     //fetching user data
     useEffect(() => {
@@ -26,7 +27,10 @@ const ProfileCenter = () => {
                 const userData = await logic.getUserCenter()
                 if (userData?.error) throw new Error(userData.error)
 
-                setUserInfo(userData)
+                    setUserInfo({
+                        ...userData,
+                        openingHours: userData.openingHours || [], // Ensure it is an array
+                      });
                 setIsLoading(false)
             } catch (error) {
                 console.log(Object.keys(error))
@@ -52,7 +56,7 @@ const ProfileCenter = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log(userInfo)
+        setIsSubmitting(true)
 
         try {
             const user = extractPayloadFromJWT(sessionStorage.token)
@@ -60,6 +64,8 @@ const ProfileCenter = () => {
             alert('Information updated successfully')
         } catch (error) {
             setError('Error updating information')
+        } finally {
+            setIsSubmitting(false)
         }
     }
 
@@ -85,14 +91,34 @@ const ProfileCenter = () => {
 
                             <FormField fieldKey="postcode" label={"Postcode"} value={userInfo.postcode} onChange={handleChange} />
 
-                            <FormField fieldKey="openingHours" label={"Opening Hours"} value={userInfo.openingHours} onChange={handleChange} />
+                            {userInfo.openingHours?.map((entry, index) => (
+  <div key={index} className="flex gap-4">
+    <FormField
+      fieldKey={`openTime-${index}`}
+      label={`Opening Time (Day ${entry.day})`}
+      value={entry.openTime || ''}
+      onChange={(e) => handleOpeningHourChange(index, 'openTime', e.target.value)}
+    />
+    <FormField
+      fieldKey={`closeTime-${index}`}
+      label={`Closing Time (Day ${entry.day})`}
+      value={entry.closeTime || ''}
+      onChange={(e) => handleOpeningHourChange(index, 'closeTime', e.target.value)}
+    />
+  </div>
+))}
+
+                            {/* <FormField fieldKey="openingHours" label={"Opening Hours"} value={userInfo.openingHours} onChange={handleChange} /> */}
                         </div>
                     </div>
 
                     <div className="flex justify-between mt-2">
-                        <Button type="submit" className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">
+                    <Button type="submit" className={`h-12 w-[150px] ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-400 hover:bg-blue-600"
+                    } text-sm text-white rounded-lg transition-all`}
+                    disabled={isSubmitting}> {isSubmitting ? "Saving..." : "Save"} </Button>
+                        {/* <Button type="submit" className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">
                             Save
-                        </Button>
+                        </Button> */}
                     </div>
                 </form>
             </div>

@@ -10,7 +10,7 @@ logsRouter.get('/', authorizationHandler, getLogsHandler)
 
 
 //Create - Crete a new log
-logsRouter.post('/', authorizationHandler, createLogHandler)
+logsRouter.post('/users/diver/log-book', authorizationHandler, createLogHandler)
 
 
 //Update - Update a log

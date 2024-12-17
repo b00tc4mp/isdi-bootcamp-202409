@@ -1,9 +1,9 @@
-import { User, OpeningHours } from 'dat'
-import { validate, errors } from 'com'
+import { User, OpeningHours } from 'dat/index.js'
+import { validate, errors } from 'com/index.js'
 
 const { SystemError, NotFoundError } = errors
 
-
+//TEST ADDOPENINGHOURS.TEST.JS FAILS at line 24, validate.text(...) is not a function 
 //(userId, data)
 /*
 data = [
@@ -31,9 +31,9 @@ export default async (userId, day, openTime, closeTime) => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            const openingHours = new OpeningHours({ day, openTime, closetime })
+            const openingHours = new OpeningHours({ day, openTime, closeTime })
 
-            return User.findByIdAndDelete(userId, { $push: {openingHours } }, { new: true } )
+            return User.findByIdAndUpdate(userId, { $push: {openingHours } }, { new: true } )
         })
         .catch(error => { throw new SystemError(error.message) })
         .then(() => { })

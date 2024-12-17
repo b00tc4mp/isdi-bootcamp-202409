@@ -1,15 +1,25 @@
-import { errors } from "com";
 import { User } from 'dat'
+import { errors } from 'com'
 
-const { SystemError, NotFoundError } = errors
+const { NotFoundError, SystemError } = errors
 
-// GET USER DATA
-export default async function getUser(userId) {
-    try {
-        const user = await User.findById(userId);
-        if (!user) throw new NotFoundError('user not found');
-        return user;
-    } catch (error) {
-        throw new SystemError(error.message)
+export default async (userId, requestedUserId) => {
+  try {
+    // Assuming you have some logic here to retrieve the user by their ID
+    const user = await User.findById(userId)
+
+    if (!user) {
+      throw new NotFoundError('user not found')
     }
+
+    // Proceed with logic after user is found, for example, returning profile
+    return user // or whatever logic follows
+
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      throw error
+    }
+    // Handle other system errors
+    throw new SystemError(error.message)
+  }
 }

@@ -2,6 +2,7 @@ import { Router } from 'express'
 
 import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
 import { authenticateUserHandler, registerUserDiverHandler, getUserHandler, getUserNameHandler, getProfileHandler, updateProfileHandler, registerUserCenterHandler, addOpeningHoursHandler } from '../users/handlers/index.js'
+import createLogHandler from '../log/handlers/createLogHandler.js'
 
 
 const usersRouter = Router()
@@ -19,6 +20,7 @@ usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler)
 usersRouter.get('/personal-info', authorizationHandler, getProfileHandler)
 usersRouter.put('/:targetUserId', authorizationHandler, updateProfileHandler)
+
 
 //Profile Center
 usersRouter.get('/home-center', authorizationHandler, getProfileHandler )

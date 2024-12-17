@@ -1,5 +1,6 @@
 import { User } from "dat";
 import { errors } from "com";
+import bcrypt from 'bcryptjs'
 
 const { ValidationError } = errors
 
@@ -13,7 +14,9 @@ export default async function createHomeCenter({ name, email, password, address,
         throw new ValidationError('User with this email already exist.')
     }
 
-    const user = new User({ name, email, password, address, country, city, postcode }) 
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    const user = new User({ name, email, password: hashedPassword, address, country, city, postcode }) 
 
     
     await user.save()

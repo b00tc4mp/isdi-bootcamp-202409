@@ -1,15 +1,24 @@
 import {
     authenticateUser,
-    registerUserDiver,
-    registerUserCenter,
-    createHomeDiver,
-    createHomeCenter,
     getUser,
     getUserName,
     getProfile,
     updateProfile,
-    addOpeningHours
+    
 } from './users/index.js'
+
+import {
+    registerUserDiver,
+    createHomeDiver,
+
+} from './users/diver/index.js'
+
+import {
+    registerUserCenter,
+    createHomeCenter,
+    addOpeningHours
+
+} from './users/center/index.js'
 
 import {
     createLog,

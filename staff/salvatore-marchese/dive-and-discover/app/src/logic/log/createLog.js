@@ -2,8 +2,8 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (userId, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, diveSite, notes) => {
-    validate.id(userId, 'userId')
+export default (diveSite, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes) => {
+    validate.diveSite(diveSite)
     validate.date(date)
     validate.depth(depth)
     validate.time(time)
@@ -17,15 +17,14 @@ export default (userId, date, depth, time, weather, temperature, visibility, wav
     validate.tankBar(tankBar)
     validate.feeling(feeling)
     validate.diveCenter(diveCenter)
-    validate.diveSite(diveSite)
     validate.notes(notes)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/log-book`, {
-        method: 'GET', 
+    return fetch(`http://${import.meta.env.VITE_API_URL}/users/diver/log-book`, {
+        method: 'POST', 
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`, 'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userId, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, diveSite, notes })
+        body: JSON.stringify({diveSite, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes })
     })
     .catch(error => { throw new SystemError(error.message) })
     .then(res => {

@@ -1,33 +1,35 @@
 import bcrypt from 'bcryptjs'
-
 import { User } from 'dat'
-import { validate, errors } from 'com'
-import errorHandler from '../../../routes/helpers/errorHandler.js'
+import { errors, validate } from 'com'
 
+const { DuplicityError, SystemError, ValidationError } = errors
 
-//const { DuplicityError, SystemError } = errors
-
-export default (name, email, password, passwordRepeat) => {
+export default async (name, email, password, passwordRepeat) => {
+    // Validate input values
     validate.name(name)
     validate.email(email)
     validate.password(password)
-    validate.passwordsMatch(password, passwordRepeat) 
 
-    return (async () => {
-        let hash
+    // Check if passwords match
+    try {
+        validate.passwordsMatch(password, passwordRepeat)
+    } catch (error) {
+        return Promise.reject(error); // Ensure the promise rejects if passwords don't match
+    }
 
-        try {
-            hash = await bcrypt.hash(password, 10)
-        } catch (error) {
-            throw new SystemError(error.message)
-        }
+    // Hash password
+    let hash
+    try {
+        hash = await bcrypt.hash(password, 10)
+    } catch (error) {
+        throw new SystemError(error.message)
+    }
 
-        try {
-            await User.create({ name, email, password: hash })
-        } catch (error) {
-           // if (errorHandler.code === 11000) throw new DuplicityError('user already exists')
-
-            throw new SystemError(error.message)
-        }
-    })()
+    // Check if user already exists
+    try {
+        await User.create({ name, email, password: hash })
+    } catch (error) {
+        if (error.code === 11000) throw new DuplicityError('user already exists')
+        throw new SystemError(error.message)
+    }
 }

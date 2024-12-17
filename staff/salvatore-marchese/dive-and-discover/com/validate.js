@@ -66,34 +66,65 @@ const validateTelephone = telephone => {
     if (!/^\+?\d{9,15}$/.test(telephone)) throw new ValidationError('telephone must be between 9 and 15 digits, with optional "+"');
 }
 
-const validateDate = (date) => {
-    // Regular expression to match date format: dd/mm/yyyy
-    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+const validateDiveSite = (diveSite) => {
+    // Ensure diveSite is a string
+    if (typeof diveSite !== 'string') {
+        throw new Error('Dive site must be a string');
+    }
 
-    if (!regex.test(date)) {
-        throw new Error('Invalid date format. Expected format: dd/mm/yyyy');
+    // Trim whitespace and ensure diveSite is not empty
+    diveSite = diveSite.trim(); 
+    if (diveSite.length === 0) {
+        throw new Error('Dive site cannot be empty');
+    }
+
+    // Ensure diveSite is not longer than 30 characters
+    if (diveSite.length > 30) {
+        throw new Error('Dive site must be no longer than 30 characters');
+    }
+}
+
+const validateDate = (date) => {
+    // Check if the date is a valid date object
+    const parsedDate = new Date(date);
+
+    // Check if the parsed date is valid (not NaN)
+    if (isNaN(parsedDate.getTime())) {
+        throw new Error('Invalid date format. Expected format: yyyy-mm-dd');
     }
 }
 
 const validateDepth = (depth) => {
-    // Regex pattern to match depth in formats like "18m", "12mt", "10ft", etc.
-    const depthPattern = /^\d+(m|mt|ft)$/;
+    // Convert the depth to a number (if it's a string, it will be parsed)
+    const parsedDepth = Number(depth);
 
-    // Check if the depth matches the pattern
-    if (!depthPattern.test(depth)) {
-        throw new Error('Invalid depth format. Expected format: number followed by "m", "mt", or "ft"');
+    // Check if the parsed depth is a valid number
+    if (isNaN(parsedDepth)) {
+        throw new Error('Invalid depth. Expected a number.');
     }
-}
+
+    // Check if the depth is a positive number
+    if (parsedDepth <= 0) {
+        throw new Error('Depth must be a positive number.');
+    }
+};
 
 const validateTime = (time) => {
-    // Regex pattern to match time in format like "45min", "10min"
-    const timePattern = /^\d+min$/;
-
-    // Check if the time matches the pattern
-    if (!timePattern.test(time)) {
-        throw new Error('Invalid time format. Expected format: "Xmin" (e.g., "45min", "10min")');
+    // Ensure time is a number (not a string, object, etc.)
+    if (typeof time !== 'number' || isNaN(time)) {
+        throw new Error('Time must be a valid number.');
     }
-}
+
+    // Ensure time is not empty (already covered by the typeof check)
+    if (time === null || time === undefined) {
+        throw new Error('Time cannot be empty.');
+    }
+
+    // Ensure time is positive
+    if (time <= 0) {
+        throw new Error('Time must be a positive number.');
+    }
+};
 
 const validateWeather = (weather) => {
     // Ensure weather is a string
@@ -101,29 +132,35 @@ const validateWeather = (weather) => {
         throw new Error('Weather must be a string');
     }
 
-    // Ensure weather is not empty
-    if (weather.trim().length === 0) {
-        throw new Error('Weather cannot be empty');
-    }
+    // Trim whitespace before performing the length check
+    const trimmedWeather = weather.trim();
 
-    // Optionally, ensure a reasonable length for the weather description (3 to 50 characters)
-    if (weather.length < 3 || weather.length > 50) {
+    /* // Ensure the weather description is between 3 and 50 characters
+    if (trimmedWeather.length < 3 || trimmedWeather.length > 50) {
         throw new Error('Weather description must be between 3 and 50 characters');
-    }
-}
+    } */
+
+    /* // Ensure the weather description contains only letters and spaces
+    const regex = /^[A-Za-z\s]+$/;
+    if (!regex.test(trimmedWeather)) {
+        throw new Error('Weather description must contain only letters and spaces');
+    } */
+};
 
 const validateTemperature = (temperature) => {
-    // Ensure temperature is a number
-    if (typeof temperature !== 'number') {
-        throw new Error('Temperature must be a number');
+    // Convert temperature to a number (if it's a string, it will be parsed)
+    const parsedTemperature = Number(temperature);
+
+    // Check if the parsed temperature is a valid number
+    if (isNaN(parsedTemperature)) {
+        throw new Error('Temperature must be a valid number');
     }
 
-    // Optionally, ensure temperature is within a reasonable range
-    // For example, between -100 and 100 degrees (Celsius or Fahrenheit)
-    if (temperature < -10 || temperature > 50) {
-        throw new Error('Temperature must be between -10 and 50');
+    // Check if the temperature is within the allowed range (0 to 50)
+    if (parsedTemperature < 0 || parsedTemperature > 50) {
+        throw new Error('Temperature must be between 0 and 50');
     }
-}
+};
 
 const validateVisibility = (visibility) => {
     // Ensure visibility is a string
@@ -140,53 +177,54 @@ const validateWaves = (waves) => {
 }
 
 const validateWetSuit = (wetSuit) => {
-    // Ensure wetSuit is a string
-    if (typeof wetSuit !== 'string') {
-        throw new Error('WetSuit must be a string');
+    // Convert the input to a number (in case it's a string)
+    wetSuit = Number(wetSuit);
+
+    // Ensure wetSuit is a valid number (not NaN)
+    if (isNaN(wetSuit)) {
+        throw new Error('WetSuit must be a valid number');
     }
 
-    // Regular expression to match 'none', '3mm', '5mm', or '7mm'
-    const validWetSuits = ['none', '3mm', '5mm', '7mm'];
-    
-    if (!validWetSuits.includes(wetSuit)) {
-        throw new Error('WetSuit must be one of the following: none, 3mm, 5mm, 7mm');
+    // Check if the number is non-negative
+    if (wetSuit < 0) {
+        throw new Error('WetSuit must be a non-negative number');
     }
-}
+};
 
 const validateWeight = (weight) => {
-    // Ensure weight is a string
-    if (typeof weight !== 'string') {
-        throw new Error('Weight must be a string');
+    // Convert the weight to a float (if it's a string, it'll be converted to a number)
+    weight = parseFloat(weight);
+
+    // Ensure weight is actually a number (not a string, object, etc.)
+    if (isNaN(weight)) {
+        throw new Error('Weight must be a valid number');
     }
 
-    // Regular expression to match numbers followed by "kg" (e.g., "5kg", "10kg")
-    const weightRegex = /^[0-9]+kg$/;
-
-    if (!weightRegex.test(weight)) {
-        throw new Error('Weight must be a valid number followed by "kg" (e.g., "5kg", "10kg")');
+    // Ensure the weight is a valid, positive number (greater than 0)
+    if (weight <= 0) {
+        throw new Error('Weight must be a positive number');
     }
-}
+};
 
 const validateTankSize = (tankSize) => {
-    // Ensure tankSize is a string
-    if (typeof tankSize !== 'string') {
-        throw new Error('Tank size must be a string');
-    }
+    // Parse the input as a float (if it's a string, it'll be converted to a number)
+    tankSize = parseFloat(tankSize);
 
-    // Regular expression to match a number followed by "L" (e.g., "12L", "15L")
-    const tankSizeRegex = /^[0-9]+L$/;
-
-    if (!tankSizeRegex.test(tankSize)) {
-        throw new Error('Tank size must be a valid number followed by "L" (e.g., "12L", "15L")');
+    // Ensure the result is a valid number
+    if (isNaN(tankSize)) {
+        throw new Error('Tank size must be a valid number');
     }
-}
+};
 
 const validateTankBar = (tankBar) => {
-    // Ensure tankBar is a string
-    if (typeof tankBar !== 'string') {
-        throw new Error('Tank bar must be a string');
+    // Parse the input as a float (if it's a string, it'll be converted to a number)
+    tankBar = parseFloat(tankBar);
+
+    // Ensure the result is a valid number
+    if (isNaN(tankBar)) {
+        throw new Error('Tank bar must be a valid number');
     }
-}
+};
 
 const validateFeeling = (feeling) => {
     // Ensure feeling is a string
@@ -212,17 +250,6 @@ const validateDiveCenter = (diveCenter) => {
     }
 }
 
-const validateDiveSite = (diveSite) => {
-    // Ensure diveSite is a string
-    if (typeof diveSite !== 'string') {
-        throw new Error('Dive site must be a string');
-    }
-
-    // Ensure diveSite is not longer than 30 characters
-    if (diveSite.length > 30) {
-        throw new Error('Dive site must be no longer than 30 characters');
-    }
-}
 
 const validateNotes = (notes) => {
     // Ensure notes is a string

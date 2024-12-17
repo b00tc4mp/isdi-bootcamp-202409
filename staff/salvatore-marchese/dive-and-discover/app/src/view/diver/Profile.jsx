@@ -15,7 +15,7 @@ const FormField = ({ fieldKey, label, value, onChange }) => {
 }
 
 const Profile = () => {
-    const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' })
+    const [userInfo, setUserInfo] = useState({ name: '', email: '', password: ''/* , wetSuit: '', weight: '', tank: '', finns: '' */})
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
 
@@ -78,9 +78,9 @@ const Profile = () => {
                         <div>
                             <FormField fieldKey="name" label={"Name"} value={userInfo.name} onChange={handleChange} />
 
-                            <FormField fieldKey="email" label={"Email Address"} value={userInfo.email} onChange={handleChange} />
+                            {/* <FormField fieldKey="email" label={"Email Address"} value={userInfo.email} onChange={handleChange} /> BUILD UP A RECOVERY EMAIL AND PASSWORD IN COMPONENTS*/}
 
-                            <FormField fieldKey="wet_suit" label={"Wet Suit"} value={userInfo.wet_suit} onChange={handleChange} />
+                            <FormField fieldKey="wet_suit" label={"Wet Suit"} value={userInfo.wetSuit} onChange={handleChange} />
 
                             <FormField fieldKey="weight" label={"Weight"} value={userInfo.weight} onChange={handleChange} />
 
@@ -88,6 +88,8 @@ const Profile = () => {
 
                             <FormField fieldKey="finns" label={"Finns"} value={userInfo.finns} onChange={handleChange} />
                         </div>
+
+
                     </div>
 
                     <div className="flex justify-between mt-2">

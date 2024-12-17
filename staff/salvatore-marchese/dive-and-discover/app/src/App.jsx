@@ -44,13 +44,11 @@ export default function App() {
 
         <Route path="/personal-info" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" /> } />
 
-        <Route path="/center-info" element={logic.isUserLoggedIn() ? <ProfileCenter /> : <Navigate to="/login" /> } />
-
         <Route path="/log-book" element={logic.isUserLoggedIn() ? <LogBook /> : <Navigate to="/login" /> } />
 
-
+        {/* missing search and docs&insurance */}
        
-
+        <Route path="/center-info" element={logic.isUserLoggedIn() ? <ProfileCenter /> : <Navigate to="/login" /> } />
         
 
       </Routes>
