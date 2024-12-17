@@ -58,7 +58,7 @@ export default function Profile({ setProfileView }) {
                         <Input id="new-password-repeat" type="password" placeholder="Repeat new password" autoComplete="off" className="px-[.25rem] rounded-[.25rem] border-[2px] border-[black] focus:outline-none" />
                     </Field>
 
-                    <Button className="mt-[1rem] mb-[4rem] bg-[rgba(175,255,255,0.9)] px-[.75rem] py-[.125rem] border-[2px] border-black rounded-[.5rem] transition-transform duration-100 ease-in-out hover:scale-105">Update</Button>
+                    <Button id="updateButton" className="mt-[1rem] mb-[4rem] bg-[rgba(175,255,255,0.9)] px-[.75rem] py-[.125rem] border-[2px] border-black rounded-[.5rem] transition-transform duration-100 ease-in-out hover:scale-105">Update</Button>
                 </Form>
             </div>
         </div>}

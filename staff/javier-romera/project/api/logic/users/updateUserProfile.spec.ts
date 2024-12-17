@@ -27,8 +27,8 @@ describe('updateUserprofile', () => {
         const foundUser = await User.findOne().lean()
 
         expect(foundUser).to.exist
-        expect(foundUser?.username).to.equal('javiii')
-        expect(foundUser?.email).to.equal('javi@gmail.com')
+        expect(foundUser!.username).to.equal('javiii')
+        expect(foundUser!.email).to.equal('javi@gmail.com')
     })
 
     it('succeeds on existing user and updating email', async () => {
@@ -39,8 +39,8 @@ describe('updateUserprofile', () => {
         const foundUser = await User.findOne().lean()
 
         expect(foundUser).to.exist
-        expect(foundUser?.username).to.equal('javi')
-        expect(foundUser?.email).to.equal('javiii@gmail.com')
+        expect(foundUser!.username).to.equal('javi')
+        expect(foundUser!.email).to.equal('javiii@gmail.com')
     })
 
     it('succeeds on existing user and updating username and email', async () => {
@@ -116,6 +116,50 @@ describe('updateUserprofile', () => {
             updateUserProfile(user.id, '', '', '123123123', '111111111', '222222222')
         ).to.throw(ValidationError, /^New passwords do not match$/)
     })
+
+    it('fails on updating already in use username', () =>
+        expect((async () => {
+            const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+            await updateUserProfile(user.id, 'javi', '', '', '', '')
+        })()).to.be.rejectedWith(DuplicityError, /^This is your present username$/)
+    )
+
+    it('fails on updating already in use username', () =>
+        expect((async () => {
+            const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+            await updateUserProfile(user.id, '', 'javi@gmail.com', '', '', '')
+        })()).to.be.rejectedWith(DuplicityError, /^This is your present email$/)
+    )
+
+    it('fails on new password equal to old password', () =>
+        expect((async () => {
+            const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+            await updateUserProfile(user.id, '', '', '123123123', '123123123', '123123123')
+        })()).to.be.rejectedWith(ValidationError, /^Your new password can\'t be your old password$/)
+    )
+
+    it('fails on username already in use by another user', () =>
+        expect((async () => {
+            const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+            await User.create({ email: 'javi2@gmail.com', username: 'javi2', password: bcrypt.hashSync('123123123', 10) })
+
+            await updateUserProfile(user.id, 'javi2', '', '', '', '')
+        })()).to.be.rejectedWith(DuplicityError, /^username already in use$/)
+    )
+
+    it('fails on email already in use by another user', () =>
+        expect((async () => {
+            const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
+
+            await User.create({ email: 'javi2@gmail.com', username: 'javi2', password: bcrypt.hashSync('123123123', 10) })
+
+            await updateUserProfile(user.id, '', 'javi2@gmail.com', '', '', '')
+        })()).to.be.rejectedWith(DuplicityError, /^email already in use$/)
+    )
 
     after(() => db.disconnect())
 })

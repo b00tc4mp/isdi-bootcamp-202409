@@ -37,6 +37,8 @@ export default function useController() {
     const handleSubmit = event => {
         event.preventDefault()
 
+        document.getElementById("updateButton").focus()
+
         confirm('Are you sure you want to update your profile?', accepted => {
             if (accepted) {
                 const { target: form } = event
