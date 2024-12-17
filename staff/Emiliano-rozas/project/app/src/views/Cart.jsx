@@ -10,7 +10,6 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 export default function Cart() {
-
     const [cartInfo, setCartInfo] = useState({ items: [], totalPrice: 0 })
     const [userLoggedIn, setUserLoggedIn] = useState(false)
 
@@ -38,32 +37,29 @@ export default function Cart() {
 
     const handleUpdateQuantity = async (productId, quantity) => {
         try {
-
             await logic.updateCart(productId, Number(quantity))
 
-            const newCart = await logic.getCart() // con esto hacemos que se re renderice bien, sino P.E.T.A
+            const updatedCart = await logic.getCart() // con esto hacemos que se re renderice bien, sino P.E.T.A
 
             // Actualizar el estado del carrito
-            setCartInfo(newCart)
-
-
+            setCartInfo(updatedCart)
         } catch (error) {
             if (error instanceof SystemError)
-                alert('Sorry, try again later.')
+                toast.error('Sorry, try again later.')
             else
                 alert(error.message)
 
             console.error(error)
         }
-    };
+    }
 
     const handleRemoveFromCart = async (productId, productTitle) => {
         try {
             await logic.updateCart(productId, 0)
 
-            const updatedCart = await logic.getCart()
+            const refreshedCart = await logic.getCart()
 
-            setCartInfo(updatedCart)
+            setCartInfo(refreshedCart)
 
             toast.warning(`${productTitle} has been removed from your cart!`)
         } catch (error) {
@@ -74,7 +70,7 @@ export default function Cart() {
 
             console.error(error)
         }
-    };
+    }
 
     return (
         <div className='border-t border-green-700 pt-14'>

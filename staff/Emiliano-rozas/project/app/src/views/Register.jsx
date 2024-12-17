@@ -44,26 +44,26 @@ export default function Register() {
     }
 
     return (
-        <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-white'>
+        <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mb-6 mt-14 gap-4 text-white'>
             <ToastContainer />
             <div className='inline-flex items-center gap-2 mb-2 mt-10'>
                 <p className='text-3xl text-white'>Register</p>
                 <hr className=' border-none h-[1.5px] w-8 bg-green-700' />
             </div>
             <label htmlFor="name"></label>
-            <input type="text" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black ' id="name" placeholder='Name' required />
+            <input type="text" className='w-full px-3 py-2 border rounded focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' id="name" placeholder='Name' required />
 
             <label htmlFor="username"></label>
-            <input type="text" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black ' id="username" placeholder='Username' required />
+            <input type="text" className='w-full px-3 py-2 border rounded focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' id="username" placeholder='Username' required />
 
             <label htmlFor="email"></label>
-            <input type="email" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Email' id="email" required />
+            <input type="email" className='w-full px-3 py-2 border roundedfocus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Email' id="email" required />
 
             <label htmlFor="password"></label>
-            <input type="password" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Password' id="password" required />
+            <input type="password" className='w-full px-3 py-2 border rounded focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Password' id="password" required />
 
             <label htmlFor="password-repeat"></label>
-            <input type="password" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Repeat Password' id="password-repeat" required />
+            <input type="password" className='w-full px-3 py-2 border rounded focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Repeat Password' id="password-repeat" required />
 
             <div className='w-full flex justify-between text-sm mt-[-8px]'>
                 <p className='cursor-pointer hover:text-green-700'>Forgot you password?</p>

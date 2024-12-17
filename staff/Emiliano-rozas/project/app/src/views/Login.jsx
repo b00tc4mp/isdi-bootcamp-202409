@@ -6,8 +6,6 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 export default function Login() {
-
-
     const navigate = useNavigate()
 
     const onSubmitHandler = (event) => {
@@ -43,9 +41,9 @@ export default function Login() {
                 <hr className=' border-none h-[1.5px] w-8 bg-green-700' />
             </div>
             <label htmlFor="username"></label>
-            <input type="text" name="username" id="username" className='w-full px-3 py-2focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black ' placeholder='Username' required />
+            <input type="text" name="username" id="username" className='w-full px-3 py-2 border rounded focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Username' required />
             <label htmlFor="password"></label>
-            <input type="password" name="password" id="password" className='w-full px-3 py-2 focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Password' required />
+            <input type="password" name="password" id="password" className='w-full px-3 py-2 border rounded focus:outline-none focus:ring-0 focus:border-green-700 caret-green-700 bg-black' placeholder='Password' required />
             <div className='w-full flex justify-between text-sm mt-[-8px]'>
                 <p className='cursor-pointer hover:text-green-700'>Forgot you password?</p>
                 <Link to='/register'>

@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const { Schema, model, Types: { ObjectId } } = mongoose;
+const { Schema, model, Types: { ObjectId } } = mongoose
 
 const user = new Schema({
     name: {
@@ -143,8 +143,6 @@ const product = new Schema({
     modifiedAt: { type: Date },
 }, { versionKey: false });
 
-
-
 const cartItem = new Schema({
     product: {
         type: ObjectId,
@@ -157,7 +155,6 @@ const cartItem = new Schema({
         min: 1
     },
 }, { versionKey: false });
-
 
 const cart = new Schema({
     user: {
@@ -175,7 +172,6 @@ const cart = new Schema({
         default: 0
     },
 }, { versionKey: false });
-
 
 const orderItem = new Schema({
     product: product,
@@ -214,16 +210,15 @@ const order = new Schema({
         enum: ['pending', 'confirmed', 'refund', 'cancel'],
         default: 'pending',
     },
-}, { versionKey: false });
+}, { versionKey: false })
 
-
-const User = model('User', user);
-const Product = model('Product', product);
-const Review = model('Review', review);
-const CartItem = model('CartItem', cartItem);
-const Cart = model('Cart', cart);
-const OrderItem = model('OrderItem', orderItem);
-const Order = model('Order', order);
+const User = model('User', user)
+const Product = model('Product', product)
+const Review = model('Review', review)
+const CartItem = model('CartItem', cartItem)
+const Cart = model('Cart', cart)
+const OrderItem = model('OrderItem', orderItem)
+const Order = model('Order', order)
 
 export {
     User,
@@ -233,4 +228,4 @@ export {
     Cart,
     OrderItem,
     Order,
-};
+}

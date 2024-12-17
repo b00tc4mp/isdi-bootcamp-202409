@@ -1,13 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { RelatedProducts } from '../components/index'
 import { errors } from 'com'
 import logic from '../logic/index'
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-
 const { SystemError } = errors
 
 export default function ProductDetail() {
@@ -18,16 +16,16 @@ export default function ProductDetail() {
 
     const loggedIn = logic.isUserLoggedIn()
 
-    const getProductInfo = async () => {
-        products.forEach((item) => {
-            if (item.id === productId) {
-                setProductInfo(item)
-                setImage(item.image)
-            }
-        })
-    }
 
     useEffect(() => {
+        const getProductInfo = async () => {
+            products.forEach((item) => {
+                if (item.id === productId) {
+                    setProductInfo(item)
+                    setImage(item.image)
+                }
+            })
+        }
         getProductInfo()
     }, [productId, products])
 

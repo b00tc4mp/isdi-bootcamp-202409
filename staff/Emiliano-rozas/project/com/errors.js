@@ -5,7 +5,6 @@ const createCustomError = name =>
 
             this.name = name // for browsers compat (WARN safari seems to fail, it hangs)
         }
-
         static get name() { return name }
     }
 
@@ -17,7 +16,6 @@ const errors = {
     SystemError: createCustomError('SystemError'),
     OwnershipError: createCustomError('OwnershipError'),
     AuthorizationError: createCustomError('AuthorizationError'),
-
 }
 
 export default errors

@@ -11,26 +11,28 @@ Inspirado en el negocio en el cual pase casi toda mi vida, este sitio web permit
 
  #### User 
 
-- 🔍 Browse comics by category, author, or publisher
+- 🔍 Browse comics by category / subCategory
 
 - 🛒 Add comics to a shopping cart
 
+- 💳 Purchase products
+
 - 👤 Manage account details
 
-- 📝 Create reviews on purchased items
+- 📝 Create reviews on purchased items (1.0)
 
-- ⭐ View and mark comics as favorites
+- ⭐ View and mark comics as favorites(1.0)
 
 - 📜 View purchase history 
 
 - 📦 Track order status
 
 #### Admin 
-- 🗂️ Manage product listings ( add | edit | delete)
+- 🗂️ Manage product listings ( add | edit | delete) (1.0)
 
-- 📈 Manage clients orders (change status)
+- 📈 Manage clients orders (change status)(1.0)
 
-- 📢 Review and respond to user feedback
+- 📢 Review and respond to user feedback(1.0)
 
 
 ### 🎨 UXUI Design
@@ -40,7 +42,7 @@ Inspirado en el negocio en el cual pase casi toda mi vida, este sitio web permit
 Here are the initial wireframes for an intuitive, responsive interface. The designs are optimized for both desktop and mobile devices.
 
 
-![alt text](image-2.png)  ![alt text](image-3.png) 
+![alt text](pageDemo.gif)  
 
 
 ## ⚙️Technical Overview
@@ -74,6 +76,12 @@ Here are the initial wireframes for an intuitive, responsive interface. The desi
 - username (string)
 - password (string)
 - role (string, enum: user , admin)
+- street (string)
+- city (string)
+- country (string)
+- postalCode (string)
+- phone(string)
+
 ### Product
 - id (uuid)
 - title (string)
@@ -85,7 +93,9 @@ Here are the initial wireframes for an intuitive, responsive interface. The desi
 - Category (string)
 - status (string , enum: published | draft | deactivated)
 - stock(number)
-- Image (string)
+- image (string)
+- images([string])
+- bestSeller (boolean)
 - reviews([Review])
 - created at (Date) 
 - modified at (Date,optional) 

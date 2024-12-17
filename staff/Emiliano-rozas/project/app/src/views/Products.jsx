@@ -3,15 +3,22 @@ import { ShopContext } from '../context/ShopContext'
 import { Title, ProductItem } from '../components/index'
 
 export default function Products() {
-
     const { products } = useContext(ShopContext)
     const [filterProducts, setFilterProducts] = useState([])
     const [category, setCategory] = useState([])
     const [subCategory, setSubCategory] = useState([])
     const [sortType, setSortType] = useState('relevant')
 
-    const toggleCategory = (e) => {
+    useEffect(() => {
+        applyFilter()
+    }, [products, category, subCategory])
 
+    useEffect(() => {
+        sortProduct()
+    }, [sortType])
+
+
+    const toggleCategory = (e) => {
         if (category.includes(e.target.value)) {
             setCategory(prev => prev.filter(item => item != e.target.value))
         } else {
@@ -28,7 +35,6 @@ export default function Products() {
     }
 
     const applyFilter = () => {
-
         let productsCopy = products.slice()
 
         if (category.length > 0) {
@@ -57,18 +63,8 @@ export default function Products() {
             default:
                 applyFilter()
                 break
-
         }
-
     }
-
-    useEffect(() => {
-        applyFilter()
-    }, [products, category, subCategory])
-
-    useEffect(() => {
-        sortProduct()
-    }, [sortType])
 
 
     return (

@@ -1,8 +1,8 @@
-import 'dotenv/config';
-import fs from 'fs/promises';
-import bcrypt from 'bcryptjs';
+import 'dotenv/config'
+import fs from 'fs/promises'
+import bcrypt from 'bcryptjs'
 
-import db, { User, Product, Review } from './index.js';
+import db, { User, Product, Review } from './index.js'
 
 // Conexión mongo
 db.connect(process.env.MONGO_URL)
@@ -20,10 +20,10 @@ db.connect(process.env.MONGO_URL)
 // Función para llenar la colección de usuarios
 const populateUsers = () => {
     return fs.readFile('./users.csv', 'utf-8').then(csv => {
-        const lines = csv.split('\n').filter(line => line.trim());
+        const lines = csv.split('\n').filter(line => line.trim())
 
         const creations = lines.map(line => {
-            const [name, email, username, password, role] = line.split(',').map(item => item.trim());
+            const [name, email, username, password, role] = line.split(',').map(item => item.trim())
 
             return User.create({
                 name,
@@ -34,14 +34,14 @@ const populateUsers = () => {
             });
         });
 
-        return Promise.all(creations);
+        return Promise.all(creations)
     });
 };
 
 // Función para llenar la colección de productos
 const populateProducts = () => {
     return fs.readFile('./products.csv', 'utf-8').then(csv => {
-        const lines = csv.split('\n').filter(line => line.trim());
+        const lines = csv.split('\n').filter(line => line.trim())
 
         const creations = lines.map(line => {
             const [title,
@@ -55,9 +55,9 @@ const populateProducts = () => {
                 stock,
                 image,
                 imagesString,
-            ] = line.split(',').map(item => item.trim());
+            ] = line.split(',').map(item => item.trim())
 
-            const images = imagesString ? imagesString.split(';').map(img => img.trim()) : [];
+            const images = imagesString ? imagesString.split(';').map(img => img.trim()) : []
             const bestSeller = Math.random() > 0.7
 
             return Product.create({
@@ -76,22 +76,22 @@ const populateProducts = () => {
             });
         });
 
-        return Promise.all(creations);
+        return Promise.all(creations)
     });
 };
 
 // Función para llenar la colección de reseñas
 const populateReviews = (users, products) => {
     return fs.readFile('./reviews.csv', 'utf-8').then(csv => {
-        const lines = csv.split('\n').filter(line => line.trim());
+        const lines = csv.split('\n').filter(line => line.trim())
 
         const creations = lines.map(line => {
-            const [productTitle, username, rating, text] = line.split(',').map(item => item.trim());
+            const [productTitle, username, rating, text] = line.split(',').map(item => item.trim())
 
-            const user = users.find(u => u.username === username);
+            const user = users.find(u => u.username === username)
             // Encuentra el producto y el usuario para asociar la reseña
-            const product = products.find(prod => prod.title === productTitle);
-            if (!user || !product) return null;
+            const product = products.find(prod => prod.title === productTitle)
+            if (!user || !product) return null
 
             return Review.create({
                 author: user._id,
@@ -100,12 +100,11 @@ const populateReviews = (users, products) => {
                 date: new Date(),
             }).then(review => {
                 // Asociamos la reseña al producto
-                product.reviews.push(review);
-                return product.save();
-            });
-        });
+                product.reviews.push(review)
+                return product.save()
+            })
+        })
 
         return Promise.all(creations.filter(Boolean)); // solo las promesas validas continuaran en el array
-
-    });
-};
+    })
+}

@@ -1,5 +1,4 @@
 import errors from './errors.js'
-
 const { ValidationError } = errors
 
 const validateName = name => {
@@ -125,7 +124,7 @@ const validatePhone = phone => {
     }
 }
 
-const validatePostalCode = (postalCode) => {
+const validatePostalCode = postalCode => {
     if (typeof postalCode !== 'string') throw new ValidationError('invalid postal code')
 
     if (!/^[A-Za-z0-9\s]{4,10}$/.test(postalCode)) {

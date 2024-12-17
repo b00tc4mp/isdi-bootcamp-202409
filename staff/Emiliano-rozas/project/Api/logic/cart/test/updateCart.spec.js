@@ -52,10 +52,11 @@ describe('updateCart', () => {
             image: 'https://m.media-amazon.com/images/I/91FPoNmEUsL._UF1000,1000_QL80_.jpg',
             bestSeller: true
         })
+
         cart = await Cart.create({ user: user._id, items: [], totalPrice: 0 })
     })
 
-    it('succeeds on adding a product to cart', async () => {
+    it('succeeds on adding a product to new cart', async () => {
         const NewCart = await updateCart(user._id.toString(), product1._id.toString(), 3)
 
         expect(NewCart).to.exist

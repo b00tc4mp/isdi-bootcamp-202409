@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { SideBar, UserInfo } from '../components'
 
 export default function UserProfile() {
-
     const [activeTab, setActiveTab] = useState('profile') // con esto controlamos las vistas
 
     return (

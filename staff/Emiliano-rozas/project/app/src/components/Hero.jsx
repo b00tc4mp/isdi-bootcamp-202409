@@ -22,9 +22,7 @@ export default function Hero() {
             </div>
             {/* Ahora la derecha Fuelte */}
 
-
             <div id="default-carousel" className="relative w-full p-5" data-carousel="slide">
-
                 <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
 
                     <div className=" duration-200 ease-in-out" data-carousel-item="active">

@@ -1,7 +1,6 @@
 import React from 'react'
 import assets from '../assets'
 
-
 export default function Footer() {
     return (
         <div>

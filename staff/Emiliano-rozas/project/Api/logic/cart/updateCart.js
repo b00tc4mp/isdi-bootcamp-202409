@@ -11,7 +11,6 @@ export default (userId, productId, quantity) => {
     return (async () => {
         let user
         try {
-            //Verificamos que el usuario exista
             user = await User.findById(userId)
         } catch (error) {
             throw new SystemError(error.message)
@@ -25,6 +24,7 @@ export default (userId, productId, quantity) => {
         } catch (error) {
             throw new SystemError(error.message)
         }
+
         try {
             if (!cart) {
                 cart = await Cart.create({ user: userId })
@@ -32,6 +32,7 @@ export default (userId, productId, quantity) => {
         } catch (error) {
             throw new SystemError(error.message)
         }
+
         let product
         try {
             //Buscamos el producto en la base de datos

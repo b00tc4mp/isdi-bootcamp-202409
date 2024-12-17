@@ -1,6 +1,5 @@
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRiNDFlMzFkNDkzZTZlYTFkMjU0ZWYiLCJyb2xlIjoibW9kZXJhdG9yIiwiaWF0IjoxNzMzMzg3NjE1LCJleHAiOjE3MzMzOTEyMTV9.UbDSXTk34k324TuieFPT2SFMfyKRPE6iurWkznUr868'
 
-
 fetch('http://localhost:7000/cart', {
     method: 'GET',
     headers: {

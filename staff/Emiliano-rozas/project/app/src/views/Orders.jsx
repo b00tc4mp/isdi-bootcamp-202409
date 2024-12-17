@@ -3,12 +3,11 @@ import { Title } from '../components'
 import logic from '../logic'
 
 export default function Orders() {
-
     const [orders, setOrders] = useState([])
 
     useEffect(() => { // no puede ser una función asíncrona directamente porque React no permite que el hook useEffect retorne una promesa.
 
-        const fetchOrders = async () => {//Por eso hay que hacer esta llamada Asyncrona y una vez gestionada, la llamamos 
+        const UserOrders = async () => {//Por eso hay que hacer esta llamada Asyncrona y una vez gestionada, la llamamos 
             try {
                 const Orders = await logic.getOrders()
 
@@ -18,7 +17,7 @@ export default function Orders() {
                 console.error(error)
             }
         }
-        fetchOrders() //ACA la ejecutamos
+        UserOrders() //ACA la ejecutamos
     }, [])
 
     return (

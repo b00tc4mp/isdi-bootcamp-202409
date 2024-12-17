@@ -112,6 +112,7 @@ describe('getOrders', () => {
         const order = orders[0]
 
         expect(order).to.exist
+        expect(order.user.id).to.equal(regularUser1.id)
         expect(order.user.name).to.equal(regularUser1.name)
         expect(order.totalPrice).to.equal(order1.totalPrice)
     })
@@ -124,10 +125,12 @@ describe('getOrders', () => {
         const [userOrder1, userOrder2] = orders
 
         expect(userOrder1).to.exist
+        expect(userOrder1.user.id).to.equal(regularUser1.id)
         expect(userOrder1.user.name).to.equal(regularUser1.name)
         expect(userOrder1.totalPrice).to.equal(order1.totalPrice)
 
         expect(userOrder2).to.exist
+        expect(userOrder2.user.id).to.equal(regularUser2.id)
         expect(userOrder2.user.name).to.equal(regularUser2.name)
         expect(userOrder2.totalPrice).to.equal(order2.totalPrice)
     })

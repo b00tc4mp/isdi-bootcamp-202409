@@ -20,7 +20,7 @@ export default (userId, orderId, paymentMethodId, provider) => {
                 .then(order => {
                     if (!order) throw new NotFoundError('order not found')
 
-                    const amount = order.totalPrice * 100 // esto es necesario para convertir los centavos
+                    const amount = Math.round(order.totalPrice * 100) // esto es necesario para convertir los centavos
 
                     //verificamos que proveedor es para pasaerselo por parametro
                     if (provider === 'stripe') {

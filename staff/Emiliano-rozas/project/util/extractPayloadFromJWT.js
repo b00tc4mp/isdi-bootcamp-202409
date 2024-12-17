@@ -3,7 +3,6 @@ export default token => {
         throw new Error('Token is not defined');
 
     }
-
     const indexFrom = token.indexOf('.')
     const indexTo = token.lastIndexOf('.')
 

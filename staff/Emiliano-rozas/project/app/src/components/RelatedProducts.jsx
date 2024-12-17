@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { ProductItem, Title } from './index'
 
-
 export default function RelatedProducts({ category }) {
-
     const { products } = useContext(ShopContext)
     const [related, setRelated] = useState([])
 

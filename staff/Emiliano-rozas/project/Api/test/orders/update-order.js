@@ -2,7 +2,6 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRiNDFlMzFkNDkz
 const orderId = '67531dd5a35aeb0a651697f6'
 const status = 'confirmed'
 
-
 fetch(`http://localhost:7000/orders/update/${orderId}`, {
     method: 'PATCH',
     headers: {

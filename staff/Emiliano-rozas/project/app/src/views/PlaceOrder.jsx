@@ -9,8 +9,8 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 export default function PlaceOrder() {
-    const [method, setMethod] = useState('cash')
-    const [orderId, setOrderId] = useState(null) // Nuevo estado para almacenar el orderId
+    const [paymentMethod, setPaymentMethod] = useState('cash')
+    const [orderId, setOrderId] = useState(null) // estado para almacenar el orderId
     const [showPaymentForm, setShowPaymentForm] = useState(false) // Estado para mostrar el formulario de pago
     const [userProfile, setUserProfile] = useState({})
 
@@ -40,7 +40,7 @@ export default function PlaceOrder() {
             // se guarda el orderId en el estado y pa lanteee nomaaa
             setOrderId(orderId)
 
-            if (method === 'stripe') {
+            if (paymentMethod === 'stripe') {
                 setShowPaymentForm(true)  // aca entra en accion el method, establece como estado el metodo de pago para mostrar el formulario
             } else {
                 navigate('/orders') // Redirigir a la página de órdenes
@@ -50,9 +50,7 @@ export default function PlaceOrder() {
                 alert('Sorry, try again later.')
             else
                 alert(error.message)
-
             console.error(error)
-
         }
     }
 
@@ -89,21 +87,21 @@ export default function PlaceOrder() {
                         <Title text1={'PAYMENT'} text2={'METHOD'} />
                         <div className='flex gap-3 flex-col lg:flex-row'>
                             <div
-                                onClick={() => setMethod('stripe')}
+                                onClick={() => setPaymentMethod('stripe')}
                                 className='flex items-center gap-3 border p-2 px-3 cursor-pointer'
                             >
                                 <p
-                                    className={`min-w-3.5 h-3.5 border rounded-full ${method === 'stripe' ? 'bg-green-400' : ''
+                                    className={`min-w-3.5 h-3.5 border rounded-full ${paymentMethod === 'stripe' ? 'bg-green-400' : ''
                                         }`}
                                 ></p>
                                 <img className='h-5 mx-4' src={assets.stripeLogo} alt="stripe" />
                             </div>
                             <div
-                                onClick={() => setMethod('cash')}
+                                onClick={() => setPaymentMethod('cash')}
                                 className='flex items-center gap-3 border p-2 px-3 cursor-pointer'
                             >
                                 <p
-                                    className={`min-w-3.5 h-3.5 border rounded-full ${method === 'cash' ? 'bg-green-400' : ''
+                                    className={`min-w-3.5 h-3.5 border rounded-full ${paymentMethod === 'cash' ? 'bg-green-400' : ''
                                         }`}
                                 ></p>
                                 <p className='text-white text-sm font-medium mx-4'>CASH ON DELIVERY</p>

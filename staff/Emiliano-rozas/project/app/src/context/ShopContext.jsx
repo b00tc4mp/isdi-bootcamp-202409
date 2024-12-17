@@ -11,6 +11,8 @@ const ShopContextProvider = (props) => {
     const delivery_fee = 5
 
     const [products, setProducts] = useState([]) //aca almacenamos lo productos que vamos a traer de api
+    const [userLoggedIn, setUserLoggedIn] = useState(false)
+    const [cart, setCart] = useState({ items: [], totalPrice: 0 })
 
     useEffect(() => {
         logic.getProducts()
@@ -23,10 +25,33 @@ const ShopContextProvider = (props) => {
             })
     }, [])
 
+    useEffect(() => {
+        try {
+            const loggedIn = logic.isUserLoggedIn()
+
+            setUserLoggedIn(loggedIn)
+
+            if (loggedIn) {
+                logic.getCart()
+                    .then(userCart => {
+                        setCart(userCart)
+                    })
+                    .catch(error => {
+                        console.error(error)
+                    })
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }, [])
+
+
     const value = {
         products,
         currency,
-        delivery_fee
+        delivery_fee,
+        userLoggedIn,
+        cart
     }
 
     return (

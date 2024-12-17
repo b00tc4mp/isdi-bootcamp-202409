@@ -10,8 +10,6 @@ export default function UserInfo() {
     const [userProfile, setUserProfile] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false) // Estado para manejar el submit
 
-
-
     useEffect(() => {
         const userInfo = async () => {
             try {
@@ -41,9 +39,12 @@ export default function UserInfo() {
 
         try {
             await logic.updateUserProfile(street, phone, city, country, postalCode)
+
             toast.success('Profile Updated!')
+
             const updatedProfile = await logic.getUserProfile()
-            setUserProfile(updatedProfile) // Recargar los datos actualizados
+
+            setUserProfile(updatedProfile) //  datos actualizados
         } catch (error) {
             if (error instanceof SystemError) alert('Sorry, try again later.')
 

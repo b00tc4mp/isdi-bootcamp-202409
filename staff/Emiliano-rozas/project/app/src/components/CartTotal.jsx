@@ -1,26 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
-import logic from '../logic/index'
+import React, { useContext } from 'react'
 import { Title } from './index'
 import { ShopContext } from '../context/ShopContext'
 
 export default function CartTotal({ cart }) {
-
     const { delivery_fee } = useContext(ShopContext)
-
-    // const [cart, setCart] = useState({ totalPrice: 0 })
-
-    // useEffect(() => {
-    //     const fetchCart = async () => {
-    //         try {
-    //             const cartData = await logic.getCart()
-    //             setCart(cartData)
-    //         } catch (err) {
-    //             console.error('Error fetching cart:', err);
-    //         }
-    //     }
-    //     fetchCart();
-    // }, [])
-
 
     return (
         <div className='w-full'>

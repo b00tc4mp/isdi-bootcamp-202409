@@ -4,9 +4,7 @@ import { Title, ProductItem } from './index.js'
 
 
 export default function LatestArrivals() {
-
     const { products } = useContext(ShopContext)
-
     const [latestProducts, setLatestProducts] = useState([])
 
     useEffect(() => {
@@ -14,8 +12,6 @@ export default function LatestArrivals() {
             setLatestProducts(products.slice(0, 10))
         }
     }, [products])
-
-    //No te olvides de poner el switc, que sino se rompe todoo, pero con products? si, con products para que se actualice cada vez que cambie products
 
     return (
         <div className='my-10' >
