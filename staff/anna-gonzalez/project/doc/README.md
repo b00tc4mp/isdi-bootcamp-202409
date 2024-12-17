@@ -16,15 +16,11 @@ It’s more than just tracking—it’s about **embracing your rhythm** and thri
 
 User
 - create/update/delete period start and end dates to calendar
-- create/update/delete a log of daily symptoms and activities
-- create/delete & read reminders
+- create/update a log of daily symptoms and activities
+- create & read reminders
 - read data about your current cycle
 - read reports of the last cycles    
-- read predictions for the next cycle in the calendar
 - read tips regarding your week of the cycle
-
-Visitor
-- read home
 
 ### UXUI Design
 

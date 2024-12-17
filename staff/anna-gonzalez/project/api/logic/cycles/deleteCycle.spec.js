@@ -63,10 +63,10 @@ describe('deleteCycle', () => {
     it('fails if the cycle to delete is not found', () => {
         return User.create({ name: 'Lucy', email: 'lucy@na.com', password: '123123123' })
             .then(user =>
-                Cycle.create({ user: user.id, start: '2024-11-14T00:00:00.000Z' })
+                Cycle.create({ user: user.id, start: '2024-11-13T00:00:00.000Z' })
                     .then(() =>
-                        expect(deleteCycle(user.id, '2024-11-13T00:00:00.000Z'))
-                            .to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
+                        expect(deleteCycle(user.id, '2024-10-13T00:00:00.000Z')
+                        ).to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
                     )
             )
     })

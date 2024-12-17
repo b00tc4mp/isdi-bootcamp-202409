@@ -19,17 +19,24 @@ describe('addPeriodEnd', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Cycle.deleteMany()]))
 
     it('succeeds for existing user', () => {
-        User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-            .then(user =>
-                Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000Z' })
+
+        return User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+            .then(user => {
+
+                return Cycle.create({ user: user.id, start: '2024-10-13T00:00:00.000Z' })
                     .then(() => {
-                        addPeriodEnd(user.id, '2024-10-13T00:00:00.000Z')
-                            .then(updatedCycle => {
-                                expect(updatedCycle).to.exist
-                                expect(updatedCycle.periodEnd).to.equal('2024-10-15T00:00:00.000Z')
+
+                        return addPeriodEnd(user.id, '2024-10-13')
+                            .then(() => {
+
+                                return Cycle.findOne({ user: user.id, start: '2024-10-13T00:00:00.000Z' })
+                                    .then(updatedCycle => {
+                                        expect(updatedCycle).to.exist
+                                        expect(new Date(updatedCycle.periodEnd).toISOString()).to.equal(new Date('2024-10-13T00:00:00.000Z').toISOString())
+                                    })
                             })
                     })
-            )
+            })
     })
 
     it('succeeds on updating periodEnd', () => {

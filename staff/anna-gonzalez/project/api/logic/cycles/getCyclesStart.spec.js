@@ -19,14 +19,29 @@ describe('getCyclesStart', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Cycle.deleteMany()]))
 
     it('succeeds for existing user', () => {
-        const user = new User({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-        const cycle = new Cycle({ user: user.id, start: '2024-10-13T00:00:00.000Z', periodEnd: '2024-10-17T00:00:00.000Z' })
+        return User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+            .then(user => {
+                const cycle1 = new Cycle({
+                    user: user.id,
+                    start: '2024-10-13T00:00:00.000Z',
+                    periodEnd: '2024-10-17T00:00:00.000Z'
+                })
+                const cycle2 = new Cycle({
+                    user: user.id,
+                    start: '2024-10-18T00:00:00.000Z',
+                    periodEnd: '2024-10-20T00:00:00.000Z'
+                })
 
-        return Promise.all([user.save(), cycle.save()])
-            .then(([user, cycle]) => {
-                getCyclesStart(user.id)
-                    .then(cycles => {
-                        expect(cycles).to.exist
+                return Promise.all([cycle1.save(), cycle2.save()])
+                    .then(() => {
+
+                        return getCyclesStart(user.id)
+                    })
+                    .then(cyclesStart => {
+                        expect(cyclesStart).to.deep.equal([
+                            '2024-10-18T00:00:00.000Z',
+                            '2024-10-13T00:00:00.000Z'
+                        ])
                     })
             })
     })
@@ -38,11 +53,12 @@ describe('getCyclesStart', () => {
     )
 
     it('fails on non-existing cycle', () => {
-        User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+
+        return User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
             .then(user => {
-                expect(
-                    getCyclesStart(user.id)
-                ).to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
+
+                return expect(getCyclesStart(user.id))
+                    .to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
             })
     })
 

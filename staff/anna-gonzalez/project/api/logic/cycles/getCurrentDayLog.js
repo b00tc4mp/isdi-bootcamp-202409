@@ -43,12 +43,12 @@ export default (userId, formattedDate) => {
 
                         return cycle.save()
                             .catch(error => { throw new SystemError(error.message) })
-                            .then(newDayLog => {
-                                if (newDayLog) {
-                                    newDayLog.id = newDayLog._id.toString()
-                                    delete newDayLog._id
+                            .then(updatedCycle => {
+                                if (updatedCycle) {
+                                    updatedCycle.id = updatedCycle._id.toString()
+                                    delete updatedCycle._id
 
-                                    return newDayLog
+                                    return updatedCycle.dayLogs[0]
                                 }
                             })
                     }

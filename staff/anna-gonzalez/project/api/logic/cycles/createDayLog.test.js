@@ -5,7 +5,7 @@ import createDayLog from './createDayLog.js'
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return createDayLog('675c5ded227dc4176577ed8f', '2024-11-19T00:00:00.000Z', { symptoms: ['backache', 'headache'] })
+            return createDayLog('67613ab38ad7845f15ea6873', '2024-12-17T00:00:00.000Z', { symptoms: ['backache', 'headache'], mood: 'sad' })
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {

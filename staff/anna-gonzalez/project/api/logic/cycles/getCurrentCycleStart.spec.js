@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Cycle } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError } = errors
 
 import getCurrentCycleStart from './getCurrentCycleStart.js'
 
@@ -24,12 +24,9 @@ describe('getCurrentCycleStart', () => {
 
         return Promise.all([user.save(), cycle.save()])
             .then(([user, cycle]) => {
-                getCurrentCycleStart(user.id)
-                    .then(() => {
-                        Cycle.find()
-                            .then(currentCycle => {
-                                expect(currentCycle).to.equal(cycle.start)
-                            })
+                return getCurrentCycleStart(user.id)
+                    .then(currentCycle => {
+                        return expect(new Date(currentCycle).toISOString()).to.equal(new Date(cycle.start).toISOString())
                     })
             })
     })

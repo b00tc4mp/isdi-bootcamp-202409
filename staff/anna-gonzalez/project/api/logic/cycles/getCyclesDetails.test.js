@@ -5,7 +5,7 @@ import getCyclesDetails from './getCyclesDetails.js'
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return getCyclesDetails('675c5ded227dc4176577ed8f')
+            return getCyclesDetails('67613ab38ad7845f15ea6873')
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {

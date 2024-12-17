@@ -18,15 +18,36 @@ describe('getPeriodDays', () => {
 
     beforeEach(() => Promise.all([User.deleteMany(), Cycle.deleteMany()]))
 
-    it('succeeds for existing user', () => {
+    it('succeeds for existing user with periodEnd', () => {
         const user = new User({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-        const cycle = new Cycle({ user: user.id, start: '2024-10-13T00:00:00.000Z', periodEnd: '2024-10-17T00:00:00.000Z' })
+        const cycle = new Cycle({
+            user: user.id,
+            start: '2024-10-13T00:00:00.000Z',
+            periodEnd: '2024-10-15T00:00:00.000Z'
+        })
 
         return Promise.all([user.save(), cycle.save()])
-            .then(([user, cycle]) => {
-                getPeriodDays(user.id)
+            .then(([savedUser, savedCycle]) => {
+                return getPeriodDays(savedUser.id)
                     .then(periodDays => {
-                        expect(periodDays[0]).to.equal(cycle.start)
+                        expect(periodDays).to.have.lengthOf(3)
+                        expect(periodDays).to.include('2024-10-13T00:00:00.000Z')
+                        expect(periodDays).to.include('2024-10-14T00:00:00.000Z')
+                        expect(periodDays).to.include('2024-10-15T00:00:00.000Z')
+                    })
+            })
+    })
+
+    it('succeeds for existing user without periodEnd', () => {
+        const user = new User({ name: 'Anna', email: 'an@na.com', password: '123123123' })
+        const cycle = new Cycle({ user: user.id, start: '2024-10-13T00:00:00.000Z' })
+
+        return Promise.all([user.save(), cycle.save()])
+            .then(([savedUser, savedCycle]) => {
+                return getPeriodDays(savedUser.id)
+                    .then(periodDays => {
+                        expect(periodDays).to.have.lengthOf(1)
+                        expect(periodDays[0]).to.equal('2024-10-13T00:00:00.000Z')
                     })
             })
     })
@@ -39,13 +60,10 @@ describe('getPeriodDays', () => {
 
     it('fails on non-existing cycle', () => {
         const user = new User({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-        const cycle = new Cycle({ user: user.id, start: '2024-10-13T00:00:00.000Z' })
-
-        return Promise.all([user.save(), cycle.save()])
-            .then(([user, cycle]) => {
-                expect(
-                    getPeriodDays(user.id)
-                ).to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
+        return user.save()
+            .then(savedUser => {
+                return expect(getPeriodDays(savedUser.id))
+                    .to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
             })
     })
 
