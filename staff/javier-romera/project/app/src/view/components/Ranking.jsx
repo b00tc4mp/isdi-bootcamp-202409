@@ -24,7 +24,6 @@ export default function Ranking({ onCloseRankingClick }) {
                             const found = newScores.some(newScore => newScore.username === newUserDetails.username)
 
                             if (found) setIsUserInRanking(true)
-                            console.log(found)
                         })
                 })
                 .catch(error => {
