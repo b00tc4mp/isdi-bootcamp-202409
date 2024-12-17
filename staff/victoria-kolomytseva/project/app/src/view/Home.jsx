@@ -4,6 +4,7 @@ import Post from './components/Post'
 
 export default function Home() {
     const [posts, setPosts] = useState([])
+    const userId = logic.getUserId()
 
     useEffect(() => {
         console.log('Home -> useEffect "componentDidMount"')
@@ -23,31 +24,15 @@ export default function Home() {
         }
     }, [])
 
-    // const handleLiked = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
-
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
-
-    //         console.error(error)
-    //     }
-    // }
-
     const handleDeleted = () => {
         try {
-            // logic.getPosts()
-            //     .then(setPosts)
-            //     .catch(error => {
-            //         alert(error.message)
+            logic.getPosts('')
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-            //         console.error(error)
-            //     })
+                    console.error(error)
+                })
         } catch (error) {
             alert(error.message)
 
@@ -55,43 +40,12 @@ export default function Home() {
         }
     }
 
-    // const handleCommentAdded = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
-
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
-
-    //         console.error(error)
-    //     }
-    // }
-
-    // const handleCommentRemoved = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
-
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
-
-    //         console.error(error)
-    //     }
-    // }
-
     console.log('Home -> render')
 
     return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
         {posts.map(post => <Post
             key={post.id}
+            userId={userId}
             post={post}
             onDeleted={handleDeleted}
         />)}

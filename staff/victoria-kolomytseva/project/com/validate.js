@@ -76,7 +76,6 @@ const validateLocation = (location) => {
 }
 
 const validateWhatHappened = (whatHappened) => {
-    console.log(whatHappened)
     if (typeof whatHappened !== 'string') {
         throw new ValidationError('Invalid whatHappened format')
     }

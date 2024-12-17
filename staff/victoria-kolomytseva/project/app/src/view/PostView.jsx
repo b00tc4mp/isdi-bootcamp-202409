@@ -7,6 +7,7 @@ import AdMap from './components/AdMap'
 export default function Post() {
     const [post, setPost] = useState([])
     const [view, setView] = useState(null)
+    const userId = logic.getUserId()
     const { postId } = useParams()
     useEffect(() => {
         console.log('Post -> useEffect "componentDidMount"')
@@ -26,73 +27,24 @@ export default function Post() {
         }
     }, [])
 
-    // const handleLiked = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
-
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
-
-    //         console.error(error)
-    //     }
-    // }
-
-    const handleDeleted = () => {
-        try {
-            // logic.getPosts()
-            //     .then(setPosts)
-            //     .catch(error => {
-            //         alert(error.message)
-
-            //         console.error(error)
-            //     })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    }
     const handleLocationClick = () => setView(view ? null : 'location')
     const handleCloseMap = () => setView(null)
+    const handleFoundClick = () => {
+        if (confirm('Do you found your pet?')) {
+            try {
+                logic.postFound(postId)
+                    .catch(error => {
+                        alert(error.message)
 
+                        console.error(error)
+                    })
+            } catch (error) {
+                alert(error.message)
 
-    // const handleCommentAdded = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
-
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
-
-    //         console.error(error)
-    //     }
-    // }
-
-    // const handleCommentRemoved = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
-
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
-
-    //         console.error(error)
-    //     }
-    // }
-
+                console.error(error)
+            }
+        }
+    }
 
     return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">PetLocator</h1>
@@ -146,6 +98,12 @@ export default function Post() {
                 </div>
             </div>
         )}
+
+        {post?.author?.id === userId && post.whatHappened === 'lost' ? <div className="flex w-full justify-center">
+            <button onClick={handleFoundClick} className='from-primary-light to-primary-dark text-xl bg-gradient-to-b text-center rounded-full px-10 py-2.5'>
+                I have found!
+            </button>
+        </div> : null}
 
     </div>
 }

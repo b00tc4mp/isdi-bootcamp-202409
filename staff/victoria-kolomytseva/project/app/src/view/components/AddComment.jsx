@@ -13,7 +13,7 @@ export default function AddComment({ postId, onAdded }) {
         const { text: { value: text } } = form
 
         try {
-            logic.addComment(post, text)
+            logic.addComment(postId, text)
                 .then(() => {
                     form.reset()
 

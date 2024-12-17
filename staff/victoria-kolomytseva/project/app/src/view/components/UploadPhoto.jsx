@@ -42,6 +42,7 @@ function UploadPhoto() {
 
             <label htmlFor="image">image</label>
             <input type="file" name="image" id="image" onChange={handleImageChange} multiple />
+            <img src={image?.[0]} />
 
             <button type="submit">upload</button>
         </form>

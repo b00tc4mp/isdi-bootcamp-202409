@@ -1,11 +1,11 @@
 import searchAddress from "../logic/posts/searchAddress.js"
 
-let debounceTimer //Debounce: Es una técnica para retrasar la ejecución de una función hasta que hayan transcurrido cierto tiempo (500 ms aquí) desde la última vez que se activó
+let debounceTimer // asegura que no se hagan llamadas repetidas a una función en intervalos muy cortos
 
 const getSuggestions = async (query, setSuggestions) => {
     clearTimeout(debounceTimer)
 
-    debounceTimer = setTimeout(async () => {
+    debounceTimer = setTimeout(async () => {//Configura un nuevo temporizador para ejecutar la función anónima después de 500 ms.
         if (!query.trim()) {
             setSuggestions([])
             return

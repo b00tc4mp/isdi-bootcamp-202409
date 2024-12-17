@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
+
 import logic from '../logic'
-import Post from './components/Post'
+
+import AdFound from './components/AdFound'
 
 export default function PostFoundView() {
+
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.log('Home -> useEffect "componentDidMount"')
+        console.log('PostFoundView-> useEffect "componentDidMount"')
 
         try {
             logic.getPosts('found')
@@ -23,31 +26,15 @@ export default function PostFoundView() {
         }
     }, [])
 
-    // const handleLiked = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
-
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
-
-    //         console.error(error)
-    //     }
-    // }
-
-    const handleDeleted = () => {
+    const handleLiked = () => {
         try {
-            // logic.getPosts()
-            //     .then(setPosts)
-            //     .catch(error => {
-            //         alert(error.message)
+            logic.getPosts('found')
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-            //         console.error(error)
-            //     })
+                    console.error(error)
+                })
         } catch (error) {
             alert(error.message)
 
@@ -55,45 +42,63 @@ export default function PostFoundView() {
         }
     }
 
-    // const handleCommentAdded = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
+    const handleDeleted = () => {
+        try {
+            logic.getPosts('found')
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
 
-    //         console.error(error)
-    //     }
-    // }
+            console.error(error)
+        }
+    }
 
-    // const handleCommentRemoved = () => {
-    //     try {
-    //         // logic.getPosts()
-    //         //     .then(setPosts)
-    //         //     .catch(error => {
-    //         //         alert(error.message)
+    const handleCommentAdded = () => {
+        try {
+            logic.getPosts('found')
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
 
-    //         //         console.error(error)
-    //         //     })
-    //     } catch (error) {
-    //         alert(error.message)
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
 
-    //         console.error(error)
-    //     }
-    // }
+            console.error(error)
+        }
+    }
 
-    console.log('Home -> render')
+    const handleCommentRemoved = () => {
+        try {
+            logic.getPosts('found')
+                .then(setPosts)
+                .catch(error => {
+                    alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
+    console.log(' PostFoundView-> render')
 
     return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
-        {posts.map(post => <Post
+        {posts.map(post => <AdFound
             key={post.id}
             post={post}
-            onDeleted={handleDeleted}
+            onLiked={handleLiked}
+            onCommentAdded={handleCommentAdded}
+            onCommentRemoved={handleCommentRemoved}
         />)}
     </div>
 }

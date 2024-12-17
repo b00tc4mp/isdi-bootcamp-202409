@@ -20,6 +20,7 @@ import {
     getPosts,
     getPostById,
     toggleLikePost,
+    postFound,
 
     addComment,
     removeComment,
@@ -44,6 +45,7 @@ const logic = {
     getPostById,
     deletePost,
     toggleLikePost,
+    postFound,
 
     addComment,
     removeComment,

@@ -3,6 +3,7 @@ import getPosts from './getPosts'
 import getPostById from './getPostById'
 import deletePost from './deletePost'
 import toggleLikePost from './toggleLikePost'
+import postFound from './postFound'
 
 import addComment from './addComment'
 import getComments from './getComments'
@@ -13,6 +14,7 @@ export {
     getPostById,
     deletePost,
     toggleLikePost,
+    postFound,
 
     addComment,
     getComments,

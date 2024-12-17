@@ -4,8 +4,10 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 export default (userId, whatHappened) => {
-    validate.id(userId, 'userId')
-    validate.whatHappened(whatHappened)
+    validate.id(userId)
+    if (whatHappened) {
+        validate.whatHappened(whatHappened)
+    }
     // si whatHappened = 'found' o vacio
     const query = whatHappened ? { whatHappened } : {};//query se usará para buscar registros basados en el estado (whatHappened) solo si este está definido
 

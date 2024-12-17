@@ -5,10 +5,10 @@ import { getElapsedTime } from '../../util'
 import useContext from '../useContext'
 import AdMap from './AdMap'
 
-export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
+export default function Post({ post, userId, onDeleted }) {
     const [view, setView] = useState(null)
     const navigate = useNavigate()
-    const { alert, confirm } = useContext()
+    const { alert } = useContext()
     const handlePostClick = () => navigate('/post/' + id)
     const {
         id,
@@ -17,51 +17,28 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
         text,
         date,
         location,
-        petTYpe,
-        whatHappened,
-        petGender,
-        liked,
-        likes
     } = post
 
-    const handleLikeClick = () => {
-        try {
-            logic.toggleLikePost(id)
-                .then(onLiked)
-                .catch(error => {
-                    alert(error.message)
-
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    }
-
-    const handleDeleteClick = () => {
-        confirm('Delete post?', accepted => {
-            if (accepted) {
-                try {
-                    logic.deletePost(id)
-                        .then(onDeleted)
-                        .catch(error => {
-                            alert(error.message)
-
-                            console.error(error)
-                        })
-                } catch (error) {
-                    alert(error.message)
-
-                    console.error(error)
-                }
-            }
-
-        })
-    }
     const handleLocationClick = () => setView(view ? null : 'location')
     const handleCloseMap = () => setView(null)
+
+    const handleDeleteClick = () => {
+        if (confirm('Delete post?')) {
+            try {
+                logic.deletePost(id)
+                    .then(onDeleted)
+                    .catch(error => {
+                        alert(error.message)
+
+                        console.error(error)
+                    })
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        }
+    }
 
     console.log('Post -> render')
 
@@ -90,9 +67,15 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
             <div className="flex justify-end">
                 <a href={"tel:" + post?.author?.phone} className="from-primary-light to-primary-dark bg-gradient-to-b text-center rounded-full  px-10 py-2.5 ">Call</a>
-
             </div>
+            {userId === post.author.id ?
+                <button type="button" onClick={handleDeleteClick}>
+                    <img className="w-4 h-4" src="./assets/remove.svg" />
+                </button> :
+                null
+            }
         </div>
+
         {/* Modal para el mapa */}
         {view === 'location' && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 w-full overflow-hidden">

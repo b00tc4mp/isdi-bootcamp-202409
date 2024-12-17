@@ -72,14 +72,14 @@ export default function CreatePost() {
                 <Label htmlFor="whatHappened" className='text-center font-medium'>What happened?</Label>
                 <ul className="flex flex-row w-full gap-6 justify-center">
                     <li>
-                        <input type="radio" name="whatHappened" id="lostMyMascot" value="lostMyMascot" className="hidden peer" />
-                        <label htmlFor="lostMyMascot" className="flex flex-col items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointerdark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                        <input type="radio" name="whatHappened" id="lost" value="lost" className="hidden peer" />
+                        <label htmlFor="lost" className="flex flex-col items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointerdark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                             <p>Lost my mascot</p>
                         </label>
                     </li>
                     <li>
-                        <input type="radio" name="whatHappened" id="foundMascot" value="foundMascot" className="hidden peer" />
-                        <label htmlFor="foundMascot" className="flex flex-col items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointerdark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                        <input type="radio" name="whatHappened" id="found" value="found" className="hidden peer" />
+                        <label htmlFor="found" className="flex flex-col items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointerdark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                             <p>Found my mascot</p>
                         </label>
                     </li>
