@@ -45,25 +45,25 @@ Anonymous (User)
 
 ### Techs
 
-- HTML/TailwindCSS/JS (...)
+- HTML/TailwindCSS/JS/TS (...)
 - React (...)
 - Vite (...)
 - Node (...)
 - Express (...)
 - Mongo (...)
 - Mocha & Chai (...)
+- bcryptjs
+- jwt
 
 ### Data Model
 
 User
 - id (ObjectId)
-- name (string)
 - email (string)
 - username (string)
 - password (string)
 - role (string, enum: regular | anonymous)
 - score (number)
-- rank (string, enum: ...)
 
 Devilfruit
 - id (ObjectId)
@@ -98,11 +98,61 @@ Condition
 - id (ObjectId) <!-- el id -->
 - type (string, enum: equal | greater than equal | lower than equal) <!-- para poder hacer la comparación -->
 - property (string) <!-- que propiedad queremos comparar -->
-- value (any) <!-- el valor de la propiedad que queremos comparar -->
+- value (string | number | boolean) <!-- el valor de la propiedad que queremos comparar -->
 - direction (string, enum: row | column) <!-- la direccion de la condición para evitar exclusiones -->
-- index (number) <!-- el indice en el que estara la condición en el tablero -->
+- indexes ([number]) <!-- el indice en el que estara la condición en el tablero -->
 - text (string) <!-- el texto que se imprimirá por pantalla en el minijuego para decirle la condicion al usuario -->
 
 ### Test Coverage
 
 - el codigo está cubierto 👍
+
+```sh
+85 passing
+
+---------------------------------------|---------|----------|---------|---------|-------------------
+File                                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+---------------------------------------|---------|----------|---------|---------|-------------------
+All files                              |    94.6 |    79.69 |     100 |   94.59 |                   
+ logic/characters                      |   94.49 |       75 |     100 |   94.49 |                   
+  getAllCharacters.js                  |    87.5 |      100 |     100 |    87.5 | 12,20             
+  getAllCharacters.spec.js             |     100 |      100 |     100 |     100 |                   
+  getAllCharactersNameAndAlias.js      |   88.23 |      100 |     100 |   88.23 | 13,21             
+  getAllCharactersNameAndAlias.spec.js |     100 |      100 |     100 |     100 |                   
+  getCharacterByName.js                |   81.81 |       50 |     100 |   81.81 | 14-15,23-24       
+  getCharacterByName.spec.js           |     100 |      100 |     100 |     100 |                   
+  getCharactersByArc.js                |   85.71 |      100 |     100 |   85.71 | 14,22,28          
+  getCharactersByArc.spec.js           |     100 |      100 |     100 |     100 |                   
+  getRandomCharacter.js                |   88.23 |      100 |     100 |   88.23 | 12,20             
+  getRandomCharacter.spec.js           |     100 |      100 |     100 |     100 |                   
+ logic/conditions                      |   95.71 |    66.66 |     100 |   95.65 |                   
+  getRandomConditions.js               |   92.68 |    66.66 |     100 |    92.5 | 14,22,28          
+  getRandomConditions.spec.js          |     100 |      100 |     100 |     100 |                   
+ logic/users                           |   94.48 |    81.08 |     100 |   94.48 |                   
+  authenticateUser.js                  |   82.14 |    66.66 |     100 |   82.14 | 15-16,25-26,35    
+  authenticateUser.spec.js             |     100 |      100 |     100 |     100 |                   
+  deleteAllAnonymousUsers.js           |    87.5 |      100 |     100 |    87.5 | 10                
+  deleteAllAnonymousUsers.spec.js      |     100 |      100 |     100 |     100 |                   
+  getRankingScores.js                  |   88.88 |      100 |     100 |   88.88 | 13,22             
+  getRankingScores.spec.js             |     100 |      100 |     100 |     100 |                   
+  getUserDetails.js                    |   86.95 |      100 |     100 |   86.95 | 13,21,29          
+  getUserDetails.spec.js               |     100 |      100 |     100 |     100 |                   
+  getUserStatus.js                     |   80.95 |       50 |     100 |   80.95 | 13-14,20-21       
+  getUserStatus.spec.js                |     100 |      100 |     100 |     100 |                   
+  getUserUsername.js                   |   94.44 |      100 |     100 |   94.44 | 15                
+  getUserUsername.spec.js              |     100 |      100 |     100 |     100 |                   
+  registerAnonymousUser.js             |   89.47 |      100 |     100 |   89.47 | 17,23             
+  registerAnonymousUser.spec.js        |     100 |      100 |     100 |     100 |                   
+  registerUser.js                      |   82.35 |    57.14 |     100 |   82.35 | 18-19,28,36-37,47 
+  registerUser.spec.js                 |     100 |      100 |     100 |     100 |                   
+  setNewUserStatus.js                  |   87.87 |    84.37 |     100 |   87.87 | 28-29,37-38       
+  setNewUserStatus.spec.js             |     100 |      100 |     100 |     100 |                   
+  updateUserProfile.js                 |    87.5 |    93.93 |     100 |    87.5 | 17,30,44,54,62,68 
+  updateUserProfile.spec.js            |     100 |      100 |     100 |     100 |                   
+  updateUserScore.js                   |   88.23 |      100 |     100 |   88.23 | 13,22             
+  updateUserScore.spec.js              |     100 |      100 |     100 |     100 |                   
+ util                                  |     100 |      100 |     100 |     100 |                   
+  index.js                             |     100 |      100 |     100 |     100 |                   
+  uuid.js                              |     100 |      100 |     100 |     100 |                   
+---------------------------------------|---------|----------|---------|---------|-------------------
+```

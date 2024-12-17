@@ -109,7 +109,7 @@ describe('updateUserprofile', () => {
         })()).to.be.rejectedWith(ValidationError, /^Incorrect old password match$/)
     )
 
-    it('fails on invalid old password not matching', async () => {
+    it('fails on invalid new password not matching', async () => {
         const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 
         expect(() =>
@@ -125,7 +125,7 @@ describe('updateUserprofile', () => {
         })()).to.be.rejectedWith(DuplicityError, /^This is your present username$/)
     )
 
-    it('fails on updating already in use username', () =>
+    it('fails on updating already in use email', () =>
         expect((async () => {
             const user = await User.create({ email: 'javi@gmail.com', username: 'javi', password: bcrypt.hashSync('123123123', 10) })
 

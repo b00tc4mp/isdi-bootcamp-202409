@@ -50,6 +50,11 @@ const validateStatus = (status: Number): void => {
     if (status < 0 || status > 3) throw new ValidationError('Invalid status')
 }
 
+const validateFrom = (from: string): void => {
+    if (typeof from !== 'string') throw new ValidationError('Invalid from')
+    if (from !== 'onepiecedle' && from !== 'onedoku') throw new ValidationError('Invalid from area')
+}
+
 const validateArc = (arc: string): void => {
     if (typeof arc !== 'string') throw new ValidationError('Invalid arc')
     if (arc !== 'Romance-Dawn' && arc !== 'Orange-Town' && arc !== 'Syrup-Village' && arc !== 'Baratie' && arc !== 'Arlong-Park' && arc !== 'Loguetown') throw new ValidationError('Invalid arc')
@@ -100,7 +105,8 @@ const validate = {
     score: validateScore,
     rankingLength: validateRankingLength,
     updateProfile: validateUpdateProfile,
-    passwordUpdate: validatePasswordUpdate
+    passwordUpdate: validatePasswordUpdate,
+    from: validateFrom
 }
 
 export default validate

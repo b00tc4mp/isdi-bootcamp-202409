@@ -1,7 +1,9 @@
-import { errors } from 'com'
+import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default rankingLength => {
+    validate.rankingLength(rankingLength)
+
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/scores/${rankingLength}`, {
         headers: {
             Authorization: `Bearer ${localStorage.token}`

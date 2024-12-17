@@ -51,12 +51,17 @@ export default function useController() {
 
     const handleDisabledLocationClicked = event => {
         const { target: { id: arc } } = event
+
+        let bounty
+
         let parsedArc = arc.replaceAll('-', ' ')
+
+        parsedArc === 'Orange Town' ? bounty = 500 : parsedArc === 'Syrup Village' ? bounty = 1000 : parsedArc === 'Baratie' ? bounty = 1750 : parsedArc === 'Arlong Park' ? bounty = 3000 : bounty = 5000
 
         if (logic.isUserRoleAnonymous())
             alert('You have to log in to be able to gain score and progress through the map!')
         else
-            alert(`You\'ll have to gain more score to access to ${parsedArc} details`, 'warn')
+            alert(`You need to have a bounty of at least ${bounty} berries to access to ${parsedArc} details`, 'warn')
     }
 
     const handleExitLocation = () => {

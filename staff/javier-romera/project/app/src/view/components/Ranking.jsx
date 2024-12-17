@@ -93,7 +93,7 @@ export default function Ranking({ onCloseRankingClick }) {
                     </div>
                     <div className="flex items-center w-full">
                         <p className="pl-[.375rem]">{user.username}</p>
-                        <p className="absolute right-[0] pr-[1rem]">{user.score} points</p>
+                        <p className="absolute right-[0] pr-[1rem]">{user.score} berries</p>
                     </div>
                 </div>
             })}
@@ -105,7 +105,7 @@ export default function Ranking({ onCloseRankingClick }) {
                     </div>
                     <div className="flex items-center w-full">
                         <p className="pl-[.375rem]">{userDetails.username}</p>
-                        <p className="absolute right-[0] pr-[1rem]">{userDetails.score} points</p>
+                        <p className="absolute right-[0] pr-[1rem]">{userDetails.score} berries</p>
                     </div>
                 </div>}
 

@@ -1,8 +1,10 @@
-import { errors } from 'com'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
 export default (score) => {
+    validate.score(score)
+
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/score`, {
         method: 'PATCH',
         headers: {

@@ -25,7 +25,7 @@ export default function Profile({ setProfileView }) {
                 <span className="mt-[-1rem]">____________________________</span>
 
                 <p className="text-[1.5rem] mt-[2rem] font-bold">{userDetails.username}</p>
-                <p className="mt-[.5rem]">You have <strong>{userDetails.score}</strong> points!</p>
+                <p className="mt-[.5rem]">Your bounty: <strong>{userDetails.score}</strong> berries!</p>
             </div>
 
             <div className="flex flex-col items-start mt-[2.5rem]">

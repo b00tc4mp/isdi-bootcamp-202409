@@ -124,7 +124,7 @@ export default function useController() {
         const { target: { guess: { value: guess } } } = event
 
         try {
-            const parsedGuess = capitalizeWords(guess)
+            const parsedGuess = capitalizeWords(guess) //normalizeWords
 
             const found = validateGuess(availableCharacters, parsedGuess)
 
