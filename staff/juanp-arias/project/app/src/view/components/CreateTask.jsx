@@ -37,16 +37,20 @@ export default function CreateTask({ group, onCancelClick, onCreated }) {
         onCancelClick()
     }
 
-    return <article className='bg-white rounded-lg shadow-lg p-4 border border-gray-300 w-full hover:bg-gray-100'>
-        <h1 className='text-xl font-semibold text-blue-600 mb-1'>New Task</h1>
+    return <article className='bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-300 dark:border-gray-700 w-full hover:bg-gray-100 transition'>
+        <h1 className='text-xl font-semibold text-blue-600 dark:text-blue-400 mb-1'>New Task</h1>
         <Form onSubmit={handleSubmit} className='space-y-4'>
             <div>
                 <Label htmlFor='textarea'>Task Description</Label>
-                <TextareaTask id='textarea' placeholder='Write the task details here...'></TextareaTask>
+                <TextareaTask
+                    id='textarea'
+                    placeholder='Write the task details here...'
+                    className='dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600'
+                ></TextareaTask>
             </div>
             <div>
                 <Label htmlFor='date'>Due Date</Label>
-                <Input type='date' id='date' />
+                <Input type='date' id='date' className='dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600' />
             </div>
             <div className='flex justify-end space-x-3'>
                 <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>

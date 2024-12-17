@@ -53,7 +53,7 @@ export default function TeacherTasks() {
             <div className='p-4 space-y-2'>
                 {tasks.length === 0 ?
                     <div className='text-center py-10'>
-                        <p className='text-gray-500 text-lg'>You don't have tasks created for the upcoming days.</p>
+                        <p className='text-gray-500 dark:text-gray-400 text-lg'>You don't have tasks created for the upcoming days.</p>
                         <TasksIcon />
                     </div> : tasks.map(task => (
                         <Task

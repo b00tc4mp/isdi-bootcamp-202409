@@ -145,15 +145,9 @@ export default function Calendar({ onEditClick }) {
             </div>
             <div className='grid grid-cols-7 gap-2 bg-white dark:bg-gray-800 p-4 rounded-lg'>
                 {/* Days of week */}
-                {daysOfWeek.map(day => (
-                    <div key={day} className='text-center font-bold text-gray-700 dark:text-gray-300 uppercase'>
-                        {day}
-                    </div>
-                ))}
+                {daysOfWeek.map(day => <div key={day} className='text-center font-bold text-gray-700 dark:text-gray-300 uppercase'>{day}</div>)}
                 {/* Empty days */}
-                {new Array(getFirstDayWeek(currentDate)).fill(null).map((_, index) => (
-                    <div key={`empty-${index}`}></div>
-                ))}
+                {new Array(getFirstDayWeek(currentDate)).fill(null).map((_, index) => (<div key={`empty-${index}`}></div>))}
                 {/* Days of month */}
                 {getMonthDays(currentDate).map((day) => {
                     const isToday = new Date().getDate() === day &&

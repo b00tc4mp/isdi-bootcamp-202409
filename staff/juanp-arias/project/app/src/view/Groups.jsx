@@ -87,11 +87,11 @@ export default function Groups() {
     }
     return <Main>
         <SectionContainer>
-            <SectionHeader sectionName="groups" />
-            <div className="grid grid-cols-2 gap-4 p-6">
+            <SectionHeader sectionName='groups' />
+            <div className='grid grid-cols-2 gap-4 p-6'>
                 {initiated && groups.map(group => <Group key={group.id} group={group} onDeleted={handleDeleted} />)}
             </div>
-            <div className="p-4">
+            <div className='p-4'>
                 <Button onClick={onCreateGroupClick}>Create group</Button>
             </div>
             <div ref={createGroupView}>

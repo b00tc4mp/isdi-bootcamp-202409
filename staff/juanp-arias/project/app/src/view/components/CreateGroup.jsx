@@ -65,7 +65,7 @@ export default function CreateGroup({ onCreated, onCancelClick }) {
     }
     return <main>
         <SectionHeader sectionName='new-group' />
-        <div className='bg-white p-4'>
+        <div className='bg-white p-4 dark:bg-gray-800'>
             <Form onSubmit={handleSubmit}>
                 <div>
                     <Label htmlFor='name'>Group's name</Label>
