@@ -21,7 +21,7 @@ const customIcon = new L.Icon({
 
 export default function Location({ center, ads, showUserMarker = true }) {
   console.debug('Map -> render')
-  console.log(ads)
+
   return (
     <div style={{ height: '400px', width: '100%' }}>
       <MapContainer center={center} zoom={11} style={{ height: '100%', width: '100%' }}>

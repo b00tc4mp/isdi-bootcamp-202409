@@ -10,11 +10,10 @@ export default function getUserLocation() {
     }
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords
+      () => {
         resolve({
-          lat: latitude,
-          lon: longitude,
+          lat: 36.65911827117031,
+          lon: -4.758748787000305,
         })
       },
       (error) => {

@@ -15,8 +15,8 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
   const [isFavorite, setIsFavorite] = useState(ad.isFavorite)
   const { alert, confirm } = useContext()
 
-  const { id, author, files, text, date, reviews } = ad
-
+  const { id, author, files, text, date, reviews, averageRating } = ad
+  console.debug(ad)
   const handleDeleteClick = () => {
     confirm(
       'Delete post?',
@@ -60,6 +60,17 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
     <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg">
       <div className="relative">
         <img src={files[0]} alt="Ad Image" className="w-full h-48 object-cover" />
+        {/* Información del autor y calificación */}
+        <div className="absolute top-2 left-2 bg-black bg-opacity-60 text-white px-1.5 py-0.5 rounded-md">
+          <p className="text-sm font-semibold">{author.name}</p>
+          <div className="flex items-center">
+            {Array.from({ length: Math.round(averageRating) }, (_, i) => (
+              <span key={i} className="text-yellow-400 text-sm">
+                ⭐
+              </span>
+            ))}
+          </div>
+        </div>
 
         <a
           href={`https://wa.me/${author.telephone}?text=Hi%20${author.name},%20I%20saw%20your%20ad%20and%20I%27m%20interested!`}
@@ -74,9 +85,8 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
       </div>
 
       <div className="p-4">
-        <p className="text-gray-800 font-semibold text-lg mb-2">{text}</p>
-        <p className="text-sm text-gray-500">Posted by: {author.name}</p>
-        <time className="text-xs text-gray-400 block mb-2">{getElapsedTime(date)} ago</time>
+        <p className="text-gray-800 font-semibold text-lg">{text}</p>
+        <time className="text-sm text-gray-500 block mb-2">Posted {getElapsedTime(date)} ago</time>
 
         <div className="flex items-center justify-between mt-4">
           <div className="flex items-center gap-2">
@@ -84,14 +94,14 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
               onClick={handleReviewsClick}
               className="text-blue-500 hover:underline text-sm flex items-center gap-1"
             >
-              📝 {reviews} reviews
+              📝 {reviews} Reviews
             </button>
             <span className="text-gray-400">|</span>
             <a
               onClick={handleLocationClick}
               className="text-blue-500 hover:underline text-sm flex items-center gap-1 cursor-pointer"
             >
-              📍location
+              📍Location
             </a>
           </div>
 
@@ -102,7 +112,7 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
           )}
           <button onClick={handleFavoriteClick}>
             <img
-              className="h-6 w-6"
+              className="h-7 w-7"
               src={isFavorite ? favoriteIcon : unFavoriteIcon}
               alt={isFavorite ? 'Unfavorite' : 'favorite'}
             />
