@@ -22,13 +22,13 @@ export default function Comment({ productId, comment: { id, author, text, date }
         console.error(error)
       }
   }
-  return <li>
-    <h4>{author.username}</h4>
+  return <li className="shadow-lg">
+    <h4 className="font-bold" >{author.username}</h4>
 
-    <p>{text}</p>
+    <p className="font-thin">{text}</p>
 
     <time>{getElapsedTime(date)}</time>
 
-    {logic.getUserId() === author.id && <Button onClick={handleRemove}>🗑️</Button>}
+    {logic.getUserId() === author.id && <button onClick={handleRemove}>🗑️</button>}
   </li>
 }

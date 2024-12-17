@@ -36,8 +36,6 @@ export default function App() {
 
   const handleGoWishlist = () => navigate('/wishlist')
 
-  const handleProductDetails = productId => navigate(`/${productId}`)
-
   const handleAlertAccepted = () => setAlert({
     message: null,
     level: 'error'

@@ -64,8 +64,8 @@ export default function Comments(props) {
     }
   }
 
-  return <section>
-    <ul>
+  return <section className="flex flex-col justify-center">
+    <ul className="grid gap-2">
       {comments.map(comment =>
         <Comment
           key={comment.id}

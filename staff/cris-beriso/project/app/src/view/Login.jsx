@@ -28,7 +28,7 @@ export default function Login(props) {
             alert('Sorry, try again later.')
           else
             alert(error.message)
-
+          console.log(error.message)
           console.error(error)
         })
     } catch (error) {

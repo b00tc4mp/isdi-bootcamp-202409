@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 
-import { Button } from './library'
 import StorePrices from './components/StorePrices'
 import Comments from './components/Comments'
 
@@ -16,7 +15,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null)
   const [viewStorePrices, setViewStorePrices] = useState(null)
 
-  const { alert, confirm } = useContext()
+  const { alert } = useContext()
 
   useEffect(() => {
     try {
@@ -138,33 +137,40 @@ export default function ProductDetails() {
     saved
   } = product
 
-  return <article>
-    <img src={image} />
+  return <main className="pt-16 pb-16 flex flex-col items-center justify-center">
+    <article className="bg-[var(--box-color)] w-[15rem] h-fit flex flex-col box-border rounded-lg shadow-lg p-2">
+      <img src={image} />
 
-    <h3>{name}</h3>
+      <h3 className="font-bold">{name}</h3>
 
-    <p>{description}</p>
+      <p>{description}</p>
+      <div >
+        <div className="grid grid-cols-3 grid-rows-1 gap-3 ">
+          <button className="flex flex-row justify-center gap-1" onClick={handleLikeClick}> <img className="w-5" src={`${liked ? "/images/button-liked.png" : "/images/button-like.png"}`} />{likes}</button>
 
-    <Button onClick={handleLikeClick}> {`${liked ? '❤️' : '🤍'} ${likes} likes`}</Button>
+          <button className="flex flex-row justify-center gap-1" onClick={handleDislikeClick}> <img className="w-5" src={`${disliked ? "/images/button-disliked.png" : "/images/button-dislike.png"}`} />{dislikes}</button>
 
-    <Button onClick={handleDislikeClick}> {`${disliked ? '💔' : '🤍'} ${dislikes} dislikes`}</Button>
+          <button className="flex flex-row justify-center" onClick={handleSaveClick}><img src={`${saved ? "/images/button-saved.png" : "/images/button-save.png"}`} /></button>
+        </div>
+        <div className="flex flex-col justify-center">
+          <button className="col-span-3 flex flex-row justify-center gap-1" onClick={handleCommentsClick}><img src="/images/button-comments.png" /> {comments.length} comments</button>
 
-    <Button onClick={handleCommentsClick}>💬 {comments.length} comments</Button>
+          {viewComments === 'comments' && <Comments
+            productId={id}
+            onAdded={handleCommentAdded}
+            onRemoved={handleCommentRemoved}
+          />}
+        </div>
+        <div className="flex flex-col justify-center">
+          <button className="col-span-3 flex flex-row justify-center" onClick={handleStoresClick}><img className="w-5" src="/images/button-storeprice.png" /></button>
 
-    <Button onClick={handleStoresClick}>Show prices and stores</Button>
+          {viewStorePrices === 'storePrices' && <StorePrices
+            productId={id}
+            storePrices={storePrices}
+          />}
+        </div>
+      </div>
+    </article>
 
-    {/* CAMBIAR VISUALIZACIÓN BOTÓN SAVE*/}
-    <Button onClick={handleSaveClick}>{`${saved ? 'Saved' : 'Save'}`}</Button>
-
-    {viewComments === 'comments' && <Comments
-      productId={id}
-      onAdded={handleCommentAdded}
-      onRemoved={handleCommentRemoved}
-    />}
-
-    {viewStorePrices === 'storePrices' && <StorePrices
-      productId={id}
-      storePrices={storePrices}
-    />}
-  </article>
+  </main>
 }

@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 import bcrypt from 'bcryptjs'
 
-import db, { User, Product, Store, StorePrice, Comment, Location } from './index.js'
+import db, { User, Product, Store, StorePrice, Comment, Location, Point } from './index.js'
 
 db.connect(process.env.MONGO_URL_TEST)
   .then(() => Promise.all([
@@ -11,7 +11,8 @@ db.connect(process.env.MONGO_URL_TEST)
     Store.deleteMany(),
     StorePrice.deleteMany(),
     Comment.deleteMany(),
-    Location.deleteMany()
+    Location.deleteMany(),
+    Point.deleteMany()
   ]))
   .then(() => {
     return Promise.all([
@@ -30,56 +31,56 @@ db.connect(process.env.MONGO_URL_TEST)
             address: 'P.º de la Florida, 2, Moncloa - Aravaca, 28008 Madrid',
             location: {
               type: 'Point',
-              coord: [40.42133179225622, -3.71998665480542]
+              coordinates: [40.42133179225622, -3.71998665480542]
             }
           },
           {
             address: 'Calle de Fuencarral, 133, Chamberí, 28010 Madrid',
             location: {
               type: 'Point',
-              coord: [40.43202296556586, -3.7037814136988527]
+              coordinates: [40.43202296556586, -3.7037814136988527]
             }
           },
           {
             address: 'Gran Vía, 39, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [40.420092766337895, -3.705580105164164]
+              coordinates: [40.420092766337895, -3.705580105164164]
             }
           },
           {
             address: 'Prta del Sol, 11, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [40.4173764754467, -3.7039096581332616]
+              coordinates: [40.4173764754467, -3.7039096581332616]
             }
           },
           {
             address: 'Calle de Fuencarral, 46, Centro, 28004 Madrid',
             location: {
               type: 'Point',
-              coord: [40.42338310972359, -3.700571627834522]
+              coordinates: [40.42338310972359, -3.700571627834522]
             }
           },
           {
             address: 'Calle de Goya, 59, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [40.42527941846422, -3.681164760439192]
+              coordinates: [40.42527941846422, -3.681164760439192]
             }
           },
           {
             address: 'Calle de Goya, 22, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [40.424842159111385, -3.6833200596476123]
+              coordinates: [40.424842159111385, -3.6833200596476123]
             }
           },
           {
             address: 'C. de Orense, 16, Tetuán, 28020 Madrid',
             location: {
               type: 'Point',
-              coord: [40.44990262299382, -3.694946771790625]
+              coordinates: [40.44990262299382, -3.694946771790625]
             }
           }
         ]
@@ -92,56 +93,56 @@ db.connect(process.env.MONGO_URL_TEST)
             address: 'Gran Vía, 61, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [40.42261179231897, -3.7096452772076205]
+              coordinates: [40.42261179231897, -3.7096452772076205]
             }
           },
           {
             address: 'Calle de Fuencarral, 149, Chamberí, 28010 Madrid',
             location: {
               type: 'Point',
-              coord: [40.43308835164264, -3.7043862503609573]
+              coordinates: [40.43308835164264, -3.7043862503609573]
             }
           },
           {
             address: 'P.º de las Acacias, 20, Arganzuela, 28005 Madrid',
             location: {
               type: 'Point',
-              coord: [40.40389760435808, -3.706943250804547]
+              coordinates: [40.40389760435808, -3.706943250804547]
             }
           },
           {
             address: 'C. de Orense, 4, Tetuán, 28020 Madrid',
             location: {
               type: 'Point',
-              coord: [40.44762661023306, -3.695382950926849]
+              coordinates: [40.44762661023306, -3.695382950926849]
             }
           },
           {
             address: 'C. de Bravo Murillo, 187, Tetuán, 28020 Madrid',
             location: {
               type: 'Point',
-              coord: [40.45352969286624, -3.7031403056038426]
+              coordinates: [40.45352969286624, -3.7031403056038426]
             }
           },
           {
             address: 'C. de Velázquez, 34, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [40.425873936953366, -3.683951059823913]
+              coordinates: [40.425873936953366, -3.683951059823913]
             }
           },
           {
             address: 'C. de Clara del Rey, 51, Chamartín, 28002 Madrid',
             location: {
               type: 'Point',
-              coord: [40.44467487446922, -3.668844632295032]
+              coordinates: [40.44467487446922, -3.668844632295032]
             }
           },
           {
             address: 'C. de Alcalá, 367, Cdad. Lineal, 28027 Madrid',
             location: {
               type: 'Point',
-              coord: [40.43468817103967, -3.6442677138646937]
+              coordinates: [40.43468817103967, -3.6442677138646937]
             }
           }
         ]
@@ -154,56 +155,56 @@ db.connect(process.env.MONGO_URL_TEST)
             address: 'ECI Princessa GROUND FLOOR, Calle de la Princesa, 56, Centro, 28008 Madrid',
             location: {
               type: 'Point',
-              coord: [40.4301174666671, -3.715486779609403]
+              coordinates: [40.4301174666671, -3.715486779609403]
             }
           },
           {
             address: 'Eci Preciados, C. de Preciados, 3, Ground Floor, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [40.419401819753595, -3.7051870979150845]
+              coordinates: [40.419401819753595, -3.7051870979150845]
             }
           },
           {
             address: 'Prta del Sol, 11, Centro, 28013 Madrid',
             location: {
               type: 'Point',
-              coord: [40.41744145574421, -3.703813807022509]
+              coordinates: [40.41744145574421, -3.703813807022509]
             }
           },
           {
             address: 'ECI Castellana, C. de Raimundo Fernández Villaverde, 79, Ground floor, Tetuán, 28003 Madrid',
             location: {
               type: 'Point',
-              coord: [40.44710218875655, -3.6943724321360514]
+              coordinates: [40.44710218875655, -3.6943724321360514]
             }
           },
           {
             address: 'C. de Serrano, 36, Ground Floor, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [40.42541324652857, -3.687505977673172]
+              coordinates: [40.42541324652857, -3.687505977673172]
             }
           },
           {
             address: 'C. de Velázquez, 41, Salamanca, 28001 Madrid',
             location: {
               type: 'Point',
-              coord: [40.42685068203562, -3.6840727504417328]
+              coordinates: [40.42685068203562, -3.6840727504417328]
             }
           },
           {
             address: 'C. de Alfonso XII, 34, Retiro, 28014 Madrid',
             location: {
               type: 'Point',
-              coord: [40.41390672535115, -3.6893159710600725]
+              coordinates: [40.41390672535115, -3.6893159710600725]
             }
           },
           {
             address: 'ECI Goya, Calle de Goya, 76, GROUND FLOOR, Salamanca, 28009 Madrid',
             location: {
               type: 'Point',
-              coord: [40.42468412910668, -3.67484248353112]
+              coordinates: [40.42468412910668, -3.67484248353112]
             }
           }
         ]
@@ -393,9 +394,9 @@ db.connect(process.env.MONGO_URL_TEST)
         }),
         Product.create({
           name: 'Fenty Beauty Pro Filt\'r Soft Matte Longwear Foundation',
-          category: 'Eyes',
-          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5HcJkDzRkJZbnYoAOsPQmOZcsEUfssgmfeQ&s',
-          description: 'A budget-friendly mascara that delivers intense volume with its spiral-shaped brush to coat every lash.',
+          category: 'Face',
+          image: 'https://i.pinimg.com/736x/66/a5/45/66a545923244976d9443ecbecded7b22.jpg',
+          description: 'A liquid foundation that delivers long-lasting wear with a soft matte finish. It provides buildable medium to full coverage.',
           likes: [],
           dislikes: [],
           storePrices: [

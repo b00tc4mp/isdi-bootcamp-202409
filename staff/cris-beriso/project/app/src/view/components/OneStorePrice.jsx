@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import logic from '../../logic'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../library'
 import { calculateDistance } from '../../util'
@@ -15,7 +14,7 @@ export default function OneStorePrice({ center, storePrices: { price, store: { n
         return false
       }
 
-      const [latitude, longitude] = item.location.coord
+      const [latitude, longitude] = item.location.coordinates
       const distance = calculateDistance(center, [latitude, longitude])
       console.log(distance)
       return distance <= radius
@@ -23,16 +22,17 @@ export default function OneStorePrice({ center, storePrices: { price, store: { n
     setFilteredLocations(filtered)
   }
 
-  return <section>
-    <p>{name}: {price}€</p>
+  return <section className="grid shadow-lg">
+    <p className="font-semibold">{name} - {price}€</p>
     <Link to={web} target='blank'>{web}</Link>
-    <Button onClick={handleShowDirections}>Show locations</Button>
+    <button onClick={handleShowDirections}><img className="w-5" src="/images/button-locations.png" /></button>
+
     {filteredLocations.map((item, index) =>
-      <div key={index}>
-        {item.location.coord && (
-          <p>{item.address}</p>
+      <ul className="list-disc pl-4" key={index}>
+        {item.location.coordinates && (
+          <li>{item.address}</li>
         )}
-      </div>
+      </ul>
     )}
   </section>
 }

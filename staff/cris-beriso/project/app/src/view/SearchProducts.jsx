@@ -8,7 +8,7 @@ import Product from './components/Product'
 import logic from '../logic'
 
 export default function searchProducts() {
-  const { alert, confirm } = useContext()
+  const { alert } = useContext()
   const [searchParams, setSearchPararms] = useSearchParams()
   const [products, setProducts] = useState([])
 
@@ -41,9 +41,9 @@ export default function searchProducts() {
       setSearchPararms({ category: categoryNew, keyword: keywordNew })
     }
   }
-  return <main className="pt-10 flex flex-col items-center justify-between">
+  return <main className="pt-5 pb-14 flex flex-col items-center ">
     < h2 className="text-3xl pt-10" > Search your product</h2 >
-    <div className="bg-[var(--box-color)] w-[15rem] flex flex-col items-center rounded-lg shadow-lg gap-2 pt-5">
+    <div className="bg-[var(--box-color)] w-[15rem] h-24 flex flex-col justify-center gap-y-2 rounded-lg shadow-lg">
       <form onSubmit={handleSearch} className=" flex flex-col items-center ">
         <select id="category" className='w-[10rem]'>
           <option value="Face">Face</option>
@@ -53,12 +53,12 @@ export default function searchProducts() {
           <option value="Lips">Lips</option>
         </select>
 
-        <input type="text" placeholder="more info" name="keyword" className="w-[10rem]" />
+        <input type="text" placeholder="more info" name="keyword" className="w-[10rem] mb-2" />
 
-        <Button type="submit">Search</Button>
+        <Button className="mt-2" type="submit">Search</Button>
       </form>
     </div>
-    <ul>
+    <ul className="grid gap-y-2 pt-2">
       {products.length > 0 ? (
         products.map(product => (
           <Product

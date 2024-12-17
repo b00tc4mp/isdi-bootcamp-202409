@@ -16,7 +16,7 @@ export default function PasswordInput({ id, placeholder }) {
   return <div style={{ display: 'flex' }}>
     <Input type={type} id={id} className="PasswordInput relative" placeholder={placeholder} />
     <span
-      className="PasswordSpan absolute right-[8.75rem]"
+      className="PasswordSpan absolute right-[7rem]"
       onClick={handleToggleClick}
     >{status}</span>
   </div>

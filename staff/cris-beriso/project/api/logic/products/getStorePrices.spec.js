@@ -15,13 +15,22 @@ import getStorePrices from './getStorePrices.js'
 describe('getStorePrices', () => {
   before(() => db.connect(process.env.MONGO_URL_TEST))
 
-  beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany()]))
+  beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany(), Store.deleteMany()]))
 
   it('succeeds on getting storePrice', () => {
     const user = new User({ name: 'Coco Liso', email: 'coco@liso.com', username: 'cocoliso', password: 'criscris' })
 
-    const store1 = new Store({ name: 'Store1', web: 'www.store1.com', locations: { address: 'Direccion 123', location: { "type": 'Point', "coordinates": [12.345, 1.2345] } } })
-    db.stores.createIndex({ 'locations.location': '2dsphere' })
+    const store1 = new Store({
+      name: 'Store1',
+      web: 'www.store1.com',
+      locations: {
+        address: 'Direccion 123',
+        location: {
+          type: 'Point',
+          coordinates: [12.345, 1.2345]
+        }
+      }
+    })
 
     const product = new Product({ name: 'name of product', image: 'https://www.image.com', description: 'description of the product', storePrices: [{ store: store1.id, price: 9 }] })
 
@@ -31,8 +40,8 @@ describe('getStorePrices', () => {
           .then(storePrices => {
             expect(storePrices).to.exist
             expect(storePrices).to.have.lengthOf(1)
-            expect(storePrices[0].name).to.equal(store1.name)
-            expect(storePrices[0].web).to.equal(store1.web)
+            expect(storePrices[0].store.name).to.equal('Store1')
+            expect(storePrices[0].store.web).to.equal(store1.web)
           })
       )
   })

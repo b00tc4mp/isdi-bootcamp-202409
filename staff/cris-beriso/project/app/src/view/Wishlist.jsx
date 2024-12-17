@@ -24,15 +24,19 @@ export default function Wishlist() {
 
 
 
-  return <div>
-    {wishlist.map(product => <Product
-      key={product.id}
-      product={product}
-    // onLiked={handleLiked}
-    // onDisliked={handleDisliked}
-    // onSaved={handleSaved}
-    // onCommentAdded={handleCommentAdded}
-    // onCommentRemoved={handleCommentRemoved}
-    />)}
-  </div>
+  return <main className="flex flex-col items-center pt-5">
+    < h2 className="text-3xl pt-10" > Wishlist </h2 >
+    <ul className="grid gap-y-2 pt-2 pb-14">
+      {wishlist.length > 0 ? (
+        wishlist.map(product => (
+          <Product
+            key={product.id}
+            product={product}
+          />
+        ))
+      ) : (
+        <p className="pt-10">Your wishlist is empty!</p>
+      )}
+    </ul>
+  </main>
 }
