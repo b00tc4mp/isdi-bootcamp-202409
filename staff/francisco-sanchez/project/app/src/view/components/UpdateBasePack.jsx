@@ -1,48 +1,66 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Field, Button, Input, Label, Form } from '../../library';
+import { Field, Button, Input, Label } from '../../library';
 import { errors } from 'com';
-import { loginUser } from '../../logic';
-import { useContext } from 'react';
+
+import useContext from '../useContext';
+import logic from '../../logic';
 
 const { SystemError } = errors
 
-export default function updateBasePack({ onEditClick, onCancelClick }) {
-    const [basePack, setBasePack] = useState(null)
+export default function UpdateBasePack({ onUpdated, onCancelClick, basePack }) {
     const { alert } = useContext()
-    const { basePackId } = useParams()
-
 
     const handleSubmit = event => {
         event.preventDefault()
+        const { target: form } = event
+        const { packName: { value: packName },
+            packDescription: { value: packDescription },
+            quantity: { value: quantity },
+            unit: { value: unit },
+            expiringTime: { value: expiringTime },
+            price: { value: price }
+        } = form
+        try {
+            logic.updateBasePack(basePack.id, packName, packDescription, quantity, unit, expiringTime, price)
+                .then(onUpdated)
+                .catch((error) => {
+                    alert(error.message)
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
     }
 
     const handleCancelClick = event => {
         event.preventDefault()
+        onCancelClick()
     }
 
     return <main className="flex flex-col justify-center items-center bg-color_backgroundGrey w-full h-screen">
-        <h2 className="text-2xl">Update a pack</h2>
+        <h2 className="text-2xl">Update pack: "{basePack.packName}"</h2>
         <div className="flex flex-col">
             <form className="flex flex-col justify-items-start" onSubmit={handleSubmit} >
                 <Field>
                     <Label htmlFor="packName">Pack name</Label>
-                    <Input className="border-2 rounded-lg" type="text" id="packName" placeholder="Pack name" />
+                    <Input className="border-2 rounded-lg" type="text" id="packName" placeholder="Pack name" defaultValue={basePack.packName} />
                 </Field>
 
                 <Field>
                     <Label htmlFor="packDescription">Pack description</Label>
-                    <textarea className="border-2 rounded-lg" type="email" id="packDescription" placeholder="Pack description goes here" />
+                    <textarea className="border-2 rounded-lg" type="email" id="packDescription" placeholder="Pack description goes here" defaultValue={basePack.description} />
                 </Field>
 
                 <Field>
                     <Label htmlFor="quantity">Quantity</Label>
-                    <Input className="border-2 rounded-lg" type="number" id="quantity" placeholder="Quantity" />
+                    <Input className="border-2 rounded-lg" type="number" id="quantity" placeholder="Quantity" defaultValue={basePack.quantity} />
                 </Field>
 
                 <Field>
                     <Label htmlFor="unit">Unit</Label>
-                    <select id="unit" name="unit">
+                    <select id="unit" name="unit" defaultValue={basePack.unit}>
                         <option value="hours">Hours</option>
                         <option value="units">Units</option>
                     </select>
@@ -50,7 +68,7 @@ export default function updateBasePack({ onEditClick, onCancelClick }) {
 
                 <Field>
                     <Label htmlFor="expiringTime">Expiring pack time</Label>
-                    <select id="expiringTime" name="expiringTime">
+                    <select id="expiringTime" name="expiringTime" defaultValue={basePack.expiringTime}>
                         <option value="-1">Unlimited</option>
                         <option value="1">1 Month</option>
                         <option value="2">2 Months</option>
@@ -69,7 +87,7 @@ export default function updateBasePack({ onEditClick, onCancelClick }) {
 
                 <Field>
                     <Label htmlFor="price">Price</Label>
-                    <Input className="border-2 rounded-lg w-full" type="number" id="price" placeholder="50 €" />
+                    <Input className="border-2 rounded-lg w-full" type="number" id="price" placeholder="50 €" defaultValue={basePack.price} />
                     <input type="hidden" id="currency" defaultValue="EUR" />
                 </Field>
 

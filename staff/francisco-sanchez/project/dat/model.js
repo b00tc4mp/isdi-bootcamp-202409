@@ -223,6 +223,18 @@ const pack = new Schema({
         maxLength: 255
     },
 
+    timerActivated: {
+        type: Date,
+        required: true,
+        default: null
+    },
+
+    descriptionActivityTemp: {
+        type: String,
+        required: false,
+        maxLength: 255
+    },
+
     originalQuantity: {
         type: Number,
         required: true,
@@ -268,7 +280,7 @@ const pack = new Schema({
     status: {
         type: String,
         required: true,
-        enum: ['Pending', 'Active', 'Expired', 'Finnished'],
+        enum: ['Pending', 'Active', 'Expired', 'Finished'],
         default: 'Pending'
     }
 }, { versionKey: false })
@@ -338,13 +350,13 @@ const payment = new Schema({
     method: {
         type: String,
         required: true,
-        enum: ['card', 'bank transfer', 'paypal', 'stripe', 'others'],
+        enum: ['card', 'bankTransfer', 'paypal', 'stripe', 'cash', 'others'],
     },
 
     status: {
         type: String,
         required: true,
-        enum: ['pending', 'completed', 'Partially Payed', 'canceled', 'refunded', 'partially refunded'],
+        enum: ['pending', 'completed', 'partially payed', 'canceled', 'refunded', 'partially refunded', 'expired'],
         default: 'pending'
     },
 }, { versionKey: false })

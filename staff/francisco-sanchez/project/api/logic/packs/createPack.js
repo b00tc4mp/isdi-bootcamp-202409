@@ -1,4 +1,4 @@
-import { BasePack, Pack, User } from "dat";
+import { BasePack } from "dat";
 
 import { validate, errors } from "com";
 

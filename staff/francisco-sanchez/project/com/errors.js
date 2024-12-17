@@ -46,6 +46,8 @@ class DataIntegrityError extends Error {
     }
 }
 
+
+
 const errors = {
     ValidationError,
     NotFoundError,
@@ -54,7 +56,7 @@ const errors = {
     SystemError,
     OwnershipError,
     AuthorizationError,
-    DataIntegrityError
+    DataIntegrityError,
 }
 
 export default errors

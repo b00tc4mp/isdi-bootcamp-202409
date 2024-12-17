@@ -1,4 +1,4 @@
-import { Pack, User, Activity } from 'dat';
+import { Pack, User, Activity, Payment } from 'dat';
 
 import { validate, errors } from 'com';
 
@@ -8,7 +8,7 @@ import getBasePackDetails from '../packs/getBasePackDetails.js';
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, customerSearch, selectPack) => {
+export default async (userId, customerSearch, selectPack, payedAmount, paymentMethod) => {
     try {
         const customerId = await findUserIdbyEmailOrUsername(userId, customerSearch)
         if (!customerId) {
@@ -80,11 +80,30 @@ export default async (userId, customerSearch, selectPack) => {
             quantity: quantity,
         })
 
+        //Fifth step, update payments
+
+        let paymentStatus = ''
+        let payedAmountNum = Number(payedAmount)
+        if ((payedAmountNum < price) && (payedAmountNum > 0)) { paymentStatus = 'partially payed' }
+        else if (payedAmountNum === 0) { paymentStatus = 'pending' }
+        else if (payedAmountNum == price) { paymentStatus = 'completed' }
+        else if (payedAmountNum > price) { paymentStatus = 'completed' }
+
+        const addPayment = await Payment.create({
+            pack: newPack._id,
+            amount: payedAmountNum,
+            currency: currency,
+            date: new Date(),
+            method: paymentMethod,
+            status: paymentStatus,
+        })
+
         return {
             pack: newPack._id,
             updateProvider,
             updateCustomer,
-            addActivity
+            addActivity,
+            addPayment
         }
 
     } catch (error) {

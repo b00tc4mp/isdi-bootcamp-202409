@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, ManagePacks, ManageCustomers, ManagePurchasedPacks, AssignPack, CreatePack } from './view'
+import { Login, Register, Home, ManagePacks, ManageCustomers, ManagePurchasedPacks, AssignPack, CreatePack, Tracker } from './view'
 
 import { Header, Alert, Confirm } from './view/components'
 
@@ -53,6 +53,10 @@ export default function App() {
   const handleAssignPack = () => navigate('/assign-pack')
 
   const handleCreatePack = () => navigate('/create-pack')
+
+
+  //Navigation throw Tracking things
+  const handleTrackerPacksClick = () => navigate('/tracker')
 
 
 
@@ -116,8 +120,13 @@ export default function App() {
           onManagePacksClick={handleManagePacksClick}
           onManageCustomersClick={handleManageCustomersClick}
           onManagePurchasedPacksClick={handleManagePurchasedPacksClick}
+          onTrackerClick={handleTrackerPacksClick}
+
           /* onAssignPackClick={handleAssignPack} */ /> :
         <Navigate to="/login" />} />
+
+
+      <Route path="/tracker" element={logic.isUserLoggedIn() ? <Tracker onHomeClick={handleHomeClick} /> : <Navigate to="/login" />} />
 
 
       <Route path="/manage-packs" element={logic.isUserLoggedIn() ?
@@ -136,7 +145,6 @@ export default function App() {
         <Navigate to="/login" />} />
 
 
-
       <Route path="/manage-customers" element={logic.isUserLoggedIn() ?
         <ManageCustomers onHomeClick={handleHomeClick} /> :
         <Navigate to="/login" />} />
@@ -146,20 +154,13 @@ export default function App() {
         <Navigate to="/login" />} />
 
       <Route
-        path="*"
-        element={
+        path="*" element={
           <div className="text-center">
             <h1 className="text-red-600 text-2xl font-bold">Error 404</h1>
             <p className="text-gray-700">This page does not exist or it was removed.</p>
             <p>
               You can try to{' '}
-              <a
-                href="#"
-                className="text-blue-500 underline hover:text-blue-700"
-                onClick={handleNotfoundError} // Cambiado para referenciar la función
-              >
-                go home
-              </a>
+              <a href="#" className="text-blue-500 underline hover:text-blue-700" onClick={handleNotfoundError}>go home</a>
             </p>
           </div>
         }

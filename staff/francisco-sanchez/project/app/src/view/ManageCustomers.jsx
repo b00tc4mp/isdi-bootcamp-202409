@@ -36,7 +36,7 @@ export default function ManageCustomers(props) {
 
     return (
         <main className="flex flex-col  items-center bg-color_backgroundGrey w-full h-screen pt-12">
-            <h1>Manage Customers</h1>
+            <h1 className='text-3xl'>Manage Customers</h1>
             <p>This will be the page to manage your customers</p>
 
             {loading ? (
@@ -55,7 +55,10 @@ export default function ManageCustomers(props) {
                         {customers.map(customer => (
                             <tr key={customer.id}>
                                 <td className='border px-4 py-2'>{customer.name} {customer.surname1 !== null ? customer.surname1 : ''}</td>
-                                <td className='border px-4 py-2'>✏️ ❌</td>
+                                <td className='border px-4 py-2'>
+                                    <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">✏️ Edit</a>
+                                    <a href="" className="inline-block bg-red-100 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">❌ Delete</a>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -70,4 +73,4 @@ export default function ManageCustomers(props) {
         </main>
     )
 
-}
+} 

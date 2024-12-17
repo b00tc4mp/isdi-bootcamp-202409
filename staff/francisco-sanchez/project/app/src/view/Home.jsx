@@ -41,6 +41,10 @@ export default function Home(props) {
     }, [location.pathname])
     console.log(name)
 
+    const handleTrackerClick = event => {
+        console.log('Click on tracker compo')
+        props.onTrackerClick()
+    }
 
     const handleManagePacks = event => {
         console.log("Manage packs clicked");
@@ -71,7 +75,7 @@ export default function Home(props) {
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl justify-items-center">
-                    <Button className="bg-color_green hover:bg-color_greenDark text-white">Start tracking</Button>
+                    <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleTrackerClick}>Start tracking</Button>
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleManagePacks}>Manage your packs</Button>
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleManageCustomers}>Manage your customers</Button>
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleManagePurchasedPacks}>See purchased services</Button>

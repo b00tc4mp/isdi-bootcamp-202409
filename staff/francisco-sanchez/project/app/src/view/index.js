@@ -13,6 +13,9 @@ import ManageCustomers from './ManageCustomers'
 import Register from "./Register"
 import Login from './Login'
 
+//Tracker Managing
+import Tracker from "./Tracker"
+
 
 import { Alert, Confirm } from "./components"
 
@@ -30,6 +33,9 @@ export {
     ManagePurchasedPacks,
     AssignPack,
     CreatePack,
+
+    //Tracker
+    Tracker,
 
 
     //Others

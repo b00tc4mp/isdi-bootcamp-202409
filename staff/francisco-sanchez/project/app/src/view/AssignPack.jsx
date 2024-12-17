@@ -35,12 +35,14 @@ export default function AssignPack(props) {
         const { target: form } = event
         const {
             customerSearch: { value: customerSearch },
-            selectPack: { value: selectPack }
+            selectPack: { value: selectPack },
+            payedAmount: { value: payedAmount },
+            paymentMethod: { value: paymentMethod }
         } = form
 
         //Finnally we call the assign function with all the retrieved information 
         try {
-            assignPack(customerSearch, selectPack)
+            assignPack(customerSearch, selectPack, payedAmount, paymentMethod)
             alert('Pack successfully assigned to customer!', 'success')
         } catch (error) {
             alert(error.message)
@@ -69,6 +71,23 @@ export default function AssignPack(props) {
                         {basePacks.map((basePack) => (
                             <option key={basePack.id} value={basePack.id}>{basePack.packName} - {basePack.price}{getCurrencySymbol(basePack)}</option>
                         ))}
+                    </select>
+                </Field>
+
+                <Field>
+                    <Label htmlFor="payedAmount">Payed Ammount</Label>
+                    <Input id="payedAmount" className="border-2 rounded-lg" type="number" placeholder="0 €" ></Input>
+                </Field>
+
+                <Field>
+                    <Label htmlFor="paymentMethod">Select Payment Method</Label>
+                    <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2">
+                        <option value="card">Card</option>
+                        <option value="cash">Cash</option>
+                        <option value="bankTransfer">Bank Transfer</option>
+                        <option value="paypal">Paypal</option>
+                        <option value="stripe">Stripe</option>
+                        <option value="others">Others</option>
                     </select>
                 </Field>
 
