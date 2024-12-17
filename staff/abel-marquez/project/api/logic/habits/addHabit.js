@@ -1,20 +1,34 @@
-import { Habit } from '../../../dat/models.js'
+import { Habit, User } from '../../../dat/models.js'
 
-export default async function addHabit({ userId, name, category, emoji }) {
-    // Validaciones básicas (HACERLAS CON EL VALIDATEE)
-    if (!userId || !name || !category || !emoji) {
-        throw new Error('Missing required fields: userId, name, category, emoji');
-    }
+import { validate, errors } from 'com'
+const { SystemError, NotFoundError } = errors
 
-    // Crear un nuevo hábito
-    const habit = new Habit({
-        user: userId,
-        name,
-        category,
-        emoji,
-        createdAt: new Date(),
-    });
+export default (userId, name, category, subcategory, emoji) => {
+    validate.id(userId, 'userId')
+    validate.name(name)
+    validate.text(category)
+    validate.text(subcategory)
+    validate.emoji(emoji)
 
-    // Guardar el hábito en la base de datos
-    await habit.save();
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
+        .then (user => {
+            if(!user) throw new NotFoundError('user not found')
+
+            const habit = new Habit({
+                name,
+                emoji,
+                category,
+                subcategory,
+                user: userId,
+                createdAt: new Date ()
+            })
+        
+            return habit.save()
+                .catch(error => {
+                    throw new SystemError(error.message)
+                })
+})
 }
+
+

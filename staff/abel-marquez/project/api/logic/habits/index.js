@@ -1,11 +1,11 @@
-import addHabit from './addHabit'
-import getHabits from './getHabits'
-import deleteHabit from './deleteHabit'
-import trackHabitProgress from './trackHabitProgress'
-import updateHabit from './updateHabit'
+import addHabit from './addHabit.js'
+import getHabits from './getHabits.js'
+import deleteHabit from './deleteHabit.js'
+import trackHabitProgress from './trackHabitProgress.js'
+import updateHabit from './updateHabit.js'
 
 
-const logic = {
+export {
     addHabit,
     getHabits,
     deleteHabit,

@@ -3,10 +3,8 @@ import registerUser from './registerUser.js'
 import getUserName from './getUserName.js'
 
 
-const logic = {
+export {
     authenticateUser,
     registerUser,
     getUserName
 }
-
-export default logic
