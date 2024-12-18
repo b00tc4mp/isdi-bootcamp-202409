@@ -7,7 +7,7 @@ export default function OneStorePrice({ center, storePrices: { price, store: { n
   const [filteredLocations, setFilteredLocations] = useState([])
 
   const handleShowDirections = () => {
-    const radius = 1.5
+    const radius = 2
 
     const filtered = locations.filter(item => {
       if (!item.location) {

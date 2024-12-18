@@ -137,8 +137,8 @@ export default function ProductDetails() {
     saved
   } = product
 
-  return <main className="pt-16 pb-16 flex flex-col items-center justify-center">
-    <article className="bg-[var(--box-color)] w-[15rem] h-fit flex flex-col box-border rounded-lg shadow-lg p-2">
+  return <main className=" bg-back  pt-16 pb-16 flex flex-col items-center justify-center">
+    <article className="bg-box w-[15rem] h-fit flex flex-col box-border rounded-lg shadow-lg p-2">
       <img src={image} />
 
       <h3 className="font-bold">{name}</h3>

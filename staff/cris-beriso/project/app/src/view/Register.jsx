@@ -54,10 +54,10 @@ export default function Register(props) {
     props.onLoginClick()
   }
 
-  return <main className="pt-10 flex justify-start items-center flex-col h-screen box-border ">
+  return <main className="bg-back text-customblack  pt-10 flex justify-start items-center flex-col h-screen box-border ">
     <h2 className="text-4xl p-10  ">MakeUp Scanner</h2>
 
-    <div className="bg-[var(--box-color)] w-[12.5rem] h-[22rem] flex justify-center items-center flex-col box-border rounded-lg shadow-lg">
+    <div className="bg-box w-[12.5rem] h-[22rem] flex justify-center items-center flex-col box-border rounded-lg shadow-lg">
 
       <h3 className="text-2xl pb-1">Register</h3>
 

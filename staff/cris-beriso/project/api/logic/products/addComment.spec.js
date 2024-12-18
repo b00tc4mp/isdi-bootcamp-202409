@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Product } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError } = errors
 
 import addComment from './addComment.js'
 

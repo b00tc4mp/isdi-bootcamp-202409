@@ -46,13 +46,13 @@ Admin (User)
 
 ### Techs
 
-- HTML/CSS/JS (...)
-- React (...)
-- Node (...)
-- Express (...)
-- Mongo (...)
-- Mongo & Chai (...)
-- [...]
+- HTML/CSS/JS 
+- React 
+- Node 
+- Express 
+- Mongo 
+- Mongo & Chai 
+- Taildwind
 
 ### Data Model
 
@@ -69,7 +69,7 @@ Admin (User)
 - id (UUID)
 - name (string)
 - categor (string)
-- images ([string])
+- images (string)
 - description (string)
 - likes ([User.id])
 - dislikes ([User.id])
@@ -100,8 +100,9 @@ Admin (User)
 
 #### Point
 - type (string)
-- coords ([number])
+- coordinates ([number])
 
 
 ### Test Coverage 
-[...]
+![alt text](coverage-users.png)
+![alt text](coverage-products.png)

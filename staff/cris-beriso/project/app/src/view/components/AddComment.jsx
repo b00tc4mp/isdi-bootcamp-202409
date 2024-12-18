@@ -32,7 +32,7 @@ export default function AddComment({ productId, onAdded }) {
   return <Form className="w-fit" onSubmit={handleSubmit}>
     <div className="flex justify-center items-center flex-col gap-1rem w-full">
       <Label htmlFor="text">New comment</Label>
-      <textarea className="bg-[var(--textarea-color)] w-[90%]" id="text"></textarea>
+      <textarea className="bg-input w-[90%]" id="text"></textarea>
     </div>
 
     <Button type="submit">Send</Button>

@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 
 import db, { User, Product, Store, StorePrice, Comment, Location, Point } from './index.js'
 
-db.connect(process.env.MONGO_URL_TEST)
+db.connect(process.env.MONGO_URL)
   .then(() => Promise.all([
     User.deleteMany(),
     Product.deleteMany(),

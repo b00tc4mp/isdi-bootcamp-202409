@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Product, Comment } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, OwnershipError, ValidationError, SystemError } = errors
+const { NotFoundError, OwnershipError } = errors
 
 import removeComment from './removeComment.js'
 

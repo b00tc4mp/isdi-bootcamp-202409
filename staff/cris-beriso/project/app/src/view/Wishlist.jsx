@@ -24,7 +24,7 @@ export default function Wishlist() {
 
 
 
-  return <main className="flex flex-col items-center pt-5">
+  return <main className="bg-back  flex flex-col items-center pt-5">
     < h2 className="text-3xl pt-10" > Wishlist </h2 >
     <ul className="grid gap-y-2 pt-2 pb-14">
       {wishlist.length > 0 ? (

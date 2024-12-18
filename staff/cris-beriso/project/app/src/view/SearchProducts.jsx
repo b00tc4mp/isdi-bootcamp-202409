@@ -41,9 +41,9 @@ export default function searchProducts() {
       setSearchPararms({ category: categoryNew, keyword: keywordNew })
     }
   }
-  return <main className="pt-5 pb-14 flex flex-col items-center ">
+  return <main className="bg-back text-customblack pt-5 pb-14 flex flex-col items-center ">
     < h2 className="text-3xl pt-10" > Search your product</h2 >
-    <div className="bg-[var(--box-color)] w-[15rem] h-24 flex flex-col justify-center gap-y-2 rounded-lg shadow-lg">
+    <div className="bg-box w-[15rem] h-24 flex flex-col justify-center gap-y-2 rounded-lg shadow-lg">
       <form onSubmit={handleSearch} className=" flex flex-col items-center ">
         <select id="category" className='w-[10rem]'>
           <option value="Face">Face</option>

@@ -65,7 +65,7 @@ export default function App() {
     confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
   }}>
     <Header onLoggedOut={handleUserLoggedOut} />
-    <Routes>
+    <Routes >
       <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
 
       <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />

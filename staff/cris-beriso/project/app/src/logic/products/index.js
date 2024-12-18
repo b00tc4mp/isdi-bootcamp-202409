@@ -1,4 +1,3 @@
-import getProducts from './getProducts'
 import addComment from './addComment'
 import getComments from './getComments'
 import removeComment from './removeComment'
@@ -11,7 +10,6 @@ import getStorePrices from './getStorePrices'
 
 
 export {
-  getProducts,
   addComment,
   getComments,
   removeComment,

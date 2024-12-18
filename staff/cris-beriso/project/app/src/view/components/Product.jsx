@@ -11,7 +11,7 @@ export default function Product({ product }) {
     disliked
   } = product
 
-  return <article className="bg-[var(--box-color)] w-[15rem] h-fit flex flex-col box-border rounded-lg shadow-lg p-2">
+  return <article className="bg-box w-[15rem] h-fit flex flex-col box-border rounded-lg shadow-lg p-2">
     <Link to={`/products/${id}`}>
       <img src={image} />
 

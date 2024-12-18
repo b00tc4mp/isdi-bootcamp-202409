@@ -2,7 +2,6 @@ import {
   isUserLoggedIn,
   loginUser,
   registerUser,
-  getUserName,
   logoutUser,
   getUserId,
   getWishlist,
@@ -10,7 +9,6 @@ import {
 } from './users'
 
 import {
-  getProducts,
   addComment,
   getComments,
   removeComment,
@@ -27,13 +25,11 @@ const logic = {
   registerUser,
   loginUser,
   isUserLoggedIn,
-  getUserName,
   logoutUser,
   getUserId,
   getWishlist,
   getUserLocation,
 
-  getProducts,
   addComment,
   getComments,
   removeComment,
