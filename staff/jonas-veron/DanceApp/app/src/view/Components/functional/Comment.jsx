@@ -1,4 +1,5 @@
 import logic from "../../../logic/index.js"
+import useLiterals from "../../useLiterals"
 
 import useContext from "../../useContext"
 
@@ -12,26 +13,31 @@ export default function Comment({
   console.log("Comment -> render")
 
   const { alert, confirm } = useContext()
+  const literals = useLiterals()
 
   const handleRemove = () => {
-    confirm("Borrar comentario ?", (accepted) => {
-      if (accepted) {
-        try {
-          logic
-            .removeComment(eventId, id)
-            .then(onCommentRemoved)
-            .catch((error) => {
-              alert(error.message)
+    confirm(
+      "Borrar comentario ?",
+      (accepted) => {
+        if (accepted) {
+          try {
+            logic
+              .removeComment(eventId, id)
+              .then(onCommentRemoved)
+              .catch((error) => {
+                alert(literals(error.message))
 
-              console.error(error)
-            })
-        } catch (error) {
-          alert(error.message)
+                console.error(error)
+              })
+          } catch (error) {
+            alert(literals(error.message))
 
-          console.error(error)
+            console.error(error)
+          }
         }
-      }
-    })
+      },
+      "warn"
+    )
   }
   return (
     <li className="flex items-start space-x-3">

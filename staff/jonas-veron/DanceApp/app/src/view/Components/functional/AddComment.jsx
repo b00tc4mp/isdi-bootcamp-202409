@@ -1,4 +1,5 @@
 import logic from "../../../logic/index.js"
+import useLiterals from "../../useLiterals"
 
 import useContext from "../../useContext"
 
@@ -6,6 +7,7 @@ export default function AddComment({ eventId, onCommentAdded }) {
   console.log("AddComment -> render")
 
   const { alert } = useContext()
+  const literals = useLiterals()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -23,12 +25,12 @@ export default function AddComment({ eventId, onCommentAdded }) {
           onCommentAdded()
         })
         .catch((error) => {
-          alert(error.message)
+          alert(literals(error.message))
 
           console.error(error)
         })
     } catch (error) {
-      alert(error.message)
+      alert(literals(error.message))
 
       console.error(error)
     }

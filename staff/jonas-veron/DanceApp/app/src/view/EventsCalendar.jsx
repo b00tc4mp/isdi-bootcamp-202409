@@ -4,21 +4,28 @@ import logic from "../logic"
 import "react-calendar/dist/Calendar.css"
 import "./CalendaryStyles.css"
 import useContext from "./useContext"
+import useLiterals from "./useLiterals"
 
 export default function EventsCalendar() {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [events, setEvents] = useState([])
 
   const { alert } = useContext()
+  const literals = useLiterals()
 
   useEffect(() => {
-    logic
-      .getEvents()
-      .then(setEvents)
-      .catch((error) => {
-        alert(error.message)
-        console.error(error)
-      })
+    try {
+      logic
+        .getEvents()
+        .then(setEvents)
+        .catch((error) => {
+          alert(literals(error.message))
+          console.error(error)
+        })
+    } catch (error) {
+      alert(literals(error.message))
+      console.error(error)
+    }
   }, [])
 
   const handleDateChange = (date) => {

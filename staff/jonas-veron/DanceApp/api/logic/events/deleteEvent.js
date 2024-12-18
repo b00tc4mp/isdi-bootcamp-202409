@@ -12,18 +12,18 @@ export default (userId, eventId) => {
       throw new SystemError(error.message)
     })
     .then(([user, event]) => {
-      if (!user) throw new NotFoundError("User not found")
+      if (!user) throw new NotFoundError("user not found")
       // if (user.permission !== "write")
       //   throw new PermissionError("User has not permission to delete event")
-      if (!event) throw new NotFoundError("Event not found")
+      if (!event) throw new NotFoundError("event not found")
       if (!event.author.equals(userId))
-        throw new OwnershipError("User is not author of event")
+        throw new OwnershipError("user is not author of event")
 
       return Event.deleteOne({ _id: eventId }).catch((error) => {
         throw new SystemError(error.message)
       })
     })
     .then((_) => {
-      return { message: "Event deleted" }
+      return { message: "event deleted" }
     })
 }

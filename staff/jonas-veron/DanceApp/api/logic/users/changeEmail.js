@@ -14,9 +14,9 @@ export default (userId, oldEmail, newEmail, newEmailRepeat) => {
       throw new SystemError(error.message)
     })
     .then((user) => {
-      if (!user) throw new NotFoundError("User not found")
+      if (!user) throw new NotFoundError("user not found")
       if (user.email !== oldEmail) {
-        throw new CredentialsError("Wrong credentials")
+        throw new CredentialsError("wrong credentials")
       }
 
       return User.findByIdAndUpdate(userId, { email: newEmail })

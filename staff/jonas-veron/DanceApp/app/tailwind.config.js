@@ -10,6 +10,8 @@ export default {
         accentpink: "var(--accent-color-pink)",
         accentgreen: "var(--accent-color-green)",
         accentred: "var(--accent-color-red)",
+        accentpinkdark: "var(--acent-color-pink-dark",
+        accentgreendark: "var(--accent-color-green-dark",
       },
       fontFamily: {
         logo: ["Lobster", "cursive"],

@@ -3,75 +3,81 @@ import errors from "./errors.js"
 const { ValidationError } = errors
 
 const validateName = (name) => {
-  if (typeof name !== "string") throw new ValidationError("Invalid name")
-  if (name.length < 2) throw new ValidationError("Invalid name length")
+  if (typeof name !== "string") throw new ValidationError("invalid name")
+  if (name.length < 2) throw new ValidationError("invalid name length")
 }
 
 const validateEmail = (email) => {
-  if (typeof email !== "string") throw new ValidationError("E-mail inválido")
-  if (email.length > 320) throw new ValidationError("E-mail is too long")
+  if (typeof email !== "string") throw new ValidationError("invalid e-mail")
+  if (email.length > 320) throw new ValidationError("e-mail is too long")
   if (
     !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
       email
     )
   )
-    throw new ValidationError("Invalid e-mail")
+    throw new ValidationError("invalid e-mail")
 }
 
 const validateEmailsMatch = (email, emailRepeat) => {
   if (typeof emailRepeat !== "string")
-    throw new ValidationError("Invalid email repeat")
-  if (email.length > 320) throw new ValidationError("E-mail is too long")
+    throw new ValidationError("invalid email repeat")
+  if (email.length > 320) throw new ValidationError("e-mail is too long")
 
-  if (email !== emailRepeat) throw new ValidationError("Emails do not match")
+  if (email !== emailRepeat) throw new ValidationError("emails do not match")
 }
 
 const validateRole = (role) => {
-  if (typeof role !== "string") throw new ValidationError("Invalid Role")
+  if (typeof role !== "string") throw new ValidationError("invalid role")
   const validRoles = ["dancer", "organizer", "moderator"]
-  if (!validRoles.includes(role)) throw new ValidationError("Invalid Role")
+  if (!validRoles.includes(role)) throw new ValidationError("invalid role")
 }
 
 const validatePassword = (password) => {
   if (typeof password !== "string")
-    throw new ValidationError("Invalid password")
-  if (password.length < 8) throw new ValidationError("Invalid password length")
-  if (password.length > 128) throw new ValidationError("Password is too long")
+    throw new ValidationError("invalid password")
+  if (password.length < 8) throw new ValidationError("invalid password length")
+  if (password.length > 128) throw new ValidationError("password is too long")
 }
 
 const validatePasswordsMatch = (password, passwordRepeat) => {
   if (typeof passwordRepeat !== "string")
-    throw new ValidationError("Invalid password repeat")
+    throw new ValidationError("invalid password repeat")
   if (passwordRepeat.length > 128)
-    throw new ValidationError("Password is too long")
+    throw new ValidationError("password is too long")
   if (password !== passwordRepeat)
-    throw new ValidationError("Passwords do not match")
+    throw new ValidationError("passwords do not match")
 }
 
 const validateImages = (images) => {
-  // if (!Array.isArray(images)) {
-  //   throw new ValidationError("Images must be an array")
-  // }
+  // Verificar si images es un array
+  if (!Array.isArray(images)) {
+    throw new ValidationError("images must be an array")
+  }
 
-  if (!images.every((images) => typeof images === "string")) {
-    throw new ValidationError("Each file must be a string")
+  // Validar que cada elemento del array sea un string
+  if (!images.every((image) => typeof image === "string")) {
+    throw new ValidationError("each file must be a string")
   }
 }
 
+const validateImage = (image) => {
+  if (typeof image !== "string") throw new ValidationError(`invalid image`)
+}
+
 const validateText = (text) => {
-  if (!text) throw new Error("The text is required.")
-  if (text.length > 200) throw new Error("Text cannot exceed 200 characters.")
-  if (typeof text !== "string") throw new ValidationError("Invalid text")
+  if (!text) throw new Error("the text is required")
+  if (text.length > 200) throw new Error("text cannot exceed 200 characters")
+  if (typeof text !== "string") throw new ValidationError("invalid text")
 }
 
 const validateId = (id, explain = "id") => {
-  if (typeof id !== "string") throw new ValidationError(`Invalid ${explain}`)
-  if (id.length !== 24) throw new ValidationError(`Invalid ${explain} length`)
+  if (typeof id !== "string") throw new ValidationError(`invalid ${explain}`)
+  if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
 const validateCallback = (callback) => {
   if (typeof callback !== "function")
-    throw new ValidationError("Invalid callback")
+    throw new ValidationError("invalid callback")
 }
 
 function validateDate(date) {
@@ -80,7 +86,7 @@ function validateDate(date) {
 
   // Verifica si la fecha es inválida
   if (isNaN(parsedDate.getTime())) {
-    throw new ValidationError("Invalid date format")
+    throw new ValidationError("invalid date format")
   }
 
   const now = new Date()
@@ -89,22 +95,22 @@ function validateDate(date) {
 
   // Verifica si la fecha es pasada
   if (parsedDate < now) {
-    throw new ValidationError("Date must be in the future")
+    throw new ValidationError("date must be in the future")
   }
 
   // Verifica si la fecha excede un año
   if (parsedDate > oneYearFromNow) {
-    throw new ValidationError("Date must not exceed one year from now")
+    throw new ValidationError("date must not exceed one year from now")
   }
 }
 
 const validateLocation = (location) => {
   if (typeof location.address !== "string")
-    throw new ValidationError("Invalid location format")
+    throw new ValidationError("invalid location format")
   if (location.address.trim().length < 5)
-    throw new ValidationError("Location must be at least 5 characters")
+    throw new ValidationError("location must be at least 5 characters")
   if (location.address.trim().length > 200)
-    throw new ValidationError("Location must not exceed 200 characters")
+    throw new ValidationError("location must not exceed 200 characters")
 }
 
 const validateType = (type) => {
@@ -117,7 +123,7 @@ const validateType = (type) => {
   ]
 
   if (!validTypes.includes(type)) {
-    throw new ValidationError("Wrong type")
+    throw new ValidationError("wrong type")
   }
 }
 
@@ -128,6 +134,7 @@ const validate = {
   password: validatePassword,
   passwordsMatch: validatePasswordsMatch,
   images: validateImages,
+  image: validateImage,
   text: validateText,
   id: validateId,
   callback: validateCallback,

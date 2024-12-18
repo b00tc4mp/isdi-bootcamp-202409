@@ -1,7 +1,7 @@
 import logic from "../logic"
 import { useState, useEffect } from "react"
 import useContext from "./useContext"
-
+import useLiterals from "./useLiterals"
 import { Event } from "../view/Components/functional/index.js"
 
 export default function Home() {
@@ -9,13 +9,14 @@ export default function Home() {
   const [events, setEvents] = useState([])
 
   const { alert } = useContext()
+  const literals = useLiterals()
 
   const refreshEvents = () => {
     logic
       .getEvents()
       .then(setEvents)
       .catch((error) => {
-        alert(error.message)
+        alert(literals(error.message))
         console.error(error)
       })
   }
@@ -24,14 +25,14 @@ export default function Home() {
     try {
       refreshEvents()
     } catch (error) {
-      alert(error.message)
+      alert(literals(error.message))
       console.error(error)
     }
   }, [])
 
   return (
     <>
-      <h1 className="pt-20 text-center font-semibold text-cyan-50 text-4xl pb-20 font-body">
+      <h1 className="pt-20 text-center font-semibold text-cyan-50 text-2xl pb-4 font-body">
         EVENTOS
       </h1>
 

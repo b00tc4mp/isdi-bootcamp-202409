@@ -4,11 +4,12 @@ import { useNavigate, Link } from "react-router-dom"
 import { useState } from "react"
 import { errors } from "com/"
 import useContext from "./useContext"
-
+import useLiterals from "./useLiterals.js"
 import {
   PasswordInput,
   Input,
   ButtonForm,
+  ButtonMenu,
   Form,
   Field,
   Label,
@@ -21,6 +22,7 @@ export default function Register() {
   const [role, setRole] = useState("")
 
   const { alert } = useContext()
+  const literals = useLiterals()
   const navigate = useNavigate()
 
   const handleRoleSelect = (selectedRole) => {
@@ -45,31 +47,31 @@ export default function Register() {
         .then(() => {
           form.reset()
 
-          alert("Usuario registrado", "success")
+          alert("¡Usuario registrado con éxito!", "success")
 
           navigate("/login")
         })
         .catch((error) => {
           if (error instanceof SystemError)
             alert("Por favor, inténtelo más tarde")
-          else alert(error.message)
+          else alert(literals(error.message))
           console.error(error)
         })
     } catch (error) {
-      alert(error.message)
+      alert(literals(error.message))
       console.error(error)
     }
   }
 
   return (
-    <main className="flex flex-grow justify-center items-center flex-col min-h-screen box-border pt-16 pb-16">
+    <main className="flex flex-grow justify-center items-center flex-col min-h-screen box-border pt-2 pb-8">
       <div className="flex flex-col items-center">
         <img
           src={DanceAppLogo}
           alt="Logo de DanceApp"
-          className="w-[38vh] h-28 mb-4"
+          className="w-[38vh] h-28 mb-2"
         />
-        <h1 className="text-lg text-center text-white m-1.5 font-body">
+        <h1 className="text-base text-center text-white font-body mb-2">
           Regístrate para descubrir sociales, clases y promocionar tus eventos
           con DanceApp!
         </h1>
@@ -102,29 +104,24 @@ export default function Register() {
 
         <Field>
           <div className="mt-3">
-            <label className="block text-white font-bold font-body mb-4">
+            <label className="block text-white font-bold font-body mb-2">
               Selecciona tu rol
             </label>
-            <div className="flex space-x-4">
+            <div className="flex gap-4 justify-center mt-2">
+              {/* Botón Bailarín */}
               <button
                 type="button"
-                className={`w-1/2 p-2 rounded-md font-bold transition-all duration-300 ${
-                  role === "dancer"
-                    ? "bg-green-500 text-white border-green-700"
-                    : "bg-pink-600 text-white border-pink-700"
-                } border-2 hover:bg-green-500 hover:text-white focus:outline-none`}
                 onClick={() => handleRoleSelect("dancer")}
+                className="bg-tertiary w-full min-w-32 rounded text-white font-body border-2 border-accentpink hover:bg-accentgreen focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-100 py-2 px-2"
               >
                 Bailarín
               </button>
+
+              {/* Botón Organizador */}
               <button
                 type="button"
-                className={`w-1/2 p-2 rounded-md font-bold transition-all duration-300 ${
-                  role === "organizer"
-                    ? "bg-green-500 text-white border-green-700"
-                    : "bg-pink-600 text-white border-pink-700"
-                } border-2 hover:bg-green-500 hover:text-white focus:outline-none`}
                 onClick={() => handleRoleSelect("organizer")}
+                className="bg-tertiary w-full min-w-32 rounded text-white font-body border-2 border-accentpink hover:bg-accentgreen focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-100 py-2 px-2"
               >
                 Organizador
               </button>
@@ -134,10 +131,10 @@ export default function Register() {
 
         <ButtonForm type="submit">REGISTRO</ButtonForm>
       </Form>
-      <p className="text-white p-1">¿ Tienes una cuenta ?</p>
+      <p className="text-white p-1 mt-3">¿ Tienes una cuenta ?</p>
 
       <Link to="/login">
-        <p className="no-underline hover:underline hover:text-accentgreen text-white cursor-pointer pt-4 text-sm">
+        <p className="no-underline hover:underline hover:text-accentgreen text-white cursor-pointer pt-2 text-base font-bold">
           INICIAR SESIÓN
         </p>
       </Link>

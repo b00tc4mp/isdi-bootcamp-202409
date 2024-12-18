@@ -40,7 +40,7 @@ describe("changePassword", () => {
         "456456456",
         "456456456"
       )
-    ).to.be.rejectedWith(NotFoundError, /^User not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^user not found$/))
   debugger
   it("fails when current password is incorrect", async () => {
     const user = await User.create({
@@ -51,7 +51,7 @@ describe("changePassword", () => {
     })
     await expect(
       changePassword(user.id, "123222222", "456456456", "456456456")
-    ).to.be.rejectedWith(CredentialsError, /^Wrong credentials$/)
+    ).to.be.rejectedWith(CredentialsError, /^wrong credentials$/)
 
     const updatedUser = await User.findById(user.id)
     expect(bcrypt.compareSync("123123123", updatedUser.password)).to.be.true
@@ -63,14 +63,14 @@ describe("changePassword", () => {
     }
     expect(() => changePassword(user.id, "123123123", "123")).to.throw(
       ValidationError,
-      /^Invalid password length$/
+      /^invalid password length$/
     )
   })
 
   it("fails when userId is invalid", () => {
     expect(() => changePassword(true, "123123123", "456456456")).to.throw(
       ValidationError,
-      /^Invalid userId$/
+      /^invalid userId$/
     )
   })
 

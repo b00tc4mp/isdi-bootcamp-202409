@@ -60,7 +60,7 @@ describe("addComment", () => {
         "012345678901234567890123",
         "hello comment"
       )
-    ).to.be.rejectedWith(NotFoundError, /^User not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^user not found$/))
 
   it("fails on non-existing event", () =>
     expect(
@@ -71,12 +71,12 @@ describe("addComment", () => {
       }).then((user) =>
         addComment(user.id, "012345678901234567890123", "hello comment")
       )
-    ).to.be.rejectedWith(NotFoundError, /^Event not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^event not found$/))
 
   it("fails on non-string user-id", () =>
     expect(() =>
       addComment(true, "012345678901234567890123", "hello comment")
-    ).to.throw(ValidationError, /^Invalid userId$/))
+    ).to.throw(ValidationError, /^invalid userId$/))
 
   after(() => db.disconnect())
 })

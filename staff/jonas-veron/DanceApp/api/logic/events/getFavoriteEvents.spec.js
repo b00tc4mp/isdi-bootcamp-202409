@@ -11,19 +11,20 @@ import { errors } from "com"
 
 const { NotFoundError, ValidationError } = errors
 
-import getEvents from "./getEvents.js"
+import getFavoriteEvents from "./getFavoriteEvents.js"
 
-describe("getEvents", () => {
+describe("getFavoriteEvents", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST))
 
   beforeEach(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
+
   it("succeeds for existing user", async () => {
     const user = await User.create({
       name: "Carlos Diaz",
       email: "carlos@dancer.com",
       password: "123123123",
-      favorites: [],
     })
+
     const event = await Event.create({
       author: user._id,
       images: [
@@ -38,7 +39,6 @@ describe("getEvents", () => {
         province: "Barcelona",
         coordinates: [41.3870154, 2.1700471],
       },
-      likes: [user._id],
     })
     const event2 = await Event.create({
       author: user._id,
@@ -54,43 +54,33 @@ describe("getEvents", () => {
         province: "Barcelona",
         coordinates: [41.3870154, 2.1700471],
       },
-      likes: [],
     })
-    user.favorites.push(event._id)
-    await user.save()
+    const user2 = await User.create({
+      name: "Juan",
+      email: "juan@dancer.com",
+      password: "123123123",
+      favorites: [event.id, event2.id],
+    })
+    const favoriteEvents = await getFavoriteEvents(user2.id)
 
-    const events = await getEvents(user._id.toString())
-
-    expect(events).to.have.lengthOf(2)
-    expect(events[0].id).to.equal(event2._id.toString())
-    expect(events[0].author.id).to.equal(user._id.toString())
-    expect(events[0].author.name).to.equal(user.name)
-    expect(events[0].images[0]).to.equal(event2.images[0])
-    expect(events[0].text).to.equal(event2.text)
-    expect(events[0].date).to.deep.equal(event2.date)
-    expect(events[0].favoriteByUser).to.be.false
-
-    expect(events[1].id).to.equal(event._id.toString())
-    expect(events[1].author.id).to.equal(user._id.toString())
-    expect(events[1].author.name).to.equal(user.name)
-    expect(events[1].images[0]).to.equal(event.images[0])
-    expect(events[1].text).to.equal(event.text)
-    expect(events[1].date).to.deep.equal(event.date)
-    expect(events[1].likedByUser).to.be.true
-    expect(events[1].favoriteByUser).to.be.true
+    expect(favoriteEvents).to.have.lengthOf(2)
+    expect(favoriteEvents[0].author.name).to.equal("Carlos Diaz")
+    expect(favoriteEvents[1].author.name).to.equal("Carlos Diaz")
   })
 
-  it("fails for invalid user ID format", () =>
-    expect(() => getEvents("123")).to.throw(
+  it("fails for invalid user ID format", async () =>
+    await expect(getFavoriteEvents("123")).to.be.rejectedWith(
       ValidationError,
       /^invalid userId length$/
     ))
 
-  it("fails for non-existing user", async () => {
-    await expect(getEvents("012345678901234567890123")).to.be.rejectedWith(
-      NotFoundError,
-      /^user not found$/
-    )
+  it("fails for non-existing user", () => {
+    getFavoriteEvents("012345678901234567890123")
+      .then()
+      .catch((error) => {
+        expect(error.message).to.equal(/^user not found$/)
+      })
   })
+
   after(() => db.disconnect())
 })

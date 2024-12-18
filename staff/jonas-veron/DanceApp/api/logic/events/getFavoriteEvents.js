@@ -10,14 +10,14 @@ export default async (userId) => {
     const user = await User.findById(userId)
 
     if (!user) {
-      throw new NotFoundError("User not found")
+      throw new NotFoundError("user not found")
     }
 
     const favoriteEvents = await Event.find({
       _id: { $in: user.favorites },
     })
-      .populate("author", "name")
-      .sort({ date: -1 })
+      .populate("author", "name profilePicture")
+      .sort({ createdAt: -1 })
       .lean()
 
     return favoriteEvents.map((event) => ({
@@ -36,6 +36,7 @@ export default async (userId) => {
         id: event.author._id.toString(),
 
         name: event.author.name,
+        profilePicture: event.author.profilePicture || null,
       },
       likes: event.likes.length,
       comments: event.comments.length,

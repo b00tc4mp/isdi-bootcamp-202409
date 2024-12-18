@@ -17,9 +17,9 @@ export default (userId, images, type, text, date, location) => {
       throw new SystemError(error.message)
     })
     .then((user) => {
-      if (!user) throw new NotFoundError("User not found")
+      if (!user) throw new NotFoundError("user not found")
       if (user.permission !== "write")
-        throw new PermissionError("User has not permission to create event")
+        throw new PermissionError("user has not permission to create event")
 
       return Event.create({
         author: userId,

@@ -7,10 +7,10 @@ export default function Alert({ message, level = "error", onAccepted }) {
       button: "bg-red-500 hover:bg-red-700 text-white",
     },
     warn: {
-      border: "border-yellow-500",
-      bg: "bg-yellow-600 bg-opacity-70",
-      text: "text-yellow-100",
-      button: "bg-yellow-500 hover:bg-yellow-700 text-white",
+      border: "border-pink-400",
+      bg: "bg-pink-600 bg-opacity-80",
+      text: "text-pink-100",
+      button: "bg-pink-500 hover:bg-pink-700 text-white",
     },
     success: {
       border: "border-green-500",

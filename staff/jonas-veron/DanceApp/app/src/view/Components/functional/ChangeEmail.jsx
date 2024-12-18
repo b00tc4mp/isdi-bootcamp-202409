@@ -1,11 +1,14 @@
 import logic from "../../../logic"
 import useContext from "../../useContext"
 import { errors } from "com"
+import useLiterals from "../../useLiterals"
+import { Input, ButtonForm } from "../library"
 
 const { SystemError } = errors
 
 export default function ChangeEmail() {
   const { alert } = useContext()
+  const literals = useLiterals()
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -26,49 +29,41 @@ export default function ChangeEmail() {
         })
         .catch((error) => {
           console.error(error)
-          alert(error.message)
+          alert(literals(error.message))
         })
     } catch (error) {
       if (error instanceof SystemError) alert("Por favor, inténtelo más tarde")
-      else alert(error.message)
+      else alert(literals(error.message))
       console.error(error)
     }
   }
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <input
+        <Input
           type="email"
           id="old-email"
           placeholder="E-mail actual"
           required
-          className="focus:outline-none p-2 rounded-lg bg-tertiary text-white w-full"
         />
       </div>
       <div className="mb-4">
-        <input
+        <Input
           type="email"
           id="new-email"
           placeholder="Nuevo E-mail"
           required
-          className="focus:outline-none p-2 rounded-lg bg-tertiary text-white w-full"
         />
       </div>
       <div className="mb-4">
-        <input
+        <Input
           type="email"
           id="new-email-repeat"
           placeholder="Confirme su nuevo E-mail"
           required
-          className="focus:outline-none p-2 rounded-lg bg-tertiary text-white w-full"
         />
       </div>
-      <button
-        type="submit"
-        className="bg-accentpink hover:bg-tertiary text-white py-3 px-4 rounded w-full"
-      >
-        Actualizar E-mail
-      </button>
+      <ButtonForm type="submit">Actualizar E-mail</ButtonForm>
     </form>
   )
 }

@@ -45,7 +45,7 @@ describe("changeEmail", () => {
         "holasoyjuan@gmail.com",
         "holasoyjuan@gmail.com"
       )
-    ).to.be.rejectedWith(NotFoundError, /^User not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^user not found$/))
 
   it("fails when current email is incorrect", async () => {
     const user = await User.create({
@@ -61,7 +61,7 @@ describe("changeEmail", () => {
         "juan10@dance.com",
         "juan10@dance.com"
       )
-    ).to.be.rejectedWith(CredentialsError, /^Wrong credentials$/)
+    ).to.be.rejectedWith(CredentialsError, /^wrong credentials$/)
   })
 
   it("fails when new email does not meet validation", async () => {
@@ -73,13 +73,13 @@ describe("changeEmail", () => {
         "juan10@dance.com",
         "juan10dance.com"
       )
-    ).to.throw(ValidationError, /^Emails do not match$/)
+    ).to.throw(ValidationError, /^emails do not match$/)
   })
 
   it("fails when userId is invalid", () => {
     expect(() =>
       changeEmail(true, "juan10@dance.com", "juan10@dance.com")
-    ).to.throw(ValidationError, /^Invalid userId$/)
+    ).to.throw(ValidationError, /^invalid userId$/)
   })
 
   after(() => db.disconnect())

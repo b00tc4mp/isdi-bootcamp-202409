@@ -13,10 +13,10 @@ export default function Confirm({
       buttonCancel: "bg-gray-400 hover:bg-gray-600 text-white",
     },
     warn: {
-      border: "border-yellow-500",
-      bg: "bg-yellow-600 bg-opacity-90",
-      text: "text-yellow-100",
-      buttonAccept: "bg-yellow-500 hover:bg-yellow-700 text-white",
+      border: "border-pink-400",
+      bg: "bg-pink-600 bg-opacity-80",
+      text: "text-pink-100",
+      buttonAccept: "bg-pink-400 hover:bg-pink-700 text-white",
       buttonCancel: "bg-gray-400 hover:bg-gray-600 text-white",
     },
     success: {

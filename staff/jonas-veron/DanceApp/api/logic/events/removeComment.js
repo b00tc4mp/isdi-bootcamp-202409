@@ -13,14 +13,14 @@ export default (userId, eventId, commentId) => {
       throw new SystemError(error.message)
     })
     .then(([user, event]) => {
-      if (!user) throw new NotFoundError("User not found")
-      if (!event) throw new NotFoundError("Event not found")
+      if (!user) throw new NotFoundError("user not found")
+      if (!event) throw new NotFoundError("event not found")
 
       const comment = event.comments.id(commentId)
 
-      if (!comment) throw new NotFoundError("Comment not found")
+      if (!comment) throw new NotFoundError("comment not found")
       if (!comment.author.equals(userId))
-        throw new OwnershipError("User not author of comment")
+        throw new OwnershipError("user not author of comment")
 
       comment.deleteOne()
 

@@ -1,9 +1,8 @@
 import { useState } from "react"
-// import { Field, Form } from "../library"
-import { errors } from "com"
 import useContext from "../../useContext"
-
-const { SystemError } = errors
+import logic from "../../../logic"
+import useLiterals from "../../useLiterals"
+import { ButtonForm } from "../library"
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -18,16 +17,16 @@ export default function ChangeProfilePicture() {
   const [image, setImage] = useState(null)
 
   const { alert } = useContext()
+  const literals = useLiterals()
 
   const handleImageChange = (event) => {
     const file = event.target.files[0]
-    if (file) {
-      setPhotoPreview(URL.createObjectURL(file))
-      toBase64(file).then((base64) => setImage(base64))
-    }
+
+    setPhotoPreview(URL.createObjectURL(file))
+    setImage(file)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     if (!image) {
@@ -36,8 +35,9 @@ export default function ChangeProfilePicture() {
     }
 
     try {
-      logic
-        .ChangeProfilePicture(image)
+      const image64 = await toBase64(image)
+      await logic
+        .changeProfilePicture(image64)
         .then(() => {
           alert("¡Tu foto de perfil se ha actualizado exitosamente!", "success")
           setPhotoPreview(null)
@@ -46,50 +46,43 @@ export default function ChangeProfilePicture() {
         })
         .catch((error) => {
           console.error(error)
-          alert(error.message)
+          alert(literals(error.message))
         })
     } catch (error) {
-      if (error instanceof SystemError) alert("Por favor, inténtelo más tarde")
-      else alert(error.message)
+      alert(literals(error.message))
+
       console.error(error)
     }
-
-    alert("Foto actualizada", "success")
   }
 
   return (
     <form onSubmit={handleSubmit}>
       {photoPreview && (
-        <div className="mb-4">
+        <div className="">
           <img
             src={photoPreview}
             alt="Vista previa"
-            className="w-20 h-20 rounded-full mx-auto"
+            className="w-56 h-56 object-cover rounded-lg mx-auto"
           />
         </div>
       )}
 
       <label
-        htmlFor="images"
-        className="bg-tertiary text-white rounded-lg w-full h-10 pt-1 mt-20"
+        htmlFor="image"
+        className="cursor-pointer flex flex-col items-center justify-center w-full h-12 border-2 border-gray-300 rounded-lg text-white bg-tertiary hover:bg-secondary transition duration-300 mb-2 mt-2"
       >
         Subir Imagen
       </label>
       <input
         type="file"
-        name="images"
-        id="images"
+        name="image"
+        id="image"
         onChange={handleImageChange}
         className="hidden"
         required
       />
 
-      <button
-        type="submit"
-        className="bg-accentpink hover:bg-tertiary text-white py-3 px-4 rounded-2xl w-full"
-      >
-        Guardar Foto
-      </button>
+      <ButtonForm type="submit">Guardar Foto</ButtonForm>
     </form>
   )
 }

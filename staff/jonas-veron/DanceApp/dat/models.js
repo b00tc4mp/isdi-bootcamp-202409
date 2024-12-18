@@ -22,7 +22,7 @@ const user = new Schema(
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
       maxLength: 320,
     },
-    profilePicture: [{ type: String }],
+    profilePicture: { type: String },
 
     password: {
       type: String,
@@ -43,7 +43,6 @@ const user = new Schema(
     },
     city: {
       type: String,
-      default: "Girona",
       maxLength: 50,
     },
     favorites: [
@@ -104,11 +103,6 @@ const event = new Schema(
       type: Date,
       required: true,
     },
-
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
     location: {
       type: {
         type: String,
@@ -125,7 +119,6 @@ const event = new Schema(
       },
       province: {
         type: String,
-        // required: true,
       },
     },
     likes: [
@@ -135,6 +128,10 @@ const event = new Schema(
       },
     ],
     comments: [comment],
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { versionKey: false }
 )

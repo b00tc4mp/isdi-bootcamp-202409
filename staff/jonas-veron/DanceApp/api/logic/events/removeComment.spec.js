@@ -58,7 +58,7 @@ describe("removeComment", () => {
         "012345678901234567890123",
         "012345678901234567890123"
       )
-    ).to.be.rejectedWith(NotFoundError, /^User not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^user not found$/))
 
   it("fails on non-existing event", () =>
     expect(
@@ -73,7 +73,7 @@ describe("removeComment", () => {
           "012345678901234567890123"
         )
       )
-    ).to.be.rejectedWith(NotFoundError, /^Event not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^event not found$/))
 
   it("fails on non-existing comment", async () => {
     const user = await User.create({
@@ -99,7 +99,7 @@ describe("removeComment", () => {
     })
     await expect(
       removeComment(user.id, event.id, "012345678901234567890123")
-    ).to.be.rejectedWith(NotFoundError, /^Comment not found$/)
+    ).to.be.rejectedWith(NotFoundError, /^comment not found$/)
   })
 
   it("fails on non-own comment", async () => {
@@ -135,7 +135,7 @@ describe("removeComment", () => {
     })
     await expect(
       removeComment(user2.id, event.id, event.comments[0].id)
-    ).to.be.rejectedWith(OwnershipError, /^User not author of comment$/)
+    ).to.be.rejectedWith(OwnershipError, /^user not author of comment$/)
   })
   after(() => db.disconnect())
 })

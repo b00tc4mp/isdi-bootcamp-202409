@@ -74,7 +74,7 @@ describe("createEvent", () => {
           coordinates: [41.3870154, 2.1700471],
         }
       )
-    ).to.be.rejectedWith(NotFoundError, /^User not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^user not found$/))
 
   it("fails on non-string user-id", () =>
     expect(() =>
@@ -92,7 +92,7 @@ describe("createEvent", () => {
           coordinates: [41.3870154, 2.1700471],
         }
       )
-    ).to.throw(ValidationError, /^Invalid userId length$/))
+    ).to.throw(ValidationError, /^invalid userId length$/))
 
   it("fails on non-24-chars-length user-id", () =>
     expect(() =>
@@ -110,7 +110,7 @@ describe("createEvent", () => {
           coordinates: [41.3870154, 2.1700471],
         }
       )
-    ).to.throw(ValidationError, /^Invalid userId$/))
+    ).to.throw(ValidationError, /^invalid userId$/))
 
   it("fails on non-string image", () =>
     expect(() =>
@@ -126,7 +126,7 @@ describe("createEvent", () => {
           coordinates: [41.3870154, 2.1700471],
         }
       )
-    ).to.throw(ValidationError, /^Images must be an array$/))
+    ).to.throw(ValidationError, /^images must be an array$/))
 
   it("fails on non-string text", () =>
     expect(() =>
@@ -144,7 +144,7 @@ describe("createEvent", () => {
           coordinates: [41.3870154, 2.1700471],
         }
       )
-    ).to.throw(ValidationError, /^Invalid text$/))
+    ).to.throw(ValidationError, /^invalid text$/))
 
   it("failure in permission that is not an write", async () => {
     const user = await User.create({
@@ -171,7 +171,7 @@ describe("createEvent", () => {
       )
     ).to.be.rejectedWith(
       PermissionError,
-      /^User has not permission to create event$/
+      /^user has not permission to create event$/
     )
   })
 

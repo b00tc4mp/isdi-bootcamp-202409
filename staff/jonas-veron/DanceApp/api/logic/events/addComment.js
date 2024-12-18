@@ -13,8 +13,8 @@ export default (userId, eventId, text) => {
       throw new SystemError(error.message)
     })
     .then(([user, event]) => {
-      if (!user) throw new NotFoundError("User not found")
-      if (!event) throw new NotFoundError("Event not found")
+      if (!user) throw new NotFoundError("user not found")
+      if (!event) throw new NotFoundError("event not found")
 
       const comment = new Comment({
         author: userId,

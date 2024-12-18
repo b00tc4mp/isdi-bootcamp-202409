@@ -10,11 +10,21 @@
   --tertiary-color: #333232;
   --accent-color-pink: #a92f9c;
   --accent-color-green: #1db954;
+  --accent-color-pink-dark: #8b237f;
+  --accent-color-green-dark: #159944;
   --accent-color-red: #ec1e32;
   height: 100%;
   background: linear-gradient(#191414, #222222, #191414);
 }
 
-/* body {
-  font-family: font-body;
-} */
+input[type="date"] {
+  width: 20rem;
+  height: 3rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--tertiary-color);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+}

@@ -8,6 +8,8 @@ DanceApp is an app designed to connect dancers and dance event organizers in you
 
 ## Functional
 
+### Brief
+
 - Facilitate interaction between dancers and organizers, creating a community where users can:
 
 - Find nearby dance events.
@@ -55,42 +57,42 @@ Organizer
 
 ### Data Model
 
-User:
+User
 
 - id (UUID)
 - name (string)
 - email (string)
-- profile picture ([string])
+- profile picture (string)
 - password (string)
 - role (string): Role of the user (dancer | organizer | moderator)
 - permission(string, enum: read | write)
-- favorites [events]
+- city (string)
+- favorites [Event.id]
 - createdAt (Date)
 
-Event:
+Event
 
 - id (UUID)
 - author (User.id)
 - type (string)
+- type (string, enum: Sociales | Escuelas de baile | Clases particulares | Congresos | Masterclases)
 - images ([string])
-- text (string)
+- text (string maxLength 200)
 - date (Date)
-- likes ([User.id])
-- location (Location)
+- location
+  - type (string)
+  - coordinates ([number])
+  - address (string)
+  - province (string)
+  - likes ([User.id])
 - createdAt (Date)
 
-Comment:
+Comment
 
 - id (UUID)
 - author (User.id)
 - text (string maxLength 200)
-- date (Date)
-
-Location
-
-- id (UUID)
-- type (string, point )
-- coordinates ([Number])
+- createdAt (Date)
 
 ### Techs
 
@@ -102,3 +104,10 @@ Location
 - Map Integration: Leaflet.js
 
 ### Test Coverage
+
+![alt text](image.png)
+![alt text](image-1.png)
+
+## Planning
+
+[TO DO List](https://github.com/b00tc4mp/isdi-bootcamp-202409/issues/233)

@@ -38,6 +38,20 @@ describe("authenticateUser", () => {
   it("fails on non-existing user", () =>
     expect(
       authenticateUser("girona@baila.com", "123123123")
-    ).to.be.rejectedWith(CredentialsError, /^Wrong credentials$/))
+    ).to.be.rejectedWith(CredentialsError, /^wrong credentials$/))
+
+  it("fails on password non-match", async () => {
+    await User.create({
+      name: "Girona Baila",
+      email: "girona@baila.com",
+      password: bcrypt.hashSync("123123123", 10),
+      role: "dancer",
+    })
+
+    await expect(
+      authenticateUser("girona@baila.com", "122122122")
+    ).to.be.rejectedWith(CredentialsError, /^wrong credentials$/)
+  })
+
   after(() => db.disconnect())
 })

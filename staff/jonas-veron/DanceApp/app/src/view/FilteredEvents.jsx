@@ -3,14 +3,16 @@ import { useParams } from "react-router-dom"
 import logic from "../logic"
 import { Event } from "../view/Components/functional/index.js"
 import useContext from "./useContext"
+import useLiterals from "./useLiterals"
 
 export default function FilteredEvents() {
-  const { type } = useParams()
   const [events, setEvents] = useState([])
 
+  const { type } = useParams()
   const { alert } = useContext
+  const literals = useLiterals()
 
-  useEffect(() => {
+  const fetchFilteredEvents = () => {
     try {
       logic
         .getEvents()
@@ -19,19 +21,23 @@ export default function FilteredEvents() {
           setEvents(filtered)
         })
         .catch((error) => {
-          alert(error.message)
+          alert(literals(error.message))
           console.error(error)
         })
     } catch (error) {
-      alert(error.message)
+      alert(literals(error.message))
       console.error(error)
     }
+  }
+
+  useEffect(() => {
+    fetchFilteredEvents()
   }, [type])
   console.log(events)
 
   return (
     <div className="items-center text-center pb-16">
-      <h1 className="pt-20 text-center text-cyan-50 font-semibold text-4xl pb-20 font-body">
+      <h1 className="pt-20 text-center text-cyan-50 font-semibold text-2xl pb-8 font-body">
         {type.toUpperCase()}
       </h1>
       {events.length === 0 ? (
@@ -43,15 +49,16 @@ export default function FilteredEvents() {
       ) : (
         <div className="items-center text-center pb-16">
           {events.map((event) => (
-            <Event key={event.id} event={event} refreshEvents={() => {}} />
+            <Event
+              key={event.id}
+              event={event}
+              refreshEvents={fetchFilteredEvents}
+              onLiked={fetchFilteredEvents}
+              onDeleted={fetchFilteredEvents}
+            />
           ))}
         </div>
       )}
-      <div className="items-center text-center pb-16">
-        {events.map((event) => (
-          <Event key={event.id} event={event} refreshEvents={() => {}} />
-        ))}
-      </div>
     </div>
   )
 }

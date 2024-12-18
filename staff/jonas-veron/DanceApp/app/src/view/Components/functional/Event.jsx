@@ -11,9 +11,7 @@ import {
   deleteIcon,
   isFavoriteIcon,
 } from "./../../../assets/index.js"
-
 import useContext from "../../useContext"
-
 import { Comments } from "./index.js"
 import EventMap from "./EventMap.jsx"
 
@@ -36,9 +34,9 @@ export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
     likes,
     comments,
   } = event
-  console.log(event)
 
   const [view, setView] = useState(null)
+  const [imageProfileOpen, setImageProfileOpen] = useState(false)
 
   const handleLikeClick = () => {
     try {
@@ -113,22 +111,43 @@ export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
     }
   }
 
+  const handleImageProfileClick = () => {
+    setImageProfileOpen(true)
+  }
+
+  const handleCloseImageProfile = () => {
+    setImageProfileOpen(false)
+  }
+
   return (
     <article className="bg-transparent text-white shadow-md rounded-lg p-1 mb-6 max-w-xl mx-auto relative">
       {/* Contenedor para autor, dirección e ícono de cerrar */}
       <div className="flex justify-between items-center mb-2">
         {/* Contenedor para inicial, nombre y dirección */}
-        <div className="flex items-start">
-          {/* Inicial del autor */}
+        <div className="flex items-center">
+          {/* Foto del autor */}
           <div className="flex-shrink-0">
-            <div className="w-10 h-10 rounded-full bg-accentpink flex items-center justify-center text-white font-bold">
-              {author.name[0]}
+            <div
+              className="w-12 h-12 rounded-full bg-accentpink flex items-center justify-center text-white font-bold overflow-hidden"
+              onClick={handleImageProfileClick}
+            >
+              {!author.profilePicture ? (
+                <span>{author.name[0].toUpperCase()}</span>
+              ) : (
+                <img
+                  src={author.profilePicture}
+                  alt="Foto de perfil"
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
           </div>
           {/* Nombre del autor y dirección */}
-          <div className="ml-3">
+          <div className="ml-3 flex flex-col items-start">
             <h4 className="font-bold text-white">{author.name}</h4>
-            <p className="text-xs italic text-gray-300">{location.province}</p>
+            <p className="text-xs italic text-gray-300 leading-none">
+              {location.province}
+            </p>
           </div>
         </div>
 
@@ -142,6 +161,22 @@ export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
           />
         )}
       </div>
+
+      {imageProfileOpen && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 "
+          onClick={handleCloseImageProfile}
+        >
+          <div className="relative">
+            <img
+              src={author.profilePicture}
+              alt="Vista ampliada"
+              rounded-lg
+              className="w-96 h-96 object-contain rounded-2xl"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Imagen y botones */}
       <div className="mb-2">
@@ -200,7 +235,7 @@ export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
 
       {view === "location" && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="relative bg-white rounded-lg shadow-lg w-3/4 max-w-2xl">
+          <div className="relative bg-white rounded-lg shadow-lg w-5/6 max-w-2xl">
             <button
               onClick={handleLocationClick}
               className="absolute top-3 right-3 text-gray-500 hover:text-black"
@@ -220,7 +255,7 @@ export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
                 href={`https://www.google.com/maps/dir/?api=1&destination=${location.coordinates[0]},${location.coordinates[1]}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 underline text-xl"
+                className="text-blue-500 underline-none text-lg font-bold"
               >
                 ¿Cómo llegar?
               </a>

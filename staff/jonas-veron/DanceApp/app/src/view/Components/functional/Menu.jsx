@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import useContext from "../../useContext"
 import { configIcon, logoutIcon } from "../../../assets/index.js"
+import { ButtonMenu } from "./../library"
 
 export default function Menu({ isOpen, onClose }) {
   console.log("render -> menu")
@@ -63,69 +64,43 @@ export default function Menu({ isOpen, onClose }) {
         className="fixed inset-0 bg-black bg-opacity-50 z-10"
         onClick={onClose}
       ></div>
-      <div className="fixed top-0 left-0 h-full w-64 bg-secondary text-white shadow-lg z-20 flex flex-col justify-between p-4">
+      <div className="fixed top-0 left-0 h-full w-64 bg-secondary text-white shadow-lg z-20 flex flex-col justify-between p-2">
         {name && (
-          <div className=" text-center">
+          <div className=" text-center mb-4">
             <h3 className="text-lg font-semibold text-white">¡Hola, {name}!</h3>
           </div>
         )}
 
-        <div className="space-y-4">
-          <button
-            onClick={handleHomeClick}
-            className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
-          >
-            Todos los eventos
-          </button>
-          <button
-            onClick={() => handleFilterClick("Sociales")}
-            className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
-          >
+        <div className="space-y-3">
+          <ButtonMenu onClick={handleHomeClick}>Todos los eventos</ButtonMenu>
+          <ButtonMenu onClick={() => handleFilterClick("Sociales")}>
             Sociales
-          </button>
-          <button
-            onClick={() => handleFilterClick("Escuelas de baile")}
-            className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
-          >
+          </ButtonMenu>
+          <ButtonMenu onClick={() => handleFilterClick("Escuelas de baile")}>
             Escuelas de baile
-          </button>
-          <button
-            onClick={() => handleFilterClick("Clases particulares")}
-            className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
-          >
+          </ButtonMenu>
+          <ButtonMenu onClick={() => handleFilterClick("Clases particulares")}>
             Clases particulares
-          </button>
-          <button
-            onClick={() => handleFilterClick("Congresos")}
-            className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
-          >
+          </ButtonMenu>
+          <ButtonMenu onClick={() => handleFilterClick("Congresos")}>
             Congresos
-          </button>
-          <button
-            onClick={() => handleFilterClick("Masterclases")}
-            className="bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
-          >
+          </ButtonMenu>
+          <ButtonMenu onClick={() => handleFilterClick("Masterclases")}>
             Masterclases
-          </button>
+          </ButtonMenu>
         </div>
-        <div>
+        <div className="mt-6">
           <div className="flex">
-            <button
-              onClick={handleSettingsClick}
-              className="flex items-center gap-2 bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full mb-4"
-            >
+            <ButtonMenu onClick={handleSettingsClick}>
               <img src={configIcon} alt="Configuración" className="w-6 h-6" />
               Configuración
-            </button>
+            </ButtonMenu>
           </div>
-          <div className="flex">
-            <button
-              className="flex items-center gap-2 bg-accentpink hover:bg-tertiary text-white py-2 px-4 rounded text-left w-full"
-              onClick={handleLogout}
-            >
+          <div className="flex mt-4">
+            <ButtonMenu onClick={handleLogout}>
               <img src={logoutIcon} alt="Cerrar sesión" className="w-5 h-5" />
               Cerrar Sesión
-            </button>
+            </ButtonMenu>
           </div>
         </div>
       </div>

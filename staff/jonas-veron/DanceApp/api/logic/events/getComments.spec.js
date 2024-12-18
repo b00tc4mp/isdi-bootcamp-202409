@@ -70,7 +70,18 @@ describe("getComments", () => {
   it("fails for non-existing user", async () => {
     await expect(
       getComments("012345678901234567890123", "012345678901234567890123")
-    ).to.be.rejectedWith(NotFoundError, /^User not found$/)
+    ).to.be.rejectedWith(NotFoundError, /^user not found$/)
+  })
+
+  it("fails for non-existing event", async () => {
+    const user = await User.create({
+      name: "Carlos Diaz",
+      email: "carlos@dancer.com",
+      password: "123123123",
+    })
+    await expect(
+      getComments(user.id, "012345678901234567890123")
+    ).to.be.rejectedWith(NotFoundError, /^event not found$/)
   })
 
   after(() => db.disconnect())

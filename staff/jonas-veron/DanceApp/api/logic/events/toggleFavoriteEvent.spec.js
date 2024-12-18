@@ -11,14 +11,14 @@ import { errors } from "com"
 
 const { NotFoundError } = errors
 
-import toggleLikeEvent from "./toggleLikeEvent.js"
+import toggleFavoriteEvent from "./toggleFavoriteEvent.js"
 
-describe("toggleLikeEvent", () => {
+describe("toggleFavoriteEvent", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST))
 
   beforeEach(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
-  debugger
-  it("add a like to an event if the user exists", async () => {
+
+  it("add a favorites to an event if the user exists", async () => {
     const user = await User.create({
       name: "Carlos Diaz",
       email: "carlos@dancer.com",
@@ -40,15 +40,15 @@ describe("toggleLikeEvent", () => {
       },
     })
 
-    await toggleLikeEvent(user._id.toString(), event._id.toString())
+    await toggleFavoriteEvent(user._id.toString(), event._id.toString())
 
-    const updatedEvent = await Event.findById(event._id.toString()).lean()
+    const updatedUser = await User.findById(user._id.toString()).lean()
 
-    expect(updatedEvent.likes).to.have.lengthOf(1)
-    expect(updatedEvent.likes[0].toString()).to.equal(user._id.toString())
+    expect(updatedUser.favorites).to.have.lengthOf(1)
+    expect(updatedUser.favorites[0].toString()).to.equal(event._id.toString())
   })
 
-  it("remove a like from the event if the user already liked it", async () => {
+  it("delete a user's favorite event", async () => {
     const user = await User.create({
       name: "Carlos Diaz",
       email: "carlos@dancer.com",
@@ -70,11 +70,18 @@ describe("toggleLikeEvent", () => {
         coordinates: [41.3870154, 2.1700471],
       },
     })
-    await toggleLikeEvent(user._id.toString(), event._id.toString())
+    const user2 = await User.create({
+      name: "Juan Carlos",
+      email: "juancarlos@dancer.com",
+      password: "123123123",
+      favorites: [event.id],
+    })
 
-    const updatedEvent = await Event.findById(event._id).lean()
+    await toggleFavoriteEvent(user2._id.toString(), event._id.toString())
 
-    expect(updatedEvent.likes).to.have.lengthOf(0)
+    const updatedUser = await User.findById(user._id).lean()
+
+    expect(updatedUser.favorites).to.have.lengthOf(0)
   })
 
   it("if the user does not exist", async () => {
@@ -94,7 +101,7 @@ describe("toggleLikeEvent", () => {
       },
     })
     await expect(
-      toggleLikeEvent("012345678901234567890123", event._id.toString())
+      toggleFavoriteEvent("012345678901234567890123", event._id.toString())
     ).to.be.rejectedWith(NotFoundError, /^user not found$/)
   })
 
@@ -106,8 +113,9 @@ describe("toggleLikeEvent", () => {
     })
 
     await expect(
-      toggleLikeEvent(user._id.toString(), "012345678901234567890123")
+      toggleFavoriteEvent(user._id.toString(), "012345678901234567890123")
     ).to.be.rejectedWith(NotFoundError, /^event not found$/)
   })
+
   after(() => db.disconnect())
 })

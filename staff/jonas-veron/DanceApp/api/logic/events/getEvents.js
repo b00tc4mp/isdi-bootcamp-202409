@@ -13,7 +13,10 @@ export default (userId) => {
     try {
       results = await Promise.all([
         User.findById(userId).lean(),
-        Event.find().populate("author", "name").sort({ createdAt: -1 }).lean(),
+        Event.find()
+          .populate("author", "name profilePicture")
+          .sort({ createdAt: -1 })
+          .lean(),
       ])
     } catch (error) {
       throw new SystemError(error.message)
@@ -22,7 +25,7 @@ export default (userId) => {
     user = results[0]
     events = results[1]
 
-    if (!user) throw new NotFoundError("User not found")
+    if (!user) throw new NotFoundError("user not found")
 
     return events.map((event) => ({
       id: event._id.toString(),
@@ -39,6 +42,7 @@ export default (userId) => {
       author: {
         id: event.author._id.toString(),
         name: event.author.name,
+        profilePicture: event.author.profilePicture || null,
       },
       likes: event.likes.length,
       comments: event.comments.length,

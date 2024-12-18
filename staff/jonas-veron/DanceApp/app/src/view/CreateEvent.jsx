@@ -4,6 +4,7 @@ import logic from "../logic"
 import { Form, Field, ButtonForm } from "./../view/Components/library/index.js"
 import LocationInput from "./Components/functional/LocationInput.jsx"
 import useContext from "./useContext"
+import useLiterals from "./useLiterals"
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -20,6 +21,7 @@ export default function CreateEvent() {
   const navigate = useNavigate()
 
   const { alert } = useContext()
+  const literals = useLiterals()
 
   const handleImageChange = (event) => {
     const { files } = event.target
@@ -56,12 +58,12 @@ export default function CreateEvent() {
             navigate("/")
           })
           .catch((error) => {
-            alert(error.message)
+            alert(literals(error.message))
 
             console.error(error)
           })
       } catch (error) {
-        alert(error.message)
+        alert(literals(error.message))
 
         console.error(error)
       }
@@ -69,7 +71,7 @@ export default function CreateEvent() {
   }
 
   return (
-    <main className="pt-10 pb-12 flex justify-center items-center">
+    <main className="pt-24 pb-12 flex flex-col justify-center items-center">
       <div className="w-full max-w-lg p-12">
         <h1 className="text-2xl font-semibold text-white text-center mb-6 font-body">
           Crear Evento
@@ -80,17 +82,17 @@ export default function CreateEvent() {
               key={image}
               src={image}
               alt="Vista previa"
-              className="w-full rounded-lg mb-2"
+              className="w-full rounded-lg mb-2 shadow-md"
             />
           ))}
         </div>
-        <Form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
           <Field>
             <label
               htmlFor="images"
-              className="bg-accentpink text-white font-bold border-2  border-transparent hover:bg-accentgreen hover:border-accentpink focus:outline-none focus:ring-2 focus:ring-accentgreen transition duration-300 rounded-lg w-full h-10 pt-1"
+              className="bg-accentpink text-white font-bold border-4 text-center border-transparent hover:bg-accentgreen transition duration-300 rounded-lg w-full h-12 pt-1"
             >
-              Subir Imagen
+              Cargar Imagen
             </label>
             <input
               type="file"
@@ -107,7 +109,7 @@ export default function CreateEvent() {
               name="type"
               id="type"
               required
-              className="w-full p-2 bg-tertiary text-white rounded-lg mt-2"
+              className="w-full p-2 bg-tertiary text-white rounded-lg mt-2 h-12"
             >
               <option value="" disabled selected>
                 --Selecciona el tipo de evento--
@@ -127,17 +129,21 @@ export default function CreateEvent() {
               maxLength="200"
               placeholder="Descripción del evento..."
               required
-              className="focus:outline-none p-2 rounded-lg bg-tertiary mt-2 text-white "
+              className="focus:outline-none p-2 rounded-lg bg-tertiary mt-2 text-white h-24 "
             ></textarea>
           </Field>
 
           <Field>
+            <label
+              htmlFor="date"
+              className="relative top-2 text-gray-400 text-base duration-300 px-1"
+            >
+              Selecciona la fecha del evento:
+            </label>
             <input
               type="date"
-              name="date"
               id="date"
-              required
-              className="focus:outline-none p-2 rounded-lg bg-tertiary mt-2 text-white"
+              className=" w-full border-2 rounded-lg bg-transparent text-white"
             />
           </Field>
 
@@ -156,7 +162,7 @@ export default function CreateEvent() {
           )}
 
           <ButtonForm type="submit">Crear Evento</ButtonForm>
-        </Form>
+        </form>
       </div>
     </main>
   )

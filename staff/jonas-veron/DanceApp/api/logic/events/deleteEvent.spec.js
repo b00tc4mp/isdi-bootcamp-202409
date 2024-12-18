@@ -51,7 +51,7 @@ describe("deleteEvent", () => {
   it("fails on non-existing user", () =>
     expect(
       deleteEvent("012345678901234567890123", "012345678901234567890123")
-    ).to.be.rejectedWith(NotFoundError, /^User not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^user not found$/))
 
   it("fails on non-existing event", () =>
     expect(
@@ -60,7 +60,7 @@ describe("deleteEvent", () => {
         email: "carlos@dancer.com",
         password: "123123123",
       }).then((user) => deleteEvent(user.id, "012345678901234567890123"))
-    ).to.be.rejectedWith(NotFoundError, /^Event not found$/))
+    ).to.be.rejectedWith(NotFoundError, /^event not found$/))
 
   it("fails on non-own event", async () => {
     const user = await User.create({
@@ -89,7 +89,7 @@ describe("deleteEvent", () => {
     })
     await expect(deleteEvent(user.id, event.id)).to.be.rejectedWith(
       OwnershipError,
-      /^User is not author of event$/
+      /^user is not author of event$/
     )
     const existingEvent = await Event.findById(event.id)
     expect(existingEvent).to.exist

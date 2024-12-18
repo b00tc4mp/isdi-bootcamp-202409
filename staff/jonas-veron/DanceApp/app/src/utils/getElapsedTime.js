@@ -20,7 +20,9 @@ export default (fromDateString) => {
     if (mins < 60) return `En ${mins} minutos`
     if (hours < 24) return `En ${hours} horas`
     if (days < 7) return `En ${days} días`
+    if (weeks < 2) return `En ${weeks} semana`
     if (weeks < 4.35) return `En ${weeks} semanas`
+    if (months < 2) return `En ${months} mes`
     if (months < 12) return `En ${months} meses`
     return `En ${years} años`
   }

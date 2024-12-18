@@ -1,9 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import logic from "../logic"
 import { calculateDistance } from "../utils/index.js"
 import { EventMap } from "../view/Components/functional/index.js"
 import useContext from "./useContext"
+import useLiterals from "./useLiterals"
 
 export default function NearbyEvents() {
   const [events, setEvents] = useState([])
@@ -12,8 +13,8 @@ export default function NearbyEvents() {
   const [type, setType] = useState("")
   const [radius, setRadius] = useState(5)
 
-  //   const location = useLocation()
   const { alert, confirm } = useContext()
+  const literals = useLiterals()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function NearbyEvents() {
               refreshEvents()
             })
             .catch((error) => {
-              alert(error.message)
+              alert(literals(error.message))
               console.error(error)
             })
         } else {
@@ -49,11 +50,11 @@ export default function NearbyEvents() {
         })
         .catch((error) => {
           console.error(error)
-          alert(error.message)
+          alert(literals(error.message))
         })
     } catch (error) {
       console.error(error)
-      alert(error.message)
+      alert(literals(error.message))
     }
   }
 
@@ -96,7 +97,7 @@ export default function NearbyEvents() {
             type="range"
             id="radius"
             min="1"
-            max="200"
+            max="300"
             value={radius}
             onChange={handleRadiusChange}
             className="w-full accent-white"
@@ -112,7 +113,7 @@ export default function NearbyEvents() {
             id="eventType"
             value={type}
             onChange={handleFilterChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md bg-tertiary text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md bg-tertiary text-white focus:outline-none h-12"
           >
             <option value="">Todos</option>
             <option value="Sociales">Sociales</option>

@@ -32,7 +32,7 @@ describe("getUserName", () => {
   it("fails on non-existing user", () =>
     expect(
       getUserName("012345678901234567890123", "012345678901234567890123")
-    ).to.be.rejectedWith(NotFoundError, "User not found"))
+    ).to.be.rejectedWith(NotFoundError, "user not found"))
 
   it("fails on non-existing target-user", () =>
     expect(
@@ -41,7 +41,7 @@ describe("getUserName", () => {
         email: "cristian@dancer.com",
         password: "123123123",
       }).then((user) => getUserName(user.id, "012345678901234567890123"))
-    ).to.be.rejectedWith(NotFoundError, "Target user not found"))
+    ).to.be.rejectedWith(NotFoundError, "target user not found"))
 
   after(() => db.disconnect())
 })

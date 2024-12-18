@@ -16,11 +16,11 @@ export default (userId, oldPassword, newPassword, newPasswordRepeat) => {
       throw new SystemError(error.message)
     })
     .then((user) => {
-      if (!user) throw new NotFoundError("User not found")
+      if (!user) throw new NotFoundError("user not found")
 
       return bcrypt.compare(oldPassword, user.password).then((isMatch) => {
         if (!isMatch) {
-          throw new CredentialsError("Wrong credentials")
+          throw new CredentialsError("wrong credentials")
         }
 
         return bcrypt

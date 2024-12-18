@@ -46,7 +46,7 @@ export default function LocationInput({ onLocationSelect }) {
         className="focus:outline-none p-2 rounded w-full mt-2 bg-tertiary text-white focus:ring-2 focus:ring-tertiary"
       />
 
-      <ul className="border border-gray-300 rounded-lg mt-2 max-h-40 overflow-y-auto">
+      <ul className="mt-2">
         {suggestions.map((suggestion, index) => (
           <li
             key={index}

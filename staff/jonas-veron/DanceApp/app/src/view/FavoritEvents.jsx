@@ -2,12 +2,14 @@ import logic from "../logic"
 import { useState, useEffect } from "react"
 import { Event } from "../view/Components/functional/index.js"
 import useContext from "./useContext"
+import useLiterals from "./useLiterals.js"
 
 export default function FavoritEvents() {
   console.log("Favorites -> render")
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
   const { alert } = useContext()
+  const literals = useLiterals()
 
   const refreshFavoriteEvents = () => {
     try {
@@ -15,11 +17,11 @@ export default function FavoritEvents() {
         .getFavoriteEvents()
         .then(setFavoriteEvents)
         .catch((error) => {
-          alert(error.message)
+          alert(literals(error.message))
           console.error(error)
         })
     } catch (error) {
-      alert(error.message)
+      alert(literals(error.message))
 
       console.error(error)
     }
@@ -30,8 +32,8 @@ export default function FavoritEvents() {
   }, [])
 
   return (
-    <div className="items-center text-center pb-16">
-      <h1 className="pt-20 text-white font-semibold text-4xl font-body pb-20">
+    <div className="items-center text-center">
+      <h1 className="pt-20 text-white font-semibold text-2xl font-body pb-8">
         {" "}
         MIS FAVORITOS
       </h1>
