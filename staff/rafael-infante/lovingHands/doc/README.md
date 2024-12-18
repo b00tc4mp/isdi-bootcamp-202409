@@ -71,20 +71,17 @@ User
 - password (string)
 - role (string, enum: caregiver | elder)
 - reviews ([Review])
-- saved ads ([Ad.id])
-
-Location
-
-- id (UUID)
-- type (string)
-- coordinates ([Number])
+- favorites ([Ad.id])
 
 Ad
 
 - id (uuid)
 - author (User.id)
 - files ([string])
-- location (Location)
+- location
+  - type(string)
+  - coordinates ([number])
+  - address (string)
 - description (string)
 - date (Date)
 - reviews([Review])
@@ -99,12 +96,8 @@ Review
 
 ### Test Coverage
 
-```sh
-----------------------|---------|----------|---------|---------|-------------------
-File                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
-----------------------|---------|----------|---------|---------|-------------------
-All files             |   96.96 |       50 |     100 |   96.87 |
- registerUser.js      |    92.3 |       50 |     100 |   91.66 | 23
- registerUser.spec.js |     100 |      100 |     100 |     100 |
-----------------------|---------|----------|---------|---------|-------------------
-```
+![alt text](image-1.png)
+
+### Planning
+
+[TO-DO List](https://github.com/b00tc4mp/isdi-bootcamp-202409/issues/237)

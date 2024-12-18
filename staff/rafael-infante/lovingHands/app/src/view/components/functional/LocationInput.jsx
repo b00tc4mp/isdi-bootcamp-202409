@@ -23,7 +23,6 @@ export default function LocationInput({ onLocationSelect }) {
         setSuggestions(results)
       } catch (error) {
         console.error(error)
-      } finally {
       }
     }, 500)
   }

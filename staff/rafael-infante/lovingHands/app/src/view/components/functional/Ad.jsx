@@ -16,7 +16,7 @@ export default function Ad({ ad, onFavorited, onDeleted, onReviewAdded, onReview
   const { alert, confirm } = useContext()
 
   const { id, author, files, text, date, reviews, averageRating } = ad
-  console.debug(ad)
+  console.log(ad)
   const handleDeleteClick = () => {
     confirm(
       'Delete post?',

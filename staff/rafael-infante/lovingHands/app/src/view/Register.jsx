@@ -2,6 +2,7 @@ import Logo from '../assets/logo.png'
 import logic from '../logic'
 import { errors } from 'com'
 import useContext from './useContext'
+import { PasswordInput } from './components/library/index.js'
 
 const { SystemError } = errors
 
@@ -63,7 +64,7 @@ export default function Register(props) {
       <h1 className="text-2xl font-bold text-center mb-2">Create Your Account</h1>
       <p className="text-center text-sm text-gray-600 mb-6">Fill in the details below to get started.</p>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">
+      <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-3">
         {/* Name Field */}
         <div>
           <input
@@ -99,24 +100,12 @@ export default function Register(props) {
 
         {/* Password Field */}
         <div>
-          <input
-            required
-            type="password"
-            id="password"
-            placeholder="Password"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-          />
+          <PasswordInput required id="password" placeholder="Password" />
         </div>
 
         {/* Repeat Password Field */}
         <div>
-          <input
-            required
-            type="password"
-            id="passwordRepeat"
-            placeholder="Repeat Password"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-          />
+          <PasswordInput required id="passwordRepeat" placeholder="Repeat Password" />
         </div>
 
         {/* Role Field */}

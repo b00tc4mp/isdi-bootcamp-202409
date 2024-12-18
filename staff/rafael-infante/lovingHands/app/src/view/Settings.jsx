@@ -1,6 +1,7 @@
 import logic from '../logic'
 import { errors } from 'com'
 import useContext from './useContext'
+import { PasswordInput } from './components/library/index.js'
 
 const { SystemError } = errors
 
@@ -70,12 +71,12 @@ export default function Settings() {
     }
   }
   return (
-    <div className="flex flex-col items-center bg-gray-50 px-4 pt-16 pb-20 min-h-screen">
+    <div className="flex flex-col items-center bg-gray-50 px-4 pt-16 pb-16 min-h-screen">
       {/* Title */}
-      <h1 className="text-xl font-bold text-center mb-4 text-gray-800">Settings</h1>
+      <h1 className="text-xl font-bold text-center text-gray-800">Settings</h1>
 
       {/* Change Email Section */}
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-4 mb-6">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-4 mb-2">
         <h2 className="text-lg font-semibold text-gray-700 mb-3">Change Your Email</h2>
         <form onSubmit={handleEmailSubmit} className="space-y-3">
           <div>
@@ -116,28 +117,13 @@ export default function Settings() {
         <h2 className="text-lg font-semibold text-gray-700 mb-3">Change Your Password</h2>
         <form onSubmit={handlePasswordSubmit} className="space-y-3">
           <div>
-            <input
-              type="password"
-              id="old-password"
-              placeholder="Current Password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
-            />
+            <PasswordInput id="old-password" placeholder="Current Password" />
           </div>
           <div>
-            <input
-              type="password"
-              id="new-password"
-              placeholder="New Password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
-            />
+            <PasswordInput id="new-password" placeholder="New Password" />
           </div>
           <div>
-            <input
-              type="password"
-              id="password-repeat"
-              placeholder="Repeat New Password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
-            />
+            <PasswordInput id="password-repeat" placeholder="Repeat New Password" />
           </div>
           <button
             type="submit"

@@ -7,6 +7,7 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 import useContext from './useContext'
+import { PasswordInput } from './components/library/index.js'
 
 export default function Login(props) {
   console.debug('Login -> render')
@@ -80,12 +81,7 @@ export default function Login(props) {
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Password
           </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-          />
+          <PasswordInput id="password" placeholder="Enter your password" />
         </div>
 
         {/* Login Button */}
