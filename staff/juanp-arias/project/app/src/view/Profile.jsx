@@ -68,7 +68,7 @@ export default function Profile({ onCancelClick }) {
         event.preventDefault()
         onCancelClick()
     }
-
+    const birthdate = new Date(datos.dateOfBirth).toLocaleDateString()
     return <Main>
         <SectionContainer>
             <SectionHeader sectionName='profile' />
@@ -83,7 +83,8 @@ export default function Profile({ onCancelClick }) {
                 </Field>
                 <Field>
                     <Label htmlFor='dateOfBirth'>Birthdate</Label>
-                    <Input id='dateOfBirth' type='text' defaultValue={datos.dateOfBirth} readOnly></Input>
+                    <Input type='text' defaultValue={birthdate} readOnly></Input>
+                    <Input id='dateOfBirth' type='hidden' defaultValue={datos.dateOfBirth}></Input>
                 </Field>
                 <Field>
                     <Label htmlFor='role'>Role</Label>

@@ -63,7 +63,7 @@ export default function Reminders({ date, onDoneClick, onEditClick, onNotReminde
 
     return <article>
         <SectionHeader sectionName='reminders' />
-        <div className='grid gap-4 p-6'>
+        <div className='grid gap-2 p-6'>
             {initiated && dateReminders.map((dateReminder) => (
                 <Reminder key={dateReminder.id} dateReminder={dateReminder} onEditClick={onEditClick} onDeleted={handleDeleted} />
             ))}

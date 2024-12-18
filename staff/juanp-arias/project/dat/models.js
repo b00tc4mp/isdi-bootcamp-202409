@@ -103,7 +103,12 @@ const task = new Schema({
         type: String,
         required: true,
         maxLenght: 400
-    }
+    },
+    viewed: [{
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    }],
 }, { versionKey: false })
 
 const User = model('User', user)

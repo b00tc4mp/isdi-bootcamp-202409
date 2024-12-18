@@ -94,9 +94,11 @@ export default function Groups() {
             <div className='p-4'>
                 <Button onClick={onCreateGroupClick}>Create group</Button>
             </div>
-            <div ref={createGroupView}>
-                {view === 'create-group' && <CreateGroup onCancelClick={handleCancelClick} onCreated={handleGroupCreated} />}
-            </div>
         </SectionContainer>
+        {view === 'create-group' && <SectionContainer>
+            <div ref={createGroupView}>
+                <CreateGroup onCancelClick={handleCancelClick} onCreated={handleGroupCreated} />
+            </div>
+        </SectionContainer>}
     </Main>
 }

@@ -13,6 +13,7 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
     const [remindersCount, setRemindersCount] = useState(0)
     const [tasksCreatedCount, setTasksCreatedCount] = useState(0)
     const [lastNote, setLastNote] = useState(null)
+    const [notification, setNotification] = useState(null)
 
     const setUserName = (userName) => {
         const name = userName.split(' ')[0]
@@ -22,15 +23,28 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
             try {
-                logic.getTasksCount()
-                    .then(count => { setTasksCount(count) })
-                    .catch(error => {
-                        alert(error.message)
-                        console.error(error)
-                    })
+                {
+                    logic.isUserRoleStudent() && logic.getTasksCount()
+                        .then(count => {
+                            setTasksCount(count)
+                            if (count > 0) {
+                                setNotification(`Hey! ${count} tasks are waiting for you. Check them out now.`)
+                                alert(`Hey, you have ${count} tasks unseen!`)
+                            } else {
+                                setNotification('All tasks reviewed! Keep up the good work.')
+                            }
+                        })
+                        .catch(error => {
+                            alert(error.message)
+                            console.error(error)
+                        })
+                }
                 {
                     logic.isUserRoleTeacher() && logic.getTasksCreatedCount()
-                        .then(tasksCount => { setTasksCreatedCount(tasksCount) })
+                        .then(tasksCount => {
+                            setTasksCreatedCount(tasksCount)
+                            setNotification(`You have ${tasksCount} tasks assigned to students. Keep track of their progress!`)
+                        })
                         .catch(error => {
                             alert(error.message)
                             console.error(error)
@@ -76,7 +90,7 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
         <SectionContainer>
             <SectionHeader sectionName='studify' loadUserName={setUserName} />
             <div className='p-4 space-y-6'>
-                <div className='bg-white dark:bg-gray-800 dark:border-gray-700 shadow rounded-lg p-4'>
+                <div className='bg-white dark:bg-gray-800 dark:border-gray-700 shadow border-2 rounded-lg p-4'>
                     <h3 className='text-xl font-bold text-gray-800 dark:text-gray-200'>Welcome back, {name}!</h3>
                     <p className='text-sm text-gray-600 dark:text-gray-400 mt-2'>Here's a quick summary of your day:</p>
                     <ul className='mt-4 space-y-2 text-gray-700 dark:text-gray-300'>
@@ -95,19 +109,13 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
                         }
                         <li className='flex items-center justify-between'>
                             <span>Last note:</span>
-                            {lastNote && lastNote.text !== 'No notes found' ?
-                                <Span>{timeAgo(lastNote.date)} ago</Span> : <Span>No notes available</Span>
-                            }
+                            {lastNote && lastNote.text !== 'No notes found' ? <Span>{timeAgo(lastNote.date)} ago</Span> : <Span>No notes available</Span>}
                         </li>
                     </ul>
                 </div>
                 <div className='grid grid-cols-2 gap-4 text-white'>
-                    <HomeButton level='blue' onClick={handleCreateNoteClick}>
-                        Create a new note
-                    </HomeButton>
-                    <HomeButton onClick={handleViewRemindersClick} level='green'>
-                        View reminders
-                    </HomeButton>
+                    <HomeButton level='blue' onClick={handleCreateNoteClick}>Create a new note</HomeButton>
+                    <HomeButton onClick={handleViewRemindersClick} level='green'>View reminders</HomeButton>
                     {logic.isUserRoleStudent() ?
                         <HomeButton onClick={handleCheckTasksClick} level='yellow'>Check pending tasks</HomeButton> :
                         <HomeButton onClick={handleCreateGroupClick} level='yellow'>Create a new group</HomeButton>
@@ -117,8 +125,8 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
                         <HomeButton onClick={handleViewNotesClick} level='red'>View notes</HomeButton>
                     }
                 </div>
-                <div className='text-center bg-gray-100 dark:bg-gray-800 dark:text-gray-300 py-4 rounded-lg shadow'>
-                    <p className='text-gray-600 dark:text-gray-400 italic'>'The secret of getting ahead is getting started.' - Mark Twain</p>
+                <div className={`text-center py-4 rounded-lg shadow ${tasksCount > 0 ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
+                    <p className='italic'>{notification}</p>
                 </div>
             </div>
         </SectionContainer>

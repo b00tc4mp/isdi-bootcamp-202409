@@ -10,7 +10,7 @@ export default userId => {
             if (!user) throw new NotFoundError('user not found')
             const now = new Date()
             return Task.find({ creator: userId })
-                .populate('assignes', 'name')
+                .populate('viewed', 'name')
                 .populate('creator', 'name')
                 .sort({ date: 1 })
                 .lean()

@@ -16,11 +16,11 @@ export default (userId, reminderId) => {
 
             return Reminder.findByIdAndDelete(reminderId)
                 .then(() => {
-                    return User.findByIdAndUpdate(
-                        userId,
-                        { $pull: { reminders: reminderId } },
-                        { new: true }
-                    )
+                    user.reminders = user.reminders.filter(reminder => {
+                        return reminder._id.toString() !== reminderId
+                    })
+
+                    return user.save()
                 })
         })
         .catch(error => {

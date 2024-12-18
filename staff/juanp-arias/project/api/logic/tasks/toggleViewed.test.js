@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import db from 'dat'
-import deleteReminder from './deleteReminder.js'
+import toggleViewed from './toggleViewed.js'
 
 db.connect(process.env.MONGO_URL)
     .then(() => {
         try {
-            return deleteReminder('6762e06f8d3707390600a686', '6762e4a68d3707390600a6c9')
+            return toggleViewed('6762eb57f654002a1de05231', '6762f591088eebfdc2ec8791')
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {

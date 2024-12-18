@@ -2,7 +2,7 @@ import { registerUser, authenticateUser, getUserName, getUserDatos, updateUserDa
 import { createNote, getNotes, deleteNote, getNote, updateNote } from './notes/index.js'
 import { createReminder, getRemindersByDate, deleteReminder, editReminder, updateReminder, getReminders } from './reminders/index.js'
 import { createGroup, deleteGroup, getGroups } from './groups/index.js'
-import { createTask, getTasks, getTasksCreated, deleteTask } from './tasks/index.js'
+import { createTask, getTasks, getTasksCreated, deleteTask, toggleTaskViewed } from './tasks/index.js'
 import { getLastNote, getRemindersCount, getTasksCount, getTasksCreatedCount } from './home/index.js'
 
 const logic = {
@@ -33,6 +33,7 @@ const logic = {
     getTasks,
     getTasksCreated,
     deleteTask,
+    toggleTaskViewed,
 
     getRemindersCount,
     getTasksCount,

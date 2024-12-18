@@ -9,7 +9,7 @@ import getUserRole from './getUserRole'
 import isUserRoleStudent from './isUserRoleStudent'
 import isUserRoleTeacher from './isUserRoleTeacher'
 import getUsers from './getUsers'
-
+import isTaskViewedByUser from './isTaskViewedByUser'
 export {
     registerUser,
     loginUser,
@@ -23,5 +23,6 @@ export {
     getUserRole,
     isUserRoleStudent,
     isUserRoleTeacher,
-    getUsers
+    getUsers,
+    isTaskViewedByUser
 }

@@ -22,7 +22,7 @@ export default function CreateReminder({ date, onCreated, onCancelClick }) {
                 })
                 .catch(error => {
                     if (error instanceof SystemError) {
-                        alert('Cannot create reminders for past dates', 'warn')
+                        alert('Cannot create reminders for past dates')
                         onCancelClick()
                     } else {
                         alert(error.message)
@@ -41,6 +41,7 @@ export default function CreateReminder({ date, onCreated, onCancelClick }) {
         onCancelClick()
     }
 
+    const formatedDate = new Date(date).toDateString()
     return <main>
         <SectionHeader sectionName='new-reminder' />
         <div className='bg-white dark:bg-gray-800 p-4'>
@@ -55,11 +56,8 @@ export default function CreateReminder({ date, onCreated, onCancelClick }) {
                 </Field>
                 <Field >
                     <Label htmlFor='date'>Date</Label>
-                    <Input id='date' defaultValue={date} />
-                </Field>
-                <Field >
-                    <Label htmlFor='date'>Priority</Label>
-
+                    <Input defaultValue={formatedDate} disabled />
+                    <Input id='date' type='hidden' defaultValue={date} disabled />
                 </Field>
                 <div className='flex justify-end space-x-2 mr-1'>
                     <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>

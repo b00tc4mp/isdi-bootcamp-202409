@@ -5,13 +5,15 @@ import {
     createTaskHandler,
     getTasksHandler,
     getTasksCreatedHandler,
-    deleteTaskHandler
+    deleteTaskHandler,
+    toggleTaskViewedHandler
 } from './handlers/index.js'
 
 const tasksRouter = Router()
 
 tasksRouter.post('/', jsonBodyParser, authorizationHandler, createTaskHandler)
 tasksRouter.get('/', authorizationHandler, getTasksHandler)
+tasksRouter.patch('/:taskId/viewed', authorizationHandler, toggleTaskViewedHandler)
 tasksRouter.get('/teacher', authorizationHandler, getTasksCreatedHandler)
 tasksRouter.delete('/:taskId', authorizationHandler, deleteTaskHandler)
 

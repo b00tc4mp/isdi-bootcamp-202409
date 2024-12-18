@@ -158,9 +158,7 @@ export default function Calendar({ onEditClick }) {
                     const currentDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString()
                     const hasReminders = reminders.some(reminder => new Date(reminder.date).toDateString() === currentDayDate)
 
-                    return <div
-                        key={day}
-                        onClick={() => handleCalendarDayClick(day)}
+                    return <div key={day} onClick={() => handleCalendarDayClick(day)}
                         className={`text-center cursor-pointer p-2 rounded-lg transition-all ${isSelected ? 'bg-blue-500 text-white' :
                             isToday ? 'bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-blue-300' :
                                 hasReminders ? 'bg-yellow-100 dark:bg-yellow-700 text-yellow-600 dark:text-yellow-300' :

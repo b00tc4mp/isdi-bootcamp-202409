@@ -86,9 +86,9 @@ describe('deleteReminder', () => {
             date: new Date('2024-12-20'),
         })
 
-        return Promise.all([user1.save(), user2.save(), reminder.save()]).then(([_, savedUser2, reminder]) => {
+        return Promise.all([user1.save(), user2.save(), reminder.save()]).then(([_, user2, reminder]) => {
             return expect(
-                deleteReminder(savedUser2._id.toString(), reminder._id.toString())
+                deleteReminder(user2._id.toString(), reminder._id.toString())
             ).to.be.rejectedWith(NotFoundError, /^reminder not found$/)
         })
     })

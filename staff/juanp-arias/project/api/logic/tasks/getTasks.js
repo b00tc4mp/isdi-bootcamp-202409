@@ -11,6 +11,7 @@ export default userId => {
             const now = new Date()
             return Task.find({ assignes: userId, date: { $gt: now } })
                 .populate('assignes', 'name')
+                .populate('viewed', 'name')
                 .populate('creator', 'name')
                 .sort({ date: 1 })
                 .lean()
