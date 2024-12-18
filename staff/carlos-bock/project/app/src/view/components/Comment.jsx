@@ -16,8 +16,8 @@ export default function Comment({ recommendId, comment: { id, author, text, date
             }
     }
 
-    return <li>
-        <h4>{author.username}</h4>
+    return <li className='mt-6 px-5 w-full h-fit'>
+        <h4 className='font-extrabold'>{author.username}</h4>
         <p>{text}</p>
         <time>{getElapsedTime(date)}</time>
         {logic.getUserId() === author.id && <Button onClick={handleRemove}>🗑️</Button>}

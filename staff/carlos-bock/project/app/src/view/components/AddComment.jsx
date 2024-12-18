@@ -32,12 +32,12 @@ export default function AddComment({ recommendId, onAdded }) {
         }
     }
 
-    return <Form onSubmit={handleSubmit}>
-        <Field>
-            <Label htmlFor='text'>Comentario</Label>
-            <textarea id="text"></textarea>
+    return <Form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+        <Field className='flex flex-col gap-2'>
+            <Label htmlFor='text' className='text-lg font-medium text-neutralDark'>Comentario</Label>
+            <textarea id="text" className='w-full p-2 border border-cardBorder rounded focus:outline-none focus:ring-2 focus:ring-primary'></textarea>
         </Field>
 
-        <Button type='submit'>Enviar</Button>
+        <Button type='submit' className='self-start bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark'>Enviar</Button>
     </Form>
 }

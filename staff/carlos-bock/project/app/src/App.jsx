@@ -75,7 +75,7 @@ export default function App() {
     confirm(message, callback, level = 'error') { console.log('Confirm called with message:', message); setConfirm({ message, callback, level }) }
   }}>
     <Header onHomeClick={handleHomeClick} onLoggedout={handleUserLoggedOut} />
-    <div className='content'>
+    <div className={`pt-10 pb-20 px-3 ${alert.message || confirm.message ? 'h-screen overflow-hidden' : ''}  `}>
       <Routes>
         <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/' /> :
           <Login onLoggedIn={handleUserLoggedIn}

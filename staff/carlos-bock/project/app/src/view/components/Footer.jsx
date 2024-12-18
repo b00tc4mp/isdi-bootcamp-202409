@@ -14,16 +14,16 @@ export default function Footer({ onNewRecommendClick, onCategoriesClick, onProfi
     }
 
 
-    return <footer className="footer">
-        <Link to='/'><Button>⌂</Button></Link>
+    return <footer className='fixed bottom-0 left-0 right-0 h-15 bg-primary text-white flex items-center justify-around z-10'>
+        <Link to='/'><Button className='w-12 h-10 bg-white text-primary border border-cardBorder rounded text-2xl hover:bg-primary hover:text-white '>⌂</Button></Link>
 
-        <Button type='button'
+        <Button type='button' class='w-12 h-10 bg-white text-primary border border-cardBorder rounded text-3xl hover:bg-primary hover:text-white'
             onClick={handleCategoriesclick}>🔍</Button>
 
-        <Button type='button'
-            onClick={onNewRecommendClick}>➕</Button>
+        <Button type='button' class='w-12 h-10 bg-white text-primary border border-cardBorder rounded text-3xl hover:bg-primary hover:text-white'
+            onClick={onNewRecommendClick}>＋</Button>
 
-        <Button type='button'
+        <Button type='button' class='w-12 h-10 bg-white text-primary border border-cardBorder rounded text-3xl hover:bg-primary hover:text-white'
             onClick={onProfileClick}>👨🏻</Button>
 
 
@@ -31,4 +31,4 @@ export default function Footer({ onNewRecommendClick, onCategoriesClick, onProfi
     </footer>
 }
 
-//dark:bg-[var(--back-color-dark)] bg-[var(--back-color)] p-4 h-12 box-border flex justify-center items-center fixed bottom-0 w-full
+"w-12 h-10 bg-white text-primary border border-cardBorder rounded hover:bg-primary hover:text-white"

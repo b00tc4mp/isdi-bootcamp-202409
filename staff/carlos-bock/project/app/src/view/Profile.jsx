@@ -101,7 +101,7 @@ export default function Profile() {
 
     if (!recommends.length) return <p>No hay recomendaciones asociadas con tu cuenta en este momento. Empieza a armar tu red, nos ayudamos entre todos. </p>;
 
-    return <main>
+    return <main className='mt-8'>
         <h4>Estas son todas las recomendaciones asociadas con tu cuenta: </h4>
         <div>
             {recommends.map((recommend) => (

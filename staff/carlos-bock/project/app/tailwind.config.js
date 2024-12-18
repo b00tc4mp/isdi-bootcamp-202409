@@ -1,10 +1,22 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Include all files in the src folder with these extensions
-  ],
+export default {
+  content: ['./index.html', './src/**/*.jsx'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#2a6592',
+        secondary: '#f4645f',
+        neutralLight: '#f5f5f5',
+        neutralDark: '#2c2c2c',
+        cardBorder: '#d0d0d0',
+      },
+      spacing: {
+        15: '60px',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

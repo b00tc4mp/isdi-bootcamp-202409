@@ -42,28 +42,28 @@ export default function RecommendDetail() {
 
     const { subject, date, country, city, price, category, text, comments, image } = recommend
 
-    return <article>
-        <h2>{subject}</h2>
+    return <article className='mt-10'>
+        <h2 className='font-bold text-xl'>{subject}</h2>
         <time>Hacen {getElapsedTime(date)}</time>
-        <h3>{country} | {city} | {price === 1 ? '€' : price === 2 ? '€€' : '€€€'}</h3>
+        <h3 className='font-bold'>{country} | {city} | {price === 1 ? '€' : price === 2 ? '€€' : '€€€'}</h3>
 
-        <h3>{subject} | {category === 1 ? 'trámites' : category === 2 ? 'servicios' :
+        <h3 className='font-bold'>{subject} | {category === 1 ? 'trámites' : category === 2 ? 'servicios' :
             category === 3 ? 'alimentación' : category === 4 ? 'eventos' : category === 5 ? 'sanidad' :
                 category === 6 ? 'barrios' : category === 7 ? 'vivienda' : 'transporte'} |
         </h3>
 
-        <p>{text}</p>
+        <p className='mt-4 mb-10'>{text}</p>
 
-        <Button onClick={handleCommentsClick}>💬 </Button>
+        <div className='ml-5 mb-5'><Button onClick={handleCommentsClick}>💬 </Button></div>
 
-        {view === 'comments' && (
+        <div className='ml-5 mr-5 border border-black rounded'>{view === 'comments' && (
             <CommentsInRec
                 recommendId={id}
                 recommendText={text}
-            />)}
+            />)}</div>
 
 
-        <img className='img' src={image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/HTTP_logo.svg/180px-HTTP_logo.svg.png'} alt={subject} />
+        <img className='mt-5 w-[90%] mx-auto' src={image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/HTTP_logo.svg/180px-HTTP_logo.svg.png'} alt={subject} />
     </article>
 }
 

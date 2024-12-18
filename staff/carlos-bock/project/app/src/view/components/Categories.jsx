@@ -27,12 +27,13 @@ export default function Categories() {
     }
 
     return (
-        <main className='categories'>
-            <h3>Recomendaciones</h3>
+        <main className='max-w-2xl mx-auto bg-white shadow-lg rounded mt-8'>
+            <h3 className='text-2xl font-semibold text-neutralDark mb-6'>Recomendaciones</h3>
             <Form onSubmit={handleOnSubmit}>
-                <Field>
-                    <Label>Categoría</Label>
-                    <select id='category' value={selectedCategory}
+                <Field className='flex flex-col gap-3'>
+                    <Label className='text-lg font-medium text-neutralDark'>Categoría</Label>
+                    <select className='p-2 border border-cardBorder rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                        id='category' value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}>
 
                         <option value='' disabled>
@@ -52,7 +53,8 @@ export default function Categories() {
 
                 <Field>
                     <Label>País</Label>
-                    <select id='country' value={selectedCountry}
+                    <select className='p-2 border border-cardBorder rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                        id='country' value={selectedCountry}
                         onChange={(e) => setSelectedCountry(e.target.value)}>
 
                         <option value='' disabled>
@@ -65,7 +67,8 @@ export default function Categories() {
                         ))}
                     </select>
 
-                    <Button type='submit'>Buscar</Button>
+                    <Button className='w-full bg-primary text-white py-2 rounded hover:bg-primary-dark'
+                        type='submit'>Buscar</Button>
                 </Field>
 
 

@@ -16,7 +16,7 @@ export default function PasswordInput({ id }) {
     return <div style={{ display: 'flex' }}>
         <Input type={type} id={id} />
         <span
-            style={{ cursor: 'pointer', position: 'absolute', right: '5px' }}
+            className='cursor-pointer absolute right-5'
             onClick={handleToggleClick}
         >{status}</span>
     </div>

@@ -94,9 +94,9 @@ export default function Recommend({ recommend, onUpVote, onDownVote, onDeleted, 
 
     console.log('Recommendation -> render')
 
-    return <article className='recommendation' >
-        <h4 className='bg-indigo-500'>{author.username}</h4>
-        <div className='border-4 border-black p-1.25 bg-gray-100'>
+    return <article className='bg-white border border-black rounded shadow-md mx-2 mb-3.5' >
+        <h4 className='text-lg font-semibold bg-slate-600 text-white rounded-t p-1 '>{author.username}</h4>
+        <div className='border-4 border-cardBorder p-4 bg-gray-100 rounded-md font-bold' >
             <Link to={`/recommend/${id}`} ><h4 >{subject} | {category === 1 ? 'trámites' : category === 2 ? 'servicios' :
                 category === 3 ? 'alimentación' : category === 4 ? 'eventos' : category === 5 ? 'sanidad' :
                     category === 6 ? 'barrios' : category === 7 ? 'vivienda' : 'transporte'} |
@@ -105,10 +105,11 @@ export default function Recommend({ recommend, onUpVote, onDownVote, onDeleted, 
 
             <h5>{country} | {city}</h5>
         </div>
-        <time>Hacen {getElapsedTime(date)}</time>
-        <br />
+        <time className='text-gray-500 block'>Hacen {getElapsedTime(date)}</time>
+
 
         <Button onClick={handleUpVoteClick}>♥️{upVotes.length}</Button>
+
         <Button onClick={handleDownVoteClick}>❌{downVotes.length}</Button>
 
         {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
@@ -123,6 +124,7 @@ export default function Recommend({ recommend, onUpVote, onDownVote, onDeleted, 
             onAdded={onCommentAdded}
             onRemoved={onCommentRemoved}
         />}
+        <br />
     </article>
 }
 

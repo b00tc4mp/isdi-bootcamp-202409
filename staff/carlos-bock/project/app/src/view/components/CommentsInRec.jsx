@@ -59,8 +59,8 @@ export default function CommentsInRec({ recommendId, onAdded, onRemoved }) {
 
     console.log('Comments -> render')
 
-    return <section>
-        <ul>
+    return <section className='mt-6 border-solid border-black'>
+        <ul >
             {comments.map(comment =>
                 <Comment
                     key={comment.id}

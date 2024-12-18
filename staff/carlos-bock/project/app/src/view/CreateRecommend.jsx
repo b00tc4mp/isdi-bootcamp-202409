@@ -49,7 +49,7 @@ export default function CreateRecommend({ onCreated }) {
         }
     }
 
-    return <main className='createrecommend'>
+    return <main className='max-w-3xl mx-auto bg-white shadow-lg rounded mt-10'>
         <Form onSubmit={handleSubmit}>
             <Field>
                 <Label>Ciudad</Label>
@@ -118,7 +118,8 @@ export default function CreateRecommend({ onCreated }) {
 
             <Field>
                 <Label>Recomendación o Guía</Label>
-                <textarea type='text' id='recommend' />
+                <textarea className='p-2 border border-black rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    type='text' id='recommend' />
             </Field>
 
             <Button type='submit'>Compartir</Button>

@@ -68,7 +68,9 @@ export default function Login(props) {
 
             <Button type='submit'>iniciar sesión</Button>
         </Form>
-        <a href='' onClick={handleRegisterClick}>Regístrate</a>
+        <a href='' onClick={handleRegisterClick}
+            className='ml-4 mt-15 px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark'
+        >Regístrate</a>
     </main>
 }
 

@@ -103,8 +103,8 @@ export default function RecommendCategoryCountry() {
 
 
     return (
-        <div>
-            <h3>
+        <div className='mt-12'>
+            <h3 className='mb-4 font-bold'>
                 Recomendaciones para:
                 {category === '1' ? ' Trámites' :
                     category === '2' ? ' Servicios' :
