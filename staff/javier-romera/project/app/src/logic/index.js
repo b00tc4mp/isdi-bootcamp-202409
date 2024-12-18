@@ -24,7 +24,9 @@ import {
 } from './characters'
 
 import {
-    getRandomConditions
+    getAllConditions,
+    getRandomConditions,
+    getRandomConditionsSync
 } from './conditions'
 
 const logic = {
@@ -49,7 +51,9 @@ const logic = {
     getAllCharactersNameAndAlias,
     getCharactersByArc,
 
-    getRandomConditions
+    getAllConditions,
+    getRandomConditions,
+    getRandomConditionsSync
 }
 
 export default logic

@@ -105,18 +105,36 @@ export default function useController() {
             setCharacters(characters)
             setAvailableCharacters(characters)
 
-            do {
-                let conditions = await logic.getRandomConditions()
+            if (!sessionStorage.conditions) {
+                do {
+                    let allConditions = await logic.getAllConditions()
+                    sessionStorage.conditions = JSON.stringify(allConditions)
 
-                let checkedAnswers = solveBoard(characters, conditions)
+                    let conditions = await logic.getRandomConditions()
 
-                if (checkedAnswers !== null) {
-                    setAnswers(checkedAnswers)
-                    setConditions(conditions)
-                    setShowBoard(true)
-                    break
-                }
-            } while (answers === null)
+                    let checkedAnswers = solveBoard(characters, conditions)
+
+                    if (checkedAnswers !== null) {
+                        setAnswers(checkedAnswers)
+                        setConditions(conditions)
+                        setShowBoard(true)
+                        break
+                    }
+                } while (answers === null)
+            } else {
+                do {
+                    let conditions = logic.getRandomConditionsSync()
+
+                    let checkedAnswers = solveBoard(characters, conditions)
+
+                    if (checkedAnswers !== null) {
+                        setAnswers(checkedAnswers)
+                        setConditions(conditions)
+                        setShowBoard(true)
+                        break
+                    }
+                } while (answers === null)
+            }
         } catch (error) {
             if (error instanceof SystemError)
                 alert('Sorry, try again later')
@@ -198,8 +216,8 @@ export default function useController() {
         setAvailableCharacters([])
         setHp(3)
         setTime(Date.now())
-        setLoseAlert(false)
         setWinAlert(false)
+        setLoseAlert(false)
     }
 
     return {

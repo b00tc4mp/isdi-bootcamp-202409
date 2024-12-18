@@ -3,7 +3,7 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 export default () => {
-    return fetch(`http://${import.meta.env.VITE_API_URL}/conditions/random`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/conditions`, {
         headers: {
             'Authorization': `Bearer ${localStorage.token}`
         }

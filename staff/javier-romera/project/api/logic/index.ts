@@ -21,6 +21,7 @@ import {
 } from './characters/index.js'
 
 import {
+    getAllConditions,
     getRandomConditions
 } from './conditions/index.js'
 
@@ -43,6 +44,7 @@ const logic = {
     getAllCharactersNameAndAlias,
     getCharactersByArc,
 
+    getAllConditions,
     getRandomConditions
 }
 

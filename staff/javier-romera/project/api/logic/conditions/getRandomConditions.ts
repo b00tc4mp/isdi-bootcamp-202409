@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default function getRandomConditions(userId: string): Promise<TCondition[]> {
+export default (userId: string): Promise<TCondition[]> => {
     validate.id(userId, 'userId')
 
     return (async (): Promise<TCondition[]> => {
@@ -36,7 +36,7 @@ export default function getRandomConditions(userId: string): Promise<TCondition[
 
             const possibleCondition = columnConditions![randomNumber]
 
-            const alreadyExists = parsedColumnConditions.some((con: TCondition) => con.value === possibleCondition.value)
+            const alreadyExists = parsedColumnConditions.some((con: TCondition) => con.text === possibleCondition.text)
 
             if (!alreadyExists) parsedColumnConditions.push(possibleCondition)
         }

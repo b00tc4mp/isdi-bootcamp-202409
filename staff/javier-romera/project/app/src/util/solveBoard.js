@@ -78,5 +78,7 @@ export default (characters, conditions) => {
     const indexEightAnswers = filterByCondition(columnThreeFilteredCharacters, rThreeProperty, rThreeValue, rThreeType)
     answers.push(indexEightAnswers)
 
+    if (!answers[0] || !answers[1] || !answers[2] || !answers[3] || !answers[4] || !answers[5] || !answers[6] || !answers[7] || !answers[8]) return null
+
     return answers
 }
