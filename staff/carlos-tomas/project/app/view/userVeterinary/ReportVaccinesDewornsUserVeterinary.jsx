@@ -7,14 +7,14 @@ import logic from '../../logic'
 import { useNavigation } from '@react-navigation/native'
 
 export default function ReportVaccinesDewornsUserVeterinary({ route }) {
-    const { infoPet, reloadPetsData } = route.params
     const navigation = useNavigation()
+
+    const { infoPet, reloadPetsData } = route.params
 
     const [vaccine, setVaccine] = useState(null)
     const [deworn, setDeworn] = useState(null)
 
     const handleUpdatePets = async () => {
-
         try {
             await logic.updateVaccinesDewornsPet(infoPet.id, vaccine, deworn)
             Alert.alert('Registro de la medicina interna')
@@ -32,6 +32,7 @@ export default function ReportVaccinesDewornsUserVeterinary({ route }) {
     }
 
     const dewornTypeItem = [
+        { label: 'Ninguna', value: null },
         { label: 'Externo', value: 'external' },
         { label: 'Interno', value: 'internal' },
         { label: 'Ambas', value: 'both' }
@@ -64,7 +65,7 @@ export default function ReportVaccinesDewornsUserVeterinary({ route }) {
                     <Text>No hay desparasitaciones registradas.</Text>
                 )}
             </View>
-            <Text>//TODO Nombre del </Text>
+            <Text> Medicina preventiva </Text>
             <Dropdown
                 style={reportVaccinesDeworns.dropdown}
                 data={dewornTypeItem}

@@ -1,19 +1,20 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const isUserLoggedIn = async () => {
+export default async () => {
+
+    let token
 
     try {
-        const token = await AsyncStorage.getItem('token')
-        if (token)
-            return true
-        else
-            return false
+        token = await AsyncStorage.getItem('token')
 
     } catch (error) {
         console.error('Token no esta')
         return false
     }
+    if (token)
+        return true
+    else
+        return false
 }
 
-export default isUserLoggedIn

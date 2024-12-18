@@ -1,24 +1,26 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { extractPayloadFromJWT } from '../utils'
+import { getToken } from '../utils/index'
 
-const isLoggingVet = async () => {
+export default async () => {
+
+    let token
 
     try {
-        const token = await AsyncStorage.getItem('token')
-        if (!token) {
-            return false
-        }
-        const roll = extractPayloadFromJWT(token)
-        const role = roll.role
-        if (role === 'veterinary')
-            return true
-        else
-            return false
+        token = await getToken()
 
     } catch (error) {
         console.errror('rol no encontrado')
     }
 
+    if (!token) {
+        return false
+    }
+    const roll = extractPayloadFromJWT(token)
+    const role = roll.role
+    if (role === 'veterinary')
+        return true
+    else
+        return false
 }
 
-export default isLoggingVet
+

@@ -38,7 +38,6 @@ describe('registerPet', () => {
                         expect(pet.dateOfBirth).to.be.instanceOf(Date)
                     })
             )
-
     })
 
     it('fails on non-existing user', () =>
@@ -59,9 +58,9 @@ describe('registerPet', () => {
 
                 return expect(
                     registerPet(user.id, '012345678912345', 'Peke', 'Meztizo', true, 35, true, '2018/09/09')
-                ).to.be.rejectedWith(DuplicityError, 'El chip del animal ya está registrado');
-            });
-    });
+                ).to.be.rejectedWith(DuplicityError, 'El chip del animal ya está registrado')
+            })
+    })
 
     after(() => db.disconnect())
 

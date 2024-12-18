@@ -1,19 +1,21 @@
 import axios from 'axios'
 import { errors } from '../com'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
+import { getToken } from '../utils/index'
 
 const { SystemError } = errors
 
-const getUser = async () => {
+export default async () => {
+    let token
+
+    try {
+        token = await getToken()
+    } catch (error) {
+        throw new SystemError(error.message)
+    }
+    let response
     try {
 
-        const token = await AsyncStorage.getItem('token')
-        if (!token) {
-            throw new SystemError('token not found')
-        }
-
-        const response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/users`, {
+        response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/users`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -30,5 +32,3 @@ const getUser = async () => {
 
     }
 }
-
-export default getUser

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const logoutUser = async () => {
+export default async () => {
 
     try {
         await AsyncStorage.removeItem('token')
@@ -10,4 +10,3 @@ const logoutUser = async () => {
     }
 }
 
-export default logoutUser

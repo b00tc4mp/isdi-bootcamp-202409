@@ -8,34 +8,48 @@ export default (userId, type, petId) => {
     validate.type(type)
     validate.id(petId, 'petId')
 
-
     return (async () => {
-
+        let user
         try {
-            const user = await User.findById(userId).lean()
-
-            if (!user) {
-                throw NotFoundError('user not found')
-            }
-
-            const pet = await Pet.findById(petId).lean()
-
-            if (!pet) {
-                throw NotFoundError('pet not found')
-            }
-
-            const histories = await History.find({ pet: petId, type }).sort({ date: -1 }).populate('veterinary', 'name').lean()
-
-            histories.forEach(history => {
-                history.id = history._id.toString()
-                delete history._id
-                history.veterinary.id = history.veterinary._id.toString()
-                delete history.veterinary._id
-            })
-            return histories
+            user = await User.findById(userId).lean()
 
         } catch (error) {
             throw new SystemError(error.message)
         }
+        if (!user) {
+            throw new NotFoundError('user not found')
+        }
+
+        let pet
+        try {
+            pet = await Pet.findById(petId).lean()
+
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        if (!pet) {
+            throw new NotFoundError('pet not found')
+        }
+
+        let histories
+        try {
+            histories = await History.find({ pet: petId, type }).sort({ date: -1 }).populate('veterinary', 'name').lean()
+
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        histories.forEach(history => {
+            history.id = history._id.toString()
+            delete history._id
+            if (history.veterinary) {
+                history.veterinary.id = history.veterinary._id.toString()
+                delete history.veterinary._id
+            }
+            if (history.pet) {
+                history.pet.id = history.pet._id.toString()
+                delete history.pet._id
+            }
+        })
+        return histories
     })()
 }

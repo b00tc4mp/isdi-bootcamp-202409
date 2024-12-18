@@ -11,25 +11,34 @@ export default (userId, petId, type, text) => {
 
 
     return (async () => {
-
+        let veterinary
         try {
 
-            const veterinary = await User.findById(userId).lean()
-            if (!veterinary) {
-                throw NotFoundError('user not found')
-            }
+            veterinary = await User.findById(userId).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
 
-            const pet = await Pet.findById(petId).lean()
-            if (!pet) {
-                throw NotFoundError('pet not found')
-            }
+        if (!veterinary) {
+            throw new NotFoundError('user not found')
+        }
 
-            await History.create({ type, pet, veterinary, text })
+        let pet
+        try {
+            pet = await Pet.findById(petId).lean()
 
         } catch (error) {
             throw new SystemError(error.message)
         }
 
+        if (!pet) {
+            throw new NotFoundError('pet not found')
+        }
+        try {
+            await History.create({ type, pet, veterinary, text })
 
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
     })()
 }

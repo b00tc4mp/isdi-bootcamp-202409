@@ -7,25 +7,25 @@ export default (userId) => {
     validate.id(userId, 'userid')
 
     return (async () => {
-
+        let user
         try {
-            const user = await User.findById(userId).lean()
-
-            if (!user) {
-                throw NotFoundError('user not found')
-            }
-
-            const pets = await Pet.find().lean()
-            pets.forEach(pet => {
-                pet.id = pet._id.toString()
-                delete pet._id
-            })
-
-            return pets
-
-
+            user = await User.findById(userId).lean()
         } catch (error) {
             throw new SystemError(error.message)
         }
+        if (!user) {
+            throw new NotFoundError('user not found')
+        }
+        let pets
+        try {
+            pets = await Pet.find().lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        pets.forEach(pet => {
+            pet.id = pet._id.toString()
+            delete pet._id
+        })
+        return pets
     })()
 }

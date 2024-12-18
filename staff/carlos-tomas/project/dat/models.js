@@ -126,7 +126,7 @@ const pet = new Schema({
 const history = new Schema({
     type: {
         type: String,
-        emum: ['internal_medicine', 'opthalmology', 'traumotology', 'dermatology'],
+        enum: ['internal_medicine', 'opthalmology', 'traumotology', 'dermatology'],
         required: true,
     },
     pet: {
@@ -155,7 +155,7 @@ const history = new Schema({
 const appointment = new Schema({
     type: {
         type: String,
-        emum: ['internal_medicine', 'opthalmology', 'traumotology', 'dermatology'],
+        enum: ['internal_medicine', 'opthalmology', 'traumotology', 'dermatology'],
         required: true
     },
     pet: {

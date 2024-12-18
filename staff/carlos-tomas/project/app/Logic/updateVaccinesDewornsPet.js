@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { validate, errors } from '../com'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getToken } from '../utils'
 
 const { SystemError } = errors
 
@@ -13,13 +13,18 @@ const updateVaccinesDewornsPet = async (petId, vaccine, deworn) => {
         validate.deworn(deworn)
     }
 
-    try {
-        const token = await AsyncStorage.getItem('token')
-        if (!token) {
-            throw new SystemError('token not found')
-        }
+    let token
 
-        const response = await axios.patch(`${process.env.EXPO_PUBLIC_API_URL}/veterinary/updatePet`,
+    try {
+        token = await getToken()
+    } catch (error) {
+        throw new SystemError(error.message)
+    }
+
+    let response
+
+    try {
+        response = await axios.patch(`${process.env.EXPO_PUBLIC_API_URL}/veterinary/updatePet`,
             {
                 petId,
                 vaccine,

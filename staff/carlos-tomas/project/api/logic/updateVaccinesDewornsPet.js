@@ -13,51 +13,63 @@ export default (userId, petId, vaccineName, dewornData) => {
     if (dewornData) {
         validate.deworn(dewornData)
     }
-
     return (async () => {
+
+        let user
+
         try {
-            const user = await User.findById(userId).lean()
-            if (!user) throw new NotFoundError('user not found')
+            user = await User.findById(userId).lean()
 
-            const pet = await Pet.findById(petId);
-            if (!pet) throw new NotFoundError('pet not found')
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        if (!user) throw new NotFoundError('user not found')
 
-            if (vaccineName) {
-                const isVaccineDuplicated = pet.vaccines.some(vaccine => vaccine.name === vaccineName);
-                if (isVaccineDuplicated) {
-                    throw new DuplicityError(`La vacuna "${vaccineName}" ya ha sido administarda al Animal.`)
+        let pet
+
+        try {
+            pet = await Pet.findById(petId);
+
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        if (!pet) throw new NotFoundError('pet not found')
+
+
+        if (vaccineName) {
+            const isVaccineDuplicated = pet.vaccines.some(vaccine => vaccine.name === vaccineName);
+            if (isVaccineDuplicated) {
+                throw new DuplicityError(`La vacuna "${vaccineName}" ya ha sido administarda al Animal.`)
+            }
+            const vaccine = { name: vaccineName }
+            pet.vaccines.push(vaccine)
+        }
+
+        if (dewornData) {
+            const isExistingDeworn = pet.deworns.some(deworn => deworn.type === dewornData);
+            if (isExistingDeworn) {
+                throw new DuplicityError(`La desparacitación de tipo '${dewornData}' ya está registrada.`)
+            }
+            if (dewornData === 'both') {
+
+                const hasExternal = pet.deworns.some(deworn => deworn.type === 'external');
+                const hasInternal = pet.deworns.some(deworn => deworn.type === 'internal');
+                if (hasExternal || hasInternal) {
+                    throw new DuplicityError("No se puede agregar 'Ambas' si ya se han administrado 'external' o 'internal'.")
                 }
-                const vaccine = { name: vaccineName }
-                pet.vaccines.push(vaccine)
+            } else if (dewornData === 'external' || dewornData === 'internal') {
+                const hasBoth = pet.deworns.some(deworn => deworn.type === 'both')
+                if (hasBoth) {
+                    throw new DuplicityError(`No se puede agregar '${dewornData}' porque ya está registrado 'both'.`)
+                }
             }
 
-            if (dewornData) {
-                const isExistingDeworn = pet.deworns.some(deworn => deworn.type === dewornData);
-                if (isExistingDeworn) {
-                    throw new DuplicityError(`La desparacitación de tipo '${dewornData}' ya está registrada.`)
-                }
-                if (dewornData === 'both') {
-
-                    const hasExternal = pet.deworns.some(deworn => deworn.type === 'external');
-                    const hasInternal = pet.deworns.some(deworn => deworn.type === 'internal');
-                    if (hasExternal || hasInternal) {
-                        throw new DuplicityError("No se puede agregar 'Ambas' si ya se han administrado 'external' o 'internal'.")
-                    }
-                } else if (dewornData === 'external' || dewornData === 'internal') {
-                    const hasBoth = pet.deworns.some(deworn => deworn.type === 'both')
-                    if (hasBoth) {
-                        throw new DuplicityError(`No se puede agregar '${dewornData}' porque ya está registrado 'both'.`)
-                    }
-                }
-
-
-                const deworn = { type: dewornData }
-                pet.deworns.push(deworn)
-            }
-
+            const deworn = { type: dewornData }
+            pet.deworns.push(deworn)
+        }
+        try {
             await pet.save()
 
-            return
         } catch (error) {
             if (error instanceof NotFoundError || error instanceof DuplicityError) {
                 throw error
