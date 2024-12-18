@@ -46,6 +46,7 @@ export default function searchProducts() {
     <div className="bg-box w-[15rem] h-24 flex flex-col justify-center gap-y-2 rounded-lg shadow-lg">
       <form onSubmit={handleSearch} className=" flex flex-col items-center ">
         <select id="category" className='w-[10rem]'>
+          <option value="Category">Category</option>
           <option value="Face">Face</option>
           <option value="Cheeks">Cheeks</option>
           <option value="Eyes">Eyes</option>

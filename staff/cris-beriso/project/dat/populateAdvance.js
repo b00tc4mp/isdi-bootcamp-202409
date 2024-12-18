@@ -17,8 +17,9 @@ db.connect(process.env.MONGO_URL)
   .then(() => {
     return Promise.all([
       User.create({ name: 'Cris Beriso', email: 'cris@beriso.com', username: 'beriso', password: bcrypt.hashSync('criscris', 10), role: 'admin' }),
-      User.create({ name: 'Yannick', email: 'yan@nick.com', username: 'yanickscf', password: bcrypt.hashSync('criscris', 10), role: 'regular' }),
-      User.create({ name: 'Cofy', email: 'cofy@dog.com', username: 'cofythedog', password: bcrypt.hashSync('criscris', 10), role: 'regular' })
+      User.create({ name: 'Yannick', email: 'yan@nick.com', username: 'yannickscf', password: bcrypt.hashSync('criscris', 10), role: 'regular' }),
+      User.create({ name: 'Cofy', email: 'cofy@dog.com', username: 'cofythedog', password: bcrypt.hashSync('criscris', 10), role: 'regular' }),
+      User.create({ name: 'Rocket', email: 'rocket@cat.com', username: 'rocketthecat', password: bcrypt.hashSync('criscris', 10), role: 'regular' })
     ]);
   })
   .then(([user1]) => {
@@ -210,6 +211,47 @@ db.connect(process.env.MONGO_URL)
         ]
       }),
       Store.create({
+        name: 'Douglas',
+        web: 'https://www.douglas.es/es',
+        locations: [
+          {
+            address: 'P.º de las Acacias, 23, Arganzuela, 28005 Madrid',
+            location: {
+              type: 'Point',
+              coordinates: [40.40405227569075, -3.705815082734376]
+            }
+          },
+          {
+            address: 'C. de Velázquez, 106, Salamanca, 28006 Madrid',
+            location: {
+              type: 'Point',
+              coordinates: [40.435417487250646, -3.682984116984814]
+            }
+          },
+          {
+            address: 'Calle de Goya, 51, Salamanca, 28001 Madrid',
+            location: {
+              type: 'Point',
+              coordinates: [40.425225397686845, -3.6819541488153824]
+            }
+          },
+          {
+            address: 'Calle de Diego de León, 69, Salamanca, 28006 Madrid',
+            location: {
+              type: 'Point',
+              coordinates: [40.43476419451116, -3.675087694352504]
+            }
+          },
+          {
+            address: 'C. de Colombia, 4, Chamartín, 28016 Madrid',
+            location: {
+              type: 'Point',
+              coordinates: [40.456972586619685, -3.677834276137655]
+            }
+          }
+        ]
+      }),
+      Store.create({
         name: 'Maquillalia',
         web: 'https://www.maquillalia.com/'
       }),
@@ -218,7 +260,7 @@ db.connect(process.env.MONGO_URL)
         web: 'https://www.beautybay.com/'
       })
 
-    ]).then(([store1, store2, store3, store4, store5]) => {
+    ]).then(([store1, store2, store3, store4, store5, store6]) => {
       return Promise.all([
         Product.create({
           name: 'Catrice HD Liquid Coverage Foundation',
@@ -230,7 +272,8 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 6.79 },
             { store: store2.id, price: 6.99 },
-            { store: store4.id, price: 7.99 }
+            { store: store4.id, price: 6.59 },
+            { store: store5.id, price: 7.99 }
           ],
           comments: [
             {
@@ -250,12 +293,13 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 6.25 },
             { store: store2.id, price: 6.99 },
-            { store: store4.id, price: 8 }
+            { store: store4.id, price: 6.09 },
+            { store: store5.id, price: 8 }
           ],
           comments: []
         }),
         Product.create({
-          name: 'Essence Máscara Pestañas I Love Crazy',
+          name: 'Essence Máscara Pestañas I Love Extreme Crazy',
           category: 'Eyes',
           image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5HcJkDzRkJZbnYoAOsPQmOZcsEUfssgmfeQ&s',
           description: 'A budget-friendly mascara that delivers intense volume with its spiral-shaped brush to coat every lash.',
@@ -264,7 +308,8 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 3.59 },
             { store: store2.id, price: 3.59 },
-            { store: store4.id, price: 3.49 }
+            { store: store4.id, price: 3.99 },
+            { store: store5.id, price: 3.49 }
           ],
           comments: []
         }),
@@ -278,7 +323,8 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 6.99 },
             { store: store2.id, price: 6.99 },
-            { store: store4.id, price: 6.99 }
+            { store: store4.id, price: 5.09 },
+            { store: store5.id, price: 6.99 }
           ],
           comments: []
         }),
@@ -292,7 +338,8 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 2.98 },
             { store: store2.id, price: 3 },
-            { store: store4.id, price: 4.19 }
+            { store: store4.id, price: 4.19 },
+            { store: store5.id, price: 4.19 }
           ],
           comments: []
         }),
@@ -304,7 +351,7 @@ db.connect(process.env.MONGO_URL)
           likes: [],
           dislikes: [],
           storePrices: [
-            { store: store4.id, price: 13.95 }
+            { store: store5.id, price: 13.95 }
           ],
           comments: []
         }),
@@ -318,7 +365,8 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 14.99 },
             { store: store2.id, price: 10.45 },
-            { store: store4.id, price: 15.45 }
+            { store: store4.id, price: 10.99 },
+            { store: store5.id, price: 15.45 }
           ],
           comments: []
         }),
@@ -333,8 +381,9 @@ db.connect(process.env.MONGO_URL)
             { store: store1.id, price: 31.90 },
             { store: store2.id, price: 29.9 },
             { store: store3.id, price: 40 },
-            { store: store4.id, price: 38.99 },
-            { store: store5.id, price: 39.35 }
+            { store: store4.id, price: 29.99 },
+            { store: store5.id, price: 38.99 },
+            { store: store6.id, price: 39.35 }
           ],
           comments: []
         }),
@@ -348,7 +397,8 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 36 },
             { store: store2.id, price: 36 },
-            { store: store3.id, price: 47.99 }
+            { store: store3.id, price: 47.99 },
+            { store: store4.id, price: 39.99 }
           ],
           comments: []
         }),
@@ -360,8 +410,8 @@ db.connect(process.env.MONGO_URL)
           likes: [],
           dislikes: [],
           storePrices: [
-            { store: store4.id, price: 25 },
-            { store: store5.id, price: 25.5 }
+            { store: store5.id, price: 25 },
+            { store: store6.id, price: 25.5 }
           ],
           comments: []
         }),
@@ -375,7 +425,8 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 28 },
             { store: store2.id, price: 28 },
-            { store: store3.id, price: 35 }
+            { store: store3.id, price: 35 },
+            { store: store4.id, price: 28.99 }
           ],
           comments: []
         }),
@@ -388,7 +439,8 @@ db.connect(process.env.MONGO_URL)
           dislikes: [],
           storePrices: [
             { store: store3.id, price: 32.99 },
-            { store: store5.id, price: 23.5 }
+            { store: store4.id, price: 34.89 },
+            { store: store6.id, price: 23.5 }
           ],
           comments: []
         }),
@@ -415,8 +467,8 @@ db.connect(process.env.MONGO_URL)
             { store: store1.id, price: 15.9 },
             { store: store2.id, price: 17.98 },
             { store: store3.id, price: 23 },
-            { store: store4.id, price: 24.95 },
-            { store: store5.id, price: 26.5 }
+            { store: store5.id, price: 24.95 },
+            { store: store6.id, price: 26.5 }
           ],
           comments: []
         }),
@@ -430,7 +482,51 @@ db.connect(process.env.MONGO_URL)
           storePrices: [
             { store: store1.id, price: 29 },
             { store: store2.id, price: 25 },
-            { store: store3.id, price: 30 }
+            { store: store3.id, price: 30 },
+            { store: store4.id, price: 22.99 },
+          ],
+          comments: []
+        }),
+        Product.create({
+          name: 'Uran Decay All Nighter Setting Spray',
+          category: 'Face',
+          image: 'https://cdn.cosmostore.org/cache/front/shop/products/136/326319/350x350.jpg',
+          description: 'A long-lasting makeup setting spray designed to lock in your look for up to 16 hours without fading, smudging, or settling into fine lines. Its lightweight, oil-free formula keeps makeup fresh while maintaining a natural finish, suitable for all skin types.',
+          likes: [],
+          dislikes: [],
+          storePrices: [
+            { store: store1.id, price: 24.94 },
+            { store: store2.id, price: 24.95 },
+            { store: store3.id, price: 35.99 },
+            { store: store4.id, price: 24.99 },
+          ],
+          comments: []
+        }),
+        Product.create({
+          name: 'W7 Paleta de sombras On the Rocks',
+          category: 'Eyes',
+          image: 'https://www.maquillalia.com/images/productos/w7-paleta-de-sombras-on-the-rocks-1-34929.jpeg',
+          description: '14 highly pigmented shades, ranging from cool-toned neutrals to bold greens and golds. With a mix of matte and shimmer finishes, this versatile palette is perfect for creating both everyday and dramatic looks.',
+          likes: [],
+          dislikes: [],
+          storePrices: [
+            { store: store1.id, price: 4.99 },
+            { store: store3.id, price: 4.99 },
+          ],
+          comments: []
+        }),
+        Product.create({
+          name: 'Maybelline Superstay ink crayon',
+          category: 'Lips',
+          image: 'https://i.ebayimg.com/images/g/7HUAAOSwX59fZ2CM/s-l1200.jpg',
+          description: 'It\'s a long-lasting, smudge-proof lipstick in a convenient crayon format. Its creamy formula glides on smoothly for precise application and delivers vibrant, matte color that lasts up to 8 hours. Perfect for on-the-go touch-ups!',
+          likes: [],
+          dislikes: [],
+          storePrices: [
+            { store: store1.id, price: 6.24 },
+            { store: store2.id, price: 6.25 },
+            { store: store3.id, price: 8.29 },
+            { store: store4.id, price: 9.49 }
           ],
           comments: []
         })

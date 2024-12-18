@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '../library'
 import { calculateDistance } from '../../util'
 
 export default function OneStorePrice({ center, storePrices: { price, store: { name, web, locations } } }) {
   const [filteredLocations, setFilteredLocations] = useState([])
 
   const handleShowDirections = () => {
-    const radius = 2
+    const radius = 3.5
 
     const filtered = locations.filter(item => {
       if (!item.location) {
