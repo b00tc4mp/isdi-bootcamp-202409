@@ -1,6 +1,4 @@
-export default () => {
-    const allConditions = JSON.parse(sessionStorage.conditions)
-
+export default function sortConditions(allConditions) {
     let parsedColumnConditions = []
     let parsedRowConditions = []
 

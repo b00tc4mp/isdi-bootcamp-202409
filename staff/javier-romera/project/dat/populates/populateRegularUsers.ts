@@ -4,7 +4,7 @@ import db from '../index.js'
 import { User } from '../models/index.js'
 import bcrypt from 'bcryptjs'
 
-db.connect(process.env.ALLPIECE_URL_TEST!)
+db.connect(process.env.ALLPIECE_URL!)
     .then(() => User.deleteMany())
     .then(() => Promise.all([
         User.create({

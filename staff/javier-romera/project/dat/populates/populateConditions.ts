@@ -3,7 +3,7 @@ import 'dotenv/config'
 import db from '../index.js'
 import { Condition } from '../models/index.js'
 
-db.connect(process.env.ALLPIECE_URL_TEST!)
+db.connect(process.env.ALLPIECE_URL!)
     .then(() => Condition.deleteMany())
     .then(() => Promise.all([
         // COLUMN

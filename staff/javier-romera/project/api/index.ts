@@ -7,7 +7,7 @@ import { deleteAnonymousUsersCronJob } from './cron/index.js'
 import { errorHandler } from './routes/helpers/index.js'
 import { charactersRouter, usersRouter, conditionsRouter } from './routes/index.js'
 
-db.connect(process.env.ALLPIECE_URL_TEST!).then(() => {
+db.connect(process.env.ALLPIECE_URL!).then(() => {
     console.log('connected to db')
 
     const server = express()

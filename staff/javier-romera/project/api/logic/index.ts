@@ -22,7 +22,6 @@ import {
 
 import {
     getAllConditions,
-    getRandomConditions
 } from './conditions/index.js'
 
 const logic = {
@@ -45,7 +44,6 @@ const logic = {
     getCharactersByArc,
 
     getAllConditions,
-    getRandomConditions
 }
 
 export default logic

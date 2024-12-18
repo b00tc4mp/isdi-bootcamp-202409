@@ -2,9 +2,7 @@
 
 ## Intro
 
-[...] jueguito de wanpi
-
-balbanegla te voa desglanal
+AllPiece is the ultimate fan experience inspired by the One Piece universe. Dive into the adventure with interactive minigames and explore a detailed map of the East Blue, where you can travel between iconic islands. Whether you're battling through challenges or charting your journey across the seas, AllPiece brings the spirit of One Piece to life in an engaging and immersive way!
 
 ![](https://media.giphy.com/media/UTek0q3N8osh8agH4Y/giphy.gif?cid=ecf05e47hxd5z63sxe9b828ydc8k1zu2gywzryo0palmjq52&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
@@ -45,13 +43,13 @@ Anonymous (User)
 
 ### Techs
 
-- HTML/TailwindCSS/JS/TS (...)
-- React (...)
-- Vite (...)
-- Node (...)
-- Express (...)
-- Mongo (...)
-- Mocha & Chai (...)
+- HTML/TailwindCSS/JS/TS
+- React
+- Vite
+- Node
+- Express
+- Mongo
+- Mocha & Chai
 - bcryptjs
 - jwt
 

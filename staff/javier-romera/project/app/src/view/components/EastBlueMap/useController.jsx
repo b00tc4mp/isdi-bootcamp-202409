@@ -59,7 +59,7 @@ export default function useController() {
         parsedArc === 'Orange Town' ? bounty = 500 : parsedArc === 'Syrup Village' ? bounty = 1000 : parsedArc === 'Baratie' ? bounty = 1750 : parsedArc === 'Arlong Park' ? bounty = 3000 : bounty = 5000
 
         if (logic.isUserRoleAnonymous())
-            alert('You have to log in to be able to gain score and progress through the map!')
+            alert('You need to log in to be able to increase your bounty and progress through the map!')
         else
             alert(`You need to have a bounty of at least ${bounty} berries to access to ${parsedArc} details`, 'warn')
     }
