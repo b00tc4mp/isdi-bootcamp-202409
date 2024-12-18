@@ -8,6 +8,7 @@ export default token => {
     const payloadJSON = atob(payloadB64)
 
     const payload = JSON.parse(payloadJSON)
+    console.log(payload)
 
     return payload
 }

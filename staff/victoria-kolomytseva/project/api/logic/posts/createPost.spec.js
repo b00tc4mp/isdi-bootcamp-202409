@@ -44,7 +44,7 @@ describe('createPost', () => { // Agrupa todas las pruebas relacionadas con crea
 
     it('fails on non-existing user', () =>
         expect(
-            createPost('012345678901234567890123', 'https://www.image.com', 'lost', 'cat', 'female', 'hello world', {
+            createPost('012345678901234567890124', 'https://www.image.com', 'lost', 'cat', 'female', 'hello world', {
                 type: 'Point',
                 "coordinates": [
                     41.5064041,
@@ -69,7 +69,7 @@ describe('createPost', () => { // Agrupa todas las pruebas relacionadas con crea
     )
 
     it('fails on non-string text', () =>
-        expect(() => createPost('012345678901234567890123', 'https://www.image.com', true)).to.throw(ValidationError, /^invalid text$/)
+        expect(() => createPost('012345678901234567890123', 'https://www.image.com', true, true, true, true, 'hello world')).to.throw(ValidationError, /^invalid text$/)
     )
 
     describe('fails on User.findById error', () => {

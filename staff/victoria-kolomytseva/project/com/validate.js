@@ -86,7 +86,7 @@ const validateWhatHappened = (whatHappened) => {
 }
 const validatePetType = (petType) => {
     if (typeof petType !== 'string') {
-        throw new ValidationError('Invalid petType format')
+        throw new ValidationError('invalid text')
     }
     const petTypesEnum = ['cat', 'dog', 'ferret']
     if (!petTypesEnum.includes(petType)) {

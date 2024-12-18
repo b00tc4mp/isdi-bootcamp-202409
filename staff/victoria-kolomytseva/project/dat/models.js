@@ -36,21 +36,7 @@ const user = new Schema({
         enum: ['user', 'admin'], // Diferentes niveles de administrador
         default: 'user',
     }
-})
-
-
-const pointSchema = new Schema({
-    type: {
-        type: String,
-        enum: ['Point'],
-        required: true,
-    },
-    coordinates: {
-        type: [Number],
-        required: true,
-    },
-})
-
+}, { versionKey: false })
 
 const comment = new Schema({
 
@@ -69,8 +55,7 @@ const comment = new Schema({
         required: true,
         default: Date.now
     },
-})
-
+}, { versionKey: false })
 
 const post = new Schema({
     author: {
@@ -114,8 +99,8 @@ const post = new Schema({
     location: {
         type: {
             type: String,
-            enum: ["Point"],
-            required: true,
+            enum: ['Point'],
+            required: true
         },
         coordinates: {
             type: [Number],
@@ -160,7 +145,7 @@ const report = new Schema({
         type: Date,
         default: Date.now,
     }
-})
+}, { versionKey: false })
 
 
 const User = model('User', user)

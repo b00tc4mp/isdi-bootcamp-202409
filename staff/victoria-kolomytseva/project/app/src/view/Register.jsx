@@ -54,7 +54,7 @@ export default function Register(props) {
         props.onLoginClick()
     }
 
-    return <main className="flex justify-center items-center flex-col h-screen box-border bg-[url('./assets/background_login.png')] bg-no-repeat bg-cover">
+    return <main className="flex justify-center items-center flex-col h-screen box-border bg-[url('./assets/background_login.jpg')] bg-no-repeat bg-cover">
 
 
         <Form onSubmit={handleSubmit}>

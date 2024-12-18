@@ -43,6 +43,7 @@ export default function Home() {
     console.log('Home -> render')
 
     return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4 ml-6">PetLocator</h1>
         {posts.map(post => <Post
             key={post.id}
             userId={userId}

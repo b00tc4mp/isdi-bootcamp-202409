@@ -12,9 +12,6 @@ export default (userId, image, whatHappened, petType, petGender, text, location)
     validate.text(text)
     validate.location(location)
 
-    console.log(location)
-
-
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {

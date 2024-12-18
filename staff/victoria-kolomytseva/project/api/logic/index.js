@@ -1,7 +1,7 @@
 import {
     registerUser,
     authenticateUser,
-    saveUser,
+    updateUserProfile,
     getUserById
 } from './users/index.js'
 
@@ -12,7 +12,7 @@ import {
     getPostById,
     deletePost,
     toggleLikePost,
-    postFound,
+    petFound,
 
     addComment,
     removeComment,
@@ -23,7 +23,7 @@ import {
 const logic = {
     registerUser,
     authenticateUser,
-    saveUser,
+    updateUserProfile,
     getUserById,
     getPostById,
 
@@ -33,7 +33,7 @@ const logic = {
     getPostById,
     deletePost,
     toggleLikePost,
-    postFound,
+    petFound,
 
     addComment,
     removeComment,

@@ -1,6 +1,6 @@
-import 'dotenv/config' //Carga las variables de entorno desde un archivo .env
+import 'dotenv/config'
 
-import * as chai from 'chai'//Biblioteca de aserciones para verificar resultados en pruebas.
+import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 import bcrypt from 'bcryptjs'
 
@@ -9,12 +9,12 @@ const { expect } = chai
 
 import db, { User } from 'dat'
 import { errors } from 'com'
-const { CredentialsError } = errors ////para manejar errores relacionados con credenciales incorrectas
+const { CredentialsError } = errors
 
 
 import authenticateUser from './authenticateUser.js'
 
-debugger
+
 
 describe('authenticateUser', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST)) //Antes de ejecutar las pruebas, conecta la base de datos a la URL definida en la variable de entorno MONGO_URL_TEST

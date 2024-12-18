@@ -1,27 +1,30 @@
-import { Button } from '../library'
-
 import logic from '../../logic'
 
 import { getElapsedTime } from '../../util'
+import useContext from '../useContext'
 
 export default function Comments({ postId, comment: { id, author, text, date }, onRemoved }) {
     console.log('Comment -> render')
+    const { confirm } = useContext()
 
     const handleRemoveClick = () => {
-        if (confirm('Delete comment?'))
-            try {
-                logic.removeComment(postId, id)
-                    .then(onRemoved)
-                    .catch(error => {
-                        alert(error.message)
+        confirm('Delete comment?', accepted => {
+            if (accepted) {
+                try {
+                    logic.removeComment(postId, id)
+                        .then(onRemoved)
+                        .catch(error => {
+                            alert(error.message)
 
-                        console.error(error)
-                    })
-            } catch (error) {
-                alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
 
-                console.error(error)
+                    console.error(error)
+                }
             }
+        })
     }
 
     return <li>

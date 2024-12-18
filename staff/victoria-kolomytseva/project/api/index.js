@@ -13,7 +13,6 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.use(cors())
 
-    server.get('/', (_, res) => res.send('Hello, API!'))
     server.use('/users', usersRouter)
     server.use('/posts', postsRouter)
 

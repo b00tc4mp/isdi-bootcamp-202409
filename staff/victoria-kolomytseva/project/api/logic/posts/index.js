@@ -6,7 +6,7 @@ import addComment from './addComment.js'
 import removeComment from './removeComment.js'
 import getComments from './getComments.js'
 import toggleLikePost from './toggleLikePost.js'
-import postFound from './postFound.js'
+import petFound from './petFound.js'
 
 export {
     createPost,
@@ -14,7 +14,7 @@ export {
     getPostById,
     deletePost,
     toggleLikePost,
-    postFound,
+    petFound,
 
     addComment,
     removeComment,

@@ -2,7 +2,7 @@ import logic from '../../../logic/index.js'
 import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler((req, res) => {
-    const { params: { targetUserId } } = req
+    const { userId, params: { targetUserId } } = req
 
-    return logic.getUserById(targetUserId).then(name => res.json(name))
+    return logic.getUserById(userId, targetUserId).then(name => res.json(name))
 })

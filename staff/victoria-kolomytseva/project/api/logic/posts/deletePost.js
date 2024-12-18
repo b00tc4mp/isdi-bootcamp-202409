@@ -12,7 +12,7 @@ export default (userId, postId) => {
         .then(([user, post]) => {
             if (!user) throw new NotFoundError('user not found')
             if (!post) throw new NotFoundError('post not found')
-            if (!post.author.equals(userId)) throw new OwnershipError('user is not author of post')
+            if (user.role !== 'admin' && !post.author.equals(userId)) throw new OwnershipError('user is not author of post')
 
             return Post.deleteById(postId)
                 .catch(error => { throw new SystemError(error.message) })

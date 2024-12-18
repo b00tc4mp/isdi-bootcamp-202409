@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, Hello, Profile, CreatePost, PostView, PostFoundView } from './view'
+import { Login, Register, Home, Profile, CreatePost, PostView, PetFoundView } from './view'
 
 import { Context } from './view/useContext'
 
 import logic from './logic'
-import { Alert, Menu } from './view/components'
+import { Alert, Menu, Confirm } from './view/components'
 
 
 
@@ -15,6 +15,11 @@ export default function App() {
     const [alert, setAlert] = useState({
         message: null,
         level: 'error'
+    })
+    const [confirm, setConfirm] = useState({
+        message: null,
+        level: 'error',
+        callback: null
     })
     const [userId, setUserId] = useState({
         userId: null,
@@ -47,9 +52,29 @@ export default function App() {
         level: 'error'
     })
 
+    const handleConfirmAccepted = () => {
+        confirm.callback(true)
+
+        setConfirm({
+            message: null,
+            level: 'error',
+            callback: null
+        })
+    }
+
+    const handleConfirmCancelled = () => {
+        confirm.callback(false)
+
+        setConfirm({
+            message: null,
+            level: 'error',
+            callback: null
+        })
+    }
 
     return <Context.Provider value={{
-        alert(message, level = 'error') { setAlert({ message, level }) }
+        alert(message, level = 'error') { setAlert({ message, level }) },
+        confirm(message, callback, level = 'error') { setConfirm({ message, callback, level }) }
     }}>
         <Routes>
             <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
@@ -63,11 +88,13 @@ export default function App() {
             <Route path="/profile/:userId" element={<Profile handleUserLoggedOut={handleUserLoggedOut} />} />
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/post/:postId" element={<PostView />} />
-            <Route path="/post-found/" element={<PostFoundView />} />
+            <Route path="/post-found/" element={<PetFoundView />} />
 
         </Routes>
 
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
+
+        {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
 
         {logic.isUserLoggedIn() && <Menu userId={userId} />}
 

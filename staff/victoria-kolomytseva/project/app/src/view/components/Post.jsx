@@ -8,7 +8,7 @@ import AdMap from './AdMap'
 export default function Post({ post, userId, onDeleted }) {
     const [view, setView] = useState(null)
     const navigate = useNavigate()
-    const { alert } = useContext()
+    const { alert, confirm } = useContext()
     const handlePostClick = () => navigate('/post/' + id)
     const {
         id,
@@ -23,21 +23,23 @@ export default function Post({ post, userId, onDeleted }) {
     const handleCloseMap = () => setView(null)
 
     const handleDeleteClick = () => {
-        if (confirm('Delete post?')) {
-            try {
-                logic.deletePost(id)
-                    .then(onDeleted)
-                    .catch(error => {
-                        alert(error.message)
+        confirm('Delete post?', accepted => {
+            if (accepted) {
+                try {
+                    logic.deletePost(id)
+                        .then(onDeleted)
+                        .catch(error => {
+                            alert(error.message)
 
-                        console.error(error)
-                    })
-            } catch (error) {
-                alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
 
-                console.error(error)
+                    console.error(error)
+                }
             }
-        }
+        })
     }
 
     console.log('Post -> render')
@@ -68,11 +70,10 @@ export default function Post({ post, userId, onDeleted }) {
             <div className="flex justify-end">
                 <a href={"tel:" + post?.author?.phone} className="from-primary-light to-primary-dark bg-gradient-to-b text-center rounded-full  px-10 py-2.5 ">Call</a>
             </div>
-            {userId === post.author.id ?
+            {userId === post.author.id || logic.isUserRoleModerator() ?
                 <button type="button" onClick={handleDeleteClick}>
                     <img className="w-4 h-4" src="./assets/remove.svg" />
-                </button> :
-                null
+                </button> : null
             }
         </div>
 
@@ -103,21 +104,4 @@ export default function Post({ post, userId, onDeleted }) {
         )}
 
     </article>
-
-
-
-    {/* <article className="Post" >
-
-        <img src={image} />
-
-        <p>{text}</p>
-
-        <time>{getElapsedTime(date)} ago</time>
-
-
-        {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
-
-        {logic.isUserRoleModerator() && <Button>💀</Button>}
-
-    </article > */}
 }

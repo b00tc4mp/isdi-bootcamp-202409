@@ -7,7 +7,7 @@ import getUser from './getUser'
 import getUserRole from './getUserRole'
 import isUserRoleRegular from './isUserRoleRegular'
 import isUserRoleModerator from './isUserRoleModerator'
-import saveUser from './saveUser'
+import updateUserProfile from './updateUserProfile'
 
 
 
@@ -21,6 +21,6 @@ export {
     getUserRole,
     isUserRoleRegular,
     isUserRoleModerator,
-    saveUser,
+    updateUserProfile,
 
 }

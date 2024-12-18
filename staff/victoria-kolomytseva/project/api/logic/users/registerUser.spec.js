@@ -1,15 +1,14 @@
 import 'dotenv/config'
 
 import * as chai from 'chai'
-import chaiAsPromised from 'chai-as-promised'//para facilitar pruebas de promesas
-import bcrypt from 'bcryptjs' //  Librería para encriptar y verificar contraseñas de forma segura
+import chaiAsPromised from 'chai-as-promised'
+import bcrypt from 'bcryptjs'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
 
 import db, { User } from 'dat'
 import { errors } from 'com'
-
 const { DuplicityError } = errors
 
 import registerUser from './registerUser.js'
@@ -26,7 +25,7 @@ describe('registerUser', () => {
             email: 'maria.lopez@example.com'
         })
 
-        expect(user).to.exist //.not.to.be.null
+        expect(user).to.exist
         expect(user.name).to.equal('María López')
         expect(user.email).to.equal('maria.lopez@example.com')
         expect(bcrypt.compareSync('123123123', user.password)).to.be.true

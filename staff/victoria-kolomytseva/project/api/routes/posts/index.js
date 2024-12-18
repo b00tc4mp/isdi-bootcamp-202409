@@ -10,7 +10,7 @@ import {
     removeCommentHandler,
     getCommentsHandler,
     toggleLikePostHandler,
-    postFoundHandler
+    petFoundHandler
 } from './handlers/index.js'
 
 const postsRouter = Router()
@@ -23,6 +23,6 @@ postsRouter.post('/:postId/comments', authorizationHandler, jsonBodyParser, addC
 postsRouter.delete('/:postId/comments/:commentId', authorizationHandler, removeCommentHandler)
 postsRouter.get('/:postId/comments', authorizationHandler, getCommentsHandler)
 postsRouter.patch('/:postId/likes', authorizationHandler, toggleLikePostHandler)
-postsRouter.patch('/:postId/found', authorizationHandler, postFoundHandler)
+postsRouter.patch('/:postId/found', authorizationHandler, petFoundHandler)
 
 export default postsRouter

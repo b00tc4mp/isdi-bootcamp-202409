@@ -91,14 +91,14 @@ Report
 
 ### Techs
 
-- HTML/CSS/JS (...)
-- React (...)
-- Node (...)
-- Express (...)
-- Mongo (...)
-- Mocha & Chai (...)
-- [...]
+- Frontend: React, HTML, CSS, JavaScript, TailwindCS
+- Backend: Node.js + Express
+- Database: MongoDB
+- Authentication: JWT
+- Testing: Mocha & Chai (for backend logic)
+- Map Integration: Leaflet.js
 
 ### Test Coverage
+![alt text](image-1.png)
 
-[...]
+### issue:

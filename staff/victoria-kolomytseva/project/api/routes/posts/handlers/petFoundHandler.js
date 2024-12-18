@@ -4,5 +4,5 @@ import { createFunctionalHandler } from '../../helpers/index.js'
 export default createFunctionalHandler((req, res) => {
     const { userId, params: { postId } } = req
 
-    return logic.postFound(userId, postId).then(() => res.status(204).send())
+    return logic.petFound(userId, postId).then(() => res.status(204).send())
 })

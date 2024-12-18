@@ -23,7 +23,7 @@ export default function Profile(props) {
         } = form
 
         try {
-            logic.saveUser(userId, name, surname, phone, city, postalCode)
+            logic.updateUserProfile(userId, name, surname, phone, city, postalCode)
                 .then(() => {
                     alert('Saved successfully', 'success')
                 })

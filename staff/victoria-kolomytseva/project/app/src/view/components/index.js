@@ -6,7 +6,7 @@ import LocationInput from './LocationInput'
 import UploadPhoto from './UploadPhoto'
 import Comments from './Comments'
 import Comment from './Comment'
-
+import Confirm from './Confirm'
 
 
 export {
@@ -18,6 +18,5 @@ export {
     UploadPhoto,
     Comments,
     Comment,
-
-
+    Confirm
 }
