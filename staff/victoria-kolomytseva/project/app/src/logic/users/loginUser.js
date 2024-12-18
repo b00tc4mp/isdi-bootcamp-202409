@@ -12,11 +12,9 @@ export default (email, password) => {
         body: JSON.stringify({ email, password })
     })
         .catch(error => {
-            console.log(error)
             throw new SystemError(error.message)
         })
         .then(res => {
-            console.log(res)
             if (res.ok)
                 return res.json()
                     .catch(error => { throw new SystemError(error.message) })

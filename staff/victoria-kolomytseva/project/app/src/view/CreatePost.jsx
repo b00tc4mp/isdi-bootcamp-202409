@@ -7,7 +7,6 @@ import LocationInput from "./components/LocationInput.jsx"
 import { useNavigate, Navigate } from 'react-router-dom'
 
 export default function CreatePost() {
-    console.log('CreatePost -> render')
     const [images, setImages] = useState([])
     const { alert } = useContext()
     const [location, setLocation] = useState(null)
@@ -36,7 +35,6 @@ export default function CreatePost() {
 
         Promise.all(filetoB64Conversions).then((filesb64) => {
             try {
-                console.log(locationFormatted)
                 logic.createPost(filesb64[0], whatHappened, petType, petGender, text, locationFormatted)
                     .then((createdPost) => {
                         alert('Saved successfully', 'success')
@@ -147,7 +145,6 @@ export default function CreatePost() {
             <Field>
                 <LocationInput
                     onLocationSelect={(location) => {
-                        console.log("Ubicación seleccionada:", location)
                         setLocation(location)
                     }}
                 />

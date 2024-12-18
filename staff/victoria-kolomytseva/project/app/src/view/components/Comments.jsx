@@ -9,8 +9,6 @@ export default function Comments(props) {
     const [comments, setComments] = useState([])
 
     useEffect(() => {
-        console.log('Comments -> useEffect "componentDidMount"')
-
         try {
             logic.getComments(props.postId)
                 .then(setComments)
@@ -65,8 +63,6 @@ export default function Comments(props) {
             console.error(error)
         }
     }
-
-    console.log('Comments -> render')
 
     return <section>
         <ul>

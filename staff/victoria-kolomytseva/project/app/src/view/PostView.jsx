@@ -12,8 +12,6 @@ export default function Post() {
     const userId = logic.getUserId()
     const { postId } = useParams()
     useEffect(() => {
-        console.log('Post -> useEffect "componentDidMount"')
-
         try {
             logic.getPostById(postId)
                 .then(setPost)

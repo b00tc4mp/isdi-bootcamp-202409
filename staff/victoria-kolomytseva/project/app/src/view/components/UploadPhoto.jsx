@@ -25,7 +25,6 @@ function UploadPhoto() {
             if (!response.ok) throw new Error('Error al subir la imagen.');
             const result = await response.json();
             alert('Imagen subida con éxito');
-            console.log(result);
         } catch (error) {
             console.error(error);
             alert('Hubo un error al subir la imagen.');

@@ -11,7 +11,6 @@ fetch('http://localhost:8080/users/auth', {
     }),
 })
     .catch((error) => {
-        console.log(error)
         throw new SystemError(error.message)
     })
     .then(async (res) => {

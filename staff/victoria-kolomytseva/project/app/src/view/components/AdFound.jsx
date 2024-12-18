@@ -40,8 +40,6 @@ export default function Adfound({ post, onLiked, onCommentAdded, onCommentRemove
 
     const handleCommentsClick = () => setView(view ? null : 'comments')
 
-    console.log('AdFound -> render')
-
     return <article className="m-4 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100">
         <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={image} alt="" />
 

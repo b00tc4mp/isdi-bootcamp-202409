@@ -7,7 +7,6 @@ import logic from '../logic'
 import { useState, useEffect } from 'react'
 
 export default function Profile(props) {
-    console.log('Profile -> render')
     const { userId } = useParams()
     const { alert } = useContext()
     const handleSubmit = event => {
@@ -56,12 +55,9 @@ export default function Profile(props) {
     })
 
     useEffect(() => {
-        console.log('Profile -> useEffect "componentDidMount"')
-
         try {
             logic.getUser(userId)// una función `getUser` para obtener los datos del usuario
                 .then(user => {
-                    console.log(user)
                     setFormData({
                         name: user.name,
                         surname: user.surname,

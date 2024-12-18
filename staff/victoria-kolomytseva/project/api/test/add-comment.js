@@ -15,7 +15,6 @@ fetch(`http://localhost:8080/posts/${postId}/comments`, {
     body: JSON.stringify({ text })
 })
     .catch((error) => {
-        console.log(error)
         throw new SystemError(error.message)
     })
     .then((res) => {

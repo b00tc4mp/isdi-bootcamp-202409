@@ -22,7 +22,7 @@ export default (userId, postId, text) => {
                 text
             })
             post.comments.push(comment)
-            console.log(post)
+
 
             return Promise.all([post.save(), comment.save()])
                 .catch(error => { throw new SystemError(error.message) })

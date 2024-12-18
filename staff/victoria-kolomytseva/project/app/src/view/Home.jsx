@@ -7,8 +7,6 @@ export default function Home() {
     const userId = logic.getUserId()
 
     useEffect(() => {
-        console.log('Home -> useEffect "componentDidMount"')
-
         try {
             logic.getPosts('')
                 .then(setPosts)
@@ -39,8 +37,6 @@ export default function Home() {
             console.error(error)
         }
     }
-
-    console.log('Home -> render')
 
     return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
         <h1 className="text-2xl font-bold text-gray-800 mb-4 ml-6">PetLocator</h1>

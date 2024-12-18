@@ -4,7 +4,6 @@ import { getElapsedTime } from '../../util'
 import useContext from '../useContext'
 
 export default function Comments({ postId, comment: { id, author, text, date }, onRemoved }) {
-    console.log('Comment -> render')
     const { confirm } = useContext()
 
     const handleRemoveClick = () => {

@@ -9,8 +9,6 @@ import logic from '../logic'
 import useContext from './useContext'
 
 export default function Register(props) {
-    console.log('Register -> render')
-
     const { alert } = useContext()
 
     const handleSubmit = event => {
