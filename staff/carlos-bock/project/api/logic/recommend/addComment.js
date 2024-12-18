@@ -1,6 +1,5 @@
-import { User, Recommend, Comment } from '../../../dat/index.js'
-import validate from '../../../com/validate.js'; import errors from '../../../com/errors.js';
-
+import { User, Recommend, Comment } from 'dat'
+import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 const addComment = (userId, recommendId, text) => {

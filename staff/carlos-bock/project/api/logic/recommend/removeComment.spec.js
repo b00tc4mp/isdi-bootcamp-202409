@@ -6,10 +6,10 @@ import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised)
 const { expect } = chai
 
-import db, { User, Recommend, Comment } from '../../../dat/index.js'
-import errors from '../../../com/errors.js'
+import db, { User, Recommend, Comment } from 'dat'
+import { errors } from 'com'
 
-const { NotFoundError, OwnershipError, ValidationError, SystemError } = errors
+const { NotFoundError, OwnershipError } = errors
 
 import removeComment from './removeComment.js'
 import { beforeEach, describe } from 'mocha'
@@ -29,7 +29,7 @@ const recommend1 = { //don't include user.id not
 debugger
 
 describe('removeComment', () => {
-    before(() => db.connect('mongodb://127.0.0.1:27017/mired-test')) //process.env.MONGO_ULR_TEST
+    before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => Promise.all([User.deleteMany(), Recommend.deleteMany()]))
 

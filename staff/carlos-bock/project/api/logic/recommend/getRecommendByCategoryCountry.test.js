@@ -1,12 +1,12 @@
 import 'dotenv/config'
-import db from '../../../dat/index.js'
+import db from 'dat'
 import getRecommendByCategory from './getRecommendByCategory.js'
 
 const userId = '6754a8149c175644a60dad82'
 const category = 1
 const country = 'España'
 
-db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             return getRecommendByCategory(userId, category, country)

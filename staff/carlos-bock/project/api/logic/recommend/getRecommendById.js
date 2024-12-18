@@ -1,6 +1,5 @@
 import { Recommend } from '../../../dat/index.js'
-import validate from '../../../com/validate.js'
-import errors from '../../../com/errors.js'
+import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 

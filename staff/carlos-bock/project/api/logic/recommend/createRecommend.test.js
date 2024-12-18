@@ -1,8 +1,8 @@
 import 'dotenv/config'
-import db from '../../../dat/index.js' //import db from 'dat' // check routes
+import db from 'dat'
 import createRecommend from './createRecommend.js'
 
-db.connect('mongodb://127.0.0.1:27017/mired-test')//process.env.MONGO_URL
+db.connect(process.env.MONGO_URL_TEST)
   .then(() => {
     try {
       return createRecommend(userId, city, country, category, price, link, imageUrl, recommendation, subject)

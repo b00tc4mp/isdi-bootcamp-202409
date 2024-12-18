@@ -7,10 +7,10 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 import { beforeEach, describe } from 'mocha'
 
-import db, { User, Recommend } from '../../../dat/index.js'
-import errors from '../../../com/errors.js'
+import db, { User, Recommend } from 'dat'
+import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError, ValidationError } = errors
 
 import getRecommendByCategoryCountry from './getRecommendByCategoryCountry.js'
 
@@ -29,7 +29,7 @@ const recommend1 = { //don't include user.id not
 debugger
 
 describe('getRecommendByCategoryCountry', () => {
-    before(() => db.connect('mongodb://127.0.0.1:27017/mired-test')) //process.env.MONGO_ULR_TEST
+    before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => Promise.all([User.deleteMany(), Recommend.deleteMany()]))
 
@@ -156,14 +156,6 @@ describe('getRecommendByCategoryCountry', () => {
             )
     })
 
-
-
-
-    /*it('fails on non-existing user', () =>
-        expect(
-            getRecommendByCategoryCountry('012345678901234567890123', 1, 'Portugal')
-        ).to.be.rejectedWith(NotFoundError, /^user not found$/)
-    )*/
 
     //add validation error test cases
     //add system error test cases

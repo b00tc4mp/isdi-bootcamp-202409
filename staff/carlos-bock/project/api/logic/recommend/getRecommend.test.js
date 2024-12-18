@@ -1,10 +1,10 @@
 import 'dotenv/config'
-import db from '../../../dat/index.js' //import db from 'dat' // check routes
+import db from 'dat'
 import getRecommend from './getRecommend.js'
 
 const userId = '674dd83edb9525488c8f7770'
 
-db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             return getRecommend(userId)

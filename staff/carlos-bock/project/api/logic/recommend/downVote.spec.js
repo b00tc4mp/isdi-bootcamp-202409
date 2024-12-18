@@ -8,10 +8,10 @@ const { expect } = chai
 import { describe } from 'mocha'
 
 
-import db, { User, Recommend } from '../../../dat/index.js'
-import errors from '../../../com/errors.js'
+import db, { User, Recommend } from 'dat'
+import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError } = errors
 
 import downVote from './downVote.js'
 
@@ -25,7 +25,7 @@ const user1 = {
 debugger
 
 describe('downvote', () => {
-    before(() => db.connect('mongodb://127.0.0.1:27017/mired-test')) //process.env.MONGO_URL_TEST
+    before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => Promise.all([User.deleteMany(), Recommend.deleteMany()]))
 
@@ -108,21 +108,3 @@ describe('downvote', () => {
 
     after(() => db.disconnect())
 })
-
-
-
-
-
-
-
-
-/*const recommend1 = {
-    author: user.id,
-    city: 'Lisboa',
-    country: 'Portugal',
-    category: 1,
-    link: 'https://sede.madrid.es',
-    imageUrl: 'https://tugestionespana.com/wp-content/uploads/2022/10/padron-empadronamiento-madrid-espana-768x768.jpg',
-    subject: 'empadronamiento',
-    recommend: '1. ¿Qué es el empadronamiento? El empadronamiento es el registro administrativo que acredita dónde resides. Este registro lo gestiona el Ayuntamiento de Madrid y es obligatorio para todas las personas que viven en el municipio, independientemente de su nacionalidad o situación legal.'
-}*/

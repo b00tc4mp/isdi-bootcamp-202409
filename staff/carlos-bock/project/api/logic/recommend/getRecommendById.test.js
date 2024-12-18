@@ -1,11 +1,11 @@
 import 'dotenv/config'
-import db from '../../../dat/index.js'
+import db from 'dat'
 import getRecommendById from './getRecommendById.js'
 
 const userId = '6754a8149c175644a60dad82'
 const recommendId = '6755aa5148516cc697faf7ee'
 
-db.connect('mongodb://127.0.0.1:27017/mired')
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             return getRecommendById(userId, recommendId)

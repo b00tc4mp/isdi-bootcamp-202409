@@ -1,8 +1,8 @@
 import 'dotenv/config'
-import db from '../../../dat/index.js' //import db from 'dat' // check routes
+import db from 'dat'
 import downVote from './downVote.js'
 
-db.connect('mongodb://127.0.0.1:27017/mired')//process.env.MONGO_URL
+db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
             return downVote(userId, recommendId)

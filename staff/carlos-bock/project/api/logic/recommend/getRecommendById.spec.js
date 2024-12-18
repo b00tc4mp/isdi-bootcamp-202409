@@ -7,10 +7,10 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 import { beforeEach, describe } from 'mocha'
 
-import db, { User, Recommend } from '../../../dat/index.js'
-import errors from '../../../com/errors.js'
+import db, { User, Recommend } from 'dat'
+import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError } = errors
 
 import getRecommendById from './getRecommendById.js'
 
@@ -29,7 +29,7 @@ const recommend1 = { //don't include user.id not
 debugger
 
 describe('getRecommendById', () => {
-    before(() => db.connect('mongodb://127.0.0.1:27017/mired-test')) //process.env.MONGO_ULR_TEST
+    before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => Promise.all([User.deleteMany(), Recommend.deleteMany()]))
 
@@ -81,7 +81,6 @@ describe('getRecommendById', () => {
                         expect(recommend.image).to.equal(recommend3.image)
                         expect(recommend.text).to.equal(recommend3.text)
                         expect(recommend.subject).to.equal(recommend3.subject)
-                        //expect(recommend[0].date).to.equal(recommend3.date)
 
                         /*expect(recommend[1].id).to.equal(recommend2.id)
                         expect(recommend[1].author.id).to.equal(user.id)
@@ -94,7 +93,6 @@ describe('getRecommendById', () => {
                         expect(recommend[1].image).to.equal(recommend2.image)
                         expect(recommend[1].text).to.equal(recommend2.text)
                         expect(recommend[1].subject).to.equal(recommend2.subject)
-                        //expect(recommend[1].date).to.equal(recommend2.date)
                         */
                     })
             )
@@ -105,8 +103,6 @@ describe('getRecommendById', () => {
             getRecommendById('012345678901234567890123', '012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, /^Recommendation not found$/)
     )
-
-
 
     //add validation error test cases
     //add system error test cases
