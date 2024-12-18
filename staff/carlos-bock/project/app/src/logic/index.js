@@ -9,19 +9,19 @@ import getUserId from './user/getUserId.js'
 import getUserName from './user/getUserName.js'
 import getUserRole from './user/getUserRole.js'
 
-import addComment from './recommendation/addComment.js'
-import getComments from './recommendation/getComments.js'
-import removeComment from './recommendation/removeComment.js'
+import addComment from './recommend/addComment.js'
+import getComments from './recommend/getComments.js'
+import removeComment from './recommend/removeComment.js'
 
-import createRecommend from './recommendation/createRecommend.js'
-import deleteRecommend from './recommendation/deleteRecommend.js'
-import getRecommend from './recommendation/getRecommend.js'
-import getRecommendById from './recommendation/getRecommendById.js'
-import getRecommendByCategoryCoutry from './recommendation/getRecommendByCategoryCountry.js'
-import getRecommendByUser from './recommendation/getRecommendByUser.js'
+import createRecommend from './recommend/createRecommend.js'
+import deleteRecommend from './recommend/deleteRecommend.js'
+import getRecommend from './recommend/getRecommend.js'
+import getRecommendById from './recommend/getRecommendById.js'
+import getRecommendByCategoryCoutry from './recommend/getRecommendByCategoryCountry.js'
+import getRecommendByUser from './recommend/getRecommendByUser.js'
 
-import downVoteToggle from './recommendation/downVoteToggle.js'
-import upVoteToggle from './recommendation/upVoteToggle.js'
+import downVoteToggle from './recommend/downVoteToggle.js'
+import upVoteToggle from './recommend/upVoteToggle.js'
 
 
 const logic = {
