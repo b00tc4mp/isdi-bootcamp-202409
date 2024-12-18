@@ -22,14 +22,6 @@ export default function Footer({ onHomeClick, onNewAdClick, onDarkModeClick, onS
           <FaPlus className="text-2xl" />
         </button>
 
-        {/* Botón de Dark Mode */}
-        <button
-          className="flex items-center justify-center text-[#eb3b58] hover:text-[#D1AFA0] transition duration-200"
-          onClick={onDarkModeClick}
-        >
-          <FaMoon className="text-2xl" />
-        </button>
-
         {/* Botón de Settings */}
         <button
           className="flex items-center justify-center text-[#eb3b58] hover:text-[#D1AFA0] transition duration-200"

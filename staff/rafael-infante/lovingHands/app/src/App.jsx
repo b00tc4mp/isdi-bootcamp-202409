@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { Login, Home, Register, Welcome, CreateAd, AdList, FavoriteAds, Settings } from './view'
+import { Login, Home, Register, Welcome, CreateAd, AdList, FavoriteAds, Settings, MyAds } from './view'
 import { Header, Footer, Alert, Confirm } from './view/components'
 
 import { Context } from './view/useContext.js'
@@ -28,7 +28,6 @@ export default function App() {
   const handleUserLoggedOut = () => navigate('/')
   const handleNewAdClick = () => navigate('/new-ad')
   const handleHomeClick = () => navigate('/')
-  // const handleDarkModeClick
   const handleSettingsClick = () => navigate('/settings')
   const handleAlertAccepted = () =>
     setAlert({
@@ -96,15 +95,12 @@ export default function App() {
         />
         <Route path="/favorites" element={logic.isUserLoggedIn() ? <FavoriteAds /> : <Navigate to="/welcome" />} />
 
+        <Route path="/my-ads" element={logic.isUserLoggedIn() ? <MyAds /> : <Navigate to="/welcome" />} />
+
         <Route path="/settings" element={logic.isUserLoggedIn() ? <Settings /> : <Navigate to="/welcome" />} />
       </Routes>
       {logic.isUserLoggedIn() && (
-        <Footer
-          onNewAdClick={handleNewAdClick}
-          onHomeClick={handleHomeClick}
-          // onDarkModeClick={handleDarkModeClick}
-          onSettingsClick={handleSettingsClick}
-        />
+        <Footer onNewAdClick={handleNewAdClick} onHomeClick={handleHomeClick} onSettingsClick={handleSettingsClick} />
       )}
 
       {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}

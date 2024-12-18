@@ -17,22 +17,24 @@ Caregiver (User)
 - Create and publish help offers.
 - Search for help requests.
 - Contact an elder.
-- Save the post of a specified elder.
-- Manage profile: Update profile, view ratings and manage saved posts.
+- Save the ad of a specified elder.
+- Manage settings: Update email and password.
 - Rate elders.
+- View ratings and saved ads.
 
 Elder (User)
 
-- Create and post help requests.
+- Create and publish help requests.
 - Search for assistance offers.
 - Contact a Caregiver.
-- Save the post of a specified caregiver.
-- Manage profile: Update profile, view ratings and manage saved posts.
+- Save the ad of a specified caregiver.
+- Manage settings: Update email and password.
 - Rate caregivers.
+- View ratings and saved ads.
 
-### UXUI Design
+### UX / UI Design
 
-[Figma](https://www.figma.com/design/vvDGYcAaFPJKgUSgKO6Gkm/LovingHands?node-id=0-1&node-type=canvas&t=QOzUYzlKPp6uLx4E-0)
+[Figma](https://www.figma.com/design/vvDGYcAaFPJKgUSgKO6Gkm/LovingHands?node-id=0-1&p=f&t=QVdajI0EGhCizjjL-0)
 
 ## Technical
 
@@ -52,13 +54,16 @@ Elder (User)
 
 ### Techs
 
-- HTML/CSS/JS (...)
-- React JS (...)
-- Node (...)
-- Express (...)
-- Mongo (...)
-- Mocha & Chai (...)
-- [...]
+- HTML / CSS / JavaScript / Tailwind.
+- React JS.
+- Vite.
+- Node JS / npm.
+- Express.
+- Mongodb / Mongoose / Compass.
+- Mocha & Chai.
+- Leaflet / Nominatim API / OpenStreetMap / GoogleMaps API.
+- Whatsapp API.
+- bcrypt / JWT.
 
 ### Data Model
 
@@ -82,7 +87,7 @@ Ad
   - type(string)
   - coordinates ([number])
   - address (string)
-- description (string)
+- text (string)
 - date (Date)
 - reviews([Review])
 
@@ -90,7 +95,7 @@ Review
 
 - id (uuid)
 - author (User.id)
-- rating (number)
+- calification (number)
 - comment (string)
 - date (date)
 

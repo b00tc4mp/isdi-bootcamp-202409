@@ -14,6 +14,7 @@ export default async (userId) => {
     if (!user) throw new NotFoundError('user not found')
 
     return ads.map((ad) => {
+      // Calculo del Average Rating
       const totalRatings = ad.reviews.reduce((sum, review) => sum + review.calification, 0)
       const averageRating = ad.reviews.length > 0 ? (totalRatings / ad.reviews.length).toFixed(1) : 'No ratings'
 
