@@ -1,5 +1,4 @@
-//create passwordinput, input, button, form, field, label in library
-import Button from './library/Button.jsx'
+import { PasswordInput, Input, Button, Form, Field, Label } from './library/index.js'
 //import loginUser from '../logic/user/loginUser.js'
 //import registerUser from '../logic/user/registerUser.js'
 
@@ -52,23 +51,23 @@ export default function Login(props) {
 
         props.onRegisterClick()
     }
-    //////////////////////replace form and divs with react components
+
     return <main>
         <h2>iniciar sesión</h2>
 
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor='username'>Nombre de usuario</label>
-                <input type='text' id='username'></input>
-            </div>
+        <Form onSubmit={handleSubmit}>
+            <Field>
+                <Label htmlFor='username'>Nombre de usuario</Label>
+                <Input type='text' id='username'></Input>
+            </Field>
 
-            <div>
-                <label htmlFor='password'>Contraseña</label>
-                <input type='password' id='password'></input>
-            </div>
+            <Field>
+                <Label htmlFor='password'>Contraseña</Label>
+                <PasswordInput type='password' id='password'></PasswordInput>
+            </Field>
 
             <Button type='submit'>iniciar sesión</Button>
-        </form>
+        </Form>
         <a href='' onClick={handleRegisterClick}>Regístrate</a>
     </main>
 }

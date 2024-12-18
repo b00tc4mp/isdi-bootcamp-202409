@@ -115,7 +115,7 @@ export default function Recommend({ recommend, onUpVote, onDownVote, onDeleted, 
 
         <Button onClick={handleCommentsClick}>💬 {comments.length} </Button>
 
-        {logic.isUserModerator() && <Button>🧯</Button>}
+        {logic.isUserModerator() && <Button onClick={handleDeleteClick}>🧯</Button>}
 
         {view === 'comments' && <Comments
             recommendId={id}

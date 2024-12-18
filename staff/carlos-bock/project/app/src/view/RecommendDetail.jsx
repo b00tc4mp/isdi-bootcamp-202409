@@ -62,10 +62,11 @@ export default function RecommendDetail() {
                 recommendText={text}
             />)}
 
-        {logic.isUserModerator() && <Button>🧯</Button>}
 
         <img className='img' src={image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/HTTP_logo.svg/180px-HTTP_logo.svg.png'} alt={subject} />
     </article>
 }
 
 //{comments.length}
+
+// {logic.isUserModerator() && <Button>🧯</Button>}

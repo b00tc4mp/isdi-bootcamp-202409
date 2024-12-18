@@ -36,12 +36,6 @@ export default function Header({ onHomeClick, onLoggedOut }) {
         } else setName(null)
     }, [location.pathname])
 
-    /*const handleHomeClick = event => {
-        event.preventDefault()
-
-        onHomeClick()
-    }*/
-
     const handleLogout = () => {
         confirm('¿Cerrar sesión?', accepted => {
             if (accepted) {
@@ -54,7 +48,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
 
     console.log('Header -> render')
 
-    //add logic to return statment
+
     return <header className='header'>
         <h1>miRed</h1>
 

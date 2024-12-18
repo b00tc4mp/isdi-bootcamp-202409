@@ -1,8 +1,8 @@
-# [miRed / myNetwork]
+# [miRed]
 
 ## Intro
 
-miRed (myNetwork) is a social media network focused on creating an information network for individuals moving abroad. If you are already on ground share your own experiences and reviews with your fellow diaspora.
+miRed is a social media network focused on creating an information network for individuals moving abroad. If you are already on ground share your own experiences and reviews with your fellow diaspora.
 
 #### Move with confidence
 
@@ -21,12 +21,9 @@ User
 - view comments
 - remove comments
 - add review
-- edit review
 - remove review
-- report/flag content
 - profile page
-  -toggle posts / reviews
-  -trust rating
+- toggle posts / reviews
 
 Admin
 
@@ -34,7 +31,6 @@ Admin
 - delete user
 - delete post
 - remove comment
-- archive review or post
 - [...]
 
 ### UXUI Design
@@ -86,6 +82,8 @@ Recommendation (mongo)
 - upVotes ([User.id])//not visible
 - downVotes ([User.id])//not visible
 - image (string)
+- city (string)
+- country (string)
 
 Comment
 
@@ -94,20 +92,12 @@ Comment
 - text (string)
 - date (Date)
 
-Destination
--name ([string]) //country list
 
-Country {}
--name (string)
-
-City {}
--name (string)
--country (Country.id)
 
 ### Techs
 
 - HTML/CSS/JS (...)
-- React (...) (React Native?)
+- React (...) 
 - Node (...)
 - Express (...)
 - Mongo (...)
@@ -118,3 +108,7 @@ City {}
 
 - Mocha & Chai
 -
+![alt text](coverage.png)
+
+### TODO List
+- https://github.com/b00tc4mp/isdi-bootcamp-202409/issues/230
