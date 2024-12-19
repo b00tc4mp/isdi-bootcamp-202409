@@ -71,7 +71,7 @@ const validateRankingLength = (rankingLength: number): void => {
 }
 
 const validateUpdateProfile = (username: string | undefined, email: string | undefined, oldPassword: string | undefined, newPassword: string | undefined, newPasswordRepeat: string | undefined) => {
-    if (!(username || email || oldPassword || newPassword || newPasswordRepeat)) throw new ValidationError('Invalid form')
+    if (!(username || email || oldPassword || newPassword || newPasswordRepeat)) throw new ValidationError('Invalid data')
 }
 
 const validatePasswordUpdate = (oldPassword: string | undefined, newPassword: string | undefined, newPasswordRepeat: string | undefined): void => {
