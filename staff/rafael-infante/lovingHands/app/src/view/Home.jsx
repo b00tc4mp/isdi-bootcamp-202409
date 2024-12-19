@@ -97,7 +97,7 @@ export default function Home() {
           <div className="w-full max-w-md text-center mt-2 mb-2">
             <h1 className="text-3xl md:text-4xl font-bold text-[#2b2b2b] text-center">Hi {name}!</h1>
             <p className="text-base md:text-lg text-gray-600 mt-2 text-center">
-              We're glad to have you here. Explore the app to find ads, locate nearby offers, or view your favorites.
+              We're glad to have you here. Explore the app to find ads & locate nearby offers.
             </p>
           </div>
 
