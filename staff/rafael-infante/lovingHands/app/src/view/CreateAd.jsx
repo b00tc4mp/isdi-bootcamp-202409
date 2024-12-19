@@ -97,37 +97,11 @@ export default function CreateAd({ onCreated }) {
               required
             />
           </div>
-          {/* Location */}
-          {/* <div>
-            <label htmlFor="coordinates" className="block text-sm font-medium text-gray-700">
-              Location
-            </label>
-            <input
-              type="text"
-              name="coordinates"
-              id="coordinates"
-              placeholder="36.659979045469115, -4.754374953289659"
-              required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-            />
-          </div> */}
-
-          {/* <div>
-            <label htmlFor="address"></label>
-            <input
-              type="text"
-              name="address"
-              id="address"
-              placeholder="Coín, Málaga"
-              required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-            />
-          </div> */}
 
           <div>
             <LocationInput
               onLocationSelect={(location) => {
-                console.log('Ubicacion seleccionada: ', location)
+                console.debug('Ubicacion seleccionada: ', location)
                 setLocation(location)
               }}
             />
