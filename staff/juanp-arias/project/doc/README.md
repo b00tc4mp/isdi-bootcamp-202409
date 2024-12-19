@@ -11,8 +11,8 @@ Studify is an application designed to help students and teachers to organise the
 
 Student
 - take notes and edit them
-- synchronize notes to the calendar
-- search through notes
+- synchronize notes to the calendar (1.0)
+- search through notes (1.0)
 - create alerts and reminders
 - view and edit your schedule
 - view assigned tasks
@@ -22,8 +22,8 @@ Student
 
 Teacher
 - take notes and edit them
-- synchronize notes to the calendar
-- search through notes
+- synchronize notes to the calendar (1.0)
+- search through notes (1.0)
 - create alerts and reminders
 - view and edit your schedule
 - assign tasks to students
@@ -77,96 +77,102 @@ Note
 Reminder
 - id (UUID)
 - date (Date)
+- title (string)
 - text (string, maxLength 200)
 
 Task
 - id (UUID)
 - creator (User.id)
 - assignes ([User.id])
+- viewed ([User.id])
 - date (Date)
 - text (string, maxLength 400)
 
 
 ### Techs
 
-- HTML/CSS/JS (...)
-- React (...)
-- Node (...)
-- Express (...)
-- Mongo (...)
-- Mocha & Chai (...)
-- [...]
+- HTML/Tailwind CSS/JS 
+- React 
+- Node 
+- Express 
+- Mongo 
+- Mongoose
+- Mocha & Chai 
+- jwt 
+- bcrypt
 
 ### Test Coverage
 
 ```sh
+  141 passing (3s)
+
 -------------------------------|---------|----------|---------|---------|-------------------
 File                           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -------------------------------|---------|----------|---------|---------|-------------------
-All files                      |   97.41 |    85.61 |    97.9 |   97.51 |                  
- groups                        |   96.73 |    92.85 |   94.87 |   96.59 |                   
-  createGroup.js               |   83.33 |      100 |      60 |   81.81 | 10,15            
+All files                      |   95.96 |    94.82 |   92.35 |   96.11 |                  
+ groups                        |      96 |      100 |    92.4 |   95.86 |                  
+  createGroup.js               |   84.61 |      100 |      60 |   83.33 | 11,16            
   createGroup.spec.js          |     100 |      100 |     100 |     100 |                  
   deleteGroup.js               |    87.5 |      100 |      60 |   84.61 | 10,17            
   deleteGroup.spec.js          |     100 |      100 |     100 |     100 |                  
-  getGroups.js                 |      95 |    83.33 |     100 |   94.44 | 36               
+  getGroups.js                 |   89.47 |      100 |   71.42 |   88.88 | 10,18            
   getGroups.spec.js            |     100 |      100 |     100 |     100 |                  
- home                          |   97.63 |    83.33 |     100 |   97.53 |                  
-  getLastNote.js               |   94.11 |    83.33 |     100 |   93.33 | 26                
+ home                          |   95.78 |      100 |    92.5 |   95.65 |                  
+  getLastNote.js               |    87.5 |      100 |      60 |   85.71 | 10,16            
   getLastNote.spec.js          |     100 |      100 |     100 |     100 |                  
-  getRemindersCount.js         |    92.3 |      100 |     100 |   91.66 | 12               
+  getRemindersCount.js         |    92.3 |      100 |     100 |   91.66 | 14               
   getRemindersCount.spec.js    |     100 |      100 |     100 |     100 |                  
-  getTasksCount.js             |    92.3 |       75 |     100 |    90.9 | 18               
+  getTasksCount.js             |   83.33 |      100 |      60 |   81.81 | 10,15            
   getTasksCount.spec.js        |     100 |      100 |     100 |     100 |                  
-  getTasksCreatedCount.js      |    92.3 |       75 |     100 |    90.9 | 18               
+  getTasksCreatedCount.js      |   83.33 |      100 |      60 |   81.81 | 10,15            
   getTasksCreatedCount.spec.js |     100 |      100 |     100 |     100 |                  
- notes                         |    97.4 |     92.3 |   96.03 |   97.28 |                  
+ notes                         |   96.92 |      100 |   93.13 |   96.81 |                  
   createNote.js                |     100 |      100 |     100 |     100 |                  
   createNote.spec.js           |     100 |      100 |     100 |     100 |                  
   deleteNote.js                |    87.5 |      100 |      60 |   84.61 | 10,17            
   deleteNote.spec.js           |     100 |      100 |     100 |     100 |                  
-  getNote.js                   |   94.73 |       90 |     100 |   93.75 | 27               
+  getNote.js                   |   94.11 |      100 |   66.66 |   93.33 | 14               
   getNote.spec.js              |     100 |      100 |     100 |     100 |                  
-  getNotes.js                  |   94.73 |    83.33 |     100 |   94.11 | 31               
+  getNotes.js                  |   88.88 |      100 |   66.66 |   88.23 | 10,18            
   getNotes.spec.js             |     100 |      100 |     100 |     100 |                  
   updateNote.js                |   83.33 |      100 |      50 |   81.81 | 11,16            
   updateNote.spec.js           |     100 |      100 |     100 |     100 |                  
- reminders                     |   97.28 |    76.47 |     100 |   97.85 |                  
-  createReminder.js            |    91.3 |    66.66 |     100 |      95 | 32               
+ reminders                     |   96.18 |    91.66 |   93.54 |   96.76 |                  
+  createReminder.js            |   86.36 |       75 |      60 |      90 | 21,26            
   createReminder.spec.js       |     100 |      100 |     100 |     100 |                  
-  deleteReminder.js            |   94.44 |    83.33 |     100 |   93.33 | 28               
+  deleteReminder.js            |   89.47 |      100 |   66.66 |   88.23 | 13,19            
   deleteReminder.spec.js       |     100 |      100 |     100 |     100 |                  
-  editReminder.js              |   94.11 |    83.33 |     100 |   92.85 | 23               
+  editReminder.js              |   93.33 |      100 |   66.66 |    92.3 | 13               
   editReminder.spec.js         |     100 |      100 |     100 |     100 |                  
-  getReminders.js              |   93.75 |       75 |     100 |   92.85 | 23               
+  getReminders.js              |   92.85 |      100 |      75 |    92.3 | 9                
   getReminders.spec.js         |     100 |      100 |     100 |     100 |                  
-  getRemindersByDate.js        |   95.23 |      100 |     100 |      95 | 13               
+  getRemindersByDate.js        |   95.23 |      100 |     100 |      95 | 15               
   getRemindersByDate.spec.js   |     100 |      100 |     100 |     100 |                  
-  updateReminder.js            |    91.3 |       70 |     100 |      95 | 37               
+  updateReminder.js            |   86.36 |    83.33 |   71.42 |      90 | 13,22            
   updateReminder.spec.js       |     100 |      100 |     100 |     100 |                  
- tasks                         |   97.55 |    83.33 |   96.82 |   97.43 |                  
-  createTask.js                |      95 |       75 |     100 |   94.11 | 28                
+ tasks                         |   94.63 |    88.46 |      90 |   94.77 |                  
+  createTask.js                |   84.61 |    83.33 |    62.5 |   86.95 | 20,25,35         
   createTask.spec.js           |     100 |      100 |     100 |     100 |                  
   deleteTask.js                |    87.5 |      100 |      60 |   84.61 | 10,17            
   deleteTask.spec.js           |     100 |      100 |     100 |     100 |                  
-  getTasks.js                  |   94.11 |    66.66 |     100 |   93.33 | 27               
+  getTasks.js                  |      80 |       75 |   57.14 |   78.94 | 9,20     
   getTasks.spec.js             |     100 |      100 |     100 |     100 |                  
-  getTasksCreated.js           |   94.11 |       75 |     100 |   93.33 | 27               
+  getTasksCreated.js           |     100 |       75 |   57.14 |   77.77 | 9,18     
   getTasksCreated.spec.js      |     100 |      100 |     100 |     100 |                  
-  toggleTaskViewed.js          |   88.23 |      100 |   66.66 |   85.71 | 13,22            
+  toggleTaskViewed.js          |   88.23 |      100 |   66.66 |   85.71 | 13,22             
   toggleViewed.spec.js         |     100 |      100 |     100 |     100 |                  
- users                         |   97.68 |    91.66 |     100 |   97.97 |                  
+ users                         |   96.52 |    95.45 |   93.24 |   96.77 |                  
   authenticateUser.js          |   90.47 |       75 |     100 |   94.73 | 20               
   authenticateUser.spec.js     |     100 |      100 |     100 |     100 |                  
-  getUserDatos.js              |   94.11 |      100 |     100 |   93.33 | 15               
+  getUserDatos.js              |   93.75 |      100 |   66.66 |   92.85 | 14               
   getUserDatos.spec.js         |     100 |      100 |     100 |     100 |                  
   getUserName.js               |   94.11 |      100 |     100 |   93.33 | 15               
   getUserName.spec.js          |     100 |      100 |     100 |     100 |                  
-  getUsers.js                  |     100 |      100 |     100 |     100 |                  
+  getUsers.js                  |   89.47 |      100 |   66.66 |   88.23 | 9,14             
   getUsers.spec.js             |     100 |      100 |     100 |     100 |                  
   registerUser.js              |      95 |      100 |     100 |   94.73 | 21               
   registerUser.spec.js         |     100 |      100 |     100 |     100 |                  
-  updateUserData.js            |   93.75 |       75 |     100 |    92.3 | 24               
+  updateUserData.js            |   86.66 |      100 |      50 |   84.61 | 13,22            
   updateUserData.spec.js       |     100 |      100 |     100 |     100 |                  
 -------------------------------|---------|----------|---------|---------|-------------------
 ```

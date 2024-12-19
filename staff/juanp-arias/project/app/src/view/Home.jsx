@@ -14,6 +14,7 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
     const [tasksCreatedCount, setTasksCreatedCount] = useState(0)
     const [lastNote, setLastNote] = useState(null)
     const [notification, setNotification] = useState(null)
+    const [teacherNotification, setTeacherNotification] = useState(null)
 
     const setUserName = (userName) => {
         const name = userName.split(' ')[0]
@@ -24,26 +25,10 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
         if (logic.isUserLoggedIn()) {
             try {
                 {
-                    logic.isUserRoleStudent() && logic.getTasksCount()
-                        .then(count => {
-                            setTasksCount(count)
-                            if (count > 0) {
-                                setNotification(`Hey! ${count} tasks are waiting for you. Check them out now.`)
-                                alert(`Hey, you have ${count} tasks unseen!`)
-                            } else {
-                                setNotification('All tasks reviewed! Keep up the good work.')
-                            }
-                        })
-                        .catch(error => {
-                            alert(error.message)
-                            console.error(error)
-                        })
-                }
-                {
                     logic.isUserRoleTeacher() && logic.getTasksCreatedCount()
                         .then(tasksCount => {
                             setTasksCreatedCount(tasksCount)
-                            setNotification(`You have ${tasksCount} tasks assigned to students. Keep track of their progress!`)
+                            setTeacherNotification(`You have ${tasksCount} tasks assigned to students. Keep track of their progress!`)
                         })
                         .catch(error => {
                             alert(error.message)
@@ -75,6 +60,37 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
             setRemindersCount(0)
             setLastNote(null)
         }
+
+    }, [])
+
+    useEffect(() => {
+        let intervalId
+        const fetchData = () => {
+            if (logic.isUserRoleStudent) {
+                try {
+                    logic.getTasksCount()
+                        .then(count => {
+                            setTasksCount(count)
+                            if (count > 0) {
+                                setNotification(`Hey! ${count} tasks are waiting for you. Check them out now.`)
+                            } else {
+                                setNotification('All tasks reviewed! Keep up the good work.')
+                            }
+                        })
+                        .catch(error => {
+                            alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
+                    console.error(error)
+                }
+            }
+        }
+        fetchData()
+        intervalId = setInterval(fetchData, 8000)
+
+        return (() => clearInterval(intervalId))
     }, [])
 
     if (!lastNote) return <Loading />
@@ -125,8 +141,8 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
                         <HomeButton onClick={handleViewNotesClick} level='red'>View notes</HomeButton>
                     }
                 </div>
-                <div className={`text-center py-4 rounded-lg shadow ${tasksCount > 0 ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
-                    <p className='italic'>{notification}</p>
+                <div className={`text-center py-4 rounded-lg shadow ${tasksCount > 0 ? 'bg-yellow-100 dark:bg-yellow-900 text-black dark:text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
+                    {logic.isUserRoleStudent() ? <p className='italic'>{notification}</p> : <p className='italic'>{teacherNotification}</p>}
                 </div>
             </div>
         </SectionContainer>

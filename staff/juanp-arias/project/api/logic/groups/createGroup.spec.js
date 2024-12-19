@@ -15,13 +15,7 @@ describe('createGroup', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Group.deleteMany()]))
 
     it('succeeds when a group is created with an existing teacher', () => {
-        const teacher = new User({
-            name: 'Coco Loco',
-            email: 'coco@loco.com',
-            dateOfBirth: new Date('2000-07-01'),
-            password: '123456',
-        })
-
+        const teacher = new User({ name: 'Coco Loco', email: 'coco@loco.com', dateOfBirth: new Date('2000-07-01'), password: '123456', })
         const students = [
             new User({ name: 'Student 1', email: 'student1@school.com', dateOfBirth: new Date('2010-01-01'), password: '123456' }),
             new User({ name: 'Student 2', email: 'student2@school.com', dateOfBirth: new Date('2011-01-01'), password: '123456' })

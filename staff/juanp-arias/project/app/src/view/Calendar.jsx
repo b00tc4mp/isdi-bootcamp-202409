@@ -50,7 +50,7 @@ export default function Calendar({ onEditClick }) {
             logic.getRemindersByDate(date)
                 .then(dateReminders => {
                     if (dateReminders.length === 0) {
-                        confirm(`It looks like you don't have reminders for this day, want to create one?`, accepted => {
+                        confirm(`You don't have any reminders scheduled for this day. Would you like to create one?`, accepted => {
                             if (accepted) { setView('new-reminder') }
                         }, 'warn')
                     } else {

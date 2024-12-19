@@ -12,7 +12,7 @@ export default (noteId, text) => {
         .then(note => {
             if (!note) throw new NotFoundError('note not found')
 
-            return Note.findByIdAndUpdate(noteId, { text }, { new: true, runValidators: true })//new: true(devuelve el documento actualizado), runValidators: true(ejecuta validaciones del esquema antes de actualizar sus datos)
+            return Note.findByIdAndUpdate(noteId, { text }, { new: true, runValidators: true })
                 .catch(error => { throw new SystemError(error.message) })
         })
 }

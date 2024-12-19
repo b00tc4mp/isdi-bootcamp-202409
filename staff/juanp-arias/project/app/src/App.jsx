@@ -47,7 +47,7 @@ export default function App() {
 
   const handleNoteEditClick = (noteId) => navigate(`/notes/${noteId}`)
 
-  const handleReminderEditClick = (reminderId) => navigate(`/reminders/reminder/${reminderId}`)
+  const handleReminderEditClick = (reminderId) => navigate(`/reminders/${reminderId}`)
   const handleReminderEdited = () => navigate('/calendar')
 
   const handleAlertAccepted = () => setAlert({
@@ -95,7 +95,7 @@ export default function App() {
 
       <Route path="/calendar" element={logic.isUserLoggedIn() ? <Calendar onEditClick={handleReminderEditClick} /> : <Navigate to="/welcome" />} />
 
-      <Route path="/reminders/reminder/:reminderId" element={logic.isUserLoggedIn() ? <EditReminder onEdited={handleReminderEdited} onCancelClick={handleReminderEdited} /> : <Navigate to="/welcome" />} />
+      <Route path="/reminders/:reminderId" element={logic.isUserLoggedIn() ? <EditReminder onEdited={handleReminderEdited} onCancelClick={handleReminderEdited} /> : <Navigate to="/welcome" />} />
 
       <Route path="/notes" element={logic.isUserLoggedIn() ? <Notes onEditClick={handleNoteEditClick} /> : <Navigate to="/welcome" />} />
 

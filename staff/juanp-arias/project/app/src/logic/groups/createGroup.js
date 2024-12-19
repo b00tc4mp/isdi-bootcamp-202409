@@ -4,6 +4,7 @@ const { SystemError } = errors
 
 export default (name, students) => {
     validate.name(name)
+    validate.students(students)
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/groups`, {
         method: 'POST',

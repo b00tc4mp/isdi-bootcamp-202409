@@ -11,6 +11,7 @@ export default (userId, noteId) => {
         User.findById(userId).lean(),
         Note.findById(noteId).lean()
     ])
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, note]) => {
             if (!user) throw new NotFoundError('user not found')
             if (!note) throw new NotFoundError('note not found')
@@ -21,9 +22,5 @@ export default (userId, noteId) => {
             note.id = note._id.toString()
             delete note._id
             return note
-        })
-        .catch(error => {
-            if (error instanceof NotFoundError || error instanceof OwnershipError) throw error
-            throw new SystemError(error.message)
         })
 }

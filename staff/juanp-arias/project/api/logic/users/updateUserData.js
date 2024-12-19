@@ -10,6 +10,7 @@ export default function updateUserData(userId, name, email, dateOfBirth, role) {
     validate.date(new Date(dateOfBirth))
 
     return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
@@ -18,9 +19,6 @@ export default function updateUserData(userId, name, email, dateOfBirth, role) {
                 { name, email, dateOfBirth, role },
                 { new: true, runValidators: true }
             )
-        })
-        .catch(error => {
-            if (error instanceof NotFoundError) throw error
-            throw new SystemError(error.message)
+                .catch(error => { throw new SystemError(error.message) })
         })
 }

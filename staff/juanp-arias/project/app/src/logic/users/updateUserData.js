@@ -6,6 +6,7 @@ export default (name, email, dateOfBirth, role) => {
     validate.name(name)
     validate.email(email)
     validate.date(new Date(dateOfBirth))
+    validate.text(role)
 
     const { sub: userId } = extractPayLoad(sessionStorage.token)
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}/profile`, {

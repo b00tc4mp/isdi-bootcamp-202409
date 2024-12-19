@@ -18,17 +18,15 @@ export default (userId, title, text, date) => {
     if (reminderDateOnly < today) { throw new SystemError('Cannot create reminders for past dates.') }
 
     return User.findById(userId)
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
             return Reminder.create({ title, text, date })
+                .catch(error => { throw new SystemError(error.message) })
                 .then(reminder => {
                     user.reminders.push(reminder)
                     return user.save()
                 })
-        })
-        .catch(error => {
-            if (error instanceof NotFoundError) throw error
-            throw new SystemError(error.message)
         })
 }

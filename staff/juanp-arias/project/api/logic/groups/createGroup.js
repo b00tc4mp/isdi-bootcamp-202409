@@ -5,7 +5,8 @@ const { SystemError, NotFoundError } = errors
 export default (userId, name, students) => {
     validate.id(userId, 'userId')
     validate.name(name)
-
+    validate.students(students)
+    
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {

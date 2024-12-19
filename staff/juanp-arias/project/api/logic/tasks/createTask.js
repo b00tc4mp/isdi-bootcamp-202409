@@ -8,11 +8,21 @@ export default (userId, groupId, date, text) => {
     validate.text(text)
     validate.date(new Date(date))
 
+    const reminderDate = new Date(date)
+    const now = new Date()
+
+    const reminderDateOnly = new Date(reminderDate.getFullYear(), reminderDate.getMonth(), reminderDate.getDate())
+
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    if (reminderDateOnly < today) { throw new ValidationError('Cannot create tasks for past dates.') }
+
     return User.findById(userId)
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
             return Group.findById(groupId).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(group => {
                     if (!group) throw new NotFoundError('group not found')
 
@@ -22,9 +32,6 @@ export default (userId, groupId, date, text) => {
         })
         .then(studentIds => {
             return Task.create({ creator: userId, assignes: studentIds, date, text })
-        })
-        .catch(error => {
-            if (error instanceof NotFoundError || error instanceof ValidationError) throw error
-            throw new SystemError(error.message)
+                .catch(error => { throw new SystemError(error.message) })
         })
 }

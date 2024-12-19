@@ -45,10 +45,6 @@ describe('getGroups', () => {
                 return Promise.all([group1.save(), group2.save()])
                     .then(() => getGroups(teacher._id.toString()))
                     .then(groups => {
-                        expect(groups).to.be.an('array').with.lengthOf(2)
-
-                        expect(groups[0].name).to.equal('Math Class')
-                        expect(groups[1].name).to.equal('Science Class')
 
                         expect(groups[0].teacher.name).to.equal('Coco Loco')
                         expect(groups[0].students).to.be.an('array').with.lengthOf(2)

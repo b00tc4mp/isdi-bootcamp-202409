@@ -17,6 +17,6 @@ remindersRouter.get('/:date', authorizationHandler, getRemindersByDateHandler)
 remindersRouter.get('/', authorizationHandler, getRemindersHandler)
 remindersRouter.get('/edit/:reminderId', authorizationHandler, editReminderHandler)
 remindersRouter.delete('/:reminderId', authorizationHandler, deleteReminderHandler)
-remindersRouter.put('/reminder/:reminderId', authorizationHandler, jsonBodyParser, updateReminderHandler)
+remindersRouter.put('/:reminderId', authorizationHandler, jsonBodyParser, updateReminderHandler)
 
 export default remindersRouter

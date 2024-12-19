@@ -7,12 +7,15 @@ export default userId => {
     validate.id(userId, 'userId')
 
     return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
+
             return Note.find({ author: userId })
                 .populate('author', 'name')
                 .sort({ date: -1 })
                 .lean()
+                .catch(error => { throw new SystemError(error.message) })
         })
         .then(notes => {
             notes.forEach(note => {
@@ -24,10 +27,7 @@ export default userId => {
                     delete note.author._id
                 }
             })
+
             return notes
-        })
-        .catch(error => {
-            if (error instanceof NotFoundError) throw error
-            throw new SystemError(error.message)
         })
 }

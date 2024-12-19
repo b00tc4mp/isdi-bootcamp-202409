@@ -2,6 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 export default (groupId, date, text) => {
+    validate.id(groupId, 'groupId')
     validate.date(new Date(date))
     validate.text(text)
 

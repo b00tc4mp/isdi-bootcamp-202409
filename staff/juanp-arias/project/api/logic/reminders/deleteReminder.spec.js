@@ -7,7 +7,7 @@ const { expect } = chai
 import db, { User, Reminder } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError } = errors
+const { NotFoundError, ValidationError, OwnershipError } = errors
 
 import deleteReminder from './deleteReminder.js'
 
@@ -66,13 +66,6 @@ describe('deleteReminder', () => {
     })
 
     it('fails on reminder not associated with user', () => {
-        const user1 = new User({
-            name: 'Coco Loco',
-            email: 'coco@loco.com',
-            dateOfBirth: new Date('2000-07-01'),
-            password: '123456',
-        })
-
         const user2 = new User({
             name: 'Juan Pablo',
             email: 'juan@pablo.com',
@@ -86,7 +79,7 @@ describe('deleteReminder', () => {
             date: new Date('2024-12-20'),
         })
 
-        return Promise.all([user1.save(), user2.save(), reminder.save()]).then(([_, user2, reminder]) => {
+        return Promise.all([user2.save(), reminder.save()]).then(([user2, reminder]) => {
             return expect(
                 deleteReminder(user2._id.toString(), reminder._id.toString())
             ).to.be.rejectedWith(NotFoundError, /^reminder not found$/)

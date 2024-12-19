@@ -3,7 +3,8 @@ import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised)
 const { expect } = chai
-
+import mongoose from 'mongoose'
+const { ObjectId } = mongoose
 import db, { User, Task } from 'dat'
 import { errors } from 'com'
 
@@ -22,21 +23,28 @@ describe('toggleTaskViewed', () => {
             password: '123456',
         })
 
+        const student = new User({
+            name: 'Fran Pereira',
+            email: 'fran@loco.com',
+            dateOfBirth: new Date('2000-07-01'),
+            password: '123456',
+        })
+
         const task = new Task({
             creator: user._id,
-            assignes: [user._id],
-            viewed: [],
+            assignes: [student._id],
             text: 'Task to view',
             date: new Date(),
         })
 
-        return Promise.all([user.save(), task.save()])
-            .then(([savedUser, savedTask]) => {
-                return toggleTaskViewed(savedUser._id.toString(), savedTask._id.toString())
+        return Promise.all([user.save(), student.save(), task.save()])
+            .then(([_, student, savedTask]) => {
+                return toggleTaskViewed(student._id.toString(), savedTask._id.toString())
                     .then(() => Task.findById(savedTask._id).lean())
                     .then(updatedTask => {
                         expect(updatedTask).to.exist
-                        expect(updatedTask.viewed).to.be.an('array').that.includes(savedUser._id.toString())
+                        expect(updatedTask.viewed).to.be.an('array')
+                        expect(updatedTask.viewed[0]._id.toString()).to.equal(student._id.toString())
                     })
             })
     })
@@ -64,7 +72,7 @@ describe('toggleTaskViewed', () => {
                     .then(updatedTask => {
                         expect(updatedTask).to.exist
                         expect(updatedTask.viewed).to.have.lengthOf(1)
-                        expect(updatedTask.viewed).to.include(savedUser._id.toString())
+                        expect(updatedTask.viewed[0]._id.toString()).to.equal(savedUser._id.toString())
                     })
             })
     })

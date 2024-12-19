@@ -29,28 +29,27 @@ describe('updateReminder', () => {
             date: new Date('2024-12-20'),
         })
 
-        return Promise.all([user.save(), reminder.save()]).then(([savedUser, savedReminder]) => {
-            savedUser.reminders.push(savedReminder)
-            return savedUser.save().then(() => {
-                return updateReminder(
-                    savedUser._id.toString(),
-                    savedReminder._id.toString(),
-                    'Updated Title',
-                    'Updated Text',
-                    '2024-12-25'
-                )
-                    .then(updatedReminder => {
-                        expect(updatedReminder).to.exist
-                        expect(updatedReminder.title).to.equal('Updated Title')
-                        expect(updatedReminder.text).to.equal('Updated Text')
-                        expect(new Date(updatedReminder.date)).to.deep.equal(new Date('2024-12-25'))
+        user.reminders.push(reminder)
 
-                        return User.findById(savedUser._id).lean()
-                    })
-                    .then(updatedUser => {
-                        expect(updatedUser.reminders).to.include(savedReminder._id)
-                    })
-            })
+        return Promise.all([user.save(), reminder.save()]).then(([savedUser, savedReminder]) => {
+            return updateReminder(
+                savedUser._id.toString(),
+                savedReminder._id.toString(),
+                'Updated Title',
+                'Updated Text',
+                '2024-12-25'
+            )
+                .then(updatedReminder => {
+                    expect(updatedReminder).to.exist
+                    expect(updatedReminder.title).to.equal('Updated Title')
+                    expect(updatedReminder.text).to.equal('Updated Text')
+                    expect(new Date(updatedReminder.date)).to.deep.equal(new Date('2024-12-25'))
+
+                    return User.findById(savedUser._id).lean()
+                })
+                .then(updatedUser => {
+                    expect(updatedUser.reminders[0]._id.toString()).to.equal(savedReminder._id.toString())
+                })
         })
     })
 

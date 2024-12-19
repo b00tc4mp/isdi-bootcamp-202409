@@ -10,21 +10,20 @@ export default (userId, reminderId) => {
         User.findById(userId),
         Reminder.findById(reminderId),
     ])
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, reminder]) => {
             if (!user) throw new NotFoundError('user not found')
             if (!reminder) throw new NotFoundError('reminder not found')
 
             return Reminder.findByIdAndDelete(reminderId)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(() => {
-                    user.reminders = user.reminders.filter(reminder => {
-                        return reminder._id.toString() !== reminderId
-                    })
-
-                    return user.save()
+                    if (user.reminders.length > 0) {
+                        user.reminders = user.reminders.filter(reminder => {
+                            return reminder._id.toString() !== reminderId
+                        })
+                        return user.save()
+                    } else { throw new NotFoundError('reminder not found') }
                 })
-        })
-        .catch(error => {
-            if (error instanceof NotFoundError) throw error
-            throw new SystemError(error.message)
         })
 }

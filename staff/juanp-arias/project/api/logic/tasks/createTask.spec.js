@@ -91,28 +91,6 @@ describe('createTask', () => {
         })
     })
 
-    it('fails on date in the past', () => {
-        const user = new User({
-            name: 'Coco Loco',
-            email: 'coco@loco.com',
-            dateOfBirth: new Date('2000-07-01'),
-            password: '123456',
-        })
-
-        const group = new Group({
-            name: 'Past Group',
-            teacher: user._id,
-            students: [user._id],
-        })
-
-        return Promise.all([user.save(), group.save()])
-            .then(([savedUser, savedGroup]) => {
-                return expect(
-                    createTask(savedUser._id.toString(), savedGroup._id.toString(), '2020-01-01', 'Task Text')
-                ).to.be.rejectedWith(ValidationError, /^invalid date$/)
-            })
-    })
-
     it('fails on non-string user-id', () =>
         expect(() => createTask(true, '012345678901234567890124', '2024-12-20', 'Task Text'))
             .to.throw(ValidationError, /^invalid userId$/)

@@ -16,7 +16,7 @@ export default (userId, taskId) => {
             if (!task) throw new NotFoundError('task not found')
 
             const { viewed } = task
-            if (!viewed.some(userId => userId.equals(userId))) { viewed.push(userId) }
+            if (!viewed.some(viewedUserId => viewedUserId.equals(userId))) { viewed.push(userId) }
 
             return task.save()
                 .catch(error => { throw new SystemError(error.message) })

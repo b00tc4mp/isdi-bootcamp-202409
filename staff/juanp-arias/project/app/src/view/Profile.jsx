@@ -10,7 +10,7 @@ const { SystemError } = errors
 export default function Profile({ onCancelClick }) {
     const [datos, setDatos] = useState(null)
     const location = useLocation()
-    const { alert } = useContext()
+    const { alert, confirm } = useContext()
 
     const fetchDatos = () => {
         if (logic.isUserLoggedIn()) {
@@ -41,28 +41,32 @@ export default function Profile({ onCancelClick }) {
     const handleSubmit = event => {
         event.preventDefault()
         const { target: form } = event
-        const {
-            name: { value: name },
-            email: { value: email },
-            dateOfBirth: { value: dateOfBirth },
-            role: { value: role },
-        } = form
+        const { name: { value: name }, email: { value: email }, dateOfBirth: { value: dateOfBirth }, role: { value: role } } = form
 
-        logic.updateUserData(name, email, dateOfBirth, role)
-            .then(() => {
-                form.reset()
-                alert('Data changed', 'success')
-                fetchDatos()
-            })
-            .catch((error) => {
-                if (error instanceof SystemError) {
-                    alert('Sorry, try again later.')
-                } else {
+        confirm('Are you sure you want to update your data? Please double-check before proceeding.', accepted => {
+            if (accepted) {
+                try {
+                    logic.updateUserData(name, email, dateOfBirth, role)
+                        .then(() => {
+                            form.reset()
+                            alert('Data changed', 'success')
+                            fetchDatos()
+                        })
+                        .catch((error) => {
+                            if (error instanceof SystemError) {
+                                alert('Sorry, try again later.')
+                            } else {
+                                alert(error.message)
+                            }
+                            console.error(error)
+                            form.reset()
+                        })
+                } catch (error) {
                     alert(error.message)
+                    console.error(error)
                 }
-                console.error(error)
-                form.reset()
-            })
+            }
+        }, 'warn')
     }
     const handleCancelClick = event => {
         event.preventDefault()
@@ -83,7 +87,7 @@ export default function Profile({ onCancelClick }) {
                 </Field>
                 <Field>
                     <Label htmlFor='dateOfBirth'>Birthdate</Label>
-                    <Input type='text' defaultValue={birthdate} readOnly></Input>
+                    <Input type='text' defaultValue={birthdate} disabled></Input>
                     <Input id='dateOfBirth' type='hidden' defaultValue={datos.dateOfBirth}></Input>
                 </Field>
                 <Field>
@@ -91,6 +95,7 @@ export default function Profile({ onCancelClick }) {
                     <Input id='role' type='text' defaultValue={datos.role} disabled />
                 </Field>
                 <div className='flex justify-end space-x-2 mr-1'>
+                    <p className='text-gray-600 font-semibold text-xs dark:text-gray-400'>💡 Keeping your profile up-to-date is important! Please make sure both your <strong>name</strong> and <strong>email address</strong> are correctly filled in.</p>
                     <CancelButton onClick={handleCancelClick}>Cancel</CancelButton>
                     <DoneButton type='submit'>Done</DoneButton>
                 </div>

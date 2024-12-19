@@ -57,6 +57,10 @@ const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
 
+const validateStudents = array => {
+    if (!Array.isArray(array)) { throw new ValidationError('The provided value is not an array') }
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -67,7 +71,8 @@ const validate = {
     text: validateText,
     id: validateId,
     callback: validateCallback,
-    date: validateDate
+    date: validateDate,
+    students: validateStudents
 }
 
 export default validate

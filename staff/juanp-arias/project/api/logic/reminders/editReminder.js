@@ -10,16 +10,14 @@ export default (userId, reminderId) => {
         User.findById(userId).lean(),
         Reminder.findById(reminderId).lean()
     ])
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, reminder]) => {
             if (!user) throw new NotFoundError('user not found')
             if (!reminder) throw new NotFoundError('reminder not found')
 
             reminder.id = reminder._id.toString()
             delete reminder._id
+            
             return reminder
-        })
-        .catch(error => {
-            if (error instanceof NotFoundError) throw error
-            throw new SystemError(error.message)
         })
 }

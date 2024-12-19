@@ -5,8 +5,10 @@ const { SystemError } = errors
 export default (reminderId, title, text, date) => {
     validate.id(reminderId, 'reminderId')
     validate.text(text)
+    validate.text(title)
+    validate.date(new Date(date))
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/reminders/reminder/${reminderId}`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/reminders/${reminderId}`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,

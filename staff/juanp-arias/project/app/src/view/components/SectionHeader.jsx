@@ -3,7 +3,7 @@ import logic from '../../logic'
 import logo from '../../assets/logo.png'
 import useContext from '../useContext'
 
-export default function SectionHeader({ sectionName, loadUserName }) {
+export default function SectionHeader({ sectionName, loadUserName, text }) {
     const [name, setName] = useState(null)
     const { alert } = useContext()
 
@@ -32,6 +32,7 @@ export default function SectionHeader({ sectionName, loadUserName }) {
         <div>
             <h1 className='text-3xl font-bold text-gray-900 dark:text-gray-100'>My <span className='text-sky-500'>{sectionName}</span></h1>
             <p className='text-m text-gray-500 dark:text-gray-400'>{name}</p>
+            <p className='text-sm text-gray-500 dark:text-gray-400'>{text}</p>
         </div>
         <img src={logo} alt='profile' className='h-32 w-32 rounded-full' />
     </header>
