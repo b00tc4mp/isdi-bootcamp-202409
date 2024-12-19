@@ -1,48 +1,59 @@
 import { useState, useEffect } from 'react'
 import logic from '../logic'
-
 import { errors } from 'com'
+
+import useContex from './useContext'
 import { Button, Field, Label, Input } from '../library/index';
+
+import { getCustomers } from '../logic/users';
 
 const { SystemError } = errors
 
-export default function ManagePacks(props) {
-    const [loading, setLoading] = useState(true) //This is to show the loader as active by default
+export default function Tracker(props) {
+    //const [loading, setLoading] = useState(true) //This is to show the loader as active by default
+    const [customers, setCustomers] = useState([])
+    const [filteredPacks, setFilteredPacks] = useState([]);
+    const { alert } = useContex()
+
+    useEffect(() => {
+        console.log('Tracker -> componentDidMount')
+        const fetchCustomers = async () => {
+            try {
+                const customers = await logic.getCustomers()
+                console.log('Customers fetched successfully', customers)
+                setCustomers(customers)
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
+        }
+        fetchCustomers()
+    }, [])
+
+
+    const handleCustomerChange = (event) => {
+        const customerId = event.target.value;
+        console.log('entro en el onchange')
+
+        // Encuentra el cliente seleccionado
+        const selectedCustomer = customers.find((customer) => customer.id === customerId);
+        console.log(selectedCustomer)
+
+        // Actualiza los packs filtrados basados en `adquiredPacks`
+        if (selectedCustomer && selectedCustomer.adquiredPacks) {
+            setFilteredPacks(selectedCustomer.adquiredPacks);
+        } else {
+            setFilteredPacks([]); // Si no tiene packs, limpia el estado
+        }
+    }
+
 
     const handleHomeClick = event => {
         event.preventDefault()
         props.onHomeClick()
     }
 
-    /* const handleAssignPacks = event => {
-        console.log('Assign Pack Clicked');
-        props.onAssignPackClick()
-    };
 
-    const handleCreatePacks = event => {
-        console.log('Create Pack Clicked');
-        props.onCreatePackClick()
-    };
-
-    const [basePacks, setPacks] = useState([])
-
-    useEffect(() => {
-        console.log('Packs / PacksList -> componentDidMount')
-        const fetchBasePacks = async () => {
-            try {
-                setLoading(true)
-                const basePacks = await logic.getBasePacks()
-                console.log('BasePacks fetched successfully', basePacks)
-                setPacks(basePacks)
-            } catch (error) {
-                alert(error.message)
-                console.error(error)
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchBasePacks()
-    }, []) */
 
 
     return (
@@ -51,14 +62,15 @@ export default function ManagePacks(props) {
             <p>This will be the page to track your projects</p>
             <div className="flex flex-col">
                 <h2 className="text-2xl">Customer and Pack</h2>
+
                 <form className="flex flex-col justify-items-start">
                     {/* Select Customer */}
                     <Field className="mb-4">
                         <Label htmlFor="selectCustomer">Select Customer</Label>
-                        <select id="selectCustomer" name="selectCustomer" className="border-2 rounded-lg w-full p-2">
-                            <option>Customer 1</option>
-                            <option>Customer 2</option>
-                            <option>Customer 3</option>
+                        <select id="selectCustomer" name="selectCustomer" className="border-2 rounded-lg w-full p-2" onChange={handleCustomerChange}>
+                            {customers.map((customer) => (
+                                <option key={customer.id} value={customer.id}>{customer.name}</option>
+                            ))}
                         </select>
                     </Field>
 
@@ -66,9 +78,10 @@ export default function ManagePacks(props) {
                     <Field className="mb-4">
                         <Label htmlFor="selectPack">Select Pack</Label>
                         <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2">
-                            <option>Pack 1</option>
-                            <option>Pack 2</option>
-                            <option>Pack 3</option>
+                            {filteredPacks.map((pack) => {
+                                <option key={pack.id} value={pack.id}>{pack.id}</option>
+
+                            })}
                         </select>
                     </Field>
 

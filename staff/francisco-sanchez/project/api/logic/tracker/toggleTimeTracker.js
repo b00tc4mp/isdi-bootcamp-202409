@@ -47,6 +47,7 @@ export default (userId, packId, customerId, description, operation) => {
 
                 const time = (getElapsedTime(activeDate))
                 const elapsedMiliseconds = time[1]
+                const elapsedHours = (elapsedMiliseconds / 1000 / 60 / 60).toFixed(5)
 
 
                 //Ahora añado un registro a Activity
@@ -55,20 +56,21 @@ export default (userId, packId, customerId, description, operation) => {
                     date: now,
                     description: description,
                     operation: operation,
-                    quantity: elapsedMiliseconds
+                    quantity: (elapsedHours) //Storage time in miliseconds
                 })
                     .catch(error => {
                         throw new SystemError(error.message)
                     })
                     .then(activity => {
-                        // Borraremos las variables temporales
+                        // Borraremos las variables temporales y actualizamos pack con el nuevo tiempo disponible
                         if (!activity._id) {
                             throw new SystemError('There was a problem create activity')
 
                         }
                         const timerActivated = null
                         const descriptionActivityTemp = null
-                        return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp }, { new: true, runValidators: true })
+                        const remmainingQuantity = (pack.remmainingQuantity - elapsedHours).toFixed(5)
+                        return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp, remmainingQuantity }, { new: true, runValidators: true })
                             .catch(error => {
                                 throw new SystemError(error.message)
                             })

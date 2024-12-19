@@ -6,7 +6,8 @@ import {
     getCustomers,
     getUserByEmail,
     getUserByUserame,
-    findUserIdbyEmailOrUsername
+    findUserIdbyEmailOrUsername,
+    getAdquiredPacks
 } from './users/index.js'
 
 //PACKS & BASEPACKS
@@ -30,6 +31,12 @@ import {
     toggleTimeTracker,
 } from './tracker/index.js'
 
+//ACTIVITY
+import {
+    getActivityByPackId
+
+} from './activity/index.js'
+
 
 const logic = {
     //Customers
@@ -40,6 +47,7 @@ const logic = {
     getUserByEmail,
     getUserByUserame,
     findUserIdbyEmailOrUsername,
+    getAdquiredPacks,
 
     //Packs and basebacks
     createPack,
@@ -54,7 +62,10 @@ const logic = {
     sendEmail,
 
     //Tracker
-    toggleTimeTracker
+    toggleTimeTracker,
+
+    //Activity
+    getActivityByPackId
 
 }
 
