@@ -6,7 +6,7 @@ import { createLogHandler, getLogsHandler, updateLogHandler, deleteLogHandler } 
 const logsRouter = Router()
 
 //Index - Get all
-logsRouter.get('/', authorizationHandler, getLogsHandler)
+logsRouter.get('/users/diver/logbook-history', authorizationHandler, getLogsHandler)
 
 
 //Create - Crete a new log
@@ -18,10 +18,7 @@ logsRouter.put('/:id', authorizationHandler, updateLogHandler )
 
 
 //Delete - Delete a log
-//logsRouter.delete('...', authorizationHandler, deleteLogHandler)
+logsRouter.delete('/:id', authorizationHandler, deleteLogHandler)
 
-//LogBook
-//logsRouter.get('/log-book', authorizationHandler, createLogHandler)
-//logsRouter.get('/log-book-history', authorizationHandler, getLogsHandler)
 
 export default logsRouter

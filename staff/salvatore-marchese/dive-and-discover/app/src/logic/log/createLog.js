@@ -19,7 +19,7 @@ export default (diveSite, date, depth, time, weather, temperature, visibility, w
     validate.diveCenter(diveCenter)
     validate.notes(notes)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/users/diver/log-book`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/logs/users/diver/log-book`, {
         method: 'POST', 
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`, 'Content-Type': 'application/json'

@@ -3,7 +3,7 @@ import { validate, errors } from "com"
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, logbookId) => {
+export default async (userId, logbookId, updateData) => {
     try {
         // Validate IDs
         validate.id(userId, 'userId')
@@ -18,7 +18,7 @@ export default async (userId, logbookId) => {
         if (!logbook) throw new NotFoundError('logbook not found')
 
         // Update the logbook
-        const updatedLogbook = await LogBook.findByIdAndUpdate(logbookId, { new: true })
+        const updatedLogbook = await LogBook.findByIdAndUpdate(logbookId, { $set: updateData }, { new: true })
         if (updatedLogbook) {
             return updatedLogbook
         } else {

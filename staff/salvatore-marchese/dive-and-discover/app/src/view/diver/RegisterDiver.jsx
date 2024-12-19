@@ -25,26 +25,6 @@ export default function Register(props) {
             alert(error.message)
             console.error(error)
         }
-
-        /* try {
-            logic.registerUserDiver(name, email,  password, passwordRepeat, error => {
-                if (error) {
-                    alert(error.message)
-
-                    console.error(error)
-
-                    return
-                }
-
-                form.reset()
-
-                props.onRegistered()
-            })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        } */
     }
 
     const handleLoginClick = event => {
@@ -53,33 +33,47 @@ export default function Register(props) {
         props.onLoginClick()
     }
 
-    return <main>
-        <h2 className="mt-14">Register as Diver</h2>
+    return (
+        <main 
+            className="flex flex-col justify-center items-center h-screen"
+            style={{ backgroundImage: "url('https://www.treehugger.com/thmb/OLxBN3vbTzvgFCeUdlyIMXxu_M8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1279110759-d280cdc3b0b842c2bde02b8e5f7238a8.jpg')" }}
+        >
+            <div className="bg-gray-100 shadow-md p-4 rounded-lg max-w-md flex flex-col items-center">
+                <h2 className="text-2xl font-bold text-center mb-5">Register as <span className="text-yellow-500">Diver</span></h2>
 
-        <Form onSubmit={handleSubmit}>
-            <Field>
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" name="name"/>
-            </Field>
+                <Form onSubmit={handleSubmit} className="flex flex-col gap-y-4 w-full">
+                    <Field>
+                        <Label htmlFor="name">Name</Label>
+                        <Input type="text" id="name" name="name"/>
+                    </Field>
 
-            <Field>
-                <Label htmlFor="email">E-mail</Label>
-                <Input type="email" id="email" name="email"/>
-            </Field>
+                    <Field>
+                        <Label htmlFor="email">E-mail</Label>
+                        <Input type="email" id="email" name="email"/>
+                    </Field>
 
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" name="password"/>
-            </Field>
+                    <Field>
+                        <Label htmlFor="password">Password</Label>
+                        <PasswordInput id="password" name="password"/>
+                    </Field>
 
-            <Field>
-                <Label htmlFor="password-repeat">Repeat Password</Label>
-                <PasswordInput id="password-repeat" name="password-repeat"/>
-            </Field>
+                    <Field>
+                        <Label htmlFor="password-repeat">Repeat Password</Label>
+                        <PasswordInput id="password-repeat" name="password-repeat"/>
+                    </Field>
 
-            <Button  type="submit">Register</Button>
-        </Form>
+                    <Button type="submit" className="w-full sm:w-auto">Register</Button>
+                </Form>
 
-        <a href="" onClick={handleLoginClick}>Login</a>
-    </main>
+                <p className="text-center mb-1 text-600">Already have an account?</p>
+                <a 
+                    href="#"
+                    onClick={handleLoginClick} 
+                    className="text-blue-500 hover:text-blue-700"
+                >
+                    Login
+                </a>
+            </div>
+        </main>
+    );
 }

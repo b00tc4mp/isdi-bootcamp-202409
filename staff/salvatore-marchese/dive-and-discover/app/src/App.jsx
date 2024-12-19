@@ -1,13 +1,17 @@
 import { RouterProvider } from 'react-router-dom'
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
 import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeDiver, ProfileCenter, Profile, LogBook, Search } from './view'
 
 import { Header } from './components/index.js'
 import logic from './logic/users'
+import DiveHistory from './view/diver/DiveHistory.jsx';
 
 
 export default function App() {
+  const location = useLocation()
+  const isLoginPage = location.pathname === '/login'
+
   const navigate = useNavigate();
 
   // Navigation handlers
@@ -23,42 +27,54 @@ export default function App() {
 
   return (
     <>
-      {logic.isUserLoggedIn() && <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />}
 
-      <Routes>
-        <Route path="/login" element={logic.isUserLoggedIn() ? 
-        (<Navigate to="/home" />) : (<Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRoleSelection}/>) } />
+      <div
+        className={`min-h-screen ${!isLoginPage ? "bg-cover bg-center" : ""}`}
+        style={{
+          backgroundImage: !isLoginPage
+            ? 'url("https://images.unsplash.com/photo-1561623002-b6648b879b15?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODF8fGZpc2hlcyUyMGluJTIwdGhlJTIwcmVlZnxlbnwwfHwwfHx8Mg%3D%3D")'
+            : 'none',
+        }}
+      >
 
-        <Route path="/" element={logic.isUserLoggedIn() ? 
-        (<Navigate to="/home" />) : (<Login onLoggedIn={handleUserLoggedIn} />) } />
+        {logic.isUserLoggedIn() && <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />}
 
-        <Route path="/select-role-type" element={<SelectRoleType />} />
+        <Routes>
+          <Route path="/login" element={logic.isUserLoggedIn() ?
+            (<Navigate to="/home" />) : (<Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRoleSelection} />)} />
 
-        <Route path="/register-diver" element={logic.isUserLoggedIn() ? 
-        (<Navigate to="/home" />) : (<RegisterDiver onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} /> ) } />
+          <Route path="/" element={logic.isUserLoggedIn() ?
+            (<Navigate to="/home" />) : (<Login onLoggedIn={handleUserLoggedIn} />)} />
 
-        <Route path="/register-center" element={logic.isUserLoggedIn() ? 
-        (<Navigate to="/home" />) : (<RegisterCenter onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} /> ) } />
+          <Route path="/select-role-type" element={<SelectRoleType />} />
 
-        <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="/register-diver" element={logic.isUserLoggedIn() ?
+            (<Navigate to="/home" />) : (<RegisterDiver onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />)} />
 
-        <Route path="/home" element={logic.isUserLoggedIn() ? (logic.isUserRoleDiver() ? 
-        (<HomeDiver />) : logic.isUserRoleCenter() ? (<HomeCenter /> ) : (<Navigate to="/login" /> ) ) : (<Navigate to="/login" /> ) } />
+          <Route path="/register-center" element={logic.isUserLoggedIn() ?
+            (<Navigate to="/home" />) : (<RegisterCenter onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />)} />
 
-        <Route path="/profile" element={!isLoggedIn ? <Navigate to="/login" /> : isUserRoleDiver ? <Profile /> : <ProfileCenter /> } />
+          <Route path="*" element={<Navigate to="/login" />} />
 
-        <Route path="/log-book" element={logic.isUserLoggedIn() ? <LogBook /> : <Navigate to="/login" /> } />
+          <Route path="/home" element={logic.isUserLoggedIn() ? (logic.isUserRoleDiver() ?
+            (<HomeDiver />) : logic.isUserRoleCenter() ? (<HomeCenter />) : (<Navigate to="/login" />)) : (<Navigate to="/login" />)} />
 
-        {/* missing search and docs&insurance */}
-        
+          <Route path="/profile" element={!isLoggedIn ? <Navigate to="/login" /> : isUserRoleDiver ? <Profile /> : <ProfileCenter />} />
 
-      </Routes>
+          <Route path="/log-book" element={logic.isUserLoggedIn() ? <LogBook /> : <Navigate to="/login" />} />
 
-    
+          <Route path="/check-logbook" element={logic.isUserLoggedIn() ? <DiveHistory /> : <Navigate to="/login" />} />
 
-      {/* logic.isUserLoggedIn() &&  <Footer /> */}
-    </>
-  );
+          {/* missing search and docs&insurance */}
+
+
+        </Routes>
+
+      </div>
+
+        {/* logic.isUserLoggedIn() &&  <Footer /> */}
+      </>
+      );
 }
 // <Route path="/search" element={<Search />} /> 
 

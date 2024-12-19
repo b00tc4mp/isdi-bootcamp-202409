@@ -3,7 +3,7 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 export default () => 
-    fetch(`http://${import.meta.env.VITE_API_URL}/log-book-history`, {
+    fetch(`http://${import.meta.env.VITE_API_URL}/logs/users/diver/logbook-history`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
@@ -18,4 +18,4 @@ export default () =>
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error] (message) })
-        })
+        }) 

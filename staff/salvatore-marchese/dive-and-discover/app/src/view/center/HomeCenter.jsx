@@ -23,7 +23,7 @@ const HomeCenter = () => {
       })
   }, [navigate])
 
-  const onViewProfileInfo = () => { navigate('/center-info')}
+  const onViewProfileInfo = () => { navigate('/profile')}
 
   // If the data is still being fetched, show loading message
   if (!data) {

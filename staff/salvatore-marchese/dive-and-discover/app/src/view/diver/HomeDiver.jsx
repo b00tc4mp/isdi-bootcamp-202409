@@ -30,7 +30,7 @@ const HomeDiver = () => {
         navigate('/docs-and-insurance')
     };
 
-    const onLogDive = () => {
+    const onLogDive = () => { 
         navigate('/log-book')
     };
 

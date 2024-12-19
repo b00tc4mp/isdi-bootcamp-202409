@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default logbookId => {
     validate.id(logbookId, 'logbookId')
 
-    return fetch(`http://${imprt.meta.env.VITE_API_URL}/logs/${logbookId}`,
+    return fetch(`http://${import.meta.env.VITE_API_URL}/logs/${logbookId}`,
         {
             method: 'DELETE',
             headers: { Authorization: `Bearer ${sessionStorage.token}` }

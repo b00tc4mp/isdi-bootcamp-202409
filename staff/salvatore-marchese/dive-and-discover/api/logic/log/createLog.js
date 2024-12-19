@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, diveSite, notes) => {
+export default async (userId,{ date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, diveSite, notes}) => {
     try {
         if (userId) {
             validate.id(userId, 'userId') // Only validate if userId is provided to confirm the user is logged in

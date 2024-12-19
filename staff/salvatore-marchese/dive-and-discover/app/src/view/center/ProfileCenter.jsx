@@ -41,7 +41,7 @@ const ProfileCenter = () => {
                 transformOpeningHours(userData.openingHours || []);
                 setIsLoading(false)
             } catch (error) {
-                console.log(error)
+                console.log(err)
                 console.log(Object.keys(error))
                 if (error?.authError) {
                     sessionStorage.token = null

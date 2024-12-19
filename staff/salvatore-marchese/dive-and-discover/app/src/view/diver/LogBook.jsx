@@ -1,216 +1,139 @@
 import React, { useState } from 'react';
-import logic from '../../logic/log/index.js'
-import { Label, Input, Button, Form, Field } from '../library/index.js'
-
-/* const formatDate = (date) => {
-  const [day, month, year] = date.split('/');
-  return `${year}-${month}-${day}`; // Convert to yyyy-mm-dd
-}; */
+import logic from '../../logic/log/index.js';
+import { Label, Button, Form, Field } from '../library/index.js';
+/* import { formatDate } from '../../util'; */
 
 export default function LogBook({ onCreated }) {
-  console.log('LogBook -> render')
+  console.log('LogBook -> render');
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const { target: form } = event
+    const { target: form } = event;
 
-   const {
-      date: { value: date }, depth: { value: depth }, time: { value: time }, weather: { value: weather }, temperature: { value: temperature }, visibility: { value: visibility }, waves: { value: waves }, wetSuit: { value: wetSuit }, weight: { value: weight }, tankSize: { value: tankSize }, tankBar: { value: tankBar }, feeling: { value: feeling }, diveCenter: { value: diveCenter }, divingSite: { value: divingSite }, notes: { value: notes }
-    } = form 
+    const {
+      date: { value: date },
+      depth: { value: depth },
+      time: { value: time },
+      weather: { value: weather },
+      temperature: { value: temperature },
+      visibility: { value: visibility },
+      waves: { value: waves },
+      wetSuit: { value: wetSuit },
+      weight: { value: weight },
+      tankSize: { value: tankSize },
+      tankBar: { value: tankBar },
+      feeling: { value: feeling },
+      diveCenter: { value: diveCenter },
+      divingSite: { value: divingSite },
+      notes: { value: notes },
+    } = form;
 
 
     try {
       await logic.createLog(
-        date, depth, time, weather, temperature, 
-        visibility, waves, wetSuit, weight, tankSize, 
-        tankBar, feeling, diveCenter, divingSite, notes
-      )
-      /* await logic.createLog(date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, divingSite, notes) */
-      alert("Log created successfully!")
+        divingSite, date, depth, Number(time), weather, temperature,
+        visibility, waves, wetSuit, weight, tankSize,
+        tankBar, feeling, diveCenter, notes
+      );
+      alert('Log created successfully!');
     } catch (error) {
-      alert(error.message)
-
-      console.error(error)
+      alert(error.message);
+      console.error(error);
     }
-  }
-
-  return  <main className="LogBook">
-    
-    <h2 className="text-2xl font-bold mb-4">Dive Log Form</h2>
-
-    <Form id="diveLogForm" className="space-y-4" onSubmit={handleSubmit}>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="divingSite" className="font-semibold">Diving Site:</Label>
-        <Input type="text" id="divingSite" name="divingSite" placeholder="Enter diving site" className="input" />  
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="date" className="font-semibold">Date:</Label>
-        <Input type="date" id="date" name="date" placeholder="01/01/2024" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="depth" className="font-semibold">Depth (m):</Label>
-        <Input type="number" id="depth" name="depth" placeholder="18m" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="time" className="font-semibold">Time (mins):</Label>
-        <Input type="number" id="time" name="time" placeholder="45 mins" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="weather" className="font-semibold">Weather:</Label>
-        <Input type="text" id="weather" name="weather" placeholder="Sunny, Cloudy, Rainy" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="temperature" className="font-semibold">Temperature (°C):</Label>
-        <Input type="number" id="temperature" name="temperature" placeholder="22°" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="visibility" className="font-semibold">Visibility :</Label>
-        <Input type="text" id="visibility" name="visibility" placeholder="Great, Good, Acceptable, Bad" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="waves" className="font-semibold">Waves:</Label>
-        <Input type="text" id="waves" name="waves" placeholder="Calm, Choppy ... " className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="wetSuit" className="font-semibold">Wet Suit (mm):</Label>
-        <Input type="number" id="wetSuit" name="wetSuit" placeholder="0, 3, 5, 7" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="weight" className="font-semibold">Weight (Kg):</Label>
-        <Input type="number" id="weight" name="weight" placeholder="6Kg" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="tankSize" className="font-semibold">Tank Size (Lt):</Label>
-        <Input type="number" id="tankSize" name="tankSize" placeholder="10L" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="tankBar" className="font-semibold">Tank Bar:</Label>
-        <Input type="number" id="tankBar" name="tankBar" placeholder="200" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="feeling" className="font-semibold">Feeling:</Label>
-        <Input type="text" id="feeling" name="feeling" placeholder="Good" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="diveCenter" className="font-semibold">Dive Center:</Label>
-        <Input type="text" id="diveCenter" name="diveCenter" placeholder="Center's Name" className="input" />
-      </Field>
-
-      <Field className="flex flex-col">
-        <Label htmlFor="notes" className="font-semibold">Notes:</Label>
-        <Input as="textarea" id="notes" name="notes" className="input h-24" />
-      </Field>
-
-      <Button type="submit" className="btn-primary mt-4" >Submit</Button>
-    </Form>
-  </main>
-}
-
-
-
-/* const LogBook = () => {
-  const [formData, setFormData] = useState({
-    divingSite: '',
-    date: '',
-    depth: '',
-    time: '',
-    weather: '',
-    temperature: '',
-    visibility: '',
-    waves: '',
-    wetSuit: '',
-    weight: '',
-    tankType: '',
-    tankBar: '',
-    feeling: '',
-    diveCenter: '',
-    note: ''
-  });
-
-  // Handle form changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(`http://${import.meta.env.VITE_API_URL}/log-book`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionStorage.token}`
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
-      }
-      
-      const result = await response.json();
-      console.log('LogBook entry saved:', result);
-
-      // Reset form after submission
-      setFormData({
-        divingSite: '',
-        date: '',
-        depth: '',
-        time: '',
-        weather: '',
-        temperature: '',
-        visibility: '',
-        waves: '',
-        wetSuit: '',
-        weight: '',
-        tankType: '',
-        tankBar: '',
-        feeling: '',
-        diveCenter: '',
-        note: ''
-      });
-    } catch (error) {
-      console.error('Error saving logbook entry:', error.message);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      {Object.keys(formData).map((key) => (
-        <div key={key} className="form-group">
-          <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-          <input
-            type={key === 'date' ? 'date' : 'text'}
-            name={key}
-            value={formData[key]}
-            onChange={handleChange}
-            required
-          />
-        </div>
-      ))}
-      <button type="submit">Save Log Entry</button>
-    </form>
-  );
 };
 
- */
+  return (
+    <main className="LogBook">
+      <Form id="diveLogForm" className="space-y-6" onSubmit={handleSubmit}>
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md max-w-full sm:max-w-7xl md:max-w-8xl lg:max-w-9xl xl:max-w-full mx-auto">
+          <h2 className="text-2xl font-bold mb-6">Dive Log Form</h2>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="divingSite" className="font-semibold">Diving Site:</Label>
+            <input type="text" id="divingSite" name="divingSite" placeholder="Enter diving site" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="date" className="font-semibold">Date:</Label>
+            <input type="date" id="date" name="date" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="depth" className="font-semibold">Depth (m):</Label>
+            <input type="number" id="depth" name="depth" placeholder="i.e. 18" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="time" className="font-semibold">Time (mins):</Label>
+            <input type="number" id="time" name="time" placeholder="i.e. 45" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="weather" className="font-semibold">Weather:</Label>
+            <input type="text" id="weather" name="weather" placeholder="i.e. Sunny, Cloudy, Rainy" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="temperature" className="font-semibold">Temperature (°C):</Label>
+            <input type="number" id="temperature" name="temperature" placeholder="i.e. 22" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="visibility" className="font-semibold">Visibility:</Label>
+            <input type="text" id="visibility" name="visibility" placeholder="i.e. Great, Good, Acceptable, Bad" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="waves" className="font-semibold">Waves:</Label>
+            <input type="text" id="waves" name="waves" placeholder="i.e. Calm, Choppy ..." className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="wetSuit" className="font-semibold">Wet Suit (mm):</Label>
+            <input type="number" id="wetSuit" name="wetSuit" placeholder="i.e. 0, 3, 5, 7" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="weight" className="font-semibold">Weight (Kg):</Label>
+            <input type="number" id="weight" name="weight" placeholder="i.e. 6" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="tankSize" className="font-semibold">Tank Size (Lt):</Label>
+            <input type="number" id="tankSize" name="tankSize" placeholder="i.e. 8, 10, 12" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="tankBar" className="font-semibold">Tank Bar:</Label>
+            <input type="number" id="tankBar" name="tankBar" placeholder="i.e. 200" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="feeling" className="font-semibold">Feeling:</Label>
+            <input type="text" id="feeling" name="feeling" placeholder="i.e. Good time today" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="diveCenter" className="font-semibold">Dive Center:</Label>
+            <input type="text" id="diveCenter" name="diveCenter" placeholder="Center's Name" className="input" />
+          </Field>
+
+          <Field className="flex flex-col">
+            <Label htmlFor="notes" className="font-semibold">Notes:</Label>
+            <input
+              as="textarea"
+              id="notes"
+              name="notes"
+              className="input h-40"
+              placeholder="Max 400 characters..."
+              maxLength="400"
+            />
+          </Field>
+
+          <Button type="submit" className="btn-primary mt-6">Submit</Button>
+        </div>
+      </Form>
+    </main>
+  );
+}

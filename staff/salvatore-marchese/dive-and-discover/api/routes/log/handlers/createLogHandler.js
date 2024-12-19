@@ -5,5 +5,5 @@ export default createFunctionalHandler((req, res) => {
     const { userId, body: data } = req
     data['diver'] = userId;
 
-    return logic.createLog(data).then(() => res.status(201).send())
+    return logic.createLog(userId, data).then(() => res.status(201).send())
 })
