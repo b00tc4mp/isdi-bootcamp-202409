@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../../logic'
 import { errors } from 'com'
 
-import { capitalizeWords, validateGuess, adjustAvailableCharacters, checkOnePiecedleAnswer, calculateOnePieceDleScore } from '../../../util'
+import { normalizeWords, validateGuess, adjustAvailableCharacters, checkOnePiecedleAnswer, calculateOnePieceDleScore } from '../../../util'
 
 const { SystemError } = errors
 
@@ -109,7 +109,7 @@ export default function useController() {
     }
 
     const handleCharacterClick = async (char) => {
-        await setInputValue(char) // jeje god
+        await setInputValue(char)
 
         document.getElementById("guess").focus()
 
@@ -124,7 +124,7 @@ export default function useController() {
         const { target: { guess: { value: guess } } } = event
 
         try {
-            const parsedGuess = capitalizeWords(guess) //normalizeWords
+            const parsedGuess = normalizeWords(guess)
 
             const found = validateGuess(availableCharacters, parsedGuess)
 
@@ -159,8 +159,9 @@ export default function useController() {
             } else {
                 const found = validateGuess(characters, parsedGuess)
 
-                if (found > -1) setWrongGuessMessage('Character already guessed')
-                else setWrongGuessMessage('Character not found')
+                if (parsedGuess !== '')
+                    if (found > -1) setWrongGuessMessage('Character already guessed')
+                    else setWrongGuessMessage('Character not found')
             }
         } catch (error) {
             alert(error.message)

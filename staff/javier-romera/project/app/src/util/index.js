@@ -5,7 +5,7 @@ import compareDevilFruit from './compareDevilFruit'
 import validateGuess from './validateGuess'
 import compareFirstLetters from './compareFirstLetters'
 import isAnyCharacterWithFirstLetter from './isAnyCharacterWithFirstLetter'
-import capitalizeWords from './capitalizeWords'
+import normalizeWords from './normalizeWords'
 import formatBounty from './formatBounty'
 import formatHeight from './formatHeight'
 import getHakiString from './getHakiString'
@@ -27,7 +27,7 @@ export {
     validateGuess,
     compareFirstLetters,
     isAnyCharacterWithFirstLetter,
-    capitalizeWords,
+    normalizeWords,
     formatBounty,
     formatHeight,
     getHakiString,

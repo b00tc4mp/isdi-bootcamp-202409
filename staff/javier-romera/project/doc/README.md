@@ -93,25 +93,25 @@ Character
 - town (string)
 
 Condition
-- id (ObjectId) <!-- el id -->
-- type (string, enum: equal | greater than equal | lower than equal) <!-- para poder hacer la comparación -->
-- property (string) <!-- que propiedad queremos comparar -->
-- value (string | number | boolean) <!-- el valor de la propiedad que queremos comparar -->
-- direction (string, enum: row | column) <!-- la direccion de la condición para evitar exclusiones -->
-- indexes ([number]) <!-- el indice en el que estara la condición en el tablero -->
-- text (string) <!-- el texto que se imprimirá por pantalla en el minijuego para decirle la condicion al usuario -->
+- id (ObjectId)
+- type (string, enum: equal | greater than equal | lower than equal)
+- property (string)
+- value (string | number | boolean)
+- direction (string, enum: row | column)
+- indexes ([number])
+- text (string)
 
 ### Test Coverage
 
 - el codigo está cubierto 👍
 
 ```sh
-85 passing
+  85 passing (6s)
 
 ---------------------------------------|---------|----------|---------|---------|-------------------
 File                                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ---------------------------------------|---------|----------|---------|---------|-------------------
-All files                              |    94.6 |    79.69 |     100 |   94.59 |                   
+All files                              |   94.52 |    80.62 |     100 |   94.52 |                   
  logic/characters                      |   94.49 |       75 |     100 |   94.49 |                   
   getAllCharacters.js                  |    87.5 |      100 |     100 |    87.5 | 12,20             
   getAllCharacters.spec.js             |     100 |      100 |     100 |     100 |                   
@@ -123,9 +123,9 @@ All files                              |    94.6 |    79.69 |     100 |   94.59 
   getCharactersByArc.spec.js           |     100 |      100 |     100 |     100 |                   
   getRandomCharacter.js                |   88.23 |      100 |     100 |   88.23 | 12,20             
   getRandomCharacter.spec.js           |     100 |      100 |     100 |     100 |                   
- logic/conditions                      |   95.71 |    66.66 |     100 |   95.65 |                   
-  getRandomConditions.js               |   92.68 |    66.66 |     100 |    92.5 | 14,22,28          
-  getRandomConditions.spec.js          |     100 |      100 |     100 |     100 |                   
+ logic/conditions                      |   94.73 |      100 |     100 |   94.73 |                   
+  getAllConditions.js                  |    87.5 |      100 |     100 |    87.5 | 12,20             
+  getAllConditions.spec.js             |     100 |      100 |     100 |     100 |                   
  logic/users                           |   94.48 |    81.08 |     100 |   94.48 |                   
   authenticateUser.js                  |   82.14 |    66.66 |     100 |   82.14 | 15-16,25-26,35    
   authenticateUser.spec.js             |     100 |      100 |     100 |     100 |                   
