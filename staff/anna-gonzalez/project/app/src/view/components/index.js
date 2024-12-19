@@ -4,6 +4,7 @@ import Header from './Header'
 import Footer from './Footer'
 import Modal from './Modal'
 import Reminder from './Reminder'
+import Splash from './Splash'
 
 export {
     Alert,
@@ -11,5 +12,6 @@ export {
     Header,
     Footer,
     Modal,
-    Reminder
+    Reminder,
+    Splash
 }

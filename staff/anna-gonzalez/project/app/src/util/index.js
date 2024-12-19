@@ -6,7 +6,6 @@ import calculateDuration from './calculateDuration'
 import extractPayloadFromJWT from './extractPayloadFromJWT'
 import getFirstDayOfWeek from './getFirstDayOfWeek'
 import getFormattedDate from './getFormattedDate'
-import getMonth from './getMonth'
 import getMonthText from './getMonthText'
 import getMostFrequentActivity from './getMostFrequentActivity'
 import getTopSymptoms from './getTopSymptoms'
@@ -25,7 +24,6 @@ export {
     getFirstDayOfWeek,
     getFormattedDate,
     getMonthText,
-    getMonth,
     getMostFrequentActivity,
     getTopSymptoms,
     getMonthAndDayText,

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Calendar, DayLog, Home, Login, Register, Reports, Splash, Tips } from './view'
-import { Alert, Confirm, Header, Footer, Reminder } from './view/components'
+import { Calendar, DayLog, Home, Login, Register, Reports, Tips } from './view'
+import { Alert, Confirm, Header, Footer, Reminder, Splash } from './view/components'
 
 import { Context } from './view/useContext'
 import logic from './logic'
@@ -91,7 +91,7 @@ export default function App() {
       <Route path="/reports" element={logic.isUserLoggedIn() ? <Reports /> : <Navigate to="/login" />} />
     </Routes>
 
-    <Footer onCalendarClick={handleCalendarClick} onTipsClick={handleTipsClick} onReportsClick={handleReportsClick} />
+    <Footer onHomeClick={handleLogoClick} onCalendarClick={handleCalendarClick} onTipsClick={handleTipsClick} onReportsClick={handleReportsClick} />
 
     {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 

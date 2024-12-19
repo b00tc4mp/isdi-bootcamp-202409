@@ -24,10 +24,7 @@ import {
 } from './users'
 
 import {
-    getExerciseTips,
-    getMusicTips,
-    getNutritionTips,
-    getSelfCareTips
+    getTips
 } from './tips'
 
 const logic = {
@@ -47,10 +44,7 @@ const logic = {
     loginUser,
     logoutUser,
     registerUser,
-    getExerciseTips,
-    getMusicTips,
-    getNutritionTips,
-    getSelfCareTips
+    getTips
 }
 
 export default logic

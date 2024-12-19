@@ -14,8 +14,6 @@ export default (userId) => {
             return Cycle.find({ user: userId }).sort({ start: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(cycles => {
-                    if (cycles.length === 0) throw new NotFoundError('Cycle not found')
-
                     const periodDays = []
 
                     cycles.forEach(cycle => {

@@ -10,10 +10,8 @@ export default function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date()) //current calendar date
     const [selectedDate, setSelectedDate] = useState(null) //full selected date on calendar
     const [selectedDay, setSelectedDay] = useState(null) //selected day on calendar
-    const [isModalOpen, setIsModalOpen] = useState(false) //modal visibility
     const [periodDays, setPeriodDays] = useState([])
-
-    const weekDaysText = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const [isModalOpen, setIsModalOpen] = useState(false) //modal visibility
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
@@ -62,12 +60,11 @@ export default function Calendar() {
     }
 
     const handleStartPeriod = () => { setIsModalOpen(false) }
-
     const handleEndPeriod = () => { setIsModalOpen(false) }
-
     const handleDeleteCycle = () => { setIsModalOpen(false) }
-
     const handleModalClose = () => { setIsModalOpen(false) }
+
+    const weekDaysText = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     return <>
         <h2>Calendar</h2>
@@ -77,14 +74,14 @@ export default function Calendar() {
                 {/* months navigator*/}
                 < div className="flex justify-center items-center mb-4">
                     <ButtonSmall onClick={handlePreviousMonthClick}>&lt;</ButtonSmall>
-                    <span className="px-4 w-28 text-center">{`${getMonthText(currentDate)} ${getYear(currentDate)}`}</span>
+                    <span className="px-4 w-28 text-center font-bold mt-0">{`${getMonthText(currentDate)} ${getYear(currentDate)}`}</span>
                     <ButtonSmall onClick={handleNextMonthClick}>&gt;</ButtonSmall>
                 </div >
 
                 {/* header with days of the week */}
-                <div className="grid grid-cols-7 gap-4">
+                <div className="grid grid-cols-7 gap-3 px-1">
                     {weekDaysText.map(day => {
-                        return <div className="flex justify-center" key={day}>{day}</div>
+                        return <div className="flex justify-center text-xs" key={day}>{day}</div>
                     })}
 
                     {/* empty calendar boxes*/}

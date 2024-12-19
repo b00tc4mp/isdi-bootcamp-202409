@@ -1,7 +1,7 @@
 import { User, Reminder } from 'dat'
 
 import { validate, errors } from 'com'
-const { SystemError, NotFoundError, ValidationError, DuplicityError } = errors
+const { SystemError, NotFoundError, ValidationError } = errors
 
 export default (userId, formattedDate, title) => {
     validate.id(userId, 'userId')

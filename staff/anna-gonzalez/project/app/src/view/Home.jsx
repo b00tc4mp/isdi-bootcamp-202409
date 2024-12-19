@@ -14,73 +14,49 @@ export default function Home() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (logic.isUserLoggedIn()) {
-            if (!name)
-                try {
-                    logic.getUserName()
-                        .then(response => {
-                            setName(response.name)
-                        })
-                        .catch(error => {
-                            alert(error.message)
+        if (!logic.isUserLoggedIn()) {
+            setName(null)
+            setReminder(null)
+            setCyclesStart(null)
+            setCyclePhase(null)
+            return
+        }
 
-                            console.error(error)
-                        })
-                } catch (error) {
+        if (!name) {
+            logic.getUserName()
+                .then(response => {
+                    setName(response.name)
+                })
+                .catch(error => {
                     alert(error.message)
-
                     console.error(error)
+                })
+        }
+
+        const newDate = new Date()
+        newDate.setDate(newDate.getDate() - 1) //yesterday date
+        const todayDatePreFormatted = new Date(newDate).toISOString()
+        const todayDate = todayDatePreFormatted.split('T')[0]
+
+        logic.getCurrentReminders(todayDate)
+            .then(reminders => {
+                if (reminders && reminders.length > 0) {
+                    setReminder(reminders)
                 }
-        } else setName(null)
-    }, [])
-
-    useEffect(() => {
-        if (logic.isUserLoggedIn()) {
-            try {
-                const newDate = new Date()
-                newDate.setDate(newDate.getDate() - 1)
-
-                const todayDatePreFormatted = new Date(newDate).toISOString()
-
-                const todayDate = new Date(todayDatePreFormatted).toISOString().split('T')[0]
-
-                logic.getCurrentReminders(todayDate)
-                    .then(reminders => {
-                        if (reminders && reminders.length > 0) {
-                            setReminder(reminders)
-                        }
-                    })
-                    .catch(error => {
-                        alert(error.message)
-
-                        console.error(error)
-                    })
-            } catch (error) {
+            })
+            .catch(error => {
                 alert(error.message)
-
                 console.error(error)
-            }
-        }
-    }, [])
+            })
 
-    useEffect(() => {
-        if (logic.isUserLoggedIn()) {
-            try {
-                logic.getCyclesStart()
-                    .then(pastCyclesStart => {
-                        setCyclesStart(pastCyclesStart)
-                    })
-                    .catch(error => {
-                        alert(error.message)
-
-                        console.error(error)
-                    })
-            } catch (error) {
+        logic.getCyclesStart()
+            .then(pastCyclesStart => {
+                setCyclesStart(pastCyclesStart)
+            })
+            .catch(error => {
                 alert(error.message)
-
                 console.error(error)
-            }
-        }
+            })
     }, [])
 
     useEffect(() => {
@@ -88,7 +64,7 @@ export default function Home() {
             const phase = calculateCyclePhase(cyclesStart)
             setCyclePhase(phase)
         }
-    }, [cyclesStart])
+    }, [cyclesStart])  //recalculate when cyclesStart changes
 
     const handleGoToCalendarClick = event => {
         event.preventDefault()
@@ -131,10 +107,10 @@ export default function Home() {
         </div>
 
         <div className="flex justify-center items-center">
-            <div className="flex flex-col justify-center items-center bg-[var(--turquoise-color)] rounded-full w-64 h-64 mt-2 mb-2">
-                {!cyclesStart || cyclesStart.length === 0 ? (<><p className="mt-6">Loading predictions...</p><h1>No data</h1></>)
+            <div className="flex flex-col justify-center items-center bg-[var(--turquoise-color)] rounded-full w-64 h-64 mt-5 mb-1">
+                {!cyclesStart || cyclesStart.length === 0 ? (<><p className="mt-6">First time here?</p><h1>No data</h1></>)
                     : isBeforeOvulation ? (<><p className="mt-6">Ovulation in</p><h1>{daysUntilOvulation} days</h1></>)
-                        : isOvulationDay ? (<><p className="mt-6">Today is your day of</p><h1>ovulation</h1></>)
+                        : isOvulationDay ? (<><p className="mt-6">Today is your day of</p><h1 className="text-5xl mt-5 mb-1">ovulation</h1></>)
                             : isBeforePeriod ? (<><p className="mt-6">Your period starts in</p><h1>{daysUntilNextCycle} days</h1></>)
                                 : isPeriodDay ? (<><p className="mt-6">Today starts your</p><h1>period</h1></>)
                                     : (<><p>Your period is late for</p><h1>{-daysUntilNextCycle} days</h1></>)}
@@ -155,7 +131,7 @@ export default function Home() {
                     <p>Chance of getting pregnant</p>
                     {isHighPregnancyChance ? (<h3 className="text-3xl">High</h3>)
                         : isLowPregnancyChance ? (<h3 className="text-3xl">Low</h3>)
-                            : (<h3 className="text-3xl">n/a</h3>)
+                            : (<h3 className="text-3xl">N/A</h3>)
                     }
                 </div >
             </div>
@@ -180,8 +156,8 @@ export default function Home() {
         <div>
             <h3 className="mb-2 mt-8">Listen to your body</h3>
 
-            <div className="bg-[var(--yellow-color)] p-4 rounded-lg mt-4 mb-4">
-                <h3>WEEK OF YOUR CYCLE</h3>
+            <div className="bg-[var(--yellow-color)] p-4 rounded-lg mt-2 mb-4">
+                <h3>CYCLE WEEK</h3>
                 {cyclePhase === 'menstruation' ? (<><h2>Menstruation phase</h2><p>Prioritize rest, hydrate, and eat iron-rich foods</p></>)
                     : cyclePhase === 'follicular' ? (<><h2>Follicular phase</h2><p>Plan ahead, exercise, and try new things</p></>)
                         : cyclePhase === 'ovulation' ? (<><h2>Ovulation phase</h2><p>Socialize, focus on communication, and eat protein</p></>)

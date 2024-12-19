@@ -4,7 +4,6 @@ import Home from './Home'
 import Login from './Login'
 import Register from './Register'
 import Reports from './Reports'
-import Splash from './Splash'
 import Tips from './Tips'
 
 export {
@@ -14,6 +13,5 @@ export {
     Login,
     Register,
     Reports,
-    Splash,
     Tips
 }

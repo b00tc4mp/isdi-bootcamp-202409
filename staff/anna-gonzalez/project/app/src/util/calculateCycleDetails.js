@@ -7,9 +7,6 @@ export default (lastPeriodStart) => {
     const now = new Date()
     const cycleLength = 28
 
-    //create a getCycle instead?
-    //create a getCurrentCycleStart?
-
     //period
     const nextPeriodStart = new Date(lastPeriodStart)
     nextPeriodStart.setDate(lastPeriodStart.getDate() + cycleLength)

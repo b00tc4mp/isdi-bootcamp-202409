@@ -16,10 +16,7 @@ import {
 } from './reminders/index.js'
 
 import {
-    getExerciseTips,
-    getMusicTips,
-    getNutritionTips,
-    getSelfCareTips
+    getTips
 } from './tips/index.js'
 
 import {
@@ -40,10 +37,7 @@ const logic = {
     getPeriodDays,
     createReminder,
     getCurrentReminders,
-    getExerciseTips,
-    getMusicTips,
-    getNutritionTips,
-    getSelfCareTips,
+    getTips,
     authenticateUser,
     getUserDetails,
     registerUser

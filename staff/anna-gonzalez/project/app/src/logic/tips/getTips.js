@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default (cyclePhase) => {
     validate.phase(cyclePhase)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/tips/${cyclePhase}/exerciseTips`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/tips/${cyclePhase}/tips`, {
         headers: {
             Authorization: `Bearer ${localStorage.token}`
         }

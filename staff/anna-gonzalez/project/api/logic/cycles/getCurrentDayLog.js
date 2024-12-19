@@ -48,11 +48,10 @@ export default (userId, formattedDate) => {
                                     updatedCycle.id = updatedCycle._id.toString()
                                     delete updatedCycle._id
 
-                                    return updatedCycle.dayLogs[0]
+                                    return updatedCycle.dayLogs[updatedCycle.dayLogs.length - 1]
                                 }
                             })
                     }
-
                 })
         })
 }

@@ -18,9 +18,9 @@ export default (dayLogs) => {
         }
     })
 
-    //order symptoms for frequency (descending order)e)
+    //order symptoms for frequency (descending order)
     symptomCount.sort((a, b) => b.count - a.count)
 
     //first three more frequent symptoms
-    return symptomCount.slice(0, 3).map(item => item.symptom)
+    return symptomCount.slice(0, 3).map(item => item.symptom) //slice(start, end)
 }

@@ -21,6 +21,11 @@ export default (userId) => {
                     cycles.forEach(cycle => {
                         const { start, end, periodEnd, dayLogs } = cycle
 
+                        dayLogs.forEach(dayLog => {
+                            dayLog.id = dayLog._id.toString()
+                            delete dayLog._id
+                        })
+
                         cycleDetails.push({ start, end, periodEnd, dayLogs })
                     })
 

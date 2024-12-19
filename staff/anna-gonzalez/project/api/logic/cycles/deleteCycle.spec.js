@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Cycle } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, DuplicityError } = errors
+const { NotFoundError } = errors
 
 import deleteCycle from './deleteCycle.js'
 

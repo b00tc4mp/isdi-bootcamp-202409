@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 
 import logic from '../../logic'
 
-import { Button, Input, Label } from '../library'
+import { Button, Form, Input, Label } from '../library'
 import useContext from '../useContext'
 import { getFormattedDate } from '../../util'
 
@@ -39,13 +39,13 @@ export default function Reminder({ onCreated }) {
         <h2>Reminder</h2>
         {<p><strong>Selected day: </strong>{getFormattedDate(formattedDate)}</p>}
 
-        <div>
-            <form onSubmit={handleSubmit}>
-                <Label htmlFor="title">Title</Label>
+        <div className="mt-6 flex flex-col">
+            <Form onSubmit={handleSubmit}>
+                <Label htmlFor="title">Title </Label>
                 <Input type="text" id="title" />
 
                 <Button type="submit">Save</Button>
-            </form>
+            </Form>
         </div>
     </>
 }

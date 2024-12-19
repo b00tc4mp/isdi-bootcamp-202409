@@ -14,9 +14,14 @@ export default (userId, todayDate) => {
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
 
-            return Reminder.find({ user: userId, date: normalizedDate })
+            return Reminder.find({ user: userId, date: normalizedDate }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(reminders => {
+
+                    reminders.forEach(reminder => {
+                        reminder.id = reminder._id.toString()
+                        delete reminder._id
+                    })
 
                     return reminders
                 })

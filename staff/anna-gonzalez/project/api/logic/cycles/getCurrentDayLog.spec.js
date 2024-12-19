@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Cycle } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError } = errors
 
 import getCurrentDayLog from './getCurrentDayLog.js'
 

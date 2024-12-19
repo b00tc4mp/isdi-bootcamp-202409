@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Reminder } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, DuplicityError } = errors
+const { NotFoundError, ValidationError } = errors
 
 import createReminder from './createReminder.js'
 

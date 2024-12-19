@@ -1,31 +1,42 @@
 import { useState, useEffect } from 'react'
+import useContext from './useContext'
 
 import { ButtonSmall } from './library'
+import { errors } from 'com'
 
 import logic from '../logic'
 import { calculateDuration, getFormattedDate, getMostFrequentActivity, getTopSymptoms } from '../util'
 
+const { NotFoundError } = errors
+
 export default function Reports() {
+    const { alert } = useContext()
+
     const [report, setReport] = useState([])
     const [currentCycleIndex, setCurrentCycleIndex] = useState(0)
 
-    useEffect(() => {
+    useEffect(() => { //used to charge cycles data
         if (logic.isUserLoggedIn()) {
             try {
                 logic.getCyclesDetails()
                     .then(reports => {
-                        if (reports && reports.length > 0) {
+                        if (reports && reports.length > 0) { //if reports has data...
                             setReport(reports)
                         } else {
                             console.error("No cycles data available")
                         }
                     })
                     .catch(error => {
-                        alert(error.message)
+                        if (error instanceof NotFoundError)
+                            alert('Register a cycle to see its Reports')
+                        else
+                            alert(error.message)
+
                         console.error(error)
                     })
             } catch (error) {
                 alert(error.message)
+
                 console.error(error)
             }
         }
@@ -64,6 +75,8 @@ export default function Reports() {
             <p><strong>Start:</strong> {getFormattedDate(currentCycle.start)}</p>)}
         {hasCycleStart && currentCycle.end && (
             <p><strong>End:</strong> {getFormattedDate(currentCycle.end)}</p>)}
+        {hasCycleStart && !currentCycle.end && (
+            <p><strong>End:</strong> Not finished yet</p>)}
 
         {/* Navigation between cycles */}
         <div className="flex justify-center items-center gap-4 mb-4">
@@ -101,6 +114,10 @@ export default function Reports() {
                         {mainSexualActivity && <p><strong>Your Sexual Activity:</strong> {mainSexualActivity}</p>}
                     </div>
                 </div>}
+
+                {!hasDayLogs && <div className="flex flex-col flex-wrap gap-4 bg-[var(--grey-color)] p-4 rounded-lg">
+                    <p>No dayLogs registered yet</p></div>}
+
             </div>
         ) : (
             <p>No data available for the current cycle.</p>

@@ -1,11 +1,5 @@
-import getExerciseTips from './getExerciseTips'
-import getMusicTips from './getMusicTips'
-import getNutritionTips from './getNutritionTips'
-import getSelfCareTips from './getSelfCareTips'
+import getTips from './getTips'
 
 export {
-    getExerciseTips,
-    getMusicTips,
-    getNutritionTips,
-    getSelfCareTips
+    getTips
 }

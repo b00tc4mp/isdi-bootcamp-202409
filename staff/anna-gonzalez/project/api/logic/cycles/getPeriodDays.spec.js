@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Cycle } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError } = errors
 
 import getPeriodDays from './getPeriodDays.js'
 
@@ -57,15 +57,6 @@ describe('getPeriodDays', () => {
             getPeriodDays('012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
-
-    it('fails on non-existing cycle', () => {
-        const user = new User({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-        return user.save()
-            .then(savedUser => {
-                return expect(getPeriodDays(savedUser.id))
-                    .to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
-            })
-    })
 
     after(() => db.disconnect())
 })

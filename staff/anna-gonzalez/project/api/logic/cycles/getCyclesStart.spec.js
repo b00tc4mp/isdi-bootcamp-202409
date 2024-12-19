@@ -9,7 +9,7 @@ const { expect } = chai
 import db, { User, Cycle } from 'dat'
 import { errors } from 'com'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError } = errors
 
 import getCyclesStart from './getCyclesStart.js'
 
@@ -51,16 +51,6 @@ describe('getCyclesStart', () => {
             getCyclesStart('012345678901234567890123')
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
-
-    it('fails on non-existing cycle', () => {
-
-        return User.create({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-            .then(user => {
-
-                return expect(getCyclesStart(user.id))
-                    .to.be.rejectedWith(NotFoundError, /^Cycle not found$/)
-            })
-    })
 
     after(() => db.disconnect())
 })

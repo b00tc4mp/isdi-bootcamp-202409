@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import db from 'dat'
-import getMusicTips from './getMusicTips.js'
+import getTips from './getTips.js'
 
 db.connect(process.env.MONGO_URL_TEST)
     .then(() => {
         try {
-            return getMusicTips('67559e378e4a0d332e927d4e', 'menstruation')
+            return getTips('67559e378e4a0d332e927d4e', 'menstruation')
                 .then(console.log)
                 .catch(console.error)
         } catch (error) {

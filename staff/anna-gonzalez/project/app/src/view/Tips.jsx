@@ -6,10 +6,7 @@ import { calculateCyclePhase } from '../util'
 export default function Tips() {
     const [cyclesStart, setCyclesStart] = useState(null)
     const [cyclePhase, setCyclePhase] = useState(null)
-    const [exerciseTips, setExerciseTips] = useState(null)
-    const [musicTips, setMusicTips] = useState(null)
-    const [nutritionTips, setNutritionTips] = useState(null)
-    const [selfCareTips, setSelfCareTips] = useState(null)
+    const [tips, setTips] = useState({ music: null, selfCare: null, nutrition: null, exercise: null })
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
@@ -37,56 +34,18 @@ export default function Tips() {
             setCyclePhase(phase)
 
             if (phase) {
-                logic.getExerciseTips(phase)
-                    .then(exerciseTips => setExerciseTips(exerciseTips))
-                    .catch(error => {
-                        alert(error.message)
-                        console.error(error)
+                logic.getTips(phase)
+                    .then(tips => {
+                        console.log(tips)
+                        const newTips = {
+                            music: tips[0].description,
+                            selfCare: tips[1].description,
+                            nutrition: tips[2].description,
+                            exercise: tips[3].description
+                        }
+
+                        setTips(newTips)
                     })
-            }
-        }
-    }, [cyclesStart])
-
-    useEffect(() => {
-        if (cyclesStart) {
-            const phase = calculateCyclePhase(cyclesStart)
-            setCyclePhase(phase)
-
-            if (phase) {
-                logic.getMusicTips(phase)
-                    .then(musicTips => setMusicTips(musicTips))
-                    .catch(error => {
-                        alert(error.message)
-                        console.error(error)
-                    })
-            }
-        }
-    }, [cyclesStart])
-
-    useEffect(() => {
-        if (cyclesStart) {
-            const phase = calculateCyclePhase(cyclesStart)
-            setCyclePhase(phase)
-
-            if (phase) {
-                logic.getNutritionTips(phase)
-                    .then(nutritionTips => setNutritionTips(nutritionTips))
-                    .catch(error => {
-                        alert(error.message)
-                        console.error(error)
-                    })
-            }
-        }
-    }, [cyclesStart])
-
-    useEffect(() => {
-        if (cyclesStart) {
-            const phase = calculateCyclePhase(cyclesStart)
-            setCyclePhase(phase)
-
-            if (phase) {
-                logic.getSelfCareTips(phase)
-                    .then(selfCareTips => setSelfCareTips(selfCareTips))
                     .catch(error => {
                         alert(error.message)
                         console.error(error)
@@ -99,35 +58,37 @@ export default function Tips() {
         <h2>Tips</h2>
 
         <div className="bg-[var(--yellow-color)] p-4 rounded-lg mt-4 mb-4">
-            <h3>WEEK OF YOUR CYCLE</h3>
+            <h3>CYCLE WEEK</h3>
 
             {cyclePhase === 'menstruation' ? (<><h2>Menstruation phase</h2><p>Prioritize rest, hydrate, and eat iron-rich foods</p></>)
                 : cyclePhase === 'follicular' ? (<><h2>Follicular phase</h2><p>Plan ahead, exercise, and try new things</p></>)
-                    : cyclePhase === 'ovulation' ? (<><h2>Ovulation phase</h2><p>Socialize, focus on communication, and eat protei.</p></>)
+                    : cyclePhase === 'ovulation' ? (<><h2>Ovulation phase</h2><p>Socialize, focus on communication, and eat protein</p></>)
                         : cyclePhase === 'luteal' ? (<><h2>Luteal phase</h2><p>Simplify tasks, manage stress, and eat magnesium-rich foods</p></>)
                             : (<><h2>No cycles registered yet</h2><p>Log in your period in the calendar</p></>)}
         </div >
 
-        <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-            <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
-                <h3>NUTRITION</h3>
-                <p>{nutritionTips || 'Loading nutrition tips...'}</p>
-            </div >
+        {tips.music !== null &&
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
+                    <h3>NUTRITION</h3>
+                    <p>{tips.nutrition}</p>
+                </div>
 
-            <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
-                <h3>EXERCISE</h3>
-                <p>{exerciseTips || 'Loading exercise tips...'}</p>
-            </div >
+                <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
+                    <h3>EXERCISE</h3>
+                    <p>{tips.exercise}</p>
+                </div>
 
-            <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
-                <h3>SELF-CARE</h3>
-                <p>{selfCareTips || 'Loading self care tips...'}</p>
-            </div >
+                <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
+                    <h3>SELF-CARE</h3>
+                    <p>{tips.selfCare}</p>
+                </div>
 
-            <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
-                <h3>MUSIC</h3>
-                <p>{musicTips || 'Loading music tips...'}</p>
-            </div >
-        </div>
+                <div className="bg-[var(--grey-color)] p-4 rounded-lg flex-1">
+                    <h3>MUSIC</h3>
+                    <p>{tips.music}</p>
+                </div>
+            </div>
+        }
     </div>
 }

@@ -17,7 +17,7 @@ export default (dayLogs, activity) => {
         }
     })
 
-    //order activities for frequency (descending order)e)
+    //order activities for frequency (descending order)
     valueCount.sort((a, b) => b.count - a.count)
 
     //most frequent activity

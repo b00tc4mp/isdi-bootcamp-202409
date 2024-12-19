@@ -11,20 +11,24 @@ import { errors } from 'com'
 
 const { NotFoundError } = errors
 
-import getMusicTips from './getMusicTips.js'
+import getTips from './getTips.js'
+debugger
 
-describe('getMusicTips', () => {
+describe('getTips', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => Promise.all([User.deleteMany(), Tip.deleteMany()]))
 
     it('succeeds for existing user', () => {
         const user = new User({ name: 'Anna', email: 'an@na.com', password: '123123123' })
-        const tip = new Tip({ date: '2024-10-17T00:00:00.000Z', phase: 'menstruation', category: 'music', description: 'Tip description' })
+        const musicTip = new Tip({ date: '2024-10-17T00:00:00.000Z', phase: 'menstruation', category: 'music', description: 'Tip description' })
+        const selfCareTip = new Tip({ date: '2024-10-17T00:00:00.000Z', phase: 'menstruation', category: 'self-care', description: 'Tip description' })
+        const exerciseTip = new Tip({ date: '2024-10-17T00:00:00.000Z', phase: 'menstruation', category: 'exercise', description: 'Tip description' })
+        const nutritionTip = new Tip({ date: '2024-10-17T00:00:00.000Z', phase: 'menstruation', category: 'nutrition', description: 'Tip description' })
 
-        return Promise.all([user.save(), tip.save()])
-            .then(([user, tip]) => {
-                return getMusicTips(user.id, 'menstruation')
+        return Promise.all([user.save(), musicTip.save(), selfCareTip.save(), exerciseTip.save(), nutritionTip.save()])
+            .then(([user]) => {
+                return getTips(user.id, 'menstruation')
                     .then(menstruationTips => {
                         expect(menstruationTips).to.exist
                     })
@@ -33,7 +37,7 @@ describe('getMusicTips', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            getMusicTips('012345678901234567890123', 'menstruation')
+            getTips('012345678901234567890123', 'menstruation')
         ).to.be.rejectedWith(NotFoundError, /^User not found$/)
     )
 
@@ -44,7 +48,7 @@ describe('getMusicTips', () => {
         return Promise.all([user.save(), tip.save()])
             .then(([user, tip]) => {
                 expect(
-                    getMusicTips(user.id, tip.phase)
+                    getTips(user.id, tip.phase)
                 ).to.be.rejectedWith(NotFoundError, /^Tips not found$/)
             })
     })

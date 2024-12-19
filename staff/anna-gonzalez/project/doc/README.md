@@ -4,7 +4,7 @@
 
 This app is designed for menstruating people to be your **everyday companion** to stay organized and in control.
 
-Whether you want to **keep track of symptoms**, set **reminders** for important dates, or discover **tips and music** for each phase of your cycle, Period adapts to your needs and helps you **sync with your body**.
+Whether you want to **keep track of symptoms**, set **reminders** for important dates, or discover **tips** for each phase of your cycle, Period adapts to your needs and helps you **sync with your body**.
 
 It’s more than just tracking—it’s about **embracing your rhythm** and thriving every day of the month.
 
@@ -83,14 +83,15 @@ Tip
 
 ### Techs
 
-- HTML/CSS/JS (...)
-- React (...)
-- Node (...)
-- Express (...)
-- Mongo (data base)
-- Mocha & Chai (testing)
-- [...]
+- HTML/CSS/Tailwind/JS (structure, style, and interactivity of web pages)
+- React (build dynamic user interfaces with reusable components)
+- Node (JavaScript runtime for server-side applications)
+- Express (minimal web framework for Node to build APIs)
+- Mongo (database for flexible, document-based storage)
+- Mocha & Chai (testing framework for JavaScript)
+- jsonwebtoken (jwt)
+- bcrypt
 
 ### Test Coverage
 
-[...]
+![Screenshot](../app/public/images/screenshot.png)

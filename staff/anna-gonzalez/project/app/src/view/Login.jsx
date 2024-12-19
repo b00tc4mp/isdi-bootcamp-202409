@@ -41,12 +41,6 @@ export default function Login(props) {
         props.onRegisterClick()
     }
 
-    const handlePartnerAccessClick = event => {
-        event.preventDefault()
-
-        props.onPartnerAccessClick()
-    }
-
     return <main className="justify-self-center">
         <h2>Login</h2>
 

@@ -6,8 +6,6 @@ const { SystemError, NotFoundError } = errors
 export default (userId) => {
     validate.id(userId, 'userId')
 
-    const normalizedCurrentDate = new Date()
-
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
@@ -16,8 +14,6 @@ export default (userId) => {
             return Cycle.find({ user: userId }).sort({ start: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(cycles => {
-                    if (cycles.length === 0) throw new NotFoundError('Cycle not found')
-
                     const cyclesStart = []
 
                     cycles.forEach(cycle => {
