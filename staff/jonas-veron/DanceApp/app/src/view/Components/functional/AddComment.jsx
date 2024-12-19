@@ -4,8 +4,6 @@ import useLiterals from "../../useLiterals"
 import useContext from "../../useContext"
 
 export default function AddComment({ eventId, onCommentAdded }) {
-  console.log("AddComment -> render")
-
   const { alert } = useContext()
   const literals = useLiterals()
 
@@ -45,13 +43,13 @@ export default function AddComment({ eventId, onCommentAdded }) {
         name="text"
         id="text"
         placeholder="Añade un comentario..."
-        className="text-white flex-1 resize-none text-sm bg-tertiary  "
+        className="text-white flex-1 resize-none text-sm bg-tertiary h-16 p-2"
       />
       <button
         type="submit"
-        className="ml-2 bg-accentpink text-white py-1 px-3 rounded-lg hover:bg-accentgreen"
+        className="ml-2 bg-accentpink text-white py-1 px-3 rounded-lg hover:bg-accentgreen font-bold"
       >
-        Añadir Comentario
+        Añadir
       </button>
     </form>
   )

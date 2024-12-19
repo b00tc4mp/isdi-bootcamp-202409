@@ -16,8 +16,6 @@ import { Comments } from "./index.js"
 import EventMap from "./EventMap.jsx"
 
 export default function Event({ event, refreshEvents, onLiked, onDeleted }) {
-  console.log("Event -> render")
-
   const { alert, confirm } = useContext()
 
   const {

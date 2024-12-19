@@ -33,7 +33,7 @@ export default function Confirm({
   return (
     <div className="fixed h-full w-full bg-black bg-opacity-50 top-0 flex items-center justify-center z-50">
       <div
-        className={`animate-fadeIn min-w-[25rem] max-w-[50rem] min-h-[12rem] rounded-lg shadow-lg flex flex-col items-center justify-center gap-6 p-6 ${currentColor.bg} ${currentColor.border} border-2 backdrop-blur-md`}
+        className={` rounded-lg shadow-lg flex flex-col items-center justify-center gap-6 p-6 ${currentColor.bg} ${currentColor.border} border-2 backdrop-blur-md`}
       >
         <p className={`text-xl font-bold ${currentColor.text} text-center`}>
           {message}

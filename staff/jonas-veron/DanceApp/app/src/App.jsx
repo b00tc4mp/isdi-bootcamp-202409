@@ -25,7 +25,6 @@ import {
 } from "./view/Components/functional/index.js"
 
 export default function App() {
-  console.log("App -> render")
   const [alert, setAlert] = useState({
     message: null,
     level: "error",
@@ -39,6 +38,7 @@ export default function App() {
 
   const navigate = useNavigate()
   const isLoggedIn = logic.isUserLoggedIn()
+  const isOrganizer = logic.isUserRoleOrganizer()
 
   const handleAlertAccepted = () =>
     setAlert({
@@ -94,7 +94,7 @@ export default function App() {
         />
         <Route
           path="/createEvent"
-          element={isLoggedIn ? <CreateEvent /> : <Navigate to="/login" />}
+          element={isOrganizer ? <CreateEvent /> : <Navigate to="/" />}
         />
 
         <Route

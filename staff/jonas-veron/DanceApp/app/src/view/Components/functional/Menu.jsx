@@ -6,7 +6,6 @@ import { configIcon, logoutIcon } from "../../../assets/index.js"
 import { ButtonMenu } from "./../library"
 
 export default function Menu({ isOpen, onClose }) {
-  console.log("render -> menu")
   const navigate = useNavigate()
   const { alert, confirm } = useContext()
   const [name, setName] = useState(null)

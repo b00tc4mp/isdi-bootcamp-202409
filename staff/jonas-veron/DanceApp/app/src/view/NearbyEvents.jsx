@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import logic from "../logic"
 import { calculateDistance } from "../utils/index.js"
@@ -15,7 +14,6 @@ export default function NearbyEvents() {
 
   const { alert, confirm } = useContext()
   const literals = useLiterals()
-  const navigate = useNavigate()
 
   useEffect(() => {
     confirm(
@@ -87,10 +85,10 @@ export default function NearbyEvents() {
   }, [type, radius, events])
 
   return (
-    <div className="fixed inset-0 flex flex-col text-white pt-20">
+    <div className="fixed inset-0 flex flex-col text-white pt-16">
       <div className="flex flex-col items-center py-4 px-6">
-        <div className="w-full max-w-md mb-6">
-          <label htmlFor="radius" className="block mb-2 font-semibold">
+        <div className="w-full max-w-md mb-6 pt-4">
+          <label htmlFor="radius" className="block font-semibold">
             Filtro por radio (km):
           </label>
           <input
@@ -102,18 +100,18 @@ export default function NearbyEvents() {
             onChange={handleRadiusChange}
             className="w-full accent-white"
           />
-          <p className="text-sm mt-2">Radio actual: {radius} km</p>
+          <p className="text-sm mt-1">Radio actual: {radius} km</p>
         </div>
 
-        <div className="w-full max-w-md mb-6">
-          <label htmlFor="eventType" className="block mb-2 font-semibold">
+        <div className="w-full max-w-md mb-2">
+          <label htmlFor="eventType" className="block font-semibold">
             Filtrar por tipo de evento:
           </label>
           <select
             id="eventType"
             value={type}
             onChange={handleFilterChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md bg-tertiary text-white focus:outline-none h-12"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md bg-tertiary text-white focus:outline-none h-10"
           >
             <option value="">Todos</option>
             <option value="Sociales">Sociales</option>
@@ -124,10 +122,12 @@ export default function NearbyEvents() {
         </div>
 
         <div className="w-full max-w-4xl">
-          <h2 className="text-center py-4 text-xl font-bold bg-secondary text-white">
+          <h2 className="text-center py-4 text-xl font-bold bg-secondary text-white ">
             Mapa de Eventos
           </h2>
-          <EventMap center={center} events={filteredEvents} />
+          <div className="mb-24">
+            <EventMap center={center} events={filteredEvents} />
+          </div>
         </div>
       </div>
     </div>

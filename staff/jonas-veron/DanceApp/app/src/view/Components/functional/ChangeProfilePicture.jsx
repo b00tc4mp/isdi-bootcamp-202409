@@ -2,7 +2,7 @@ import { useState } from "react"
 import useContext from "../../useContext"
 import logic from "../../../logic"
 import useLiterals from "../../useLiterals"
-import { ButtonForm } from "../library"
+import { ButtonForm, Form } from "../library"
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -56,7 +56,7 @@ export default function ChangeProfilePicture() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       {photoPreview && (
         <div className="">
           <img
@@ -83,6 +83,6 @@ export default function ChangeProfilePicture() {
       />
 
       <ButtonForm type="submit">Guardar Foto</ButtonForm>
-    </form>
+    </Form>
   )
 }

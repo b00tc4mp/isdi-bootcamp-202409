@@ -58,13 +58,13 @@ export default function EventMap({ center, events, showUserMarker = true }) {
                 alt={event.author.name}
                 className="w-28 h-28 object-cover rounded-lg mb-2"
               />
-              <h3 className="font-bold text-lg">{event.author.name}</h3>
-              <p className="text-sm">{event.location.address}</p>
+              <h3 className="text-sm">{event.author.name}</h3>
+
               <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=${event.location.coordinates[0]},${event.location.coordinates[1]}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 underline text-lg"
+                className="text-blue-500 underline text-sm"
               >
                 Cómo llegar
               </a>

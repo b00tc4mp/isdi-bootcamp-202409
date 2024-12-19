@@ -11,7 +11,6 @@ import {
 } from "../../../assets/index.js"
 
 export default function Footer() {
-  console.log("Footer -> render")
   const { alert, confirm } = useContext()
 
   const navigate = useNavigate()

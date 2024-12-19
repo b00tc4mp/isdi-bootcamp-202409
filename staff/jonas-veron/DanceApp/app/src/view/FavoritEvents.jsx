@@ -5,7 +5,6 @@ import useContext from "./useContext"
 import useLiterals from "./useLiterals.js"
 
 export default function FavoritEvents() {
-  console.log("Favorites -> render")
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
   const { alert } = useContext()
@@ -48,6 +47,8 @@ export default function FavoritEvents() {
               key={event.id}
               event={event}
               refreshEvents={refreshFavoriteEvents}
+              onLiked={refreshFavoriteEvents}
+              onDeleted={refreshFavoriteEvents}
             />
           ))}
         </div>

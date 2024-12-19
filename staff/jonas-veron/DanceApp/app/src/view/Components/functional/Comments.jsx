@@ -11,7 +11,6 @@ export default function Comments({ eventId, refreshEvents, onClose }) {
   const literals = useLiterals()
 
   useEffect(() => {
-    console.log("Comments -> useEffect")
     refreshComments()
   }, [])
 

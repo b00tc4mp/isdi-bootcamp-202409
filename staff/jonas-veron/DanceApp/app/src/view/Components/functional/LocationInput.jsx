@@ -1,12 +1,14 @@
 import React, { useState } from "react"
 import logic from "../../../logic"
 import useContext from "../../useContext"
+import useLiterals from "../../useLiterals"
 
 export default function LocationInput({ onLocationSelect }) {
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState([])
 
   const { alert } = useContext()
+  const literals = useLiterals()
 
   let debounceTimer
   const handleInputChange = async (event) => {
@@ -24,7 +26,7 @@ export default function LocationInput({ onLocationSelect }) {
         setSuggestions(results)
       } catch (error) {
         console.error(error)
-        alert(error.message)
+        alert(literals(error.message))
       }
     }, 500)
   }
@@ -36,14 +38,14 @@ export default function LocationInput({ onLocationSelect }) {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <input
         type="text"
         id="location"
         value={query}
         onChange={handleInputChange}
         placeholder="Escribe una dirección"
-        className="focus:outline-none p-2 rounded w-full mt-2 bg-tertiary text-white focus:ring-2 focus:ring-tertiary"
+        className="focus:outline-none p-2 rounded-lg w-full h-14 mt-4 bg-tertiary text-white focus:ring-2 focus:ring-tertiary"
       />
 
       <ul className="mt-2">

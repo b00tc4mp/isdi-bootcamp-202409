@@ -4,6 +4,8 @@
 
 DanceApp is an app designed to connect dancers and dance event organizers in your area. Whether you want to find a place to enjoy the rhythm or promote your next dance event, DanceApp is your ideal platform.
 
+![](DanceAppLogo.svg)
+
 ![](https://i.gifer.com/xz.gif)
 
 ## Functional
@@ -22,28 +24,37 @@ DanceApp is an app designed to connect dancers and dance event organizers in you
 Dancer
 
 - Search and explore events with filters by location.
-- Give "likes" to posts.
+- Give likes to events.
 - Comments.
 - Share events with friends.
+- Add events to favorites.
+- Access to a calendar with event scheduling.
+- Change password.
+- Change e-mail.
+- Change photo profile.
 
 Organizer
 
 - Search and explore events with filters by location.
-- Give "likes" to posts.
+- Give likes to events.
 - Comments.
 - Share events with friends.
+- Add events to favorites
 - Create and manage events.
-- Profile with your posts
+- Access to a calendar with event scheduling.
+- Change password.
+- Change e-mail.
+- Change photo profile.
 
 ### UXUI Design
 
-[Figma](https://figma.com)
+[Figma](https://www.figma.com/proto/0u87rR655ioxblXuFer6mB/Untitled?node-id=0-1&t=uV9czdTHqqmrNzAg-1)
 
 ## Technical
 
 ### Blocks
 
-- App: The mobile application developed in React Native.
+- App: The mobile application developed in React.
 - API: Backend to manage requests and business logic.
 - DB: MongoDB database to store users, events, and roles.
 
@@ -102,6 +113,7 @@ Comment
 - Authentication: JWT
 - Testing: Mocha & Chai (for backend logic)
 - Map Integration: Leaflet.js
+- Geocoding: Integration with Nominatim API
 
 ### Test Coverage
 

@@ -17,7 +17,6 @@ import {
 const { SystemError } = errors
 
 export default function Login() {
-  console.log("Login -> render")
   const { alert } = useContext()
   const navigate = useNavigate()
   const literals = useLiterals()

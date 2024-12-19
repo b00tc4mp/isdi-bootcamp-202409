@@ -10,8 +10,6 @@ export default function Comment({
   comment: { id, author, text, createdAt },
   onCommentRemoved,
 }) {
-  console.log("Comment -> render")
-
   const { alert, confirm } = useContext()
   const literals = useLiterals()
 
@@ -41,7 +39,7 @@ export default function Comment({
   }
   return (
     <li className="flex items-start space-x-3">
-      <div className="w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center">
+      <div className="w-10 h-10 bg-accentpink rounded-full flex items-center justify-center">
         {author.name[0].toUpperCase()}
       </div>
       <div className="flex-1 overflow-hidden text-left break-words">

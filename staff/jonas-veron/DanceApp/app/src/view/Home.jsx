@@ -5,7 +5,6 @@ import useLiterals from "./useLiterals"
 import { Event } from "../view/Components/functional/index.js"
 
 export default function Home() {
-  console.log("Home -> render")
   const [events, setEvents] = useState([])
 
   const { alert } = useContext()

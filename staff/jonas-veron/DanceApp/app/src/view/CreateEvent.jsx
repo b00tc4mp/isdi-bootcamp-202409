@@ -15,7 +15,6 @@ const toBase64 = (file) =>
   })
 
 export default function CreateEvent() {
-  console.log("CreateEvent -> render")
   const [images, setImages] = useState([])
   const [location, setLocation] = useState(null)
   const navigate = useNavigate()
@@ -72,7 +71,7 @@ export default function CreateEvent() {
 
   return (
     <main className="pt-24 pb-12 flex flex-col justify-center items-center">
-      <div className="w-full max-w-lg p-12">
+      <div className="w-full max-w-lg p-4">
         <h1 className="text-2xl font-semibold text-white text-center mb-6 font-body">
           Crear Evento
         </h1>
@@ -86,11 +85,11 @@ export default function CreateEvent() {
             />
           ))}
         </div>
-        <form onSubmit={handleFormSubmit}>
+        <Form onSubmit={handleFormSubmit}>
           <Field>
             <label
               htmlFor="images"
-              className="bg-accentpink text-white font-bold border-4 text-center border-transparent hover:bg-accentgreen transition duration-300 rounded-lg w-full h-12 pt-1"
+              className="bg-accentpink text-white font-bold border-4 text-center border-transparent hover:bg-accentgreen transition duration-300 rounded-lg w-full h-12 pt-2"
             >
               Cargar Imagen
             </label>
@@ -109,7 +108,7 @@ export default function CreateEvent() {
               name="type"
               id="type"
               required
-              className="w-full p-2 bg-tertiary text-white rounded-lg mt-2 h-12"
+              className="w-full p-2 bg-tertiary text-white rounded-lg mt-4 h-12"
             >
               <option value="" disabled selected>
                 --Selecciona el tipo de evento--
@@ -129,7 +128,7 @@ export default function CreateEvent() {
               maxLength="200"
               placeholder="Descripción del evento..."
               required
-              className="focus:outline-none p-2 rounded-lg bg-tertiary mt-2 text-white h-24 "
+              className="focus:outline-none p-2 rounded-lg bg-tertiary mt-4 text-white h-24 w-full"
             ></textarea>
           </Field>
 
@@ -150,7 +149,6 @@ export default function CreateEvent() {
           <Field>
             <LocationInput
               onLocationSelect={(location) => {
-                console.log("Ubicación seleccionada:", location)
                 setLocation(location)
               }}
             />
@@ -162,7 +160,7 @@ export default function CreateEvent() {
           )}
 
           <ButtonForm type="submit">Crear Evento</ButtonForm>
-        </form>
+        </Form>
       </div>
     </main>
   )

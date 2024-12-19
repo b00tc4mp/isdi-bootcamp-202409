@@ -33,7 +33,6 @@ export default function FilteredEvents() {
   useEffect(() => {
     fetchFilteredEvents()
   }, [type])
-  console.log(events)
 
   return (
     <div className="items-center text-center pb-16">

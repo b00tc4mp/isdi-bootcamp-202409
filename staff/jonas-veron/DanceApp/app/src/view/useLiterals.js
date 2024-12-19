@@ -16,6 +16,7 @@ const dictionary = {
   "passwords do not match": "Los passwords deben coincidir",
   "images must be an array": "Formato de imágen incorrecta",
   "each file must be a string": "Formato de imágen incorrecta",
+  "invalid image": "La imagen ingresada no es válida",
   "the text is required": "El texto es requerido",
   "text cannot exceed 200 characters":
     "El texto no puede ser superior a 200 caracteres",

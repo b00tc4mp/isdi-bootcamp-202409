@@ -18,7 +18,6 @@ import {
 const { SystemError } = errors
 
 export default function Register() {
-  console.log("Register -> render")
   const [role, setRole] = useState("")
 
   const { alert } = useContext()
