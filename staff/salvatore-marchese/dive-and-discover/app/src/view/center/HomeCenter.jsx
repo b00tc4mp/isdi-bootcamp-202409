@@ -1,30 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-/* import { getUserName,  getUserCenter  } from '../logic/users/index.js'  */
+import { useNavigate } from 'react-router-dom' 
 import logic from '../../logic/users/index.js'
-
 
 // HomeCenter component to display business details (view-only)
 const HomeCenter = () => {
   const navigate = useNavigate()
-  const [userName, setUserName] = useState('')
-  const [user, setUser] = useState(null)
+  //const [userName, setUserName] = useState('')
+  const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 /*   console.log(logic)
  */
   useEffect(() => {
-    // Fetch the user name first
-    logic.getUserName()
-      .then(name => {
-        setUserName(name)
-        // Fetch the full user details based on the user email
-        return logic.getUserCenter()  
-      })
-      .then(fetchedUser => {
-        setUser(fetchedUser)  // Set the full user data (name, address, postcode, etc.)
+    // Fetch the center data
+    logic.getUserCenter()
+      .then(centerInfo => {
+        setData(centerInfo)  // Set the center data info (name, address, postcode, etc.)
       })
       .catch(err => {
-        console.error("Error fetching user details:", err)
+        console.error("Error fetching center details:", err)
         setError(err.message)
         navigate('/login')  // Navigate to login if error occurs
       })
@@ -32,8 +25,8 @@ const HomeCenter = () => {
 
   const onViewProfileInfo = () => { navigate('/center-info')}
 
-  // If user data is still being fetched, show loading message
-  if (!user) {
+  // If the data is still being fetched, show loading message
+  if (!data) {
     return <p>Loading...</p>
   }
 
@@ -60,23 +53,23 @@ const HomeCenter = () => {
       
       <div className="space-y-4">
         <p className="text-lg text-gray-800">
-          <strong>Business Name:</strong> {user.name || "Not Available"}
+          <strong>Business Name:</strong> {data.name || "Not Available"}
         </p>
 
         <p className="text-lg text-gray-800">
-          <strong>Address:</strong> {user.address || "Not Available"}
+          <strong>Address:</strong> {data.address || "Not Available"}
         </p>
 
         <p className="text-lg text-gray-800">
-          <strong>Postcode:</strong> {user.postcode || "Not Available"}
+          <strong>Postcode:</strong> {data.postcode || "Not Available"}
         </p>
 
         <p className="text-lg text-gray-800">
-          <strong>Country:</strong> {user.country || "Not Available"}
+          <strong>Country:</strong> {data.country || "Not Available"}
         </p>
 
         <p className="text-lg text-gray-800">
-          <strong>City:</strong> {user.city || "Not Available"}
+          <strong>City:</strong> {data.city || "Not Available"}
         </p>
       </div>
 
@@ -84,8 +77,8 @@ const HomeCenter = () => {
       <div className="mt-8">
         <h2 className="text-xl font-semibold text-blue-600">Opening Time</h2>
         <ul className="mt-4 space-y-2">
-          {user.openingHours?.length ? (
-            user.openingHours.map((entry, index) => (
+          {data.openingHours?.length ? (
+            data.openingHours.map((entry, index) => (
               <li key={index} className="flex justify-between items-center text-lg text-gray-800">
                 <span>{getDayString(entry.day)}</span>
                 <span>{entry.openTime} - {entry.closeTime}</span>

@@ -1,7 +1,6 @@
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 import { useNavigate } from 'react-router-dom'
 
-
 import loginUser from '../logic/users/loginUser'
 
 import { errors } from '../../../com'
@@ -38,7 +37,9 @@ export default function Login(props) {
     }
 
     return (
-    <main className="flex flex-col justify-center items-center h-screen">
+    <main className="flex flex-col justify-center items-center h-screen" 
+    style={{ backgroundImage: "url('https://www.treehugger.com/thmb/OLxBN3vbTzvgFCeUdlyIMXxu_M8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1279110759-d280cdc3b0b842c2bde02b8e5f7238a8.jpg')" }}>
+        
         <div className="bg-gray-100 shadow-md p-4 rounded-lg w-h max-w-md ">
         <h2 className="text-2xl font-bold text-center mb-5">Let's <span className="text-yellow-500">Dive</span> you <span className="text-yellow-500">in</span></h2>
         <p className="text-center mb-7 text-600">Discover the World <span className="block"> with Every Sign In 🤿</span></p>

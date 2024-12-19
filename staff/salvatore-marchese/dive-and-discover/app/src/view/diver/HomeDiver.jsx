@@ -15,14 +15,15 @@ const HomeDiver = () => {
             setUserName(name);
           })
           .catch(err => { 
+            console.log(err)
             console.log("Error fetching user name:", error);  // Log any errors
             setError(err.message);
-            navigate('/login')
+            //navigate('/login')
           })
     }, [navigate]);
 
     const onViewProfileInfo = () => {
-        navigate('/personal-info')
+        navigate('/profile')
     };
 
     const onViewDocuments = () => {

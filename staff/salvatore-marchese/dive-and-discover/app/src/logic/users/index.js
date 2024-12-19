@@ -8,9 +8,10 @@ import isUserRoleCenter from "./isUserRoleCenter";
 import isUserRoleDiver from "./isUserRoleDiver";
 import getUserCenter from "./getUserCenter";
 import getUser from "./getUser";
-import updateUser from "./updateUser";
+import updateUserProfile from "./updateUserProfile";
 import getUserId from "./getUserId";
 import getUserName from "./getUserName";
+import updateProfileCenter from "./updateProfileCenter";
 
 
 const logic = {
@@ -23,9 +24,10 @@ const logic = {
     isUserRoleCenter,
     getUserCenter,
     getUser,
-    updateUser,
+    updateUserProfile,
     getUserId,
     getUserName,
+    updateProfileCenter,
 }
 
 export default logic 

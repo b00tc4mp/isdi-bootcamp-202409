@@ -1,9 +1,8 @@
-import { User, OpeningHours } from 'dat/index.js'
-import { validate, errors } from 'com/index.js'
+import { User, OpeningHours } from 'dat'
+import { validate, /* validateText, */ errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-//TEST ADDOPENINGHOURS.TEST.JS FAILS at line 24, validate.text(...) is not a function 
 //(userId, data)
 /*
 data = [
@@ -21,22 +20,27 @@ export default async (userId, day, openTime, closeTime) => {
      if (typeof day !== 'number' || day < 1 || day > 7) {
         throw new Error("Invalid day: must be a number between 1 and 7");
     }
-    validate.text(openTime)
-    validate.text(closeTime)
-    
-    console.log(day, openTime, closeTime)
+    if (!openTime || !closeTime) {
+        throw new Error(openTime ? 'closeTime is required' : 'openTime is required');
+    }
 
-    return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+   try {
+        validateText.text(openTime, 'openTime');
+        validateText.text(closeTime, 'closeTime');
+    } catch (error) {
+        throw new SystemError(error.message); // Handle any validation errors
+    }
 
-            const openingHours = new OpeningHours({ day, openTime, closeTime })
+    // Proceed with user lookup and opening hours creation
+    try {
+        const user = await User.findById(userId).lean();
+        if (!user) throw new NotFoundError('user not found');
 
-            return User.findByIdAndUpdate(userId, { $push: {openingHours } }, { new: true } )
-        })
-        .catch(error => { throw new SystemError(error.message) })
-        .then(() => { })
+        const openingHours = new OpeningHours({ day, openTime, closeTime });
+        await User.findByIdAndUpdate(userId, { $push: { openingHours } }, { new: true });
+    } catch (error) {
+        throw new SystemError(error.message);
+    }
 }
 
     /* let result

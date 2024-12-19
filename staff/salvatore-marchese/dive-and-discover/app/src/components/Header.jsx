@@ -11,11 +11,11 @@ export default ({ onHomeClick, onLoggedOut }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-      // check if a token exists
+        // check if a token exists
         const user = extractPayloadFromJWT(sessionStorage.token);
 
         if (!user) navigate('/login')
-       
+
     }, [])
 
     const handleHomeClick = event => {
@@ -29,7 +29,7 @@ export default ({ onHomeClick, onLoggedOut }) => {
             onLoggedOut()
         }
     }
-    
+
 
     return (
         <nav className="w-full px-8 py-4 bg-yellow-500 text-bg-[var(--color)] top-0 z-50">
@@ -39,14 +39,22 @@ export default ({ onHomeClick, onLoggedOut }) => {
                 </div>
                 {/* Desktop Menu Items - Hidden On Mobile  */}
                 <ul className="md:flex space-x-8 hidden text-base font-semibold">
-                    <li><NavLink to="#" className="cursor-pointer hover:underline">Home</NavLink></li>
+                    <li>
+                        <NavLink to="/home" className="cursor-pointer hover:underline">Home</NavLink>
+                    </li>
+                    {
+                        logic.isUserRoleDiver() &&
+                        <li><NavLink to="#" className="cursor-pointer hover:underline">Search</NavLink></li>
+                    }
 
-                    <li><NavLink to="#" className="cursor-pointer hover:underline">Search</NavLink></li>
+                    <li>
+                        <NavLink to="/profile" className="cursor-pointer  hover:underline">Profile</NavLink>
+                    </li>
 
-                    <li><NavLink to="#" className="cursor-pointer hover:underline">Profile</NavLink></li>
-                    
-                    <li><NavLink to="#" className="cursor-pointer hover:underline">Log Book</NavLink></li>
-
+                    {
+                        logic.isUserRoleDiver() &&
+                        <li><NavLink to="#" className="cursor-pointer hover:underline">Log Book</NavLink></li>
+                    }
                     <li><Button className="ButtonLogout" type="button" onClick={handleLogout}>Logout</Button>
                     </li>
                 </ul>
@@ -61,13 +69,21 @@ export default ({ onHomeClick, onLoggedOut }) => {
             {
                 isOpen && (
                     <ul className='flex flex-col gap-y-2 md:hidden sm:px-6 pb-2' id="mobile-menu-items">
-                    <li><NavLink to="/home" className="cursor-pointer hover:underline">Home</NavLink></li>
-                    <li><NavLink to="#" className="cursor-pointer hover:underline">Search</NavLink></li> 
-                    <li><NavLink to="/personal-info" className="cursor-pointer hover:underline">Profile</NavLink></li>
-                    <li><NavLink to="/log-book" className="cursor-pointer hover:underline">Log Book</NavLink></li>
+                        <li><NavLink to="/home" className="cursor-pointer hover:underline">Home</NavLink></li>
 
-                    <li><Button className="ButtonLogout" type="button" onClick={handleLogout}>Logout</Button>
-                    </li>
+                    {
+                        logic.isUserRoleDiver() &&
+                        <li><NavLink to="#" className="cursor-pointer hover:underline">Search</NavLink></li>
+                    }
+                        <li><NavLink to="/profile" className="cursor-pointer hover:underline">Profile</NavLink></li>
+
+                    {
+                        logic.isUserRoleDiver() &&
+                        <li><NavLink to="/log-book" className="cursor-pointer hover:underline">Log Book</NavLink></li>
+                    }
+
+                        <li><Button className="ButtonLogout" type="button" onClick={handleLogout}>Logout</Button>
+                        </li>
                     </ul>
                 )
             }

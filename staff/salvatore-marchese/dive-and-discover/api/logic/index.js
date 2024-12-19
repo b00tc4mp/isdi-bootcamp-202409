@@ -16,7 +16,8 @@ import {
 import {
     registerUserCenter,
     createHomeCenter,
-    addOpeningHours
+    addOpeningHours,
+    updateCenterInfo
 
 } from './users/center/index.js'
 
@@ -43,6 +44,8 @@ const logic = {
     getLogs,
     deleteLog,
     updateLog,
+
+    updateCenterInfo
 
     
 }

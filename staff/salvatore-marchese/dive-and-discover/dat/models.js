@@ -99,11 +99,11 @@ const logBook = new Schema({
         required: true
     },
     depth: {
-        type: String,
+        type: Number,
         required: true
     },
     time: {
-        type: String,
+        type: Number,
         required: true
     },
     weather: {
@@ -123,15 +123,15 @@ const logBook = new Schema({
         required: true
     },
     wetSuit: {
-        type: String,
+        type: Number,
         required: true
     },
     weight: {
-        type: String,
+        type: Number,
         required: true
     },
     tankSize: {
-        type: String,
+        type: Number,
         required: true
     },
     tankBar: {

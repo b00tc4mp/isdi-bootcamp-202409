@@ -6,7 +6,7 @@ const { SystemError } = errors
 export default () => {
     const { sub: userId } = extractPayloadFromJWT(sessionStorage.token)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/users/diver/${userId}/name`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

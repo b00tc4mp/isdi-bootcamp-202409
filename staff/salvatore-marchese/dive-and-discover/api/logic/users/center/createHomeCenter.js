@@ -17,7 +17,6 @@ export default async function createHomeCenter({ name, email, password, address,
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     const user = new User({ name, email, password: hashedPassword, address, country, city, postcode }) 
-
     
     await user.save()
 

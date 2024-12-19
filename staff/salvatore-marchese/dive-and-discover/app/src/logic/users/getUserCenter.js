@@ -14,7 +14,7 @@ export const getUserCenter = async () => {
 
     // Fetch the full user details (including registration info)
     // API URL to fetch the full user data
-    const url = `http://${import.meta.env.VITE_API_URL}/users/home-center`;
+    const url = `http://${import.meta.env.VITE_API_URL}/users/center/home-center`;
     return fetch(url, { headers })
         .then((res) => {
             if (!res.ok) {

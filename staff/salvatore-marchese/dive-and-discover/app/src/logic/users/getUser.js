@@ -12,7 +12,7 @@ export default async () => {
     }
 
     // API URL
-    const url = `http://${import.meta.env.VITE_API_URL}/users/personal-info`;
+    const url = `http://${import.meta.env.VITE_API_URL}/users/diver/profile`;
     const headers = {
         Authorization: `Bearer ${sessionStorage.token}`
     };

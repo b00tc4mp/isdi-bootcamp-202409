@@ -1,4 +1,5 @@
 import errors from './errors.js'
+import { Types } from 'mongoose'
 
 const { ValidationError } = errors 
 
@@ -28,7 +29,7 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
-    if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
+    if (!Types.ObjectId.isValid(id)) throw new ValidationError(`invalid ${explain}`)
 }
 
 const validateCallback = callback => {
@@ -85,12 +86,9 @@ const validateDiveSite = (diveSite) => {
 }
 
 const validateDate = (date) => {
-    // Check if the date is a valid date object
-    const parsedDate = new Date(date);
-
-    // Check if the parsed date is valid (not NaN)
-    if (isNaN(parsedDate.getTime())) {
-        throw new Error('Invalid date format. Expected format: yyyy-mm-dd');
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // Regular expression to match the format yyyy-mm-dd
+    if (!dateRegex.test(date)) {
+        throw new ValidationError('Invalid date format. Expected format: yyyy-mm-dd');
     }
 }
 
@@ -271,6 +269,25 @@ const validateProfile = (data) => {
     })
 }
 
+const validateText = {
+    text: (value, fieldName) => {
+        // Check if the value is not null or undefined
+        if (value == null) {
+            throw new Error(`${fieldName} cannot be null or undefined`);
+        }
+
+        // Ensure the value is a string
+        if (typeof value !== 'string') {
+            throw new Error(`${fieldName} must be a string`);
+        }
+
+        // Trim leading and trailing spaces and ensure it's not an empty string
+        if (value.trim() === '') {
+            throw new Error(`${fieldName} cannot be an empty string`);
+        }
+    }
+};
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -298,7 +315,8 @@ const validate = {
     diveCenter: validateDiveCenter,
     diveSite: validateDiveSite,
     notes: validateNotes,
-    profileData: validateProfile
+    profileData: validateProfile,
+    text: validateText,
 }
 
 export default validate

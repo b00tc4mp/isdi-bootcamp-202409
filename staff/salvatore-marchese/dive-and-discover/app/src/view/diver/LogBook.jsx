@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import logic from '../../logic/log/index.js'
 import { Label, Input, Button, Form, Field } from '../library/index.js'
 
+/* const formatDate = (date) => {
+  const [day, month, year] = date.split('/');
+  return `${year}-${month}-${day}`; // Convert to yyyy-mm-dd
+}; */
 
 export default function LogBook({ onCreated }) {
   console.log('LogBook -> render')

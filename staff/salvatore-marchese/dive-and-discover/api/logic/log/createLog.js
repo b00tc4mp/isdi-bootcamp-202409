@@ -1,47 +1,36 @@
-// LOG MODEL
 import { User, LogBook } from 'dat'
 import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
 export default async (userId, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, diveSite, notes) => {
-    // Input validation
-    validate.id(userId, 'userId')
-    validate.date(date)
-    validate.depth(depth)
-    validate.time(time)
-    validate.weather(weather)
-    validate.temperature(temperature)
-    validate.visibility(visibility)
-    validate.waves(waves)
-    validate.wetSuit(wetSuit)
-    validate.weight(weight)
-    validate.tankSize(tankSize)
-    validate.tankBar(tankBar)
-    validate.feeling(feeling)
-    validate.diveCenter(diveCenter)
-    validate.diveSite(diveSite)
-    validate.notes(notes)
-
     try {
-         // Convert date from dd/mm/yyyy string to Date object (optional)
-         const [day, month, year] = date.split('/');
-         const formattedDate = new Date(`${year}-${month}-${day}`);  // Converts to YYYY-MM-DD
- 
-        // Check if the user exists
+        if (userId) {
+            validate.id(userId, 'userId') // Only validate if userId is provided to confirm the user is logged in
+        }
+        
+        validate.date(date)
+
+        // Convert date from dd/mm/yyyy string to Date object
+        const [day, month, year] = date.split('/')
+        const formattedDate = new Date(`${year}-${month}-${day}`)  // Converts to YYYY-MM-DD
+
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError('User not found')
 
-        // Create the new log entry
+            console.log('Creating log with userId:', userId) 
+
         const log = await LogBook.create({
-            diver: userId, date: formattedDate, depth, time, weather, temperature, visibility, waves, wetSuit, weight, 
+            date: formattedDate, 
+            depth, time, weather, temperature, visibility, waves, wetSuit, weight, 
             tankSize, tankBar, feeling, diveCenter, diveSite, notes
         })
-        console.log(log)
-        // Return a success message (you can change this as per your needs)
-        return { message: 'Log created successfully' }
+
+        return { message: 'Log created successfully', log }
     } catch (error) {
-        // Handle errors with specific error messages
+        if (error instanceof NotFoundError) {
+            throw error
+        }
         throw new SystemError(error.message)
     }
 }

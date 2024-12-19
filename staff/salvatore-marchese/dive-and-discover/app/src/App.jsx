@@ -18,6 +18,9 @@ export default function App() {
   const handleLoginClick = () => navigate("/home");
   const handleUserRegistered = () => navigate("/login");
 
+  const isLoggedIn = logic.isUserLoggedIn();
+  const isUserRoleDiver = logic.isUserRoleDiver();
+
   return (
     <>
       {logic.isUserLoggedIn() && <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />}
@@ -42,13 +45,11 @@ export default function App() {
         <Route path="/home" element={logic.isUserLoggedIn() ? (logic.isUserRoleDiver() ? 
         (<HomeDiver />) : logic.isUserRoleCenter() ? (<HomeCenter /> ) : (<Navigate to="/login" /> ) ) : (<Navigate to="/login" /> ) } />
 
-        <Route path="/personal-info" element={logic.isUserLoggedIn() ? <Profile /> : <Navigate to="/login" /> } />
+        <Route path="/profile" element={!isLoggedIn ? <Navigate to="/login" /> : isUserRoleDiver ? <Profile /> : <ProfileCenter /> } />
 
         <Route path="/log-book" element={logic.isUserLoggedIn() ? <LogBook /> : <Navigate to="/login" /> } />
 
         {/* missing search and docs&insurance */}
-       
-        <Route path="/center-info" element={logic.isUserLoggedIn() ? <ProfileCenter /> : <Navigate to="/login" /> } />
         
 
       </Routes>

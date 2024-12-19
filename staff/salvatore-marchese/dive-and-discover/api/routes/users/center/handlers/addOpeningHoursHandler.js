@@ -1,5 +1,5 @@
-import logic from '../../../logic/index.js'
-import { createFunctionalHandler } from '../../helpers/index.js'
+import logic from '../../../../logic/index.js'
+import { createFunctionalHandler } from '../../../helpers/index.js'
 
 export default createFunctionalHandler((req, res) => {
     console.log("ready to add ")

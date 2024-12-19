@@ -16,14 +16,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "-": "^0.0.1",
     "bcryptjs": "^2.4.3",
     "com": "file:../com",
     "cors": "^2.8.5",
     "dat": "file:../dat",
     "express": "^4.21.1",
+    "g": "^2.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.10.0",
-    "node-module": "^1.0.1"
+    "node-module": "^1.0.1",
+    "nodemon": "^3.1.9"
   },
   "devDependencies": {
     "c8": "^10.1.2",

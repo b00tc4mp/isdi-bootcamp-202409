@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../library'
 import logic from '../../logic/users'
 
@@ -15,10 +16,16 @@ const FormField = ({ fieldKey, label, value, onChange }) => {
 }
 
 const ProfileCenter = () => {
-    const [userInfo, setUserInfo] = useState ({ name: '', email: '', address: '', country: '', city:'', postcode: '', openingHours: [] })
+    const navigate = useNavigate();
+
+    const [userInfo, setUserInfo] = useState({ name: '', email: '', address: '', country: '', city: '', postcode: '', openingHours: [] })
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    //openingHours, setOpeningHours
+    const [form, setForm] = useState({});
+    const fields = [1, 2, 3, 4, 5, 6, 7];
 
     //fetching user data
     useEffect(() => {
@@ -26,17 +33,19 @@ const ProfileCenter = () => {
             try {
                 const userData = await logic.getUserCenter()
                 if (userData?.error) throw new Error(userData.error)
+                setUserInfo({
+                    ...userData,
+                    openingHours: userData.openingHours || [], // Ensure it is an array
+                });
 
-                    setUserInfo({
-                        ...userData,
-                        openingHours: userData.openingHours || [], // Ensure it is an array
-                      });
+                transformOpeningHours(userData.openingHours || []);
                 setIsLoading(false)
             } catch (error) {
+                console.log(error)
                 console.log(Object.keys(error))
                 if (error?.authError) {
                     sessionStorage.token = null
-                    Navigate('/login')
+                    navigate('/login')
                 }
                 alert(error.message)
                 setError('Error fetching user data')
@@ -46,10 +55,31 @@ const ProfileCenter = () => {
         fetchUserInfo()
     }, [])
 
+
+    const transformOpeningHours = (openingHours) => {
+        const formData = openingHours.reduce((acc, { day, openTime, closeTime }) => {
+            acc[day] = { openTime, closeTime };
+            return acc;
+          }, {});
+          setForm(formData)
+    }
+
+    const getDayString = (day) => {
+        if (day === 1) return "Monday";
+        else if (day === 2) return "Tuesday";
+        else if (day === 3) return "Wednesday";
+        else if (day === 4) return "Thursday";
+        else if (day === 5) return "Friday";
+        else if (day === 6) return "Saturday";
+        else if (day === 7) return "Sunday";
+      }
+    
+
+
     //handle form input change
     const handleChange = (e) => {
         const { name, value } = e.target
-        setUserInfo({ ...userInfo, [name]: value})
+        setUserInfo({ ...userInfo, [name]: value })
     }
 
     //handle form submission
@@ -59,15 +89,34 @@ const ProfileCenter = () => {
         setIsSubmitting(true)
 
         try {
-            const user = extractPayloadFromJWT(sessionStorage.token)
-            await logic.updateProfile(user.sub, userInfo)
-            alert('Information updated successfully')
+            const user = extractPayloadFromJWT(sessionStorage.token);
+
+            const openingHours = Object.entries(form).map(([day, times]) => ({
+                day: parseInt(day, 10), 
+                ...times
+            }))
+
+            userInfo['openingHours'] = openingHours;
+            console.log(userInfo)
+
+           await logic.updateProfileCenter(user.sub, userInfo)
+           alert('Information updated successfully')
+           navigate('/home')
         } catch (error) {
             setError('Error updating information')
+            console.log(error)
         } finally {
             setIsSubmitting(false)
         }
     }
+
+    // These methods will update the state properties.
+    function updateForm(value) {
+        return setForm((prev) => {
+          return { ...prev, ...value };
+        });
+      }
+    
 
     if (isLoading) return <p>Loading...</p>
     return (
@@ -76,9 +125,9 @@ const ProfileCenter = () => {
                 <form className="w-full bg-white p-6" onSubmit={handleSubmit}>
                     {error && <p className="text-red-500">{error}</p>}
                     {/* Center Personal Info*/}
-                    <div className="mb-8"><p className="text-xl font-semibold text-blue-700 cursor-pointer trasition-all hover:text-black">Business Info</p>
-                    <div>
-                        
+                    <div className="mb-8">
+                        <p className="text-xl font-semibold text-blue-700 cursor-pointer trasition-all hover:text-black">Business Info</p>
+                        <div>
                             <FormField fieldKey="name" label={"Name"} value={userInfo.name} onChange={handleChange} />
 
                             <FormField fieldKey="email" label={"Email Address"} value={userInfo.email} onChange={handleChange} />
@@ -91,31 +140,44 @@ const ProfileCenter = () => {
 
                             <FormField fieldKey="postcode" label={"Postcode"} value={userInfo.postcode} onChange={handleChange} />
 
-                            {userInfo.openingHours?.map((entry, index) => (
-  <div key={index} className="flex gap-4">
-    <FormField
-      fieldKey={`openTime-${index}`}
-      label={`Opening Time (Day ${entry.day})`}
-      value={entry.openTime || ''}
-      onChange={(e) => handleOpeningHourChange(index, 'openTime', e.target.value)}
-    />
-    <FormField
-      fieldKey={`closeTime-${index}`}
-      label={`Closing Time (Day ${entry.day})`}
-      value={entry.closeTime || ''}
-      onChange={(e) => handleOpeningHourChange(index, 'closeTime', e.target.value)}
-    />
-  </div>
-))}
+
+                            <p className="text-xl font-semibold text-blue-700 cursor-pointer trasition-all hover:text-black">Business Hours</p>
+                            {fields.map((field, index) => (
+                                <div key={index} className="flex gap-4">
+                                    <FormField
+                                        fieldKey={`openTime-${index}`}
+                                        label={`Opening Time (Day ${getDayString(field)})`}
+                                        placeholder={'Opening'}
+                                        value={form[field]?.openTime}
+                                        onChange={(e) => {
+                                            let val = form[field] || {};
+                                            val["openTime"] = e.target.value;
+                                            updateForm({[`${field}`]: val})
+                                        }
+                                    }
+                                    />
+                                    <FormField
+                                        fieldKey={`closeTime-${index}`}
+                                        label={`Closing Time (Day ${field})`}
+                                        value={form[field]?.closeTime}
+                                        onChange={(e) => {
+                                            let val = form[field] || {};
+                                            val["closeTime"] = e.target.value;
+                                            updateForm({[`${field}`]: val})
+                                        }
+                                    }
+                                    />
+                                </div>
+                            ))}
 
                             {/* <FormField fieldKey="openingHours" label={"Opening Hours"} value={userInfo.openingHours} onChange={handleChange} /> */}
                         </div>
                     </div>
 
                     <div className="flex justify-between mt-2">
-                    <Button type="submit" className={`h-12 w-[150px] ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-400 hover:bg-blue-600"
-                    } text-sm text-white rounded-lg transition-all`}
-                    disabled={isSubmitting}> {isSubmitting ? "Saving..." : "Save"} </Button>
+                        <Button type="submit" className={`h-12 w-[150px] ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-400 hover:bg-blue-600"
+                            } text-sm text-white rounded-lg transition-all`}
+                            disabled={isSubmitting}> {isSubmitting ? "Saving..." : "Save"} </Button>
                         {/* <Button type="submit" className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">
                             Save
                         </Button> */}

@@ -11,6 +11,7 @@ export default async (userId) => {
         if (!user) throw new NotFoundError('user not found');
         return user;
     } catch (error) {
+        if (error instanceof NotFoundError) throw error;
         throw new SystemError(error.message)
     }
 }

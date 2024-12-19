@@ -11,27 +11,25 @@ import { errors } from 'com'
 
 const { NotFoundError } = errors
 
-import getProfile from './getProfile.js'
+import getUser from './getUser.js'
 
-describe('getProfile', () => {
+describe('getUser', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', async () => {
-        const user = await User.create({ name: 'TestDiveCenter2', email: 'test2@divecenter.com', password: '123123123', role: 'center'})
+        const user = await User.create({ name: 'salva', email: 'smarchese985@gmail.com', password: 'salva123', role: 'diver' })
 
-        const profile = await getProfile(user.id, user.id)
+        const profile = await getUser(user.id)
 
-        expect(profile._id.toString()).to.equal(user.id)
+        expect(profile.name).to.equal('salva')
     })
 
-    it('fails on non-exisitng user', () => 
-    expect(
-        getProfile('012345678901234567890123')
+    it('fails on non-exisiting user', async () => 
+    await expect(
+        getUser('012345678901234567890123')
     ).to.be.rejectedWith(NotFoundError, 'user not found')
     )
-
     after(() => db.disconnect())
 })
-

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../library'
 import logic from '../../logic/users'
 
@@ -15,6 +16,7 @@ const FormField = ({ fieldKey, label, value, onChange }) => {
 }
 
 const Profile = () => {
+    const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({ name: '', email: '', password: ''/* , wetSuit: '', weight: '', tank: '', finns: '' */})
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -52,13 +54,12 @@ const Profile = () => {
     //handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        console.log(userInfo) 
-
         try {
-            const user = extractPayloadFromJWT(sessionStorage.token);
-            await logic.updateProfile(user.sub, userInfo)
+            //const user = extractPayloadFromJWT(sessionStorage.token);
+            //await logic.updateUser(user.sub, userInfo);
+            await logic.updateUserProfile(userInfo);
             alert('Information updated successfully')
+            navigate('/home')
         } catch (error) {
             setError('Error updating information')
         }
@@ -84,12 +85,10 @@ const Profile = () => {
 
                             <FormField fieldKey="weight" label={"Weight"} value={userInfo.weight} onChange={handleChange} />
 
-                            <FormField fieldKey="tank" label={"Tank"} value={userInfo.tank} onChange={handleChange} />
+                            <FormField fieldKey="tankSize" label={"Tank"} value={userInfo.tankSize} onChange={handleChange} />
 
                             <FormField fieldKey="finns" label={"Finns"} value={userInfo.finns} onChange={handleChange} />
                         </div>
-
-
                     </div>
 
                     <div className="flex justify-between mt-2">
