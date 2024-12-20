@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, ManagePacks, ManageCustomers, ManagePurchasedPacks, AssignPack, CreatePack, Tracker } from './view'
+import { Login, Register, Home, ManagePacks, ManageCustomers, ManagePurchasedPacks, AssignPack, CreatePack, Tracker, UserProfile } from './view'
 
 import { Header, Alert, Confirm } from './view/components'
 
@@ -28,6 +28,7 @@ export default function App() {
 
   const handleHomeClick = () => navigate('/')
 
+  const handleUserProfileClick = () => navigate('/user-profile')
 
 
   //Navigation throw user things
@@ -100,7 +101,7 @@ export default function App() {
   }}>
 
     {location.pathname !== '/login' && (
-      <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} />
+      <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} onViewProfile={handleUserProfileClick} />
     )}
     <Routes>
 
@@ -151,6 +152,10 @@ export default function App() {
 
       <Route path="/manage-purchased-packs" element={logic.isUserLoggedIn() ?
         <ManagePurchasedPacks onHomeClick={handleHomeClick} /> :
+        <Navigate to="/login" />} />
+
+      <Route path="/user-profile" element={logic.isUserLoggedIn() ?
+        <UserProfile onHomeClick={handleHomeClick} /> :
         <Navigate to="/login" />} />
 
       <Route

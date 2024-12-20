@@ -49,6 +49,9 @@ export default (userId, packId, customerId, description, operation) => {
                 const elapsedMiliseconds = time[1]
                 const elapsedHours = (elapsedMiliseconds / 1000 / 60 / 60).toFixed(5)
 
+                const timerActivated = null
+                const descriptionActivityTemp = null
+                const remainingQuantity = (pack.remainingQuantity - elapsedHours).toFixed(5)
 
                 //Ahora añado un registro a Activity
                 return Activity.create({
@@ -56,7 +59,8 @@ export default (userId, packId, customerId, description, operation) => {
                     date: now,
                     description: description,
                     operation: operation,
-                    quantity: (elapsedHours) //Storage time in miliseconds
+                    quantity: (elapsedHours), //Storage time in miliseconds
+                    remainingQuantity: remainingQuantity
                 })
                     .catch(error => {
                         throw new SystemError(error.message)
@@ -67,16 +71,12 @@ export default (userId, packId, customerId, description, operation) => {
                             throw new SystemError('There was a problem create activity')
 
                         }
-                        const timerActivated = null
-                        const descriptionActivityTemp = null
-                        const remmainingQuantity = (pack.remmainingQuantity - elapsedHours).toFixed(5)
-                        return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp, remmainingQuantity }, { new: true, runValidators: true })
+
+                        return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp, remainingQuantity }, { new: true, runValidators: true })
                             .catch(error => {
                                 throw new SystemError(error.message)
                             })
                     })
-
-
             } else {
 
                 console.log('No tengo valor y lo tendré que añadir')

@@ -83,11 +83,11 @@ const user = new Schema({
         type: String,
         required: false,
     },
-    street: {
+    address1: {
         type: String,
         required: false,
     },
-    street2: {
+    address2: {
         type: String,
         required: false,
     },
@@ -240,7 +240,7 @@ const pack = new Schema({
         required: true,
     },
 
-    remmainingQuantity: {
+    remainingQuantity: {
         type: Number,
         required: true,
     },
@@ -317,6 +317,12 @@ const activity = new Schema({
         type: Number,
         required: true,
     },
+
+    remainingQuantity: {
+        type: Number,
+        required: false, //TODO: Modificar a true cuando cambie de base de datos
+    }
+
 }, { versionKey: false })
 
 

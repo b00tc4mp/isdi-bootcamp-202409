@@ -12,6 +12,7 @@ import ManageCustomers from './ManageCustomers'
 //Users Managing
 import Register from "./Register"
 import Login from './Login'
+import UserProfile from "./UserProfile"
 
 //Tracker Managing
 import Tracker from "./Tracker"
@@ -33,6 +34,7 @@ export {
     ManagePurchasedPacks,
     AssignPack,
     CreatePack,
+    UserProfile,
 
     //Tracker
     Tracker,

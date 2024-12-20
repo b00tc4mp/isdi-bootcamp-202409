@@ -10,7 +10,7 @@ const provider = '675036c010473f3d809e5359'
 const customer = '674f1fc3a728c03cdd10ba3c'
 const description = 'Description test creada desde el back '
 const originalQuantity = 5
-const remmainingQuantity = originalQuantity
+const remainingQuantity = originalQuantity
 const unit = 'hours'
 const price = 235
 const currency = 'EUR'
@@ -33,7 +33,7 @@ try {
         customer,
         description,
         originalQuantity,
-        remmainingQuantity,
+        remainingQuantity,
         unit,
         price,
         currency,

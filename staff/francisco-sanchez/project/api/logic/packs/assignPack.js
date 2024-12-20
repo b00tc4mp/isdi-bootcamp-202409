@@ -44,7 +44,7 @@ export default async (userId, customerSearch, selectPack, payedAmount, paymentMe
             customer: customerId,
             description,
             originalQuantity: quantity,
-            remmainingQuantity: quantity,
+            remainingQuantity: quantity,
             unit,
             price,
             currency,
