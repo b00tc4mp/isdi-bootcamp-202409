@@ -3,13 +3,14 @@ import jwt from "jsonwebtoken";
 
 const { AuthorizationError } = errors;
 
-export default (req, res, next) => {
+export default (req, _res, next) => {
   console.log("entrando en authorization handler");
 
   const token = req.headers.authorization?.slice(7);
 
   if (!token) {
-    return next(new AuthorizationError("No token provided"));
+    throw new Error("Auth token missing"); // next(new AuthorizationError(error.message));
+    // return next(new AuthorizationError("No token provided"));
   }
 
   try {
@@ -19,6 +20,6 @@ export default (req, res, next) => {
 
     next();
   } catch (error) {
-    return next(new AuthorizationError(error.message));
+    return res.status(401).json({ error: error.message }); // next(new AuthorizationError(error.message));
   }
 };

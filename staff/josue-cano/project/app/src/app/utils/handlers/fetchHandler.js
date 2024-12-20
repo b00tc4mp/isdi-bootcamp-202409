@@ -1,4 +1,5 @@
 import { getToken } from "@/app/utils/session";
+import { logout } from "@/app/logic/auth";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -21,18 +22,23 @@ export default async function fetchHandler(url, options, isPublic = false) {
       fetchOptions.headers = { ...fetchOptions.headers, Authorization: `Bearer ${token}` };
     }
 
-    const response = await fetch(`${baseUrl}/${url}`, fetchOptions);
+    let response = await fetch(`${baseUrl}/${url}`, fetchOptions);
+    debugger;
 
     if (!response.ok) {
-      // alert('error en response');
-      throw new Error("Network response was not ok");
+      if (response.status == 401) {
+        logout();
+      }
+      response = await response.json();
+      throw new Error(response.error);
     }
-    return response.json();
+    response = await response.json();
+    return response;
   } catch (error) {
+    debugger;
     // Manejar el error aquí
-    console.log("Error:", error);
+    console.log("Error:", error.message);
     // alert('error en el fetch');
-    // Puedes mostrar un mensaje de error al usuario, redireccionar a una página de error, etc.
     throw error;
   }
 }

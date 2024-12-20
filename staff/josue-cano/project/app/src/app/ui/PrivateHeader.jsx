@@ -20,7 +20,7 @@ export default function PrivateHeader({ logout }) {
           <Link href="/users/favorites" className="text-sm font-medium text-gray-800">
             Favoritos
           </Link>
-          <Link href="/mensajes" className="text-sm font-medium text-gray-800">
+          <Link href="/users/chats" className="text-sm font-medium text-gray-800">
             Mensajes
           </Link>
           <Link href="/hazte-pro" className="text-sm font-medium text-gray-800">

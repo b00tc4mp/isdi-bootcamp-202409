@@ -52,13 +52,100 @@ db.connect(process.env.MONGO_URL)
      * Get All products created by the user
      * */
     server.get("/user/products", helpers.authorizationHandler, (req, res) => {
-      const userId = req.params.id;
+      const userId = req.userId;
 
       logic
         .getUserProducts(userId)
         .then((user) => res.json({ data: user }))
         .catch((msg) => res.status(400).json({ error: msg.message }));
     });
+
+    /**
+     * Get All comments made by the user
+     * */
+    server.get("/user/chat/:chatId", helpers.authorizationHandler, (req, res) => {
+      const userId = req.userId;
+
+      const { chatId } = req.params;
+
+      logic
+        .getUserChat(chatId)
+        .then((chats) => res.json({ data: chats }))
+        .catch((msg) => res.status(400).json({ error: msg.message }));
+    });
+    /**
+     * Get All chats
+     * */
+    server.post("/user/chats/", helpers.authorizationHandler, (req, res) => {
+      const userId = req.userId;
+
+      const { productOwner } = req.body;
+
+      logic
+        .getUserChats({ userId, productOwner })
+        .then((chats) => res.json({ data: chats }))
+        .catch((msg) => res.status(400).json({ error: msg.message }));
+    });
+    /**
+     * Start a new chat
+     * */
+    server.post("/user/chat/", helpers.authorizationHandler, (req, res) => {
+      const userId = req.userId;
+
+      const { message, productOwner } = req.body;
+
+      const payload = {
+        userId,
+        message,
+        productOwner,
+      };
+
+      logic
+        .createChat(payload)
+        .then((chat) => res.json({ data: chat }))
+        .catch((msg) => res.status(400).json({ error: msg.message }));
+    });
+
+    /**
+     * Insert a new message in a chat
+     * */
+    server.post("/user/chat/message", helpers.authorizationHandler, (req, res) => {
+      const userId = req.userId;
+
+      const { message, chatId } = req.body;
+
+      const payload = {
+        userId,
+        message,
+        chatId,
+      };
+
+      logic
+        .addChatMessage(payload)
+        .then((chat) => res.json({ data: chat }))
+        .catch((msg) => res.status(400).json({ error: msg.message }));
+    });
+
+    /**
+     * Post a new comment on a product
+     * */
+    // server.post("/user/comments/", helpers.authorizationHandler, (req, res) => {
+    //   const userId = req.params.id;
+
+    //   const {productId, message, productOwner} = req.body;
+
+    //   const payload = {
+    //     userId,
+    //     productId,
+    //     message,
+    //     productOwner
+    //   }
+
+    //   logic
+    //     .addUserComment()
+    //     .then((user) => res.json({ data: user }))
+    //     .catch((msg) => res.status(400).json({ error: msg.message }));
+    // });
 
     //validatessesion
     server.get("/validate-session", (req, res) => {
@@ -177,7 +264,12 @@ db.connect(process.env.MONGO_URL)
      * Eliminar producto
      */
     server.delete("/products/:id", helpers.authorizationHandler, (req, res) => {
-      logic.deleteProduct(req.params.id).then((result) => res.json({ data: result }));
+      const userId = req.userId;
+
+      logic
+        .deleteProduct({ userId, productId: req.params.id })
+        .then((result) => res.json({ data: result }))
+        .catch((error) => res.json({ error: error.message }));
     });
 
     /**

@@ -1,7 +1,7 @@
 import { User, Producto } from "dat";
-import { validate, errors } from "com";
+import { errors } from "com";
 
-const { DuplicityError, SystemError, ValidationError } = errors;
+const { SystemError } = errors;
 
 export default async (userId) => {
   console.log({ userId });
@@ -11,6 +11,6 @@ export default async (userId) => {
 
     return user;
   } catch (error) {
-    console.log(error);
+    SystemError(error);
   }
 };

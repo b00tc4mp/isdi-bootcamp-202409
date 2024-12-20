@@ -6,7 +6,11 @@ import getUserFavorites from "./getUserFavorites.js";
 import getUserDetails from "./getUserDetails.js";
 import updateUser from "./updateUser.js";
 import getFavorites from "./getFavorites.js";
-import getUserProducts from "./getUserProducts.js"
+import getUserProducts from "./getUserProducts.js";
+import getUserChat from "./getUserChat.js";
+import getUserChats from "./getUserChats.js";
+import createChat from "./createChat.js";
+import addChatMessage from "./addChatMessage.js";
 
 const users = {
   authenticateUser,
@@ -19,6 +23,10 @@ const users = {
   setUserFavorites,
   getFavorites,
   getUserProducts,
+  getUserChat,
+  getUserChats,
+  createChat,
+  addChatMessage,
 };
 
 export default users;

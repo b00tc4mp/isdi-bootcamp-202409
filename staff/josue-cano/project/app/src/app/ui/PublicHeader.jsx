@@ -7,12 +7,7 @@ export default function PublicHeader() {
     <div className="sticky top-0 left-0 w-full z-50 bg-white border-b border-[#52A42D] shadow-md">
       <div className="navbar bg-base-100 container mx-auto flex justify-between items-center px-4">
         {/* Navbar Start */}
-        <div className="flex items-center space-x-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <Image src="/img/ekoalityLogo.png" alt="Ekoality Logo" width={100} height={40} className="object-contain" />
-          </Link>
-
+        <div className="flex items-center justify-between w-full lg:w-auto">
           {/* Dropdown para dispositivos móviles */}
           <div className="dropdown lg:hidden">
             <button tabIndex={0} className="btn btn-ghost" aria-label="Toggle navigation menu">
@@ -69,6 +64,11 @@ export default function PublicHeader() {
               </li>
             </ul>
           </div>
+          {/* Logo */}
+          <Link href="/" className="">
+            <Image src="/img/ekoalityLogo.png" alt="Ekoality Logo" width={100} height={40} className="object-contain" />
+          </Link>
+          <div className=""></div>
         </div>
 
         {/* Navbar End - Menú Horizontal para Escritorio */}

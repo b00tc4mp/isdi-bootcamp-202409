@@ -54,11 +54,16 @@ const user = new Schema(
 
 const comment = new Schema(
   {
-    author: {
+    writer: {
       type: ObjectId,
       required: true,
       ref: "User",
     },
+    /*reader: {
+        type: ObjectId,
+        required: true,
+        ref: "User",
+      },*/
     text: {
       type: String,
       required: true,
@@ -67,13 +72,10 @@ const comment = new Schema(
     product: {
       type: ObjectId,
       required: true,
-      ref: "User",
+      ref: "Producto",
     },
   },
-  {
-    timestamps: true, // Agrega campos `createdAt` y `updatedAt` automáticamente
-    versionKey: false,
-  }
+  { timestamps: true, versionKey: false }
 );
 
 const categoria = new Schema(
@@ -182,11 +184,47 @@ const ubicacion = new Schema(
   }
 );
 
+const message = new Schema(
+  {
+    author: {
+      type: ObjectId,
+      required: true,
+      ref: "User",
+    },
+    text: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
+const chat = new Schema(
+  {
+    owner: {
+      type: ObjectId,
+      required: true,
+      ref: "User",
+    },
+    peer: {
+      type: ObjectId,
+      required: true,
+      ref: "User",
+    },
+    messages: [message],
+  },
+  { timestamps: true, versionKey: false }
+);
+
 const User = model("User", user);
 const Producto = model("Producto", producto);
 const Comment = model("Comment", comment);
 const Categoria = model("Categoria", categoria);
 const Subcategoria = model("Subcategoria", subcategoria);
 const Ubicacion = model("Ubicacion", ubicacion, "ubicaciones");
+const Message = model("Message", message);
+const Chat = model("Chat", chat);
 
-export { User, Producto, Comment, Categoria, Subcategoria, Ubicacion };
+export { User, Producto, Comment, Categoria, Subcategoria, Ubicacion, Message, Chat };

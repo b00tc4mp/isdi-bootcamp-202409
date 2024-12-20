@@ -3,10 +3,11 @@ import Image from "next/image";
 import CarouselComponent from "./CarouselComponent";
 import ProductHeader from "./ProductHeader";
 import { getProductDetails } from "@/app/logic/products/getProductsDetail";
+import Link from "next/link";
 
 export default function ProductDetail({ id, addtoFavorites }) {
   const [product, setProduct] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [refetch, setRefetch] = useState(false);
 
   const favoritesHandler = async () => {
@@ -17,7 +18,6 @@ export default function ProductDetail({ id, addtoFavorites }) {
       // alert(result.message);
     }
   };
-
 
   useEffect(() => {
     // Llama a la función para obtener el producto
@@ -30,21 +30,21 @@ export default function ProductDetail({ id, addtoFavorites }) {
       });
   }, [refetch]);
   return (
-    <div className="card bg-base-100 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto m-5">
-      {product ? <div className="card-body">
-        {/* nombre es la variable y producto el valor que insertaremos en la variable */}
-        <ProductHeader name={product?.name} />
-        <section className="">
-          <CarouselComponent images={product?.images} />
-        </section>
-        {/* Mostrar el precio del producto */}
-        <p>Producto: {product?.name}</p>
-        <p>Precio: {product?.price?.toFixed(2)}€</p>
-        <div className="card-actions justify-end">
-          {/*<button className="btn btn-secondary">añadir al carrito</button>
-          <button className="btn btn-secondary">Buy Now</button>*/}
-
-            <div className="badge badge-outline">chat</div>
+    <div className="card bg-base-100 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto mt-5 shadow-xl">
+      {product ? (
+        <div className="card-body">
+          {/* nombre es la variable y producto el valor que insertaremos en la variable */}
+          <ProductHeader name={product?.name} />
+          <section className="">
+            <CarouselComponent images={product?.images} />
+          </section>
+          {/* Mostrar el precio del producto */}
+          <p>Producto: {product?.name}</p>
+          <p>Precio: {product?.price?.toFixed(2)}€</p>
+          <div className="card-actions justify-end">
+            <Link href={`/users/chats/new/${product.author}`} className="badge badge-outline">
+              Chat
+            </Link>
             <div
               onClick={favoritesHandler}
               className={product.isFavorite == true ? "swap swap-active" : "swap swap-inactive"}>
@@ -55,11 +55,11 @@ export default function ProductDetail({ id, addtoFavorites }) {
                 <Image src="/icons/favorite.svg" width={24} height={24} alt="favorite no" layout="" />
               </div>
             </div>
+          </div>
         </div>
-      </div> : <div className="card">
-
-          Producto no encontrado
-          </div>}
+      ) : (
+        <div className="card">Producto no encontrado</div>
+      )}
     </div>
   );
 }

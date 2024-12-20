@@ -19,7 +19,8 @@ export default function Login() {
   }
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-cover bg-center">
+    <section
+      className="flex items-center justify-center min-h-screen bg-cover bg-center" >
       {/* video */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"

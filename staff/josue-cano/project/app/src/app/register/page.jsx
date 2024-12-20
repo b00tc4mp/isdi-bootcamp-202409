@@ -39,7 +39,7 @@ export default function Register() {
       {/* Agregué pt-[5rem] para ajustar el margen superior según la altura del header */}
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 m-5">
         <h1 className="text-2xl font-bold text-center mb-6">¡Bienvenido a ekoality!</h1>
-        <form onSubmit={handleRegister} className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-4" noValidate>
           <div className="form-control">
             <label className="label">
               <span className="label-text font-medium">Nombre*</span>

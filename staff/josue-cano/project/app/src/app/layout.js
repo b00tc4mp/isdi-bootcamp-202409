@@ -29,12 +29,11 @@ export default function RootLayout({ children }) {
   // variable de estado para saber si la sesion es valida
   const [authenticated, setAuthenticated] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
+  // const router = useRouter();
 
   function logoutHandler() {
-    logout();
     setAuthenticated(false);
-    router.push("/");
+    logout();
   }
 
   useEffect(() => {

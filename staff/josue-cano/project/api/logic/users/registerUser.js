@@ -8,11 +8,14 @@ export default ({ firstName, lastName, email, ubicacion, password, passwordRepea
   try {
     validate.firstName(firstName);
     validate.lastName(lastName);
-    validate.ubicacion(ubicacion);
     validate.email(email);
     validate.password(password);
     validate.passwordsMatch(password, passwordRepeat);
-
+  } catch (e) {
+    // aquí se rompe por validación
+    throw new ValidationError(e.message);
+  }
+  try {
     return bcrypt
       .hash(password, 10)
       .catch((error) => {

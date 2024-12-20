@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import ProductHeader from './ProductHeader';
+import Image from "next/image";
+import ProductHeader from "./ProductHeader";
 
-const baseurl = 'http://localhost:8080/public/';
+const baseurl = "http://localhost:8080/public/";
 
 export default function CarouselComponent({ images }) {
   console.log(images);
@@ -18,10 +18,10 @@ export default function CarouselComponent({ images }) {
             alt="fotos producto"
           />
           <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href={'#' + parseInt(index - 1)} className="btn btn-circle">
+            <a href={"#" + parseInt(index - 1)} className="btn btn-circle">
               ❮
             </a>
-            <a href={'#' + parseInt(index + 1)} className="btn btn-circle">
+            <a href={"#" + parseInt(index + 1)} className="btn btn-circle">
               ❯
             </a>
           </div>

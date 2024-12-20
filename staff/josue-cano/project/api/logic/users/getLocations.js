@@ -1,5 +1,5 @@
 import { Ubicacion } from "dat";
-import { validate, errors } from "com";
+import { errors } from "com";
 
 const { SystemError, NotFoundError } = errors;
 

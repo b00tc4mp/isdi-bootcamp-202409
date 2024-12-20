@@ -14,7 +14,6 @@ export default async (id, userId) => {
       isFavorite = user.favorites.includes(id);
       // console.log({id, favorites: user.favorites, isFavorite});
     }
-
     return {
       ...product,
       isFavorite,
@@ -22,7 +21,6 @@ export default async (id, userId) => {
   } catch (e) {
     console.log(e);
   }
-
   // return Producto.findOne({ _id: id })
   //   .lean()
   //   .catch((error) => {

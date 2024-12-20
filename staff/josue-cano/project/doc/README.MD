@@ -11,19 +11,13 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 ### Use cases
 
 **User**
-- Comprar suscripción
+- Registrar
 - Promocionar sus anuncios
-- Eliminar anuncio
-- Renovar anuncio
-- Buscar producto
 - Añadir a favoritos
-- Añadir reseña
 - Conversar**?
 - Ver un producto
 - Publicar un producto
-- Modificar un producto
 - Eliminar un producto
-- Modificar su perfil
 
 **Moderator**
 - Leer reportes
@@ -61,6 +55,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - Express
 - Mongodb
 - Mocha & Chai
+- Busboy
 
 
 # Ekoality Data Model
@@ -158,3 +153,9 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 
 
 ### Test Coverage
+
+
+
+
+### TODO List
+- https://github.com/b00tc4mp/isdi-bootcamp-202409/issues/265

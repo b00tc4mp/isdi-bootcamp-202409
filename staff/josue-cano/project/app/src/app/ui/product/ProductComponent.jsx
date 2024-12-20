@@ -1,4 +1,4 @@
-import {deleteProduct} from "@/app/logic/products/deleteProduct";
+import { deleteProduct } from "@/app/logic/products/deleteProduct";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,14 +15,14 @@ export default function ProductComponent({ producto, addtoFavorites, refetch, se
   };
   const deleteHandler = async () => {
     const result = await deleteProduct(producto._id);
-      debugger;
+    debugger;
     if (result.valid) {
       if (setRefetch) setRefetch(!refetch);
     } else {
       // alert(result.message);
     }
   };
-    
+
   return (
     <section>
       {/* Usar `passHref` asegura que los hijos del `Link` reciban el href si es necesario */}
@@ -47,20 +47,26 @@ export default function ProductComponent({ producto, addtoFavorites, refetch, se
           </h2>
           <p>{producto.price}</p>
           <div className="card-actions justify-end">
-      { admin ? <button className="btn btn-sm btn-secondary" onClick={deleteHandler}>Eliminar</button> : <><div className="badge badge-outline">chat</div>
-            <div
-              onClick={favoritesHandler}
-              className={producto.isFavorite == true ? "swap swap-active" : "swap swap-inactive"}>
-              <div className="swap-off">
-                <Image src="/icons/non-favorite.svg" width={24} height={24} alt="favorite yes" layout="" />
-              </div>
-              <div className="swap-on">
-                <Image src="/icons/favorite.svg" width={24} height={24} alt="favorite no" layout="" />
-              </div>
-            </div>
-          </>
-      }
-          </div> 
+            {admin ? (
+              <button className="btn btn-sm btn-secondary" onClick={deleteHandler}>
+                Eliminar
+              </button>
+            ) : (
+              <>
+                <div className="badge badge-outline">chat</div>
+                <div
+                  onClick={favoritesHandler}
+                  className={producto.isFavorite == true ? "swap swap-active" : "swap swap-inactive"}>
+                  <div className="swap-off">
+                    <Image src="/icons/non-favorite.svg" width={24} height={24} alt="favorite yes" layout="" />
+                  </div>
+                  <div className="swap-on">
+                    <Image src="/icons/favorite.svg" width={24} height={24} alt="favorite no" layout="" />
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </section>

@@ -1,20 +1,13 @@
 import bcrypt from "bcryptjs";
 import { User, Producto } from "dat";
-import { validate, errors } from "com";
+import { errors } from "com";
 
-const { DuplicityError, SystemError, ValidationError } = errors;
+const { DuplicityError, SystemError } = errors;
 
 export default (producto) => {
-  // console.log({object: Object.keys(Producto.schema.paths)});
-
+  // console.log({object: Object.keys(Producto.schema.paths)})
   // console.log(producto);
   try {
-    // validate.text(name);
-    // validate.lastName(lastName);
-    // validate.email(email);
-    // validate.password(password);
-    // validate.passwordsMatch(password, passwordRepeat);
-
     return Producto.create(producto)
       .then((producto) => producto)
       .catch((error) => {
