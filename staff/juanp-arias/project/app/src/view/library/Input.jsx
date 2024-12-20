@@ -1,0 +1,3 @@
+export default function Input({ type, id, placeholder, defaultValue, readOnly, disabled }) {
+    return <input type={type} id={id} placeholder={placeholder} defaultValue={defaultValue} readOnly={readOnly} disabled={disabled} className='mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600' />
+}
