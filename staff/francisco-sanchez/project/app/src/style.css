@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-background-grey: #D1D8D8;
+    --color-white: #ffffff;
+    --color-light-grey: #F4F4F9;
+    --color-grey: #EAEDED;
+    --color-middle-grey: #BDC3C7;
+    --color-strong-grey: #353C40;
+    --color-dark-blue: #2C3E50;
+    --color-dark-blue2: #34495E;
+    --color-light-blue: #5DADE2;
+    --color-green: #27AE60;
+    --color-green-medium: #229954;
+    --color-green-dark: #229954;
+    --color-soft-red: #E74C3C;
+    --color-soft-yellow: #D8D853;
+}
