@@ -10,6 +10,7 @@ const getRecommendByCategoryCountry = (userId, category, country) => {
     validate.country(country, 'country')
 
     return Promise.all([
+        //user find
         Recommend.find({ category, country })
             .populate('author', 'username')
             .lean(),
@@ -17,7 +18,7 @@ const getRecommendByCategoryCountry = (userId, category, country) => {
         .catch(error => { throw new SystemError(error.message) })
         .then(([recommends]) => {// removed user from array
             if (!recommends) throw new NotFoundError('recommendations not found')
-
+            //validate user
             recommends.forEach(recommend => {
                 recommend.id = recommend._id.toString()
                 delete recommend._id

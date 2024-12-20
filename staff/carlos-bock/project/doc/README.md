@@ -27,10 +27,10 @@ User
 
 Admin
 
-- view reports
-- delete user
-- delete post
-- remove comment
+- view reports (future)
+- delete user (future)
+- delete recomendation 
+- remove comment (future)
 - [...]
 
 ### UXUI Design
@@ -92,7 +92,15 @@ Comment
 - text (string)
 - date (Date)
 
+Country (future use)
+- name (string)
 
+City (future use)
+- name (string)
+- country.id
+
+Destination (future use)
+- name (string)
 
 ### Techs
 

@@ -13,7 +13,7 @@ export default function PasswordInput({ id }) {
 
     console.log('PasswordInput -> render')
 
-    return <div style={{ display: 'flex' }}>
+    return <div className='flex mr-4 pr-2' >
         <Input type={type} id={id} />
         <span
             className='cursor-pointer absolute right-5'
