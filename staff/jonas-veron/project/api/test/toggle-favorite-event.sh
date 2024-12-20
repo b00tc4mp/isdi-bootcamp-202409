@@ -1,0 +1,2 @@
+curl -X PATCH 'http://localhost:3000/events/6751da5c2e2df36606cff0f5/favorites' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzUxOTA1OTc0YWRjMjYwZmMwYmEyZDkiLCJyb2xlIjoiZGFuY2VyIiwiaWF0IjoxNzMzNTczMDIyLCJleHAiOjE3MzM2MTYyMjJ9.jLezM5FQFpkZM2CHYvJjqFTeoBx8gMnBp-cJT_bC5U4'
