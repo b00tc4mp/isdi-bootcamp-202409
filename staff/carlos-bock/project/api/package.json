@@ -1,0 +1,36 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node .",
+    "inspect": "node --inspect-brk .",
+    "test": "mocha logic/**/*.spec.js",
+    "test-one": "mocha",
+    "test-inspect": "mocha --inspect-brk logic/**/*.spec.js",
+    "test-inspect-one": "mocha --inspect-brk",
+    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/**/*.spec.js --timeout 20000"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "com": "file:../com",
+    "coverage": "^0.4.1",
+    "dat": "file:../dat",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.4"
+  },
+  "devDependencies": {
+    "c8": "^10.1.2",
+    "chai": "^5.1.2",
+    "chai-as-promised": "^8.0.1",
+    "cors": "^2.8.5",
+    "mocha": "^10.8.2",
+    "monocart-coverage-reports": "^2.11.3"
+  }
+}
