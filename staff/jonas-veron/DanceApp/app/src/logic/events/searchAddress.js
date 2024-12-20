@@ -13,7 +13,6 @@ export default function searchAddress(query) {
     .catch((error) => {
       throw new SystemError(
         "Hubo un problema al buscar la dirección. Por favor, intenta de nuevo."
-        // TODO cambiar este error y capturarlo en el front
       )
     })
     .then((res) => {

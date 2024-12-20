@@ -1,10 +1,8 @@
-# [DanceApp!]
+# [DanceTapp!]
 
 ## Intro
 
-DanceApp is an app designed to connect dancers and dance event organizers in your area. Whether you want to find a place to enjoy the rhythm or promote your next dance event, DanceApp is your ideal platform.
-
-![](DanceAppLogo.svg)
+DanceTapp is an app designed to connect dancers and dance event organizers. Promote your events or search for them according to your preferences.
 
 ![](https://i.gifer.com/xz.gif)
 
@@ -17,7 +15,7 @@ DanceApp is an app designed to connect dancers and dance event organizers in you
 - Find nearby dance events.
 - Publish your own events (organizers only).
 - Like, comment and share events.
-- Connect with other dance enthusiasts.
+- Connect with other dancers.
 
 ### Use Cases
 
@@ -40,11 +38,11 @@ Organizer
 - Comments.
 - Share events with friends.
 - Add events to favorites
-- Create and manage events.
 - Access to a calendar with event scheduling.
 - Change password.
 - Change e-mail.
 - Change photo profile.
+- Create and manage events.
 
 ### UXUI Design
 

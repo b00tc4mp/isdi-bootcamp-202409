@@ -1,4 +1,4 @@
-import DanceAppLogo from "../assets/DanceAppLogo.svg"
+import { DanceTappLogo } from "../assets/index.js"
 import logic from "../logic"
 import { useNavigate, Link } from "react-router-dom"
 import { useState } from "react"
@@ -9,7 +9,6 @@ import {
   PasswordInput,
   Input,
   ButtonForm,
-  ButtonMenu,
   Form,
   Field,
   Label,
@@ -66,13 +65,13 @@ export default function Register() {
     <main className="flex flex-grow justify-center items-center flex-col min-h-screen box-border pt-2 pb-8">
       <div className="flex flex-col items-center">
         <img
-          src={DanceAppLogo}
-          alt="Logo de DanceApp"
+          src={DanceTappLogo}
+          alt="Logo de DanceTap"
           className="w-[38vh] h-28 mb-2"
         />
         <h1 className="text-base text-center text-white font-body mb-2">
           Regístrate para descubrir sociales, clases y promocionar tus eventos
-          con DanceApp!
+          con DanceTapp!
         </h1>
       </div>
 

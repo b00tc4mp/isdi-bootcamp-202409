@@ -1,4 +1,4 @@
-import DanceAppLogo from "../assets/DanceAppLogo.svg"
+import DanceTappLogo from "../assets/DanceTappLogo.svg"
 import { useNavigate, Link } from "react-router-dom"
 import useContext from "./useContext"
 import useLiterals from "./useLiterals"
@@ -53,14 +53,14 @@ export default function Login() {
 
   return (
     <main className="flex flex-grow justify-center items-center flex-col min-h-screen box-border pt-[10vh] pb-[14vh]">
-      <div className="flex flex-col items-center mb-8">
+      <div className="flex flex-col items-center mb-4">
         <img
-          src={DanceAppLogo}
-          alt="Logo de DanceApp"
+          src={DanceTappLogo}
+          alt="Logo de DanceTap"
           className="w-[44vh] h-[16vh] mb-[0.5vh]"
         />
         <h1 className="text-base text-center text-white font-body mb-2 p-2">
-          Descubre sociales, clases y promociona tus eventos con DanceApp!
+          Descubre sociales, clases y promociona tus eventos con DanceTapp!
         </h1>
       </div>
       <Form onSubmit={handleSubmit}>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useLocation } from "react-router-dom"
 import burguer from "./../../../assets/burguer.png"
-import DanceAppLogo from "./../../../assets/DanceAppLogo.svg"
+import { DanceTappLogo } from "../../../assets/index.js"
 import { Menu } from "./index.js"
 
 export default function Header() {
@@ -25,8 +25,8 @@ export default function Header() {
       <Menu isOpen={isMenuOpen} onClose={closeMenu} />
 
       <div className="flex items-center gap-6">
-        <p className="w-[10vh] h-[10vh] pt-[3.5vh]">
-          <img src={DanceAppLogo} />
+        <p className="w-[10vh] h-[10vh] pt-[4vh]">
+          <img src={DanceTappLogo} />
         </p>
       </div>
     </header>

@@ -2,7 +2,6 @@ import likedIcon from "./likedIcon.svg"
 import likeIcon from "./likeIcon.svg"
 import calendarIcon from "./calendarIcon.svg"
 import createIcon from "./createIcon.svg"
-import DanceAppLogo from "./DanceAppLogo.svg"
 import homeIcon from "./homeIcon.svg"
 import searchIcon from "./searchIcon.svg"
 import starIcon from "./starIcon.svg"
@@ -16,13 +15,13 @@ import eventLocationIcon from "./eventLocationIcon.svg"
 import locationIconFooter from "./locationIconFooter.svg"
 import configIcon from "./configIcon.svg"
 import logoutIcon from "./logoutIcon.svg"
+import DanceTappLogo from "./DanceTappLogo.svg"
 
 export {
   likedIcon,
   likeIcon,
   calendarIcon,
   createIcon,
-  DanceAppLogo,
   homeIcon,
   searchIcon,
   starIcon,
@@ -36,4 +35,5 @@ export {
   locationIconFooter,
   configIcon,
   logoutIcon,
+  DanceTappLogo,
 }

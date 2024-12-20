@@ -9,7 +9,7 @@ export default function FilteredEvents() {
   const [events, setEvents] = useState([])
 
   const { type } = useParams()
-  const { alert } = useContext
+  const { alert } = useContext()
   const literals = useLiterals()
 
   const fetchFilteredEvents = () => {
