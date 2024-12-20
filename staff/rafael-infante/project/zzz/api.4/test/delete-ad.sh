@@ -1,0 +1,1 @@
+curl -X DELETE http://localhost:8080/ads/674dfa97a54000b5c6934c2b -v -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRlYzEyMWUwMTI2MGRhZjUwNmE2YmYiLCJyb2xlIjoiY2FyZWdpdmVyIiwiaWF0IjoxNzMzMjIxMDY4LCJleHAiOjE3MzMyMjgyNjh9.dGzkC4JMev1QQ5FcNpPHTZEqzeYGZCI-1vbyimI7yw0'
