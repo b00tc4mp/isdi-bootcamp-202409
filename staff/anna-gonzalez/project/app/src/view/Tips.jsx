@@ -36,7 +36,6 @@ export default function Tips() {
             if (phase) {
                 logic.getTips(phase)
                     .then(tips => {
-                        console.log(tips)
                         const newTips = {
                             music: tips[0].description,
                             selfCare: tips[1].description,

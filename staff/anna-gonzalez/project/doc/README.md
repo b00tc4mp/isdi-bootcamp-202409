@@ -62,7 +62,7 @@ DayLog
 - id (ObjectId)
 - date (Date)
 - symptoms (string, enum: fatigue | headache | cramps | tender breasts | acne | backache | cravings | abdominal pain | dryness)
-- mood (string, enum: calm | energetic | happy | mood swings | sad | apathetic |anxious)
+- mood (string, enum: calm | energetic | happy | mood swings | sad | apathetic | anxious)
 - flow (string, enum: no discharge | creamy | watery)
 - sleep (string, enum: poor | average | good)
 - sexualActivity (string, enum: no sex | sex)
@@ -93,5 +93,7 @@ Tip
 - bcrypt
 
 ### Test Coverage
+
+El código está cubierto
 
 ![Screenshot](../app/public/images/screenshot.png)
