@@ -1,0 +1,16 @@
+.Button {
+    width: '100%';
+    box-sizing: 'border-box';
+    /* padding-right: '18px'; */
+    background-color: var(--color);
+    font-family: inherit;
+    color: var(--back-color);
+    border-color: var(--color);
+    border-style: solid;
+    cursor: pointer;
+}
+
+.Button--light {
+    color: var(--color);
+    background-color: var(--back-color);
+}

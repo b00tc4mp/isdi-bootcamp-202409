@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2vvqdtgcba' http://localhost:8080/users/m2vvqdtgcba/name -v
