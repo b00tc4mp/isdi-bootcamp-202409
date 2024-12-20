@@ -5,9 +5,12 @@ import assets from '../assets'
 import logic from '../logic/index'
 
 export default function NavBar() {
-    const { userLoggedIn, cart } = useContext(ShopContext)
+    const { userLoggedIn, setUserLoggedIn, cart, setCart } = useContext(ShopContext)
     const [isModerator, setIsModerator] = useState(false)
     const navigate = useNavigate()
+
+    // console.log(userLoggedIn)
+    // console.log( cart)
 
     useEffect(() => {
         if (userLoggedIn) {
@@ -16,16 +19,19 @@ export default function NavBar() {
                 setIsModerator(adminUser)
             }
             catch (error) {
-                console.error(error);
+                console.error(error)
             }
         } else {
-            setIsModerator(false);
+            setIsModerator(false)
         }
     }, [userLoggedIn, cart]);
 
     const handleLogout = () => {
         try {
             logic.logoutUser()
+            setUserLoggedIn(false)
+            setCart({ items: [], totalPrice: 0 })
+            console.log('User logged out')
             navigate('/')
         } catch (error) {
             console.error(error)
@@ -40,19 +46,24 @@ export default function NavBar() {
             <ul className='hidden sm:flex gap-5 text-sm text-white'>
                 <NavLink to='/' className='flex flex-col items-center gap-1 hover:text-green-700'>
                     <p>HOME</p>
+                    <hr className='w-2/4 border-none h-[1.5px] bg-green-700 hidden' />
                 </NavLink>
                 <NavLink to='/products' className='flex flex-col items-center gap-1 hover:text-green-700'>
                     <p>PRODUCTS</p>
+                    <hr className='w-2/4 border-none h-[1.5px] bg-green-700 hidden' />
                 </NavLink>
                 <NavLink to='/about' className='flex flex-col items-center gap-1 hover:text-green-700'>
                     <p>ABOUT</p>
+                    <hr className='w-2/4 border-none h-[1.5px] bg-green-700 hidden' />
                 </NavLink>
                 <NavLink to='/contact' className='flex flex-col items-center gap-1 hover:text-green-700'>
                     <p>CONTACT</p>
+                    <hr className='w-2/4 border-none h-[1.5px] bg-green-700 hidden' />
                 </NavLink>
                 {isModerator && (
                     <NavLink to='/admin' className='flex flex-col items-center gap-1 hover:text-green-700'>
                         <p>ADMIN DASHBOARD</p>
+                        <hr className='w-2/4 border-none h-[1.5px] bg-green-700 hidden' />
                     </NavLink>
                 )}
             </ul>

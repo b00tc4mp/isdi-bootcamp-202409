@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { CartTotal, Title } from '../components/index'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import assets from '../assets'
 import logic from '../logic'
 import PaymentWrapper from '../components/PaymentForm.jsx'
 import { errors } from 'com'
+import { ShopContext } from '../context/ShopContext.jsx'
+
 
 const { SystemError } = errors
 
@@ -13,10 +15,7 @@ export default function PlaceOrder() {
     const [orderId, setOrderId] = useState(null) // estado para almacenar el orderId
     const [showPaymentForm, setShowPaymentForm] = useState(false) // Estado para mostrar el formulario de pago
     const [userProfile, setUserProfile] = useState({})
-
-    const location = useLocation()
-
-    const cart = location.state?.cart || { items: [], totalPrice: 0 } // esto es lo que nos traemos de cart desde las props/estado del link
+    const { setCart } = useContext(ShopContext)
 
     const navigate = useNavigate()
 
@@ -39,7 +38,7 @@ export default function PlaceOrder() {
 
             // se guarda el orderId en el estado y pa lanteee nomaaa
             setOrderId(orderId)
-
+            setCart({ items: [], totalPrice: 0 })
             if (paymentMethod === 'stripe') {
                 setShowPaymentForm(true)  // aca entra en accion el method, establece como estado el metodo de pago para mostrar el formulario
             } else {
@@ -81,7 +80,7 @@ export default function PlaceOrder() {
                 {/* Carrito */}
                 <div className='flex-1'>
                     <div className='mt-8 min-w-80'>
-                        <CartTotal cart={cart} />
+                        <CartTotal />
                     </div>
                     <div className='mt-12'>
                         <Title text1={'PAYMENT'} text2={'METHOD'} />
@@ -120,7 +119,7 @@ export default function PlaceOrder() {
 
                 {/* Formulario de Pago */}
                 {showPaymentForm && orderId && (
-                    <div className='flex-1 bg-gray-800 p-6 rounded-lg'> {/* Flex para que ocupe 50% */}
+                    <div className='flex-1 p-4 rounded-lg'> {/* Flex para que ocupe 50% */}
                         <PaymentWrapper orderId={orderId} />
                     </div>
                 )}

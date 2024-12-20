@@ -33,7 +33,7 @@ describe('registerUser', () => {
         expect(bcrypt.compareSync('123123123', user.password)).to.be.true
     })
 
-    debugger
+
     it('fails on existing user', () =>
         expect((async () => {
             await User.create({ name: 'Eddie Brook', email: 'eddie@brook.com', username: 'venom', password: bcrypt.hashSync('123123123', 10) })

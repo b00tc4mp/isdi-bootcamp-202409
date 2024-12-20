@@ -74,7 +74,7 @@ const PaymentForm = ({ orderId, provider }) => {
     return (
         <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-gray-900 rounded-lg shadow-lg">
             <h2 className="text-xl text-white font-semibold mb-4 text-center">Complete Your Payment</h2>
-            <div className="p-4 bg-gray-100 rounded-md">
+            <div className="p-2 bg-gray-100 rounded-md">
                 <CardElement className="bg-white p-4 rounded-md border" />
             </div>
             <button

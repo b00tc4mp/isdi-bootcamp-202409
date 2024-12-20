@@ -2,7 +2,7 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRiNDFlMzFkNDkz
 const productId = '674b3627f5a3f200a06f4173'
 const quantity = 1
 
-fetch('http://localhost:7000/cart/add', {
+fetch('http://localhost:7000/carts/add', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',

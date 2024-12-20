@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logic from '../logic/index'
 import { errors } from 'com'
+import { ShopContext } from '../context/ShopContext'
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const { SystemError } = errors
 
 export default function Login() {
     const navigate = useNavigate()
+    const { setUserLoggedIn } = useContext(ShopContext)
 
     const onSubmitHandler = (event) => {
         event.preventDefault()
@@ -17,14 +21,14 @@ export default function Login() {
             logic.loginUser(username, password)
                 .then(() => {
                     event.target.reset()
-
+                    setUserLoggedIn(true)
                     navigate('/')
                 })
                 .catch(error => {
                     if (error instanceof SystemError)
-                        alert('Sorry, try again later')
+                        toast.error('Sorry, try again later')
                     else
-                        alert(error.message)
+                        toast.error(error.message)
                     console.error(error)
                 })
         } catch (error) {
@@ -36,6 +40,7 @@ export default function Login() {
 
     return (
         <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mb-72 mt-24 gap-4 text-white'>
+            <ToastContainer />
             <div className='inline-flex items-center gap-2 mb-2 mt-10'>
                 <p className='text-3xl text-white'>Login</p>
                 <hr className=' border-none h-[1.5px] w-8 bg-green-700' />

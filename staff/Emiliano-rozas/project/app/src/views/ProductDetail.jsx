@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext'
 import { RelatedProducts } from '../components/index'
 import { errors } from 'com'
@@ -10,12 +10,9 @@ const { SystemError } = errors
 
 export default function ProductDetail() {
     let { productId } = useParams()
-    const { products } = useContext(ShopContext)
+    const { products, setCart, userLoggedIn } = useContext(ShopContext)
     const [productInfo, setProductInfo] = useState(null)
     const [image, setImage] = useState('')
-
-    const loggedIn = logic.isUserLoggedIn()
-
 
     useEffect(() => {
         const getProductInfo = async () => {
@@ -27,11 +24,12 @@ export default function ProductDetail() {
             })
         }
         getProductInfo()
-    }, [productId, products])
+    }, [productId, products, userLoggedIn])
 
     const showToastMessage = () => {
         toast.success(`${productInfo.title} has been added to your cart!`, {
-            position: "top-right"
+            position: "top-right",
+            autoClose: 1500
         })
     }
 
@@ -39,9 +37,10 @@ export default function ProductDetail() {
         try {
             let quantity = 1
 
-            await logic.updateCart(productInfo.id, quantity)
+            const updatedCart = await logic.updateCart(productInfo.id, quantity)
 
-            // alert(`${productInfo.title} has been added to your cart!`)
+            setCart(updatedCart)
+
             showToastMessage()
         } catch (error) {
             if (error instanceof SystemError)
@@ -58,7 +57,7 @@ export default function ProductDetail() {
         <div className="border-t-2 border-green-700 pt-10 transition-opacity ease-in duration-500 opacity-100">
             {/* product data */}
             <div className='flex gap-12 sm:gap-12 flex-col sm:flex-row'>
-                {/* product image/images */}
+                <ToastContainer />
                 <div className='flex-1 flex flex-col-reverse gap-4 sm:flex-row'>
                     <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[25%] w-full'>
                         {
@@ -79,37 +78,42 @@ export default function ProductDetail() {
                 </div>
                 {/* product info */}
                 <div className='flex-1 ml-8'>
-                    <h1 className='font-medium text-white text-3xl text 2x1 mt-2'>{productInfo.title}</h1>
+                    <h1 className='font-bold text-white text-4xl mb-3'>{productInfo.title}</h1>
+
                     <div className='flex items-center gap-1 mt-2'>
                         <img className='w-12' src="https://static.vecteezy.com/system/resources/thumbnails/013/743/771/small/five-stars-rating-icon-png.png" alt="stars" />
-                        <p className='pl-1 text-white text-sm'>(999)</p>
+                        <p className='pl-1 text-gray-300 text-sm'>(999)</p>
                     </div>
-                    <p className='mt-5 text-3x12 font-medium text-white'>${productInfo.price}</p>
-                    <p className='mt-5 text-white md:w-4/5'>{productInfo.description}</p>
-                    <div className='flex flex-col gap-4 my-8'>
-                        <ul>
-                            <li className='text-white'>Author: {productInfo.author}</li>
-                            <li className='text-white'>Publisher: {productInfo.publisher}</li>
-                            <li className='text-white'>ISBN: {productInfo.isbn}</li>
-                            <li className='text-white'>Category: {productInfo.category}</li>
-                        </ul>
-                        {
-                            loggedIn ? (
-                                <button onClick={updateCartHandler} className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm rounded active:bg-green-400'>ADD TO CART
-                                    <ToastContainer /></button>
-                            ) : (
-                                <Link to='/login'>
-                                    <button className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm active:bg-green-400'>ADD TO CART</button>
-                                </Link>
-                            )
-                        }
-                        <hr className='mt-8 sm:w-4/5 border-1 border-green-700' />
-                        <div className='text-sm text-white mt-5 flex flex-col gap-1'>
-                            <p>100% original product</p>
-                            <p>Loved by the fans!</p>
-                            <p>Easy return and exchange policy</p>
-                        </div>
+
+                    <p className='mt-2 text-2xl font-semibold text-green-500'>${productInfo.price}</p>
+
+                    <p className='mt-4 text-gray-400 md:w-4/5 leading-relaxed'>{productInfo.description}</p>
+
+                    <ul className='mt-6 text-gray-300'>
+                        <li><span className='font-semibold text-white'>Author:</span> {productInfo.author}</li>
+                        <li><span className='font-semibold text-white'>Publisher:</span> {productInfo.publisher}</li>
+                        <li><span className='font-semibold text-white'>ISBN:</span> {productInfo.isbn}</li>
+                        <li><span className='font-semibold text-white'>Category:</span> {productInfo.category}</li>
+                    </ul>
+                    { } {
+                        userLoggedIn ? (
+
+                            <button onClick={updateCartHandler} className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm rounded active:bg-green-400'>ADD TO CART
+                            </button>
+                        ) : (
+                            <Link to='/login'>
+                                <button className='bg-green-700 w-1/3 mt-8 text-white px-8 py-3 text-sm active:bg-green-400'>ADD TO CART</button>
+                            </Link>
+                        )
+                    }
+                    <hr className='mt-8 sm:w-4/5 border-1 border-green-700' />
+
+                    <div className='text-sm text-gray-300 mt-5 flex flex-col gap-2'>
+                        <p>✅ 100% original product</p>
+                        <p>❤️ Loved by the fans!</p>
+                        <p>🔄 Easy return and exchange policy</p>
                     </div>
+
                 </div>
             </div>
 

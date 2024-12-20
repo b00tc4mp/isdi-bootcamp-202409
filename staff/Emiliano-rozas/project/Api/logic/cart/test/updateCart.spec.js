@@ -16,7 +16,7 @@ const { NotFoundError } = errors
 
 import updateCart from '../updateCart.js'
 
-debugger
+
 describe('updateCart', () => {
 
     let user, product1, cart

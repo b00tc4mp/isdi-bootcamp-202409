@@ -28,12 +28,14 @@ const ShopContextProvider = (props) => {
     useEffect(() => {
         try {
             const loggedIn = logic.isUserLoggedIn()
+            console.log('Initial userLoggedIn:', loggedIn)
 
             setUserLoggedIn(loggedIn)
 
             if (loggedIn) {
                 logic.getCart()
                     .then(userCart => {
+                        console.log('Cart fetched:', userCart)
                         setCart(userCart)
                     })
                     .catch(error => {
@@ -43,7 +45,7 @@ const ShopContextProvider = (props) => {
         } catch (error) {
             console.error(error)
         }
-    }, [])
+    }, [userLoggedIn])
 
 
     const value = {
@@ -51,7 +53,9 @@ const ShopContextProvider = (props) => {
         currency,
         delivery_fee,
         userLoggedIn,
-        cart
+        setUserLoggedIn,
+        cart,
+        setCart
     }
 
     return (

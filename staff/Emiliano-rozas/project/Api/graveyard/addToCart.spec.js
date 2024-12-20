@@ -13,7 +13,7 @@ const { NotFoundError } = errors;
 
 import addToCart from '../addToCart.js';
 
-debugger
+
 describe('addToCart', () => {
     before(async () => {
         await db.connect(process.env.MONGO_URL_TEST)

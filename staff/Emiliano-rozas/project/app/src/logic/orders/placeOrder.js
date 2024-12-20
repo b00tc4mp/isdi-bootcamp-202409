@@ -1,5 +1,4 @@
-import { validate, errors } from 'com'
-
+import { errors } from 'com'
 const { SystemError } = errors
 
 export default () => {

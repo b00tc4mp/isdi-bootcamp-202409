@@ -3,7 +3,7 @@ import { errors } from 'com';
 const { SystemError } = errors
 
 export default () =>
-    fetch(`http://${import.meta.env.VITE_API_URL}/cart`, {
+    fetch(`http://${import.meta.env.VITE_API_URL}/carts`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.token}`

@@ -63,7 +63,7 @@ describe('updateQuantity', () => {
         expect(response.cart).to.have.property('totalPrice', 3 * product.price)
         expect(response.cart.items[0]).to.have.property('quantity', 3)
     })
-    debugger
+
     it('fails when user does not exist', async () => {
         expect(updateQuantity(new ObjectId().toString(), new ObjectId().toString(), 2)).to.be.rejectedWith(NotFoundError, 'user not found')
     })

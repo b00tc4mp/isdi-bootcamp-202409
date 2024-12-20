@@ -3,7 +3,7 @@ import { validate, errors } from '../../../../com/index'
 const { SystemError } = errors
 
 export default (street, phone, city, country, postalCode) => {
-    // validate.street(street, 'street')
+    validate.street(street, 'street')
     validate.phone(phone, 'phone')
     validate.text(city, 'city')
     validate.text(country, 'country')

@@ -32,7 +32,7 @@ export default (userId) => {
             })
             // esperamos a que se creen todos los OrderItems
             return Promise.all(orderItems)
-                .then(orderItems => ({
+                .then(orderItems => ({ // retorna obj ecsma6
                     orderItems,
                     cart,
                 }))
@@ -58,10 +58,8 @@ export default (userId) => {
                 })
                 .then(() => order)
         })
-        .then(order => {
-            return {
-                orderId: order._id.toString(),
-                order,
-            }
-        })
+        .then(order => ({
+            orderId: order._id.toString(),
+            order,
+        }))
 }

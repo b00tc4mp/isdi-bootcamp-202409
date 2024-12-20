@@ -27,8 +27,8 @@ export default userId => { //agregar userId , token  ,trer el rol de admin, si l
                         model: 'Product',
                     },
                 })
-                .sort({ createdAt: -1 })
                 .lean()//Hay que hacer el lean() conjunta a la operacion.
+                .sort({ createdAt: -1 })
         }).catch(error => {
             console.error(error)
             throw new SystemError(error.message)

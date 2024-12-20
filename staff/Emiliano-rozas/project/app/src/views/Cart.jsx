@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { CartTotal, Title } from '../components/index'
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -6,34 +6,32 @@ import { Link } from 'react-router-dom'
 import assets from '../assets'
 import logic from '../logic/index'
 import { errors } from 'com'
+import { ShopContext } from '../context/ShopContext'
 
 const { SystemError } = errors
 
 export default function Cart() {
-    const [cartInfo, setCartInfo] = useState({ items: [], totalPrice: 0 })
-    const [userLoggedIn, setUserLoggedIn] = useState(false)
+    const { cart, setCart, userLoggedIn } = useContext(ShopContext)
+    // const [userLoggedIn, setUserLoggedIn] = useState(false)
 
     useEffect(() => {
-        const loggedIn = logic.isUserLoggedIn()
-
-        setUserLoggedIn(loggedIn)
 
         const freshCart = async () => {
-            if (!loggedIn) {
+            if (!userLoggedIn) {
                 return
             }
             else {
                 try {
                     const cartData = await logic.getCart()
 
-                    setCartInfo(cartData)
+                    setCart(cartData)
                 } catch (error) {
                     console.error(error)
                 }
             }
         }
         freshCart()
-    }, [])
+    }, [userLoggedIn])
 
     const handleUpdateQuantity = async (productId, quantity) => {
         try {
@@ -42,7 +40,7 @@ export default function Cart() {
             const updatedCart = await logic.getCart() // con esto hacemos que se re renderice bien, sino P.E.T.A
 
             // Actualizar el estado del carrito
-            setCartInfo(updatedCart)
+            setCart(updatedCart)
         } catch (error) {
             if (error instanceof SystemError)
                 toast.error('Sorry, try again later.')
@@ -59,7 +57,7 @@ export default function Cart() {
 
             const refreshedCart = await logic.getCart()
 
-            setCartInfo(refreshedCart)
+            setCart(refreshedCart)
 
             toast.warning(`${productTitle} has been removed from your cart!`)
         } catch (error) {
@@ -79,8 +77,8 @@ export default function Cart() {
                 <Title text1={'YOUR'} text2={' CART'} />
             </div>
             <div>
-                {cartInfo.items.length > 0 ? (
-                    cartInfo.items.map((item) => (
+                {cart.items.length > 0 ? (
+                    cart.items.map((item) => (
                         <div key={item.product.id} className='py-4 border-t border-b text-white grid grid-cols-[4fr_0.5_0.5] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4'>
 
                             <div className='flex items-start gap-6'>
@@ -128,11 +126,11 @@ export default function Cart() {
             </div>
             <div className='flex justify-end my-20'>
                 <div className='w-full sm:w-[450px]'>
-                    <CartTotal cart={cartInfo} />
+                    <CartTotal />
                     <div className='w-full text-end'>
-                        {cartInfo.items.length > 0 ? (
+                        {cart.items.length > 0 ? (
                             // muy loco esto, le podemos pasar las movidas del url o estados de este componente a travez del link al que sigue
-                            <Link to='/place-order' state={{ cart: cartInfo }} >
+                            <Link to='/place-order'  >
                                 <button className='bg-green-700  active:bg-green-400 rounded text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>
                             </Link>
                         ) : (

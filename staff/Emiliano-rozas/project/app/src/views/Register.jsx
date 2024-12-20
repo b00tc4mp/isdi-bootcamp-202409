@@ -27,17 +27,17 @@ export default function Register() {
                 .then(() => {
                     form.reset()
                     navigate('/login')
-                    toast.success('User successfully registered', 'success')
+                    toast.success('User successfully registered')
                 })
                 .catch(error => {
                     if (error instanceof SystemError)
-                        alert('Sorry, try again later.')
+                        toast.error('Sorry, try again later.')
                     else
-                        alert(error.message)
+                        toast.warning(error.message)
                     console.error(error)
                 })
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
 
             console.error(error)
         }

@@ -8,4 +8,4 @@ export default createFunctionalHandler((req, res) => {
 
     return logic.processPayment(userId, orderId, paymentMethodId, provider)
         .then(({ paymentResult }) => res.status(201).json({ paymentResult }))
-});
+})

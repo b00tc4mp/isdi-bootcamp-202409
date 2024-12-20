@@ -91,7 +91,6 @@ export default (userId, productId, quantity) => {
                     select: 'price',
                 },
             })
-            console.log(cart.items)
 
             cart.totalPrice = cart.items.reduce((total, item) => {
                 return total + item.quantity * (item.product.price || 0)

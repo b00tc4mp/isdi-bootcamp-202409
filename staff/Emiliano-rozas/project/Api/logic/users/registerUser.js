@@ -1,5 +1,4 @@
 import bcrypt from 'bcryptjs'
-
 import { User } from 'dat'
 import { validate, errors } from 'com'
 

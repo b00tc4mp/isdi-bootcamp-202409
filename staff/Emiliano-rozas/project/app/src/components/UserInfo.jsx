@@ -40,7 +40,7 @@ export default function UserInfo() {
         try {
             await logic.updateUserProfile(street, phone, city, country, postalCode)
 
-            toast.success('Profile Updated!')
+            toast.success('Profile Updated!', { autoClose: 3000 })
 
             const updatedProfile = await logic.getUserProfile()
 

@@ -12,6 +12,8 @@ import CartTotal from './CartTotal'
 import PaymentForm from './PaymentForm'
 import SideBar from './SideBar'
 import UserInfo from './UserInfo'
+import Carousel from './Carousel'
+
 
 export {
     Hero,
@@ -27,5 +29,6 @@ export {
     CartTotal,
     PaymentForm,
     SideBar,
-    UserInfo
+    UserInfo,
+    Carousel
 }

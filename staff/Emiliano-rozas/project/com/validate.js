@@ -70,7 +70,7 @@ const validateStatus = status => {
     const validStatus = {
         product: ['published', 'draft', 'deactivated'],
         order: ['pending', 'confirmed', 'refund', 'cancel']
-    }
+    } //TODO VALIDET INCLUDES
     if (typeof status !== 'string') {
         throw new ValidationError('invalid status');
     }

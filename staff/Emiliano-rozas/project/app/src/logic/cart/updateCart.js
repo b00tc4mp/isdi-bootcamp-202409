@@ -6,7 +6,7 @@ export default (productId, quantity) => {
     validate.id(productId, 'productId')
     validate.number(quantity)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/cart/updates/`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/carts/updates/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

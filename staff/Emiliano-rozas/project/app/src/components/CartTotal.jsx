@@ -2,8 +2,9 @@ import React, { useContext } from 'react'
 import { Title } from './index'
 import { ShopContext } from '../context/ShopContext'
 
-export default function CartTotal({ cart }) {
+export default function CartTotal() {
     const { delivery_fee } = useContext(ShopContext)
+    const { cart } = useContext(ShopContext)
 
     return (
         <div className='w-full'>

@@ -18,19 +18,19 @@ export default function Products() {
     }, [sortType])
 
 
-    const toggleCategory = (e) => {
-        if (category.includes(e.target.value)) {
-            setCategory(prev => prev.filter(item => item != e.target.value))
+    const toggleCategory = (event) => {
+        if (category.includes(event.target.value)) {
+            setCategory(prev => prev.filter(item => item != event.target.value))
         } else {
-            setCategory(prev => [...prev, e.target.value])
+            setCategory(prev => [...prev, event.target.value])
         }
 
     }
-    const toggleSubCategory = (e) => {
-        if (subCategory.includes(e.target.value)) {
-            setSubCategory(prev => prev.filter(item => item != e.target.value))
+    const toggleSubCategory = (event) => {
+        if (subCategory.includes(event.target.value)) {
+            setSubCategory(prev => prev.filter(item => item != event.target.value))
         } else {
-            setSubCategory(prev => [...prev, e.target.value])
+            setSubCategory(prev => [...prev, event.target.value])
         }
     }
 
@@ -103,7 +103,7 @@ export default function Products() {
                 <div className='flex justify-between text-base sm:text 2x1 mb-4'>
                     <Title text1={'ALL '} text2={' PRODUCTS'} />
                     {/* deplegable de sort */}
-                    <select className=' border-2 border-green-700 text-sm px-2 bg-black text-white option:' onChange={(e) => setSortType(e.target.value)}>
+                    <select className=' border-2 border-green-700 text-sm px-2 bg-black text-white option:' onChange={(e) => setSortType(event.target.value)}>
                         <option className='hover:bg-green-700' value="relevant"> Sort by : Relevant</option>
                         <option value="low-high"> Sort by : Low-high</option>
                         <option value="high-low"> Sort by : High-low</option>

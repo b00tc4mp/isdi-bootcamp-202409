@@ -14,7 +14,7 @@ const { CredentialsError } = errors
 
 import authenticateUser from '../authenticateUser.js'
 
-debugger
+
 
 describe('authenticateUser', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))

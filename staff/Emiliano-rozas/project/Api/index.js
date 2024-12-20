@@ -19,7 +19,7 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.use('/users', usersRouter)
     server.use('/products', productsRouter)
-    server.use('/cart', cartRouter)
+    server.use('/carts', cartRouter)
     server.use('/orders', orderRouter)
     server.use('/payments', paymentsRouter);
 

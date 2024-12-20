@@ -12,7 +12,7 @@ import db, { User, Product, Cart, CartItem, Order, OrderItem } from 'dat'
 import placeOrder from '../placeOrder.js'
 import { errors } from 'com'
 
-const { NotFoundError } = errors
+const { NotFoundError, SystemError } = errors
 
 describe('placeOrder', () => {
     before(async () => {
@@ -114,6 +114,10 @@ describe('placeOrder', () => {
         await Cart.deleteMany()
 
         await expect(placeOrder(user._id.toString())).to.be.rejectedWith(NotFoundError, 'cart is empty')
+    })
+    it('fails with SystemError database error occurs', async () => {
+        await db.disconnect()
+        await expect(placeOrder(user._id.toString())).to.be.rejectedWith(SystemError, 'Client must be connected before running operations')
     })
 
     after(async () => {
