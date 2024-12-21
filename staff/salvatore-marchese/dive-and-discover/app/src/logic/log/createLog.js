@@ -4,7 +4,7 @@ const { SystemError } = errors
 
 export default (diveSite, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes) => {
     validate.diveSite(diveSite)
-    validate.date(date)
+    validate.date(new Date(date))
     validate.depth(depth)
     validate.time(time)
     validate.weather(weather)
@@ -22,7 +22,8 @@ export default (diveSite, date, depth, time, weather, temperature, visibility, w
     return fetch(`http://${import.meta.env.VITE_API_URL}/logs/users/diver/log-book`, {
         method: 'POST', 
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`, 'Content-Type': 'application/json'
+            Authorization: `Bearer ${sessionStorage.token}`, 
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({diveSite, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes })
     })

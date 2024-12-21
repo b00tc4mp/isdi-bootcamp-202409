@@ -85,10 +85,9 @@ const validateDiveSite = (diveSite) => {
     }
 }
 
-const validateDate = (date) => {
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // Regular expression to match the format yyyy-mm-dd
-    if (!dateRegex.test(date)) {
-        throw new ValidationError('Invalid date format. Expected format: yyyy-mm-dd');
+const validateDate = date => {
+    if (!(date instanceof Date)) {
+        throw new ValidationError('invalid date')
     }
 }
 

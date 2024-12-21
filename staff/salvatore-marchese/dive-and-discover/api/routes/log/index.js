@@ -13,7 +13,7 @@ logsRouter.get('/users/diver/logbook-history', authorizationHandler, getLogsHand
 logsRouter.post('/users/diver/log-book', authorizationHandler, createLogHandler)
 
 
-//Update - Update a log
+//Update - Update a log 
 logsRouter.put('/:id', authorizationHandler, updateLogHandler )
 
 

@@ -26,10 +26,6 @@ const HomeDiver = () => {
         navigate('/profile')
     };
 
-    const onViewDocuments = () => {
-        navigate('/docs-and-insurance')
-    };
-
     const onLogDive = () => { 
         navigate('/log-book')
     };
@@ -48,8 +44,6 @@ const HomeDiver = () => {
             <h1 className="text-xl font-bold text-center mb-5">Hi, diver 🤿 {userName}</h1>
             <div className="flex flex-col justify-center items-center space-y-4">
                 <Button onClick={onViewProfileInfo}>Personal Information</Button>
-
-                <Button onClick={onViewDocuments}>Docs & Insurance</Button>
 
                 <Button onClick={onLogDive}>Log a New Dive</Button>
 

@@ -19,4 +19,4 @@ export default logbookId => {
                     .catch(error => { throw new SystemError(error.message) })
                     .then(({ error, message }) => { throw new errors[error] (message) })
             })
-}
+} 

@@ -8,5 +8,5 @@ export default async (userId) => {
     if (!user) throw new NotFoundError('User not found')
   
     const logs = await LogBook.find({ diver: userId })
-    return logs
+    return logs 
   }

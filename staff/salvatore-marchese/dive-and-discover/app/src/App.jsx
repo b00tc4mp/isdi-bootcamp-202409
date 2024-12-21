@@ -6,6 +6,7 @@ import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeD
 import { Header } from './components/index.js'
 import logic from './logic/users'
 import DiveHistory from './view/diver/DiveHistory.jsx';
+import EditLog from './view/diver/EditLog.jsx';
 
 
 export default function App() {
@@ -65,7 +66,9 @@ export default function App() {
 
           <Route path="/check-logbook" element={logic.isUserLoggedIn() ? <DiveHistory /> : <Navigate to="/login" />} />
 
-          {/* missing search and docs&insurance */}
+          <Route path="/edit-logbook/:logbookId" element={<EditLog />} />
+
+          {/* missing search  */}
 
 
         </Routes>
@@ -76,8 +79,3 @@ export default function App() {
       </>
       );
 }
-// <Route path="/search" element={<Search />} /> 
-
-//<Route path="/docs-insurance" element={logic.isUserLoggedIn() ? <DocInsurance /> : <Navigate to"/login"/> } />
-
-//<Route path="/dive-history" element={logic.isUserLoggedIn() ? <DiveHistory /> : <Navigate to"/login"/> } />
