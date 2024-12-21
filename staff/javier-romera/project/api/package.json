@@ -1,0 +1,48 @@
+{
+    "name": "api",
+    "version": "0.0.0",
+    "description": "",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "start": "node dist/.",
+        "inspect": "node --inspect-brk .",
+        "test": "mocha dist/logic/*.spec.js",
+        "test-one": "mocha",
+        "test-inspect": "mocha --inspect-brk dist/logic/*.spec.js",
+        "test-inspect-one": "mocha --inspect-brk",
+        "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha dist/logic/**/*.spec.js --timeout 20000",
+        "build": "tsc",
+        "build:dev": "tsc -w"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/jsonwebtoken": "^9.0.7",
+        "bcryptjs": "^2.4.3",
+        "com": "file:../com",
+        "cors": "^2.8.5",
+        "dat": "file:../dat",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.1",
+        "jsonwebtoken": "^9.0.2",
+        "node-cron": "^3.0.3"
+    },
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.6",
+        "@types/chai": "^5.0.1",
+        "@types/chai-as-promised": "^8.0.1",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.0",
+        "@types/mocha": "^10.0.10",
+        "@types/mongodb": "^4.0.6",
+        "@types/node-cron": "^3.0.11",
+        "c8": "^10.1.2",
+        "chai": "^5.1.2",
+        "chai-as-promised": "^8.0.0",
+        "mocha": "^10.8.2",
+        "monocart-coverage-reports": "^2.11.2",
+        "typescript": "^5.7.2"
+    }
+}

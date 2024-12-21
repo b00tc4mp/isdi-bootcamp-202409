@@ -1,0 +1,1 @@
+curl -X 'PATCH' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzVhMDhmZmVjNDA3YzNlODVhZmYwNGMiLCJyb2xlIjoicmVndWxhciIsImlhdCI6MTczNDAyODUxMSwiZXhwIjoxNzM1MjM4MTExfQ.77AknX9EPvTXyS-7LhgvOUsrSKCMTZMj-_cWst043zs' -H 'Content-Type: application/json' -d '{"score":100}' http://localhost:8080/users/score -v
