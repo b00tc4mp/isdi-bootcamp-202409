@@ -4,6 +4,7 @@ import getBasePacks from './getBasePacks.js'
 import getBasePackDetails from './getBasePackDetails.js'
 import deleteBasePack from './deleteBasePack.js'
 import updateBasePack from './updateBasePack.js'
+import getAdquiredPacks from './getAdquiredPacks.js'
 
 export {
     createPack,
@@ -11,5 +12,6 @@ export {
     getBasePacks,
     getBasePackDetails,
     deleteBasePack,
-    updateBasePack
+    updateBasePack,
+    getAdquiredPacks
 }

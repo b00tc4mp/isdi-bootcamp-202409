@@ -28,12 +28,26 @@ export default function Tracker(props) {
             }
         }
         fetchCustomers()
+
+        // Logic to retrieve the packs will come here
+
+        const fetchPacks = async () => {
+            try {
+                const packs = await logic.getAdquiredPacks('67640e5e2568e5139854dd58') //TEMPORAL
+                console.log('Packs fetched successfully', packs)
+                setFilteredPacks(packs)
+
+            } catch (error) { }
+            alert(error.message)
+            console.error(error)
+        }
+        fetchPacks()
     }, [])
 
 
     const handleCustomerChange = (event) => {
-        const customerId = event.target.value;
         console.log('entro en el onchange')
+        /* const customerId = event.target.value;
 
         // Encuentra el cliente seleccionado
         const selectedCustomer = customers.find((customer) => customer.id === customerId);
@@ -44,7 +58,7 @@ export default function Tracker(props) {
             setFilteredPacks(selectedCustomer.adquiredPacks);
         } else {
             setFilteredPacks([]); // Si no tiene packs, limpia el estado
-        }
+        } */
     }
 
 
@@ -52,7 +66,6 @@ export default function Tracker(props) {
         event.preventDefault()
         props.onHomeClick()
     }
-
 
 
 
@@ -78,10 +91,9 @@ export default function Tracker(props) {
                     <Field className="mb-4">
                         <Label htmlFor="selectPack">Select Pack</Label>
                         <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2">
-                            {filteredPacks.map((pack) => {
-                                <option key={pack.id} value={pack.id}>{pack.id}</option>
-
-                            })}
+                            {filteredPacks.map((pack) => (
+                                <option key={pack.id} value={pack.id}>{pack.description}</option>
+                            ))}
                         </select>
                     </Field>
 
@@ -90,34 +102,19 @@ export default function Tracker(props) {
                         {/* Description Field */}
                         <Field className="flex-1">
                             <Label htmlFor="description">Description</Label>
-                            <textarea
-                                id="description"
-                                name="description"
-                                rows="3"
-                                className="border-2 rounded-lg w-full p-2"
-                                placeholder="Add a description..."
-                            ></textarea>
+                            <textarea id="description" name="description" rows="3" className="border-2 rounded-lg w-full p-2" placeholder="Add a description..."></textarea>
                         </Field>
 
-                        {/* Timer Field */}
                         <div className="flex items-center space-x-2">
                             <Field>
                                 <Label htmlFor="timer">Time</Label>
-                                <input
-                                    type="text"
-                                    id="timer"
-                                    name="timer"
-                                    placeholder="00:00:00"
-                                    className="border-2 rounded-lg p-2 w-32 text-center"
-                                />
+                                <input type="text" id="timer" name="timer" placeholder="00:00:00" className="border-2 rounded-lg p-2 w-32 text-center" />
                             </Field>
-                            <button
-                                type="button"
-                                className="bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600"
-                                onClick={() => console.log("Start Timer")}
-                            >
-                                Start Timer
-                            </button>
+                            <Button type="button" className="btn m-1 bg-green-500 hover:bg-green-600" onClick={() => console.log("Start Timer")}>Start</Button>
+                            <div className="flex flex-col ">
+                                {/* <Button className="btn m-2" onClick={handleAssignPacks}>Next</Button> */}
+                                <Button className="btn m-1">Adjust manual</Button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -173,12 +170,6 @@ export default function Tracker(props) {
                 </tbody>
             </table>
             {/*  )} */}
-
-
-            <div className="flex flex-col ">
-                {/* <Button className="btn m-2" onClick={handleAssignPacks}>Next</Button> */}
-                <Button className="btn m-2">Start tracking</Button>
-            </div>
 
             <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
         </main>

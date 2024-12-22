@@ -7,7 +7,6 @@ import {
     getUserByEmail,
     getUserByUserame,
     findUserIdbyEmailOrUsername,
-    getAdquiredPacks,
     getUserDetails
 } from './users/index.js'
 
@@ -19,6 +18,7 @@ import {
     getBasePackDetails,
     deleteBasePack,
     updateBasePack,
+    getAdquiredPacks
 } from './packs/index.js'
 
 //EMAILING
@@ -48,7 +48,6 @@ const logic = {
     getUserByEmail,
     getUserByUserame,
     findUserIdbyEmailOrUsername,
-    getAdquiredPacks,
     getUserDetails,
 
     //Packs and basebacks
@@ -58,6 +57,7 @@ const logic = {
     getBasePackDetails,
     deleteBasePack,
     updateBasePack,
+    getAdquiredPacks,
 
     //emailing
     emailRegisterWelcome,

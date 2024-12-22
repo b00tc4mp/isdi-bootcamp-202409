@@ -6,6 +6,7 @@ import {
     getUserId,
     getUserName,
     getCustomers,
+    getUserDetails
 } from './users'
 
 import {
@@ -14,8 +15,10 @@ import {
     getBasePacksDetails,
     assignPack,
     deleteBasePack,
-    updateBasePack
+    updateBasePack,
+    getAdquiredPacks
 } from './packs'
+import { get } from 'mongoose'
 
 
 const logic = {
@@ -27,6 +30,7 @@ const logic = {
     getUserId,
     getUserName,
     getCustomers,
+    getUserDetails,
 
 
     //Packs
@@ -35,7 +39,8 @@ const logic = {
     getBasePacksDetails,
     assignPack,
     deleteBasePack,
-    updateBasePack
+    updateBasePack,
+    getAdquiredPacks
 }
 
 export default logic
