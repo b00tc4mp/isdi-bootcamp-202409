@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import logic from '../logic'
 import { errors } from 'com'
 
@@ -10,55 +10,64 @@ import { getCustomers } from '../logic/users';
 const { SystemError } = errors
 
 export default function Tracker(props) {
-    //const [loading, setLoading] = useState(true) //This is to show the loader as active by default
     const [customers, setCustomers] = useState([])
     const [filteredPacks, setFilteredPacks] = useState([]);
+
     const { alert } = useContex()
 
     useEffect(() => {
         console.log('Tracker -> componentDidMount')
-        const fetchCustomers = async () => {
+
+        const fetchData = async () => {
             try {
                 const customers = await logic.getCustomers()
                 console.log('Customers fetched successfully', customers)
                 setCustomers(customers)
+
+                if (customers.length > 0) {
+                    const firstCustomerId = customers[0]._id
+                    console.log("First customer ID", firstCustomerId)
+
+                    const packs = await logic.getAdquiredPacks(firstCustomerId)
+                    console.log('Packs fetched successfully', packs);
+                    setFilteredPacks(packs);
+                } else {
+                    setFilteredPacks([])
+                }
+
             } catch (error) {
-                alert(error.message)
-                console.error(error)
+                alert(error.message);
+                console.error(error);
             }
         }
-        fetchCustomers()
-
-        // Logic to retrieve the packs will come here
-
-        const fetchPacks = async () => {
-            try {
-                const packs = await logic.getAdquiredPacks('67640e5e2568e5139854dd58') //TEMPORAL
-                console.log('Packs fetched successfully', packs)
-                setFilteredPacks(packs)
-
-            } catch (error) { }
-            alert(error.message)
-            console.error(error)
-        }
-        fetchPacks()
+        fetchData()
     }, [])
 
 
     const handleCustomerChange = (event) => {
         console.log('entro en el onchange')
-        /* const customerId = event.target.value;
+        { console.log(event) }
 
-        // Encuentra el cliente seleccionado
-        const selectedCustomer = customers.find((customer) => customer.id === customerId);
-        console.log(selectedCustomer)
+        const customerId = event.target.value; // Directly access userId from the value
+        //const selectedCustomer = customers.find(customer => customer.name === selectedUsername);
+        //setSelectedCustomerId(customerId);
 
-        // Actualiza los packs filtrados basados en `adquiredPacks`
-        if (selectedCustomer && selectedCustomer.adquiredPacks) {
-            setFilteredPacks(selectedCustomer.adquiredPacks);
-        } else {
-            setFilteredPacks([]); // Si no tiene packs, limpia el estado
-        } */
+        // Fetch packs based on the selected customer
+
+        logic.getAdquiredPacks(customerId)
+            .then((packs) => {
+                console.log('Packs fetched successfully', packs);
+                setFilteredPacks(packs);
+            })
+            .catch((error) => {
+                alert(error.message);
+                console.error(error);
+                setFilteredPacks([]);
+                // Additionally, set disabled to true explicitly
+                // This ensures the select is disabled even on errors
+                // (assuming you want it disabled in case of errors)
+                setDisabled(true);
+            });
     }
 
 
@@ -82,7 +91,7 @@ export default function Tracker(props) {
                         <Label htmlFor="selectCustomer">Select Customer</Label>
                         <select id="selectCustomer" name="selectCustomer" className="border-2 rounded-lg w-full p-2" onChange={handleCustomerChange}>
                             {customers.map((customer) => (
-                                <option key={customer.id} value={customer.id}>{customer.name}</option>
+                                <option key={customer._id} value={customer._id}>{customer.name}</option>
                             ))}
                         </select>
                     </Field>
@@ -90,9 +99,9 @@ export default function Tracker(props) {
                     {/* Select Pack */}
                     <Field className="mb-4">
                         <Label htmlFor="selectPack">Select Pack</Label>
-                        <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2">
+                        <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2" disabled={!filteredPacks.length}>
                             {filteredPacks.map((pack) => (
-                                <option key={pack.id} value={pack.id}>{pack.description}</option>
+                                <option key={pack._id} value={pack._id}>{pack.description} - {pack.originalQuantity}{pack.unit}</option>
                             ))}
                         </select>
                     </Field>
@@ -110,7 +119,7 @@ export default function Tracker(props) {
                                 <Label htmlFor="timer">Time</Label>
                                 <input type="text" id="timer" name="timer" placeholder="00:00:00" className="border-2 rounded-lg p-2 w-32 text-center" />
                             </Field>
-                            <Button type="button" className="btn m-1 bg-green-500 hover:bg-green-600" onClick={() => console.log("Start Timer")}>Start</Button>
+                            <Button type="button" className={`btn m-1 bg-green-600`}>Start</Button>
                             <div className="flex flex-col ">
                                 {/* <Button className="btn m-2" onClick={handleAssignPacks}>Next</Button> */}
                                 <Button className="btn m-1">Adjust manual</Button>
