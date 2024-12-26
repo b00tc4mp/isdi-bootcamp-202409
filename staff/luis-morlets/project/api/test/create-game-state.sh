@@ -1,0 +1,1 @@
+curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU5OTkwMzdhNmRiMjA1MGU2NGVmNzQiLCJpYXQiOjE3MzQ0NTIxMjEsImV4cCI6MTczNTY2MTcyMX0.yix3YTkwHy-0WXnpRdRUghVJ9HXxRJis6NiziLydmKw' http://localhost:8080/game/6761a44303a4945b00876de7/game-state -v
