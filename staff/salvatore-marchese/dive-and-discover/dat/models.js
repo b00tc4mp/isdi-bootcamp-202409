@@ -40,12 +40,6 @@ const user = new Schema({
         enum: ['diver', 'center'],
         default: 'diver'
     },
-    certificate: {
-        type: String,
-    },
-    insurance: {
-        type: String,
-    },
     wetSuit: {
         type: String,
         required: false

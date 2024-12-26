@@ -5,4 +5,4 @@ export default callback =>
         } catch (error) {
             next(error)
         }
-    }
+    } 

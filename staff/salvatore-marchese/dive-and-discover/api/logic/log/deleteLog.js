@@ -4,20 +4,20 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 //validate user and logbook
-export default async (userId, logBookId ) => {
+export default async (userId, logbookId ) => {
     try {
         // Validate IDs
         validate.id(userId, 'userId')
-        validate.id(logBookId, 'logBookId')
+        validate.id(logbookId, 'logbookId')
 
         // Fetch the user and logbook simultaneously
-        const [user, logBook] = await Promise.all([User.findById(userId).lean(), LogBook.findById(logBookId).lean()])
+        const [user, logbook] = await Promise.all([User.findById(userId).lean(), LogBook.findById(logbookId).lean()])
 
         if (!user) throw new NotFoundError('user not found')
-        if (!logBook) throw new NotFoundError('logbook not found')
+        if (!logbook) throw new NotFoundError('logbook not found')
 
         // Delete the logbook
-        const deletedLogBook = await LogBook.findByIdAndDelete(logBookId)
+        const deletedLogBook = await LogBook.findByIdAndDelete(logbookId)
         if (!deletedLogBook) throw new NotFoundError('logbook not found')
         
         // Return successs message

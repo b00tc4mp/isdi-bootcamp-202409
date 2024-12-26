@@ -4,6 +4,8 @@ import updateLog from "../../logic/log/updateLog.js"
 import getLogs from "../../logic/log/getLogs.js"
 
 
+
+
 const EditLog = () => {
   const { logbookId } = useParams();
   const navigate = useNavigate();
@@ -64,7 +66,6 @@ const EditLog = () => {
             onChange={handleInputChange}
             placeholder={logDetails.divingSite || "Enter diving site"}
             className="w-full border rounded-md p-2"
-            required
           />
         </div>
 
@@ -78,7 +79,6 @@ const EditLog = () => {
             onChange={handleInputChange}
             placeholder={logDetails.date || "Select a date"}
             className="w-full border rounded-md p-2"
-            required
           />
         </div>
 
@@ -92,7 +92,6 @@ const EditLog = () => {
             onChange={handleInputChange}
             placeholder={logDetails.depth || "Enter depth"}
             className="w-full border rounded-md p-2"
-            required
           />
         </div>
 
@@ -106,7 +105,6 @@ const EditLog = () => {
             onChange={handleInputChange}
             placeholder={logDetails.time || "Enter time"}
             className="w-full border rounded-md p-2"
-            required
           />
         </div>
 

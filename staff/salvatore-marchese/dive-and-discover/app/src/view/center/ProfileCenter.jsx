@@ -60,8 +60,8 @@ const ProfileCenter = () => {
         const formData = openingHours.reduce((acc, { day, openTime, closeTime }) => {
             acc[day] = { openTime, closeTime };
             return acc;
-          }, {});
-          setForm(formData)
+        }, {});
+        setForm(formData)
     }
 
     const getDayString = (day) => {
@@ -72,8 +72,8 @@ const ProfileCenter = () => {
         else if (day === 5) return "Friday";
         else if (day === 6) return "Saturday";
         else if (day === 7) return "Sunday";
-      }
-    
+    }
+
 
 
     //handle form input change
@@ -92,16 +92,16 @@ const ProfileCenter = () => {
             const user = extractPayloadFromJWT(sessionStorage.token);
 
             const openingHours = Object.entries(form).map(([day, times]) => ({
-                day: parseInt(day, 10), 
+                day: parseInt(day, 10),
                 ...times
             }))
 
             userInfo['openingHours'] = openingHours;
             console.log(userInfo)
 
-           await logic.updateProfileCenter(user.sub, userInfo)
-           alert('Information updated successfully')
-           navigate('/home')
+            await logic.updateProfileCenter(user.sub, userInfo)
+            alert('Information updated successfully')
+            navigate('/home')
         } catch (error) {
             setError('Error updating information')
             console.log(error)
@@ -113,10 +113,10 @@ const ProfileCenter = () => {
     // These methods will update the state properties.
     function updateForm(value) {
         return setForm((prev) => {
-          return { ...prev, ...value };
+            return { ...prev, ...value };
         });
-      }
-    
+    }
+
 
     if (isLoading) return <p>Loading...</p>
     return (
@@ -140,37 +140,43 @@ const ProfileCenter = () => {
 
                             <FormField fieldKey="postcode" label={"Postcode"} value={userInfo.postcode} onChange={handleChange} />
 
+                            <p className="text-xl font-semibold text-blue-700 cursor-pointer transition-all hover:text-black mb-4">
+                                Business Hours
+                            </p>
+                            <div className="space-y-4">
+                                {fields.map((field, index) => (
+                                    <div
+                                        key={index}
+                                        className="grid grid-cols-2 gap-4 p-4 border border-gray-300 rounded-lg shadow-md"
+                                    >
+                                        <FormField
+                                            fieldKey={`openTime-${index}`}
+                                            label={`Opening Time (Day ${getDayString(field)})`}
+                                            placeholder="Opening"
+                                            value={form[field]?.openTime || ""}
+                                            onChange={(e) => {
+                                                let val = form[field] || {};
+                                                val["openTime"] = e.target.value;
+                                                updateForm({ [`${field}`]: val });
+                                            }}
+                                            className="w-full"
+                                        />
+                                        <FormField
+                                            fieldKey={`closeTime-${index}`}
+                                            label={`Closing Time (Day ${getDayString(field)})`}
+                                            placeholder="Closing"
+                                            value={form[field]?.closeTime || ""}
+                                            onChange={(e) => {
+                                                let val = form[field] || {};
+                                                val["closeTime"] = e.target.value;
+                                                updateForm({ [`${field}`]: val });
+                                            }}
+                                            className="w-full"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
 
-                            <p className="text-xl font-semibold text-blue-700 cursor-pointer trasition-all hover:text-black">Business Hours</p>
-                            {fields.map((field, index) => (
-                                <div key={index} className="flex gap-4">
-                                    <FormField
-                                        fieldKey={`openTime-${index}`}
-                                        label={`Opening Time (Day ${getDayString(field)})`}
-                                        placeholder={'Opening'}
-                                        value={form[field]?.openTime}
-                                        onChange={(e) => {
-                                            let val = form[field] || {};
-                                            val["openTime"] = e.target.value;
-                                            updateForm({[`${field}`]: val})
-                                        }
-                                    }
-                                    />
-                                    <FormField
-                                        fieldKey={`closeTime-${index}`}
-                                        label={`Closing Time (Day ${field})`}
-                                        value={form[field]?.closeTime}
-                                        onChange={(e) => {
-                                            let val = form[field] || {};
-                                            val["closeTime"] = e.target.value;
-                                            updateForm({[`${field}`]: val})
-                                        }
-                                    }
-                                    />
-                                </div>
-                            ))}
-
-                            {/* <FormField fieldKey="openingHours" label={"Opening Hours"} value={userInfo.openingHours} onChange={handleChange} /> */}
                         </div>
                     </div>
 
@@ -178,9 +184,7 @@ const ProfileCenter = () => {
                         <Button type="submit" className={`h-12 w-[150px] ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-400 hover:bg-blue-600"
                             } text-sm text-white rounded-lg transition-all`}
                             disabled={isSubmitting}> {isSubmitting ? "Saving..." : "Save"} </Button>
-                        {/* <Button type="submit" className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">
-                            Save
-                        </Button> */}
+
                     </div>
                 </form>
             </div>

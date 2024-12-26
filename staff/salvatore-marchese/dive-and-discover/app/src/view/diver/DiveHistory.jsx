@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Button } from '../library'
 import logic from '../../logic/log/index.js'
 import { useNavigate } from 'react-router-dom'
+import extractPayloadFromJWT from '../../util/extractPayloadFromJWT.js'
 
 const DiveHistory = () => {
     const [logs, setLogs] = useState([])
@@ -28,13 +29,23 @@ const DiveHistory = () => {
     // Handle log deletion
     const handleDelete = async (logbookId) => {
         try {
-            /* await logic.deleteLog(logbookId) */
-            await logic.deleteLog(String(logbookId))
-            setLogs(logs.filter(log => log._id !== logbookId)) // Remove deleted log from UI
+            const token = sessionStorage.getItem('token'); // Retrieve the token
+            if (!token) {
+                setError('User not authenticated');
+                return;
+            }
+    
+            const payload = extractPayloadFromJWT(token); // Extract payload from the token
+            const userId = payload.sub; // Assume `sub` contains the `userId`
+
+    
+            await logic.deleteLog(userId, logbookId); // Call deleteLog with userId and logbookId
+            setLogs(logs.filter(log => log._id !== logbookId)); // Remove the deleted log from the UI
         } catch (err) {
-            setError('Error deleting log')
+            console.error(err);
+            setError('Error deleting log');
         }
-    }
+    } 
 
     // Handle log update (example logic to navigate to a form for editing)
     const handleEdit = (logbookId) => {

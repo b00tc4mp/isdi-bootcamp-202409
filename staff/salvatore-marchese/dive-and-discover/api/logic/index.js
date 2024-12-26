@@ -1,8 +1,6 @@
 import {
     authenticateUser,
     getUser,
-    getUserName,
-    getProfile,
     updateProfile,
     
 } from './users/index.js'
@@ -10,6 +8,9 @@ import {
 import {
     registerUserDiver,
     createHomeDiver,
+    getProfile,
+    getUserName,
+    searchCenters,
 
 } from './users/diver/index.js'
 
@@ -39,6 +40,7 @@ const logic = {
     getProfile,
     updateProfile,
     addOpeningHours,
+    searchCenters,
 
     createLog,
     getLogs,

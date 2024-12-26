@@ -29,8 +29,8 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
-    if (!Types.ObjectId.isValid(id)) throw new ValidationError(`invalid ${explain}`)
-}
+    if (!Types.ObjectId.isValid(id)) throw new ValidationError(`Invalid ${explain}: not a valid MongoDB ObjectId`);
+} 
 
 const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')

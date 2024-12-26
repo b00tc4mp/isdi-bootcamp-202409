@@ -67,13 +67,13 @@ const Profile = () => {
 
     if (isLoading) return <p>Loading...</p>
     return (
-        <div className="flex justify-center items-center min-h-screen">
-            <div className="px-7 w-[700px] rounded-[12px] bg-white p-4 shadow-md">
+        <div className="flex justify-center items-center p-16 mt-4" >
+            <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-md text-center max-w-md">
                 <form className="w-full  bg-white p-6" onSubmit={handleSubmit}>
                     {error && <p className="text-red-500">{error}</p>}
                     {/* Personal Info  */}
                     <div className='mb-8'>
-                        <p className="text-xl font-semibold text-blue-900 cursor-pointer transition-all hover:text-black">
+                        <p className="text-xl font-semibold text-blue-700 cursor-pointer transition-all hover:text-black">
                             Personal Info
                         </p>
                         <div>
@@ -92,14 +92,14 @@ const Profile = () => {
                     </div>
 
                     <div className="flex justify-between mt-2">
-                        <Button type="submit" className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">
+                        <button type="submit" className="h-12 w-[150px] bg-blue-600 text-sm text-yellow-400 rounded-lg transition-all cursor-pointer hover:bg-blue-600">
                             Save
-                        </Button>
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     )
-}
+}                                                                                                                                                   
 
 export default Profile;

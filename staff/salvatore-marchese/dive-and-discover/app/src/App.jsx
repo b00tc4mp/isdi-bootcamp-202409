@@ -68,7 +68,7 @@ export default function App() {
 
           <Route path="/edit-logbook/:logbookId" element={<EditLog />} />
 
-          {/* missing search  */}
+          <Route path="/search" element={logic.isUserLoggedIn() ? <Search /> : <Navigate to="/login" />} />
 
 
         </Routes>

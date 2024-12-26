@@ -39,19 +39,34 @@ const HomeDiver = () => {
     };
 
     return (
-        <main className="flex flex-col justify-center items-center h-screen bg-gray-50 overflow-hidden">
+        <main
+    className="flex flex-col justify-center items-center h-screen bg-cover bg-center overflow-hidden"
+    style={{
+        backgroundImage: "url('https://media1.giphy.com/media/R2XKUNaI1VghlxCxlv/giphy.webp?cid=790b76110xsbh09liv6ttcn1vlnkn7rwif5n2zxxm11y49li&ep=v1_gifs_search&rid=giphy.webp&ct=g')",
+    }}
+>
+    {/* Semi-transparent container */}
+    <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-md text-center max-w-md">
+        <h1 className="text-xl font-bold mb-5 text-gray-800">Hi, diver 🤿 {userName}</h1>
+        <div className="flex flex-col space-y-4">
+            <Button onClick={onViewProfileInfo} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                Personal Information
+            </Button>
 
-            <h1 className="text-xl font-bold text-center mb-5">Hi, diver 🤿 {userName}</h1>
-            <div className="flex flex-col justify-center items-center space-y-4">
-                <Button onClick={onViewProfileInfo}>Personal Information</Button>
+            <Button onClick={onLogDive} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                Log a New Dive
+            </Button>
 
-                <Button onClick={onLogDive}>Log a New Dive</Button>
+            <Button onClick={onCheckHistory} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                Dive's History
+            </Button>
 
-                <Button onClick={onCheckHistory}>Dive's History</Button>
-
-                <Button onClick={onSearch}>Search Site</Button>
-            </div>
-        </main>
+            <Button onClick={onSearch} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                Search Site
+            </Button>
+        </div>
+    </div>
+</main>
     )
 }
 

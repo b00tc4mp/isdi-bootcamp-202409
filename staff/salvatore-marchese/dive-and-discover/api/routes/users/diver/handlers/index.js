@@ -3,6 +3,7 @@ import getUserNameHandler from './getUserNameHandler.js'
 import getUserHandler from './getUserHandler.js'
 import getProfileHandler from './getProfileHandler.js'
 import updateProfileHandler from './updateProfileHandler.js'
+import searchCentersHandler from './searchCentershandler.js'
 
 export {
     registerUserDiverHandler,
@@ -10,4 +11,5 @@ export {
     getUserHandler,
     getProfileHandler,
     updateProfileHandler,
+    searchCentersHandler,
 }

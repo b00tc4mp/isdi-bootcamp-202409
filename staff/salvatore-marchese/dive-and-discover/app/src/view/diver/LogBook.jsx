@@ -220,7 +220,7 @@ console.log(date, depth)
         ></textarea>
       </div>
   
-      <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+      <button type="submit" className="bg-blue-600 text-yellow-400 py-2 px-4 rounded-md hover:bg-blue-600">
         Submit
       </button>
     </form>

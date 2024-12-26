@@ -1,7 +1,9 @@
 import { Router } from 'express'
 
 import { authorizationHandler, jsonBodyParser } from '../../helpers/index.js'
-import { registerUserDiverHandler, getUserHandler, getUserNameHandler, getProfileHandler, updateProfileHandler } from '../../users/diver/handlers/index.js'
+import { registerUserDiverHandler, getUserNameHandler, getProfileHandler, updateProfileHandler, searchCentersHandler } from '../../users/diver/handlers/index.js'
+
+
 
 const usersRouter = Router()
 
@@ -13,6 +15,10 @@ usersRouter.post('/', jsonBodyParser, registerUserDiverHandler)
 usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler)
 usersRouter.get('/profile', authorizationHandler, getProfileHandler)
 usersRouter.put('/profile', authorizationHandler, updateProfileHandler)
+
+// Search route
+usersRouter.get('/search', authorizationHandler, searchCentersHandler)
+
 
 //usersRouter.get('/:id', authorizationHandler, getUserHandler)
 
