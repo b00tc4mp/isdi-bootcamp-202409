@@ -1,0 +1,1 @@
+curl  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU3MjgzZTJhOWY2YzA5MGM4ODUyZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzM4MjA0NDgsImV4cCI6MTczMzgyNDA0OH0.CU7dzMoeYSZ2WHraUXXD4VqwA556E__3IPW5E-sXgu8' http://localhost:8080/products/search?category=Rostro -v 
