@@ -11,7 +11,6 @@ export default function PasswordInput({ id, placeholder }) {
     setStatus(status === '🙈' ? '🐵' : '🙈'),
       setType(type === 'password' ? 'text' : 'password')
   }
-  console.log('PasswordInput -> render')
 
   return <div style={{ display: 'flex' }}>
     <Input type={type} id={id} className="PasswordInput relative" placeholder={placeholder} />

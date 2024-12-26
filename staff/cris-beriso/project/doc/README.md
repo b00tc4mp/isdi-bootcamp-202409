@@ -46,13 +46,12 @@ Admin (User)
 
 ### Techs
 
-- HTML/CSS/JS 
+- HTML/TaildwindCSS/JS 
 - React 
 - Node 
 - Express 
 - Mongo 
 - Mongo & Chai 
-- Taildwind
 
 ### Data Model
 

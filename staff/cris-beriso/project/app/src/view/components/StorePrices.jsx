@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import OneStorePrice from './OneStorePrice'
+import useContext from '../useContext'
 
 export default function StorePrices({ productId }) {
+  const { alert, confirm } = useContext
   const [storePrices, setStorePrices] = useState([])
   const [center, setCenter] = useState(null)
 

@@ -12,7 +12,7 @@ export default (userId, category, keyword = null) => {
     validate.keyword(keyword)
   }
 
-  const query = { category: category }
+  const query = { category }
 
   if (keyword) {
     query.description = { $regex: keyword, $options: 'i' }

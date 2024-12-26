@@ -16,7 +16,6 @@ export default function searchProducts() {
   const keyword = searchParams.get('keyword') || null
 
   useEffect(() => {
-    console.log(searchParams.toString())
     if (category)
       logic.searchProducts(category, keyword)
         .then(fetchedProducts => {
