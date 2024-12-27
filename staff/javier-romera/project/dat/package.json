@@ -1,0 +1,26 @@
+{
+    "name": "dat",
+    "version": "1.0.0",
+    "description": "mongodb",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "populate": "node dist/populates/*.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "build:dev": "tsc -w"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "mongoose": "^8.8.1"
+    },
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.6",
+        "@types/node": "^22.10.1",
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^16.4.5",
+        "typescript": "^5.7.2"
+    }
+}
