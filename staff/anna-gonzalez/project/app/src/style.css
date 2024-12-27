@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Kavoon&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color: #272727;
+    --back-color-light: #F0F0F0;
+    --back-color-dark: #272727;
+    --text-color-light: #F0F0F0;
+    --Button-color: #1357EC;
+    --orange-color: #E3AA81;
+    --yellow-color: #EFDD8C;
+    --grey-color: #D9D9D9;
+    --turquoise-color: #8ECDC1;
+    --pink-color: #DDA4BA;
+    --blue-color: #82a5f1;
+    --font: 'Noto Sans';
+    --font-title: 'Kavoon';
+    height: 100%;
+}
+
+body {
+    color: var(--color);
+    background-color: var(--back-color-light);
+    display: flex;
+    flex-direction: column;
+    padding: 0rem 1rem 0rem 1rem;
+    /* justify-content: center;
+    align-items: center;
+    height: 100vh;*/
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+
+    h1 {
+        font-family: var(--font-title);
+        font-size: 4rem;
+        margin-bottom: -0.5rem;
+    }
+    
+    h2 {
+        font-family: var(--font-title);
+        font-size: x-large;
+    }
+    
+    h3 {
+        font-family: var(--font);
+        font-size: large;
+        font-weight: bold;
+    }
+    
+    p {
+        font-family: var(--font);
+        font-size: medium;
+    }
+}
