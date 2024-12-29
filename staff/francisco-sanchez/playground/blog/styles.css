@@ -1,0 +1,223 @@
+/* Paleta de colores */
+:root {
+    --color-primario: #012980;
+    --color-primario-fuerte: #001541;
+    --color-secundario: #FFFFFF;
+    --color-terciario: #FFE9E4;
+    --color-cuaternario: #BBB8BC;
+    --color-fondo: #DADBE5;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-primario);
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1.3em;
+}
+
+.hero {
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 10px solid;
+    border-bottom-color: var(--color-primario-fuerte);
+    height: 150px;
+}
+
+.header {
+    background-color: var(--color-primario-fuerte);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    width: auto;
+    padding: 5px 10% 5px 10%;
+}
+
+.header .logo img {
+    height: 70px;
+    width: auto;
+}
+
+.header .logo img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+
+}
+
+.header nav ul {
+    list-style: none;
+    padding: 0;
+    /*Esto hace que al quitar los puntos no mantenga la sangria*/
+}
+
+.header nav ul li {
+    display: inline;
+    margin: 10px;
+    padding: 5px 20px;
+}
+
+
+.header nav ul li a {
+    color: var(--color-secundario);
+    text-decoration: none;
+}
+
+.header nav ul li a:hover {
+    color: rgb(181, 181, 11);
+    font-weight: 600;
+}
+
+.header .btn button {
+    font-weight: 600;
+    color: var(--color-primario);
+    padding: 10px 25px;
+    background-color: var(--color-secundario);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.header .btn button:hover {
+    color: rgb(181, 181, 11);
+    transform: scale(1.1);
+}
+
+
+/* Contenedor principal que contiene tanto los artículos como el aside */
+section {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permitir que los elementos se ajusten a nuevas filas si no hay suficiente espacio */
+    justify-content: space-between;
+    /* Distribuye los elementos dejando espacio entre ellos */
+    padding: 20px;
+    background-color: var(--color-terciario);
+}
+
+/* Contenedor de los artículos para gestionar las columnas */
+.articles {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 3;
+    /* Ocupar más espacio que el aside (relación 3:1) */
+    justify-content: space-between;
+}
+
+/* Cada artículo será una columna que ocupará hasta 30% del espacio */
+article {
+    flex: 1 1 30%;
+    /* Máximo de 3 columnas: el 30% de ancho cada artículo */
+    margin: 10px;
+    background-color: var(--color-secundario);
+    padding: 10px;
+    border-radius: 6px;
+
+}
+
+
+.imagePost {
+    width: 100%;
+}
+
+.imagePerfil {
+    width: 60px;
+}
+
+
+aside {
+    flex: 1;
+    /* Ocupa menos espacio que los artículos */
+    background-color: var(--color-cuaternario);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 6px;
+    max-width: 300px;
+    /* Limitar el ancho del aside a 300px */
+    order: 2;
+    /*Se asegura que el aside siempre estará al final del flexbox */
+}
+
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li {
+    display: block;
+    padding: 5px 0 10px 0;
+}
+
+.asideElement {
+    margin-bottom: 40px;
+}
+
+
+
+
+
+/* Media querys que controlan los saltos de columnas en el responsive */
+/* Ajuste de columnas para pantallas más pequeñas */
+/*@media (max-width: 768px) {*/
+@media (max-width: 800px) {
+
+    .articles {
+        flex-basis: 100%;
+    }
+
+    article {
+        flex-basis: 45%;
+        /* En pantallas medianas, que ocupen 2 columnas */
+    }
+
+    aside {
+        flex-basis: 100%;
+        /* El aside ocupará todo el ancho debajo de los artículos */
+        max-width: none;
+        /* Eliminar el ancho máximo en pantallas pequeñas */
+        order: 3;
+        /* El aside se moverá al final en pantallas medianas */
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .hero h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    article {
+        flex-basis: 100%;
+        /* En pantallas pequeñas, que ocupen toda la fila */
+    }
+
+    aside {
+        flex-basis: 100%;
+        order: 3;
+    }
+
+    .hero h1 {
+        font-size: 20px;
+    }
+
+    .hero h2 {
+        font-size: 17px;
+    }
+
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+}
