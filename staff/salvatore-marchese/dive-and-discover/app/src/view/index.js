@@ -13,8 +13,7 @@ import {
     Profile,
     Search,
     LogBook,
-    //DocInsurance,
-    //DiveHistory,
+    DiveHistory,
 } from './diver/index'
 
 export {
@@ -30,8 +29,7 @@ export {
     Profile,
     Search,
     LogBook,
-    //DocInsurance,
-    //DiveHistory,
+    DiveHistory,
 }
 
 

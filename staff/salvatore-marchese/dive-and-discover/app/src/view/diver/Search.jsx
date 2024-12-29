@@ -1,71 +1,94 @@
-import { useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import searchCenters from '../../logic/users/index.js';
+import React, { useState } from "react";
+import searchDiveCenters from "../../logic/users/searchDiveCenters.js";
 
-export default function Search() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [results, setResults] = useState([]);
-    const [error, setError] = useState(null);
+const Search = () => {
+  const [city, setCity] = useState(""); // State to hold city input
+  const [results, setResults] = useState([]); // State to hold search results
+  const [error, setError] = useState(""); // State to handle errors
+  const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
-    const q = searchParams.get('q'); // Query parameter
-    const distance = searchParams.get('distance') || 0; // Default distance is 0
+  const handleInputChange = (e) => {
+    setCity(e.target.value); // Update city input
+  };
 
-    useEffect(() => {
-        const fetchResults = async () => {
-            if (q || distance) {
-                try {
-                    const data = await searchCenters(q, distance); // Call search logic
-                    setResults(data);
-                } catch (err) {
-                    setError(err.message);
-                }
-            }
-        };
-        fetchResults();
-    }, [q, distance]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const form = event.target;
-        const qNew = form.q.value;
-        const distanceNew = form.distance.value;
+    try {
+      const data = await searchDiveCenters(city); // Call logic to search dive centers
+      setResults(data); // Set results in state
+    } catch (err) {
+      console.error("Error searching dive centers:", err);
+      setError(err.message || "An error occurred while searching.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-        if (qNew !== q || distanceNew !== distance) {
-            setSearchParams({ q: qNew, distance: distanceNew });
-        }
-    };
+  return (
+    <main className="min-h-screen flex flex-col items-center bg-gray-50 py-8">
+      <div className="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-blue-600 text-center mb-4">Search Dive Centers</h2>
 
-    return (
-        <main className="py-20">
-            <h2 className="text-xl font-bold mb-4">Search Dive Centers</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                    type="text"
-                    placeholder="Query"
-                    name="q"
-                    className="border p-2 rounded w-full"
-                />
-                <input
-                    type="number"
-                    placeholder="Distance (km)"
-                    name="distance"
-                    defaultValue="1"
-                    className="border p-2 rounded w-full"
-                />
-                <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
-                    Search
-                </button>
-            </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="city" className="block text-sm font-medium">
+              Enter City:
+            </label>
+            <input
+              type="text"
+              id="city"
+              value={city}
+              onChange={handleInputChange}
+              placeholder="e.g., Miami"
+              className="w-full border border-gray-300 rounded-md p-2"
+              required
+            />
+          </div>
 
-            <p className="mt-4 bg-white">Search results for "{q}" within {distance} km:</p>
-            {error && <p className="text-white">{error}</p>}
-            <ul className="mt-4 space-y-2">
-                {results.map((result, index) => (
-                    <li key={index} className="border p-2 rounded">
-                        <strong>{result.name}</strong> - {result.location} ({result.distance} km away)
-                    </li>
+          <button
+            type="submit"
+            className={`w-full py-2 px-4 text-white rounded-md ${
+              isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+            }`}
+            disabled={isLoading}
+          >
+            {isLoading ? "Searching..." : "Search"}
+          </button>
+        </form>
+
+        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+
+        <div className="mt-6">
+          {results.length > 0 ? (
+            <div>
+              <h3 className="text-xl font-semibold text-blue-600 mb-4">Search Results:</h3>
+              <ul className="space-y-4">
+                {results.map((center) => (
+                  <li key={center._id} className="p-4 border border-gray-300 rounded-lg shadow-md">
+                    <h4 className="text-lg font-bold text-blue-700">{center.name}</h4>
+                    <p>
+                      <strong>Address:</strong> {center.address}, {center.city}, {center.country}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {center.email}
+                    </p>
+                    <p>
+                      <strong>Phone:</strong> {center.phoneNumber}
+                    </p>
+                  </li>
                 ))}
-            </ul>
-        </main>
-    );
-}
+              </ul>
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center">{isLoading ? "" : "No results to display."}</p>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+};
+
+export default Search;

@@ -10,7 +10,7 @@ import {
     createHomeDiver,
     getProfile,
     getUserName,
-    searchCenters,
+    searchDiveCenters,
 
 } from './users/diver/index.js'
 
@@ -40,7 +40,7 @@ const logic = {
     getProfile,
     updateProfile,
     addOpeningHours,
-    searchCenters,
+    searchDiveCenters,
 
     createLog,
     getLogs,

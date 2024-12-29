@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { authorizationHandler, jsonBodyParser } from '../../helpers/index.js'
-import { registerUserDiverHandler, getUserNameHandler, getProfileHandler, updateProfileHandler, searchCentersHandler } from '../../users/diver/handlers/index.js'
+import { registerUserDiverHandler, getUserNameHandler, getProfileHandler, updateProfileHandler, searchDiveCentersHandler } from '../../users/diver/handlers/index.js'
 
 
 
@@ -17,9 +17,7 @@ usersRouter.get('/profile', authorizationHandler, getProfileHandler)
 usersRouter.put('/profile', authorizationHandler, updateProfileHandler)
 
 // Search route
-usersRouter.get('/search', authorizationHandler, searchCentersHandler)
+usersRouter.get('/search', authorizationHandler, searchDiveCentersHandler)
 
-
-//usersRouter.get('/:id', authorizationHandler, getUserHandler)
 
 export default usersRouter

@@ -3,7 +3,7 @@ import registerUserCenter from "./registerUserCenter";
 import loginUser from "./loginUser";
 import logoutUser from "./logoutUser";
 import { isUserLoggedIn } from "./isUserLoggedIn";
-import searchCenters from "./searchCenters";
+import searchDiveCenters from "./searchDiveCenters";
 
 import isUserRoleCenter from "./isUserRoleCenter";
 import isUserRoleDiver from "./isUserRoleDiver";
@@ -29,7 +29,7 @@ const logic = {
     getUserId,
     getUserName,
     updateProfileCenter,
-    searchCenters,
+    searchDiveCenters,
 }
 
 export default logic 
