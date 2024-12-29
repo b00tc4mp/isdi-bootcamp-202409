@@ -71,6 +71,10 @@ const HomeCenter = () => {
         <p className="text-lg text-gray-800">
           <strong>City:</strong> {data.city || "Not Available"}
         </p>
+
+        <p className="text-lg text-gray-800">
+          <strong>Telephone:</strong> {data.telephone || "Not Available"}
+        </p>
       </div>
 
       {/* Opening Time Section */}

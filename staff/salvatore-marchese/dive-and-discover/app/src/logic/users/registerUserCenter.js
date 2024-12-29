@@ -1,7 +1,7 @@
 import { validate, errors } from 'com'
 const { SystemError } = errors
 
-export default async (name, email, password, passwordRepeat, address, country, city, postcode, role ) => {
+export default async (name, email, password, passwordRepeat, address, country, city, postcode, telephone, role ) => {
     validate.name(name)
     validate.email(email)
     validate.password(password)
@@ -10,11 +10,12 @@ export default async (name, email, password, passwordRepeat, address, country, c
     validate.country(country)
     validate.city(city)
     validate.postcode(postcode)
+    validate.telephone(telephone)
     
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/center`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, 'password-repeat': passwordRepeat, address, country, city, postcode, role })
+        body: JSON.stringify({ name, email, password, 'password-repeat': passwordRepeat, address, country, city, postcode, telephone, role })
     })
 
         .catch(error => { throw new SystemError (error.message) })

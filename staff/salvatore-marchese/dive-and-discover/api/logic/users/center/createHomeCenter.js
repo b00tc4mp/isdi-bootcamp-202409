@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs'
 const { ValidationError } = errors
 
 export default async function createHomeCenter({ name, email, password, address, postcode, city, country }) {
-    if (!name || !email || !password || !address || !city || !country || !postcode ) {
+    if (!name || !email || !password || !address || !city || !country || !postcode || !telephone ) {
         throw new ValidationError('All fields are required.')
     }
 
@@ -16,7 +16,7 @@ export default async function createHomeCenter({ name, email, password, address,
 
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    const user = new User({ name, email, password: hashedPassword, address, country, city, postcode }) 
+    const user = new User({ name, email, password: hashedPassword, address, country, city, postcode, telephone }) 
     
     await user.save()
 

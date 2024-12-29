@@ -6,7 +6,7 @@ import { errors, validate } from 'com'
 
 const { DuplicityError, SystemError } = errors 
 
-export default (name, email, password, passwordRepeat, address, country, city, postcode, role) => {
+export default (name, email, password, passwordRepeat, address, country, city, postcode, telephone, role) => {
     validate.name(name)
     validate.email(email)
     validate.password(password)
@@ -15,6 +15,7 @@ export default (name, email, password, passwordRepeat, address, country, city, p
     validate.country(country)
     validate.city(city)
     validate.postcode(postcode)
+    validate.telephone(telephone)
     return (async () => {
         let hash
 

@@ -50,7 +50,7 @@ const Search = () => {
 
           <button
             type="submit"
-            className={`w-full py-2 px-4 text-white rounded-md ${
+            className={`w-full py-2 px-4 text-yellow-400 rounded-md ${
               isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
             }`}
             disabled={isLoading}
@@ -68,7 +68,7 @@ const Search = () => {
               <ul className="space-y-4">
                 {results.map((center) => (
                   <li key={center._id} className="p-4 border border-gray-300 rounded-lg shadow-md">
-                    <h4 className="text-lg font-bold text-blue-700">{center.name}</h4>
+                    <h4 className="text-lg font-bold text-blue-700 underline">{center.name}</h4>
                     <p>
                       <strong>Address:</strong> {center.address}, {center.city}, {center.country}
                     </p>

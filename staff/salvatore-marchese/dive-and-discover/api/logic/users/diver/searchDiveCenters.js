@@ -10,7 +10,8 @@ export default async (city) => {
             throw new ValidationError('Invalid city name');
         }
 
-        const normalizedCity = city.trim().toLowerCase(); // Normalize city name
+        let normalizedCity = city.trim().toLowerCase(); // Normalize city name
+        normalizedCity = normalizedCity[0].toUpperCase()+normalizedCity.substring(1)
 
         // Query the database for dive centers in the specified city
         const diveCenters = await User.find({ city: normalizedCity, role: 'center' }).lean();

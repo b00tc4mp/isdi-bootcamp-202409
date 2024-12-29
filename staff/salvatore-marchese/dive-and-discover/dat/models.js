@@ -81,6 +81,10 @@ const user = new Schema({
         type: String,
         required: false,
     },
+    telephone: {
+        type: Number,
+        required: false,
+    },
     businessHours: [openingHours]
 
 }, { versionKey: false });

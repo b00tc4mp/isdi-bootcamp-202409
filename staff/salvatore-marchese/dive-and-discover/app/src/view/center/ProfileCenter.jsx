@@ -18,7 +18,7 @@ const FormField = ({ fieldKey, label, value, onChange }) => {
 const ProfileCenter = () => {
     const navigate = useNavigate();
 
-    const [userInfo, setUserInfo] = useState({ name: '', email: '', address: '', country: '', city: '', postcode: '', openingHours: [] })
+    const [userInfo, setUserInfo] = useState({ name: '', email: '', address: '', country: '', city: '', postcode: '', telephone: '',  openingHours: [] })
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -139,6 +139,8 @@ const ProfileCenter = () => {
                             <FormField fieldKey="city" label={"City"} value={userInfo.city} onChange={handleChange} />
 
                             <FormField fieldKey="postcode" label={"Postcode"} value={userInfo.postcode} onChange={handleChange} />
+
+                            <FormField fieldKey="telephone" label={"Telephone"} value={userInfo.telephone} onChange={handleChange} />
 
                             <p className="text-xl font-semibold text-blue-700 cursor-pointer transition-all hover:text-black mb-4">
                                 Business Hours

@@ -7,11 +7,11 @@ export default async (city) => {
         throw new Error('City is required');
     }
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/divers/search?city=${encodeURIComponent(city)}`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/users/diver/search?city=${encodeURIComponent(city)}`, {
         method: 'GET',
         headers: { Authorization: `Bearer ${sessionStorage.token}` },
     })
-        .then((response) => {
+        .then((response) => { 
             if (!response.ok) {
                 return response.json().then((error) => {
                     throw new Error(error.message || 'An error occurred.');

@@ -44,7 +44,7 @@ export default ({ onHomeClick, onLoggedOut }) => {
                     </li>
                     {
                         logic.isUserRoleDiver() &&
-                        <li><NavLink to="#" className="cursor-pointer hover:underline">Search</NavLink></li>
+                        <li><NavLink to="/search" className="cursor-pointer hover:underline">Search</NavLink></li>
                     }
 
                     <li>
@@ -53,14 +53,14 @@ export default ({ onHomeClick, onLoggedOut }) => {
 
                     {
                         logic.isUserRoleDiver() &&
-                        <li><NavLink to="#" className="cursor-pointer hover:underline">Log Book</NavLink></li>
+                        <li><NavLink to="/log-book" className="cursor-pointer hover:underline">Log Book</NavLink></li>
                     }
                     <li><Button className="ButtonLogout" type="button" onClick={handleLogout}>Logout</Button>
                     </li>
                 </ul>
                 {/* Mobile Nav Toggle - Hidden On Web */}
                 <div className="block md:hidden">
-                    <button onClick={() => setIsOpen(!isOpen)} type='button' className="text-white">
+                    <button onClick={() => setIsOpen(!isOpen)} type='button' className="text-blue-600">
                         <span className="text-4xl font-semibold">&#8801;</span>
                     </button>
                 </div>
@@ -73,7 +73,7 @@ export default ({ onHomeClick, onLoggedOut }) => {
 
                     {
                         logic.isUserRoleDiver() &&
-                        <li><NavLink to="#" className="cursor-pointer hover:underline">Search</NavLink></li>
+                        <li><NavLink to="/search" className="cursor-pointer hover:underline">Search</NavLink></li>
                     }
                         <li><NavLink to="/profile" className="cursor-pointer hover:underline">Profile</NavLink></li>
 
@@ -91,4 +91,3 @@ export default ({ onHomeClick, onLoggedOut }) => {
     )
 }
 
-//TO COMPLETE SEARCH NAVIGATION 
