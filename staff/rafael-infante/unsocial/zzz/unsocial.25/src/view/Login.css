@@ -1,0 +1,29 @@
+.Login {
+  background-color: rgb(255, 255, 255);
+  padding: 9% 0px 16% 0px;
+  margin: 0;
+  height: 35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 700px) {
+  .Login {
+    width: 540px;
+  }
+
+  .password-container input {
+    width: 95%;
+  }
+}
+
+@media (max-width: 700px) {
+  .Login {
+    width: 290px;
+  }
+
+  .password-container input {
+    width: 92%;
+  }
+}

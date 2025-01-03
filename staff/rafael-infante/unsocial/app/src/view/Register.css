@@ -1,0 +1,11 @@
+@media (min-width: 700px) {
+  .Register {
+    width: 540px;
+  }
+}
+
+@media (max-width: 700px) {
+  .Register {
+    width: 290px;
+  }
+}
