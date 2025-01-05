@@ -7,7 +7,7 @@ import UploadPhoto from './UploadPhoto'
 import Comments from './Comments'
 import Comment from './Comment'
 import Confirm from './Confirm'
-
+import Header from './Header'
 
 export {
     Alert,
@@ -18,5 +18,6 @@ export {
     UploadPhoto,
     Comments,
     Comment,
-    Confirm
+    Confirm,
+    Header
 }

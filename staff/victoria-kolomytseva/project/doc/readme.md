@@ -19,8 +19,9 @@ An application designed to help people find their lost pets or report pets they 
 - add comment
 - view comments
 - remove comment
-- report user
-- report ad
+- like post
+- report user(v1)
+- report ad(v1)
 - report comment
 - contact the pet owner or the person who found the animal ( contact the author of the ad for more details via the contact info in the post)
 - report a found pet to help reunite it with its owner(es cuando una persona ha encontrado una mascota perdida)
@@ -55,7 +56,7 @@ Admin (User)
 
 ### Data Model
 
-User
+### User
 - id (UUID)
 - name (string)
 - email (string)
@@ -65,23 +66,34 @@ User
 - postalCode(string)
 - phone(string)
 
-Ad
+ ### Ad
 - id (UUID)
 - author (User.id)
-- images ([string]) //poner varias para que el dueño de mascota puede enseñar detalles que tiene mascota
+- images ([string]) 
 - text (string)
 - date (Date)
 - likes ([User.id])
-- reported(boolean)
+- reported(boolean)(v1)
 - found(boolean)
+- location(point)
+- adress (string)
 
-Comment 
+### Comment 
  - id (UUID)
  - author (User.id)
  - text (string)
  - date (Date) 
 
-Report
+ #### Location
+- id (UUID)
+- address (string)
+- location (Point)
+
+#### Point
+- type (string)
+- coords ([number])
+
+Report(v1)
   - id
  - author (User.id)
   - text (string)
@@ -92,13 +104,18 @@ Report
 ### Techs
 
 - Frontend: React, HTML, CSS, JavaScript, TailwindCS
-- Backend: Node.js + Express
+- Backend: Node.js + Express Mongoose
 - Database: MongoDB
 - Authentication: JWT
+- Password securitation : Bcrypt
 - Testing: Mocha & Chai (for backend logic)
 - Map Integration: Leaflet.js
 
 ### Test Coverage
-![alt text](image-1.png)
+![alt text](image-6.png)
+![alt text](image-7.png)
+![alt text](image-8.png)
 
 ### issue:
+https://github.com/b00tc4mp/isdi-bootcamp-202409/issues/258
+

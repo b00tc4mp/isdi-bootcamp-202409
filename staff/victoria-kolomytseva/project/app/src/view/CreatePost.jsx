@@ -1,10 +1,10 @@
 import logic from '../logic'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import useContext from './useContext'
 import { Label, Input, Button, Form, Field } from './library'
 import { imageToBase64 } from '../util'
 import LocationInput from "./components/LocationInput.jsx"
-import { useNavigate, Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function CreatePost() {
     const [images, setImages] = useState([])
@@ -62,7 +62,7 @@ export default function CreatePost() {
         setImages(images)
     }
 
-    return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
+    return <div className="pt-4 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
         <p className='text-center font-semibold'>Upload ad</p>
         <Form onSubmit={handleSubmit}>
             <Field>

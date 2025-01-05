@@ -50,7 +50,7 @@ export default function Adfound({ post, onLiked, onCommentAdded, onCommentRemove
 
         <div className="flex flex-row p-4 gap-6 items-start w-full"> {/* para que estan en linea */}
             <button type="button" onClick={handleLikeClick}>
-                {liked ? <img className="w-6 h-6" src="./assets/heart.svg" /> : <img className="w-6 h-6" src="./assets/heart-full.svg" />}
+                {!liked ? <img className="w-6 h-6" src="./assets/heart.svg" /> : <img className="w-6 h-6" src="./assets/heart-full.svg" />}
             </button>
 
             <button type="button" onClick={handleCommentsClick}>

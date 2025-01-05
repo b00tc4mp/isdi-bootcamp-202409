@@ -12,7 +12,6 @@ export default function Post({ post, userId, onDeleted }) {
     const handlePostClick = () => navigate('/post/' + id)
     const {
         id,
-        author,
         image,
         text,
         date,
@@ -66,7 +65,7 @@ export default function Post({ post, userId, onDeleted }) {
 
 
             <div className="flex justify-end">
-                <a href={"tel:" + post?.author?.phone} className="from-primary-light to-primary-dark bg-gradient-to-b text-center rounded-full  px-10 py-2.5 ">Call</a>
+                <a href={"tel:" + post?.author?.phone} className="from-primary-light to-primary-dark bg-gradient-to-b text-center rounded-full  px-10 py-2.5 text-white">Call</a>
             </div>
             {userId === post.author.id || logic.isUserRoleModerator() ?
                 <button type="button" onClick={handleDeleteClick}>

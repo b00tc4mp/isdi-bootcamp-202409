@@ -2,7 +2,7 @@ import 'dotenv/config'
 import db, { User, Post, Report, Comment } from './index.js'
 import bcrypt from 'bcryptjs'
 
-db.connect(process.env.MONGO_URL_TEST)
+db.connect(process.env.MONGO_URL)
     .then(() => Promise.all([User.deleteMany(), Post.deleteMany(), Report.deleteMany(), Comment.deleteMany()]))
     .then(async () => Promise.all([
         User.create({

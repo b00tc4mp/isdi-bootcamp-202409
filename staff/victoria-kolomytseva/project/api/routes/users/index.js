@@ -7,7 +7,7 @@ const usersRouter = Router()
 
 usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.post('/', jsonBodyParser, registerUserHandler)
-usersRouter.put('/', jsonBodyParser, updateUserProfileHandler)
+usersRouter.put('/', jsonBodyParser, authorizationHandler, updateUserProfileHandler)
 usersRouter.get('/:targetUserId', authorizationHandler, getUserHandler)
 
 export default usersRouter

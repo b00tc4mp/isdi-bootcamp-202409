@@ -13,7 +13,7 @@ const { NotFoundError, ValidationError, SystemError } = errors
 
 import toggleLikePost from './toggleLikePost.js'
 
-debugger
+
 
 describe('toggleLikePost', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))

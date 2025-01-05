@@ -1,9 +1,12 @@
-import { errors } from 'com'
+import { errors, validate } from 'com'
 
 const { SystemError } = errors
 
-export default (whatHappened) =>
-    fetch(`http://${import.meta.env.VITE_API_URL}/posts?whatHappened=${whatHappened}`, {
+export default (whatHappened) => {
+    if (whatHappened) {
+        validate.whatHappened(whatHappened)
+    }
+    return fetch(`http://${import.meta.env.VITE_API_URL}/posts?whatHappened=${whatHappened}`, {
         headers: {
             Authorization: `Bearer ${localStorage.token}`
         }
@@ -18,3 +21,4 @@ export default (whatHappened) =>
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
+}

@@ -4,6 +4,8 @@ import logic from '../logic'
 
 import AdFound from './components/AdFound'
 
+import { Header } from './components'
+
 export default function PetFoundView() {
 
     const [posts, setPosts] = useState([])
@@ -25,22 +27,6 @@ export default function PetFoundView() {
     }, [])
 
     const handleLiked = () => {
-        try {
-            logic.getPosts('found')
-                .then(setPosts)
-                .catch(error => {
-                    alert(error.message)
-
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
-    }
-
-    const handleDeleted = () => {
         try {
             logic.getPosts('found')
                 .then(setPosts)
@@ -88,8 +74,8 @@ export default function PetFoundView() {
         }
     }
 
-    return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4 ml-6">PetLocator</h1>
+    return <div className="pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
+        <Header />
         {posts.map(post => <AdFound
             key={post.id}
             post={post}

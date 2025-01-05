@@ -84,7 +84,7 @@ export default function App() {
             <Route path="/" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
 
 
-            <Route path="/hello/:name" element={<Hello />} />
+
             <Route path="/profile/:userId" element={<Profile handleUserLoggedOut={handleUserLoggedOut} />} />
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/post/:postId" element={<PostView />} />

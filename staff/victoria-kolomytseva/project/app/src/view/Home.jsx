@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import logic from '../logic'
 import Post from './components/Post'
+import { Header } from './components'
 
 export default function Home() {
     const [posts, setPosts] = useState([])
@@ -38,8 +39,9 @@ export default function Home() {
         }
     }
 
-    return <div className="pt-12 pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4 ml-6">PetLocator</h1>
+    return <div className="pb-24 min-h-screen from-background-light to-background-dark bg-gradient-to-b flex flex-col space-y-10">
+        <Header />
+
         {posts.map(post => <Post
             key={post.id}
             userId={userId}

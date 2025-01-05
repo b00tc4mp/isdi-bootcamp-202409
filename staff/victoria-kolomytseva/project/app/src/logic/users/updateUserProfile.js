@@ -12,7 +12,8 @@ export default (id, name, surname, phone, city, postalCode) => {
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.token}` },
+
         body: JSON.stringify({ id, name, surname, phone, city, postalCode })
     })
         .catch(error => { throw new SystemError(error.message) })

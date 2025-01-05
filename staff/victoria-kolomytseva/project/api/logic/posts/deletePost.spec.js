@@ -56,6 +56,17 @@ describe('deletePost', () => { // Agrupa todas las pruebas relacionadas con dele
         ).to.be.rejectedWith(NotFoundError, /^user not found$/)
     )
 
+    it('fails on non-existing post', () =>
+        User.create({ name: 'Juan Pérez', email: 'juan.perez@example.com', password: '123123123' })
+            .then((user) => {
+                return expect(
+                    deletePost(user._id.toString(), '012345678901234567890123')
+                ).to.be.rejectedWith(NotFoundError, /^post not found$/)
+            })
+
+    )
+
+
     it('fails on non-string user-id', () =>
         expect(() => deletePost(true)).to.throw(ValidationError, /^invalid userId$/)
     )
