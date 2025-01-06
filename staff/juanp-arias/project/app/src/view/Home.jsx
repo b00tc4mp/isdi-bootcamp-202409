@@ -42,9 +42,7 @@ export default function Home({ onCreateNoteClick, onViewRemindersClick, onCheckT
                         console.error(error)
                     })
                 logic.getLastNote()
-                    .then(note => {
-                        if (note) { setLastNote(note) } else { setLastNote({ text: 'No notes found' }) }
-                    })
+                    .then(note => { if (note) { setLastNote(note) } else { setLastNote({ text: 'No notes found' }) } })
                     .catch(error => {
                         alert(error.message)
                         console.error(error)

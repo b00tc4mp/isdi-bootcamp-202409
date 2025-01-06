@@ -12,7 +12,7 @@ export default (userId, title, text, date) => {
     const reminderDate = new Date(date)
     const now = new Date()
 
-    const reminderDateOnly = new Date(reminderDate.getFullYear(), reminderDate.getMonth(), reminderDate.getDate())//esto se hace para eliminar la hora del objeto y dejar solo la fecha.
+    const reminderDateOnly = new Date(reminderDate.getFullYear(), reminderDate.getMonth(), reminderDate.getDate())
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 
     if (reminderDateOnly < today) { throw new SystemError('Cannot create reminders for past dates.') }

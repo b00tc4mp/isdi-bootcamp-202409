@@ -17,10 +17,14 @@ export default function Tasks() {
             try {
                 logic.getTasks()
                     .then(tasks => {
-                        if (tasks.length === 0) { setTasks([]) } else { setTasks(tasks) }
+                        setTasks(tasks)
                     })
                     .catch(error => {
-                        if (error instanceof SystemError) { alert('Sorry, try again later') } else { alert(error.message) }
+                        if (error instanceof SystemError) {
+                            alert('Sorry, try again later')
+                        } else {
+                            alert(error.message)
+                        }
                         console.error(error)
                         return
                     })
