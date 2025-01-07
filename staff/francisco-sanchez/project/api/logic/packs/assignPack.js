@@ -12,7 +12,7 @@ export default async (userId, customerSearch, selectPack, payedAmount, paymentMe
     try {
         const customerId = await findUserIdbyEmailOrUsername(userId, customerSearch)
         if (!customerId) {
-            throw new SystemError('Customer not found')
+            throw new NotFoundError('Customer not found')
         }
 
         const basePack = await getBasePackDetails(selectPack)

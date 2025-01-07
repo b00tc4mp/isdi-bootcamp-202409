@@ -42,7 +42,7 @@ export default function AssignPack(props) {
 
         //Finnally we call the assign function with all the retrieved information 
         try {
-            assignPack(customerSearch, selectPack, payedAmount, paymentMethod)
+            const assigned = assignPack(customerSearch, selectPack, payedAmount, paymentMethod)
             alert('Pack successfully assigned to customer!', 'success')
         } catch (error) {
             alert(error.message)
