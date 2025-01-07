@@ -1,0 +1,1 @@
+ curl -H 'Content-Type: application/json' -d '{"email":"juan@pablo.com","password":"123456"}' http://localhost:8080/users/auth -v
