@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU4MjcxNzgyMTkwOTU4MDQ5NGQ2MWIiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDI4NzA0MywiZXhwIjoxNzM0MjkwNjQzfQ.HkrA2ANe6w9hsz9jR5gTLKAu7USwwwDk9tsMlnfyZ3c' -H 'Content-Type: application/json' http://localhost:8080/users/675819916cafadad364cb097 -v
