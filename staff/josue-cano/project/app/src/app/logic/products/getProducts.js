@@ -3,30 +3,26 @@ import { logout } from "@/app/logic/auth";
 
 // get api url from .env file
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
-
 export async function getProducts(keyword) {
   const token = getToken();
-  let url = '';
+  let url = "";
 
   const isPublic = token == undefined;
 
-
-  if(isPublic) {
-    url = 'public/products';
+  if (isPublic) {
+    url = "public/products";
   } else {
-    url = 'products';
+    url = "products";
   }
   url = `${baseUrl}/${url}/?keyword=${keyword}`;
 
   try {
-
-    let response = await fetch(url,{
-      method: 'GET',
+    let response = await fetch(url, {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     if (!response.ok) {
@@ -40,12 +36,8 @@ export async function getProducts(keyword) {
     response = await response.json();
 
     return response.data;
-
-  } catch(error) {
-
+  } catch (error) {
     // alert(error);
     return error;
-
   }
-
 }

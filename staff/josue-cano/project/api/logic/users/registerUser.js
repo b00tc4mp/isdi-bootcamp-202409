@@ -4,35 +4,27 @@ import { validate, errors } from "com";
 
 const { DuplicityError, SystemError, ValidationError } = errors;
 
-export default ({ firstName, lastName, email, ubicacion, password, passwordRepeat }) => {
+export default async ({ firstName, lastName, email, ubicacion, password, passwordRepeat }) => {
+  validate.firstName(firstName);
+  validate.lastName(lastName);
+  validate.email(email);
+  validate.password(password);
+  validate.passwordsMatch(password, passwordRepeat);
+
+  let hash;
+
   try {
-    validate.firstName(firstName);
-    validate.lastName(lastName);
-    validate.email(email);
-    validate.password(password);
-    validate.passwordsMatch(password, passwordRepeat);
-  } catch (e) {
-    // aquí se rompe por validación
-    throw new ValidationError(e.message);
+    hash = await bcrypt.hash(password, 10);
+  } catch (error) {
+    throw new SystemError(error.message);
+  }
+  const user = await User.findOne({ email });
+  if (user) {
+    throw new DuplicityError("user already exists");
   }
   try {
-    return bcrypt
-      .hash(password, 10)
-      .catch((error) => {
-        throw new SystemError(error.message);
-      })
-      .then((hash) =>
-        User.create({ firstName, lastName, email, ubicacion, password: hash })
-          .then((user) => ({ ...user.toObject(), password: null }))
-          .catch((error) => {
-            if (error.code === 11000) throw new DuplicityError("user already exists");
-
-            throw new SystemError(error.message);
-          })
-      );
-  } catch (err) {
-    // return Promise.reject para emitir una promesa de respuesta fallida
-    // Los valores de respuesta pueden ser: resolve = exito, reject = fallo
-    return Promise.reject(err.message);
+    await User.create({ firstName, lastName, email, ubicacion, password: hash });
+  } catch (error) {
+    throw new SystemError(error.message);
   }
 };

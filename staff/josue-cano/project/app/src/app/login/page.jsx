@@ -33,7 +33,7 @@ export default function Login() {
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
         src="/video/campos2s.mp4"
-        autoPlay
+        
         muted
         loop></video>
 

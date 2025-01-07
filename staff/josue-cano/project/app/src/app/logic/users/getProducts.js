@@ -1,23 +1,32 @@
 import { getToken } from "../../utils/session";
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
 
 export async function getProducts() {
   const token = getToken();
-  const url = 'user/products';
-  const isPublic = token == undefined;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  let url = "user/products";
 
+  url = `${baseUrl}/${url}`;
 
+  try {
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  try{
-    const response = await fetchHandler(url, {}, isPublic);
-
+    if (!response.ok) {
+      if (response.status == 401) {
+        logout();
+      }
+      throw new Error(response.error);
+    }
+    response = await response.json();
+    
     return response.data;
-
-  } catch(error) {
-
+  } catch (error) {
     // alert(error);
     return error;
-
   }
-
 }

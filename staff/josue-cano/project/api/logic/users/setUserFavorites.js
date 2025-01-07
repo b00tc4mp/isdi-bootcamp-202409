@@ -22,3 +22,4 @@ export default async ({ id, favorite }) => {
     console.log(error);
   }
 };
+// TODO:createSpecs

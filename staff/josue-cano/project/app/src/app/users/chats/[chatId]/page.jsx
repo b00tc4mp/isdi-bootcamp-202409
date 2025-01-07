@@ -10,7 +10,7 @@ export default function Chats() {
   const [chat, setChat] = useState(null);
   const { chatId } = useParams();
 
-  sendMessage;
+  //sendMessage;
 
   // const messages = '';
   useEffect(() => {
@@ -21,12 +21,14 @@ export default function Chats() {
     }
 
     if (chat == null) findChat();
-  }, [chat]);
+  }, [chat, chatId]);
   const sendChat = async (message) => {
     // owner es quien publicó el producto
     // el id de ususario se obtiene del token
 
-    const response = await sendMessage({ message, chatId });
+    let response = await sendMessage({ message, chatId });
+    
+    response = await response.json();
     // cuando se recibe el chat, se redirige a la nueva página
     if (response.data) {
       setChat(response.data);
@@ -34,7 +36,7 @@ export default function Chats() {
   };
 
   return (
-    <section className="mx-5 py-5">
+    <section className="py-5">
       <ChatComponent messages={chat?.messages} sendMessage={sendChat} />
     </section>
   );

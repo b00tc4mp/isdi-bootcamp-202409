@@ -10,13 +10,14 @@ const { expect } = chai;
 import db, { User } from "dat";
 import { errors } from "com";
 
-const { DuplicityError, SystemError } = errors;
+const { DuplicityError, SystemError, ValidationError } = errors;
 
 import registerUser from "./registerUser.js";
 
 describe("registerUser", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST));
   beforeEach(() => User.deleteMany());
+  after(() => User.deleteMany());
   after(() => db.disconnect());
 
   it("succeeds on new user", async () => {
@@ -97,6 +98,6 @@ describe("registerUser", () => {
         password: "123",
         passwordRepeat: "123",
       })
-    ).to.be.rejectedWith("invalid name length");
+    ).to.be.rejectedWith(ValidationError, "invalid name length");
   });
 });

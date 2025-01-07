@@ -28,8 +28,7 @@ export default ({ firstName, lastName, email, ubicacion, password, passwordRepea
           })
       );
   } catch (err) {
-    // return Promise.reject para emitir una promesa de respuesta fallida
-    // Los valores de respuesta pueden ser: resolve = exito, reject = fallo
     return Promise.reject(err.message);
   }
 };
+// TODO:createSpecs

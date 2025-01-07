@@ -22,3 +22,4 @@ export default (producto) => {
     return Promise.reject(err.message);
   }
 };
+// TODO:createSpecs

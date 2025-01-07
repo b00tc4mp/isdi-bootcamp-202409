@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getUserId } from "../utils/session";
 
-export default ({ messages, sendMessage }) => {
+export default function ChatComponent ({ messages, sendMessage }) {
   const [message, setMessage] = useState("");
   const [userId, setUserId] = useState(null);
 

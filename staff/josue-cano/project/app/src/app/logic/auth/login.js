@@ -6,7 +6,6 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 const login = async ({ username, password }) => {
   
   try {
-    // form validation
     validate.userName(username);
     validate.password(password);
   

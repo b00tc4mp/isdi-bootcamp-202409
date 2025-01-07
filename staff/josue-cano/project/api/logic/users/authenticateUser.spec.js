@@ -17,7 +17,8 @@ import authenticateUser from "./authenticateUser.js";
 describe("authenticateUser", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST));
 
-  beforeEach(() => User.deleteMany());
+  before(() => User.deleteMany());
+  after(() => User.deleteMany());
 
   it("succeeds on existing user", () =>
     User.create({
@@ -33,9 +34,15 @@ describe("authenticateUser", () => {
       }));
 
   it("fails on non-existing user", () =>
-    expect(authenticateUser({ email: "josuecano@de565lgado.com", password: "123123123" })).to.be.rejectedWith(
+    expect(authenticateUser({ email: "josuecano@de565lgado.com", password: "1231231873" })).to.be.rejectedWith(
       CredentialsError,
       "user does not exist"
+    ));
+
+  it("fails on wrong credentials", () =>
+    expect(authenticateUser({ email: "josuecano@delgado.com", password: "1531231873" })).to.be.rejectedWith(
+      CredentialsError,
+      "wrong credentials"
     ));
 
   after(() => db.disconnect());
