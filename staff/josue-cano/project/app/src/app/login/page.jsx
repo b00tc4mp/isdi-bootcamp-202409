@@ -1,21 +1,29 @@
 "use client";
 import { useState } from "react";
 import { login } from "../logic/auth";
+import { isRedirectError } from 'next/dist/client/components/redirect';
 import { redirect } from "next/navigation";
 
 export default function Login() {
   const [error, setError] = useState("");
 
-  function authenticate(event) {
+  async function authenticate(event) {
     event.preventDefault();
 
     const fields = event.target;
 
-    login({ username: fields.email.value, password: fields.password.value })
-      .catch((err) => {
-        // alert(err);
-      })
-      .then(() => redirect("/"));
+    try {
+      
+      await login({ username: fields.email.value, password: fields.password.value });
+      
+      redirect('/');
+    } catch(error){
+     
+      if (isRedirectError(error)) throw error;
+      // redirect('/');
+      alert(error);
+    }
+     
   }
 
   return (

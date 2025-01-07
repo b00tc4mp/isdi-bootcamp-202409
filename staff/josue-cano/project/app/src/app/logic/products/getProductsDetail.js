@@ -1,8 +1,8 @@
-import { getToken } from "../../utils/session";
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
+import { getToken } from "@/app/utils/session";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getProductDetails(id) {
-  debugger;
 
   const token = getToken();
   let url = "";
@@ -16,7 +16,13 @@ export async function getProductDetails(id) {
   }
 
   try {
-    const response = await fetchHandler(url, {}, isPublic);
+    let response = await fetch(`${baseUrl}/${url}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    response = await response.json();
 
     return response.data;
   } catch (error) {

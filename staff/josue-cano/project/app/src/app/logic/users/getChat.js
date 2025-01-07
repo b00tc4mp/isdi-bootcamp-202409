@@ -1,12 +1,21 @@
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
+import { getToken } from "../../utils/session";
 
 export async function getChat( chatId ) {
-  const url = `user/chat/${chatId}`;
-
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${baseUrl}/user/chat/${chatId}`;
+  const token = `Bearer ${getToken()}`;
   try{
-    const response = await fetchHandler(url, { });
+    const response = await fetch(url, { 
+      method: 'GET',
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: token 
+      },
+    });
 
-    return response.data;
+    const data = await response.json();
+
+    return data.data;
 
   } catch(error) {
 

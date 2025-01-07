@@ -1,10 +1,10 @@
-"use client";
+'use client';
 import { getChats } from "@/app/logic/users/getChats";
 import { getUserId } from "@/app/utils/session";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function chats() {
+export default function Chats() {
   const [chats, setChats] = useState(null);
 
   const userId = getUserId();
@@ -21,7 +21,7 @@ export default function chats() {
       <header>
         <h2 className="text-2xl">Mensajes</h2>
       </header>
-      {chats &&
+      {chats?.map &&
         chats.map((chat) => {
           return (
             <Link href={`/users/chats/${chat._id}`} key={chat._id} role="alert" className="alert mb-1">

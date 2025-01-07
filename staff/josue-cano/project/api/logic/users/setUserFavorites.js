@@ -9,6 +9,7 @@ export default async ({ id, favorite }) => {
     const user = await User.findOne({ _id: id });
 
     if (user) {
+    console.trace('favorites', {favorite, getUserFavorites: user.favorites});
       if (user.favorites.some((f) => f == favorite)) {
         updatedUser = await User.findByIdAndUpdate({ _id: id }, { $pull: { favorites: favorite } }, { new: true });
       } else {

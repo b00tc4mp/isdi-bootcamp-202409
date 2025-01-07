@@ -1,3 +1,5 @@
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const registerUser = ({
   firstName,
   lastName,
@@ -6,7 +8,7 @@ export const registerUser = ({
   password,
   passwordRepeat,
 }) => {
-  return fetch(`http://${"localhost:8080"}/register`, {
+  return fetch(`${baseUrl}/register`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({

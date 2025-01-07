@@ -5,7 +5,6 @@ export const createChat = async ({
 }) => {
   const url = 'user/chat/';
 
-  debugger;
   try {
   const result = await fetchHandler(url, {
     method: 'POST',

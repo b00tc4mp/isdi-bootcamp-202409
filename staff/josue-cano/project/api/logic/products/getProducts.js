@@ -3,13 +3,14 @@ import { validate, errors } from "com";
 
 const { SystemError, NotFoundError } = errors;
 
-export default async (userId) => {
+export default async ({userId, keyword}) => {
   // console.log({userId} );
 
   if (userId) {
     const user = await User.findOne({ _id: userId });
+    
 
-    const products = await Producto.find().lean();
+    const products = await Producto.find({name: { $regex: `${keyword}` }}).lean();
     const result = products.map((product) => ({
       ...product,
       isFavorite: user.favorites.includes(product._id),
@@ -17,7 +18,8 @@ export default async (userId) => {
     return result;
   }
 
-  const products = await Producto.find();
+  const products = await Producto.find({name: { $regex: `${keyword}` }}).lean();
+
   return products;
 
   // return Producto.find()

@@ -1,13 +1,21 @@
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
-
+import { getToken } from "../../utils/session";
 // const { SystemError } = errors;
+
 const validateSession = async () => {
-  const url = "validate-session";
-
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = baseUrl + "/validate-session";
+  const token = `Bearer ${getToken()}`;
   try {
-    const response = await fetchHandler(url, {});
+    const response = await fetch(url, {
+      method: "GET",
+      headers: { "Content-type": "application/json",
+        Authorization: token
+       },
+    });
 
-    return response.data;
+    const data = await response.json();
+
+    return data.data;
   } catch (error) {
     // alert(error);
     return error;

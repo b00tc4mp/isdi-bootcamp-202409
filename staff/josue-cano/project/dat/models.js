@@ -23,7 +23,7 @@ const user = new Schema(
       required: true,
       unique: true,
       match:
-        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
     },
     password: {
       type: String,
@@ -37,7 +37,7 @@ const user = new Schema(
     },
     ubicacion: {
       type: ObjectId,
-      ref: "Ubicacion",
+      ref: 'Ubicacion'
     },
     favorites: [
       {
@@ -50,53 +50,53 @@ const user = new Schema(
     timestamps: true, // Agrega campos `createdAt` y `updatedAt` automáticamente
     versionKey: false,
   }
-);
+ );
 
-const comment = new Schema(
-  {
-    writer: {
-      type: ObjectId,
-      required: true,
-      ref: "User",
-    },
-    /*reader: {
+ const comment = new Schema({
+      writer: {
+        type: ObjectId,
+        required: true,
+        ref: "User",
+      },
+      /*reader: {
         type: ObjectId,
         required: true,
         ref: "User",
       },*/
-    text: {
-      type: String,
-      required: true,
-      maxLength: 200,
-    },
-    product: {
-      type: ObjectId,
-      required: true,
-      ref: "Producto",
-    },
-  },
-  { timestamps: true, versionKey: false }
-);
-
-const categoria = new Schema(
-  {
-    nombre: {
-      type: String,
-      required: true,
-      minLength: 2,
-    },
-    subcategorias: [
-      {
-        type: ObjectId,
-        ref: "Subcategoria",
+      text: {
+        type: String,
+        required: true,
+        maxLength: 200,
       },
-    ],
-  },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
-);
+      product: {
+        type: ObjectId,
+        required: true,
+        ref: 'Producto'
+      },
+    },
+      {timestamps: true,
+        versionKey: false
+      }
+    );
+
+    const categoria = new Schema(
+      {
+        nombre: {
+          type: String,
+          required: true,
+          minLength: 2,
+        },
+        subcategorias: [
+          {
+            type: ObjectId,
+            ref: "Subcategoria",
+          },
+        ],
+      },
+      { 
+timestamps: true,
+        versionKey: false }
+    );
 
 const subcategoria = new Schema(
   {
@@ -111,10 +111,9 @@ const subcategoria = new Schema(
       ref: "Categoria",
     },
   },
-  {
+  { 
     timestamps: true,
-    versionKey: false,
-  }
+    versionKey: false }
 );
 const producto = new Schema(
   {
@@ -178,53 +177,50 @@ const ubicacion = new Schema(
       required: true,
     },
   },
-  {
+  { 
     timestamps: true,
-    versionKey: false,
-  }
+    versionKey: false }
 );
+
 
 const message = new Schema(
   {
     author: {
       type: ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User'
     },
     text: {
       type: String,
-      required: true,
+      required: true
     },
   },
-  {
+  { 
     timestamps: true,
-    versionKey: false,
-  }
+    versionKey: false }
 );
-const chat = new Schema(
-  {
-    owner: {
-      type: ObjectId,
-      required: true,
-      ref: "User",
-    },
-    peer: {
-      type: ObjectId,
-      required: true,
-      ref: "User",
-    },
-    messages: [message],
+const chat = new Schema({
+  owner: {
+    type: ObjectId,
+    required: true,
+    ref: 'User',
   },
-  { timestamps: true, versionKey: false }
-);
+  peer: {
+    type: ObjectId,
+    required: true,
+    ref: 'User',
+  },
+  messages: [ message ],
+},
+  {timestamps: true, versionKey: false});
 
 const User = model("User", user);
 const Producto = model("Producto", producto);
 const Comment = model("Comment", comment);
 const Categoria = model("Categoria", categoria);
 const Subcategoria = model("Subcategoria", subcategoria);
-const Ubicacion = model("Ubicacion", ubicacion, "ubicaciones");
-const Message = model("Message", message);
-const Chat = model("Chat", chat);
+const Ubicacion = model('Ubicacion', ubicacion, 'ubicaciones');
+const Message = model('Message', message);
+const Chat = model('Chat', chat);
 
 export { User, Producto, Comment, Categoria, Subcategoria, Ubicacion, Message, Chat };

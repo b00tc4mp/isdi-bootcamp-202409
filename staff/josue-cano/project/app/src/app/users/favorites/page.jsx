@@ -29,7 +29,7 @@ export default function Index() {
   return (
     <article className="">
       <h2 className="text-3xl font-bold text-center mt-5 text-gray-800">
-        {products.length ? "Favoritos " : "No hay productos favoritos"}
+        {products && products.length ? "Favoritos " : "No hay productos favoritos"}
       </h2>
       <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} />
     </article>

@@ -15,7 +15,6 @@ export default function ProductComponent({ producto, addtoFavorites, refetch, se
   };
   const deleteHandler = async () => {
     const result = await deleteProduct(producto._id);
-    debugger;
     if (result.valid) {
       if (setRefetch) setRefetch(!refetch);
     } else {

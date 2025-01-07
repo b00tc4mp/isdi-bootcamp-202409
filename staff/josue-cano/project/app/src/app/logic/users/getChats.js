@@ -1,15 +1,24 @@
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
+import { getToken } from "../../utils/session";
 
 export async function getChats( productOwner ) {
-  const url = `user/chats/`;
+
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  
+  const token = `Bearer ${getToken()}`;
+
+  const url = `${baseUrl}/user/chats/`;
 
   try{
-    const response = await fetchHandler(url, {
+    const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({productOwner})
+      body: JSON.stringify({productOwner}),
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: token 
+      },
     });
-
-    return response.data;
+    const data = await response.json();
+    return data.data;
 
   } catch(error) {
 

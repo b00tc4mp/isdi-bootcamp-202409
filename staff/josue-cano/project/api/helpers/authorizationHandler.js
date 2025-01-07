@@ -20,6 +20,6 @@ export default (req, _res, next) => {
 
     next();
   } catch (error) {
-    return res.status(401).json({ error: error.message }); // next(new AuthorizationError(error.message));
+    return _res.status(401).json({ error: error.message }); // next(new AuthorizationError(error.message));
   }
 };

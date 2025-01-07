@@ -1,7 +1,11 @@
 import { getToken } from "../../utils/session";
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
+import { logout } from "@/app/logic/auth";
 
-export async function getProducts() {
+// get api url from .env file
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+
+export async function getProducts(keyword) {
   const token = getToken();
   let url = '';
 
@@ -13,9 +17,27 @@ export async function getProducts() {
   } else {
     url = 'products';
   }
+  url = `${baseUrl}/${url}/?keyword=${keyword}`;
 
-  try{
-    const response = await fetchHandler(url, {}, isPublic);
+  try {
+
+    let response = await fetch(url,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      if (response.status == 401) {
+        logout();
+      }
+      response = await response.json();
+      throw new Error(response.error);
+    }
+
+    response = await response.json();
 
     return response.data;
 

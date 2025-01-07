@@ -20,9 +20,9 @@ export default ({ email, password }) => {
     if (!user) throw new CredentialsError("user does not exist");
 
     let match;
-
+    
     try {
-      match = bcrypt.compare(password, user.password);
+      match = await bcrypt.compare(password, user.password);
     } catch (error) {
       throw new CredentialsError(error.message);
     }

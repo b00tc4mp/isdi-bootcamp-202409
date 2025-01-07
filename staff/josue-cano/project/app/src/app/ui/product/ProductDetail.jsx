@@ -28,7 +28,7 @@ export default function ProductDetail({ id, addtoFavorites }) {
       .catch((err) => {
         setError(err); // Maneja los errores
       });
-  }, [refetch]);
+  }, [id, refetch]);
   return (
     <div className="card bg-base-100 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto mt-5 shadow-xl">
       {product ? (

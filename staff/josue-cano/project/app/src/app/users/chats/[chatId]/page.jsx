@@ -6,7 +6,7 @@ import ChatComponent from "@/app/ui/ChatComponent";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function chats() {
+export default function Chats() {
   const [chat, setChat] = useState(null);
   const { chatId } = useParams();
 
@@ -28,14 +28,13 @@ export default function chats() {
 
     const response = await sendMessage({ message, chatId });
     // cuando se recibe el chat, se redirige a la nueva página
-    debugger;
     if (response.data) {
       setChat(response.data);
     }
   };
 
   return (
-    <section className="py-5">
+    <section className="mx-5 py-5">
       <ChatComponent messages={chat?.messages} sendMessage={sendChat} />
     </section>
   );

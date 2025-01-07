@@ -1,9 +1,21 @@
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
+
+import { getToken } from "@/app/utils/session";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getFavorites() {
-  const url = "favorites";
+
+  
+  const token = getToken();
+
   try {
-    const response = await fetchHandler(url, {});
+    let response = await fetch(`${baseUrl}/favorites`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    response = await response.json();
 
     return response.data;
   } catch (error) {

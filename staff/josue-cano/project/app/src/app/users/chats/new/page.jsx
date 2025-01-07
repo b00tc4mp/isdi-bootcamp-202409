@@ -3,7 +3,7 @@ import {createChat} from "@/app/logic/users/createChat";
 import ChatComponent from "@/app/ui/ChatComponent"
 import {useParams} from "next/navigation";
 
-export default function chat () {
+export default function Chat () {
 
 
     const { authorId } = useParams();
@@ -22,7 +22,6 @@ export default function chat () {
         // owner es quien publicó el producto
         // el id de ususario se obtiene del token
 
-        debugger;
         const newChat = await createChat({message, owner: authorId});
         // cuando se recibe el chat, se redirige a la nueva página
         console.log({newChat});

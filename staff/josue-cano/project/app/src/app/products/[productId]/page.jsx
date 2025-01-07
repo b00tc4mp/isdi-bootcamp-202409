@@ -7,7 +7,7 @@ import { addtoFavorites } from "@/app/logic/products/addtoFavorites";
 import { getToken } from "@/app/utils/session";
 import { useEffect, useState } from "react";
 
-export default function page() {
+export default function Page() {
   const { productId } = useParams();
   const [isAuth, setIsAuth] = useState(false);
   // const router = useRouter()

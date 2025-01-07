@@ -1,5 +1,6 @@
 import { getToken } from "../../utils/session";
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const createProduct = (product) => {
   const token = `Bearer ${getToken()}`;
 
@@ -15,9 +16,8 @@ export const createProduct = (product) => {
     }
   });
 
-  return fetch(`http://${"localhost:8080"}/products`, {
+  return fetch(`${baseUrl}/products`, {
     method: "POST",
-    //headers: { "Content-type": "form/multipart" },
     headers: { AUTHORIZATION: token },
     body: formData,
   })
@@ -35,7 +35,6 @@ export const createProduct = (product) => {
       }
       // Si no está OK, maneja los errores del servidor
       return res.json().then(({ error }) => {
-        debugger;
         console.error(`${error}`);
         throw new Error(error || "Error desconocido en el registro.");
       });

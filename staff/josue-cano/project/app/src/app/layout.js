@@ -45,7 +45,6 @@ export default function RootLayout({ children }) {
   // useEffect(() => {
   //   // Do something here...
   //   validateSession().then((response) => {
-  //     debugger;
   //     if(response.status){
   //       setAuthenticated(response.status);
   //     } else {

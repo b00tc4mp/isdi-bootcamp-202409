@@ -1,67 +1,44 @@
 import { validate, errors } from "com";
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
+
+const { ValidationError } = errors;
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const login = async ({ username, password }) => {
-  const url = "login";
-
-  // errores de validación
+  
   try {
+    // form validation
     validate.userName(username);
     validate.password(password);
-  } catch (err) {
-    return Promise.reject(err.message);
-  }
-
-  try {
-    const response = await fetchHandler(
-      url,
+  
+    let response = await fetch(
+      `${baseUrl}/login`,
       {
-        method: "post",
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        }, 
         body: JSON.stringify({ email: username, password }),
-      },
-      true
+      }
     );
+    
+    if (!response.ok) {
+      response = await response.json();
+      throw new ValidationError(response.error);
+    }
+    
+    response = await response.json();
+
+
 
     localStorage.token = response.data.token;
     localStorage.favorites = response.data.favorites;
 
-    return true;
+    // return true;
   } catch (error) {
-    alert(error);
-    return false;
+    // alert(error);
+    throw error;
   }
 
-  // return fetch(`http://${"localhost:8080"}/login`, {
-  //   method: "POST",
-  //   headers: { "Content-type": "application/json" },
-  //   body: JSON.stringify({ email: username, password }),
-  // })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   })
-  //   .then((res) => {
-  //     if (res.ok)
-  //       return res
-  //         .json()
-  //         .catch((error) => {
-  //           throw new SystemError(error.message);
-  //         })
-  //         .then((response) => {
-  //           localStorage.token = response.data.token;
-  //           localStorage.favorites = response.data.favorites;
-  //           return true;
-  //         });
-
-  //     return res
-  //       .json()
-  //       .catch((error) => {
-  //         throw new SystemError(error.message);
-  //       })
-  //       .then(({ error }) => {
-  //         debugger;
-  //         throw new Error(error)
-  //       });
-  //   });
 };
 
 export default login;

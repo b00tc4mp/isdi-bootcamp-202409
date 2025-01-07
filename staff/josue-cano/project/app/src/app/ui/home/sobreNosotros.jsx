@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function sobreNosotros() {
   return (
-    <div id="sobrenosotros" className="flex flex-col items-center py-56 space-y-12 ">
+    <div id="sobrenosotros" className="flex flex-col w-responsive items-center py-56 space-y-12 ">
       {/* Encabezado */}
       <div className="text-center max-w-3xl ">
         <h1 className="text-4xl font-bold mb-6">Somos una nueva opción...</h1>
@@ -15,7 +15,7 @@ export default function sobreNosotros() {
       </div>
 
       {/* Iconos con descripciones */}
-      <div className="flex flex-row justify-center space-x-12">
+      <div className="flex flex-row flex-wrap  justify-center space-x-12">
         {/* Bloque 1 */}
         <div className="flex flex-col items-center text-center space-y-4 max-w-xs">
           <Image src="/icons/ahorro.svg" alt="Icono ahorro" width={80} height={80} />

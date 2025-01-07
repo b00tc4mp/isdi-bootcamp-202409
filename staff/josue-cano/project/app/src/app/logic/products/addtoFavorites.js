@@ -1,19 +1,31 @@
-import fetchHandler from "@/app/utils/handlers/fetchHandler";
-
+import { getToken } from "../../utils/session";
 export const addtoFavorites = async (id) => {
-  const url = "favorites";
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  const token = `Bearer ${getToken()}`;
+  const url = baseUrl + "/favorites";
 
   try {
-    const response = await fetchHandler(url, {
+    const response = await fetch(url, {
       method: "PATCH",
-      body: JSON.stringify({ favorite: id }),
+      headers: { 
+        "Content-Type": "application/json",
+        AUTHORIZATION: token 
+      },
+      body: JSON.stringify({ favorite: id })
     });
 
-    if (response.data) return { valid: true, data: response.data };
+    if (response.status == 401) {
+      alert('Usuario no autenticado');
+    }
+
+    const data = await response.json();
+
+    if (data.data) return { valid: true, data: data.data };
 
     return { valid: false, message: "error" };
   } catch (error) {
-    console.trace(error);
+    // console.trace(error);
     // alert(error);
     return { valid: false, mesage: error.message };
   }

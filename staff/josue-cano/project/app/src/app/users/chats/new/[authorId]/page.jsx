@@ -5,19 +5,17 @@ import ChatComponent from "@/app/ui/ChatComponent"
 import {redirect, useParams} from "next/navigation";
 import {useEffect} from "react";
 
-export default function chat () {
+export default function Chat () {
 
 
     const { authorId } = useParams();
 
     const messages = '';
     // const chat = '';
-    // TODO: revisar si existe un chat previo entre el cliente y el 
     // autor
     useEffect(() => {
         async function findChat() {
 
-            debugger;
             const response = await getChats(authorId);
             if(response)
                 redirect(`/users/chats/${response._id}`);

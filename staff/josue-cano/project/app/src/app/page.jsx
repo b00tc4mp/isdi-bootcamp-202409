@@ -11,25 +11,27 @@ export default function Index() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null); // Manejo de errores
   const [refetch, setRefetch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Efecto para cargar los productos al montar el componente
   useEffect(() => {
     // Llama a la función para obtener los productos
-    getProducts()
+    getProducts(searchTerm)
       .then((data) => {
         setProducts(data); // Actualiza los productos en el estado
       })
       .catch((err) => {
         setError(err); // Maneja los errores
       });
-  }, [refetch]); //se encarga de refrescar la lista de productos cuando alguno se elige como favorito
+  }, [refetch, searchTerm]); //se encarga de refrescar la lista de productos cuando alguno se elige como favorito
 
   if (error) {
     return <p>Error al cargar productos: {error.message}</p>; // Muestra un mensaje de error
   }
   return (
     <section>
-      <SearchComponent />
+      <SearchComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
       <article className="mt-10">
         {/* Encabezado */}
         <header className="mb-8 text-center">
@@ -37,7 +39,11 @@ export default function Index() {
             Descubre los mejores productos seleccionados especialmente para ti.
           </h2>
         </header>
-        <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} />
+        <ProductListComponent
+          products={products}
+          refetch={refetch}
+          setRefetch={setRefetch}
+        />
       </article>
       <EkoalitySection />
       <ExCompra />
