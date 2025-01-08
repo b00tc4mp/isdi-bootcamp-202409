@@ -34,6 +34,17 @@ export default function Tracker(props) {
                     const packs = await logic.getAdquiredPacks(firstCustomerId)
                     console.log('Packs fetched successfully', packs);
                     setFilteredPacks(packs);
+
+                    //load activities from first pack in the select
+                    if (packs.length > 0) {
+                        const firstPackId = packs[0]._id
+                        console.log('First pack ID', firstPackId)
+
+                        const activities = await logic.getActivitiesByPackId(firstPackId)
+                        console.log('Pack Activity fetched successfully', activities)
+                        setPackActivities(activities)
+                    }
+
                 } else {
                     setFilteredPacks([])
                 }
@@ -61,6 +72,19 @@ export default function Tracker(props) {
             .then((packs) => {
                 console.log('Packs fetched successfully', packs);
                 setFilteredPacks(packs);
+
+                if (packs.length > 0) {
+                    const firstPackId = packs[0]._id
+                    console.log('First pack ID after customer change', firstPackId)
+
+                    logic.getActivitiesByPackId(firstPackId)
+                        .then((activities) => {
+                            console.log('Pack Activity fetched successfully', activities)
+                            setPackActivities(activities)
+                        })
+                } else {
+                    setPackActivities([])
+                }
             })
             .catch((error) => {
                 alert(error.message);
@@ -171,9 +195,9 @@ export default function Tracker(props) {
 
                         <tr key={packActivity.id}>
                             <td className='border px-4 py-2'>{packActivity.description}</td>
-                            <td className='border px-4 py-2'>{packActivity.date}</td>
-                            <td className='border px-4 py-2'>{packActivity.operation === 'add' ? `+${packActivity.quantity}` : `-${packActivity.quantity}`}</td>
-                            <td className='border px-4 py-2 text-red-500'>{packActivity.remainingQuantity}</td>
+                            <td className='border px-4 py-2'>{packActivity.formatedDate}</td>
+                            <td className='border px-4 py-2'>{packActivity.operation === 'add' ? `+${packActivity.formattedTime}` : `-${packActivity.formattedTime}`}</td>
+                            <td className='border px-4 py-2'>{packActivity.formattedRemaining}</td>
                         </tr>
 
                     ))}
