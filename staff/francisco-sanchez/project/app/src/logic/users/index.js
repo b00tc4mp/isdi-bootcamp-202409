@@ -6,6 +6,7 @@ import getUserId from './getUserId';
 import getUserName from './getUserName';
 import getCustomers from './getCustomers';
 import getUserDetails from './getUserDetails';
+import updateUser from './updateUser';
 
 export {
     registerUser,
@@ -15,5 +16,6 @@ export {
     getUserId,
     getUserName,
     getCustomers,
-    getUserDetails
+    getUserDetails,
+    updateUser
 }

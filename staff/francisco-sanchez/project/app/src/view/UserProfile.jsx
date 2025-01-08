@@ -6,7 +6,7 @@ const { SystemError } = errors
 
 import useContex from './useContext'
 
-import { Button, Field, Input, Label, Image } from '../library'
+import { Button, Field, Input, Label, Image, Textarea } from '../library'
 import { useEffect, useState } from 'react'
 
 export default function UserProfile(props) {
@@ -37,18 +37,46 @@ export default function UserProfile(props) {
         }
     }, [location.pathname])
 
-    const { alert } = useContex()
+    const { alert, confirm } = useContex()
+
+    const handleCancelButton = event => {
+        event.preventDefault()
+
+        confirm('Do you want to cancel editing?', accepted => {
+            if (accepted) {
+                props.onProfileCancel()
+            }
+        }, 'warn')
+    }
 
     const handleUpdateClick = event => {
         event.preventDefault()
 
-        /* const { target: { username: { value: username }, password: { value: password } } } = event */
+        const { target: form } = event
+        const {
+            username: { value: username },
+            email: { value: email },
+            name: { value: name },
+            surname1: { value: surname1 },
+            surname2: { value: surname2 },
+            dni: { value: dni },
+            biography: { value: biography },
+            country: { value: country },
+            province: { value: province },
+            city: { value: city },
+            postalCode: { value: postalCode },
+            address1: { value: address1 },
+            address2: { value: address2 },
+            number: { value: number },
+            flat: { value: flat },
+            legalName: { value: legalName },
+            website: { value: website },
+        } = form
 
         try {
-            logic.loginUser(username, password)
+            logic.updateUser(userData._id, userData._id, username, email, name, surname1, surname2, dni, biography, country, province, city, postalCode, address1, address2, number, flat, legalName, website)
                 .then(() => {
-                    event.target.reset() //Clean the login form
-                    props.onLoggedIn()
+                    props.onProfileUpdated()
                 })
                 .catch(error => {
                     if (error instanceof SystemError)
@@ -103,8 +131,8 @@ export default function UserProfile(props) {
                                 <Input type="text" id="dni" defaultValue={userData.dni} placeholder="00000000H" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary" />
                             </Field>
                             <Field>
-                                <Label htmlFor="bio">Biography</Label>
-                                <textarea id="bio" defaultValue={userData.biography} placeholder="Show your best here"></textarea>
+                                <Label htmlFor="biography">Biography</Label>
+                                <Textarea id="biography" defaultValue={userData.biography} placeholder="Show your best here"></Textarea>
                             </Field>
                             <Field>
                                 <Label htmlFor="country">Country</Label>
@@ -119,12 +147,12 @@ export default function UserProfile(props) {
                                 <Input type="text" id="city" defaultValue={userData.city} placeholder="Your city" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary" />
                             </Field>
                             <Field>
-                                <Label htmlFor="pc">Postal Code</Label>
-                                <Input type="text" id="pc" defaultValue={userData.postalCode} placeholder="00000Y" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary" />
+                                <Label htmlFor="postalCode">Postal Code</Label>
+                                <Input type="text" id="postalCode" defaultValue={userData.postalCode} placeholder="00000Y" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary" />
                             </Field>
                             <Field>
-                                <Label htmlFor="address">Address 1</Label>
-                                <Input type="text" id="address" defaultValue={userData.address1} placeholder="street, square, ... " className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary" />
+                                <Label htmlFor="address1">Address 1</Label>
+                                <Input type="text" id="address1" defaultValue={userData.address1} placeholder="street, square, ... " className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary" />
                             </Field>
                             <Field>
                                 <Label htmlFor="address2">Address 2</Label>
@@ -148,6 +176,7 @@ export default function UserProfile(props) {
                             </Field>
 
                             <Button type="submit" className="bg-color_primary text-white px-4 py-2 rounded-md hover:bg-color_primaryHover transition">Update profile</Button>
+                            <Button className="bg-color_softRed text-white px-4 py-2 rounded-md hover:bg-red-800 transition" onClick={handleCancelButton}>Cancel</Button>
                         </>
                     ) : (
                         <p>Loading user data...</p>

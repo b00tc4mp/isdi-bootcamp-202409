@@ -7,7 +7,8 @@ import {
     getUserByEmail,
     getUserByUserame,
     findUserIdbyEmailOrUsername,
-    getUserDetails
+    getUserDetails,
+    updateUser
 } from './users/index.js'
 
 //PACKS & BASEPACKS
@@ -40,7 +41,7 @@ import {
 
 
 const logic = {
-    //Customers
+    //Users
     registerUser,
     authenticateUser,
     getUserName,
@@ -49,6 +50,8 @@ const logic = {
     getUserByUserame,
     findUserIdbyEmailOrUsername,
     getUserDetails,
+    updateUser,
+
 
     //Packs and basebacks
     createPack,

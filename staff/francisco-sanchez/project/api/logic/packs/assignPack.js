@@ -8,7 +8,8 @@ import getBasePackDetails from '../packs/getBasePackDetails.js';
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, customerSearch, selectPack, payedAmount, paymentMethod) => {
+export default async (userId, customerSearch, selectPack, description, payedAmount, paymentMethod) => {
+    const descriptionProvided = description
     try {
         const customerId = await findUserIdbyEmailOrUsername(userId, customerSearch)
         if (!customerId) {
@@ -19,6 +20,7 @@ export default async (userId, customerSearch, selectPack, payedAmount, paymentMe
         if (!basePack) {
             throw new SystemError('Base pack not found');
         }
+
 
         const {
             description,
@@ -38,11 +40,15 @@ export default async (userId, customerSearch, selectPack, payedAmount, paymentMe
 
 
         //First we're going to create the pack
+
+        //Check if description of relationship pack is empty, if empty, we add the basePack default description
+        const relationDescription = descriptionProvided === '' ? basePack.description : descriptionProvided
+
         const newPack = await Pack.create({
             refPack: selectPack,
             provider: userId,
             customer: customerId,
-            description,
+            description: relationDescription,
             originalQuantity: quantity,
             remainingQuantity: quantity,
             unit,

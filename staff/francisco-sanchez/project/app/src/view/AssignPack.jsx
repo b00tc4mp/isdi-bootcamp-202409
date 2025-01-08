@@ -6,7 +6,7 @@ const { SystemError } = errors
 
 import useContex from './useContext'
 
-import { Button, Field, Input, Label, Image } from '../library'
+import { Button, Field, Input, Label, Image, Textarea } from '../library'
 import { getCurrencySymbol } from '../util'
 import { assignPack } from '../logic/packs'
 
@@ -36,13 +36,14 @@ export default function AssignPack(props) {
         const {
             customerSearch: { value: customerSearch },
             selectPack: { value: selectPack },
+            description: { value: description },
             payedAmount: { value: payedAmount },
             paymentMethod: { value: paymentMethod }
         } = form
 
         //Finnally we call the assign function with all the retrieved information 
         try {
-            const assigned = assignPack(customerSearch, selectPack, payedAmount, paymentMethod)
+            const assigned = assignPack(customerSearch, selectPack, description, payedAmount, paymentMethod)
             alert('Pack successfully assigned to customer!', 'success')
         } catch (error) {
             alert(error.message)
@@ -61,7 +62,7 @@ export default function AssignPack(props) {
             <form className="flex flex-col justify-items-start" onSubmit={handleSubmit} >
 
                 <Field>
-                    <Label htmlFor="customerSearch">Find customer <span className='text-red-600'> DEVELOPER REF: just works by username!!</span></Label>
+                    <Label htmlFor="customerSearch">Find customer <span className='text-red-600'> DEVELOPER REF: It always return OK independent of the final result</span></Label>
                     <Input id="customerSearch" className="border-2 rounded-lg" type="text" placeholder="Use email or username" ></Input>
                 </Field>
 
@@ -73,6 +74,11 @@ export default function AssignPack(props) {
                             <option key={basePack.id} value={basePack.id}>{basePack.packName} - {basePack.price}{getCurrencySymbol(basePack)}</option>
                         ))}
                     </select>
+                </Field>
+
+                <Field>
+                    <Label htmlFor="description">Description</Label>
+                    <Textarea id="description" placeholder="Description about this pack for this customer"></Textarea>
                 </Field>
 
 

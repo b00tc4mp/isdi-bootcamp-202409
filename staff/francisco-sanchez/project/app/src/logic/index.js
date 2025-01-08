@@ -6,7 +6,8 @@ import {
     getUserId,
     getUserName,
     getCustomers,
-    getUserDetails
+    getUserDetails,
+    updateUser
 } from './users'
 
 import {
@@ -16,9 +17,15 @@ import {
     assignPack,
     deleteBasePack,
     updateBasePack,
-    getAdquiredPacks
+    getAdquiredPacks,
 } from './packs'
+
+import {
+    getActivitiesByPackId,
+} from './activities'
+
 import { get } from 'mongoose'
+import { getDecimalToTimeFormat } from './helpers'
 
 
 const logic = {
@@ -31,6 +38,7 @@ const logic = {
     getUserName,
     getCustomers,
     getUserDetails,
+    updateUser,
 
 
     //Packs
@@ -40,7 +48,16 @@ const logic = {
     assignPack,
     deleteBasePack,
     updateBasePack,
-    getAdquiredPacks
+    getAdquiredPacks,
+
+    //Activities
+    getActivitiesByPackId,
+
+    //Helpers
+    getDecimalToTimeFormat
 }
+
+
+
 
 export default logic

@@ -6,12 +6,15 @@ import useContex from './useContext'
 import { Button, Field, Label, Input } from '../library/index';
 
 import { getCustomers } from '../logic/users';
+import { getActivitiesByPackId } from '../logic/activities';
+import { getDecimalToTimeFormat } from '../logic/helpers';
 
 const { SystemError } = errors
 
 export default function Tracker(props) {
     const [customers, setCustomers] = useState([])
-    const [filteredPacks, setFilteredPacks] = useState([]);
+    const [filteredPacks, setFilteredPacks] = useState([])
+    const [packActivities, setPackActivities] = useState([])
 
     const { alert } = useContex()
 
@@ -70,6 +73,24 @@ export default function Tracker(props) {
             });
     }
 
+    const handlePackChange = (event) => {
+        console.log('entro en el onchange de pack')
+        { console.log(event) }
+
+        const packId = event.target.value
+
+        logic.getActivitiesByPackId(packId)
+            .then((packActivities) => {
+                console.log('Pack Activity fetched successfully', packActivities);
+                setPackActivities(packActivities);
+            })
+            .catch((error) => {
+                alert(error.message)
+                console.error(error)
+                setPackActivities([])
+            })
+    }
+
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -99,7 +120,7 @@ export default function Tracker(props) {
                     {/* Select Pack */}
                     <Field className="mb-4">
                         <Label htmlFor="selectPack">Select Pack</Label>
-                        <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2" disabled={!filteredPacks.length}>
+                        <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2" disabled={!filteredPacks.length} onChange={handlePackChange}>
                             {filteredPacks.map((pack) => (
                                 <option key={pack._id} value={pack._id}>{pack.description} - {pack.originalQuantity}{pack.unit}</option>
                             ))}
@@ -146,36 +167,17 @@ export default function Tracker(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td className='border px-4 py-2'>Task description 3</td>
-                        <td className='border px-4 py-2'>16/12/2024</td>
-                        <td className='border px-4 py-2'>-1:30h</td>
-                        <td className='border px-4 py-2 text-red-500'>0:30h</td>
-                    </tr>
-                    <tr>
-                        <td className='border px-4 py-2'>Task description 3</td>
-                        <td className='border px-4 py-2'>16/12/2024</td>
-                        <td className='border px-4 py-2'>-3:00h</td>
-                        <td className='border px-4 py-2 text-red-500'>2:00h</td>
-                    </tr>
-                    <tr>
-                        <td className='border px-4 py-2'>Task description 2</td>
-                        <td className='border px-4 py-2'>10/12/2024</td>
-                        <td className='border px-4 py-2'>-3:00h</td>
-                        <td className='border px-4 py-2'>5:00h</td>
-                    </tr>
-                    <tr>
-                        <td className='border px-4 py-2'>Task description 1</td>
-                        <td className='border px-4 py-2'>05/12/2024</td>
-                        <td className='border px-4 py-2'>-2:00h</td>
-                        <td className='border px-4 py-2'>8:00h</td>
-                    </tr>
-                    <tr>
-                        <td className='border px-4 py-2'>Add new pack 10h</td>
-                        <td className='border px-4 py-2'>01/12/2024</td>
-                        <td className='border px-4 py-2'>+10:00h</td>
-                        <td className='border px-4 py-2'>10:00h</td>
-                    </tr>
+                    {packActivities.map(packActivity => (
+
+                        <tr key={packActivity.id}>
+                            <td className='border px-4 py-2'>{packActivity.description}</td>
+                            <td className='border px-4 py-2'>{packActivity.date}</td>
+                            <td className='border px-4 py-2'>{packActivity.operation === 'add' ? `+${packActivity.quantity}` : `-${packActivity.quantity}`}</td>
+                            <td className='border px-4 py-2 text-red-500'>{packActivity.remainingQuantity}</td>
+                        </tr>
+
+                    ))}
+
                 </tbody>
             </table>
             {/*  )} */}

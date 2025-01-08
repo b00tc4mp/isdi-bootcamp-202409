@@ -6,6 +6,7 @@ import getUserByEmail from '../helpers/getUserByEmail.js'
 import getUserByUserame from '../helpers/getUserByUsername.js'
 import findUserIdbyEmailOrUsername from '../helpers/findUserIdbyEmailOrUsername.js'
 import getUserDetails from './getUserDetails.js'
+import updateUser from './updateUser.js'
 
 export {
     authenticateUser,
@@ -15,5 +16,6 @@ export {
     getUserByEmail,
     getUserByUserame,
     findUserIdbyEmailOrUsername,
-    getUserDetails
+    getUserDetails,
+    updateUser
 }

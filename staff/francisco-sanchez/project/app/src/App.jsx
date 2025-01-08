@@ -155,7 +155,7 @@ export default function App() {
         <Navigate to="/login" />} />
 
       <Route path="/user-profile" element={logic.isUserLoggedIn() ?
-        <UserProfile onHomeClick={handleHomeClick} /> :
+        <UserProfile onProfileUpdated={handleHomeClick} onProfileCancel={handleHomeClick} /> :
         <Navigate to="/login" />} />
 
       <Route

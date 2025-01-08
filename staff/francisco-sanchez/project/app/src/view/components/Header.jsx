@@ -71,13 +71,7 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile }) {
                     />
                     <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleProfileClick}>User profile</a>
-                        <a
-                            href="#"
-                            className="block px-4 py-2 hover:bg-gray-100"
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </a>
+                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleLogout}>Logout</a>
                     </div>
                 </div>
             )}
