@@ -7,7 +7,8 @@ import {
     getUserName,
     getCustomers,
     getUserDetails,
-    updateUser
+    updateUser,
+    getCustomerPacks
 } from './users'
 
 import {
@@ -24,6 +25,11 @@ import {
     getActivitiesByPackId,
 } from './activities'
 
+
+import {
+    toggleTimeTracker
+} from './tracker'
+
 import { get } from 'mongoose'
 import { getDecimalToTimeFormat } from './helpers'
 
@@ -39,7 +45,7 @@ const logic = {
     getCustomers,
     getUserDetails,
     updateUser,
-
+    getCustomerPacks,
 
     //Packs
     createPack,
@@ -54,7 +60,10 @@ const logic = {
     getActivitiesByPackId,
 
     //Helpers
-    getDecimalToTimeFormat
+    getDecimalToTimeFormat,
+
+    //Tracker
+    toggleTimeTracker
 }
 
 

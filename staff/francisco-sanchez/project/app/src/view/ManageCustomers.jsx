@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import logic from '../logic'
 
@@ -8,11 +9,21 @@ const { SystemError } = errors
 
 export default function ManageCustomers(props) {
     const [loading, setLoading] = useState(true) //This is to show the loader as active by default
-
+    const navigate = useNavigate();
     const handleHomeClick = event => {
         event.preventDefault()
         props.onHomeClick()
     }
+
+    const handleCustomerPacksClick = (customerId) => {
+        console.log('To navigate to: ' + customerId)
+        navigate(`/customer-packs/${customerId}`)
+    }
+    /* const handleCustomerPacksClick = (event, customerId) => {
+        event.preventDefault()
+        console.log('To navigate to: ' + customerId)
+        props.onCustomerPacksClick(customerId)
+    } */
 
     const [customers, setCustomers] = useState([])
 
@@ -48,6 +59,7 @@ export default function ManageCustomers(props) {
                     <thead>
                         <tr className='bg-amarilloCanario'>
                             <th className="border px-4 py-2">Name</th>
+                            <th className="border px-4 py-2">Active packs</th>
                             <th className="border px-4 py-2">Actions</th>
                         </tr>
                     </thead>
@@ -55,8 +67,13 @@ export default function ManageCustomers(props) {
                         {customers.map(customer => (
                             <tr key={customer.id}>
                                 <td className='border px-4 py-2'>{customer.name} {customer.surname1 !== null ? customer.surname1 : ''}</td>
+                                <td className='border px-4 py-2'><span className="inline-block bg-gray-200 text-gray-800 text-sm font-semibold rounded-full px-3 py-1">{customer.packCount}</span></td>
                                 <td className='border px-4 py-2'>
-                                    <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">✏️ Edit</a>
+                                    <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">✏️ Customer details</a>
+                                    <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => {
+                                        event.preventDefault()
+                                        handleCustomerPacksClick(customer._id)
+                                    }}>📑 Customer packs</a>
                                     <a href="" className="inline-block bg-red-100 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">❌ Delete</a>
                                 </td>
                             </tr>

@@ -8,6 +8,7 @@ import CreatePack from './CreatePack'
 
 //Customers Managing
 import ManageCustomers from './ManageCustomers'
+import CustomerPacks from './CustomerPacks'
 
 //Users Managing
 import Register from "./Register"
@@ -35,6 +36,8 @@ export {
     AssignPack,
     CreatePack,
     UserProfile,
+    CustomerPacks,
+
 
     //Tracker
     Tracker,

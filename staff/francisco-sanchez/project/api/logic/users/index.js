@@ -7,6 +7,7 @@ import getUserByUserame from '../helpers/getUserByUsername.js'
 import findUserIdbyEmailOrUsername from '../helpers/findUserIdbyEmailOrUsername.js'
 import getUserDetails from './getUserDetails.js'
 import updateUser from './updateUser.js'
+import getCustomerPacks from './getCustomerPacks.js'
 
 export {
     authenticateUser,
@@ -17,5 +18,6 @@ export {
     getUserByUserame,
     findUserIdbyEmailOrUsername,
     getUserDetails,
-    updateUser
+    updateUser,
+    getCustomerPacks
 }

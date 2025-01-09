@@ -1,4 +1,4 @@
-import { User } from 'dat';
+import { User, Pack } from 'dat';
 import { errors } from 'com';
 
 
@@ -14,14 +14,24 @@ export default async (userId) => {
         //Check and return if have customers
         if (!user.customers || user.customers.length === 0) {
             return ('no customers found yet')
-            //return []
         }
 
         //Filter the objectId's with $in operator to find user names
         const userCustomers = await User.find(
             { _id: { $in: user.customers } },
             { _id: 1, name: 1, surname1: 1 }).lean()
-        return userCustomers
+
+
+        // Agrega el número de packs contratados por cada cliente
+        const customersWithPackCount = await Promise.all(
+            userCustomers.map(async (customer) => {
+                const packCount = await Pack.countDocuments({ customer: customer._id })
+                return { ...customer, packCount }
+            })
+        )
+        //return userCustomers
+        return customersWithPackCount
+
     } catch (error) {
         throw new SystemError(error.message)
     }

@@ -15,6 +15,12 @@ export default function Tracker(props) {
     const [customers, setCustomers] = useState([])
     const [filteredPacks, setFilteredPacks] = useState([])
     const [packActivities, setPackActivities] = useState([])
+    const [selectedCustomer, setSelectedCustomer] = useState('') // Estado para almacenar el cliente seleccionado
+    const [selectedPack, setSelectedPack] = useState('') // Estado para almacenar el pack seleccionado
+    const [description, setDescription] = useState('') // Estado para almacenar la descripción
+
+    const [isRunning, setIsRunning] = useState(false); // Para saber si el temporizador está activo
+    const [elapsedTime, setElapsedTime] = useState(0); // Tiempo transcurrido en segundos
 
     const { alert } = useContex()
 
@@ -30,6 +36,7 @@ export default function Tracker(props) {
                 if (customers.length > 0) {
                     const firstCustomerId = customers[0]._id
                     console.log("First customer ID", firstCustomerId)
+                    setSelectedCustomer(firstCustomerId)
 
                     const packs = await logic.getAdquiredPacks(firstCustomerId)
                     console.log('Packs fetched successfully', packs);
@@ -62,9 +69,8 @@ export default function Tracker(props) {
         console.log('entro en el onchange')
         { console.log(event) }
 
-        const customerId = event.target.value; // Directly access userId from the value
-        //const selectedCustomer = customers.find(customer => customer.name === selectedUsername);
-        //setSelectedCustomerId(customerId);
+        const customerId = event.target.value;
+        setSelectedCustomer(customerId)
 
         // Fetch packs based on the selected customer
 
@@ -76,6 +82,7 @@ export default function Tracker(props) {
                 if (packs.length > 0) {
                     const firstPackId = packs[0]._id
                     console.log('First pack ID after customer change', firstPackId)
+                    setSelectedPack(firstPackId) // Actualizar pack seleccionado
 
                     logic.getActivitiesByPackId(firstPackId)
                         .then((activities) => {
@@ -102,6 +109,7 @@ export default function Tracker(props) {
         { console.log(event) }
 
         const packId = event.target.value
+        setSelectedPack(packId) // Actualizar pack seleccionado
 
         logic.getActivitiesByPackId(packId)
             .then((packActivities) => {
@@ -121,6 +129,35 @@ export default function Tracker(props) {
         props.onHomeClick()
     }
 
+    const handleDescriptionChange = (event) => {
+        setDescription(event.target.value) // Actualizar descripción
+    }
+
+    const handleToggleTrackButton = (event) => {
+        event.preventDefault()
+        /* console.log('Toggle button clicked')
+        console.log('Selected customer:', selectedCustomer)
+        console.log('Selected pack:', selectedPack)
+        console.log('Description:', description) */
+
+        const userId = logic.getUserId()
+        let sendDescription = ''
+
+        if (description === '') {
+            sendDescription = 'No description'
+        } else {
+            sendDescription = description
+        }
+
+        logic.toggleTimeTracker(userId, selectedPack, selectedCustomer, sendDescription, 'substract')
+            .then((toggled) => {
+                console.log('Toggled: ', toggled);
+            })
+            .catch((error) => {
+                alert(error.message)
+                console.error(error)
+            })
+    }
 
 
     return (
@@ -156,7 +193,7 @@ export default function Tracker(props) {
                         {/* Description Field */}
                         <Field className="flex-1">
                             <Label htmlFor="description">Description</Label>
-                            <textarea id="description" name="description" rows="3" className="border-2 rounded-lg w-full p-2" placeholder="Add a description..."></textarea>
+                            <textarea id="description" name="description" rows="3" className="border-2 rounded-lg w-full p-2" placeholder="Add a description..." onChange={handleDescriptionChange}></textarea>
                         </Field>
 
                         <div className="flex items-center space-x-2">
@@ -164,7 +201,7 @@ export default function Tracker(props) {
                                 <Label htmlFor="timer">Time</Label>
                                 <input type="text" id="timer" name="timer" placeholder="00:00:00" className="border-2 rounded-lg p-2 w-32 text-center" />
                             </Field>
-                            <Button type="button" className={`btn m-1 bg-green-600`}>Start</Button>
+                            <Button type="button" className={`btn m-1 bg-green-600`} onClick={handleToggleTrackButton}>Start</Button>
                             <div className="flex flex-col ">
                                 {/* <Button className="btn m-2" onClick={handleAssignPacks}>Next</Button> */}
                                 <Button className="btn m-1">Adjust manual</Button>
@@ -209,5 +246,4 @@ export default function Tracker(props) {
             <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
         </main>
     )
-
 }

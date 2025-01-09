@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, ManagePacks, ManageCustomers, ManagePurchasedPacks, AssignPack, CreatePack, Tracker, UserProfile } from './view'
+import { Login, Register, Home, ManagePacks, ManageCustomers, ManagePurchasedPacks, AssignPack, CreatePack, Tracker, UserProfile, CustomerPacks } from './view'
 
 import { Header, Alert, Confirm } from './view/components'
 
@@ -42,6 +42,7 @@ export default function App() {
 
   const handleUserRegistered = () => navigate('/login')
 
+  const handleCustomerPacks = () => navigate('/customer-packs')
 
 
   //Navigation throw packs things
@@ -147,7 +148,8 @@ export default function App() {
 
 
       <Route path="/manage-customers" element={logic.isUserLoggedIn() ?
-        <ManageCustomers onHomeClick={handleHomeClick} /> :
+        <ManageCustomers onHomeClick={handleHomeClick}
+          onCustomerPacksClick={handleCustomerPacks} /> :
         <Navigate to="/login" />} />
 
       <Route path="/manage-purchased-packs" element={logic.isUserLoggedIn() ?
@@ -156,6 +158,10 @@ export default function App() {
 
       <Route path="/user-profile" element={logic.isUserLoggedIn() ?
         <UserProfile onProfileUpdated={handleHomeClick} onProfileCancel={handleHomeClick} /> :
+        <Navigate to="/login" />} />
+
+      <Route path="/customer-packs/:customerId" element={logic.isUserLoggedIn() ?
+        <CustomerPacks onHomeClick={handleHomeClick} /> :
         <Navigate to="/login" />} />
 
       <Route

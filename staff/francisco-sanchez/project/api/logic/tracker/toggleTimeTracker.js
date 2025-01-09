@@ -79,7 +79,7 @@ export default (userId, packId, customerId, description, operation) => {
                     })
             } else {
 
-                console.log('No tengo valor y lo tendré que añadir')
+                //When timmer is not activated we create a register to record start time
                 const timerActivated = currentDate
                 const descriptionActivityTemp = description
                 console.log('timerActivated --> ' + timerActivated)

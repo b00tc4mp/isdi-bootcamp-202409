@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYyZGJhNjIyMzMzYmZjMjBlZTU0ODciLCJyb2xlIjoic3RhbmRhcmQiLCJpYXQiOjE3MzY0MjYyMDAsImV4cCI6MTczNjQ1NTAwMH0.QQjPwrOOiTEJH0L5tv4ni4-M3on1-FZvK0le7sDg7nI' 'http://localhost:8080/users/customerpacks/67640e5e2568e5139854dd58' -v

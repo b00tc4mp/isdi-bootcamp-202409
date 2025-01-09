@@ -4,6 +4,7 @@ import getUserNameHandler from './getUserNameHandler.js';
 import getCustomersHandler from './getCustomersHandler.js';
 import getUserDetailsHandler from './getUserDetailsHandler.js';
 import updateUserHandler from './updateUserHandler.js';
+import getCustomerPacksHandler from './getCustomerPacksHandler.js';
 
 export {
     authenticateUserHandler,
@@ -11,5 +12,6 @@ export {
     getUserNameHandler,
     getCustomersHandler,
     getUserDetailsHandler,
-    updateUserHandler
+    updateUserHandler,
+    getCustomerPacksHandler
 }
