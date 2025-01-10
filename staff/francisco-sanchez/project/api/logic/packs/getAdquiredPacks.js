@@ -16,6 +16,7 @@ export default (targetUserId) => {
                     if (!packs || packs.length === 0) {
                         throw new NotFoundError('No packs found for this customer')
                     }
+                    //TODO: aplicar el saneamiento paar quitar el _id del front
                     return packs
                 })
         })

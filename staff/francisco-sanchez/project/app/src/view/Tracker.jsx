@@ -46,6 +46,7 @@ export default function Tracker(props) {
                     if (packs.length > 0) {
                         const firstPackId = packs[0]._id
                         console.log('First pack ID', firstPackId)
+                        setSelectedPack(firstPackId)
 
                         const activities = await logic.getActivitiesByPackId(firstPackId)
                         console.log('Pack Activity fetched successfully', activities)
@@ -133,12 +134,22 @@ export default function Tracker(props) {
         setDescription(event.target.value) // Actualizar descripción
     }
 
+    const handleAdjustManualTime = (event) => {
+        event.preventDefault()
+
+        const timerInput = document.getElementById('timer').value
+
+        // Validar el formato del input de tiempo: (+/-)hh:mm:ss
+        const timeRegex = /^[-+]?([0-9]{2}):([0-5][0-9]):([0-5][0-9])$/;
+        if (!timeRegex.test(timerInput)) {
+            alert("Please enter a valid time in the format (+/-)hh:mm:ss.");
+            return;
+        }
+        console.log("Manual time adjustment:", timerInput);
+    }
+
     const handleToggleTrackButton = (event) => {
         event.preventDefault()
-        /* console.log('Toggle button clicked')
-        console.log('Selected customer:', selectedCustomer)
-        console.log('Selected pack:', selectedPack)
-        console.log('Description:', description) */
 
         const userId = logic.getUserId()
         let sendDescription = ''
@@ -173,6 +184,7 @@ export default function Tracker(props) {
                         <Label htmlFor="selectCustomer">Select Customer</Label>
                         <select id="selectCustomer" name="selectCustomer" className="border-2 rounded-lg w-full p-2" onChange={handleCustomerChange}>
                             {customers.map((customer) => (
+                                //TODO: OJO Quitar los _id!!!
                                 <option key={customer._id} value={customer._id}>{customer.name}</option>
                             ))}
                         </select>
@@ -204,7 +216,7 @@ export default function Tracker(props) {
                             <Button type="button" className={`btn m-1 bg-green-600`} onClick={handleToggleTrackButton}>Start</Button>
                             <div className="flex flex-col ">
                                 {/* <Button className="btn m-2" onClick={handleAssignPacks}>Next</Button> */}
-                                <Button className="btn m-1">Adjust manual</Button>
+                                <Button className="btn m-1" onClick={handleAdjustManualTime}>Adjust manual</Button>
                             </div>
                         </div>
                     </div>
@@ -223,7 +235,7 @@ export default function Tracker(props) {
                     <tr className='bg-color_Grey'>
                         <th className="border px-4 py-2">Description</th>
                         <th className="border px-4 py-2">Date</th>
-                        <th className="border px-4 py-2">Time</th>
+                        <th className="border px-4 py-2">Operation</th>
                         <th className="border px-4 py-2">Remaning</th>
                     </tr>
                 </thead>
@@ -233,7 +245,7 @@ export default function Tracker(props) {
                         <tr key={packActivity.id}>
                             <td className='border px-4 py-2'>{packActivity.description}</td>
                             <td className='border px-4 py-2'>{packActivity.formatedDate}</td>
-                            <td className='border px-4 py-2'>{packActivity.operation === 'add' ? `+${packActivity.formattedTime}` : `-${packActivity.formattedTime}`}</td>
+                            <td className='border px-4 py-2'>{packActivity.operation === 'add' ? `+${packActivity.formattedOperation}` : `-${packActivity.formattedOperation}`}</td>
                             <td className='border px-4 py-2'>{packActivity.formattedRemaining}</td>
                         </tr>
 

@@ -29,7 +29,7 @@ export default function AssignPack(props) {
     }, [])
 
 
-    const handleSubmit = event => {
+    const handleSubmit = async (event) => {
         //Get form fields values
         event.preventDefault()
         const { target: form } = event
@@ -43,8 +43,9 @@ export default function AssignPack(props) {
 
         //Finnally we call the assign function with all the retrieved information 
         try {
-            const assigned = assignPack(customerSearch, selectPack, description, payedAmount, paymentMethod)
+            const assigned = await assignPack(customerSearch, selectPack, description, payedAmount, paymentMethod)
             alert('Pack successfully assigned to customer!', 'success')
+            console.log('Assigned pack:', assigned);
         } catch (error) {
             alert(error.message)
             console.error(error)

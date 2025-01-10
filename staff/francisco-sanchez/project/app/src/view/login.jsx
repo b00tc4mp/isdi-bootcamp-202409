@@ -74,6 +74,7 @@ export default function Login(props) {
                             type="text"
                             id="username"
                             placeholder="Your username"
+                            required={true}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary"
                         />
                     </Field>
@@ -84,6 +85,7 @@ export default function Login(props) {
                             type="password"
                             id="password"
                             placeholder="Your password"
+                            required={true}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary"
                         />
                     </Field>

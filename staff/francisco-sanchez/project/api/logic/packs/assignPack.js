@@ -85,6 +85,7 @@ export default async (userId, customerSearch, selectPack, description, payedAmou
             description: `Pack added: ${description}`,
             operation: 'add',
             quantity: quantity,
+            remainingQuantity: quantity
         })
 
         //Fifth step, update payments
