@@ -1,16 +1,23 @@
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react'
+import { useParams, useLocation } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react'
 import logic from '../logic'
 
 import { errors } from 'com'
-import { Button } from '../library/index';
+import { Button, TagOK, TagWARN, TagKO } from '../library/index';
+
+import { UpdateCustomerPack } from './components';
 
 const { SystemError } = errors
 
 export default function CustomerPacks(props) {
     const { customerId } = useParams(); // Obtén el customerId desde la URL
+    const { state } = useLocation()
+    const [view, setView] = useState(false)
+    const customerName = state?.customerName || 'Unknow user'
+    const [selectedPack, setSelectedPack] = useState(null); // Estado para almacenar el pack seleccionado
     const [customerPacks, setCustomerPacks] = useState([])
     const [loading, setLoading] = useState(true) //This is to show the loader as active by default
+    const updatePackView = useRef(null)
 
     useEffect(() => {
         console.log('Customer packs / CustomersPacksList -> componentDidMount')
@@ -28,7 +35,17 @@ export default function CustomerPacks(props) {
             }
         }
         fetchCustomers()
+
     }, [customerId])
+
+
+    const handleManageClick = (event, customerPack) => {
+        event.preventDefault()
+        console.log('To update: ' + customerPack._id)
+        setSelectedPack(customerPack) //Guarda el basePack en el estado
+        setView(view ? null : 'UpdateCustomerPack')
+        console.log('View set to:', view);
+    }
 
     const handleHomeClick = event => {
         event.preventDefault()
@@ -38,7 +55,7 @@ export default function CustomerPacks(props) {
 
     return (
         <main className="flex flex-col  items-center bg-color_backgroundGrey w-full h-screen pt-12">
-            <h1 className='text-3xl'>Manage Customer packs</h1>
+            <h1 className='text-3xl'>Manage packs for {customerName}</h1>
             <p>You can see the packs of the selected customer</p>
 
             {loading ? (
@@ -55,9 +72,10 @@ export default function CustomerPacks(props) {
                             <th className="border px-4 py-2">Purchase date</th>
                             <th className="border px-4 py-2">Expire date</th>
                             <th className="border px-4 py-2">Price</th>
-                            <th className="border px-4 py-2 text-color_softRed">Payed <br></br>(to correct)</th>
+                            <th className="border px-4 py-2">Payed</th>
                             <th className="border px-4 py-2">Status</th>
                             <th className="border px-4 py-2">Payment Status</th>
+                            <th className="border px-4 py-2">Method</th>
                             <th className="border px-4 py-2">Actions</th>
 
                         </tr>
@@ -65,30 +83,45 @@ export default function CustomerPacks(props) {
                     <tbody>
                         {customerPacks.map(customerPack => (
 
-                            < tr key={customerPack.id} >
-
+                            < tr key={customerPack._id} >
                                 <td className='border px-4 py-2'>{customerPack.description}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedRemaining}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedPurchaseDate}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedExpiryDate}</td>
-                                <td className='border px-4 py-2'>{customerPack.price}</td>
-                                <td className='border px-4 py-2'>{customerPack.price}</td>
-                                <td className='border px-4 py-2'>{customerPack.status}</td>
-                                <td className='border px-4 py-2'>text</td>
+                                <td className='border px-4 py-2'>{customerPack.formattedPrice}</td>
+                                <td className='border px-4 py-2'>{customerPack.totalPayments}</td>
+                                {/* 'Pending', 'Active', 'Expired', 'Finished' */}
+                                {/* <td className='border px-4 py-2'>{customerPack.status}</td> */}
+
+                                <td className="border px-4 py-2">
+                                    {customerPack.status === 'Active' && (<TagOK>Active</TagOK>)}
+                                    {customerPack.status === 'Pending' && (<TagKO>Pending</TagKO>)}
+                                    {customerPack.status === 'Expired' && (<TagKO>Expired</TagKO>)}
+                                    {customerPack.status === 'Finished' && (<TagWARN>Finished</TagWARN>)}
+                                </td>
+                                {/* <td className='border px-4 py-2'>{customerPack.paymentStatus}</td> */}
+                                <td className="border px-4 py-2">
+                                    {customerPack.paymentStatus === 'pending' && (<TagKO>Pending</TagKO>)}
+                                    {customerPack.paymentStatus === 'partially payed' && (<TagWARN>Partially Paid</TagWARN>)}
+                                    {customerPack.paymentStatus === 'completed' && (<TagOK>Completed</TagOK>)}
+                                </td>
+                                <td className='border px-4 py-2'>{customerPack.paymentMethods}</td>
                                 <td className='border px-4 py-2'>
-                                    <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">✏️ See details</a>
-                                    {/* <a href="" className="inline-block bg-red-100 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">❌ Delete</a>
- */}                                </td>
+                                    <button className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => handleManageClick(event, customerPack)}>✏️ Manage</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
+                    {view === 'UpdateCustomerPack' && selectedPack && (
+                        <tr ref={updatePackView}>
+                            <td colSpan="10" className="border px-4 py-2">
+                                <UpdateCustomerPack pack={selectedPack} />
+                            </td>
+                        </tr>
+                    )}
                 </table>
-            )
-            }
 
-            {/*   <div className="flex flex-col ">
-                <Button className="btn m-2">New customer </Button>
-            </div> */}
+            )}
 
             <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
         </main >

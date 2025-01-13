@@ -4,6 +4,9 @@ import Input from "./Input";
 import Label from "./Label";
 import Image from "./Image";
 import Textarea from "./Textarea";
+import TagOK from "./TagOK";
+import TagWARN from "./TagWARN";
+import TagKO from "./TagKO";
 
 
 export {
@@ -12,5 +15,8 @@ export {
     Input,
     Label,
     Image,
-    Textarea
+    Textarea,
+    TagOK,
+    TagWARN,
+    TagKO
 }

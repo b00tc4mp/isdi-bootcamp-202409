@@ -36,10 +36,14 @@ import {
 
 //ACTIVITY
 import {
-    getActivityByPackId
+    getActivityByPackId,
 
 } from './activity/index.js'
 
+
+import {
+    addPayment,
+} from './payments/index.js'
 
 const logic = {
     //Users
@@ -72,7 +76,11 @@ const logic = {
     toggleTimeTracker,
 
     //Activity
-    getActivityByPackId
+    getActivityByPackId,
+
+
+    //Payments
+    addPayment
 
 }
 
