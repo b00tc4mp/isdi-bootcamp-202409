@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+    <h1 style="color: magenta;">Hola, Mundo!</h1>
+
+    <script>
+        /*
+        HTML
+         HEAD
+          META
+          META
+          TITLE
+           text
+         BODY
+          H1
+           text
+          SCRIPT
+           text
+          SCRIPT
+           text
+        */
+
+//    var html = document.children[0];
+// var dom = function8
+//    console.log(html.tagName);
+
+
+var Dom = function(nodo){
+    console.log(nodo.tagName)
+
+for(var i = 0; i <nodo.children.length; i++){
+    Dom(nodo.children[i]);
+ }
+}
+var html = document.children[0];
+Dom(html);
+    </script>
+
+
+</body>
+
+
+
+
+</html>
+
