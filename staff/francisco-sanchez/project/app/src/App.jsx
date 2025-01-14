@@ -165,6 +165,7 @@ export default function App() {
         <Navigate to="/login" />} />
 
       <Route
+        //TODO: Create compo not found!!!
         path="*" element={
           <div className="text-center">
             <h1 className="text-red-600 text-2xl font-bold">Error 404</h1>

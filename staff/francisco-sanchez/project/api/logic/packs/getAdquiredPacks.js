@@ -17,6 +17,11 @@ export default (targetUserId) => {
                         throw new NotFoundError('No packs found for this customer')
                     }
                     //TODO: aplicar el saneamiento paar quitar el _id del front
+                    packs.forEach(pack => {
+                        pack.id = pack._id.toString()
+                        delete pack._id
+                    })
+
                     return packs
                 })
         })

@@ -72,7 +72,7 @@ export default function ManageCustomers(props) {
                                     <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">✏️ Customer details</a>
                                     <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => {
                                         event.preventDefault()
-                                        handleCustomerPacksClick(customer._id, customer.name)
+                                        handleCustomerPacksClick(customer.id, customer.name)
                                     }}>📑 Customer packs</a>
                                     <a href="" className="inline-block bg-red-100 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">❌ Delete</a>
                                 </td>

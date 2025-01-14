@@ -30,6 +30,9 @@ export default async (packId) => {
                     formattedOperation = `${activity.quantity} un`
                 }
 
+                activity.id = activity._id
+                delete activity._id
+
                 return {
                     ...activity,
                     formattedRemaining,

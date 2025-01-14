@@ -16,7 +16,7 @@ export default function Tracker(props) {
     const [filteredPacks, setFilteredPacks] = useState([])
     const [packActivities, setPackActivities] = useState([])
     const [selectedCustomer, setSelectedCustomer] = useState('') // Estado para almacenar el cliente seleccionado
-    const [selectedPack, setSelectedPack] = useState('') // Estado para almacenar el pack seleccionado
+    const [selectedPack, setSelectedPack] = useState(null) // Estado para almacenar el pack seleccionado
     const [description, setDescription] = useState('') // Estado para almacenar la descripción
 
     const [isRunning, setIsRunning] = useState(false); // Para saber si el temporizador está activo
@@ -34,7 +34,7 @@ export default function Tracker(props) {
                 setCustomers(customers)
 
                 if (customers.length > 0) {
-                    const firstCustomerId = customers[0]._id
+                    const firstCustomerId = customers[0].id
                     console.log("First customer ID", firstCustomerId)
                     setSelectedCustomer(firstCustomerId)
 
@@ -44,11 +44,11 @@ export default function Tracker(props) {
 
                     //load activities from first pack in the select
                     if (packs.length > 0) {
-                        const firstPackId = packs[0]._id
-                        console.log('First pack ID', firstPackId)
-                        setSelectedPack(firstPackId)
+                        const firstPack = packs[0]
+                        console.log('First pack', firstPack)
+                        setSelectedPack(firstPack)
 
-                        const activities = await logic.getActivitiesByPackId(firstPackId)
+                        const activities = await logic.getActivitiesByPackId(firstPack.id)
                         console.log('Pack Activity fetched successfully', activities)
                         setPackActivities(activities)
                     }
@@ -81,11 +81,11 @@ export default function Tracker(props) {
                 setFilteredPacks(packs);
 
                 if (packs.length > 0) {
-                    const firstPackId = packs[0]._id
-                    console.log('First pack ID after customer change', firstPackId)
-                    setSelectedPack(firstPackId) // Actualizar pack seleccionado
+                    const firstPack = packs[0].id
+                    console.log('First pack ID after customer change', firstPack)
+                    setSelectedPack(firstPack) // Actualizar pack seleccionado
 
-                    logic.getActivitiesByPackId(firstPackId)
+                    logic.getActivitiesByPackId(firstPack)
                         .then((activities) => {
                             console.log('Pack Activity fetched successfully', activities)
                             setPackActivities(activities)
@@ -110,7 +110,12 @@ export default function Tracker(props) {
         { console.log(event) }
 
         const packId = event.target.value
-        setSelectedPack(packId) // Actualizar pack seleccionado
+        const selectedPackObject = filteredPacks.find(pack => pack.id === packId)
+
+        console.log('Selected Pack --------->', selectedPackObject);
+        //setSelectedPack(packId) // Actualizar pack seleccionado
+
+        if (selectedPackObject) { setSelectedPack(selectedPackObject) }
 
         logic.getActivitiesByPackId(packId)
             .then((packActivities) => {
@@ -148,21 +153,40 @@ export default function Tracker(props) {
         console.log("Manual time adjustment:", timerInput);
     }
 
-    const handleToggleTrackButton = (event) => {
-        event.preventDefault()
-
-        const userId = logic.getUserId()
-        let sendDescription = ''
-
-        if (description === '') {
-            sendDescription = 'No description'
-        } else {
-            sendDescription = description
+    const handleToggleTrackButton = () => {
+        if (!selectedPack || !selectedPack.id) {
+            alert('No pack selected or invalid pack ID.');
+            return;
         }
 
-        logic.toggleTimeTracker(userId, selectedPack, selectedCustomer, sendDescription, 'substract')
-            .then((toggled) => {
-                console.log('Toggled: ', toggled);
+        const userId = logic.getUserId()
+        const currentDescription = description || 'No description'
+
+        logic.toggleTimeTracker(userId, selectedPack.id, selectedCustomer, currentDescription, 'substract')
+            .then((packUpdated) => {
+                if (!packUpdated || !packUpdated.id) {
+                    console.log('API Response (packUpdated):', packUpdated);
+                    console.log('setSelectedPack --> selected pack --> ' + selectedPack)
+                    alert('Invalid pack data received from the server.');
+                    return;
+                }
+                setSelectedPack(packUpdated)
+
+                if (selectedPack?.timerActivated) {
+                    // Fetch updated activities 
+                    logic.getActivitiesByPackId(packUpdated.id)
+                        .then((updatedActivities) => {
+                            console.log('Updated Activities:', updatedActivities);
+                            setPackActivities(updatedActivities); // Actualiza las actividades
+                        })
+                        .catch((error) => {
+                            alert(error.message);
+                            console.error('Error fetching updated activities:', error);
+                        });
+                }
+
+                /* console.log('API Response (packUpdated):', packUpdated);
+                console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
             })
             .catch((error) => {
                 alert(error.message)
@@ -184,8 +208,7 @@ export default function Tracker(props) {
                         <Label htmlFor="selectCustomer">Select Customer</Label>
                         <select id="selectCustomer" name="selectCustomer" className="border-2 rounded-lg w-full p-2" onChange={handleCustomerChange}>
                             {customers.map((customer) => (
-                                //TODO: OJO Quitar los _id!!!
-                                <option key={customer._id} value={customer._id}>{customer.name}</option>
+                                <option key={customer.id} value={customer.id}>{customer.name}</option>
                             ))}
                         </select>
                     </Field>
@@ -195,7 +218,7 @@ export default function Tracker(props) {
                         <Label htmlFor="selectPack">Select Pack</Label>
                         <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2" disabled={!filteredPacks.length} onChange={handlePackChange}>
                             {filteredPacks.map((pack) => (
-                                <option key={pack._id} value={pack._id}>{pack.description} - {pack.originalQuantity}{pack.unit}</option>
+                                <option key={pack.id} value={pack.id}>{pack.description} - {pack.originalQuantity}{pack.unit}</option>
                             ))}
                         </select>
                     </Field>
@@ -213,7 +236,9 @@ export default function Tracker(props) {
                                 <Label htmlFor="timer">Time</Label>
                                 <input type="text" id="timer" name="timer" placeholder="00:00:00" className="border-2 rounded-lg p-2 w-32 text-center" />
                             </Field>
-                            <Button type="button" className={`btn m-1 bg-green-600`} onClick={handleToggleTrackButton}>Start</Button>
+                            {console.log('activated?:  ' + selectedPack?.timerActivated)}
+
+                            <Button type="button" className={`btn m-1 ${!selectedPack?.timerActivated ? 'bg-green-600' : 'bg-red-600'}`} onClick={handleToggleTrackButton}>{!selectedPack?.timerActivated ? 'Start' : 'Stop'}</Button>
                             <div className="flex flex-col ">
                                 {/* <Button className="btn m-2" onClick={handleAssignPacks}>Next</Button> */}
                                 <Button className="btn m-1" onClick={handleAdjustManualTime}>Adjust manual</Button>

@@ -23,15 +23,11 @@ export default (userId, packId, customerId, description, operation) => {
 
         .then(res => {
             if (res.ok)
-                return
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
 
             return res.json()
-                .catch(error => {
-                    throw new SystemError(error.message)
-                })
-                .then(({ error, message }) => {
-                    throw new errors[error](message)
-                })
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => { throw new errors[error](message) })
         })
-
 }

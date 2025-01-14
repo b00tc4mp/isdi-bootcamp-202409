@@ -26,6 +26,10 @@ export default async (userId) => {
         const customersWithPackCount = await Promise.all(
             userCustomers.map(async (customer) => {
                 const packCount = await Pack.countDocuments({ customer: customer._id })
+
+                customer.id = customer._id.toString()
+                delete customer._id
+
                 return { ...customer, packCount }
             })
         )

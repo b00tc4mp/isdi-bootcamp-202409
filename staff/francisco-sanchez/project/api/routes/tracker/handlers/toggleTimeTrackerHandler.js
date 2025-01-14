@@ -5,7 +5,7 @@ import createFunctionalHandler from "../../helpers/createFunctionalHandler.js";
 export default createFunctionalHandler(async (req, res) => {
     const { userId, body: { packId, customerId, description, operation } } = req
 
-    await logic.toggleTimeTracker(userId, packId, customerId, description, operation)
+    const updatedPack = await logic.toggleTimeTracker(userId, packId, customerId, description, operation)
 
-    res.status(201).send
+    res.status(201).json(updatedPack)
 })

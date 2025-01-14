@@ -72,10 +72,17 @@ export default (userId, packId, customerId, description, operation) => {
 
                         }
 
-                        return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp, remainingQuantity }, { new: true, runValidators: true })
+                        return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp, remainingQuantity }, { new: true, runValidators: true }).lean()
                             .catch(error => {
                                 throw new SystemError(error.message)
                             })
+                            .then(updatedPack => {
+                                updatedPack.id = updatedPack._id.toString()
+                                delete updatedPack._id
+
+                                return updatedPack
+                            })
+
                     })
             } else {
 
@@ -84,10 +91,17 @@ export default (userId, packId, customerId, description, operation) => {
                 const descriptionActivityTemp = description
                 console.log('timerActivated --> ' + timerActivated)
                 console.log('descriptionActivityTemp --> ' + descriptionActivityTemp)
-                return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp }, { new: true, runValidators: true })
+                return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp }, { new: true, runValidators: true }).lean()
                     .catch(error => {
                         throw new SystemError(error.message)
                     })
+                    .then(updatedPack => {
+                        updatedPack.id = updatedPack._id.toString()
+                        delete updatedPack._id
+
+                        return updatedPack
+                    })
+
             }
 
         })
