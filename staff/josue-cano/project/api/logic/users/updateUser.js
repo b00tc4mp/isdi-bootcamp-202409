@@ -4,11 +4,11 @@ import { validate, errors } from "com";
 
 const { DuplicityError, SystemError, ValidationError } = errors;
 
-export default ({ firstName, lastName, email, ubicacion, password, passwordRepeat }) => {
+export default ({ firstName, lastName, email, location, password, passwordRepeat }) => {
   try {
     validate.firstName(firstName);
     validate.lastName(lastName);
-    validate.firstName(ubicacion);
+    validate.location(location);
     validate.email(email);
     validate.password(password);
     validate.passwordsMatch(password, passwordRepeat);
@@ -19,7 +19,7 @@ export default ({ firstName, lastName, email, ubicacion, password, passwordRepea
         throw new SystemError(error.message);
       })
       .then((hash) =>
-        User.create({ firstName, lastName, email, ubicacion, password: hash })
+        User.create({ firstName, lastName, email,location, password: hash })
           .then((user) => ({ ...user.toObject(), password: null }))
           .catch((error) => {
             if (error.code === 11000) throw new DuplicityError("user already exists");
@@ -28,7 +28,8 @@ export default ({ firstName, lastName, email, ubicacion, password, passwordRepea
           })
       );
   } catch (err) {
+    // return Promise.reject para emitir una promesa de respuesta fallida
+    // Los valores de respuesta pueden ser: resolve = exito, reject = fallo
     return Promise.reject(err.message);
   }
 };
-// TODO:createSpecs

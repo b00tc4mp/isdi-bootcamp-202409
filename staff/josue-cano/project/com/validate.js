@@ -20,7 +20,7 @@ const validateEmail = email => {
         throw new ValidationError('invalid e-mail')
 }
 
-const lastName = lastName => {
+const validatelastName = lastName => {
     if (typeof lastName !== 'string') throw new ValidationError('invalid lastName')
     if (lastName.length < 3 || lastName.length > 30)
         throw new ValidationError('invalid lastName length')
@@ -58,7 +58,7 @@ const validateCallback = callback => {
 const validate = {
     firstName: validatefirstName,
     email: validateEmail,
-    lastName: lastName,
+    lastName: validatelastName,
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
     image: validateImage,

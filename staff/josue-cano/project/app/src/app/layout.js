@@ -40,6 +40,7 @@ export default function RootLayout({ children }) {
     const token = getToken();
 
     setAuthenticated(token != undefined);
+
   }, [pathname]);
 
   // useEffect(() => {

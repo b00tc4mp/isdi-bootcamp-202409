@@ -3,9 +3,13 @@ import { getChats } from "@/app/logic/users/getChats";
 import { getUserId } from "@/app/utils/session";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import useAuth from "@/app/utils/handlers/useAuth";
 
 export default function Chats() {
   const [chats, setChats] = useState(null);
+
+
+    useAuth();
 
   const userId = getUserId();
   useEffect(() => {

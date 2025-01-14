@@ -11,13 +11,21 @@ export default ({ email, password }) => {
   return (async () => {
     let user;
 
-    user = await User.findOne({ email });
+    try {
+      user = await User.findOne({ email });
+    } catch (error) {
+      throw new SystemError(error.message);
+    }
 
     if (!user) throw new CredentialsError("user does not exist");
 
     let match;
 
-    match = await bcrypt.compare(password, user.password);
+    try {
+      match = await bcrypt.compare(password, user.password);
+    } catch (error) {
+      throw new CredentialsError(error.message);
+    }
 
     if (!match) throw new CredentialsError("wrong credentials");
 

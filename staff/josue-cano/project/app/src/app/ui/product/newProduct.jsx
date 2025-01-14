@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { fetchCategorias } from "@/app/utils/productos/formulario";
+import { getCategories } from "@/app/utils/productos/formulario";
 import { createProduct } from "@/app/logic/products/createProduct.js";
 import { redirect } from "next/navigation";
 
 const NewProduct = () => {
-  const [categorias, setCategorias] = useState([]);
-  const [subcategorias, setSubCategorias] = useState([]);
-  const [subcategoriasActuales, setSubCategoriasActuales] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
+  const [currentSubcategories, setCurrentSubcategories] = useState([]);
   const [formData, setFormData] = useState({
-    name: "",
+    nombre: "",
     idCategoria: "",
     idSubcategoria: "",
     price: "",
@@ -17,14 +17,14 @@ const NewProduct = () => {
   });
 
   useEffect(() => {
-    fetchCategorias(setCategorias, setSubCategorias);
+    getCategories(setCategories, setSubcategories);
   }, []);
 
   const handleCategoriaChange = (evt) => {
-    setSubCategoriasActuales(subcategorias.filter((x) => x.idCategoria == evt.target.value));
+    setCurrentSubcategories(subcategories.filter((x) => x.category == evt.target.value));
     setFormData({
       ...formData,
-      ["idCategoria"]: evt.target.value,
+      ["category"]: evt.target.value,
     });
   };
 
@@ -90,17 +90,17 @@ const NewProduct = () => {
 
         {/* Categoría */}
         <div>
-          <label htmlFor="categoria">Categoría</label>
+          <label htmlFor="category">Categoría</label>
           <select
-            id="categoria"
-            name="categoria"
+            id="category"
+            name="category"
             defaultValue={formData.idCategoria}
             onChange={handleCategoriaChange}
             style={inputStyle}>
             <option value="">Seleccione</option>
-            {categorias?.map((categoria) => (
-              <option key={categoria._id} value={categoria._id}>
-                {categoria.nombre}
+            {categories?.map((category) => (
+              <option key={category._id} value={category._id}>
+                {category.nombre}
               </option>
             ))}
           </select>
@@ -108,17 +108,17 @@ const NewProduct = () => {
 
         {/* Subcategoría */}
         <div>
-          <label htmlFor="subcategoria">Subcategoría</label>
+          <label htmlFor="subcategory">Subcategoría</label>
           <select
-            id="subcategoria"
-            name="idSubcategoria"
-            defaultValue={formData.idSubcategoria}
+            id="subcategory"
+            name="subcategory"
+            defaultValue={formData.subcatetory}
             onChange={handleChange}
             style={inputStyle}>
             <option value="">Seleccione</option>
-            {subcategoriasActuales?.map((subcategoria) => (
-              <option key={subcategoria._id} value={subcategoria._id}>
-                {subcategoria.nombre}
+            {currentSubcategories?.map((subcategory) => (
+              <option key={subcategory._id} value={subcategory._id}>
+                {subcategory.nombre}
               </option>
             ))}
           </select>

@@ -18,7 +18,7 @@ export default function Register() {
     const firstName = fields.firstName.value;
     const lastName = fields.lastName.value;
     const email = fields.email.value;
-    const ubicacion = fields.city.value;
+    const location = fields.ciudad.value;
     const password = fields.password.value;
     const passwordRepeat = fields.passwordRepeat.value;
 
@@ -26,7 +26,7 @@ export default function Register() {
       firstName,
       lastName,
       email,
-      ubicacion,
+      location,
       password,
       passwordRepeat,
     }).then(() => {
@@ -98,7 +98,7 @@ export default function Register() {
             <label className="label">
               <span className="label-text font-medium">Localidad*</span>
             </label>
-            <select name="city" className="select select-bordered w-full" defaultValue={""} required>
+            <select name="ciudad" className="select select-bordered w-full" defaultValue={""} required>
               <option value="" disabled>
                 Seleccione su localidad
               </option>

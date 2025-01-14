@@ -35,14 +35,14 @@ const user = new Schema(
       type: String,
       required: false,
     },
-    ubicacion: {
+    location: {
       type: ObjectId,
-      ref: 'Ubicacion'
+      ref: 'Location'
     },
     favorites: [
       {
         type: ObjectId,
-        ref: "Producto",
+        ref: "Product",
       },
     ],
   },
@@ -58,11 +58,6 @@ const user = new Schema(
         required: true,
         ref: "User",
       },
-      /*reader: {
-        type: ObjectId,
-        required: true,
-        ref: "User",
-      },*/
       text: {
         type: String,
         required: true,
@@ -71,7 +66,7 @@ const user = new Schema(
       product: {
         type: ObjectId,
         required: true,
-        ref: 'Producto'
+        ref: 'Product'
       },
     },
       {timestamps: true,
@@ -79,17 +74,17 @@ const user = new Schema(
       }
     );
 
-    const categoria = new Schema(
+    const category = new Schema(
       {
-        nombre: {
+        name: {
           type: String,
           required: true,
           minLength: 2,
         },
-        subcategorias: [
+        subcategories: [
           {
             type: ObjectId,
-            ref: "Subcategoria",
+            ref: "Subcategory",
           },
         ],
       },
@@ -98,24 +93,24 @@ timestamps: true,
         versionKey: false }
     );
 
-const subcategoria = new Schema(
+const subcategory = new Schema(
   {
     nombre: {
       type: String,
       required: true,
       minLength: 2,
     },
-    idCategoria: {
+    category: {
       type: ObjectId,
       required: true,
-      ref: "Categoria",
+      ref: "Category",
     },
   },
   { 
     timestamps: true,
     versionKey: false }
 );
-const producto = new Schema(
+const product = new Schema(
   {
     name: {
       type: String,
@@ -142,15 +137,15 @@ const producto = new Schema(
         required: true,
       },
     ],
-    idCategoria: {
+    category: {
       type: ObjectId, // Relación con la colección de categorías
       required: true,
-      ref: "Categoria",
+      ref: "Category",
     },
-    idSubcategoria: {
+    subcategory: {
       type: ObjectId, // Relación con la colección de subcategorías
       required: true,
-      ref: "Subcategoria",
+      ref: "Subcategory",
     },
     likes: [
       {
@@ -165,7 +160,7 @@ const producto = new Schema(
     versionKey: false,
   }
 );
-const ubicacion = new Schema(
+const location = new Schema(
   {
     ciudad: {
       type: String,
@@ -215,12 +210,12 @@ const chat = new Schema({
   {timestamps: true, versionKey: false});
 
 const User = model("User", user);
-const Producto = model("Producto", producto);
+const Product = model("Product", product);
 const Comment = model("Comment", comment);
-const Categoria = model("Categoria", categoria);
-const Subcategoria = model("Subcategoria", subcategoria);
-const Ubicacion = model('Ubicacion', ubicacion, 'ubicaciones');
+const Category = model("Category", category);
+const Subcategory = model("Subcategory", subcategory);
+const Location = model('Location', location, 'locations');
 const Message = model('Message', message);
 const Chat = model('Chat', chat);
 
-export { User, Producto, Comment, Categoria, Subcategoria, Ubicacion, Message, Chat };
+export { User, Product, Comment, Category, Subcategory, Location, Message, Chat };

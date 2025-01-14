@@ -4,9 +4,9 @@ import Link from "next/link";
 
 const baseurl = "http://localhost:8080/public/";
 
-export default function ProductComponent({ producto, addtoFavorites, refetch, setRefetch }) {
+export default function ProductComponent({ product, addtoFavorites, refetch, setRefetch }) {
   const favoritesHandler = async () => {
-    const result = await addtoFavorites(producto._id);
+    const result = await addtoFavorites(product._id);
     if (result.valid) {
       if (setRefetch) setRefetch(!refetch);
     } else {
@@ -21,8 +21,8 @@ export default function ProductComponent({ producto, addtoFavorites, refetch, se
         {/* Añade `cursor-pointer` para indicar que es clicable */}
         <figure>
           <Image
-            src={`${baseurl}${producto?.images[0]}`}
-            alt={producto.name}
+            src={`${baseurl}${product?.images[0]}`}
+            alt={product.name}
             layout="responsive"
             width={160}
             height={160}
@@ -31,17 +31,17 @@ export default function ProductComponent({ producto, addtoFavorites, refetch, se
         </figure>
         <div className="card-body">
           <h2 className="card-title">
-            <Link href={`/product/${producto._id}`} passHref>
-              {producto.name}
+            <Link href={`/product/${product._id}`} passHref>
+              {product.name}
             </Link>
             <div className="badge badge-secondary">NEW</div>
           </h2>
-          <p>{producto.price}</p>
+          <p>{product.price}</p>
           <div className="card-actions justify-end">
             <div className="badge badge-outline">chat</div>
             <div
               onClick={favoritesHandler}
-              className={producto.isFavorite == "true" ? "swap swap-active" : "swap swap-inactive"}>
+              className={product.isFavorite == "true" ? "swap swap-active" : "swap swap-inactive"}>
               <div className="swap-off">
                 <Image src="/icons/non-favorite.svg" width={24} height={24} layout="" />
               </div>

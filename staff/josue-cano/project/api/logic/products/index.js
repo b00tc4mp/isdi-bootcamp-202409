@@ -1,16 +1,16 @@
-import createProducto from "./createProducto.js";
-import getCategorias from "./getCategorias.js";
+import createProduct from "./createProduct.js";
+import getCategories from "./getCategories.js";
 import getProductDetails from "./getProductDetails.js";
 import getProducts from "./getProducts.js";
-import getSubCategorias from "./getSubCategorias.js";
+import getSubCategories from "./getSubCategories.js";
 import deleteProduct from "./deleteProduct.js";
 
 const products = {
-  createProducto,
-  getCategorias,
+  createProduct,
+  getCategories,
   getProductDetails,
   getProducts,
-  getSubCategorias,
+  getSubCategories,
   deleteProduct,
 };
 

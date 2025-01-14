@@ -133,28 +133,6 @@ server.post("/user/chat/message", helpers.authorizationHandler, (req, res) => {
     .catch((msg) => res.status(400).json({ error: msg.message }));
 });
 
-/**
- * Post a new comment on a product
- * */
-// server.post("/user/comments/", helpers.authorizationHandler, (req, res) => {
-//   const userId = req.params.id;
-
-//   const {productId, message, productOwner} = req.body;
-
-//   const payload = {
-//     userId,
-//     productId,
-//     message,
-//     productOwner
-//   }
-
-//   logic
-//     .addUserComment()
-//     .then((user) => res.json({ data: user }))
-//     .catch((msg) => res.status(400).json({ error: msg.message }));
-// });
-
-//validatessesion
 server.get("/validate-session", (req, res) => {
   const token = req.headers.authorization.slice(7);
   res.json({ data: { status: utils.validateToken(token) } });
@@ -274,7 +252,7 @@ server.post("/products", helpers.authorizationHandler, (req, res) => {
     // insertar los nombres de las imágenes dentro del producto
     producto["images"] = imagenes;
     logic
-      .createProducto(producto)
+      .createProduct(producto)
       .then((success) => res.json({ data: success }))
       .catch((err) => console.error(err));
   });
@@ -304,16 +282,16 @@ server.get("/locations", (_, res) => {
 /**
  * obtener todas las categorias
  */
-server.get("/categorias", (_, res) => {
-  logic.getCategorias().then((categorias) => res.json({ data: categorias }));
+server.get("/categories", (_, res) => {
+  logic.getCategories().then((categories) => res.json({ data: categories }));
 });
 /**
  * obtener todas las subcategorias
  */
-server.get("/subcategorias", (_, res) => {
+server.get("/subcategories", (_, res) => {
   logic
-    .getSubCategorias()
-    .then((subcategorias) => res.json({ data: subcategorias }));
+    .getSubCategories()
+    .then((subcategories) => res.json({ data: subcategories }));
 });
 
 server.listen(process.env.PORT, () =>

@@ -1,11 +1,10 @@
-import { User, Producto } from "dat";
+import { User, Product } from "dat";
 import { errors } from "com";
 
 const { SystemError } = errors;
 
 export default async (userId) => {
-  console.log({ userId });
-
+  
   try {
     const user = await User.findOne({ _id: userId });
 
@@ -14,4 +13,3 @@ export default async (userId) => {
     SystemError(error);
   }
 };
-// TODO:createSpecs

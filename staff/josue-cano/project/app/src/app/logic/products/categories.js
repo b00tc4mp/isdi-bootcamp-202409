@@ -1,5 +1,5 @@
 function fetchCategories() {
-  return fetch(`http://${"localhost:8080"}/categorias`, {
+  return fetch(`http://${"localhost:8080"}/categories`, {
     method: "get",
     headers: { "Content-type": "application/json" },
   })

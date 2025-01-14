@@ -7,6 +7,7 @@ function getToken() {
 
 function getUserId() {
   const tokenJWT = getToken();
+  if (!tokenJWT) return null;
   const base64Url = tokenJWT.split(".")[1];
   const base64 = base64Url.replace("-", "+").replace("_", "/");
   const token = JSON.parse(atob(base64));

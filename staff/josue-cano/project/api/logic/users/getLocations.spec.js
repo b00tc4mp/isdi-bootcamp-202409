@@ -6,7 +6,7 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 const { expect } = chai;
 
-import db, { Ubicacion } from "dat";
+import db, { Location } from "dat";
 import { errors } from "com";
 
 const { SystemError, NotFoundError } = errors;
@@ -16,11 +16,11 @@ import getLocations from "./getLocations.js";
 describe("getLocations", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST));
 
-  beforeEach(() => Ubicacion.deleteMany());
+  beforeEach(() => Location.deleteMany());
 
   it("succeeds and returns all locations from the database", async () => {
     // ubicaciones en la base de datos
-    await Ubicacion.create([
+    await Location.create([
       { ciudad: "Sant Cugat del Vallès", src: "cdmx.png" },
       { ciudad: "Terrassa", src: "terrassa.png" },
     ]);
@@ -38,15 +38,15 @@ describe("getLocations", () => {
   });
 
   it("fails when no locations are found", async () => {
-    await Ubicacion.deleteMany();
+    await Location.deleteMany();
 
-    await expect(getLocations()).to.be.rejectedWith(NotFoundError, "Ubicaciones not found");
+    await expect(getLocations()).to.be.rejectedWith(NotFoundError, "Locations not found");
   });
 
   it("fails with SystemError on database error", async () => {
-    const originalFind = Ubicacion.find;
+    const originalFind = Location.find;
 
-    Ubicacion.find = () => {
+    Location.find = () => {
       return Promise.reject(new Error("Database error")); // simulacion error
     };
 
@@ -54,7 +54,7 @@ describe("getLocations", () => {
     await expect(getLocations()).to.be.rejectedWith(SystemError, "Database error");
 
     // Restaura el método original
-    Ubicacion.find = originalFind;
+    Location.find = originalFind;
   });
 
   after(() => db.disconnect());

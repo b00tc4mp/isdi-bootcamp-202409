@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 chai.use(chaiAsPromised);
 const { expect } = chai;
 
-import db, { User, Producto  } from "dat";
+import db, { User, Product  } from "dat";
 import { errors } from "com";
 
 const { DuplicityError, SystemError } = errors;
@@ -25,7 +25,7 @@ describe("createProduct", () => {
       firstName: "josue",
       lastName: "cano",
       email: "josuecano@delgado.com",
-      ubicacion: "675ddab950659ce09993dc1e",
+      location: "675ddab950659ce09993dc1e",
       password: "123123123",
       passwordRepeat: "123123123",
     };

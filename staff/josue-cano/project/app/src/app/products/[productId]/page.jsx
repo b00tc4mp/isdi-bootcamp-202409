@@ -14,7 +14,6 @@ export default function Page() {
   //
   //
   //
-  // TODO: Buscar comentarios
   // se usa el productId, usuario actual y autor
   useEffect(() => {
     setIsAuth(getToken());
@@ -25,7 +24,8 @@ export default function Page() {
 
   return (
     <>
-      <ProductDetail id={productId} addtoFavorites={addtoFavorites} />;{/* isAuth && <ProductComments /> */}
+      <ProductDetail id={productId} addtoFavorites={addtoFavorites} />{/* isAuth && <ProductComments /> */}
+      
     </>
   );
 }

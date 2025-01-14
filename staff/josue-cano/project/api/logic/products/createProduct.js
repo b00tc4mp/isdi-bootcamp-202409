@@ -1,15 +1,15 @@
 import bcrypt from "bcryptjs";
-import { User, Producto } from "dat";
+import { User, Product } from "dat";
 import { errors } from "com";
 
 const { DuplicityError, SystemError } = errors;
 
-export default (producto) => {
+export default (product) => {
   // console.log({object: Object.keys(Producto.schema.paths)})
   // console.log(producto);
   try {
-    return Producto.create(producto)
-      .then((producto) => producto)
+    return Product.create(product)
+      .then((product) => product)
       .catch((error) => {
         console.log({ error });
         if (error.code === 11000) throw new DuplicityError("product already exists");

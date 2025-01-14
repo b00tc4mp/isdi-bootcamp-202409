@@ -1,5 +1,5 @@
 export function fetchSubCategories() {
-  return fetch(`http://${"localhost:8080"}/subcategorias`, {
+  return fetch(`http://${"localhost:8080"}/subcategories`, {
     method: "get",
     headers: { "Content-type": "application/json" },
   })

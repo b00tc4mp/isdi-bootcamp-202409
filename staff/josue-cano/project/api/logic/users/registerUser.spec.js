@@ -10,14 +10,13 @@ const { expect } = chai;
 import db, { User } from "dat";
 import { errors } from "com";
 
-const { DuplicityError, SystemError, ValidationError } = errors;
+const { DuplicityError, SystemError , ValidationError} = errors;
 
 import registerUser from "./registerUser.js";
 
 describe("registerUser", () => {
   before(() => db.connect(process.env.MONGO_URL_TEST));
   beforeEach(() => User.deleteMany());
-  after(() => User.deleteMany());
   after(() => db.disconnect());
 
   it("succeeds on new user", async () => {
@@ -25,7 +24,7 @@ describe("registerUser", () => {
       firstName: "josue",
       lastName: "cano",
       email: "josuecano@delgado.com",
-      ubicacion: "675ddab950659ce09993dc1e",
+      location: "675ddab950659ce09993dc1e",
       password: "123123123",
       passwordRepeat: "123123123",
     };
@@ -43,7 +42,7 @@ describe("registerUser", () => {
       firstName: "josue",
       lastName: "cano",
       email: "josuecano@delgado.com",
-      ubicacion: "675ddab950659ce09993dc1e",
+      location: "675ddab950659ce09993dc1e",
       password: "123123123",
       passwordRepeat: "123123123",
     };
@@ -61,7 +60,7 @@ describe("registerUser", () => {
         firstName: "josue",
         lastName: "cano",
         email: "josuecano@delgado.com",
-        ubicacion: "675ddab950659ce09993dc1e",
+        location: "675ddab950659ce09993dc1e",
         password: "123123123",
         passwordRepeat: "123123123",
       })
@@ -79,7 +78,7 @@ describe("registerUser", () => {
         firstName: "josue",
         lastName: "cano",
         email: "josuecano@delgado.com",
-        ubicacion: "675ddab950659ce09993dc1e",
+        location: "675ddab950659ce09993dc1e",
         password: "123123123",
         passwordRepeat: "123123123",
       })
@@ -88,9 +87,8 @@ describe("registerUser", () => {
     User.create = originalCreate; // Restaura User.create
   });
 
-  it("fails when validation throws an error", async () => {
-    await expect(
-      registerUser({
+  it("fails when validation throws an error",() => 
+    expect( ()=> registerUser({
         firstName: "", // Nombre inválido
         lastName: "cano",
         email: "invalid-email", // Email inválido
@@ -98,6 +96,6 @@ describe("registerUser", () => {
         password: "123",
         passwordRepeat: "123",
       })
-    ).to.be.rejectedWith(ValidationError, "invalid name length");
-  });
+    ).to.throw(ValidationError, "invalid name length")
+  );
 });

@@ -11,7 +11,8 @@ export default function ChatComponent ({ messages, sendMessage }) {
     setUserId(getUserId());
   }, []);
 
-  const onMessageHandler = () => {
+  const onMessageHandler = (evt) => {
+    evt.preventDefault();
     sendMessage(message);
     setMessage("");
   };
@@ -31,16 +32,25 @@ export default function ChatComponent ({ messages, sendMessage }) {
       <div className="divider"></div>
 
       <section className="">
+        <form
+        onSubmit={(evt) => onMessageHandler(evt)}
+        className="flex items-center bg-white rounded-lg shadow-lg w-full overflow-hidden border border-gray-300"
+      >
+        {/* Submits form on ENTER */}
         <input
           type="text"
-          value={message}
           onChange={(evt) => setMessage(evt.target.value)}
+          value={message}
           placeholder="Escribe un mensaje"
-          className="input input-bordered w-full max-w-full"
+          className="flex-grow px-4 py-3 bg-gray-50 text-gray-800 focus:outline-none"
         />
-        <button onClick={onMessageHandler} className="btn btn-sm mt-2 btn-primary text-white">
+        <button
+          type="submit"
+          className="bg-green-600 text-white px-5 py-3 hover:bg-green-700 transition duration-300 font-semibold shadow-md rounded-r-lg"
+        >
           Enviar
         </button>
+      </form>
       </section>
     </article>
   );

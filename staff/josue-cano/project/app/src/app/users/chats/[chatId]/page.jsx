@@ -3,25 +3,31 @@
 import { getChat } from "@/app/logic/users/getChat";
 import { sendMessage } from "@/app/logic/users/sendMessage";
 import ChatComponent from "@/app/ui/ChatComponent";
+import useAuth from "@/app/utils/handlers/useAuth";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Chats() {
+
+  useAuth();
+
   const [chat, setChat] = useState(null);
+  const [shouldFetch, setShouldFetch] = useState(true);
   const { chatId } = useParams();
 
-  //sendMessage;
-
-  // const messages = '';
   useEffect(() => {
     async function findChat() {
-      console.log("buscando a chat");
       const response = await getChat(chatId);
       if (response) setChat(response);
     }
 
-    if (chat == null) findChat();
-  }, [chat, chatId]);
+    setInterval(async () => {
+      await findChat();
+    }, 5000);
+
+    findChat();
+  }, [chatId]);
+
   const sendChat = async (message) => {
     // owner es quien publicó el producto
     // el id de ususario se obtiene del token

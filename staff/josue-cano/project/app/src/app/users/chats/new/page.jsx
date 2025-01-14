@@ -10,7 +10,7 @@ export default function Chat () {
 
     const messages = '';
     // const chat = '';
-    // TODO: revisar si existe un chat previo entre el cliente y el 
+    // revisa si existe un chat previo entre el cliente y el 
     // autor
     //
     // si existe se redirige al chat existente

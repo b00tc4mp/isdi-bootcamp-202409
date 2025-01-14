@@ -16,10 +16,10 @@ export default function ProductListComponent({
       {/* productos */}
       {products.length ? (
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
-          {products.map((producto) => (
+          {products.map((product) => (
             <ProductComponent
-              producto={producto}
-              key={producto._id}
+              product={product}
+              key={product._id}
               addtoFavorites={addtoFavorites}
               refetch={refetch}
               setRefetch={setRefetch}
