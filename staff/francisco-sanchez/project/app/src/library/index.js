@@ -7,6 +7,7 @@ import Textarea from "./Textarea";
 import TagOK from "./TagOK";
 import TagWARN from "./TagWARN";
 import TagKO from "./TagKO";
+import Card from "./Card";
 
 
 export {
@@ -18,5 +19,6 @@ export {
     Textarea,
     TagOK,
     TagWARN,
-    TagKO
+    TagKO,
+    Card
 }

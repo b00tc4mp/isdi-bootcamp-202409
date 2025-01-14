@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Field, Button, Input, Label, TagKO, TagOK, TagWARN } from '../../library';
+import { Field, Button, Input, Label, TagKO, TagOK, TagWARN, Card } from '../../library';
 import { errors } from 'com';
 
 import useContext from '../useContext';
@@ -10,6 +10,22 @@ const { SystemError } = errors
 
 export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
     const { alert } = useContext()
+    const [packActivities, setPackActivities] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const activities = await logic.getActivitiesByPackId(pack._id)
+                console.log('Pack Activity fetched successfully', activities)
+                setPackActivities(activities)
+
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
+        }
+        fetchData()
+    }, [])
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -42,9 +58,33 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
         return <p>there was a problem loading customer pack</p>
     } else {
         console.log(pack)
-        return <main className="flex flex-col justify-center items-center bg-color_backgroundGrey w-full h-screen">
-            <h2 className="text-2xl">Update customer pack: "{pack.packDescription}"</h2>
-            <div className="flex flex-col">
+        return <main className="flex flex-col items-center bg-color_backgroundGrey w-full h-screen">
+            <h2 className="text-2xl mb-4">"{pack.description}"</h2>
+            <div className="flex flex-col w-full max-w-4xl px-4 space-y-6">
+                <div className="pack_statuses grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                    <Card
+                        title="Pack Status"
+                        value={pack.status}
+                        valueClass={pack.status === 'Active' ? 'text-green-500' : 'text-red-500'}
+                    />
+                    <Card
+                        title="Payment Status"
+                        value={pack.paymentStatus}
+                        valueClass={pack.paymentStatus === 'completed' ? 'text-green-500' : pack.paymentStatus === 'partially payed' ? 'text-yellow-500' : 'text-red-500'}
+                    />
+                    <Card
+                        title="Payed Amount"
+                        value={pack.totalPayments || '0'}
+                        valueClass="text-gray-800"
+                    />
+                    <Card
+                        title="Original Quantity"
+                        value={pack.originalQuantity + ' ' + pack.unit || 'Unknown'}
+                        valueClass="text-gray-800"
+                    />
+                </div>
+
                 <form className="flex flex-col justify-items-start" onSubmit={handleSubmit} >
                     <Field>
                         <Label htmlFor="packDescription">Pack description</Label>
@@ -53,12 +93,12 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
 
                     <Field>
                         <Label htmlFor="originalQuantity">Original Quantity</Label>
-                        <Input className="border-2 rounded-lg" type="text" id="originalQuantity" placeholder="Original Quantity" defaultValue={pack.quantity} />
+                        <Input className="border-2 rounded-lg" type="text" id="originalQuantity" placeholder="Original Quantity" defaultValue={pack.originalQuantity} />
                     </Field>
 
                     <Field>
                         <Label htmlFor="remainingQuantity">Remaining Quantity</Label>
-                        <Input className="border-2 rounded-lg" type="text" id="remainingQuantity" placeholder="Remaining Quantity" defaultValue={pack.quantity} />
+                        <Input className="border-2 rounded-lg" type="text" id="remainingQuantity" placeholder="Remaining Quantity" defaultValue={pack.remainingQuantity} />
                     </Field>
 
                     <Field>
@@ -77,24 +117,37 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
 
                     <Field>
                         <Label htmlFor="purchaseDate">Purchase Date</Label>
-                        <Input className="border-2 rounded-lg w-full" type="text" id="purchaseDate" defaultValue={pack.purchaseDate} />
+                        <Input className="border-2 rounded-lg w-full" type="text" id="purchaseDate" defaultValue={pack.formattedPurchaseDate} />
                     </Field>
 
                     <Field>
                         <Label htmlFor="expireDate">Expire Date</Label>
-                        <Input className="border-2 rounded-lg w-full" type="text" id="expireDate" defaultValue={pack.price} />
+                        <Input className="border-2 rounded-lg w-full" type="text" id="expireDate" defaultValue={pack.formattedExpiryDate} />
                     </Field>
 
-                    <Field>
-                        <Label htmlFor="status">Status</Label>
-                        <Input className="border-2 rounded-lg w-full" type="text" id="status" defaultValue={pack.status} />
-                    </Field>
 
-                    <Field>
-                        <Label htmlFor="paymentStatus">Payment status</Label>
-                        <Input className="border-2 rounded-lg w-full" type="text" id="paymentStatus" defaultValue={pack.status} />
-                    </Field>
+                    <h2 className='text-2xl'>History</h2>
+                    <table className="table-auto mt-4 bg-white text-black rounded-md">
+                        <thead>
+                            <tr className='bg-color_Grey'>
+                                <th className="border px-4 py-2">Description</th>
+                                <th className="border px-4 py-2">Date</th>
+                                <th className="border px-4 py-2">Operation</th>
+                                <th className="border px-4 py-2">Remaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {packActivities.map(packActivity => (
+                                <tr key={packActivity.id}>
+                                    <td className='border px-4 py-2'>{packActivity.description}</td>
+                                    <td className='border px-4 py-2'>{packActivity.formatedDate}</td>
+                                    <td className='border px-4 py-2'>{packActivity.operation === 'add' ? `+${packActivity.formattedOperation}` : `-${packActivity.formattedOperation}`}</td>
+                                    <td className='border px-4 py-2'>{packActivity.formattedRemaining}</td>
+                                </tr>
+                            ))}
 
+                        </tbody>
+                    </table>
 
                     <Button className='bg-red-800 text-white' onClick={handleCancelClick}>Cancel</Button>
                     <Button type="submit">Update</Button>

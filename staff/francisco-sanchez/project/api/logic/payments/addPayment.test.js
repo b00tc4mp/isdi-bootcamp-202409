@@ -5,8 +5,8 @@ import addPayment from './addPayment.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const packId = '6784e37287c4b0f255660371'
-const amount = 10.75
+const packId = '6784da9f75473697a1950170'
+const amount = 10
 const currency = 'EUR'
 const method = 'card'
 const paymentStatus = 'partially payed'
