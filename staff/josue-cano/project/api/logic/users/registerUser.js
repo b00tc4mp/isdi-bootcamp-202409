@@ -4,7 +4,7 @@ import { validate, errors } from "com";
 
 const { DuplicityError, SystemError, ValidationError } = errors;
 
-export default ({ firstName, lastName, email, location, password, passwordRepeat }) => {
+export default async ({ firstName, lastName, email, location, password, passwordRepeat }) => {
   try {
     validate.firstName(firstName);
     validate.lastName(lastName);
@@ -13,7 +13,7 @@ export default ({ firstName, lastName, email, location, password, passwordRepeat
     validate.passwordsMatch(password, passwordRepeat);
   } catch (e) {
     // aquí se rompe por validación
-    throw new ValidationError(e.message);
+    return Promise.reject(e.message);
   }
   try {
     return bcrypt

@@ -15,7 +15,6 @@ export default function Index() {
     // Llama a la función para obtener los productos
     getProducts()
       .then((data) => {
-        debugger
         setProducts(data); // Actualiza los productos en el estado
       })
       .catch((err) => {
@@ -29,7 +28,7 @@ export default function Index() {
 
   return (
     <article className="">
-      
+
       <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} admin={true} />
     </article>
   );

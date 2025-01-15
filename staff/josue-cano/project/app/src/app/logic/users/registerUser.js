@@ -37,3 +37,5 @@ export const registerUser = ({ firstName, lastName, email, location, password, p
       throw new Error(message || "Error desconocido en el registro.");
     });
 };
+
+

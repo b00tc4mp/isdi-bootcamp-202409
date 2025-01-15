@@ -1,4 +1,5 @@
-"use client";
+"use client"
+
 import { redirect } from "next/navigation";
 import { registerUser } from "../logic/users/registerUser";
 import { getLocations } from "../logic/users/getLocations";
@@ -10,6 +11,11 @@ export default function Register() {
   useEffect(() => {
     getLocations().then((locations) => setLocations(locations));
   }, []);
+
+  useEffect(() => {
+    console.log(locations)
+  }, [locations])
+
 
   function handleRegister(event) {
     event.preventDefault();
@@ -102,7 +108,7 @@ export default function Register() {
               <option value="" disabled>
                 Seleccione su localidad
               </option>
-              {locations.map((location) => (
+              {locations.length > 0 && locations.map((location) => (
                 <option key={location._id} value={location._id}>
                   {location.ciudad}
                 </option>

@@ -38,5 +38,11 @@ describe("authenticateUser", () => {
       "user does not exist"
     ));
 
+  it("fails on wrong credentials", () =>
+    expect(authenticateUser({ email: "josuecano@de565lgado.com", password: "123123123123" })).to.be.rejectedWith(
+      CredentialsError,
+      "wrong credentials"
+    ));
+
   after(() => db.disconnect());
 });
