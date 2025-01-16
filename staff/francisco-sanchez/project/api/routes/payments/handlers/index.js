@@ -1,5 +1,9 @@
-import addPaymentHandler from "./addPaymentHandler.js";
+import addPaymentHandler from './addPaymentHandler.js';
+import getPaymentsHandler from './getPaymentsHandler.js';
+import deletePaymentHandler from './deletePaymentHandler.js';
 
 export {
-    addPaymentHandler
+    addPaymentHandler,
+    getPaymentsHandler,
+    deletePaymentHandler
 }

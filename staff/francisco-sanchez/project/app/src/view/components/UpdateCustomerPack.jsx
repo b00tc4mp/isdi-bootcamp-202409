@@ -11,6 +11,7 @@ const { SystemError } = errors
 export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
     const { alert } = useContext()
     const [packActivities, setPackActivities] = useState([])
+    const [payments, setPayments] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,6 +26,19 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
             }
         }
         fetchData()
+
+        const getPayments = async () => {
+            try {
+                const payments = await logic.getPayments(pack._id)
+                console.log('Pack Payments fetched successfully', payments)
+                setPayments(payments)
+
+            } catch (error) {
+                alert(error.message)
+                console.error(error)
+            }
+        }
+        getPayments()
     }, [])
 
     const handleSubmit = event => {
@@ -90,7 +104,7 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                     />
                     <Card
                         title="Remaining Quantity"
-                        value={pack.remainingQuantity + ' ' + pack.unit || 'Unknown'}
+                        value={pack.formattedRemaining + ' ' + pack.unit || 'Unknown'}
                         valueClass="text-gray-800"
                     />
                 </div>
@@ -101,28 +115,9 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                         <Input className="border-2 rounded-lg" type="text" id="packDescription" placeholder="Pack name" defaultValue={pack.description} />
                     </Field>
 
-                    {/* <Field>
-                        <Label htmlFor="originalQuantity">Original Quantity</Label>
-                        <Input className="border-2 rounded-lg" type="text" id="originalQuantity" placeholder="Original Quantity" defaultValue={pack.originalQuantity} />
-                    </Field> */}
-
                     <Field>
                         <Label htmlFor="remainingQuantity">Remaining Quantity</Label>
                         <Input className="border-2 rounded-lg" type="text" id="remainingQuantity" placeholder="Remaining Quantity" defaultValue={pack.remainingQuantity} />
-                    </Field>
-
-                    {/* <Field>
-                        <Label htmlFor="price">Price</Label>
-                        <Input className="border-2 rounded-lg w-full" type="text" id="price" placeholder="50 €" defaultValue={pack.price} />
-                        <input type="hidden" id="currency" defaultValue="EUR" />
-                    </Field> */}
-
-                    <Field>
-                        <Label htmlFor="purchaseDate">Purchase Date</Label>
-                        <Input className="border-2 rounded-lg w-full"
-                            type="date"
-                            id="purchaseDate"
-                            defaultValue={pack.purchaseDate ? new Date(pack.purchaseDate).toISOString().split('T')[0] : ''} />
                     </Field>
 
                     <Field>
@@ -130,11 +125,11 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                         <Input className="border-2 rounded-lg w-full"
                             type="date"
                             id="expireDate"
-                            defaultValue={pack.purchaseDate ? new Date(pack.expiryDate).toISOString().split('T')[0] : ''} />
+                            defaultValue={pack.expiryDate ? new Date(pack.expiryDate).toISOString().split('T')[0] : ''} />
                     </Field>
 
 
-                    <h2 className='text-2xl'>History</h2>
+                    <h2 className='text-2xl mt-10' >Activity log</h2>
                     <table className="table-auto mt-4 bg-white text-black rounded-md">
                         <thead>
                             <tr className='bg-color_Grey'>
@@ -145,26 +140,54 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {packActivities.map(packActivity => (
-                                <tr key={packActivity.id}>
-                                    <td className='border px-4 py-2'>{packActivity.description}</td>
-                                    <td className='border px-4 py-2'>{packActivity.formatedDate}</td>
-                                    <td className='border px-4 py-2'>{packActivity.operation === 'add' ? `+${packActivity.formattedOperation}` : `-${packActivity.formattedOperation}`}</td>
-                                    <td className='border px-4 py-2'>{packActivity.formattedRemaining}</td>
+                            {packActivities.map(payment => (
+                                <tr key={payment.id}>
+                                    <td className='border px-4 py-2'>{payment.description}</td>
+                                    <td className='border px-4 py-2'>{payment.formatedDate}</td>
+                                    <td className='border px-4 py-2'>{payment.operation === 'add' ? `+${payment.formattedOperation}` : `-${payment.formattedOperation}`}</td>
+                                    <td className='border px-4 py-2'>{payment.formattedRemaining}</td>
                                 </tr>
                             ))}
 
                         </tbody>
                     </table>
+                    <div className="flex items-center justify-center">
+                        <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg" type="submit">Update</Button>
+                        <Button className="bg-red-800 text-white px-4 py-2 rounded-lg" onClick={handleCancelClick}>Cancel</Button>
+                    </div>
 
-                    <Button className='bg-red-800 text-white' onClick={handleCancelClick}>Cancel</Button>
-                    <Button type="submit">Update</Button>
-                    <Button>Manage Payments</Button>
+
+                    <h2 className='text-2xl mt-10'>Payments history</h2>
+                    <table className="table-auto mt-4 bg-white text-black rounded-md">
+                        <thead>
+                            <tr className='bg-color_Grey'>
+                                <th className="border px-4 py-2">Date</th>
+                                <th className="border px-4 py-2">Amount</th>
+                                <th className="border px-4 py-2">Method</th>
+                                <th className="border px-4 py-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {payments.map(payment => (
+                                <tr key={payment.id}>
+                                    <td className='border px-4 py-2'>{payment.date}</td>
+                                    <td className='border px-4 py-2'>{payment.amount} {payment.currency}</td>
+                                    <td className='border px-4 py-2'>{payment.method}</td>
+                                    <td className='border px-4 py-2'>
+                                        <button className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" /* onClick={(event) => handleManageClick(event, customerPack)} */>🗑️ Delete payment</button>
+                                    </td>
+                                </tr>
+                            ))}
+
+                        </tbody>
+                    </table>
+                    <div className="flex items-center justify-center">
+                        <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg" type="submit">Add Payment</Button>
+                    </div>
+
+
                 </form>
             </div>
         </main>
-
     }
-
-
 }

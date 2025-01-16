@@ -97,7 +97,7 @@ export default function CustomerPacks(props) {
                                     {customerPack.status === 'Active' && (<TagOK>Active</TagOK>)}
                                     {customerPack.status === 'Pending' && (<TagKO>Pending</TagKO>)}
                                     {customerPack.status === 'Expired' && (<TagKO>Expired</TagKO>)}
-                                    {customerPack.status === 'Finished' && (<TagWARN>Finished</TagWARN>)}
+                                    {customerPack.status === 'Finished' && (<TagKO>Finished</TagKO>)}
                                 </td>
                                 {/* <td className='border px-4 py-2'>{customerPack.paymentStatus}</td> */}
                                 <td className="border px-4 py-2">

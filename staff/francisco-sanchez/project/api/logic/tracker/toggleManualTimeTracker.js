@@ -1,8 +1,9 @@
-import { Activity, BasePack, Pack, User } from 'dat';
+import { Activity, Pack } from 'dat';
 
 import { validate, errors } from 'com';
 
 import { getElapsedTime, getTimeFormatToDecimal } from '../helpers/index.js';
+import checkPackAndUpdate from '../packs/checkPackAndUpdate.js';
 
 const { SystemError, NotFoundError, OwnershipError, ValidationError } = errors
 
@@ -10,6 +11,8 @@ export default (userId, packId, customerId, description, timeAdjust) => {
     validate.id(packId, 'packId');
     validate.id(userId, 'userId');
     validate.id(customerId, 'customerId');
+
+    console.log('time to adjust --> ' + timeAdjust)
 
     return Pack.findById(packId)
         .then((pack) => {
@@ -59,9 +62,13 @@ export default (userId, packId, customerId, description, timeAdjust) => {
                                 updatedPack.id = updatedPack._id.toString();
                                 delete updatedPack._id;
 
-                                return updatedPack;
+                                return checkPackAndUpdate(packId)
+                                    .then(() => updatedPack)
+
+                                //return updatedPack;
                             });
                     });
+
                 });
         })
         .catch((error) => {

@@ -187,14 +187,80 @@ export default function Tracker(props) {
     const handleAdjustManualTime = (event) => {
         event.preventDefault()
 
-        const timerInput = document.getElementById('timer').value
+        const timerInput = document.getElementById('timerAdjust').value
 
         // Validar el formato del input de tiempo: (+/-)hh:mm:ss
         const timeRegex = /^[-+]?([0-9]{2}):([0-5][0-9]):([0-5][0-9])$/
+        console.log(timerInput)
         if (!timeRegex.test(timerInput)) {
             alert("Please enter a valid time in the format (+/-)hh:mm:ss.")
             return
         }
+
+        const userId = logic.getUserId()
+        const currentDescription = description || 'No description'
+
+        console.log(selectedCustomer.id)
+
+        logic.toggleManualTimeTracker(userId, selectedPack.id, selectedCustomer.id, currentDescription, timerInput)
+            .then((packUpdated) => {
+                if (!packUpdated || !packUpdated.id) {
+                    /* console.log('API Response (packUpdated):', packUpdated)
+                    console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
+                    alert('Invalid pack data received from the server.')
+                    return
+                }
+                // Fetch updated activities 
+                logic.getActivitiesByPackId(packUpdated.id)
+                    .then((updatedActivities) => {
+                        console.log('Updated Activities:', updatedActivities)
+                        setPackActivities(updatedActivities) // Actualiza las actividades
+                    })
+                    .catch((error) => {
+                        alert(error.message)
+                        console.error('Error fetching updated activities:', error)
+                    })
+            })
+            .catch((error) => {
+                alert(error.message)
+                console.error(error)
+            })
+    }
+
+    const handleAdjustManualUnits = (event) => {
+        event.preventDefault()
+
+        const UnitsInput = document.getElementById('unitsAdjust').value
+        console.log(UnitsInput)
+
+        const userId = logic.getUserId()
+        const currentDescription = description || 'No description'
+
+        console.log(selectedCustomer.id)
+
+        logic.toggleManualUnitsTracker(userId, selectedPack.id, selectedCustomer.id, currentDescription, parseInt(UnitsInput))
+            .then((packUpdated) => {
+                if (!packUpdated || !packUpdated.id) {
+                    /* console.log('API Response (packUpdated):', packUpdated)
+                    console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
+                    alert('Invalid pack data received from the server.')
+                    return
+                }
+                // Fetch updated activities 
+                logic.getActivitiesByPackId(packUpdated.id)
+                    .then((updatedActivities) => {
+                        console.log('Updated Activities:', updatedActivities)
+                        setPackActivities(updatedActivities) // Actualiza las actividades
+                    })
+                    .catch((error) => {
+                        alert(error.message)
+                        console.error('Error fetching updated activities:', error)
+                    })
+            })
+            .catch((error) => {
+                alert(error.message)
+                console.error(error)
+            })
 
     }
 
@@ -341,44 +407,32 @@ export default function Tracker(props) {
                                 {/* Input para packs de tiempo */}
                                 {selectedPack?.unit === 'hours' && (
                                     <Field>
-                                        <input
-                                            type="text"
-                                            id="timerAdjust"
-                                            name="timerAdjust"
-                                            placeholder="-1:00:00"
-                                            defaultValue="-1:00:00"
-                                            className="border-2 rounded-lg p-3 w-44 text-center text-lg"
-                                        />
+                                        <input type="text" id="timerAdjust" name="timerAdjust" placeholder="-01:00:00" defaultValue="-01:00:00" className="border-2 rounded-lg p-3 w-44 text-center text-lg" />
                                     </Field>
                                 )}
 
                                 {/* Input para packs de unidades */}
                                 {selectedPack?.unit === 'units' && (
                                     <Field>
-                                        <input
-                                            type="number"
-                                            id="unitsAdjust"
-                                            name="unitsAdjust"
-                                            placeholder="-1"
-                                            defaultValue="-1"
-                                            className="border-2 rounded-lg p-3 w-32 text-center text-lg"
-                                        />
+                                        <input type="number" id="unitsAdjust" name="unitsAdjust" placeholder="-1" defaultValue="-1" className="border-2 rounded-lg p-3 w-32 text-center text-lg" />
                                     </Field>
                                 )}
 
                                 {/* Botón Adjust Manual */}
-                                <Button
-                                    className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center"
-                                    onClick={handleAdjustManualTime}>
-                                    Manual Save
-                                </Button>
+                                {selectedPack?.unit === 'units' ? (
+                                    <Field>
+                                        <Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center" onClick={handleAdjustManualUnits}> Register Sesion </Button>
+                                    </Field>
+                                ) : (
+                                    <Field>
+                                        <Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center" onClick={handleAdjustManualTime}> Register Time </Button>
+                                    </Field>
+                                )}
                             </div>
                         </div>
-
                     </div>
                 </form>
             </div>
-
 
             {/* {loading ? (
                 <div className="flex justify-center items-center h-full">

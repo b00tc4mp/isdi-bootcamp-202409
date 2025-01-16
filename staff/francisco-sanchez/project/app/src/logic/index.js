@@ -27,10 +27,16 @@ import {
 
 
 import {
-    toggleTimeTracker
+    toggleTimeTracker,
+    toggleManualTimeTracker,
+    toggleManualUnitsTracker,
 } from './tracker'
 
-import { get } from 'mongoose'
+
+import {
+    getPayments,
+} from './payments'
+
 import { getDecimalToTimeFormat } from './helpers'
 
 
@@ -63,10 +69,13 @@ const logic = {
     getDecimalToTimeFormat,
 
     //Tracker
-    toggleTimeTracker
+    toggleTimeTracker,
+    toggleManualTimeTracker,
+    toggleManualUnitsTracker,
+
+
+    //Payments
+    getPayments
 }
-
-
-
 
 export default logic

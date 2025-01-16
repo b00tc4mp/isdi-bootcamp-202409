@@ -20,7 +20,8 @@ import {
     getBasePackDetails,
     deleteBasePack,
     updateBasePack,
-    getAdquiredPacks
+    getAdquiredPacks,
+    checkPackAndUpdate,
 } from './packs/index.js'
 
 //EMAILING
@@ -32,6 +33,8 @@ import {
 //TRACKER
 import {
     toggleTimeTracker,
+    toggleManualTimeTracker,
+    toggleManualUnitsTracker
 } from './tracker/index.js'
 
 //ACTIVITY
@@ -43,6 +46,8 @@ import {
 
 import {
     addPayment,
+    getPayments,
+    deletePayment
 } from './payments/index.js'
 
 const logic = {
@@ -67,6 +72,7 @@ const logic = {
     deleteBasePack,
     updateBasePack,
     getAdquiredPacks,
+    checkPackAndUpdate,
 
     //emailing
     emailRegisterWelcome,
@@ -74,14 +80,17 @@ const logic = {
 
     //Tracker
     toggleTimeTracker,
+    toggleManualTimeTracker,
+    toggleManualUnitsTracker,
 
     //Activity
     getActivityByPackId,
 
 
     //Payments
-    addPayment
-
+    addPayment,
+    getPayments,
+    deletePayment
 }
 
 export default logic
