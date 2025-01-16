@@ -1,0 +1,170 @@
+html {
+    font-size: 16px;
+    font-family: sans-serif;
+    font-style: normal;
+    line-height: 1.5em;
+    text-align: center;
+    scroll-behavior: smooth;
+}
+
+section {
+    margin: 0 auto;
+    /* Centra horizontalmente el contenido */
+    display: flex;
+    /* Habilita flexbox */
+    flex-direction: column;
+    /* Asegura que los elementos estén en columna */
+    align-items: center;
+    /* Centra los elementos hijos horizontalmente */
+    justify-content: center;
+    /* Centra los elementos hijos verticalmente */
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.Formacion p {
+    max-width: 80%;
+    /* Define el ancho máximo del párrafo al 80% */
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    /* Centra horizontalmente el contenido del párrafo */
+}
+
+.presentacion {
+    margin-top: 100px;
+}
+
+.presentacion p {
+    max-width: 80%;
+    /* Define el ancho máximo del párrafo al 80% */
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    margin-top: 0 auto;
+    /* Centra horizontalmente el contenido del párrafo */
+}
+
+
+.Formacion {
+    background-color: #F2E3D5;
+}
+
+.Porfolio {
+    background-color: #F2E3D5;
+}
+
+.infoAdicional {
+    background-color: #026773;
+}
+
+
+.experienciaBox {
+    background-color: #3CA6A6;
+    padding: 20px;
+    margin-bottom: 30px;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+
+.porfolioBox {
+    background-color: #FFF;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+
+.titulo-blanco {
+    color: #FFF;
+    font-size: 30px;
+}
+
+.texto-destacado-blanco {
+    color: #FFF;
+    font-size: 22px;
+    line-height: 1.6em;
+
+}
+
+.textoBlanco {
+    color: #FFF;
+}
+
+
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    position: fixed;
+    justify-content: flex-end;
+    top: 0;
+    padding-right: 10px;
+    width: 100%;
+    height: 100px;
+    /*overflow: hidden;*/
+    background-color: #026773;
+    margin: auto;
+    border-bottom: 5px solid;
+    border-color: #012E40;
+    /* Quitamos las viñetas de la lista */
+}
+
+nav li {
+    display: inline;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    float: center;
+
+}
+
+nav li a {
+    color: #F2E3D5;
+}
+
+/* Ítems del menú en una línea horizontal */
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    padding-left: 0;
+}
+
+/*.headerFixed {
+    position: fixed;
+    top: 0;
+    background-color: #026773;
+    background-color: aliceblue;
+    height: 100px;
+}*/
+
+
+/* Inicio Estilos del formulario */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #012E40;
+    padding-bottom: 40px;
+    gap: 10px;
+
+}
+
+label {
+    color: #FFF;
+    display: inline-block;
+    width: 80px;
+}
+
+input {
+    height: 30px;
+    margin-bottom: 5px;
+
+}
+
+/* Fin Estilos del formulario */

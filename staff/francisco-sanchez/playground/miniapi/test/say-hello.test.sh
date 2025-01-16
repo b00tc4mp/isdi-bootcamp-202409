@@ -1,0 +1,1 @@
+curl -X POST http://localhost:8080/sayhello -H "Content-Type: application/json" -d '{"nameUser":"Ron","surnameUser":"Weasley"}' -v

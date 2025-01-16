@@ -1,0 +1,73 @@
+body {
+    margin-top: 50px;
+    justify-items: center;
+}
+
+.rooftop {
+    content: '';
+    max-width: 280px;
+    height: 100px;
+    justify-content: center;
+    padding: 20px 10px 20px 0;
+    background-color: #64696a !important;
+    border-radius: 150px 150px 0px 0px;
+
+}
+
+.building-principal {
+    display: grid;
+    border-top: #0c4d64 10px solid;
+    padding: 20px 10px 20px 0;
+    max-width: 280px;
+    justify-content: center;
+    background-color: #64696a !important;
+    grid-template-columns: 30px 30px 30px 30px 30px;
+    grid-gap: 10px 20px;
+    background-color: #fff;
+    color: #444;
+}
+
+.window {
+    content: '';
+    background-color: #1eade1;
+    border: 1px solid #0c4d64;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 80%;
+    aspect-ratio: 1 / 1;
+}
+
+.main-entrance {
+    content: '';
+    max-width: 280px;
+    height: 100px;
+    justify-content: center;
+    padding: 20px 10px 20px 0;
+    background-color: #64696a !important;
+    border-top: #0c4d64 10px solid;
+    border-bottom: #0c4d64 10px solid;
+}
+
+.main-door {
+    content: '';
+    position: absolute;
+    background-color: #072653;
+    height: 120px;
+    width: 60px;
+    left: 120px;
+    border-radius: 20px 20px 0 0;
+}
+
+.clock {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: yellow;
+    left: 123px;
+    top: 91px;
+    border-radius: 50px;
+    border: 2px solid #000;
+
+}
