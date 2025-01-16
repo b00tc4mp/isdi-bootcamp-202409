@@ -47,13 +47,13 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
         <ScrollView>
 
             < View style={newReport.view} >
-                <Text>Hisorial del animal</Text>
+                <Text style={newReport.text}>Hisorial del animal</Text>
                 <View style={newReport.info}>
-                    <Text> Nombre del animal: {infoPet.name}</Text>
-                    <Text>Chip del animal: {infoPet.chip}</Text>
-                    <Text>Peso del animal: {infoPet.weight}</Text>
-                    <Text>Raza del animal: {infoPet.race}</Text>
-                    <Text>Sexo del animal: {infoPet.sex ? 'Macho' : 'Hembra'}</Text>
+                    <Text> Nombre: {infoPet.name}</Text>
+                    <Text>Chip: {infoPet.chip}</Text>
+                    <Text>Peso: {infoPet.weight}</Text>
+                    <Text>Raza: {infoPet.race}</Text>
+                    <Text>Sexo: {infoPet.sex ? 'Macho' : 'Hembra'}</Text>
                     <Text>Animal estarlizado: {infoPet.sterilized ? 'Si' : 'No'}</Text>
                     <Text>Fecha de nacimiento: {formatDate(infoPet.dateOfBirth)}</Text>
                     <Text>Vacunas:</Text>
@@ -75,7 +75,7 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
                 </View>
 
                 <View style={newReport.history}>
-                    <Text>Informe medico nuevo</Text>
+                    <Text style={newReport.text}>Informe medico nuevo</Text>
 
                     <Dropdown
                         style={newReport.type}
@@ -94,17 +94,15 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
                         value={text}
                         onChangeText={setText}
                     />
+                    <View style={newReport.viewSubmit}>
+                        <TouchableOpacity
+                            style={newReport.submit}
+                            onPress={handleRegisterHistoryPet}
+                        >
+                            <Text>Registrar historial</Text>
 
-                    <TouchableOpacity
-                        style={newReport.submit}
-                        onPress={handleRegisterHistoryPet}
-                    >
-                        <Text>Registrar historial</Text>
-
-                    </TouchableOpacity>
-
-
-
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View >
         </ScrollView>
@@ -113,45 +111,53 @@ export default function ReportHistoryNewUserVeterinary({ route }) {
 }
 
 const newReport = StyleSheet.create({
-
-
     view: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    history: {
-        flex: 1,
+    text: {
+        fontSize: 25
+    },
+    type: {
+        backgroundColor: '#dafbcc',
+        width: 450,
         padding: 20,
-        gap: 15
+        borderWidth: 1.5,
+    },
+    history: {
+        padding: 20,
+        gap: 25
     },
     info: {
-        gap: 10,
-        borderWidth: 3,
-        borderColor: 'grey',
-        padding: 10,
+        width: 450,
+        gap: 5,
+        borderWidth: 1.5,
+        borderColor: 'black',
+        padding: 7,
         borderRadius: 8,
-        backgroundColor: 'grey'
+        backgroundColor: '#b7f6a0'
     },
-
-    type: {
-
-    },
-
     textarea: {
         height: 250,
-        width: 400,
-        borderColor: 'gray',
+        width: 450,
+        borderColor: 'black',
         borderWidth: 2,
-        textAlignVertical: 'top'
+        textAlignVertical: 'top',
+        backgroundColor: '#dafbcc'
+    },
+    viewSubmit: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     submit: {
-        width: 300,
-        backgroundColor: "red",
-        borderRadius: 45,
-        padding: 24,
-        justifyContent: "center",
-        alignItems: "center"
+        width: 350,
+        backgroundColor: '#c1f1cf',
+        borderBottomColor: 'black',
+        borderWidth: 0.5,
+        borderRadius: 25,
+        padding: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
 })

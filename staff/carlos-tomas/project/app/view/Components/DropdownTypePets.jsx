@@ -70,7 +70,7 @@ export default function DropdownTypePets({ setVaccine }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>Selecciona un tipo de animal:</Text>
+
             <Dropdown
                 style={styles.dropdown}
                 data={TypeItem}
@@ -83,7 +83,7 @@ export default function DropdownTypePets({ setVaccine }) {
 
             {typeAnimal && (
                 <>
-                    <Text style={styles.label}>Vacunas disponibles:</Text>
+
                     <Dropdown
                         style={styles.dropdown}
                         data={vaccines}
@@ -100,20 +100,16 @@ export default function DropdownTypePets({ setVaccine }) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16,
-        backgroundColor: '#fff'
-    },
-    label: {
-        marginBottom: 8,
-        fontSize: 16,
-        fontWeight: 'bold'
+        padding: 30,
     },
     dropdown: {
+        width: 450,
         marginBottom: 16,
         height: 50,
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 8,
-        paddingHorizontal: 16
+        paddingHorizontal: 16,
+        backgroundColor: '#dafbcc'
     }
 })

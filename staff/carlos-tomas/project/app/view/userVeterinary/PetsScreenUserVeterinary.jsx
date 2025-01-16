@@ -156,9 +156,10 @@ const registerPets = StyleSheet.create({
     text_input: {
         borderWidth: 1,
         fontSize: 22,
-        width: 350,
+        width: 450,
         padding: 16,
-        borderRadius: 8
+        borderRadius: 8,
+        backgroundColor: '#dafbcc'
     },
     dropdown: {
         flex: 1,
@@ -166,18 +167,18 @@ const registerPets = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 4,
         borderRadius: 8,
-        width: 350,
-        padding: 10
-    },
-    label: {
-        fontSize: 16,
+        width: 450,
+        padding: 10,
+        backgroundColor: '#dafbcc'
     },
     submit: {
-        width: 300,
-        backgroundColor: "red",
-        borderRadius: 45,
-        padding: 24,
-        justifyContent: "center",
-        alignItems: "center"
+        width: 350,
+        backgroundColor: '#c1f1cf',
+        borderBottomColor: 'black',
+        borderWidth: 0.5,
+        borderRadius: 25,
+        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })

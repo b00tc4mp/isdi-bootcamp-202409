@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Text, View, Image } from 'react-native'
+import { Text, View, Image, StyleSheet } from 'react-native'
 import logic from '../../logic'
 import QRCode from 'react-native-qrcode-svg'
 
@@ -35,24 +35,44 @@ export default function ProfileScreenUserRegular() {
     }
 
     return (
-        <View>
+
+        <View style={profileUser.view}>
+
+            <Image style={profileUser.image}
+                source={{ uri: userInfo.image }}
+
+            />
+            <Text style={profileUser.text}>Nombre: {userInfo.name}</Text>
+            <Text style={profileUser.text}>Usuario: {userInfo.username}</Text>
+            <Text style={profileUser.text}>Email: {userInfo.email}</Text>
+            <Text style={profileUser.text}>Telefono: {userInfo.phone}</Text>
+
             <QRCode
                 value={userId}
-                size={150}
-                color="black"
-                backgroundColor="white"
-            />
-            <Image
-                source={{ uri: userInfo.image }}
-                style={{ width: 100, height: 100 }}
+                size={125}
             />
 
-            <Text> Nombre {userInfo.name}</Text>
-            <Text> Usarname {userInfo.username}</Text>
-            <Text> Email {userInfo.email}</Text>
-            <Text> Telefono {userInfo.phone}</Text>
-
-        </View>
-
+        </View >
     )
 }
+
+const profileUser = StyleSheet.create({
+
+    view: {
+        gap: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 80,
+    },
+    image: {
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+        borderWidth: 3.5,
+        borderColor: '#8aee68'
+    },
+    text: {
+        fontSize: 20
+    },
+
+})

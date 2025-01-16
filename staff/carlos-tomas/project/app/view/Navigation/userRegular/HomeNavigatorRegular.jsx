@@ -45,9 +45,11 @@ export default function HomeNavigatorRegular() {
         <Navigator
             screenOptions={({ route }) => ({
                 headerTitleAlign: 'center',
-                tabBarStyle: { height: 70 },
-                tabBarActiveTintColor: '#FF6347',
-                tabBarInactiveTintColor: '#888888',
+                tabBarStyle: {
+                    height: 70
+                },
+                tabBarActiveTintColor: '#FF6347r',
+                tabBarInactiveTintColor: '#259447',
                 tabBarIcon: ({ color }) => {
                     let iconName;
                     if (route.name === 'Home') {
@@ -59,7 +61,7 @@ export default function HomeNavigatorRegular() {
                     } else if (route.name === 'Calendar') {
                         iconName = 'calendar-outline';
                     }
-                    return <Ionicons name={iconName} size={28} color={color} />;
+                    return <Ionicons name={iconName} size={30} color={color} />;
                 },
                 tabBarLabelStyle: {
                     fontSize: 15,
@@ -81,14 +83,17 @@ export default function HomeNavigatorRegular() {
             <Screen
                 name="Profile"
                 component={ProfileStackNavigator}
+                options={{ title: 'Perfil' }}
             />
             <Screen
                 name="Pets"
                 component={PetsScreenUserRegular}
+                options={{ title: 'Animales' }}
             />
             <Screen
                 name="Calendar"
                 component={CalanderSreenUserRegular}
+                options={{ title: 'Calendario' }}
             />
         </Navigator>
     );

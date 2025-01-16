@@ -46,7 +46,6 @@ export default function HomeNavigatorVet() {
                 headerTitleAlign: 'center',
                 tabBarStyle: {
                     height: 70,
-
                 },
                 tabBarActiveTintColor: '#FF6347r',
                 tabBarInactiveTintColor: '#259447',

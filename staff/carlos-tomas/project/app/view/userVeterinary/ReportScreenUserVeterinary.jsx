@@ -7,11 +7,11 @@ import { useNavigation } from '@react-navigation/native'
 
 export default function SearchBarExample() {
     const navigation = useNavigation()
-
     const [search, setSearch] = useState(null)
     const [allData, setAllData] = useState(null)
     const [filteredData, setFilteredData] = useState([])
     const [infoPet, setInfoPet] = useState(null)
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -20,12 +20,11 @@ export default function SearchBarExample() {
                 setFilteredData(data)
             } catch (error) {
                 Alert.alert('Error', error.message)
-                console.error(error);
+                console.error(error)
             }
-        }
-
-        fetchUserData()
-    }, [])
+        };
+        fetchUserData();
+    }, []);
 
     const reloadPetsData = async () => {
         try {
@@ -35,11 +34,10 @@ export default function SearchBarExample() {
         } catch (error) {
             Alert.alert('Error', error.message)
         }
-    }
+    };
 
     const handleSearch = (text) => {
         setSearch(text)
-
         if (text) {
             const newData = allData.filter((item) =>
                 item.chip.toLowerCase().includes(text.toLowerCase())
@@ -48,38 +46,35 @@ export default function SearchBarExample() {
         } else {
             setFilteredData(allData)
         }
-    }
+    };
+
     const handleItemPress = (item) => {
+        setInfoPet(item);
+    };
 
-        setInfoPet(item)
-    }
     return (
-        <ScrollView>
-
-            <View style={report.container}>
+        <FlatList
+            ListHeaderComponent={() => (
                 <TextInput
                     style={report.searchBar}
-                    placeholder=' Chip del animal'
+                    placeholder='Chip del animal'
                     value={search}
                     onChangeText={handleSearch}
                     keyboardType='number-pad'
                 />
-                <FlatList
-                    data={filteredData.slice(0, 6)}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => handleItemPress(item)}>
-
-                            <View style={report.item}>
-                                <Text>Nombre: {item.name}</Text>
-                                <Text>Dueño : {item.ownerName}</Text>
-                            </View>
-                        </TouchableOpacity>
-                    )}
-                />
-
+            )}
+            data={filteredData.slice(0, 6)}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => handleItemPress(item)}>
+                    <View style={report.item}>
+                        <Text>Nombre: {item.name}</Text>
+                        <Text>Dueño: {item.ownerName}</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
+            ListFooterComponent={() => (
                 <View style={report.button}>
-
                     <TouchableOpacity
                         onPress={() => {
                             if (infoPet) {
@@ -90,25 +85,20 @@ export default function SearchBarExample() {
                         }}
                         style={report.touchableOpacity}
                     >
-                        <Text style={report.text}>
-                            Historial del animal
-                        </Text>
+                        <Text style={report.text}>Historial del animal</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={() => {
                             if (infoPet) {
                                 navigation.navigate('new report', { infoPet, reloadPetsData })
-                                navigation.setOptions
                             } else {
                                 Alert.alert('Atención', 'Selecciona a un animal')
                             }
                         }}
                         style={report.touchableOpacity}
                     >
-                        <Text style={report.text}>
-                            Nuevo reporte
-                        </Text>
+                        <Text style={report.text}>Nuevo reporte</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -121,24 +111,20 @@ export default function SearchBarExample() {
                         }}
                         style={report.touchableOpacity}
                     >
-                        <Text style={report.text}>
-                            Medicina preventiva
-                        </Text>
+                        <Text style={report.text}>Medicina preventiva</Text>
                     </TouchableOpacity>
                 </View>
-
-            </View>
-        </ScrollView>
+            )}
+            contentContainerStyle={report.container}
+        />
     )
 }
 
 const report = StyleSheet.create({
     container: {
-        flex: 1,
         padding: 20,
         gap: 20,
         backgroundColor: '#f5f5f5',
-
     },
     searchBar: {
         height: 50,
@@ -146,7 +132,7 @@ const report = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 8,
         marginBottom: 10,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
     item: {
         padding: 15,
@@ -154,15 +140,14 @@ const report = StyleSheet.create({
         borderBottomColor: '#ddd',
     },
     button: {
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
         gap: 30,
-        flex: 2,
         paddingBottom: 50,
     },
     touchableOpacity: {
         width: 450,
-        backgroundColor: "#c1f1cf",
+        backgroundColor: '#c1f1cf',
         borderBottomColor: 'black',
         borderWidth: 0.5,
         borderRadius: 10,

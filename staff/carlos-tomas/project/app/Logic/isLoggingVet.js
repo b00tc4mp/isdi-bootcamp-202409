@@ -9,7 +9,7 @@ export default async () => {
         token = await getToken()
 
     } catch (error) {
-        console.errror('rol no encontrado')
+        console.error('rol no encontrado')
     }
 
     if (!token) {

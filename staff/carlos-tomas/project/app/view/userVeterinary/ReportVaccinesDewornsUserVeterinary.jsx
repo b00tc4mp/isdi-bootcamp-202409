@@ -40,13 +40,13 @@ export default function ReportVaccinesDewornsUserVeterinary({ route }) {
 
     return (
         <View style={reportVaccinesDeworns.view}>
-            <Text>Historial del animal</Text>
+            <Text style={reportVaccinesDeworns.text}>Historial del animal</Text>
 
             <View style={reportVaccinesDeworns.info}>
-                <Text> Nombre del animal: {infoPet.name}</Text>
-                <Text>Chip del animal: {infoPet.chip}</Text>
-                <Text>Peso del animal: {infoPet.weight}</Text>
-                <Text>Animal estarlizado: {infoPet.sterilized ? 'Si' : 'No'}</Text>
+                <Text> Nombre: {infoPet.name}</Text>
+                <Text>Chip: {infoPet.chip}</Text>
+                <Text>Peso: {infoPet.weight}</Text>
+                <Text>Animal: {infoPet.sterilized ? 'Si' : 'No'}</Text>
                 <Text>Fecha de nacimiento: {formatDate(infoPet.dateOfBirth)}</Text>
                 <Text>Vacunas:</Text>
                 {infoPet.vaccines && infoPet.vaccines.length > 0 ? (
@@ -65,7 +65,7 @@ export default function ReportVaccinesDewornsUserVeterinary({ route }) {
                     <Text>No hay desparasitaciones registradas.</Text>
                 )}
             </View>
-            <Text> Medicina preventiva </Text>
+            <Text style={reportVaccinesDeworns.text}> Medicina preventiva </Text>
             <Dropdown
                 style={reportVaccinesDeworns.dropdown}
                 data={dewornTypeItem}
@@ -98,27 +98,34 @@ const reportVaccinesDeworns = StyleSheet.create({
         gap: 10,
         paddingTop: 5
     },
+    text: {
+        fontSize: 25
+    },
     info: {
-        gap: 10,
-        borderWidth: 3,
-        borderColor: 'grey',
-        padding: 10,
+        width: 450,
+        gap: 5,
+        borderWidth: 1.5,
+        borderColor: 'black',
+        padding: 7,
         borderRadius: 8,
-        backgroundColor: 'grey'
+        backgroundColor: '#b7f6a0'
     },
     dropdown: {
         height: 50,
-        width: 350,
+        width: 450,
         borderWidth: 2,
         borderRadius: 8,
-        padding: 10
+        padding: 10,
+        backgroundColor: '#dafbcc'
     },
     submit: {
-        width: 300,
-        backgroundColor: "red",
-        borderRadius: 45,
-        padding: 24,
-        justifyContent: "center",
-        alignItems: "center"
+        width: 350,
+        backgroundColor: '#c1f1cf',
+        borderBottomColor: 'black',
+        borderWidth: 0.5,
+        borderRadius: 25,
+        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })

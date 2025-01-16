@@ -23,15 +23,16 @@ export default function ReportHistoryUserVeterinary({ route }) {
     return (
 
         <ScrollView>
+
             <View style={reportHistory.view}>
-                <Text>Hisorial del animal</Text>
+                <Text style={reportHistory.text}>Hisorial del animal</Text>
                 <View style={reportHistory.info}>
-                    <Text> Nombre del animal: {infoPet.name}</Text>
-                    <Text>Chip del animal: {infoPet.chip}</Text>
-                    <Text>Peso del animal: {infoPet.weight}</Text>
-                    <Text>Raza del animal: {infoPet.race}</Text>
-                    <Text>Sexo del animal: {infoPet.sex ? 'Macho' : 'Hembra'}</Text>
-                    <Text>Animal estarlizado: {infoPet.sterilized ? 'Si' : 'No'}</Text>
+                    <Text> Nombre: {infoPet.name}</Text>
+                    <Text>Chip: {infoPet.chip}</Text>
+                    <Text>Peso: {infoPet.weight}</Text>
+                    <Text>Raza: {infoPet.race}</Text>
+                    <Text>Sexo: {infoPet.sex ? 'Macho' : 'Hembra'}</Text>
+                    <Text>Estarlizado: {infoPet.sterilized ? 'Si' : 'No'}</Text>
                     <Text>Fecha de nacimiento: {formatDate(infoPet.dateOfBirth)}</Text>
                     <Text>Vacunas:</Text>
                     {infoPet.vaccines && infoPet.vaccines.length > 0 ? (
@@ -52,8 +53,7 @@ export default function ReportHistoryUserVeterinary({ route }) {
                 </View>
 
                 <View style={reportHistory.history}>
-                    <Text>Historial del animal</Text>
-                    <Text>Escoga el tipo de informe</Text>
+                    <Text style={reportHistory.text}>Escoga el tipo de informe</Text>
                     <Dropdown
                         style={reportHistory.dropdown}
                         data={reportTypeItem}
@@ -77,31 +77,31 @@ export default function ReportHistoryUserVeterinary({ route }) {
 
 const reportHistory = StyleSheet.create({
     view: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
+    text: {
+        fontSize: 25
+    },
     history: {
-        flex: 1,
         padding: 20,
-        gap: 15,
-
+        gap: 10,
     },
     info: {
-        flex: 1,
-        gap: 10,
-        borderWidth: 3,
-        borderColor: 'grey',
-        padding: 10,
+        width: 450,
+        gap: 5,
+        borderWidth: 1.5,
+        borderColor: 'black',
+        padding: 7,
         borderRadius: 8,
-        backgroundColor: 'grey'
+        backgroundColor: '#b7f6a0'
     },
     dropdown: {
         height: 50,
-        width: 350,
-        borderWidth: 2,
+        width: 450,
+        borderWidth: 1.5,
         borderRadius: 8,
-        padding: 10
+        padding: 10,
+        backgroundColor: '#dafbcc'
     }
-
 })
