@@ -35,7 +35,7 @@ export default function LoginScreen() {
         <View style={loginScreen.form}>
             <Text
                 style={loginScreen.text} >
-                Inicar sesion
+                Iniciar sesión
             </Text>
 
             <TextInput
@@ -100,16 +100,19 @@ const loginScreen = StyleSheet.create({
     },
 
     submit: {
-        width: 350,
-        backgroundColor: "red",
-        borderRadius: 45,
-        padding: 24,
+        width: 325,
+        backgroundColor: "#c1f1cf",
+        borderBottomColor: 'black',
+        borderWidth: 0.5,
+        borderRadius: 25,
+        padding: 15,
         justifyContent: "center",
         alignItems: "center",
 
+
     },
     text: {
-        fontSize: 35
+        fontSize: 50
     },
     textSubmit: {
         fontSize: 20

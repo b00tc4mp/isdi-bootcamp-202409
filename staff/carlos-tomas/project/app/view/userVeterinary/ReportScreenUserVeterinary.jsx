@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TextInput, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native'
+import { Text, View, TextInput, FlatList, StyleSheet, Alert, TouchableOpacity, ScrollView } from 'react-native'
 import logic from '../../logic'
 import { useNavigation } from '@react-navigation/native'
 
@@ -54,79 +54,81 @@ export default function SearchBarExample() {
         setInfoPet(item)
     }
     return (
+        <ScrollView>
 
-        <View style={report.container}>
-            <TextInput
-                style={report.searchBar}
-                placeholder="Buscar chip del animal"
-                value={search}
-                onChangeText={handleSearch}
-                keyboardType='number-pad'
-            />
-            <FlatList
-                data={filteredData.slice(0, 4)}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => handleItemPress(item)}>
+            <View style={report.container}>
+                <TextInput
+                    style={report.searchBar}
+                    placeholder=' Chip del animal'
+                    value={search}
+                    onChangeText={handleSearch}
+                    keyboardType='number-pad'
+                />
+                <FlatList
+                    data={filteredData.slice(0, 6)}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => handleItemPress(item)}>
 
-                        <View style={report.item}>
-                            <Text>{item.name}</Text>
-                            <Text>{item.owner}</Text>
-                        </View>
+                            <View style={report.item}>
+                                <Text>Nombre: {item.name}</Text>
+                                <Text>Dueño : {item.ownerName}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )}
+                />
+
+                <View style={report.button}>
+
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (infoPet) {
+                                navigation.navigate('report history', { infoPet })
+                            } else {
+                                Alert.alert('Atención', 'Selecciona a un animal')
+                            }
+                        }}
+                        style={report.touchableOpacity}
+                    >
+                        <Text style={report.text}>
+                            Historial del animal
+                        </Text>
                     </TouchableOpacity>
-                )}
-            />
 
-            <View style={report.button}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (infoPet) {
+                                navigation.navigate('new report', { infoPet, reloadPetsData })
+                                navigation.setOptions
+                            } else {
+                                Alert.alert('Atención', 'Selecciona a un animal')
+                            }
+                        }}
+                        style={report.touchableOpacity}
+                    >
+                        <Text style={report.text}>
+                            Nuevo reporte
+                        </Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        if (infoPet) {
-                            navigation.navigate('report history', { infoPet })
-                        } else {
-                            Alert.alert('Atención', 'Selecciona a un animal')
-                        }
-                    }}
-                    style={report.touchableOpacity}
-                >
-                    <Text>
-                        Historial del animal
-                    </Text>
-                </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (infoPet) {
+                                navigation.navigate('preventive', { infoPet, reloadPetsData })
+                            } else {
+                                Alert.alert('Atención', 'Selecciona a un animal')
+                            }
+                        }}
+                        style={report.touchableOpacity}
+                    >
+                        <Text style={report.text}>
+                            Medicina preventiva
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        if (infoPet) {
-                            navigation.navigate('new report', { infoPet, reloadPetsData })
-                            navigation.setOptions
-                        } else {
-                            Alert.alert('Atención', 'Selecciona a un animal')
-                        }
-                    }}
-                    style={report.touchableOpacity}
-                >
-                    <Text>
-                        Nuevo report
-                    </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => {
-                        if (infoPet) {
-                            navigation.navigate('preventive', { infoPet, reloadPetsData })
-                        } else {
-                            Alert.alert('Atención', 'Selecciona a un animal')
-                        }
-                    }}
-                    style={report.touchableOpacity}
-                >
-                    <Text>
-                        Medicina preventiva
-                    </Text>
-                </TouchableOpacity>
             </View>
-
-        </View>
+        </ScrollView>
     )
 }
 
@@ -134,7 +136,9 @@ const report = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        gap: 20,
         backgroundColor: '#f5f5f5',
+
     },
     searchBar: {
         height: 50,
@@ -146,20 +150,26 @@ const report = StyleSheet.create({
     },
     item: {
         padding: 15,
-        borderBottomWidth: 1,
+        borderBottomWidth: 1.5,
         borderBottomColor: '#ddd',
     },
     button: {
         justifyContent: "center",
         alignItems: "center",
-        gap: 50,
-        flex: 5,
-        paddingBottom: 50
+        gap: 30,
+        flex: 2,
+        paddingBottom: 50,
     },
     touchableOpacity: {
-        width: 300,
-        backgroundColor: "red",
-        borderRadius: 45,
-        padding: 24,
+        width: 450,
+        backgroundColor: "#c1f1cf",
+        borderBottomColor: 'black',
+        borderWidth: 0.5,
+        borderRadius: 10,
+        padding: 15,
+    },
+    text: {
+        textAlign: 'center',
+        fontSize: 20,
     }
 })

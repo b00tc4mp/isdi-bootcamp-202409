@@ -72,7 +72,7 @@ export default function Register() {
                 />
                 <TextInput
                     style={signInScreen.text_input}
-                    placeholder='Telefono opcional'
+                    placeholder='Teléfono'
                     keyboardType='phone-pad'
                     value={phone}
                     onChangeText={setPhone}
@@ -89,7 +89,7 @@ export default function Register() {
                     style={signInScreen.submit}
                     onPress={handleRegister}
                 >
-                    <Text>
+                    <Text style={signInScreen.textSubmit}>
                         Register
                     </Text>
 
@@ -124,15 +124,20 @@ const signInScreen = StyleSheet.create({
     },
 
     submit: {
-        width: 300,
-        backgroundColor: "red",
-        borderRadius: 45,
-        padding: 24,
+        width: 325,
+        backgroundColor: "#c1f1cf",
+        borderBottomColor: 'black',
+        borderWidth: 0.5,
+        borderRadius: 25,
+        padding: 15,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     scrollView: {
         paddingTop: 100,
 
+    },
+    textSubmit: {
+        fontSize: 20
     }
 });

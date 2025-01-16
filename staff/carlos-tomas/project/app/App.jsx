@@ -13,17 +13,17 @@ export default function App() {
   const { isLoggedIn, isLoggingVeterinary } = useSession()
 
   return (
-    // <SafeAreaView style={app.droidSafeArea}>
-    <>
-      <StatusBar style='auto' />
+    <SafeAreaView style={app.droidSafeArea}>
+      <>
+        <StatusBar style='auto' />
 
-      <NavigationContainer>
+        <NavigationContainer>
 
-        {isLoggedIn ? (isLoggingVeterinary ? <HomeNavigatorVet /> : <HomeNavigatorRegular />) : < LoginRegisScreen />}
+          {isLoggedIn ? (isLoggingVeterinary ? <HomeNavigatorVet /> : <HomeNavigatorRegular />) : < LoginRegisScreen />}
 
-      </NavigationContainer>
-    </>
-    // </SafeAreaView>
+        </NavigationContainer>
+      </>
+    </SafeAreaView>
   )
 }
 

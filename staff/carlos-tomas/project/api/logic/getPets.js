@@ -18,13 +18,17 @@ export default (userId) => {
         }
         let pets
         try {
-            pets = await Pet.find().lean()
+            pets = await Pet.find().populate('owner', 'name').lean()
         } catch (error) {
             throw new SystemError(error.message)
         }
         pets.forEach(pet => {
             pet.id = pet._id.toString()
             delete pet._id
+            if (pet.owner) {
+                pet.ownerName = pet.owner.name
+                delete pet.owner
+            }
         })
         return pets
     })()

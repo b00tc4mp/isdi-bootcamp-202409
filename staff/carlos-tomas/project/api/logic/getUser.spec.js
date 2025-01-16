@@ -19,7 +19,7 @@ debugger
 describe('getUser', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
-    beforeEach(() => Promise.all([User.deleteMany()]))
+    beforeEach(() => User.deleteMany())
 
     it('get user', () => {
         User.create({ name: 'Carlos Tomas', username: 'ctcarlos25', password: bcrypt.hashSync('123123123', 10), phone: '+34682519205', email: 'ctcarlos25@gmail.com' })

@@ -65,10 +65,6 @@ const deworn = new Schema({
         required: true,
         enum: ['external', 'internal', 'both']
     },
-    // name: {
-    //     type: String,
-    //     required: true,
-    // },
     date: {
         type: Date,
         default: Date.now
@@ -143,9 +139,6 @@ const history = new Schema({
         type: String,
         required: true
     },
-    // image: {
-    //     type: String,
-    // },//TODO
     date: {
         type: Date,
         default: Date.now

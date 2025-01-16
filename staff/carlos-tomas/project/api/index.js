@@ -88,5 +88,5 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.use(errorHandler)
 
-    server.listen(process.env.PORT, process.env.URL_API, () => console.log('API listening on /192.168.1.107:8080'))
+    server.listen(process.env.PORT, process.env.URL_API, () => console.log(`API listening ${process.env.URL_API} and port ${process.env.PORT} `))
 })

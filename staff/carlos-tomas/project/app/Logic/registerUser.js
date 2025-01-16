@@ -11,15 +11,17 @@ export default async (name, username, password, phone, email, passwordRepeat) =>
     validate.email(email)
     validate.passwordsMatch(password, passwordRepeat)
 
+    let response
     try {
-        const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}usersRegister`, {
-            name,
-            username,
-            password,
-            phone,
-            email,
-            passwordRepeat
-        })
+        response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/usersRegister`,
+            {
+                name,
+                username,
+                password,
+                phone,
+                email,
+                passwordRepeat
+            })
 
         return response.data
     } catch (error) {

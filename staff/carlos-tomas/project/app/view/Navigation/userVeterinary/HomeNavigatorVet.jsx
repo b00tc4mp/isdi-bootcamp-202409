@@ -6,7 +6,7 @@ import { TouchableOpacity, Alert } from 'react-native'
 
 import logic from '../../../logic'
 
-import { HomeScreenVeterinary, CalanderSreenUserVeterinary, PetsScreenUserVeterinary, ProfileScreenUserVeterinary, } from '../../userVeterinary'
+import { CalanderSreenUserVeterinary, PetsScreenUserVeterinary, ProfileScreenUserVeterinary, } from '../../userVeterinary'
 
 import ReportStackNavigator from './ReportStackNavigator'
 
@@ -44,58 +44,58 @@ export default function HomeNavigatorVet() {
         <Navigator
             screenOptions={({ route }) => ({
                 headerTitleAlign: 'center',
-                tabBarStyle: { height: 70 },
-                tabBarActiveTintColor: '#FF6347',
-                tabBarInactiveTintColor: '#888888',
+                tabBarStyle: {
+                    height: 70,
+
+                },
+                tabBarActiveTintColor: '#FF6347r',
+                tabBarInactiveTintColor: '#259447',
+
                 tabBarIcon: ({ color }) => {
                     let iconName;
-                    if (route.name === 'home') {
-                        iconName = 'home'
-                    } else if (route.name === 'report') {
+                    if (route.name === 'report') {
                         iconName = 'book';
-                    } else if (route.name === 'Profile') {
+                    } else if (route.name === 'profile') {
                         iconName = 'person-outline';
-                    } else if (route.name === 'register animals') {
+                    } else if (route.name === 'registerAnimals') {
                         iconName = 'paw-outline';
                     } else if (route.name === 'calendar') {
                         iconName = 'calendar-outline';
                     }
-                    return <Ionicons name={iconName} size={28} color={color} />;
+                    return <Ionicons name={iconName} size={30} color={color} />;
                 },
                 tabBarLabelStyle: {
                     fontSize: 15,
                     paddingBottom: 10
+
                 },
                 headerRight: () => (
                     <TouchableOpacity onPress={handleLogoutSuccess}>
-                        <Ionicons name='log-out' size={45} color="black" style={{ paddingLeft: 50 }} />
+                        <Ionicons name='log-out' size={45} color="black" style={{ paddingLeft: 0 }} />
                     </TouchableOpacity>
                 )
 
             })}
         >
             <Screen
-                name="home"
-                component={HomeScreenVeterinary}
-                options={{ title: 'Informe del veterinario' }}
-            />
-            <Screen
                 name="report"
                 component={ReportStackNavigator}
                 options={{ title: 'Informe del veterinario' }}
             />
             <Screen
-                name="Profile"
+                name="profile"
                 component={ProfileScreenUserVeterinary}
+                options={{ title: 'Profile' }}
             />
             <Screen
-                name="register animals"
+                name="registerAnimals"
                 component={PetsScreenUserVeterinary}
                 options={{ title: 'Registro de animales' }}
             />
             <Screen
                 name="calendar"
                 component={CalanderSreenUserVeterinary}
+                options={{ title: 'Calendario' }}
             />
         </Navigator>
     );
