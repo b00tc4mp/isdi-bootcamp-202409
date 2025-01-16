@@ -3,6 +3,7 @@ import createHomeDiver from "./createHomeDiver.js"
 import getProfile from "./getProfile.js"
 import getUserName from "./getUserName.js"
 import searchDiveCenters from "./searchDiveCenters.js"
+import getFaunaFloraByCity from "./getFaunaFloraByCity.js"
 
 export {
     registerUserDiver,
@@ -10,4 +11,5 @@ export {
     getProfile,
     getUserName,
     searchDiveCenters,
+    getFaunaFloraByCity,
 }

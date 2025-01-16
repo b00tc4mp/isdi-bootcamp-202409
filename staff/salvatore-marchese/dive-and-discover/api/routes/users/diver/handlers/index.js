@@ -4,6 +4,7 @@ import getUserHandler from './getUserHandler.js'
 import getProfileHandler from './getProfileHandler.js'
 import updateProfileHandler from './updateProfileHandler.js'
 import searchDiveCentersHandler from './searchDiveCentersHandler.js'
+import getFaunaFloraByCityHandler from './getFaunaFloraByCityHandler.js'
 
 export {
     registerUserDiverHandler,
@@ -12,4 +13,5 @@ export {
     getProfileHandler,
     updateProfileHandler,
     searchDiveCentersHandler,
+    getFaunaFloraByCityHandler,
 }

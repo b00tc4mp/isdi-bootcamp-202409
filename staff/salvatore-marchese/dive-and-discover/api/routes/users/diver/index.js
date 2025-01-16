@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { authorizationHandler, jsonBodyParser } from '../../helpers/index.js'
-import { registerUserDiverHandler, getUserNameHandler, getProfileHandler, updateProfileHandler, searchDiveCentersHandler } from '../../users/diver/handlers/index.js'
+import { registerUserDiverHandler, getUserNameHandler, getProfileHandler, updateProfileHandler, searchDiveCentersHandler, getDiscoveryHandler, getFaunaFloraByCityHandler } from '../../users/diver/handlers/index.js'
 
 
 
@@ -18,6 +18,9 @@ usersRouter.put('/profile', authorizationHandler, updateProfileHandler)
 
 // Search route
 usersRouter.get('/search', authorizationHandler, searchDiveCentersHandler)
+
+// Fauna Flora route 
+usersRouter.get('/faunaFlora', authorizationHandler, getFaunaFloraByCityHandler)
 
 
 export default usersRouter

@@ -11,6 +11,7 @@ import {
     getProfile,
     getUserName,
     searchDiveCenters,
+    getFaunaFloraByCity,
 
 } from './users/diver/index.js'
 
@@ -41,6 +42,7 @@ const logic = {
     updateProfile,
     addOpeningHours,
     searchDiveCenters,
+    getFaunaFloraByCity,
 
     createLog,
     getLogs,

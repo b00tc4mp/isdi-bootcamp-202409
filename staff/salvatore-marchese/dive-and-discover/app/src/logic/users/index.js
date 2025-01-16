@@ -4,6 +4,7 @@ import loginUser from "./loginUser";
 import logoutUser from "./logoutUser";
 import { isUserLoggedIn } from "./isUserLoggedIn";
 import searchDiveCenters from "./searchDiveCenters";
+import getFaunaFloraByCity from "./getFaunaFloraByCity";
 
 import isUserRoleCenter from "./isUserRoleCenter";
 import isUserRoleDiver from "./isUserRoleDiver";
@@ -30,6 +31,7 @@ const logic = {
     getUserName,
     updateProfileCenter,
     searchDiveCenters,
+    getFaunaFloraByCity,    
 }
 
 export default logic 

@@ -238,13 +238,13 @@ const EditLog = () => {
           ></textarea>
         </div>
 
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+        <button type="submit" className="bg-blue-500 text-yellow-400 py-2 px-4 rounded-md hover:bg-blue-600">
           Save Changes
         </button>
         <button
           type="button"
           onClick={() => navigate("/dive-history")}
-          className="ml-4 bg-gray-300 py-2 px-4 rounded-md hover:bg-gray-400">
+          className="ml-4 bg-red-500 text-yellow-400 py-2 px-4 rounded-md hover:bg-gray-400">
           Cancel
         </button>
       </form>

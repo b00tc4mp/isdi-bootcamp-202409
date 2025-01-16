@@ -212,6 +212,26 @@ const centerLocation = new Schema({
     }
 }, { versionKey: false });
 
+const faunaFlora = new Schema({
+    city: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    fauna: {
+        type: [String], // Array of strings for fauna species
+        required: true,
+    },
+    flora: {
+        type: [String], // Array of strings for flora species
+        required: true,
+    },
+    description: {
+        type: String, // Description of the marine life in the area
+        required: true,
+    }, 
+})
+
 
 
 
@@ -220,9 +240,10 @@ const centerLocation = new Schema({
 const User = model('User', user)
 const LogBook = model('Logbook', logBook)
 const Place = model('Place', place)
-const Point = model('Point', point)
+const Point = model('Point', point) 
 const CenterLocation = model('CenterLocation', centerLocation)
 const OpeningHours = model('OpeningHours', openingHours)
+const FaunaFlora = model('FaunaFlora', faunaFlora)
 
 export {
     User,
@@ -230,5 +251,7 @@ export {
     Place,
     Point,
     CenterLocation,
-    OpeningHours
+    OpeningHours,
+    FaunaFlora,
+
 }

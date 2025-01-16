@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import searchDiveCenters from "../../logic/users/searchDiveCenters.js";
 
 const Search = () => {
@@ -6,6 +7,7 @@ const Search = () => {
   const [results, setResults] = useState([]); // State to hold search results
   const [error, setError] = useState(""); // State to handle errors
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setCity(e.target.value); // Update city input
@@ -28,7 +30,13 @@ const Search = () => {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-gray-50 py-8">
+    <main
+      className="min-h-screen flex flex-col items-center bg-cover bg-center py-8"
+      style={{
+        backgroundImage:
+          "url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/df/2b/0e/getlstd-property-photo.jpg?w=1200&h=1200&s=1')",
+      }}
+    >
       <div className="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-blue-600 text-center mb-4">Search Dive Centers</h2>
 
@@ -42,7 +50,7 @@ const Search = () => {
               id="city"
               value={city}
               onChange={handleInputChange}
-              placeholder="e.g., Miami"
+              placeholder="e.g., Barcelona"
               className="w-full border border-gray-300 rounded-md p-2"
               required
             />
@@ -50,9 +58,8 @@ const Search = () => {
 
           <button
             type="submit"
-            className={`w-full py-2 px-4 text-yellow-400 rounded-md ${
-              isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-            }`}
+            className={`w-full py-2 px-4 text-yellow-400 rounded-md ${isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+              }`}
             disabled={isLoading}
           >
             {isLoading ? "Searching..." : "Search"}
@@ -81,6 +88,14 @@ const Search = () => {
                   </li>
                 ))}
               </ul>
+              <button
+                onClick={() =>
+                  navigate(`/faunaFlora/${results[0]?.city}`)
+                }
+                className="mt-4 bg-blue-500 text-yellow-400 py-2 px-4 rounded-md hover:bg-blue-600 w-full sm:w-auto"
+              >
+                Find out more about this area
+              </button>
             </div>
           ) : (
             <p className="text-gray-500 text-center">{isLoading ? "" : "No results to display."}</p>
