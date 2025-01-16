@@ -74,6 +74,11 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                         valueClass={pack.paymentStatus === 'completed' ? 'text-green-500' : pack.paymentStatus === 'partially payed' ? 'text-yellow-500' : 'text-red-500'}
                     />
                     <Card
+                        title="Price"
+                        value={pack.price + ' ' + pack.currency || '0'}
+                        valueClass="text-gray-800"
+                    />
+                    <Card
                         title="Payed Amount"
                         value={pack.totalPayments || '0'}
                         valueClass="text-gray-800"
@@ -81,6 +86,11 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                     <Card
                         title="Original Quantity"
                         value={pack.originalQuantity + ' ' + pack.unit || 'Unknown'}
+                        valueClass="text-gray-800"
+                    />
+                    <Card
+                        title="Remaining Quantity"
+                        value={pack.remainingQuantity + ' ' + pack.unit || 'Unknown'}
                         valueClass="text-gray-800"
                     />
                 </div>
@@ -91,38 +101,36 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                         <Input className="border-2 rounded-lg" type="text" id="packDescription" placeholder="Pack name" defaultValue={pack.description} />
                     </Field>
 
-                    <Field>
+                    {/* <Field>
                         <Label htmlFor="originalQuantity">Original Quantity</Label>
                         <Input className="border-2 rounded-lg" type="text" id="originalQuantity" placeholder="Original Quantity" defaultValue={pack.originalQuantity} />
-                    </Field>
+                    </Field> */}
 
                     <Field>
                         <Label htmlFor="remainingQuantity">Remaining Quantity</Label>
                         <Input className="border-2 rounded-lg" type="text" id="remainingQuantity" placeholder="Remaining Quantity" defaultValue={pack.remainingQuantity} />
                     </Field>
 
-                    <Field>
-                        <Label htmlFor="unit">Unit</Label>
-                        <select id="unit" name="unit" defaultValue={pack.unit}>
-                            <option value="hours">Hours</option>
-                            <option value="units">Units</option>
-                        </select>
-                    </Field>
-
-                    <Field>
+                    {/* <Field>
                         <Label htmlFor="price">Price</Label>
                         <Input className="border-2 rounded-lg w-full" type="text" id="price" placeholder="50 €" defaultValue={pack.price} />
                         <input type="hidden" id="currency" defaultValue="EUR" />
-                    </Field>
+                    </Field> */}
 
                     <Field>
                         <Label htmlFor="purchaseDate">Purchase Date</Label>
-                        <Input className="border-2 rounded-lg w-full" type="text" id="purchaseDate" defaultValue={pack.formattedPurchaseDate} />
+                        <Input className="border-2 rounded-lg w-full"
+                            type="date"
+                            id="purchaseDate"
+                            defaultValue={pack.purchaseDate ? new Date(pack.purchaseDate).toISOString().split('T')[0] : ''} />
                     </Field>
 
                     <Field>
                         <Label htmlFor="expireDate">Expire Date</Label>
-                        <Input className="border-2 rounded-lg w-full" type="text" id="expireDate" defaultValue={pack.formattedExpiryDate} />
+                        <Input className="border-2 rounded-lg w-full"
+                            type="date"
+                            id="expireDate"
+                            defaultValue={pack.purchaseDate ? new Date(pack.expiryDate).toISOString().split('T')[0] : ''} />
                     </Field>
 
 

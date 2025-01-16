@@ -7,6 +7,12 @@ const validateName = name => {
         throw new ValidationError('invalid name length')
 }
 
+const validateInteger = num => {
+    if (!Number.isInteger(num)) {
+        throw new ValidationError('Units provided should be an integer')
+    }
+}
+
 const validateEmail = email => {
     if (typeof email !== 'string') throw new ValidationError('invalid email')
     if (email.length > 254) throw new ValidationError('email is too long')
@@ -58,7 +64,8 @@ const validate = {
     image: validateImage,
     text: validateText,
     id: validateId,
-    callback: validateCallback
+    callback: validateCallback,
+    integerNum: validateInteger
 }
 
 export default validate

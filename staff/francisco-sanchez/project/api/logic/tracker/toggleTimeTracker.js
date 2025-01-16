@@ -101,8 +101,6 @@ export default (userId, packId, customerId, description, operation) => {
 
                         return updatedPack
                     })
-
             }
-
         })
 }

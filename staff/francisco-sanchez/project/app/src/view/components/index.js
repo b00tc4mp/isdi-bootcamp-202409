@@ -3,6 +3,7 @@ import Alert from './Alert.jsx'
 import Confirm from './Confirm.jsx'
 import UpdateBasePack from './UpdateBasePack.jsx'
 import UpdateCustomerPack from './UpdateCustomerPack.jsx'
+import ActivityTable from './ActivityTable.jsx'
 
 
 export {
@@ -12,5 +13,7 @@ export {
     Confirm,
 
     UpdateBasePack,
-    UpdateCustomerPack
+    UpdateCustomerPack,
+
+    ActivityTable
 }

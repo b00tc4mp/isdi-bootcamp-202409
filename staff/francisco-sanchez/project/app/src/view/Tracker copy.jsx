@@ -3,12 +3,12 @@ import logic from '../logic'
 import { errors } from 'com'
 
 import useContex from './useContext'
-import { Button, Field, Label, Input } from '../library/index'
-import { ActivityTable } from './components/index'
+import { Button, Field, Label, Input } from '../library/index';
+import { ActivityTable } from './components/index';
 
-/* import { getCustomers } from '../logic/users'
-import { getActivitiesByPackId } from '../logic/activities'
-import { getDecimalToTimeFormat } from '../logic/helpers' */
+/* import { getCustomers } from '../logic/users';
+import { getActivitiesByPackId } from '../logic/activities';
+import { getDecimalToTimeFormat } from '../logic/helpers'; */
 
 const { SystemError } = errors
 
@@ -20,8 +20,8 @@ export default function Tracker(props) {
     const [selectedPack, setSelectedPack] = useState(null) // Estado para almacenar el pack seleccionado
     const [description, setDescription] = useState('') // Estado para almacenar la descripción
 
-    const [elapsedTime, setElapsedTime] = useState(0) // Tiempo transcurrido en segundos
-    const [intervalId, setIntervalId] = useState(null) // Identificador del intervalo
+    const [elapsedTime, setElapsedTime] = useState(0); // Tiempo transcurrido en segundos
+    const [intervalId, setIntervalId] = useState(null); // Identificador del intervalo
 
     const { alert } = useContex()
 
@@ -37,8 +37,8 @@ export default function Tracker(props) {
                     setSelectedCustomer(firstCustomerId)
 
                     const packs = await logic.getAdquiredPacks(firstCustomerId.id)
-                    //console.log('Packs fetched successfully --> ', packs)
-                    setFilteredPacks(packs)
+                    //console.log('Packs fetched successfully --> ', packs);
+                    setFilteredPacks(packs);
 
                     //load activities from first pack in the select
                     if (packs.length > 0) {
@@ -56,8 +56,8 @@ export default function Tracker(props) {
                 }
 
             } catch (error) {
-                alert(error.message)
-                console.error(error)
+                alert(error.message);
+                console.error(error);
             }
         }
         fetchData()
@@ -67,30 +67,30 @@ export default function Tracker(props) {
     const handleCustomerChange = (event) => {
         //console.log(event)
 
-        const customerId = event.target.value
+        const customerId = event.target.value;
         //console.log('customerID CHANGED --> ' + customerId)
 
         // Detenemos el temporizador actual
         if (intervalId) {
-            clearInterval(intervalId)
-            setIntervalId(null)
+            clearInterval(intervalId);
+            setIntervalId(null);
             //console.log('Interval Id --> ' + intervalId)
         }
 
         // Reiniciamos el tiempo transcurrido
-        setElapsedTime(0)
+        setElapsedTime(0);
 
         // Actualizamos el cliente seleccionado
-        setSelectedCustomer(customerId)
+        setSelectedCustomer(customerId);
 
         // Limpiamos el pack seleccionado
-        setSelectedPack(null)
+        setSelectedPack(null);
 
         // Fetch packs based on the selected customer
         logic.getAdquiredPacks(customerId)
             .then((packs) => {
-                //console.log('Packs fetched successfully --> ', packs)
-                setFilteredPacks(packs)
+                //console.log('Packs fetched successfully --> ', packs);
+                setFilteredPacks(packs);
 
                 if (packs.length > 0) {
                     const firstPack = packs[0]
@@ -98,14 +98,14 @@ export default function Tracker(props) {
                     setSelectedPack(firstPack) // Actualizar pack seleccionado
 
                     // Calcular tiempo transcurrido y reiniciar temporizador
-                    const elapsed = calculateElapsedTime(firstPack.timerActivated)
-                    setElapsedTime(elapsed)
+                    const elapsed = calculateElapsedTime(firstPack.timerActivated);
+                    setElapsedTime(elapsed);
 
                     if (firstPack.timerActivated) {
                         const id = setInterval(() => {
-                            setElapsedTime((prevTime) => prevTime + 1)
-                        }, 1000)
-                        setIntervalId(id)
+                            setElapsedTime((prevTime) => prevTime + 1);
+                        }, 1000);
+                        setIntervalId(id);
                     }
 
                     logic.getActivitiesByPackId(firstPack.id)
@@ -114,19 +114,19 @@ export default function Tracker(props) {
                             setPackActivities(activities)
                         })
                 } else {
-                    setFilteredPacks([])
+                    setFilteredPacks([]);
                     setPackActivities([])
                 }
             })
             .catch((error) => {
-                alert(error.message)
-                console.error(error)
-                setFilteredPacks([])
+                alert(error.message);
+                console.error(error);
+                setFilteredPacks([]);
                 // Additionally, set disabled to true explicitly
                 // This ensures the select is disabled even on errors
                 // (assuming you want it disabled in case of errors)
-                setDisabled(true)
-            })
+                setDisabled(true);
+            });
     }
 
     const handlePackChange = (event) => {
@@ -136,37 +136,37 @@ export default function Tracker(props) {
         const packId = event.target.value
         const selectedPackObject = filteredPacks.find(pack => pack.id === packId)
 
-        //console.log('Selected Pack --------->', selectedPackObject)
+        //console.log('Selected Pack --------->', selectedPackObject);
         //setSelectedPack(packId) // Actualizar pack seleccionado
 
         if (selectedPackObject) {
             // Detenemos el temporizador actual
             if (intervalId) {
-                clearInterval(intervalId)
-                setIntervalId(null)
+                clearInterval(intervalId);
+                setIntervalId(null);
             }
 
             // Actualizamos el pack seleccionado
             setSelectedPack(selectedPackObject)
 
             // Calculamos el tiempo transcurrido si hay un timerActivated
-            const elapsed = calculateElapsedTime(selectedPackObject.timerActivated)
-            setElapsedTime(elapsed)
+            const elapsed = calculateElapsedTime(selectedPackObject.timerActivated);
+            setElapsedTime(elapsed);
 
             // Inicia el temporizador si `timerActivated` está definido
             if (selectedPackObject.timerActivated) {
                 const id = setInterval(() => {
-                    setElapsedTime((prevTime) => prevTime + 1)
-                }, 1000) // Incrementar cada segundo
-                setIntervalId(id)
+                    setElapsedTime((prevTime) => prevTime + 1);
+                }, 1000); // Incrementar cada segundo
+                setIntervalId(id);
             }
         }
 
         // Actualizamos las actividades
         logic.getActivitiesByPackId(packId)
             .then((packActivities) => {
-                //console.log('Pack Activity fetched successfully', packActivities)
-                setPackActivities(packActivities)
+                //console.log('Pack Activity fetched successfully', packActivities);
+                setPackActivities(packActivities);
             })
             .catch((error) => {
                 alert(error.message)
@@ -190,18 +190,18 @@ export default function Tracker(props) {
         const timerInput = document.getElementById('timer').value
 
         // Validar el formato del input de tiempo: (+/-)hh:mm:ss
-        const timeRegex = /^[-+]?([0-9]{2}):([0-5][0-9]):([0-5][0-9])$/
+        const timeRegex = /^[-+]?([0-9]{2}):([0-5][0-9]):([0-5][0-9])$/;
         if (!timeRegex.test(timerInput)) {
-            alert("Please enter a valid time in the format (+/-)hh:mm:ss.")
-            return
+            alert("Please enter a valid time in the format (+/-)hh:mm:ss.");
+            return;
         }
-
+        //console.log("Manual time adjustment:", timerInput);
     }
 
     const handleToggleTrackButton = () => {
         if (!selectedPack || !selectedPack.id) {
-            alert('No pack selected or invalid pack ID.')
-            return
+            alert('No pack selected or invalid pack ID.');
+            return;
         }
 
         const userId = logic.getUserId()
@@ -210,44 +210,44 @@ export default function Tracker(props) {
         logic.toggleTimeTracker(userId, selectedPack.id, selectedCustomer, currentDescription, 'substract')
             .then((packUpdated) => {
                 if (!packUpdated || !packUpdated.id) {
-                    /* console.log('API Response (packUpdated):', packUpdated)
+                    /* console.log('API Response (packUpdated):', packUpdated);
                     console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
-                    alert('Invalid pack data received from the server.')
-                    return
+                    alert('Invalid pack data received from the server.');
+                    return;
                 }
                 setSelectedPack(packUpdated)
 
                 // Detenemos el temporizador actual
                 if (intervalId) {
-                    clearInterval(intervalId)
-                    setIntervalId(null)
+                    clearInterval(intervalId);
+                    setIntervalId(null);
                 }
 
                 // Calculamos el tiempo inicial y activamos el temporizador
-                const elapsed = calculateElapsedTime(packUpdated.timerActivated)
-                setElapsedTime(elapsed)
+                const elapsed = calculateElapsedTime(packUpdated.timerActivated);
+                setElapsedTime(elapsed);
 
                 if (packUpdated.timerActivated) {
                     const id = setInterval(() => {
-                        setElapsedTime((prevTime) => prevTime + 1)
-                    }, 1000) // Incrementar cada segundo
-                    setIntervalId(id)
+                        setElapsedTime((prevTime) => prevTime + 1);
+                    }, 1000); // Incrementar cada segundo
+                    setIntervalId(id);
                 }
 
                 if (selectedPack?.timerActivated) {
                     // Fetch updated activities 
                     logic.getActivitiesByPackId(packUpdated.id)
                         .then((updatedActivities) => {
-                            console.log('Updated Activities:', updatedActivities)
-                            setPackActivities(updatedActivities) // Actualiza las actividades
+                            console.log('Updated Activities:', updatedActivities);
+                            setPackActivities(updatedActivities); // Actualiza las actividades
                         })
                         .catch((error) => {
-                            alert(error.message)
-                            console.error('Error fetching updated activities:', error)
-                        })
+                            alert(error.message);
+                            console.error('Error fetching updated activities:', error);
+                        });
                 }
 
-                /* console.log('API Response (packUpdated):', packUpdated)
+                /* console.log('API Response (packUpdated):', packUpdated);
                 console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
             })
             .catch((error) => {
@@ -260,23 +260,23 @@ export default function Tracker(props) {
     useEffect(() => {
         return () => {
             if (intervalId) {
-                clearInterval(intervalId)
+                clearInterval(intervalId);
             }
-        }
-    }, [intervalId])
+        };
+    }, [intervalId]);
 
     useEffect(() => {
         if (selectedPack?.timerActivated) {
-            document.title = `⏱️ Timer: ${new Date(elapsedTime * 1000).toISOString().substr(11, 8)}`
+            document.title = `⏱️ Timer: ${new Date(elapsedTime * 1000).toISOString().substr(11, 8)}`;
         } else {
-            document.title = 'Hourify - Time Tracker'
+            document.title = 'Hourify - Time Tracker';
         }
-    }, [elapsedTime, selectedPack?.timerActivated])
+    }, [elapsedTime, selectedPack?.timerActivated]);
 
     const calculateElapsedTime = (timerActivated) => {
-        if (!timerActivated) return 0
-        return Math.floor((Date.now() - new Date(timerActivated)) / 1000) // En segundos
-    }
+        if (!timerActivated) return 0;
+        return Math.floor((Date.now() - new Date(timerActivated)) / 1000); // En segundos
+    };
 
 
 
@@ -316,65 +316,29 @@ export default function Tracker(props) {
                             <textarea id="description" name="description" rows="3" className="border-2 rounded-lg w-full p-2" placeholder="Add a description..." value={selectedPack?.descriptionActivityTemp} onChange={handleDescriptionChange}></textarea>
                         </Field>
 
-                        <div className="flex flex-col space-y-6">
-                            {/* Sección para packs de tiempo */}
-                            {selectedPack?.unit === 'hours' && (
-                                <div className="flex items-center space-x-4">
-                                    {/* Visualización del temporizador */}
-                                    <div className="border-2 rounded-lg p-3 w-44 text-center text-lg font-semibold">
-                                        {new Date(elapsedTime * 1000).toISOString().substr(11, 8)}
-                                    </div>
-
-                                    {/* Botón Start/Stop */}
-                                    <Button
-                                        type="button"
-                                        className={`flex-shrink-0 px-6 py-3 text-lg font-semibold ${!selectedPack?.timerActivated ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'
-                                            } text-white rounded-lg w-32 h-12 flex items-center justify-center`}
-                                        onClick={handleToggleTrackButton}>
-                                        {!selectedPack?.timerActivated ? 'Start' : 'Stop'}
-                                    </Button>
+                        <div className="flex items-center space-x-2">
+                            <Field>
+                                <Label htmlFor="timer">Time</Label>
+                                <input type="text" id="timer" name="timer" placeholder="00:00:00" className="border-2 rounded-lg p-2 w-32 text-center" />
+                                <div className="border-2 rounded-lg p-2 w-32 text-center">
+                                    {new Date(elapsedTime * 1000).toISOString().substr(11, 8)}
                                 </div>
+                            </Field>
+
+                            {/* {console.log('Pack unit: ' + selectedPack?.unit + ' Y el pack es: ' + selectedPack)} */}
+                            {selectedPack?.unit === 'hours' && (
+                                <Button
+                                    type="button"
+                                    className={`btn m-1 ${!selectedPack?.timerActivated ? 'bg-green-600' : 'bg-red-600'}`}
+                                    onClick={handleToggleTrackButton}>{!selectedPack?.timerActivated ? 'Start' : 'Stop'}
+                                </Button>
                             )}
 
-                            {/* Sección para ajustes manuales */}
-                            <div className="flex items-center space-x-4">
-                                {/* Input para packs de tiempo */}
-                                {selectedPack?.unit === 'hours' && (
-                                    <Field>
-                                        <input
-                                            type="text"
-                                            id="timerAdjust"
-                                            name="timerAdjust"
-                                            placeholder="-1:00:00"
-                                            defaultValue="-1:00:00"
-                                            className="border-2 rounded-lg p-3 w-44 text-center text-lg"
-                                        />
-                                    </Field>
-                                )}
-
-                                {/* Input para packs de unidades */}
-                                {selectedPack?.unit === 'units' && (
-                                    <Field>
-                                        <input
-                                            type="number"
-                                            id="unitsAdjust"
-                                            name="unitsAdjust"
-                                            placeholder="-1"
-                                            defaultValue="-1"
-                                            className="border-2 rounded-lg p-3 w-32 text-center text-lg"
-                                        />
-                                    </Field>
-                                )}
-
-                                {/* Botón Adjust Manual */}
-                                <Button
-                                    className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center"
-                                    onClick={handleAdjustManualTime}>
-                                    Manual Save
-                                </Button>
+                            <div className="flex flex-col ">
+                                {/* <Button className="btn m-2" onClick={handleAssignPacks}>Next</Button> */}
+                                <Button className="btn m-1" onClick={handleAdjustManualTime}>Adjust manual</Button>
                             </div>
                         </div>
-
                     </div>
                 </form>
             </div>

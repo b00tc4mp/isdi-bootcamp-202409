@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import useContext from '../useContext'
 import logic from '../../logic'
 
-export default function Header({ onHomeClick, onLoggedOut, onViewProfile }) {
+export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrackerClick, onManagePacksClick, onManageCustomersClick }) {
     const [name, setName] = useState(null)
     const location = useLocation()
     const { alert, confirm } = useContext()
@@ -13,15 +13,15 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile }) {
     useEffect(() => {
         console.log('Header componentDidMount and receiveProps')
 
-        if (logic.isUserLoggedIn()) {
+        if (logic.isUserLoggedIn() && !name) {
             if (!name) {
                 try {
-                    /* logic.getUserName()
+                    logic.getUserName()
                         .then(setName)
                         .catch(error => {
                             alert(error.error)
                             console.error(error)
-                        }) */
+                        })
                 } catch (error) {
                     alert(error.error)
                     console.error(error)
@@ -55,10 +55,38 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile }) {
         onViewProfile()
     }
 
+    const handleTrackerClick = event => {
+        event.preventDefault()
+        console.log('Click on tracker compo')
+        onTrackerClick()
+    }
+
+    const handleManagePacks = event => {
+        console.log("Manage packs clicked");
+        event.preventDefault()
+        onManagePacksClick()
+    };
+
+    const handleManageCustomers = event => {
+        console.log("Manage customers clicked");
+        event.preventDefault()
+        onManageCustomersClick()
+    };
+
     console.log('Header -> render')
 
     return <header className="bg-color_darkBlue text-white p-4 flex justify-between items-center h-28">
         <h1 className="text-4xl font-bold">{location.pathname !== '/' ? <a href="" onClick={handleHomeClick}>Hourify</a> : 'Hourify'}</h1>
+
+        <nav className="flex space-x-4">
+            {logic.isUserLoggedIn() && (
+                <>
+                    <a href="#" className="hover:underline" onClick={handleTrackerClick}>Time Tracker</a>
+                    <a href="#" className="hover:underline" onClick={handleManagePacks}>Manage Packs</a>
+                    <a href="#" className="hover:underline" onClick={handleManageCustomers}>Manage Customers</a>
+                </>
+            )}
+        </nav>
 
         <div className='flex justify-between'>
 

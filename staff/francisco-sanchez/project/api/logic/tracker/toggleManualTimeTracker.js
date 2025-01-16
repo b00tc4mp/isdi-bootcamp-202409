@@ -2,51 +2,69 @@ import { Activity, BasePack, Pack, User } from 'dat';
 
 import { validate, errors } from 'com';
 
-import { getElapsedTime } from '../helpers/index.js';
+import { getElapsedTime, getTimeFormatToDecimal } from '../helpers/index.js';
 
 const { SystemError, NotFoundError, OwnershipError, ValidationError } = errors
 
 export default (userId, packId, customerId, description, timeAdjust) => {
-    validate.id(packId, 'packId')
-    validate.id(userId, 'userId')
-    validate.id(customerId, 'customerId')
+    validate.id(packId, 'packId');
+    validate.id(userId, 'userId');
+    validate.id(customerId, 'customerId');
 
     return Pack.findById(packId)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(pack => {
-            const invalidStatuses = ['Finished', 'Pending', 'Expired']
-
-            const currentDate = new Date()
-            const expiryDat = new Date(pack.expiryDate)
-
+        .then((pack) => {
             if (!pack) {
-                console.error(error.message)
-                throw new NotFoundError('Pack to track not found')
+                throw new NotFoundError('Pack to track not found');
             }
 
+            const invalidStatuses = ['Finished', 'Pending', 'Expired'];
+            const currentDate = new Date();
+            const expiryDate = new Date(pack.expiryDate);
+
             if (pack.provider.toString() !== userId) {
-                throw new OwnershipError('Your user is not the owner of this pack relationship')
+                throw new OwnershipError('Your user is not the owner of this pack relationship');
             }
 
             if (invalidStatuses.includes(pack.status)) {
-                throw new ValidationError('This pack has and invalid status to work (Finished, Pending or Expired')
+                throw new ValidationError('This pack has an invalid status to work (Finished, Pending or Expired)');
             }
 
-            if (expiryDat <= currentDate && !invalidStatuses.includes(pack.status)) {
-                throw new ValidationError('This pack has expired and cannot be accessed.')
-                //Y además por aquí debería cambiar el status a Expired
+            if (expiryDate <= currentDate && !invalidStatuses.includes(pack.status)) {
+                throw new ValidationError('This pack has expired and cannot be accessed.');
             }
 
+            const remainingQuantity = pack.remainingQuantity || 0;
 
-            //Evaluar si el tiempo entrado es positivo o negativo
+            return getTimeFormatToDecimal(timeAdjust)
+                .then((decimalAdjustTime) => {
+                    const absDecimalTime = Math.abs(decimalAdjustTime)
+                    const operation = decimalAdjustTime > 0 ? 'add' : 'substract';
 
-            //Si es positivo sumaremos el tiempo al pack
+                    return Activity.create({
+                        pack: packId,
+                        date: new Date(),
+                        description,
+                        operation,
+                        quantity: absDecimalTime,
+                        remainingQuantity: operation === 'add' ? remainingQuantity + absDecimalTime : remainingQuantity - absDecimalTime
+                        //remainingQuantity: remainingQuantity - absDecimalTime,
+                    }).then((activity) => {
+                        if (!activity._id) {
+                            throw new SystemError('There was a problem creating activity');
+                        }
 
-            //Si es negativo, lo restaremos
+                        return Pack.findByIdAndUpdate(
+                            packId, { remainingQuantity: operation === 'add' ? remainingQuantity + absDecimalTime : remainingQuantity - absDecimalTime }, { new: true, runValidators: true }).lean()
+                            .then((updatedPack) => {
+                                updatedPack.id = updatedPack._id.toString();
+                                delete updatedPack._id;
 
-
-            //Despues de hacer el cálculo actualizaremos el disponible en pack
-
-            //Crearemos un registro en activity con la operación realizada
+                                return updatedPack;
+                            });
+                    });
+                });
         })
-}
+        .catch((error) => {
+            throw new SystemError(error.message);
+        });
+};

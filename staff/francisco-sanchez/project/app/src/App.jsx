@@ -102,7 +102,7 @@ export default function App() {
   }}>
 
     {location.pathname !== '/login' && (
-      <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} onViewProfile={handleUserProfileClick} />
+      <Header onHomeClick={handleHomeClick} onLoggedOut={handleUserLoggedOut} onViewProfile={handleUserProfileClick} onTrackerClick={handleTrackerPacksClick} onManagePacksClick={handleManagePacksClick} onManageCustomersClick={handleManageCustomersClick} />
     )}
     <Routes>
 

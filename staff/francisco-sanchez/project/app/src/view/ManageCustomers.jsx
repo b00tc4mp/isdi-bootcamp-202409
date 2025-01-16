@@ -69,12 +69,12 @@ export default function ManageCustomers(props) {
                                 <td className='border px-4 py-2'>{customer.name} {customer.surname1 !== null ? customer.surname1 : ''}</td>
                                 <td className='border px-4 py-2'><span className="inline-block bg-gray-200 text-gray-800 text-sm font-semibold rounded-full px-3 py-1">{customer.packCount}</span></td>
                                 <td className='border px-4 py-2'>
-                                    <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">✏️ Customer details</a>
+                                    {/* <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">✏️ Customer details</a> */}
                                     <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => {
                                         event.preventDefault()
                                         handleCustomerPacksClick(customer.id, customer.name)
                                     }}>📑 Customer packs</a>
-                                    <a href="" className="inline-block bg-red-100 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">❌ Delete</a>
+                                    {/*  <a href="" className="inline-block bg-red-100 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">❌ Delete</a> */}
                                 </td>
                             </tr>
                         ))}
@@ -82,9 +82,9 @@ export default function ManageCustomers(props) {
                 </table>
             )}
 
-            <div className="flex flex-col ">
+            {/* <div className="flex flex-col ">
                 <Button className="btn m-2">New customer </Button>
-            </div>
+            </div> */}
 
             <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
         </main>
