@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { login } from "../logic/auth";
-import { isRedirectError } from 'next/dist/client/components/redirect';
+import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 
 export default function Login() {
@@ -13,29 +13,20 @@ export default function Login() {
     const fields = event.target;
 
     try {
-      
       await login({ username: fields.email.value, password: fields.password.value });
-      
-      redirect('/');
-    } catch(error){
-     
+
+      redirect("/");
+    } catch (error) {
       if (isRedirectError(error)) throw error;
       // redirect('/');
       alert(error);
     }
-     
   }
 
   return (
-    <section
-      className="flex items-center justify-center min-h-screen bg-cover bg-center" >
+    <section className="flex items-center justify-center min-h-screen bg-cover bg-center">
       {/* video */}
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        src="/video/campos2s.mp4"
-        
-        muted
-        loop></video>
+      <video className="absolute top-0 left-0 w-full h-full object-cover" src="/video/campos2s.mp4" muted loop></video>
 
       <div className="bg-white absolute rounded-lg shadow-2xl w-full max-w-md p-8">
         {/* Título */}

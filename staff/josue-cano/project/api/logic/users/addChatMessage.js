@@ -2,7 +2,7 @@ import { Chat, Message } from "dat";
 import { validate, errors } from "com";
 
 const { SystemError } = errors;
-//VALIDAR CHATID USERID Y MESSAGE
+
 export default async ({ chatId, userId, message }) => {
   validate.id(chatId, "chatId");
   validate.id(userId, "userId");

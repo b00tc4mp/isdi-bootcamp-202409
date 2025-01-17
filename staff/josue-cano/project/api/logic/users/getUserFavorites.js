@@ -3,7 +3,6 @@ import { User, Product } from "dat";
 import { validate, errors } from "com";
 
 const { DuplicityError, SystemError, ValidationError } = errors;
-//VALIAR ID
 export default async ({ id }) => {
   validate.id(id);
   try {

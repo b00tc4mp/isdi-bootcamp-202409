@@ -11,8 +11,6 @@ export default function Chat() {
   const { authorId } = useParams();
 
   const messages = "";
-  // const chat = '';
-  // autor
   useEffect(() => {
     async function findChat() {
       const response = await getChats(authorId);

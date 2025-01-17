@@ -14,7 +14,6 @@ export const registerUser = ({ firstName, lastName, email, location, password, p
     console.error(error);
   }
 
-
   return fetch(`${baseUrl}/auth/register`, {
     method: "POST",
     headers: { "Content-type": "application/json" },

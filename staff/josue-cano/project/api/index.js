@@ -16,8 +16,7 @@ db.connect(process.env.MONGO_URL)
   .then(() => {
     console.log("connected to db", { db, url: process.env.MONGO_URL });
   })
-  .catch((error) => {
-  });
+  .catch((error) => {});
 
 const server = express();
 
@@ -34,7 +33,6 @@ server.use("/public", express.static("files"));
 server.get("/", (_req, res) => {
   res.send("Hello, API!");
 });
-
 
 server.use("/auth", authRoutes);
 server.use("/users", userRoutes);

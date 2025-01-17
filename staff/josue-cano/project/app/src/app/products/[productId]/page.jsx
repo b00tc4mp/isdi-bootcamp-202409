@@ -15,11 +15,9 @@ export default function Page() {
     setIsAuth(getToken());
   }, []);
 
-
   return (
     <>
-      <ProductDetail id={productId} addtoFavorites={addtoFavorites} />{/* isAuth && <ProductComments /> */}
-      
+      <ProductDetail id={productId} addtoFavorites={addtoFavorites} />
     </>
   );
 }

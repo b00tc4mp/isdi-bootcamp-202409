@@ -1,5 +1,4 @@
 import { getToken } from "../../utils/session";
-// const { SystemError } = errors;
 
 const validateSession = async () => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -8,9 +7,7 @@ const validateSession = async () => {
   try {
     const response = await fetch(url, {
       method: "GET",
-      headers: { "Content-type": "application/json",
-        Authorization: token
-       },
+      headers: { "Content-type": "application/json", Authorization: token },
     });
 
     const data = await response.json();
@@ -20,7 +17,6 @@ const validateSession = async () => {
     // alert(error);
     return error;
   }
-  
 };
 
 export default validateSession;

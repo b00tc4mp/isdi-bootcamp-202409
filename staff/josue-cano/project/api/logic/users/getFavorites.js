@@ -9,7 +9,7 @@ export default async ({ id }) => {
   try {
     const user = await User.findById(id);
 
-    if (!user) throw new Error('user not found');
+    if (!user) throw new Error("user not found");
 
     const favorites = await Product.find({ _id: { $in: user.favorites } });
 

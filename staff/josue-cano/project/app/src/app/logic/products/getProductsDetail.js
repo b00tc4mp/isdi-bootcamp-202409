@@ -20,8 +20,8 @@ export async function getProductDetails(id) {
   try {
     let response = await fetch(`${baseUrl}/${url}`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     response = await response.json();

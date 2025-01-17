@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { getToken } from "./utils/session";
 
-
 export default function RootLayout({ children }) {
   // variable de estado para saber si la sesion es valida
   const [authenticated, setAuthenticated] = useState(false);
@@ -25,7 +24,6 @@ export default function RootLayout({ children }) {
     const token = getToken();
 
     setAuthenticated(token != undefined);
-
   }, [pathname]);
 
   return (

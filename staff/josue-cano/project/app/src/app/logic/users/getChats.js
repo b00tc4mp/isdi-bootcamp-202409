@@ -12,21 +12,17 @@ export async function getChats(productOwner) {
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ productOwner }),
       headers: {
         "Content-Type": "application/json",
-        Authorization: token
+        Authorization: token,
       },
     });
     const data = await response.json();
     return data.data;
-
   } catch (error) {
-
     // alert(error);
     return error;
-
   }
-
 }

@@ -23,7 +23,7 @@ export async function getProducts() {
       throw new Error(response.error);
     }
     response = await response.json();
-    
+
     return response.data;
   } catch (error) {
     // alert(error);

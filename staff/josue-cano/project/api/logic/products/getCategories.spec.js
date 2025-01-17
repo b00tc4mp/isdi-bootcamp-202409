@@ -23,13 +23,6 @@ describe("getCategories", () => {
   });
   after(() => db.disconnect());
 
-  // it("fails when no categories are found", async () => {
-  //   await expect(getCategories()).to.be.rejectedWith(NotFoundError, "categories not found");
-  //   // const categories = await getCategories();
-  //   // expect(categories).to.be.an("array");
-  //   // expect(categories).to.have.lengthOf(0);
-  // });
-
   it("succeeds returning categories", async () => {
     const category1 = new Category({ name: "Electronics" });
     const category2 = new Category({ name: "Books" });
@@ -44,5 +37,4 @@ describe("getCategories", () => {
     expect(categories[0].name).to.equal("Electronics");
     expect(categories[1].name).to.equal("Books");
   });
-
 });

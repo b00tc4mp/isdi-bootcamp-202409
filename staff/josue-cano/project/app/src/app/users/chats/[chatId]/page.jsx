@@ -8,7 +8,6 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Chats() {
-
   useAuth();
 
   const [chat, setChat] = useState(null);
@@ -33,7 +32,7 @@ export default function Chats() {
     // el id de ususario se obtiene del token
 
     let response = await sendMessage({ message, chatId });
-    
+
     response = await response.json();
     // cuando se recibe el chat, se redirige a la nueva página
     if (response.data) {

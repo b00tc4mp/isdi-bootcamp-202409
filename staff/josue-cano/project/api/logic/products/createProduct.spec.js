@@ -67,9 +67,8 @@ describe('createProduct', () => {
       .to.be.rejectedWith(DuplicityError, 'product already exists')
   })
 
-  //
-  // NUEVAS PRUEBAS DE VALIDACIÓN
-  //
+
+  //  PRUEBA DE VALIDACIÓN
   describe('validation', () => {
 
     it('fails on missing name', async () => {

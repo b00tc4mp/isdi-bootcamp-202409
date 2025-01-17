@@ -2,7 +2,6 @@ import { User, Product } from "dat";
 import { errors, validate } from "com";
 
 const { SystemError } = errors;
-//VALIDAR USERID
 export default async (userId) => {
   validate.id(userId, "userId");
 

@@ -5,7 +5,7 @@ import utils from "../../utils/index.js";
 const router = Router();
 
 // POST /login
-//todo:CAMBIAR LOGIN POR AUTH
+
 router.post("/", (req, res) => {
   const user = req.body;
   logic

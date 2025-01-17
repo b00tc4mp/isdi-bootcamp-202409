@@ -39,11 +39,7 @@ export default function Index() {
             Descubre los mejores productos seleccionados especialmente para ti.
           </h2>
         </header>
-        <ProductListComponent
-          products={products}
-          refetch={refetch}
-          setRefetch={setRefetch}
-        />
+        <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} />
       </article>
       <EkoalitySection />
       <ExCompra />

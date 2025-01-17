@@ -28,7 +28,6 @@ export default function Index() {
 
   return (
     <article className="">
-
       <ProductListComponent products={products} refetch={refetch} setRefetch={setRefetch} admin={true} />
     </article>
   );

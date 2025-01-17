@@ -9,22 +9,18 @@ export async function getChat(chatId) {
   const token = `Bearer ${getToken()}`;
   try {
     const response = await fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token
+        Authorization: token,
       },
     });
 
     const data = await response.json();
 
     return data.data;
-
   } catch (error) {
-
     // alert(error);
     return error;
-
   }
-
 }

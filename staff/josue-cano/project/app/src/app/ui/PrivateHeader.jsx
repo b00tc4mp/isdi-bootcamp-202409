@@ -7,7 +7,6 @@ export default function PrivateHeader({ logout }) {
   return (
     <div className="sticky top-0 left-0 w-full z-50 bg-white border-b border-[#52A42D] shadow-md">
       <div className="navbar bg-base-100 container mx-auto flex justify-between items-center px-4">
-
         {/* Navbar Start */}
         <div className="flex items-center justify-between w-full lg:w-auto">
           {/* Dropdown para dispositivos móviles */}
@@ -27,9 +26,7 @@ export default function PrivateHeader({ logout }) {
               className="menu menu-sm dropdown-content bg-white rounded-lg z-10 mt-3 w-60 p-4 shadow-lg space-y-3">
               {/* Botón Inicia Sesión */}
               <li>
-                <Link
-                  className="btn bg-green-600 text-white hover:bg-green-700 btn-sm w-full"
-                  href="/products/new">
+                <Link className="btn bg-green-600 text-white hover:bg-green-700 btn-sm w-full" href="/products/new">
                   Subir producto
                 </Link>
               </li>
@@ -69,8 +66,6 @@ export default function PrivateHeader({ logout }) {
           </Link>
           <div className=""></div>
         </div>
-
-
 
         {/* Menu Items */}
         <div className="hidden lg:flex space-x-4 items-center">
