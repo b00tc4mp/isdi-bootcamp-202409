@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import updateLog from "../../logic/log/updateLog.js"
-import getLogs from "../../logic/log/getLogs.js"
+import getLog from "../../logic/log/getLog.js"
 
 
 
@@ -14,22 +14,28 @@ const EditLog = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchLogDetails = async () => {
-      try {
-        const data = await getLogs(logbookId);
-        setLogDetails(data); // Populate logDetails with fetched data
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to fetch log details. Please try again.");
-        setLoading(false);
-      }
-    };
-
-    fetchLogDetails();
+    if(logbookId){
+      fetchLogDetails(logbookId);
+    }
   }, [logbookId]);
+
+  const fetchLogDetails = async (logbookId) => {
+    try {
+      setLoading(true)
+      const response = await getLog(logbookId);
+
+      setLogDetails(response[0]); // Populate logDetails with fetched data
+      setLoading(false);
+
+    } catch (err) {
+      setError("Failed to fetch log details. Please try again.");
+      setLoading(false);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(value)
     setLogDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
@@ -60,11 +66,11 @@ const EditLog = () => {
           <label htmlFor="divingSite" className="block text-sm font-medium">Diving Site:</label>
           <input
             type="text"
-            id="divingSite"
-            name="divingSite"
-            value={logDetails.divingSite || ""}
+            id="diveSite"
+            name="diveSite"
+            value={logDetails.diveSite || ""}
             onChange={handleInputChange}
-            placeholder={logDetails.divingSite || "Enter diving site"}
+            placeholder={logDetails?.divingSite || "Enter diving site"}
             className="w-full border rounded-md p-2"
           />
         </div>
@@ -75,7 +81,7 @@ const EditLog = () => {
             type="date"
             id="date"
             name="date"
-            value={logDetails.date || ""}
+            value={logDetails.date.split('T')[0] || ""}
             onChange={handleInputChange}
             placeholder={logDetails.date || "Select a date"}
             className="w-full border rounded-md p-2"

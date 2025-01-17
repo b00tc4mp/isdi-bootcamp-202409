@@ -1,7 +1,17 @@
+import logic from '../../../logic/index.js'
+import { createFunctionalHandler } from "../../helpers/index.js"
+
+export default createFunctionalHandler(async (req, res) => {
+    const { userId, params: { logbookId }} = req
+
+     const log = await logic.getLog(userId, logbookId)
+     
+     return res.json(log);
+
+});
 
 
-
-export const getLogByIdHandler = async (req, res) => {
+/* export const getLogByIdHandler = async (req, res) => {
     const { id } = req.params
 
     try {
@@ -12,4 +22,4 @@ export const getLogByIdHandler = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'SystemError', message: error.message })
     }
-}
+} */

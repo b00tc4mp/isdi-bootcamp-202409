@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import searchDiveCenters from "../../logic/users/searchDiveCenters.js";
+import dayDictionary from "../../util/daysDictionary.js";
 
 const Search = () => {
   const [city, setCity] = useState(""); // State to hold city input
@@ -8,6 +9,20 @@ const Search = () => {
   const [error, setError] = useState(""); // State to handle errors
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState(null);
+
+
+  const openModal = (data) => {
+    setModalData(data); // Set the data for the modal
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalData(null); // Clear the data when the modal is closed
+  };
 
   const handleInputChange = (e) => {
     setCity(e.target.value); // Update city input
@@ -20,6 +35,7 @@ const Search = () => {
 
     try {
       const data = await searchDiveCenters(city); // Call logic to search dive centers
+      console.log(data)
       setResults(data); // Set results in state
     } catch (err) {
       console.error("Error searching dive centers:", err);
@@ -28,7 +44,17 @@ const Search = () => {
       setIsLoading(false);
     }
   };
+  console.log(modalData)
 
+  /* const getDayString = (day) => {
+    if (day === 1) return "Monday";
+    else if (day === 2) return "Tuesday";
+    else if (day === 3) return "Wednesday";
+    else if (day === 4) return "Thursday";
+    else if (day === 5) return "Friday";
+    else if (day === 6) return "Saturday";
+    else if (day === 7) return "Sunday";
+  } */
   return (
     <main
       className="min-h-screen flex flex-col items-center bg-cover bg-center py-8"
@@ -75,16 +101,10 @@ const Search = () => {
               <ul className="space-y-4">
                 {results.map((center) => (
                   <li key={center._id} className="p-4 border border-gray-300 rounded-lg shadow-md">
-                    <h4 className="text-lg font-bold text-blue-700 underline">{center.name}</h4>
-                    <p>
-                      <strong>Address:</strong> {center.address}, {center.city}, {center.country}
-                    </p>
-                    <p>
-                      <strong>Email:</strong> {center.email}
-                    </p>
-                    <p>
-                      <strong>Phone:</strong> {center.phoneNumber}
-                    </p>
+                    <h4 className="text-lg font-bold text-blue-700 underline"
+                    >
+                      <a onClick={() => openModal(center)}>{center.name}</a>
+                    </h4>
                   </li>
                 ))}
               </ul>
@@ -101,9 +121,51 @@ const Search = () => {
             <p className="text-gray-500 text-center">{isLoading ? "" : "No results to display."}</p>
           )}
         </div>
+
+
+        {isModalOpen && (
+          <div
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+            onClick={closeModal}
+          >
+            <div
+              className="bg-white p-6 rounded-lg shadow-lg w-96"
+              onClick={(e) => e.stopPropagation()} // Prevent closing the modal when clicking inside it
+            >
+              <h2 className="text-xl font-semibold mb-4">{modalData?.name}</h2>
+              <p className="text-gray-600 mb-4">{modalData?.description}</p>
+
+              <p>
+                <strong>Address:</strong> {modalData?.address}, {modalData.postcode}, {modalData.city}, {modalData.country}
+              </p>
+              <p>
+                <strong>Email:</strong> {modalData.email}
+              </p>
+              <p>
+                <strong>Telephone:</strong> {modalData.telephone}
+              </p>
+
+              <ul className="mt-4">
+                {modalData?.openingHours?.map((entry, index) => (
+                  <li key={index} className="flex justify-between items-center text-lg text-blue-600">
+                    <span>{dayDictionary[entry.day]}</span>
+                    <span>{entry.openTime} - {entry.closeTime}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 text-yellow-400 bg-red-500 rounded hover:bg-red-600"
+              >
+                Close Modal
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
 };
 
-export default Search;
+export default Search

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { authorizationHandler, jsonBodyParser } from '../../helpers/index.js'
-import { registerUserDiverHandler, getUserNameHandler, getProfileHandler, updateProfileHandler, searchDiveCentersHandler, getDiscoveryHandler, getFaunaFloraByCityHandler } from '../../users/diver/handlers/index.js'
+import { registerUserDiverHandler, getUserNameHandler, getProfileHandler, updateProfileHandler, searchDiveCentersHandler, getFaunaFloraByCityHandler } from '../../users/diver/handlers/index.js'
 
 
 

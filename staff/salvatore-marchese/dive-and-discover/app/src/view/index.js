@@ -14,7 +14,6 @@ import {
     Search,
     LogBook,
     DiveHistory,
-    Discovery,
     FaunaFlora,
 } from './diver/index'
 
@@ -32,7 +31,7 @@ export {
     Search,
     LogBook,
     DiveHistory,
-    Discovery,
+    
     FaunaFlora,
 }
 

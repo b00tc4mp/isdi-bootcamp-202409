@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom'
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
-import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeDiver, ProfileCenter, Profile, LogBook, Search, Discovery, FaunaFlora } from './view'
+import { Login, SelectRoleType, RegisterDiver, RegisterCenter, HomeCenter, HomeDiver, ProfileCenter, Profile, LogBook, Search, FaunaFlora } from './view'
 
 import { Header } from './components/index.js'
 import logic from './logic/users'
@@ -68,9 +68,9 @@ export default function App() {
 
           <Route path="/edit-logbook/:logbookId" element={<EditLog />} />
 
-          <Route path="/search" element={logic.isUserLoggedIn() ? <Search /> : <Navigate to="/login" />} />
+          <Route path="/log-book/:logbookId" element={<EditLog />} />
 
-          <Route path="/discovery" element={logic.isUserLoggedIn() ? <Discovery /> : <Navigate to="/login" />} />
+          <Route path="/search" element={logic.isUserLoggedIn() ? <Search /> : <Navigate to="/login" />} />
 
           <Route path="/faunaFlora/:city" element={logic.isUserLoggedIn() ? <FaunaFlora /> : <Navigate to="/login" />} />
 

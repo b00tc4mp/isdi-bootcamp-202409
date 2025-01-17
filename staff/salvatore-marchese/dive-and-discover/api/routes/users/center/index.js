@@ -11,6 +11,10 @@ centerRouter.post('/', jsonBodyParser, registerUserCenterHandler)
 //Profile Center
 centerRouter.get('/home-center', authorizationHandler, getCenterInfoHandler )
 centerRouter.get('/center-info',authorizationHandler, getCenterInfoHandler )
+
+centerRouter.get('/center-info/:id',authorizationHandler, getCenterInfoHandler )
+
+
 centerRouter.put('/center-info', authorizationHandler, updateCenterInfoHandler )
  
 // Opening hours

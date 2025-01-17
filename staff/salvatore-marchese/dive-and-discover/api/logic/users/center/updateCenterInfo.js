@@ -5,7 +5,16 @@ const { SystemError, NotFoundError } = errors
 
 export default async (userId, data) => {
     validate.id(userId, 'userId')
-    // TODO - VALIDATE THE ADDITIONAL INFO
+    validate.name(name)
+    validate.email(email)
+    validate.password(password)
+    validate.passwordsMatch(password, passwordRepeat)
+    validate.address(address)
+    validate.country(country)
+    validate.city(city)
+    validate.postcode(postcode)
+    validate.telephone(telephone)
+    
 
     try {
         let user = await User.findById(userId).lean()
@@ -18,7 +27,7 @@ export default async (userId, data) => {
         }
 
         // Return the updated user directly
-        // TODO - VALIDATE AND ASAVE THE ADDITIONAL INFO
+        // TODO - VALIDATE AND SAVE THE ADDITIONAL INFO
         return await User.findByIdAndUpdate(userId, dataToBeUpdated, { new: true }).lean()
 
     } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom' 
 import logic from '../../logic/users/index.js'
+import dayDictionary from '../../util/daysDictionary.js'
 
 // HomeCenter component to display business details (view-only)
 const HomeCenter = () => {
@@ -33,17 +34,6 @@ const HomeCenter = () => {
   // If error occurred, show error message
   if (error) {
     return <p>Error: {error}</p>
-  }
-
-
-  const getDayString = (day) => {
-    if (day === 1) return "Monday";
-    else if (day === 2) return "Tuesday";
-    else if (day === 3) return "Wednesday";
-    else if (day === 4) return "Thursday";
-    else if (day === 5) return "Friday";
-    else if (day === 6) return "Saturday";
-    else if (day === 7) return "Sunday";
   }
 
   return (
@@ -84,7 +74,7 @@ const HomeCenter = () => {
           {data.openingHours?.length ? (
             data.openingHours.map((entry, index) => (
               <li key={index} className="flex justify-between items-center text-lg text-gray-800">
-                <span>{getDayString(entry.day)}</span>
+                <span>{dayDictionary[entry.day]}</span>
                 <span>{entry.openTime} - {entry.closeTime}</span>
               </li>
             ))

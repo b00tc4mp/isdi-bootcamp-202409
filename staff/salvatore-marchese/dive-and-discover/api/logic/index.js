@@ -28,6 +28,7 @@ import {
     getLogs,
     deleteLog,
     updateLog,
+    getLog,
 } from './log/index.js'
 
 const logic = {
@@ -48,6 +49,7 @@ const logic = {
     getLogs,
     deleteLog,
     updateLog,
+    getLog,
 
     updateCenterInfo
 

@@ -26,7 +26,7 @@ const FaunaFlora = () => {
     if (error) return <p className="text-center text-red-500">{error}</p>;
 
     return (
-        <main className="max-w-4xl mx-auto p-6 bg-gray-100 shadow-md rounded-lg">
+        <main className="max-w-2xl mx-auto p-6 bg-gray-100 shadow-md rounded-lg mt-24">
             <h2 className="text-2xl font-bold text-blue-700 mb-4">
                 Fauna & Flora in {city}
             </h2>
