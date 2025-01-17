@@ -6,8 +6,6 @@ export const createProduct = (product) => {
 
   const formData = new FormData();
   Object.entries(product).forEach(([key, value]) => {
-    console.log({ key, value });
-
     if (Array.isArray(value)) {
       // images array
       value.filter((x) => x).forEach((image) => formData.append(`images[]`, image.file));

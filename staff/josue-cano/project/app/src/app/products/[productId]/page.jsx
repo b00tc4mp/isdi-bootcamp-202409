@@ -10,17 +10,11 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const { productId } = useParams();
   const [isAuth, setIsAuth] = useState(false);
-  // const router = useRouter()
-  //
-  //
-  //
-  // se usa el productId, usuario actual y autor
+
   useEffect(() => {
     setIsAuth(getToken());
   }, []);
-  // if(isAuth)
-  //     if(productId)
-  //         getComments(productId);
+
 
   return (
     <>

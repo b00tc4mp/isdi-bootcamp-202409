@@ -1,8 +1,10 @@
 import { getToken } from "@/app/utils/session";
+import { validate } from "com";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getProductDetails(id) {
+  validate.id(id);
 
   const token = getToken();
   let url = "";
@@ -10,7 +12,7 @@ export async function getProductDetails(id) {
   const isPublic = token == undefined;
 
   if (isPublic) {
-    url = `public/products/${id}`;
+    url = `products/public/${id}`;
   } else {
     url = `products/${id}`;
   }

@@ -8,8 +8,8 @@ export default function PrivateHeader({ logout }) {
     <div className="sticky top-0 left-0 w-full z-50 bg-white border-b border-[#52A42D] shadow-md">
       <div className="navbar bg-base-100 container mx-auto flex justify-between items-center px-4">
 
-{/* Navbar Start */}
-<div className="flex items-center justify-between w-full lg:w-auto">
+        {/* Navbar Start */}
+        <div className="flex items-center justify-between w-full lg:w-auto">
           {/* Dropdown para dispositivos móviles */}
           <div className="dropdown lg:hidden">
             <button tabIndex={0} className="btn btn-ghost" aria-label="Toggle navigation menu">
@@ -37,21 +37,21 @@ export default function PrivateHeader({ logout }) {
               {/* Botón Regístrate */}
               <li>
                 <Link className="btn bg-green-600 text-white hover:bg-green-700 btn-sm w-full" href="/users/favorites">
-                Favoritos
+                  Favoritos
                 </Link>
               </li>
 
               {/* Opción Sobre Nosotros */}
               <li>
                 <Link href="/users/chats" className="btn bg-green-600 text-white hover:bg-green-700 btn-sm w-full">
-                Mensajes
+                  Mensajes
                 </Link>
               </li>
 
               {/* Opción Compra */}
               <li>
-                <Link href="/hazte-pro" className="btn bg-green-600 text-white hover:bg-green-700 btn-sm w-full">
-                Hazte PRO
+                <Link href="/#exCompra" className="btn bg-green-600 text-white hover:bg-green-700 btn-sm w-full">
+                  Hazte PRO
                 </Link>
               </li>
 
@@ -83,7 +83,7 @@ export default function PrivateHeader({ logout }) {
           <Link href="/users/chats" className="text-sm font-medium text-gray-800">
             Mensajes
           </Link>
-          <Link href="/hazte-pro" className="text-sm font-medium text-gray-800">
+          <Link href="/#exCompra" className="text-sm font-medium text-gray-800">
             Hazte PRO
           </Link>
           <Link href="/users/profile" className="text-sm font-medium text-gray-800">

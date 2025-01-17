@@ -3,7 +3,7 @@ import { getToken } from "../../utils/session";
 export async function getProducts() {
   const token = getToken();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  let url = "user/products";
+  let url = "users/products";
 
   url = `${baseUrl}/${url}`;
 

@@ -1,10 +1,11 @@
 import { User, Product } from "dat";
-import { errors } from "com";
+import { errors, validate } from "com";
 
 const { SystemError } = errors;
-
+//VALIDAR USERID
 export default async (userId) => {
-  
+  validate.id(userId, "userId");
+
   try {
     const user = await User.findOne({ _id: userId });
 

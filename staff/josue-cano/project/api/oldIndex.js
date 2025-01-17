@@ -11,10 +11,9 @@ import errorHandler from "./helpers/errorHandler.js";
 console.warn({ url: process.env.MONGO_URL });
 db.connect(process.env.MONGO_URL)
   .then(() => {
-    console.log("connected to db", { db, url: process.env.MONGO_URL });
+
   })
   .catch((error) => {
-    console.error(error);
   });
 
 //   const jsonBodyParser = json()
@@ -29,7 +28,7 @@ server.use(errorHandler);
 server.use("/public", express.static("files"));
 
 server.get("/", (_req, res) => {
-  // console.log(req);
+
   res.send("Hello, API!");
 });
 
@@ -168,7 +167,6 @@ server.post("/register", (req, res) => {
     .then((created) => res.json({ data: created }))
     .catch((msg) => res.status(400).json({ error: msg }));
 
-  // console.log(user);
 });
 /**
  * obtener listado de todos los productos (usuario autenticado)

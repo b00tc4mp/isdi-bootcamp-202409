@@ -1,9 +1,12 @@
+import { validate } from "com";
 import { getToken } from "../../utils/session";
 
 export const sendMessage = async ({ chatId, message }) => {
+  validate.id(chatId);
+  validate.text(message);
 
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const url = `${baseUrl}/user/chat/message`;
+  const url = `${baseUrl}/users/chat/message`;
 
   try {
     const result = await fetch(url, {

@@ -1,5 +1,5 @@
 function fetchCategories() {
-  return fetch(`http://${"localhost:8080"}/categories`, {
+  return fetch(`http://${"localhost:8080"}/datbase/categories`, {
     method: "get",
     headers: { "Content-type": "application/json" },
   })

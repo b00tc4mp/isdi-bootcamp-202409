@@ -12,14 +12,13 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 
 **User**
 - Registrar
-- Promocionar sus anuncios
 - Añadir a favoritos
-- Conversar**?
+- Conversar
 - Ver un producto
 - Publicar un producto
 - Eliminar un producto
 
-**Moderator**
+**Moderator V.1.1**
 - Leer reportes
 - Banear usuarios
 - Eliminar comentarios
@@ -56,6 +55,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - Mongodb
 - Mocha & Chai
 - Busboy
+- MONGOSE,BCRYPT,JWT,
 
 
 # Ekoality Data Model
@@ -72,7 +72,6 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - **email** (string)  
 - **id_ubicacion** (ObjectId)   
 - **fechaRegistro** (date)  
-- **rol** (string, enum: "admin" | "moderator" | "user")  
 - **pro** (string or Bolean?)  
 - **valoracion** (number)  
 - **online** (string or bolean)  
@@ -123,7 +122,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 
 ---
 
-#### Reseña
+#### Reseña V.1.1
 - **id** (ObjectId)  
 - **puntuacion** (number)  
 - **comentario** (string)  
@@ -133,7 +132,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 
 ---
 
-#### Suscripcion
+#### Suscripcion V.1.1
 - **id** (ObjectId)  
 - **fecha** (date)  
 - **idUsuario** (ObjectId)  
@@ -141,7 +140,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 
 ---
 
-#### Denuncia
+#### Denuncia 1.1
 - **id** (ObjectId)  
 - **denunciante** (ObjectId)  
 - **denunciado** (ObjectId)  

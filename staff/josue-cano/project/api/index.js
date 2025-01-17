@@ -7,12 +7,7 @@ import errorHandler from "./helpers/errorHandler.js";
 // Rutas
 import routes from "./logic/routes/index.js";
 
-const {
-  authRoutes,
-  userRoutes,
-  productRoutes,
-  baseRoutes
-} = routes;
+const { authRoutes, userRoutes, productRoutes, baseRoutes } = routes;
 
 console.warn({ url: process.env.MONGO_URL });
 
@@ -22,39 +17,31 @@ db.connect(process.env.MONGO_URL)
     console.log("connected to db", { db, url: process.env.MONGO_URL });
   })
   .catch((error) => {
-    console.error(error);
   });
 
-// Inicialización de Express
 const server = express();
 
-// Middleware para parsear JSON
+// Middleware parsear JSON
 server.use(express.json());
 
-// Habilitar CORS
+//  CORS
 server.use(cors());
 
-// Middleware global para manejo de errores
-server.use(errorHandler);
-
-// Servir archivos estáticos
+// archivos estáticos
 server.use("/public", express.static("files"));
 
-// Ruta principal (pública)
+// Ruta principal (prueba)
 server.get("/", (_req, res) => {
   res.send("Hello, API!");
 });
 
-/**
- * Usar las rutas segmentadas
- * (Al usar server.use("/", XRoutes), conservamos las rutas tal cual están definidas)
- */
-server.use("/", authRoutes);
-server.use("/", userRoutes);
-server.use("/", productRoutes);
-server.use("/", baseRoutes);
+
+server.use("/auth", authRoutes);
+server.use("/users", userRoutes);
+server.use("/products", productRoutes);
+server.use("/datbase", baseRoutes);
+
+server.use(errorHandler);
 
 // Iniciar el servidor
-server.listen(process.env.PORT, () =>
-  console.log(`API listening on port ${process.env.PORT}`)
-);
+server.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`));

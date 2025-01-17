@@ -1,15 +1,18 @@
+import { validate } from "com";
 import { getToken } from "../../utils/session";
 
-export async function getChat( chatId ) {
+export async function getChat(chatId) {
+  validate.id(chatId);
+
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const url = `${baseUrl}/user/chat/${chatId}`;
+  const url = `${baseUrl}/users/chat/${chatId}`;
   const token = `Bearer ${getToken()}`;
-  try{
-    const response = await fetch(url, { 
+  try {
+    const response = await fetch(url, {
       method: 'GET',
-      headers: { 
+      headers: {
         "Content-Type": "application/json",
-        Authorization: token 
+        Authorization: token
       },
     });
 
@@ -17,7 +20,7 @@ export async function getChat( chatId ) {
 
     return data.data;
 
-  } catch(error) {
+  } catch (error) {
 
     // alert(error);
     return error;

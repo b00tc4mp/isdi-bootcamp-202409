@@ -93,7 +93,7 @@ export default function PublicHeader() {
               </Link>
             </li>
             <li>
-              <Link href="/" className="flex items-center">
+              <Link href="/#exCompra" className="flex items-center">
                 <Image src="/icons/pro.svg" alt="icono pro" width={20} height={20} />
                 <span className="ml-2">Hazte Pro</span>
               </Link>

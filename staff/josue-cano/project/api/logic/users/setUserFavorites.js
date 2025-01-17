@@ -4,12 +4,13 @@ import { validate, errors } from "com";
 const { SystemError, ValidationError } = errors;
 
 export default async ({ id, favorite }) => {
+  validate.id(id, "id");
   try {
     let updatedUser = null;
     const user = await User.findOne({ _id: id });
 
     if (user) {
-    console.trace('favorites', {favorite, getUserFavorites: user.favorites});
+      console.trace("favorites", { favorite, getUserFavorites: user.favorites });
       if (user.favorites.some((f) => f == favorite)) {
         updatedUser = await User.findByIdAndUpdate({ _id: id }, { $pull: { favorites: favorite } }, { new: true });
       } else {
@@ -18,7 +19,5 @@ export default async ({ id, favorite }) => {
     }
 
     return updatedUser;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };

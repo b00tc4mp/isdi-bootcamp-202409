@@ -4,7 +4,6 @@ import ProductHeader from "./ProductHeader";
 const baseurl = "http://localhost:8080/public/";
 
 export default function CarouselComponent({ images }) {
-  console.log(images);
   return (
     <div className="carousel w-full rounded-md">
       {images?.map((image, index) => (

@@ -16,7 +16,7 @@ export default function TheFooter() {
           <Link href="/vende" className="link link-hover text-black">
             Vende
           </Link>
-          <Link href="/hazte-pro" className="link link-hover text-black">
+          <Link href="/#exCompra" className="link link-hover text-black">
             Hazte PRO
           </Link>
         </nav>

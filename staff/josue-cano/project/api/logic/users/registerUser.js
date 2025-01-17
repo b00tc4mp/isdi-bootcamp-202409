@@ -11,9 +11,10 @@ export default async ({ firstName, lastName, email, location, password, password
     validate.email(email);
     validate.password(password);
     validate.passwordsMatch(password, passwordRepeat);
-  } catch (e) {
-    // aquí se rompe por validación
-    return Promise.reject(e.message);
+  } catch (err) {
+    // return Promise.reject para emitir una promesa de respuesta fallida
+    // Los valores de respuesta pueden ser: resolve = exito, reject = fallo
+    return Promise.reject(err.message);
   }
   try {
     return bcrypt

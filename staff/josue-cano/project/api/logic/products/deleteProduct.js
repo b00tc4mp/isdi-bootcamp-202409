@@ -1,20 +1,22 @@
-import bcrypt from "bcryptjs";
-import { User, Product } from "dat";
-import { validate, errors } from "com";
+import { Product } from "dat";
+import { errors, validate } from "com";
 
 const { NotFoundError, SystemError } = errors;
 
-export default async ({ productId, userId }) => {
-  console.log({ userId, productId });
-  let result = null;
+export default async function deleteProduct({ productId, userId }) {
+  validate.id(productId, "productId");
+  validate.id(userId, "userId");
+
   try {
-    result = await Product.deleteOne({ _id: productId, author: userId });
+    await Product.findOne({ _id: productId, author: userId });
+  } catch (err) {
+    throw new NotFoundError("No puedes borrar este producto");
+  }
+
+  try {
+    const result = await Product.deleteOne({ _id: productId, author: userId });
+    return result;
   } catch (err) {
     throw new SystemError(err.message);
   }
-
-  if (result === null || result.deletedCount === 0) {
-    throw new NotFoundError("No puedes borrar este producto");
-  }
-  return result;
-};
+}

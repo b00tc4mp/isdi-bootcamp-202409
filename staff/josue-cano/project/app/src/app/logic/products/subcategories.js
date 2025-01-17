@@ -1,5 +1,5 @@
 export function fetchSubCategories() {
-  return fetch(`http://${"localhost:8080"}/subcategories`, {
+  return fetch(`http://${"localhost:8080"}/datbase/subcategories`, {
     method: "get",
     headers: { "Content-type": "application/json" },
   })

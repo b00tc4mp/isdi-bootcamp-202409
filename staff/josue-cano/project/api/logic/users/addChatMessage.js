@@ -2,9 +2,12 @@ import { Chat, Message } from "dat";
 import { validate, errors } from "com";
 
 const { SystemError } = errors;
-
+//VALIDAR CHATID USERID Y MESSAGE
 export default async ({ chatId, userId, message }) => {
-  // console.log({productOwner, message, userId});
+  validate.id(chatId, "chatId");
+  validate.id(userId, "userId");
+  validate.text(message);
+
   try {
     const chat = await Chat.findByIdAndUpdate(
       { _id: chatId },
@@ -15,7 +18,5 @@ export default async ({ chatId, userId, message }) => {
     // await chat.save();
 
     return chat;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };

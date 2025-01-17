@@ -51,12 +51,10 @@ const NewProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Formulario enviado:", formData);
 
     createProduct(formData).then(() => {
       redirect("/");
     });
-    // .catch(error => console.error(error));
   };
 
   const inputStyle = {

@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 const { AuthorizationError } = errors;
 
 export default (req, _res, next) => {
-  console.log("entrando en authorization handler");
 
   const token = req.headers.authorization?.slice(7);
 

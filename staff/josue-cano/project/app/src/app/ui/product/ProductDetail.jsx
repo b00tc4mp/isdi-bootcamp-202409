@@ -3,7 +3,9 @@ import Image from "next/image";
 import CarouselComponent from "./CarouselComponent";
 import ProductHeader from "./ProductHeader";
 import { getProductDetails } from "@/app/logic/products/getProductsDetail";
+import { getToken } from "@/app/utils/session";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function ProductDetail({ id, addtoFavorites }) {
   const [product, setProduct] = useState(null);
@@ -29,6 +31,21 @@ export default function ProductDetail({ id, addtoFavorites }) {
         setError(err); // Maneja los errores
       });
   }, [id, refetch]);
+
+  useEffect(() => {
+    console.log("SOY PRODUCT:", product);
+  }, [product]);
+
+  const chatHandler = async () => {
+    const token = getToken();
+
+    if (token) {
+      redirect(`/users/chats/new/${product.author._id}`);
+    } else {
+      alert("Debes iniciar sesión para poder chatear");
+    }
+  };
+
   return (
     <>
       <div className="card bg-base-100 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto mt-5 shadow-xl">
@@ -47,9 +64,9 @@ export default function ProductDetail({ id, addtoFavorites }) {
               <p className="text-gray-700 text-sm leading-6">{product?.description}</p>
             </div>
             <div className="card-actions justify-end">
-              <Link href={`/users/chats/new/${product.author._id}`} className="badge badge-outline">
+              <button onClick={chatHandler} className="badge badge-outline">
                 Chat
-              </Link>
+              </button>
               <div
                 onClick={favoritesHandler}
                 className={product.isFavorite == true ? "swap swap-active" : "swap swap-inactive"}>
@@ -67,15 +84,15 @@ export default function ProductDetail({ id, addtoFavorites }) {
         )}
       </div>
       {console.log(product?.author?.location?.src)}
-      {product?.author?.location?.src? (
-  <div className="card w-3/4 mx-auto mt-5 shadow-xl">
-    <div className="card-body">
-      <iframe src={product?.author?.location?.src} frameborder="0" className="h-96"></iframe>
-    </div>
-  </div>
-) : (
-  <p className=" text-center p-7">La ubicación del autor no está disponible.</p>
-)}
+      {product?.author?.location?.src ? (
+        <div className="card w-3/4 mx-auto mt-5 shadow-xl">
+          <div className="card-body">
+            <iframe src={product?.author?.location?.src} frameBorder="0" className="h-96"></iframe>
+          </div>
+        </div>
+      ) : (
+        <p className=" text-center p-7">La ubicación del autor no está disponible.</p>
+      )}
     </>
   );
 }

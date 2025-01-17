@@ -16,7 +16,6 @@ export default function ProductComponent({ product, addtoFavorites, refetch, set
     }
   };
   const chatHandler = async () => {
-
     const token = getToken();
 
     if (token) {
@@ -65,8 +64,7 @@ export default function ProductComponent({ product, addtoFavorites, refetch, set
                 </button>
                 <div
                   onClick={favoritesHandler}
-                  className={product?.isFavorite == true ? "swap swap-active" : "swap swap-inactive"}
-                >
+                  className={product?.isFavorite == true ? "swap swap-active" : "swap swap-inactive"}>
                   <div className="swap-off">
                     <Image src="/icons/non-favorite.svg" width={24} height={24} alt="favorite yes" />
                   </div>

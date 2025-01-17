@@ -5,7 +5,7 @@ import helpers from "../../helpers/index.js";
 const router = Router();
 
 // GET /users/details/:id?
-router.get("/users/details/:id?", helpers.authorizationHandler, (req, res) => {
+router.get("/details/:id?", helpers.authorizationHandler, (req, res) => {
   let userId;
   if (req.params.id) {
     userId = req.params.id;
@@ -22,7 +22,7 @@ router.get("/users/details/:id?", helpers.authorizationHandler, (req, res) => {
 /**
  * Get All products created by the user
  */
-router.get("/user/products", helpers.authorizationHandler, (req, res) => {
+router.get("/products", helpers.authorizationHandler, (req, res) => {
   const userId = req.userId;
 
   logic
@@ -34,7 +34,7 @@ router.get("/user/products", helpers.authorizationHandler, (req, res) => {
 /**
  * Get All comments made by the user
  */
-router.get("/user/chat/:chatId", helpers.authorizationHandler, (req, res) => {
+router.get("/chat/:chatId", helpers.authorizationHandler, (req, res) => {
   const userId = req.userId;
   const { chatId } = req.params;
 
@@ -47,20 +47,22 @@ router.get("/user/chat/:chatId", helpers.authorizationHandler, (req, res) => {
 /**
  * Get All chats
  */
-router.post("/user/chats/", helpers.authorizationHandler, (req, res) => {
+router.post("/chats/", helpers.authorizationHandler, async (req, res) => {
   const userId = req.userId;
   const { productOwner } = req.body;
 
-  logic
-    .getUserChats({ userId, productOwner })
-    .then((chats) => res.json({ data: chats }))
-    .catch((msg) => res.status(400).json({ error: msg.message }));
+  try {
+    const chats = await logic.getUserChats({ userId, productOwner });
+    res.json({ data: chats });
+  } catch (msg) {
+    res.status(400).json({ error: msg.message });
+  }
 });
 
 /**
  * Start a new chat
  */
-router.post("/user/chat/", helpers.authorizationHandler, (req, res) => {
+router.post("/chat/", helpers.authorizationHandler, (req, res) => {
   const userId = req.userId;
   const { message, productOwner } = req.body;
 
@@ -79,7 +81,7 @@ router.post("/user/chat/", helpers.authorizationHandler, (req, res) => {
 /**
  * Insert a new message in a chat
  */
-router.post("/user/chat/message", helpers.authorizationHandler, (req, res) => {
+router.post("/chat/message", helpers.authorizationHandler, (req, res) => {
   const userId = req.userId;
   const { message, chatId } = req.body;
 

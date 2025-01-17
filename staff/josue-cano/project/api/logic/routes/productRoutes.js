@@ -9,40 +9,37 @@ const router = Router();
 /**
  * obtener listado de todos los productos (usuario autenticado)
  */
-router.get("/products", helpers.authorizationHandler, (req, res) => {
+router.get("/", helpers.authorizationHandler, (req, res) => {
   const userId = req.userId;
-  const keyword = req.query.keyword || '';
-  logic
-    .getProducts({ userId, keyword })
-    .then((getProducts) => res.json({ data: getProducts }));
+  const keyword = req.query.keyword || "";
+  logic.getProducts({ userId, keyword }).then((getProducts) => res.json({ data: getProducts }));
 });
 
 /**
  * obtener listado de todos los productos (usuario no autenticado)
  */
-router.get("/public/products", (req, res) => {
-  const keyword = req.query.keyword || '';
-  logic.getProducts({ keyword })
-    .then((getProducts) => res.json({ data: getProducts }));
+router.get("/public", (req, res) => {
+  const keyword = req.query.keyword || "";
+  logic.getProducts({ keyword }).then((getProducts) => res.json({ data: getProducts }));
 });
 
 /**
  * obtener detalles del producto
  */
-router.get("/public/products/:id", (req, res) => {
+router.get("/public/:id", async (req, res) => {
   const { id } = req.params;
-  console.trace(id);
-  console.log('here');
-  logic
-    .getProductDetails(id)
-    .then((producto) => res.json({ data: producto }))
-    .catch((msg) => res.status(400).json({ error: msg.message }));
+  try {
+    const producto = await logic.getProductDetails(id);
+    res.json({ data: producto });
+  } catch (msg) {
+    res.status(400).json({ error: msg.message });
+  }
 });
 
 /**
  * obtener detalles del producto
  */
-router.get("/products/:id", helpers.authorizationHandler, (req, res) => {
+router.get("/:id", helpers.authorizationHandler, (req, res) => {
   const userId = req.userId;
   logic
     .getProductDetails(req.params.id, userId)
@@ -53,7 +50,7 @@ router.get("/products/:id", helpers.authorizationHandler, (req, res) => {
 /**
  * crear producto
  */
-router.post("/products", helpers.authorizationHandler, (req, res) => {
+router.post("/", helpers.authorizationHandler, (req, res) => {
   // producto nuevo
   const producto = { author: req.userId };
   // imágenes del producto
@@ -74,13 +71,10 @@ router.post("/products", helpers.authorizationHandler, (req, res) => {
   });
   //cada que encuentre un campo del formulario que no se aun archivo
   bb.on("field", (fieldname, value) => {
-    console.log("guardando campo:", { fieldname, value });
     producto[fieldname] = value;
   });
 
-  bb.on("error", (error) =>
-    res.status(500).json({ error: "SystemError", message: error.message })
-  );
+  bb.on("error", (error) => res.status(500).json({ error: "SystemError", message: error.message }));
   // aquí es donde se va a procesar el formulario cando busboy termine
   // de guardar las imágenes
   bb.on("finish", () => {
@@ -101,7 +95,7 @@ router.post("/products", helpers.authorizationHandler, (req, res) => {
 /**
  * Eliminar producto
  */
-router.delete("/products/:id", helpers.authorizationHandler, (req, res) => {
+router.delete("/:id", helpers.authorizationHandler, (req, res) => {
   const userId = req.userId;
 
   logic

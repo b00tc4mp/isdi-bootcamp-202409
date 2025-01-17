@@ -3,20 +3,20 @@ import { validate, errors } from "com";
 
 const { SystemError, NotFoundError } = errors;
 
-export default () => {
-  return (
-    Category.find()
-      .populate({
-        path: "subcategories",
-        model: "Subcategory",
-      })
-      // .lean()
-      .catch((error) => {
-        throw new SystemError(error.message);
-      })
-      .then((categories) => {
-        if (!categories) throw new NotFoundError("categories not found");
-        return categories;
-      })
-  );
+export default async () => {
+  try {
+
+    const categories = await Category.find().populate({
+      path: "subcategories",
+      model: "Subcategory",
+    });
+
+    if (categories.length === 0) {
+      throw new NotFoundError("categories not found");
+    }
+
+    return categories;
+  } catch (error) {
+    throw new SystemError(error.message);
+  }
 };

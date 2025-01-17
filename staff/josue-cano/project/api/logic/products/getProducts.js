@@ -2,15 +2,14 @@ import { User, Product } from "dat";
 import { validate, errors } from "com";
 
 const { SystemError, NotFoundError } = errors;
+export default async ({ userId, keyword }) => {
 
-export default async ({userId, keyword}) => {
-  // console.log({userId} );
+  if (userId) validate.id(userId, "userId");
+  if (keyword) validate.keyword(keyword);
 
   if (userId) {
     const user = await User.findOne({ _id: userId });
-    
-
-    const products = await Product.find({name: { $regex: `${keyword}` }}).lean();
+    const products = await Product.find({ name: { $regex: `${keyword}`, $options: "i" } }).lean();
     const result = products.map((product) => ({
       ...product,
       isFavorite: user.favorites.includes(product._id),
@@ -18,9 +17,13 @@ export default async ({userId, keyword}) => {
     return result;
   }
 
-  const products = await Product.find({name: { $regex: `${keyword}` }}).lean();
+  try {
+    const products = await Product.find({ name: { $regex: `${keyword}`, $options: "i" } }).lean();
+    return products;
+  } catch (error) {
+    throw new NotFoundError(error);
+  }
 
-  return products;
 
   // return Producto.find()
   //  .lean()

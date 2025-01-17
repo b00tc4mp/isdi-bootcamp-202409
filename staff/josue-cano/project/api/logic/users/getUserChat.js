@@ -2,8 +2,9 @@ import { Chat } from "dat";
 import { validate, errors } from "com";
 
 const { SystemError } = errors;
-
+//VALIDAR CHAT ID
 export default async (chatId) => {
+  validate.id(chatId, "chatId");
   try {
     // const user = await User.findOne({ _id: id });
     // if (!user) {

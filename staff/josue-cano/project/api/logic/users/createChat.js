@@ -1,11 +1,30 @@
-import { Chat, Message } from "dat";
+import { Chat, Message, User } from "dat";
 import { validate, errors } from "com";
 
-const { SystemError } = errors;
-
+const { ValidationError, SystemError } = errors;
+// VALIDAR PRODUCT OWNER, USERID, MESSAGE
+// productOwner: id del usuario que es dueño del producto
 export default async ({ productOwner, userId, message }) => {
-  console.log({ productOwner, message, userId });
+  if (productOwner) validate.id(productOwner, "productOwner");
+  if (userId) validate.id(userId, "userId");
+  if (message) validate.text(message);
+
   try {
+    // Validation for required fields
+    validate.chat({ productOwner, userId, message });
+
+    // Verify existence of productOwner
+    const owner = await User.findById(productOwner);
+    if (!owner) {
+      throw new ValidationError("product owner not found");
+    }
+
+    // Verify existence of userId
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new ValidationError("user not found error");
+    }
+
     const chat = await Chat.create({
       owner: productOwner,
       peer: userId,
@@ -14,6 +33,6 @@ export default async ({ productOwner, userId, message }) => {
 
     return chat._id;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };

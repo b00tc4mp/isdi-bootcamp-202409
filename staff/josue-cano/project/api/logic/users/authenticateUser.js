@@ -26,7 +26,6 @@ export default ({ email, password }) => {
     } catch (error) {
       throw new CredentialsError(error.message);
     }
-
     if (!match) throw new CredentialsError("wrong credentials");
 
     const { _id: sub, firstName, lastName, email: mail } = { ...user.toObject() };

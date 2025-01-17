@@ -10,7 +10,7 @@ const { expect } = chai;
 import db, { User } from "dat";
 import { errors } from "com";
 
-const { DuplicityError, SystemError , ValidationError} = errors;
+const { DuplicityError, SystemError, ValidationError } = errors;
 
 import registerUser from "./registerUser.js";
 
@@ -87,15 +87,16 @@ describe("registerUser", () => {
     User.create = originalCreate; // Restaura User.create
   });
 
-  it("fails when validation throws an error",() => 
-    expect( ()=> registerUser({
+  it("fails when validation throws an error", async () => {
+    await expect(
+      registerUser({
         firstName: "", // Nombre inválido
         lastName: "cano",
         email: "invalid-email", // Email inválido
-        ubicacion: "invalid",
-        password: "123",
+        location: "invalid", // Cambié 'ubicacion' por 'location' para que coincida con el resto
+        password: "123", // Contraseña demasiado corta
         passwordRepeat: "123",
       })
-    ).to.throw(ValidationError, "invalid name length")
-  );
+    ).to.be.rejectedWith("invalid name length");
+  });
 });

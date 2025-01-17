@@ -1,7 +1,21 @@
+import { validate } from "com";
+
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const registerUser = ({ firstName, lastName, email, location, password, passwordRepeat }) => {
-  return fetch(`${baseUrl}/register`, {
+  try {
+    validate.firstName(firstName);
+    validate.lastName(lastName);
+    validate.email(email);
+    validate.location(location);
+    validate.password(password);
+    validate.password(passwordRepeat);
+  } catch (error) {
+    console.error(error);
+  }
+
+
+  return fetch(`${baseUrl}/auth/register`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
@@ -37,5 +51,3 @@ export const registerUser = ({ firstName, lastName, email, location, password, p
       throw new Error(message || "Error desconocido en el registro.");
     });
 };
-
-

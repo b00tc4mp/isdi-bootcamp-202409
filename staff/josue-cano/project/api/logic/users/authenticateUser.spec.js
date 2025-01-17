@@ -33,16 +33,28 @@ describe("authenticateUser", () => {
       }));
 
   it("fails on non-existing user", () =>
-    expect(authenticateUser({ email: "josuecano@de565lgado.com", password: "123123123" })).to.be.rejectedWith(
-      CredentialsError,
-      "user does not exist"
-    ));
+    User.create({
+      firstName: "josue",
+      lastName: "cano",
+      email: "josuecano@delgado.com",
+      password: bcrypt.hashSync("123123123", 10),
+    })
+      .then(() => expect(authenticateUser({ email: "josuecano@de565lgado.com", password: "123123123" })).to.be.rejectedWith(
+        CredentialsError,
+        "user does not exist"
+      )));
 
   it("fails on wrong credentials", () =>
-    expect(authenticateUser({ email: "josuecano@de565lgado.com", password: "123123123123" })).to.be.rejectedWith(
-      CredentialsError,
-      "wrong credentials"
-    ));
+    User.create({
+      firstName: "josue",
+      lastName: "cano",
+      email: "josuecano@delgado.com",
+      password: bcrypt.hashSync("123123123", 10),
+    })
+      .then(() => expect(authenticateUser({ email: "josuecano@delgado.com", password: "123123123123" })).to.be.rejectedWith(
+        CredentialsError,
+        "wrong credentials"
+      )));
 
   after(() => db.disconnect());
 });
