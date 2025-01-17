@@ -19,5 +19,7 @@ export default async ({ userId, productOwner }) => {
     }
 
     return chats;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };

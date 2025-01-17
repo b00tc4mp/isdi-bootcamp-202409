@@ -7,9 +7,9 @@ export default async function deleteProduct({ productId, userId }) {
   validate.id(productId, "productId");
   validate.id(userId, "userId");
 
-  try {
-    await Product.findOne({ _id: productId, author: userId });
-  } catch (err) {
+  const produc = await Product.findOne({ _id: productId, author: userId });
+
+  if (!produc) {
     throw new NotFoundError("No puedes borrar este producto");
   }
 

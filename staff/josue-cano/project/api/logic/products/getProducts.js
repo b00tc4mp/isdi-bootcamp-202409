@@ -24,16 +24,4 @@ export default async ({ userId, keyword }) => {
     throw new NotFoundError(error);
   }
 
-
-  // return Producto.find()
-  //  .lean()
-  //   .catch((error) => {
-  //     throw new SystemError(error.message);
-  //   })
-  //   .then((producto) => {
-  //     if (!`producto`) throw new NotFoundError("producto not found");
-  //     return producto;
-  //   });
-  //
-  // return products;
 };
