@@ -127,6 +127,10 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                             id="expireDate"
                             defaultValue={pack.expiryDate ? new Date(pack.expiryDate).toISOString().split('T')[0] : ''} />
                     </Field>
+                    <div className="flex items-center justify-center">
+                        <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg" type="submit">Update</Button>
+                        <Button className="bg-red-800 text-white px-4 py-2 rounded-lg" onClick={handleCancelClick}>Cancel</Button>
+                    </div>
 
 
                     <h2 className='text-2xl mt-10' >Activity log</h2>
@@ -148,13 +152,9 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                                     <td className='border px-4 py-2'>{payment.formattedRemaining}</td>
                                 </tr>
                             ))}
-
                         </tbody>
                     </table>
-                    <div className="flex items-center justify-center">
-                        <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg" type="submit">Update</Button>
-                        <Button className="bg-red-800 text-white px-4 py-2 rounded-lg" onClick={handleCancelClick}>Cancel</Button>
-                    </div>
+
 
 
                     <h2 className='text-2xl mt-10'>Payments history</h2>
@@ -183,6 +183,24 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                     </table>
                     <div className="flex items-center justify-center">
                         <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg" type="submit">Add Payment</Button>
+                    </div>
+                    <div className='flex items-center justify-center'>
+                        <Field>
+                            <Label htmlFor="amount">Amount</Label>
+                            <Input className="border-2 rounded-lg" type="number" id="amount" placeholder="0" />
+                        </Field>
+                        <Field>
+                            <Label htmlFor="paymentMethod">Select Payment Method</Label>
+                            <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2">
+                                <option value="card">Card</option>
+                                <option value="cash">Cash</option>
+                                <option value="bankTransfer">Bank Transfer</option>
+                                <option value="paypal">Paypal</option>
+                                <option value="stripe">Stripe</option>
+                                <option value="others">Others</option>
+                            </select>
+                        </Field>
+                        <Button>Save</Button>
                     </div>
 
 

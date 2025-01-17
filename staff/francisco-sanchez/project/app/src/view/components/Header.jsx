@@ -11,7 +11,7 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
 
 
     useEffect(() => {
-        console.log('Header componentDidMount and receiveProps')
+        //console.log('Header componentDidMount and receiveProps')
 
         if (logic.isUserLoggedIn() && !name) {
             if (!name) {

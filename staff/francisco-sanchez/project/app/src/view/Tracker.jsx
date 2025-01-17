@@ -33,21 +33,22 @@ export default function Tracker(props) {
 
                 if (customers.length > 0) {
                     const firstCustomerId = customers[0]
-                    //console.log("First customer ID --> ", firstCustomerId)
+                    console.log("useEffect -- First customer ID --> ", firstCustomerId)
                     setSelectedCustomer(firstCustomerId)
 
+                    console.log('Antes de llamar al getAdquiredPacks el firstCustomerId.id es --> ' + firstCustomerId.id)
                     const packs = await logic.getAdquiredPacks(firstCustomerId.id)
-                    //console.log('Packs fetched successfully --> ', packs)
+                    console.log('useEffect -- Packs fetched successfully --> ', packs)
                     setFilteredPacks(packs)
 
                     //load activities from first pack in the select
                     if (packs.length > 0) {
                         const firstPack = packs[0]
-                        //console.log('First pack -->', firstPack)
+                        console.log('useEffect -- First pack -->', firstPack)
                         setSelectedPack(firstPack)
 
                         const activities = await logic.getActivitiesByPackId(firstPack.id)
-                        //console.log('Pack Activity fetched successfully --> ', activities)
+                        console.log('useEffect -- Pack Activity fetched successfully --> ', activities)
                         setPackActivities(activities)
                     }
 
@@ -68,7 +69,7 @@ export default function Tracker(props) {
         //console.log(event)
 
         const customerId = event.target.value
-        //console.log('customerID CHANGED --> ' + customerId)
+        console.log('handleCustomerChange -- customerID before setSelectedCustomer --> ' + customerId)
 
         // Detenemos el temporizador actual
         if (intervalId) {
@@ -82,6 +83,7 @@ export default function Tracker(props) {
 
         // Actualizamos el cliente seleccionado
         setSelectedCustomer(customerId)
+        console.log('handleCustomerChange -- setSelectedCustomer --> ' + customerId)
 
         // Limpiamos el pack seleccionado
         setSelectedPack(null)
@@ -136,8 +138,8 @@ export default function Tracker(props) {
         const packId = event.target.value
         const selectedPackObject = filteredPacks.find(pack => pack.id === packId)
 
-        //console.log('Selected Pack --------->', selectedPackObject)
-        //setSelectedPack(packId) // Actualizar pack seleccionado
+        console.log('Selected Pack --------->', selectedPackObject)
+        setSelectedPack(packId) // Actualizar pack seleccionado
 
         if (selectedPackObject) {
             // Detenemos el temporizador actual
@@ -187,6 +189,7 @@ export default function Tracker(props) {
     const handleAdjustManualTime = (event) => {
         event.preventDefault()
 
+        //TODO: Esto con useRef, nada de usar el DOM!!!
         const timerInput = document.getElementById('timerAdjust').value
 
         // Validar el formato del input de tiempo: (+/-)hh:mm:ss
@@ -202,7 +205,7 @@ export default function Tracker(props) {
 
         console.log(selectedCustomer.id)
 
-        logic.toggleManualTimeTracker(userId, selectedPack.id, selectedCustomer.id, currentDescription, timerInput)
+        logic.toggleManualTimeTracker(userId, selectedPack.id, selectedPack.customer, currentDescription, timerInput)
             .then((packUpdated) => {
                 if (!packUpdated || !packUpdated.id) {
                     /* console.log('API Response (packUpdated):', packUpdated)
@@ -237,8 +240,9 @@ export default function Tracker(props) {
         const currentDescription = description || 'No description'
 
         console.log(selectedCustomer.id)
+        console.log(selectedPack.customer)
 
-        logic.toggleManualUnitsTracker(userId, selectedPack.id, selectedCustomer.id, currentDescription, parseInt(UnitsInput))
+        logic.toggleManualUnitsTracker(userId, selectedPack.id, selectedPack.customer, currentDescription, parseInt(UnitsInput))
             .then((packUpdated) => {
                 if (!packUpdated || !packUpdated.id) {
                     /* console.log('API Response (packUpdated):', packUpdated)
@@ -273,7 +277,9 @@ export default function Tracker(props) {
         const userId = logic.getUserId()
         const currentDescription = description || 'No description'
 
-        logic.toggleTimeTracker(userId, selectedPack.id, selectedCustomer, currentDescription, 'substract')
+        console.log('y cuando llego al boto de track el selectedcustomer.id es   --> ' + selectedCustomer.id + selectedCustomer)
+        console.log('y cuando llego al boto de track el selectedPack.customer es --> ' + selectedPack.customer + selectedPack)
+        logic.toggleTimeTracker(userId, selectedPack.id, selectedPack.customer, currentDescription, 'substract')
             .then((packUpdated) => {
                 if (!packUpdated || !packUpdated.id) {
                     /* console.log('API Response (packUpdated):', packUpdated)
@@ -332,6 +338,8 @@ export default function Tracker(props) {
     }, [intervalId])
 
     useEffect(() => {
+        console.log('useEffect timerActivated ---> ' + selectedPack?.timerActivated)
+        console.log('useEffect elapsedTime ---> ' + elapsedTime)
         if (selectedPack?.timerActivated) {
             document.title = `⏱️ Timer: ${new Date(elapsedTime * 1000).toISOString().substr(11, 8)}`
         } else {
@@ -382,10 +390,10 @@ export default function Tracker(props) {
                             <textarea id="description" name="description" rows="3" className="border-2 rounded-lg w-full p-2" placeholder="Add a description..." value={selectedPack?.descriptionActivityTemp} onChange={handleDescriptionChange}></textarea>
                         </Field>
 
-                        <div className="flex flex-col space-y-6">
+                        <div className="flex flex-col">
                             {/* Sección para packs de tiempo */}
                             {selectedPack?.unit === 'hours' && (
-                                <div className="flex items-center space-x-4">
+                                <div className="flex items-center">
                                     {/* Visualización del temporizador */}
                                     <div className="border-2 rounded-lg p-3 w-44 text-center text-lg font-semibold">
                                         {new Date(elapsedTime * 1000).toISOString().substr(11, 8)}
@@ -403,8 +411,9 @@ export default function Tracker(props) {
                             )}
 
                             {/* Sección para ajustes manuales */}
-                            <div className="flex items-center space-x-4">
+                            <div className="flex items-center">
                                 {/* Input para packs de tiempo */}
+
                                 {selectedPack?.unit === 'hours' && (
                                     <Field>
                                         <input type="text" id="timerAdjust" name="timerAdjust" placeholder="-01:00:00" defaultValue="-01:00:00" className="border-2 rounded-lg p-3 w-44 text-center text-lg" />
