@@ -2,7 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { UpdateProfileUserRegular, ProfileScreenUserRegular } from '../../userRegular/index'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 export default function ProfileStackNavigator() {
     return (

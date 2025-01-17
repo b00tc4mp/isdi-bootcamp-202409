@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TextInput, FlatList, StyleSheet, Alert, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, TextInput, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native'
 import logic from '../../logic'
 import { useNavigation } from '@react-navigation/native'
 
@@ -22,9 +22,9 @@ export default function SearchBarExample() {
                 Alert.alert('Error', error.message)
                 console.error(error)
             }
-        };
-        fetchUserData();
-    }, []);
+        }
+        fetchUserData()
+    }, [])
 
     const reloadPetsData = async () => {
         try {
@@ -34,23 +34,23 @@ export default function SearchBarExample() {
         } catch (error) {
             Alert.alert('Error', error.message)
         }
-    };
+    }
 
     const handleSearch = (text) => {
         setSearch(text)
         if (text) {
             const newData = allData.filter((item) =>
                 item.chip.toLowerCase().includes(text.toLowerCase())
-            );
+            )
             setFilteredData(newData)
         } else {
             setFilteredData(allData)
         }
-    };
+    }
 
     const handleItemPress = (item) => {
-        setInfoPet(item);
-    };
+        setInfoPet(item)
+    }
 
     return (
         <FlatList

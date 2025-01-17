@@ -9,7 +9,6 @@ export default function ProfileScreenUserVeterinary() {
     const [userInfo, setUserInfo] = useState(null)
 
     useEffect(() => {
-        console.log('Home render info')
         const fethcUserData = async () => {
 
             try {

@@ -15,7 +15,7 @@ export default function CalendarScreenUserRegular() {
         ]
 
         const marked = fetchedDates.reduce((acc, date) => {
-            acc[date] = { marked: true, dotColor: 'red', activeOpacity: 0 };
+            acc[date] = { marked: true, dotColor: 'red', activeOpacity: 0 }
             return acc
         }, {})
 
@@ -23,9 +23,9 @@ export default function CalendarScreenUserRegular() {
     }, [])
 
     const handleDayPress = (day) => {
-        setSelectedDate(day.dateString);
-        setModalVisible(true);
-    };
+        setSelectedDate(day.dateString)
+        setModalVisible(true)
+    }
 
     return (
         <View style={styles.container}>
@@ -53,7 +53,7 @@ export default function CalendarScreenUserRegular() {
                 </Modal>
             )}
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         fontSize: 18,
     },
-});
+})

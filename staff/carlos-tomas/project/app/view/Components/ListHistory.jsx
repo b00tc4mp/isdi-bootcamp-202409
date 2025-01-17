@@ -18,7 +18,7 @@ export default function ListHistory({ type, petId }) {
 
             } catch (error) {
                 Alert.alert('Error', error.message)
-                console.error(error);
+                console.error(error)
             }
         }
 

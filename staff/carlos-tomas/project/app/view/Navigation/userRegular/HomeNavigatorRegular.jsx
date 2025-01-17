@@ -2,7 +2,7 @@ import useSession from '../../useSession'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
-import { TouchableOpacity, Alert } from 'react-native'
+import { TouchableOpacity, Alert, Image } from 'react-native'
 
 import logic from '../../../logic'
 
@@ -45,23 +45,28 @@ export default function HomeNavigatorRegular() {
         <Navigator
             screenOptions={({ route }) => ({
                 headerTitleAlign: 'center',
+                headerTitle: () => (
+                    <Image
+                        source={require('../../../assets/logo.png')} // Ruta a tu logo
+                        style={{ width: 120, height: 60, resizeMode: 'contain' }}
+                    />
+                ),
                 tabBarStyle: {
                     height: 70
                 },
                 tabBarActiveTintColor: '#FF6347r',
                 tabBarInactiveTintColor: '#259447',
                 tabBarIcon: ({ color }) => {
-                    let iconName;
-                    if (route.name === 'Home') {
-                        iconName = 'home-outline';
-                    } else if (route.name === 'Profile') {
-                        iconName = 'person-outline';
+                    let iconName
+
+                    if (route.name === 'Profile') {
+                        iconName = 'person-outline'
                     } else if (route.name === 'Pets') {
-                        iconName = 'paw-outline';
+                        iconName = 'paw-outline'
                     } else if (route.name === 'Calendar') {
-                        iconName = 'calendar-outline';
+                        iconName = 'calendar-outline'
                     }
-                    return <Ionicons name={iconName} size={30} color={color} />;
+                    return <Ionicons name={iconName} size={30} color={color} />
                 },
                 tabBarLabelStyle: {
                     fontSize: 15,
@@ -75,11 +80,7 @@ export default function HomeNavigatorRegular() {
 
             })}
         >
-            <Screen
-                name="Home"
-                component={HomeScreenUserRegular}
-                options={{ title: 'Home' }}
-            />
+
             <Screen
                 name="Profile"
                 component={ProfileStackNavigator}
@@ -96,5 +97,5 @@ export default function HomeNavigatorRegular() {
                 options={{ title: 'Calendario' }}
             />
         </Navigator>
-    );
+    )
 }

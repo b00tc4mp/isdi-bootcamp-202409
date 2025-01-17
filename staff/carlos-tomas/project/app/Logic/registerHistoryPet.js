@@ -35,10 +35,10 @@ export default async (petId, type, text) => {
     } catch (error) {
 
         if (error.response) {
-            const { data } = error.response;
-            throw new errors[data.error](data.message);
+            const { data } = error.response
+            throw new errors[data.error](data.message)
         } else {
-            throw new SystemError(error.message);
+            throw new SystemError(error.message)
 
         }
     }

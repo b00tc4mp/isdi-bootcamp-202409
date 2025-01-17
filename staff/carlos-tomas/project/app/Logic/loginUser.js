@@ -16,7 +16,7 @@ export default async (username, password) => {
             password
 
         })
-        const { data } = response;
+        const { data } = response
         if (data && data.token) {
             await AsyncStorage.setItem('token', data.token) // Usamos AsyncStorage para almacenar el token
             return
@@ -25,10 +25,10 @@ export default async (username, password) => {
         throw new SystemError('Token not found in the response')
     } catch (error) {
         if (error.response) {
-            const { data } = error.response;
-            throw new errors[data.error](data.message);
+            const { data } = error.response
+            throw new errors[data.error](data.message)
         } else {
-            throw new SystemError(error.message);
+            throw new SystemError(error.message)
 
         }
     }

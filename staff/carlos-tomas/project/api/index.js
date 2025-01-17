@@ -44,6 +44,14 @@ db.connect(process.env.MONGO_URL).then(() => {
         res.json(user)
     }))
 
+    server.get('/users/pets', authorizationHandler, createFunctionalHandler(async (req, res) => {
+        const { userId } = req
+
+        const userPets = await logic.getUserPets(userId)
+
+        res.json(userPets)
+    }))
+
     server.get('/pets', authorizationHandler, createFunctionalHandler(async (req, res) => {
         const { userId } = req
         const pets = await logic.getPets(userId)

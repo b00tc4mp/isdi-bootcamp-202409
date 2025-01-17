@@ -140,4 +140,4 @@ const signInScreen = StyleSheet.create({
     textSubmit: {
         fontSize: 20
     }
-});
+})

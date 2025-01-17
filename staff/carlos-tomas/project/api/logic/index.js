@@ -6,6 +6,7 @@ import getPets from './getPets.js'
 import registerHistory from './registerHistory.js'
 import getHistoriesPets from './getHistoriesPets.js'
 import updateVaccinesDewornsPet from './updateVaccinesDewornsPet.js'
+import getUserPets from './getUserPets.js'
 
 
 
@@ -19,7 +20,8 @@ const logic = {
     getPets,
     registerHistory,
     getHistoriesPets,
-    updateVaccinesDewornsPet
+    updateVaccinesDewornsPet,
+    getUserPets
 }
 
 export default logic

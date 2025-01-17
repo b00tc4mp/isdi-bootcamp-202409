@@ -1,5 +1,5 @@
 import useSession from './useSession'
-import { Text, View, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 

@@ -45,10 +45,10 @@ export default async (chip, name, race, sex, weight, sterilized, dateOfBirth) =>
     } catch (error) {
 
         if (error.response) {
-            const { data } = error.response;
-            throw new errors[data.error](data.message);
+            const { data } = error.response
+            throw new errors[data.error](data.message)
         } else {
-            throw new SystemError(error.message);
+            throw new SystemError(error.message)
 
         }
     }

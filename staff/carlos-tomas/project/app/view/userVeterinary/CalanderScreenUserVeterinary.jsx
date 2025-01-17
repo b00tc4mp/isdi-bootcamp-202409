@@ -20,7 +20,7 @@ const MyCalendar = () => {
             return acc
         }, {})
 
-        setMarkedDates(marked);
+        setMarkedDates(marked)
     }, [])
 
     return (

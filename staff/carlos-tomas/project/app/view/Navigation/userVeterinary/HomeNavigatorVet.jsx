@@ -2,7 +2,7 @@ import useSession from '../../useSession'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
-import { TouchableOpacity, Alert } from 'react-native'
+import { TouchableOpacity, Alert, Image } from 'react-native'
 
 import logic from '../../../logic'
 
@@ -44,6 +44,12 @@ export default function HomeNavigatorVet() {
         <Navigator
             screenOptions={({ route }) => ({
                 headerTitleAlign: 'center',
+                headerTitle: () => (
+                    <Image
+                        source={require('../../../assets/logo.png')} // Ruta a tu logo
+                        style={{ width: 120, height: 60, resizeMode: 'contain' }}
+                    />
+                ),
                 tabBarStyle: {
                     height: 70,
                 },
@@ -51,17 +57,17 @@ export default function HomeNavigatorVet() {
                 tabBarInactiveTintColor: '#259447',
 
                 tabBarIcon: ({ color }) => {
-                    let iconName;
+                    let iconName
                     if (route.name === 'report') {
-                        iconName = 'book';
+                        iconName = 'book'
                     } else if (route.name === 'profile') {
-                        iconName = 'person-outline';
+                        iconName = 'person-outline'
                     } else if (route.name === 'registerAnimals') {
-                        iconName = 'paw-outline';
+                        iconName = 'paw-outline'
                     } else if (route.name === 'calendar') {
-                        iconName = 'calendar-outline';
+                        iconName = 'calendar-outline'
                     }
-                    return <Ionicons name={iconName} size={30} color={color} />;
+                    return <Ionicons name={iconName} size={30} color={color} />
                 },
                 tabBarLabelStyle: {
                     fontSize: 15,
@@ -97,5 +103,5 @@ export default function HomeNavigatorVet() {
                 options={{ title: 'Calendario' }}
             />
         </Navigator>
-    );
+    )
 }

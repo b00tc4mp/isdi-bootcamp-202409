@@ -23,12 +23,12 @@ export default function ReportVaccinesDewornsUserVeterinary({ route }) {
             navigation.navigate('report')
         } catch (error) {
             Alert.alert('Error', error.message)
-            console.error(error);
+            console.error(error)
         }
     }
 
     const handleChangeDeworn = (dewornTypeItem) => {
-        setDeworn(dewornTypeItem.value);
+        setDeworn(dewornTypeItem.value)
     }
 
     const dewornTypeItem = [

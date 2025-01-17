@@ -10,6 +10,7 @@ import getPets from './getPets'
 import registerHistoryPet from './registerHistoryPet'
 import getHistoriesPets from './getHistoriesPets'
 import updateVaccinesDewornsPet from './updateVaccinesDewornsPet'
+import getUserPets from './getUserPets'
 
 
 const logic = {
@@ -23,6 +24,7 @@ const logic = {
     registerPet,
     registerHistoryPet,
     updateVaccinesDewornsPet,
+    getUserPets,
 
     getPets,
     getUser,

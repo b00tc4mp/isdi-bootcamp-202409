@@ -61,8 +61,8 @@ export default function DropdownTypePets({ setVaccine }) {
     }
 
     const handleAnimalChange = (value) => {
-        setTypeAnimal(value);
-        setVaccines(VaccinesData[value] || []);
+        setTypeAnimal(value)
+        setVaccines(VaccinesData[value] || [])
     }
     const handleVaccineChange = (selectedVaccine) => {
         setVaccine(selectedVaccine.value)

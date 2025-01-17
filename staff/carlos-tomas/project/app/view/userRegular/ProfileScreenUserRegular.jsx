@@ -9,13 +9,18 @@ export default function ProfileScreenUserRegular() {
     const [userId, setUserId] = useState(null)
 
     useEffect(() => {
-        console.log('Home render info')
         const fethcUserData = async () => {
 
             try {
                 const paylaod = await logic.QrCodeGeneraitor()
                 setUserId(paylaod)
 
+            } catch (error) {
+                Alert.alert(error.message)
+                console.error(error)
+            }
+
+            try {
                 const user = await logic.getUser()
                 setUserInfo(user)
 

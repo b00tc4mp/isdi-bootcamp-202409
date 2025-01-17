@@ -33,8 +33,8 @@ export default function PetsScreenUserVeterinary() {
         }
     }
     const handleDateChange = (selectedDate) => {
-        setDateOfBirth(selectedDate.toLocaleDateString());
-        console.log("Fecha seleccionada:", selectedDate.toLocaleDateString());
+        setDateOfBirth(selectedDate.toLocaleDateString())
+        console.log("Fecha seleccionada:", selectedDate.toLocaleDateString())
     }
     const handleChangeSex = (sexItem) => {
         setSex(sexItem.value)
