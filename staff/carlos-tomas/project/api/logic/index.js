@@ -1,13 +1,6 @@
-import authenticateUser from './authenticateUser.js'
-import registerUser from './registerUser.js'
-import getUser from './getUser.js'
-import registerPet from './registerPet.js'
-import getPets from './getPets.js'
-import registerHistory from './registerHistory.js'
-import getHistoriesPets from './getHistoriesPets.js'
-import updateVaccinesDewornsPet from './updateVaccinesDewornsPet.js'
-import getUserPets from './getUserPets.js'
+import { authenticateUser, registerUser, getUser, getUserPets } from './users/index.js'
 
+import { registerPet, getPets, registerHistory, getHistoriesPets, updateVaccinesDewornsPet } from './veterinary/index.js'
 
 
 
@@ -16,12 +9,13 @@ const logic = {
     authenticateUser,
     registerUser,
     getUser,
+    getUserPets,
+
     registerPet,
     getPets,
     registerHistory,
     getHistoriesPets,
-    updateVaccinesDewornsPet,
-    getUserPets
+    updateVaccinesDewornsPet
 }
 
 export default logic

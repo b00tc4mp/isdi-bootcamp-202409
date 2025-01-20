@@ -16,7 +16,7 @@ export default async () => {
     let response
 
     try {
-        response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/pets`, {
+        response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/veterinary/pets`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

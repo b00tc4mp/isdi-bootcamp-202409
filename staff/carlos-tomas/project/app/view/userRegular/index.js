@@ -1,8 +1,8 @@
 import CalanderSreenUserRegular from './CalanderScreenUserRegular'
-
 import PetsScreenUserRegular from './PetsScreenUserRegular'
 import ProfileScreenUserRegular from './ProfileScreenUserRegular'
-import UpdateProfileUserRegular from './UpdateProfileUserRegular'
+import PetsUserHistory from './PetsUserHistory'
+
 
 
 
@@ -10,5 +10,6 @@ export {
     CalanderSreenUserRegular,
     PetsScreenUserRegular,
     ProfileScreenUserRegular,
-    UpdateProfileUserRegular
+    PetsUserHistory
+
 }

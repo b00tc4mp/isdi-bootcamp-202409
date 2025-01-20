@@ -13,7 +13,7 @@ export default async (name, username, password, phone, email, passwordRepeat) =>
 
     let response
     try {
-        response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/usersRegister`,
+        response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/users/register`,
             {
                 name,
                 username,

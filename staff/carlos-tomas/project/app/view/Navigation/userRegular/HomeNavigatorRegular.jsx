@@ -6,9 +6,10 @@ import { TouchableOpacity, Alert, Image } from 'react-native'
 
 import logic from '../../../logic'
 
-import ProfileStackNavigator from './ProfileStackNavigator'
 
-import { CalanderSreenUserRegular, HomeScreenUserRegular, PetsScreenUserRegular, } from '../../userRegular'
+
+import { CalanderSreenUserRegular, ProfileScreenUserRegular, PetsScreenUserRegular, } from '../../userRegular'
+import PetsUserHistoryStack from './PetsUserHistoryStack'
 
 
 const { Navigator, Screen } = createBottomTabNavigator()
@@ -80,15 +81,14 @@ export default function HomeNavigatorRegular() {
 
             })}
         >
-
             <Screen
                 name="Profile"
-                component={ProfileStackNavigator}
+                component={ProfileScreenUserRegular}
                 options={{ title: 'Perfil' }}
             />
             <Screen
                 name="Pets"
-                component={PetsScreenUserRegular}
+                component={PetsUserHistoryStack}
                 options={{ title: 'Animales' }}
             />
             <Screen

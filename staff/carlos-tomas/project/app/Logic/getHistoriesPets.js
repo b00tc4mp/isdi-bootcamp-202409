@@ -20,7 +20,7 @@ export default async (type, petId) => {
     let response
 
     try {
-        response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/pets/history/${type}/${petId}`, {
+        response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/veterinary/pets/history/${type}/${petId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
