@@ -35,6 +35,8 @@ import {
 
 import {
     getPayments,
+    addPayment,
+    deletePayment
 } from './payments'
 
 import { getDecimalToTimeFormat } from './helpers'
@@ -75,7 +77,9 @@ const logic = {
 
 
     //Payments
-    getPayments
+    getPayments,
+    addPayment,
+    deletePayment
 }
 
 export default logic

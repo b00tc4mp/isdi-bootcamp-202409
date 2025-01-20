@@ -8,8 +8,8 @@ import logic from '../../logic';
 
 const { SystemError } = errors
 
-export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
-    const { alert } = useContext()
+export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymentDeleted, onCancelClick, pack }) {
+    const { alert, confirm } = useContext()
     const [packActivities, setPackActivities] = useState([])
     const [payments, setPayments] = useState([])
 
@@ -68,6 +68,76 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
         onCancelClick()
     }
 
+    const handlePaymentSubmit = (event) => {
+        event.preventDefault()
+        const { target: form } = event
+        const {
+            amount: { value: amount },
+            paymentMethod: { value: paymentMethod } } = form
+
+        if (!amount || !paymentMethod) {
+            alert('Please provide the required information')
+            return
+        }
+
+        try {
+            logic.addPayment(pack._id, amount, pack.currency, paymentMethod)
+                .then((newPayment) => {
+                    onPaymentAdded
+                    // Añade el nuevo pago al estado de pagos
+                    setPayments((prevPayments) => [...prevPayments, newPayment]);
+                    alert('Payment added successfully', 'success');
+                    form.reset(); // Reinicia el formulario
+
+                    //Vuelvo a recuperar toda la tabla de payments
+                    //TODO: Aquí con consigo que me actualice correctamente la tabla de pagos
+                    try {
+                        logic.getPayments(pack._id)
+                        console.log('Pack Payments fetched successfully', payments)
+                        setPayments(payments)
+
+                    } catch (error) {
+                        alert(error.message)
+                        console.error(error)
+                    }
+
+                })
+                .catch((error) => {
+                    alert(error.message)
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+    const deletePaymentHandler = (event, paymentId) => {
+        event.preventDefault()
+        confirm('Do you want delete this item? -This action can\'t be reversed', accepted => {
+            if (accepted) {
+                try {
+                    console.log(paymentId)
+                    logic.deletePayment(paymentId)
+                        .then(() => {
+                            onPaymentDeleted
+                            // Filtra el pago eliminado de la lista de pagos actual
+                            setPayments((prevPayments) =>
+                                prevPayments.filter((payment) => payment.id !== paymentId)
+                            )
+                        })
+                        .catch((error) => {
+                            alert(error.message)
+                            console.error(error)
+                        })
+                } catch (error) {
+                    alert(error.message)
+                    console.error(error)
+                }
+            }
+        }, 'warn')
+    }
+
     if (!pack) {
         return <p>there was a problem loading customer pack</p>
     } else {
@@ -97,6 +167,12 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                         value={pack.totalPayments || '0'}
                         valueClass="text-gray-800"
                     />
+                    {parseFloat(pack.price) - parseFloat(pack.totalPayments) > 0 ? (
+                        <Card
+                            title="Pending Amount"
+                            value={parseFloat(pack.price) - parseFloat(pack.totalPayments) + ' ' + pack.currency || '0'}
+                            valueClass="text-gray-800 text-red-500"
+                        />) : null}
                     <Card
                         title="Original Quantity"
                         value={pack.originalQuantity + ' ' + pack.unit || 'Unknown'}
@@ -132,8 +208,7 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                         <Button className="bg-red-800 text-white px-4 py-2 rounded-lg" onClick={handleCancelClick}>Cancel</Button>
                     </div>
 
-
-                    <h2 className='text-2xl mt-10' >Activity log</h2>
+                    <h2 className='text-2xl mt-10'>Activity log</h2>
                     <table className="table-auto mt-4 bg-white text-black rounded-md">
                         <thead>
                             <tr className='bg-color_Grey'>
@@ -145,7 +220,7 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                         </thead>
                         <tbody>
                             {packActivities.map(payment => (
-                                <tr key={payment.id}>
+                                <tr key={payment._id}>
                                     <td className='border px-4 py-2'>{payment.description}</td>
                                     <td className='border px-4 py-2'>{payment.formatedDate}</td>
                                     <td className='border px-4 py-2'>{payment.operation === 'add' ? `+${payment.formattedOperation}` : `-${payment.formattedOperation}`}</td>
@@ -154,8 +229,6 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                             ))}
                         </tbody>
                     </table>
-
-
 
                     <h2 className='text-2xl mt-10'>Payments history</h2>
                     <table className="table-auto mt-4 bg-white text-black rounded-md">
@@ -168,43 +241,47 @@ export default function UpdateCustomerPack({ onUpdated, onCancelClick, pack }) {
                             </tr>
                         </thead>
                         <tbody>
+                            {console.log(payments)}
                             {payments.map(payment => (
-                                <tr key={payment.id}>
-                                    <td className='border px-4 py-2'>{payment.date}</td>
-                                    <td className='border px-4 py-2'>{payment.amount} {payment.currency}</td>
-                                    <td className='border px-4 py-2'>{payment.method}</td>
+                                <tr key={payment?.id}>
+                                    <td className='border px-4 py-2'>{payment?.date}</td>
+                                    <td className='border px-4 py-2'>{payment?.amount} {payment?.currency}</td>
+                                    <td className='border px-4 py-2'>{payment?.method}</td>
                                     <td className='border px-4 py-2'>
-                                        <button className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" /* onClick={(event) => handleManageClick(event, customerPack)} */>🗑️ Delete payment</button>
+                                        <button className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => deletePaymentHandler(event, payment.id)}>🗑️ Delete payment</button>
                                     </td>
                                 </tr>
                             ))}
-
                         </tbody>
                     </table>
-                    <div className="flex items-center justify-center">
-                        <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg" type="submit">Add Payment</Button>
-                    </div>
-                    <div className='flex items-center justify-center'>
-                        <Field>
-                            <Label htmlFor="amount">Amount</Label>
-                            <Input className="border-2 rounded-lg" type="number" id="amount" placeholder="0" />
-                        </Field>
-                        <Field>
-                            <Label htmlFor="paymentMethod">Select Payment Method</Label>
-                            <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2">
-                                <option value="card">Card</option>
-                                <option value="cash">Cash</option>
-                                <option value="bankTransfer">Bank Transfer</option>
-                                <option value="paypal">Paypal</option>
-                                <option value="stripe">Stripe</option>
-                                <option value="others">Others</option>
-                            </select>
-                        </Field>
-                        <Button>Save</Button>
-                    </div>
-
-
                 </form>
+
+                <h2 className='text-2xl mt-10'>Add pending paymens</h2>
+                {parseFloat(pack.price) - parseFloat(pack.totalPayments) > 0 ? (
+                    <div className='flex items-center justify-center bg-color_backgroundGrey'>
+                        <form id='addPayment' onSubmit={handlePaymentSubmit} className='flex items-center pt-5 pb-5'>
+                            <Field>
+                                <Label htmlFor="amount">Amount</Label>
+                                <Input className="border-2 rounded-lg" type="number" defaultValue={parseFloat(pack.price) - parseFloat(pack.totalPayments)} id="amount" placeholder="0" required={true} />
+                            </Field>
+                            <Field>
+                                <Label htmlFor="paymentMethod">Select Payment Method</Label>
+                                <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2" required>
+                                    <option value="card">Card</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="bankTransfer">Bank Transfer</option>
+                                    <option value="paypal">Paypal</option>
+                                    <option value="stripe">Stripe</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </Field>
+                            <Button type='submit'>Save</Button>
+                        </form>
+                    </div>
+                ) : (
+                    null
+                )}
+
             </div>
         </main>
     }
