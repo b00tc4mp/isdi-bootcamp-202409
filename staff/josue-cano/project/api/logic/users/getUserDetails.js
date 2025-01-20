@@ -10,6 +10,6 @@ export default async (userId) => {
 
     return user;
   } catch (error) {
-    SystemError(error);
+    throw new SystemError(error.message)
   }
 };

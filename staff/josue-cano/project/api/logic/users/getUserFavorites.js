@@ -2,7 +2,8 @@ import bcrypt from "bcryptjs";
 import { User, Product } from "dat";
 import { validate, errors } from "com";
 
-const { DuplicityError, SystemError, ValidationError } = errors;
+const { DuplicityError, SystemError, ValidationError, NotFoundError } = errors;
+
 export default async ({ id }) => {
   validate.id(id);
   try {
@@ -17,6 +18,9 @@ export default async ({ id }) => {
       isFavorite: true,
     }));
   } catch (error) {
-    console.log(error);
+    if (error instanceof NotFoundError) {
+      throw error; 
+    }
+    throw new SystemError(error.message); 
   }
 };

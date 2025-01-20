@@ -59,8 +59,7 @@ const validateId = (id, explain = 'id') => {
 const validateCallback = callback => {
   if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
-// Hacia arriba hay mas funciones que no vienen al caso
-// validate product
+
 const validateProduct = product => {
   const { name, price, description } = product
 

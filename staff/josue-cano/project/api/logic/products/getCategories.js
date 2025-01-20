@@ -5,7 +5,6 @@ const { SystemError, NotFoundError } = errors;
 
 export default async () => {
   try {
-
     const categories = await Category.find().populate({
       path: "subcategories",
       model: "Subcategory",
@@ -17,6 +16,9 @@ export default async () => {
 
     return categories;
   } catch (error) {
+    if (error instanceof NotFoundError) {
+      throw error;
+    }
     throw new SystemError(error.message);
   }
 };

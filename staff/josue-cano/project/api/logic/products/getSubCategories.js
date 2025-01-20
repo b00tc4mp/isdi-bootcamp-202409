@@ -12,7 +12,10 @@ export default () => {
         throw new SystemError(error.message);
       })
       .then((subcategories) => {
-        if (!subcategories) throw new NotFoundError("categories not found");
+        if (!subcategories || subcategories.length === 0) {
+          throw new NotFoundError("categories not found");
+        }
+
         return subcategories;
       })
   );
