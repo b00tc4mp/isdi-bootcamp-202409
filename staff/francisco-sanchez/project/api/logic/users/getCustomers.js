@@ -1,7 +1,6 @@
 import { User, Pack } from 'dat';
 import { errors } from 'com';
 
-
 const { SystemError, NotFoundError } = errors;
 
 export default async (userId) => {
@@ -13,13 +12,13 @@ export default async (userId) => {
 
         //Check and return if have customers
         if (!user.customers || user.customers.length === 0) {
-            return ('no customers found yet')
+            return ('no customers found')
         }
 
         //Filter the objectId's with $in operator to find user names
         const userCustomers = await User.find(
             { _id: { $in: user.customers } },
-            { _id: 1, name: 1, surname1: 1 }).lean()
+            { _id: 1, name: 1, surname1: 1, email: 1 }).lean()
 
 
         // Agrega el número de packs contratados por cada cliente

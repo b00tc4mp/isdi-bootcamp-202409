@@ -55,7 +55,10 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
 
         try {
             logic.updatePack(pack._id, packDescription, remainingQuantity, new Date(expiryDate), packStatus)
-                .then(onUpdated)
+                .then(() => {
+                    alert('Pack updated successfully!', 'success')
+                    onUpdated()
+                })
                 .catch((error) => {
                     alert(error.message)
                     console.error(error)
@@ -85,25 +88,10 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
 
         try {
             logic.addPayment(pack._id, amount, pack.currency, paymentMethod)
-                .then((newPayment) => {
-                    onPaymentAdded
-                    // Añade el nuevo pago al estado de pagos
-                    setPayments((prevPayments) => [...prevPayments, newPayment]);
+                .then(() => {
                     alert('Payment added successfully', 'success');
+                    onPaymentAdded()
                     form.reset(); // Reinicia el formulario
-
-                    //Vuelvo a recuperar toda la tabla de payments
-                    //TODO: Aquí con consigo que me actualice correctamente la tabla de pagos
-                    try {
-                        logic.getPayments(pack._id)
-                        console.log('Pack Payments fetched successfully', payments)
-                        setPayments(payments)
-
-                    } catch (error) {
-                        alert(error.message)
-                        console.error(error)
-                    }
-
                 })
                 .catch((error) => {
                     alert(error.message)
@@ -145,7 +133,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         return <p>there was a problem loading customer pack</p>
     } else {
         console.log(pack)
-        return <main className="flex flex-col items-center bg-color_backgroundGrey w-full h-screen">
+        return <main className="flex flex-col items-center bg-color_backgroundGrey w-full min-h-screen">
             <h2 className="text-2xl mb-4">"{pack.description}"</h2>
             <div className="flex flex-col w-full max-w-4xl px-4 space-y-6">
                 <div className="pack_statuses grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

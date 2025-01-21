@@ -38,6 +38,12 @@ export default function CustomerPacks(props) {
 
     }, [customerId])
 
+    useEffect(() => {
+        if (view && UpdateCustomerPack.current) {
+            UpdateCustomerPack.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }, [view])
+
 
     const handleManageClick = (event, customerPack) => {
         event.preventDefault()
@@ -52,9 +58,22 @@ export default function CustomerPacks(props) {
         props.onHomeClick()
     }
 
+    const handlePackUpdated = async () => {
+        setView(null); // Cierra el componente hijo
+        setSelectedPack(null); // Limpia el pack seleccionado
+        try {
+            const updatedPacks = await logic.getCustomerPacks(customerId); // Vuelve a obtener los datos actualizados
+            setCustomerPacks(updatedPacks); // Actualiza la tabla de packs
+            //alert('Customer packs updated successfully (EN EL PADRE)!', 'success'); // Muestra el mensaje "OK" en el padre
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
 
     return (
-        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full h-screen pt-12">
+        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full min-h-screen pt-12">
             <h1 className='text-3xl'>Manage packs for {customerName}</h1>
             <p>You can see the packs of the selected customer</p>
 
@@ -116,7 +135,14 @@ export default function CustomerPacks(props) {
                     {view === 'UpdateCustomerPack' && selectedPack && (
                         <tr ref={updatePackView}>
                             <td colSpan="10" className="border px-4 py-2">
-                                <UpdateCustomerPack pack={selectedPack} />
+                                <UpdateCustomerPack
+                                    pack={selectedPack}
+                                    onUpdated={handlePackUpdated}
+                                    onPaymentAdded={handlePackUpdated}
+                                    onCancelClick={() => {
+                                        setView(null)
+                                        setSelectedPack(null)
+                                    }} />
                             </td>
                         </tr>
                     )}

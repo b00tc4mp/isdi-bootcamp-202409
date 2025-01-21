@@ -355,7 +355,7 @@ export default function Tracker(props) {
 
 
     return (
-        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full h-screen pt-12">
+        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full min-h-screen pt-12">
             <h1 className='text-3xl'>Tracker</h1>
             <p>This will be the page to track your projects</p>
             <div className="flex flex-col">
@@ -449,10 +449,12 @@ export default function Tracker(props) {
                 </div>
             ) : ( */}
             <h2 className='text-2xl'>History</h2>
+
             <ActivityTable activities={packActivities} />
+
             {/*  )} */}
 
-            <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
+            <a href="" title="Go back home" onClick={handleHomeClick} className="mt-8 text-blue-600 hover:underline">Back to home</a>
         </main>
     )
 }

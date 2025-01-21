@@ -34,6 +34,7 @@ export default function ManageCustomers(props) {
                 setLoading(true)
                 const customers = await logic.getCustomers()
                 setCustomers(customers)
+                console.log(customers)
             } catch (error) {
                 console.error(error)
                 alert(error.message)
@@ -46,7 +47,7 @@ export default function ManageCustomers(props) {
 
 
     return (
-        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full h-screen pt-12">
+        <main className="flex flex-col items-center bg-color_backgroundGrey w-full min-h-screen pt-12">
             <h1 className='text-3xl'>Manage Customers</h1>
             <p>This will be the page to manage your customers</p>
 
@@ -59,6 +60,7 @@ export default function ManageCustomers(props) {
                     <thead>
                         <tr className='bg-amarilloCanario'>
                             <th className="border px-4 py-2">Name</th>
+                            <th className="border px-4 py-2">Email</th>
                             <th className="border px-4 py-2">Active packs</th>
                             <th className="border px-4 py-2">Actions</th>
                         </tr>
@@ -67,6 +69,7 @@ export default function ManageCustomers(props) {
                         {customers.map(customer => (
                             <tr key={customer.id}>
                                 <td className='border px-4 py-2'>{customer.name} {customer.surname1 !== null ? customer.surname1 : ''}</td>
+                                <td className='border px-4 py-2'>{customer.email} </td>
                                 <td className='border px-4 py-2'><span className="inline-block bg-gray-200 text-gray-800 text-sm font-semibold rounded-full px-3 py-1">{customer.packCount}</span></td>
                                 <td className='border px-4 py-2'>
                                     {/* <a href="" className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1">✏️ Customer details</a> */}
