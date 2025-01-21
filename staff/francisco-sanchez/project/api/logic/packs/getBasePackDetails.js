@@ -1,9 +1,11 @@
 import { BasePack } from 'dat'
-import { errors } from 'com'
+import { errors, validate } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
 export default async (selectPack) => {
+    validate.id(selectPack, 'packId')
+
     try {
         // Busca el BasePack por su ID
         const basePackInfo = await BasePack.findById(selectPack).lean()

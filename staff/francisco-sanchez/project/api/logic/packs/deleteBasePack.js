@@ -4,7 +4,8 @@ import { validate, errors } from 'com';
 const { SystemError, NotFoundError, OwnershipError, DataIntegrityError } = errors
 
 export default (userId, basePackId) => {
-    //Validations will come here
+    validate.id(userId, 'userId')
+    validate.id(basePackId, 'basePackId')
 
     return Promise.all([
         User.findById(userId).lean(),

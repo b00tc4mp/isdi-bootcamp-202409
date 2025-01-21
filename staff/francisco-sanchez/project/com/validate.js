@@ -7,6 +7,25 @@ const validateName = name => {
         throw new ValidationError('invalid name length')
 }
 
+const validatePackName = name => {
+    if (typeof name !== 'string') throw new ValidationError('invalid pack name')
+    if (name.length < 5)
+        throw new ValidationError('invalid pack name length, pack should have more than 5 chars')
+}
+
+const validateDescription = description => {
+    if (typeof description !== 'string') throw new ValidationError('Invalid description: the value must be a string.')
+    if (description.length > 255) {
+        throw new ValidationError('Invalid description length: maximum allowed is 255 characters.');
+    }
+}
+
+const validateDate = date => {
+    if (!(date instanceof Date)) {
+        throw new ValidationError('Invalid date: the value must be a valid Date object.');
+    }
+}
+
 const validateInteger = num => {
     if (!Number.isInteger(num)) {
         throw new ValidationError('Units provided should be an integer')
@@ -42,8 +61,8 @@ const validateImage = image => {
     if (typeof image !== 'string') throw new ValidationError('invalid image')
 }
 
-const validateText = text => {
-    if (typeof text !== 'string') throw new ValidationError('invalid text')
+const validateText = (text, explain = 'text') => {
+    if (typeof text !== 'string') throw new ValidationError(`invalid text ${explain}`)
 }
 
 const validateId = (id, explain = 'id') => {
@@ -57,6 +76,8 @@ const validateCallback = callback => {
 
 const validate = {
     name: validateName,
+    packName: validatePackName,
+    description: validateDescription,
     email: validateEmail,
     username: validateUsername,
     password: validatePassword,
@@ -65,7 +86,8 @@ const validate = {
     text: validateText,
     id: validateId,
     callback: validateCallback,
-    integerNum: validateInteger
+    integerNum: validateInteger,
+    date: validateDate
 }
 
 export default validate

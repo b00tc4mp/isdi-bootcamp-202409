@@ -15,9 +15,10 @@ export default function ActivityTable({ activities }) {
                         <td className="border px-4 py-2">{activity.description}</td>
                         <td className="border px-4 py-2">{activity.formatedDate}</td>
                         <td className="border px-4 py-2">
-                            {activity.operation === 'add'
-                                ? `+${activity.formattedOperation}`
-                                : `-${activity.formattedOperation}`}
+                            {activity.operation === 'manual adjustment' ? 'Manual Adjustment' :
+                                activity.operation === 'add'
+                                    ? `+${activity.formattedOperation}`
+                                    : `-${activity.formattedOperation}`}
                         </td>
                         <td className="border px-4 py-2">{activity.formattedRemaining}</td>
                     </tr>

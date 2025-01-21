@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Field, Button, Input, Label, TagKO, TagOK, TagWARN, Card } from '../../library';
+import { ActivityTable } from '../components'
 import { errors } from 'com';
 
 import useContext from '../useContext';
@@ -44,14 +45,16 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
     const handleSubmit = event => {
         event.preventDefault()
         const { target: form } = event
-        const { packDescription: { value: packDescription },
-            quantity: { value: quantity },
-            unit: { value: unit },
-            expiringTime: { value: expiringTime },
-            price: { value: price }
+        const {
+            packDescription: { value: packDescription },
+            remainingQuantity: { value: remainingQuantity },
+            expiryDate: { value: expiryDate },
+            packStatus: { value: packStatus }
         } = form
-        /* try {
-            logic.updateBasePack(pack.id, packDescription, packDescription, quantity, unit, expiringTime, price)
+        console.log(packDescription, remainingQuantity, new Date(expiryDate), packStatus)
+
+        try {
+            logic.updatePack(pack._id, packDescription, remainingQuantity, new Date(expiryDate), packStatus)
                 .then(onUpdated)
                 .catch((error) => {
                     alert(error.message)
@@ -60,7 +63,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         } catch (error) {
             alert(error.message)
             console.error(error)
-        } */
+        }
     }
 
     const handleCancelClick = event => {
@@ -195,12 +198,20 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                         <Label htmlFor="remainingQuantity">Remaining Quantity</Label>
                         <Input className="border-2 rounded-lg" type="text" id="remainingQuantity" placeholder="Remaining Quantity" defaultValue={pack.remainingQuantity} />
                     </Field>
-
                     <Field>
-                        <Label htmlFor="expireDate">Expire Date</Label>
+                        <Label htmlFor="packStatus">Pack Status</Label>
+                        <select id="packStatus" name="packStatus" className="border-2 rounded-lg w-full p-2" defaultValue={pack.status} required>
+                            <option value="Pending">Pending</option>
+                            <option value="Active">Active</option>
+                            <option value="Expired">Expired</option>
+                            <option value="Finished">Finished</option>
+                        </select>
+                    </Field>
+                    <Field>
+                        <Label htmlFor="expiryDate">Expire Date</Label>
                         <Input className="border-2 rounded-lg w-full"
                             type="date"
-                            id="expireDate"
+                            id="expiryDate"
                             defaultValue={pack.expiryDate ? new Date(pack.expiryDate).toISOString().split('T')[0] : ''} />
                     </Field>
                     <div className="flex items-center justify-center">
@@ -209,7 +220,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                     </div>
 
                     <h2 className='text-2xl mt-10'>Activity log</h2>
-                    <table className="table-auto mt-4 bg-white text-black rounded-md">
+                    {/* <table className="table-auto mt-4 bg-white text-black rounded-md">
                         <thead>
                             <tr className='bg-color_Grey'>
                                 <th className="border px-4 py-2">Description</th>
@@ -228,7 +239,8 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </table> */}
+                    <ActivityTable activities={packActivities} />
 
                     <h2 className='text-2xl mt-10'>Payments history</h2>
                     <table className="table-auto mt-4 bg-white text-black rounded-md">
@@ -243,6 +255,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                         <tbody>
                             {console.log(payments)}
                             {payments.map(payment => (
+
                                 <tr key={payment?.id}>
                                     <td className='border px-4 py-2'>{payment?.date}</td>
                                     <td className='border px-4 py-2'>{payment?.amount} {payment?.currency}</td>

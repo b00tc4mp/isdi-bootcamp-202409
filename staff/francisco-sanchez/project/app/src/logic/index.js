@@ -19,6 +19,7 @@ import {
     deleteBasePack,
     updateBasePack,
     getAdquiredPacks,
+    updatePack,
 } from './packs'
 
 import {
@@ -39,7 +40,10 @@ import {
     deletePayment
 } from './payments'
 
-import { getDecimalToTimeFormat } from './helpers'
+import {
+    getDecimalToTimeFormat,
+    getFormattedDate
+} from './helpers'
 
 
 const logic = {
@@ -63,12 +67,14 @@ const logic = {
     deleteBasePack,
     updateBasePack,
     getAdquiredPacks,
+    updatePack,
 
     //Activities
     getActivitiesByPackId,
 
     //Helpers
     getDecimalToTimeFormat,
+    getFormattedDate,
 
     //Tracker
     toggleTimeTracker,

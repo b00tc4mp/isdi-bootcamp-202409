@@ -4,17 +4,8 @@ import { validate, errors } from "com";
 
 const { SystemError, NotFoundError } = errors
 
-export default (
-    userId,
-    packName,
-    description,
-    quantity,
-    unit,
-    expiringTime,
-    price,
-    currency
-) => {
-    //validate.provider(provider)
+export default (userId, packName, description, quantity, unit, expiringTime, price, currency) => {
+    validate.id(userId, 'userId')
 
     return (async () => {
 

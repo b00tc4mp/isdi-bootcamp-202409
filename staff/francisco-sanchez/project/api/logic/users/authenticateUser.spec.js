@@ -11,7 +11,6 @@ import { errors } from 'com'
 import authenticateUser from './authenticateUser.js'
 
 
-
 //Inicialitzation testing
 chai.use(chaiAsPromised)
 const { expect } = chai
@@ -27,7 +26,7 @@ const creationStatus = 'true'
 
 //Testinc escenarios
 describe('authenticateUser', () => {
-    before(() => db.connect(process.env.MONGO_URL))
+    before(() => db.connect(process.env.MONGO_URL_TEST))
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', async () => {

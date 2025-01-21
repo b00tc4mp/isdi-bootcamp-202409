@@ -22,6 +22,7 @@ import {
     updateBasePack,
     getAdquiredPacks,
     checkPackAndUpdate,
+    updatePack
 } from './packs/index.js'
 
 //EMAILING
@@ -73,6 +74,7 @@ const logic = {
     updateBasePack,
     getAdquiredPacks,
     checkPackAndUpdate,
+    updatePack,
 
     //emailing
     emailRegisterWelcome,

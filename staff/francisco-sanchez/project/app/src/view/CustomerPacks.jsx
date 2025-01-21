@@ -76,14 +76,15 @@ export default function CustomerPacks(props) {
                             <th className="border px-4 py-2">Status</th>
                             <th className="border px-4 py-2">Payment Status</th>
                             <th className="border px-4 py-2">Method</th>
-                            <th className="border px-4 py-2">Actions</th>
+                            {/* <th className="border px-4 py-2">Actions</th> */}
 
                         </tr>
                     </thead>
                     <tbody>
                         {customerPacks.map(customerPack => (
 
-                            < tr key={customerPack._id} >
+                            < tr key={customerPack._id} className="cursor-pointer hover:bg-gray-100"
+                                onClick={(event) => handleManageClick(event, customerPack)}>
                                 <td className='border px-4 py-2'>{customerPack.description}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedRemaining}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedPurchaseDate}</td>
@@ -106,9 +107,9 @@ export default function CustomerPacks(props) {
                                     {customerPack.paymentStatus === 'completed' && (<TagOK>Completed</TagOK>)}
                                 </td>
                                 <td className='border px-4 py-2'>{customerPack.paymentMethods}</td>
-                                <td className='border px-4 py-2'>
+                                {/* <td className='border px-4 py-2'>
                                     <button className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => handleManageClick(event, customerPack)}>✏️ Manage</button>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
                     </tbody>
@@ -120,9 +121,7 @@ export default function CustomerPacks(props) {
                         </tr>
                     )}
                 </table>
-
             )}
-
             <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
         </main >
     )

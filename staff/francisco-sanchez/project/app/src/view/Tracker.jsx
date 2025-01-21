@@ -377,7 +377,7 @@ export default function Tracker(props) {
                         <Label htmlFor="selectPack">Select Pack</Label>
                         <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2" disabled={!filteredPacks.length} onChange={handlePackChange}>
                             {filteredPacks.map((pack) => (
-                                <option key={pack.id} value={pack.id}>{pack.description} - {pack.originalQuantity}{pack.unit}</option>
+                                <option key={pack.id} value={pack.id}>{pack.status} - {pack.description} - {pack.originalQuantity}{pack.unit}</option>
                             ))}
                         </select>
                     </Field>

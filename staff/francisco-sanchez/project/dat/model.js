@@ -310,7 +310,7 @@ const activity = new Schema({
     operation: {
         type: String,
         required: true,
-        enum: ['add', 'substract'],
+        enum: ['add', 'substract', 'manual adjustment'],
     },
 
     quantity: {

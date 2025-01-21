@@ -5,7 +5,7 @@ const { SystemError, NotFoundError } = errors;
 
 export default (targetUserId) => {
 
-    validate.id(targetUserId)
+    validate.id(targetUserId, 'targetUserId')
 
     return User.findById(targetUserId).lean()
         .then(user => {
@@ -16,7 +16,6 @@ export default (targetUserId) => {
                     if (!packs || packs.length === 0) {
                         throw new NotFoundError('No packs found for this customer')
                     }
-                    //TODO: aplicar el saneamiento paar quitar el _id del front
                     packs.forEach(pack => {
                         pack.id = pack._id.toString()
                         delete pack._id

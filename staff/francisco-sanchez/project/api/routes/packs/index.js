@@ -9,7 +9,8 @@ import {
     getBasePacksDetailsHandler,
     deleteBasePackHandler,
     updateBasePackHandler,
-    getAdquiredPacksHandler
+    getAdquiredPacksHandler,
+    updatePackHandler
 } from './handlers/index.js'
 import updateBasePack from "../../logic/packs/updateBasePack.js"
 
@@ -21,6 +22,7 @@ packsRouter.get('/get-basepack', authorizationHandler, getBasePacks)
 packsRouter.get('/get-basepack-details/:basePackId', getBasePacksDetailsHandler)
 packsRouter.delete('/delete/:basePackId', authorizationHandler, deleteBasePackHandler)
 packsRouter.put('/update/:basePackId', authorizationHandler, jsonBodyParser, updateBasePackHandler)
+packsRouter.put('/updatepack/:packId', authorizationHandler, jsonBodyParser, updatePackHandler)
 packsRouter.get('/get-adquired-packs/:targetUserId', authorizationHandler, getAdquiredPacksHandler)
 
 export default packsRouter

@@ -12,7 +12,7 @@ import { UpdateBasePack } from './components';
 const { SystemError } = errors
 
 export default function ManagePacks(props) {
-    const [loading, setLoading] = useState(true) //This is to show the loader as active by default
+    let [loading, setLoading] = useState(true) //This is to show the loader as active by default
     const { alert, confirm } = useContext()
     const [view, setView] = useState(false)
     const [selectedBasePack, setSelectedBasePack] = useState(null);
@@ -75,6 +75,11 @@ export default function ManagePacks(props) {
         props.onHomeClick()
     }
 
+    const handleCancelClick = () => {
+        setView(null); // Oculta el componente UpdateBasePack
+        setSelectedBasePack(null); // Limpia el estado seleccionado
+    };
+
     const handleAssignPacks = event => {
         console.log('Assign Pack Clicked');
         props.onAssignPackClick()
@@ -84,6 +89,23 @@ export default function ManagePacks(props) {
         console.log('Create Pack Clicked');
         props.onCreatePackClick()
     };
+
+    const handleUpdated = async () => {
+        setView(null)
+        setSelectedBasePack(null)
+
+        try {
+            setLoading = true
+            const updatedBasePacks = await logic.getBasePacks()
+            setPacks(updatedBasePacks)
+            alert("Base pack updated successfully!", "success"); // Muestra el mensaje de éxito
+        } catch (error) {
+            alert(error.message); // Muestra un mensaje en caso de error
+            console.error(error);
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const [basePacks, setPacks] = useState([])
 
@@ -126,7 +148,11 @@ export default function ManagePacks(props) {
                         {view === 'UpdateBasePack' && selectedBasePack && (
                             <tr ref={updateBasePackView}>
                                 <td colSpan="6" className="border px-4 py-2">
-                                    <UpdateBasePack basePack={selectedBasePack} />
+                                    <UpdateBasePack
+                                        basePack={selectedBasePack}
+                                        onCancelClick={handleCancelClick} // Pasa el evento al hijo
+                                        onUpdated={handleUpdated}
+                                    />
                                 </td>
                             </tr>
                         )}

@@ -1,10 +1,10 @@
-import { Pack, User, Activity, Payment } from 'dat';
+import { Pack, User, Activity, Payment } from 'dat'
 
-import { validate, errors } from 'com';
+import { validate, errors } from 'com'
 
-/* import { findUserIdbyEmailOrUsername, getBasePackDetails } from '../../logic/index.js'; */
-import { findUserIdbyEmailOrUsername } from '../helpers/index.js';
-import getBasePackDetails from '../packs/getBasePackDetails.js';
+/* import { findUserIdbyEmailOrUsername, getBasePackDetails } from '../../logic/index.js' */
+import { findUserIdbyEmailOrUsername } from '../helpers/index.js'
+import getBasePackDetails from '../packs/getBasePackDetails.js'
 
 const { SystemError, NotFoundError } = errors
 
@@ -18,7 +18,7 @@ export default async (userId, customerSearch, selectPack, description, payedAmou
 
         const basePack = await getBasePackDetails(selectPack)
         if (!basePack) {
-            throw new SystemError('Base pack not found');
+            throw new SystemError('Base pack not found')
         }
 
 
@@ -29,14 +29,14 @@ export default async (userId, customerSearch, selectPack, description, payedAmou
             expiringTime,
             price,
             currency,
-        } = basePack;
+        } = basePack
 
 
-        const purchaseDate = new Date();
+        const purchaseDate = new Date()
         const expiryDate = expiringTime === -1 ? new Date('9999-12-31') :
-            new Date(new Date().setMonth(new Date().getMonth() + expiringTime));
+            new Date(new Date().setMonth(new Date().getMonth() + expiringTime))
 
-        const status = 'Active';
+        const status = 'Active'
 
 
         //First we're going to create the pack

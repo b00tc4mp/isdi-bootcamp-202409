@@ -23,7 +23,10 @@ export default function UpdateBasePack({ onUpdated, onCancelClick, basePack }) {
         } = form
         try {
             logic.updateBasePack(basePack.id, packName, packDescription, quantity, unit, expiringTime, price)
-                .then(onUpdated)
+                .then(() => {
+                    alert("Pack updated successfully!", "success");
+                    onUpdated()
+                })
                 .catch((error) => {
                     alert(error.message)
                     console.error(error)
@@ -88,13 +91,12 @@ export default function UpdateBasePack({ onUpdated, onCancelClick, basePack }) {
                 <Field>
                     <Label htmlFor="price">Price</Label>
                     <Input className="border-2 rounded-lg w-full" type="number" id="price" placeholder="50 €" defaultValue={basePack.price} />
-                    <input type="hidden" id="currency" defaultValue="EUR" />
+                    <Input type="hidden" id="currency" defaultValue="EUR" />
                 </Field>
 
                 <Button className='bg-red-800 text-white' onClick={handleCancelClick}>Cancel</Button>
-                <Button type="submit">Confirm</Button>
+                <Button type="submit">Update</Button>
             </form>
         </div>
     </main>
-
 }

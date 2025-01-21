@@ -5,7 +5,7 @@ const { SystemError, NotFoundError } = errors
 
 export default (userId) => {
 
-    validate.id(userId)
+    validate.id(userId, 'userId')
 
     return User.findById(userId).lean()
         .then(user => {

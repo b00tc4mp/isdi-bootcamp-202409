@@ -20,7 +20,7 @@ export default async (packId) => {
 
 
         // 1. Validar si remainingQuantity < 2 horas/unidades
-        if (remainingQuantity < 2) {
+        if (remainingQuantity < 2 && remainingQuantity > 0) {
             console.log('enviaré email avisando de pocas horas o sesiones')
 
             const userInfo = await User.findById(packInfo.customer).lean()
