@@ -55,7 +55,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - Mongodb
 - Mocha & Chai
 - Busboy
-- MONGOSE,BCRYPT,JWT,
+- MONGOOSE,BCRYPT,JWT,
 
 
 # Ekoality Data Model
@@ -72,7 +72,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - **email** (string)  
 - **id_ubicacion** (ObjectId)   
 - **fechaRegistro** (date)  
-- **pro** (string or Bolean?)  
+- **pro** (string or Boolean?)  
 - **valoracion** (number)  
 - **online** (string or bolean)  
 - **is_banned** (boolean)  
@@ -154,6 +154,50 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 ### Test Coverage
 
 
+File                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+----------------------------|---------|----------|---------|---------|-------------------
+All files                   |   99.06 |    95.31 |     100 |   99.04 | 
+ products                   |   99.67 |    91.66 |     100 |   99.66 | 
+  createProduct.js          |     100 |      100 |     100 |     100 | 
+  createProduct.spec.js     |     100 |      100 |     100 |     100 | 
+  deleteProduct.js          |   92.85 |      100 |     100 |    92.3 | 20
+  deleteProduct.spec.js     |     100 |      100 |     100 |     100 | 
+  getCategories.js          |     100 |      100 |     100 |     100 | 
+  getCategories.spec.js     |     100 |      100 |     100 |     100 | 
+  getProductDetails.js      |     100 |    83.33 |     100 |     100 | 7
+  getProductDetails.spec.js |     100 |      100 |     100 |     100 | 
+  getProducts.js            |     100 |    83.33 |     100 |     100 | 8
+  getProducts.spec.js       |     100 |      100 |     100 |     100 | 
+  getSubCategories.spec.js  |     100 |      100 |     100 |     100 | 
+  getSubcategories.js       |     100 |      100 |     100 |     100 | 
+ users                      |   98.77 |     97.5 |     100 |   98.75 | 
+  addChatMessage.js         |     100 |      100 |     100 |     100 | 
+  addChatMessage.spec.js    |     100 |      100 |     100 |     100 | 
+  authenticateUser.js       |   91.66 |      100 |     100 |    90.9 | 17,27
+  authenticateUser.spec.js  |     100 |      100 |     100 |     100 | 
+  createChat.js             |     100 |      100 |     100 |     100 | 
+  createChat.spec.js        |     100 |      100 |     100 |     100 | 
+  getFavorites.js           |     100 |      100 |     100 |     100 | 
+  getFavorites.spec.js      |   96.77 |      100 |     100 |   96.77 | 65
+  getLocations.js           |     100 |      100 |     100 |     100 | 
+  getLocations.spec.js      |     100 |      100 |     100 |     100 | 
+  getUserChat.js            |   88.88 |      100 |     100 |   88.88 | 16
+  getUserChat.spec.js       |     100 |      100 |     100 |     100 | 
+  getUserChats.js           |   93.33 |    83.33 |     100 |    92.3 | 23
+  getUserChats.spec.js      |     100 |      100 |     100 |     100 | 
+  getUserDetails.js         |     100 |      100 |     100 |     100 | 
+  getUserDetails.spec.js    |     100 |      100 |     100 |     100 | 
+  getUserFavorites.js       |     100 |      100 |     100 |     100 | 
+  getUserFavorites.spec.js  |     100 |      100 |     100 |     100 | 
+  getUserProducts.js        |      80 |      100 |     100 |      80 | 14-15
+  getUserProducts.spec.js   |     100 |      100 |     100 |     100 | 
+  registerUser.js           |   94.73 |      100 |     100 |   94.44 | 37
+  registerUser.spec.js      |     100 |      100 |     100 |     100 | 
+  setUserFavorites.js       |     100 |      100 |     100 |     100 | 
+  setUserFavorites.spec.js  |     100 |      100 |     100 |     100 | 
+  updateUser.js             |     100 |      100 |     100 |     100 | 
+  updateUser.spec.js        |     100 |      100 |     100 |     100 | 
+----------------------------|---------|----------|---------|---------|-------------------
 
 
 ### TODO List

@@ -51,7 +51,7 @@ export default function ProductComponent({ product, addtoFavorites, refetch, set
             </Link>
             <div className="badge badge-secondary">NEW</div>
           </h2>
-          <p>{product?.price}</p>
+          <p>{product?.price}€</p>
           <div className="card-actions justify-end">
             {admin ? (
               <button className="btn btn-sm btn-secondary" onClick={deleteHandler}>

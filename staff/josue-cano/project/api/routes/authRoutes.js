@@ -1,6 +1,6 @@
 import { Router } from "express";
-import logic from "../index.js";
-import utils from "../../utils/index.js";
+import logic from "../logic/index.js";
+import utils from "../utils/index.js";
 
 const router = Router();
 

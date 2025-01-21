@@ -1,8 +1,8 @@
 import { Router } from "express";
 import busboy from "busboy";
-import logic from "../index.js";
-import utils from "../../utils/index.js";
-import helpers from "../../helpers/index.js";
+import logic from "../logic/index.js";
+import utils from "../utils/index.js";
+import helpers from "../helpers/index.js";
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import logic from "../index.js";
+import logic from "../logic/index.js";
 
 const router = Router();
 

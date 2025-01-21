@@ -5,7 +5,7 @@ import cors from "cors";
 import errorHandler from "./helpers/errorHandler.js";
 
 // Rutas
-import routes from "./logic/routes/index.js";
+import routes from "./routes/index.js";
 
 const { authRoutes, userRoutes, productRoutes, baseRoutes } = routes;
 
