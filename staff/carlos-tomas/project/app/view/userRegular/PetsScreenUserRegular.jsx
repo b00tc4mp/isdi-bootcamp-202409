@@ -54,12 +54,12 @@ export default function PetsScreenUserRegular() {
                             )}
                             <TouchableOpacity
 
-                                style={petInfo.histoy}
+                                style={petInfo.touchableOpacity}
                                 onPress={() => {
                                     navigation.navigate('showPetHistory', { infoPet: pet })
                                 }}
                             >
-                                <Text>🪧</Text>
+                                <Text>Hisorial</Text>
                             </TouchableOpacity>
                         </View>
                     ))
@@ -79,9 +79,20 @@ const petInfo = StyleSheet.create({
         borderRadius: 8,
         padding: 15,
         marginBottom: 10,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#dafbcc',
+        gap: 5
     },
     text: {
         fontSize: 16,
     },
+    touchableOpacity: {
+        backgroundColor: "#c1f1cf",
+        borderBottomColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 15,
+        width: 85,
+        justifyContent: "center",
+        alignItems: "center",
+    }
 })

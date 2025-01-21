@@ -34,14 +34,14 @@ describe('authenticateUser', () => {
         expect(
             User.create({ name: 'Carlos Tomas', username: 'ctcarlos25', password: bcrypt.hashSync('123123123', 10), phone: '+34682519205', email: 'ctcarlos25@gmail.com', passwordRepeat: '123123123' })
                 .then(() => authenticateUser('ctcarlos25', '12312312'))
-        ).to.be.rejectedWith(CredentialsError, 'wrong credentials')
+        ).to.be.rejectedWith(CredentialsError, 'Usuario o contraseña incorrectos')
     )
 
 
     it('fails on non-existing user', () =>
         expect(
             authenticateUser('ctcarlos25', '123123123')
-        ).to.be.rejectedWith(CredentialsError, 'wrong credentials')
+        ).to.be.rejectedWith(CredentialsError, 'Usuario o contraseña incorrectos')
     )
     after(() => db.disconnect())
 })

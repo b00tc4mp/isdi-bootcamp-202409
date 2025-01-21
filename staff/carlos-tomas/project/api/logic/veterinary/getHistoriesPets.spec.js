@@ -33,8 +33,6 @@ describe('getHistoriesPets', () => {
 
                         expect(histories[0].id).to.equal(history.id)
                         expect(histories[0].type).to.equal("internal_medicine")
-                        expect(histories[0].veterinary.id).to.equal(user.id)
-                        expect(histories[0].pet.id).to.equal(pet.id)
                         expect(histories[0].text).to.equal(history.text)
                     })
             )

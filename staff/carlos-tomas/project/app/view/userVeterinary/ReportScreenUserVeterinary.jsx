@@ -1,60 +1,61 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, TextInput, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native'
-import logic from '../../logic'
-import { useNavigation } from '@react-navigation/native'
-
-
+import React, { useState, useEffect } from 'react';
+import { Text, View, TextInput, ScrollView, StyleSheet, Alert, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import logic from '../../logic';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SearchBarExample() {
-    const navigation = useNavigation()
-    const [search, setSearch] = useState(null)
-    const [allData, setAllData] = useState(null)
-    const [filteredData, setFilteredData] = useState([])
-    const [infoPet, setInfoPet] = useState(null)
+    const navigation = useNavigation();
+    const [search, setSearch] = useState('');
+    const [allData, setAllData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
+    const [infoPet, setInfoPet] = useState(null);
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const data = await logic.getPets()
-                setAllData(data)
-                setFilteredData(data)
+                const data = await logic.getPets();
+                setAllData(data);
+                setFilteredData(data);
             } catch (error) {
-                Alert.alert('Error', error.message)
-                console.error(error)
+                Alert.alert('Error', error.message);
+                console.error(error);
             }
-        }
-        fetchUserData()
-    }, [])
+        };
+        fetchUserData();
+    }, []);
 
     const reloadPetsData = async () => {
         try {
-            const data = await logic.getPets()
-            setAllData(data)
-            setFilteredData(data)
+            const data = await logic.getPets();
+            setAllData(data);
+            setFilteredData(data);
         } catch (error) {
-            Alert.alert('Error', error.message)
+            Alert.alert('Error', error.message);
         }
-    }
+    };
 
     const handleSearch = (text) => {
-        setSearch(text)
+        setSearch(text);
         if (text) {
             const newData = allData.filter((item) =>
                 item.chip.toLowerCase().includes(text.toLowerCase())
-            )
-            setFilteredData(newData)
+            );
+            setFilteredData(newData);
         } else {
-            setFilteredData(allData)
+            setFilteredData(allData);
         }
-    }
+    };
 
     const handleItemPress = (item) => {
-        setInfoPet(item)
-    }
+        setInfoPet(item);
+    };
 
     return (
-        <FlatList
-            ListHeaderComponent={() => (
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+
+        >
+            <ScrollView contentContainerStyle={report.container}>
                 <TextInput
                     style={report.searchBar}
                     placeholder='Chip del animal'
@@ -62,25 +63,21 @@ export default function SearchBarExample() {
                     onChangeText={handleSearch}
                     keyboardType='number-pad'
                 />
-            )}
-            data={filteredData.slice(0, 6)}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => handleItemPress(item)}>
-                    <View style={report.item}>
-                        <Text>Nombre: {item.name}</Text>
-                        <Text>Dueño: {item.ownerName}</Text>
-                    </View>
-                </TouchableOpacity>
-            )}
-            ListFooterComponent={() => (
+                {filteredData.slice(0, 6).map((item, index) => (
+                    <TouchableOpacity key={index} onPress={() => handleItemPress(item)}>
+                        <View style={report.item}>
+                            <Text>Nombre: {item.name}</Text>
+                            <Text>Dueño: {item.ownerName}</Text>
+                        </View>
+                    </TouchableOpacity>
+                ))}
                 <View style={report.button}>
                     <TouchableOpacity
                         onPress={() => {
                             if (infoPet) {
-                                navigation.navigate('report history', { infoPet })
+                                navigation.navigate('report history', { infoPet });
                             } else {
-                                Alert.alert('Atención', 'Selecciona a un animal')
+                                Alert.alert('Atención', 'Selecciona a un animal');
                             }
                         }}
                         style={report.touchableOpacity}
@@ -91,9 +88,9 @@ export default function SearchBarExample() {
                     <TouchableOpacity
                         onPress={() => {
                             if (infoPet) {
-                                navigation.navigate('new report', { infoPet, reloadPetsData })
+                                navigation.navigate('new report', { infoPet, reloadPetsData });
                             } else {
-                                Alert.alert('Atención', 'Selecciona a un animal')
+                                Alert.alert('Atención', 'Selecciona a un animal');
                             }
                         }}
                         style={report.touchableOpacity}
@@ -104,9 +101,9 @@ export default function SearchBarExample() {
                     <TouchableOpacity
                         onPress={() => {
                             if (infoPet) {
-                                navigation.navigate('preventive', { infoPet, reloadPetsData })
+                                navigation.navigate('preventive', { infoPet, reloadPetsData });
                             } else {
-                                Alert.alert('Atención', 'Selecciona a un animal')
+                                Alert.alert('Atención', 'Selecciona a un animal');
                             }
                         }}
                         style={report.touchableOpacity}
@@ -114,11 +111,11 @@ export default function SearchBarExample() {
                         <Text style={report.text}>Medicina preventiva</Text>
                     </TouchableOpacity>
                 </View>
-            )}
-            contentContainerStyle={report.container}
-        />
-    )
+            </ScrollView>
+        </KeyboardAvoidingView>
+    );
 }
+
 
 const report = StyleSheet.create({
     container: {

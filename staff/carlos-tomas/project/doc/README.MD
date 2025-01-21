@@ -3,8 +3,7 @@
 ## Intro
 
 La aplicación tendrá la función principal de poder visualizar los informes médicos que suban los veterinarios después de una revisión del animal. Se podrá visualizar los diferentes departamentos médicos como medicina interna, oftalmología, odontología...
-También tendrá un calendario donde se podrá visualizar las citas médicas y hacer un seguimiento de las vacunas, collar antipulgas y pipeta.
-Los informes médicos serán subidos por los veterinarios a partir de la identificación del chip del animal y será vinculado por el veterinario al usuario a partir de un QR.
+El usuario podra ver los informes de sus mascotas.
 
 ![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExamdqbXZudXg0NnUyaml1dDl2NG5vamF2bThiM3gxZjFtYnRycDc4byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/FY8c5SKwiNf1EtZKGs/giphy.gif)
 
@@ -26,7 +25,7 @@ Veterinary
 
 ### UXUI Design
 
-[Figma](https://www.figma.com/proto/MdMenDvnLaNrxePvxs9ZJY/Untitled?node-id=4-3&starting-point-node-id=4%3A3) [Figmaplay](https://www.figma.com/design/MdMenDvnLaNrxePvxs9ZJY/Untitled?node-id=56-1612&node-type=frame&t=C8ujcCqD3h9GtuAz-0)
+ [Figma](https://www.figma.com/design/MdMenDvnLaNrxePvxs9ZJY/Untitled?node-id=56-1612&node-type=frame&t=C8ujcCqD3h9GtuAz-0)
 
 ## Technical
 
@@ -54,18 +53,16 @@ User
 - password (string)
 - phone (string, optional)
 - pic (string, optional)
-- licenseNumber(string, optional)
 - role (string, enum: regular|veterinary)
 
 
-Vaccine Selector !!!!
+Vaccine Selector 
 - id(UUID)
 - name (string)
 - date (Date)
     
-Deworm formulario !!!
+Deworm formulario 
 - type (string, enum: external| internal | both )
-- name (string)
 - date (Date)
 
 Pet
@@ -91,6 +88,7 @@ History
 - image (string, optional)  
 - date(Date)
     
+Next version
 
 Appointment 
 - id (UUID)
@@ -102,14 +100,23 @@ Appointment
 
 ### Techs
 
-- HTML/CSS/JS (...)
-- React native (...)
-- Node (...)
-- Express (...)
-- Mongo, Mongoose(...)
-- Mocha & Chai (...)
-- 
+- CSS
+-JavaScript
+- React native:
+    - Qrcode-svg
+    - Singleton-Hook
+    - Element-dropdown
+- Expo
+- Axios
+- Node 
+- Express
+- Mongo, Mongoose
+- Mocha & Chai
 
 ### Test Coverage
 
-[...]
+![](testUser.png)
+
+![](testVete.png)
+
+![](testCoverage.png)

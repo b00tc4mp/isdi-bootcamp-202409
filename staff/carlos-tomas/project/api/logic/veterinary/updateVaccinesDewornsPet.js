@@ -39,7 +39,7 @@ export default (userId, petId, vaccineName, dewornData) => {
         if (vaccineName) {
             const isVaccineDuplicated = pet.vaccines.some(vaccine => vaccine.name === vaccineName);
             if (isVaccineDuplicated) {
-                throw new DuplicityError(`La vacuna "${vaccineName}" ya ha sido administarda al Animal.`)
+                throw new DuplicityError(`La vacuna "${vaccineName}" ya ha sido administrada al Animal.`)
             }
             const vaccine = { name: vaccineName }
             pet.vaccines.push(vaccine)

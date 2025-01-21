@@ -17,7 +17,7 @@ export default (username, password) => {
             throw new SystemError(error.message)
         }
 
-        if (!user) throw new CredentialsError('wrong credentials')
+        if (!user) throw new CredentialsError('Usuario o contraseña incorrectos')
 
         let match
 
@@ -27,7 +27,7 @@ export default (username, password) => {
             throw new SystemError(error.message)
         }
 
-        if (!match) throw new CredentialsError('wrong credentials')
+        if (!match) throw new CredentialsError('Usuario o contraseña incorrectos')
 
         return {
             id: user._id.toString(),
