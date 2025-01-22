@@ -21,7 +21,6 @@ export default async (userId, customerSearch, selectPack, description, payedAmou
             throw new SystemError('Base pack not found')
         }
 
-
         const {
             description,
             quantity,

@@ -47,7 +47,6 @@ class DataIntegrityError extends Error {
 }
 
 
-
 const errors = {
     ValidationError,
     NotFoundError,

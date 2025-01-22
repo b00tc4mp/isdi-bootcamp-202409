@@ -8,40 +8,20 @@ import { emailRegisterWelcome } from '../emailing/index.js'
 
 const { DuplicityError, SystemError } = errors
 
-export default (name,
-    email,
-    username,
-    password,
-    passwordRepeat,
-    plan,
-    planExpiryDate,
-    role,
-    dni,
-    surname1,
-    surname2,
-    biography,
-    country,
-    province,
-    city,
-    postalCode,
-    street,
-    street2,
-    number,
-    flat,
-    legalName,
-    website,
-    creationStatus,
-    customers = [],
-    ownPacks = [],
-    adquiredPacks = []) => {
+const assignRandomProfileImage = () => {
+    const imageNumber = Math.floor(Math.random() * 12) + 1; //from 1 to 12
+    return `/images/profile/profile${imageNumber}.jpeg`;
+};
+
+export default (name, email, username, password, passwordRepeat, plan, planExpiryDate, role, dni, surname1, surname2,
+    biography, country, province, city, postalCode, street, street2, number, flat, legalName, website, creationStatus, customers = [], ownPacks = [], adquiredPacks = []) => {
     validate.name(name)
     validate.email(email)
     validate.username(username)
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
 
-
-    //TODO: FIX THIS "CHAPUZA"
+    //In the register moment all users will be free
     if (plan === undefined)
         plan = 'free'
 
@@ -84,27 +64,20 @@ export default (name,
                 creationStatus,
                 customers,
                 ownPacks,
-                adquiredPacks
+                adquiredPacks,
+                profileImage: assignRandomProfileImage(), //Create random profile image
             })
 
+        } catch (error) {
+            if (error.code === 11000) throw new DuplicityError('User already exists')
+            throw new SystemError(error.message)
+        }
+
+        try {
             //send confirmation email
             emailRegisterWelcome(email, name)
-            /* try {
-                const subject = 'Welcome to Hourify'
-                const text = `Helo ${name}, this is your confirmation email`
-                const html = `<p>Hello ${name}!!</p><p>this is your confirmation email. We just want to confirm you than your new account has been createt correctly and you can get in just <a href="http://localhost:5173/login">clicking here</a></p>`
-
-                await sendEmail(email, subject, text, html)
-                console.log(`Email to ${email} was sent sucessfully!`)
-            } catch (error) {
-                console.error('There was a problem sending email:', error.message)
-            } */
-
         } catch (error) {
-            if (error.code === 11000) throw new DuplicityError('user elready exists')
-
             throw new SystemError(error.message)
-
         }
     })()
 }

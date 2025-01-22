@@ -130,6 +130,11 @@ const user = new Schema({
         ref: 'Pack',
         required: false
     }],
+    profileImage: {
+        type: String,
+        required: false,
+        default: ''
+    }
 }, { versionKey: false })
 
 

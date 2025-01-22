@@ -1,9 +1,10 @@
 import { User, Pack } from 'dat';
-import { errors } from 'com';
+import { errors, validate } from 'com';
 
 const { SystemError, NotFoundError } = errors;
 
 export default async (userId) => {
+    validate.id(userId, 'userId')
 
     try {
         //Find the users

@@ -6,6 +6,7 @@ import { errors } from 'com'
 import { Button, TagOK, TagWARN, TagKO } from '../library/index';
 
 import { UpdateCustomerPack } from './components';
+import { getDecimalToTimeFormat } from '../logic/helpers';
 
 const { SystemError } = errors
 
@@ -25,8 +26,11 @@ export default function CustomerPacks(props) {
             try {
                 setLoading(true)
                 const customerPacks = await logic.getCustomerPacks(customerId)
-                setCustomerPacks(customerPacks)
                 console.log(customerPacks)
+
+                const formattedPacks = await formatCustomerPacks(customerPacks);
+                setCustomerPacks(formattedPacks)
+                console.log(formattedPacks)
             } catch (error) {
                 console.error(error)
                 alert(error.message)
@@ -35,7 +39,6 @@ export default function CustomerPacks(props) {
             }
         }
         fetchCustomers()
-
     }, [customerId])
 
     useEffect(() => {
@@ -47,7 +50,7 @@ export default function CustomerPacks(props) {
 
     const handleManageClick = (event, customerPack) => {
         event.preventDefault()
-        console.log('To update: ' + customerPack._id)
+        console.log('To update: ' + customerPack.id)
         setSelectedPack(customerPack) //Guarda el basePack en el estado
         setView(view ? null : 'UpdateCustomerPack')
         console.log('View set to:', view);
@@ -61,15 +64,63 @@ export default function CustomerPacks(props) {
     const handlePackUpdated = async () => {
         setView(null); // Cierra el componente hijo
         setSelectedPack(null); // Limpia el pack seleccionado
+
         try {
             const updatedPacks = await logic.getCustomerPacks(customerId); // Vuelve a obtener los datos actualizados
-            setCustomerPacks(updatedPacks); // Actualiza la tabla de packs
-            //alert('Customer packs updated successfully (EN EL PADRE)!', 'success'); // Muestra el mensaje "OK" en el padre
+            //setCustomerPacks(updatedPacks); // Actualiza la tabla de packs
+
+            const formattedPacks = await formatCustomerPacks(updatedPacks);
+            setCustomerPacks(formattedPacks)
         } catch (error) {
             alert(error.message)
             console.error(error)
         }
     }
+
+    //Función de formateo de los packs
+    const formatCustomerPacks = async (packs) => {
+        return await Promise.all(
+            packs.map(async (pack) => {
+                // Formatear remainingQuantity
+                let formattedRemaining
+                let formattedOriginal
+                if (pack.unit === 'hours') {
+                    formattedRemaining = await getDecimalToTimeFormat(pack.remainingQuantity)
+                    formattedRemaining += ' h'
+                    formattedOriginal = await getDecimalToTimeFormat(pack.originalQuantity)
+                    formattedOriginal += ' h'
+                } else if (pack.unit === 'units') {
+                    formattedRemaining = `${pack.remainingQuantity || 0} un.`
+                    formattedOriginal = `${pack.remainingQuantity || 0} un.`
+                }
+
+                // Formatear fechas
+                const formattedPurchaseDate = pack.purchaseDate
+                    ? new Date(pack.purchaseDate).toLocaleDateString()
+                    : 'N/A';
+                const formattedExpiryDate = pack.expiryDate
+                    ? new Date(pack.expiryDate).toLocaleDateString()
+                    : 'N/A';
+
+                // Formatear precio
+                const formattedPrice = `${pack.price || 0} ${pack.currency || ''}`;
+
+                // Formatear totalPayments
+                const formattedTotalPayments = `${pack.totalPayments || 0} ${pack.currency || ''}`;
+
+                return {
+                    ...pack,
+                    formattedRemaining,
+                    formattedOriginal,
+                    formattedPurchaseDate,
+                    formattedExpiryDate,
+                    formattedPrice,
+                    formattedTotalPayments,
+                };
+            })
+        )
+
+    };
 
 
     return (
@@ -102,14 +153,15 @@ export default function CustomerPacks(props) {
                     <tbody>
                         {customerPacks.map(customerPack => (
 
-                            < tr key={customerPack._id} className="cursor-pointer hover:bg-gray-100"
+                            < tr key={customerPack.id} className="cursor-pointer hover:bg-gray-100"
                                 onClick={(event) => handleManageClick(event, customerPack)}>
+
                                 <td className='border px-4 py-2'>{customerPack.description}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedRemaining}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedPurchaseDate}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedExpiryDate}</td>
                                 <td className='border px-4 py-2'>{customerPack.formattedPrice}</td>
-                                <td className='border px-4 py-2'>{customerPack.totalPayments}</td>
+                                <td className='border px-4 py-2'>{customerPack.formattedTotalPayments}</td>
                                 {/* 'Pending', 'Active', 'Expired', 'Finished' */}
                                 {/* <td className='border px-4 py-2'>{customerPack.status}</td> */}
 
@@ -126,12 +178,10 @@ export default function CustomerPacks(props) {
                                     {customerPack.paymentStatus === 'completed' && (<TagOK>Completed</TagOK>)}
                                 </td>
                                 <td className='border px-4 py-2'>{customerPack.paymentMethods}</td>
-                                {/* <td className='border px-4 py-2'>
-                                    <button className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold rounded-full px-3 py-1 m-1" onClick={(event) => handleManageClick(event, customerPack)}>✏️ Manage</button>
-                                </td> */}
                             </tr>
                         ))}
                     </tbody>
+
                     {view === 'UpdateCustomerPack' && selectedPack && (
                         <tr ref={updatePackView}>
                             <td colSpan="10" className="border px-4 py-2">
@@ -139,6 +189,7 @@ export default function CustomerPacks(props) {
                                     pack={selectedPack}
                                     onUpdated={handlePackUpdated}
                                     onPaymentAdded={handlePackUpdated}
+                                    onPaymentDeleted={handlePackUpdated}
                                     onCancelClick={() => {
                                         setView(null)
                                         setSelectedPack(null)

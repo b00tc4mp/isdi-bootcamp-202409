@@ -13,6 +13,9 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.use(cors())
 
+    // TODO: servir desde users
+    server.use('/images/profile', express.static('public/images/profile'));
+
     server.get('/', (_, res) => res.send('API is Up Ready to go'))
 
     //Here will be all the endpoints of the API. 

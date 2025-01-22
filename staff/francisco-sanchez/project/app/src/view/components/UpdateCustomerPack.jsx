@@ -17,7 +17,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const activities = await logic.getActivitiesByPackId(pack._id)
+                const activities = await logic.getActivitiesByPackId(pack.id)
                 console.log('Pack Activity fetched successfully', activities)
                 setPackActivities(activities)
 
@@ -30,7 +30,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
 
         const getPayments = async () => {
             try {
-                const payments = await logic.getPayments(pack._id)
+                const payments = await logic.getPayments(pack.id)
                 console.log('Pack Payments fetched successfully', payments)
                 setPayments(payments)
 
@@ -54,7 +54,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         console.log(packDescription, remainingQuantity, new Date(expiryDate), packStatus)
 
         try {
-            logic.updatePack(pack._id, packDescription, remainingQuantity, new Date(expiryDate), packStatus)
+            logic.updatePack(pack.id, packDescription, remainingQuantity, new Date(expiryDate), packStatus)
                 .then(() => {
                     alert('Pack updated successfully!', 'success')
                     onUpdated()
@@ -74,7 +74,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         onCancelClick()
     }
 
-    const handlePaymentSubmit = (event) => {
+    const handlePaymentSubmit = async (event) => {
         event.preventDefault()
         const { target: form } = event
         const {
@@ -87,7 +87,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         }
 
         try {
-            logic.addPayment(pack._id, amount, pack.currency, paymentMethod)
+            await logic.addPayment(pack.id, amount, pack.currency, paymentMethod)
                 .then(() => {
                     alert('Payment added successfully', 'success');
                     onPaymentAdded()
@@ -111,11 +111,11 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                     console.log(paymentId)
                     logic.deletePayment(paymentId)
                         .then(() => {
-                            onPaymentDeleted
                             // Filtra el pago eliminado de la lista de pagos actual
                             setPayments((prevPayments) =>
                                 prevPayments.filter((payment) => payment.id !== paymentId)
                             )
+                            onPaymentDeleted()
                         })
                         .catch((error) => {
                             alert(error.message)
@@ -166,12 +166,12 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                         />) : null}
                     <Card
                         title="Original Quantity"
-                        value={pack.originalQuantity + ' ' + pack.unit || 'Unknown'}
+                        value={pack.formattedOriginal}
                         valueClass="text-gray-800"
                     />
                     <Card
                         title="Remaining Quantity"
-                        value={pack.formattedRemaining + ' ' + pack.unit || 'Unknown'}
+                        value={pack.formattedRemaining}
                         valueClass="text-gray-800"
                     />
                 </div>
@@ -219,7 +219,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                         </thead>
                         <tbody>
                             {packActivities.map(payment => (
-                                <tr key={payment._id}>
+                                <tr key={payment.id}>
                                     <td className='border px-4 py-2'>{payment.description}</td>
                                     <td className='border px-4 py-2'>{payment.formatedDate}</td>
                                     <td className='border px-4 py-2'>{payment.operation === 'add' ? `+${payment.formattedOperation}` : `-${payment.formattedOperation}`}</td>
@@ -245,7 +245,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                             {payments.map(payment => (
 
                                 <tr key={payment?.id}>
-                                    <td className='border px-4 py-2'>{payment?.date}</td>
+                                    <td className='border px-4 py-2'>{new Date(payment?.date).toLocaleDateString()}</td>
                                     <td className='border px-4 py-2'>{payment?.amount} {payment?.currency}</td>
                                     <td className='border px-4 py-2'>{payment?.method}</td>
                                     <td className='border px-4 py-2'>

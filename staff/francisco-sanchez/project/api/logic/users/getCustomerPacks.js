@@ -18,27 +18,11 @@ export default async (userId) => {
         //return customerPacks
         const formattedCustomerPacks = await Promise.all(
             customerPacks.map(async (customerPack) => {
-                let formattedRemaining
-                if (customerPack.unit === 'hours') {
-                    formattedRemaining = await getDecimalToTimeFormat(customerPack.remainingQuantity)
-                    formattedRemaining += ' h'
-                } else if (customerPack.unit === 'units') {
-                    formattedRemaining = `${customerPack.remainingQuantity} un.`; // Mostrar directamente con la unidad
-                }
-
-                // Formated Price
-                const formattedPrice = `${customerPack.price} ${customerPack.currency || ''}`
-
-
                 // Fetch payments for the current pack
                 const payments = await Payment.find({ pack: customerPack._id }).lean()
                 const totalPayments = payments.reduce((sum, payment) => sum + (payment.amount || 0), 0)
 
-                // Fetch payment methods
-                //const paymentMethods = [...new Set(payments.map((payment) => payment.method || 'Unknown'))]
-                //const paymentMethods = payments.map((payment) => payment.method || 'Unknown').join(', ')
                 const paymentMethods = [...new Set(payments.map((payment) => payment.method || 'Unknown'))].join(', ')
-
 
                 // Check payment Status
                 let paymentStatus = ''
@@ -46,19 +30,15 @@ export default async (userId) => {
                 else if (totalPayments === 0) { paymentStatus = 'pending' }
                 else if (totalPayments === customerPack.price || payedAmountNum > customerPack.price) { paymentStatus = 'completed' }
 
+                customerPack.id = customerPack._id
+                delete customerPack._id
 
                 return {
                     ...customerPack,
-                    formattedRemaining,
-                    formattedPurchaseDate: await getFormattedDate(customerPack.purchaseDate),
-                    formattedExpiryDate: await getFormattedDate(customerPack.expiryDate),
-                    formattedPrice,
-                    totalPayments: `${totalPayments} ${customerPack.currency || ''}`, // Include currency if available
+                    totalPayments: `${totalPayments}`, // Include currency if available
                     paymentStatus,
                     paymentMethods
                 }
-
-
             })
         )
         return formattedCustomerPacks

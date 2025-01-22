@@ -12,19 +12,24 @@ import { useEffect, useState } from 'react'
 export default function UserProfile(props) {
     console.log('Login -> render')
     const [userData, setUserData] = useState(null)
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchData = () => {
         if (logic.isUserLoggedIn()) {
             logic.getUserDetails()
                 .then((userData) => {
                     setUserData(userData)
+                    setIsLoading(false); // Datos cargados
                     console.log(userData)
+                    console.log(userData.profileImage);
                 })
                 .catch((error) => {
                     alert(error.message)
+                    setIsLoading(false); // Datos cargados
                 })
         } else {
             setUserData(null)
+            setIsLoading(false); // Datos cargados
         }
     }
 
@@ -34,6 +39,9 @@ export default function UserProfile(props) {
         } catch (error) {
             alert(error.message)
             console.error(error)
+            setIsLoading(false);
+        } finally {
+            setIsLoading(false); // Fin de la carga
         }
     }, [location.pathname])
 
@@ -91,20 +99,27 @@ export default function UserProfile(props) {
         }
     }
 
+    // Calcula la URL de la imagen del perfil
+    const profileImageUrl = userData?.profileImage
+        ? `http://localhost:8080${userData.profileImage}`
+        : `http://localhost:8080/images/profile/profile1.jpeg`;
 
+    console.log(profileImageUrl)
+
+    if (isLoading) {
+        return <p>Loading...</p>; // Mensaje de carga mientras esperamos los datos
+    }
     return <main className="flex justify-center items-center bg-gray-100 w-full h-full py-8">
 
         {/* Container to center content */}
         <div className="bg-white shadow-md rounded-md p-8 w-full max-w-4xl">
             <div className="flex flex-col items-center">
 
-                <img src="https://via.placeholder.com/40" alt="User profile" className="w-40 h-40 rounded-full border-2 border-white cursor-pointer" />
-
                 <h2 className="text-2xl font-bold text-color_darkBlue mb-4">User Profile</h2>
-
                 <form className="flex flex-col gap-4 w-full" onSubmit={handleUpdateClick}>
                     {userData ? (
                         <>
+                            <img src={profileImageUrl} alt="User profile" className="w-40 h-40 rounded-full border-2 border-white cursor-pointer" />
                             <Field>
                                 <Label htmlFor="username">Username</Label>
                                 <Input type="text" id="username" defaultValue={userData.username} placeholder="Your username" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary" />

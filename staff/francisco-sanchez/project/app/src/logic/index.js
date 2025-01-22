@@ -42,7 +42,8 @@ import {
 
 import {
     getDecimalToTimeFormat,
-    getFormattedDate
+    getFormattedDate,
+    getTimeFormatFromDecimal
 } from './helpers'
 
 
@@ -75,6 +76,7 @@ const logic = {
     //Helpers
     getDecimalToTimeFormat,
     getFormattedDate,
+    getTimeFormatFromDecimal,
 
     //Tracker
     toggleTimeTracker,
