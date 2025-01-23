@@ -102,14 +102,12 @@ export default function UserProfile(props) {
     // Calcula la URL de la imagen del perfil
     const profileImageUrl = userData?.profileImage
         ? `http://localhost:8080${userData.profileImage}`
-        : `http://localhost:8080/images/profile/profile1.jpeg`;
-
-    console.log(profileImageUrl)
+        : `http://localhost:8080/images/profile/profile1.jpeg`
 
     if (isLoading) {
         return <p>Loading...</p>; // Mensaje de carga mientras esperamos los datos
     }
-    return <main className="flex justify-center items-center bg-gray-100 w-full h-full py-8">
+    return <main className="flex justify-center items-center bg-gray-100 w-full h-full flex-grow py-8">
 
         {/* Container to center content */}
         <div className="bg-white shadow-md rounded-md p-8 w-full max-w-4xl">

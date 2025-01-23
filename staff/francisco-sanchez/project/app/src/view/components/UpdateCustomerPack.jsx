@@ -133,7 +133,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         return <p>there was a problem loading customer pack</p>
     } else {
         console.log(pack)
-        return <main className="flex flex-col items-center bg-color_backgroundGrey w-full min-h-screen">
+        return <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow">
             <h2 className="text-2xl mb-4">"{pack.description}"</h2>
             <div className="flex flex-col w-full max-w-4xl px-4 space-y-6">
                 <div className="pack_statuses grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

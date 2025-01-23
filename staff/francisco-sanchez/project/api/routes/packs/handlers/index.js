@@ -1,4 +1,4 @@
-import createPackHandlers from './createPackHandler.js'
+import createBasePackHandlers from './createBasePackHandler.js'
 import assingPackHandlers from './assingPackHandlers.js'
 import getBasePacks from './getBasePacks.js'
 import getBasePacksDetailsHandler from './getBasePacksDetailsHandler.js'
@@ -8,7 +8,7 @@ import getAdquiredPacksHandler from './getAdquiredPacksHandler.js'
 import updatePackHandler from './updatePackHandler.js'
 
 export {
-    createPackHandlers,
+    createBasePackHandlers,
     assingPackHandlers,
     getBasePacks,
     getBasePacksDetailsHandler,

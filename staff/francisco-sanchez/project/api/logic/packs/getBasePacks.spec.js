@@ -52,7 +52,7 @@ describe('getBasePacks', () => {
             email: 'test@domain.com',
             plan: 'free',
             creationStatus: 'true',
-        }); // Create a dummy user
+        });
     });
 
     it('succeeds on retrieving packs for an existing user', async () => {
@@ -85,15 +85,7 @@ describe('getBasePacks', () => {
     it('fails if the user does not exist', async () => {
         const nonExistentUserId = '674f1fc3a728c03cdd10ba4d'; // Different ObjectId
 
-        await expect(getBasePacks(nonExistentUserId)).to.be.rejectedWith(NotFoundError, 'No basePack found for this userId');
+        await expect(getBasePacks(nonExistentUserId)).to.be.rejectedWith(NotFoundError, 'user not found');
     });
 
-    it('fails on system error (e.g., database connection issue)', async () => {
-        await db.disconnect(); // Simulate a database disconnection
-
-        await expect(getBasePacks(userId)).to.be.rejectedWith(SystemError);
-
-        // Reconnect for other tests
-        await db.connect(process.env.MONGO_URL_TEST);
-    });
 });

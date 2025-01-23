@@ -46,7 +46,7 @@ export default function Login(props) {
         props.onRegisterClick()
     }
 
-    return <main className="flex flex-col items-center justify-center bg-color_backgroundGrey w-full h-screen">
+    return <main className="flex flex-col items-center justify-center bg-color_backgroundGrey w-full flex-grow">
         <h1 className="text-3xl font-bold text-color_primary mb-4">Hourify</h1>
 
         {/* Container to center content */}

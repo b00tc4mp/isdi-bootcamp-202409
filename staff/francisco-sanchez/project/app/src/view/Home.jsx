@@ -8,12 +8,7 @@ import useContext from './useContext'
 
 
 export default function Home(props) {
-    console.log('Home -> render')
-
     const [name, setName] = useState('')
-    /*    console.log('el nombre es: ' + name)
-        const nametrying = logic.getUserName()
-        console.log(nametrying) */
     const location = useLocation()
 
     const { alert, confirm } = useContext()
@@ -22,24 +17,20 @@ export default function Home(props) {
         console.log('Header -> componentDidMount & componentWillReceiveProps')
 
         if (logic.isUserLoggedIn()) {
-            console.log('paso por la logica is user logged in')
             if (!name)
                 try {
                     logic.getUserName()
                         .then(setName)
                         .catch(error => {
                             alert(error.message)
-
                             console.error(error)
                         })
                 } catch (error) {
                     alert(error.message)
-
                     console.error(error)
                 }
         } else setName(null)
     }, [location.pathname])
-    console.log(name)
 
     const handleTrackerClick = event => {
         console.log('Click on tracker compo')
@@ -58,21 +49,19 @@ export default function Home(props) {
         props.onManageCustomersClick()
     };
 
-    const handleManagePurchasedPacks = event => {
+    /* const handleManagePurchasedPacks = event => {
         console.log("Manage Purchased packs clicked");
         //event.preventDefault()
         props.onManagePurchasedPacksClick()
-    };
-
+    } */;
 
     {
         return (
-            <main className="flex flex-col items-center bg-color_backgroundGrey w-full h-screen p-4 pt-12">
+            <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow p-4 pt-12">
 
                 <header className="mb-8 text-center ">
                     <h2 className="text-3xl font-bold text-color_darkBlue mb-2">{`Welcome, ${name}`}</h2>
                     <p className="text-color_strongGrey">What would you like to do today?</p>
-                    <p className="text-center text-red-500">NOTE: Purchased services option will be ready soon </p>
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl justify-items-center">

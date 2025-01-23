@@ -9,7 +9,7 @@ export default createFunctionalHandler(async (req, res) => {
         res.status(400).json({ error: 'Bad request', message: 'basePackId is required' })
         return
     }
-    const getBasePackDetails = await logic.getBasePackDetails(basePackId)
+    const getBasePackDetails = await logic.getBasePackDetails(userId, basePackId)
 
     res.status(200).json(getBasePackDetails)
 

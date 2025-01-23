@@ -1,10 +1,21 @@
-import { BasePack } from 'dat'
+import { BasePack, User } from 'dat'
 import { errors, validate } from 'com'
 
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, OwnershipError } = errors
 
-export default async (selectPack) => {
+export default async (userId, selectPack) => {
     validate.id(selectPack, 'packId')
+    validate.id(userId, 'userId')
+
+    try {
+        const user = await User.findById(userId).lean()
+        if (!user) {
+            throw new NotFoundError('user not found')
+        }
+    } catch (error) {
+        console.error(error.message)
+        throw error
+    }
 
     try {
         // Busca el BasePack por su ID
@@ -15,10 +26,16 @@ export default async (selectPack) => {
             throw new NotFoundError('The pack does not exist')
         }
 
+        //Valida que sea el propietario del pack
+        if (userId !== basePackInfo.user.toString()) {
+            throw new OwnershipError('Your user is not the owner of this pack')
+        }
+
         // Devuelve la información encontrada
         return basePackInfo
     } catch (error) {
         // Si ocurre un error, lanza un SystemError
+        console.error(error.message)
         throw new SystemError(error.message)
     }
 }

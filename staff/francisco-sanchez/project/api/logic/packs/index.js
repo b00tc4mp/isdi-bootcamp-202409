@@ -1,4 +1,4 @@
-import createPack from './createPack.js'
+import createBasePack from './createBasePack.js'
 import assignPack from './assignPack.js'
 import getBasePacks from './getBasePacks.js'
 import getBasePackDetails from './getBasePackDetails.js'
@@ -9,7 +9,7 @@ import checkPackAndUpdate from './checkPackAndUpdate.js'
 import updatePack from './updatePack.js'
 
 export {
-    createPack,
+    createBasePack,
     assignPack,
     getBasePacks,
     getBasePackDetails,

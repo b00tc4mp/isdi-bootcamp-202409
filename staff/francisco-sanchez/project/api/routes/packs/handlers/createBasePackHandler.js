@@ -8,7 +8,7 @@ console.log('user Id from req.body es: ' + userId) */
 export default createFunctionalHandler(async (req, res) => {
     const { userId, body: { packName, packDescription, quantity, unit, expiringTime, price, currency } } = req
 
-    await logic.createPack(userId,
+    await logic.createBasePack(userId,
         packName,
         packDescription,
         quantity,

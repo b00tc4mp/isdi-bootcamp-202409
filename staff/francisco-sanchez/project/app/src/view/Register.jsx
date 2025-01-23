@@ -59,7 +59,7 @@ export default function Register(props) {
     }
 
 
-    return <main className="flex flex-col items-center justify-center bg-color_backgroundGrey w-full h-screen">
+    return <main className="flex flex-col items-center justify-center bg-color_backgroundGrey w-full flex-grow">
         <h2 className="">Register</h2>
         <div className="flex flex-col">
             <form className="flex flex-col justify-items-start" onSubmit={handleSubmit}>

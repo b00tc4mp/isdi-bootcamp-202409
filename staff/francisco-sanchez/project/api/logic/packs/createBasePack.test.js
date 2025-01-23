@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import db from 'dat'
 
-import createPack from './createPack.js'
+import createBasePack from './createBasePack.js'
 
 await db.connect(process.env.MONGO_URL)
 
@@ -16,7 +16,7 @@ const currency = 'EUR'
 
 
 try {
-    const result = await createPack(user,
+    const result = await createBasePack(user,
         packName,
         description,
         quantity,

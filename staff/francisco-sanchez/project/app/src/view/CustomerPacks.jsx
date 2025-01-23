@@ -124,7 +124,7 @@ export default function CustomerPacks(props) {
 
 
     return (
-        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full min-h-screen pt-12">
+        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full flex-grow pt-12">
             <h1 className='text-3xl'>Manage packs for {customerName}</h1>
             <p>You can see the packs of the selected customer</p>
 

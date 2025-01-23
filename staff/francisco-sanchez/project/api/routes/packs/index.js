@@ -3,7 +3,7 @@ import { Router, json } from "express"
 import { jsonBodyParser, authorizationHandler } from "../helpers/index.js"
 
 import {
-    createPackHandlers,
+    createBasePackHandlers,
     assingPackHandlers,
     getBasePacks,
     getBasePacksDetailsHandler,
@@ -12,11 +12,10 @@ import {
     getAdquiredPacksHandler,
     updatePackHandler
 } from './handlers/index.js'
-import updateBasePack from "../../logic/packs/updateBasePack.js"
 
 const packsRouter = Router()
 
-packsRouter.post('/create-pack', authorizationHandler, jsonBodyParser, createPackHandlers)
+packsRouter.post('/create-pack', authorizationHandler, jsonBodyParser, createBasePackHandlers)
 packsRouter.post('/assign-pack', authorizationHandler, jsonBodyParser, assingPackHandlers)
 packsRouter.get('/get-basepack', authorizationHandler, getBasePacks)
 packsRouter.get('/get-basepack-details/:basePackId', getBasePacksDetailsHandler)

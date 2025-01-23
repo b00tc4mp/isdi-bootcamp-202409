@@ -8,7 +8,7 @@ const { SystemError } = errors
 
 import useContex from './useContext'
 
-import { Button, Field, Input, Label, Image } from '../library'
+import { Button, Field, Input, Label, Textarea } from '../library'
 
 export default function Create(props) {
 
@@ -57,61 +57,72 @@ export default function Create(props) {
         props.onHomeClick()
     }
 
-    return <main className="flex flex-col justify-center items-center bg-color_backgroundGrey w-full h-screen">
-        <h2 className="text-2xl">Create new pack</h2>
-        <div className="flex flex-col">
-            <form className="flex flex-col justify-items-start" onSubmit={handleSubmit} >
-                <Field>
-                    <Label htmlFor="packName">Pack name</Label>
-                    <Input className="border-2 rounded-lg" type="text" id="packName" placeholder="Pack name" />
-                </Field>
+    return <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow pt-12">
+        <h2 className="text-2xl font-bold mb-6">Create new pack</h2>
 
-                <Field>
-                    <Label htmlFor="packDescription">Pack description</Label>
-                    <textarea className="border-2 rounded-lg" type="email" id="packDescription" placeholder="Pack description goes here" />
-                </Field>
+        <div className="bg-white shadow-md rounded p-6 w-full max-w-4xl">
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
+                {/* Columna Izquierda */}
+                <div className="space-y-4">
+                    <Field>
+                        <Label htmlFor="packName">Pack name</Label>
+                        <Input personalClasses="border-2 rounded-lg w-full" type="text" id="packName" placeholder="Pack name" />
+                    </Field>
 
-                <Field>
-                    <Label htmlFor="quantity">Quantity</Label>
-                    <Input className="border-2 rounded-lg" type="number" id="quantity" placeholder="Quantity" />
-                </Field>
+                    <Field>
+                        <Label htmlFor="packDescription">Pack description</Label>
+                        <Textarea personalClasses="border-2 rounded-lg w-full h-28 p-2" id="packDescription" placeholder="Pack description goes here" />
+                    </Field>
 
-                <Field>
-                    <Label htmlFor="unit">Unit</Label>
-                    <select id="unit" name="unit">
-                        <option value="hours">Hours</option>
-                        <option value="units">Units</option>
-                    </select>
-                </Field>
+                    <Field>
+                        <Label htmlFor="quantity">Quantity</Label>
+                        <Input personalClasses="border-2 rounded-lg w-full" type="number" id="quantity" placeholder="Quantity" />
+                    </Field>
+                </div>
 
-                <Field>
-                    <Label htmlFor="expiringTime">Expiring pack time</Label>
-                    <select id="expiringTime" name="expiringTime">
-                        <option value="-1">Unlimited</option>
-                        <option value="1">1 Month</option>
-                        <option value="2">2 Months</option>
-                        <option value="3">3 Months</option>
-                        <option value="4">4 Months</option>
-                        <option value="5">5 Months</option>
-                        <option value="6">6 Months</option>
-                        <option value="7">7 Months</option>
-                        <option value="8">8 Months</option>
-                        <option value="9">9 Months</option>
-                        <option value="10">10 Months</option>
-                        <option value="11">11 Months</option>
-                        <option value="12">12 Months</option>
-                    </select>
-                </Field>
+                {/* Columna Derecha */}
+                <div className="space-y-4">
+                    <Field>
+                        <Label htmlFor="unit">Unit</Label>
+                        <select id="unit" name="unit" className="border-2 rounded-lg w-full p-2">
+                            <option value="hours">Hours</option>
+                            <option value="units">Units</option>
+                        </select>
+                    </Field>
 
-                <Field>
-                    <Label htmlFor="price">Price</Label>
-                    <Input className="border-2 rounded-lg w-full" type="number" id="price" placeholder="50 €" />
-                    <input type="hidden" id="currency" defaultValue="EUR" />
-                </Field>
+                    <Field>
+                        <Label htmlFor="expiringTime">Expiring pack time</Label>
+                        <select id="expiringTime" name="expiringTime" className="border-2 rounded-lg w-full p-2">
+                            <option value="-1">Unlimited</option>
+                            <option value="1">1 Month</option>
+                            <option value="2">2 Months</option>
+                            <option value="3">3 Months</option>
+                            <option value="4">4 Months</option>
+                            <option value="5">5 Months</option>
+                            <option value="6">6 Months</option>
+                            <option value="7">7 Months</option>
+                            <option value="8">8 Months</option>
+                            <option value="9">9 Months</option>
+                            <option value="10">10 Months</option>
+                            <option value="11">11 Months</option>
+                            <option value="12">12 Months</option>
+                        </select>
+                    </Field>
 
-                <Button type="submit">Create Pack</Button>
+                    <Field>
+                        <Label htmlFor="price">Price</Label>
+                        <Input personalClasses="border-2 rounded-lg w-full" type="number" id="price" placeholder="50 €" />
+                        <input type="hidden" id="currency" defaultValue="EUR" />
+                    </Field>
+                </div>
+
+                {/* Botón: ocupa ambas columnas en pantallas medianas+ */}
+                <div className="md:col-span-2 flex justify-center">
+                    <Button type="submit">Create Pack</Button>
+                </div>
             </form>
         </div>
-        <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
-    </main>
+
+        <a href="" title="Go back home" onClick={handleHomeClick} className="mt-4 hover:underline">Back to home</a>
+    </main >
 }

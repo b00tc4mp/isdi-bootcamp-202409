@@ -5,10 +5,11 @@ import getBasePackDetails from './getBasePackDetails.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const basePackId = '675992ac3a14a7927ccfe13b'
+const userId = '6780f8fe58255d20563d6a5f'
+const basePackId = '67877fc0820328fdd78f6d21'
 
 try {
-    const result = await getBasePackDetails(basePackId)
+    const result = await getBasePackDetails(userId, basePackId)
     console.log(result)
 
 } catch (error) {

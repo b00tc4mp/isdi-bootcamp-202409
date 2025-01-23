@@ -57,52 +57,70 @@ export default function AssignPack(props) {
         props.onHomeClick()
     }
 
-    return <main className="flex flex-col items-center bg-color_backgroundGrey w-full h-screen pt-12">
-        <h2 className="text-2xl">Assign pack to customer</h2>
-        <div className="flex flex-col">
-            <form className="flex flex-col justify-items-start" onSubmit={handleSubmit} >
+    return <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow pt-12">
+        <h2 className="text-2xl font-bold mb-6">Assign pack to customer</h2>
 
-                <Field>
-                    <Label htmlFor="customerSearch">Find customer <span className='text-red-600'> DEVELOPER REF: It always return OK independent of the final result</span></Label>
-                    <Input id="customerSearch" className="border-2 rounded-lg" type="text" placeholder="Use email or username" ></Input>
-                </Field>
+        <div className="bg-white shadow-md rounded p-6 w-full max-w-4xl">
 
+            {/* Formulario con grid de dos columnas (en pantallas medianas o superiores) */}
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
 
-                <Field>
-                    <Label htmlFor="selectPack">Select Pack</Label>
-                    <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2">
-                        {basePacks.map((basePack) => (
-                            <option key={basePack.id} value={basePack.id}>{basePack.packName} - {basePack.price}{getCurrencySymbol(basePack)}</option>
-                        ))}
-                    </select>
-                </Field>
+                {/* Columna Izquierda */}
+                <div className="space-y-4">
+                    <Field>
+                        <Label htmlFor="customerSearch">Find customer </Label>
+                        <Input id="customerSearch" personalClasses="border-2 rounded-lg w-full" type="text" placeholder="Use email or username" />
+                    </Field>
 
-                <Field>
-                    <Label htmlFor="description">Description</Label>
-                    <Textarea id="description" placeholder="Description about this pack for this customer"></Textarea>
-                </Field>
+                    <Field>
+                        <Label htmlFor="selectPack">Select Pack</Label>
+                        <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2">
+                            {basePacks.map((basePack) => (
+                                <option key={basePack.id} value={basePack.id}>
+                                    {basePack.packName} - {basePack.price}
+                                    {getCurrencySymbol(basePack)}
+                                </option>
+                            ))}
+                        </select>
+                    </Field>
 
+                    <Field>
+                        <Label htmlFor="description">Description</Label>
+                        <Textarea id="description" placeholder="Description about this pack for this customer" personalClasses="border-2 rounded-lg w-full" />
+                    </Field>
+                </div>
 
-                <Field>
-                    <Label htmlFor="payedAmount">Payed Ammount</Label>
-                    <Input id="payedAmount" className="border-2 rounded-lg" type="number" placeholder="0 €" ></Input>
-                </Field>
+                {/* Columna Derecha */}
+                <div className="space-y-4">
+                    <Field>
+                        <Label htmlFor="payedAmount">Payed Amount</Label>
+                        <Input
+                            id="payedAmount"
+                            personalClasses="border-2 rounded-lg w-full"
+                            type="number"
+                            placeholder="0 €"
+                        />
+                    </Field>
 
-                <Field>
-                    <Label htmlFor="paymentMethod">Select Payment Method</Label>
-                    <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2">
-                        <option value="card">Card</option>
-                        <option value="cash">Cash</option>
-                        <option value="bankTransfer">Bank Transfer</option>
-                        <option value="paypal">Paypal</option>
-                        <option value="stripe">Stripe</option>
-                        <option value="others">Others</option>
-                    </select>
-                </Field>
+                    <Field>
+                        <Label htmlFor="paymentMethod">Select Payment Method</Label>
+                        <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2">
+                            <option value="card">Card</option>
+                            <option value="cash">Cash</option>
+                            <option value="bankTransfer">Bank Transfer</option>
+                            <option value="paypal">Paypal</option>
+                            <option value="stripe">Stripe</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </Field>
+                </div>
 
-                <Button type="submit">Assign Pack</Button>
+                {/* Botón al final ocupando el ancho de ambas columnas en pantallas medianas+ */}
+                <div className="md:col-span-2 flex justify-center">
+                    <Button type="submit">Assign Pack</Button>
+                </div>
             </form>
         </div>
-        <a href="" title="Go back home" onClick={handleHomeClick}>Back to home</a>
+        <a href="" title="Go back home" onClick={handleHomeClick} className="mt-4 hover:underline">Back to home</a>
     </main>
 }

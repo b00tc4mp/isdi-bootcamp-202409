@@ -14,7 +14,7 @@ import {
 
 //PACKS & BASEPACKS
 import {
-    createPack,
+    createBasePack,
     assignPack,
     getBasePacks,
     getBasePackDetails,
@@ -66,7 +66,7 @@ const logic = {
 
 
     //Packs and basebacks
-    createPack,
+    createBasePack,
     assignPack,
     getBasePacks,
     getBasePackDetails,
