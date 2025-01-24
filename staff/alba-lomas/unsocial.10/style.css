@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Updock&display=swap');
+
+
+:root {
+    --color: rgb(128, 175, 128);
+    --font: 'Dancing Script';
+    font-family: var(--font);
+}
+
+
+
+body {
+    background-color: rgb(219, 224, 224);
+    color: var(--color);
+    padding: 100px;
+
+}
+
+
+
+input {
+    background-color: inherit;
+    font-family: inherit;
+}
+
+
+
+a:visited {
+    color: var(--color);
+}
+
+
+h1 {
+    font-size: 60px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+label {
+    font-size: 20px;
+    justify-content: center;
+}
+
+input {
+    label {
+        font-size: 20px;
+    }
+}
+
+button {
+    margin-left: 8px;
+}
