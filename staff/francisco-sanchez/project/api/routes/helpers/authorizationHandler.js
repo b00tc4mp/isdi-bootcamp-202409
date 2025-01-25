@@ -9,10 +9,8 @@ export default (req, res, next) => {
 
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-        //console.log('token is: ' + token)
-
         req.userId = userId
-        //console.log('userId ' + userId)
+
         next() //Next will go to the next function
     } catch (error) {
         next(new AuthorizationError(error.message))

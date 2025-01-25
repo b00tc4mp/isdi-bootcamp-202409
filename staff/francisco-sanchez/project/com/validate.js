@@ -2,15 +2,16 @@ import errors from './errors.js'
 const { ValidationError } = errors
 
 const validateName = name => {
-    if (typeof name !== 'string') throw new ValidationError('invalid name')
+    if (typeof name !== 'string' || name === '') throw new ValidationError('invalid name')
     if (name.length < 2)
         throw new ValidationError('invalid name length')
 }
 
 const validatePackName = name => {
     if (typeof name !== 'string') throw new ValidationError('invalid pack name')
-    if (name.length < 5)
-        throw new ValidationError('invalid pack name length, pack should have more than 5 chars')
+    if (name === '') throw new ValidationError('pack name is required')
+    if (name.length < 5 || name.length > 50)
+        throw new ValidationError('pack name should have more than 5 chars and less than 50')
 }
 
 const validateDescription = description => {
@@ -29,6 +30,12 @@ const validateDate = date => {
 const validateInteger = num => {
     if (!Number.isInteger(num)) {
         throw new ValidationError('Units provided should be an integer')
+    }
+}
+
+const validateNumber = num => {
+    if (typeof num !== 'number' || !Number.isFinite(num)) {
+        throw new ValidationError('Value provided should be a valid number')
     }
 }
 
@@ -51,6 +58,12 @@ const validatePassword = password => {
         throw new ValidationError('invalid password length')
 }
 
+const validateCurrency = currency => {
+    if (typeof currency !== 'string' || currency === '') throw new ValidationError('invalid currency')
+    if (currency.length !== 3)
+        throw new ValidationError('currency should have 3 characters')
+}
+
 const validatePasswordsMatch = (password, passwordRepeat) => {
     if (typeof passwordRepeat !== 'string') throw new ValidationError('invalid password repeat')
     if (password !== passwordRepeat)
@@ -70,6 +83,7 @@ const validateId = (id, explain = 'id') => {
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
+
 const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
@@ -87,7 +101,9 @@ const validate = {
     id: validateId,
     callback: validateCallback,
     integerNum: validateInteger,
-    date: validateDate
+    number: validateNumber,
+    date: validateDate,
+    currency: validateCurrency
 }
 
 export default validate

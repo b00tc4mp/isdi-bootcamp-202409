@@ -370,6 +370,13 @@ const payment = new Schema({
         enum: ['pending', 'completed', 'partially payed', 'canceled', 'refunded', 'partially refunded', 'expired'],
         default: 'pending'
     },
+
+    /*     type: {
+            type: String,
+            required: false,
+            enum: ['income', 'outcome'],
+            default: 'income'
+        } */
 }, { versionKey: false })
 
 

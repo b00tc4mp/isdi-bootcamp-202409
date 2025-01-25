@@ -4,7 +4,6 @@ import { errors, validate } from 'com'
 const { SystemError, NotFoundError } = errors
 
 export default (packId) => {
-
     validate.id(packId, 'packId')
 
     return Pack.findById(packId).lean()

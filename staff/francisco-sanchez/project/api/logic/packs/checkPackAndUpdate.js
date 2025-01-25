@@ -14,9 +14,9 @@ export default async (packId) => {
             throw new NotFoundError('The pack does not exist')
         }
 
-        const currentDate = new Date();
-        const expiryDate = new Date(packInfo.expiryDate);
-        const remainingQuantity = packInfo.remainingQuantity || 0;
+        const currentDate = new Date()
+        const expiryDate = new Date(packInfo.expiryDate)
+        const remainingQuantity = packInfo.remainingQuantity || 0
 
 
         // 1. Validar si remainingQuantity < 2 horas/unidades
@@ -39,15 +39,15 @@ export default async (packId) => {
                 packInfo.customerEmail,
                 'Your pack has expired',
                 'Your pack has run out of time/units. Please contact us to renew or purchase a new pack.'
-            ); */
+            ) */
 
             // Actualizar el estado del pack
-            await Pack.findByIdAndUpdate(packId, { status: 'Finished' }, { new: true, runValidators: true }).lean();
+            await Pack.findByIdAndUpdate(packId, { status: 'Finished' }, { new: true, runValidators: true }).lean()
         }
 
         // 3. Validar si expiryDate está a 2 meses o menos
-        const twoMonthsFromNow = new Date();
-        twoMonthsFromNow.setMonth(currentDate.getMonth() + 2);
+        const twoMonthsFromNow = new Date()
+        twoMonthsFromNow.setMonth(currentDate.getMonth() + 2)
 
         if (expiryDate <= twoMonthsFromNow && expiryDate >= currentDate) {
             console.log('enviaré un email avisando de caducidad cercana')
@@ -56,7 +56,7 @@ export default async (packId) => {
                 packInfo.customerEmail,
                 'Your pack is about to expire',
                 'Your pack will expire soon. Please contact us if you wish to renew.'
-            ); */
+            ) */
         }
 
 
@@ -68,10 +68,10 @@ export default async (packId) => {
                 packInfo.customerEmail,
                 'Your pack has expired',
                 'Your pack has expired. Please contact us to renew or purchase a new pack.'
-            ); */
+            ) */
 
             // Actualizar el estado del pack
-            await Pack.findByIdAndUpdate(packId, { status: 'Expired' }, { new: true, runValidators: true }).lean();
+            await Pack.findByIdAndUpdate(packId, { status: 'Expired' }, { new: true, runValidators: true }).lean()
         }
 
         // Devuelve la información encontrada

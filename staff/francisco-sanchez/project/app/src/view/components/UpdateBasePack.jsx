@@ -19,10 +19,11 @@ export default function UpdateBasePack({ onUpdated, onCancelClick, basePack }) {
             quantity: { value: quantity },
             unit: { value: unit },
             expiringTime: { value: expiringTime },
-            price: { value: price }
+            price: { value: price },
+            currency: { value: currency }
         } = form
         try {
-            logic.updateBasePack(basePack.id, packName, packDescription, quantity, unit, expiringTime, price)
+            logic.updateBasePack(basePack.id, packName, packDescription, quantity, unit, expiringTime, price, currency)
                 .then(() => {
                     alert("Pack updated successfully!", "success");
                     onUpdated()

@@ -9,16 +9,31 @@ import getBasePackDetails from '../packs/getBasePackDetails.js'
 const { SystemError, NotFoundError } = errors
 
 export default async (userId, customerSearch, selectPack, description, payedAmount, paymentMethod) => {
+    validate.id(userId, 'userId')
+    validate.id(selectPack, 'packId')
+    validate.description(description)
+    validate.text(paymentMethod, 'paymentMethod')
+
     const descriptionProvided = description
+
     try {
+
+        const providerUser = await User.findById(userId)
+        if (!providerUser) {
+            throw new NotFoundError('user not found')
+        }
+
         const customerId = await findUserIdbyEmailOrUsername(userId, customerSearch)
         if (!customerId) {
+            //TODO: FRANK -> Ver por qué no llego a este error
+            //NOTA: En este punto si que llego, pero porqué eliminé los throw del interior de la función
             throw new NotFoundError('Customer not found')
         }
 
-        const basePack = await getBasePackDetails(selectPack)
+        const basePack = await getBasePackDetails(userId, selectPack)
         if (!basePack) {
-            throw new SystemError('Base pack not found')
+            //TODO: FRANK -> Ver por qué no llego a este error
+            throw new NotFoundError('Base pack not found')
         }
 
         const {
@@ -42,7 +57,6 @@ export default async (userId, customerSearch, selectPack, description, payedAmou
 
         //Check if description of relationship pack is empty, if empty, we add the basePack default description
         const relationDescription = descriptionProvided === '' ? basePack.description : descriptionProvided
-
         const newPack = await Pack.create({
             refPack: selectPack,
             provider: userId,
@@ -88,13 +102,12 @@ export default async (userId, customerSearch, selectPack, description, payedAmou
         })
 
         //Fifth step, update payments
-
-        let paymentStatus = ''
+        //let paymentStatus = ''
         let payedAmountNum = Number(payedAmount)
-        if ((payedAmountNum < price) && (payedAmountNum > 0)) { paymentStatus = 'partially payed' }
+        /* if ((payedAmountNum < price) && (payedAmountNum > 0)) { paymentStatus = 'partially payed' }
         else if (payedAmountNum === 0) { paymentStatus = 'pending' }
         else if (payedAmountNum == price) { paymentStatus = 'completed' }
-        else if (payedAmountNum > price) { paymentStatus = 'completed' }
+        else if (payedAmountNum > price) { paymentStatus = 'completed' } */
 
         const addPayment = await Payment.create({
             pack: newPack._id,
@@ -102,7 +115,7 @@ export default async (userId, customerSearch, selectPack, description, payedAmou
             currency: currency,
             date: new Date(),
             method: paymentMethod,
-            status: paymentStatus,
+            //status: paymentStatus,
         })
 
         return {
@@ -114,7 +127,11 @@ export default async (userId, customerSearch, selectPack, description, payedAmou
         }
 
     } catch (error) {
-        console.error('Error adding pack', error.message)
-        throw new SystemError(error.message)
+        //console.error('Error adding pack', error.message)
+        if (error instanceof NotFoundError) {
+            throw error
+        } else {
+            throw new SystemError(error.message)
+        }
     }
 }

@@ -6,6 +6,10 @@ const { SystemError, NotFoundError } = errors
 
 export default async (packId, amount, currency, method, paymentStatus) => {
     //Validations here
+    //validate.number(amount)
+    validate.currency(currency)
+    validate.text(method)
+    //validate.text(paymentStatus)
     validate.id(packId, 'packId')
 
     const floatAmount = parseFloat(amount)
@@ -18,32 +22,11 @@ export default async (packId, amount, currency, method, paymentStatus) => {
     //TODO: TO DELETE PAYMENT STATUS FROM PAYMENTS COLLECTION
     if (!paymentStatus) { paymentStatus = 'partially payed' }
 
-    /* try {
-        const pack = await Pack.findById(packId).lean()
-        if (!pack) throw new NotFoundError('Pack not found')
-
-        //Add payment
-        const newPayment = await Payment.create({
-            pack: packId,
-            amount: floatAmount,
-            currency,
-            method,
-            status: paymentStatus,
-            date: new Date()
-        })
-
-        return newPayment
-
-    } catch (error) {
-        console.error(error.message)
-        throw new SystemError(error.message)
-    } */
-
     return Pack.findById(packId).lean()
         .then(pack => {
             if (!pack) throw new NotFoundError('Pack not found')
 
-            return Payment.create({ pack: packId, amount: floatAmount, currency, method, status: paymentStatus, date: new Date() })
+            return Payment.create({ pack: packId, amount: floatAmount, currency, method, date: new Date() })
                 .then(newPayment => {
 
                     return newPayment
@@ -52,8 +35,4 @@ export default async (packId, amount, currency, method, paymentStatus) => {
         .catch(error => {
             throw new SystemError(error.message)
         })
-
-
-
-
 }

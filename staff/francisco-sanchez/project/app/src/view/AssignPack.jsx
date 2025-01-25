@@ -15,14 +15,22 @@ export default function AssignPack(props) {
     const { alert } = useContex()
 
     useEffect(() => {
-        console.log('Packs / PacksList -> componentDidMount')
         const fetchBasePacks = async () => {
             try {
                 const basePacks = await logic.getBasePacks()
-                setPacks(basePacks)
+                setPacks(basePacks) // Actualiza el estado con los packs obtenidos
+
             } catch (error) {
-                alert(error.message)
-                console.error(error)
+                if (error.message === 'jwt expired') {
+                    error.message = 'Your session has expired.'
+                    alert(error.message)
+                    console.error(error.message)
+                    localStorage.removeItem('token') // Limpia el token en caso de error
+                    navigate('/login') // Redirige al login
+                } else {
+                    alert(error.message)
+                    console.error(error)
+                }
             }
         }
         fetchBasePacks()
@@ -94,12 +102,7 @@ export default function AssignPack(props) {
                 <div className="space-y-4">
                     <Field>
                         <Label htmlFor="payedAmount">Payed Amount</Label>
-                        <Input
-                            id="payedAmount"
-                            personalClasses="border-2 rounded-lg w-full"
-                            type="number"
-                            placeholder="0 €"
-                        />
+                        <Input id="payedAmount" personalClasses="border-2 rounded-lg w-full" type="text" placeholder="0 €" />
                     </Field>
 
                     <Field>

@@ -22,8 +22,15 @@ export default function Home(props) {
                     logic.getUserName()
                         .then(setName)
                         .catch(error => {
+                            if (error.message === 'jwt expired') {
+                                error.message = 'Your session has expired.'
+                                alert(error.message)
+                                console.error(error.message)
+                                localStorage.removeItem('token')
+                                navigate('/login')
+                            }
                             alert(error.message)
-                            console.error(error)
+                            console.error(error.message)
                         })
                 } catch (error) {
                     alert(error.message)

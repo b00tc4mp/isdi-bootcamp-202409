@@ -4,6 +4,8 @@ import { validate, errors } from 'com';
 
 import { getElapsedTime } from '../helpers/index.js';
 
+import checkPackAndUpdate from '../packs/checkPackAndUpdate.js';
+
 const { SystemError, NotFoundError, OwnershipError, ValidationError } = errors
 
 export default (userId, packId, customerId, description, operation) => {
@@ -80,7 +82,11 @@ export default (userId, packId, customerId, description, operation) => {
                                 updatedPack.id = updatedPack._id.toString()
                                 delete updatedPack._id
 
-                                return updatedPack
+                                //Check pack after last update in order to know if the status should change
+                                return checkPackAndUpdate(packId)
+                                    .then(() => updatedPack)
+
+                                //return updatedPack
                             })
 
                     })

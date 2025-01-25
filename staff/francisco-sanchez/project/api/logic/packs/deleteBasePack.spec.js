@@ -30,7 +30,7 @@ describe('deleteBasePack', () => {
 
 
     it('succeeds on new basePack', async () => {
-        newBasePack = await createBasePack(newUser._id.toString(), 'pack de 5h', 'Descripción del pack', '5', 'hours', '12', '1000', 'EUR')
+        newBasePack = await createBasePack(newUser._id.toString(), 'pack de 5h', 'Descripción del pack', 5, 'hours', 12, 1000, 'EUR')
 
         // Verifica que el BasePack se haya creado correctamente
         const basePack = await BasePack.findOne({ user: newUser._id })

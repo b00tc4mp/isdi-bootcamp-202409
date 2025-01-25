@@ -6,7 +6,12 @@ const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default (userId, targetUserId, username, email, name, surname1, surname2, dni, biography, country, province, city, postalCode, address1, address2, number, flat, legalName, website) => {
     validate.id(userId, 'userId')
-    //TODO: Missing validations
+    validate.id(targetUserId, 'targetUserId')
+    validate.username(username)
+    validate.email(email)
+    validate.name(name)
+
+    //TODO: Missing validations¿?¿?¿?
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })

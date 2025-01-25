@@ -4,8 +4,6 @@ const { SystemError, NotFoundError, PaymentError } = errors
 
 
 export default (customerSearch, selectPack, description, payedAmount, paymentMethod) => {
-    //Validates here
-
 
     return fetch(`${import.meta.env.VITE_API_URL}/packs/assign-pack`, {
         method: 'POST',

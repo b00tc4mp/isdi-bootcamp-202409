@@ -2,6 +2,8 @@ import { Activity, Pack } from 'dat';
 
 import { validate, errors } from 'com';
 
+import checkPackAndUpdate from '../packs/checkPackAndUpdate.js';
+
 const { SystemError, NotFoundError, OwnershipError, ValidationError, DataIntegrityError } = errors
 
 export default (userId, packId, customerId, description, unitsAdjust) => {
@@ -56,7 +58,11 @@ export default (userId, packId, customerId, description, unitsAdjust) => {
                         updatedPack.id = updatedPack._id.toString();
                         delete updatedPack._id;
 
-                        return updatedPack;
+                        //Check pack after last update in order to know if the status should change
+                        return checkPackAndUpdate(packId)
+                            .then(() => updatedPack)
+
+                        //return updatedPack;
                     });
             });
 

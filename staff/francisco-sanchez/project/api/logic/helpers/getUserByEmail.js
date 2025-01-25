@@ -6,6 +6,7 @@ const { SystemError, NotFoundError } = errors;
 export default async (userId, userEmail) => {
     // Validaciones de entrada
     validate.id(userId, "userId");
+    validate.email(userEmail)
 
     try {
         // Busca el usuario principal por ID

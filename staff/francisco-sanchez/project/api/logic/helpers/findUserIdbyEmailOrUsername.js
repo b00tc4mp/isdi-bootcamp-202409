@@ -1,18 +1,16 @@
-import { /* validate, */ errors } from 'com'
+import { /* validate, */ errors, validate } from 'com'
 
 import { User } from 'dat';
 
 const { SystemError, NotFoundError } = errors
 
 export default async (userId, searchTerm) => {
-    //let customerUserId
-
-    //try {
-    // Intenta buscar por email
+    validate.id(userId)
+    validate.text(searchTerm, 'searchTerm')
 
     // Busca el usuario principal por ID
     const user = await User.findById(userId).lean();
-    if (!user) throw new NotFoundError("User not found");
+    //if (!user) throw new NotFoundError("User not found");
 
     // Busca el usuario objetivo por email
     let targetUser = await User.findOne({ email: searchTerm }).lean();
@@ -31,6 +29,7 @@ export default async (userId, searchTerm) => {
             return targetUser._id;
         }
 
-        throw new NotFoundError('Error, username or email not found')
+        //throw new NotFoundError('Error, username or email not found')
+        return
     }
 }

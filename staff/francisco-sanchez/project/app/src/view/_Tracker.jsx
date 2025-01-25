@@ -355,104 +355,73 @@ export default function Tracker(props) {
 
 
     return (
-        <main className="flex flex-col  items-center bg-color_backgroundGrey w-full flex-grow pt-12">
-            <h1 className='text-3xl'>Tracker</h1>
-            <p>This will be the page to track your projects</p>
-            <div className="flex flex-col">
-                <h2 className="text-2xl">Customer and Pack</h2>
+        <main className="flex flex-col items-center bg-color_backgroundGrey w-full min-h-screen pt-12">
+            <h1 className="text-3xl mb-4">Tracker</h1>
+            <p className="mb-6">This will be the page to track your projects</p>
 
-                <form className="flex flex-col justify-items-start">
-                    {/* Select Customer */}
-                    <Field className="mb-4">
-                        <Label htmlFor="selectCustomer">Select Customer</Label>
-                        <select id="selectCustomer" name="selectCustomer" className="border-2 rounded-lg w-full p-2" onChange={handleCustomerChange}>
-                            {customers.map((customer) => (
-                                <option key={customer.id} value={customer.id}>{customer.name}</option>
-                            ))}
-                        </select>
-                    </Field>
+            {/* Tarjeta principal para formulario */}
+            <div className="bg-white shadow-md rounded p-6 w-full max-w-4xl mb-6">
+                <h2 className="text-2xl font-bold mb-6">Customer and Pack</h2>
+                <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    {/* Select Pack */}
-                    <Field className="mb-4">
-                        <Label htmlFor="selectPack">Select Pack</Label>
-                        <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2" disabled={!filteredPacks.length} onChange={handlePackChange}>
-                            {filteredPacks.map((pack) => (
-                                <option key={pack.id} value={pack.id}>{pack.status === 'Active' ? ' 🟢 ' : ' 🔴 '}{pack.status} - {pack.description} - {pack.originalQuantity}{pack.unit}</option>
-                            ))}
-                        </select>
-                    </Field>
-
-                    {/* Description and Timer Section */}
-                    <div className="flex flex-wrap gap-4 mt-4 items-start">
-                        {/* Description Field */}
-                        <Field className="flex-1">
-                            <Label htmlFor="description">Description</Label>
-                            <textarea id="description" name="description" rows="3" className="border-2 rounded-lg w-full p-2" placeholder="Add a description..." value={selectedPack?.descriptionActivityTemp} onChange={handleDescriptionChange}></textarea>
+                    {/* Columna Izquierda */}
+                    <div className="space-y-4">
+                        <Field><Label htmlFor="selectCustomer">Select Customer</Label>
+                            <select id="selectCustomer" name="selectCustomer" className="border-2 rounded-lg w-full p-2" onChange={handleCustomerChange}>
+                                {customers.map(customer => <option key={customer.id} value={customer.id}>{customer.name}</option>)}
+                            </select>
                         </Field>
 
-                        <div className="flex flex-col">
-                            {/* Sección para packs de tiempo */}
-                            {selectedPack?.unit === 'hours' && (
-                                <div className="flex items-center">
-                                    {/* Visualización del temporizador */}
-                                    <div className="border-2 rounded-lg p-3 w-44 text-center text-lg font-semibold">
-                                        {new Date(elapsedTime * 1000).toISOString().substr(11, 8)}
-                                    </div>
+                        <Field><Label htmlFor="selectPack">Select Pack</Label>
+                            <select id="selectPack" name="selectPack" className="border-2 rounded-lg w-full p-2" disabled={!filteredPacks.length} onChange={handlePackChange}>
+                                {filteredPacks.map(pack => <option key={pack.id} value={pack.id}>{pack.status === 'Active' ? '🟢 ' : '🔴 '}{pack.status} - {pack.description} - {pack.originalQuantity}{pack.unit}</option>)}
+                            </select>
+                        </Field>
 
-                                    {/* Botón Start/Stop */}
-                                    <Button
-                                        type="button"
-                                        className={`flex-shrink-0 px-6 py-3 text-lg font-semibold ${!selectedPack?.timerActivated ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'
-                                            } text-white rounded-lg w-32 h-12 flex items-center justify-center`}
-                                        onClick={handleToggleTrackButton}>
-                                        {!selectedPack?.timerActivated ? 'Start' : 'Stop'}
-                                    </Button>
+                        <Field><Label htmlFor="description">Description</Label>
+                            <textarea id="description" name="description" rows="3" className="border-2 rounded-lg w-full p-2" placeholder="Add a description..." value={description} onChange={handleDescriptionChange} />
+                        </Field>
+                    </div>
+
+                    {/* Columna Derecha */}
+                    <div className="space-y-4">
+                        {selectedPack?.unit === 'hours' && (
+                            <div className="flex items-center gap-4">
+                                <div className="border-2 rounded-lg p-3 w-44 text-center text-lg font-semibold">
+                                    {new Date(elapsedTime * 1000).toISOString().substr(11, 8)}
                                 </div>
+                                <Button type="button" className={`flex-shrink-0 px-6 py-3 text-lg font-semibold ${!selectedPack?.timerActivated ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'} text-white rounded-lg w-32 h-12 flex items-center justify-center`} onClick={handleToggleTrackButton}>
+                                    {!selectedPack?.timerActivated ? 'Start' : 'Stop'}
+                                </Button>
+                            </div>
+                        )}
+
+                        <div className="flex items-center gap-4">
+                            {selectedPack?.unit === 'hours' && (
+                                <Field>
+                                    <input type="text" id="timerAdjust" name="timerAdjust" placeholder="-01:00:00" defaultValue="-01:00:00" className="border-2 rounded-lg p-3 w-44 text-center text-lg" />
+                                </Field>
+                            )}
+                            {selectedPack?.unit === 'units' && (
+                                <Field>
+                                    <input type="number" id="unitsAdjust" name="unitsAdjust" placeholder="-1" defaultValue="-1" className="border-2 rounded-lg p-3 w-32 text-center text-lg" />
+                                </Field>
                             )}
 
-                            {/* Sección para ajustes manuales */}
-                            <div className="flex items-center">
-                                {/* Input para packs de tiempo */}
-
-                                {selectedPack?.unit === 'hours' && (
-                                    <Field>
-                                        <input type="text" id="timerAdjust" name="timerAdjust" placeholder="-01:00:00" defaultValue="-01:00:00" className="border-2 rounded-lg p-3 w-44 text-center text-lg" />
-                                    </Field>
-                                )}
-
-                                {/* Input para packs de unidades */}
-                                {selectedPack?.unit === 'units' && (
-                                    <Field>
-                                        <input type="number" id="unitsAdjust" name="unitsAdjust" placeholder="-1" defaultValue="-1" className="border-2 rounded-lg p-3 w-32 text-center text-lg" />
-                                    </Field>
-                                )}
-
-                                {/* Botón Adjust Manual */}
-                                {selectedPack?.unit === 'units' ? (
-                                    <Field>
-                                        <Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center" onClick={handleAdjustManualUnits}> Register Sesion </Button>
-                                    </Field>
-                                ) : (
-                                    <Field>
-                                        <Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center" onClick={handleAdjustManualTime}> Register Time </Button>
-                                    </Field>
-                                )}
-                            </div>
+                            {selectedPack?.unit === 'units'
+                                ? <Field><Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center" onClick={handleAdjustManualUnits}>Register Sesion</Button></Field>
+                                : <Field><Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center" onClick={handleAdjustManualTime}>Register Time</Button></Field>
+                            }
                         </div>
                     </div>
                 </form>
             </div>
 
-            {/* {loading ? (
-                <div className="flex justify-center items-center h-full">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-color_green"></div>
-                </div>
-            ) : ( */}
-            <h2 className='text-2xl'>History</h2>
-
-            <ActivityTable activities={packActivities} />
-
-            {/*  )} */}
+            {/* Tarjeta para el historial de actividades */}
+            <div className="bg-white shadow-md rounded p-6 w-full max-w-4xl">
+                <h2 className="text-2xl font-bold mb-4">History</h2>
+                <ActivityTable activities={packActivities} />
+            </div>
 
             <a href="" title="Go back home" onClick={handleHomeClick} className="mt-4 mb-4 hover:underline">Back to home</a>
         </main>

@@ -27,20 +27,7 @@ const status = 'Active'
 
 
 try {
-    const result = await AssignPack(
-        refPack,
-        provider,
-        customer,
-        description,
-        originalQuantity,
-        remainingQuantity,
-        unit,
-        price,
-        currency,
-        purchaseDate,
-        expiryDate,
-        status)
-
+    const result = await AssignPack(refPack, provider, customer, description, originalQuantity, remainingQuantity, unit, price, currency, purchaseDate, expiryDate, status)
     console.log(result)
 
 } catch (error) {

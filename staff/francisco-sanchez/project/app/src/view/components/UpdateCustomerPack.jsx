@@ -257,7 +257,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                     </table>
                 </form>
 
-                <h2 className='text-2xl mt-10'>Add pending paymens</h2>
+                <h2 className='text-2xl mt-10'>Add pending payments</h2>
                 {parseFloat(pack.price) - parseFloat(pack.totalPayments) > 0 ? (
                     <div className='flex items-center justify-center bg-color_backgroundGrey'>
                         <form id='addPayment' onSubmit={handlePaymentSubmit} className='flex items-center pt-5 pb-5'>

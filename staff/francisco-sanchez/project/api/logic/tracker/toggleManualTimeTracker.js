@@ -62,6 +62,7 @@ export default (userId, packId, customerId, description, timeAdjust) => {
                                 updatedPack.id = updatedPack._id.toString();
                                 delete updatedPack._id;
 
+                                //Check pack after last update in order to know if the status should change
                                 return checkPackAndUpdate(packId)
                                     .then(() => updatedPack)
 

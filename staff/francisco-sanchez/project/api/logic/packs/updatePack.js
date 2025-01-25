@@ -10,7 +10,7 @@ export default (userId, packId, description, remainingQuantity, expiryDate, stat
     validate.id(packId, 'packId')
     validate.id(packId, 'packId')
     validate.description(description, 'description')
-    validate.text(status, 'status')
+    //validate.text(status, 'status')
     validate.date(new Date(expiryDate))
 
     return Pack.findById(packId)

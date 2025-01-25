@@ -4,8 +4,8 @@ import { errors, validate } from 'com'
 const { SystemError, NotFoundError, OwnershipError } = errors
 
 export default async (userId, selectPack) => {
-    validate.id(selectPack, 'packId')
     validate.id(userId, 'userId')
+    validate.id(selectPack, 'packId')
 
     try {
         const user = await User.findById(userId).lean()
@@ -13,7 +13,6 @@ export default async (userId, selectPack) => {
             throw new NotFoundError('user not found')
         }
     } catch (error) {
-        console.error(error.message)
         throw error
     }
 
@@ -35,7 +34,6 @@ export default async (userId, selectPack) => {
         return basePackInfo
     } catch (error) {
         // Si ocurre un error, lanza un SystemError
-        console.error(error.message)
-        throw new SystemError(error.message)
+        throw error
     }
 }

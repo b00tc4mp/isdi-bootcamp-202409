@@ -8,7 +8,6 @@ export default async (userId) => {
     validate.id(userId)
 
     try {
-
         const user = await User.findById(userId).lean()
         if (!user) throw new NotFoundError('user not found')
 

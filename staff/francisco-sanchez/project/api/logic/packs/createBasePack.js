@@ -6,7 +6,13 @@ const { SystemError, NotFoundError } = errors
 
 export default (userId, packName, description, quantity, unit, expiringTime, price, currency) => {
     validate.id(userId, 'userId')
-    //TODO: missing validations
+    validate.packName(packName)
+    validate.description(description)
+    //validate.number(quantity)
+    validate.text(unit, 'unit')
+    //validate.integerNum(expiringTime)
+    //validate.number(price)
+    validate.text(currency, 'currency')
 
 
     return (async () => {
@@ -23,20 +29,11 @@ export default (userId, packName, description, quantity, unit, expiringTime, pri
         }
 
         try {
-            await BasePack.create({
-                user: userId,
-                packName,
-                description,
-                quantity,
-                unit,
-                expiringTime,
-                price,
-                currency
-            })
+            await BasePack.create({ user: userId, packName, description, quantity, unit, expiringTime, price, currency })
         } catch (error) {
-            console.log(error.code)
-            console.error(error)
-            throw new SystemError(error.message)
+            /*             console.log(error.code)
+                        console.error(error) */
+            throw error
         }
     })()
 }
