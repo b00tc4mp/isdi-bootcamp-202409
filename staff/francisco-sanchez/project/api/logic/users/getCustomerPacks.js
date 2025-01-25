@@ -4,15 +4,19 @@ import { getDecimalToTimeFormat, getFormattedDate } from '../helpers/index.js'
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId) => {
+export default async (userId, targetUserId) => {
     validate.id(userId)
+    validate.id(targetUserId)
 
     try {
-        const user = await User.findById(userId).lean()
-        if (!user) throw new NotFoundError('user not found')
+        const actualUser = await User.findById(userId).lean()
+        if (!actualUser) throw new NotFoundError('userId not found')
 
-        const customerPacks = await Pack.find({ customer: userId }).lean()
-        if (!customerPacks) throw new NotFoundError('There are not packs registered for this customer')
+        const user = await User.findById(targetUserId).lean()
+        if (!user) throw new NotFoundError('targetUserId not found')
+
+        const customerPacks = await Pack.find({ customer: targetUserId }).lean()
+        if (!customerPacks || !customerPacks.length) throw new NotFoundError('There are not packs registered for this customer')
 
         //return customerPacks
         const formattedCustomerPacks = await Promise.all(
@@ -43,6 +47,10 @@ export default async (userId) => {
         return formattedCustomerPacks
 
     } catch (error) {
-        throw new SystemError(error.message)
+        if (error instanceof NotFoundError) {
+            throw error
+        } else {
+            throw new SystemError(error.message)
+        }
     }
 }

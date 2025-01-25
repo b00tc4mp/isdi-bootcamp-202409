@@ -1,7 +1,13 @@
+import { validate } from "com";
 import { sendEmail } from "./index.js";
 
 // Expired pack email
 const emailExpirationWarning = async (to, name, packDescription, expiryDate) => {
+    validate.email(to)
+    validate.name(name)
+    validate.description(packDescription)
+    validate.date(expiryDate)
+
     const subject = `Your pack "${packDescription}" has expired!`;
     const text = `Hello ${name},
 
@@ -17,7 +23,7 @@ Thank you for choosing us!`;
 
     return sendEmail(to, subject, text, html)
         .then((info) => {
-            console.log('Expiration warning email sent:', info);
+            //console.log('Expiration warning email sent:', info);
             return info; // Retornar para manejar la promesa si es necesario
         })
         .catch((error) => {

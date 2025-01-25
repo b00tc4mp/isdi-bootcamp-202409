@@ -23,8 +23,6 @@ const email = 'gandalf@themiddleearth.com'
 const plan = 'free'
 const creationStatus = 'true'
 
-
-//Testinc escenarios
 describe('authenticateUser', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
     beforeEach(() => User.deleteMany())

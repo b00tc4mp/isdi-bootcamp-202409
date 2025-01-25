@@ -9,7 +9,7 @@ const emailRegisterWelcome = (to, name) => {
 
     return sendEmail(to, subject, text, html)
         .then((info) => {
-            console.log('Welcome email sent:', info);
+            //console.log('Welcome email sent:', info);
             return info; // Retornar para permitir manejar la promesa en otro lugar si es necesario
         })
         .catch((error) => {

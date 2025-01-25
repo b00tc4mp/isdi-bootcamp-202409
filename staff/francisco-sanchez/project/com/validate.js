@@ -43,7 +43,7 @@ const validateEmail = email => {
     if (typeof email !== 'string') throw new ValidationError('invalid email')
     if (email.length > 254) throw new ValidationError('email is too long')
     if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email))
-        throw new ValidationError('invalid e-mail')
+        throw new ValidationError('invalid email')
 }
 
 const validateUsername = username => {

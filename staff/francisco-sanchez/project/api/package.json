@@ -34,6 +34,7 @@
         "chai": "^5.1.2",
         "chai-as-promised": "^8.0.0",
         "mocha": "^10.8.2",
-        "monocart-coverage-reports": "^2.11.2"
+        "monocart-coverage-reports": "^2.11.2",
+        "sinon": "^19.0.2"
     }
 }

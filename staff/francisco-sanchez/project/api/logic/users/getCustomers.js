@@ -37,6 +37,10 @@ export default async (userId) => {
         return customersWithPackCount
 
     } catch (error) {
-        throw new SystemError(error.message)
+        if (error instanceof NotFoundError) {
+            throw error
+        } else {
+            throw new SystemError(error.message)
+        }
     }
 }

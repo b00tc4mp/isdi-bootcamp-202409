@@ -6,7 +6,7 @@ export default createFunctionalHandler(async (req, res) => {
     const { userId, params: { customerId } } = req
 
     try {
-        const customerPacks = await logic.getCustomerPacks(customerId)
+        const customerPacks = await logic.getCustomerPacks(userId, customerId)
         res.status(200).json(customerPacks)
     } catch (error) {
         console.error(error.message)

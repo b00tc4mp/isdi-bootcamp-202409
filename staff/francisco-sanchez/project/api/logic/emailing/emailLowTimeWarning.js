@@ -36,7 +36,7 @@ Thank you for choosing us!`;
 
     return sendEmail(to, subject, text, html)
         .then((info) => {
-            console.log('Low time warning email sent:', info);
+            //console.log('Low time warning email sent:', info);
             return info; // Retornar para manejar la promesa si es necesario
         })
         .catch((error) => {
