@@ -3,6 +3,9 @@ import { Pack, Activity } from "dat";
 import { validate, errors } from 'com'
 
 import { getTimeFormatToDecimal } from "../helpers/index.js";
+import checkPackAndUpdate from "./checkPackAndUpdate.js";
+
+
 
 const { SystemError, NotFoundError, OwnershipError, ValidationError } = errors
 
@@ -70,4 +73,14 @@ export default (userId, packId, description, remainingQuantity, expiryDate, stat
                 })
 
         })
+        .then(updatedPack => {
+            // Validación adicional con `checkPackAndUpdate`
+            return checkPackAndUpdate(packId)
+                .catch(error => {
+                    throw new SystemError(error.message);
+                })
+                .then(() => updatedPack); // Retornar el `updatedPack` original
+        });
+
+
 }
