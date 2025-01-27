@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kurale&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color: #070606;
+  --back-color: #85AED3;
+  --font-primary: 'Kurale', serif;
+  --font-secondary: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-secondary);
+  /* Usar Inter como fuente principal del cuerpo */
+  color: var(--color);
+  background-color: var(--back-color);
+}
+
+h1 {
+  font-family: var(--font-primary);
+  /* Usar Kurale para encabezados h1 */
+}
+
+h2,
+h3,
+h4 {
+  font-family: var(--font-secondary);
+  /* Usar Inter para otros encabezados */
+}
+
+a:visited {
+  color: var(--color);
+}
