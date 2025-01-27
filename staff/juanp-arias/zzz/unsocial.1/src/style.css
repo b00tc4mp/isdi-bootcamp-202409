@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+
+
+:root {
+    --font: 'Italiana';
+}
+
+html,
+body {
+    height: 92%; 
+    margin: 0%;
+    margin-top: 0%;
+    font: var(--font);
+    background-color: black;
+} 

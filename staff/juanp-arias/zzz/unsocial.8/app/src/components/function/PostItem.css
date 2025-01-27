@@ -1,0 +1,58 @@
+.PostItem {
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 0.5rem;
+    margin: 1rem;
+    border-radius: 0.3rem;
+    border: black solid 1px;
+    box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, .3);
+
+    h4 {
+        margin: 0.7%;
+        text-align: start;
+    }
+
+    p {
+        text-align: start;
+        margin: 0.4%;
+    }
+
+    .PostButtons {
+        display: flex;
+        justify-content: end;
+
+    }
+
+    img {
+        border: black solid px;
+        border-radius: 0.3rem;
+    }
+
+    Button {
+        background-color: transparent;
+        width: 4.7rem;
+    }
+
+    time {
+        text-align: end;
+    }
+
+    .headerpost {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .buttondelete {
+            background-color: whitesmoke;
+            text-align: center;
+            border: 0px;
+            width: 2rem;
+            font-size: 0.7rem;
+        }
+    }
+
+
+}
