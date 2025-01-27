@@ -43,7 +43,7 @@ export default function UserProfile(props) {
         } finally {
             setIsLoading(false); // Fin de la carga
         }
-    }, [location.pathname])
+    }, [location.pathname, logic.isUserLoggedIn()])
 
     const { alert, confirm } = useContex()
 
@@ -82,8 +82,10 @@ export default function UserProfile(props) {
         } = form
 
         try {
+            console.log(userData._id + ' ' + username)
             logic.updateUser(userData._id, userData._id, username, email, name, surname1, surname2, dni, biography, country, province, city, postalCode, address1, address2, number, flat, legalName, website)
                 .then(() => {
+                    alert('User updated successfully!', 'success')
                     props.onProfileUpdated()
                 })
                 .catch(error => {

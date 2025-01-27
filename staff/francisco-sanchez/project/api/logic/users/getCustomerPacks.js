@@ -29,9 +29,11 @@ export default async (userId, targetUserId) => {
 
                 // Check payment Status
                 let paymentStatus = ''
+                let payedAmountNum = 0
                 if ((totalPayments < customerPack.price) && (totalPayments > 0)) { paymentStatus = 'partially payed' }
                 else if (totalPayments === 0) { paymentStatus = 'pending' }
                 else if (totalPayments === customerPack.price || payedAmountNum > customerPack.price) { paymentStatus = 'completed' }
+                else if (totalPayments > customerPack.price) { paymentStatus = 'payment exceded' }
 
                 customerPack.id = customerPack._id
                 delete customerPack._id

@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
+import { validate } from "com";
 
 if (!process.env.EMAIL_PASS) {
     dotenv.config({ path: '../../.env' });
@@ -18,9 +19,13 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-
 const sendEmail = async (to, subject, text, html) => {
-    // Validar parámetros
+    validate.email(to)
+    validate.text(subject, 'subject')
+    validate.text(text, 'text')
+    validate.text(html, 'html')
+
+
     if (!to || !subject || (!text && !html)) {
         throw new Error('There are missing arguments to send email: to, subject, (text or html)');
     }

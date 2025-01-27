@@ -48,7 +48,9 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
         confirm('Are you sure you want to logout?', accepted => {
             if (accepted) {
                 logic.logoutUser()
+                setUserDetails(null)
                 onLoggedOut()
+                localStorage.removeItem('token')
             }
         }, 'warn')
     }
@@ -81,6 +83,9 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
         ? `http://localhost:8080${userDetails.profileImage}`
         : `http://localhost:8080/images/profile/profile1.jpeg`
     console.log(profileImageUrl)
+
+    const isActive = (path) => location.pathname === path ? 'text-color_green font-bold' : 'hover:underline';
+
 
     return <header className="bg-color_darkBlue text-white p-4 flex justify-between items-center h-28">
         <h1 className="text-4xl font-bold">{location.pathname !== '/' ? <a href="" onClick={handleHomeClick}>Hourify</a> : 'Hourify'}</h1>

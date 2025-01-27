@@ -1,38 +1,44 @@
-import { Payment, Pack } from "dat";
+import { Payment, Pack, User } from "dat";
 
 import { validate, errors } from 'com';
 
 const { SystemError, NotFoundError } = errors
 
-export default async (packId, amount, currency, method, paymentStatus) => {
-    //Validations here
-    //validate.number(amount)
-    validate.currency(currency)
-    validate.text(method)
-    //validate.text(paymentStatus)
+export default async (userId, packId, amount, currency, method, paymentStatus) => {
     validate.id(packId, 'packId')
+    validate.id(userId, 'userId')
+    validate.currency(currency)
+    validate.method(method)
 
     const floatAmount = parseFloat(amount)
-
-    //Mover a donde toca
-    if (!floatAmount || floatAmount <= 0) throw new ValidationError("Invalid payment amount");
-    if (!currency) throw new ValidationError("Currency is required");
-    if (!method) throw new ValidationError("Payment method is required");
+    //if (!floatAmount || floatAmount <= 0) throw new ValidationError("Invalid payment amount");
+    validate.number(floatAmount)
 
     //TODO: TO DELETE PAYMENT STATUS FROM PAYMENTS COLLECTION
     if (!paymentStatus) { paymentStatus = 'partially payed' }
 
-    return Pack.findById(packId).lean()
-        .then(pack => {
-            if (!pack) throw new NotFoundError('Pack not found')
+    return User.findById(userId).lean()
+        .then(user => {
+            if (!user) {
+                throw new NotFoundError('user not found')
+            }
 
-            return Payment.create({ pack: packId, amount: floatAmount, currency, method, date: new Date() })
-                .then(newPayment => {
+            return Pack.findById(packId).lean()
+                .then(pack => {
+                    if (!pack) throw new NotFoundError('Pack not found')
 
-                    return newPayment
+                    return Payment.create({ pack: packId, amount: floatAmount, currency, method, date: new Date() })
+                        .then(newPayment => {
+
+                            return newPayment
+                        })
                 })
-        })
-        .catch(error => {
-            throw new SystemError(error.message)
+                .catch(error => {
+                    if (error instanceof NotFoundError) {
+                        throw error
+                    } else {
+                        throw new SystemError(error.message)
+                    }
+                })
         })
 }

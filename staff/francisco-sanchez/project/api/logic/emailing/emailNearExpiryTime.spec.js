@@ -6,41 +6,37 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 
 import { errors } from 'com'
-import emailExpirationWarning from './emailExpirationWarning.js'
+import emailNearExpiryTime from './emailNearExpiryTime.js'
 
 const { ValidationError } = errors
 
-describe('emailExpirationWarning', () => {
+describe('emailNearExpiryTime', () => {
 
     it('succeeds on valid inputs', async () => {
-        // Llamada con parámetros válidos
-        const info = await emailExpirationWarning(
+        const info = await emailNearExpiryTime(
             'apps@nomadwebs.com',
             'Pepe',
-            'My Pack',
+            'Description of the pack',
             new Date()
         )
-
         expect(info).to.exist
     })
 
     it('fails on invalid email', async () => {
-        // Llamada con un email inválido
-        await expect(emailExpirationWarning(
+        await expect(emailNearExpiryTime(
             'INVALID',
             'Pepe',
-            'My Pack',
+            'Description of the pack',
             new Date()
         )).to.be.rejectedWith(ValidationError, 'invalid email')
     })
 
     it('fails on invalid date', async () => {
-        // Llamada con un valor no Date
-        await expect(emailExpirationWarning(
-            'valid@test.com',
+        await expect(emailNearExpiryTime(
+            'apps@nomadwebs.com',
             'Pepe',
-            'My Pack',
-            'not-a-date'
+            'Description of the pack',
+            'invalid-date'
         )).to.be.rejectedWith(ValidationError, 'Invalid date: the value must be a valid Date object.')
     })
 })

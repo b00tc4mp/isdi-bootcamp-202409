@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import logic from '../logic'
 
 import { errors } from 'com'
-import { Button, TagOK, TagWARN, TagKO } from '../library/index';
+import { Button, TagOK, TagWARN, TagKO, TagEXTRA } from '../library/index';
 
 import { UpdateCustomerPack } from './components';
 import { getDecimalToTimeFormat } from '../logic/helpers';
@@ -176,6 +176,7 @@ export default function CustomerPacks(props) {
                                     {customerPack.paymentStatus === 'pending' && (<TagKO>Pending</TagKO>)}
                                     {customerPack.paymentStatus === 'partially payed' && (<TagWARN>Partially Paid</TagWARN>)}
                                     {customerPack.paymentStatus === 'completed' && (<TagOK>Completed</TagOK>)}
+                                    {customerPack.paymentStatus === 'payment exceded' && (<TagEXTRA>Payment Exceded</TagEXTRA>)}
                                 </td>
                                 <td className='border px-4 py-2'>{customerPack.paymentMethods}</td>
                             </tr>

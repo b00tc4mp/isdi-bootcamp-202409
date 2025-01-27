@@ -115,6 +115,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                             setPayments((prevPayments) =>
                                 prevPayments.filter((payment) => payment.id !== paymentId)
                             )
+                            alert("Payment deleted successfully!", "success")
                             onPaymentDeleted()
                         })
                         .catch((error) => {
@@ -146,7 +147,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                     <Card
                         title="Payment Status"
                         value={pack.paymentStatus}
-                        valueClass={pack.paymentStatus === 'completed' ? 'text-green-500' : pack.paymentStatus === 'partially payed' ? 'text-yellow-500' : 'text-red-500'}
+                        valueClass={pack.paymentStatus === 'completed' ? 'text-green-500' : pack.paymentStatus === 'partially payed' ? 'text-yellow-500' : pack.paymentStatus === 'payment exceded' ? 'text-purple-500' : 'text-red-500'}
                     />
                     <Card
                         title="Price"

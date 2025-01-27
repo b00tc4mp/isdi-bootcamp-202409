@@ -1,7 +1,13 @@
 import { sendEmail } from "./index.js";
+import { validate } from "com";
 
 // Near expiry time email
 const emailNearExpiryTime = async (to, name, packDescription, expiryDate) => {
+    validate.email(to)
+    validate.name(name)
+    validate.description(packDescription)
+    validate.date(expiryDate)
+
     const subject = `Your pack "${packDescription}" is about to expire!`;
     const text = `Hello ${name},
 

@@ -1,6 +1,6 @@
-import { Router, json } from "express"
+import { Router } from "express"
 
-import { jsonBodyParser, authorizationHandler } from "../helpers/index.js"
+import { authorizationHandler } from "../helpers/index.js"
 
 import {
     getActivityByPackIdHandler,

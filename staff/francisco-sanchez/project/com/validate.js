@@ -64,6 +64,10 @@ const validateCurrency = currency => {
         throw new ValidationError('currency should have 3 characters')
 }
 
+const validateMethod = method => {
+    if (typeof method !== 'string' || method === '') throw new ValidationError('invalid method')
+}
+
 const validatePasswordsMatch = (password, passwordRepeat) => {
     if (typeof passwordRepeat !== 'string') throw new ValidationError('invalid password repeat')
     if (password !== passwordRepeat)
@@ -78,11 +82,19 @@ const validateText = (text, explain = 'text') => {
     if (typeof text !== 'string') throw new ValidationError(`invalid text ${explain}`)
 }
 
+const validateUnit = (text) => {
+    if (typeof text !== 'string') throw new ValidationError('invalid unit')
+    if (text !== 'hours' && text !== 'units') throw new ValidationError('units shoud be "hours" or "units"')
+}
+
+const validatequantity = (text) => {
+    if (typeof text !== 'string') throw new ValidationError('invalid quantity')
+}
+
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
-
 
 const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
@@ -103,7 +115,10 @@ const validate = {
     integerNum: validateInteger,
     number: validateNumber,
     date: validateDate,
-    currency: validateCurrency
+    currency: validateCurrency,
+    method: validateMethod,
+    units: validateUnit,
+    quantity: validatequantity
 }
 
 export default validate

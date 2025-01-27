@@ -1,7 +1,12 @@
+import { validate } from "com";
 import { sendEmail } from "./index.js";
 
 // Finished pack email
 const emailExpirationWarning = async (to, name, packDescription) => {
+    validate.email(to)
+    validate.name(name)
+    validate.description(packDescription)
+
     const subject = `Your pack "${packDescription}" has finished!`;
     const text = `Hello ${name},
 

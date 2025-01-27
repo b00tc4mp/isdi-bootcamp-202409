@@ -6,27 +6,29 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 
 import { errors } from 'com'
-import emailExpirationWarning from './emailExpirationWarning.js'
+import emailFinishedPack from './emailFinishedPack.js'
 
 const { ValidationError } = errors
 
-describe('emailExpirationWarning', () => {
+describe('emailFinishedPack', () => {
 
     it('succeeds on valid inputs', async () => {
         // Llamada con parámetros válidos
-        const info = await emailExpirationWarning(
+        const info = await emailFinishedPack(
             'apps@nomadwebs.com',
             'Pepe',
             'My Pack',
             new Date()
         )
 
+        // Tu lógica real de envío de email devolverá algo (p.ej. info del transporter)
+        // Aquí solo verificamos que retorne algo (o no falle).
         expect(info).to.exist
     })
 
     it('fails on invalid email', async () => {
         // Llamada con un email inválido
-        await expect(emailExpirationWarning(
+        await expect(emailFinishedPack(
             'INVALID',
             'Pepe',
             'My Pack',
@@ -34,13 +36,4 @@ describe('emailExpirationWarning', () => {
         )).to.be.rejectedWith(ValidationError, 'invalid email')
     })
 
-    it('fails on invalid date', async () => {
-        // Llamada con un valor no Date
-        await expect(emailExpirationWarning(
-            'valid@test.com',
-            'Pepe',
-            'My Pack',
-            'not-a-date'
-        )).to.be.rejectedWith(ValidationError, 'Invalid date: the value must be a valid Date object.')
-    })
 })

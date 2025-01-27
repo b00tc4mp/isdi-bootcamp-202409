@@ -1,7 +1,11 @@
 import { sendEmail } from "./index.js";
+import { validate } from "com";
 
 //Confirmation register email
 const emailRegisterWelcome = (to, name) => {
+    validate.email(to)
+    validate.name(name)
+
 
     const subject = 'Welcome to Hourify'
     const text = `Hello ${name}, this is your confirmation email`

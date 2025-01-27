@@ -53,7 +53,7 @@ export default function AssignPack(props) {
         try {
             const assigned = await assignPack(customerSearch, selectPack, description, payedAmount, paymentMethod)
             alert('Pack successfully assigned to customer!', 'success')
-            console.log('Assigned pack:', assigned);
+            //console.log('Assigned pack:', assigned);
         } catch (error) {
             alert(error.message)
             console.error(error)

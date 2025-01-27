@@ -1,19 +1,22 @@
-import { Activity, Pack } from 'dat'
+import { Activity, Pack, User } from 'dat'
 import { errors, validate } from 'com'
 import { getDecimalToTimeFormat, getFormattedDate } from '../helpers/index.js'
 
 const { SystemError, NotFoundError } = errors
 
-export default async (packId) => {
+export default async (userId, packId) => {
+    validate.id(packId, 'packId')
+    validate.id(userId, 'userId')
 
     try {
-        validate.id(packId)
+        const user = await User.findById(userId).lean()
+        if (!user) throw new NotFoundError('user not found')
 
         const packInfo = await Pack.findById(packId).lean()
-        if (!packInfo) throw new NotFoundError('Pack not found error')
+        if (!packInfo) throw new NotFoundError('pack not found')
 
         const activities = await Activity.find({ pack: packId }).lean()
-        if (!activities) throw new NotFoundError('There are not activities registered for this pack')
+        if (activities.length === 0) throw new NotFoundError('There are not activities registered for this pack')
 
         const formattedActivities = await Promise.all(
             activities.map(async (activity) => {
@@ -41,10 +44,13 @@ export default async (packId) => {
                 }
             })
         )
-
         return formattedActivities
 
     } catch (error) {
-        throw new SystemError(error.message)
+        if (error instanceof NotFoundError) {
+            throw error
+        } else {
+            throw new SystemError(error.message)
+        }
     }
 }

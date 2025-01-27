@@ -11,8 +11,6 @@ export default (userId, targetUserId, username, email, name, surname1, surname2,
     validate.email(email)
     validate.name(name)
 
-    //TODO: Missing validations¿?¿?¿?
-
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
