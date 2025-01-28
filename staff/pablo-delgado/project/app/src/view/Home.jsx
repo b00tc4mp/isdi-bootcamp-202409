@@ -5,6 +5,7 @@ import logic from '../logic';
 
 import Footer from './components/Footer';
 import { ProfileIcon } from './icons';
+import { ProviderCard } from './ProviderCard'
 
 export default function Home(props) {
     const [services, setServices] = useState([]);
@@ -67,30 +68,18 @@ export default function Home(props) {
             navigate('/');
         }
     };
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false); 
+        setShowMenu(false); 
+        navigate('/login');
+    };
 
     return (
         <div className="home-container py-12 bg-teal-900 text-white">
-            <div className="absolute top-4 right-4">
-                <button
-                    onClick={() => setShowMenu(!showMenu)}
-                    className="bg-white text-black rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-gray-200"
-                >
-                    <ProfileIcon />
-                </button>
-                {showMenu && (
-                    <div className="absolute right-0 mt-2 bg-white text-black rounded-lg shadow-lg w-40">
-                        <button
-                            onClick={handleLoginClick}
-                            className="block text-left w-full px-4 py-2 hover:bg-gray-200"
-                        >
-                            {logic.isUserLoggedIn() ? 'Sign out' : 'Sign in'}
-                        </button>
-                    </div>
-                )}
-            </div>
 
             <header className="text-center mb-6">
-                <h1 className="text-3xl font-bold">PetCare 🐾</h1>
+                <h1 className="text-5xl font-bold">PetCare 🐾</h1>
                 <p className="text-lg mt-2">¿Qué necesitas para tu mascota?</p>
                 <form onSubmit={handleSearch} className="mt-4">
                     <input
@@ -100,13 +89,6 @@ export default function Home(props) {
                         className="p-2 w-3/4 mx-auto block rounded text-black"
                     />
                     <div className="flex justify-center items-center gap-2 mt-4">
-                        <input
-                            type="text"
-                            value={postalCode}
-                            onChange={e => setPostalCode(e.target.value)}
-                            placeholder="Código postal"
-                            className="p-2 w-40 rounded text-black"
-                        />
 
                         <button
                             type="submit"
@@ -132,37 +114,30 @@ export default function Home(props) {
                 </div>
             </section>
 
-            <section className="featured-services my-6">
-                <h2 className="text-xl font-bold">Servicios destacados</h2>
-                <div className="flex justify-around mt-4">
-                    {services.map(service => (
-                        <div
-                            key={service.id}
-                            className="service-item bg-white text-black p-4 rounded-lg shadow w-40"
-                        >
-                            <p className="text-center font-bold">{service.name}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
+            <section className="recommendations my-6">
+    <h2 className="text-xl font-bold">Recomendado</h2>
+    <div className="overflow-x-auto flex gap-4 px-4 mt-4">
+        {recommendations.map(center => (
+            <div
+                key={center._id}
+                className="recommendation-card bg-white text-black p-4 rounded-lg shadow min-w-[200px] max-w-[200px] flex-shrink-0"
+            >
+                <img
+                    src={center.image}
+                    alt={center.name}
+                    className="w-full h-32 object-cover rounded-lg mb-2"
+                />
+                <h3 className="font-bold text-lg">{center.name}</h3>
+                <p className="text-gray-500 text-sm">{center.address}</p>
+            </div>
+        ))}
+    </div>
+</section>
+
 
             <section className="upcoming-appointments my-6">
                 <h2 className="text-xl font-bold">Próximas citas</h2>
                 <p className="mt-2 text-green-400">Ninguna cita programada</p>
-            </section>
-
-            <section className="recommendations my-6">
-                <h2 className="text-xl font-bold">Recomendado</h2>
-                <div className="flex justify-around mt-4">
-                    {recommendations.map(recommendation => (
-                        <div
-                            key={recommendation.id}
-                            className="recommendation-item bg-white text-black p-4 rounded-lg shadow w-40"
-                        >
-                            <p className="text-center font-bold">{recommendation.name}</p>
-                        </div>
-                    ))}
-                </div>
             </section>
 
 //esto será modificado por banner routeable a register

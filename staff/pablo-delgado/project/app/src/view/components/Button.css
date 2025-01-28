@@ -5,12 +5,16 @@
   background-color: var(--color);
   font-family: inherit;
   color: var(--back-color);
-  border-color: var(--color);
+  border-color: black;
   border-style: solid;
   cursor: pointer;
 }
 
 .Button--light {
-  color: var(--color);
+  color: white;
   background-color: var(--back-color);
+}
+
+.Button:hover {
+  background-color: #0056b3;
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom'
 
 import { Login, Register, Home, Search, Explorer, Appointments, Profile, ProviderProfile } from './view'
 import { Alert } from './view/components'
@@ -10,7 +10,7 @@ import { Header } from './view/components/Header.jsx'
 import { NoProfile } from './view/ExtraPages/NoProfile.jsx'
 import { NoAppointments } from './view/ExtraPages/NoAppointments.jsx'
 //import { ProviderProfile } from './view/ProviderProfile.jsx'
-//import { Confirm } from './view/components/Confirm.jsx'
+import { Confirm } from './view/components/Confirm.jsx'
 
 import logic from './logic/'
 
@@ -27,6 +27,7 @@ export default function App() {
     })
 
     const navigate = useNavigate()
+    const location = useLocation()
 
     //const handlePostCreated = () => navigate('/')
 
@@ -81,9 +82,9 @@ export default function App() {
 
             <Route path="/register" element={ <Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} /> 
 
-            <Route path="/" element={logic.isUserLoggedIn() ? <Home onLoginClick={handleLoginClick}/> : <Navigate to="/login" />} /> //modifico a home, quiero que sea opcional
+            <Route path="/" element={logic.isUserLoggedIn() ? <Navigate to="/home" /> : <Navigate to="/login" />} />
 
-            <Route path="/home" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/" />} />
+            <Route path="/home" element={logic.isUserLoggedIn() ? <Home /> : <Navigate to="/home" />} />
 
             <Route path="/explorer" element={logic.isUserLoggedIn() ? <Explorer /> : <Navigate to="/login" />} />
 
@@ -107,7 +108,6 @@ export default function App() {
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 
         {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
-        {logic.isUserLoggedIn() && <Footer />}
+        {logic.isUserLoggedIn() && !['/login', '/register'].includes(location.pathname) && <Footer />}
     </Context.Provider>
-    
 }
