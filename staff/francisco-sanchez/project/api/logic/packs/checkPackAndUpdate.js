@@ -1,14 +1,16 @@
 import { Pack, User } from 'dat'
-import { errors } from 'com'
+import { errors, validate } from 'com'
 import { emailFinishedPack, emailLowTimeWarning, emailNearExpiryTime, emailExpirationWarning } from '../emailing/index.js'
 
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, ValidationError } = errors
 
 export default async (packId) => {
+    validate.id(packId, 'packId')
+
     try {
         // Busca el BasePack por su ID
         const packInfo = await Pack.findById(packId).lean()
-        console.log(packInfo)
+        //console.log(packInfo)
 
         // Si no se encuentra, lanza un error
         if (!packInfo) {
@@ -55,7 +57,7 @@ export default async (packId) => {
         twoMonthsFromNow.setMonth(currentDate.getMonth() + 2)
 
         if (expiryDate <= twoMonthsFromNow && expiryDate >= currentDate) {
-            console.log('enviaré un email avisando de caducidad cercana')
+            //console.log('enviaré un email avisando de caducidad cercana')
 
             await emailNearExpiryTime(userInfo.email, userInfo.name, packInfo.description, packInfo.expiryDate)
         }
@@ -63,7 +65,7 @@ export default async (packId) => {
 
         // 4. Validar si expiryDate ya ha pasado
         if (expiryDate < currentDate) {
-            console.log('enviaré un email avisando que el pack ha caducado y actualizaré el status')
+            //console.log('enviaré un email avisando que el pack ha caducado y actualizaré el status')
 
             await emailExpirationWarning(userInfo.email, userInfo.name, packInfo.description, packInfo.expiryDate)
 
@@ -74,7 +76,10 @@ export default async (packId) => {
         // Devuelve la información encontrada
         return packInfo
     } catch (error) {
-        // Si ocurre un error, lanza un SystemError
-        throw new SystemError(error.message)
+        if (error instanceof NotFoundError || error instanceof ValidationError) {
+            throw error
+        } else {
+            throw new SystemError(error.message)
+        }
     }
 }

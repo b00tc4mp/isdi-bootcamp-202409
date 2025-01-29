@@ -2,7 +2,7 @@ import { Activity, BasePack, Pack, User } from 'dat';
 
 import { validate, errors } from 'com';
 
-import { getElapsedTime } from '../helpers/index.js';
+import { getElapsedTime } from '../../helpers/index.js';
 
 import checkPackAndUpdate from '../packs/checkPackAndUpdate.js';
 

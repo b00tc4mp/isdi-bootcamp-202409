@@ -1,73 +1,91 @@
-import { Activity, Pack } from 'dat';
+import { Activity, Pack, User } from 'dat' // Importamos User para validar que existe
 
-import { validate, errors } from 'com';
+import { validate, errors } from 'com'
 
-import checkPackAndUpdate from '../packs/checkPackAndUpdate.js';
+import checkPackAndUpdate from '../packs/checkPackAndUpdate.js'
 
 const { SystemError, NotFoundError, OwnershipError, ValidationError, DataIntegrityError } = errors
 
 export default (userId, packId, customerId, description, unitsAdjust) => {
-    validate.id(packId, 'packId');
-    validate.id(userId, 'userId');
-    validate.id(customerId, 'customerId');
+    validate.id(packId, 'packId')
+    validate.id(userId, 'userId')
+    validate.id(customerId, 'customerId')
     validate.integerNum(unitsAdjust)
 
-    return Pack.findById(packId)
-        .then((pack) => {
-            if (!pack) {
-                throw new NotFoundError('Pack to track not found');
-            }
+    const defaultDescription = 'No description'
+    if (description === undefined || description === '') {
+        description = defaultDescription
+    }
 
-            const invalidStatuses = ['Finished', 'Pending', 'Expired'];
-            const currentDate = new Date();
-            const expiryDate = new Date(pack.expiryDate);
+    // Validamos si el usuario existe
+    return User.findById(userId)
+        .then((user) => {
+            if (!user) throw new NotFoundError('user not found')
 
-            if (pack.provider.toString() !== userId) {
-                throw new OwnershipError('Your user is not the owner of this pack relationship');
-            }
+            return Pack.findById(packId)
+                .then((pack) => {
+                    if (!pack) {
+                        throw new NotFoundError('Pack to track not found')
+                    }
 
-            if (invalidStatuses.includes(pack.status)) {
-                throw new ValidationError('This pack has an invalid status to work (Finished, Pending or Expired)');
-            }
+                    const invalidStatuses = ['Finished', 'Pending', 'Expired']
+                    const currentDate = new Date()
+                    const expiryDate = new Date(pack.expiryDate)
 
-            if (expiryDate <= currentDate && !invalidStatuses.includes(pack.status)) {
-                throw new ValidationError('This pack has expired and cannot be accessed.');
-            }
+                    if (pack.provider.toString() !== userId) {
+                        throw new OwnershipError('Your user is not the owner of this pack relationship')
+                    }
 
-            const remainingQuantity = pack.remainingQuantity || 0;
+                    if (invalidStatuses.includes(pack.status)) {
+                        throw new ValidationError('This pack has an invalid status to work (Finished, Pending or Expired)')
+                    }
 
-            const absDecimalUnits = Math.abs(unitsAdjust)
-            const operation = unitsAdjust > 0 ? 'add' : 'substract';
+                    if (expiryDate <= currentDate && !invalidStatuses.includes(pack.status)) {
+                        throw new ValidationError('This pack has expired and cannot be used anymore')
+                    }
 
-            return Activity.create({
-                pack: packId,
-                date: new Date(),
-                description,
-                operation,
-                quantity: absDecimalUnits,
-                remainingQuantity: operation === 'add' ? remainingQuantity + absDecimalUnits : remainingQuantity - absDecimalUnits
-                //remainingQuantity: remainingQuantity - absDecimalUnits,
-            }).then((activity) => {
-                if (!activity._id) {
-                    throw new SystemError('There was a problem creating the activity log');
-                }
+                    const remainingQuantity = pack.remainingQuantity || 0
 
-                return Pack.findByIdAndUpdate(
-                    packId, { remainingQuantity: operation === 'add' ? remainingQuantity + absDecimalUnits : remainingQuantity - absDecimalUnits }, { new: true, runValidators: true }).lean()
-                    .then((updatedPack) => {
-                        updatedPack.id = updatedPack._id.toString();
-                        delete updatedPack._id;
+                    const absDecimalUnits = Math.abs(unitsAdjust)
+                    const operation = unitsAdjust > 0 ? 'add' : 'substract'
 
-                        //Check pack after last update in order to know if the status should change
-                        return checkPackAndUpdate(packId)
-                            .then(() => updatedPack)
+                    return Activity.create({
+                        pack: packId,
+                        date: new Date(),
+                        description,
+                        operation,
+                        quantity: absDecimalUnits,
+                        remainingQuantity: operation === 'add'
+                            ? remainingQuantity + absDecimalUnits
+                            : remainingQuantity - absDecimalUnits,
+                    }).then((activity) => {
+                        if (!activity._id) {
+                            throw new SystemError('There was a problem creating the activity log')
+                        }
 
-                        //return updatedPack;
-                    });
-            });
+                        return Pack.findByIdAndUpdate(
+                            packId,
+                            {
+                                remainingQuantity:
+                                    operation === 'add'
+                                        ? remainingQuantity + absDecimalUnits
+                                        : remainingQuantity - absDecimalUnits,
+                            },
+                            { new: true, runValidators: true }
+                        )
+                            .lean()
+                            .then((updatedPack) => {
+                                updatedPack.id = updatedPack._id.toString()
+                                delete updatedPack._id
 
+                                // Check pack after last update in order to know if the status should change
+                                return checkPackAndUpdate(packId).then(() => updatedPack)
+                            })
+                    })
+                })
         })
         .catch((error) => {
-            throw new SystemError(error.message);
-        });
-};
+            if (error instanceof NotFoundError || error instanceof ValidationError) throw error
+            throw new SystemError(error.message)
+        })
+}

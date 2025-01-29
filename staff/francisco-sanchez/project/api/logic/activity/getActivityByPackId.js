@@ -1,6 +1,6 @@
 import { Activity, Pack, User } from 'dat'
 import { errors, validate } from 'com'
-import { getDecimalToTimeFormat, getFormattedDate } from '../helpers/index.js'
+import { getDecimalToTimeFormat, getFormattedDate } from '../../helpers/index.js'
 
 const { SystemError, NotFoundError } = errors
 

@@ -55,13 +55,5 @@ describe('emailLowTimeWarning', () => {
         )).to.be.rejectedWith(ValidationError, 'units shoud be "hours" or "units"')
     })
 
-    it('fails on invalid remaining quantity', async () => {
-        await expect(emailLowTimeWarning(
-            'valid@test.com',
-            'Pepe',
-            'Description of the pack',
-            'hours',
-            1.34534,
-        )).to.be.rejectedWith(ValidationError, 'invalid quantity')
-    })
+
 })

@@ -58,11 +58,6 @@ export default function UpdateBasePack({ onUpdated, onCancelClick, basePack }) {
                 </Field>
 
                 <Field>
-                    <Label htmlFor="quantity">Quantity</Label>
-                    <Input className="border-2 rounded-lg" type="number" id="quantity" placeholder="Quantity" defaultValue={basePack.quantity} />
-                </Field>
-
-                <Field>
                     <Label htmlFor="unit">Unit</Label>
                     <select id="unit" name="unit" defaultValue={basePack.unit}>
                         <option value="hours">Hours</option>

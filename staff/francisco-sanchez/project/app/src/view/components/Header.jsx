@@ -85,12 +85,13 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
     console.log(profileImageUrl)
 
     const isActive = (path) => location.pathname === path ? 'text-color_green font-bold' : 'hover:underline';
+    console.log(isActive)
 
 
     return <header className="bg-color_darkBlue text-white p-4 flex justify-between items-center h-28">
         <h1 className="text-4xl font-bold">{location.pathname !== '/' ? <a href="" onClick={handleHomeClick}>Hourify</a> : 'Hourify'}</h1>
 
-        <nav className="flex space-x-4">
+        <nav className="hidden sm:flex mx-6 space-x-6">
             {logic.isUserLoggedIn() && (
                 <>
                     <a href="#" className="hover:underline" onClick={handleTrackerClick}>Time Tracker</a>
@@ -110,11 +111,11 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
                         className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
                     />
                     <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleTrackerClick}>Time Tracker</a>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleManagePacks}>Manage Packs</a>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleManageCustomers}>Customers</a>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleProfileClick}>User profile</a>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleLogout}>Logout</a>
+                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleTrackerClick}>⏱️ Time Tracker</a>
+                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleManagePacks}>📑 Packs</a>
+                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleManageCustomers}>👥 Customers</a>
+                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleProfileClick}>👤 User profile</a>
+                        <a href="#" className="block px-4 py-2 hover:bg-gray-100" onClick={handleLogout}>👋 Logout</a>
                     </div>
                 </div>
             )}

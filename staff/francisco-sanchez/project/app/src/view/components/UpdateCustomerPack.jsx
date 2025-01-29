@@ -13,6 +13,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
     const { alert, confirm } = useContext()
     const [packActivities, setPackActivities] = useState([])
     const [payments, setPayments] = useState([])
+    const [formattedTime, setFormattedTime] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,6 +42,19 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         }
         getPayments()
     }, [])
+
+    useEffect(() => {
+        if (pack.unit !== 'units') {
+            logic.getDecimalToTimeFormat(pack.remainingQuantity)
+                .then(timeFormated => {
+                    setFormattedTime(timeFormated) // Guardamos la cadena en el estado
+                })
+                .catch(error => {
+                    console.error(error)
+                    setFormattedTime('')
+                })
+        }
+    }, [pack.unit, pack.remainingQuantity])
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -156,7 +170,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                     />
                     <Card
                         title="Payed Amount"
-                        value={pack.totalPayments || '0'}
+                        value={pack.totalPayments + ' ' + pack.currency || '0'}
                         valueClass="text-gray-800"
                     />
                     {parseFloat(pack.price) - parseFloat(pack.totalPayments) > 0 ? (
@@ -183,10 +197,22 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                         <Input className="border-2 rounded-lg" type="text" id="packDescription" placeholder="Pack name" defaultValue={pack.description} />
                     </Field>
 
-                    <Field>
+                    {/* <Field>
                         <Label htmlFor="remainingQuantity">Remaining Quantity</Label>
                         <Input className="border-2 rounded-lg" type="text" id="remainingQuantity" placeholder="Remaining Quantity" defaultValue={pack.remainingQuantity} />
+                    </Field> */}
+
+                    <Field>
+                        <Label htmlFor="remainingQuantity">Remaining Quantity</Label>
+                        <Input
+                            className="border-2 rounded-lg"
+                            type={pack.unit === 'units' ? 'number' : 'text'}
+                            id="remainingQuantity"
+                            placeholder={pack.unit === 'units' ? '0' : '00:00:00'}
+                            defaultValue={pack.unit === 'units' ? pack.remainingQuantity : formattedTime}
+                        />
                     </Field>
+
                     <Field>
                         <Label htmlFor="packStatus">Pack Status</Label>
                         <select id="packStatus" name="packStatus" className="border-2 rounded-lg w-full p-2" defaultValue={pack.status} required>

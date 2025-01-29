@@ -2,7 +2,7 @@ import { Pack, Activity } from "dat";
 
 import { validate, errors } from 'com'
 
-import { getTimeFormatToDecimal } from "../helpers/index.js";
+import { getTimeFormatToDecimal } from "../../helpers/index.js";
 import checkPackAndUpdate from "./checkPackAndUpdate.js";
 
 

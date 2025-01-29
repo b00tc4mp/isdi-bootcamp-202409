@@ -1,6 +1,6 @@
 import { sendEmail } from "./index.js";
 import { validate } from "com";
-import { getDecimalToTimeFormat } from "../helpers/index.js"
+import { getDecimalToTimeFormat } from "../../helpers/index.js"
 
 // Low time warning email
 const emailLowTimeWarning = async (to, name, packDescription, packUnit, remainingQuantity) => {
@@ -8,8 +8,6 @@ const emailLowTimeWarning = async (to, name, packDescription, packUnit, remainin
     validate.name(name)
     validate.description(packDescription)
     validate.units(packUnit)
-    validate.quantity(remainingQuantity)
-
 
     let remainingFormatedlQtt = ''
     if (packUnit === 'hours') {
