@@ -26,11 +26,8 @@ export default function CustomerPacks(props) {
             try {
                 setLoading(true)
                 const customerPacks = await logic.getCustomerPacks(customerId)
-                console.log(customerPacks)
-
                 const formattedPacks = await formatCustomerPacks(customerPacks);
                 setCustomerPacks(formattedPacks)
-                console.log(formattedPacks)
             } catch (error) {
                 console.error(error)
                 alert(error.message)
@@ -42,8 +39,8 @@ export default function CustomerPacks(props) {
     }, [customerId])
 
     useEffect(() => {
-        if (view && UpdateCustomerPack.current) {
-            UpdateCustomerPack.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        if (view && updatePackView.current) {
+            updatePackView.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
     }, [view])
 

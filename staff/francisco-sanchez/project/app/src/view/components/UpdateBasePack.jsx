@@ -13,8 +13,10 @@ export default function UpdateBasePack({ onUpdated, onCancelClick, basePack }) {
 
     const handleSubmit = event => {
         event.preventDefault()
+
         const { target: form } = event
-        const { packName: { value: packName },
+        const {
+            packName: { value: packName },
             packDescription: { value: packDescription },
             quantity: { value: quantity },
             unit: { value: unit },
@@ -22,6 +24,7 @@ export default function UpdateBasePack({ onUpdated, onCancelClick, basePack }) {
             price: { value: price },
             currency: { value: currency }
         } = form
+
         try {
             logic.updateBasePack(basePack.id, packName, packDescription, quantity, unit, expiringTime, price, currency)
                 .then(() => {
@@ -43,56 +46,109 @@ export default function UpdateBasePack({ onUpdated, onCancelClick, basePack }) {
         onCancelClick()
     }
 
-    return <main className="flex flex-col justify-center items-center bg-color_backgroundGrey w-full flex-grow">
-        <h2 className="text-2xl">Update pack: "{basePack.packName}"</h2>
-        <div className="flex flex-col">
-            <form className="flex flex-col justify-items-start" onSubmit={handleSubmit} >
-                <Field>
-                    <Label htmlFor="packName">Pack name</Label>
-                    <Input className="border-2 rounded-lg" type="text" id="packName" placeholder="Pack name" defaultValue={basePack.packName} />
-                </Field>
+    return (
+        <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow">
+            <h2 className="text-2xl mb-4 pt-5">Update pack: "{basePack.packName}"</h2>
 
-                <Field>
-                    <Label htmlFor="packDescription">Pack description</Label>
-                    <textarea className="border-2 rounded-lg" type="email" id="packDescription" placeholder="Pack description goes here" defaultValue={basePack.description} />
-                </Field>
+            {/* Tarjeta blanca para el formulario */}
+            <div className="bg-white shadow-md rounded p-6 mb-10 w-full max-w-2xl">
+                {/* Form en dos columnas en pantallas md+ */}
+                <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit} >
 
-                <Field>
-                    <Label htmlFor="unit">Unit</Label>
-                    <select id="unit" name="unit" defaultValue={basePack.unit}>
-                        <option value="hours">Hours</option>
-                        <option value="units">Units</option>
-                    </select>
-                </Field>
+                    {/* Columna Izquierda */}
+                    <div className="space-y-4">
+                        <Field>
+                            <Label htmlFor="packName">Pack name</Label>
+                            <Input
+                                className="border-2 rounded-lg w-full p-2"
+                                type="text"
+                                id="packName"
+                                placeholder="Pack name"
+                                defaultValue={basePack.packName}
+                            />
+                        </Field>
 
-                <Field>
-                    <Label htmlFor="expiringTime">Expiring pack time</Label>
-                    <select id="expiringTime" name="expiringTime" defaultValue={basePack.expiringTime}>
-                        <option value="-1">Unlimited</option>
-                        <option value="1">1 Month</option>
-                        <option value="2">2 Months</option>
-                        <option value="3">3 Months</option>
-                        <option value="4">4 Months</option>
-                        <option value="5">5 Months</option>
-                        <option value="6">6 Months</option>
-                        <option value="7">7 Months</option>
-                        <option value="8">8 Months</option>
-                        <option value="9">9 Months</option>
-                        <option value="10">10 Months</option>
-                        <option value="11">11 Months</option>
-                        <option value="12">12 Months</option>
-                    </select>
-                </Field>
+                        <Field>
+                            <Label htmlFor="packDescription">Pack description</Label>
+                            <textarea
+                                className="border-2 rounded-lg w-full p-2"
+                                id="packDescription"
+                                placeholder="Pack description goes here"
+                                defaultValue={basePack.description}
+                            />
+                        </Field>
 
-                <Field>
-                    <Label htmlFor="price">Price</Label>
-                    <Input className="border-2 rounded-lg w-full" type="number" id="price" placeholder="50 €" defaultValue={basePack.price} />
-                    <Input type="hidden" id="currency" defaultValue="EUR" />
-                </Field>
+                        <Field>
+                            <Label htmlFor="price">Price</Label>
+                            <Input
+                                className="border-2 rounded-lg w-full p-2"
+                                type="number"
+                                id="price"
+                                placeholder="50 €"
+                                defaultValue={basePack.price}
+                            />
+                            <Input type="hidden" id="currency" defaultValue="EUR" />
+                        </Field>
+                    </div>
 
-                <Button className='bg-red-800 text-white' onClick={handleCancelClick}>Cancel</Button>
-                <Button type="submit">Update</Button>
-            </form>
-        </div>
-    </main>
+                    {/* Columna Derecha */}
+                    <div className="space-y-4">
+                        <Field>
+                            <Label htmlFor="unit">Unit</Label>
+                            <select
+                                id="unit"
+                                name="unit"
+                                defaultValue={basePack.unit}
+                                className="border-2 rounded-lg w-full p-2"
+                            >
+                                <option value="hours">Hours</option>
+                                <option value="units">Units</option>
+                            </select>
+                        </Field>
+
+                        <Field>
+                            <Label htmlFor="expiringTime">Expiring pack time</Label>
+                            <select
+                                id="expiringTime"
+                                name="expiringTime"
+                                defaultValue={basePack.expiringTime}
+                                className="border-2 rounded-lg w-full p-2"
+                            >
+                                <option value="-1">Unlimited</option>
+                                <option value="1">1 Month</option>
+                                <option value="2">2 Months</option>
+                                <option value="3">3 Months</option>
+                                <option value="4">4 Months</option>
+                                <option value="5">5 Months</option>
+                                <option value="6">6 Months</option>
+                                <option value="7">7 Months</option>
+                                <option value="8">8 Months</option>
+                                <option value="9">9 Months</option>
+                                <option value="10">10 Months</option>
+                                <option value="11">11 Months</option>
+                                <option value="12">12 Months</option>
+                            </select>
+                        </Field>
+
+                        <Field>
+                            <Label htmlFor="quantity">Quantity</Label>
+                            <Input
+                                className="border-2 rounded-lg w-full p-2"
+                                type="number"
+                                id="quantity"
+                                placeholder="Pack quantity"
+                                defaultValue={basePack.quantity}
+                            />
+                        </Field>
+                    </div>
+
+                    {/* Botones ocupando el ancho de las dos columnas */}
+                    <div className="md:col-span-2 flex justify-end gap-4">
+                        <Button className="bg-red-800 text-white px-4 py-2 rounded" onClick={handleCancelClick}>Cancel</Button>
+                        <Button type="submit" className="bg-color_primary text-white px-4 py-2 rounded">Update</Button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    )
 }

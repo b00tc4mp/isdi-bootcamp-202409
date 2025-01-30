@@ -1,15 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import logic from '../logic'
 
 import { errors } from 'com'
-import { Button } from '../library/index';
+import { Button } from '../library/index'
 
 const { SystemError } = errors
 
 export default function ManageCustomers(props) {
-    const [loading, setLoading] = useState(true) //This is to show the loader as active by default
-    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true)
+    const navigate = useNavigate()
     const handleHomeClick = event => {
         event.preventDefault()
         props.onHomeClick()

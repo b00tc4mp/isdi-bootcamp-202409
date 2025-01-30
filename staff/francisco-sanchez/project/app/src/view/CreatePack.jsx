@@ -62,7 +62,7 @@ export default function Create(props) {
 
         <div className="bg-white shadow-md rounded p-6 w-full max-w-4xl">
             <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
-                {/* Columna Izquierda */}
+
                 <div className="space-y-4">
                     <Field>
                         <Label htmlFor="packName">Pack name</Label>
@@ -80,7 +80,6 @@ export default function Create(props) {
                     </Field>
                 </div>
 
-                {/* Columna Derecha */}
                 <div className="space-y-4">
                     <Field>
                         <Label htmlFor="unit">Unit</Label>
@@ -116,7 +115,6 @@ export default function Create(props) {
                     </Field>
                 </div>
 
-                {/* Botón: ocupa ambas columnas en pantallas medianas+ */}
                 <div className="md:col-span-2 flex justify-center">
                     <Button type="submit">Create Pack</Button>
                 </div>

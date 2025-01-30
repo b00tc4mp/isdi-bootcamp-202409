@@ -24,7 +24,6 @@ export default function ManagePacks(props) {
             try {
                 setLoading(true)
                 const basePacks = await logic.getBasePacks()
-                console.log('BasePacks fetched successfully', basePacks)
                 setPacks(basePacks)
             } catch (error) {
                 alert(error.message)

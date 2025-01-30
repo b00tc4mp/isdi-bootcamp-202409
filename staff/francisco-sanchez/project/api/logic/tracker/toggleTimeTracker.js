@@ -16,33 +16,29 @@ export default (userId, packId, customerId, description, operation) => {
     return Pack.findById(packId)
         .catch(error => { throw new SystemError(error.message) })
         .then(pack => {
-            const invalidStatuses = ['Finished', 'Pending', 'Expired']
+            if (!pack) {
+                throw new NotFoundError('Pack to track not found')
+            }
 
+            const invalidStatuses = ['Finished', 'Pending', 'Expired']
             const currentDate = new Date()
             const expiryDat = new Date(pack.expiryDate)
 
-            if (!pack) {
-                console.error(error.message)
-                throw new NotFoundError('Pack to track not found')
-            }
 
             if (pack.provider.toString() !== userId) {
                 throw new OwnershipError('Your user is not the owner of this pack relationship')
             }
 
             if (invalidStatuses.includes(pack.status)) {
-                throw new ValidationError('This pack has and invalid status to work (Finished, Pending or Expired')
+                throw new ValidationError('This pack has an invalid status to work (Finished, Pending or Expired)')
             }
 
             if (expiryDat <= currentDate && !invalidStatuses.includes(pack.status)) {
-                throw new ValidationError('This pack has expired and cannot be accessed.')
-                //Y además por aquí debería cambiar el status a Expired
+                throw new ValidationError('This pack has expired and cannot be used anymore')
             }
 
 
             if (pack.timerActivated != null) {
-                // Aquí detendremos la lógica del timer obteniendo el valor del tiempo transcurrido primero
-                console.log('Tengo valor y tendré que quitarlo')
                 const now = new Date
                 const activeDate = pack.timerActivated
                 const description = pack.descriptionActivityTemp
@@ -65,7 +61,11 @@ export default (userId, packId, customerId, description, operation) => {
                     remainingQuantity: remainingQuantity
                 })
                     .catch(error => {
-                        throw new SystemError(error.message)
+                        if (error instanceof NotFoundError || error instanceof ValidationError) {
+                            throw error
+                        } else {
+                            throw new SystemError(error.message)
+                        }
                     })
                     .then(activity => {
                         // Borraremos las variables temporales y actualizamos pack con el nuevo tiempo disponible
@@ -76,7 +76,11 @@ export default (userId, packId, customerId, description, operation) => {
 
                         return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp, remainingQuantity }, { new: true, runValidators: true }).lean()
                             .catch(error => {
-                                throw new SystemError(error.message)
+                                if (error instanceof NotFoundError || error instanceof ValidationError) {
+                                    throw error
+                                } else {
+                                    throw new SystemError(error.message)
+                                }
                             })
                             .then(updatedPack => {
                                 updatedPack.id = updatedPack._id.toString()
@@ -88,18 +92,21 @@ export default (userId, packId, customerId, description, operation) => {
 
                                 //return updatedPack
                             })
-
                     })
             } else {
 
-                //When timmer is not activated we create a register to record start time
+                //When timer is not activated we create a register to record start time
                 const timerActivated = currentDate
                 const descriptionActivityTemp = description
                 console.log('timerActivated --> ' + timerActivated)
                 console.log('descriptionActivityTemp --> ' + descriptionActivityTemp)
                 return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp }, { new: true, runValidators: true }).lean()
                     .catch(error => {
-                        throw new SystemError(error.message)
+                        if (error instanceof NotFoundError || error instanceof ValidationError) {
+                            throw error
+                        } else {
+                            throw new SystemError(error.message)
+                        }
                     })
                     .then(updatedPack => {
                         updatedPack.id = updatedPack._id.toString()

@@ -6,10 +6,6 @@ import useContex from './useContext'
 import { Button, Field, Label, Input } from '../library/index'
 import { ActivityTable } from './components/index'
 
-/* import { getCustomers } from '../logic/users'
-import { getActivitiesByPackId } from '../logic/activities'
-import { getDecimalToTimeFormat } from '../logic/helpers' */
-
 const { SystemError } = errors
 
 export default function Tracker(props) {
@@ -66,7 +62,6 @@ export default function Tracker(props) {
 
 
     const handleCustomerChange = (event) => {
-        //console.log(event)
 
         const customerId = event.target.value
         console.log('handleCustomerChange -- customerID before setSelectedCustomer --> ' + customerId)
@@ -75,7 +70,6 @@ export default function Tracker(props) {
         if (intervalId) {
             clearInterval(intervalId)
             setIntervalId(null)
-            //console.log('Interval Id --> ' + intervalId)
         }
 
         // Reiniciamos el tiempo transcurrido
@@ -124,9 +118,6 @@ export default function Tracker(props) {
                 alert(error.message)
                 console.error(error)
                 setFilteredPacks([])
-                // Additionally, set disabled to true explicitly
-                // This ensures the select is disabled even on errors
-                // (assuming you want it disabled in case of errors)
                 setDisabled(true)
             })
     }
@@ -319,8 +310,6 @@ export default function Tracker(props) {
                         })
                 }
 
-                /* console.log('API Response (packUpdated):', packUpdated)
-                console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
             })
             .catch((error) => {
                 alert(error.message)
@@ -351,7 +340,6 @@ export default function Tracker(props) {
         if (!timerActivated) return 0
         return Math.floor((Date.now() - new Date(timerActivated)) / 1000) // En segundos
     }
-
 
 
     return (
