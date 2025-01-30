@@ -1,32 +1,31 @@
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import logic from '../logic'
 
 import { errors } from 'com'
-import { Button, TagOK, TagWARN, TagKO, TagEXTRA } from '../library/index';
+import { Button, TagOK, TagWARN, TagKO, TagEXTRA } from '../library/index'
 
-import { UpdateCustomerPack } from './components';
-import { getDecimalToTimeFormat } from '../logic/helpers';
+import { UpdateCustomerPack } from './components'
+import { getDecimalToTimeFormat } from '../logic/helpers'
 
 const { SystemError } = errors
 
 export default function CustomerPacks(props) {
-    const { customerId } = useParams(); // Obtén el customerId desde la URL
+    const { customerId } = useParams() // Obtén el customerId desde la URL
     const { state } = useLocation()
     const [view, setView] = useState(false)
     const customerName = state?.customerName || 'Unknow user'
-    const [selectedPack, setSelectedPack] = useState(null); // Estado para almacenar el pack seleccionado
+    const [selectedPack, setSelectedPack] = useState(null) // Estado para almacenar el pack seleccionado
     const [customerPacks, setCustomerPacks] = useState([])
     const [loading, setLoading] = useState(true) //This is to show the loader as active by default
     const updatePackView = useRef(null)
 
     useEffect(() => {
-        console.log('Customer packs / CustomersPacksList -> componentDidMount')
         const fetchCustomers = async () => {
             try {
                 setLoading(true)
                 const customerPacks = await logic.getCustomerPacks(customerId)
-                const formattedPacks = await formatCustomerPacks(customerPacks);
+                const formattedPacks = await formatCustomerPacks(customerPacks)
                 setCustomerPacks(formattedPacks)
             } catch (error) {
                 console.error(error)
@@ -47,10 +46,8 @@ export default function CustomerPacks(props) {
 
     const handleManageClick = (event, customerPack) => {
         event.preventDefault()
-        console.log('To update: ' + customerPack.id)
         setSelectedPack(customerPack) //Guarda el basePack en el estado
         setView(view ? null : 'UpdateCustomerPack')
-        console.log('View set to:', view);
     }
 
     const handleHomeClick = event => {
@@ -59,14 +56,14 @@ export default function CustomerPacks(props) {
     }
 
     const handlePackUpdated = async () => {
-        setView(null); // Cierra el componente hijo
-        setSelectedPack(null); // Limpia el pack seleccionado
+        setView(null) // Cierra el componente hijo
+        setSelectedPack(null) // Limpia el pack seleccionado
 
         try {
-            const updatedPacks = await logic.getCustomerPacks(customerId); // Vuelve a obtener los datos actualizados
-            //setCustomerPacks(updatedPacks); // Actualiza la tabla de packs
+            const updatedPacks = await logic.getCustomerPacks(customerId) // Vuelve a obtener los datos actualizados
+            //setCustomerPacks(updatedPacks) // Actualiza la tabla de packs
 
-            const formattedPacks = await formatCustomerPacks(updatedPacks);
+            const formattedPacks = await formatCustomerPacks(updatedPacks)
             setCustomerPacks(formattedPacks)
         } catch (error) {
             alert(error.message)
@@ -94,16 +91,16 @@ export default function CustomerPacks(props) {
                 // Formatear fechas
                 const formattedPurchaseDate = pack.purchaseDate
                     ? new Date(pack.purchaseDate).toLocaleDateString()
-                    : 'N/A';
+                    : 'N/A'
                 const formattedExpiryDate = pack.expiryDate
                     ? new Date(pack.expiryDate).toLocaleDateString()
-                    : 'N/A';
+                    : 'N/A'
 
                 // Formatear precio
-                const formattedPrice = `${pack.price || 0} ${pack.currency || ''}`;
+                const formattedPrice = `${pack.price || 0} ${pack.currency || ''}`
 
                 // Formatear totalPayments
-                const formattedTotalPayments = `${pack.totalPayments || 0} ${pack.currency || ''}`;
+                const formattedTotalPayments = `${pack.totalPayments || 0} ${pack.currency || ''}`
 
                 return {
                     ...pack,
@@ -113,11 +110,11 @@ export default function CustomerPacks(props) {
                     formattedExpiryDate,
                     formattedPrice,
                     formattedTotalPayments,
-                };
+                }
             })
         )
 
-    };
+    }
 
 
     return (

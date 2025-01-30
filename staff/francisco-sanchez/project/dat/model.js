@@ -43,7 +43,6 @@ const user = new Schema({
     dni: {
         type: String,
         required: false,
-        minLength: 9,
         maxLength: 9,
         match: /^[0-9]{8}[A-Z]$/ // Valida el formato del DNI
     },

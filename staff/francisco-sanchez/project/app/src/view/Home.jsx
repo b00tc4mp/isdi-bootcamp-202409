@@ -9,13 +9,13 @@ import useContext from './useContext'
 
 export default function Home(props) {
     const [name, setName] = useState('')
+    const [stats, setStats] = useState(null) // Estadísticas para el dashboard
+
     const location = useLocation()
 
     const { alert, confirm } = useContext()
 
     useEffect(() => {
-        console.log('Header -> componentDidMount & componentWillReceiveProps')
-
         if (logic.isUserLoggedIn()) {
             if (!name)
                 try {
@@ -36,29 +36,32 @@ export default function Home(props) {
                     alert(error.message)
                     console.error(error)
                 }
-        } else setName(null)
+
+            // Fetch estadísticas del usuario
+            /* logic.getUserStats()
+                .then(setStats)
+                .catch(error => {
+                    console.error('Error fetching stats: ' + error.message)
+                }) */
+        } else {
+            setName(null)
+            //setStats(null)
+        }
     }, [location.pathname])
 
     const handleTrackerClick = event => {
-        console.log('Click on tracker compo')
         props.onTrackerClick()
     }
 
     const handleManagePacks = event => {
-        console.log("Manage packs clicked");
-        //event.preventDefault()
         props.onManagePacksClick()
     };
 
     const handleManageCustomers = event => {
-        console.log("Manage customers clicked");
-        //event.preventDefault()
         props.onManageCustomersClick()
     };
 
     /* const handleManagePurchasedPacks = event => {
-        console.log("Manage Purchased packs clicked");
-        //event.preventDefault()
         props.onManagePurchasedPacksClick()
     } */;
 
@@ -68,8 +71,40 @@ export default function Home(props) {
 
                 <header className="mb-8 text-center ">
                     <h2 className="text-3xl font-bold text-color_darkBlue mb-2">{`Welcome, ${name}`}</h2>
-                    <p className="text-color_strongGrey">What would you like to do today?</p>
+                    <p className="text-color_strongGrey">Here are your stats and options to manage your business</p>
                 </header>
+
+
+                {/* Dashboard */}
+                {/* <section className="bg-white shadow-md rounded p-6 w-full max-w-4xl mb-8">
+                    <h3 className="text-xl font-bold text-color_darkBlue mb-4">Your Dashboard</h3>
+                    {stats ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="bg-color_lightBlue p-4 rounded-lg shadow-md text-center">
+                                <p className="text-xl font-bold">{stats.weeklySales}</p>
+                                <p className="text-color_darkGrey">Weekly Sales</p>
+                            </div>
+                            <div className="bg-color_lightGreen p-4 rounded-lg shadow-md text-center">
+                                <p className="text-xl font-bold">{stats.activePacks}</p>
+                                <p className="text-color_darkGrey">Active Packs</p>
+                            </div>
+                            <div className="bg-color_lightOrange p-4 rounded-lg shadow-md text-center">
+                                <p className="text-xl font-bold">{stats.totalCustomers}</p>
+                                <p className="text-color_darkGrey">Total Customers</p>
+                            </div>
+                            <div className="bg-color_lightRed p-4 rounded-lg shadow-md text-center">
+                                <p className="text-xl font-bold">{stats.expiringPacks}</p>
+                                <p className="text-color_darkGrey">Expiring Packs</p>
+                            </div>
+                            <div className="bg-color_lightPurple p-4 rounded-lg shadow-md text-center">
+                                <p className="text-xl font-bold">{stats.pendingPayments}</p>
+                                <p className="text-color_darkGrey">Pending Payments</p>
+                            </div>
+                        </div>
+                    ) : (
+                        <p>Loading your stats...</p>
+                    )}
+                </section> */}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl justify-items-center">
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleTrackerClick}>Start tracking</Button>

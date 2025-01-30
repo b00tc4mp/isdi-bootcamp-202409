@@ -13,7 +13,7 @@ export default async (userId) => {
 
         //Check and return if have customers
         if (!user.customers || user.customers.length === 0) {
-            return ('no customers found')
+            throw new NotFoundError('customers not found')
         }
 
         //Filter the objectId's with $in operator to find user names

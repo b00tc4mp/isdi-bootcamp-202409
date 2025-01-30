@@ -98,8 +98,8 @@ export default (userId, packId, customerId, description, operation) => {
                 //When timer is not activated we create a register to record start time
                 const timerActivated = currentDate
                 const descriptionActivityTemp = description
-                console.log('timerActivated --> ' + timerActivated)
-                console.log('descriptionActivityTemp --> ' + descriptionActivityTemp)
+                /*                 console.log('timerActivated --> ' + timerActivated)
+                                console.log('descriptionActivityTemp --> ' + descriptionActivityTemp) */
                 return Pack.findByIdAndUpdate(packId, { timerActivated, descriptionActivityTemp }, { new: true, runValidators: true }).lean()
                     .catch(error => {
                         if (error instanceof NotFoundError || error instanceof ValidationError) {

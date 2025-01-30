@@ -53,7 +53,7 @@ export default function Tracker(props) {
                 }
 
             } catch (error) {
-                alert(error.message)
+                //alert(error.message)
                 console.error(error)
             }
         }
@@ -123,8 +123,6 @@ export default function Tracker(props) {
     }
 
     const handlePackChange = (event) => {
-        /* console.log('entro en el onchange de pack')
-        console.log(event) */
 
         const packId = event.target.value
         const selectedPackObject = filteredPacks.find(pack => pack.id === packId)
@@ -338,13 +336,34 @@ export default function Tracker(props) {
 
     const calculateElapsedTime = (timerActivated) => {
         if (!timerActivated) return 0
-        return Math.floor((Date.now() - new Date(timerActivated)) / 1000) // En segundos
+        return Math.floor((Date.now() - new Date(timerActivated)) / 1000)
     }
 
 
+    if (customers.length === 0) {
+        return (
+            <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow pt-12">
+                <h2 className="text-2xl font-bold mb-6">Tracker</h2>
+                <div className="bg-white shadow-md rounded p-6 w-full max-w-4xl">
+                    <p>You should create first a pack and assign it to a customer to see this page</p>
+                    <br></br>
+                    <ul>
+                        <li>1. Go Manage packs</li>
+                        <li>2. Clic on create new pack</li>
+                        <li>3. Go to assign pack</li>
+                    </ul>
+                    <br></br>
+                    <hr></hr>
+                    <p>After this steps you'll can manage it on this page</p>
+                </div>
+
+            </main>
+        )
+    }
+
     return (
         <main className="flex flex-col  items-center bg-color_backgroundGrey w-full flex-grow pt-12">
-            <h1 className='text-3xl'>Tracker</h1>
+            <h2 className="text-2xl font-bold mb-6">Tracker</h2>
             <p>This will be the page to track your projects</p>
             <div className="flex flex-col">
                 <h2 className="text-2xl">Customer and Pack</h2>

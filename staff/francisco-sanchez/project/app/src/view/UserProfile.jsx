@@ -10,26 +10,24 @@ import { Button, Field, Input, Label, Image, Textarea } from '../library'
 import { useEffect, useState } from 'react'
 
 export default function UserProfile(props) {
-    console.log('Login -> render')
     const [userData, setUserData] = useState(null)
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
 
     const fetchData = () => {
         if (logic.isUserLoggedIn()) {
             logic.getUserDetails()
                 .then((userData) => {
                     setUserData(userData)
-                    setIsLoading(false); // Datos cargados
-                    console.log(userData)
-                    console.log(userData.profileImage);
+                    setIsLoading(false) // Datos cargados
+
                 })
                 .catch((error) => {
                     alert(error.message)
-                    setIsLoading(false); // Datos cargados
+                    setIsLoading(false) // Datos cargados
                 })
         } else {
             setUserData(null)
-            setIsLoading(false); // Datos cargados
+            setIsLoading(false) // Datos cargados
         }
     }
 
@@ -39,9 +37,9 @@ export default function UserProfile(props) {
         } catch (error) {
             alert(error.message)
             console.error(error)
-            setIsLoading(false);
+            setIsLoading(false)
         } finally {
-            setIsLoading(false); // Fin de la carga
+            setIsLoading(false) // Fin de la carga
         }
     }, [location.pathname, logic.isUserLoggedIn()])
 
@@ -82,8 +80,7 @@ export default function UserProfile(props) {
         } = form
 
         try {
-            console.log(userData._id + ' ' + username)
-            logic.updateUser(userData._id, userData._id, username, email, name, surname1, surname2, dni, biography, country, province, city, postalCode, address1, address2, number, flat, legalName, website)
+            logic.updateUser(userData.id, userData.id, username, email, name, surname1, surname2, dni, biography, country, province, city, postalCode, address1, address2, number, flat, legalName, website)
                 .then(() => {
                     alert('User updated successfully!', 'success')
                     props.onProfileUpdated()
@@ -101,13 +98,10 @@ export default function UserProfile(props) {
         }
     }
 
-    // Calcula la URL de la imagen del perfil
-    const profileImageUrl = userData?.profileImage
-        ? `http://localhost:8080${userData.profileImage}`
-        : `http://localhost:8080/images/profile/profile1.jpeg`
+    const profileImageUrl = logic.getProfileImage(userData)
 
     if (isLoading) {
-        return <p>Loading...</p>; // Mensaje de carga mientras esperamos los datos
+        return <p>Loading...</p>
     }
     return <main className="flex justify-center items-center bg-gray-100 w-full h-full flex-grow py-8">
 
@@ -195,7 +189,6 @@ export default function UserProfile(props) {
                     ) : (
                         <p>Loading user data...</p>
                     )}
-
                 </form>
             </div>
         </div>

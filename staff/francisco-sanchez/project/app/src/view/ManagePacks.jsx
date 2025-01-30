@@ -19,14 +19,13 @@ export default function ManagePacks(props) {
     const updateBasePackView = useRef(null)
 
     useEffect(() => {
-        console.log('Packs / PacksList -> componentDidMount')
         const fetchBasePacks = async () => {
             try {
                 setLoading(true)
                 const basePacks = await logic.getBasePacks()
                 setPacks(basePacks)
             } catch (error) {
-                alert(error.message)
+                //alert(error.message)
                 console.error(error)
             } finally {
                 setLoading(false)
@@ -64,7 +63,6 @@ export default function ManagePacks(props) {
 
     const handleUpdateClick = (event, basePack) => {
         event.preventDefault()
-        console.log('To update: ' + basePack.id + basePack.packName)
         setSelectedBasePack(basePack) //Guarda el basePack en el estado
         setView(view ? null : 'UpdateBasePack')
     }

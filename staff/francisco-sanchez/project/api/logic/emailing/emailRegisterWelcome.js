@@ -1,5 +1,5 @@
-import { sendEmail } from "./index.js";
-import { validate } from "com";
+import { sendEmail } from "./index.js"
+import { validate } from "com"
 
 //Confirmation register email
 const emailRegisterWelcome = (to, name) => {
@@ -13,12 +13,11 @@ const emailRegisterWelcome = (to, name) => {
 
     return sendEmail(to, subject, text, html)
         .then((info) => {
-            //console.log('Welcome email sent:', info);
-            return info; // Retornar para permitir manejar la promesa en otro lugar si es necesario
+            return info // Retornar para permitir manejar la promesa en otro lugar si es necesario
         })
         .catch((error) => {
-            console.error('Error sending welcome email:', error.message);
-            throw error;
-        });
+            console.error('Error sending welcome email:', error.message)
+            throw error
+        })
 }
 export default emailRegisterWelcome

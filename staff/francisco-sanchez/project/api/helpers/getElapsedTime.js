@@ -4,8 +4,6 @@ export default fromDateString => {
 
     const diff = now - date
 
-    console.log(typeof (diff) + ' ' + diff)
-
     const secs = Math.floor(diff / 1000)
     const mins = Math.floor(secs / 60)
     const hours = Math.floor(mins / 60)

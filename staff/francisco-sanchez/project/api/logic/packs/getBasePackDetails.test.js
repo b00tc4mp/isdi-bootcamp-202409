@@ -10,8 +10,6 @@ const basePackId = '67877fc0820328fdd78f6d21'
 
 try {
     const result = await getBasePackDetails(userId, basePackId)
-    console.log(result)
-
 } catch (error) {
     console.error(error)
 

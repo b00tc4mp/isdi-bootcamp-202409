@@ -78,11 +78,7 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
         onManageCustomersClick()
     };
 
-    // Calcula la URL de la imagen del perfil
-    const profileImageUrl = userDetails?.profileImage
-        ? `http://localhost:8080${userDetails.profileImage}`
-        : `http://localhost:8080/images/profile/profile1.jpeg`
-    console.log(profileImageUrl)
+    const profileImageUrl = logic.getProfileImage(userDetails)
 
     const isActive = (path) => location.pathname === path ? 'text-color_green font-bold' : 'hover:underline';
     console.log(isActive)

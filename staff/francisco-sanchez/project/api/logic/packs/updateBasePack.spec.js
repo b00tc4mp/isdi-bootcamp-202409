@@ -23,10 +23,8 @@ describe('updateBasePack', () => {
 
     it('succeeds on new basePack updated', async () => {
         const newUser = await User.create({ username: 'Risto', password: 'risto123', email: 'risto@risto.com' })
-        /*  console.log('user -> ' + newUser) */
 
         const newBasePack = await BasePack.create({ user: newUser._id.toString(), packName: 'pack de 5h', description: 'Descripción del pack', quantity: 5, unit: 'hours', expiringTime: 12, price: 1000, currency: 'EUR' })
-        /* console.log('basePack -> ' + newBasePack) */
 
         await updateBasePack(newUser._id.toString(), newBasePack._id.toString(), 'pack de 10h', 'Descripción updated del pack', 10, 'units', -1, 100, 'EUR')
 

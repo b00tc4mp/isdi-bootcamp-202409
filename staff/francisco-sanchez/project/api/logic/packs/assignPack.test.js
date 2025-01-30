@@ -22,13 +22,11 @@ const expiryDate = new Date(purchaseDate)
 
 expiryDate.setMonth(purchaseDate.getMonth() + addExpiringMonths)
 
-console.log(expiryDate)
 const status = 'Active'
 
 
 try {
     const result = await AssignPack(refPack, provider, customer, description, originalQuantity, remainingQuantity, unit, price, currency, purchaseDate, expiryDate, status)
-    console.log(result)
 
 } catch (error) {
     console.error(error)

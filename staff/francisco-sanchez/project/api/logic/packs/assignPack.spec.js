@@ -28,10 +28,8 @@ describe('assignPack', () => {
 
         const customerSearchByUsername = 'ristoCustomer'
         const customerSearchByEmail = 'ristoc@risto.com'
-        /*  console.log('user -> ' + newUser) */
 
         const newBasePack = await BasePack.create({ user: newUserProvider._id.toString(), packName: 'pack de 5h', description: 'Descripción del pack', quantity: 5, unit: 'hours', expiringTime: 12, price: 1000, currency: 'EUR' })
-        /* console.log('basePack -> ' + newBasePack) */
 
         const createdBasePack = await BasePack.findOne({ user: newUserProvider._id.toString() })
 

@@ -10,7 +10,6 @@ const packId = '6780fa7958255d20563d6a97'
 
 try {
     const result = await checkPackAndUpdate(packId)
-    //console.log(result)
 
 } catch (error) {
     console.error(error)

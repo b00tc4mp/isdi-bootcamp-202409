@@ -15,6 +15,9 @@ export default (userId, targetUserId) => {
                 .then(user => {
                     if (!user) throw new NotFoundError('targetUser not found')
 
+                    user.id = user._id.toString()
+                    delete user._id
+
                     return user
                 })
         })

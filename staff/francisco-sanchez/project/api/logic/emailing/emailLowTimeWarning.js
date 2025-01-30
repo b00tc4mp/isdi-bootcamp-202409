@@ -1,5 +1,5 @@
-import { sendEmail } from "./index.js";
-import { validate } from "com";
+import { sendEmail } from "./index.js"
+import { validate } from "com"
 import { getDecimalToTimeFormat } from "../../helpers/index.js"
 
 // Low time warning email
@@ -28,24 +28,23 @@ const emailLowTimeWarning = async (to, name, packDescription, packUnit, remainin
 We wanted to let you know that your pack "${packDescription}" is running low, with ** ${remainingFormatedlQtt} ** ${packUnit} remaining. 
 If you need more time or sessions, please contact your provider to renew or purchase a new pack.
 
-Thank you for choosing us!`;
+Thank you for choosing us!`
 
     const html = `<p>Hello ${name},</p>
 <p>We wanted to let you know that your pack <strong>"${packDescription}"</strong> is running low, with <strong>${remainingFormatedlQtt}</strong> ${packUnit} remaining.</p>
 <p>If you need more time or sessions, please contact your provider to renew or purchase a new pack.</p>
-<p>Thank you for choosing us!</p>`;
+<p>Thank you for choosing us!</p>`
 
 
 
     return sendEmail(to, subject, text, html)
         .then((info) => {
-            //console.log('Low time warning email sent:', info);
-            return info; // Retornar para manejar la promesa si es necesario
+            return info // Retornar para manejar la promesa si es necesario
         })
         .catch((error) => {
-            console.error('Error sending low time warning email:', error.message);
-            throw error;
-        });
-};
+            console.error('Error sending low time warning email:', error.message)
+            throw error
+        })
+}
 
-export default emailLowTimeWarning;
+export default emailLowTimeWarning

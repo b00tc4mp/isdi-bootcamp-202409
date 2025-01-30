@@ -31,8 +31,6 @@ export default (userId, packName, description, quantity, unit, expiringTime, pri
         try {
             await BasePack.create({ user: userId, packName, description, quantity, unit, expiringTime, price, currency })
         } catch (error) {
-            /*             console.log(error.code)
-                        console.error(error) */
             throw error
         }
     })()

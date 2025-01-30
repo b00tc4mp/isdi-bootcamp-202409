@@ -25,8 +25,6 @@ try {
         price,
         currency
     )
-    //console.log(result)
-
 } catch (error) {
     console.error(error)
 

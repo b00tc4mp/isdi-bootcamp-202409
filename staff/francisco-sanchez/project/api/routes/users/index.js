@@ -20,6 +20,6 @@ usersRouter.get('/customers', authorizationHandler, getCustomersHandler)
 usersRouter.get('/customerpacks/:customerId', authorizationHandler, getCustomerPacksHandler)
 usersRouter.get('/user/:targetUserId', authorizationHandler, getUserDetailsHandler)
 usersRouter.put('/update/:targetUserId', authorizationHandler, jsonBodyParser, updateUserHandler)
-
+//usersRouter.get('/images/profile:imageUrl')
 
 export default usersRouter

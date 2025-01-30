@@ -127,10 +127,6 @@ describe('toggle Time Tracker', () => {
         expect(checkpackAssigned2.descriptionActivityTemp).to.equal('test to start/stop timer')
 
 
-        setTimeout(() => {
-            console.log('Proceso después de esperar 5 segundos')
-        }, 5000)
-
         const stopTimmer = await toggleTimeTracker(newUserProvider._id.toString(), checkpackAssigned._id.toString(), newUserCustomer._id.toString(), 'test to start/stop timer', 'substract')
         const checkpackAssigned3 = await Pack.findOne({ provider: newUserProvider._id.toString() })
 

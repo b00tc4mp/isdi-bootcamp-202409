@@ -11,8 +11,6 @@ import logoTemp from '../../public/logoTemp.png'
 import { Button, Field, Input, Label, Image } from '../library'
 
 export default function Login(props) {
-    console.log('Login -> render')
-
     const { alert } = useContex()
 
     const handleSubmit = event => {

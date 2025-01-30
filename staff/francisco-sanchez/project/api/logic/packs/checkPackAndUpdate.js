@@ -10,7 +10,6 @@ export default async (packId) => {
     try {
         // Busca el BasePack por su ID
         const packInfo = await Pack.findById(packId).lean()
-        //console.log(packInfo)
 
         // Si no se encuentra, lanza un error
         if (!packInfo) {
@@ -57,16 +56,12 @@ export default async (packId) => {
         twoMonthsFromNow.setMonth(currentDate.getMonth() + 2)
 
         if (expiryDate <= twoMonthsFromNow && expiryDate >= currentDate) {
-            //console.log('enviaré un email avisando de caducidad cercana')
-
             await emailNearExpiryTime(userInfo.email, userInfo.name, packInfo.description, packInfo.expiryDate)
         }
 
 
         // 4. Validar si expiryDate ya ha pasado
         if (expiryDate < currentDate) {
-            //console.log('enviaré un email avisando que el pack ha caducado y actualizaré el status')
-
             await emailExpirationWarning(userInfo.email, userInfo.name, packInfo.description, packInfo.expiryDate)
 
             // Actualizar el estado del pack

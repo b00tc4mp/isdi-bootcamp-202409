@@ -13,7 +13,6 @@ export default (userId) => {
             return BasePack.find({ user: userId })
                 .lean() // Usamos `.lean()` para convertir los documentos de Mongoose en objetos JavaScript simples.
                 .then(basePack => {
-                    //console.log('Fetched basePack:', basePack);
                     //Este return lo tenemos que poner porqué sinó el segundo .then falla
                     return basePack
                 })

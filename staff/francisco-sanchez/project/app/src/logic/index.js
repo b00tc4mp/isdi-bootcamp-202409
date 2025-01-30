@@ -43,9 +43,13 @@ import {
 import {
     getDecimalToTimeFormat,
     getFormattedDate,
-    getTimeFormatFromDecimal
+    getTimeFormatFromDecimal,
+    getProfileImage,
 } from './helpers'
 
+import {
+    getUserStats,
+} from './home'
 
 const logic = {
     //Users
@@ -77,6 +81,7 @@ const logic = {
     getDecimalToTimeFormat,
     getFormattedDate,
     getTimeFormatFromDecimal,
+    getProfileImage,
 
     //Tracker
     toggleTimeTracker,
@@ -87,7 +92,10 @@ const logic = {
     //Payments
     getPayments,
     addPayment,
-    deletePayment
+    deletePayment,
+
+    //Home
+    getUserStats
 }
 
 export default logic
