@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logic from '../../logic/log/index.js';
-import { Label, Button, Form, Field } from '../library/index.js';
-/* import { formatDate } from '../../util'; */
 
-export default function LogBook({ onCreated }) {
+export default function LogBook() {
   console.log('LogBook -> render');
+
+  const navigate = useNavigate()
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -37,6 +37,7 @@ console.log(date, depth)
         tankBar, feeling, diveCenter, notes
       ) 
       .then(alert('Log created successfully'))
+      navigate('/home')
     } catch (error) {
       alert(error.message);
       console.error(error);

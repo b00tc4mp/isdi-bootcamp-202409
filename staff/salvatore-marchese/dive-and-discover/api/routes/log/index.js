@@ -17,7 +17,7 @@ logsRouter.post('/users/diver/log-book', authorizationHandler, createLogHandler)
 
 
 //Update - Update a log 
-logsRouter.put('/:id', authorizationHandler, updateLogHandler )
+logsRouter.put('/:logbookId', authorizationHandler, updateLogHandler )
 
 
 //Delete - Delete a log

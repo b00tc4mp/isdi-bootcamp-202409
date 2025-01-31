@@ -1,31 +1,41 @@
 import { User, LogBook } from "dat"
 import { validate, errors } from "com"
+import castLogbookData from "../../utils/parseInfo.js"
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, logbookId, updateData) => {
-    try {
-        // Validate IDs
-        validate.id(userId, 'userId')
-        validate.logbook(logbookId, 'logbookId')
+export default (userId, logbookId, updateData) => {
+    validate.id(userId, 'userId')
+    validate.id(logbookId, 'logbookId')
+    validate.updateData(updateData, 'updateData')
 
-        // Fetch the user
-        const user = await User.findById(userId)
-        if (!user) throw new NotFoundError('user not found')
+    return (async () => {
+        let user, logbook
 
-        // Fetch the logbook
-        const logbook = await LogBook.findById(logbookId)
-        if (!logbook) throw new NotFoundError('logbook not found')
-
-        // Update the logbook
-        const updatedLogbook = await LogBook.findByIdAndUpdate(logbookId, { $set: updateData }, { new: true })
-        if (updatedLogbook) {
-            return updatedLogbook
-        } else {
-            throw new Error('logbook not found after update attempt')
+        try {
+            // Fetch the user
+             user = await User.findById(userId)
+        } catch (error) {
+            throw new SystemError(error.message)
         }
-    } catch (error) {
-        console.error('Error processing the request:', error) // Optional: for debugging
-        throw new SystemError(error.message)
-    }
+
+         if (!user) throw new NotFoundError('user not found')
+    
+         try {
+            // Fetch the logbook
+            logbook = await LogBook.findById(logbookId)
+         } catch (error) {
+            throw new SystemError(error.message)
+        }   
+        if (!logbook) throw new NotFoundError('logbook not found')
+            
+            const parsedData = castLogbookData(updateData)    
+            
+            try {
+                // Update the logbook
+                await LogBook.findByIdAndUpdate(logbookId, { $set: parsedData }, { new: true })    
+            } catch (error) {
+                throw new SystemError(error.message)
+            }        
+    })()
 }

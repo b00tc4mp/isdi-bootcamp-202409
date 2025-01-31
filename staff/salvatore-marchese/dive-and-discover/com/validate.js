@@ -56,7 +56,9 @@ const validateCountry = country => {
 }
 
 const validateCity = city => {
-    if (typeof city !== 'string') throw new ValidationError('invalid city');
+    if (!city || typeof city !== 'string') {
+        return res.status(400).json({ error: 'City is required and must be a string' });
+      };
     if (city.trim() === '') throw new ValidationError('city cannot be empty');
     if (city.length < 2) throw new ValidationError('city name is too short');
     if (city.length > 100) throw new ValidationError('city name is too long');
@@ -131,17 +133,6 @@ const validateWeather = (weather) => {
 
     // Trim whitespace before performing the length check
     const trimmedWeather = weather.trim();
-
-    /* // Ensure the weather description is between 3 and 50 characters
-    if (trimmedWeather.length < 3 || trimmedWeather.length > 50) {
-        throw new Error('Weather description must be between 3 and 50 characters');
-    } */
-
-    /* // Ensure the weather description contains only letters and spaces
-    const regex = /^[A-Za-z\s]+$/;
-    if (!regex.test(trimmedWeather)) {
-        throw new Error('Weather description must contain only letters and spaces');
-    } */
 };
 
 const validateTemperature = (temperature) => {
@@ -287,6 +278,65 @@ const validateText = {
     }
 };
 
+const validateUpdateData = (data) => {
+    const validFields = {
+      date: "Date",
+      depth: "Number",
+      time: "Number",
+      temperature: "Number",
+      wetSuit: "Number",
+      weight: "Number",
+      tankSize: "Number",
+      tankBar: "Number",
+      feeling: "String",
+      weather: "String",
+      visibility: "String",
+      waves: "String",
+      diveCenter: "String",
+      diveSite: "String",
+      notes: "String",
+    };
+  
+    const errors = [];
+  
+    for (const key in data) {
+      if (!(key in validFields)) {
+        errors.push(`Invalid field: ${key}`);
+        continue;
+      }
+  
+      const expectedType = validFields[key];
+      const value = data[key];
+  
+      switch (expectedType) {
+        case "Date":
+          if (isNaN(new Date(value).getTime())) {
+            errors.push(`Invalid value for ${key}: expected a valid Date.`);
+          }
+          break;
+  
+        case "Number":
+          if (isNaN(Number(value))) {
+            errors.push(`Invalid value for ${key}: expected a Number.`);
+          }
+          break;
+  
+        case "String":
+          if (typeof value !== "string") {
+            errors.push(`Invalid value for ${key}: expected a String.`);
+          }
+          break;
+  
+        default:
+          errors.push(`Unknown validation type for ${key}.`);
+      }
+    }
+  
+    if (errors.length > 0) {
+      throw new Error(`Validation failed: ${errors.join(", ")}`);
+    }
+  };
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -316,6 +366,7 @@ const validate = {
     notes: validateNotes,
     profileData: validateProfile,
     text: validateText,
+    updateData: validateUpdateData,
 }
 
 export default validate

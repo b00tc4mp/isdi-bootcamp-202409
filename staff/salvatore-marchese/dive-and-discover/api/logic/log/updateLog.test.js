@@ -1,31 +1,30 @@
 import 'dotenv/config'
-import db, { User } from 'dat'
+import db from 'dat'
 import updateLog from './updateLog.js'
 
 
 const data = {
     diver: ['67503f6a10182798c1418773'],
-    date: '01-09-2024',
-    depth: '18mt',
-    time: '45min',
+    date: '01-17-2024',
+    depth: '10',
+    time: '30',
     weather: 'Sunny',
-    temperature: 24,
+    temperature: '24',
     visibility: 'Good',
     waves: 'Low',
-    wetSuit: '5mm',
-    weight: '6kg',
-    tankSize: '12L',
-    tankBar: 200,
+    wetSuit: '5',
+    weight: '6',
+    tankSize: '12',
+    tankBar: '200',
     feeling: 'Amazing',
     diveCenter: 'Tossa Divers',
-    diveSite: 'Tossa de Mar',
-    notes: 'First dive in Costa Brava, perfect'
+    diveSite: 'Barceloneta',
+    notes: 'Muchos cegarro amego'
 }
 
 try {
     await db.connect(process.env.MONGO_URL_TEST)
-    const result = await updateLog('67503f6a10182798c1418773', data)
-    console.log(result)
+    await updateLog('676310ec365df2fb2590cf5e', '6765d2b1da01678bbab8b023',data)
 } catch (error) {
     console.error(error)
 } finally {

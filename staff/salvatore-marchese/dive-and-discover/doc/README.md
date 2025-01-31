@@ -100,7 +100,7 @@ The home screen and Discover section highlight critical functionalities, providi
   - address (string, optional)
   - openingHours (string, optional)
   - website (string, optional)
-  - photo (image, optional)
+  - photo (image, optional)v0.1
 
   ### Log
  - diver (User.id)
@@ -121,7 +121,7 @@ The home screen and Discover section highlight critical functionalities, providi
  - notes (string, maxLength 400 optional)
     
 
-### Place
+### Place(v0.1)
   - id (UUID)
   - country (string)
   - city (string)
@@ -129,7 +129,7 @@ The home screen and Discover section highlight critical functionalities, providi
   - text (text, optional, maxLength 600)
   - location (Location)
 
-### Location
+### Location(v0.1)
 - id (UUID)
 - coordinates ([number])
 

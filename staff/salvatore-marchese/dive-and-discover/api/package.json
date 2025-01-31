@@ -7,10 +7,10 @@
   "scripts": {
     "start": "node index.js",
     "inspect": "node --inspect-brk .",
-    "test": "mocha logic/*.spec.js",
-    "test-inspect": "mocha --inspect-brk logic/*.spec.js",
+    "test": "mocha --recursive 'logic/**/*.spec.js'",
+    "test-inspect": "mocha --inspect-brk --recursive 'logic/**/*.spec.js'",
     "test-one": "mocha",
-    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js --timeout 20000"
+    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha --recursive 'logic/**/*.spec.js' --timeout 20000"
   },
   "keywords": [],
   "author": "",

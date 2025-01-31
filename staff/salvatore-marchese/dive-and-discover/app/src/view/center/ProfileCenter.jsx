@@ -5,12 +5,12 @@ import logic from '../../logic/users'
 
 import { extractPayloadFromJWT } from "../../util";
 
-const FormField = ({ fieldKey, label, value, onChange }) => {
+const FormField = ({ fieldKey, label, value = '', onChange }) => {
     return (
         <>
             <label htmlFor={fieldKey} className="block text-sm font-semibold mb-1">{label}
             </label>
-            <input type="text" id={fieldKey} name={fieldKey} value={value} onChange={onChange} className="w-full p-2 border rounded.md" />
+            <input type="text" id={fieldKey} name={fieldKey} value={value || ''}onChange={onChange} className="w-full p-2 border rounded.md" />
         </>
     )
 }
@@ -153,7 +153,7 @@ const ProfileCenter = () => {
                                     >
                                         <FormField
                                             fieldKey={`openTime-${index}`}
-                                            label={`Opening Time (Day ${getDayString(field)})`}
+                                            label={`Opening Time/Morning shift (Day ${getDayString(field)})`}
                                             placeholder="Opening"
                                             value={form[field]?.openTime || ""}
                                             onChange={(e) => {
@@ -165,7 +165,7 @@ const ProfileCenter = () => {
                                         />
                                         <FormField
                                             fieldKey={`closeTime-${index}`}
-                                            label={`Closing Time (Day ${getDayString(field)})`}
+                                            label={`Closing Time/Afternoon shift (Day ${getDayString(field)})`}
                                             placeholder="Closing"
                                             value={form[field]?.closeTime || ""}
                                             onChange={(e) => {

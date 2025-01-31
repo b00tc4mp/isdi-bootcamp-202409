@@ -100,7 +100,7 @@ const Search = () => {
               <h3 className="text-xl font-semibold text-blue-600 mb-4">Search Results:</h3>
               <ul className="space-y-4">
                 {results.map((center) => (
-                  <li key={center._id} className="p-4 border border-gray-300 rounded-lg shadow-md">
+                  <li key={center.id} className="p-4 border border-gray-300 rounded-lg shadow-md">
                     <h4 className="text-lg font-bold text-blue-700 underline"
                     >
                       <a onClick={() => openModal(center)}>{center.name}</a>

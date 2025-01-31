@@ -25,12 +25,5 @@ export default (req, res, next) => {
         // Handle -specific errors
         return res.status(500).json({ success: false, error: 'Failed to authenticate token.', authError: true });
 
-/*         if (error.name === 'TokenExpiredError') {
-            next(new AuthorizationError('Token has expired'))
-        } else if (error.name === 'JsonWebTokenError') {
-            next(new AuthorizationError('Invalid token'))
-        } else {
-            next(new AuthorizationError(error.message))
-        } */
     }
 }

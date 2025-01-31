@@ -4,7 +4,7 @@ const { SystemError } = errors
 
 export default async (logbookId, { date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes }) => {
     validate.id(logbookId, 'logbookId')
-    validate.date(date)
+    validate.date(new Date(date))
     validate.depth(depth)
     validate.time(time)
     validate.weather(weather)

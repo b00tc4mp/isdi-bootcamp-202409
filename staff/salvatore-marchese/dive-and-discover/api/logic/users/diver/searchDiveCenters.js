@@ -1,28 +1,37 @@
-import { User } from 'dat'; 
+import { User } from 'dat';
 import { validate, errors } from 'com'; // Common validation and errors
 
 const { ValidationError, NotFoundError, SystemError } = errors;
 
-export default async (city) => {
-    try {
-        // Validate the input city
-        if (typeof city !== 'string' || city.trim().length === 0) {
-            throw new ValidationError('Invalid city name');
-        }
+export default (userId, city) => {
+    validate.id(userId, 'userId');
+    validate.city(city, 'city');
 
-        let normalizedCity = city.trim().toLowerCase(); // Normalize city name
-        normalizedCity = normalizedCity[0].toUpperCase()+normalizedCity.substring(1)
+    const normalizedCity = city
+        .trim() // Remove leading/trailing spaces
+        .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+        .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize first letter of each word
 
-        // Query the database for dive centers in the specified city
-        const diveCenters = await User.find({ city: normalizedCity, role: 'center' }).lean();
+    // Create a regex pattern to match partial city names (e.g., "Tossa" for "Tossa de Mar")
+    const cityRegex = new RegExp(`\\b${normalizedCity}\\b`, 'i'); // Case-insensitive match
 
-        if (!diveCenters || diveCenters.length === 0) {
-            throw new NotFoundError(`No dive centers found in ${city}`);
-        }
+    return Promise.all([
+        User.findById(userId).lean(),
+        User.find({ city: { $regex: cityRegex }, role: 'center' }).lean()
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(([user, diveCenters]) => {
+            if (!user) throw new NotFoundError('user not found');
 
-        return diveCenters; // Return the list of dive centers
-    } catch (error) {
-        console.error('Error in searchDiveCenters:', error);
-        throw new SystemError(error.message);
-    }
+            if (!diveCenters || diveCenters.length === 0) {
+                throw new NotFoundError(`No dive centers found in ${city}`);
+            }
+
+            diveCenters.forEach(diveCenter => {
+                diveCenter.id = diveCenter._id.toString();
+                delete diveCenter._id;
+            });
+
+            return diveCenters;
+        });
 };

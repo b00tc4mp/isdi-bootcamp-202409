@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import updateLog from "../../logic/log/updateLog.js"
 import getLog from "../../logic/log/getLog.js"
-
-
-
+import logic from "../../logic/log/index.js";
 
 const EditLog = () => {
   const { logbookId } = useParams();
@@ -43,10 +40,10 @@ const EditLog = () => {
     e.preventDefault();
 
     try {
-      await updateLog(logbookId, logDetails);
+      await logic.updateLog(logbookId, logDetails);
       navigate("/dive-history");
     } catch (err) {
-      setError("Failed to update the log. Please try again.");
+      setError(err.message);
     }
   };
 
