@@ -8,7 +8,7 @@ await db.connect(process.env.MONGO_URL)
 
 try {
     //const result = await getCustomerPacks('67640e5e2568e5139854dd58') //fotocesc -- hourify-new
-    const result = await getCustomerPacks('678145af928a83cccb7de970') //virtuachezgif -- hourify-new2
+    const result = await getCustomerPacks('6780f8fe58255d20563d6a5f') //virtuachezgif -- hourify-new2
     console.log(result)
 } catch (error) {
     console.error(error)

@@ -15,7 +15,7 @@ export default async (userId, targetUserId) => {
         const user = await User.findById(targetUserId).lean()
         if (!user) throw new NotFoundError('targetUserId not found')
 
-        const customerPacks = await Pack.find({ customer: targetUserId }).lean()
+        const customerPacks = await Pack.find({ customer: targetUserId, provider: userId }).lean()
         if (!customerPacks || !customerPacks.length) throw new NotFoundError('There are not packs registered for this customer')
 
         //return customerPacks

@@ -112,7 +112,7 @@ const user = new Schema({
         type: String,
         required: true,
         enum: ['true', 'false', 'confirm account'],
-        default: 'true' //TODO: This will change soon
+        default: 'true'
     },
     customers: [{
         type: ObjectId, // Esto debe ser correcto
@@ -191,7 +191,18 @@ const basePack = new Schema({
         required: true,
         enum: ['EUR', 'USD'],
         default: 'EUR'
+    },
+
+    vat: {
+        type: Number,
+        required: false, //TODO: Ready to add Prices with VAT
+    },
+
+    priceWithVat: {
+        type: Number,
+        required: false,
     }
+
 }, { versionKey: false })
 
 

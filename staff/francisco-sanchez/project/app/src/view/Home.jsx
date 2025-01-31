@@ -74,38 +74,6 @@ export default function Home(props) {
                     <p className="text-color_strongGrey">Here are your stats and options to manage your business</p>
                 </header>
 
-
-                {/* Dashboard */}
-                {/* <section className="bg-white shadow-md rounded p-6 w-full max-w-4xl mb-8">
-                    <h3 className="text-xl font-bold text-color_darkBlue mb-4">Your Dashboard</h3>
-                    {stats ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div className="bg-color_lightBlue p-4 rounded-lg shadow-md text-center">
-                                <p className="text-xl font-bold">{stats.weeklySales}</p>
-                                <p className="text-color_darkGrey">Weekly Sales</p>
-                            </div>
-                            <div className="bg-color_lightGreen p-4 rounded-lg shadow-md text-center">
-                                <p className="text-xl font-bold">{stats.activePacks}</p>
-                                <p className="text-color_darkGrey">Active Packs</p>
-                            </div>
-                            <div className="bg-color_lightOrange p-4 rounded-lg shadow-md text-center">
-                                <p className="text-xl font-bold">{stats.totalCustomers}</p>
-                                <p className="text-color_darkGrey">Total Customers</p>
-                            </div>
-                            <div className="bg-color_lightRed p-4 rounded-lg shadow-md text-center">
-                                <p className="text-xl font-bold">{stats.expiringPacks}</p>
-                                <p className="text-color_darkGrey">Expiring Packs</p>
-                            </div>
-                            <div className="bg-color_lightPurple p-4 rounded-lg shadow-md text-center">
-                                <p className="text-xl font-bold">{stats.pendingPayments}</p>
-                                <p className="text-color_darkGrey">Pending Payments</p>
-                            </div>
-                        </div>
-                    ) : (
-                        <p>Loading your stats...</p>
-                    )}
-                </section> */}
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl justify-items-center">
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleTrackerClick}>Start tracking</Button>
                     <Button className="bg-color_green hover:bg-color_greenDark text-white" onClick={handleManagePacks}>Manage your packs</Button>

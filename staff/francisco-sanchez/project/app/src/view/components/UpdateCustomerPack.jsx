@@ -91,7 +91,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
     const handlePaymentSubmit = async (event) => {
         event.preventDefault()
         const { target: form } = event
-        const {
+        let {
             amount: { value: amount },
             paymentMethod: { value: paymentMethod } } = form
 
@@ -99,6 +99,11 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
             alert('Please provide the required information')
             return
         }
+
+        //Check correct format for price
+        let formattedAmount = amount.replace(',', '.')
+        formattedAmount = formattedAmount.replace('€', '')
+        amount = formattedAmount
 
         try {
             await logic.addPayment(pack.id, amount, pack.currency, paymentMethod)
@@ -148,6 +153,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         return <p>there was a problem loading customer pack</p>
     } else {
         console.log(pack)
+
         return <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow">
             <h2 className="text-2xl mb-4">"{pack.description}"</h2>
             <div className="flex flex-col w-full max-w-4xl px-4 space-y-6">
@@ -176,7 +182,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                     {parseFloat(pack.price) - parseFloat(pack.totalPayments) > 0 ? (
                         <Card
                             title="Pending Amount"
-                            value={parseFloat(pack.price) - parseFloat(pack.totalPayments) + ' ' + pack.currency || '0'}
+                            value={(parseFloat(pack.price) - parseFloat(pack.totalPayments)).toFixed(2) + ' ' + pack.currency || '0'}
                             valueClass="text-gray-800 text-red-500"
                         />) : null}
                     <Card
@@ -290,7 +296,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                         <form id='addPayment' onSubmit={handlePaymentSubmit} className='flex items-center pt-5 pb-5'>
                             <Field>
                                 <Label htmlFor="amount">Amount</Label>
-                                <Input className="border-2 rounded-lg" type="number" defaultValue={parseFloat(pack.price) - parseFloat(pack.totalPayments)} id="amount" placeholder="0" required={true} />
+                                <Input className="border-2 rounded-lg" type="text" defaultValue={(parseFloat(pack.price) - parseFloat(pack.totalPayments)).toFixed(2)} id="amount" placeholder="0" required={true} />
                             </Field>
                             <Field>
                                 <Label htmlFor="paymentMethod">Select Payment Method</Label>

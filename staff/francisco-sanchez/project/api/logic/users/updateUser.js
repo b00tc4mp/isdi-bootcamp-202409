@@ -10,6 +10,9 @@ export default (userId, targetUserId, username, email, name, surname1, surname2,
     validate.username(username)
     validate.email(email)
     validate.name(name)
+    if (dni !== undefined) validate.dni(dni)
+    if (surname1 !== undefined) validate.text(surname1, 'surname1')
+    if (surname2 !== undefined) validate.text(surname2, 'surname2')
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })

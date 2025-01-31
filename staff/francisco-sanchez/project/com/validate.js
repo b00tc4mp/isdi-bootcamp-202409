@@ -100,6 +100,19 @@ const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 }
 
+const validateDni = dni => {
+    if (typeof dni !== 'string') throw new ValidationError('invalid dni')
+    if (dni.length > 9) throw new ValidationError('dni is too long')
+    if (!/^[0-9]{8}[A-Z]$/i.test(dni))
+        throw new ValidationError('invalid dni')
+}
+
+/* const validateRestParameters = (parameters) => {
+    parameters.forEach(parameter => {
+        validate[]
+    })
+} */
+
 const validate = {
     name: validateName,
     packName: validatePackName,
@@ -118,7 +131,8 @@ const validate = {
     currency: validateCurrency,
     method: validateMethod,
     units: validateUnit,
-    quantity: validatequantity
+    quantity: validatequantity,
+    dni: validateDni
 }
 
 export default validate

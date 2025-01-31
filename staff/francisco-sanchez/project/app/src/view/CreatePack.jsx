@@ -19,7 +19,7 @@ export default function Create(props) {
 
         const { target: form } = event
 
-        const {
+        let {
             packName: { value: packName },
             packDescription: { value: packDescription },
             quantity: { value: quantity },
@@ -29,6 +29,10 @@ export default function Create(props) {
             currency: { value: currency }
         } = form
 
+        //Check correct format for price
+        let formattedPrice = price.replace(',', '.')
+        formattedPrice = formattedPrice.replace('€', '')
+        price = formattedPrice
 
         try {
             CreatePack(packName, packDescription, quantity, unit, expiringTime, price, currency)

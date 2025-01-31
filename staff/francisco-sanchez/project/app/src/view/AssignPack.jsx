@@ -41,7 +41,7 @@ export default function AssignPack(props) {
         //Get form fields values
         event.preventDefault()
         const { target: form } = event
-        const {
+        let {
             customerSearch: { value: customerSearch },
             selectPack: { value: selectPack },
             description: { value: description },
@@ -49,7 +49,12 @@ export default function AssignPack(props) {
             paymentMethod: { value: paymentMethod }
         } = form
 
-        //Finnally we call the assign function with all the retrieved information 
+
+        //Check correct format for price
+        let formattedPayedAmount = payedAmount.replace(',', '.')
+        formattedPayedAmount = formattedPayedAmount.replace('€', '')
+        payedAmount = formattedPayedAmount
+
         try {
             const assigned = await assignPack(customerSearch, selectPack, description, payedAmount, paymentMethod)
             alert('Pack successfully assigned to customer!', 'success')
