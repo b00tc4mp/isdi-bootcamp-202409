@@ -7,7 +7,6 @@ import {
 
 import {
     registerUserDiver,
-    createHomeDiver,
     getProfile,
     getUserName,
     searchDiveCenters,
@@ -17,7 +16,6 @@ import {
 
 import {
     registerUserCenter,
-    createHomeCenter,
     addOpeningHours,
     updateCenterInfo
 
@@ -35,8 +33,6 @@ const logic = {
     authenticateUser,
     registerUserDiver,
     registerUserCenter,
-    createHomeDiver,
-    createHomeCenter,
     getUser,
     getUserName,
     getProfile,

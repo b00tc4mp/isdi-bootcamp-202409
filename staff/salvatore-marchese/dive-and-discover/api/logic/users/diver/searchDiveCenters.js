@@ -1,5 +1,5 @@
 import { User } from 'dat';
-import { validate, errors } from 'com'; // Common validation and errors
+import { validate, errors } from 'com'; 
 
 const { ValidationError, NotFoundError, SystemError } = errors;
 

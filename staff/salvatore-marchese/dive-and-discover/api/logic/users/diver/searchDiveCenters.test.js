@@ -5,7 +5,7 @@ import  searchDiveCenters from './searchDiveCenters.js'
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-    const diveCenters = await searchDiveCenters('678a6889b72fae53da53a994', 'Barcelona')
+    const diveCenters = await searchDiveCenters('679cbba23dd31313f6ab5fc8', 'Barcelona')
 
     console.log(diveCenters)
 } catch (error) {
