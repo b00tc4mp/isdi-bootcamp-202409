@@ -7,8 +7,6 @@ await db.connect(process.env.MONGO_URL)
 const userId = '6762dba622333bfc20ee5487' //risto
 const targetUserId = '6762dba622333bfc20ee5487' //risto
 const targetUserIdDifferent = '67640e5e2568e5139854dd58' //fotocesc
-
-
 const username = 'risto'
 const email = 'evolucionayvive@gmail.com'
 const name = 'risto'
@@ -26,23 +24,6 @@ const number = '14'
 const flat = 2
 const legalName = 'new legal name s.l'
 const website = 'https://thegreatwebsite.com'
-/* const username = 'newUserName'
-const email = 'newemail@new.com'
-const name = 'new name'
-const surname1 = 'New Surname 1'
-const surname2 = 'New Surname 2'
-const dni = '47822716N'
-const biography = 'new text for the user bio'
-const country = 'Spain'
-const province = 'Tarragona'
-const city = 'Alcanar'
-const postalCode = '43530'
-const address1 = 'aspirantat sant jordi'
-const address2 = ''
-const number = '14'
-const flat = 2
-const legalName = 'new legal name s.l'
-const website = 'https://thegreatwebsite.com' */
 
 
 try {

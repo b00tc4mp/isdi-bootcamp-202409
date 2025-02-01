@@ -28,7 +28,6 @@ export default (name, email, username, password, passwordRepeat, plan, planExpir
     if (creationStatus === undefined)
         creationStatus = 'true'
 
-
     return (async () => {
         let hash
 

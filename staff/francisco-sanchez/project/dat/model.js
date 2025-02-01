@@ -21,7 +21,8 @@ const user = new Schema({
         type: String,
         required: true,
         unique: true,
-        match: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+        match: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+        maxLength: 255,
     },
     plan: {
         type: String,
@@ -69,34 +70,42 @@ const user = new Schema({
     country: {
         type: String,
         required: false,
+        maxLength: 50,
     },
     province: {
         type: String,
         required: false,
+        maxLength: 50,
     },
     city: {
         type: String,
         required: false,
+        maxLength: 50,
     },
     postalCode: {
         type: String,
         required: false,
+        maxLength: 10
     },
     address1: {
         type: String,
         required: false,
+        maxLength: 255,
     },
     address2: {
         type: String,
         required: false,
+        maxLength: 255,
     },
     number: {
         type: String,
         required: false,
+        maxLength: 3
     },
     flat: {
         type: Number,
         required: false,
+        maxLength: 3
     },
     legalName: {
         type: String,
@@ -132,7 +141,8 @@ const user = new Schema({
     profileImage: {
         type: String,
         required: false,
-        default: ''
+        default: '',
+        maxLength: 512,
     }
 }, { versionKey: false })
 
@@ -380,6 +390,11 @@ const payment = new Schema({
         enum: ['pending', 'completed', 'partially payed', 'canceled', 'refunded', 'partially refunded', 'expired'],
         default: 'pending'
     },
+
+    reference: {
+        type: String,
+        required: false,
+    }
 
     /*     type: {
             type: String,

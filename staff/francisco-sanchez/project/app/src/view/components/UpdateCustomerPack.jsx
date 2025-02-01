@@ -268,6 +268,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                         <thead>
                             <tr className='bg-color_Grey'>
                                 <th className="border px-4 py-2">Date</th>
+                                <th className="border px-4 py-2">Reference</th>
                                 <th className="border px-4 py-2">Amount</th>
                                 <th className="border px-4 py-2">Method</th>
                                 <th className="border px-4 py-2">Actions</th>
@@ -279,6 +280,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
 
                                 <tr key={payment?.id}>
                                     <td className='border px-4 py-2'>{new Date(payment?.date).toLocaleDateString()}</td>
+                                    <td className='border px-4 py-2'></td>
                                     <td className='border px-4 py-2'>{payment?.amount} {payment?.currency}</td>
                                     <td className='border px-4 py-2'>{payment?.method}</td>
                                     <td className='border px-4 py-2'>
@@ -297,6 +299,10 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                             <Field>
                                 <Label htmlFor="amount">Amount</Label>
                                 <Input className="border-2 rounded-lg" type="text" defaultValue={(parseFloat(pack.price) - parseFloat(pack.totalPayments)).toFixed(2)} id="amount" placeholder="0" required={true} />
+                            </Field>
+                            <Field>
+                                <Label htmlFor="reference">Reference</Label>
+                                <Input className="border-2 rounded-lg" type="text" id="reference" placeholder="Payment reference" required={false} />
                             </Field>
                             <Field>
                                 <Label htmlFor="paymentMethod">Select Payment Method</Label>

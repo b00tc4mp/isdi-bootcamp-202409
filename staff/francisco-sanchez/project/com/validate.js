@@ -21,6 +21,13 @@ const validateDescription = description => {
     }
 }
 
+const validateBio = bio => {
+    if (typeof bio !== 'string') throw new ValidationError('Invalid biography')
+    if (bio.length > 1000) {
+        throw new ValidationError('Biography max length exceded, max 1000 chars.');
+    }
+}
+
 const validateDate = date => {
     if (!(date instanceof Date)) {
         throw new ValidationError('Invalid date: the value must be a valid Date object.');
@@ -46,9 +53,16 @@ const validateEmail = email => {
         throw new ValidationError('invalid email')
 }
 
+const validateUrl = url => {
+    if (typeof url !== 'string') throw new ValidationError('invalid url')
+    if (url.length > 254) throw new ValidationError('url is too long')
+    if (!/^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(\/[^\s]*)?$/i.test(url))
+        throw new ValidationError('invalid url')
+}
+
 const validateUsername = username => {
     if (typeof username !== 'string') throw new ValidationError('invalid username')
-    if (username.length < 4 || username.length > 25)
+    if (username.length < 5 || username.length > 25)
         throw new ValidationError('Username should be between 4 to 25 chars')
 }
 
@@ -80,6 +94,11 @@ const validateImage = image => {
 
 const validateText = (text, explain = 'text') => {
     if (typeof text !== 'string') throw new ValidationError(`invalid text ${explain}`)
+}
+
+const validateGenericField = (text, maxLength, explain = 'text') => {
+    if (typeof text !== 'string') throw new ValidationError(`invalid ${explain}`)
+    if (text.length > maxLength) throw new ValidationError(`invalid ${explain} length`)
 }
 
 const validateUnit = (text) => {
@@ -132,7 +151,10 @@ const validate = {
     method: validateMethod,
     units: validateUnit,
     quantity: validatequantity,
-    dni: validateDni
+    dni: validateDni,
+    bio: validateBio,
+    generic: validateGenericField,
+    url: validateUrl
 }
 
 export default validate
