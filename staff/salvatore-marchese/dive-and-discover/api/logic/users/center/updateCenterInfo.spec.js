@@ -4,58 +4,64 @@ import chaiAsPromised from 'chai-as-promised'
 
 import db, { User } from 'dat'
 import { errors } from 'com'
-import updateProfile from './updateProfile.js'
+import updateCenterInfo from './updateCenterInfo.js'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
 const { NotFoundError, SystemError } = errors
 
-describe('updateProfile', () => {
+describe('updateCenterInfo', () => {
+    let user;
+
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(async () => {
+        // Clear the database before each test
         await User.deleteMany()
-    })
 
-    it('should update user profile successfully', async () => {
-        // Create a user to be updated
-        const user = await User.create({ 
-            name: 'Salva', 
-            email: 'salva@test.com', 
-            password: 'salva123', 
-            role: 'diver' 
+        // Create user to be updated
+        user = await User.create({
+            name: 'Tossa Divers',
+            email: 'tossadivers@test.com',
+            password: '123123123',
+            role: 'center',
+            address: 'Avenida del Mar, 1',
+            country: 'Spain',
+            city: 'Tortosa',
+            postcode: '17320',
+            telephone: '972123456',
         })
-
-        const data = { name: 'John', email: 'nemo2@gmail.com' }
-
-        // Call the updateProfile function
-        const updatedUser = await updateProfile(user.id, data)
-
-        // Check if the updated user contains the new data
-        expect(updatedUser.name).to.equal('John')
-        expect(updatedUser.email).to.equal('nemo2@gmail.com')
     })
 
-    it('should throw NotFoundError if user does not exist', async () => {
-        const data = { name: 'John', email: 'nemo2@gmail.com' }
-        
-        // Try to update a non-existing user (using a random ID)
-        await expect(updateProfile('67503f6a10182798c1418773', data))
-            .to.be.rejectedWith(NotFoundError, 'user not found')
+    it('should update user information successfully', async () => {
+        const data = { name: 'Tossa Super Divers', city: 'Tossa de Mar', telephone: '9726543210' }
+
+        const updatedUser = await updateCenterInfo(user._id.toString(), data)
+
+        expect(updatedUser.name).to.equal('Tossa Super Divers')
+        expect(updatedUser.city).to.equal('Tossa de Mar')
+        expect(updatedUser.telephone).to.equal('9726543210')
     })
 
-    it('should throw SystemError for any internal errors', async () => {
-        // Simulate an error in the database
-        const originalFindById = User.findById
-        User.findById = () => { throw new Error('Database connection failed') }
+    it('should throw NotFoundError when user does not exist', async () => {
+        const data = { name: 'Madrid Divers', city: 'Madrid' }
 
-        const data = { name: 'John', email: 'nemo2@gmail.com' }
-        
-        await expect(updateProfile('67503f6a10182798c1418773', data))
-            .to.be.rejectedWith(SystemError, 'Database connection failed')
+        await expect(updateCenterInfo('605c72ef8cfa4a3d60e3a53', data))
+            .to.be.rejectedWith(NotFoundError, 'User not found')
+    })
 
-        // Restore the original method to avoid side effects for other tests
-        User.findById = originalFindById
+    it('should throw SystemError for invalid email', async () => {
+        const data = { email: 'invalid@email' }
+
+        await expect(updateCenterInfo(user._id.toString(), data))
+            .to.be.rejectedWith(SystemError, 'Invalid email')
+    })
+
+    it('should throw SystemError for empty name', async () => {
+        const data = { name: '' }
+
+        await expect(updateCenterInfo(user._id.toString(), data))
+            .to.be.rejectedWith(SystemError, 'Name cannot be empty')
     })
 
     after(() => db.disconnect())

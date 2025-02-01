@@ -1,7 +1,5 @@
 import {
     authenticateUser,
-    getUser,
-    updateProfile,
     
 } from './users/index.js'
 
@@ -9,6 +7,7 @@ import {
     registerUserDiver,
     getProfile,
     getUserName,
+    updateProfile,
     searchDiveCenters,
     getFaunaFloraByCity,
 
@@ -17,7 +16,8 @@ import {
 import {
     registerUserCenter,
     addOpeningHours,
-    updateCenterInfo
+    updateCenterInfo,
+    getUserCenter
 
 } from './users/center/index.js'
 
@@ -33,10 +33,11 @@ const logic = {
     authenticateUser,
     registerUserDiver,
     registerUserCenter,
-    getUser,
     getUserName,
     getProfile,
+    getUserCenter,
     updateProfile,
+    updateCenterInfo,
     addOpeningHours,
     searchDiveCenters,
     getFaunaFloraByCity,
@@ -46,10 +47,6 @@ const logic = {
     deleteLog,
     updateLog,
     getLog,
-
-    updateCenterInfo
-
-    
 }
 
 export default logic 

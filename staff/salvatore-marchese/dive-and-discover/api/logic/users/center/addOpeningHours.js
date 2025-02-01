@@ -1,7 +1,9 @@
 import { User, OpeningHours } from 'dat'
-import { validate, /* validateText, */ errors } from 'com'
+import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
+
+const { validateText } = validate
 
 //(userId, data)
 /*

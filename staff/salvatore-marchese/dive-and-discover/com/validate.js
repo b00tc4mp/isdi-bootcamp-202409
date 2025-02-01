@@ -259,10 +259,10 @@ const validateProfile = (data) => {
     })
 }
 
-const validateText = {
+/* const validateText = {
     text: (value, fieldName) => {
         // Check if the value is not null or undefined
-        if (value == null) {
+        if (value === null) {
             throw new Error(`${fieldName} cannot be null or undefined`);
         }
 
@@ -273,6 +273,27 @@ const validateText = {
 
         // Trim leading and trailing spaces and ensure it's not an empty string
         if (value.trim() === '') {
+            throw new Error(`${fieldName} cannot be an empty string`);
+        }
+    }
+};
+ */
+
+const validateText = {
+    text: (value, fieldName) => {
+        // Check if the value is null or undefined
+        if (value === null || value === undefined) {
+            throw new Error(`${fieldName} cannot be null or undefined`);
+        }
+
+        // Ensure the value is a string
+        if (typeof value !== 'string') {
+            throw new Error(`${fieldName} must be a string`);
+        }
+
+        // Trim leading and trailing spaces and ensure it's not an empty string
+        const trimmedValue = value.trim();
+        if (trimmedValue === '') {
             throw new Error(`${fieldName} cannot be an empty string`);
         }
     }

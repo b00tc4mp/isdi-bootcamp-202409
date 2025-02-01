@@ -5,7 +5,7 @@ import registerUserCenter from './registerUserCenter.js'
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-    const user = await registerUserCenter('DiveCenterTest', 'divecenter@test.com', '123123123', '123123123', 'seawater street 1', 'Spain', 'Barcelona', '08001','698099873', 'center')
+    const user = await registerUserCenter('Tossa Super Diver', 'divertossa@test.com', '123123123', '123123123', 'Seafront street, 1', 'Spain', 'Tossa de Mar', '17320','698055873', 'center')
 
     console.log(user)
 } catch (error) {
