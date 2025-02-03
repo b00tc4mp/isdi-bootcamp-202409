@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Basic m2ey7tvjg0t' -H 'Content-Type: application/json' -d '{"image":"https://images.unsplash.com/photo-1566679056462-2075774c8c07?q=80&w=3130&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D","text":"I love mountains"}' http://localhost:8080/posts -v
