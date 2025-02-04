@@ -11,13 +11,13 @@ export default (userId, packId, customerId, description, timeAdjust) => {
     validate.id(packId, 'packId')
     validate.id(userId, 'userId')
     validate.id(customerId, 'customerId')
+    validate.description(description)
 
     return User.findById(userId)
         .then((user) => {
             if (!user) {
                 throw new NotFoundError('user not found')
             }
-
             return Pack.findById(packId)
         })
         .then((pack) => {
@@ -28,8 +28,9 @@ export default (userId, packId, customerId, description, timeAdjust) => {
             const invalidStatuses = ['Finished', 'Pending', 'Expired']
             const currentDate = new Date()
             const expiryDate = new Date(pack.expiryDate)
-
             const defaultDescription = 'No description'
+
+            //TODO: Frank --> Esto debería estar en los validates? En principio no lo utilizo en ningún sitio mas, por lo que no le veo mucho sentido en hacerlo. 
             if (description === undefined || description === '') {
                 description = defaultDescription
             }

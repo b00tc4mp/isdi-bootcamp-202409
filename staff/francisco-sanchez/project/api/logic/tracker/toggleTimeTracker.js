@@ -12,6 +12,12 @@ export default (userId, packId, customerId, description, operation) => {
     validate.id(packId, 'packId')
     validate.id(userId, 'userId')
     validate.id(customerId, 'customerId')
+    validate.description(description)
+
+    const defaultDescription = 'No description'
+    if (description === undefined || description === '') {
+        description = defaultDescription
+    }
 
     return Pack.findById(packId)
         .catch(error => { throw new SystemError(error.message) })

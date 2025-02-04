@@ -126,11 +126,19 @@ const validateDni = dni => {
         throw new ValidationError('invalid dni')
 }
 
-/* const validateRestParameters = (parameters) => {
-    parameters.forEach(parameter => {
-        validate[]
-    })
-} */
+const validateExpiringTime = expiringTime => {
+    if (typeof expiringTime !== 'string') throw new ValidationError('invalid expiring time')
+    const number = Number(expiringTime)
+    if (expiringTime === 0) { throw new ValidationError('you must add an expiring time') }
+    if (expiringTime < -1 || (expiringTime !== 0 && expiringTime > 12)) { throw new ValidationError('Expiring time must be between 1 to 12 months.') }
+}
+
+const validateStatus = status => {
+    if (typeof status !== 'string') throw new ValidationError('invalid status')
+    const validStatuses = ['Pending', 'Active', 'Expired', 'Finished']
+    if (validStatuses.includes(status) === false) { throw new ValidationError('Invalid provided status') }
+
+}
 
 const validate = {
     name: validateName,
@@ -154,7 +162,9 @@ const validate = {
     dni: validateDni,
     bio: validateBio,
     generic: validateGenericField,
-    url: validateUrl
+    url: validateUrl,
+    expiring: validateExpiringTime,
+    status: validateStatus
 }
 
 export default validate

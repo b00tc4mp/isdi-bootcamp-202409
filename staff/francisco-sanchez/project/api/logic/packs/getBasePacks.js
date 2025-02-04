@@ -11,9 +11,8 @@ export default (userId) => {
             if (!user) throw new NotFoundError('user not found')
 
             return BasePack.find({ user: userId })
-                .lean() // Usamos `.lean()` para convertir los documentos de Mongoose en objetos JavaScript simples.
+                .lean()
                 .then(basePack => {
-                    //Este return lo tenemos que poner porqué sinó el segundo .then falla
                     return basePack
                 })
                 .catch(error => {

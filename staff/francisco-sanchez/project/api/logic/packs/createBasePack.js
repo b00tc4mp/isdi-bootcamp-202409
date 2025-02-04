@@ -8,11 +8,9 @@ export default (userId, packName, description, quantity, unit, expiringTime, pri
     validate.id(userId, 'userId')
     validate.packName(packName)
     validate.description(description)
-    //validate.number(quantity)
     validate.text(unit, 'unit')
-    //validate.integerNum(expiringTime)
-    //validate.number(price)
     validate.text(currency, 'currency')
+    validate.expiring(expiringTime)
 
 
     return (async () => {

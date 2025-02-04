@@ -10,8 +10,8 @@ export default (userId, basePackId, packName, description, quantity, unit, expir
     validate.packName(packName)
     validate.description(description)
     validate.text(unit, 'unit')
-    //validate.number(price)
     validate.currency(currency)
+    validate.expiring(expiringTime)
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })

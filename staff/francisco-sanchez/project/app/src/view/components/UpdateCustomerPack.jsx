@@ -45,14 +45,13 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
 
     useEffect(() => {
         if (pack.unit !== 'units') {
-            logic.getDecimalToTimeFormat(pack.remainingQuantity)
-                .then(timeFormated => {
-                    setFormattedTime(timeFormated) // Guardamos la cadena en el estado
-                })
-                .catch(error => {
-                    console.error(error)
-                    setFormattedTime('')
-                })
+            try {
+                const timeFormatted = logic.getDecimalToTimeFormat(pack.remainingQuantity)
+                setFormattedTime(timeFormatted)
+            } catch (error) {
+                console.error(error)
+                setFormattedTime('')
+            }
         }
     }, [pack.unit, pack.remainingQuantity])
 
@@ -154,7 +153,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
     } else {
         console.log(pack)
 
-        return <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow">
+        return <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow pt-5 pb-10">
             <h2 className="text-2xl mb-4">"{pack.description}"</h2>
             <div className="flex flex-col w-full max-w-4xl px-4 space-y-6">
                 <div className="pack_statuses grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -261,7 +260,7 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                             ))}
                         </tbody>
                     </table> */}
-                    <ActivityTable activities={packActivities} />
+                    <ActivityTable activities={packActivities} packInfo={pack} />
 
                     <h2 className='text-2xl mt-10'>Payments history</h2>
                     <table className="table-auto mt-4 bg-white text-black rounded-md">
@@ -292,31 +291,35 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                     </table>
                 </form>
 
-                <h2 className='text-2xl mt-10'>Add pending payments</h2>
+
                 {parseFloat(pack.price) - parseFloat(pack.totalPayments) > 0 ? (
-                    <div className='flex items-center justify-center bg-color_backgroundGrey'>
-                        <form id='addPayment' onSubmit={handlePaymentSubmit} className='flex items-center pt-5 pb-5'>
-                            <Field>
-                                <Label htmlFor="amount">Amount</Label>
-                                <Input className="border-2 rounded-lg" type="text" defaultValue={(parseFloat(pack.price) - parseFloat(pack.totalPayments)).toFixed(2)} id="amount" placeholder="0" required={true} />
-                            </Field>
-                            <Field>
-                                <Label htmlFor="reference">Reference</Label>
-                                <Input className="border-2 rounded-lg" type="text" id="reference" placeholder="Payment reference" required={false} />
-                            </Field>
-                            <Field>
-                                <Label htmlFor="paymentMethod">Select Payment Method</Label>
-                                <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2" required>
-                                    <option value="card">Card</option>
-                                    <option value="cash">Cash</option>
-                                    <option value="bankTransfer">Bank Transfer</option>
-                                    <option value="paypal">Paypal</option>
-                                    <option value="stripe">Stripe</option>
-                                    <option value="others">Others</option>
-                                </select>
-                            </Field>
-                            <Button type='submit'>Save</Button>
-                        </form>
+                    <div>
+                        <h2 className='text-2xl mt-10'>Add pending payments</h2>
+                        <div className='flex items-center justify-center bg-color_backgroundGrey'>
+
+                            <form id='addPayment' onSubmit={handlePaymentSubmit} className='flex items-center pt-5 pb-5'>
+                                <Field>
+                                    <Label htmlFor="amount">Amount</Label>
+                                    <Input className="border-2 rounded-lg" type="text" defaultValue={(parseFloat(pack.price) - parseFloat(pack.totalPayments)).toFixed(2)} id="amount" placeholder="0" required={true} />
+                                </Field>
+                                <Field>
+                                    <Label htmlFor="reference">Reference</Label>
+                                    <Input className="border-2 rounded-lg" type="text" id="reference" placeholder="Payment reference" required={false} />
+                                </Field>
+                                <Field>
+                                    <Label htmlFor="paymentMethod">Select Payment Method</Label>
+                                    <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2" required>
+                                        <option value="card">Card</option>
+                                        <option value="cash">Cash</option>
+                                        <option value="bankTransfer">Bank Transfer</option>
+                                        <option value="paypal">Paypal</option>
+                                        <option value="stripe">Stripe</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </Field>
+                                <Button type='submit'>Save</Button>
+                            </form>
+                        </div>
                     </div>
                 ) : (
                     null

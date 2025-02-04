@@ -11,7 +11,11 @@ export default (userId, targetUserId) => {
         let users
 
         try {
-            users = await Promise.all([User.findById(userId).lean(), User.findById(targetUserId).lean()])
+            users = await Promise.all(
+                [
+                    User.findById(userId).lean(),
+                    User.findById(targetUserId).lean()
+                ])
         } catch (error) {
             throw new SystemError(error.message)
         }

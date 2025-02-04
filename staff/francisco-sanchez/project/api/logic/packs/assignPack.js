@@ -12,6 +12,7 @@ export default (userId, customerSearch, selectPack, description, payedAmount, pa
     validate.description(description)
     validate.text(paymentMethod, 'paymentMethod')
 
+
     const descriptionProvided = description
 
     return (async () => {

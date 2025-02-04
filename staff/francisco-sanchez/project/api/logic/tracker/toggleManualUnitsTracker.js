@@ -11,6 +11,7 @@ export default (userId, packId, customerId, description, unitsAdjust) => {
     validate.id(userId, 'userId')
     validate.id(customerId, 'customerId')
     validate.integerNum(unitsAdjust)
+    validate.description(description)
 
     const defaultDescription = 'No description'
     if (description === undefined || description === '') {
@@ -32,6 +33,8 @@ export default (userId, packId, customerId, description, unitsAdjust) => {
                     const currentDate = new Date()
                     const expiryDate = new Date(pack.expiryDate)
 
+                    //TODO: Frank, lo mismo que en toggleManualTimeTracker
+
                     if (pack.provider.toString() !== userId) {
                         throw new OwnershipError('Your user is not the owner of this pack relationship')
                     }
@@ -45,7 +48,6 @@ export default (userId, packId, customerId, description, unitsAdjust) => {
                     }
 
                     const remainingQuantity = pack.remainingQuantity || 0
-
                     const absDecimalUnits = Math.abs(unitsAdjust)
                     const operation = unitsAdjust > 0 ? 'add' : 'substract'
 

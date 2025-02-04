@@ -5,16 +5,15 @@ import { validate, errors } from 'com'
 import { getTimeFormatToDecimal } from "../../helpers/index.js";
 import checkPackAndUpdate from "./checkPackAndUpdate.js";
 
-
-
 const { SystemError, NotFoundError, OwnershipError, ValidationError } = errors
 
 export default (userId, packId, description, remainingQuantity, expiryDate, status) => {
-    validate.id(packId, 'packId')
+    validate.id(userId, 'userId')
     validate.id(packId, 'packId')
     validate.description(description, 'description')
     //validate.text(status, 'status')
     validate.date(new Date(expiryDate))
+    validate.status(status)
 
     return Pack.findById(packId)
         .catch(error => { throw new SystemError(error.message) })

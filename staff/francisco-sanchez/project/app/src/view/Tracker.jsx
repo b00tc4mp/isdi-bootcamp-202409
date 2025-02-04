@@ -457,7 +457,7 @@ export default function Tracker(props) {
             ) : ( */}
             <h2 className='text-2xl'>History</h2>
 
-            <ActivityTable activities={packActivities} />
+            <ActivityTable activities={packActivities} packInfo={selectedPack} />
 
             {/*  )} */}
 

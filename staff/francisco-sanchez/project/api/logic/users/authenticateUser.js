@@ -10,7 +10,6 @@ export default (username, password) => {
     validate.username(username)
     validate.password(password)
 
-
     return (async () => {
         let user
 
