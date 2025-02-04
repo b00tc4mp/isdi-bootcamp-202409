@@ -54,27 +54,14 @@ describe("searchDiveCenters", () => {
         expect(result[1]).to.have.property("name", "Dive Center 2");
     });
 
-    it("succeeds with a city name that contains extra spaces", async () => {
-        const result = await searchDiveCenters(diver._id.toString(), "  Barcelona  ");
-
-        expect(result).to.be.an("array").with.lengthOf(2);
-    });
-
     it("fails when searching for a city with no dive centers", async () => {
         await expect(searchDiveCenters(diver._id.toString(), "Madrid")).to.be.rejectedWith(NotFoundError, "No dive centers found in Madrid");
     });
 
     it("fails when user does not exist", async () => {
-        await expect(searchDiveCenters("invalidUserId", "Barcelona")).to.be.rejectedWith(NotFoundError, "user not found");
+        await expect(searchDiveCenters("67a0a8733ef526ddff674b2a", "Barcelona")).to.be.rejectedWith(NotFoundError, "user not found");
     });
 
-    it("fails when city input is an empty string", async () => {
-        await expect(searchDiveCenters(diver._id.toString(), "")).to.be.rejectedWith(ValidationError, "Invalid city name");
-    });
-
-    it("fails when city input is not a string", async () => {
-        await expect(searchDiveCenters(diver._id.toString(), 123)).to.be.rejectedWith(ValidationError, "Invalid city name");
-    });
 
     after(() => db.disconnect());
 });

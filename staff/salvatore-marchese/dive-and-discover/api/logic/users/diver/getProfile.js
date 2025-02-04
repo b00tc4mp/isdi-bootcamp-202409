@@ -1,35 +1,35 @@
-/* import { errors } from "com";
-import { User } from 'dat'
-
-const { SystemError, NotFoundError } = errors
-
-// GET USER PROFILE
-export default async (userId) => {
-    try {
-        const user = await User.findById(userId);
-        console.log(user)
-        if (!user) throw new NotFoundError('user not found');
-        return user;
-    } catch (error) {
-        if (error instanceof NotFoundError) throw error;
-        throw new SystemError(error.message)
-    }
-} */
-
 import { errors } from "com";
 import { User } from "dat";
+import { validate } from "com";
 
 const { SystemError, NotFoundError } = errors;
 
-export default (userId) => {
-    try {
-        const user = User.findById(userId).lean();
+export default (userId, targetUserId) => {
+    validate.id(userId, 'userId')
+    validate.id(targetUserId, 'targetUserId')
+
+    return (async () => {
+        let user, targetUser
+
+        try {
+            user = await  User.findById(userId).lean();
+        } catch (error) {
+            throw new SystemError(error.message);
+        }
 
         if (!user) throw new NotFoundError("user not found");
 
-        return user;
-    } catch (error) {
-        if (error instanceof NotFoundError) throw error;
-        throw new SystemError(error.message);
-    }
+        try {
+            targetUser = await User.findById(targetUserId).lean();
+        } catch (error) {
+            throw new SystemError(error.message);
+        }
+
+        if (!targetUser) throw new NotFoundError("target user not found");
+
+        targetUser.id = targetUser._id.toString()
+        delete targetUser._id
+
+        return targetUser
+    })()
 };

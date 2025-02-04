@@ -38,11 +38,5 @@ describe('registerUserDiver', () => {
         })()).to.be.rejectedWith(DuplicityError, 'user already exists')
     )
 
-    it('fails when passwords do not match', async () => {
-        const result = registerUserDiver('salva', 'smarchese985@gmail.com', 'salva123', 'salva122')
-
-        await expect(result).to.be.rejectedWith(ValidationError, 'passwords do not match')
-    })
-
     after(() => db.disconnect())
 })

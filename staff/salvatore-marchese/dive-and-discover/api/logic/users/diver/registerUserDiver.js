@@ -4,7 +4,7 @@ import { errors, validate } from 'com';
 
 const { DuplicityError, SystemError } = errors;
 
-export default function registerUser(name, email, password, passwordRepeat) {
+export default function registerUserDiver(name, email, password, passwordRepeat) {
     validate.name(name);
     validate.email(email);
     validate.password(password);
@@ -20,7 +20,7 @@ export default function registerUser(name, email, password, passwordRepeat) {
         .catch(error => {
             // Handle specific errors
             if (error.code === 11000) {
-                throw new DuplicityError('User already exists');
+                throw new DuplicityError('user already exists');
             }
             throw new SystemError(error.message);
         });

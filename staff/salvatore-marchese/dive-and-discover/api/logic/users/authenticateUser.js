@@ -8,7 +8,7 @@ const { SystemError, CredentialsError } = errors
 export default (email, password) => {
     validate.email(email)
     validate.password(password)
-console.log(User)
+
     return (async () => {
         let user;
 

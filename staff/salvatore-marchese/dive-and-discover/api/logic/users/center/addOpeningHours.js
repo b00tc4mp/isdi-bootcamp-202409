@@ -1,23 +1,14 @@
-import { User, OpeningHours } from 'dat'
+/* import { User, OpeningHours } from 'dat'
 import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
 const { validateText } = validate
 
-//(userId, data)
-/*
-data = [
-    {
-        day: 1,
-        openTime: "12:00h",
-        closeTime: "22:00h"
-    },
-]*/
 
-
-export default async (userId, day, openTime, closeTime) => {
+export default function addOpeningHours(userId, day, openTime, closeTime) {
     validate.id(userId, 'userId')
+    
      // Validate the day is a number and it is between 1 and 7
      if (typeof day !== 'number' || day < 1 || day > 7) {
         throw new Error("Invalid day: must be a number between 1 and 7");
@@ -45,30 +36,61 @@ export default async (userId, day, openTime, closeTime) => {
     }
 }
 
-    /* let result
+     */
+
+import { User, OpeningHours } from 'dat';
+import { validate, errors } from 'com';
+
+const { NotFoundError, SystemError } = errors;
+const { validateText } = validate;
+
+export default function addOpeningHours(userId, day, openTime, closeTime) {
+    // Validate inputs
+    validate.id(userId, 'userId');
+    
+    // Validate day
+    if (typeof day !== 'number' || day < 1 || day > 7) {
+        throw new SystemError("Invalid day: must be a number between 1 and 7");
+    }
+
+    // Ensure openTime and closeTime are provided
+    if (!openTime || !closeTime) {
+        throw new SystemError(openTime ? 'closeTime is required' : 'openTime is required');
+    }
+
     try {
-        result = await Promise.all([
-            User.findById(userId).lean(),
-        ])
+        // Validate the time fields
+        validateText.text(openTime, 'openTime');
+        validateText.text(closeTime, 'closeTime');
     } catch (error) {
-        throw new SystemError(error.message)
-        const result = undefined
+        throw new SystemError(error.message); // Handle any validation errors
     }
-    const [user] = result
-    if (!user) throw new NotFoundError('user not found')
-    const openingHours = new OpeningHours({
-        day,
-        openTime,
-        closeTime
-    })
-    //If taking the opening hour one by one - do this
-    const userOpeningHours = user.openingHours || []
-    userOpeningHours.push(openingHours)
-    let _
-    try {
-        _ = await User.findOneAndUpdate({ _id: user._id }, { openingHours: userOpeningHours })
-    } catch (error_1) {
-        throw new SystemError(error_1.message)
-        const _ = undefined
-    }
- */
+
+    return (async () => {
+        let user;
+        
+        // Fetch the user from the database
+        try {
+            user = await User.findById(userId).lean();
+        } catch (error) {
+            throw new SystemError(error.message);
+        }
+
+        // Handle case where user is not found
+        if (!user) {
+            throw new NotFoundError('User not found');
+        }
+
+        // Create the opening hours object
+        const openingHours = new OpeningHours({ day, openTime, closeTime });
+
+        try {
+            // Add the opening hours to the user's record
+            await User.findByIdAndUpdate(userId, { $push: { openingHours } }, { new: true });
+        } catch (error) {
+            throw new SystemError(`Error adding opening hours: ${error.message}`);
+        }
+
+        return { message: 'Opening hours added successfully' };
+    })();
+}

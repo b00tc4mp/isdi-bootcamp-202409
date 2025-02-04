@@ -19,7 +19,7 @@ describe('getUserName', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', async () => {
-        const user = await User.create({ name: 'salva', email: 'smarchese985@gmail.com', password: 'salva123', role: 'diver' })
+        const user = await User.create({ name: 'salva', email: 'smarchese985@gmail.com', password: '123123123', role: 'diver' })
 
         const name = await getUserName(user.id, user.id)
 

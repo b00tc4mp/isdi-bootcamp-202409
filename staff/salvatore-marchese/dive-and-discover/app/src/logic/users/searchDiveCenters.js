@@ -2,7 +2,8 @@ import { validate, errors } from 'com';
 
 const { SystemError } = errors;
 
-export default (city) => {
+export default (userId, city) => {
+    validate.id(userId, 'userId')
     validate.city(city, 'city')
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/diver/search?city=${encodeURIComponent(city)}`, {

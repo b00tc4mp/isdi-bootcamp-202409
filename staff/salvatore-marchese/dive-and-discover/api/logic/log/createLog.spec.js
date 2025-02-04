@@ -35,21 +35,20 @@ describe('createLog', () => {
 
         const result = await createLog(
             user.id,
-            '01/09/2024',          // date
-            18,                    // depth 
-            45,                    // time 
-            'Sunny',               // weather
-            24,                    // temperature
-            'Good',                // visibility
-            'Low',                 // waves
-            5,                     // wetSuit
-            6,                     // weight 
-            12,                    // tankSize 
-            200,                   // tankBar
-            'Amazing',             // feeling
-            'Tossa Divers',        // diveCenter
-            'Tossa de Mar',        // diveSite
-            'First dive in Costa Brava, perfect' // notes
+            '01/09/2024',         
+            18,                    
+            45,                     
+            'Sunny',               
+            24,                     
+            'Good',                
+            'Low',                 
+            5,                     
+            6,                      
+            12,                    
+            200,                   
+            'Amazing',            
+            'Tossa Divers',            'Tossa de Mar',       
+            'First dive in Costa Brava, perfect' 
         )
 
         expect(result.message).to.equal('Log created successfully')
@@ -76,26 +75,26 @@ describe('createLog', () => {
     })
 
     it('should throw NotFoundError if user does not exist', async () => {
-        const nonExistentUserId = new Types.ObjectId() // Generate a non-existent ObjectId
+        const nonExistentUserId = '605c72ef8cfa4a3d60e3a53d' 
 
         await expect(
             createLog(
                 nonExistentUserId.toString(),
                 '01/09/2024',
-                18,                    // depth
-                45,                    // time
-                'Sunny',               // weather
-                24,                    // temperature
-                'Good',                // visibility
-                'Low',                 // waves
-                5,                 // wetSuit
-                6,                     // weight
-                12,                    // tankSize
-                200,                   // tankBar
-                'Amazing',             // feeling
-                'Tossa Divers',        // diveCenter
-                'Tossa de Mar',        // diveSite
-                'First dive in Costa Brava, perfect' // notes
+                18,                   
+                45,                    
+                'Sunny',               
+                24,                    
+                'Good',                
+                'Low',                 
+                5,                 
+                6,                     
+                12,                    
+                200,                   
+                'Amazing',             
+                'Tossa Divers',        
+                'Tossa de Mar',        
+                'First dive in Costa Brava, perfect' 
             )
         ).to.be.rejectedWith(NotFoundError, 'User not found')
     })
@@ -114,22 +113,22 @@ describe('createLog', () => {
     
         await expect(
             createLog(
-                user.id, // Pass user id here
-                '01/09/2024', // date
-                18, // depth
-                45, // time
-                'Sunny', // weather
-                24, // temperature
-                'Good', // visibility
-                'Low', // waves
-                5, // wetSuit
-                6, // weight
-                12, // tankSize
-                200, // tankBar
-                'Amazing', // feeling
-                'Tossa Divers', // diveCenter
-                'Tossa de Mar', // diveSite
-                'First dive in Costa Brava, perfect' // notes
+                user.id, 
+                '01/09/2024', 
+                18, 
+                45, 
+                'Sunny', 
+                24, 
+                'Good', 
+                'Low', 
+                5, 
+                6, 
+                12, 
+                200, 
+                'Amazing', 
+                'Tossa Divers', 
+                'Tossa de Mar', 
+                'First dive in Costa Brava, perfect' 
             )
         ).to.be.rejectedWith(SystemError, 'Database error')
     

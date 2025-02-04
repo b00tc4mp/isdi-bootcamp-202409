@@ -1,107 +1,46 @@
-/* import { User, LogBook } from 'dat'
-import { validate, errors } from 'com'
-
-const { SystemError, NotFoundError } = errors
-
-export default async (userId, diveSite, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes) => {
-    try {
-        if (userId) {
-            validate.id(userId, 'userId') // Only validate if userId is provided to confirm the user is logged in
-        }
-        validate.diveSite(diveSite)
-        validate.date(new Date(date))
-        validate.depth(depth)
-        validate.time(time)
-        validate.weather(weather)
-        validate.temperature(temperature)
-        validate.visibility(visibility)
-        validate.waves(waves)
-        validate.wetSuit(wetSuit)
-        validate.weight(weight)
-        validate.tankSize(tankSize)
-        validate.tankBar(tankBar)
-        validate.feeling(feeling)
-        validate.diveCenter(diveCenter)
-        validate.notes(notes)
-
-        // Convert date from dd/mm/yyyy string to Date object
-        const [day, month, year] = date.split('/')
-        console.log(day)
-        const formattedDate = new Date(`${year}-${month}-${day}`)  // Converts to YYYY-MM-DD
-
-        const user = await User.findById(userId)
-        if (!user) throw new NotFoundError('User not found')
-
-        console.log('Creating log with userId:', userId)
-
-        const log = await LogBook.create({
-            diver: userId, diveSite, date: formattedDate, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes
-        })
-
-        return { message: 'Log created successfully', log }
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            throw error
-        }
-        throw new SystemError(error.message)
-    }
-} */
-
 import { User, LogBook } from 'dat';
 import { validate, errors } from 'com';
 
 const { SystemError, NotFoundError } = errors;
 
-export default async (userId, diveSite, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes) => {
+export default (userId, targetUserId, diveSite, date, depth, time, weather, temperature, visibility, waves, wetSuit, weight, tankSize, tankBar, feeling, diveCenter, notes) => {
+    validate.id(userId, 'userId')
+    validate.id(targetUserId, 'targetUserId')
+    validate.diveSite(diveSite, 'diveSite')
+    validate.date(new Date(date))
+    validate.depth(depth, 'depth')
+    validate.time(time, 'time')
+    validate.weather(weather, 'weather')
+    validate.temperature(temperature, 'temperature')
+    validate.visibility(visibility, 'visibility')
+    validate.waves(waves,'waves')
+    validate.wetSuit(wetSuit, 'wetSuit')
+    validate.weight(weight, 'weight')
+    validate.tankSize(tankSize, 'tankSize')
+    validate.tankBar(tankBar, 'tankBar')
+    validate.feeling(feeling, 'feeling')
+    validate.diveCenter(diveCenter, 'diveCenter')
+    validate.notes(notes, 'notes')
+
+    // Convert date string to Date object
+    let formattedDate;
     try {
-        // Validate inputs
+        const [day, month, year] = date.split('/');
+        formattedDate = new Date(`${year}-${month}-${day}`); // Converts to YYYY-MM-DD
+    } catch (dateConversionError) {
+        throw new SystemError('Invalid date format. Expected format: dd/mm/yyyy.');
+    }
+
+    return (async () => {
+        let user
+
         try {
-            if (userId) {
-                validate.id(userId, 'userId'); // Validate if userId is provided
-            }
-            validate.diveSite(diveSite);
-            validate.date(new Date(date));
-            validate.depth(depth);
-            validate.time(time);
-            validate.weather(weather);
-            validate.temperature(temperature);
-            validate.visibility(visibility);
-            validate.waves(waves);
-            validate.wetSuit(wetSuit);
-            validate.weight(weight);
-            validate.tankSize(tankSize);
-            validate.tankBar(tankBar);
-            validate.feeling(feeling);
-            validate.diveCenter(diveCenter);
-            validate.notes(notes);
-        } catch (validationError) {
-            throw new SystemError(`Validation error: ${validationError.message}`);
+            user = await User.findById(userId)
+        } catch (error) {
+            throw new SystemError(error.message)
         }
 
-        // Convert date string to Date object
-        let formattedDate;
-        try {
-            const [day, month, year] = date.split('/');
-            formattedDate = new Date(`${year}-${month}-${day}`); // Converts to YYYY-MM-DD
-        } catch (dateConversionError) {
-            throw new SystemError('Invalid date format. Expected format: dd/mm/yyyy.');
-        }
-
-        // Fetch the user
-        let user;
-        try {
-            user = await User.findById(userId);
-            if (!user) {
-                throw new NotFoundError('User not found');
-            }
-        } catch (userFetchError) {
-            if (userFetchError instanceof NotFoundError) {
-                throw userFetchError;
-            }
-            throw new SystemError(`Error fetching user: ${userFetchError.message}`);
-        }
-
-        console.log('Creating log with userId:', userId);
+        if (!user) throw new NotFoundError('user not found')
 
         // Create the log
         let log;
@@ -123,16 +62,12 @@ export default async (userId, diveSite, date, depth, time, weather, temperature,
                 feeling,
                 diveCenter,
                 notes,
-            });
+            })
         } catch (logCreationError) {
-            throw new SystemError(`Error creating log: ${logCreationError.message}`);
+            throw new SystemError(`Error creating log: ${logCreationError.message}`)
         }
 
-        return { message: 'Log created successfully', log };
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            throw error;
-        }
-        throw new SystemError(error.message);
-    }
-};
+        return { message: 'Log created successfully', log }
+    
+    })()
+}

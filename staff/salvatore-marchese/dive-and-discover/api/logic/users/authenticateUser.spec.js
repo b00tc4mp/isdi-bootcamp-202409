@@ -19,8 +19,8 @@ describe('authenticateUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    instanceof('succeds on existing user', async () => {
-        await User.create({ email: 'smarchese985@gmail.com', password: bcrypt.hashSync('salva123', 10) })
+    it('succeds on existing user', async () => {
+        await User.create({ name: 'salva', email: 'smarchese985@gmail.com', password: bcrypt.hashSync('salva123', 10) })
 
         const user = await authenticateUser('smarchese985@gmail.com', 'salva123')
 
@@ -30,8 +30,14 @@ describe('authenticateUser', () => {
         expect(user.role).to.equal('diver')
     })
 
-    instanceof('fails on non-exisiting user', () => 
-                expect(authenticateUser('smarchese985@gmail.com', 'salva123')).to.be.rejectedWith(CredentialsError, 'wrong credentials')
-            )
-        after(() => db.disconnect())
+    it('fails on non-exisiting user', () =>
+        expect(authenticateUser('smarchese985@gmail.com', 'salva123')).to.be.rejectedWith(CredentialsError, 'wrong credentials')
+    )
+
+    it('fails on wrong password', async () => {
+        await User.create({ name: 'salva', email: 'smarchese985@gmail.com', password: bcrypt.hashSync('salva123', 10) })
+        
+        return expect(authenticateUser('smarchese985@gmail.com', 'salva1233')).to.be.rejectedWith(CredentialsError, 'wrong credentials')
+})
+    after(() => db.disconnect())
 })

@@ -229,8 +229,8 @@ const faunaFlora = new Schema({
     description: {
         type: String, // Description of the marine life in the area
         required: true,
-    }, 
-})
+    },
+},{ versionKey: false })
 
 
 

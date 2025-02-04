@@ -13,8 +13,8 @@ usersRouter.post('/', jsonBodyParser, registerUserDiverHandler)
 //Profile Diver
 //Temp: Usually will be called /profile
 usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler)
-usersRouter.get('/profile', authorizationHandler, getProfileHandler)
-usersRouter.put('/profile', authorizationHandler, updateProfileHandler)
+usersRouter.get('/profile/:targetUserId', authorizationHandler, getProfileHandler)
+usersRouter.put('/profile/:targetUserId', authorizationHandler, updateProfileHandler)
 
 // Search route
 usersRouter.get('/search', authorizationHandler, searchDiveCentersHandler)

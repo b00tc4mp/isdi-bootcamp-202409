@@ -3,25 +3,40 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, data) => {
+export default (userId, targetUserId, data) => {
     validate.id(userId, 'userId')
+    validate.id(targetUserId, 'targetUserId')
+    validate.profileData(data)
 
-    try {
-        let user = await User.findById(userId).lean()
-        if (!user) throw new NotFoundError('user not found')
+    return (async () => {
+        let user, targetUser
+
+        try {
+            user = await User.findById(userId).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        
+        if (!user) { throw new NotFoundError('user not found') }
+
+        try {
+            targetUser = await User.findById(targetUserId).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+        if (!targetUser) { throw new NotFoundError('target user not found') }
 
         const dataToBeUpdated = {
-            ...user,
+            ...targetUser,
             ...data
         }
-
+        
         // Return the updated user directly
-        return await User.findByIdAndUpdate(userId, dataToBeUpdated, { new: true }).lean()
-
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            throw error
+        try {
+             await User.findByIdAndUpdate(targetUser, dataToBeUpdated, { new: true }).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
         }
-        throw new SystemError(error.message)
-    }
+    })()
 }

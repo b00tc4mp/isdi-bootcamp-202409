@@ -20,7 +20,7 @@ describe('registerUserCenter', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on new user', async () => {
-        await registerUserCenter('TestDiveCenter', 'divecenter@test.com', '123123123', '123123123', 'seafront road 1', 'Spain', 'Barcelona', '08001')
+        await registerUserCenter('TestDiveCenter', 'divecenter@test.com', '123123123', '123123123', 'seafront road 1', 'Spain', 'Barcelona', '08001', '930123456')
 
         const user = await User.findOne({ email: 'divecenter@test.com' })
 
@@ -32,14 +32,15 @@ describe('registerUserCenter', () => {
         expect(user.country).to.be.equal('Spain')
         expect(user.city).to.be.equal('Barcelona')
         expect(user.postcode).to.be.equal('08001') 
+        expect(user.telephone).to.be.equal('930123456')
     })
 
     
     it('fails on existing user', () => 
         expect((async () => {
-            await User.create({name: 'TestDiveCenter', email: 'divecenter@test.com', password: bcrypt.hashSync('123123123', 10),address: 'seafront road 1', country: 'Spain', city: 'Barcelona', postcode: '08001'})
+            await User.create({name: 'TestDiveCenter', email: 'divecenter@test.com', password: bcrypt.hashSync('123123123', 10),address: 'seafront road 1', country: 'Spain', city: 'Barcelona', postcode: '08001', telephone: '930123456'})
 
-            await registerUserCenter('TestDiveCenter', 'divecenter@test.com', '123123123', '123123123', 'seafront road 1', 'Spain', 'Barcelona', '08001')
+            await registerUserCenter('TestDiveCenter', 'divecenter@test.com', '123123123', '123123123', 'seafront road 1', 'Spain', 'Barcelona', '08001', '930123456' )
         })()).to.be.rejectedWith(DuplicityError, 'user already exist')
     )
 

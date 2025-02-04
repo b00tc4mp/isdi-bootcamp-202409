@@ -1,38 +1,26 @@
-import { extractPayloadFromJWT } from '../../util'
+import { errors } from "com";
+import { extractPayloadFromJWT } from "../../util";
 
-export default async () => {
-    // RETRIVE TOKEN SECURELY
-    const token = sessionStorage.getItem('token');
 
-    // CHECK TOKEN AVAILABILIY
-    const user = extractPayloadFromJWT(sessionStorage.token);
-    if (!token || user?.error) {
-        console.error('Token missing or user not logged in!')
-        throw new Error("User is not logged in.")
-    }
+export default () => {
+    const { sub: userId } = extractPayloadFromJWT(sessionStorage.token)
 
-    // API URL
-    const url = `http://${import.meta.env.VITE_API_URL}/users/diver/profile`;
+    const url = `http://${import.meta.env.VITE_API_URL}/users/diver/profile/${userId}`
+
     const headers = {
         Authorization: `Bearer ${sessionStorage.token}`
-    };
+    }
 
     // FETCH WITH ERROR HANDLER 
     return fetch(url, { headers })
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error(`Error ${res.status}: ${res.statusText}`)
-            }
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (res.ok)
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+
             return res.json()
-        })
-        .then((data) => {
-            console.log("Fetch succeeded")
-            //console.log(data)
-            if (data?.error) throw new Error(data.error)
-            return data
-        })
-        .catch((error) => {
-            console.error("Fetch failed:", error.message)
-            throw new Error(error.message)
+                .catch(error => { throw new SystemError(error.message) })
+                .then(({ error, message }) => { throw new errors[error](message) })
         })
 }

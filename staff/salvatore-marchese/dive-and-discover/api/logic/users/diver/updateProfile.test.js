@@ -10,8 +10,7 @@ const data = {
 }
 
 try{
-    const result = await updateProfile('67503f6a10182798c1418773', data)
-    console.log(result)
+    await updateProfile('67a0b64031c08c5684742d30','67a0b64031c08c5684742d30', data)
 } catch (error) {
     console.error(error)
 } finally {

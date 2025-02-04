@@ -4,9 +4,8 @@ import registerUserDiver from './registerUserDiver.js'
 
 await db.connect(process.env.MONGO_URL_TEST)
 
-
 try {
-    const user = await registerUserDiver('Salva', 'smarchese985@gmail.com', '123123123', '123123123')
+    const user = await registerUserDiver('Salva', 'salva@gmail.com', '123123123', '123123123')
 
     console.log(user)
 } catch (error) {

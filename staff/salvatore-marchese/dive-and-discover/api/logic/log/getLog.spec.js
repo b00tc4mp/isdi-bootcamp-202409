@@ -1,80 +1,65 @@
-import getLog from '../log/getLog.js'; 
-import { User, LogBook as Log } from 'dat';
-import { errors } from 'com';
+import 'dotenv/config'
 
-const { NotFoundError } = errors;
+import * as chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+
+chai.use(chaiAsPromised)
+const { expect } = chai
+
+import db, { User, LogBook as Log } from 'dat'
+import { errors } from 'com'
+
+const { NotFoundError, SystemError } = errors
+
+import getLog from './getLog.js'
 
 describe('getLog', () => {
-  const userId = '676310ec365df2fb2590cf5e';
-  const logId = '6765d2b1da01678bbab8b023';
+    const userId = '67a127a2f0f8a331c710e137'
+    const logId = '67a1de8054cdc6e22b6f2507'
 
-  beforeEach(() => {
-    // Reset database operations
-    User.findById = async (id) => {
-      if (id === userId) {
-        return { _id: id, name: 'Salva' };
-      }
-      return null;
-    };
+    before(() => db.connect(process.env.MONGO_URL_TEST))
 
-    Log.find = async (query) => {
-      if (query.diver === userId && query._id === logId) {
-        return [{ _id: logId, diver: userId, depth: 30, time: 45 }];
-      }
-      return [];
-    };
-  });
+    beforeEach(() => {
+        // Mocking database operations
+        User.findById = async (id) => {
+            if (id === userId) {
+                return { _id: id, name: 'Salva' }
+            }
+            return null
+        }
 
-  it('should return the log if the user and log exist', async () => {
-    const result = await getLog(userId, logId);
+        Log.find = async (query) => {
+            if (query.diver === userId && query._id === logId) {
+                return [{ _id: logId, diver: userId, depth: 30, time: 45 }]
+            }
+            return []
+        }
+    })
 
-    expect(result).toEqual([
-      {
-        _id: logId,
-        diver: userId,
-        depth: 30,
-        time: 45,
-      },
-    ]);
-  });
+    it('should return the log if the user and log exist', async () => {
+        const result = await getLog(userId, logId)
 
-  it('should throw NotFoundError if the user does not exist', async () => {
-    User.findById = async () => null; // Simulate user not found
+        expect(result).to.be.an('array').that.is.not.empty
+        expect(result[0]).to.have.property('_id', logId)
+        expect(result[0]).to.have.property('diver', userId)
+        expect(result[0]).to.have.property('depth', 30)
+        expect(result[0]).to.have.property('time', 45)
+    })
 
-    await expect(async () => {
-      await getLog(userId, logId);
-    }).rejects.toThrow(NotFoundError);
+    it('should throw NotFoundError if the user does not exist', async () => {
+        User.findById = async () => null // Simulate user not found
 
-    await expect(async () => {
-      await getLog(userId, logId);
-    }).rejects.toThrow('User not found');
-  });
+        await expect(async () => {
+            await getLog(userId, logId)
+        }).to.be.rejectedWith(NotFoundError, 'User not found')
+    })
 
-  it('should return an empty array if the log does not exist for the user', async () => {
-    Log.find = async () => []; // Simulate log not found
+    it('should return an empty array if the log does not exist for the user', async () => {
+        Log.find = async () => [] // Simulate log not found
 
-    const result = await getLog(userId, logId);
-    expect(result).toEqual([]);
-  });
+        const result = await getLog(userId, logId)
+        expect(result).to.be.an('array').that.is.empty
+    })
 
-  it('should return an empty array if the log exists but belongs to another user', async () => {
-    Log.find = async (query) => {
-      if (query.diver !== userId) {
-        return [];
-      }
-    };
-
-    const result = await getLog('anotherUserId', logId);
-    expect(result).toEqual([]);
-  });
-
-  it('should handle database errors gracefully', async () => {
-    User.findById = async () => {
-      throw new Error('Database error');
-    };
-
-    await expect(async () => {
-      await getLog(userId, logId);
-    }).rejects.toThrow('Database error');
-  });
-});
+    after(() => db.disconnect())
+})

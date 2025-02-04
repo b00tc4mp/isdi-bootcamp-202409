@@ -1,7 +1,7 @@
 import { validate, errors } from 'com'
 const { SystemError } = errors
 
-export default async (name, email, password, passwordRepeat, address, country, city, postcode, telephone, role ) => {
+export default (name, email, password, passwordRepeat, address, country, city, postcode, telephone, role ) => {
     validate.name(name)
     validate.email(email)
     validate.password(password)

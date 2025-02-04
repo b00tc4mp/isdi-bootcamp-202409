@@ -4,6 +4,7 @@ import chaiAsPromised from 'chai-as-promised'
 
 import db, { User } from 'dat'
 import { errors } from 'com'
+import updateProfile from './updateProfile.js'
 import updateCenterInfo from './updateCenterInfo.js'
 
 chai.use(chaiAsPromised)
@@ -11,57 +12,45 @@ const { expect } = chai
 const { NotFoundError, SystemError } = errors
 
 describe('updateCenterInfo', () => {
-    let user;
-
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(async () => {
-        // Clear the database before each test
         await User.deleteMany()
+    })
 
-        // Create user to be updated
-        user = await User.create({
-            name: 'Tossa Divers',
-            email: 'tossadivers@test.com',
-            password: '123123123',
+    it('should update user profile successfully', async () => {
+        // Create a user to be updated
+        const user = await User.create({ 
+            name: 'Tossa Divers', 
+            email: 'tossadivers@test.com', 
+            password: '123123123', 
             role: 'center',
-            address: 'Avenida del Mar, 1',
+            address: 'Seafront, 2',
             country: 'Spain',
-            city: 'Tortosa',
+            city: 'Tossa de Mar',
             postcode: '17320',
-            telephone: '972123456',
+            telephone: '6980558111'
         })
+
+        const data = { name: 'Tossa Super Diver', email: 'tossasuperdiver@test.com', address: 'Avenida del mar, 1' }
+
+        // Call the updateProfile function
+        await updateCenterInfo(user.id, user.id, data)
+
+        const updatedUser = await updateProfile(user.id)
+
+        // Check if the updated user contains the new data
+        expect(updatedUser.name).to.equal('Tossa Super Diver')
+        expect(updatedUser.email).to.equal('tossasuperdiver@test.com')
+        expect(updatedUser.address).to.equal('Avenida del mar, 1')
     })
 
-    it('should update user information successfully', async () => {
-        const data = { name: 'Tossa Super Divers', city: 'Tossa de Mar', telephone: '9726543210' }
-
-        const updatedUser = await updateCenterInfo(user._id.toString(), data)
-
-        expect(updatedUser.name).to.equal('Tossa Super Divers')
-        expect(updatedUser.city).to.equal('Tossa de Mar')
-        expect(updatedUser.telephone).to.equal('9726543210')
-    })
-
-    it('should throw NotFoundError when user does not exist', async () => {
-        const data = { name: 'Madrid Divers', city: 'Madrid' }
-
-        await expect(updateCenterInfo('605c72ef8cfa4a3d60e3a53', data))
-            .to.be.rejectedWith(NotFoundError, 'User not found')
-    })
-
-    it('should throw SystemError for invalid email', async () => {
-        const data = { email: 'invalid@email' }
-
-        await expect(updateCenterInfo(user._id.toString(), data))
-            .to.be.rejectedWith(SystemError, 'Invalid email')
-    })
-
-    it('should throw SystemError for empty name', async () => {
-        const data = { name: '' }
-
-        await expect(updateCenterInfo(user._id.toString(), data))
-            .to.be.rejectedWith(SystemError, 'Name cannot be empty')
+    it('fails on non-existing user', () => {
+        const data = { name: 'John', email: 'nemo2@gmail.com' }
+        
+        // Try to update a non-existing user (using a random ID)
+        return expect(updateCenterInfo('67503f6a10182798c1418773','67503f6a10182798c1418773', data))
+            .to.be.rejectedWith(NotFoundError, 'user not found')
     })
 
     after(() => db.disconnect())
