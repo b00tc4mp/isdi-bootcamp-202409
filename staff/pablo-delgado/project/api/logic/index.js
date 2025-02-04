@@ -1,7 +1,8 @@
 import {
     registerUser,
     authenticateUser,
-    getUserName
+    getUserName,
+    searchProviders
 } from './users/index.js'
 
 //import { getServices } from './home/getServices.js'
@@ -10,7 +11,7 @@ const logic = {
     registerUser,
     authenticateUser,
     getUserName,
-    //getServices
+    searchProviders
 }
 
 export default logic

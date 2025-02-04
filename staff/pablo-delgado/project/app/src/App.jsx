@@ -29,8 +29,6 @@ export default function App() {
     const navigate = useNavigate()
     const location = useLocation()
 
-    //const handlePostCreated = () => navigate('/')
-
     const handleUserLoggedOut = () => navigate('/login') 
 
     const handleUserLoggedIn = () => navigate('/')

@@ -1,4 +1,4 @@
-import searchProviders from './searchProviders'
+import searchProviders from '../users/searchProviders'
 
 export {
     searchProviders

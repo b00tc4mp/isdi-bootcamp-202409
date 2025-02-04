@@ -29,7 +29,7 @@ export default function Header({ onHomeClick, onLoggedOut }) {
                     console.error(error)
                 }
         } else setName(null)
-    }, [location.pathname, name, alert])
+    }, [location.pathname])
 
     const handleHomeClick = (event) => {
         event.preventDefault()

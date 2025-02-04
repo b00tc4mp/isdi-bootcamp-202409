@@ -1,5 +1,5 @@
-import { Provider } from '../../../../data/models.js'  // Ajusta el path de importación a tu estructura
-import { validate, errors } from '../../../../com/index.js'
+import { Provider } from '../../../dat/models.js'  // Ajusta el path de importación a tu estructura
+import { validate, errors } from '../../../com/index.js'
 
 const { SystemError } = errors
 

@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { Provider } from "../../../../dat/models.js";
+
 const router = express.Router();
-import { Provider } from "../../../../dat/models.js"
 
 // Ruta para obtener proveedores destacados
 router.get('/providers', async (req, res) => {
@@ -13,4 +14,4 @@ router.get('/providers', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

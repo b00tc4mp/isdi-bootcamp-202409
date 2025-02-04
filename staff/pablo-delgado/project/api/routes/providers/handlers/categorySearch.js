@@ -3,29 +3,36 @@ import { Provider } from "../../../../dat/models.js"
 
 const app = express();
 
-// Ruta para buscar centros por categoría
-app.get("/api/providers", async (req, res) => {
-  const { category, name } = req.query;
+app.get("/providers/search", async (req, res) => {
+  const { name, category, postalCode } = req.query;  // Recibe los parámetros de búsqueda
 
   try {
-    let filtro = {};
+      let filtro = {}; 
 
-    if (category) {
-      filtro.categories = category;
-    }
+      if (name) {
+          filtro.name = { $regex: name, $options: "i" };  // Búsqueda insensible a mayúsculas/minúsculas
+      }
 
-    if (name) {
-      filtro.name = { $regex: name, $options: "i" };
-    }
+      if (category) {
+          filtro.categories = category;
+      }
 
-    const providers = await Provider.find(filtro).populate("categories");
+      if (postalCode) {
+          filtro.postalCode = postalCode;
+      }
 
-    res.json(providers);
+      // Realiza la búsqueda en la base de datos
+      const providers = await Provider.find(filtro).populate("categories");
+
+      if (!providers || providers.length === 0) {
+          return res.status(404).json({ message: "No se encontraron proveedores" });
+      }
+
+      res.json(providers);  // Responde con los proveedores encontrados
   } catch (error) {
-    console.error("Error al buscar proveedores:", error);
-    res.status(500).json({ message: "Error al buscar proveedores" });
+      console.error("Error al buscar proveedores:", error);
+      res.status(500).json({ message: "Error al buscar proveedores" });
   }
 });
 
-// Exportación por defecto
 export default app;

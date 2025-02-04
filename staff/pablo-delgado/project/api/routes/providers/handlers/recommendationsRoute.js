@@ -1,3 +1,8 @@
+import express from 'express';
+import { Provider } from "../../../../dat/models.js";
+
+const router = express.Router();
+
 router.get('/providers/recommendations', async (req, res) => {
     try {
         const recommendations = await Provider.find()
@@ -8,3 +13,5 @@ router.get('/providers/recommendations', async (req, res) => {
         res.status(500).json({ error: 'Error obteniendo recomendaciones' });
     }
 });
+
+export default router;
