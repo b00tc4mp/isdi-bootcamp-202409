@@ -13,8 +13,7 @@ const assignRandomProfileImage = () => {
     return `/images/profile/profile${imageNumber}.jpeg`;
 };
 
-export default (name, email, username, password, passwordRepeat, plan, planExpiryDate, role, dni, surname1, surname2,
-    biography, country, province, city, postalCode, street, street2, number, flat, legalName, website, creationStatus, customers = [], ownPacks = [], adquiredPacks = []) => {
+export default (name, email, username, password, passwordRepeat) => {
     validate.name(name)
     validate.email(email)
     validate.username(username)
@@ -22,11 +21,17 @@ export default (name, email, username, password, passwordRepeat, plan, planExpir
     validate.passwordsMatch(password, passwordRepeat)
 
     //In the register moment all users will be free
-    if (plan === undefined)
-        plan = 'free'
+    const plan = 'free'
+    const creationStatus = 'true'
+    const role = 'standard'
 
-    if (creationStatus === undefined)
-        creationStatus = 'true'
+    const planExpiryDate = '', dni = '', surname1 = '',
+        surname2 = '', biography = '', country = '', province = '', city = '',
+        postalCode = '', street = '', street2 = '', number = '', flat = '',
+        legalName = '', website = ''
+
+    const customers = [], ownPacks = [], adquiredPacks = []
+
 
     return (async () => {
         let hash

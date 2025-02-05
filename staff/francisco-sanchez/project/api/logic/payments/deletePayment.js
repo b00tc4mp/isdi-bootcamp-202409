@@ -3,33 +3,23 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, paymentId) => {
-    // Validar que los IDs sean válidos
+export default (userId, paymentId) => {
     validate.id(paymentId, 'paymentId')
     validate.id(userId, 'userId')
 
-    try {
-        const user = await User.findById(userId)
-        if (!user) {
-            throw new NotFoundError('user not found')
-        }
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
+        .then(user => {
+            if (!user) { throw new NotFoundError('user not found') }
 
-        const payment = await Payment.findById(paymentId).lean()
-        if (!payment) {
-            throw new NotFoundError('payment not found')
-        }
+            return Payment.findById(paymentId).lean()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(payment => {
+                    if (!payment) { throw new NotFoundError('payment not found') }
 
-        await Payment.findByIdAndDelete(paymentId)
-
-        return {
-            message: 'Payment deleted successfully',
-            paymentId,
-        }
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            throw error
-        } else {
-            throw new SystemError(error.message)
-        }
-    }
+                    return Payment.findByIdAndDelete(paymentId)
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(() => { })
+                })
+        })
 }

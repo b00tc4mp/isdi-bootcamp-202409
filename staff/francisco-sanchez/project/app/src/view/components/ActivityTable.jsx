@@ -33,7 +33,7 @@ export default function ActivityTable({ activities, packInfo }) {
                         <td className="px-6 py-3 text-sm">
                             {packInfo.unit === 'hours'
                                 ? `${getDecimalToTimeFormat(activity.remainingQuantity)} h`
-                                : activity.remainingQuantity} un.</td>
+                                : `${activity.remainingQuantity} un.`}</td>
                     </tr>
                 ))}
             </tbody>

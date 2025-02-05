@@ -6,7 +6,9 @@ export default (userId, packId, customerId, description, timeAdjust) => {
     validate.id(userId, 'userId')
     validate.id(packId, 'packId')
     validate.id(customerId, 'customerId')
-    //validate operation maybe could be usefull
+    validate.description(description)
+    validate.timeFormat(timeAdjust)
+
 
     return fetch(`${import.meta.env.VITE_API_URL}/tracker/toggleManualTime`, {
         method: 'POST',

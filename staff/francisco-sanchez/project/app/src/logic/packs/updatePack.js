@@ -4,7 +4,9 @@ const { SystemError } = errors
 
 export default (packId, description, remainingQuantity, expiryDate, status) => {
     validate.id(packId, 'packId')
-
+    validate.description(description)
+    validate.quantity(remainingQuantity)
+    validate.status(status)
 
     return fetch(`${import.meta.env.VITE_API_URL}/packs/updatepack/${packId}`, {
         method: 'PUT',
@@ -18,7 +20,6 @@ export default (packId, description, remainingQuantity, expiryDate, status) => {
         .then(res => {
             if (res.ok)
                 return
-            //TODO: Entendre be aquest segon return i els seu catch / then
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error](message) })

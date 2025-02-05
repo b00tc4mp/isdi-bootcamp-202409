@@ -5,7 +5,7 @@ import getUserDetails from './getUserDetails.js'
 await db.connect(process.env.MONGO_URL)
 
 try {
-    const result = await getUserDetails('6780f8fe58255d20563d6a5f', '6780f8fe58255d20563d6a5f')
+    const result = await getUserDetails('67a1d44e01572f37bc099310', '67a1d44e01572f37bc099310')
     console.log(result)
 } catch (error) {
     console.error(error)

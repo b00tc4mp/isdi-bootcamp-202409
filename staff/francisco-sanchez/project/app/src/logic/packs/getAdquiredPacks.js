@@ -1,9 +1,9 @@
-import { /* validate, */ errors } from 'com'
+import { /* validate, */ errors, validate } from 'com'
 
 const { SystemError } = errors
 
 export default (targetUserId) => {
-    //Validates will come here
+    validate.id(targetUserId, 'targetUserId')
 
     //Logic and call to the api
     return fetch(`${import.meta.env.VITE_API_URL}/packs/get-adquired-packs/${targetUserId}`, {

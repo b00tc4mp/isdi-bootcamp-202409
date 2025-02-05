@@ -8,6 +8,7 @@ export default (userId, targetUserId) => {
     validate.id(targetUserId, 'targetUserId')
 
     return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
@@ -20,8 +21,5 @@ export default (userId, targetUserId) => {
 
                     return user
                 })
-        })
-        .catch(error => {
-            throw error
         })
 }

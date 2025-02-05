@@ -1,12 +1,14 @@
 import { validate, errors } from 'com'
 
-import getUserId from '../users/getUserId'
-
 const { SystemError } = errors
 
 export default (packName, packDescription, quantity, unit, expiringTime, price, currency) => {
-    //Validates will come here
-
+    validate.packName(packName)
+    validate.description(packDescription)
+    validate.quantity(quantity)
+    validate.units(unit)
+    validate.expiring(expiringTime)
+    validate.currency(currency)
 
 
     //Logic and call to the api

@@ -6,7 +6,8 @@ export default (userId, packId, customerId, description, unitsAdjust) => {
     validate.id(userId, 'userId')
     validate.id(packId, 'packId')
     validate.id(customerId, 'customerId')
-    //validate operation maybe could be usefull
+    validate.description(description)
+
 
     return fetch(`${import.meta.env.VITE_API_URL}/tracker/toggleManualUnits`, {
         method: 'POST',

@@ -123,19 +123,8 @@ describe('assignPack', () => {
             const newBasePack = await BasePack.create({ user: newUserProvider._id.toString(), packName: 'pack de 5h', description: 'Descripción del pack', quantity: 5, unit: 'hours', expiringTime: 12, price: 1000, currency: 'EUR' })
             const createdBasePack = await BasePack.findOne({ user: newUserProvider._id.toString() })
             await assignPack(newUserProvider._id.toString(), customerSearchByEmail, '6790f8437cfb3273d03f336c', 'Descripción del pack asignado', 500, 'cash')
-        })()).to.be.rejectedWith(NotFoundError, 'The pack does not exist')
+        })()).to.be.rejectedWith(NotFoundError, 'Base pack not found')
     )
-
-    /*
-    it('fails on invalid price', () =>
-        expect((async () => {
-            const newUser = await User.create({ username: 'Risto', password: 'risto123', email: 'risto@risto.com' })
-            const newBasePack = await BasePack.create({ user: newUser._id.toString(), packName: 'pack de 5h', description: 'Descripción del pack', quantity: 5, unit: 'hours', expiringTime: 12, price: 1000, currency: 'EUR' })
-
-            await updateBasePack(newUser._id.toString(), newBasePack._id.toString(), 'nombre del pack', 'Descripción del pack', 5, 'hours', 12, '1000', 'EUR')
-        })()).to.be.rejectedWith(ValidationError, 'Value provided should be a valid number')
-    )
- */
 
     // after(async () => await db.disconnect())
     after(() => db.disconnect())

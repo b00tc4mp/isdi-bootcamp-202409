@@ -4,6 +4,9 @@ const { SystemError } = errors
 
 export default (packId, amount, currency, method, paymentStatus) => {
     validate.id(packId)
+    validate.payedAmount(amount)
+    validate.currency(currency)
+    validate.method(method)
 
     return fetch(`${import.meta.env.VITE_API_URL}/payments/add-payment`, {
         method: 'POST',

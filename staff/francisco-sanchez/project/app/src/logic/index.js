@@ -42,7 +42,6 @@ import {
 
 import {
     getDecimalToTimeFormat,
-    getFormattedDate,
     getTimeFormatFromDecimal,
     getProfileImage,
 } from './helpers'
@@ -79,7 +78,6 @@ const logic = {
 
     //Helpers
     getDecimalToTimeFormat,
-    getFormattedDate,
     getTimeFormatFromDecimal,
     getProfileImage,
 

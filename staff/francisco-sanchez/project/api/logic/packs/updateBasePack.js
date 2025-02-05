@@ -33,9 +33,9 @@ export default (userId, basePackId, packName, description, quantity, unit, expir
 
                     return BasePack.findByIdAndUpdate(basePackId, { packName, description, quantity, unit, expiringTime, price, currency }, { new: true, runValidators: true })
                         .catch(error => {
-                            //throw new SystemError(error.message)
-                            throw error
+                            throw new SystemError(error.message)
                         })
+                        .then(() => { })
                 })
         })
 }

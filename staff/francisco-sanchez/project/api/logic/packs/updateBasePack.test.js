@@ -4,21 +4,21 @@ import updateBasePack from './updateBasePack.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const userId = '675b619e599ea5061e869e9c'
-const basePackId = '675e29f34f531a5c3a25b5da'
+const userId = '67a1d44e01572f37bc099310'
+const basePackId = '67a1d4c001572f37bc09932c'
 
 const packName = 'Single hour updated 2'
 const description = 'Single hour service updated 2'
-const quantity = 100
-const unit = 'units'
-const expiringTime = 12
-const price = 50
+const quantity = 10
+const unit = 'hours'
+const expiringTime = '10'
+const price = 5000000
 const currency = 'EUR'
 
 try {
-    const basePack = await updateBasePack(userId, basePackId,
+    await updateBasePack(userId, basePackId,
         packName, description, quantity, unit, expiringTime, price, currency)
-    console.log(basePack)
+    console.log('OK')
 } catch (error) {
     console.error(error)
 } finally {

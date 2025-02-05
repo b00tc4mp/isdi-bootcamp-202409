@@ -24,7 +24,7 @@ describe('createBasePack', () => {
     it('succeeds on new basePack', async () => {
         const newUser = await User.create({ username: 'Risto', password: 'risto123', email: 'risto@risto.com' })
 
-        await createBasePack(newUser._id.toString(), 'pack de 5h', 'Descripción del pack', 5, 'hours', 12, 1000, 'EUR')
+        await createBasePack(newUser._id.toString(), 'pack de 5h', 'Descripción del pack', 5, 'hours', '12', 1000, 'EUR')
 
         const pack = await BasePack.findOne({ user: newUser._id })
 
@@ -41,7 +41,7 @@ describe('createBasePack', () => {
 
     it('fails on non existing user', () =>
         expect((async () => {
-            await createBasePack('9790e3bd44bebbc8db317786', 'pack de 5h', 'Descripción del pack', 5, 'hours', 12, 1000, 'EUR')
+            await createBasePack('9790e3bd44bebbc8db317786', 'pack de 5h', 'Descripción del pack', 5, 'hours', '12', 1000, 'EUR')
         })()).to.be.rejectedWith(NotFoundError, 'user not found')
     )
 

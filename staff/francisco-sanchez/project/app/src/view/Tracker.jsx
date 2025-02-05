@@ -79,8 +79,9 @@ export default function Tracker(props) {
         setSelectedCustomer(customerId)
         console.log('handleCustomerChange -- setSelectedCustomer --> ' + customerId)
 
+        //TODO: Este Clear daba problemas, al comentarlo ya no da error.
         // Limpiamos el pack seleccionado
-        setSelectedPack(null)
+        //setSelectedPack(null)
 
         // Fetch packs based on the selected customer
         logic.getAdquiredPacks(customerId)

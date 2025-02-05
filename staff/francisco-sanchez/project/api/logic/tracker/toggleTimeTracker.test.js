@@ -5,9 +5,9 @@ import toggleTimeTracker from './toggleTimeTracker.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const packId = '6781141216adde0a2b2f9440' //pack for testing ISDI 10h
-const customerId = '6780f91758255d20563d6a61' //cirera
-const userId = '6780f8fe58255d20563d6a5f' //risto
+const packId = '67a22f86a98255112ba0a883'
+const customerId = '6790bfcf1ca7001414157840'
+const userId = '67a1d44e01572f37bc099310'
 
 const description = 'Trabajando en la creación de la lógica de api de toggletimmerTracker'
 const operation = 'substract'
@@ -20,4 +20,3 @@ try {
 } finally {
     await db.disconnect()
 }
-

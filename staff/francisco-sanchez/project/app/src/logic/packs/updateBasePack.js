@@ -3,7 +3,13 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default (basePackId, packName, description, quantity, unit, expiringTime, price, currency) => {
-    validate.id(basePackId, 'noteId')
+    validate.id(basePackId, 'basePackId')
+    validate.name(packName)
+    validate.description(description)
+    validate.quantity(quantity)
+    validate.units(unit)
+    validate.expiring(expiringTime)
+    validate.currency(currency)
 
 
     return fetch(`${import.meta.env.VITE_API_URL}/packs/update/${basePackId}`, {

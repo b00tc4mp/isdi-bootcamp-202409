@@ -5,12 +5,12 @@ import toggleManualUnitsTracker from './toggleManualUnitsTracker.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const userId = '6780f8fe58255d20563d6a5f' //risto
-const packId = '6780fa7958255d20563d6a97'
-const customerId = '6780f91758255d20563d6a61' //cirera
-const description = 'Ahora añado 2 horas al pack '
+const userId = '67a27f2db924ef0e1aca7dd0'
+const packId = '67a2837dea9fd833c938e901'
+const customerId = '6790f8437cfb3273d03f336c'
+const description = 'quito 5 unidades en logic test'
 
-const unitsAdjust = -17
+const unitsAdjust = -5
 
 try {
     const pack = await toggleManualUnitsTracker(userId, packId, customerId, description, unitsAdjust)

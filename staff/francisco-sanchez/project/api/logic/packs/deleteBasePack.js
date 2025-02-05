@@ -11,6 +11,9 @@ export default (userId, basePackId) => {
         User.findById(userId).lean(),
         BasePack.findById(basePackId).lean()
     ])
+        .catch(error => {
+            throw new SystemError(error.message)
+        })
         .then(([user, basePack]) => {
             if (!user) throw new NotFoundError('user not found')
 
@@ -21,23 +24,19 @@ export default (userId, basePackId) => {
             }
 
             return Pack.findOne({ refPack: basePackId, status: 'Active' }).lean()
+                .catch(error => {
+                    throw new SystemError(error.message)
+                })
                 .then(packReferenced => {
                     if (packReferenced) {
                         throw new DataIntegrityError('This pack is assigned to one or more customers with Active status and cannot be deleted')
                     }
 
                     return BasePack.findByIdAndDelete(basePackId)
+                        .catch(error => {
+                            throw new SystemError(error.message)
+                        })
+                        .then(() => { })
                 })
-        })
-        .catch(error => {
-            // Si el error es una instancia de un error conocido, lánzalo tal cual
-            if (error instanceof NotFoundError ||
-                error instanceof OwnershipError ||
-                error instanceof DataIntegrityError) {
-                throw error
-            }
-
-            // Para cualquier otro error, lanzar un SystemError
-            throw new SystemError(error.message)
         })
 }

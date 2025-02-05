@@ -3,8 +3,6 @@ import { /* validate, */ errors } from 'com'
 const { SystemError } = errors
 
 export default () => {
-    //Validates will come here
-
     //Logic and call to the api
     return fetch(`${import.meta.env.VITE_API_URL}/packs/get-basepack`, {
         method: 'GET',

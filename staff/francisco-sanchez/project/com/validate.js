@@ -109,6 +109,10 @@ const validateUnit = (text) => {
 const validatequantity = (text) => {
     if (typeof text !== 'string') throw new ValidationError('invalid quantity')
 }
+const validatePayedAmount = (payed) => {
+    if (typeof payed !== 'string') throw new ValidationError('invalid payed amount')
+    if (payed.length > 10) { throw new ValidationError('payments cannot be grater than 9999999.99') }
+}
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
@@ -137,7 +141,18 @@ const validateStatus = status => {
     if (typeof status !== 'string') throw new ValidationError('invalid status')
     const validStatuses = ['Pending', 'Active', 'Expired', 'Finished']
     if (validStatuses.includes(status) === false) { throw new ValidationError('Invalid provided status') }
+}
 
+const validatePaymentMethod = method => {
+    if (typeof method !== 'string') throw new ValidationError('invalid payment method')
+    const validPaymentsMethod = ['card', 'bankTransfer', 'paypal', 'stripe', 'cash', 'others']
+    if (validPaymentsMethod.includes(method) === false) { throw new ValidationError('Invalid provided payment method') }
+}
+
+const validateTimeFormat = time => {
+    if (typeof time !== 'string') throw new ValidationError('invalid time, must be a string')
+    if (!/^[-+]?([0-9]{2}):([0-5][0-9]):([0-5][0-9])$/i.test(time))
+        throw new ValidationError('invalid time format (+/-)hh:mm:ss')
 }
 
 const validate = {
@@ -164,7 +179,10 @@ const validate = {
     generic: validateGenericField,
     url: validateUrl,
     expiring: validateExpiringTime,
-    status: validateStatus
+    status: validateStatus,
+    payedAmount: validatePayedAmount,
+    paymentMethod: validatePaymentMethod,
+    timeFormat: validateTimeFormat
 }
 
 export default validate

@@ -6,42 +6,46 @@ const { SystemError, NotFoundError } = errors
 export default (userId) => {
     validate.id(userId, 'userId')
 
-    return User.findById(userId).lean()
-        .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+    return (async () => {
+        let user, basePacks
 
-            return BasePack.find({ user: userId })
-                .lean()
-                .then(basePack => {
-                    return basePack
+
+        try {
+            user = await User.findById(userId).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        if (!user) throw new NotFoundError('User not found')
+
+
+        try {
+            basePacks = await BasePack.find({ user: userId }).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        if (!basePacks || basePacks.length === 0) throw new NotFoundError('No basePack found for this userId')
+
+
+        // Contar los packs asignados a cada basePack
+        try {
+            const basePacksWithCount = await Promise.all(
+                basePacks.map(async (basePack) => {
+                    const packCount = await Pack.countDocuments({ refPack: basePack._id })
+
+                    basePack.id = basePack._id.toString()
+                    delete basePack._id
+
+                    return {
+                        ...basePack,
+                        refCount: packCount,
+                    }
                 })
-                .catch(error => {
-                    throw new SystemError(error.message)
-                })
-                .then(async basePack => {
-                    if (!basePack || basePack.length === 0) throw new NotFoundError('No basePack found for this userId')
+            )
 
-                    //If found basePacks we'll count how many assigned and active packs are
-                    const basePackIds = basePack.map(pack => pack._id)
+            return basePacksWithCount
 
-                    // Consultamos el recuento de referencias en la colección `packs`
-                    const counts = await Pack.aggregate([
-                        { $match: { refPack: { $in: basePackIds } } },
-                        { $group: { _id: "$refPack", count: { $sum: 1 } } }
-                    ])
-
-                    // Transformamos los resultados en un mapa para acceso rápido
-                    const countMap = counts.reduce((acc, item) => {
-                        acc[item._id.toString()] = item.count
-                        return acc
-                    }, {})
-
-                    basePack.forEach(basePack => {
-                        basePack.id = basePack._id.toString()
-                        basePack.refCount = countMap[basePack.id] || 0
-                        delete basePack._id
-                    })
-                    return basePack
-                })
-        })
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+    })()
 }

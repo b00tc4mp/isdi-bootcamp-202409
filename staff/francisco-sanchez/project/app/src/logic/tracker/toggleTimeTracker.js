@@ -6,6 +6,7 @@ export default (userId, packId, customerId, description, operation) => {
     validate.id(userId, 'userId')
     validate.id(packId, 'packId')
     validate.id(customerId, 'customerId')
+    validate.description(description)
     //validate operation maybe could be usefull
 
     return fetch(`${import.meta.env.VITE_API_URL}/tracker/toggleTimmer`, {

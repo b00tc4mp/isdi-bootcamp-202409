@@ -11,7 +11,6 @@ export default (userId, packId, description, remainingQuantity, expiryDate, stat
     validate.id(userId, 'userId')
     validate.id(packId, 'packId')
     validate.description(description, 'description')
-    //validate.text(status, 'status')
     validate.date(new Date(expiryDate))
     validate.status(status)
 
@@ -33,8 +32,10 @@ export default (userId, packId, description, remainingQuantity, expiryDate, stat
                 : Promise.resolve(remainingQuantity !== undefined ? remainingQuantity : pack.remainingQuantity); // Usar el valor actual si es undefined
 
             return remainingQuantityPromise
+                .catch(error => { throw new SystemError(error.message) })
                 .then((resolvedRemainingQuantity) => {
                     if (pack.unit === 'units') {
+                        //TODO: Refactorizable
                         if (remainingQuantity && typeof remainingQuantity !== 'number') {
                             remainingQuantity = parseFloat(remainingQuantity);
                             if (isNaN(remainingQuantity)) {
@@ -68,7 +69,6 @@ export default (userId, packId, description, remainingQuantity, expiryDate, stat
                             }
                             return updatedPack
                         })
-
                 })
 
         })

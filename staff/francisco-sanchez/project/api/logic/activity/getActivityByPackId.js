@@ -3,38 +3,43 @@ import { errors, validate } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, packId) => {
+export default (userId, packId) => {
     validate.id(packId, 'packId')
     validate.id(userId, 'userId')
 
-    try {
-        const user = await User.findById(userId).lean()
-        if (!user) throw new NotFoundError('user not found')
+    return (async () => {
+        let user, packInfo, activities
 
-        const packInfo = await Pack.findById(packId).lean()
-        if (!packInfo) throw new NotFoundError('pack not found')
-
-        const activities = await Activity.find({ pack: packId }).lean()
-        if (activities.length === 0) throw new NotFoundError('There are not activities registered for this pack')
-
-        const formattedActivities = await Promise.all(
-            activities.map(async (activity) => {
-
-                activity.id = activity._id
-                delete activity._id
-
-                return {
-                    ...activity,
-                }
-            })
-        )
-        return formattedActivities
-
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            throw error
-        } else {
+        try {
+            user = await User.findById(userId).lean()
+        } catch (error) {
             throw new SystemError(error.message)
         }
-    }
+        if (!user) throw new NotFoundError('user not found')
+
+
+        try {
+            packInfo = await Pack.findById(packId).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        if (!packInfo) throw new NotFoundError('pack not found')
+
+
+        try {
+            activities = await Activity.find({ pack: packId }).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        //TODO: controlar en el front
+        if (activities.length === 0) throw new NotFoundError('There are not activities registered for this pack')
+
+
+        activities.forEach((activity) => {
+            activity.id = activity._id.toString()
+            delete activity._id
+        })
+        return activities
+
+    })()
 }

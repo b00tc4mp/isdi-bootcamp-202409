@@ -5,7 +5,8 @@ import getActivityByPackId from './getActivityByPackId.js'
 await db.connect(process.env.MONGO_URL)
 
 try {
-    const result = await getActivityByPackId('6781141216adde0a2b2f9440')
+    const result = await getActivityByPackId('6780f8fe58255d20563d6a5f', '6784efdd87c4b0f255660407')
+    console.log(result)
 } catch (error) {
     console.error(error)
 

@@ -5,14 +5,18 @@ import AssignPack from './assignPack.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const refPack = '6756c371d3b7b18ceb4f5cf7'
-const provider = '675036c010473f3d809e5359'
-const customer = '674f1fc3a728c03cdd10ba3c'
+const refPack = '67a1d4c001572f37bc09932c'
+const userId = '67a1d44e01572f37bc099310'
+const provider = '67a1d44e01572f37bc099310'
+const customer = '6780f8fe58255d20563d6a5f'
+const payedAmount = '10000'
+const paymentMethod = 'cash'
+const customerSearch = 'risto'
 const description = 'Description test creada desde el back '
-const originalQuantity = 5
+const originalQuantity = 10
 const remainingQuantity = originalQuantity
 const unit = 'hours'
-const price = 235
+const price = 15000
 const currency = 'EUR'
 const purchaseDate = new Date()
 
@@ -26,8 +30,7 @@ const status = 'Active'
 
 
 try {
-    const result = await AssignPack(refPack, provider, customer, description, originalQuantity, remainingQuantity, unit, price, currency, purchaseDate, expiryDate, status)
-
+    await AssignPack(userId, customerSearch, refPack, description, payedAmount, paymentMethod)
 } catch (error) {
     console.error(error)
 } finally {

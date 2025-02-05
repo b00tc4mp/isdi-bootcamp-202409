@@ -34,6 +34,6 @@ export default (username, password) => {
             id: user._id.toString(),
             role: user.role
         }
-    })() //we add the final () in order to invoke de anonymus function inmediately
+    })()
 
 }

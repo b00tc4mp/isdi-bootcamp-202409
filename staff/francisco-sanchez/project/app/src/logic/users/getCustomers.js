@@ -5,8 +5,6 @@ import getUserId from './getUserId.js'
 const { SystemError } = errors
 
 export default () => {
-    //Validates will come here
-
 
     //Logic to call api
     return fetch(`${import.meta.env.VITE_API_URL}/users/customers`, {

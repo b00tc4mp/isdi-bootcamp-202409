@@ -5,9 +5,9 @@ import toggleManualTimeTracker from './toggleManualTimeTracker.js'
 
 await db.connect(process.env.MONGO_URL)
 
-const userId = '6780f8fe58255d20563d6a5f' //risto
-const packId = '67877ffb820328fdd78f6d32' //pack de javi
-const customerId = '67877f2f820328fdd78f6cfe' //javi
+const userId = '67a1d44e01572f37bc099310'
+const packId = '67a1ff93f0e71ece7b3825ee'
+const customerId = '6790f8437cfb3273d03f336c' //javi
 const description = 'Añado horas manualmente'
 
 const timeAdjust = '10:20:00'

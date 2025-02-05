@@ -8,6 +8,7 @@ export default (userId, packId) => {
     validate.id(userId, 'userId')
 
     return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
@@ -28,14 +29,6 @@ export default (userId, packId) => {
                             return payments
                         })
                 })
-
-        })
-        .catch(error => {
-            if (error instanceof NotFoundError) {
-                throw error
-            } else {
-                throw new SystemError(error.message)
-            }
         })
 }
 

@@ -4,7 +4,7 @@ import { validate, errors } from 'com';
 
 const { SystemError, NotFoundError } = errors
 
-export default async (userId, packId, amount, currency, method, paymentStatus) => {
+export default (userId, packId, amount, currency, method, paymentStatus) => {
     validate.id(packId, 'packId')
     validate.id(userId, 'userId')
     validate.currency(currency)
@@ -18,27 +18,22 @@ export default async (userId, packId, amount, currency, method, paymentStatus) =
     if (!paymentStatus) { paymentStatus = 'partially payed' }
 
     return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
                 throw new NotFoundError('user not found')
             }
 
             return Pack.findById(packId).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(pack => {
                     if (!pack) throw new NotFoundError('Pack not found')
 
                     return Payment.create({ pack: packId, amount: floatAmount, currency, method, date: new Date() })
-                        .then(newPayment => {
-
-                            return newPayment
+                        .catch(error => {
+                            throw new SystemError(error.message)
                         })
-                })
-                .catch(error => {
-                    if (error instanceof NotFoundError) {
-                        throw error
-                    } else {
-                        throw new SystemError(error.message)
-                    }
+                        .then(() => { })
                 })
         })
 }

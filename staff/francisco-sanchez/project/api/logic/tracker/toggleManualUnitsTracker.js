@@ -20,6 +20,7 @@ export default (userId, packId, customerId, description, unitsAdjust) => {
 
     // Validamos si el usuario existe
     return User.findById(userId)
+        .catch(error => { throw new SystemError(error.message) })
         .then((user) => {
             if (!user) throw new NotFoundError('user not found')
 
@@ -32,8 +33,6 @@ export default (userId, packId, customerId, description, unitsAdjust) => {
                     const invalidStatuses = ['Finished', 'Pending', 'Expired']
                     const currentDate = new Date()
                     const expiryDate = new Date(pack.expiryDate)
-
-                    //TODO: Frank, lo mismo que en toggleManualTimeTracker
 
                     if (pack.provider.toString() !== userId) {
                         throw new OwnershipError('Your user is not the owner of this pack relationship')
@@ -52,42 +51,32 @@ export default (userId, packId, customerId, description, unitsAdjust) => {
                     const operation = unitsAdjust > 0 ? 'add' : 'substract'
 
                     return Activity.create({
-                        pack: packId,
-                        date: new Date(),
-                        description,
-                        operation,
-                        quantity: absDecimalUnits,
-                        remainingQuantity: operation === 'add'
+                        pack: packId, date: new Date(), description, operation, quantity: absDecimalUnits, remainingQuantity: operation === 'add'
                             ? remainingQuantity + absDecimalUnits
                             : remainingQuantity - absDecimalUnits,
-                    }).then((activity) => {
-                        if (!activity._id) {
-                            throw new SystemError('There was a problem creating the activity log')
-                        }
-
-                        return Pack.findByIdAndUpdate(
-                            packId,
-                            {
-                                remainingQuantity:
-                                    operation === 'add'
-                                        ? remainingQuantity + absDecimalUnits
-                                        : remainingQuantity - absDecimalUnits,
-                            },
-                            { new: true, runValidators: true }
-                        )
-                            .lean()
-                            .then((updatedPack) => {
-                                updatedPack.id = updatedPack._id.toString()
-                                delete updatedPack._id
-
-                                // Check pack after last update in order to know if the status should change
-                                return checkPackAndUpdate(packId).then(() => updatedPack)
-                            })
                     })
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then((activity) => {
+                            if (!activity._id) {
+                                throw new SystemError('There was a problem creating the activity log')
+                            }
+
+                            return Pack.findByIdAndUpdate(packId, {
+                                remainingQuantity: operation === 'add' ? remainingQuantity + absDecimalUnits : remainingQuantity - absDecimalUnits,
+                            }, { new: true, runValidators: true }).lean()
+                                .catch(error => { throw new SystemError(error.message) })
+                                .then((updatedPack) => {
+                                    updatedPack.id = updatedPack._id.toString()
+                                    delete updatedPack._id
+
+                                    // Check pack after last update in order to know if the status should change
+                                    return checkPackAndUpdate(packId).then(() => updatedPack)
+                                })
+                        })
                 })
         })
-        .catch((error) => {
-            if (error instanceof NotFoundError || error instanceof ValidationError) throw error
-            throw new SystemError(error.message)
-        })
+    /*  .catch((error) => {
+         if (error instanceof NotFoundError || error instanceof ValidationError) throw error
+         throw new SystemError(error.message)
+     }) */
 }

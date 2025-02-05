@@ -80,7 +80,7 @@ User Provider
 - Express (...)
 - Mongo (...)
 - Mocha & Chai (...)
-- [...]
+- NodeMailer.js
 
 ### Data Model
 
@@ -157,7 +157,7 @@ Payment
 - currency (string, enum: EUR | USD, default: EUR)
 - date (date)
 - method (string, enum: card | bank_transfer | paypal | stripe)
-- status (string, enum: pending | completed | canceled | refunded)
+- status (string, enum: pending | completed | canceled | refunded) DELETE
 
 ### Test Coverage
 

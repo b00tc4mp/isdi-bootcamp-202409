@@ -1,4 +1,4 @@
-import { Pack, User, Activity, Payment } from 'dat'
+import { Pack, User, Activity, Payment, BasePack } from 'dat'
 
 import { validate, errors } from 'com'
 
@@ -16,24 +16,17 @@ export default (userId, customerSearch, selectPack, description, payedAmount, pa
     const descriptionProvided = description
 
     return (async () => {
-
-        let providerUser
+        let providerUser, customerId, basePack
 
         try {
             providerUser = await User.findById(userId)
-            if (!providerUser) {
-                throw new NotFoundError('user not found')
-            }
-
         } catch (error) {
-            if (error instanceof NotFoundError) {
-                throw error
-            } else {
-                throw new SystemError(error.message)
-            }
+            throw new SystemError(error.message)
+        }
+        if (!providerUser) {
+            throw new NotFoundError('user not found')
         }
 
-        let customerId
 
         try {
             customerId = await User.findOne({
@@ -42,32 +35,20 @@ export default (userId, customerSearch, selectPack, description, payedAmount, pa
                     { email: customerSearch }
                 ]
             }).lean()
-
-            if (!customerId) {
-                throw new NotFoundError('Customer not found')
-            }
-
         } catch (error) {
-            if (error instanceof NotFoundError) {
-                throw error
-            } else {
-                throw new SystemError(error.message)
-            }
+            throw new SystemError(error.message)
+        }
+        if (!customerId) {
+            throw new NotFoundError('Customer not found')
         }
 
-        let basePack
-
         try {
-            basePack = await getBasePackDetails(userId, selectPack)
-            if (!basePack) {
-                throw new NotFoundError('Base pack not found')
-            }
-        } catch (error) {
-            if (error instanceof NotFoundError) {
-                throw error
-            } else {
-                throw new SystemError(error.message)
-            }
+            basePack = await BasePack.findById(selectPack).lean()
+            console.log(selectPack)
+        } catch (error) { throw new SystemError(error.message) }
+
+        if (!basePack) {
+            throw new NotFoundError('Base pack not found')
         }
 
 
@@ -137,13 +118,13 @@ export default (userId, customerSearch, selectPack, description, payedAmount, pa
                 //status: paymentStatus,
             })
 
-            return {
+            /* return {
                 pack: newPack,
                 updateProvider,
                 updateCustomer,
                 addActivity,
                 addPayment,
-            }
+            } */
 
         } catch (error) {
             throw new SystemError(error.message)

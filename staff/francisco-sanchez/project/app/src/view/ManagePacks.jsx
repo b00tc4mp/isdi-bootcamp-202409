@@ -47,7 +47,8 @@ export default function ManagePacks(props) {
                 try {
                     logic.deleteBasePack(basePackId)
                         .then(() => {
-                            props.onPackDeleted()
+                            alert('Pack deleted successfully', 'success')
+                            setPacks(prevPacks => prevPacks.filter(pack => pack.id !== basePackId))
                         })
                         .catch(error => {
                             alert(error.message)

@@ -115,7 +115,7 @@ export default function Create(props) {
 
                     <Field>
                         <Label htmlFor="price">Price</Label>
-                        <Input personalClasses="border-2 rounded-lg w-full" type="text" id="price" placeholder="50,00 €" />
+                        <Input personalClasses="border-2 rounded-lg w-full" type="text" id="price" placeholder="50,00 €" required={true} />
                         <input type="hidden" id="currency" defaultValue="EUR" />
                     </Field>
                 </div>
