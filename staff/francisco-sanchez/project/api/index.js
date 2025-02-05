@@ -13,9 +13,6 @@ db.connect(process.env.MONGO_URL).then(() => {
 
     server.use(cors())
 
-    // TODO: Con Frank -> servir desde users
-    server.use('/images/profile', express.static('public/images/profile'));
-
     server.get('/', (_, res) => res.send('API is Up Ready to go'))
 
     //Here will be all the endpoints of the API. 
@@ -24,6 +21,7 @@ db.connect(process.env.MONGO_URL).then(() => {
     server.use('/tracker', trackerRouter)
     server.use('/activities', activitiesRouter)
     server.use('/payments', paymentsRouter)
+    server.use('/images/profile', express.static('public/images/profile'))
 
     server.use(errorHandler)
 

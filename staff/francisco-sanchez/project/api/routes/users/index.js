@@ -21,5 +21,6 @@ usersRouter.get('/customerpacks/:customerId', authorizationHandler, getCustomerP
 usersRouter.get('/user/:targetUserId', authorizationHandler, getUserDetailsHandler)
 usersRouter.put('/update/:targetUserId', authorizationHandler, jsonBodyParser, updateUserHandler)
 //usersRouter.get('/images/profile:imageUrl')
+//server.use('/images/profile', express.static('public/images/profile'))
 
 export default usersRouter

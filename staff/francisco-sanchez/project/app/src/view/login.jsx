@@ -6,7 +6,7 @@ const { SystemError } = errors
 
 import useContex from './useContext'
 
-import logoTemp from '../../public/logoTemp.png'
+import logoTemp from '../../public/modernLogo.png'
 
 import { Button, Field, Input, Label, Image } from '../library'
 
@@ -50,7 +50,7 @@ export default function Login(props) {
         <div className="bg-white rounded-lg shadow-lg p-8 w-96">
             <div className="flex flex-col items-center">
 
-                <Image src={logoTemp} alt="Logo Hourify" className="w-20 h-20 mb-4" />
+                <Image src={logoTemp} alt="Logo Hourify" className="w-60 h-50 mb-4" />
 
                 <h2 className="text-2xl font-bold text-color_darkBlue mb-4">Login</h2>
 

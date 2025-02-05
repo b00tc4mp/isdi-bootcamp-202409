@@ -24,7 +24,6 @@ export default (basePackId, packName, description, quantity, unit, expiringTime,
         .then(res => {
             if (res.ok)
                 return
-            //TODO: Entendre be aquest segon return i els seu catch / then
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error](message) })

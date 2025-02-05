@@ -218,9 +218,6 @@ const basePack = new Schema({
 
 
 
-
-
-
 //Model por pack/customer/provider relationship
 const pack = new Schema({
 
@@ -381,7 +378,7 @@ const payment = new Schema({
     method: {
         type: String,
         required: true,
-        enum: ['card', 'bankTransfer', 'paypal', 'stripe', 'cash', 'others'],
+        enum: ['card', 'bankTransfer', 'paypal', 'stripe', 'cash', 'bizum', 'others'],
     },
 
     status: {
@@ -396,12 +393,6 @@ const payment = new Schema({
         required: false,
     }
 
-    /*     type: {
-            type: String,
-            required: false,
-            enum: ['income', 'outcome'],
-            default: 'income'
-        } */
 }, { versionKey: false })
 
 

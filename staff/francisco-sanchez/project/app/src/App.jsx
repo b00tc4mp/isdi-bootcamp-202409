@@ -158,19 +158,16 @@ export default function App() {
           <CustomerPacks onHomeClick={handleHomeClick} /> :
           <Navigate to="/login" />} />
 
-        <Route
-          //TODO: Create compo not found!!!
-          path="*" element={
-            <div className="text-center">
-              <h1 className="text-red-600 text-2xl font-bold">Error 404</h1>
-              <p className="text-gray-700">This page does not exist or it was removed.</p>
-              <p>
-                You can try to{' '}
-                <a href="#" className="text-blue-500 underline hover:text-blue-700" onClick={handleNotfoundError}>go home</a>
-              </p>
-            </div>
-          }
-        />
+        <Route path="*" element={
+          <div className="text-center">
+            <h1 className="text-red-600 text-2xl font-bold">Error 404</h1>
+            <p className="text-gray-700">This page does not exist or it was removed.</p>
+            <p>
+              You can try to{' '}
+              <a href="#" className="text-blue-500 underline hover:text-blue-700" onClick={handleNotfoundError}>go home</a>
+            </p>
+          </div>
+        } />
       </Routes>
 
 

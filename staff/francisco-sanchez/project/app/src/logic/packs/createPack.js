@@ -33,7 +33,7 @@ export default (packName, packDescription, quantity, unit, expiringTime, price, 
                     throw new SystemError(error.message)
                 })
                 .then(({ error, message }) => {
-                    throw new errors[error](message) //TODO: Repasar este error
+                    throw new errors[error](message)
                 })
 
         })

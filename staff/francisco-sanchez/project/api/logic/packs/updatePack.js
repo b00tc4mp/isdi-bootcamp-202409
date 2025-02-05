@@ -80,6 +80,4 @@ export default (userId, packId, description, remainingQuantity, expiryDate, stat
                 })
                 .then(() => updatedPack); // Retornar el `updatedPack` original
         });
-
-
 }

@@ -9,21 +9,23 @@ import { ActivityTable } from './components/index'
 const { SystemError } = errors
 
 export default function Tracker(props) {
+    let [loading, setLoading] = useState(true)
     const [customers, setCustomers] = useState([])
     const [filteredPacks, setFilteredPacks] = useState([])
     const [packActivities, setPackActivities] = useState([])
-    const [selectedCustomer, setSelectedCustomer] = useState('') // Estado para almacenar el cliente seleccionado
-    const [selectedPack, setSelectedPack] = useState(null) // Estado para almacenar el pack seleccionado
-    const [description, setDescription] = useState('') // Estado para almacenar la descripción
+    const [selectedCustomer, setSelectedCustomer] = useState('')
+    const [selectedPack, setSelectedPack] = useState(null)
+    const [description, setDescription] = useState('')
 
-    const [elapsedTime, setElapsedTime] = useState(0) // Tiempo transcurrido en segundos
-    const [intervalId, setIntervalId] = useState(null) // Identificador del intervalo
+    const [elapsedTime, setElapsedTime] = useState(0)
+    const [intervalId, setIntervalId] = useState(null)
 
     const { alert } = useContex()
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true)
                 const customers = await logic.getCustomers()
                 setCustomers(customers)
 
@@ -55,6 +57,9 @@ export default function Tracker(props) {
             } catch (error) {
                 //alert(error.message)
                 console.error(error)
+
+            } finally {
+                setLoading(false)
             }
         }
         fetchData()
@@ -272,12 +277,19 @@ export default function Tracker(props) {
         logic.toggleTimeTracker(userId, selectedPack.id, selectedPack.customer, currentDescription, 'substract')
             .then((packUpdated) => {
                 if (!packUpdated || !packUpdated.id) {
-                    /* console.log('API Response (packUpdated):', packUpdated)
-                    console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
                     alert('Invalid pack data received from the server.')
                     return
                 }
+                console.log('API Response (packUpdated):', packUpdated)
+                console.log('setSelectedPack --> selected pack --> ' + selectedPack)
+
                 setSelectedPack(packUpdated)
+
+                setFilteredPacks(prevPacks =>
+                    prevPacks.map(pack =>
+                        pack.id === packUpdated.id ? packUpdated : pack
+                    )
+                )
 
                 // Detenemos el temporizador actual
                 if (intervalId) {
@@ -345,19 +357,28 @@ export default function Tracker(props) {
         return (
             <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow pt-12">
                 <h2 className="text-2xl font-bold mb-6">Tracker</h2>
-                <div className="bg-white shadow-md rounded p-6 w-full max-w-4xl">
-                    <p>You should create first a pack and assign it to a customer to see this page</p>
-                    <br></br>
-                    <ul>
-                        <li>1. Go Manage packs</li>
-                        <li>2. Clic on create new pack</li>
-                        <li>3. Go to assign pack</li>
-                    </ul>
-                    <br></br>
-                    <hr></hr>
-                    <p>After this steps you'll can manage it on this page</p>
-                </div>
 
+                {loading ? (
+
+                    <div className="flex justify-center items-center h-full">
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-color_green"></div>
+                    </div>
+
+                ) : (
+
+                    <div className="bg-white shadow-md rounded p-6 w-full max-w-4xl">
+                        <p>You should create first a pack and assign it to a customer to see this page</p>
+                        <br></br>
+                        <ul>
+                            <li>1. Go Manage packs</li>
+                            <li>2. Clic on create new pack</li>
+                            <li>3. Go to assign pack</li>
+                        </ul>
+                        <br></br>
+                        <hr></hr>
+                        <p>After this steps you'll can manage it on this page</p>
+                    </div>
+                )}
             </main>
         )
     }
@@ -366,8 +387,8 @@ export default function Tracker(props) {
         <main className="flex flex-col  items-center bg-color_backgroundGrey w-full flex-grow pt-12">
             <h2 className="text-2xl font-bold mb-6">Tracker</h2>
             <p>This will be the page to track your projects</p>
-            <div className="flex flex-col">
-                <h2 className="text-2xl">Customer and Pack</h2>
+            <div className="flex flex-col justify-around">
+                <h3 className="text-2xl pt-10">Customer and Pack</h3>
 
                 <form className="flex flex-col justify-items-start">
                     {/* Select Customer */}
@@ -451,16 +472,9 @@ export default function Tracker(props) {
                 </form>
             </div>
 
-            {/* {loading ? (
-                <div className="flex justify-center items-center h-full">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-color_green"></div>
-                </div>
-            ) : ( */}
             <h2 className='text-2xl'>History</h2>
 
             <ActivityTable activities={packActivities} packInfo={selectedPack} />
-
-            {/*  )} */}
 
             <a href="" title="Go back home" onClick={handleHomeClick} className="mt-4 mb-4 hover:underline">Back to home</a>
         </main>

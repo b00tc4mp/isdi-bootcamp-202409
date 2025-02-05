@@ -12,7 +12,7 @@ import { UpdateBasePack } from './components';
 const { SystemError } = errors
 
 export default function ManagePacks(props) {
-    let [loading, setLoading] = useState(true) //This is to show the loader as active by default
+    let [loading, setLoading] = useState(true)
     const { alert, confirm } = useContext()
     const [view, setView] = useState(false)
     const [selectedBasePack, setSelectedBasePack] = useState(null);

@@ -6,7 +6,7 @@ import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised)
 const { expect } = chai
 
-import db, { BasePack, User } from 'dat'
+import db, { BasePack, User, Pack } from 'dat'
 import { errors } from 'com'
 
 const { NotFoundError, ValidationError } = errors
@@ -25,14 +25,8 @@ describe('getBasePacks', () => {
 
     it('succeeds on get user BasePacks', async () => {
         const newUserProvider = await User.create({ username: 'ristoProvider', password: 'risto123', email: 'ristop@risto.com' })
-        const newUserCustomer = await User.create({ username: 'ristoCustomer', password: 'risto123', email: 'ristoc@risto.com' })
 
         const newBasePack = await BasePack.create({ user: newUserProvider._id.toString(), packName: 'pack de 5h', description: 'Descripción del pack', quantity: 5, unit: 'hours', expiringTime: 12, price: 1000, currency: 'EUR' })
-
-        /* expect(newBasePack).to.exist
-        expect(newBasePack.amount).to.equal(30)
-        expect(newBasePack.currency).to.equal('EUR')
-        expect(newBasePack.method).to.equal('cash') */
 
         const findBasePack = await getBasePacks(newUserProvider._id.toString())
         expect(findBasePack).to.be.an('array')
@@ -52,7 +46,7 @@ describe('getBasePacks', () => {
             const newUserProvider = await User.create({ username: 'ristoProvider', password: 'risto123', email: 'ristop@risto.com' })
             await BasePack.create({ user: newUserProvider._id.toString(), packName: 'pack de 5h', description: 'Descripción del pack', quantity: 5, unit: 'hours', expiringTime: 12, price: 1000, currency: 'EUR' })
             const createdBasePack = await BasePack.findOne({ user: newUserProvider._id.toString() })
-            const checkpackAssigned = await Pack.findOne({ provider: newUserProvider._id.toString() })
+            const checkpackAssigned = await BasePack.findOne({ provider: newUserProvider._id.toString() })
             /***************************************** */
 
             await getBasePacks('67a1e06edfb13a2f2b416ff3')
