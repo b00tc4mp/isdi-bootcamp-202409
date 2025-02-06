@@ -1,4 +1,4 @@
-# Hourify / Packly - Time tracker
+# Hourify - Time tracker
 
 ## Intro
 
@@ -108,6 +108,7 @@ This program can be used by people such as:
 - Mongo (Base de datos)
 - Mocha & Chai (Para el testing)
 - NodeMailer.js (Para el envío de notificaciones email automáticas)
+- Tailwindcss
 
 ### Data Model
 

@@ -39,7 +39,6 @@ export default function Create(props) {
                 .then(() => {
                     form.reset()
                     alert(' New pack was created successfully', 'success')
-                    //TODO: Volver a llamar al compo recargado 
                     props.onPackCreated()
 
                 })
