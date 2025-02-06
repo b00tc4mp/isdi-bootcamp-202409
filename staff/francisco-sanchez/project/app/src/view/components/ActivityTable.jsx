@@ -1,7 +1,6 @@
 import { getDecimalToTimeFormat } from "../../logic/helpers";
 
 export default function ActivityTable({ activities, packInfo }) {
-    console.log(packInfo)
     return (
         <table className="mt-5 table-auto border-collapse bg-white shadow-md rounded">
             <thead className="bg-gray-100 text-gray-600 uppercase text-xs border-b border-gray-200">

@@ -19,7 +19,6 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         const fetchData = async () => {
             try {
                 const activities = await logic.getActivitiesByPackId(pack.id)
-                console.log('Pack Activity fetched successfully', activities)
                 setPackActivities(activities)
 
             } catch (error) {
@@ -32,7 +31,6 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         const getPayments = async () => {
             try {
                 const payments = await logic.getPayments(pack.id)
-                console.log('Pack Payments fetched successfully', payments)
                 setPayments(payments)
 
             } catch (error) {
@@ -64,7 +62,6 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
             expiryDate: { value: expiryDate },
             packStatus: { value: packStatus }
         } = form
-        console.log(packDescription, remainingQuantity, new Date(expiryDate), packStatus)
 
         try {
             logic.updatePack(pack.id, packDescription, remainingQuantity, new Date(expiryDate), packStatus)
@@ -126,7 +123,6 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
         confirm('Do you want delete this item? -This action can\'t be reversed', accepted => {
             if (accepted) {
                 try {
-                    console.log(paymentId)
                     logic.deletePayment(paymentId)
                         .then(() => {
                             // Filtra el pago eliminado de la lista de pagos actual
@@ -149,9 +145,10 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
     }
 
     if (!pack) {
-        return <p>there was a problem loading customer pack</p>
+
+        return <p>There was a problem loading customer pack</p>
+
     } else {
-        console.log(pack)
 
         return <main className="flex flex-col items-center bg-color_backgroundGrey w-full flex-grow pt-5 pb-10">
             <h2 className="text-2xl mb-4">"{pack.description}"</h2>
@@ -267,19 +264,18 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                         <thead>
                             <tr className='bg-color_Grey'>
                                 <th className="border px-4 py-2">Date</th>
-                                <th className="border px-4 py-2">Reference</th>
+                                {/* <th className="border px-4 py-2">Reference</th> */}
                                 <th className="border px-4 py-2">Amount</th>
                                 <th className="border px-4 py-2">Method</th>
                                 <th className="border px-4 py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {console.log(payments)}
                             {payments.map(payment => (
 
                                 <tr key={payment?.id}>
                                     <td className='border px-4 py-2'>{new Date(payment?.date).toLocaleDateString()}</td>
-                                    <td className='border px-4 py-2'></td>
+                                    {/* <td className='border px-4 py-2'></td> */}
                                     <td className='border px-4 py-2'>{payment?.amount} {payment?.currency}</td>
                                     <td className='border px-4 py-2'>{payment?.method}</td>
                                     <td className='border px-4 py-2'>
@@ -302,10 +298,10 @@ export default function UpdateCustomerPack({ onUpdated, onPaymentAdded, onPaymen
                                     <Label htmlFor="amount">Amount</Label>
                                     <Input className="border-2 rounded-lg" type="text" defaultValue={(parseFloat(pack.price) - parseFloat(pack.totalPayments)).toFixed(2)} id="amount" placeholder="0" required={true} />
                                 </Field>
-                                <Field>
+                                {/*  <Field>
                                     <Label htmlFor="reference">Reference</Label>
                                     <Input className="border-2 rounded-lg" type="text" id="reference" placeholder="Payment reference" required={false} />
-                                </Field>
+                                </Field> */}
                                 <Field>
                                     <Label htmlFor="paymentMethod">Select Payment Method</Label>
                                     <select id="paymentMethod" name="paymentMethod" className="border-2 rounded-lg w-full p-2" required>

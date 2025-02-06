@@ -7,8 +7,6 @@ import useContext from './useContext'
 import { Button, Field, Input, Label, Image } from '../library'
 
 export default function Register(props) {
-    console.log('Register -> render')
-
     const { alert } = useContext()
 
     const handleSubmit = event => {

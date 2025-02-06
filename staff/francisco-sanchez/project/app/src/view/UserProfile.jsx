@@ -183,8 +183,13 @@ export default function UserProfile(props) {
                                 <Input type="url" id="website" defaultValue={userData.website} placeholder="Your company name" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-color_primary" />
                             </Field>
 
-                            <Button type="submit" className="bg-color_primary text-white px-4 py-2 rounded-md hover:bg-color_primaryHover transition">Update profile</Button>
-                            <Button className="bg-color_softRed text-white px-4 py-2 rounded-md hover:bg-red-800 transition" onClick={handleCancelButton}>Cancel</Button>
+                            {/* <Button type="submit" className="bg-color_primary text-white px-4 py-2 rounded-md hover:bg-color_primaryHover transition">Update profile</Button>
+                            <Button className="bg-color_softRed text-white px-4 py-2 rounded-md hover:bg-red-800 transition" onClick={handleCancelButton}>Cancel</Button> */}
+
+                            <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                                <Button type="submit" className="btn m-2" >Update profile</Button>
+                                <Button className="btn m-2 bg-color_softRed  hover:bg-red-800 transition" onClick={handleCancelButton}>Cancel</Button>
+                            </div>
                         </>
                     ) : (
                         <p>Loading user data...</p>

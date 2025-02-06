@@ -1,3 +1,4 @@
+#To update user with random data
 db.users.updateOne(
   { _id: ObjectId('6762dba622333bfc20ee5487') },
   {
@@ -18,6 +19,7 @@ db.users.updateOne(
   }
 )
 
+#To update some data on a user
 db.users.updateOne(
   { _id: ObjectId('6762dba622333bfc20ee5487') },
   {
@@ -27,3 +29,6 @@ db.users.updateOne(
     }
   }
 )
+
+# To see active packs
+db.packs.find({timerActivated: { $ne: null } })

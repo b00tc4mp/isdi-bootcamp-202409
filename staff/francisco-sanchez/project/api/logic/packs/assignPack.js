@@ -44,7 +44,6 @@ export default (userId, customerSearch, selectPack, description, payedAmount, pa
 
         try {
             basePack = await BasePack.findById(selectPack).lean()
-            console.log(selectPack)
         } catch (error) { throw new SystemError(error.message) }
 
         if (!basePack) {

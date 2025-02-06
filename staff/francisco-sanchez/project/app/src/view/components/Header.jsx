@@ -27,7 +27,6 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
                     alert(error.error)
                     console.error(error)
                 }
-                console.log(userDetails)
 
             }
         } else {
@@ -62,18 +61,15 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
 
     const handleTrackerClick = event => {
         event.preventDefault()
-        console.log('Click on tracker compo')
         onTrackerClick()
     }
 
     const handleManagePacks = event => {
-        console.log("Manage packs clicked");
         event.preventDefault()
         onManagePacksClick()
     };
 
     const handleManageCustomers = event => {
-        console.log("Manage customers clicked");
         event.preventDefault()
         onManageCustomersClick()
     };
@@ -81,7 +77,6 @@ export default function Header({ onHomeClick, onLoggedOut, onViewProfile, onTrac
     const profileImageUrl = logic.getProfileImage(userDetails)
 
     const isActive = (path) => location.pathname === path ? 'text-color_green font-bold' : 'hover:underline';
-    console.log(isActive)
 
 
     return <header className="bg-color_darkBlue text-white p-4 flex justify-between items-center h-28">

@@ -1,12 +1,14 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+//import { useRef } from 'react'
 import logic from '../logic'
 import { errors } from 'com'
 
 import useContex from './useContext'
-import { Button, Field, Label, Input } from '../library/index'
+import { Button, Field, Label } from '../library/index'
 import { ActivityTable } from './components/index'
 
 const { SystemError } = errors
+//const timerInputRef = useRef(null)
 
 export default function Tracker(props) {
     let [loading, setLoading] = useState(true)
@@ -31,22 +33,31 @@ export default function Tracker(props) {
 
                 if (customers.length > 0) {
                     const firstCustomerId = customers[0]
-                    console.log("useEffect -- First customer ID --> ", firstCustomerId)
                     setSelectedCustomer(firstCustomerId)
 
-                    console.log('Antes de llamar al getAdquiredPacks el firstCustomerId.id es --> ' + firstCustomerId.id)
                     const packs = await logic.getAdquiredPacks(firstCustomerId.id)
-                    console.log('useEffect -- Packs fetched successfully --> ', packs)
                     setFilteredPacks(packs)
 
                     //load activities from first pack in the select
                     if (packs.length > 0) {
                         const firstPack = packs[0]
-                        console.log('useEffect -- First pack -->', firstPack)
                         setSelectedPack(firstPack)
 
+                        clearInterval(intervalId)
+                        setIntervalId(null)
+                        setElapsedTime(0)
+
+                        const elapsed = calculateElapsedTime(firstPack.timerActivated)
+                        setElapsedTime(elapsed)
+
+                        if (firstPack.timerActivated) {
+                            const id = setInterval(() => {
+                                setElapsedTime((prevTime) => prevTime + 1)
+                            }, 1000)
+                            setIntervalId(id)
+                        }
+
                         const activities = await logic.getActivitiesByPackId(firstPack.id)
-                        console.log('useEffect -- Pack Activity fetched successfully --> ', activities)
                         setPackActivities(activities)
                     }
 
@@ -69,35 +80,25 @@ export default function Tracker(props) {
     const handleCustomerChange = (event) => {
 
         const customerId = event.target.value
-        console.log('handleCustomerChange -- customerID before setSelectedCustomer --> ' + customerId)
 
-        // Detenemos el temporizador actual
+        //Detenemos el temporizador actual y reseteamos el elapsed time
         if (intervalId) {
             clearInterval(intervalId)
             setIntervalId(null)
         }
-
-        // Reiniciamos el tiempo transcurrido
         setElapsedTime(0)
 
-        // Actualizamos el cliente seleccionado
         setSelectedCustomer(customerId)
-        console.log('handleCustomerChange -- setSelectedCustomer --> ' + customerId)
 
-        //TODO: Este Clear daba problemas, al comentarlo ya no da error.
-        // Limpiamos el pack seleccionado
-        //setSelectedPack(null)
 
         // Fetch packs based on the selected customer
         logic.getAdquiredPacks(customerId)
             .then((packs) => {
-                //console.log('Packs fetched successfully --> ', packs)
                 setFilteredPacks(packs)
 
                 if (packs.length > 0) {
                     const firstPack = packs[0]
-                    //console.log('First pack ID after customer change', firstPack)
-                    setSelectedPack(firstPack) // Actualizar pack seleccionado
+                    setSelectedPack(firstPack)
 
                     // Calcular tiempo transcurrido y reiniciar temporizador
                     const elapsed = calculateElapsedTime(firstPack.timerActivated)
@@ -112,7 +113,6 @@ export default function Tracker(props) {
 
                     logic.getActivitiesByPackId(firstPack.id)
                         .then((activities) => {
-                            //console.log('Pack Activity fetched successfully', activities)
                             setPackActivities(activities)
                         })
                 } else {
@@ -133,36 +133,29 @@ export default function Tracker(props) {
         const packId = event.target.value
         const selectedPackObject = filteredPacks.find(pack => pack.id === packId)
 
-        console.log('Selected Pack --------->', selectedPackObject)
-        setSelectedPack(packId) // Actualizar pack seleccionado
+        setSelectedPack(packId)
 
         if (selectedPackObject) {
-            // Detenemos el temporizador actual
             if (intervalId) {
                 clearInterval(intervalId)
                 setIntervalId(null)
             }
 
-            // Actualizamos el pack seleccionado
             setSelectedPack(selectedPackObject)
 
-            // Calculamos el tiempo transcurrido si hay un timerActivated
+            //Update elapsed if pack timer is running and start timer too
             const elapsed = calculateElapsedTime(selectedPackObject.timerActivated)
             setElapsedTime(elapsed)
 
             // Inicia el temporizador si `timerActivated` está definido
             if (selectedPackObject.timerActivated) {
-                const id = setInterval(() => {
-                    setElapsedTime((prevTime) => prevTime + 1)
-                }, 1000) // Incrementar cada segundo
+                const id = setInterval(() => { setElapsedTime((prevTime) => prevTime + 1) }, 1000) // Increment elapsed time each second
                 setIntervalId(id)
             }
         }
 
-        // Actualizamos las actividades
         logic.getActivitiesByPackId(packId)
             .then((packActivities) => {
-                //console.log('Pack Activity fetched successfully', packActivities)
                 setPackActivities(packActivities)
             })
             .catch((error) => {
@@ -178,18 +171,20 @@ export default function Tracker(props) {
     }
 
     const handleDescriptionChange = (event) => {
-        setDescription(event.target.value) // Actualizar descripción
+        setDescription(event.target.value)
     }
 
     const handleAdjustManualTime = (event) => {
         event.preventDefault()
+
+        //Obtiene el valor desde useRef en lugar de document.getElementById
+        //const timerInput = timerInputRef.current?.value
 
         //TODO: Esto con useRef, nada de usar el DOM!!!
         const timerInput = document.getElementById('timerAdjust').value
 
         // Validar el formato del input de tiempo: (+/-)hh:mm:ss
         const timeRegex = /^[-+]?([0-9]{2}):([0-5][0-9]):([0-5][0-9])$/
-        console.log(timerInput)
         if (!timeRegex.test(timerInput)) {
             alert("Please enter a valid time in the format (+/-)hh:mm:ss.")
             return
@@ -198,21 +193,17 @@ export default function Tracker(props) {
         const userId = logic.getUserId()
         const currentDescription = description || 'No description'
 
-        console.log(selectedCustomer.id)
 
         logic.toggleManualTimeTracker(userId, selectedPack.id, selectedPack.customer, currentDescription, timerInput)
             .then((packUpdated) => {
                 if (!packUpdated || !packUpdated.id) {
-                    /* console.log('API Response (packUpdated):', packUpdated)
-                    console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
                     alert('Invalid pack data received from the server.')
                     return
                 }
                 // Fetch updated activities 
                 logic.getActivitiesByPackId(packUpdated.id)
                     .then((updatedActivities) => {
-                        console.log('Updated Activities:', updatedActivities)
-                        setPackActivities(updatedActivities) // Actualiza las actividades
+                        setPackActivities(updatedActivities) // Update activities list
                     })
                     .catch((error) => {
                         alert(error.message)
@@ -229,27 +220,21 @@ export default function Tracker(props) {
         event.preventDefault()
 
         const UnitsInput = document.getElementById('unitsAdjust').value
-        console.log(UnitsInput)
 
         const userId = logic.getUserId()
         const currentDescription = description || 'No description'
 
-        console.log(selectedCustomer.id)
-        console.log(selectedPack.customer)
-
         logic.toggleManualUnitsTracker(userId, selectedPack.id, selectedPack.customer, currentDescription, parseInt(UnitsInput))
             .then((packUpdated) => {
                 if (!packUpdated || !packUpdated.id) {
-                    /* console.log('API Response (packUpdated):', packUpdated)
-                    console.log('setSelectedPack --> selected pack --> ' + selectedPack) */
                     alert('Invalid pack data received from the server.')
                     return
                 }
+
                 // Fetch updated activities 
                 logic.getActivitiesByPackId(packUpdated.id)
                     .then((updatedActivities) => {
-                        console.log('Updated Activities:', updatedActivities)
-                        setPackActivities(updatedActivities) // Actualiza las actividades
+                        setPackActivities(updatedActivities)
                     })
                     .catch((error) => {
                         alert(error.message)
@@ -272,16 +257,12 @@ export default function Tracker(props) {
         const userId = logic.getUserId()
         const currentDescription = description || 'No description'
 
-        console.log('y cuando llego al boto de track el selectedcustomer.id es   --> ' + selectedCustomer.id + selectedCustomer)
-        console.log('y cuando llego al boto de track el selectedPack.customer es --> ' + selectedPack.customer + selectedPack)
         logic.toggleTimeTracker(userId, selectedPack.id, selectedPack.customer, currentDescription, 'substract')
             .then((packUpdated) => {
                 if (!packUpdated || !packUpdated.id) {
                     alert('Invalid pack data received from the server.')
                     return
                 }
-                console.log('API Response (packUpdated):', packUpdated)
-                console.log('setSelectedPack --> selected pack --> ' + selectedPack)
 
                 setSelectedPack(packUpdated)
 
@@ -312,8 +293,7 @@ export default function Tracker(props) {
                     // Fetch updated activities 
                     logic.getActivitiesByPackId(packUpdated.id)
                         .then((updatedActivities) => {
-                            console.log('Updated Activities:', updatedActivities)
-                            setPackActivities(updatedActivities) // Actualiza las actividades
+                            setPackActivities(updatedActivities)
                         })
                         .catch((error) => {
                             alert(error.message)
@@ -338,8 +318,6 @@ export default function Tracker(props) {
     }, [intervalId])
 
     useEffect(() => {
-        /* console.log('useEffect timerActivated ---> ' + selectedPack?.timerActivated)
-        console.log('useEffect elapsedTime ---> ' + elapsedTime) */
         if (selectedPack?.timerActivated) {
             document.title = `⏱️ Timer: ${new Date(elapsedTime * 1000).toISOString().substr(11, 8)}`
         } else {
@@ -441,9 +419,9 @@ export default function Tracker(props) {
 
                             {/* Sección para ajustes manuales */}
                             <div className="flex items-center">
-                                {/* Input para packs de tiempo */}
 
-                                {selectedPack?.unit === 'hours' && (
+                                {/* Input para packs de tiempo */}
+                                {selectedPack?.unit === 'hours' && !selectedPack?.timerActivated && (
                                     <Field>
                                         <input type="text" id="timerAdjust" name="timerAdjust" placeholder="-01:00:00" defaultValue="-01:00:00" className="border-2 rounded-lg p-3 w-44 text-center text-lg" />
                                     </Field>
@@ -461,9 +439,10 @@ export default function Tracker(props) {
                                     <Field>
                                         <Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center" onClick={handleAdjustManualUnits}> Register Sesion </Button>
                                     </Field>
-                                ) : (
+                                ) : !selectedPack?.timerActivated && (
                                     <Field>
-                                        <Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center" onClick={handleAdjustManualTime}> Register Time </Button>
+                                        <Button className="flex-shrink-0 px-6 py-3 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-lg w-32 h-12 flex items-center justify-center"
+                                            onClick={handleAdjustManualTime}> Register Time </Button>
                                     </Field>
                                 )}
                             </div>

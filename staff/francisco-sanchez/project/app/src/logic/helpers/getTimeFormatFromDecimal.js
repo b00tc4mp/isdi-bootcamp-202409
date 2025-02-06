@@ -10,8 +10,6 @@ export default async (timeAdjust) => {
             throw new ValidationError('Time adjustment must be a string in the format (+/-)hh:mm:ss.')
         }
 
-        // Regex para validar y extraer las partes del tiempo
-        //console.log(timeAdjust)
         const match = /^([-+]?)(\d{2}):(\d{2}):(\d{2})$/.exec(timeAdjust);
         if (!match) {
             throw new ValidationError('Invalid time format. Use (+/-)hh:mm:ss.')

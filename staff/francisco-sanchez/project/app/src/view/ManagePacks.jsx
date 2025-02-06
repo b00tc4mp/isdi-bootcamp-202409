@@ -2,12 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import logic from '../logic'
 
 import { errors } from 'com'
-import { Button } from '../library/index';
-import { getCurrencySymbol } from '../util';
+import { Button } from '../library/index'
+import { getCurrencySymbol } from '../util'
 
 import useContext from './useContext'
 
-import { UpdateBasePack } from './components';
+import { UpdateBasePack } from './components'
 
 const { SystemError } = errors
 
@@ -15,7 +15,7 @@ export default function ManagePacks(props) {
     let [loading, setLoading] = useState(true)
     const { alert, confirm } = useContext()
     const [view, setView] = useState(false)
-    const [selectedBasePack, setSelectedBasePack] = useState(null);
+    const [selectedBasePack, setSelectedBasePack] = useState(null)
     const updateBasePackView = useRef(null)
 
     useEffect(() => {
@@ -74,19 +74,17 @@ export default function ManagePacks(props) {
     }
 
     const handleCancelClick = () => {
-        setView(null); // Oculta el componente UpdateBasePack
-        setSelectedBasePack(null); // Limpia el estado seleccionado
-    };
+        setView(null) // Oculta el componente UpdateBasePack
+        setSelectedBasePack(null) // Limpia el estado seleccionado
+    }
 
     const handleAssignPacks = event => {
-        console.log('Assign Pack Clicked');
         props.onAssignPackClick()
-    };
+    }
 
     const handleCreatePacks = event => {
-        console.log('Create Pack Clicked');
         props.onCreatePackClick()
-    };
+    }
 
     const handleUpdated = async () => {
         setView(null)
@@ -96,10 +94,10 @@ export default function ManagePacks(props) {
             setLoading = true
             const updatedBasePacks = await logic.getBasePacks()
             setPacks(updatedBasePacks)
-            alert("Base pack updated successfully!", "success"); // Muestra el mensaje de éxito
+            alert("Base pack updated successfully!", "success") // Muestra el mensaje de éxito
         } catch (error) {
-            alert(error.message); // Muestra un mensaje en caso de error
-            console.error(error);
+            alert(error.message) // Muestra un mensaje en caso de error
+            console.error(error)
         } finally {
             setLoading(false)
         }
