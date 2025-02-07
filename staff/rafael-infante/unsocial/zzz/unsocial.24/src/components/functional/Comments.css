@@ -1,0 +1,27 @@
+.Comments>ul {
+  list-style: none;
+  margin: 0 0 0 20px;
+  padding: 5px 0 0 0;
+}
+
+.Comments>ul>li>h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.Comments>ul>li>p {
+  font-size: 0.7em;
+  margin: 0;
+  padding: 0;
+  color: black;
+}
+
+.Comments>ul>li>time {
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  font-style: italic;
+  color: rgb(61, 61, 61);
+}

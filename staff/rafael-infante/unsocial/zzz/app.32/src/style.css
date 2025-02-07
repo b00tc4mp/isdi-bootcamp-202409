@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font: 'Poppins';
+  font-family: var(--font);
+}
+
+#bottom-text,
+p {
+  font-size: 13px;
+  color: grey;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #dda600;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.password-container {
+  position: relative;
+  display: inline-block;
+}
+
+.password-container i {
+  position: absolute;
+  top: 40%;
+  right: 18px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+@media (max-width: 350px) {
+  .password-container input {
+    width: 92%;
+  }
+}

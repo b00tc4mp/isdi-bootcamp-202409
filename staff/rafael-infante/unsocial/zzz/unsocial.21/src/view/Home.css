@@ -1,0 +1,23 @@
+.Home {
+  background-color: rgb(255, 255, 255);
+  padding: 6% 20px 16% 20px;
+  margin: 0;
+  width: 79vw;
+  min-height: 83vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+@media (min-width: 700px) {
+  .Home {
+    width: 500px;
+  }
+}
+
+@media (max-width: 700px) {
+  .Home {
+    width: 250px;
+  }
+}

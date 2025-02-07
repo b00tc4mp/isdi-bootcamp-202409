@@ -1,0 +1,21 @@
+.CreatePost {
+  background-color: rgb(255, 255, 255);
+  padding: 15% 20px 0px 20px;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 700px) {
+  .Home {
+    width: 540px;
+  }
+}
+
+@media (max-width: 700px) {
+  .Home {
+    width: 290px;
+  }
+}

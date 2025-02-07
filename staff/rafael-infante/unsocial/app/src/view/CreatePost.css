@@ -1,0 +1,11 @@
+@media (min-width: 700px) {
+  .CreatePost {
+    width: 540px;
+  }
+}
+
+@media (max-width: 700px) {
+  .CreatePost {
+    width: 290px;
+  }
+}
