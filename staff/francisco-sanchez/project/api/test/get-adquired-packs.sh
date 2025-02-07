@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYyZGJhNjIyMzMzYmZjMjBlZTU0ODciLCJyb2xlIjoic3RhbmRhcmQiLCJpYXQiOjE3MzQ5MDU3MTUsImV4cCI6MTczNDkzNDUxNX0.GF8waN0ufroHschxplEWVXHxwPtMIuRF2fVmhxl2pEw' http://localhost:8080/packs/get-adquired-packs/67640e5e2568e5139854dd58 -v
