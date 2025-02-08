@@ -50,6 +50,7 @@ const validateCallback = callback => {
     if (typeof callback !== 'function') throw new Error('invalid callback')
 }
 
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -59,7 +60,7 @@ const validate = {
     image: validateImage,
     text: validateText,
     id: validateId,
-    callback: validateCallback
+    callback: validateCallback,
 }
 
 export default validate

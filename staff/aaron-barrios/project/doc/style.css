@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.scene {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.box {
+    position: relative;
+    /* Necesario para posicionar el cursor */
+    width: 600px;
+    height: auto;
+    /* Permitir que la caja crezca según el contenido */
+    min-height: 50px;
+    /* Mantener un tamaño mínimo */
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    /* Alinear el texto a la izquierda */
+    overflow: hidden;
+    /* Mantener contenido dentro de la caja */
+}
+
+.text {
+    font-size: 18px;
+    color: #333;
+    white-space: normal;
+    /* Permitir saltos de línea */
+    word-wrap: break-word;
+    /* Forzar un salto de palabra si es muy larga */
+}
+
+/* al finalizar boz generamos un pseudo-elemento animado (cursor) */
+.box::after {
+    content: "";
+
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    width: 2px;
+    height: 18px;
+
+    background-color: #3498db;
+
+    animation: blink-cursor 0.7s steps(2) infinite;
+}
+
+@keyframes blink-cursor {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes blink-cursor {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
