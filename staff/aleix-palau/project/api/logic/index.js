@@ -2,20 +2,22 @@ import {
     registerUser,
     authenticateUser,
     getUserName,
-    updateUser,
+    updateUserProfile,
     getUserStage,
     updateUserStage,
-    getUserProfile
+    getUserProfile,
+    uploadUserPictures
 } from './users/index.js'
 
 const logic = {
     registerUser,
     authenticateUser,
     getUserName,
-    updateUser,
+    updateUserProfile,
     getUserStage,
     updateUserStage,
-    getUserProfile
+    getUserProfile,
+    uploadUserPictures
 }
 
 export default logic

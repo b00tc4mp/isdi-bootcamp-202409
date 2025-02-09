@@ -1,99 +1,141 @@
 import { useState, useEffect } from 'react'
+import useContext from '../useContext'
+import { errors } from 'com'
 import logic from '../../logic'
-import { FaEdit, FaPlus } from 'react-icons/fa'
+import { calculateAge } from '../../util'
+import { PictureUpload } from '../components'
+
+const { SystemError } = errors
 
 export default function Profile() {
-    const [userName, setUserName] = useState('')
-    const [dob, setDob] = useState('')
+    const { alert, confirm } = useContext()
+
+    const [name, setName] = useState(null)
+    const [dateOfBirth, setDateOfBirth] = useState(null)
     const [bio, setBio] = useState('')
     const [location, setLocation] = useState('')
     const [artists, setArtists] = useState([])
-    const [profilePic, setProfilePic] = useState('')
+    const [pictures, setPictures] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        async function fetchUserData() {
-            try {
-                const name = await logic.getUserName()
-                const { dob, artists, bio, location, profilePic } = await logic.getUserProfile()
-                setUserName(name)
-                setDob(dob)
-                setArtists(artists)
-                setBio(bio)
-                setLocation(location)
-                setProfilePic(profilePic)
-            } catch (error) {
-                console.error('Failed to load user data:', error)
-            }
-        }
-        fetchUserData()
+        logic.getUserProfile()
+            .then(profile => {
+                setName(profile.name)
+                setDateOfBirth(profile.dateOfBirth)
+                setBio(profile.bio || '')
+                setLocation(profile.location || '')
+                setArtists(profile.artists || [])
+                setPictures(profile.pictures || [])
+                setIsLoading(false)
+            })
+            .catch(error => {
+                alert(error.message)
+                console.error(error)
+            })
     }, [])
 
-    const calculateAge = (dob) => {
-        const birthDate = new Date(dob)
-        const today = new Date()
-        let age = today.getFullYear() - birthDate.getFullYear()
-        const monthDifference = today.getMonth() - birthDate.getMonth()
-        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-            age--
+    const handleUpdateProfile = event => {
+        event.preventDefault()
+
+        const updates = {
+            bio: bio,
+            location: location
         }
-        return age
+
+        confirm('Save these changes?', confirmed => {
+            if (confirmed) {
+                logic.updateUserProfile(updates)
+                    .then(() => {
+                        alert('Profile updated successfully', 'success')
+                    })
+                    .catch(error => {
+                        alert(error instanceof SystemError ?
+                            'Sorry, try again later.' : error.message)
+                        console.error(error)
+                    })
+            }
+        }, 'warn')
     }
 
-    const handleAddPhoto = () => {
-        // Logic to add photo
-        console.log('Add photo')
-    }
-
-    const handleEditArtists = () => {
-        // Logic to edit artists
-        console.log('Edit artists')
-    }
+    if (isLoading) return <div>Loading...</div>
 
     return (
-        <div className="p-4">
-            <div className="flex flex-col items-center">
-                <img
-                    src={profilePic || 'https://via.placeholder.com/150'}
-                    alt="Profile Picture"
-                    className="rounded-full w-32 h-32 object-cover mb-4"
-                />
-                <button className="text-purple-500" onClick={handleAddPhoto}>
-                    <FaPlus /> Add Photo
+        <div className="max-w-2xl mx-auto p-4">
+            <h1 className="text-2xl font-bold mb-6">Edit Profile</h1>
+
+            <section className="space-y-6">
+                {/* Profile Header */}
+                <div className="flex items-center space-x-4">
+                    <img
+                        src={pictures[0] || '/pages/default-profile.jpg'}
+                        alt="Profile"
+                        className="w-24 h-24 rounded-full object-cover"
+                    />
+                    <div>
+                        <div className="font-semibold">{name}</div>
+                        <div className="text-gray-600">
+                            {dateOfBirth ? `${calculateAge(dateOfBirth)} years old` : ''}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Photos Section */}
+                <div className="space-y-2">
+                    <h2 className="text-xl font-semibold">Photos</h2>
+                    <PictureUpload
+                        existingPictures={pictures}
+                        onPicturesUpdate={setPictures}
+                    />
+                </div>
+
+                {/* About Section */}
+                <div className="space-y-2">
+                    <h2 className="text-xl font-semibold">About me</h2>
+                    <textarea
+                        value={bio}
+                        onChange={(e) => setBio(e.target.value)}
+                        placeholder="Write something about yourself..."
+                        className="w-full p-2 border rounded"
+                        rows="4"
+                    />
+                </div>
+
+                {/* Location Section */}
+                <div className="space-y-2">
+                    <h2 className="text-xl font-semibold">Living in</h2>
+                    <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        placeholder="Add your location"
+                        className="w-full p-2 border rounded"
+                    />
+                </div>
+
+                {/* Artists Section */}
+                <div className="space-y-2">
+                    <h2 className="text-xl font-semibold">My Artists</h2>
+                    <div className="flex flex-wrap gap-2">
+                        {artists.map((artist, index) => (
+                            <span
+                                key={index}
+                                className="px-3 py-1 bg-purple-100 rounded-full"
+                            >
+                                {artist}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Save Button */}
+                <button
+                    onClick={handleUpdateProfile}
+                    className="w-full py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+                >
+                    Save Changes
                 </button>
-            </div>
-            <h1 className="text-2xl text-center font-bold">
-                {userName}, {dob ? calculateAge(dob) : 'N/A'}
-            </h1>
-            <div className="mt-4">
-                <h2 className="text-lg font-semibold">About Me</h2>
-                <textarea
-                    className="border w-full p-2 mt-2"
-                    rows="3"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    placeholder="Write a short bio..."
-                />
-            </div>
-            <div className="mt-4">
-                <h2 className="text-lg font-semibold">Location</h2>
-                <input
-                    className="border w-full p-2 mt-2"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder="Enter your location"
-                />
-            </div>
-            <div className="mt-4">
-                <h2 className="text-lg font-semibold">Favorite Artists</h2>
-                <ul className="list-disc pl-5">
-                    {artists.map((artist, index) => (
-                        <li key={index}>{artist}</li>
-                    ))}
-                </ul>
-                <button className="text-purple-500 mt-2" onClick={handleEditArtists}>
-                    <FaEdit /> Edit Artists
-                </button>
-            </div>
+            </section>
         </div>
     )
 }

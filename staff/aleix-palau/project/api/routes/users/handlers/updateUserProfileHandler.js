@@ -5,7 +5,7 @@ export default createFunctionalHandler(async (req, res) => {
     const { userId } = req.params // req.params fa referencia a la ruta -> p.ex. /:userId/ o :/targetUserId/
     const { name, dateOfBirth, gender, targetGender, artists, bio, location } = req.body
 
-    await logic.updateUser(userId, { name, dateOfBirth, gender, targetGender, artists, bio, location })
+    await logic.updateUserProfile(userId, { name, dateOfBirth, gender, targetGender, artists, bio, location })
 
     res.status(204).send()
 })

@@ -20,10 +20,10 @@ export default function App() {
         if (logic.isUserLoggedIn()) {
             logic.getUserStage()
                 .then(stage => {
-                    if (!stage || !VALID_STAGES.includes(stage)) // if the fetched stage is invalid, default to 'name-dob'
-                        setUserStage('name-dob')
-                    else
-                        setUserStage(stage)
+                    // First validate the stage
+                    const isValidStage = stage && VALID_STAGES.includes(stage)
+                    // Then set appropriate stage
+                    setUserStage(isValidStage ? stage : 'name-dob')
                 })
                 .catch(error => {
                     console.error(error)
@@ -34,27 +34,34 @@ export default function App() {
         }
     }, [logic.isUserLoggedIn()]) // added as a dependency to rerun this effect when login status changes
 
-    const handleSetupComplete = async nextStage => {
-        try {
-            const stageToSet = VALID_STAGES.includes(nextStage) ? nextStage : 'name-dob' // validate nextStage before setting
-            await logic.updateUserStage(stageToSet)
-            setUserStage(stageToSet)
-        } catch (error) {
-            console.error(error)
-            setAlert({ message: 'Failed to update setup stage. Please try again.', level: 'error' })
-        }
+    const handleSetupComplete = nextStage => {
+        // Validate stage before updating
+        const stageToSet = VALID_STAGES.includes(nextStage) ? nextStage : 'name-dob' // validate nextStage before setting
+
+        logic.updateUserStage(stageToSet)
+            .then(() => {
+                setUserStage(stageToSet)
+            })
+            .catch(error => {
+                console.error(error)
+                setAlert({ message: 'Failed to update setup stage. Please try again.', level: 'error' })
+            })
     }
 
     const handleAlertAccepted = () => setAlert({ message: null, level: 'error' })
 
     const handleConfirmAccepted = () => {
-        confirm.callback(true)
+        // Store callback in a variable before resetting state to ensure it exists when called.
+        // This prevents potential race conditions where the callback might be null when executed.
+        const callback = confirm.callback
         setConfirm({ message: null, level: 'error', callback: null })
+        if (callback) callback(true)
     }
 
     const handleConfirmCancelled = () => {
-        confirm.callback(false)
+        const callback = confirm.callback
         setConfirm({ message: null, level: 'error', callback: null })
+        if (callback) callback(false)
     }
 
     // Since we always ensure userStage is valid or null when setting it,

@@ -2,6 +2,7 @@ import { Input, Button, Form, Field, Label } from '../library'
 import logic from '../../logic'
 import { errors } from 'com'
 import useContext from '../useContext'
+import { calculateAge } from '../../util'
 
 const { SystemError } = errors
 
@@ -15,40 +16,35 @@ export default function NameDOBStage(props) {
 
         const { target: { name: { value: name }, dateOfBirth: { value: dateOfBirth } } } = event
 
-        const birthDate = new Date(dateOfBirth)
-        if (isNaN(birthDate.getTime())) {
+        const age = calculateAge(dateOfBirth)
+
+        if (isNaN(age)) {
             alert('Invalid date. Please enter a valid date (YYYY-MM-DD)')
 
             return
         }
 
-        const today = new Date()
-        let age = today.getFullYear() - birthDate.getFullYear()
-        const monthDiff = today.getMonth() - birthDate.getMonth()
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--
-        }
-
         if (age < 18) {
             alert('You must be at least 18 years old')
+
             return
         }
 
         if (age >= 100) {
-            alert('Don\'t lie, you bitch')
+            alert("You shouldn't be here⚰️💀")
+
             return
         }
 
         confirm(
             <div>
-                <strong>Confirm you're {age}</strong><br />
-                You can't change this later.
+                <strong>{name}, confirm you're {age}.</strong><br />
+                You can't change these later.
             </div>,
             confirmed => {
                 if (!confirmed) return
 
-                logic.updateUser({ name, dateOfBirth })
+                logic.updateUserProfile({ name, dateOfBirth })
                     .then(() => logic.updateUserStage('gender'))
                     .then(() => {
                         event.target.reset()

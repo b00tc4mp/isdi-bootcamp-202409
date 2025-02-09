@@ -76,7 +76,7 @@ User
 - lastActive (Date)
 
 - bio (string, optional)
-- images ([string])
+- pictures ([string])
 - minAge (integer, optional)
 - maxAge (integer, optional)
 - distance (integer, optional)

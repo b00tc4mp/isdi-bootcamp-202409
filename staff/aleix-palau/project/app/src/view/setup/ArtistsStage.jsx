@@ -43,7 +43,7 @@ export default function ArtistsStage(props) {
             return
         }
 
-        logic.updateUser({ artists: selectedArtists })
+        logic.updateUserProfile({ artists: selectedArtists })
             .then(() => logic.updateUserStage('completed'))
             .then(() => {
                 props.onSetupComplete()

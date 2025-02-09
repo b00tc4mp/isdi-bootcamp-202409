@@ -1,13 +1,15 @@
 import 'dotenv/config'
 import db from 'dat'
-import updateUser from './updateUser.js'
+import updateUserProfile from './updateUserProfile.js'
 
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-    const result = await updateUser('6755e0278b1c668012bbdba6', {
+    const result = await updateUserProfile('6775c9a41ad72c1a72b70d89', {
         name: 'Aleix',
-        dateOfBirth: '1991-08-19'
+        dateOfBirth: '1991-08-19',
+        bio: 'Hei!',
+        location: 'Lleida'
     })
 
     console.log(result)

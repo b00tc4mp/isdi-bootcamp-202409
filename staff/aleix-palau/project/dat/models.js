@@ -40,12 +40,14 @@ const user = new Schema({
         type: String
     },
     location: {
-        type: String,
-        default: 'Barcelona'
+        type: String
     },
-    images: [{
+    pictures: [{
         type: String
     }],
+    profilePicture: {
+        type: String
+    },
     minAge: {
         type: Number,
         default: 18,
@@ -62,9 +64,6 @@ const user = new Schema({
         type: Number,
         default: 50
     },
-    // genres: [{
-    //     type: String
-    // }],
     artists: [{
         type: String
     }],

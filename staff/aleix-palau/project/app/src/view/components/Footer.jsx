@@ -6,7 +6,7 @@ export default function Footer({ activePage, setActivePage }) {
             <button onClick={() => setActivePage('profile')} className={`flex flex-col items-center ${activePage === 'profile' ? 'text-purple-500' : ''}`}>
                 <FaUser size={24} />
             </button>
-            <button onClick={() => setActivePage('heartbeats')} className={`flex flex-col items-center ${activePage === 'heartbeats' ? 'text-purple-500' : ''}`}>
+            <button onClick={() => setActivePage('matches')} className={`flex flex-col items-center ${activePage === 'matches' ? 'text-purple-500' : ''}`}>
                 <FaBell size={24} />
             </button>
             <button onClick={() => setActivePage('people')} className={`flex flex-col items-center ${activePage === 'people' ? 'text-purple-500' : ''}`}>

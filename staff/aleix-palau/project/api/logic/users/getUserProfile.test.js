@@ -5,7 +5,7 @@ import getUserProfile from './getUserProfile.js'
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-    const profile = await getUserProfile('675ee3f290969a37a31f0744')
+    const profile = await getUserProfile('6773b839913c7b2bc70a581f')
 
     console.log(profile)
 } catch (error) {

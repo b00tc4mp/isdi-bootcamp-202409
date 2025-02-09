@@ -1,26 +1,21 @@
 import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 import logic from '../logic'
 import { errors } from 'com'
+import useContext from './useContext'
 
 const { SystemError } = errors
 
-import useContext from './useContext'
-
 export default function Login(props) {
-    console.log('Login -> render')
-
     const { alert } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
-
         const { target: { email: { value: email }, password: { value: password } } } = event
 
         try {
             logic.loginUser(email, password)
                 .then(() => {
                     event.target.reset()
-
                     props.onLoggedIn()
                 })
                 .catch(error => {
@@ -28,19 +23,16 @@ export default function Login(props) {
                         alert('Sorry, try again later.')
                     else
                         alert(error.message)
-
                     console.error(error)
                 })
         } catch (error) {
             alert(error.message)
-
             console.error(error)
         }
     }
 
     const handleRegisterClick = event => {
         event.preventDefault()
-
         props.onRegisterClick()
     }
 

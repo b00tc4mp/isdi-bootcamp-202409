@@ -7,9 +7,6 @@ export default (email, password, passwordRepeat) => {
     validate.password(password)
     validate.passwordsMatch(password, passwordRepeat)
 
-    console.log('Email being validated:', email);
-    validate.email(email);
-
     return fetch(`http://${import.meta.env.VITE_API_URL}/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

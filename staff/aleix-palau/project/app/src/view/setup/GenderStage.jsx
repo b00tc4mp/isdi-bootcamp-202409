@@ -42,7 +42,7 @@ export default function GenderStage(props) {
             return
         }
 
-        logic.updateUser({ gender: selectedGender, targetGender: targetGenders })
+        logic.updateUserProfile({ gender: selectedGender, targetGender: targetGenders })
             .then(() => logic.updateUserStage('artists'))
             .then(() => {
                 props.onSetupComplete()

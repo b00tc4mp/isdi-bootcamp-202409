@@ -1,12 +1,12 @@
 import Profile from './Profile'
-import Heartbeats from './Heartbeats'
+import Matches from './Matches'
 import People from './People'
 import Chat from './Chat'
 import Concerts from './Concerts'
 
 export {
     Profile,
-    Heartbeats,
+    Matches,
     People,
     Chat,
     Concerts

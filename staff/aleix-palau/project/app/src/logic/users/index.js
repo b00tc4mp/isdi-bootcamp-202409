@@ -4,9 +4,11 @@ import isUserLoggedIn from './isUserLoggedIn'
 import getUserName from './getUserName'
 import logoutUser from './logoutUser'
 import getUserId from './getUserId'
-import updateUser from './updateUser'
+import updateUserProfile from './updateUserProfile'
 import getUserStage from './getUserStage'
 import updateUserStage from './updateUserStage'
+import uploadUserPictures from './uploadUserPictures'
+import getUserProfile from './getUserProfile'
 
 export {
     registerUser,
@@ -15,7 +17,9 @@ export {
     getUserName,
     logoutUser,
     getUserId,
-    updateUser,
+    updateUserProfile,
     getUserStage,
-    updateUserStage
+    updateUserStage,
+    uploadUserPictures,
+    getUserProfile
 }

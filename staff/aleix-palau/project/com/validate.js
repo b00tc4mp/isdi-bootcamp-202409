@@ -1,11 +1,11 @@
 import errors from './errors.js'
+import { calculateAge } from '../app/src/util/index.js'
 
 const { ValidationError } = errors
 
 const validateName = name => {
     if (typeof name !== 'string') throw new ValidationError('invalid name')
-    if (name.trim().length < 2)
-        throw new ValidationError('invalid name length')
+    if (name.trim().length < 2) throw new ValidationError('invalid name length')
 }
 
 const validateEmail = email => {
@@ -16,14 +16,12 @@ const validateEmail = email => {
 
 const validatePassword = password => {
     if (typeof password !== 'string') throw new ValidationError('invalid password')
-    if (password.length < 8)
-        throw new ValidationError('invalid password length')
+    if (password.length < 8) throw new ValidationError('invalid password length')
 }
 
 const validatePasswordsMatch = (password, passwordRepeat) => {
     if (typeof passwordRepeat !== 'string') throw new ValidationError('invalid password repeat')
-    if (password !== passwordRepeat)
-        throw new ValidationError('passwords do not match')
+    if (password !== passwordRepeat) throw new ValidationError('passwords do not match')
 }
 
 // const validateText = text => {
@@ -41,49 +39,28 @@ const validateId = (id, explain = 'id') => {
 // }
 
 const validateDateOfBirth = dateOfBirth => {
-    if (!dateOfBirth || typeof dateOfBirth !== 'string') {
-        throw new ValidationError('invalid date of birth')
-    }
+    if (!dateOfBirth || typeof dateOfBirth !== 'string') throw new ValidationError('invalid date of birth')
 
     const parsedDate = Date.parse(dateOfBirth)
-    if (isNaN(parsedDate)) {
-        throw new ValidationError('invalid date of birth')
-    }
+    if (isNaN(parsedDate)) throw new ValidationError('invalid date of birth')
 
     // Ensures the input it's a valid calendar date
     const normalizedDate = new Date(parsedDate).toISOString().slice(0, 10)
-    if (normalizedDate !== dateOfBirth) {
-        throw new ValidationError('invalid date of birth')
-    }
+    if (normalizedDate !== dateOfBirth) throw new ValidationError('invalid date of birth')
 
-    // Age >= 18?
-    const today = new Date()
-    const birthDate = new Date(parsedDate)
+    const age = calculateAge(dateOfBirth)
 
-    let age = today.getFullYear() - birthDate.getFullYear()
-    const monthDiff = today.getMonth() - birthDate.getMonth()
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        age--
-    }
-
-    if (age < 18) {
-        throw new ValidationError('You must be at least 18 years old.')
-    }
+    if (age < 18) throw new ValidationError('You must be at least 18 years old.')
 }
 
 const validateStage = stage => {
     const validStages = ['name-dob', 'gender', 'artists', 'completed']
-    if (!validStages.includes(stage)) {
-        console.log(`ValidationError thrownnn: invalid stage: ${stage}`) // Debug log
-        throw new ValidationError(`invalid stage: ${stage}`)
-    }
+    if (!validStages.includes(stage)) throw new ValidationError(`invalid stage: ${stage}`)
 }
 
 const validateGender = gender => {
     const validGenders = ['Man', 'Woman', 'Nonbinary']
-    if (!validGenders.includes(gender)) {
-        throw new ValidationError(`invalid gender: ${gender}`)
-    }
+    if (!validGenders.includes(gender)) throw new ValidationError(`invalid gender: ${gender}`)
 }
 
 const validateTargetGender = targetGender => {
@@ -91,40 +68,74 @@ const validateTargetGender = targetGender => {
         throw new ValidationError('invalid target gender: must be an array')
     }
     const validTargetGenders = ['Men', 'Women', 'Nonbinary people']
-    targetGender.forEach((gender) => {
-        if (!validTargetGenders.includes(gender)) {
-            throw new ValidationError(`invalid target gender: ${gender}`)
-        }
+    targetGender.forEach(gender => {
+        if (!validTargetGenders.includes(gender)) throw new ValidationError(`invalid target gender: ${gender}`)
     })
 }
 
-// WIP
 const validateArtists = artists => {
-    if (!Array.isArray(artists))
-        throw new ValidationError('invalid artists: must be an array')
+    if (!Array.isArray(artists)) throw new ValidationError('invalid artists: must be an array')
 }
 
-const validateImages = images => {
-    if (!Array.isArray(images))
-        throw new ValidationError('images should be an array')
+const MAX_PIC_SIZE_MB = 4
 
-    images.forEach(image => {
-        if (typeof image !== 'string')
-            throw new ValidationError('invalid image')
-        // if (!image.startsWith('data:image/'))
-        //     throw new ValidationError('image must be base64 encoded')
-        if (image.length === 0)
-            throw new ValidationError('invalid image length')
+const validatePictures = pictures => {
+    if (!Array.isArray(pictures)) throw new ValidationError('pictures is not an array')
+    if (pictures.length > 3) throw new ValidationError('maximum of 3 pictures allowed')
+
+    pictures.forEach(picture => {
+        if (typeof picture !== 'string') throw new ValidationError('invalid picture')
+
+        // Check if the picture is base64-encoded with a valid prefix.
+        if (!picture.startsWith('data:image/')) throw new ValidationError('picture must be a base64-encoded image')
+
+        // Validate MIME type: allow png, jpeg, jpg, and webp.
+        const mimeTypeMatch = picture.match(/^data:image\/(png|jpeg|jpg|webp);base64,/)
+        if (!mimeTypeMatch) throw new ValidationError('invalid picture format: must be PNG, JPEG, or WEBP')
+
+        // Extract and validate base64 data.
+        const base64Data = picture.split(';base64,')[1]
+        if (!base64Data) throw new ValidationError('invalid picture: missing base64 data')
+
+        // const sizeInBytes = atob(base64Data).length; // Converts base64 to binary string
+        // const sizeInMB = sizeInBytes / (1024 * 1024) // Converts bytes to megabytes
+
+        // Calculate file size using Buffer (works in Node).
+        const sizeInBytes = Buffer.from(base64Data, 'base64').length
+        const sizeInMB = sizeInBytes / (1024 * 1024)
+
+        if (sizeInMB > MAX_PIC_SIZE_MB) throw new ValidationError(`picture exceeds maximum size of ${MAX_PIC_SIZE_MB} MB`)
     })
 }
 
+const validateProfilePicture = (profilePicture, pictures) => {
+    if (profilePicture === null) return // Allow null for users without pictures
+
+    if (typeof profilePicture !== 'string') throw new ValidationError('invalid profile picture')
+
+    if (!pictures.includes(profilePicture)) throw new ValidationError('profile picture must be one of the uploaded pictures')
+}
+
+const validateBio = bio => {
+    if (bio === undefined || bio === null) return // If bio is not provided, that's OK
+
+    if (typeof bio !== 'string') throw new ValidationError('invalid bio')
+
+    if (bio.trim().length > 200) throw new ValidationError('bio must not exceed 200 characters')
+}
+
+const validateLocation = location => {
+    if (location === undefined || location === null) return // If location is not provided, that's OK
+
+    if (typeof location !== 'string') throw new ValidationError('invalid location')
+}
 
 const validate = {
     name: validateName,
     email: validateEmail,
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
-    // text: validateText,
+    // TODO text: validateText, mirar si calen
     id: validateId,
     // callback: validateCallback,
     dateOfBirth: validateDateOfBirth,
@@ -132,9 +143,10 @@ const validate = {
     gender: validateGender,
     targetGender: validateTargetGender,
     artists: validateArtists,
-    bio: ,
-    location: ,
-    images: validateImages,
+    pictures: validatePictures,
+    profilePicture: validateProfilePicture,
+    bio: validateBio,
+    location: validateLocation
 }
 
 export default validate

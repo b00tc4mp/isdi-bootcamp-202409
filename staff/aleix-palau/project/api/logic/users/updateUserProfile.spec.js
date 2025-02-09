@@ -11,9 +11,9 @@ import { errors } from 'com'
 
 const { NotFoundError, ValidationError } = errors
 
-import updateUser from './updateUser.js'
+import updateUserProfile from './updateUserProfile.js'
 
-describe('updateUser', () => {
+describe('updateUserProfile', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
@@ -21,7 +21,7 @@ describe('updateUser', () => {
     it('succeeds on updating existing user', async () => {
         const user = await User.create({ email: 'al@eix.com', password: '123123123' })
 
-        await updateUser(user.id, {
+        await updateUserProfile(user.id, {
             name: 'Aleix',
             dateOfBirth: '1991-08-19'
         })
@@ -35,7 +35,7 @@ describe('updateUser', () => {
 
     it('fails on non-existing user', () =>
         expect(
-            updateUser('000000000000000000000000', {
+            updateUserProfile('000000000000000000000000', {
                 name: 'Aleix',
                 dateOfBirth: '1991-08-19'
             })
@@ -46,7 +46,7 @@ describe('updateUser', () => {
         expect(
             User.create({ email: 'al@eix.com', password: '123123123' })
                 .then(user =>
-                    updateUser(user.id, {
+                    updateUserProfile(user.id, {
                         name: 'Aleix',
                         dateOfBirth: '1996-13-33'
                     })

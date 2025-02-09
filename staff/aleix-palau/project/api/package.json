@@ -23,7 +23,8 @@
         "dat": "file:../dat",
         "dotenv": "^16.4.5",
         "express": "^4.21.1",
-        "jsonwebtoken": "^9.0.2"
+        "jsonwebtoken": "^9.0.2",
+        "sharp": "^0.33.5"
     },
     "devDependencies": {
         "c8": "^10.1.2",

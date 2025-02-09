@@ -3,7 +3,7 @@ import { extractPayloadFromJWT } from '../../util'
 
 const { SystemError } = errors
 
-export default (stage) => {
+export default stage => {
     validate.stage(stage)
 
     const { sub: userId } = extractPayloadFromJWT(localStorage.token)

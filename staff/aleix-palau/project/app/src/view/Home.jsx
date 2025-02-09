@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Header, Footer } from './components'
-import { Profile, Heartbeats, People, Chat, Concerts } from './pages'
+import { Profile, Matches, People, Chat, Concerts } from './pages'
 
 export default function Home() {
     const [activePage, setActivePage] = useState('people')
@@ -9,8 +9,8 @@ export default function Home() {
         switch (activePage) {
             case 'profile':
                 return <Profile />
-            case 'heartbeats':
-                return <Heartbeats />
+            case 'matches':
+                return <Matches />
             case 'people':
                 return <People />
             case 'chat':
