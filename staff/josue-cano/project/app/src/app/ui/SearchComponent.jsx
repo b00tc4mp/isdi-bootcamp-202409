@@ -45,7 +45,11 @@ export default function SearchComponent({ searchTerm, setSearchTerm }) {
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
         src="/video/campos.mp4"
         muted
-        loop></video>
+        loop
+        // autoPlay
+        // playsInline
+        >
+        </video>
 
       {/* Contenido */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">

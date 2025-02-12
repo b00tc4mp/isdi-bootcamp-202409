@@ -1,18 +1,23 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { registerUser } from "../logic/users/registerUser";
 import { getLocations } from "../logic/users/getLocations";
-import { useEffect, useState } from "react";
+
+import Alert from "../ui/Alert";
 
 export default function Register() {
   const [locations, setLocations] = useState([]);
+  // ESTADOS PARA CONTROLAR EL ALERT
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [alertLevel, setAlertLevel] = useState("success");
+
+  const router = useRouter();
 
   useEffect(() => {
-    getLocations().then((locations) => setLocations(locations));
+    getLocations().then((data) => setLocations(data));
   }, []);
-
-  useEffect(() => {}, [locations]);
 
   function handleRegister(event) {
     event.preventDefault();
@@ -32,14 +37,29 @@ export default function Register() {
       location,
       password,
       passwordRepeat,
-    }).then(() => {
-      redirect("/login");
-    });
+    })
+      .then(() => {
+        setAlertLevel("success");
+        setAlertMessage("¡Registro exitoso! Ahora puedes iniciar sesión.");
+      })
+      .catch((error) => {
+        setAlertLevel("error");
+        setAlertMessage(`Error en el registro: ${error.message}`);
+      });
+  }
+
+  function handleAlertAccept() {
+    setAlertMessage(null);
+
+    if (alertLevel === "success") {
+      router.push("/login");
+    }
   }
 
   return (
     <section className="flex items-center justify-center min-h-screen bg-gray-50 pt-[5rem]">
-      {/* Agregué pt-[5rem] para ajustar el margen superior según la altura del header */}
+      {alertMessage && <Alert message={alertMessage} level={alertLevel} onAccepted={handleAlertAccept} />}
+
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 m-5">
         <h1 className="text-2xl font-bold text-center mb-6">¡Bienvenido a ekoality!</h1>
         <form onSubmit={handleRegister} className="space-y-4" noValidate>
@@ -49,6 +69,7 @@ export default function Register() {
             </label>
             <input type="text" name="firstName" placeholder="Nombre" className="input input-bordered w-full" required />
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text font-medium">Apellido(s)*</span>
@@ -61,6 +82,7 @@ export default function Register() {
               required
             />
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text font-medium">Correo electrónico*</span>
@@ -73,6 +95,7 @@ export default function Register() {
               required
             />
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text font-medium">Contraseña*</span>
@@ -85,6 +108,7 @@ export default function Register() {
               required
             />
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text font-medium">Confirmar contraseña*</span>
@@ -97,6 +121,7 @@ export default function Register() {
               required
             />
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text font-medium">Localidad*</span>
@@ -105,20 +130,21 @@ export default function Register() {
               <option value="" disabled>
                 Seleccione su localidad
               </option>
-              {locations.length > 0 &&
-                locations.map((location) => (
-                  <option key={location._id} value={location._id}>
-                    {location.ciudad}
-                  </option>
-                ))}
+              {locations.map((location) => (
+                <option key={location._id} value={location._id}>
+                  {location.ciudad}
+                </option>
+              ))}
             </select>
           </div>
+
           <div className="form-control">
             <label className="cursor-pointer flex items-center">
               <input type="checkbox" className="checkbox checkbox-primary" required />
               <span className="label-text ml-2">Acepto los términos y condiciones.</span>
             </label>
           </div>
+
           <button type="submit" className="btn btn-secondary w-full mt-4">
             Registrarse
           </button>

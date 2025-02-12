@@ -56,6 +56,7 @@ Ekoality is a web platform aimed at creating a network of collaboration among pr
 - Mocha & Chai
 - Busboy
 - MONGOOSE,BCRYPT,JWT,
+- Tailwind
 
 
 # Ekoality Data Model

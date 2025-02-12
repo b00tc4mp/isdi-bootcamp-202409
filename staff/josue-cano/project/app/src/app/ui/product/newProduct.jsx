@@ -1,16 +1,26 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; 
 import { getCategories } from "@/app/utils/productos/formulario";
 import { createProduct } from "@/app/logic/products/createProduct.js";
-import { redirect } from "next/navigation";
+import Alert from "../Alert"; 
 
 const NewProduct = () => {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [currentSubcategories, setCurrentSubcategories] = useState([]);
+
+  // Estados para el Alert
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [alertLevel, setAlertLevel] = useState("success");
+
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
-    nombre: "",
-    idCategoria: "",
-    idSubcategoria: "",
+    name: "",
+    category: "",
+    subcategory: "",
     price: "",
     description: "",
     images: Array(6).fill(null),
@@ -21,10 +31,10 @@ const NewProduct = () => {
   }, []);
 
   const handleCategoriaChange = (evt) => {
-    setCurrentSubcategories(subcategories.filter((x) => x.category == evt.target.value));
+    setCurrentSubcategories(subcategories.filter((x) => x.category === evt.target.value));
     setFormData({
       ...formData,
-      ["category"]: evt.target.value,
+      category: evt.target.value,
     });
   };
 
@@ -42,7 +52,7 @@ const NewProduct = () => {
       const reader = new FileReader();
       reader.onload = () => {
         const newImages = [...formData.images];
-        newImages[index] = { image: reader.result, file }; // Guardar la URL base64
+        newImages[index] = { image: reader.result, file };
         setFormData({ ...formData, images: newImages });
       };
       reader.readAsDataURL(file);
@@ -51,10 +61,24 @@ const NewProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    createProduct(formData)
+      .then(() => {
+        setAlertMessage("Producto creado correctamente.");
+        setAlertLevel("success");
+      })
+      .catch((error) => {
+        setAlertMessage(error.message);
+        setAlertLevel("error");
+      });
+  };
 
-    createProduct(formData).then(() => {
-      redirect("/");
-    });
+  // Cuando el usuario cierra el Alert
+  const handleAlertAccept = () => {
+    setAlertMessage(null);
+    // Si fue éxito, redirigimos después de cerrar el Alert
+    if (alertLevel === "success") {
+      router.push("/");
+    }
   };
 
   const inputStyle = {
@@ -70,9 +94,10 @@ const NewProduct = () => {
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
+      {alertMessage && <Alert message={alertMessage} level={alertLevel} onAccepted={handleAlertAccept} />}
+
       <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Nuevo producto</h2>
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        {/* Nombre del producto */}
         <div>
           <label htmlFor="name">Nombre del producto</label>
           <input
@@ -86,45 +111,42 @@ const NewProduct = () => {
           />
         </div>
 
-        {/* Categoría */}
         <div>
           <label htmlFor="category">Categoría</label>
           <select
             id="category"
             name="category"
-            defaultValue={formData.idCategoria}
+            value={formData.category}
             onChange={handleCategoriaChange}
             style={inputStyle}>
             <option value="">Seleccione</option>
-            {categories?.map((category) => (
-              <option key={category._id} value={category._id}>
-                {category.nombre}
+            {categories.map((cat) => (
+              <option key={cat._id} value={cat._id}>
+                {cat.nombre}
               </option>
             ))}
           </select>
         </div>
 
-        {/* Subcategoría */}
         <div>
           <label htmlFor="subcategory">Subcategoría</label>
           <select
             id="subcategory"
             name="subcategory"
-            defaultValue={formData.subcatetory}
+            value={formData.subcategory}
             onChange={handleChange}
             style={inputStyle}>
             <option value="">Seleccione</option>
-            {currentSubcategories?.map((subcategory) => (
-              <option key={subcategory._id} value={subcategory._id}>
-                {subcategory.nombre}
+            {currentSubcategories.map((subcat) => (
+              <option key={subcat._id} value={subcat._id}>
+                {subcat.nombre}
               </option>
             ))}
           </select>
         </div>
 
-        {/* price */}
         <div>
-          <label htmlFor="price">Precio (€)</label>
+          <label htmlFor="price">Precio (€/kg)</label>
           <input
             id="price"
             type="number"
@@ -136,7 +158,6 @@ const NewProduct = () => {
           />
         </div>
 
-        {/* Descripción */}
         <div>
           <label htmlFor="description">Descripción e información del producto</label>
           <textarea
@@ -150,14 +171,7 @@ const NewProduct = () => {
           />
         </div>
 
-        {/* images */}
-
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            justifyContent: "space-between",
-          }}>
+        <div style={{ display: "flex", gap: "10px", justifyContent: "space-between" }}>
           {formData.images.map((imagen, index) => (
             <div
               key={index}
@@ -191,7 +205,6 @@ const NewProduct = () => {
           ))}
         </div>
 
-        {/* Botón de envío */}
         <button
           type="submit"
           style={{

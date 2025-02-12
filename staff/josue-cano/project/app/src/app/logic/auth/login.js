@@ -3,9 +3,9 @@ import { validate, errors } from "com";
 const { ValidationError } = errors;
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-const login = async ({ username, password }) => {
+const login = async ({ email, password }) => {
   try {
-    validate.userName(username);
+    validate.email(email);
     validate.password(password);
 
     let response = await fetch(`${baseUrl}/auth`, {
@@ -13,7 +13,7 @@ const login = async ({ username, password }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: username, password }),
+      body: JSON.stringify({ email: email, password }),
     });
 
     if (!response.ok) {
