@@ -4,9 +4,7 @@ import logic from '../../logic'
 import { formatDate } from '../../utils/'
 import { useNavigation } from '@react-navigation/native'
 
-
 export default function PetsScreenUserRegular() {
-
     const navigation = useNavigation()
 
     const [userPetsInfo, setUserPetsInfo] = useState([])

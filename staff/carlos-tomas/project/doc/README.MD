@@ -100,8 +100,8 @@ Appointment
 
 ### Techs
 
+- JavaScript
 - CSS
--JavaScript
 - React native:
     - Qrcode-svg
     - Singleton-Hook
@@ -110,7 +110,9 @@ Appointment
 - Axios
 - Node 
 - Express
-- Mongo, Mongoose
+- Mongo, Mongoose7
+- JWT
+- Bcrypt
 - Mocha & Chai
 
 ### Test Coverage

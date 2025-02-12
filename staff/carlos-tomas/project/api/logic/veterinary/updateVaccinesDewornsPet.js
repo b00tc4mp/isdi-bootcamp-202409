@@ -65,15 +65,13 @@ export default (userId, petId, vaccineName, dewornData) => {
             }
 
             const deworn = { type: dewornData }
+
             pet.deworns.push(deworn)
         }
+
         try {
             await pet.save()
-
         } catch (error) {
-            if (error instanceof NotFoundError || error instanceof DuplicityError) {
-                throw error
-            }
             throw new SystemError(error.message)
         }
     })()

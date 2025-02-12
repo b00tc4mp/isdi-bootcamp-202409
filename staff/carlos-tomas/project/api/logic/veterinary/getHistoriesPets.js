@@ -41,14 +41,6 @@ export default (userId, type, petId) => {
         histories.forEach(history => {
             history.id = history._id.toString()
             delete history._id
-            // if (history.veterinary) {
-            //     history.veterinary.id = history.veterinary._id.toString()
-            //     delete history.veterinary._id
-            // }
-            // if (history.pet) {
-            //     history.pet.id = history.pet._id.toString()
-            //     delete history.pet._id
-            // }
         })
         return histories
     })()

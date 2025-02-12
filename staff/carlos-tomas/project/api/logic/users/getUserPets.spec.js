@@ -35,7 +35,7 @@ describe('getUserPets', () => {
             )
 
     })
-
+    // TODO fail pet not found 
     it('fails on non-existing user', () =>
         expect(
             getUserPets('012345678901234567890123')

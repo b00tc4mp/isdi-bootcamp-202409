@@ -13,7 +13,6 @@ export default (userId, petId, type, text) => {
     return (async () => {
         let veterinary
         try {
-
             veterinary = await User.findById(userId).lean()
         } catch (error) {
             throw new SystemError(error.message)

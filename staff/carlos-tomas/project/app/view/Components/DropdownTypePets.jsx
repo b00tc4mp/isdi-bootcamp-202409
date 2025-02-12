@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown'
 
 export default function DropdownTypePets({ setVaccine }) {
     const [typeAnimal, setTypeAnimal] = useState(null)
     const [vaccines, setVaccines] = useState({})
-
+    //TODO Cambiar value a animal "pet"
     const TypeItem = [
         { label: 'Perro', value: 'dog' },
         { label: 'Gato', value: 'cat' },
