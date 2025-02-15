@@ -4,8 +4,8 @@ import castLogbookData from "../../utils/parseInfo.js"
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, logbookId, updateData) => {
-    validate.id(userId, 'userId')
+export default (userId,logbookId, updateData) => {
+    validate.id(userId)
     validate.id(logbookId, 'logbookId')
     validate.updateData(updateData, 'updateData')
 

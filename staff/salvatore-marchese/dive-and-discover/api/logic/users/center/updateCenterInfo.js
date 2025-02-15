@@ -1,7 +1,7 @@
 import { User } from 'dat';
 import { validate, errors } from 'com';
 
-const { NotFoundError, SystemError } = errors;
+const { NotFoundError, SystemError } = errors
 
 export default (userId, targetUserId, data) => {
     validate.id(userId, 'userId')
@@ -40,4 +40,3 @@ export default (userId, targetUserId, data) => {
 
     })()
 }
-

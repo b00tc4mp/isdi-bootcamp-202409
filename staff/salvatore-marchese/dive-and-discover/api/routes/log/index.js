@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
+import { authorizationHandler } from '../helpers/index.js'
 import { createLogHandler, getLogsHandler, updateLogHandler, deleteLogHandler, getLogByIdHandler } from './handlers/index.js'
 
 const logsRouter = Router()
@@ -13,11 +13,11 @@ logsRouter.get('/:logbookId', authorizationHandler, getLogByIdHandler)
 
 
 //Create - Crete a new log
-logsRouter.post('/users/diver/log-book', authorizationHandler, createLogHandler)
+logsRouter.post('/users/diver/log-book/:targetUserId', authorizationHandler, createLogHandler)
 
 
 //Update - Update a log 
-logsRouter.put('/:logbookId', authorizationHandler, updateLogHandler )
+logsRouter.put('/:logbookId', authorizationHandler, updateLogHandler)
 
 
 //Delete - Delete a log

@@ -1,4 +1,5 @@
 import { validate, errors } from 'com'
+import { extractPayloadFromJWT } from '../../util'
 
 const { SystemError } = errors
 
@@ -19,7 +20,9 @@ export default (diveSite, date, depth, time, weather, temperature, visibility, w
     validate.diveCenter(diveCenter)
     validate.notes(notes)
 
-    return fetch(`http://${import.meta.env.VITE_API_URL}/logs/users/diver/log-book`, {
+    const {sub: userId} = extractPayloadFromJWT(sessionStorage.token)
+
+    return fetch(`http://${import.meta.env.VITE_API_URL}/logs/users/diver/log-book/${userId}`, {
         method: 'POST', 
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`, 

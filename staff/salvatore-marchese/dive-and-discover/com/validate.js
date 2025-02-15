@@ -1,7 +1,7 @@
 import errors from './errors.js'
 import { Types } from 'mongoose'
 
-const { ValidationError } = errors 
+const { ValidationError } = errors
 
 const validateName = name => {
     if (typeof name !== 'string') throw new ValidationError('invalid name')
@@ -30,7 +30,7 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
     if (!Types.ObjectId.isValid(id)) throw new ValidationError(`Invalid ${explain}: not a valid MongoDB ObjectId`);
-} 
+}
 
 const validateCallback = callback => {
     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
@@ -45,7 +45,7 @@ const validateAddress = address => {
 
 const validatePostcode = postcode => {
     if (typeof postcode !== 'string') throw new ValidationError('invalid postcode');
-/*     if (!/^\d{5}$/.test(postcode)) throw new ValidationError('postcode must be a 5-digit number'); */
+    /*     if (!/^\d{5}$/.test(postcode)) throw new ValidationError('postcode must be a 5-digit number'); */
 }
 
 const validateCountry = country => {
@@ -58,16 +58,22 @@ const validateCountry = country => {
 const validateCity = city => {
     if (!city || typeof city !== 'string') {
         return res.status(400).json({ error: 'City is required and must be a string' });
-      };
+    };
     if (city.trim() === '') throw new ValidationError('city cannot be empty');
     if (city.length < 2) throw new ValidationError('city name is too short');
     if (city.length > 100) throw new ValidationError('city name is too long');
 }
 
-const validateTelephone = telephone => {
+/* const validateTelephone = telephone => {
     if (typeof telephone !== 'string') throw new ValidationError('invalid telephone number');
     if (!/^\+?\d{9,15}$/.test(telephone)) throw new ValidationError('telephone must be between 9 and 15 digits, with optional "+"');
+} */
+
+const validateTelephone = telephone => {
+    if (typeof telephone !== 'string') throw new ValidationError('invalid telephone number');
+    if (!/^\+?[\d\s\-]{9,15}$/.test(telephone)) throw new ValidationError('telephone must be between 9 and 15 digits, with optional "+" and spaces or dashes');
 }
+
 
 const validateDiveSite = (diveSite) => {
     // Ensure diveSite is a string
@@ -76,7 +82,7 @@ const validateDiveSite = (diveSite) => {
     }
 
     // Trim whitespace and ensure diveSite is not empty
-    diveSite = diveSite.trim(); 
+    diveSite = diveSite.trim();
     if (diveSite.length === 0) {
         throw new Error('Dive site cannot be empty');
     }
@@ -253,31 +259,11 @@ const validateNotes = (notes) => {
 
 const validateProfile = (data) => {
     Object.keys(data).forEach(key => {
-        if(validate[key]) {
+        if (validate[key]) {
             validate[key](data[key])
         }
     })
 }
-
-/* const validateText = {
-    text: (value, fieldName) => {
-        // Check if the value is not null or undefined
-        if (value === null) {
-            throw new Error(`${fieldName} cannot be null or undefined`);
-        }
-
-        // Ensure the value is a string
-        if (typeof value !== 'string') {
-            throw new Error(`${fieldName} must be a string`);
-        }
-
-        // Trim leading and trailing spaces and ensure it's not an empty string
-        if (value.trim() === '') {
-            throw new Error(`${fieldName} cannot be an empty string`);
-        }
-    }
-};
- */
 
 const validateText = {
     text: (value, fieldName) => {
@@ -301,62 +287,63 @@ const validateText = {
 
 const validateUpdateData = (data) => {
     const validFields = {
-      date: "Date",
-      depth: "Number",
-      time: "Number",
-      temperature: "Number",
-      wetSuit: "Number",
-      weight: "Number",
-      tankSize: "Number",
-      tankBar: "Number",
-      feeling: "String",
-      weather: "String",
-      visibility: "String",
-      waves: "String",
-      diveCenter: "String",
-      diveSite: "String",
-      notes: "String",
+        date: "Date",
+        depth: "Number",
+        diver: "String",
+        time: "Number",
+        temperature: "Number",
+        wetSuit: "Number",
+        weight: "Number",
+        tankSize: "Number",
+        tankBar: "Number",
+        feeling: "String",
+        weather: "String",
+        visibility: "String",
+        waves: "String",
+        diveCenter: "String",
+        diveSite: "String",
+        notes: "String",
     };
-  
+
     const errors = [];
-  
+
     for (const key in data) {
-      if (!(key in validFields)) {
-        errors.push(`Invalid field: ${key}`);
-        continue;
-      }
-  
-      const expectedType = validFields[key];
-      const value = data[key];
-  
-      switch (expectedType) {
-        case "Date":
-          if (isNaN(new Date(value).getTime())) {
-            errors.push(`Invalid value for ${key}: expected a valid Date.`);
-          }
-          break;
-  
-        case "Number":
-          if (isNaN(Number(value))) {
-            errors.push(`Invalid value for ${key}: expected a Number.`);
-          }
-          break;
-  
-        case "String":
-          if (typeof value !== "string") {
-            errors.push(`Invalid value for ${key}: expected a String.`);
-          }
-          break;
-  
-        default:
-          errors.push(`Unknown validation type for ${key}.`);
-      }
+        if (!(key in validFields)) {
+            errors.push(`Invalid field: ${key}`);
+            continue;
+        }
+
+        const expectedType = validFields[key];
+        const value = data[key];
+
+        switch (expectedType) {
+            case "Date":
+                if (isNaN(new Date(value).getTime())) {
+                    errors.push(`Invalid value for ${key}: expected a valid Date.`);
+                }
+                break;
+
+            case "Number":
+                if (isNaN(Number(value))) {
+                    errors.push(`Invalid value for ${key}: expected a Number.`);
+                }
+                break;
+
+            case "String":
+                if (typeof value !== "string") {
+                    errors.push(`Invalid value for ${key}: expected a String.`);
+                }
+                break;
+
+            default:
+                errors.push(`Unknown validation type for ${key}.`);
+        }
     }
-  
+
     if (errors.length > 0) {
-      throw new Error(`Validation failed: ${errors.join(", ")}`);
+        throw new Error(`Validation failed: ${errors.join(", ")}`);
     }
-  };
+};
 
 const validate = {
     name: validateName,

@@ -1,7 +1,7 @@
 import { User } from 'dat';
 import { validate, errors } from 'com'; 
 
-const { ValidationError, NotFoundError, SystemError } = errors;
+const { NotFoundError, SystemError } = errors;
 
 export default (userId, city) => {
     validate.id(userId, 'userId');

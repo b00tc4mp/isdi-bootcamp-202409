@@ -32,7 +32,6 @@ export default function Register(props) {
                 city,
                 postcode,
                 telephone,
-                'center'
             );
             formElement.reset();
             props.onRegistered();

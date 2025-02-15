@@ -1,6 +1,5 @@
 import {
-    authenticateUser,
-    
+    authenticateUser,    
 } from './users/index.js'
 
 import {
@@ -15,7 +14,6 @@ import {
 
 import {
     registerUserCenter,
-    addOpeningHours,
     updateCenterInfo,
     getUserCenter
 
@@ -38,7 +36,6 @@ const logic = {
     getUserCenter,
     updateProfile,
     updateCenterInfo,
-    addOpeningHours,
     searchDiveCenters,
     getFaunaFloraByCity,
 

@@ -3,7 +3,7 @@ import { User } from 'dat'
 import { errors, validate } from 'com'
 
 
-const { DuplicitiyError, SystemError } = errors
+const { DuplicityError, SystemError } = errors
 
 export default function registerUserCenter(name, email, password, passwordRepeat, address, country, city, postcode, telephone) {
     validate.name(name)
@@ -21,12 +21,12 @@ export default function registerUserCenter(name, email, password, passwordRepeat
         .catch(error => { throw new SystemError(error.message) })
         .then(hash => {
             //CREATE USER IN THE DB
-            return User.create({ name, email, password: hash, address, country, city, postcode, telephone })
+            return User.create({ name, email, password: hash, address, country, city, postcode, telephone, role: 'center'})
         })
         .catch(error => {
             // HANDLE SPECIFIC ERRORS
             if (error.code === 11000) {
-                throw new DuplicitiyError('user already exists')
+                throw new DuplicityError('user already exists')
             }
             throw new SystemError(error.message)
         })

@@ -1,19 +1,8 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../library'
+import { Button, FormField } from '../library'
 import logic from '../../logic/users'
-
-import { extractPayloadFromJWT } from "../../util";
-
-const FormField = ({ fieldKey, label, value = '', onChange }) => {
-    return (
-        <>
-            <label htmlFor={fieldKey} className="block text-sm font-semibold mb-1">{label}
-            </label>
-            <input type="text" id={fieldKey} name={fieldKey} value={value || ''}onChange={onChange} className="w-full p-2 border rounded.md" />
-        </>
-    )
-}
+import { dayDictionary } from "../../util"
 
 const ProfileCenter = () => {
     const navigate = useNavigate();
@@ -32,7 +21,7 @@ const ProfileCenter = () => {
         const fetchUserInfo = async () => {
             try {
                 const userData = await logic.getUserCenter()
-                if (userData?.error) throw new Error(userData.error)
+
                 setUserInfo({
                     ...userData,
                     openingHours: userData.openingHours || [], // Ensure it is an array
@@ -41,13 +30,7 @@ const ProfileCenter = () => {
                 transformOpeningHours(userData.openingHours || []);
                 setIsLoading(false)
             } catch (error) {
-                console.log(err)
-                console.log(Object.keys(error))
-                if (error?.authError) {
-                    sessionStorage.token = null
-                    navigate('/login')
-                }
-                alert(error.message)
+                console.error(error.message)
                 setError('Error fetching user data')
                 setIsLoading(false)
             }
@@ -64,18 +47,6 @@ const ProfileCenter = () => {
         setForm(formData)
     }
 
-    const getDayString = (day) => {
-        if (day === 1) return "Monday";
-        else if (day === 2) return "Tuesday";
-        else if (day === 3) return "Wednesday";
-        else if (day === 4) return "Thursday";
-        else if (day === 5) return "Friday";
-        else if (day === 6) return "Saturday";
-        else if (day === 7) return "Sunday";
-    }
-
-
-
     //handle form input change
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -89,8 +60,6 @@ const ProfileCenter = () => {
         setIsSubmitting(true)
 
         try {
-            const user = extractPayloadFromJWT(sessionStorage.token);
-
             const openingHours = Object.entries(form).map(([day, times]) => ({
                 day: parseInt(day, 10),
                 ...times
@@ -99,7 +68,7 @@ const ProfileCenter = () => {
             userInfo['openingHours'] = openingHours;
             console.log(userInfo)
 
-            await logic.updateProfileCenter(user.sub, userInfo)
+            await logic.updateProfileCenter(userInfo)
             alert('Information updated successfully')
             navigate('/home')
         } catch (error) {
@@ -116,7 +85,6 @@ const ProfileCenter = () => {
             return { ...prev, ...value };
         });
     }
-
 
     if (isLoading) return <p>Loading...</p>
     return (
@@ -153,7 +121,7 @@ const ProfileCenter = () => {
                                     >
                                         <FormField
                                             fieldKey={`openTime-${index}`}
-                                            label={`Opening Time/Morning shift (Day ${getDayString(field)})`}
+                                            label={`Opening Time/Morning shift (Day ${dayDictionary[field]})`}
                                             placeholder="Opening"
                                             value={form[field]?.openTime || ""}
                                             onChange={(e) => {
@@ -165,7 +133,7 @@ const ProfileCenter = () => {
                                         />
                                         <FormField
                                             fieldKey={`closeTime-${index}`}
-                                            label={`Closing Time/Afternoon shift (Day ${getDayString(field)})`}
+                                            label={`Closing Time/Afternoon shift (Day ${dayDictionary[field]})`}
                                             placeholder="Closing"
                                             value={form[field]?.closeTime || ""}
                                             onChange={(e) => {

@@ -73,16 +73,12 @@ const user = new Schema({
         required: false,
     },
     openingHours: [openingHours],
-    website: {
-        type: String,
-        required: false,
-    },
     photo: {
         type: String,
         required: false,
     },
     telephone: {
-        type: Number,
+        type: String,
         required: false,
     },
     businessHours: [openingHours]

@@ -5,7 +5,7 @@ import authenticateUser from './authenticateUser.js'
 await db.connect(process.env.MONGO_URL_TEST)
 
 try {
-    const user = await authenticateUser('nemo2@gmail.com', '123123123')
+    const user = await authenticateUser('lamama@delamama.com', '123123123')
 
     console.log(user)
 } catch (error) {

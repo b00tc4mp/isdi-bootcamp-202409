@@ -1,4 +1,4 @@
-import { errors, validate } from 'com'
+import { errors } from 'com'
 import { extractPayloadFromJWT } from '../../util'
 const { SystemError } = errors
 

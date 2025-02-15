@@ -1,9 +1,9 @@
 import { validate, errors } from 'com';
+import { extractPayloadFromJWT } from '../../util';
 
 const { SystemError } = errors;
 
-export default (userId, city) => {
-    validate.id(userId, 'userId')
+export default (city) => {
     validate.city(city, 'city')
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/diver/search?city=${encodeURIComponent(city)}`, {

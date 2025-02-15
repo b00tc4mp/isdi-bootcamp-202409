@@ -24,8 +24,8 @@ const EditLog = () => {
       setLogDetails(response[0]); // Populate logDetails with fetched data
       setLoading(false);
 
-    } catch (err) {
-      setError("Failed to fetch log details. Please try again.");
+    } catch (error) {
+      setError("Failed to fetch log details. Please try again." + error.message);
       setLoading(false);
     }
   };

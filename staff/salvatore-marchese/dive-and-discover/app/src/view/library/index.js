@@ -5,6 +5,7 @@ import Input from './Input'
 import Label from './Label'
 import PasswordInput from './PasswordInput'
 import Navigation from './Navigation'
+import FormField from './FormField'
 
 export {
     Button,
@@ -13,5 +14,6 @@ export {
     Input,
     Label,
     PasswordInput,
-    Navigation
+    Navigation,
+    FormField
 }
