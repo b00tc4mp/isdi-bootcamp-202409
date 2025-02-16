@@ -1,0 +1,30 @@
+[
+    {
+        "id": "m2vvqdtgcba",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "username": "pepitogrillo",
+        "password": "123123123"
+    },
+    {
+        "id": "m2vvw4xzn6d",
+        "name": "Coco Drilo",
+        "email": "coco@drilo.com",
+        "username": "cocodrilo",
+        "password": "123123123"
+    },
+    {
+        "id": "m2x81mske0o",
+        "name": "Pin Otto",
+        "email": "pin@otto.com",
+        "username": "pinotto",
+        "password": "123123123"
+    },
+    {
+        "id": "m33001uqeyj",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "username": "peterpan",
+        "password": "123123123"
+    }
+]
