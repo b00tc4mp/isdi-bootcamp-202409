@@ -1,0 +1,21 @@
+{
+    "name": "dat",
+    "version": "0.0.0",
+    "description": "mongodb",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "populate": "node populate.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "mongoose": "^8.8.1"
+    },
+    "devDependencies": {
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^16.4.7"
+    }
+}
