@@ -1,0 +1,14 @@
+import { users } from '../data/index.js'
+import validate from './helpers/validate.js'
+
+export default (username, password) => {
+    validate.username(username)
+    validate.password(password)
+
+    const user = users.find(user => user.username === username && user.password === password)
+
+    if (user === undefined)
+        throw new Error('Wrong credentials, try again')
+
+    return user.id
+}

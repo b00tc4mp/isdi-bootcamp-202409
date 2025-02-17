@@ -1,0 +1,15 @@
+.Footer {
+    height: 5%;
+    box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+
+    .Buttoncreate {
+        width: fit-content;
+        align-self: center;
+    }
+}
