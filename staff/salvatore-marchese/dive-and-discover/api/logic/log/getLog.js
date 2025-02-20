@@ -24,10 +24,10 @@ export default (userId, logId) => {
     try {
       log = await Log.find({ diver: userId, _id: logId }).lean();
     } catch (error) {
-      throw new SystemError(`Error fetching log: ${error.message}`);
+      throw new SystemError(error.message);
     }
 
-    if (!log || log.length === 0) throw new NotFoundError('Log not found for the user');
+    if (!log || log.length === 0) throw new NotFoundError('Log not found');
 
 
     return log;  // Return the found log

@@ -4,7 +4,6 @@ import chaiAsPromised from 'chai-as-promised'
 
 import db, { User } from 'dat'
 import { errors } from 'com'
-import updateProfile from './updateProfile.js'
 import updateCenterInfo from './updateCenterInfo.js'
 
 chai.use(chaiAsPromised)
@@ -34,10 +33,9 @@ describe('updateCenterInfo', () => {
 
         const data = { name: 'Tossa Super Diver', email: 'tossasuperdiver@test.com', address: 'Avenida del mar, 1' }
 
-        // Call the updateProfile function
         await updateCenterInfo(user.id, user.id, data)
 
-        const updatedUser = await updateProfile(user.id)
+        const updatedUser = await User.findById(user.id)
 
         // Check if the updated user contains the new data
         expect(updatedUser.name).to.equal('Tossa Super Diver')

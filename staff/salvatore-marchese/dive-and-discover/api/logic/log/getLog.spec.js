@@ -1,65 +1,91 @@
 import 'dotenv/config'
-
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
 
-import db, { User, LogBook as Log } from 'dat'
+import mongoose from 'mongoose'
+const { Types: { ObjectId } } = mongoose
+
+import db, { User, LogBook as Log, LogBook } from 'dat'
 import { errors } from 'com'
-
-const { NotFoundError, SystemError } = errors
-
 import getLog from './getLog.js'
 
-describe('getLog', () => {
-    const userId = '67a127a2f0f8a331c710e137'
-    const logId = '67a1de8054cdc6e22b6f2507'
+const { NotFoundError } = errors
 
+
+
+
+describe('getLog', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
-    beforeEach(() => {
-        // Mocking database operations
-        User.findById = async (id) => {
-            if (id === userId) {
-                return { _id: id, name: 'Salva' }
-            }
-            return null
-        }
-
-        Log.find = async (query) => {
-            if (query.diver === userId && query._id === logId) {
-                return [{ _id: logId, diver: userId, depth: 30, time: 45 }]
-            }
-            return []
-        }
+    beforeEach(async () => {
+        await User.deleteMany()
+        await Log.deleteMany()
     })
 
-    it('should return the log if the user and log exist', async () => {
-        const result = await getLog(userId, logId)
+    it('succeeds on existing user', async () => {
+        const user = await User.create({
+            name: 'salva',
+            email: 'smarchese985@gmail.com',
+            password: 'salva123', role: 'diver'
+        })
 
-        expect(result).to.be.an('array').that.is.not.empty
-        expect(result[0]).to.have.property('_id', logId)
-        expect(result[0]).to.have.property('diver', userId)
-        expect(result[0]).to.have.property('depth', 30)
-        expect(result[0]).to.have.property('time', 45)
+        const log = await LogBook.create({
+            diver: user.id,
+            date: '01/09/2024',
+            depth: 18,
+            time: 45,
+            weather: 'cloudy',
+            temperature: 15,
+            visibility: 'good',
+            waves: 'calm',
+            wetSuit: 5,
+            weight: 6,
+            tankSize: 12,
+            tankBar: 200,
+            feeling: 'really good',
+            diveCenter: 'Tossa Diver',
+            diveSite: 'Tossa de Mar',
+            notes: 'was a very good day',
+        })
+
+        const newLog = await getLog(
+            user.id,
+            log.id
+        )
+
+        expect(newLog).to.be.an('array')
+        expect(newLog).to.have.lengthOf(1)
+        expect(newLog[0].weather).to.be.equal(log.weather)
     })
 
-    it('should throw NotFoundError if the user does not exist', async () => {
-        User.findById = async () => null // Simulate user not found
+    it('fails on non-existing user', async () => {
+        const nonExistentUserId = new ObjectId().toString()
+        const randomLogId = new ObjectId().toString()  // Generate a valid ObjectId, but it doesn't exist in the DB
 
-        await expect(async () => {
-            await getLog(userId, logId)
-        }).to.be.rejectedWith(NotFoundError, 'User not found')
+        await expect(getLog(nonExistentUserId, randomLogId ))
+            .to.be.rejectedWith(NotFoundError, 'User not found')
     })
 
-    it('should return an empty array if the log does not exist for the user', async () => {
-        Log.find = async () => [] // Simulate log not found
+    it('fails on non-existing log', async () => {
+        const user = await User.create({
+            name: 'salva',
+            email: 'smarchese985@gmail.com',
+            password: 'salva123', role: 'diver'
+        })
+        
 
-        const result = await getLog(userId, logId)
-        expect(result).to.be.an('array').that.is.empty
+
+        const randomLogId = new ObjectId().toString()  // Generate a valid ObjectId, but it doesn't exist in the DB
+
+        await expect(getLog(user.id, randomLogId ))
+            .to.be.rejectedWith(NotFoundError, 'Log not found')
     })
 
     after(() => db.disconnect())
 })
+
+
+

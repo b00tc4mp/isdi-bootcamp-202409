@@ -4,26 +4,22 @@ import { validate, errors } from 'com';
 const { SystemError, NotFoundError } = errors;
 
 // Validate user and logbook
-export default async (userId, logbookId) => {
-  try {
-    // Validate IDs
-    try {
-      validate.id(userId, 'userId');
-      validate.id(logbookId, 'logbookId');
-    } catch (validationError) {
-      throw new SystemError(`Validation error: ${validationError.message}`);
-    }
+export default (userId, logbookId) => {
+  validate.id(userId, 'userId');
+  validate.id(logbookId, 'logbookId');
 
-    let user, logbook;
 
-    // Fetch the user and logbook
+  // Fetch the user and logbook
+  return (async () => {
+    let user, logbook
+
     try {
       [user, logbook] = await Promise.all([
         User.findById(userId).lean(),
         LogBook.findById(logbookId).lean(),
       ]);
-    } catch (fetchError) {
-      throw new SystemError(`Error fetching user or logbook: ${fetchError.message}`);
+    } catch (error) {
+      throw new SystemError(error.message);
     }
 
     if (!user) {
@@ -36,21 +32,9 @@ export default async (userId, logbookId) => {
 
     // Delete the logbook
     try {
-      const deletedLogBook = await LogBook.findByIdAndDelete(logbookId);
-      if (!deletedLogBook) {
-        throw new NotFoundError('Logbook not found ');
-      }
-    } catch (deletionError) {
-      throw new SystemError(`Error deleting logbook: ${deletionError.message}`);
+      await LogBook.findByIdAndDelete(logbookId);
+    } catch (error) {
+      throw new SystemError(error.message);
     }
-
-    // Return success message
-    return { message: 'Logbook deleted successfully' };
-  } catch (error) {
-    console.error('Error in deleteLog:', error);
-    if (error instanceof NotFoundError) {
-      throw error;
-    }
-    throw new SystemError(error.message);
-  }
+  })()
 };

@@ -38,5 +38,4 @@ export default function getFaunaFloraByCity(userId, city) {
 
         return faunaFlora;
     })()
-
 }

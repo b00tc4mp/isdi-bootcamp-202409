@@ -31,7 +31,7 @@ export default (userId, targetUserId, data) => {
             ...targetUser,
             ...data
         }
-        // Return the updated user directly
+        
         try {
             await User.findByIdAndUpdate(targetUser, dataToBeUpdated, { new: true }).lean()
        } catch (error) {

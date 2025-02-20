@@ -14,21 +14,21 @@ Dive and Discover is an app designed to connect scuba divers with dive centers w
 ## Key Features
 
 ### For Divers  
-- A **Home Section** with personalized information, including name, username, email, profile picture, password reset, telephone and equipment size preferences.  
+- A **Home Section** with personalized information, including name, username, email and equipment size preferences.  
 - A **Settings Menu** to update, manage and upload personal details easily.  
 - A **Dive Logbook** for recording dive history, including date, location, diving deatils, notes.  
-- Access to detailed information about underwater life in specific areas, featuring photos and descriptions of local marine species.
+- Access to detailed information about underwater life in specific areas, featuring photos(v0.1) and descriptions of local marine species.
 
 ### **For Dive Centers**  
-- A dedicated **Home Section** displaying essential details such as the center’s name, address, opening hours, website link, and a photo.  
+- A dedicated **Home Section** displaying essential details such as the center’s name, address, opening hours and a photo(v0.1).  
 - A **Settings Menu** to update and manage the dive center’s profile information efficiently.  
 - Exclusive **Deals and Offers** for D&D users (coming in v0.3).
 
 ### Discover Section
 
-The **Discover Section** is the heart of the app, enabling users to search for dive locations by city or region. Upon selecting a location, users will find:  
+The **Discover Section** is the heart of the app, enabling users to search for dive locations by city's name. Upon selecting a location, users will find:  
 1. A **Dive Center List** in the selected area, with detailed profiles to help divers choose and contact their preferred dive center.  
-2. A second screen offering educational content about the area’s marine ecosystem. This section features vivid images and descriptions of sea creatures, helping divers familiarize themselves with the local biodiversity before their dive.
+2. A second screen offering educational content about the area’s marine ecosystem. This section features vivid images(v0.1) and descriptions of sea creatures, helping divers familiarize themselves with the local biodiversity before their dive.
 
 ---
 
@@ -59,7 +59,7 @@ Dive & Discover not only enhances the diving experience by connecting users with
 
 ### UX/UI Design
 
-The app design prioritizes usability and accessibility, with a clean and ocean-inspired aesthetic.
+The app design prioritizes usability and accessibility, with a clean and diver-inspired aesthetic.
 
 - **Mockups**:  
 ![alt text](image-1.png)
@@ -88,7 +88,6 @@ The home screen and Discover section highlight critical functionalities, providi
 ## Data Model
 
 ### User 
-
   - id UUID
   - name (string)
   - email (string)
@@ -147,7 +146,7 @@ The home screen and Discover section highlight critical functionalities, providi
 
 ## Testing Plan
 
-- **Unit Tests**: Testing individual components and functions using **Mocha** and **Chai**.
+- **Unit Tests**: Testing individual logic functions using **Mocha** and **Chai**.
 - **Integration Tests**: Verifying interactions between components (API and database).
 
 ---
@@ -157,7 +156,8 @@ The home screen and Discover section highlight critical functionalities, providi
 - **Technical Metrics**:
   - API response time below 200ms.
   - Test coverage of at least 85%.
-[INSERT COVERAGE TABLE]
+![alt text](CoverageDiveAndDiscover.png)
+
 ---
 
 

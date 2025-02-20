@@ -40,7 +40,7 @@ export default (userId, targetUserId, diveSite, date, depth, time, weather, temp
             throw new SystemError(error.message)
         }
 
-        if (!user) throw new NotFoundError('user not found')
+        if (!user) throw new NotFoundError('User not found')
 
         // Create the log
         let log;
@@ -66,8 +66,5 @@ export default (userId, targetUserId, diveSite, date, depth, time, weather, temp
         } catch (logCreationError) {
             throw new SystemError(`Error creating log: ${logCreationError.message}`)
         }
-
-        return { message: 'Log created successfully', log }
-    
     })()
 }

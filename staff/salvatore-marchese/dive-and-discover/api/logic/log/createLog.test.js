@@ -8,8 +8,8 @@ const { NotFoundError, SystemError } = errors
 await db.connect(process.env.MONGO_URL_TEST)
 
 const data = {
-    diver: ['67a127a2f0f8a331c710e137'],
-    diveSite: 'Barcelona',
+    diver: ['67b744f0f3207feac76f80ab'],
+    diveSite: 'Tossa De Mar',
     date: '01-17-2024',
     depth: '10',
     time: '30',
@@ -28,10 +28,10 @@ const data = {
 
 try {
     // Valid test: Test creating a log book for an existing user
-    const user = await User.findById('67a127a2f0f8a331c710e137');
+    const user = await User.findById('67b744f0f3207feac76f80ab');
     if (!user) throw new NotFoundError('User not found');
 
-    const newLog = await createLog('67a127a2f0f8a331c710e137', '67a127a2f0f8a331c710e137', data);
+    const newLog = await createLog('67b744f0f3207feac76f80ab', '67b744f0f3207feac76f80ab', data);
     console.log('Log created successfully:', newLog);
 
 } catch (error) {
