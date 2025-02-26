@@ -1,0 +1,57 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+
+:root {
+    --color: dodgerblue;
+    --font: 'Sixtyfour';
+    font-family: var(--font);
+}
+
+body {
+    background-color: black;
+    color: var(--color);
+    text-align: center;
+    margin-top: 80px;
+}
+
+input {
+    background-color: inherit;
+    font-family: inherit;
+    margin: 15px;
+    background-color: greenyellow;
+}
+
+label {
+    margin: 10px;
+    
+}
+
+button {
+    padding: 5px;
+    margin: 20px;
+}
+a {
+    padding: 20px;
+}
+
+a:visited {
+    color: var(--color);
+}
+
+h3 {
+    color: wheat;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    marin
+}
+
+button {
+    margin: 15px;
+}
