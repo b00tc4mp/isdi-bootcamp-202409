@@ -1,5 +1,5 @@
 import express from 'express';
-import { Provider } from "../../../../dat/models.js";
+import { Provider } from "dat/models.js";
 
 const router = express.Router();
 

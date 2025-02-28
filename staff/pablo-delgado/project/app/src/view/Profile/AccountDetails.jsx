@@ -1,8 +1,8 @@
 //shown info: name, password, change password/email
 
-import { Button, Input, Field, Label } from './library'
-import ChangePassword from './ChangePassword'
-import ChangeEmail from './ChangeEmail'
+import { Button, Input, Field, Label } from '../library'
+import { ChangePassword, ChangeEmail } from '../components'
+
 
 import { useNavigate } from 'react-router-dom'
 

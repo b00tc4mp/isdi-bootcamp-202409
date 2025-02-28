@@ -9,6 +9,7 @@ import isUserRoleProvider from './isUserRoleProvider'
 import logoutUser from './logoutUser'
 import getWishList from './getWishList'
 import searchProviders from './searchProviders'
+import getUserData from './getUserData'
 
 export {
     registerUser,
@@ -21,5 +22,6 @@ export {
     isUserRoleProvider,
     logoutUser,
     getWishList,
-    searchProviders
+    searchProviders,
+    getUserData
 }

@@ -1,13 +1,28 @@
-export default function Alert({ message, level = 'error', onAccepted }) {
-    const borderColor = level === 'error' ? 'border-[red]' : level === 'warn' ? 'border-[yellow]' : 'border-[green]'
+import { useContext } from 'react';
+import LanguageContext from '../../logic/users/LanguageContext.jsx';
 
-    const handleAcceptClick = () => onAccepted()
+export default function Alert({ message, level, onAccepted, onCanceled }) {
+    const { language } = useContext(LanguageContext); // Obtener el idioma actual
 
-    return <div className="fixed h-full w-full top-0 flex items-center justify-center">
-        <div className={`min-w-[20rem] max-w-[40rem] min-h-[10rem] bg-white ${borderColor} border-[1rem] flex flex-col items-center justify-center p-2 gap-2`}>
-            <p>{message}</p>
-
-            <button className="border-2 border-black pt-1" onClick={handleAcceptClick}>Accept</button>
+    return (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-teal-800 text-white p-6 rounded-lg shadow-lg w-80 text-center">
+                <p className="text-lg font-semibold">{message}</p>
+                <div className="mt-4 flex justify-around">
+                    <button
+                        onClick={onCanceled}
+                        className="bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded-lg"
+                    >
+                        {language === 'es' ? 'Cancelar' : 'Cancel'}
+                    </button>
+                    <button
+                        onClick={onAccepted}
+                        className="bg-red-500 hover:bg-red-400 text-white px-4 py-2 rounded-lg"
+                    >
+                        {language === 'es' ? 'Aceptar' : 'Confirm'}
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
+    );
 }

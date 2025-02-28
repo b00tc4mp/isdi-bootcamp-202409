@@ -1,5 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
+import LanguageContext from '../../src/logic/users/LanguageContext.jsx'
 
 import Container from '../view/library/Container';
 import Form from '../view/library/Form';
@@ -10,14 +11,16 @@ import ResultsProvidersList from './ResultsProvidersList';
 export default function SearchProviders() {
     const navigate = useNavigate();
     const searchInputRef = useRef(null);
-    const [searchParams] = useSearchParams(); // Parámetros de la URL
+    const [searchParams] = useSearchParams(); 
     const [query, setQuery] = useState('');
     const [category, setCategory] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Obtener valor de "q", "category" y "postalCode" desde la URL
+    // Obtener el idioma actual del contexto global
+    const { language } = useContext(LanguageContext); // Obtiene el idioma desde el contexto
+
     useEffect(() => {
         const q = searchParams.get('q');
         const category = searchParams.get('category');
@@ -43,7 +46,7 @@ export default function SearchProviders() {
             if (category) searchParams.append('category', category);
             if (postalCode) searchParams.append('postalCode', postalCode);
 
-            const response = await fetch(`http://localhost:8080/providers/search?${searchParams.toString()}`);
+            const response = await fetch(`http://localhost:8080/providers?${searchParams.toString()}`);
             const data = await response.json();
 
             if (response.ok) {
@@ -81,29 +84,29 @@ export default function SearchProviders() {
     return (
         <Container>
             <div className="mt-16"> {/* Espacio adicional antes del formulario */}
-    <Form onSubmit={handleSearchSubmit} className="w-full max-w-lg relative">
-        <div className="relative w-full">
-            <input
-                ref={searchInputRef}
-                className="w-full p-4 pr-16 pl-4 rounded-full text-black shadow-md"
-                type="text"
-                name="query"
-                placeholder="Busca por negocio, servicio o código postal"
-                value={query}
-                onChange={handleInputChange}
-            />
-            <button
-                type="submit"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white text-black px-4 py-2 rounded-full shadow-md font-semibold"
-            >
-                Buscar
-            </button>
-        </div>
-    </Form>
-</div>
-    
+                <Form onSubmit={handleSearchSubmit} className="w-full max-w-lg relative">
+                    <div className="relative w-full">
+                        <input
+                            ref={searchInputRef}
+                            className="w-full p-4 pr-16 pl-4 rounded-full text-black shadow-md"
+                            type="text"
+                            name="query"
+                            placeholder={language === 'es' ? 'Busca por negocio, servicio o código postal' : 'Search by business, service or postal code'} // Mensaje dinámico según el idioma
+                            value={query}
+                            onChange={handleInputChange}
+                        />
+                        <button
+                            type="submit"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white text-black px-4 py-2 rounded-full shadow-md font-semibold"
+                        >
+                            {language === 'es' ? 'Buscar' : 'Search'} {/* Texto dinámico según el idioma */}
+                        </button>
+                    </div>
+                </Form>
+            </div>
+        
             {/* Resultados */}
             <ResultsProvidersList results={results} />
         </Container>
     );
-}    
+}

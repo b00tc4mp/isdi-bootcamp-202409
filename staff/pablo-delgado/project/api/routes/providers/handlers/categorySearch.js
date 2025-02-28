@@ -3,7 +3,7 @@ import { Provider } from "../../../../dat/models.js"
 
 const app = express();
 
-app.get("/providers/search", async (req, res) => {
+app.get("/providers", async (req, res) => {
   const { name, category, postalCode } = req.query;  // Recibe los parámetros de búsqueda
 
   try {

@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 
-import { CalendarIcon, ExplorerIcon, HomeIcon, ProfileIcon } from '../icons'
+import { CalendarIcon, ExplorerIcon, HomeIcon, ProfileIcon, PawIcon } from '../icons'
 
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ export default function Footer({ onNewPostClick }) {
     const location = useLocation()
 
     return (
-        <footer className="bg-[#F27457] p-4 h-16 box-border flex justify-around items-center fixed bottom-0 w-full rounded-t-lg shadow-lg">
+        <footer className="bg-[#bb3e03] p-4 h-16 box-border flex justify-around items-center fixed bottom-0 w-full rounded-t-lg shadow-lg">
             {/* Botón de Home */}
             <Link
                 to="/home"
@@ -51,7 +51,7 @@ export default function Footer({ onNewPostClick }) {
                     location.pathname === '/profile' ? 'text-white' : 'text-gray-200'
                 }`}
             >
-                <ProfileIcon /> {/* Icono de Perfil */}
+                <PawIcon /> {/* Icono de Perfil */}
                 <span className="text-xs">Perfil</span>
             </Link>
         </footer>

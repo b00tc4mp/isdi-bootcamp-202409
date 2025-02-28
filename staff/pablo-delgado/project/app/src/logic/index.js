@@ -7,7 +7,8 @@ import {
     getUserId,
     logoutUser,
     registerUser,
-    searchProviders
+    searchProviders,
+    getUserData
 } from './users'
 
 //import { getCategories } from './searchBar'
@@ -25,7 +26,8 @@ const logic = {
     logoutUser,
     registerUser,
     //getAllProviders,
-    searchProviders
+    searchProviders,
+    getUserData
     //getCategories,
     //SearchWithGeo,
     //searchServices
