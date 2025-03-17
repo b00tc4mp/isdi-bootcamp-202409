@@ -6,8 +6,7 @@ const { SystemError, NotFoundError } = errors
 export default (userId, updates) => {
     validate.id(userId, 'userId')
 
-    // to handle gender, targetGender, artists, etc. later
-    const { name, dateOfBirth, gender, targetGender, artists, bio, location } = updates
+    const { name, dateOfBirth, gender, targetGender, artists, bio, location, minAge, maxAge, distance, coordinates } = updates
 
     if (name !== undefined) validate.name(name)
     if (dateOfBirth !== undefined) validate.dateOfBirth(dateOfBirth)
@@ -16,6 +15,10 @@ export default (userId, updates) => {
     if (artists !== undefined) validate.artists(artists)
     if (bio !== undefined) validate.bio(bio)
     if (location !== undefined) validate.location(location)
+    if (minAge !== undefined) validate.minAge(minAge)
+    if (maxAge !== undefined) validate.maxAge(maxAge)
+    if (distance !== undefined) validate.distance(distance)
+    if (coordinates !== undefined) validate.coordinates(coordinates)
 
     return (async () => {
         let user
@@ -35,3 +38,4 @@ export default (userId, updates) => {
         }
     })()
 }
+// TODO: posar pictures/profilePicture a l'objecte?

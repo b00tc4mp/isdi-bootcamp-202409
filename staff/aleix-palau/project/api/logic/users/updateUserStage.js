@@ -11,8 +11,7 @@ export default (userId, stage) => {
         let user
 
         try {
-            user = await User.findByIdAndUpdate(
-                userId,
+            user = await User.findByIdAndUpdate(userId,
                 { $set: { stage } }, // Updates only the stage field
                 { new: true, runValidators: true } // 'new: true' -> Mongoose returns the updated doc (default returns original doc)
                 // 'runValidators: true' -> the update respects the validation rules in my schema ('name-dob', 'gender', etc.)

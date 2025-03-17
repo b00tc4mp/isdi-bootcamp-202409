@@ -4,6 +4,7 @@ import { extractPayloadFromJWT } from '../../util'
 const { SystemError } = errors
 
 export default () => {
+    // In the other app logics we don't get userId from JWT, the backend uses the token for auth (no userId route).
     const { sub: userId } = extractPayloadFromJWT(localStorage.token)
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}/name`, {

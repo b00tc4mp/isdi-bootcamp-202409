@@ -1,14 +1,11 @@
 import { validate, errors } from 'com'
-import { extractPayloadFromJWT } from '../../util'
 
 const { SystemError } = errors
 
 export default stage => {
     validate.stage(stage)
 
-    const { sub: userId } = extractPayloadFromJWT(localStorage.token)
-
-    return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}/stage`, {
+    return fetch(`http://${import.meta.env.VITE_API_URL}/users/stage`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

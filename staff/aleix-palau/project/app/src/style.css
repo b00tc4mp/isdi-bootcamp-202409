@@ -1,3 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+    --color-light: #fef6e4;
+    --color-lightest: #fffffe;
+
+    --color-skin: #f3d2c1;
+    --color-pink: #f582ae;
+
+    --color-darkest-blue: #001858;
+    --color-dark-blue: #172c66;
+    --color-light-blue: #8bd3dd;
+}
+
+/* TODO: canviar els purple (500, 600, 700?), gray, black... */

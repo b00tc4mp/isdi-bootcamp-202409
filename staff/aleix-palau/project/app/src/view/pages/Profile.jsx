@@ -2,21 +2,24 @@ import { useState, useEffect } from 'react'
 import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
-import { calculateAge } from '../../util'
+import { PrimaryButton } from '../library'
 import { PictureUpload } from '../components'
+import { calculateAge } from '../../util'
 
 const { SystemError } = errors
 
 export default function Profile() {
-    const { alert, confirm } = useContext()
+    const { alert } = useContext()
 
-    const [name, setName] = useState(null)
-    const [dateOfBirth, setDateOfBirth] = useState(null)
+    const [name, setName] = useState('')
+    const [dateOfBirth, setDateOfBirth] = useState('')
     const [bio, setBio] = useState('')
     const [location, setLocation] = useState('')
     const [artists, setArtists] = useState([])
     const [pictures, setPictures] = useState([])
+
     const [isLoading, setIsLoading] = useState(true)
+    const [isUpdating, setIsUpdating] = useState(false)
 
     useEffect(() => {
         logic.getUserProfile()
@@ -35,92 +38,104 @@ export default function Profile() {
             })
     }, [])
 
-    const handleUpdateProfile = event => {
-        event.preventDefault()
+    const handleUpdateProfile = () => {
+        // Prevent duplicate submissions
+        if (isUpdating) return
 
-        const updates = {
-            bio: bio,
-            location: location
+        const updates = { bio, location }
+        setIsUpdating(true)
+
+        try {
+            logic.updateUserProfile(updates)
+                .then(() => {
+                    alert(null, 'success', 'Your details were saved')
+                })
+                .catch(error => {
+                    if (error instanceof SystemError)
+                        alert('Sorry, try again later.')
+                    else
+                        alert(error.message)
+                    console.error(error)
+                })
+                .finally(() => {
+                    setIsUpdating(false)
+                })
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+            setIsUpdating(false)
         }
-
-        confirm('Save these changes?', confirmed => {
-            if (confirmed) {
-                logic.updateUserProfile(updates)
-                    .then(() => {
-                        alert('Profile updated successfully', 'success')
-                    })
-                    .catch(error => {
-                        alert(error instanceof SystemError ?
-                            'Sorry, try again later.' : error.message)
-                        console.error(error)
-                    })
-            }
-        }, 'warn')
     }
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-full">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
+            </div>
+        )
+    }
 
     return (
-        <div className="max-w-2xl mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-6">Edit Profile</h1>
+        <div className="max-w-2xl mx-auto p-3 bg-lightest">
+            <h1 className="text-2xl font-bold mb-5 text-darkest-blue">Profile</h1>
 
             <section className="space-y-6">
-                {/* Profile Header */}
-                <div className="flex items-center space-x-4">
+                {/* Profile Section */}
+                <div className="flex-col items-center justify-items-center space-y-2">
                     <img
                         src={pictures[0] || '/pages/default-profile.jpg'}
                         alt="Profile"
                         className="w-24 h-24 rounded-full object-cover"
                     />
                     <div>
-                        <div className="font-semibold">{name}</div>
-                        <div className="text-gray-600">
-                            {dateOfBirth ? `${calculateAge(dateOfBirth)} years old` : ''}
-                        </div>
+                        <div className="text-2xl font-bold text-darkest-blue">{name}, {calculateAge(dateOfBirth)}</div>
                     </div>
-                </div>
-
-                {/* Photos Section */}
-                <div className="space-y-2">
-                    <h2 className="text-xl font-semibold">Photos</h2>
-                    <PictureUpload
-                        existingPictures={pictures}
-                        onPicturesUpdate={setPictures}
-                    />
                 </div>
 
                 {/* About Section */}
                 <div className="space-y-2">
-                    <h2 className="text-xl font-semibold">About me</h2>
+                    <h2 className="text-xl font-semibold text-darkest-blue">About me</h2>
                     <textarea
                         value={bio}
-                        onChange={(e) => setBio(e.target.value)}
-                        placeholder="Write something about yourself..."
-                        className="w-full p-2 border rounded"
-                        rows="4"
+                        onChange={event => setBio(event.target.value)}
+                        placeholder="About me..."
+                        className="w-full text-dark-blue"
+                        rows="1"
+                        disabled={isUpdating}
+                    />
+                </div>
+
+                {/* Photos Section */}
+                <div className="space-y-2">
+                    <h2 className="text-xl font-semibold text-darkest-blue">Photos</h2>
+                    <PictureUpload
+                        existingPictures={pictures}
+                        onPicturesUpdate={setPictures}
+                        disabled={isUpdating}
                     />
                 </div>
 
                 {/* Location Section */}
                 <div className="space-y-2">
-                    <h2 className="text-xl font-semibold">Living in</h2>
+                    <h2 className="text-xl font-semibold text-darkest-blue">Living in</h2>
                     <input
                         type="text"
                         value={location}
-                        onChange={(e) => setLocation(e.target.value)}
+                        onChange={event => setLocation(event.target.value)}
                         placeholder="Add your location"
-                        className="w-full p-2 border rounded"
+                        className="w-full text-dark-blue"
+                        disabled={isUpdating}
                     />
                 </div>
 
                 {/* Artists Section */}
                 <div className="space-y-2">
-                    <h2 className="text-xl font-semibold">My Artists</h2>
+                    <h2 className="text-xl font-semibold text-darkest-blue">My Artists</h2>
                     <div className="flex flex-wrap gap-2">
                         {artists.map((artist, index) => (
                             <span
                                 key={index}
-                                className="px-3 py-1 bg-purple-100 rounded-full"
+                                className="px-3 py-1.5 bg-skin text-dark-blue font-semibold rounded-full"
                             >
                                 {artist}
                             </span>
@@ -129,13 +144,13 @@ export default function Profile() {
                 </div>
 
                 {/* Save Button */}
-                <button
+                <PrimaryButton
                     onClick={handleUpdateProfile}
-                    className="w-full py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-                >
-                    Save Changes
-                </button>
+                    disabled={isUpdating}
+                    className="mb-4"
+                >Save Changes</PrimaryButton>
             </section>
         </div>
     )
 }
+// TODO: skeleton loading => default profile image => fix scrolling => icons del footer com a tuiter, que tinguin un background flash griset, my anthem? => treure duplicate submissions?

@@ -4,6 +4,6 @@ xhr.addEventListener('load', () => {
     console.log(xhr.status, xhr.response)
 })
 
-xhr.open('GET', 'http://localhost:8080/users/675ff207b4215bb9c29f4cb2/profile')
-xhr.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzVmZjIwN2I0MjE1YmI5YzI5ZjRjYjIiLCJpYXQiOjE3MzQzNDcyMzAsImV4cCI6MTczNDM1MDgzMH0.4MoNk53-_KRLlR7_gra0JvR1URCtcSrJMTOsbVE49II')
+xhr.open('GET', 'http://localhost:8080/users/profile')
+xhr.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2FmMzFmM2M5MzhmZDAzYjhhYTVlMWEiLCJpYXQiOjE3Mzk1MzY2MDcsImV4cCI6MTczOTU0MDIwN30.KwTMmM9rO61DWKv87YsAYHFyhyg33ZOJ7qsE9XV2iYo')
 xhr.send()

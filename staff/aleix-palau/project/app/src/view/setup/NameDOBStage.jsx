@@ -1,4 +1,4 @@
-import { Input, Button, Form, Field, Label } from '../library'
+import { Form, Field, Label, Input, PrimaryButton } from '../library'
 import logic from '../../logic'
 import { errors } from 'com'
 import useContext from '../useContext'
@@ -19,28 +19,24 @@ export default function NameDOBStage(props) {
         const age = calculateAge(dateOfBirth)
 
         if (isNaN(age)) {
-            alert('Invalid date. Please enter a valid date (YYYY-MM-DD)')
+            alert('Enter a valid date (YYYY-MM-DD).', 'error', 'Invalid date')
 
             return
         }
 
         if (age < 18) {
-            alert('You must be at least 18 years old')
+            alert(null, 'error', 'You must be at least 18 years old')
 
             return
         }
 
         if (age >= 100) {
-            alert("You shouldn't be here⚰️💀")
+            alert("You should NOT be here💀")
 
             return
         }
 
-        confirm(
-            <div>
-                <strong>{name}, confirm you're {age}.</strong><br />
-                You can't change these later.
-            </div>,
+        confirm('Make sure this is correct as you won\'t be able to change it later.',
             confirmed => {
                 if (!confirmed) return
 
@@ -59,8 +55,7 @@ export default function NameDOBStage(props) {
 
                         console.error(error)
                     })
-            }
-        )
+            }, 'warn', `${name}, you're ${age} years old`)
     }
 
     return (
@@ -75,11 +70,17 @@ export default function NameDOBStage(props) {
 
                 <Field>
                     <Label htmlFor="dateOfBirth">What's your birthday?</Label>
-                    <Input type="text" id="dateOfBirth" placeholder="YYYY-MM-DD" />
+                    <Input
+                        type="date"
+                        id="dateOfBirth"
+                        max={new Date().toISOString().split('T')[0]}
+                        placeholder="YYYY-MM-DD"
+                    />
                 </Field>
 
-                <Button type="submit">Next</Button>
+                <PrimaryButton type="submit">Next</PrimaryButton>
             </Form>
         </main>
     )
 }
+// TODO: validacio amb no mes old que Date.now => aixo (27-02-19989) ho pilla com si fos menor d 18

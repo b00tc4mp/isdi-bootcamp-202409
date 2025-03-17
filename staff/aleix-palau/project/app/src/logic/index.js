@@ -5,11 +5,12 @@ import {
     isUserLoggedIn,
     getUserId,
     logoutUser,
-    updateUserProfile,
     getUserStage,
     updateUserStage,
+    getUserProfile,
+    updateUserProfile,
     uploadUserPictures,
-    getUserProfile
+    deleteUserPicture
 } from './users'
 
 const logic = {
@@ -19,11 +20,12 @@ const logic = {
     isUserLoggedIn,
     getUserId,
     logoutUser,
-    updateUserProfile,
     getUserStage,
     updateUserStage,
+    getUserProfile,
+    updateUserProfile,
     uploadUserPictures,
-    getUserProfile
+    deleteUserPicture
 }
 
 export default logic

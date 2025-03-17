@@ -17,7 +17,7 @@ export default userId => {
 
         if (!user) throw new NotFoundError('user not found')
 
-        const { name, dateOfBirth, gender, targetGender, artists, bio, location } = user
+        const { name, dateOfBirth, gender, targetGender, artists, bio, location, pictures, profilePicture, minAge, maxAge, distance, coordinates } = user
 
         return {
             name,
@@ -26,7 +26,14 @@ export default userId => {
             targetGender,
             artists,
             bio,
-            location
+            location,
+            pictures,
+            profilePicture,
+            minAge,
+            maxAge,
+            distance,
+            coordinates
         }
     })()
 }
+// TODO: falten => profilePicture?, Spotify...

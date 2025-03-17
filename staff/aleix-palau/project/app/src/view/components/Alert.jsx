@@ -1,13 +1,36 @@
-export default function Alert({ message, level = 'error', onAccepted }) {
-    const borderColor = level === 'error' ? 'border-[red]' : level === 'warn' ? 'border-[yellow]' : 'border-[green]'
+export default function Alert({ message = null, title = null, level = 'error', onAccepted }) {
+    const levelStyle = {
+        error: {
+            border: 'border-red-500',
+            button: 'bg-red-500 active:bg-red-700'
+        },
+        warn: {
+            border: 'border-yellow-500',
+            button: 'bg-yellow-500 active:bg-yellow-700'
+        },
+        success: {
+            border: 'border-green-500',
+            button: 'bg-green-500 active:bg-green-700'
+        }
+    }
 
-    const handleAcceptClick = () => onAccepted()
+    const style = levelStyle[level] || levelStyle.error
 
-    return <div className="fixed h-full w-full top-0 flex items-center justify-center">
-        <div className={`min-w-[20rem] max-w-[40rem] min-h-[10rem] bg-white ${borderColor} border-[1rem] flex flex-col items-center justify-center p-2 gap-2`}>
-            <p>{message}</p>
+    const handleAcceptClick = () => onAccepted && onAccepted()
 
-            <button className="border-2 border-black pt-1" onClick={handleAcceptClick}>Accept</button>
+    return (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className={`bg-lightest rounded-lg shadow-xl ${style.border} border-l-8 max-w-md w-full mx-12`}>
+                <div className="p-5">
+                    {title && <h2 className="text-gray-800 text-lg/6 font-semibold mb-1">{title}</h2>}
+
+                    {message && <p className="text-gray-600 whitespace-pre-line mb-2">{message}</p>}
+
+                    <div className="flex justify-end">
+                        <button className={`px-3 py-2 text-white rounded-lg ${!message ? 'mt-2' : 'mt-1'} ${style.button}`} onClick={handleAcceptClick}>OK</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    )
 }

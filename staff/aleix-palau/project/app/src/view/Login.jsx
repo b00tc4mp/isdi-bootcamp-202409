@@ -1,4 +1,4 @@
-import { PasswordInput, Input, Button, Form, Field, Label } from './library'
+import { PasswordInput, Input, PrimaryButton, Form, Field, Label } from './library'
 import logic from '../logic'
 import { errors } from 'com'
 import useContext from './useContext'
@@ -36,25 +36,27 @@ export default function Login(props) {
         props.onRegisterClick()
     }
 
-    return <main className="justify-self-center">
-        <h2>Log in to Heartbeat</h2>
+    return (
+        <main className="justify-self-center">
+            <h2>Log in to Heartbeat</h2>
 
-        <Form onSubmit={handleSubmit}>
-            <Field>
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" />
-            </Field>
+            <Form onSubmit={handleSubmit}>
+                <Field>
+                    <Label htmlFor="email">Email</Label>
+                    <Input type="email" id="email" />
+                </Field>
 
-            <Field>
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput type="password" id="password" />
-            </Field>
+                <Field>
+                    <Label htmlFor="password">Password</Label>
+                    <PasswordInput type="password" id="password" />
+                </Field>
 
-            <Button type="submit">Log In</Button>
-        </Form>
+                <PrimaryButton type="submit">Log In</PrimaryButton>
+            </Form>
 
-        <p>Don't have an account?
-            <a href="" onClick={handleRegisterClick}> Sign up here</a>.
-        </p>
-    </main>
+            <p>Don't have an account?
+                <a href="" onClick={handleRegisterClick}> Sign up here</a>.
+            </p>
+        </main>
+    )
 }

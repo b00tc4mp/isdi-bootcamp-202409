@@ -6,7 +6,8 @@ import {
     getUserStage,
     updateUserStage,
     getUserProfile,
-    uploadUserPictures
+    uploadUserPictures,
+    deleteUserPicture
 } from './users/index.js'
 
 const logic = {
@@ -17,7 +18,8 @@ const logic = {
     getUserStage,
     updateUserStage,
     getUserProfile,
-    uploadUserPictures
+    uploadUserPictures,
+    deleteUserPicture
 }
 
 export default logic

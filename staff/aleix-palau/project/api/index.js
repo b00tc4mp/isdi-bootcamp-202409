@@ -13,6 +13,10 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
 
     server.use(cors())
 
+    // Increase the body size limit to 4 MB for JSON and urlencoded bodies
+    server.use(express.json({ limit: '4mb' }))
+    server.use(express.urlencoded({ limit: '4mb', extended: true }))
+
     server.get('/', (_, res) => res.send('Sup, API!'))
 
     server.use('/users', usersRouter)

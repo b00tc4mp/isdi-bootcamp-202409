@@ -1,1 +1,0 @@
-curl -X PATCH -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYwMmM0NzRmNGVhNTFhNGU5ZTc5ZGQiLCJpYXQiOjE3MzQzNTY2ODcsImV4cCI6MTczNDM2MDI4N30.3QtGL55Fth00WpzhRDvwpy8Mz0k3cLHPOa-r3QHIPtc' -H 'Content-Type: application/json' -d '{"name":"Aleix","dateOfBirth":"1991-08-19"}' http://localhost:8080/users/67602c474f4ea51a4e9e79dd -v

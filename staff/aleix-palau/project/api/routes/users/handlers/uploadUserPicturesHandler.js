@@ -2,11 +2,10 @@ import logic from '../../../logic/index.js'
 import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler(async (req, res) => {
-    console.log('Request body:', req.body)
-    const { userId } = req.params // Extract userId from route parameters
-    const { pictures } = req.body // Extract Base64-encoded pictures from the request body
+    const { userId } = req
+    const { pictures } = req.body
 
-    const uploadedPictures = await logic.uploadUserPictures(userId, pictures)
+    const result = await logic.uploadUserPictures(userId, pictures)
 
-    res.status(201).json({ message: 'Pictures uploaded successfully', pictures: uploadedPictures })
+    res.json(result) // Return the updated pictures array and profile picture as JSON
 })

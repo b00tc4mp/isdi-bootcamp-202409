@@ -1,4 +1,4 @@
-import { Button, Form, Field, Label, Checkbox, Radio } from '../library'
+import { Form, Field, Label, Radio, Checkbox, PrimaryButton } from '../library'
 import logic from '../../logic'
 import { errors } from 'com'
 import useContext from '../useContext'
@@ -7,8 +7,6 @@ import { useState } from 'react'
 const { SystemError } = errors
 
 export default function GenderStage(props) {
-    console.log('GenderStage -> render')
-
     const { alert } = useContext()
 
     const genders = ['Man', 'Woman', 'Nonbinary']
@@ -31,28 +29,25 @@ export default function GenderStage(props) {
         event.preventDefault()
 
         if (!selectedGender) {
-            alert('Please select your gender')
+            alert(null, 'error', 'Please select your gender')
 
             return
         }
 
         if (targetGenders.length === 0) {
-            alert('Please select at least one option')
+            alert(null, 'error', 'Please select at least one option')
 
             return
         }
 
         logic.updateUserProfile({ gender: selectedGender, targetGender: targetGenders })
             .then(() => logic.updateUserStage('artists'))
-            .then(() => {
-                props.onSetupComplete()
-            })
+            .then(() => { props.onSetupComplete() })
             .catch(error => {
                 if (error instanceof SystemError)
                     alert('Sorry, try again later.')
                 else
                     alert(error.message)
-
                 console.error(error)
             })
     }
@@ -94,7 +89,7 @@ export default function GenderStage(props) {
                     ))}
                 </Field>
 
-                <Button type="submit">Next</Button>
+                <PrimaryButton type="submit">Next</PrimaryButton>
             </Form>
         </main>
     )

@@ -4,26 +4,32 @@ import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
 import {
     authenticateUserHandler,
     registerUserHandler,
-    getUserNameHandler,
-    updateUserProfileHandler,
     getUserStageHandler,
     updateUserStageHandler,
     getUserProfileHandler,
-    uploadUserPicturesHandler
+    updateUserProfileHandler,
+    uploadUserPicturesHandler,
+    deleteUserPictureHandler,
+    getUserNameHandler
 } from './handlers/index.js'
 
 const usersRouter = Router()
 
+// Public routes
 usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.post('/', jsonBodyParser, registerUserHandler)
-usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler) // per a fer el xat?
-usersRouter.patch('/:userId/', jsonBodyParser, authorizationHandler, updateUserProfileHandler)
 
-usersRouter.get('/:userId/stage', authorizationHandler, getUserStageHandler)
-usersRouter.patch('/:userId/stage', jsonBodyParser, authorizationHandler, updateUserStageHandler)
+// Protected routes for user's own data
+usersRouter.get('/stage', authorizationHandler, getUserStageHandler)
+usersRouter.patch('/stage', jsonBodyParser, authorizationHandler, updateUserStageHandler)
 
-usersRouter.get('/:userId/profile', authorizationHandler, getUserProfileHandler)
+usersRouter.get('/profile', authorizationHandler, getUserProfileHandler)
+usersRouter.patch('/profile', jsonBodyParser, authorizationHandler, updateUserProfileHandler)
 
-usersRouter.post('/:userId/pictures', jsonBodyParser, authorizationHandler, uploadUserPicturesHandler)
+usersRouter.post('/pictures', jsonBodyParser, authorizationHandler, uploadUserPicturesHandler)
+usersRouter.delete('/pictures', jsonBodyParser, authorizationHandler, deleteUserPictureHandler)
+
+// Protected routes for accessing other users' data
+usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler) // TODO: to show a user's name in the chat component? maybe delete w/ logic as well
 
 export default usersRouter

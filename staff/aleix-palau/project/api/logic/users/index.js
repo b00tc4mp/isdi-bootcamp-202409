@@ -6,6 +6,7 @@ import getUserStage from './getUserStage.js'
 import updateUserStage from './updateUserStage.js'
 import getUserProfile from './getUserProfile.js'
 import uploadUserPictures from './uploadUserPictures.js'
+import deleteUserPicture from './deleteUserPicture.js'
 
 export {
     authenticateUser,
@@ -15,5 +16,6 @@ export {
     getUserStage,
     updateUserStage,
     getUserProfile,
-    uploadUserPictures
+    uploadUserPictures,
+    deleteUserPicture
 }

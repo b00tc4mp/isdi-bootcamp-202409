@@ -70,10 +70,9 @@ User
 - email (string, unique)
 - password (string, hashed)
 - dateOfBirth (Date)
-- gender (string, enum: male | female | nonbinary)
-- targetGender ([string], enum: male | female | nonbinary)
+- gender (string, enum: man | woman | nonbinary)
+- targetGender ([string], enum: men | women | nonbinary people)
 - coordinates ([ latitude: float, longitude: float ])
-- lastActive (Date)
 
 - bio (string, optional)
 - pictures ([string])

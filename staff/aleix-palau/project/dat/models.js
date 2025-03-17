@@ -32,10 +32,6 @@ const user = new Schema({
     coordinates: {
         type: Array, // [latitude, longitude]
     },
-    lastActive: {
-        type: Date,
-        default: Date.now
-    },
     bio: {
         type: String
     },
@@ -52,13 +48,13 @@ const user = new Schema({
         type: Number,
         default: 18,
         min: 18,
-        max: 100
+        max: 54
     },
     maxAge: {
         type: Number,
-        default: 100,
-        min: 18,
-        max: 100
+        default: 55,
+        min: 19,
+        max: 55
     },
     distance: {
         type: Number,

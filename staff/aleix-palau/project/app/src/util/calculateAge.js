@@ -1,5 +1,12 @@
 export default dob => {
+    // Handle empty or invalid inputs
+    if (!dob) return NaN
+
     const birthDate = new Date(dob)
+
+    // Check if date is valid
+    if (isNaN(birthDate.getTime())) return NaN
+
     const today = new Date()
 
     let age = today.getFullYear() - birthDate.getFullYear()

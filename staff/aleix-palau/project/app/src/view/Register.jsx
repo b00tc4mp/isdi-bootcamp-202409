@@ -1,4 +1,4 @@
-import { PasswordInput, Input, Button, Form, Field, Label } from './library'
+import { PasswordInput, Input, PrimaryButton, Form, Field, Label } from './library'
 import logic from '../logic'
 import { errors } from 'com'
 import useContext from './useContext'
@@ -21,7 +21,7 @@ export default function Register(props) {
             logic.registerUser(email, password, passwordRepeat)
                 .then(() => {
                     form.reset()
-                    alert('Registration successful!', 'success')
+                    alert(null, 'success', 'Registration successful')
                     props.onRegistered()
                 })
                 .catch(error => {
@@ -61,7 +61,7 @@ export default function Register(props) {
                 <PasswordInput type="password" id="password-repeat" />
             </Field>
 
-            <Button type="submit">Sign Up</Button>
+            <PrimaryButton type="submit">Sign Up</PrimaryButton>
         </Form>
 
         <p>Already have an account?

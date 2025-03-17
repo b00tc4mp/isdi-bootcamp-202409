@@ -1,4 +1,4 @@
-import { Button, Form, Field, Label, Checkbox } from '../library'
+import { Form, Field, Label, Checkbox, PrimaryButton } from '../library'
 import logic from '../../logic'
 import { errors } from 'com'
 import useContext from '../useContext'
@@ -38,22 +38,19 @@ export default function ArtistsStage(props) {
         event.preventDefault()
 
         if (selectedArtists.length === 0) {
-            alert('Please select at least one artist.')
+            alert(null, 'error', 'Please select at least one artist')
 
             return
         }
 
         logic.updateUserProfile({ artists: selectedArtists })
             .then(() => logic.updateUserStage('completed'))
-            .then(() => {
-                props.onSetupComplete()
-            })
+            .then(() => { props.onSetupComplete() })
             .catch(error => {
-                if (error instanceof SystemError) {
+                if (error instanceof SystemError)
                     alert('Sorry, try again later.')
-                } else {
+                else
                     alert(error.message)
-                }
                 console.error(error)
             })
     }
@@ -78,7 +75,9 @@ export default function ArtistsStage(props) {
                     ))}
                 </Field>
 
-                <Button type="submit">Next</Button>
+                <div className="flex justify-between w-full mt-4">
+                    <PrimaryButton type="submit">Next</PrimaryButton>
+                </div>
             </Form>
         </main>
     )
