@@ -166,7 +166,8 @@ The home screen and Discover section highlight critical functionalities, providi
 ## **Development Roadmap**
 
 #### Roadmap
-- **v0.1**: Implementation of basic features (user registration, dive center search, logbook).
+- **v0.0**: Implementation of basic features (users registration, dive center search, info about fauna and flora into specific locations, log and logbook).
+- **v0.1**: adding profile pic.
 - **v0.2**: Introduction of push notifications and exclusive offers for users.
 - **v0.3**: Integration with map platforms to display dive center locations on an interactive map.
 - **v0.4**: Full version with advanced customization and community features.

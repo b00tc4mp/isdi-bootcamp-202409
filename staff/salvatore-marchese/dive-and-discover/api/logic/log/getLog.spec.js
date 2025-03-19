@@ -8,14 +8,11 @@ const { expect } = chai
 import mongoose from 'mongoose'
 const { Types: { ObjectId } } = mongoose
 
-import db, { User, LogBook as Log, LogBook } from 'dat'
+import db, { User, LogBook as Log } from 'dat'
 import { errors } from 'com'
 import getLog from './getLog.js'
 
 const { NotFoundError } = errors
-
-
-
 
 describe('getLog', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
@@ -32,7 +29,7 @@ describe('getLog', () => {
             password: 'salva123', role: 'diver'
         })
 
-        const log = await LogBook.create({
+        const log = await Log.create({
             diver: user.id,
             date: '01/09/2024',
             depth: 18,
