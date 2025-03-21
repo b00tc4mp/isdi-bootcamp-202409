@@ -1,0 +1,25 @@
+.Button {
+  width: 100%;
+  box-sizing: border-box;
+  /* padding-right: '18px'; */
+  background-color: var(--color);
+  font-family: inherit;
+  color: white;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+  border-radius: 9999px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* Sombra similar */
+  font-weight: 600;
+}
+
+.Button--light {
+  color: white;
+  background-color: var(--back-color);
+}
+
+.Button:hover {
+  background-color: #0056b3;
+}
