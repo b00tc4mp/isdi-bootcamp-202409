@@ -1,0 +1,85 @@
+.cube {
+    position: relative;
+    display: flex;
+    background-color: black;
+    width: 320px;
+    height: 340px;
+    top: 80px;
+    left: 200px;
+}
+
+.cube__left {
+    position: absolute;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.cube__right {
+    position: absolute;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.top--square {
+    position: absolute;
+    background-color: yellow;
+
+    width: 90px;
+    height: 140px;
+
+    top: 10px;
+    left: 10px;
+}
+
+.mid--square {
+    position: absolute;
+    background-color: white;
+
+    width: 90px;
+    height: 110px;
+
+    top: 160px;
+    left: 10px;
+}
+
+.bot--square {
+    position: absolute;
+    background-color: blue;
+
+    width: 90px;
+    height: 50px;
+
+    bottom: 10px;
+    left: 10px;
+}
+
+.topr--square {
+    position: absolute;
+    background-color: red;
+
+    top: 10px;
+    right: 10px;
+
+    width: 200px;
+    height: 260px;
+}
+
+.botlr--square {
+    position: absolute;
+    background-color: white;
+    bottom: 10px;
+    right: 80px;
+    width: 130px;
+    height: 50px;
+}
+
+.botrr--square {
+    position: absolute;
+    background-color: white;
+
+    bottom: 10px;
+    right: 10px;
+
+    width: 60px;
+    height: 50px;
+}

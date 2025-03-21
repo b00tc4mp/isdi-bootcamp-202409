@@ -1,0 +1,104 @@
+html {
+    scroll-behavior: smooth;
+}
+
+h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: blanchedalmond;
+}
+
+body {
+    background-color: rgb(199, 149, 88);
+}
+
+/* //PARA REDONDEAR LA IMAGEN DEL HEADER */
+img {
+    border-radius: 50%;
+}
+
+.welcome {
+    background-color: rgb(140, 182, 182);
+    color: black;
+    margin: 2%;
+    padding: 5%;
+
+    text-align: center;
+    font-size: xx-large;
+}
+
+
+.INDEX {
+    background-color: rgb(140, 182, 182);
+    color: black;
+    font-size: 40;
+    font-weight: 300;
+    margin: 5%;
+    padding: 5%;
+}
+
+.Introduction {
+    background-color: rgb(140, 182, 182);
+    color: black;
+    font-size: 40;
+    font-weight: 300;
+    margin: 5%;
+    padding: 5%;
+}
+
+/* //PUNTO ES PARA CLASE + SU NOMBRE */
+.Description {
+    color: white;
+}
+
+.Skills {
+    background-color: rgb(140, 182, 182);
+    color: black;
+    font-size: 40;
+    font-weight: 300;
+    margin: 5%;
+    padding: 5%;
+}
+
+.Experience {
+    background-color: rgb(140, 182, 182);
+    color: black;
+    font-size: 40;
+    font-weight: 300;
+    margin: 5%;
+    padding: 5%;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: x-large;
+}
+
+/* //ALMOHADILLA ES PARA IDS */
+#soc {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+/* //CARACTERISTICAS DEL FORMULARIO */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    min-width: 17rem;
+}
+
+form button {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    background-color: rgb(225, 217, 207);
+
+    width: 500px;
+    height: 50px;
+}

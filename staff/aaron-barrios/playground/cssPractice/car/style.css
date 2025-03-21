@@ -1,0 +1,77 @@
+.body {
+    position: relative;
+    background-color: rgb(222, 99, 99);
+    width: 300px;
+    height: 140px;
+
+    /* border-radius: (40%, 40%, 0%, 0%); */
+    top: 80px;
+    left: 200px;
+}
+
+.body__wheels {
+    position: absolute;
+    display: flex;
+    border-radius: 100%;
+    background-color: black;
+
+    height: 60%;
+    width: 30%;
+
+    top: 120px;
+    left: 5px;
+}
+
+.body__window {
+    background-color: black;
+    position: absolute;
+    width: 100px;
+    height: 50px;
+}
+
+.int {
+    border-block-color: white;
+    width: 80%;
+    height: 80%;
+}
+
+.front--window {
+    top: 10px;
+    left: 180px;
+}
+
+.back--window {
+    top: 10px;
+    left: 20px;
+}
+
+.front--wheel {
+    left: 200px;
+}
+
+.body__lateral {
+    position: absolute;
+    background-color: rgb(230, 120, 120);
+    width: 80px;
+    height: 90px;
+    top: 50px;
+}
+
+.front--lateral {
+    top: 50px;
+    left: 300px;
+}
+
+.back--lateral {
+    top: 50px;
+    left: -80px;
+}
+
+.rim {
+    border-radius: 100%;
+    background-color: grey;
+    height: 60%;
+    width: 60%;
+    align-self: center;
+    margin-left: 20%;
+}
