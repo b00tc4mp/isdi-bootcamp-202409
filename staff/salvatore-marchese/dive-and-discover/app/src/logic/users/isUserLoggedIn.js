@@ -1,0 +1,1 @@
+export const isUserLoggedIn = () => sessionStorage.token !== undefined
