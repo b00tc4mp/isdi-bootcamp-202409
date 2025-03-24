@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRmODBlNzIxNDY1YWE0ODIyZjViMDIiLCJpYXQiOjE3MzM5MTE4NjUsImV4cCI6MTczNTEyMTQ2NX0.TdLzpv55l91cxhzqHvWsMukJoqx480hjh7ElO1ercmg' http://localhost:8080/players/state -v
