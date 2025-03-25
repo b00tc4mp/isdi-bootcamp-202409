@@ -10,8 +10,13 @@ import {
     getUserProfile,
     updateUserProfile,
     uploadUserPictures,
-    deleteUserPicture
+    deleteUserPicture,
+    getPotentialMatches
 } from './users'
+
+import {
+    createHeartbeat
+} from './heartbeats'
 
 const logic = {
     registerUser,
@@ -25,7 +30,9 @@ const logic = {
     getUserProfile,
     updateUserProfile,
     uploadUserPictures,
-    deleteUserPicture
+    deleteUserPicture,
+    getPotentialMatches,
+    createHeartbeat
 }
 
 export default logic

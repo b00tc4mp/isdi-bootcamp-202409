@@ -7,6 +7,7 @@ import updateUserStage from './updateUserStage.js'
 import getUserProfile from './getUserProfile.js'
 import uploadUserPictures from './uploadUserPictures.js'
 import deleteUserPicture from './deleteUserPicture.js'
+import getPotentialMatches from './getPotentialMatches.js'
 
 export {
     authenticateUser,
@@ -17,5 +18,6 @@ export {
     updateUserStage,
     getUserProfile,
     uploadUserPictures,
-    deleteUserPicture
+    deleteUserPicture,
+    getPotentialMatches
 }

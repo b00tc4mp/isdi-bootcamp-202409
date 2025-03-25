@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2UxNTYwMTRhZDE3YjAxMTMxZjM5Y2YiLCJpYXQiOjE3NDI5MjI2MTEsImV4cCI6MTc0Mjk2NTgxMX0.DSGBcO-8hmBVYF3TfPljoepAO4lRhem-YuZSJrcMyes' 'http://localhost:8080/users/potential-matches?page=1&limit=10'

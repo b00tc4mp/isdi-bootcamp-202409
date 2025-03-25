@@ -10,11 +10,11 @@ import { formatLocation } from '../../util'
 const { SystemError } = errors
 
 export default function Settings() {
-    const { alert, confirm } = useContext() // TODO: confirm per lo dspoti
+    const { alert, confirm } = useContext() // TODO: confirm per lo dspoti Settings.1.jsx
 
     const [targetGender, setTargetGender] = useState([])
-    const [coordinates, setCoordinates] = useState([])
-    const [distance, setDistance] = useState(50)
+    const [coordinates, setCoordinates] = useState({})
+    const [distance, setDistance] = useState(100)
     const [minAge, setMinAge] = useState(18)
     const [maxAge, setMaxAge] = useState(55)
 
@@ -28,9 +28,9 @@ export default function Settings() {
         logic.getUserProfile()
             .then(profile => {
                 // Set settings from profile
-                setTargetGender(profile.targetGender)
-                setCoordinates(profile.coordinates || null)
-                setDistance(profile.distance || 50)
+                setTargetGender(profile.targetGender || [])
+                setCoordinates(profile.coordinates || {})
+                setDistance(profile.distance || 100)
                 setMinAge(profile.minAge || 18)
                 setMaxAge(profile.maxAge || 55)
                 setIsLoading(false)
@@ -58,10 +58,10 @@ export default function Settings() {
             // success parameter
             position => {
                 try {
-                    const newCoordinates = [
-                        position.coords.latitude,
-                        position.coords.longitude
-                    ]
+                    const newCoordinates = {
+                        type: 'Point',
+                        coordinates: [position.coords.longitude, position.coords.latitude]
+                    }
                     setCoordinates(newCoordinates)
                     setIsUpdatingLocation(false)
                     alert(null, 'success', 'Location updated successfully')
@@ -108,7 +108,7 @@ export default function Settings() {
             return
         }
 
-        if (!coordinates || coordinates.length !== 2) {
+        if (!coordinates || !coordinates.coordinates || coordinates.coordinates.length !== 2) {
             alert(null, 'error', 'Please update your location before saving')
             return
         }
@@ -165,7 +165,7 @@ export default function Settings() {
         <div className="max-w-lg mx-auto px-4 py-3 space-y-4 bg-lightest min-h-full">
 
             {/* Gender Selection */}
-            <div onClick={() => !isSaving && setShowGenderModal(true)}>
+            <div onClick={() => !isSaving && setShowGenderModal(true)} className={isSaving ? 'opacity-70' : ''}>
                 <SettingsSection
                     title="Show Me"
                     value={
@@ -192,7 +192,7 @@ export default function Settings() {
                         Your location is used to find matches within your selected distance and is never shared.
                     </div>
                     <button
-                        className="flex items-center justify-center px-2.5 py-1.5 text-sm bg-light text-darkest-blue rounded-lg active:scale-[.98] min-w-[85.28px]"
+                        className={`flex items-center justify-center px-2.5 py-1.5 text-sm bg-light text-darkest-blue rounded-lg active:scale-[.98] min-w-[85.27px] ${(isUpdatingLocation || isSaving) ? 'opacity-70' : ''}`}
                         onClick={handleUpdateLocation}
                         disabled={isUpdatingLocation || isSaving}
                     >
@@ -218,7 +218,7 @@ export default function Settings() {
                 <SingleSlider
                     value={distance}
                     min={1}
-                    max={100}
+                    max={200}
                     onChange={setDistance}
                     disabled={isSaving}
                 />
@@ -244,6 +244,7 @@ export default function Settings() {
             <PrimaryButton
                 onClick={handleSaveSettings}
                 disabled={isSaving}
+                className={isSaving ? 'opacity-70' : ''}
             >Save Changes
             </PrimaryButton>
 
@@ -260,6 +261,4 @@ export default function Settings() {
         </div>
     )
 }
-// TODO: change email/password?, age range, maximum distance (boolean true? (Global)), target gender (show me/Interested in), disconnect from spotify?
-// TODO: afegir efecte griset quan cliques i desabilitar quan cliquem a save changes (duplicate dubmissions?)
-// TODO: Acabar de configurar el isSaving com el isUpdating del Profile i mirar comments/not used
+// TODO: change email/password?, disconnect from spotify?

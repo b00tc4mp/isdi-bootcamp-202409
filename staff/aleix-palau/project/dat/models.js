@@ -30,7 +30,14 @@ const user = new Schema({
         enum: ['Men', 'Women', 'Nonbinary people']
     }],
     coordinates: {
-        type: Array, // [latitude, longitude]
+        type: {
+            type: String,
+            enum: ['Point'],
+            default: 'Point'
+        },
+        coordinates: {
+            type: [Number],  // [longitude, latitude]
+        }
     },
     bio: {
         type: String
@@ -58,7 +65,7 @@ const user = new Schema({
     },
     distance: {
         type: Number,
-        default: 50
+        default: 100
     },
     artists: [{
         type: String

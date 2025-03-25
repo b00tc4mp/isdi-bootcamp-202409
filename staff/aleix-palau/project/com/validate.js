@@ -49,7 +49,6 @@ const validateDateOfBirth = dateOfBirth => {
     if (normalizedDate !== dateOfBirth) throw new ValidationError('invalid date of birth')
 
     const age = calculateAge(dateOfBirth)
-
     if (age < 18) throw new ValidationError('You must be at least 18 years old.')
     if (age > 100) throw new ValidationError('Please enter a valid date of birth.')
 }
@@ -65,9 +64,8 @@ const validateGender = gender => {
 }
 
 const validateTargetGender = targetGender => {
-    if (!Array.isArray(targetGender)) {
-        throw new ValidationError('invalid target gender: must be an array')
-    }
+    if (!Array.isArray(targetGender)) throw new ValidationError('invalid target gender: must be an array')
+
     const validTargetGenders = ['Men', 'Women', 'Nonbinary people']
     targetGender.forEach(gender => {
         if (!validTargetGenders.includes(gender)) throw new ValidationError(`invalid target gender: ${gender}`)
@@ -108,19 +106,19 @@ const validatePictures = pictures => {
 }
 
 const validateProfilePicture = (profilePicture, pictures) => {
-    if (profilePicture === null) return // Allow null for users without pictures
+    if (profilePicture === null) return
     if (typeof profilePicture !== 'string') throw new ValidationError('invalid profile picture')
     if (!pictures.includes(profilePicture)) throw new ValidationError('profile picture must be one of the uploaded pictures')
 }
 
 const validateBio = bio => {
-    if (bio === undefined || bio === null) return // If bio is not provided, that's OK
+    if (bio === null) return
     if (typeof bio !== 'string') throw new ValidationError('invalid bio')
     if (bio.trim().length > 200) throw new ValidationError('bio must not exceed 200 characters')
 }
 
 const validateLocation = location => {
-    if (location === undefined || location === null) return // If location is not provided, that's OK
+    if (location === null) return
     if (typeof location !== 'string') throw new ValidationError('invalid location')
 }
 
@@ -141,19 +139,30 @@ const validateDistance = distance => {
     if (!Number.isInteger(distance)) throw new ValidationError('distance must be a whole number')
     if (typeof distance !== 'number') throw new ValidationError('invalid distance')
     if (distance < 1) throw new ValidationError('distance must be at least 1')
-    if (distance > 100) throw new ValidationError('distance cannot exceed 100')
+    if (distance > 200) throw new ValidationError('distance cannot exceed 200')
 }
 
 const validateCoordinates = coordinates => {
     if (coordinates === null) return // null for new users who haven't set location yet
-    if (!Array.isArray(coordinates)) throw new ValidationError('coordinates must be an array')
-    if (coordinates.length !== 2) throw new ValidationError('coordinates must contain [latitude, longitude]')
 
-    const [lat, lng] = coordinates
+    // Check if it's a GeoJSON object
+    if (coordinates.type && coordinates.coordinates) {
+        if (coordinates.type !== 'Point') throw new ValidationError('coordinates type must be Point')
+        if (!Array.isArray(coordinates.coordinates)) throw new ValidationError('coordinates must be an array')
+        if (coordinates.coordinates.length !== 2) throw new ValidationError('coordinates must contain [longitude, latitude]')
 
-    if (typeof lat !== 'number' || typeof lng !== 'number') throw new ValidationError('coordinates must be numbers')
-    if (lat < -90 || lat > 90) throw new ValidationError('latitude must be between -90 and 90')
-    if (lng < -180 || lng > 180) throw new ValidationError('longitude must be between -180 and 180')
+        const [lng, lat] = coordinates.coordinates
+        if (typeof lng !== 'number' || typeof lat !== 'number') throw new ValidationError('coordinates must be numbers')
+        if (lng < -180 || lng > 180) throw new ValidationError('longitude must be between -180 and 180')
+        if (lat < -90 || lat > 90) throw new ValidationError('latitude must be between -90 and 90')
+        return
+    }
+    throw new ValidationError('invalid coordinates format')
+}
+
+const validateAction = action => {
+    if (typeof action !== 'string') throw new ValidationError('invalid action')
+    if (action !== 'left' && action !== 'right') throw new ValidationError('invalid action, must be "left" or "right"')
 }
 
 const validate = {
@@ -176,7 +185,8 @@ const validate = {
     minAge: validateMinAge,
     maxAge: validateMaxAge,
     distance: validateDistance,
-    coordinates: validateCoordinates
+    coordinates: validateCoordinates,
+    action: validateAction
 }
 
 export default validate

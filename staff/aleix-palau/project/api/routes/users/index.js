@@ -10,7 +10,8 @@ import {
     updateUserProfileHandler,
     uploadUserPicturesHandler,
     deleteUserPictureHandler,
-    getUserNameHandler
+    getUserNameHandler,
+    getPotentialMatchesHandler
 } from './handlers/index.js'
 
 const usersRouter = Router()
@@ -29,7 +30,9 @@ usersRouter.patch('/profile', jsonBodyParser, authorizationHandler, updateUserPr
 usersRouter.post('/pictures', jsonBodyParser, authorizationHandler, uploadUserPicturesHandler)
 usersRouter.delete('/pictures', jsonBodyParser, authorizationHandler, deleteUserPictureHandler)
 
+usersRouter.get('/potential-matches', authorizationHandler, getPotentialMatchesHandler)
+
 // Protected routes for accessing other users' data
-usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler) // TODO: to show a user's name in the chat component? maybe delete w/ logic as well
+usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler) // TODO: to show a user's name in the chat component? most likely delete with logic as well
 
 export default usersRouter

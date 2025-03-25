@@ -147,7 +147,7 @@ export default function Profile() {
                 <PrimaryButton
                     onClick={handleUpdateProfile}
                     disabled={isUpdating}
-                    className="mb-4"
+                    className={`mb-3 ${(isUpdating) ? 'opacity-70' : ''}`}
                 >Save Changes</PrimaryButton>
             </section>
         </div>

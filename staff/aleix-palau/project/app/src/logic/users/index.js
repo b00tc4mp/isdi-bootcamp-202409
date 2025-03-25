@@ -10,6 +10,7 @@ import getUserProfile from './getUserProfile'
 import updateUserProfile from './updateUserProfile'
 import uploadUserPictures from './uploadUserPictures'
 import deleteUserPicture from './deleteUserPicture'
+import getPotentialMatches from './getPotentialMatches'
 
 export {
     registerUser,
@@ -23,5 +24,6 @@ export {
     getUserProfile,
     updateUserProfile,
     uploadUserPictures,
-    deleteUserPicture
+    deleteUserPicture,
+    getPotentialMatches
 }

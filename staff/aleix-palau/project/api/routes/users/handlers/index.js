@@ -7,6 +7,7 @@ import updateUserStageHandler from './updateUserStageHandler.js'
 import getUserProfileHandler from './getUserProfileHandler.js'
 import uploadUserPicturesHandler from './uploadUserPicturesHandler.js'
 import deleteUserPictureHandler from './deleteUserPictureHandler.js'
+import getPotentialMatchesHandler from './getPotentialMatchesHandler.js'
 
 export {
     authenticateUserHandler,
@@ -17,5 +18,6 @@ export {
     updateUserStageHandler,
     getUserProfileHandler,
     uploadUserPicturesHandler,
-    deleteUserPictureHandler
+    deleteUserPictureHandler,
+    getPotentialMatchesHandler
 }
