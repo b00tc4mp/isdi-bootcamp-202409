@@ -1,0 +1,32 @@
+h4 {
+  margin-left: 10px;
+}
+
+.img {
+  width: 100%;
+}
+
+.Post>p {
+  margin: 0;
+  color: black;
+}
+
+#btn-like {
+  padding: 5px;
+}
+
+#btn-comment {
+  padding: 5px;
+}
+
+#btn-like:hover {
+  background-color: rgba(255, 0, 0, 0.552);
+}
+
+#btn-comment:hover {
+  background-color: rgba(0, 0, 0, 0.441)
+}
+
+.Post>a {
+  cursor: pointer
+}

@@ -1,0 +1,11 @@
+@media (min-width: 700px) {
+  .Home {
+    width: 540px;
+  }
+}
+
+@media (max-width: 700px) {
+  .Home {
+    width: 290px;
+  }
+}

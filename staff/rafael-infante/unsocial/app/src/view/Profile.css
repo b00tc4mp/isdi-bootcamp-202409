@@ -1,0 +1,19 @@
+@media (min-width: 700px) {
+  .Profile {
+    width: 540px;
+  }
+
+  .password-container input {
+    width: 95%;
+  }
+}
+
+@media (max-width: 700px) {
+  .Profile {
+    width: 290px;
+  }
+
+  .password-container input {
+    width: 92%;
+  }
+}

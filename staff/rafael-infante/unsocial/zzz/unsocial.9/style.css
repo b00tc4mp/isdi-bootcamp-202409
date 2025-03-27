@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --font: 'Poppins';
+  font-family: var(--font);
+  background-color: #e4b834;
+}
+
+.logo-container {
+  display: flex;
+  text-decoration: none;
+  color: black;
+  align-items: center;
+  margin: 0;
+  padding-left: 15px;
+}
+
+.logo {
+  max-height: 45px;
+  margin-right: 5px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 15px 15px 15px;
+}
+
+.section-container {
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  margin: 10px;
+  width: 85%;
+  max-width: 500px;
+  min-height: 500px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+label {
+  padding-bottom: 6px;
+  font-size: 14px;
+}
+
+input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+button {
+  color: white;
+  background-color: black;
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bolder;
+  border: none;
+}
+
+button:hover {
+  color: black;
+  background-color: #e7cc79;
+  border: none;
+}
+
+#btn-register {
+  margin: 0;
+}
+
+#bottom-text,
+p {
+  font-size: 13px;
+  color: grey;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #dda600;
+}
+
+h4 {
+  margin: 20px;
+}
+
+.password-container {
+  position: relative;
+  display: inline-block;
+}
+
+.password-container input {
+  width: 95%;
+}
+
+.password-container i {
+  position: absolute;
+  top: 40%;
+  right: 18px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.boy {
+  height: 300px;
+}
+
+@media (max-width: 350px) {
+  .password-container input {
+    width: 92%;
+  }
+}

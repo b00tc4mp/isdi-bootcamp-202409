@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unsocial</title>
+  <link rel="shortcut icon" href="/staff/rafael-infante/unsocial/images/users-avatar2.png" type="image/x-icon">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    :root {
+      --font: 'Poppins';
+      font-family: var(--font);
+      background-color: #e4b834;
+    }
+
+    .logo-container {
+      display: flex;
+      text-decoration: none;
+      color: black;
+      align-items: center;
+      margin: 0;
+      padding-left: 15px;
+    }
+
+    .logo {
+      max-height: 45px;
+      margin-right: 5px;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 15px;
+    }
+
+    .section-container {
+      background-color: white;
+      padding: 20px;
+      margin: 10px;
+      width: 85%;
+      max-width: 500px;
+      min-height: 500px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    label {
+      padding-bottom: 8px;
+    }
+
+    input {
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid gray;
+    }
+
+    h4 {
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    button {
+      color: white;
+      background-color: black;
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: bolder;
+      border: none;
+    }
+
+    button:hover {
+      color: black;
+      background-color: #e7cc79;
+      border: none;
+    }
+
+    #btn-register {
+      margin: 0;
+    }
+
+    #bottom-text {
+      font-size: 12px;
+      color: grey;
+      margin-top: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+    }
+
+    a:hover {
+      color: #dda600;
+    }
+
+    h4 {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="logo-container">
+    <img src="/staff/rafael-infante/unsocial/images/users-avatar.png" alt="" class="logo">
+    <h1>unSocial</h1>
+  </header>
+  <!-- Login Section -->
+  <section class="section-container">
+    <p>Welcome !</p>
+    <h2>Sign in to unSocial</h2>
+    <h4>Write username and password to access</h4>
+    <form class="form-container">
+      <label for="login-user">User name</label>
+      <input type="text" id="login-user" placeholder="Enter your user name" required>
+
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" placeholder="Enter your Password" required>
+      <button id="btn-login" type="submit">Login</button>
+    </form>
+    <p id="bottom-text">Don't have an account? <a href="">Register</a></p>
+
+  </section>
+  <!-- Register section -->
+  <section class="section-container">
+    <h2>Register to unSocial</h2>
+    <h4>Enter your details to register</h4>
+    <form class="form-container">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="name" placeholder="Enter your email" required>
+
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password" required>
+      <button id="btn-register" type="submit">Register</button>
+    </form>
+    <p id="bottom-text">Already have an account? <a href="">Login</a></p>
+  </section>
+  <!-- Home Section -->
+  <section id="home" class="section-container">
+    <h2>Home</h2>
+    <h3>Hello, User!</h3>
+    <img style="height: 300px;" src="/staff/rafael-infante/unsocial/images/boy.png" alt="">
+    <button id="btn-logout">Logout</button>
+  </section>
+
+  <script>
+    // Array of users already registered
+    var users = [
+      { name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' },
+      { name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' }
+    ]
+
+    var sections = document.querySelectorAll('section')
+    var loginSection = sections[0]
+    var registerSection = sections[1]
+    var homeSection = sections[2]
+    // Turn off register & home sections
+    registerSection.style.display = 'none'
+    homeSection.style.display = 'none'
+
+    var anchors = document.querySelectorAll('a')
+    var registerAnchor = anchors[0]
+    var loginAnchor = anchors[1]
+    // Send the user to register section when clicking on Register anchor
+    registerAnchor.onclick = function (event) {
+      event.preventDefault()
+      loginSection.style.display = 'none'
+      registerSection.style.display = ''
+    }
+    // Send the user to login section when clicking on Login anchor
+    loginAnchor.addEventListener('click', function (event) {
+      event.preventDefault()
+      registerSection.style.display = 'none'
+      loginSection.style.display = ''
+    })
+
+    var forms = document.querySelectorAll('form')
+    var loginForm = forms[0]
+    var registerForm = forms[1]
+    // Actions when submiting the register form
+    registerForm.onsubmit = function (event) {
+      event.preventDefault()
+      var inputs = registerForm.querySelectorAll('input')
+
+      var nameInput = inputs[0]
+      var name = nameInput.value
+
+      var emailInput = inputs[1]
+      var email = emailInput.value
+
+      var usernameInput = inputs[2]
+      var username = usernameInput.value
+
+      var passwordInput = inputs[3]
+      var password = passwordInput.value
+
+      var user = {
+        name: name,
+        email: email,
+        username: username,
+        password: password
+      }
+      // Once we have the new name, email, username & password we push our
+      // new user to the users list
+      users.push(user)
+      // reset the register form and go back to login section
+      registerForm.reset()
+      registerSection.style.display = 'none'
+      loginSection.style.display = ''
+    }
+    // Actions when submiting the Login form
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault()
+      var loginInputs = loginForm.querySelectorAll('input')
+      var loginUsername = loginInputs[0].value
+      var loginPassword = loginInputs[1].value
+      // use find method to check if the user we received in login form
+      // matches with one in our users list
+      var match = users.find(function (element) {
+        return (element.username === loginUsername) && (element.password === loginPassword)
+      })
+
+      loginForm.reset()
+
+      if (match) {
+        loginSection.style.display = 'none'
+        homeSection.style.display = ''
+        homeSection.querySelector('h3').innerText = 'Hello, ' + match.name
+      } else {
+        alert('Please enter a valid user name and password')
+      }
+
+    })
+
+    var logoutButton = document.getElementById('btn-logout')
+    logoutButton.onclick = function (event) {
+      event.preventDefault()
+      homeSection.style.display = 'none'
+      loginSection.style.display = ''
+    }
+
+  </script>
+
+</body>
+
+</html>
