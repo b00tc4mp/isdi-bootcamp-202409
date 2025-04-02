@@ -1,0 +1,67 @@
+[
+    {
+        "id": "m2vw4ucygv",
+        "image": "https://media.istockphoto.com/id/1154370446/es/foto/divertido-mapache-en-gafas-de-sol-verdes-que-muestra-un-gesto-de-rock-aislado-sobre-fondo.jpg?s=612x612&w=0&k=20&c=XyRHmlfm_g3XQi8UXjZTzvMY_cfXCImzbzvkg5drzxE=",
+        "text": "hola mundo",
+        "author": "m2vvw4xzn6d",
+        "date": "2024-10-30T13:06:39.922Z",
+        "likes": [
+            "m2vvw4xzn6d"
+        ],
+        "comments": [
+            {
+                "id": "m32x1sbc4l6",
+                "author": "m2vvw4xzn6d",
+                "text": "yeaaaah!",
+                "date": "2024-11-04T11:06:40.152Z"
+            },
+            {
+                "id": "m32x1tjtd9g",
+                "author": "m2vvw4xzn6d",
+                "text": "yeaaaah!",
+                "date": "2024-11-04T11:06:41.753Z"
+            },
+            {
+                "id": "m32x1tzywj",
+                "author": "m2vvw4xzn6d",
+                "text": "yeaaaah!",
+                "date": "2024-11-04T11:06:42.334Z"
+            }
+        ]
+    },
+    {
+        "id": "m32x1ls3sf9",
+        "image": "https://media.istockphoto.com/id/2154680719/es/foto/retrato-de-un-divertido-mapache-curioso-mirando-a-trav%C3%A9s-de-una-lupa-aislada-sobre-un-fondo.jpg?s=612x612&w=0&k=20&c=pYTBWtHYhkSqmpCGHLFczqONvdAjRdC_Sy0PjtPe_oQ=",
+        "text": "donde estas?",
+        "author": "m2vvqdtgcba",
+        "date": "2024-10-31T08:51:16.469Z",
+        "likes": [
+            "m33001uqeyj"
+        ],
+        "comments": []
+    },
+    {
+        "id": "m32yg36494r",
+        "image": "https://media.istockphoto.com/id/1215945075/es/foto/parson-russell-terrier-y-mapache-de-pie-en-botas-de-goma-bajo-un-paraguas-aislado-sobre-fondo.jpg?s=612x612&w=0&k=20&c=Ytd3uyAcc-206ZW7FSf-fDkn-_ST__nfmqi5C8DsojY=",
+        "text": "aqui",
+        "author": "m2vvqdtgcba",
+        "date": "2024-10-31T11:37:07.745Z",
+        "likes": [
+            "m33001uqeyj"
+        ],
+        "comments": [
+            {
+                "id": "m34p6j5o6p",
+                "author": "m33001uqeyj",
+                "text": "ewzr",
+                "date": "2024-11-05T17:01:56.988Z"
+            },
+            {
+                "id": "m34phoqm1",
+                "author": "m33001uqeyj",
+                "text": "gtvyt",
+                "date": "2024-11-05T17:10:37.438Z"
+            }
+        ]
+    }
+]
