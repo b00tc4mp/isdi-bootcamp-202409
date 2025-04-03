@@ -56,7 +56,6 @@ If music is your world and you're seeking others who resonate with your taste, H
 
 - HTML/CSS/JS
 - React
-- React Native (?)
 - Node
 - Express
 - Mongo

@@ -1,44 +1,41 @@
 import { Loader2 } from 'lucide-react'
 
-export default function PrimaryButton({
+export default function IconButton({
     type = 'button',
-    children,
+    icon: Icon,
     onClick,
     disabled = false,
+    isLoading = false,
+    iconSize = 24,
     className = ''
 }) {
     return (
         <button
             type={type}
             onClick={onClick}
-            disabled={disabled}
+            disabled={disabled || isLoading}
             className={`
-                w-full
-                max-h-[3rem]
                 inline-flex
                 items-center
                 justify-center
                 rounded-full
                 shadow-md
-                py-3
-                px-4
-                text-darkest-blue
-                font-semibold
-                text-lg
                 transition-transform
                 active:scale-[.98]
                 leading-snug
                 outline-none
-                bg-pink
                 ${className}
                 ${disabled ? 'opacity-70' : ''}
-                `}
+            `}
         >
-            {disabled ? (
-                <div className="flex items-center justify-center">
-                    <Loader2 className="w-7 h-7 animate-spin" />
-                </div>
-            ) : children}
+            {isLoading ? (
+                <Loader2
+                    size={iconSize}
+                    className="animate-spin"
+                />
+            ) : (
+                <Icon size={iconSize} />
+            )}
         </button>
     )
 }

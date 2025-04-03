@@ -1,11 +1,9 @@
 import { useState, useRef } from 'react'
 import useContext from '../useContext'
 import { X, Plus, Loader2 } from 'lucide-react'
-import { errors } from 'com'
 import logic from '../../logic'
+import { IconButton } from '../library'
 import { toBase64 } from '../../util'
-
-const { SystemError } = errors
 
 const MAX_FILE_SIZE = 4 * 1024 * 1024
 
@@ -119,21 +117,19 @@ export default function PictureUpload({ existingPictures = [], onPicturesUpdate,
                         alt={`User picture ${index + 1}`}
                         className="w-full h-full object-cover rounded-md"
                     />
-                    <button
-                        onClick={() => handleDelete(picture, index)}
-                        className="absolute top-2 right-2 p-2 bg-lightest rounded-full shadow-md active:bg-light disabled:bg-light"
-                        disabled={disabled || deletingIndex === index}
-                    >
-                        {deletingIndex === index ? (
-                            <Loader2 className="w-6 h-6 text-skin animate-spin" />
-                        ) : (
-                            <X className="w-6 h-6 text-pink" />
-                        )}
-                    </button>
+                    <div className="absolute top-2 right-2">
+                        <IconButton
+                            icon={X}
+                            onClick={() => handleDelete(picture, index)}
+                            disabled={disabled}
+                            isLoading={deletingIndex === index}
+                            className="p-2 bg-lightest text-pink"
+                        />
+                    </div>
                     {index === 0 && (
-                        <span className="absolute bottom-2 left-2 px-2.5 py-1.5 bg-black/50 text-lightest text-sm rounded-lg">
+                        <div className="absolute bottom-2 left-2 px-2.5 py-1.5 bg-black/50 text-lightest text-sm rounded-lg">
                             Profile picture
-                        </span>
+                        </div>
                     )}
                 </div>
             ))}
@@ -170,3 +166,5 @@ export default function PictureUpload({ existingPictures = [], onPicturesUpdate,
     )
 }
 // TODO: posar try/catch a les logiques i fer servir SystemError?
+// TODO: posar alerta quan tornem a pujar una imatge repetida
+// TODO: igualar els loading/updating entre components

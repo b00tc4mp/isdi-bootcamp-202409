@@ -123,10 +123,8 @@ export default function App() {
     const handleRegisterClick = () => navigate('/register')
     const handleLoginClick = () => navigate('/login')
     const handleUserRegistered = () => navigate('/login')
-
-    const handleSettingsClick = () => { navigate('/settings') }
-
-    const handleBackFromSettings = () => { navigate(previousPage) }
+    const handleSettingsClick = () => navigate('/settings')
+    const handleBackFromSettings = () => navigate(previousPage)
 
     return (
         <Context.Provider value={{
@@ -163,7 +161,7 @@ export default function App() {
                 <Routes>
                     <Route element={<MainLayout />}>
                         <Route path="/profile" element={<Profile />} />
-                        <Route path="/people" element={<People />} />
+                        <Route path="/people" element={<People onSettingsClick={handleSettingsClick} />} />
                         <Route path="/chat" element={<Chat />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/" element={<Navigate to="/people" />} />

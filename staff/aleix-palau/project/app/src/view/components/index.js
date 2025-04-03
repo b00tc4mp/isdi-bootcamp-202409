@@ -5,6 +5,9 @@ import Footer from './Footer'
 import PictureUpload from './PictureUpload'
 import GenderModal from './GenderModal'
 import SettingsSection from './SettingsSection'
+import NoMoreProfiles from './NoMoreProfiles'
+import UserDetail from './UserDetail'
+// import MatchNotification from './MatchNotification'
 
 export {
     Header,
@@ -13,5 +16,8 @@ export {
     Footer,
     PictureUpload,
     GenderModal,
-    SettingsSection
+    SettingsSection,
+    NoMoreProfiles,
+    UserDetail
+    // MatchNotification
 }

@@ -67,5 +67,5 @@ export default function Register(props) {
         <p>Already have an account?
             <a href="" onClick={handleLoginClick}> Log in instead</a>.
         </p>
-    </main >
+    </main>
 }

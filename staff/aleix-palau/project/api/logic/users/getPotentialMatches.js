@@ -97,7 +97,7 @@ export default (userId, page = 1, limit = 10) => {
 
         // Find users matching criteria
         const potentialMatches = await User.find(query)
-            .select('name dateOfBirth location artists bio')
+            .select('name dateOfBirth location artists bio profilePicture pictures coordinates')
             .lean()
 
         // Calculate the number of common artists for each potential match

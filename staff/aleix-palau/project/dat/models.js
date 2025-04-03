@@ -36,7 +36,7 @@ const user = new Schema({
             default: 'Point'
         },
         coordinates: {
-            type: [Number],  // [longitude, latitude]
+            type: [Number]  // [longitude, latitude]
         }
     },
     bio: {

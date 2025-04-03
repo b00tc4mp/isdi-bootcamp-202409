@@ -1,23 +1,30 @@
 import PrimaryButton from './PrimaryButton'
-import Field from './Field'
-import Form from './Form'
-import Input from './Input'
-import Label from './Label'
-import PasswordInput from './PasswordInput'
-import Checkbox from './Checkbox'
-import Radio from './Radio'
+import IconButton from './IconButton'
+import ArtistTag from './ArtistTag'
 import SingleSlider from './SingleSlider'
 import DualSlider from './DualSlider'
 
+import Field from './Field' // edit
+import Form from './Form' // edit
+import Input from './Input' // edit
+import Label from './Label' // edit
+import PasswordInput from './PasswordInput' // edit
+import Checkbox from './Checkbox' // edit
+import Radio from './Radio' // edit
+
 export {
     PrimaryButton,
+    IconButton,
+    ArtistTag,
+    SingleSlider,
+    DualSlider,
+
     Field,
     Form,
     Input,
     Label,
     PasswordInput,
     Checkbox,
-    Radio,
-    SingleSlider,
-    DualSlider
+    Radio
 }
+// TODO: edit

@@ -12,7 +12,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "mongoose": "^8.13.0"
+        "mongoose": "^8.13.1"
     },
     "devDependencies": {
         "bcryptjs": "^3.0.2",

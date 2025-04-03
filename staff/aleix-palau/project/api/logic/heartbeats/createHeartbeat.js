@@ -97,3 +97,4 @@ export default (senderId, receiverId, action) => {
     })()
 }
 // TODO: canviar name pictures => name profilePicture o altres?
+// TODO: separar match reation a una altra logica?

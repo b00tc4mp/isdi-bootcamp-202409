@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
-import { PrimaryButton } from '../library'
+import { PrimaryButton, ArtistTag } from '../library'
 import { PictureUpload } from '../components'
-import { calculateAge } from '../../util'
+import { calculateAge, orderArtists } from '../../util'
 
 const { SystemError } = errors
 
@@ -131,14 +131,11 @@ export default function Profile() {
                 {/* Artists Section */}
                 <div className="space-y-2">
                     <h2 className="text-xl font-semibold text-darkest-blue">My Artists</h2>
-                    <div className="flex flex-wrap gap-2">
-                        {artists.map((artist, index) => (
-                            <span
-                                key={index}
-                                className="px-3 py-1.5 bg-skin text-dark-blue font-semibold rounded-full"
-                            >
+                    <div className="flex flex-wrap gap-1.5">
+                        {orderArtists(artists).map((artist, index) => (
+                            <ArtistTag key={index} className="bg-skin">
                                 {artist}
-                            </span>
+                            </ArtistTag>
                         ))}
                     </div>
                 </div>
@@ -147,10 +144,11 @@ export default function Profile() {
                 <PrimaryButton
                     onClick={handleUpdateProfile}
                     disabled={isUpdating}
-                    className={`mb-3 ${(isUpdating) ? 'opacity-70' : ''}`}
+                    className="mb-4"
                 >Save Changes</PrimaryButton>
             </section>
         </div>
     )
 }
 // TODO: skeleton loading => default profile image => fix scrolling => icons del footer com a tuiter, que tinguin un background flash griset, my anthem? => treure duplicate submissions?
+// TODO: agafar la profile picture de profilePicture i no de pictures[0]

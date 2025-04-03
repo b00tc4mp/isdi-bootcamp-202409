@@ -13,7 +13,7 @@ export default (receiverId, action) => {
             Authorization: `Bearer ${localStorage.token}`
         },
         body: JSON.stringify({
-            receiver: receiverId,
+            receiverId,
             action
         })
     })

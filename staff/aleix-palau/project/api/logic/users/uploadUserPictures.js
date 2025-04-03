@@ -65,3 +65,4 @@ export default (userId, pictures) => {
         }
     })()
 }
+// TODO: la url d la default picture? mirar si aixo Determine if profile picture needs updating es rellevant
