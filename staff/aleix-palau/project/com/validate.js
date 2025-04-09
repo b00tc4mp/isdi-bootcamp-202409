@@ -24,10 +24,11 @@ const validatePasswordsMatch = (password, passwordRepeat) => {
     if (password !== passwordRepeat) throw new ValidationError('passwords do not match')
 }
 
-// const validateText = text => {
-//     if (typeof text !== 'string') throw new ValidationError('invalid text')
-//     if (text.trim().length === 0) throw new ValidationError('invalid text length')
-// }
+const validateText = (text, explain = 'text', maxLength = 500) => {
+    if (typeof text !== 'string') throw new ValidationError(`invalid ${explain}`)
+    if (text.trim().length === 0) throw new ValidationError(`${explain} cannot be empty`)
+    if (text.length > maxLength) throw new ValidationError(`${explain} cannot exceed ${maxLength} characters`)
+}
 
 const validateId = (id, explain = 'id') => {
     if (typeof id !== 'string') throw new ValidationError(`invalid ${explain}`)
@@ -170,9 +171,9 @@ const validate = {
     email: validateEmail,
     password: validatePassword,
     passwordsMatch: validatePasswordsMatch,
-    // TODO text: validateText, mirar si calen
+    text: validateText,
     id: validateId,
-    // callback: validateCallback,
+    // callback: validateCallback, // TODO: mirar si cal
     dateOfBirth: validateDateOfBirth,
     stage: validateStage,
     gender: validateGender,

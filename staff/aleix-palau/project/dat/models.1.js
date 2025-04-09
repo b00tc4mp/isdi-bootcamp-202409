@@ -117,21 +117,47 @@ const heartbeat = new Schema({
     }
 }, { versionKey: false })
 
+const music = new Schema({
+    sharedBy: {
+        type: ObjectId,
+        ref: 'User'
+    },
+    spotifyTrack: {
+        type: String
+    },
+    track: {
+        type: String
+    },
+    artist: {
+        type: String
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
+}, { versionKey: false })
+
 const message = new Schema({
     sender: {
         type: ObjectId,
-        ref: 'User',
-        required: true
+        ref: 'User'
     },
     text: {
-        type: String,
-        required: true
+        type: String
     },
     timestamp: {
         type: Date,
         default: Date.now
-    }
-}, { versionKey: false, _id: true }) // Ensure messages get their own _id
+    },
+    // type: {
+    //     type: String,
+    //     enum: ['text', 'music'],
+    //     default: 'text'
+    // },
+    // music: {
+    //     type: music
+    // }
+}, { versionKey: false })
 
 const match = new Schema({
     users: [{
@@ -172,17 +198,19 @@ const notification = new Schema({
 match.index({ users: 1 })
 // Index for potentially sorting by last activity
 match.index({ users: 1, lastActivity: -1 })
-// Index on messages timestamp within matches if needed for specific queries
-// match.index({ "messages.timestamp": 1 }); // TODO: Consider if needed
 
 const User = model('User', user)
 const Heartbeat = model('Heartbeat', heartbeat)
+const Music = model('Music', music)
+const Message = model('Message', message)
 const Match = model('Match', match)
 const Notification = model('Notification', notification)
 
 export {
     User,
     Heartbeat,
+    Music,
+    Message,
     Match,
     Notification
 }

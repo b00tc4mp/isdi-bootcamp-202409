@@ -5,7 +5,6 @@ import { Header, Alert, Confirm, Footer } from './view/components'
 import { NameDOBStage, GenderStage, ArtistsStage } from './view/setup'
 import { Context } from './view/useContext'
 import logic from './logic'
-import { disconnectSocket } from './socket'
 
 import { Profile, People, Chat, Settings } from './view/pages'
 
@@ -69,13 +68,6 @@ export default function App() {
         }
     }, [location.pathname])
 
-    // Cleanup socket connection on unmount
-    useEffect(() => {
-        return () => {
-            disconnectSocket()
-        }
-    }, [])
-
     const handleSetupComplete = nextStage => {
         const stageToSet = VALID_STAGES.includes(nextStage) ? nextStage : 'name-dob' // validate nextStage before setting
 
@@ -110,6 +102,7 @@ export default function App() {
 
     // Since we always ensure userStage is valid or null when setting it,
     // we don't need to fix it in renderSetupStage anymore.
+    // semiútil quan es pugui editar la info del setup al perfil de cada usuari
     // prevents stage skipping
     const renderSetupStage = (stage, Component, nextStage) => {
         // if userStage is not loaded yet, show a loading state
@@ -168,10 +161,8 @@ export default function App() {
                 <Routes>
                     <Route element={<MainLayout />}>
                         <Route path="/profile" element={<Profile />} />
-                        <Route path="/profile/:userId" element={<Profile viewOnly />} />
                         <Route path="/people" element={<People onSettingsClick={handleSettingsClick} />} />
                         <Route path="/chat" element={<Chat />} />
-                        <Route path="/chat/:matchId" element={<Chat />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/" element={<Navigate to="/people" />} />
                         <Route path="*" element={<Navigate to="/people" />} />
@@ -184,3 +175,4 @@ export default function App() {
         </Context.Provider>
     )
 }
+// TODO: change spinner for skeleton

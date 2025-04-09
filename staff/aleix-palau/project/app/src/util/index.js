@@ -5,6 +5,8 @@ import formatLocation from './formatLocation.js'
 import getDistance from './getDistance.js'
 import formatDistance from './formatDistance.js'
 import orderArtists from './orderArtists.js'
+import formatMessageTime from './formatMessageTime.js'
+import formatFullDate from './formatFullDate.js'
 
 export {
     extractPayloadFromJWT,
@@ -13,5 +15,7 @@ export {
     formatLocation,
     getDistance,
     formatDistance,
-    orderArtists
+    orderArtists,
+    formatMessageTime,
+    formatFullDate
 }

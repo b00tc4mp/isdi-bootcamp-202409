@@ -11,9 +11,9 @@ import {
     getPotentialMatches
 } from './users/index.js'
 
-import {
-    createHeartbeat
-} from './heartbeats/index.js'
+import { createHeartbeat } from './heartbeats/index.js'
+
+import { getUserMatches, getMatchMessages, sendMessage, unmatchUser } from './matches/index.js'
 
 const logic = {
     registerUser,
@@ -26,7 +26,11 @@ const logic = {
     uploadUserPictures,
     deleteUserPicture,
     getPotentialMatches,
-    createHeartbeat
+    createHeartbeat,
+    getUserMatches,
+    getMatchMessages,
+    sendMessage,
+    unmatchUser
 }
 
 export default logic

@@ -17,9 +17,10 @@ export default userId => {
 
         if (!user) throw new NotFoundError('user not found')
 
-        const { name, dateOfBirth, gender, targetGender, artists, bio, location, pictures, profilePicture, minAge, maxAge, distance, coordinates } = user
+        const { _id, name, dateOfBirth, gender, targetGender, artists, bio, location, pictures, profilePicture, minAge, maxAge, distance, coordinates } = user
 
         return {
+            _id: _id.toString(),
             name,
             dateOfBirth,
             gender,
@@ -36,4 +37,4 @@ export default userId => {
         }
     })()
 }
-// TODO: falten => profilePicture?, Spotify...
+// TODO: falten => Spotify...

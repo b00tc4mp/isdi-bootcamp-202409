@@ -44,27 +44,6 @@ export default function People({ onSettingsClick }) {
             })
     }, [])
 
-    const fetchPotentialMatches = () => {
-        setIsLoading(true)
-        try {
-            logic.getPotentialMatches()
-                .then(matches => {
-                    setPotentialMatches(matches)
-                    setCurrentMatchIndex(0)
-                    setIsLoading(false)
-                })
-                .catch(error => {
-                    alert(error.message)
-                    console.error(error)
-                    setIsLoading(false)
-                })
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
-            setIsLoading(false)
-        }
-    }
-
     const handleSwipe = action => {
         // Don't process swipes when already processing one
         if (action === 'left' && isLeftSwiping) return

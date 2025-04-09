@@ -4,7 +4,7 @@ import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
 import { ChatList, Conversation } from '../components'
-import { getSocket, connectSocket, joinMatchRoom, leaveMatchRoom } from '../../socket'
+import { getSocket, connectSocket, joinMatchRoom, leaveMatchRoom } from '../../socket' // Import socket instance and connect function
 
 const { SystemError } = errors
 
@@ -145,10 +145,37 @@ export default function Chat() {
             }
         }
 
+        const handleMessagesRead = ({ matchId: readMatchId, readerId, messageIds }) => {
+            console.log(`Received messagesReadByOther for match ${readMatchId} by ${readerId}`)
+            if (readerId === currentUser._id) return // Ignore if it's own read event
+
+            setMatches(prevMatches =>
+                prevMatches.map(match => {
+                    if (match._id === readMatchId) {
+                        const updatedMessages = match.messages.map(msg => {
+                            // Check if this message ID is one that was read
+                            if (messageIds.includes(msg._id)) {
+                                // Add the readerId to the readBy array if not already present
+                                const alreadyRead = msg.readBy?.includes(readerId)
+                                return {
+                                    ...msg,
+                                    readBy: alreadyRead ? msg.readBy : [...(msg.readBy || []), readerId]
+                                }
+                            }
+                            return msg
+                        })
+                        return { ...match, messages: updatedMessages }
+                    }
+                    return match
+                })
+            )
+        }
+
         // Register listeners
         socket.on('newMessage', handleNewMessage)
         socket.on('newMatch', handleNewMatch)
         socket.on('unmatch', handleUnmatch) // Listen for unmatch events
+        socket.on('messagesReadByOther', handleMessagesRead) // Listen for read receipts from others
 
         // --- Cleanup ---
         return () => {
@@ -156,6 +183,7 @@ export default function Chat() {
             socket.off('newMessage', handleNewMessage)
             socket.off('newMatch', handleNewMatch)
             socket.off('unmatch', handleUnmatch)
+            socket.off('messagesReadByOther', handleMessagesRead)
         }
     }, [currentUser, navigate, matchId, alert, matches]) // Dependencies
 

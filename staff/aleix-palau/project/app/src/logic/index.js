@@ -18,6 +18,13 @@ import {
     createHeartbeat
 } from './heartbeats'
 
+import {
+    getUserMatches,
+    getMatchMessages,
+    sendMessage,
+    unmatchUser
+} from './matches'
+
 const logic = {
     registerUser,
     loginUser,
@@ -32,7 +39,11 @@ const logic = {
     uploadUserPictures,
     deleteUserPicture,
     getPotentialMatches,
-    createHeartbeat
+    createHeartbeat,
+    getUserMatches,
+    getMatchMessages,
+    sendMessage,
+    unmatchUser
 }
 
 export default logic

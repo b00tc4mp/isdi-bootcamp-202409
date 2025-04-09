@@ -7,6 +7,8 @@ import GenderModal from './GenderModal'
 import SettingsSection from './SettingsSection'
 import NoMoreProfiles from './NoMoreProfiles'
 import UserDetail from './UserDetail'
+import ChatList from './ChatList'
+import Conversation from './Conversation'
 // import MatchNotification from './MatchNotification'
 
 export {
@@ -18,6 +20,8 @@ export {
     GenderModal,
     SettingsSection,
     NoMoreProfiles,
-    UserDetail
+    UserDetail,
+    ChatList,
+    Conversation,
     // MatchNotification
 }

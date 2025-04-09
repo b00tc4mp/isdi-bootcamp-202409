@@ -1,3 +1,4 @@
+// import mongoose from 'mongoose' // Import mongoose if not already
 import { User, Heartbeat, Match, Notification } from 'dat'
 import { validate, errors } from 'com'
 
@@ -16,7 +17,7 @@ export default (senderId, receiverId, action) => {
             const existingHeartbeat = await Heartbeat.findOne({
                 sender: senderId,
                 receiver: receiverId
-            })
+            }).lean() // Use lean for read-only check
 
             if (existingHeartbeat) throw new ValidationError('already swiped on this user')
 
@@ -40,61 +41,76 @@ export default (senderId, receiverId, action) => {
             await heartbeat.save()
 
             // If it's a right swipe (like), check for mutual like
-            let matchResult = null
+            let createdMatch = null // Variable to hold the newly created match document if applicable
             if (action === 'right') {
                 // Check if receiver has already liked sender
                 const mutualHeartbeat = await Heartbeat.findOne({
                     sender: receiverId,
                     receiver: senderId,
                     action: 'right'
-                })
+                }).lean() // Use lean for read-only check
 
                 // If mutual like exists, create a match
                 if (mutualHeartbeat) {
-                    // Create new match
-                    const match = new Match({
-                        users: [senderId, receiverId],
-                        messages: []
-                    })
+                    // Check if a match already exists to prevent duplicates (edge case)
+                    const existingMatch = await Match.findOne({
+                        users: { $all: [senderId, receiverId] }
+                    }).lean()
 
-                    await match.save()
+                    if (!existingMatch) {
+                        // Create new match
+                        const match = new Match({
+                            users: [senderId, receiverId],
+                            messages: [] // Initialize with empty messages array
+                        })
 
-                    // Create notification for both users
-                    await Promise.all([
-                        new Notification({
-                            from: senderId,
-                            to: receiverId,
-                            type: 'match',
-                            date: new Date()
-                        }).save(),
-                        new Notification({
-                            from: receiverId,
-                            to: senderId,
-                            type: 'match',
-                            date: new Date()
-                        }).save()
-                    ])
+                        createdMatch = await match.save() // Save and get the created match document
 
-                    // Get populated match data
-                    matchResult = await Match.findById(match._id).populate({
-                        path: 'users',
-                        select: 'name profilePicture'
-                    })
+                        // Create notification for both users
+                        await Promise.all([
+                            new Notification({
+                                from: senderId,
+                                to: receiverId,
+                                type: 'match',
+                                date: new Date()
+                            }).save(),
+                            new Notification({
+                                from: receiverId,
+                                to: senderId,
+                                type: 'match',
+                                date: new Date()
+                            }).save()
+                        ])
+                    } else {
+                        console.warn(`Match between ${senderId} and ${receiverId} already exists.`)
+                        createdMatch = existingMatch // Use existing match data if found
+                    }
                 }
             }
 
-            // Return the match info if created, otherwise just the heartbeat
-            return matchResult
-                ? { heartbeat, match: matchResult }
-                : { heartbeat }
+            // If a match was created, fetch its populated data to return
+            let populatedMatchData = null
+            if (createdMatch) {
+                populatedMatchData = await Match.findById(createdMatch._id)
+                    .populate({
+                        path: 'users',
+                        select: 'name profilePicture pictures _id' // Include _id and pictures
+                    })
+                    .lean() // Use lean as we are just returning data
+            }
+
+            // Return the heartbeat info and the populated match data if created
+            return {
+                heartbeat: heartbeat.toObject(), // Convert Mongoose doc to plain object
+                match: populatedMatchData // This will be null if no match was created
+            }
         } catch (error) {
             if (error instanceof ValidationError || error instanceof NotFoundError) {
                 throw error
             }
-
+            // Log the full error for debugging backend issues
+            console.error("Error in createHeartbeat logic:", error)
             throw new SystemError(error.message)
         }
     })()
 }
-// TODO: canviar name pictures => name profilePicture o altres?
-// TODO: separar match reation a una altra logica?

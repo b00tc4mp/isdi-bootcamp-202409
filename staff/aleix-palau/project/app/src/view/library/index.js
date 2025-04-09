@@ -3,6 +3,7 @@ import IconButton from './IconButton'
 import ArtistTag from './ArtistTag'
 import SingleSlider from './SingleSlider'
 import DualSlider from './DualSlider'
+import MessageBubble from './MessageBubble'
 
 import Field from './Field' // edit
 import Form from './Form' // edit
@@ -18,6 +19,7 @@ export {
     ArtistTag,
     SingleSlider,
     DualSlider,
+    MessageBubble,
 
     Field,
     Form,
