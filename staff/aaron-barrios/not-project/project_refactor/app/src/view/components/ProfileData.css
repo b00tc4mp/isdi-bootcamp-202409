@@ -1,0 +1,30 @@
+.ProfData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+
+    text-align: center;
+    justify-content: center;
+
+    padding-top: 15%;
+    padding-bottom: 15%;
+}
+
+.profpic {
+    width: 150px;
+    /* Ajusta el tamaño de la imagen como prefieras */
+    height: 150px;
+    /* La altura debe coincidir con el ancho para hacerla circular */
+    border-radius: 50%;
+    /* Redondea los bordes para crear la circunferencia */
+    object-fit: cover;
+    /* Esto asegura que la imagen se ajuste al contenedor sin distorsionarse */
+    border: 2px solid #000;
+    /* Opcional: agrega un borde para resaltar la circunferencia */
+}
+
+.aa {
+    cursor: pointer;
+}
