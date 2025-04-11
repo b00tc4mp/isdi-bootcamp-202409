@@ -51,33 +51,37 @@ export default function UserDetail({ user, currentUser, onBack }) {
                 {user.name}, {calculateAge(user.dateOfBirth)}
             </div>
 
-            {/* Location Section */}
-            {user.location && (
-                <span className="flex items-center gap-1">
-                    <House size={20} className="text-dark-blue" />
-                    <p className="text-dark-blue">Lives in {user.location}</p>
-                </span>
-            )}
+            <div className="mb-4">
+                {/* Location Section */}
+                {user.location && (
+                    <span className="flex items-center gap-1">
+                        <House size={20} className="text-dark-blue" />
+                        <p className="text-dark-blue">Lives in {user.location}</p>
+                    </span>
+                )}
 
-            {/* Distance Section */}
-            {canShowDistance && (
-                <span className="flex items-center gap-1 mb-4">
-                    <MapPin size={20} className="text-dark-blue" />
-                    <p className="text-dark-blue">{formatDistance(currentUser.coordinates, user.coordinates)}</p>
-                </span>
-            )}
+                {/* Distance Section */}
+                {canShowDistance && (
+                    <span className="flex items-center gap-1">
+                        <MapPin size={20} className="text-dark-blue" />
+                        <p className="text-dark-blue">{formatDistance(currentUser.coordinates, user.coordinates)}</p>
+                    </span>
+                )}
+            </div>
 
             {/* About Section */}
-            <h2 className="text-lg font-semibold text-dark-blue mb-2">About me</h2>
             {user.bio && (
-                <p className="text-dark-blue mb-4">{user.bio}</p>
+                <>
+                    <h2 className="text-lg font-semibold text-dark-blue mb-2">About me</h2>
+                    <p className="text-dark-blue mb-4">{user.bio}</p>
+                </>
             )}
 
             {/* Artists Section */}
             {user.artists && user.artists.length > 0 && (
                 <>
-                    <h2 className="text-lg font-semibold text-dark-blue mb-2">Artists</h2>
-                    <div className="flex flex-wrap mb-5 gap-1.5">
+                    <h2 className="text-lg font-semibold text-dark-blue mb-2.5">Artists</h2>
+                    <div className="flex flex-wrap mb-4 gap-1.5">
                         {orderArtists(user.artists).map((artist, index) => {
                             const isCommonArtist = user.commonArtists && user.commonArtists.includes(artist)
 

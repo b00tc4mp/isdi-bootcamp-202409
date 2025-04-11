@@ -15,6 +15,18 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
     // Find the match partner (the other user)
     const partner = match.users.find(user => user._id !== currentUser._id)
 
+    useEffect(() => {
+        // Focus the textarea when the component mounts or the specific match changes
+        textareaRef.current?.focus()
+    }, [match._id]) // Depend on match._id to refocus if the viewed conversation changes
+
+    useEffect(() => {
+        // Focus the textarea when isSending changes from true to false
+        if (isSending === false) {
+            textareaRef.current?.focus();
+        }
+    }, [isSending]) // This will run when isSending changes
+
     const handleInputChange = e => {
         setMessage(e.target.value)
         autoResizeTextarea() // Auto-resize textarea
@@ -78,7 +90,7 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
         // In a real app, `isSending` would be set to false in the parent component
         // based on the success/failure callback or socket event confirmation.
         // For now, reset after a short delay for demo purposes.
-        setTimeout(() => setIsSending(false), 500) // Reset sending state (adjust as needed)
+        setTimeout(() => setIsSending(false), 100) // Reset sending state (adjust as needed)
     }
 
     const handleKeyPress = e => {
@@ -129,7 +141,7 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
                     <ChevronLeft size={24} className="text-pink" />
                 </button>
 
-                <div className="flex flex-col items-center cursor-pointer" onClick={() => onViewProfile(partner._id)}>
+                <div className="flex flex-col items-center cursor-pointer" onClick={() => onViewProfile(partner)}>
                     <img
                         src={partner.profilePicture || partner.pictures?.[0] || '/images/default-profile.jpg'} // Added fallback
                         alt={partner.name}

@@ -1,4 +1,3 @@
-// import mongoose from 'mongoose' // Import mongoose if not already
 import { User, Heartbeat, Match, Notification } from 'dat'
 import { validate, errors } from 'com'
 

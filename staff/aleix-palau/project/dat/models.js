@@ -98,6 +98,8 @@ const user = new Schema({
     }
 }, { versionKey: false })
 
+user.index({ coordinates: '2dsphere' }) // Geospatial index for location queries
+
 const heartbeat = new Schema({
     sender: {
         type: ObjectId,
@@ -149,6 +151,9 @@ const match = new Schema({
     }
 }, { versionKey: false })
 
+match.index({ users: 1 }) // Index for efficient querying of matches by user
+match.index({ users: 1, lastActivity: -1 }) // Index for potentially sorting by last activity
+
 const notification = new Schema({
     from: {
         type: ObjectId,
@@ -167,13 +172,6 @@ const notification = new Schema({
         default: Date.now
     }
 }, { versionKey: false })
-
-// TODO: Index for efficient querying of matches by user
-match.index({ users: 1 })
-// Index for potentially sorting by last activity
-match.index({ users: 1, lastActivity: -1 })
-// Index on messages timestamp within matches if needed for specific queries
-// match.index({ "messages.timestamp": 1 }); // TODO: Consider if needed
 
 const User = model('User', user)
 const Heartbeat = model('Heartbeat', heartbeat)

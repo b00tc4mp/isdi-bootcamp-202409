@@ -1,21 +1,23 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
-import { ChatList, Conversation } from '../components'
+import { ChatList, Conversation, UserDetail } from '../components'
 import { getSocket, connectSocket, joinMatchRoom, leaveMatchRoom } from '../../socket'
 
 const { SystemError } = errors
 
 export default function Chat() {
-    const { alert, confirm } = useContext() // Use confirm for unmatch
+    const { alert, confirm } = useContext()
     const navigate = useNavigate()
     const { matchId } = useParams() // The currently viewed matchId from URL
+    const location = useLocation() // Bc quan estigui a l'UserDetail del Chat poder anar al footer Chat icon
 
     const [matches, setMatches] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [currentUser, setCurrentUser] = useState(null)
+    const [viewingProfile, setViewingProfile] = useState(null) // Will hold the partner object
     const [notifications, setNotifications] = useState({}) // { matchId: count }
     const [errorState, setErrorState] = useState(null) // For displaying errors in UI
 
@@ -181,6 +183,17 @@ export default function Chat() {
         }
     }, [matchId]) // Re-run when matchId changes
 
+    useEffect(() => {
+        // If the current URL path is exactly '/chat' (meaning the user wants the chat list)
+        // AND we are currently viewing a profile (viewingProfile is not null),
+        // then reset the viewingProfile state to go back to the chat list.
+        if (location.pathname === '/chat' && viewingProfile) setViewingProfile(null)
+
+        // No specific action needed for '/chat/:matchId' here, as the main
+        // render logic below handles showing Conversation vs UserDetail correctly
+        // based on the matchId param and viewingProfile state.
+    }, [location.pathname, viewingProfile]) // Re-run when path or viewing state changes
+
     // --- Action Handlers ---
 
     const handleSendMessage = (text, targetMatchId) => {
@@ -199,7 +212,7 @@ export default function Chat() {
             })
     }
 
-    const handleUnmatch = (targetMatchId) => {
+    const handleUnmatch = targetMatchId => {
         // Find the match partner's name for the confirmation dialog
         const matchToUnmatch = matches.find(m => m._id === targetMatchId)
         const partner = matchToUnmatch?.users.find(user => user._id !== currentUser?._id)
@@ -237,8 +250,32 @@ export default function Chat() {
         )
     }
 
-    const handleViewProfile = (userId) => {
-        navigate(`/profile/${userId}`)
+    const handleViewProfile = partnerData => { // highlight common artists in UserDetail from Chat
+        if (partnerData && currentUser?.artists && Array.isArray(partnerData.artists)) {
+            // Get artist lists
+            const currentUserArtists = currentUser.artists
+            const partnerArtists = partnerData.artists
+
+            // Find the intersection (common artists)
+            const commonArtists = partnerArtists.filter(artist => currentUserArtists.includes(artist))
+
+            // Create a new object containing the original partner data AND the common artists list
+            const profileDataWithCommonArtists = {
+                ...partnerData, // Spread existing partner data
+                commonArtists: commonArtists // Add the calculated common artists
+            }
+
+            // Set the state with this enhanced object
+            setViewingProfile(profileDataWithCommonArtists)
+        } else {
+            console.error("Cannot calculate common artists: Missing data.", { partnerData, currentUserArtists: currentUser?.artists })
+            // Fallback: Show profile without highlighting if data is incomplete
+            setViewingProfile(partnerData) // Show profile anyway, but highlighting won't work
+        }
+    }
+
+    const handleBackFromProfile = () => {
+        setViewingProfile(null) // Clear the viewing state to return
     }
 
     // --- Render Logic ---
@@ -269,8 +306,19 @@ export default function Chat() {
         )
     }
 
-    // If we have a match ID, show the conversation view
-    if (matchId && currentUser) {
+    // Check if viewing a profile
+    if (viewingProfile && currentUser) {
+        return (
+            <UserDetail
+                user={viewingProfile}
+                currentUser={currentUser}
+                onBack={handleBackFromProfile} // Pass the function to go back
+            />
+        )
+    }
+
+    // If we have a match ID AND not viewing a profile, show the conversation view
+    if (matchId && currentUser && !viewingProfile) {
         const currentMatch = matches.find(m => m._id === matchId)
 
         if (!currentMatch) {
@@ -295,20 +343,26 @@ export default function Chat() {
                 onSendMessage={handleSendMessage}
                 onUnmatch={handleUnmatch}
                 onViewProfile={handleViewProfile}
-                onBack={() => navigate('/chat')}
+                onBack={() => {
+                    setViewingProfile(null) // Ensure profile view is closed if navigating back
+                    navigate('/chat')
+                }}
                 isLoading={isLoading} // Pass loading state if needed by Conversation
             />
         )
     }
 
-    // Otherwise, show the chat list view
-    if (currentUser) {
+    // Otherwise (no matchId or viewing profile), show the chat list view
+    if (currentUser && !viewingProfile) {
         return (
             <ChatList
                 matches={matches}
                 currentUser={currentUser}
                 notifications={notifications}
-                onSelectMatch={(selectedMatchId) => navigate(`/chat/${selectedMatchId}`)}
+                onSelectMatch={selectedMatchId => {
+                    setViewingProfile(null) // Ensure profile view is closed if selecting a different chat
+                    navigate(`/chat/${selectedMatchId}`)
+                }}
             />
         )
     }

@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate, useLocation, Outlet } from 'react-router-dom'
 import { Login, Register } from './view'
 import { Header, Alert, Confirm, Footer } from './view/components'
+import { Profile, People, Chat, Settings } from './view/pages'
 import { NameDOBStage, GenderStage, ArtistsStage } from './view/setup'
 import { Context } from './view/useContext'
 import logic from './logic'
 import { disconnectSocket } from './socket'
-
-import { Profile, People, Chat, Settings } from './view/pages'
 
 const VALID_STAGES = ['name-dob', 'gender', 'artists', 'completed']
 
@@ -167,12 +166,11 @@ export default function App() {
                 // if logged in and setup completed, show main application routes with footer
                 <Routes>
                     <Route element={<MainLayout />}>
+                        <Route path="/settings" element={<Settings />} />
                         <Route path="/profile" element={<Profile />} />
-                        <Route path="/profile/:userId" element={<Profile viewOnly />} />
                         <Route path="/people" element={<People onSettingsClick={handleSettingsClick} />} />
                         <Route path="/chat" element={<Chat />} />
                         <Route path="/chat/:matchId" element={<Chat />} />
-                        <Route path="/settings" element={<Settings />} />
                         <Route path="/" element={<Navigate to="/people" />} />
                         <Route path="*" element={<Navigate to="/people" />} />
                     </Route>

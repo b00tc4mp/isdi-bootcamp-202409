@@ -143,7 +143,7 @@ export default function People({ onSettingsClick }) {
                         <div>
                             <h2 className="text-3xl font-bold text-lightest mb-2">{currentMatch.name}, {calculateAge(currentMatch.dateOfBirth)}</h2>
                             {currentMatch.location && (
-                                <span className="flex items-center gap-0.5 text-light">
+                                <span className="flex items-center gap-0.5 mb-0.5 text-light">
                                     <MapPin size={18} />
                                     <p className="text-lightest">{currentMatch.location}</p>
                                 </span>

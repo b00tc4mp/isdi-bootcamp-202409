@@ -1,7 +1,7 @@
 import { Match } from 'dat'
 import { validate, errors } from 'com'
 
-const { SystemError, NotFoundError } = errors
+const { SystemError } = errors
 
 export default (userId) => {
     validate.id(userId, 'userId')
@@ -13,7 +13,7 @@ export default (userId) => {
                 .find({ users: userId })
                 .populate({
                     path: 'users',
-                    select: 'name profilePicture' // Only select needed fields
+                    select: 'name profilePicture pictures dateOfBirth location coordinates distance bio artists _id' // used in Chat & Chat's UserDetail
                 })
                 .sort({ lastActivity: -1 }) // Sort by most recent activity
                 .lean()

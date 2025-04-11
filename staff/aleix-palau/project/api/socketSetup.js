@@ -2,14 +2,13 @@ import { Server } from 'socket.io'
 import jwt from 'jsonwebtoken'
 import { errors } from 'com'
 import { Match } from 'dat'
-import mongoose from 'mongoose'
 
-const { AuthorizationError, SystemError, NotFoundError } = errors
+const { AuthorizationError } = errors
 
 export default function setupSocket(server) {
     const io = new Server(server, {
         cors: {
-            origin: [`http://${process.env.VITE_APP_URL}`, `http://${process.env.VITE_API_URL}`], // Allow both frontend and potentially API origin if needed
+            origin: [`http://${process.env.VITE_APP_URL}`, `http://${process.env.VITE_API_URL}`],
             methods: ['GET', 'POST'],
             credentials: true
         }
