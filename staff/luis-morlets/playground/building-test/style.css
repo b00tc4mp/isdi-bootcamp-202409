@@ -1,0 +1,76 @@
+.main {
+    width: 400px;
+    height: 548px;
+    background-color: #795548;
+    margin: auto;
+    border: solid rosybrown;
+    position: relative;
+}
+
+.windows {
+    display: grid;
+    grid-template-rows: 70px 70px 70px;
+    grid-template-columns: 70px 70px 70px 70px;
+    grid-gap: 27px;
+    justify-content: center;
+    position: absolute;
+    top: 10%;
+    left: 5%;
+}
+
+.window1,
+.window2,
+.window3,
+.window4,
+.window5,
+.window6,
+.window7,
+.window8,
+.window9,
+.window10,
+.window11,
+.window12 {
+    background-color: antiquewhite;
+    border: solid black;
+    display: grid;
+    grid-template-columns: 33px 34px;
+    grid-template-rows: 34px 34px;
+}
+
+.door {
+    position: absolute;
+    display: grid;
+    grid-template-rows: 117px;
+    grid-template-columns: 90px;
+    top: 79%;
+    left: 38%;
+}
+
+.double-door {
+    background-color: peru;
+    border: solid rosybrown;
+    border-radius: 40px 40px 0 0;
+}
+
+.door-divider {
+    position: absolute;
+    width: 43px;
+    height: 113px;
+    border-right-style: double;
+}
+
+.win-divider1 {
+    border-right-style: solid;
+    border-color: black;
+    border-bottom-style: solid;
+}
+
+.win-divider2 {
+    border-bottom-style: solid;
+    border-color: black;
+}
+
+.win-divider3 {
+    border-right-style: solid;
+    border-right-color: black;
+}
