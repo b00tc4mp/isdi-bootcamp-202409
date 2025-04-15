@@ -3,12 +3,12 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
-import { ChatList, Conversation, UserDetail } from '../components'
+import { ChatList, Conversation, UserDetail, NoConversation, Spinner } from '../components'
 import { getSocket, connectSocket, joinMatchRoom, leaveMatchRoom } from '../../socket'
 
 const { SystemError } = errors
 
-export default function Chat() {
+export default function Chat({ onChatClick }) {
     const { alert, confirm } = useContext()
     const navigate = useNavigate()
     const { matchId } = useParams() // The currently viewed matchId from URL
@@ -19,12 +19,10 @@ export default function Chat() {
     const [currentUser, setCurrentUser] = useState(null)
     const [viewingProfile, setViewingProfile] = useState(null) // Will hold the partner object
     const [notifications, setNotifications] = useState({}) // { matchId: count }
-    const [errorState, setErrorState] = useState(null) // For displaying errors in UI
 
     // Fetch initial data (user profile and matches)
     const fetchInitialData = useCallback(() => {
         setIsLoading(true)
-        setErrorState(null)
         Promise.all([logic.getUserProfile(), logic.getUserMatches()])
             .then(([profile, userMatches]) => {
                 setCurrentUser(profile)
@@ -37,8 +35,8 @@ export default function Chat() {
                 connectSocket()
             })
             .catch(error => {
-                console.error("Error fetching initial chat data:", error)
-                setErrorState(error instanceof SystemError ? 'Could not load chat data. Please try again later.' : error.message)
+                alert(error.message)
+                console.error(error)
             })
             .finally(() => {
                 setIsLoading(false)
@@ -61,7 +59,6 @@ export default function Chat() {
         const handleNewMessage = message => {
             console.log('Received newMessage event:', message)
             if (!message || !message.matchId) {
-                console.warn("Received invalid newMessage event payload")
                 return
             }
 
@@ -85,11 +82,7 @@ export default function Chat() {
                 })
 
                 if (!matchFound) {
-                    // If match wasn't in the list (shouldn't happen often with newMatch), fetch it? Or ignore?
-                    console.warn(`Received message for unknown matchId ${message.matchId}. Fetching matches again.`)
-                    // Optionally re-fetch matches if a message arrives for an unknown match
-                    // fetchInitialData() // Be careful with potential loops
-                    return prevMatches // Return previous state for now
+                    return prevMatches // Return previous state
                 }
 
                 // Update notifications if the chat is not currently open
@@ -110,7 +103,6 @@ export default function Chat() {
         const handleNewMatch = newMatchData => {
             console.log('Received newMatch event:', newMatchData)
             if (!newMatchData || !newMatchData._id) {
-                console.warn("Received invalid newMatch event payload")
                 return
             }
             setMatches(prevMatches => {
@@ -206,9 +198,8 @@ export default function Chat() {
         logic.sendMessage(targetMatchId, text)
             // No need to manually add message here if 'newMessage' listener works reliably
             .catch(error => {
-                console.error("Error sending message:", error)
-                // Revert optimistic update if it failed
-                alert(error instanceof SystemError ? 'Failed to send message. Please try again.' : error.message, 'error', 'Send Error')
+                alert(error.message)
+                console.error(error)
             })
     }
 
@@ -219,8 +210,8 @@ export default function Chat() {
         const partnerName = partner?.name || 'this user'
 
         confirm(
-            `This will permanently delete your conversation with ${partnerName}. You won't be able to message them again unless you match again.`,
-            (confirmed) => {
+            `This will permanently delete your conversation and you won't be able to message ${partnerName} unless you match again.`,
+            confirmed => {
                 if (confirmed) {
                     setIsLoading(true) // Show loading state while unmatching
                     logic.unmatchUser(targetMatchId)
@@ -237,8 +228,8 @@ export default function Chat() {
                             }
                         })
                         .catch(error => {
-                            console.error("Error unmatching user:", error)
-                            alert(error instanceof SystemError ? 'Failed to unmatch. Please try again.' : error.message, 'error', 'Unmatch Error')
+                            alert(error.message)
+                            console.error(error)
                         })
                         .finally(() => {
                             setIsLoading(false)
@@ -280,31 +271,7 @@ export default function Chat() {
 
     // --- Render Logic ---
 
-    // Loading state
-    if (isLoading && !currentUser) { // Show loading only during initial fetch
-        return (
-            <div className="flex justify-center items-center h-full">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink"></div>
-                <span className="ml-3 text-dark-blue">Loading Chats...</span>
-            </div>
-        )
-    }
-
-    // Error state
-    if (errorState) {
-        return (
-            <div className="flex flex-col items-center justify-center h-full p-4 text-center">
-                <div className="text-xl text-red-600 mb-4">Error</div>
-                <div className="text-dark-blue mb-4">{errorState}</div>
-                <button
-                    onClick={fetchInitialData} // Allow retry
-                    className="px-4 py-2 bg-pink text-dark-blue rounded-full font-semibold"
-                >
-                    Retry
-                </button>
-            </div>
-        )
-    }
+    if (isLoading && !currentUser) return <Spinner />
 
     // Check if viewing a profile
     if (viewingProfile && currentUser) {
@@ -321,20 +288,9 @@ export default function Chat() {
     if (matchId && currentUser && !viewingProfile) {
         const currentMatch = matches.find(m => m._id === matchId)
 
-        if (!currentMatch) {
+        if (!currentMatch)
             // Handle case where the match isn't found (e.g., after unmatch/error)
-            return (
-                <div className="flex flex-col items-center justify-center h-full p-4 text-center">
-                    <div className="text-xl text-dark-blue mb-4">Conversation not found or removed.</div>
-                    <button
-                        onClick={() => navigate('/chat')}
-                        className="px-4 py-2 bg-pink text-dark-blue rounded-full font-semibold"
-                    >
-                        Back to Messages
-                    </button>
-                </div>
-            )
-        }
+            return <NoConversation onChatClick={onChatClick} />
 
         return (
             <Conversation

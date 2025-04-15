@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate, Navigate, useLocation, Outlet } from 'react-router-dom'
+import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom'
 import { Login, Register } from './view'
-import { Header, Alert, Confirm, Footer } from './view/components'
+import { Header, Alert, Confirm, Footer, Spinner } from './view/components'
 import { Profile, People, Chat, Settings } from './view/pages'
 import { NameDOBStage, GenderStage, ArtistsStage } from './view/setup'
 import { Context } from './view/useContext'
@@ -10,23 +10,10 @@ import { disconnectSocket } from './socket'
 
 const VALID_STAGES = ['name-dob', 'gender', 'artists', 'completed']
 
-// Simple layout component that adds the Footer
-function MainLayout() {
-    return (
-        <div className="flex flex-col h-screen">
-            <main className="flex-grow overflow-auto">
-                <Outlet />
-            </main>
-            <Footer />
-        </div>
-    )
-}
-
 export default function App() {
     const [alert, setAlert] = useState({ message: null, title: null, level: 'error' })
     const [confirm, setConfirm] = useState({ message: null, title: null, level: 'error', callback: null })
     const [userStage, setUserStage] = useState(null)
-    // We'll store the previous page before going to settings
     const [previousPage, setPreviousPage] = useState('/people')
 
     const navigate = useNavigate()
@@ -35,7 +22,6 @@ export default function App() {
 
     useEffect(() => {
         let isMounted = true
-
         if (userLoggedIn) {
             logic.getUserStage()
                 .then(stage => {
@@ -51,19 +37,17 @@ export default function App() {
                     }
                 })
         } else {
-            setUserStage(null) // if user logs out, or we detect they are not logged in, reset userStage to null
+            setUserStage(null) // If user logs out, or we detect they are not logged in, reset userStage to null
         }
-        return () => {
-            isMounted = false
-        }
-    }, [userLoggedIn]) // added as a dependency to rerun this effect when login status changes
+        return () => { isMounted = false }
+    }, [userLoggedIn]) // Added as a dependency to rerun this effect when login status changes
 
     // Store previous page when navigating to settings
     useEffect(() => {
         if (location.pathname !== '/settings' &&
             !location.pathname.includes('/login') &&
             !location.pathname.includes('/register') &&
-            !location.pathname.includes('/setup')) {
+            !location.pathname.includes('/setup/')) {
             setPreviousPage(location.pathname)
         }
     }, [location.pathname])
@@ -76,13 +60,14 @@ export default function App() {
     }, [])
 
     const handleSetupComplete = nextStage => {
-        const stageToSet = VALID_STAGES.includes(nextStage) ? nextStage : 'name-dob' // validate nextStage before setting
-
+        const stageToSet = VALID_STAGES.includes(nextStage) ? nextStage : 'name-dob' // Validate nextStage before setting
         logic.updateUserStage(stageToSet)
             .then(() => {
                 setUserStage(stageToSet)
-                if (stageToSet === 'completed') {
-                    navigate('/profile') // Navigate to profile page when setup is complete
+                // Navigate to profile page only when setup transitions to 'completed'
+                // If already 'completed', this prevents unnecessary navigation
+                if (stageToSet === 'completed' && userStage !== 'completed') {
+                    navigate('/people')
                 }
             })
             .catch(error => {
@@ -107,13 +92,9 @@ export default function App() {
         if (callback) callback(false)
     }
 
-    // Since we always ensure userStage is valid or null when setting it,
-    // we don't need to fix it in renderSetupStage anymore.
-    // prevents stage skipping
+    // Prevents stage skipping
     const renderSetupStage = (stage, Component, nextStage) => {
-        // if userStage is not loaded yet, show a loading state
-        if (userStage === null) return <div>Loading setup stage...</div>
-
+        if (userStage === null) return <div className="flex justify-center items-center pt-20">Loading setup stage...</div>
         // if the current userStage matches the requested stage, render the component with callbacks
         if (userStage === stage) {
             const props = {
@@ -121,16 +102,37 @@ export default function App() {
             }
             return <Component {...props} />
         }
-        // if userStage differs from the requested one, redirect to userStage
+        // Redirect to the correct current stage if the URL doesn't match
         return <Navigate to={`/setup/${userStage}`} />
     }
 
-    const handleUserLoggedIn = () => navigate('/people')
+    const handleUserLoggedIn = () => {
+        // Fetch stage after login before navigating
+        logic.getUserStage()
+            .then(stage => {
+                const isValidStage = stage && VALID_STAGES.includes(stage)
+                const currentStage = isValidStage ? stage : 'name-dob'
+                setUserStage(currentStage)
+                if (currentStage === 'completed') {
+                    navigate('/people')
+                } else {
+                    navigate(`/setup/${currentStage}`)
+                }
+            })
+            .catch(error => {
+                console.error(error)
+                setAlert({ message: 'Could not retrieve user status. Please try again.', level: 'error' })
+            })
+    }
     const handleRegisterClick = () => navigate('/register')
     const handleLoginClick = () => navigate('/login')
     const handleUserRegistered = () => navigate('/login')
     const handleSettingsClick = () => navigate('/settings')
+    const handleChatClick = () => navigate('/chat')
     const handleBackFromSettings = () => navigate(previousPage)
+
+    // Determine if Footer should be shown (only when setup is complete and logged in)
+    const showFooter = userLoggedIn && userStage === 'completed'
 
     return (
         <Context.Provider value={{
@@ -138,45 +140,51 @@ export default function App() {
             confirm(message = null, callback, level = 'error', title = null) { setConfirm({ message, callback, level, title }) }
         }}>
 
-            <Header
-                onLoggedOut={() => navigate('/login')} onSettingsClick={handleSettingsClick} onBackFromSettings={handleBackFromSettings} />
+            <div className="flex flex-col h-screen"> {/* Main flex container */}
+                <Header
+                    onLoggedOut={() => { logic.logoutUser(); disconnectSocket(); setUserStage(null); navigate('/login') }}
+                    onSettingsClick={handleSettingsClick}
+                    onBackFromSettings={handleBackFromSettings}
+                />
 
-            {!userLoggedIn ? (
-                // if not logged in, show login/register routes
-                <Routes>
-                    <Route path="/login" element={<Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
-                    <Route path="/register" element={<Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
-                    <Route path="*" element={<Navigate to="/login" />} />
-                </Routes>
-            ) : userStage === null ? (
-                // if logged in but userStage is null, show a loading spinner
-                <div className="flex justify-center items-center mt-8">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-                    <span className="ml-2">Loading user data...</span>
-                </div>
-            ) : userStage !== 'completed' ? (
-                // if logged in and setup not completed, show setup routes
-                <Routes>
-                    <Route path="/setup/name-dob" element={renderSetupStage('name-dob', NameDOBStage, 'gender')} />
-                    <Route path="/setup/gender" element={renderSetupStage('gender', GenderStage, 'artists')} />
-                    <Route path="/setup/artists" element={renderSetupStage('artists', ArtistsStage, 'completed')} />
-                    <Route path="*" element={<Navigate to={`/setup/${userStage}`} />} />
-                </Routes>
-            ) : (
-                // if logged in and setup completed, show main application routes with footer
-                <Routes>
-                    <Route element={<MainLayout />}>
-                        <Route path="/settings" element={<Settings />} />
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="/people" element={<People onSettingsClick={handleSettingsClick} />} />
-                        <Route path="/chat" element={<Chat />} />
-                        <Route path="/chat/:matchId" element={<Chat />} />
-                        <Route path="/" element={<Navigate to="/people" />} />
-                        <Route path="*" element={<Navigate to="/people" />} />
-                    </Route>
-                </Routes>
-            )}
+                <main className="flex-grow overflow-auto"> {/* Main content area */}
+                    <Routes>
+                        {!userLoggedIn ? (
+                            <>
+                                <Route path="/login" element={<Login onLoggedIn={handleUserLoggedIn} onRegisterClick={handleRegisterClick} />} />
+                                <Route path="/register" element={<Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
+                                <Route path="*" element={<Navigate to="/login" />} />
+                            </>
+                        ) : userStage === null ? (
+                            // Logged in but userStage is null
+                            <Route path="*" element={<Spinner />} />
+                        ) : userStage !== 'completed' ? (
+                            // Logged in and setup not completed
+                            <>
+                                <Route path="/setup/name-dob" element={renderSetupStage('name-dob', NameDOBStage, 'gender')} />
+                                <Route path="/setup/gender" element={renderSetupStage('gender', GenderStage, 'artists')} />
+                                <Route path="/setup/artists" element={renderSetupStage('artists', ArtistsStage, 'completed')} />
+                                <Route path="*" element={<Navigate to={`/setup/${userStage}`} />} />
+                            </>
+                        ) : (
+                            // Logged in and setup complete routes
+                            <>
+                                <Route path="/settings" element={<Settings />} />
+                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/people" element={<People onSettingsClick={handleSettingsClick} />} />
+                                <Route path="/chat" element={<Chat />} />
+                                <Route path="/chat/:matchId" element={<Chat onChatClick={handleChatClick} />} />
+                                <Route path="/" element={<Navigate to="/people" />} />
+                                <Route path="*" element={<Navigate to="/people" />} />
+                            </>
+                        )}
+                    </Routes>
+                </main>
 
+                {showFooter && <Footer />}
+            </div>
+
+            {/* Alert and Confirm Modals */}
             {(alert.message || alert.title) && <Alert message={alert.message} title={alert.title} level={alert.level} onAccepted={handleAlertAccepted} />}
             {(confirm.message || confirm.title) && <Confirm message={confirm.message} title={confirm.title} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
         </Context.Provider>

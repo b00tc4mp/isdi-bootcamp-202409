@@ -9,6 +9,9 @@ import NoMoreProfiles from './NoMoreProfiles'
 import UserDetail from './UserDetail'
 import ChatList from './ChatList'
 import Conversation from './Conversation'
+import NoMessages from './NoMessages'
+import NoConversation from './NoConversation'
+import Spinner from './Spinner'
 // import MatchNotification from './MatchNotification'
 
 export {
@@ -23,5 +26,8 @@ export {
     UserDetail,
     ChatList,
     Conversation,
+    NoMessages,
+    NoConversation,
+    Spinner
     // MatchNotification
 }

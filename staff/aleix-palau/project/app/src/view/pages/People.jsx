@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
-import { UserDetail, NoMoreProfiles } from '../components'
+import { UserDetail, NoMoreProfiles, Spinner } from '../components'
 import { IconButton, ArtistTag } from '../library'
 import { MapPin, Heart, X, ChevronDown } from 'lucide-react'
 import { calculateAge, orderArtists } from '../../util'
@@ -105,14 +105,7 @@ export default function People({ onSettingsClick }) {
         setShowUserDetail(false)
     }
 
-    // Render loading state
-    if (isLoading) {
-        return (
-            <div className="flex justify-center items-center h-full">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
-            </div>
-        )
-    }
+    if (isLoading) return <Spinner />
 
     // Render empty state when no more profiles
     if (potentialMatches.length === 0 || currentMatchIndex >= potentialMatches.length)
@@ -121,9 +114,8 @@ export default function People({ onSettingsClick }) {
     const currentMatch = potentialMatches[currentMatchIndex]
 
     // Detailed view - pass both user and currentUser props
-    if (showUserDetail) {
+    if (showUserDetail)
         return <UserDetail user={currentMatch} currentUser={currentUser} onBack={handleBackFromUserDetail} />
-    }
 
     return (
         <div className="max-w-lg mx-auto h-full p-3 bg-lightest flex flex-col">
@@ -131,7 +123,7 @@ export default function People({ onSettingsClick }) {
                 {/* Profile Image */}
                 <div className="w-full h-full">
                     <img
-                        src={currentMatch.profilePicture || currentMatch.pictures[0]}
+                        src={currentMatch.profilePicture || '/images/default-profile.jpeg'}
                         alt={`${currentMatch.name}'s profile`}
                         className="w-full h-full object-cover"
                     />

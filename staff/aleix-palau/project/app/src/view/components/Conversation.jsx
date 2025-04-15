@@ -1,36 +1,17 @@
 import { useState, useRef, useEffect } from 'react'
 import { formatFullDate } from '../../util'
-import { ChevronLeft, Send, X, Loader2 } from 'lucide-react'
-import useContext from '../useContext'
+import { ChevronLeft, Send, UserRoundX, Loader2 } from 'lucide-react'
 import { MessageBubble } from '../library'
 
 export default function Conversation({ match, currentUser, onSendMessage, onUnmatch, onViewProfile, onBack }) {
-    const { confirm } = useContext()
     const [message, setMessage] = useState('')
     const [groupedMessages, setGroupedMessages] = useState([])
-    const [isSending, setIsSending] = useState(false) // Loading state for sending message
+    const [isSending, setIsSending] = useState(false)
     const messagesEndRef = useRef(null)
     const textareaRef = useRef(null) // Ref for textarea auto-resize
 
     // Find the match partner (the other user)
     const partner = match.users.find(user => user._id !== currentUser._id)
-
-    useEffect(() => {
-        // Focus the textarea when the component mounts or the specific match changes
-        textareaRef.current?.focus()
-    }, [match._id]) // Depend on match._id to refocus if the viewed conversation changes
-
-    useEffect(() => {
-        // Focus the textarea when isSending changes from true to false
-        if (isSending === false) {
-            textareaRef.current?.focus();
-        }
-    }, [isSending]) // This will run when isSending changes
-
-    const handleInputChange = e => {
-        setMessage(e.target.value)
-        autoResizeTextarea() // Auto-resize textarea
-    }
 
     // Group messages by date for displaying date headers
     useEffect(() => {
@@ -39,11 +20,14 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
 
         match.messages.forEach(msg => {
             const messageDate = new Date(msg.timestamp)
-            const dateStr = messageDate.toISOString().split('T')[0] // Format: 'YYYY-MM-DD'
+            // Use formatFullDate here to get the *display* string for grouping logic,
+            // but store the actual date object for the header rendering later.
+            const displayDateStr = formatFullDate(messageDate) // Use the new util for grouping comparison
 
-            if (dateStr !== currentDate) {
-                currentDate = dateStr
-                groups.push({ date: messageDate, messages: [] }) // Add new group
+            if (displayDateStr !== currentDate) {
+                currentDate = displayDateStr
+                // Store the raw date object for the header, but use the formatted string as the key logic
+                groups.push({ date: messageDate, displayDate: displayDateStr, messages: [] }) // Add new group
             }
 
             // Add message to the last group
@@ -54,9 +38,26 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
         setGroupedMessages(groups)
     }, [match.messages])
 
+    useEffect(() => {
+        // Focus the textarea when the component mounts or the specific match changes
+        textareaRef.current?.focus()
+    }, [match._id]) // Depend on match._id to refocus if the viewed conversation changes
+
+    useEffect(() => {
+        // Focus the textarea when isSending changes from true to false
+        if (isSending === false) {
+            textareaRef.current?.focus()
+        }
+    }, [isSending]) // This will run when isSending changes
+
+    const handleInputChange = e => {
+        setMessage(e.target.value)
+        autoResizeTextarea() // Auto-resize textarea
+    }
+
     // Scroll to bottom when messages change
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+        messagesEndRef.current?.scrollIntoView()
     }, [groupedMessages])
 
     // Auto-resize textarea height
@@ -90,7 +91,7 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
         // In a real app, `isSending` would be set to false in the parent component
         // based on the success/failure callback or socket event confirmation.
         // For now, reset after a short delay for demo purposes.
-        setTimeout(() => setIsSending(false), 100) // Reset sending state (adjust as needed)
+        setIsSending(false) // Reset sending state (adjust as needed)
     }
 
     const handleKeyPress = e => {
@@ -105,36 +106,8 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
         onUnmatch(match._id)
     }
 
-    const handleUnmatchClick = () => {
-        confirm(
-            `This will permanently delete your conversation and you won't be able to message ${partner.name} again unless you match again.`,
-            (confirmed) => {
-                if (confirmed) {
-                    handleUnmatchConfirm()
-                }
-            },
-            'warn',
-            `Unmatch with ${partner.name}?`
-        )
-    }
-
-    if (!partner) {
-        // Handle case where partner data might be missing
-        return (
-            <div className="flex flex-col items-center justify-center h-full p-4 text-center">
-                <div className="text-xl text-dark-blue mb-4">Error displaying conversation partner.</div>
-                <button
-                    onClick={onBack}
-                    className="px-4 py-2 bg-pink text-dark-blue rounded-full font-semibold"
-                >
-                    Back to Messages
-                </button>
-            </div>
-        )
-    }
-
     return (
-        <div className="flex flex-col h-full bg-lightest max-h-screen"> {/* Ensure container takes full height */}
+        <div className="flex flex-col h-full bg-lightest max-h-screen">
             {/* Conversation Header */}
             <div className="flex-shrink-0 flex items-center justify-between p-3 bg-lightest border-b border-skin">
                 <button onClick={onBack} className="p-1 active:bg-skin rounded-full">
@@ -143,7 +116,7 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
 
                 <div className="flex flex-col items-center cursor-pointer" onClick={() => onViewProfile(partner)}>
                     <img
-                        src={partner.profilePicture || partner.pictures?.[0] || '/images/default-profile.jpg'} // Added fallback
+                        src={partner.profilePicture || '/images/default-profile.jpeg'}
                         alt={partner.name}
                         className="w-8 h-8 rounded-full object-cover"
                     />
@@ -151,41 +124,35 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
                 </div>
 
                 <div className="flex">
-                    <button onClick={handleUnmatchClick} className="p-2 text-pink active:bg-skin rounded-full">
-                        <X size={20} />
+                    <button onClick={handleUnmatchConfirm} className="p-2 text-pink active:bg-skin rounded-full">
+                        <UserRoundX size={20} />
                     </button>
                 </div>
             </div>
 
             {/* Messages Area */}
-            <div className="flex-grow overflow-y-auto p-4 bg-lightest"> {/* Ensure this area scrolls */}
+            <div className="flex-grow overflow-y-auto p-4 bg-lightest">
                 {groupedMessages.map((group, groupIndex) => (
                     <div key={groupIndex} className="mb-4">
                         {/* Date Header */}
                         <div className="flex justify-center mb-3">
                             <div className="px-3 py-1 bg-skin text-dark-blue text-xs rounded-full">
-                                {formatFullDate(group.date)}
+                                {group.displayDate}
                             </div>
                         </div>
 
                         {/* Messages */}
-                        {group.messages.map((msg, msgIndex) => {
+                        {group.messages.map((msg) => {
                             if (!msg || !msg.sender) return null // Basic check for invalid message data
 
                             const isCurrentUser = msg.sender === currentUser._id
 
-                            // Determine if time should be shown (last message in group OR next message is from different sender)
-                            const isLastMessageInGroup = msgIndex === group.messages.length - 1
-                            const nextMessage = !isLastMessageInGroup ? group.messages[msgIndex + 1] : null
-                            const showTime = isLastMessageInGroup || nextMessage?.sender !== msg.sender
-
                             return (
                                 <MessageBubble
-                                    key={msg._id || `msg-${groupIndex}-${msgIndex}`} // Use msg._id if available
+                                    key={msg._id || `msg-${groupIndex}-${msg.timestamp}`} // Use timestamp as fallback key
                                     message={msg.text}
                                     timestamp={msg.timestamp}
                                     isSentByCurrentUser={isCurrentUser}
-                                    showTime={showTime}
                                 />
                             )
                         })}
@@ -226,7 +193,7 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
                         className={`ml-2 p-2 rounded-full flex-shrink-0 ${message.trim() && !isSending ? 'text-pink' : 'text-dark-blue opacity-50'}`}
                     >
                         {isSending ? (
-                            <Loader2 size={20} className="animate-spin" /> // Loading spinner
+                            <Loader2 size={20} className="animate-spin" />
                         ) : (
                             <Send size={20} />
                         )}

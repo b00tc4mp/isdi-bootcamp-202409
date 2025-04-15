@@ -3,7 +3,7 @@ import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
 import { PrimaryButton, ArtistTag } from '../library'
-import { PictureUpload } from '../components'
+import { PictureUpload, Spinner } from '../components'
 import { calculateAge, orderArtists } from '../../util'
 
 const { SystemError } = errors
@@ -67,23 +67,17 @@ export default function Profile() {
         }
     }
 
-    if (isLoading) {
-        return (
-            <div className="flex justify-center items-center h-full">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
-            </div>
-        )
-    }
+    if (isLoading) return <Spinner />
 
     return (
         <div className="max-w-2xl mx-auto p-3 bg-lightest">
             <h1 className="text-2xl font-bold mb-5 text-darkest-blue">Profile</h1>
 
-            <section className="space-y-6">
+            <section className="space-y-5">
                 {/* Profile Section */}
                 <div className="flex-col items-center justify-items-center space-y-2">
                     <img
-                        src={pictures[0] || '/pages/default-profile.jpg'}
+                        src={pictures[0] || '/images/default-profile.jpeg'}
                         alt="Profile"
                         className="w-24 h-24 rounded-full object-cover"
                     />

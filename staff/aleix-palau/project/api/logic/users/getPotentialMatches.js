@@ -32,7 +32,6 @@ export default (userId, page = 1, limit = 10) => {
 
         // Calculate User A's age once
         const userAge = user.dateOfBirth ? calculateAge(user.dateOfBirth) : null
-        if (userAge === null) console.warn(`User ${userId} missing dateOfBirth, cannot perform mutual age check.`)
 
         // Get User A's preferences and artists
         const { targetGender, minAge, maxAge, distance, coordinates, artists, gender: userGender } = user
@@ -78,8 +77,7 @@ export default (userId, page = 1, limit = 10) => {
                 }
             }
         } else {
-            console.warn(`User ${userId} missing coordinates, cannot perform distance query.`)
-            // If distance is crucial, you might return [] here.
+            return []
         }
 
         // Apply User A's common artist filter
@@ -90,7 +88,7 @@ export default (userId, page = 1, limit = 10) => {
         // Find potential matches based *only* on User A's criteria
         const initialPotentialMatches = await User.find(query)
             // Select all fields needed for mutual check AND final display
-            .select('name dateOfBirth location gender targetGender minAge maxAge distance coordinates artists bio profilePicture pictures')
+            .select('name dateOfBirth bio profilePicture pictures location artists gender targetGender coordinates distance minAge maxAge _id')
             .lean()
 
         // --- Step 2: Mutual Compatibility Filter ---

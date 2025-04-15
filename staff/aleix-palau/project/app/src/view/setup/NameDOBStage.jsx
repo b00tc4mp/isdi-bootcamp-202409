@@ -19,7 +19,7 @@ export default function NameDOBStage(props) {
         const age = calculateAge(dateOfBirth)
 
         if (isNaN(age)) {
-            alert('Enter a valid date (YYYY-MM-DD).', 'error', 'Invalid date')
+            alert('Enter a valid date (DD-MM-YYYY).', 'error', 'Invalid Date')
 
             return
         }

@@ -81,7 +81,6 @@ export default (senderId, receiverId, action) => {
                             }).save()
                         ])
                     } else {
-                        console.warn(`Match between ${senderId} and ${receiverId} already exists.`)
                         createdMatch = existingMatch // Use existing match data if found
                     }
                 }
@@ -93,9 +92,9 @@ export default (senderId, receiverId, action) => {
                 populatedMatchData = await Match.findById(createdMatch._id)
                     .populate({
                         path: 'users',
-                        select: 'name profilePicture pictures _id' // Include _id and pictures
+                        select: '_id'
                     })
-                    .lean() // Use lean as we are just returning data
+                    .lean()
             }
 
             // Return the heartbeat info and the populated match data if created

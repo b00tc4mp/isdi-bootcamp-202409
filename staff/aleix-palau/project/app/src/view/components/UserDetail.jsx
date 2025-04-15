@@ -25,9 +25,9 @@ export default function UserDetail({ user, currentUser, onBack }) {
         <div className="max-w-2xl mx-auto p-3 bg-lightest h-full overflow-y-auto">
 
             {/* Pictures */}
-            <div className="relative w-full aspect-[4/4] rounded-xl overflow-hidden shadow-md mb-4">
+            <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-md mb-4">
                 <img
-                    src={user.pictures[currentPictureIndex] || 'https://d135u4jtzauizi.cloudfront.net/ghost-story-cover-wide_new.jpg'}
+                    src={user.pictures[currentPictureIndex] || '/images/default-profile.jpeg'}
                     className="w-full h-full object-cover"
                     onClick={handleNextPicture}
                 />
@@ -72,7 +72,7 @@ export default function UserDetail({ user, currentUser, onBack }) {
             {/* About Section */}
             {user.bio && (
                 <>
-                    <h2 className="text-lg font-semibold text-dark-blue mb-2">About me</h2>
+                    <h2 className="text-lg font-semibold text-dark-blue mb-1">About me</h2>
                     <p className="text-dark-blue mb-4">{user.bio}</p>
                 </>
             )}
@@ -81,7 +81,7 @@ export default function UserDetail({ user, currentUser, onBack }) {
             {user.artists && user.artists.length > 0 && (
                 <>
                     <h2 className="text-lg font-semibold text-dark-blue mb-2.5">Artists</h2>
-                    <div className="flex flex-wrap mb-4 gap-1.5">
+                    <div className="flex flex-wrap gap-1.5">
                         {orderArtists(user.artists).map((artist, index) => {
                             const isCommonArtist = user.commonArtists && user.commonArtists.includes(artist)
 
@@ -96,7 +96,7 @@ export default function UserDetail({ user, currentUser, onBack }) {
             )}
 
             {/* Back Button */}
-            <div className="flex items-center justify-center p-2 mb-4">
+            <div className="flex items-center justify-center p-4">
                 <IconButton
                     icon={ChevronUp}
                     onClick={onBack}
@@ -107,4 +107,3 @@ export default function UserDetail({ user, currentUser, onBack }) {
         </div>
     )
 }
-// TODO: caviar pages/default-profile.jpg a tot arreu

@@ -49,8 +49,6 @@ export default (userId, matchId, text) => {
                     type: 'message',
                     date: newMessage.timestamp // Use message timestamp for notification
                 }).save()
-            } else {
-                console.warn(`Could not find other user in match ${matchId} to send notification`)
             }
 
             // Return the newly created message object (including its _id)

@@ -1,15 +1,15 @@
+import { NoMessages } from '../components'
 import { formatMessageTime } from '../../util'
-import { MessageCircle } from 'lucide-react'
 
 export default function ChatList({ matches, currentUser, notifications, onSelectMatch }) {
-    // Helper function to get the other user in a match
-    const getMatchPartner = (match) => {
+    // Get the other user in a match
+    const getMatchPartner = match => {
         if (!match.users || match.users.length < 2) return null
         return match.users.find(user => user._id !== currentUser._id)
     }
 
-    // Helper function to get the last message or placeholder text
-    const getLastMessage = (match) => {
+    // Get the last message or placeholder text
+    const getLastMessage = match => {
         if (!match.messages || match.messages.length === 0) {
             return 'No messages yet'
         }
@@ -32,25 +32,13 @@ export default function ChatList({ matches, currentUser, notifications, onSelect
     }
 
     // If no matches, show empty state
-    if (!matches || matches.length === 0) {
-        return (
-            <div className="flex flex-col items-center justify-center h-full p-4 text-center">
-                <div className="w-20 h-20 rounded-full bg-skin flex items-center justify-center mb-5">
-                    <MessageCircle size={36} className="text-dark-blue" />
-                </div>
-                <div className="text-xl font-bold text-dark-blue mb-2">No messages yet</div>
-                <div className="text-dark-blue max-w-xs">
-                    When you match with someone, you'll be able to message them here.
-                </div>
-            </div>
-        )
-    }
+    if (!matches || matches.length === 0)
+        return <NoMessages />
 
     return (
         <div className="max-w-lg mx-auto bg-lightest h-full overflow-y-auto">
             <div className="p-4">
                 <h1 className="text-2xl font-bold text-darkest-blue mb-5">Messages</h1>
-
                 <div className="space-y-2">
                     {matches.map(match => {
                         const partner = getMatchPartner(match)
@@ -68,15 +56,15 @@ export default function ChatList({ matches, currentUser, notifications, onSelect
                                 {/* Profile Picture */}
                                 <div className="relative">
                                     <img
-                                        src={partner.profilePicture || '/images/default-profile.jpg'}
+                                        src={partner.profilePicture || '/images/default-profile.jpeg'}
                                         alt={partner.name}
                                         className="w-12 h-12 rounded-full object-cover"
                                     />
 
                                     {/* Notification Badge */}
                                     {unreadCount > 0 && (
-                                        <div className="absolute -top-1 -right-1 bg-pink text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
-                                            {unreadCount > 9 ? '9+' : unreadCount}
+                                        <div className="absolute -top-1 -right-1 bg-pink text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-semibold">
+                                            {unreadCount}
                                         </div>
                                     )}
                                 </div>

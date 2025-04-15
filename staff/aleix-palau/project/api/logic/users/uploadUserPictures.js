@@ -3,8 +3,6 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-const DEFAULT_PROFILE_PICTURE = 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
-
 export default (userId, pictures) => {
     validate.id(userId, 'userId')
     validate.pictures(pictures)
@@ -27,8 +25,8 @@ export default (userId, pictures) => {
         const mergedPictures = Array.from(new Set([...existingPictures, ...pictures])).slice(0, 3)
 
         // Determine if profile picture needs updating
-        const needsProfilePicture = !user.profilePicture || user.profilePicture === DEFAULT_PROFILE_PICTURE
-        const newProfilePicture = needsProfilePicture ? (mergedPictures[0] || DEFAULT_PROFILE_PICTURE) : user.profilePicture
+        const needsProfilePicture = !user.profilePicture
+        const newProfilePicture = needsProfilePicture ? mergedPictures[0] : user.profilePicture
 
         // Create update object for atomic operation
         const updateObject = {

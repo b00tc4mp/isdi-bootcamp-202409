@@ -170,8 +170,19 @@ const notification = new Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    read: {
+        type: Boolean,
+        default: false
+    },
+    matchId: {
+        type: ObjectId,
+        ref: 'Match'
     }
 }, { versionKey: false })
+
+notification.index({ to: 1, read: 1 })
+notification.index({ to: 1, matchId: 1, read: 1 }) // For marking read by match
 
 const User = model('User', user)
 const Heartbeat = model('Heartbeat', heartbeat)

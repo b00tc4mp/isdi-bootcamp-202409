@@ -69,7 +69,7 @@ export const joinMatchRoom = matchId => {
         console.log(`Emitting joinMatchRoom for ${matchId}`)
         currentSocket.emit('joinMatchRoom', matchId)
     } else {
-        console.warn(`Could not join room ${matchId}: Socket not connected or matchId missing.`)
+        console.log(`Could not join room ${matchId}: Socket not connected or matchId missing.`)
     }
 }
 
@@ -80,7 +80,7 @@ export const leaveMatchRoom = matchId => {
         console.log(`Emitting leaveMatchRoom for ${matchId}`)
         currentSocket.emit('leaveMatchRoom', matchId) // Assuming backend handles this
     } else {
-        console.warn(`Could not leave room ${matchId}: Socket not connected or matchId missing.`)
+        console.log(`Could not leave room ${matchId}: Socket not connected or matchId missing.`)
     }
 }
 

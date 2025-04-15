@@ -54,12 +54,44 @@ export default function PictureUpload({ existingPictures = [], onPicturesUpdate,
 
         setIsUploading(true)
 
-        // Proceed with upload only if all validations pass
+        // Convert files to base64
         Promise.all(files.map(toBase64))
-            .then(base64Pictures => logic.uploadUserPictures(base64Pictures))
-            .then(result => {
-                setPictures(result.pictures)
-                onPicturesUpdate(result.pictures)
+            .then(base64Pictures => {
+                // Check for duplicates before uploading
+                const duplicates = []
+                const newPictures = []
+
+                base64Pictures.forEach(base64Picture => {
+                    if (pictures.includes(base64Picture)) {
+                        duplicates.push(base64Picture)
+                    } else {
+                        newPictures.push(base64Picture)
+                    }
+                })
+
+                // If all pictures are duplicates, show alert and stop
+                if (duplicates.length === base64Pictures.length) {
+                    setIsUploading(false)
+                    alert('The selected picture is already in your profile.', 'warn', 'Duplicate Picture')
+                    return
+                }
+
+                // If some pictures are duplicates but not all
+                if (duplicates.length > 0 && newPictures.length > 0) {
+                    alert(`${duplicates.length} ${duplicates.length === 1 ? 'picture is' : 'pictures are'} already in your profile and will be skipped.`, 'warn', 'Duplicate Picture')
+                }
+
+                // Only upload non-duplicate pictures
+                if (newPictures.length > 0) {
+                    return logic.uploadUserPictures(newPictures)
+                        .then(result => {
+                            setPictures(result.pictures)
+                            onPicturesUpdate(result.pictures)
+                        })
+                }
+
+                // If no new pictures to upload after filtering duplicates
+                return Promise.resolve()
             })
             .catch(error => {
                 alert(error.message)
@@ -166,5 +198,4 @@ export default function PictureUpload({ existingPictures = [], onPicturesUpdate,
     )
 }
 // TODO: posar try/catch a les logiques i fer servir SystemError?
-// TODO: posar alerta quan tornem a pujar una imatge repetida
 // TODO: igualar els loading/updating entre components

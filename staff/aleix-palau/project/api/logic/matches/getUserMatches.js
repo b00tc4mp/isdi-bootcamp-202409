@@ -13,7 +13,7 @@ export default (userId) => {
                 .find({ users: userId })
                 .populate({
                     path: 'users',
-                    select: 'name profilePicture pictures dateOfBirth location coordinates distance bio artists _id' // used in Chat & Chat's UserDetail
+                    select: 'profilePicture pictures name dateOfBirth location coordinates distance bio artists _id' // Used in Chat & Chat's UserDetail
                 })
                 .sort({ lastActivity: -1 }) // Sort by most recent activity
                 .lean()

@@ -22,7 +22,7 @@ export default function Footer() {
     }
 
     return (
-        <nav className="flex justify-evenly py-5 bg-lightest border-t-1 border-skin">
+        <nav className="flex justify-evenly py-5 bg-lightest border-t border-skin">
             <button
                 onClick={() => handlePageChange('profile')}
                 className={`flex flex-col items-center justify-center scale-125 ${activePage === 'profile' ? 'text-pink' : 'text-dark-blue'}`}
@@ -44,4 +44,3 @@ export default function Footer() {
         </nav>
     )
 }
-// TODO: border-t

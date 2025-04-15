@@ -50,12 +50,6 @@ export default createFunctionalHandler(async (req, res) => {
                     console.log(`Could not find socket ID for user ${user._id} to emit newMatch`)
                 }
             })
-        } else {
-            console.warn("Could not join room or emit newMatch event: io instance, userSockets map, match data, or users missing.", {
-                io: !!io,
-                userSockets: !!userSockets,
-                match: !!populatedMatchData
-            })
         }
     }
 

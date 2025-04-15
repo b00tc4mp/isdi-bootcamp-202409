@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
-import { GenderModal, SettingsSection } from '../components'
+import { GenderModal, SettingsSection, Spinner } from '../components'
 import { SingleSlider, DualSlider, PrimaryButton } from '../library'
 import { ChevronRight, MapPin, RefreshCw, Loader2 } from 'lucide-react'
 import { formatLocation } from '../../util'
@@ -153,13 +153,7 @@ export default function Settings() {
     }
 
     // Loading state
-    if (isLoading) {
-        return (
-            <div className="flex justify-center items-center h-full">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
-            </div>
-        )
-    }
+    if (isLoading) return <Spinner />
 
     return (
         <div className="max-w-lg mx-auto px-4 py-3 space-y-4 bg-lightest min-h-full">
