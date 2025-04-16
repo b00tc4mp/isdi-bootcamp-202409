@@ -1,0 +1,16 @@
+.Form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin: 1rem auto;
+    padding: 2rem; /* Añade padding para espacio interno */
+    max-width: 400px; /* Ancho máximo, pero se adapta a pantallas pequeñas */
+    width: 90%; /* Se adapta al ancho de la pantalla */
+    border: 2px solid #ffffff;
+    border-radius: 10px; /* Más redondeo para un estilo moderno */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra para efecto de profundidad */
+}

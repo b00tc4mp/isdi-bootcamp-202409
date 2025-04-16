@@ -1,0 +1,17 @@
+.Button {
+   
+    box-sizing: border-box;
+    background-color: #000000;
+    color: #fff5f5;
+    border: 2px solid var(--color);
+    font-family: inherit;
+    cursor: pointer;
+    margin: 3px;
+    border-radius: 10px;
+}
+
+
+.Button--light {
+    color: var(--color);
+    background-color: var(--back-color);
+}

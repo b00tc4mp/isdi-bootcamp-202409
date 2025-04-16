@@ -1,0 +1,13 @@
+.Form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    margin: 1rem;
+    border: 1px solid #ffffff;
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7); /* Negro con 70% de opacidad */
+}

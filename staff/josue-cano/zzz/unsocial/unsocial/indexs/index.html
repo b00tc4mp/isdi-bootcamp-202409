@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.cdnfonts.com/css/antisocial" rel="stylesheet" />
+
+    <style>
+      @import url("https://fonts.cdnfonts.com/css/antisocial");
+
+      body {
+        background-color: black;
+        font-family: "Antisocial", sans-serif;
+        color: #ffffff;
+      }
+      h1 {
+      margin-top: 200px;
+        text-align: center;
+      }
+      section {
+        
+        width: 300px; 
+        padding: 20px; 
+        background-color: #585656; 
+        border: 2px solid #ccc; /* Borde del div */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del div */
+        margin: 20px auto; 
+        text-align: center;
+    
+      }
+      form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      a {
+        color: inherit; /* Mantiene el color del texto padre */
+        text-decoration: none; 
+        }
+
+    a:hover {
+            color: #f31212; 
+            }
+    </style>
+    <title>Unsocial</title>
+  </head>
+  <body>
+
+    <h1>UNSOCIAL</h1>
+    <!-- -------------------------LOGIN---------------------------------------------- -->
+    <section id="login">
+      <h2>Login</h2>
+      <form action="">
+        <label for="Name" id="password">UserName</label>
+        <input type="text" />
+        <br />
+        <label for="password">Password</label>
+        <input type="password" />
+        <br />
+        <button type="submit">Login</button>
+      </form>
+      <br />
+      <!-- anchors[0] -->
+      <a href="">Register</a>
+    </section>
+
+    <!-- -----------------------------REGISTER------------------------------------------ -->
+    <section id="register">
+      <h2>Register</h2>
+      <form action="">
+        <label for="name">Name</label >
+        <input type="text" id="name" required />
+        <br />
+        <label for="email">E-mail</label>
+        <input type="email" id="email" required />
+        <br />
+        <label for="username">Username</label>
+        <input type="text" id="username" required />
+        <br />
+        <label for="password">Password</label>
+        <input type="password" id="password" required />
+        <br /><br />
+        <button type="submit">Register</button>
+        <!-- anchors[1] -->
+        <br /><br />
+        <a href="">Login</a>
+      </form>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+
+    <section id="home">
+      <h2>Home</h2>
+      <h3>Hello, User!</h3>
+
+      <button type="submit">logout</button>
+    </section>
+
+    <!-- -------------------------------------------------------------------------------- -->
+    <script>
+      var users = [
+        {
+          name: "Josue",
+          email: "josue@gmail.com",
+          username: "jc",
+          password: "0000",
+        },
+
+        {
+          name: "Claudi",
+          email: "claudi@gmail.com",
+          username: "cc",
+          password: "0000",
+        },
+      ];
+      var loggedInUser = null;
+
+      // seccion login
+      var sections = document.querySelectorAll("section");
+      var loginSection = sections[0];
+      loginSection.style.display = "";
+
+      //seccion registro
+      var registerSection = sections[1];
+      registerSection.style.display = "none";
+
+      //seccion home
+      var homeSection = sections[2];
+      homeSection.style.display = "none";
+
+      //anchors se refiere a los likns a
+      var anchors = document.querySelectorAll("a");
+
+      //selecciona la primera etiqueta a para inicializar el evento
+      var registerAnchor = anchors[0];
+      
+      registerAnchor.addEventListener("click", function (event) {
+        //hace que al clicar el evento no se actualice la pagina
+        event.preventDefault();
+        //esconde la seccion login
+        loginSection.style.display = "none";
+        //y aqui se meustra registro
+        registerSection.style.display = "";
+      });
+      var loginAnchor = anchors[1];
+      
+      loginAnchor.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        registerSection.style.display = "none";
+        loginSection.style.display = "";
+        
+      });
+
+      // aqui forms recoge todos los formularios
+      var forms = document.querySelectorAll("form");
+
+      var registerForm = forms[1];
+
+      registerForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var inputs = registerForm.querySelectorAll("input");
+
+        var nameInput = inputs[0];
+        var name = nameInput.value;
+
+        var emailInput = inputs[1];
+        var email = emailInput.value;
+
+        var usernameInput = inputs[2];
+        var username = usernameInput.value;
+
+        var passwordInput = inputs[3];
+        var password = passwordInput.value;
+
+        var user = {
+          name: name,
+          email: email,
+          username: username,
+          password: password,
+        };
+        //users[users.length] = user
+        users.push(user);
+
+        registerForm.reset();
+
+        registerSection.style.display = "none";
+        loginSection.style.display = "";
+
+        //}*-
+      });
+
+      var registerLogin = forms[0];
+
+      registerLogin.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        //me recorro users con find y si coincide se esconden registerSection.style.display yloginSection.style.display
+        var inputs = registerLogin.querySelectorAll("input");
+        var usernameInput = inputs[0];
+        var username = usernameInput.value;
+        var passwordInput = inputs[1];
+        var password = passwordInput.value;
+
+        //creamos variable para  buscar y almacenar al usuario que coincida
+        // var user = users.find(
+        //   (user) => user.username === username && user.password === password
+        // );
+        var user = users.find(function(user) {
+            return user.username === username && user.password === password;
+        });
+        if (user) {
+          loggedInUser = user;
+          homeSection.style.display = "";
+          registerSection.style.display = "none";
+          loginSection.style.display = "none";
+          var h3 = homeSection.querySelector("h3");
+          h3.innerText ="Hello, "+ loggedInUser.name;
+        } else  {
+          alert("Username or Password incorrect");
+          passwordInput.value = "";
+          // registerLogin.reset();
+        }
+      });
+
+     
+      var logout = sections[2];
+
+      logout.addEventListener("click", function (event) {
+        //no usar, se considera mala experiencia.
+        window.location.reload()
+        //    loggedInUser = null;
+        //   homeSection.style.display = "none";
+        //   registerSection.style.display = "none";
+        //   loginSection.style.display = "";
+        
+      });
+
+      
+    </script>
+  </body>
+</html>
