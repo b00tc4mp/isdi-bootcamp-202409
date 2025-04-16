@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Kablammo&display=swap');
+
+:root {
+    --font: 'Kablamo';
+}
+
+html,
+body {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    height: 92%;
+    margin: 0%;
+    margin-top: 0%;
+    background-color: #c69500;
+    cursor: pointer;
+}

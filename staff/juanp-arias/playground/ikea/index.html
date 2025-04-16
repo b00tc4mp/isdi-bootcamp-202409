@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="web app that shows a blog">
+    <link rel="shortout icon" href="https://www.ikea.com/global/assets/logos/brand/ikea.svg""
+        type=" image/x-icon">
+    <title>Hej! Welcome to IKEA</title>
+</head>
+
+<style>
+    html {
+        margin-top: 2%;
+        margin-right: 4%;
+        margin-left: 0.5%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+
+
+    header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .wardrobe {
+        margin-top: 3%;
+        clip-path: inset(0.2% round 3%);
+        width: 350px;
+        height: 345px;
+        object-fit: cover;
+    }
+
+    .girl {
+        margin-top: 3%;
+        clip-path: inset(0.2% round 3%);
+        width: 350px;
+        height: 345px;
+        object-fit: cover;
+    }
+
+    .mesacomedor {
+        margin-top: 3%;
+        clip-path: inset(0.2% round 3%);
+        width: 350px;
+        height: 345px;
+        object-fit: cover;
+    }
+
+    .sillas {
+        margin-top: 3%;
+        clip-path: inset(0.2% round 3%);
+        width: 350px;
+        height: 345px;
+        object-fit: cover;
+    }
+
+    .muebles {
+        margin-top: 3%;
+        clip-path: inset(0.2% round 3%);
+        width: 350px;
+        height: 345px;
+        object-fit: cover;
+    }
+
+    .habitacion {
+        margin-top: 3%;
+        clip-path: inset(0.2% round 3%);
+        width: 350px;
+        height: 345px;
+        object-fit: cover;
+    }
+
+    .naturaleza {
+        margin-top: 3%;
+        clip-path: inset(0.2% round 3%);
+        width: 350px;
+        height: 385px;
+        object-fit: cover;
+    }
+
+    .videoniños {
+
+        clip-path: inset(0.2% round 3%);
+        width: 655px;
+        height: 565px;
+        position: absolute;
+    }
+
+    .text-foto {
+        color: white;
+        position: absolute;
+        top: 46%;
+        left: 22px;
+    }
+
+    .text2-foto {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 45%;
+        left: 22px;
+    }
+
+    .text-girl3 {
+        color: white;
+        position: absolute;
+        top: 212%;
+        left: 22px;
+    }
+
+    .text2-girl3 {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 211%;
+        left: 22px;
+    }
+
+    .text-mesacomedor {
+        color: white;
+        position: absolute;
+        top: 270%;
+        left: 22px;
+    }
+
+    .text2-mesacomedor {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 269%;
+        left: 22px;
+    }
+
+    .text-sillas {
+        color: white;
+        position: absolute;
+        top: 324%;
+        left: 22px;
+    }
+
+    .text2-sillas {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 323%;
+        left: 22px;
+    }
+
+    .text-muebles {
+        color: white;
+        position: absolute;
+        top: 378.5%;
+        left: 22px;
+    }
+
+    .text2-muebles {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 377.5%;
+        left: 22px;
+    }
+
+    .text-habitacion {
+        color: white;
+        position: absolute;
+        top: 427%;
+        left: 22px;
+    }
+
+    .text2-habitacion {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 426%;
+        left: 22px;
+    }
+
+    .text-naturaleza {
+        color: white;
+        position: absolute;
+        top: 546%;
+        left: 22px;
+    }
+
+    .text2-naturaleza {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 545%;
+        left: 22px;
+    }
+
+    .sombreado {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.6));
+        background-repeat: no-repeat;
+        margin: 0%;
+        background-attachment: fixed;
+        width: 350px;
+        height: 345px;
+        clip-path: inset(0.2% round 3%);
+        position: absolute;
+        top: 9.1%;
+    }
+
+    .sombreado2 {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.4));
+        background-attachment: fixed;
+        width: 350px;
+        height: 345px;
+        clip-path: inset(0.2% round 3%);
+        position: absolute;
+        top: 175.2%;
+    }
+
+    .sombreado3 {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.4));
+        background-attachment: fixed;
+        width: 350px;
+        height: 345px;
+        clip-path: inset(0.2% round 3%);
+        position: absolute;
+        top: 230%;
+    }
+
+    .sombreado4 {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.5));
+        background-attachment: fixed;
+        width: 350px;
+        height: 345px;
+        clip-path: inset(0.2% round 3%);
+        position: absolute;
+        top: 284%;
+    }
+
+    .sombreado5 {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.4));
+        background-attachment: fixed;
+        width: 350px;
+        height: 345px;
+        clip-path: inset(0.2% round 3%);
+        position: absolute;
+        top: 338%;
+    }
+
+    .sombreado6 {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.4));
+        background-attachment: fixed;
+        width: 350px;
+        height: 345px;
+        clip-path: inset(0.2% round 3%);
+        position: absolute;
+        top: 391.5%;
+    }
+
+    .sombreado7 {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.3));
+        background-attachment: fixed;
+        width: 350px;
+        height: 373px;
+        clip-path: inset(0.2% round 3%);
+        position: absolute;
+        top: 442%;
+    }
+
+    .sombreado9 {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.2));
+        background-attachment: fixed;
+        width: 350px;
+        height: 345px;
+        clip-path: inset(0.2% round 3%);
+        position: absolute;
+        top: 559.3%;
+    }
+
+    .burguerbutton {
+        margin-top: 1%;
+        text-align: center;
+    }
+
+    .boxyellow {
+        margin-top: 2%;
+        background-color: rgb(255, 221, 0);
+        width: 350px;
+        height: 325px;
+        clip-path: inset(0.2% round 3%);
+        display: flex;
+    }
+
+    .boxyellow h2 {
+        text-align: left;
+        align-self: center;
+        padding-left: 1rem;
+    }
+
+    .boxyellow img {
+        align-self: center;
+        padding-left: 8.2rem;
+    }
+
+    .boxyellow2 {
+        background-color: rgb(255, 221, 0);
+        width: 350px;
+        height: 80px;
+        clip-path: inset(0.2% round 3%);
+        display: flex;
+    }
+
+    .boxyellow2 p {
+        padding-left: 1rem;
+        align-self: center;
+        /* justify-self: center; */
+
+    }
+
+    .boxyellow2 img {
+        align-self: center;
+        padding-left: 12rem;
+    }
+
+    .blackbox {
+        color: white;
+        margin-top: 6%;
+        background-color: black;
+        width: 350px;
+        height: 325px;
+        position: unset;
+    }
+
+    .blackbox p {
+        margin-left: 2rem;
+        font-size: small;
+        position: absolute;
+        top: 130%;
+    }
+
+    .blackbox h2 {
+        margin-left: 2rem;
+        position: absolute;
+        top: 131%;
+    }
+
+    .blackbox video {
+        height: 55%;
+        width: 85%;
+        object-fit: cover;
+        margin-top: 29%;
+        margin-left: 8%;
+        clip-path: inset(0.1% round 5%);
+
+    }
+
+    .boxblue {
+        background-color: rgb(27, 116, 188);
+        width: 350px;
+        height: 360px;
+        clip-path: inset(0.2% round 3%);
+        display: flex;
+
+    }
+
+    .boxblue img {
+        margin-top: 4%;
+        margin-left: 4%;
+        position: absolute;
+        clip-path: inset(0.2% round 3%);
+        object-fit: cover;
+    }
+
+    .text-boxblue {
+        color: white;
+        position: absolute;
+        top: 484%;
+        left: 25px;
+        font-size: 90%;
+    }
+
+    .text2-boxblue {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 482.3%;
+        left: 25px;
+    }
+
+    .buttonpause {
+        margin-left: 17rem;
+        position: absolute;
+        top: 158%;
+    }
+
+    .sombreadopause {
+        background-color: white;
+        width: 6%;
+        height: 3%;
+        position: absolute;
+        top: 160%;
+        margin-left: 74.5%;
+    }
+
+    .videoniños {
+        margin-top: 3%;
+        clip-path: inset(0.2% round 3%);
+        width: 350px;
+        height: 345px;
+        object-fit: fill;
+    }
+
+    .text-videoniños {
+        color: white;
+        position: absolute;
+        top: 600%;
+        left: 22px;
+    }
+
+    .text2-videoniños {
+        font-size: small;
+        color: white;
+        position: absolute;
+        top: 599%;
+        left: 22px;
+    }
+
+
+    .footer {
+        background-color: blue;
+        width: 150%;
+
+    }
+</style>
+<header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Ikea_logo.svg/1200px-Ikea_logo.svg.png"
+        alt="logo-ikea" width="86" height="34"></img>
+    <div class="burguerbutton">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/800px-Hamburger_icon.svg.png"
+            alt="burguerbutton" width="17"></img>
+    </div>
+</header>
+
+<body>
+
+    <article class="firstimage">
+        <img class="wardrobe" src="https://www.ikea.com/global/en/images/PAX_startpage_desktop_849341c5ce.jpg"
+            alt="imagenmuebles">
+        <div class="sombreado"></div>
+        <article class="text-foto">
+            <h2>Spacious storage for<br />every space </h2>
+        </article>
+        <article class="text2-foto">
+            <p>The PAX wardrobe system</p>
+        </article>
+    </article>
+    <article class="boxyellow">
+        <h2 class="secondimage">Go shopping</h2>
+        <img src="https://cdn-icons-png.flaticon.com/512/44/44522.png" alt="icono-flecha" width="40" height="40">
+    </article>
+    <article class="boxyellow2">
+        <p class="thirdimage"> Store: <strong>IKEA.es</strong></p>
+        <img src="https://cdn-icons-png.flaticon.com/512/271/271239.png" alt="flechaarriba" width="16" height="15">
+    </article>
+    <article class="blackbox">
+        <article class="text-foto3">
+            <p>For the love of all things sleep!</p>
+        </article>
+        <article class="text2-foto3">
+            <h2>The big night in</h2>
+        </article>
+        <video style="object-position: 50% 50%"
+            src="https://www.ikea.com/global/en/images/Complete_Sleep_Startpage_Video_87023f9165.mp4" autoplay loop
+            muted></video>
+        <div class="sombreadopause"></div>
+        <div class="buttonpause">
+            <img src="https://cdn-icons-png.freepik.com/512/6527/6527791.png" alt="buttonvideo" width="43">
+        </div>
+    </article>
+    <article class="secondimage">
+        <img class="girl" src="https://www.ikea.com/global/en/images/PH_183506_1_9dfa488b3c.jpeg"
+            alt="imagenambassador">
+        <div class="sombreado2"></div>
+        <article class="text-girl3">
+            <h2>IKEA at the One Young<br />World Summit</h2>
+        </article>
+        <article class="text2-girl3">
+            <p>Interwiew with IKEA ambassador Akanksha</p>
+        </article>
+    </article>
+    <article class="fourthimage"></article>
+    <img class="mesacomedor" src="https://www.ikea.com/global/en/images/PH_197001_46799b0344.jpg" alt="mesacomedor">
+    <div class="sombreado3"></div>
+    <article class="text-mesacomedor">
+        <h2>Any excuse to celebrate</h2>
+    </article>
+    <article class="text2-mesacomedor">
+        <p>Little ideas for everyday festivity</p>
+    </article>
+    <article class="fifthimage"></article>
+    <img class="sillas" src="https://www.ikea.com/global/en/images/PH_198689_e9654a0274.jpg" alt="sillas">
+    <div class="sombreado4"></div>
+    <article class="text-sillas">
+        <h2>Ever-evolving classics</h2>
+    </article>
+    <article class="text2-sillas">
+        <p>Nytillverkad collection</p>
+    </article>
+    </article>
+    <article class="sixthimage"></article>
+    <img class="muebles" src="https://www.ikea.com/global/en/images/PH_199178_7298adbed8.jpg" alt="muebles">
+    <div class="sombreado5"></div>
+    <article class="text-muebles">
+        <h2>Woven beauties</h2>
+    </article>
+    <article class="text2-muebles">
+        <p>New reasons to love rattan</p>
+    </article>
+    </article>
+    <article class="sevenimage"></article>
+    <img class="habitacion" src="https://www.ikea.com/global/en/images/Bedroom_1971_1b40a9c63c.jpg" alt="habitacion">
+    <div class="sombreado6"></div>
+    <article class="text-habitacion">
+        <h2>IKEA bedrooms through <br>the years</h2>
+    </article>
+    <article class="text2-habitacion">
+        <p>Design timeline</p>
+    </article>
+    </article>
+    <article class="boxblue">
+        <div class="sombreado7"></div>
+        <img src="https://www.ikea.com/global/en/images/PH_198280_fe39aee363.jpg?f=m" alt="imagencolores" width="320"
+            height="250">
+    </article>
+    <article class="text-boxblue">
+        <h2>IKEA pre-cut fabrics are back!</h2>
+    </article>
+    <article class="text2-boxblue">
+        <p>The Tyg collection</p>
+    </article>
+    </article>
+    <article class="image8"></article>
+    <img class="naturaleza" src="https://www.ikea.com/global/en/images/231212_Sabah1750_20c8a5750b.jpg?f=m"
+        alt="paisaje">
+    <!-- <div class="sombreado8"></div> -->
+    <article class="text-naturaleza">
+        <h2>Forests for the future</h2>
+    </article>
+    <article class="text2-naturaleza">
+        <p>IKEA at IUFRO World Congress 2024</p>
+    </article>
+    <article class="image9"></article>
+    <video class="videoniños" src="https://www.ikea.com/global/en/images/Startpage_hero_opt_820_4b3d0cc7b5.mp4"
+        alt="videoniños" autoplay loop muted> </video>
+    <div class="sombreado9"></div>
+    <article class="text-videoniños">
+        <h2>Make time for play!</h2>
+    </article>
+    <article class="text2-videoniños">
+        <p>IKEA Play Report 2024</p>
+    </article>
+
+</body>
+<footer>
+
+</footer>
+
+</html>

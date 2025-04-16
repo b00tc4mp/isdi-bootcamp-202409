@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+:root {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 15px 10px;
+    font-family: 'Bangers';
+    font-size: x-large;
+    text-shadow: 0 0 5px white;
+}
+
+
+input {
+    background-color: rgba(158, 158, 158, 0.178);
+    color: antiquewhite;
+    display: block;
+    font-family: inherit;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: block;
+    width: 200px;
+    font-size: large;
+}
+
+.header {
+    background-color: rgba(255, 255, 255, 0.132);
+    padding: 20px 20px 20px 20px;
+    margin: 10px;
+    width: 85%;
+    max-width: 500px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    --font: 'Bangers';
+    font-family: var(--font);
+    font-size: 70px;
+    text-shadow: 0 0 15px black, 0 0 15px black;
+    color: white;
+
+}
+
+.section-container {
+    background-color: rgba(255, 255, 255, 0.132);
+    padding: 0 20px 20px 20px;
+    margin: 10px;
+    width: 85%;
+    max-width: 500px;
+    min-height: 280px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    font-family: var(--font);
+    font-size: 20px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.post-container {
+    border: 2px solid rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.567);
+    padding: 12px;
+    margin-top: 8px;
+
+}
+
+.time {
+    font-size: medium;
+}
+
+.post-username {
+    font-size: xx-large;
+}
+
+.post-button {
+    font-size: 40px;
+    width: 37px;
+    border-radius: 20%;
+    text-align: end;
+    justify-content: center;
+    align-items: end;
+    margin-left: 85%;
+    position: relative;
+    margin-top: -70px;
+    display: flex;
+    cursor: pointer;
+    text-shadow: 0 0 5px black, 0 0 5px black;
+}
+
+.emoji {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-right: 64px;
+    font-size: 16px;
+    position: relative;
+    margin-top: -24px;
+}
+
+
+
+
+
+@keyframes hero-gradient-animation {
+    0% {
+        --x-0: 59%;
+        --y-0: 16%;
+        --c-0: hsla(289, 100%, 52%, 1);
+        --s-start-0: 6.018788142925232%;
+        --s-end-0: 35%;
+        --x-1: 92%;
+        --c-1: hsla(236, 96%, 40%, 1);
+        --s-start-1: 3.315649867374005%;
+        --s-end-1: 6.33664952285726%;
+        --y-1: 7%;
+        --x-2: 78%;
+        --c-2: hsla(183, 61%, 42%, 1);
+        --y-2: 75%;
+        --s-start-2: 0%;
+        --s-end-2: 7%;
+        --c-3: hsla(243, 83%, 19%, 0.5);
+        --x-3: 59%;
+        --s-start-3: 0%;
+        --s-end-3: 68%;
+        --y-3: 59%;
+        --y-4: 86%;
+        --s-start-4: 3%;
+        --s-end-4: 36%;
+        --c-4: hsla(313, 91%, 42%, 1);
+        --x-4: 7%;
+    }
+
+    100% {
+        --x-0: 63%;
+        --y-0: 23%;
+        --c-0: hsla(287, 87%, 40%, 1);
+        --s-start-0: 0%;
+        --s-end-0: 11.238503048843667%;
+        --x-1: 89%;
+        --c-1: hsla(236, 100%, 50%, 1);
+        --s-start-1: 0%;
+        --s-end-1: 36%;
+        --y-1: 14%;
+        --x-2: 92%;
+        --c-2: hsla(181, 96%, 60%, 1);
+        --y-2: 90%;
+        --s-start-2: 1%;
+        --s-end-2: 28%;
+        --c-3: hsla(246, 83%, 28%, 0.5);
+        --x-3: 2%;
+        --s-start-3: 0%;
+        --s-end-3: 36.852784336403765%;
+        --y-3: 9%;
+        --y-4: 19%;
+        --s-start-4: 12.198718286003295%;
+        --s-end-4: 40%;
+        --c-4: hsla(311, 90%, 31%, 1);
+        --x-4: 13%;
+    }
+}
+
+@property --x-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 59%
+}
+
+@property --y-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 16%
+}
+
+@property --c-0 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(289, 100%, 52%, 1)
+}
+
+@property --s-start-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 6.018788142925232%
+}
+
+@property --s-end-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 35%
+}
+
+@property --x-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 92%
+}
+
+@property --c-1 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(236, 96%, 40%, 1)
+}
+
+@property --s-start-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 3.315649867374005%
+}
+
+@property --s-end-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 6.33664952285726%
+}
+
+@property --y-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --x-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 78%
+}
+
+@property --c-2 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(183, 61%, 42%, 1)
+}
+
+@property --y-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 75%
+}
+
+@property --s-start-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%
+}
+
+@property --s-end-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --c-3 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(243, 83%, 19%, 0.5)
+}
+
+@property --x-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 59%
+}
+
+@property --s-start-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%
+}
+
+@property --s-end-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 68%
+}
+
+@property --y-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 59%
+}
+
+@property --y-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 86%
+}
+
+@property --s-start-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 3%
+}
+
+@property --s-end-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 36%
+}
+
+@property --c-4 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(313, 91%, 42%, 1)
+}
+
+@property --x-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
