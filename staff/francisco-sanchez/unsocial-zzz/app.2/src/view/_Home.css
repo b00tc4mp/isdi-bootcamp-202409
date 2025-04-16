@@ -1,0 +1,28 @@
+.Home {
+    display: flex;
+    justify-content: center;
+
+    padding-top: 10%;
+    padding-bottom: 20%;
+}
+
+.botones-home {
+    display: flex;
+    justify-content: center;
+}
+
+img.postFrame {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 10px solid #fff;
+    border-left: 10px solid #fff;
+    border-right: 10px solid #fff;
+    border-bottom: 40px solid #fff;
+}
+
+time {
+    color: var(--white);
+    text-align: center;
+}

@@ -1,0 +1,32 @@
+.PostItem {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.PostItem img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+.publishedBy {
+    color: var(--white);
+}
+
+.publishedBy .author {
+    font-weight: bold;
+}
+
+.postCommentAndLikes {
+    display: flex;
+    margin-bottom: 25px;
+    justify-content: flex-start;
+    gap: 10px;
+    /* Añade espacio entre elementos de comentarios y likes */
+}
+
+.postText {
+    font-size: 14px;
+    text-align: left;
+}

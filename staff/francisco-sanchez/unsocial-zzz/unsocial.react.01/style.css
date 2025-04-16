@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap');
+
+:root {
+    --color-fondo: #07074a;
+    --white: #ffffff;
+    --font: "Nunito", sans-serif;
+    font-family: var(--font);
+
+
+
+
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(var(--white));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-weight: 400;
+    font-style: normal;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+label {
+    color: var(--white);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    text-align: center;
+    color: var(--white);
+}
+
+p {
+    font-size: 1.2em;
+    text-align: center;
+    line-height: 1.3em;
+    color: var(--white);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1.1em;
+    border: 1px solid var(--white);
+    border-radius: 5px;
+    font: inherit;
+}
+
+button {
+    padding: 10px;
+    font-size: 1.1em;
+    background-color: #ddd207;
+    color: rgb(25, 7, 138);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #b9b007
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--white);
+}
+
+a:hover {
+    color: #b9b007;
+}
+
+.registerText {
+    font-size: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+img {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 10px solid #fff;
+    border-left: 10px solid #fff;
+    border-right: 10px solid #fff;
+    border-bottom: 40px solid #fff;
+}
+
+time {
+    color: var(--white);
+    text-align: center;
+}
+
+/*Locurote de colores*/
+/*div {
+    background-color: red;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes example {
+    0% {
+        background-color: red;
+    }
+
+    25% {
+        background-color: yellow;
+    }
+
+    50% {
+        background-color: blue;
+    }
+
+    75% {
+        background-color: green;
+    }
+
+    100% {
+        background-color: red;
+    }
+}*/

@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap');
+
+
+
+:root {
+    --color: #444333;
+    --dark-brown: #333;
+    --white: #ffffff;
+    --font: "Nunito", sans-serif;
+    font-family: var(--font);
+}
+
+body {
+    background-color: lightgrey;
+    color: var(--color);
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-around;*/
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-weight: 400;
+    font-style: normal;
+}
+
+section {
+    background-color: grey;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 400px;
+    /* Ajusta el tamaño del formulario */
+    margin: 10px;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+p {
+    font-size: 0.9em;
+    text-align: center;
+    line-height: 1.3em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font: inherit;
+}
+
+button {
+    padding: 10px;
+    font-size: 1.1em;
+    background-color: var(--color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
+}
+
+button:hover {
+    background-color: var(--dark-brown);
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.registerText {
+    font-size: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+img {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 10px solid #fff;
+    border-left: 10px solid #fff;
+    border-right: 10px solid #fff;
+    border-bottom: 30px solid #fff;
+}
