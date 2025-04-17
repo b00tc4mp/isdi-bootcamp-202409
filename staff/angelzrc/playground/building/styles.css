@@ -1,0 +1,94 @@
+.building {
+    display: flex;
+    height: 800px;
+    width: 500px;
+    background-color: brown;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.window-balcony {
+    display: flex;
+    background-color: grey;
+    width: 25%;
+    height: 20%;
+    margin: 5%;
+    margin-bottom: 0;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.middle-window {
+    background-color: aqua;
+    width: 20%;
+    height: 20%;
+}
+
+.entrance {
+    display: flex;
+    background-color: grey;
+    width: 25%;
+    height: 20%;
+    margin: 5%;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.window-bottom {
+    display: flex;
+    background-color: grey;
+    width: 25%;
+    height: 20%;
+    margin: 5%;
+    margin-bottom: 0;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.pane-left {
+    z-index: 1;
+    height: 80%;
+    width: 45%;
+    background-color: aqua;
+}
+
+.pane-right {
+    z-index: 1;
+    height: 80%;
+    width: 45%;
+    background-color: rgb(9, 243, 243);
+}
+
+.balcony {
+    z-index: 2;
+    position: absolute;
+    width: 150px;
+    height: 70px;
+    background-color: burlywood;
+    margin-top: 100px;
+}
+
+.door-left {
+    background-color: bisque;
+    width: 25%;
+    height: 95%;
+}
+
+.door-right {
+    background-color: burlywood;
+    width: 60%;
+    height: 95%;
+}
+
+.fence {
+    z-index: 2;
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    background-color: rgb(120, 79, 26);
+    margin-top: 80px;
+    margin-right: 120px;
+}
