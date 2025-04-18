@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+    align-items: center;
+}
+
+
+body{
+background-image: radial-gradient(circle at 50% -20.71%, #ffdbff 0, #ffd0ff 16.67%, #ffc4ff 33.33%, #f2b5f2 50%, #d3a6de 66.67%, #b799cb 83.33%, #a08db9 100%);
+background-size: 200% 400%;
+height: 100%;
+/* min-height: 100%; */
+text-align: center;
+margin: 0;
+padding-bottom: 60px;
+}
+
+:root {
+--font: 'Noto Sans JP';
+font-family: var(--font);
+/* height: 90%; */
+}
+
+p{
+    font-size: 18px;
+}
+
+a{  
+text-decoration: none;
+display: inline;
+font-size: 22px;
+}
+
+a:visited {
+color: inherit;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+section {
+    align-content: center;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0;
+    background-color: #dcd7d7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* position: relative; */
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}   

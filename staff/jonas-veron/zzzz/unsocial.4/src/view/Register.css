@@ -1,0 +1,20 @@
+.Register{
+
+    margin: auto;
+    margin-top: 3rem;
+    background: transparent;
+    padding: 2rem;
+    height: 36rem;
+    width: 30rem;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 2px 4px 32px 2px black;
+    h2{
+        font-size: 26px;
+    }
+
+    .Button{
+        width: 130px;
+        
+    }
+}
