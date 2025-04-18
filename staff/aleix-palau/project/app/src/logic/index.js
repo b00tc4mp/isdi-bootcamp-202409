@@ -25,6 +25,11 @@ import {
     unmatchUser
 } from './matches'
 
+import {
+    getUnreadNotifications,
+    markNotificationsAsRead
+} from './notifications'
+
 const logic = {
     registerUser,
     loginUser,
@@ -43,7 +48,9 @@ const logic = {
     getUserMatches,
     getMatchMessages,
     sendMessage,
-    unmatchUser
+    unmatchUser,
+    getUnreadNotifications,
+    markNotificationsAsRead
 }
 
 export default logic

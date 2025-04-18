@@ -47,7 +47,9 @@ export default (userId, matchId, text) => {
                     from: userId,
                     to: otherUserId,
                     type: 'message',
-                    date: newMessage.timestamp // Use message timestamp for notification
+                    date: newMessage.timestamp, // Use message timestamp for notification
+                    read: false,
+                    matchId: matchId
                 }).save()
             }
 

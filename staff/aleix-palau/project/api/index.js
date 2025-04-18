@@ -5,7 +5,7 @@ import cors from 'cors'
 import http from 'http'
 
 import { errorHandler } from './routes/helpers/index.js'
-import { usersRouter, heartbeatsRouter, matchesRouter } from './routes/index.js'
+import { usersRouter, heartbeatsRouter, matchesRouter, notificationsRouter } from './routes/index.js'
 import setupSocket from './socketSetup.js'
 
 db.connect(process.env.MONGO_URL_TEST).then(() => {
@@ -37,6 +37,7 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     app.use('/users', usersRouter)
     app.use('/heartbeats', heartbeatsRouter)
     app.use('/matches', matchesRouter)
+    app.use('/notifications', notificationsRouter)
 
     app.use(errorHandler)
 

@@ -12,7 +12,7 @@ import Conversation from './Conversation'
 import NoMessages from './NoMessages'
 import NoConversation from './NoConversation'
 import Spinner from './Spinner'
-// import MatchNotification from './MatchNotification'
+import MatchNotification from './MatchNotification'
 
 export {
     Header,
@@ -28,6 +28,6 @@ export {
     Conversation,
     NoMessages,
     NoConversation,
-    Spinner
-    // MatchNotification
+    Spinner,
+    MatchNotification
 }

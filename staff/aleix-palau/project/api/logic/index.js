@@ -15,6 +15,8 @@ import { createHeartbeat } from './heartbeats/index.js'
 
 import { getUserMatches, getMatchMessages, sendMessage, unmatchUser } from './matches/index.js'
 
+import { getUnreadNotifications, markNotificationsAsRead } from './notifications/index.js'
+
 const logic = {
     registerUser,
     authenticateUser,
@@ -30,7 +32,9 @@ const logic = {
     getUserMatches,
     getMatchMessages,
     sendMessage,
-    unmatchUser
+    unmatchUser,
+    getUnreadNotifications,
+    markNotificationsAsRead
 }
 
 export default logic

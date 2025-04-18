@@ -60,12 +60,8 @@ export default function People({ onSettingsClick }) {
 
         try {
             logic.createHeartbeat(currentMatch._id, action)
-                .then(result => {
-                    // If a match was created
-                    if (result.match)
-                        alert(`You matched with ${currentMatch.name}!`, 'success', 'New Match!')
-
-                    // Move to next profile
+                .then(() => {
+                    // If a match was created move to next profile
                     if (currentMatchIndex < potentialMatches.length - 1)
                         setCurrentMatchIndex(prev => prev + 1)
                     else

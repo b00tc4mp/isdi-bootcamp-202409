@@ -92,7 +92,7 @@ export default (senderId, receiverId, action) => {
                 populatedMatchData = await Match.findById(createdMatch._id)
                     .populate({
                         path: 'users',
-                        select: '_id'
+                        select: '_id name profilePicture pictures' // TODO: treure pictures daqui i MatchNotification
                     })
                     .lean()
             }
