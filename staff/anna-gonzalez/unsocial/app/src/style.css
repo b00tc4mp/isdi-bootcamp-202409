@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color: #e2e8f0;
+  --back-color: black;
+  --font: 'Gantari';
+  font-family: var(--font);
+  height: 100%;
+}
+
+body {
+  h1 {
+    color: var(--color)
+  }
+}

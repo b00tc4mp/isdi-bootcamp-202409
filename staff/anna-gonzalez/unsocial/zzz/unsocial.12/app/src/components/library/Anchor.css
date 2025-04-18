@@ -1,0 +1,17 @@
+.Anchor {
+    width: '100%';
+    font-family: var(--font);
+    font-size: medium;
+    text-decoration: underline;
+    color: var(--color);
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 3rem;
+    cursor: pointer;
+}
+
+.header-anchor {
+    font-family: 'Dela Gothic One';
+    letter-spacing: 3px;
+    text-decoration: none;
+}

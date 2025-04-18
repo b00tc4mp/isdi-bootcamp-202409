@@ -1,0 +1,28 @@
+.CreatePost {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    box-sizing: border-box;
+    color: black;
+    text-align: left;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-top: 4.5rem;
+
+    h3 {
+        font-family: 'Dela Gothic One';
+        margin-right: 8rem;
+        margin-bottom: 1rem;
+    }
+
+    input {
+        margin-bottom: 1rem;
+    }
+
+    button {
+        margin-top: 1rem;
+
+    }
+}

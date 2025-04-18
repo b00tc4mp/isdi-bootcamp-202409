@@ -1,0 +1,13 @@
+.Home {
+    padding-top: 6rem;
+    padding-bottom: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color);
+}
+
+h3 {
+    color: black;
+}
