@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+    <h1 style="color: magenta;">Hola, Mundo!</h1>
+
+    <script>
+        /*
+        HTML
+         HEAD
+          META
+          META
+          TITLE
+           text
+         BODY
+          H1
+           text
+          SCRIPT
+           text
+          SCRIPT
+           text
+        */
+
+
+
+var html = document.children[0]
+
+function fun(x, indent){
+    if(indent === undefined) indent = 0
+    console.log((indent === 0 ? '' : ' '.repeat(indent)) + x.tagName)
+
+    for(var i = 0; i < x.children.length; i++){
+        var child = x.children[i]
+        fun(child, indent + 1)
+    }
+}
+
+fun(html)
+
+    </script>
+</body>
+
+</html>
