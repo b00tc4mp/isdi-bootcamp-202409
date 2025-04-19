@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon"
+        href="https://da37wwyk1fu91.cloudfront.net/assets/images/compressed/desk_auto/i-salud-shelby-2-c-raw-left.png?v=20240918144227"
+        type="image/x-icon">
+    <title>Vroom vroom (coche humilde)</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        margin-top: 10%;
+    }
+
+    .card {
+        display: flex;
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 1px solid black;
+    }
+
+    .parte-arriba {
+        position: absolute;
+        width: 70px;
+        height: 0;
+        top: 28%;
+        left: 20%;
+        border-bottom: 40px solid black;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-radius: 10px;
+    }
+
+    .chasis {
+        position: absolute;
+        width: 200px;
+        height: 40px;
+        background-color: brown;
+        top: 40%;
+        left: 50px;
+        border-top-right-radius: 70px;
+        border-bottom-right-radius: 20px;
+        border-top-left-radius: 40px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .car__wheels {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: black;
+        top: 50.5%;
+        border-radius: 30px;
+    }
+
+    .left-wheel {
+        position: absolute;
+        left: 27%;
+    }
+
+    .right-wheel {
+        position: absolute;
+        left: 60%;
+    }
+
+    .left-llanta {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-color: grey;
+        border-radius: 30px;
+        left: 30%;
+        top: 30%;
+    }
+
+    .right-llanta {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-color: grey;
+        border-radius: 30px;
+        left: 30%;
+        top: 30%;
+    }
+</style>
+
+<body>
+    <main>
+        <div class="card">
+            <div class="car">
+                <div class="parte-arriba"></div>
+                <div class="chasis"></div>
+                <div class="wheels">
+                    <div class="car__wheels left-wheel">
+                        <div class="left-llanta"></div>
+                    </div>
+                    <div class="car__wheels right-wheel">
+                        <div class="right-llanta"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

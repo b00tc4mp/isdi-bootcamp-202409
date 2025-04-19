@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+    <h1 style="color: magenta;">Hola Mundo!</h1>
+    <script>
+        var dom = function (nodo, indent) {
+            if (indent === undefined) indent = 0
+            console.log((indent === 0 ? "" : " ".repeat(indent)) + nodo.tagName)
+
+            for (var i = 0; i < nodo.children.length; i++) {
+                var child = nodo.children[i]
+
+                dom(child, indent + 1)
+            }
+        }
+
+        var html = document.children[0]
+        dom(html)
+    </script>
+</body>
+
+</html>
