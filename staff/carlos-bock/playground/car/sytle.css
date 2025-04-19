@@ -1,0 +1,59 @@
+
+.chasis {
+    background-color: rgb(128, 0, 21);
+    border-radius: 10%;
+    width: 500px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+}
+
+.wheels {
+    display: inline-flex;
+    margin-left: 40%;
+    margin-top: -50px;
+}
+
+.left-tire {
+    background-color: black;
+    border-radius: 50%;
+    margin-right: 50px;
+    height: 100px;
+    width: 100px;
+}
+
+.right-tire {
+    background-color: black;
+    border-radius: 50%;
+    margin-right: 50px;
+    margin-left: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.window{
+    display: inline-flex;
+    margin-left: 30%;
+}
+
+.front {
+    background-color: rgb(28, 162, 185);
+    margin-left: 150px;
+    height: 100px;
+    width: 100px;
+}
+
+.middle {
+    background-color: rgb(28, 162, 185);
+    margin-left: 70px;
+    height: 100px;
+    width: 100px;
+}
+
+.back {
+    background-color: rgb(28, 162, 185);
+    margin-left: 70px;
+    height: 100px;
+    width: 100px;
+}
