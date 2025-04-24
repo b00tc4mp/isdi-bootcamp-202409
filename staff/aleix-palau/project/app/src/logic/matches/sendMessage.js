@@ -1,8 +1,11 @@
-import { errors } from 'com'
+import { errors, validate } from 'com'
 
 const { SystemError } = errors
 
 export default (matchId, text) => {
+    validate.id(matchId, 'matchId')
+    validate.text(text, 'message text', 500)
+
     return fetch(`http://${import.meta.env.VITE_API_URL}/matches/${matchId}/messages`, {
         method: 'POST',
         headers: {

@@ -1,34 +1,28 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import { useNavigate, useParams, Navigate } from 'react-router-dom'
-import useContext from '../useContext' // For alert/confirm
+import { useNavigate, useParams } from 'react-router-dom'
+import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
 import { ChatList, Conversation, UserDetail, NoConversation, Spinner } from '../components'
-import { useNotifications } from '../../contexts/NotificationContext' // Import notification hook
+import { useNotifications } from '../../contexts/NotificationContext'
 
 const { SystemError } = errors
 
 // Helper function for sorting matches
-const sortMatches = (matches) => {
+const sortMatches = matches => {
     if (!Array.isArray(matches)) return [] // Handle non-array input
     // Create a new array before sorting to avoid mutating the original
     return [...matches].sort((a, b) =>
         new Date(b.lastActivity || b.createdAt || 0) - new Date(a.lastActivity || a.createdAt || 0)
-    );
-};
+    )
+}
 
-// Removed onChatClick prop unless specifically needed for something else
 export default function Chat({ onChatClick }) {
     const { alert, confirm } = useContext() // Still needed for local actions
     const navigate = useNavigate()
     const { matchId } = useParams() // The currently viewed matchId from URL
     // Use context state and functions directly
-    const {
-        unreadMatches,
-        markMatchAsRead,
-        registerMessageListener,
-        unregisterMessageListener
-    } = useNotifications()
+    const { unreadMatches, markMatchAsRead, registerMessageListener } = useNotifications()
 
     const [matches, setMatches] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -63,121 +57,114 @@ export default function Chat({ onChatClick }) {
         fetchInitialData()
     }, [fetchInitialData])
 
-    // Effect to mark chat as read when entering conversation view AND it's marked unread in context
+    // Effect to mark messages as read when viewing a conversation
     useEffect(() => {
-        // Check if viewing a specific match and if that match has unread messages in context
-        if (matchId && currentUser && unreadMatches[matchId] > 0) {
-            console.log(`Viewing match ${matchId} which has unread messages, marking as read...`)
-            markMatchAsRead(matchId) // Call context function
+        if (matchId && currentUser && unreadMatches[matchId]) {
+            // Only call markMatchAsRead if there are actually unread messages
+            markMatchAsRead(matchId)
         }
-        // Dependencies: matchId, currentUser (to ensure user context is loaded),
-        // markMatchAsRead function, and the specific unread count for this matchId.
-    }, [matchId, currentUser, markMatchAsRead, unreadMatches])
+    }, [matchId, currentUser, unreadMatches, markMatchAsRead])
 
-    // --- NEW Effect: Listen for real-time messages via Context ---
+    // Real-time message handling
     useEffect(() => {
-        // Define the listener function
-        const handleRealtimeMessage = (newMessage) => {
-            console.log('Chat.jsx received real-time message:', newMessage);
-            setMatches(prevMatches => {
-                let matchFound = false;
-                const updatedMatches = prevMatches.map(match => {
-                    if (match._id === newMessage.matchId) {
-                        matchFound = true;
-                        // Avoid adding duplicate messages if optimistic update already added it
-                        // (though optimistic should be replaced anyway)
-                        // A simple check might be by timestamp or a temporary ID if you used one.
-                        // If backend returns the final message ID, we don't need complex checks.
-                        // Just make sure the message isn't already present.
-                        const messageExists = match.messages.some(m => m._id === newMessage._id);
-                        return {
-                            ...match,
-                            // Add message only if it doesn't exist
-                            messages: messageExists ? match.messages : [...match.messages, newMessage],
-                            // Always update lastActivity
-                            lastActivity: newMessage.timestamp,
-                        };
-                    }
-                    return match;
-                });
+        // If not logged in or no current user, don't set up listeners
+        if (!currentUser?._id) return
 
-                // If the match wasn't already in the list (edge case?), maybe fetch it?
-                // For now, we assume the match exists if a message arrives for it.
-                if (!matchFound) {
-                    console.warn(`Received message for match ${newMessage.matchId}, but match not found in local state.`);
-                    // Optionally trigger a refetch? fetchInitialData();
-                    return prevMatches; // Return previous state if match not found
+        const handleRealtimeMessage = newMessage => {
+            // Skip invalid messages or own messages
+            if (!newMessage?.matchId || newMessage.sender === currentUser._id) {
+                return
+            }
+
+            setMatches(prevMatches => {
+                // Find the match this message belongs to
+                const matchIndex = prevMatches.findIndex(m => m._id === newMessage.matchId)
+
+                // If match not found in our local state, no update needed
+                // (could happen if new match was created but local state hasn't updated)
+                if (matchIndex === -1) {
+                    console.log(`Received message for match ${newMessage.matchId} not in local state`)
+                    return prevMatches
                 }
 
-                return sortMatches(updatedMatches); // Re-sort after adding the message
-            });
-        };
+                // Create a new array to avoid mutating state
+                const updatedMatches = [...prevMatches]
+                const match = { ...updatedMatches[matchIndex] }
 
-        // Register the listener when component mounts
-        registerMessageListener(handleRealtimeMessage);
+                // Don't add duplicate messages (check by ID)
+                const isDuplicate = match.messages.some(m => m._id === newMessage._id)
+                if (!isDuplicate) {
+                    match.messages = [...match.messages, newMessage]
+                    match.lastActivity = newMessage.timestamp
+                    updatedMatches[matchIndex] = match
+                }
 
-        // Unregister the listener when component unmounts
-        return () => {
-            unregisterMessageListener(handleRealtimeMessage);
-        };
-        // Dependencies: registration functions (should be stable)
-    }, [registerMessageListener, unregisterMessageListener]);
-    // --- End Real-time Listener Effect ---
-
-    // --- Action Handlers ---
-
-    // handleSendMessage - Largely unchanged, ensure sorting happens
-    const handleSendMessage = (text, targetMatchId) => {
-        if (!text.trim() || !currentUser) return
-        const tempMessageId = `temp_${Date.now()}`
-        const optimisticMessage = {
-            _id: tempMessageId, // Use temporary ID
-            sender: currentUser._id,
-            text: text.trim(),
-            timestamp: new Date().toISOString(), // Use ISO string for consistency
-            isOptimistic: true // Flag for potential styling/handling
+                // Return sorted matches - handles conversation ordering in list view
+                return sortMatches(updatedMatches)
+            })
         }
 
-        // Update local state optimistically and re-sort
+        // Register for message updates and store the unregister function
+        const unregisterMessageListener = registerMessageListener(handleRealtimeMessage)
+
+        // Clean up on unmount
+        return unregisterMessageListener
+    }, [currentUser, registerMessageListener])
+
+    // Message sending with cleaner optimistic updates
+    const handleSendMessage = (text, targetMatchId) => {
+        if (!text.trim() || !currentUser) return
+
+        // Create temporary message with unique ID
+        const tempMessageId = `temp_${Date.now()}`
+        const optimisticMessage = {
+            _id: tempMessageId,
+            sender: currentUser._id,
+            text: text.trim(),
+            timestamp: new Date().toISOString(),
+            isOptimistic: true // Flag for potential styling
+        }
+
+        // Update state optimistically in a single operation
         setMatches(prevMatches => {
-            const updatedMatches = prevMatches.map(match => {
+            return sortMatches(prevMatches.map(match => {
                 if (match._id === targetMatchId) {
                     return {
                         ...match,
                         messages: [...match.messages, optimisticMessage],
-                        lastActivity: optimisticMessage.timestamp,
+                        lastActivity: optimisticMessage.timestamp
                     }
                 }
                 return match
-            })
-            return sortMatches(updatedMatches)
+            }))
         })
 
+        // Send the actual message
         logic.sendMessage(targetMatchId, text)
             .then(sentMessage => {
-                // Replace optimistic message and re-sort
+                // Replace optimistic message with real one
                 setMatches(prevMatches => {
-                    const updatedMatches = prevMatches.map(match => {
+                    return sortMatches(prevMatches.map(match => {
                         if (match._id === targetMatchId) {
                             return {
                                 ...match,
                                 messages: match.messages.map(m =>
-                                    m._id === tempMessageId ? { ...sentMessage, isOptimistic: false } : m
+                                    m._id === tempMessageId ? { ...sentMessage } : m
                                 ),
-                                lastActivity: sentMessage.timestamp,
+                                lastActivity: sentMessage.timestamp
                             }
                         }
                         return match
-                    })
-                    return sortMatches(updatedMatches)
+                    }))
                 })
             })
             .catch(error => {
                 alert(error.message)
                 console.error("Send message error:", error)
-                // Remove optimistic message and re-sort
+
+                // Remove optimistic message on error
                 setMatches(prevMatches => {
-                    const updatedMatches = prevMatches.map(match => {
+                    return sortMatches(prevMatches.map(match => {
                         if (match._id === targetMatchId) {
                             return {
                                 ...match,
@@ -185,8 +172,7 @@ export default function Chat({ onChatClick }) {
                             }
                         }
                         return match
-                    })
-                    return sortMatches(updatedMatches)
+                    }))
                 })
             })
     }
@@ -208,7 +194,7 @@ export default function Chat({ onChatClick }) {
                             // Filter and then sort the remaining
                             setMatches(prevMatches => {
                                 // prevMatches IS DEFINED HERE as the argument
-                                console.log('Unmatch successful, updating matches. Previous count:', prevMatches.length);
+                                console.log('Unmatch successful, updating matches. Previous count:', prevMatches.length)
                                 return sortMatches(prevMatches.filter(match => match._id !== targetMatchId))
                             })
 
@@ -268,7 +254,7 @@ export default function Chat({ onChatClick }) {
         const currentMatch = matches.find(m => m._id === matchId)
 
         // Important: Check isLoading *before* assuming match not found
-        if (isLoading) return <Spinner />;
+        if (isLoading) return <Spinner />
 
         if (!currentMatch) {
             // Match not found (e.g., after unmatch, invalid ID, or still loading initial data)

@@ -2,105 +2,80 @@ import { io } from 'socket.io-client'
 
 let socket = null
 
-// Function to initialize or get the socket instance
+// Initialize or get the socket instance
 export const getSocket = () => {
     if (!socket && localStorage.token) {
         console.log("Initializing socket connection...")
         socket = io(`http://${import.meta.env.VITE_API_URL}`, {
-            autoConnect: false, // Connect manually after setup
-            auth: {
-                token: localStorage.token
-            },
-            reconnectionAttempts: 5, // Optional: Limit reconnection attempts
-            reconnectionDelay: 1000, // Optional: Delay between attempts
+            auth: { token: localStorage.token },
+            reconnectionAttempts: 5, // Limit reconnection attempts
+            reconnectionDelay: 1000, // Delay between attempts
         })
 
-        // Optional: Log socket events for debugging
-        socket.on('connect', () => console.log('Socket connected:', socket.id))
-        socket.on('disconnect', (reason) => console.log('Socket disconnected:', reason))
-        socket.on('connect_error', (error) => console.error('Socket connection error:', error))
+        // Listeners setup
+        socket.on('connect', () => {
+            console.log('Socket connected:', socket.id)
+            // Dispatch event so other components can react to connection
+            document.dispatchEvent(new CustomEvent('socketConnected'))
+        })
 
-    } else if (!localStorage.token && socket) {
-        console.log("Token removed, disconnecting socket.")
-        disconnectSocket() // Disconnect if token is removed
+        socket.on('disconnect', reason => console.log('Socket disconnected:', reason))
+
+        socket.on('connect_error', error => console.error('Socket connection error:', error.message))
+
+        // Connect immediately
+        socket.connect()
     }
+
     return socket
 }
 
-// Function to manually connect the socket
-export const connectSocket = () => {
-    const currentSocket = getSocket() // Ensure socket is initialized
-    if (currentSocket && !currentSocket.connected) {
-        console.log("Attempting to connect socket...")
-        currentSocket.connect()
-    } else if (currentSocket && currentSocket.connected) {
-        console.log("Socket already connected.")
-    } else {
-        console.log("Cannot connect socket: No token found.")
-    }
-}
-
-// Function to update token and reconnect if necessary
-export const updateSocketToken = token => {
-    const currentSocket = getSocket() // Ensure socket is initialized
-    if (!currentSocket) {
-        console.error("Cannot update token: Socket not initialized.")
-        return
-    }
-
-    // Update the auth token
-    currentSocket.auth = { token }
-    console.log("Socket token updated.")
-
-    // Disconnect and reconnect if the socket is currently connected
-    if (currentSocket.connected) {
-        console.log("Reconnecting socket with new token...")
-        currentSocket.disconnect().connect()
-    } else if (!currentSocket.connected && token) {
-        // If not connected but we have a token, try connecting
-        connectSocket()
-    }
-}
-
-// Helper function to join a specific match room
-export const joinMatchRoom = matchId => {
-    const currentSocket = getSocket()
-    if (currentSocket && currentSocket.connected && matchId) {
-        console.log(`Emitting joinMatchRoom for ${matchId}`)
-        currentSocket.emit('joinMatchRoom', matchId)
-    } else {
-        console.log(`Could not join room ${matchId}: Socket not connected or matchId missing.`)
-    }
-}
-
-// Helper function to leave a specific match room
-export const leaveMatchRoom = matchId => {
-    const currentSocket = getSocket()
-    if (currentSocket && currentSocket.connected && matchId) {
-        console.log(`Emitting leaveMatchRoom for ${matchId}`)
-        currentSocket.emit('leaveMatchRoom', matchId) // Assuming backend handles this
-    } else {
-        console.log(`Could not leave room ${matchId}: Socket not connected or matchId missing.`)
-    }
-}
-
-// Helper function to disconnect socket
+// Clean up socket connection
 export const disconnectSocket = () => {
-    if (socket && socket.connected) {
-        console.log("Disconnecting socket...")
-        socket.disconnect()
+    if (socket) {
+        if (socket.connected)
+            socket.disconnect()
+
+        // Clean up listeners to prevent memory leaks
+        socket.off()
+        socket = null
+        console.log("Socket disconnected and cleaned up")
     }
-    socket = null // Clear the instance on explicit disconnect
 }
 
-// Listen for token updates from logic (e.g., after login)
-document.addEventListener('tokenUpdated', event => {
-    if (event.detail.token) {
-        updateSocketToken(event.detail.token)
+// Handle token updates in a single place
+export const handleTokenChange = token => {
+    const wasConnected = socket?.connected
+
+    // Clean up existing socket if token is removed or changed
+    if (socket) disconnectSocket()
+
+    if (token) {
+        // Token was added or updated - store it first
+        localStorage.token = token
+
+        // Get a fresh socket instance (will initialize with new token)
+        getSocket()
+
+        if (wasConnected) console.log("Socket reconnected with new token")
     } else {
-        disconnectSocket() // Disconnect if token becomes null/undefined
+        // Token was removed
+        delete localStorage.token
+        console.log("Token removed, socket disconnected")
     }
+
+    // Dispatch auth change event
+    document.dispatchEvent(new CustomEvent('authChange', {
+        detail: { loggedIn: !!token }
+    }))
+}
+
+// Listen for token updates
+document.addEventListener('tokenUpdated', event => {
+    handleTokenChange(event.detail.token)
 })
 
 // Clean up on page unload
 window.addEventListener('beforeunload', disconnectSocket)
+
+export default { getSocket, disconnectSocket, handleTokenChange }

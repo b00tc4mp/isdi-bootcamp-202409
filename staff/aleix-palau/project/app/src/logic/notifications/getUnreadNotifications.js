@@ -8,11 +8,9 @@ export default () => {
             Authorization: `Bearer ${localStorage.token}`
         }
     })
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => { throw new SystemError(error.message) }) // Network errors
         .then(res => {
-            if (res.status === 204) { // Handle case where there are no unread notifications
-                return { count: 0 }
-            }
+            // Check if response is OK (status 200-299)
             if (res.ok) {
                 return res.json()
                     .catch(error => { throw new SystemError(error.message) })

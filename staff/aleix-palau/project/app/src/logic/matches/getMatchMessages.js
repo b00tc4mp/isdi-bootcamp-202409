@@ -1,8 +1,10 @@
-import { errors } from 'com'
+import { errors, validate } from 'com'
 
 const { SystemError } = errors
 
 export default matchId => {
+    validate.id(matchId, 'matchId')
+
     return fetch(`http://${import.meta.env.VITE_API_URL}/matches/${matchId}/messages`, {
         headers: {
             Authorization: `Bearer ${localStorage.token}`

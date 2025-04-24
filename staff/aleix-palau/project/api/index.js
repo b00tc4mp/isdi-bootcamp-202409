@@ -6,7 +6,7 @@ import http from 'http'
 
 import { errorHandler } from './routes/helpers/index.js'
 import { usersRouter, heartbeatsRouter, matchesRouter, notificationsRouter } from './routes/index.js'
-import setupSocket from './socketSetup.js'
+import { initializeSocket } from './socketSetup.js'
 
 db.connect(process.env.MONGO_URL_TEST).then(() => {
     console.log('connected to db')
@@ -15,9 +15,9 @@ db.connect(process.env.MONGO_URL_TEST).then(() => {
     const server = http.createServer(app) // Create HTTP server from Express app for Socket.io
 
     // Setup socket and get the userSockets map
-    const { io, userSockets } = setupSocket(server) // Assuming setupSocket returns io and the map
+    const { io, userSockets } = initializeSocket(server)
 
-    // Store the map on the app instance
+    // Store the map on the app instance for use in route handlers
     app.set('userSockets', userSockets)
 
     // Add io to the request object for use in route handlers

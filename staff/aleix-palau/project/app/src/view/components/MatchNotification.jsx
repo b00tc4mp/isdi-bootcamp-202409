@@ -4,8 +4,7 @@ import { PrimaryButton } from '../library'
 export default function MatchNotification({ match, onClose, onStartChat }) {
     if (!match || !match.user) return null
 
-    const { name, pictures = [] } = match.user
-    const profilePicture = pictures[0] || '/images/default-profile.jpg'
+    const { name, profilePicture } = match.user
 
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50" onClick={onClose}>

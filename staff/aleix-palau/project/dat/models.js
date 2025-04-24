@@ -165,7 +165,7 @@ const notification = new Schema({
     },
     type: {
         type: String,
-        enum: ['match', 'unmatch', 'message']
+        enum: ['match', 'message']
     },
     date: {
         type: Date,

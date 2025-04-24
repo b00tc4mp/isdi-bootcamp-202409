@@ -16,7 +16,12 @@ export default (email, password) => {
             if (res.ok)
                 return res.json()
                     .catch(error => { throw new SystemError(error.message) })
-                    .then(token => { localStorage.token = token })
+                    .then(token => {
+                        localStorage.token = token
+
+                        console.log('loginUser.js: Dispatching authChange (loggedIn: true)');
+                        document.dispatchEvent(new CustomEvent('authChange', { detail: { loggedIn: true } }))
+                    })
 
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })

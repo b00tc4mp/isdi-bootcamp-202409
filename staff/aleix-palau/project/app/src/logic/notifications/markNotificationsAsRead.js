@@ -4,7 +4,7 @@ import { validate } from 'com'
 const { SystemError } = errors
 
 export default matchId => {
-    validate.id(matchId, 'matchId') // Validate input
+    validate.id(matchId, 'matchId')
 
     return fetch(`http://${import.meta.env.VITE_API_URL}/notifications/${matchId}/read`, {
         method: 'PATCH', // Use PATCH as we are updating status
@@ -23,14 +23,6 @@ export default matchId => {
             // Handle potential errors (e.g., 401 Unauthorized, 404 Not Found, 500 Server Error)
             return res.json() // Attempt to parse error details if available
                 .catch(error => { throw new SystemError(error.message) }) // Fallback if JSON parsing fails
-                .then(({ error, message }) => {
-                    // Throw specific error based on backend response
-                    if (errors[error]) {
-                        throw new errors[error](message)
-                    } else {
-                        // Throw generic error if type is unknown
-                        throw new SystemError(message || 'Failed to mark notifications as read')
-                    }
-                })
+                .then(({ error, message }) => { throw new errors[error](message) })
         })
 }
