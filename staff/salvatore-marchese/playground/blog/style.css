@@ -1,0 +1,55 @@
+h1 {
+    font-size:xx-large;
+    display: flex;
+    flex-direction: row;
+}
+
+.foto-developer {
+    width: 185px;
+    height: 255px;
+    
+}
+
+.first-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 465px;
+    height: 260px;
+    background-color: lightskyblue;
+    border: 2px solid darkblue;
+    gap: 10px;
+} 
+.first-section p {
+    width: fit-content;
+    height: fit-content;
+}
+
+.second-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 465px;
+    height: 260px;
+    background-color: lightskyblue;
+    border: 2px solid darkblue;
+    gap: 10px;
+}
+.second-section p {
+    width: fit-content;
+    height: fit-content;
+}
+
+.foto-developer-2 {
+    width: 185px;
+    height: 255px;
+}
+
+.backend-codes {
+    width: 550px;
+    height: 200px;
+    margin-block-end: auto;
+}
+
+
+
