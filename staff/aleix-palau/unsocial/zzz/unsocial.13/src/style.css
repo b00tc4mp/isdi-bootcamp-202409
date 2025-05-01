@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+
+:root {
+    --color: lime;
+    --back-color: #222;
+    --font: 'Tiny5';
+    font-family: var(--font);
+    /* height: 100%; */
+}
+
+body {
+    background-color: #222;
+    color: var(--color);
+    margin: 0;
+    /* height: 100%; */
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+a {
+    color: var(--color);
+    text-decoration: none;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    display: inline-block;
+    align-self: flex-start;
+}
+
+a:hover {
+    text-decoration: underline;
+}

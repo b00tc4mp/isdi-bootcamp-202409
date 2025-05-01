@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UN$0C14L</title>
+    <link rel="shortcut icon" href="https://b00tc4mp.com/favicon.ico" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+
+        :root {
+            --color: lime;
+            --font: 'Tiny5';
+            font-family: var(--font);
+        }
+
+        body {
+            background-color: black;
+            color: var(--color);
+            font-family: var(--font);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 4.25rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        section {
+            background-color: #111;
+            padding: 0.75rem 2rem 2rem 2rem;
+            margin: 1rem 0;
+            border: 1px solid var(--color);
+            width: 300px;
+            border-radius: 8px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            font-family: inherit;
+        }
+
+        label {
+            margin-top: 1rem;
+        }
+
+        input {
+            background-color: #222;
+            color: var(--color);
+            border: 1px solid var(--color);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        button {
+            background-color: var(--color);
+            color: black;
+            border: none;
+            padding: 0.75rem;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
+        a {
+            color: var(--color);
+            text-decoration: none;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>UN$0C14L</h1>
+
+    <section>
+        <h2>Login</h2>
+
+        <form>
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" required />
+
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required />
+
+            <button type="submit">Login</button>
+        </form>
+
+        <a href="">Register</a>
+    </section>
+
+    <section>
+        <h2>Register</h2>
+
+        <form>
+            <label for="register-name">Name</label>
+            <input type="text" id="register-name" required />
+
+            <label for="register-email">E-mail</label>
+            <input type="email" id="register-email" required />
+
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" required />
+
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" required />
+
+            <button type="submit">Register</button>
+        </form>
+
+        <a href="">Login</a>
+    </section>
+
+    <section>
+        <h2>Home</h2>
+
+        <h3>Hello, User!</h3>
+        <form>
+            <button type="submit">Logout</button>
+        </form>
+
+    </section>
+
+    <script>
+
+        var users = [
+            { name: 'Forrest Gump', email: 'forrest_gump@runner.com', username: 'runner4life', password: '123123' },
+            { name: 'Luke Skywalker', email: 'luke_skywalker@maythe4th.com', username: 'orphan4life', password: 'urnotmyfather' },
+        ]
+
+        var sections = document.querySelectorAll('section')
+
+        var loginSection = sections[0]
+        loginSection.style.display = ''
+
+        var registerSection = sections[1]
+        registerSection.style.display = 'none'
+
+        var homeSection = sections[2]
+        homeSection.style.display = 'none'
+
+        var anchors = document.querySelectorAll('a')
+
+        var registerAnchor = anchors[0]
+        registerAnchor.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            loginSection.style.display = 'none'
+            registerSection.style.display = ''
+        })
+
+        var loginAnchor = anchors[1]
+        loginAnchor.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            registerSection.style.display = 'none'
+            loginSection.style.display = ''
+        })
+
+        var forms = document.querySelectorAll('form')
+
+        var loginForm = forms[0]
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+            var loginInputs = loginForm.querySelectorAll('input')
+
+            var usernameLoginInput = loginInputs[0]
+            var loginUsername = usernameLoginInput.value
+
+            var passwordLoginInput = loginInputs[1]
+            var loginPassword = passwordLoginInput.value
+
+            var userFound = false
+
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].username === loginUsername) {
+                    userFound = true
+                    if (users[i].password === loginPassword) {
+                        loginSection.style.display = 'none'
+                        homeSection.style.display = ''
+                        loginForm.reset()
+                        homeSection.querySelector('h3').textContent = 'Hello, ' + users[i].name + '!'
+                        return
+                    } else {
+                        alert('Incorrect password')
+                        return
+                    }
+                }
+            }
+
+            if (!userFound) {
+                alert('User not found')
+            }
+        })
+
+        var registerForm = forms[1]
+
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+            var inputs = registerForm.querySelectorAll('input')
+
+            var nameInput = inputs[0]
+            var name = nameInput.value
+
+            var emailInput = inputs[1]
+            var email = emailInput.value
+
+            var usernameInput = inputs[2]
+            var username = usernameInput.value
+
+            var passwordInput = inputs[3]
+            var password = passwordInput.value
+
+            var user = { name: name, email: email, username: username, password: password }
+
+            users.push(user)
+
+            registerForm.reset()
+
+            registerSection.style.display = 'none'
+            loginSection.style.display = ''
+        })
+
+        var homeForm = forms[2]
+
+        homeForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+            loginSection.style.display = ''
+            homeSection.style.display = 'none'
+        })
+
+    </script>
+</body>
+
+</html>

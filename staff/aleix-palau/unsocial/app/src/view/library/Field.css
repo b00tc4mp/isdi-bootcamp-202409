@@ -1,0 +1,6 @@
+.Field {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    /* width: 100%; treure si puc*/
+}

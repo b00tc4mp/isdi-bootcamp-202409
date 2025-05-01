@@ -1,0 +1,14 @@
+.Input {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #222;
+    /* background-color: inherit; */
+    font-family: inherit;
+    /* border-color: var(--color);
+    border-style: solid; */
+    color: var(--color);
+    border: 1px solid var(--color);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+}
