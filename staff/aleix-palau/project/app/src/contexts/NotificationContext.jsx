@@ -30,32 +30,34 @@ export const NotificationProvider = ({ children }) => {
     }, [matchListeners])
 
     // --- Data Fetching and State Management ---
-    const fetchUnreadData = useCallback(async () => {
+    const fetchUnreadData = useCallback(() => {
         if (!logic.isUserLoggedIn()) {
             setUnreadMatches({}) // Ensure state is cleared if called when logged out
             setUnreadCount(0)
             return
         }
 
-        try {
-            const result = await logic.getUnreadNotifications()
-            if (result && result.matches) {
-                setUnreadMatches(result.matches)
-                // Calculate total count in one place
-                const total = Object.values(result.matches).reduce((sum, count) => sum + count, 0)
-                setUnreadCount(total)
-            } else {
-                setUnreadMatches({}) // Reset if result is null/undefined
+        logic.getUnreadNotifications()
+            .then(result => {
+                if (result && result.matches) {
+                    setUnreadMatches(result.matches)
+                    // Calculate total count in one place
+                    const total = Object.values(result.matches).reduce((sum, count) => sum + count, 0)
+                    setUnreadCount(total)
+                } else {
+                    setUnreadMatches({}) // Reset if result is null/undefined
+                    setUnreadCount(0)
+                }
+            })
+            .catch(error => {
+                alert(error.message)
+                console.error(error)
+                setUnreadMatches({})
                 setUnreadCount(0)
-            }
-        } catch (error) {
-            console.error(error)
-            setUnreadMatches({})
-            setUnreadCount(0)
-        }
+            })
     }, [])
 
-    const markMatchAsRead = useCallback(async matchId => {
+    const markMatchAsRead = useCallback(matchId => {
         if (!matchId) return
 
         // Optimistic update
@@ -72,13 +74,16 @@ export const NotificationProvider = ({ children }) => {
         })
 
         // Server update
-        try {
-            await logic.markNotificationsAsRead(matchId)
-        } catch (error) {
-            console.error(error)
-            // Revert optimistic update on error by refetching
-            fetchUnreadData()
-        }
+        logic.markNotificationsAsRead(matchId)
+            .then(() => {
+                // console.log('Marked as read on server')
+            })
+            .catch(error => {
+                alert(error.message)
+                console.error(error)
+                // Revert optimistic update on error by refetching
+                fetchUnreadData()
+            })
     }, [fetchUnreadData])
 
     // --- Socket Event Handling ---
@@ -100,6 +105,7 @@ export const NotificationProvider = ({ children }) => {
                     try {
                         listener(message)
                     } catch (error) {
+                        alert(error.message)
                         console.error(error)
                     }
                 })
@@ -125,6 +131,7 @@ export const NotificationProvider = ({ children }) => {
                     })
                 }
             } catch (error) {
+                alert(error.message)
                 console.error(error)
             }
         }
@@ -160,10 +167,12 @@ export const NotificationProvider = ({ children }) => {
                     try {
                         listener(newMatchData)
                     } catch (error) {
+                        alert(error.message)
                         console.error(error)
                     }
                 })
             } catch (error) {
+                alert(error.message)
                 console.error(error)
             }
         }

@@ -61,7 +61,7 @@ export default function Register(props) {
                 <PasswordInput type="password" id="password-repeat" />
             </Field>
 
-            <PrimaryButton type="submit">Sign Up</PrimaryButton>
+            <PrimaryButton className="bg-pink" type="submit">Sign Up</PrimaryButton>
         </Form>
 
         <p>Already have an account?

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Settings2, LogOut, ChevronLeft } from 'lucide-react'
+import { IconButton } from '../library'
 import logic from '../../logic'
 import useContext from '../useContext'
 
@@ -87,9 +88,11 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
     const renderSettingsHeader = () => (
         <div className="flex justify-between items-center w-full px-1">
             <div className="w-1/3 flex items-center">
-                <button className="scale-150" onClick={handleBackFromSettings}>
-                    <ChevronLeft className="text-pink" />
-                </button>
+                <IconButton
+                    icon={ChevronLeft}
+                    onClick={handleBackFromSettings}
+                    className=" text-pink scale-150"
+                />
             </div>
             <div className="w-1/3 flex justify-center">
                 <h1 className="font-bold text-2xl text-darkest-blue">Settings</h1>
@@ -106,12 +109,16 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
                 <h1 className="font-bold text-2xl text-darkest-blue">HEARTBEAT</h1>
             </div>
             <div className="w-1/3 flex justify-end gap-3">
-                <button onClick={handleSettings}>
-                    <Settings2 className="text-pink" size={26} />
-                </button>
-                <button onClick={handleLogout}>
-                    <LogOut className="text-pink" size={26} />
-                </button>
+                <IconButton
+                    icon={Settings2}
+                    onClick={handleSettings}
+                    className="text-pink"
+                />
+                <IconButton
+                    icon={LogOut}
+                    onClick={handleLogout}
+                    className="text-pink"
+                />
             </div>
         </div>
     )

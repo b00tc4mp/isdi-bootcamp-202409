@@ -185,7 +185,7 @@ function AppContent() {
                     onBackFromSettings={handleBackFromSettings}
                 />
                 <main className="flex-grow overflow-auto">
-                    {isLoggedIn && isLoading ? (
+                    {isLoading || (isLoggedIn && userStage === null) ? (
                         <Spinner />
                     ) : (
                         <Routes>
@@ -195,7 +195,7 @@ function AppContent() {
                                     <Route path="/register" element={<Register onLoginClick={handleLoginClick} onRegistered={handleUserRegistered} />} />
                                     <Route path="*" element={<Navigate to="/login" replace />} />
                                 </>
-                            ) : userStage !== 'completed' ? (
+                            ) : isLoggedIn && userStage && userStage !== 'completed' ? (
                                 <>
                                     <Route path="/setup/name-dob" element={renderSetupStage('name-dob', NameDOBStage, 'gender', userStage, handleSetupComplete)} />
                                     <Route path="/setup/gender" element={renderSetupStage('gender', GenderStage, 'artists', userStage, handleSetupComplete)} />

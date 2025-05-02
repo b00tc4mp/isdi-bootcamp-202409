@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import useContext from '../useContext'
 import { X, Plus, Loader2 } from 'lucide-react'
 import logic from '../../logic'
-import { IconButton } from '../library'
+import { RoundedButton } from '../library'
 import { toBase64 } from '../../util'
 
 const MAX_FILE_SIZE = 4 * 1024 * 1024
@@ -150,7 +150,7 @@ export default function PictureUpload({ existingPictures = [], onPicturesUpdate,
                         className="w-full h-full object-cover rounded-md"
                     />
                     <div className="absolute top-2 right-2">
-                        <IconButton
+                        <RoundedButton
                             icon={X}
                             onClick={() => handleDelete(picture, index)}
                             disabled={disabled}
@@ -170,13 +170,13 @@ export default function PictureUpload({ existingPictures = [], onPicturesUpdate,
             {pictures.length < 3 && (
                 <button
                     onClick={handleAddClick}
-                    className="w-full aspect-[4/3] border-2 border-dashed border-pink rounded-md flex flex-col items-center justify-center gap-3 active:bg-light disabled:bg-light"
+                    className="w-full aspect-[4/3] border-2 border-dashed border-pink rounded-md flex flex-col items-center justify-center gap-3 active:opacity-70 disabled:opacity-70"
                     disabled={disabled || isUploading}
                 >
                     {isUploading ? (
-                        <Loader2 className="w-8 h-8 text-pink animate-spin" />
+                        <Loader2 size={32} className="text-pink animate-spin" />
                     ) : (
-                        <Plus className="w-8 h-8 text-pink" />
+                        <Plus size={32} className="text-pink" />
                     )}
                     <span className="text-pink">
                         {isUploading ? 'Uploading...' : 'Add photo'}
@@ -198,4 +198,3 @@ export default function PictureUpload({ existingPictures = [], onPicturesUpdate,
     )
 }
 // TODO: posar try/catch a les logiques i fer servir SystemError?
-// TODO: igualar els loading/updating entre components

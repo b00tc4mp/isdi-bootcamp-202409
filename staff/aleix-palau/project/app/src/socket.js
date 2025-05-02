@@ -5,7 +5,7 @@ let socket = null
 // Initialize or get the socket instance
 export const getSocket = () => {
     if (!socket && localStorage.token) {
-        console.log("Initializing socket connection...")
+        // console.log("Initializing socket connection...")
         socket = io(`http://${import.meta.env.VITE_API_URL}`, {
             auth: { token: localStorage.token },
             reconnectionAttempts: 5, // Limit reconnection attempts
@@ -14,7 +14,7 @@ export const getSocket = () => {
 
         // Listeners setup
         socket.on('connect', () => {
-            console.log('Socket connected:', socket.id)
+            // console.log('Socket connected:', socket.id)
             // Dispatch event so other components can react to connection
             document.dispatchEvent(new CustomEvent('socketConnected'))
         })

@@ -1,4 +1,4 @@
-import { Match, Heartbeat } from 'dat'
+import { Match, Heartbeat, Notification } from 'dat'
 import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError, AuthorizationError } = errors
@@ -31,6 +31,19 @@ export default (userId, matchId) => {
                     { sender: otherUserId, receiver: userId }
                 ]
             })
+
+            // Delete associated notifications for this match
+            await Notification.deleteMany({ matchId: matchId })
+
+            if (otherUserId) {
+                await Notification.deleteMany({
+                    type: 'match',
+                    $or: [
+                        { from: userId, to: otherUserId },
+                        { from: otherUserId, to: userId }
+                    ]
+                })
+            }
 
             // Delete the match
             await Match.findByIdAndDelete(matchId)

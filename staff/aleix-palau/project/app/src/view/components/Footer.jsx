@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { UserRoundPen, AudioWaveform, MessageCircle } from 'lucide-react'
+import { IconButton } from '../library'
 import { useNotifications } from '../../contexts/NotificationContext'
 
 export default function Footer() {
@@ -24,32 +25,31 @@ export default function Footer() {
     return (
         <nav className="flex justify-evenly py-5 bg-lightest border-t border-skin">
             {/* Profile Button */}
-            <button
+            <IconButton
+                icon={UserRoundPen}
                 onClick={() => handlePageChange('profile')}
-                className={`flex flex-col items-center justify-center scale-125 ${activePage === 'profile' ? 'text-pink' : 'text-dark-blue'}`}
-            >
-                <UserRoundPen size={24} />
-            </button>
+                className={`scale-125 ${activePage === 'profile' ? 'text-pink' : 'text-dark-blue'}`}
+            />
 
             {/* People Button */}
-            <button
+            <IconButton
+                icon={AudioWaveform}
                 onClick={() => handlePageChange('people')}
-                className={`flex flex-col items-center justify-center scale-125 ${activePage === 'people' ? 'text-pink' : 'text-dark-blue'}`}
-            >
-                <AudioWaveform size={24} />
-            </button>
+                className={`scale-125 ${activePage === 'people' ? 'text-pink' : 'text-dark-blue'}`}
+            />
 
             {/* Chat Button with Notification Dot */}
-            <button
-                onClick={() => handlePageChange('chat')}
-                className={`relative flex flex-col items-center justify-center scale-125 ${activePage === 'chat' ? 'text-pink' : 'text-dark-blue'}`}
-            >
-                <MessageCircle size={24} />
+            <div className="relative">
+                <IconButton
+                    icon={MessageCircle}
+                    onClick={() => handlePageChange('chat')}
+                    className={`scale-125 ${activePage === 'chat' ? 'text-pink' : 'text-dark-blue'}`}
+                />
                 {/* Notification Dot - Render conditionally */}
                 {hasUnreadMessages && (
                     <span className="absolute -top-0.75 -right-0.75 h-3 w-3 rounded-full bg-light-blue ring-1 ring-lightest"></span>
                 )}
-            </button>
+            </div>
         </nav>
     )
 }

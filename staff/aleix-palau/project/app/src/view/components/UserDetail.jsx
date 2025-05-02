@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ChevronUp, House, MapPin } from 'lucide-react'
 import { calculateAge, formatDistance, orderArtists } from '../../util'
-import { IconButton, ArtistTag } from '../library'
+import { RoundedButton, ArtistTag } from '../library'
 
 export default function UserDetail({ user, currentUser, onBack }) {
     const [currentPictureIndex, setCurrentPictureIndex] = useState(0)
@@ -97,7 +97,7 @@ export default function UserDetail({ user, currentUser, onBack }) {
 
             {/* Back Button */}
             <div className="flex items-center justify-center p-4">
-                <IconButton
+                <RoundedButton
                     icon={ChevronUp}
                     onClick={onBack}
                     iconSize={32}

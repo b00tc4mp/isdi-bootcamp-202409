@@ -106,8 +106,7 @@ export default (senderId, receiverId, action) => {
             if (error instanceof ValidationError || error instanceof NotFoundError) {
                 throw error
             }
-            // Log the full error for debugging backend issues
-            console.error("Error in createHeartbeat logic:", error)
+            console.error(error)
             throw new SystemError(error.message)
         }
     })()

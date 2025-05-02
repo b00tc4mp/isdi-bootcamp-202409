@@ -186,7 +186,7 @@ export default function Settings() {
                         Your location is used to find matches within your selected distance and is never shared.
                     </div>
                     <button
-                        className={`flex items-center justify-center px-2.5 py-1.5 text-sm bg-light text-darkest-blue rounded-lg active:scale-[.98] min-w-[85.27px] ${(isUpdatingLocation || isSaving) ? 'opacity-70' : ''}`}
+                        className={`flex items-center justify-center px-2.5 py-1.5 text-sm bg-light text-darkest-blue rounded-lg transition-transform active:scale-[.98] min-w-[85.27px] ${(isUpdatingLocation || isSaving) ? 'opacity-70' : ''}`}
                         onClick={handleUpdateLocation}
                         disabled={isUpdatingLocation || isSaving}
                     >
@@ -238,7 +238,7 @@ export default function Settings() {
             <PrimaryButton
                 onClick={handleSaveSettings}
                 disabled={isSaving}
-                className={isSaving ? 'opacity-70' : ''}
+                className={`bg-pink`}
             >Save Changes
             </PrimaryButton>
 
@@ -252,7 +252,7 @@ export default function Settings() {
                     />
                 )
             }
-        </div>
+        </div >
     )
 }
-// TODO: change email/password?, disconnect from spotify?
+// TODO: disconnect from spotify?

@@ -19,7 +19,7 @@ export default (email, password) => {
                     .then(token => {
                         localStorage.token = token
 
-                        console.log('loginUser.js: Dispatching authChange (loggedIn: true)');
+                        // console.log('loginUser.js: Dispatching authChange (loggedIn: true)');
                         document.dispatchEvent(new CustomEvent('authChange', { detail: { loggedIn: true } }))
                     })
 

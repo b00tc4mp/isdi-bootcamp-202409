@@ -12,7 +12,7 @@ export default function NoConversation({ onChatClick }) {
                 Conversation not found
             </h2>
 
-            <PrimaryButton onClick={onChatClick} className="max-w-3xs">
+            <PrimaryButton onClick={onChatClick} className="max-w-3xs bg-pink">
                 Go back to Chat
             </PrimaryButton>
         </div>

@@ -51,7 +51,7 @@ export default function Login(props) {
                     <PasswordInput type="password" id="password" />
                 </Field>
 
-                <PrimaryButton type="submit">Log In</PrimaryButton>
+                <PrimaryButton className="bg-pink" type="submit">Log In</PrimaryButton>
             </Form>
 
             <p>Don't have an account?

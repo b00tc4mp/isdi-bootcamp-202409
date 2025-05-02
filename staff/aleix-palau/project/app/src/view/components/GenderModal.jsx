@@ -28,8 +28,11 @@ export default function GenderModal({ selectedGenders = [], onGendersChange, onC
     }
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-            <div className="bg-light rounded-lg shadow-xl max-w-sm w-full mx-6 p-5">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={onClose}>
+            <div
+                className="w-full max-w-xs mx-6 p-6 bg-light rounded-xl shadow-xl"
+                onClick={e => e.stopPropagation()}
+            >
                 <h2 className="text-darkest-blue text-xl font-semibold mb-4">Show Me</h2>
 
                 <div className="space-y-2 text-dark-blue">
@@ -49,7 +52,7 @@ export default function GenderModal({ selectedGenders = [], onGendersChange, onC
 
                 <div className="flex justify-end mt-4">
                     <PrimaryButton
-                        onClick={handleDoneClick}
+                        className="bg-pink" onClick={handleDoneClick}
                     >Done</PrimaryButton>
                 </div>
             </div>

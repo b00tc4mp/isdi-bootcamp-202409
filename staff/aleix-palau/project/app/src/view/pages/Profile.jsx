@@ -3,6 +3,7 @@ import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
 import { PrimaryButton, ArtistTag } from '../library'
+import { useAutoResizeTextarea } from '../../hooks'
 import { PictureUpload, Spinner } from '../components'
 import { calculateAge, orderArtists } from '../../util'
 
@@ -21,6 +22,8 @@ export default function Profile() {
     const [isLoading, setIsLoading] = useState(true)
     const [isUpdating, setIsUpdating] = useState(false)
 
+    const { textareaRef } = useAutoResizeTextarea(bio, 72)
+
     useEffect(() => {
         logic.getUserProfile()
             .then(profile => {
@@ -35,6 +38,7 @@ export default function Profile() {
             .catch(error => {
                 alert(error.message)
                 console.error(error)
+                setIsLoading(false)
             })
     }, [])
 
@@ -90,10 +94,11 @@ export default function Profile() {
                 <div className="space-y-2">
                     <h2 className="text-xl font-semibold text-darkest-blue">About me</h2>
                     <textarea
+                        ref={textareaRef}
                         value={bio}
-                        onChange={event => setBio(event.target.value)}
+                        onChange={e => setBio(e.target.value)}
                         placeholder="About me..."
-                        className="w-full text-dark-blue"
+                        className="w-full resize-none outline-none text-dark-blue placeholder-dark-blue/60"
                         rows="1"
                         disabled={isUpdating}
                     />
@@ -138,11 +143,9 @@ export default function Profile() {
                 <PrimaryButton
                     onClick={handleUpdateProfile}
                     disabled={isUpdating}
-                    className="mb-4"
+                    className="mb-4 bg-pink"
                 >Save Changes</PrimaryButton>
             </section>
         </div>
     )
 }
-// TODO: skeleton loading => default profile image => fix scrolling => icons del footer com a tuiter, que tinguin un background flash griset, my anthem? => treure duplicate submissions?
-// TODO: agafar la profile picture de profilePicture i no de pictures[0]

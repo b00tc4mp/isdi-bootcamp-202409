@@ -3,7 +3,7 @@ import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
 import { UserDetail, NoMoreProfiles, Spinner } from '../components'
-import { IconButton, ArtistTag } from '../library'
+import { RoundedButton, ArtistTag } from '../library'
 import { MapPin, Heart, X, ChevronDown } from 'lucide-react'
 import { calculateAge, orderArtists } from '../../util'
 
@@ -156,7 +156,7 @@ export default function People({ onSettingsClick }) {
 
             {/* Action Buttons */}
             <div className="flex justify-center items-center mb-4 gap-8">
-                <IconButton
+                <RoundedButton
                     icon={X}
                     onClick={() => handleSwipe('left')}
                     disabled={isLeftSwiping || isRightSwiping}
@@ -164,13 +164,13 @@ export default function People({ onSettingsClick }) {
                     iconSize={32}
                     className={"p-4 bg-darkest-blue text-light"}
                 />
-                <IconButton
+                <RoundedButton
                     icon={ChevronDown}
                     onClick={handleViewUserDetail}
                     iconSize={32}
                     className="p-2.5 bg-light-blue text-light"
                 />
-                <IconButton
+                <RoundedButton
                     icon={Heart}
                     onClick={() => handleSwipe('right')}
                     disabled={isLeftSwiping || isRightSwiping}

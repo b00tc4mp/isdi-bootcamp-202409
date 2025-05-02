@@ -17,6 +17,7 @@ export default function ArtistTag({
                 font-semibold
                 text-sm
                 text-dark-blue
+                transition-transform
                 ${isHighlighted ? 'bg-pink' : 'bg-skin'}
                 ${onClick ? 'active:scale-[.98]' : ''}
                 ${className}
@@ -26,3 +27,4 @@ export default function ArtistTag({
         </span>
     )
 }
+// TODO: edit after spotify implementation

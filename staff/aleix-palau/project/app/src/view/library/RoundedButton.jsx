@@ -1,6 +1,6 @@
 import { Loader2 } from 'lucide-react'
 
-export default function BackButton({
+export default function RoundedButton({
     icon: Icon,
     onClick,
     disabled = false,
@@ -13,6 +13,11 @@ export default function BackButton({
             onClick={onClick}
             disabled={disabled || isLoading}
             className={`
+                rounded-full
+                shadow-md
+                transition-transform
+                active:scale-[.98]
+                leading-snug
                 outline-none
                 ${className}
                 ${disabled ? 'opacity-70' : ''}

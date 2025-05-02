@@ -15,9 +15,6 @@ export default function PrimaryButton({
             className={`
                 w-full
                 max-h-[3rem]
-                inline-flex
-                items-center
-                justify-center
                 rounded-full
                 shadow-md
                 py-3
@@ -29,7 +26,6 @@ export default function PrimaryButton({
                 active:scale-[.98]
                 leading-snug
                 outline-none
-                bg-pink
                 ${className}
                 ${disabled ? 'opacity-70' : ''}
                 `}

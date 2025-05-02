@@ -1,169 +1,191 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
+import { ChevronLeft, Send, UserRoundX } from 'lucide-react'
+import { MessageBubble, IconButton } from '../library'
+import { useAutoResizeTextarea } from '../../hooks'
 import { formatFullDate } from '../../util'
-import { ChevronLeft, Send, UserRoundX, Loader2 } from 'lucide-react'
-import { MessageBubble } from '../library'
 
-export default function Conversation({ match, currentUser, onSendMessage, onUnmatch, onViewProfile, onBack }) {
-    const [message, setMessage] = useState('')
-    const [groupedMessages, setGroupedMessages] = useState([])
-    const [isSending, setIsSending] = useState(false)
-    const messagesEndRef = useRef(null)
-    const textareaRef = useRef(null) // Ref for textarea auto-resize
+// Group messages by date for displaying date headers. Memoized to avoid expensive recalculation
+const useGroupedMessages = messages => {
+    return useMemo(() => {
+        if (!Array.isArray(messages)) return []
 
-    // Find the match partner (the other user)
-    const partner = match.users.find(user => user._id !== currentUser._id)
-
-    // Group messages by date for displaying date headers
-    useEffect(() => {
         const groups = []
         let currentDate = null
 
-        match.messages.forEach(msg => {
+        messages.forEach(msg => {
+            if (!msg?.timestamp) return
+
             const messageDate = new Date(msg.timestamp)
-            // Use formatFullDate here to get the *display* string for grouping logic,
-            // but store the actual date object for the header rendering later.
-            const displayDateStr = formatFullDate(messageDate) // Use the new util for grouping comparison
+            if (isNaN(messageDate.getTime())) return
+
+            const displayDateStr = formatFullDate(messageDate)
 
             if (displayDateStr !== currentDate) {
                 currentDate = displayDateStr
-                // Store the raw date object for the header, but use the formatted string as the key logic
-                groups.push({ date: messageDate, displayDate: displayDateStr, messages: [] }) // Add new group
+                groups.push({
+                    date: messageDate,
+                    displayDate: displayDateStr,
+                    messages: []
+                })
             }
 
             // Add message to the last group
-            if (groups.length > 0) {
-                groups[groups.length - 1].messages.push(msg)
-            }
+            groups[groups.length - 1].messages.push(msg)
         })
-        setGroupedMessages(groups)
-    }, [match.messages])
+
+        return groups
+    }, [messages])
+}
+
+export default function Conversation({ match, currentUser, onSendMessage, onUnmatch, onViewProfile, onBack, isUnmatching }) {
+    const [message, setMessage] = useState('')
+    const [isSending, setIsSending] = useState(false)
+    const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true)
+    const messagesEndRef = useRef(null)
+    const messageContainerRef = useRef(null)
+    const { textareaRef } = useAutoResizeTextarea(message, 96)
+    const previousMessagesLength = useRef(match?.messages?.length || 0)
+
+    // Find the match partner (the other user). Memoized the finding to avoid recalculation on every render
+    const partner = useMemo(() => {
+        if (!match?.users || !Array.isArray(match.users) || !currentUser?._id) return {}
+
+        return match.users.find(user => user?._id !== currentUser._id) || {}
+    }, [match?.users, currentUser?._id])
+
+    const groupedMessages = useGroupedMessages(match?.messages)
+
+    const scrollToBottom = useCallback((behavior = 'auto') => {
+        if (!messagesEndRef.current || !shouldScrollToBottom) return
+
+        messagesEndRef.current.scrollIntoView({ behavior, block: 'end' })
+    }, [shouldScrollToBottom])
+
+    const handleScroll = useCallback(() => {
+        if (!messageContainerRef.current) return
+
+        const { scrollTop, scrollHeight, clientHeight } = messageContainerRef.current
+        const isNearBottom = scrollHeight - scrollTop - clientHeight < 100
+        setShouldScrollToBottom(isNearBottom)
+    }, [])
 
     useEffect(() => {
-        // Focus the textarea when the component mounts or the specific match changes
-        textareaRef.current?.focus()
-    }, [match._id]) // Depend on match._id to refocus if the viewed conversation changes
+        const currentMessagesLength = match?.messages?.length || 0
+        const hasNewMessages = currentMessagesLength > previousMessagesLength.current
 
+        if (hasNewMessages) scrollToBottom('smooth')
+
+        previousMessagesLength.current = currentMessagesLength
+    }, [match?.messages, scrollToBottom])
+
+    // Initial scroll
     useEffect(() => {
-        // Focus the textarea when isSending changes from true to false
-        if (isSending === false) {
-            textareaRef.current?.focus()
-        }
-    }, [isSending]) // This will run when isSending changes
+        scrollToBottom()
+    }, [])
 
-    const handleInputChange = e => {
-        setMessage(e.target.value)
-        autoResizeTextarea() // Auto-resize textarea
-    }
+    const handleSend = useCallback(() => {
+        const textToSend = message
+        if (!textToSend || isSending) return
 
-    // Scroll to bottom when messages change
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView()
-    }, [groupedMessages])
+        setIsSending(true)
+        setMessage('')
+        setShouldScrollToBottom(true)
 
-    // Auto-resize textarea height
-    const autoResizeTextarea = () => {
-        const textarea = textareaRef.current
-        if (textarea) {
-            textarea.style.height = 'auto' // Reset height
-            const scrollHeight = textarea.scrollHeight
-            const maxHeight = 96 // Example: 96px for max-h-24 (6rem)
-            textarea.style.height = `${Math.min(scrollHeight, maxHeight)}px`
-        }
-    }
+        return Promise.resolve()
+            .then(() => onSendMessage(textToSend, match._id))
+            .then(() => {
+                scrollToBottom('smooth')
+            })
+            .catch(error => {
+                alert(error.message)
+                console.error(error)
+            })
+            .finally(() => {
+                setIsSending(false)
+                textareaRef.current?.focus()
+            })
+    }, [message, isSending, match?._id, onSendMessage, textareaRef, scrollToBottom])
 
-    // Adjust height initially and on message change (in case content is loaded)
-    useEffect(() => {
-        autoResizeTextarea()
-    }, [message])
-
-    const handleSend = () => {
-        const textToSend = message.trim()
-        if (!textToSend || isSending) return // Prevent sending empty or during sending
-
-        setIsSending(true) // Set loading state
-        setMessage('') // Clear input immediately
-        requestAnimationFrame(autoResizeTextarea) // Reset textarea height after clearing
-
-        // Use the callback from props -> Call the parent function to actually send the message
-        onSendMessage(textToSend, match._id)
-
-        // Simulate async operation finish - remove this when using real API feedback
-        // In a real app, `isSending` would be set to false in the parent component
-        // based on the success/failure callback or socket event confirmation.
-        // For now, reset after a short delay for demo purposes.
-        setIsSending(false) // Reset sending state (adjust as needed)
-    }
-
-    const handleKeyPress = e => {
+    const handleKeyPress = useCallback(e => {
         if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault() // Prevent newline
+            e.preventDefault()
             handleSend()
         }
-    }
+    }, [handleSend])
 
-    const handleUnmatchConfirm = () => {
-        // Use the callback from props
-        onUnmatch(match._id)
-    }
+    // Auto-focus textarea on mount and after sending
+    useEffect(() => {
+        if (!isSending && textareaRef.current)
+            textareaRef.current?.focus()
+    }, [isSending, match?._id, textareaRef])
 
     return (
         <div className="flex flex-col h-full bg-lightest max-h-screen">
             {/* Conversation Header */}
-            <div className="flex-shrink-0 flex items-center justify-between p-3 bg-lightest border-b border-skin">
-                <button onClick={onBack} className="p-1 active:bg-skin rounded-full">
-                    <ChevronLeft size={24} className="text-pink" />
-                </button>
-
-                <div className="flex flex-col items-center cursor-pointer" onClick={() => onViewProfile(partner)}>
-                    <img
-                        src={partner.profilePicture || '/images/default-profile.jpeg'}
-                        alt={partner.name}
-                        className="w-8 h-8 rounded-full object-cover"
+            <div className="flex items-center justify-between py-3 px-5 bg-light">
+                <div className="flex justify-start">
+                    <IconButton
+                        icon={ChevronLeft}
+                        onClick={onBack}
+                        className="text-pink scale-150"
                     />
-                    <span className="font-semibold text-sm text-darkest-blue mt-1">{partner.name}</span>
+
+                    <div
+                        className="inline-flex items-center justify-center px-3 gap-1.5"
+                        onClick={() => onViewProfile(partner)}
+                    >
+                        <img
+                            src={partner.profilePicture || '/images/default-profile.jpeg'}
+                            alt={partner.name}
+                            className="w-9 h-9 rounded-full object-cover"
+                        />
+                        <span className="font-semibold text-dark-blue">{partner.name}</span>
+                    </div>
                 </div>
 
-                <div className="flex">
-                    <button onClick={handleUnmatchConfirm} className="p-2 text-pink active:bg-skin rounded-full">
-                        <UserRoundX size={20} />
-                    </button>
-                </div>
+                <IconButton
+                    icon={UserRoundX}
+                    onClick={() => onUnmatch(match._id)}
+                    disabled={isSending}
+                    isLoading={isUnmatching}
+                    iconSize={22}
+                    className="text-pink"
+                />
             </div>
 
             {/* Messages Area */}
-            <div className="flex-grow overflow-y-auto p-4 bg-lightest">
+            <div
+                ref={messageContainerRef}
+                onScroll={handleScroll}
+                className="flex-grow overflow-y-auto px-4 bg-light"
+            >
                 {groupedMessages.map((group, groupIndex) => (
-                    <div key={groupIndex} className="mb-4">
+                    <div key={`${group.displayDate}-${groupIndex}`}>
                         {/* Date Header */}
                         <div className="flex justify-center mb-3">
-                            <div className="px-3 py-1 bg-skin text-dark-blue text-xs rounded-full">
+                            <div className="px-2 py-1 bg-skin text-dark-blue text-xs rounded-md">
                                 {group.displayDate}
                             </div>
                         </div>
 
                         {/* Messages */}
-                        {group.messages.map((msg) => {
-                            if (!msg || !msg.sender) return null // Basic check for invalid message data
-
-                            const isCurrentUser = msg.sender === currentUser._id
-
-                            return (
-                                <MessageBubble
-                                    key={msg._id || `msg-${groupIndex}-${msg.timestamp}`} // Use timestamp as fallback key
-                                    message={msg.text}
-                                    timestamp={msg.timestamp}
-                                    isSentByCurrentUser={isCurrentUser}
-                                />
-                            )
-                        })}
+                        {group.messages.map(msg => (
+                            <MessageBubble
+                                key={msg._id || `msg-${msg.timestamp}`}
+                                message={msg.text}
+                                timestamp={msg.timestamp}
+                                isSentByCurrentUser={msg.sender === currentUser._id}
+                                isOptimistic={msg.isOptimistic}
+                            />
+                        ))}
                     </div>
                 ))}
 
                 {/* Empty state if no messages */}
-                {match.messages.length === 0 && (
+                {(!match?.messages?.length) && (
                     <div className="flex flex-col items-center justify-center h-full text-center p-4">
                         <div className="text-dark-blue mb-2">Say hello to {partner.name}!</div>
-                        <div className="text-sm text-dark-blue opacity-70">
+                        <div className="text-sm text-dark-blue/70">
                             This is the beginning of your conversation. Be nice :)
                         </div>
                     </div>
@@ -174,30 +196,26 @@ export default function Conversation({ match, currentUser, onSendMessage, onUnma
             </div>
 
             {/* Message Input */}
-            <div className="flex-shrink-0 p-3 border-t border-skin bg-lightest">
-                <div className="flex items-end bg-skin rounded-full px-4 py-2"> {/* items-end to align button nicely with multi-line text */}
+            <div className="p-3 bg-light">
+                <div className="flex items-center bg-skin rounded-4xl px-4 py-2">
                     <textarea
                         ref={textareaRef}
                         value={message}
-                        onChange={handleInputChange}
+                        onChange={e => setMessage(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        placeholder="Type a message..."
-                        className="flex-grow bg-transparent border-none focus:ring-0 resize-none m-0 p-0 outline-none text-dark-blue placeholder-dark-blue/60 overflow-y-auto" // Basic styling, adjust as needed
-                        rows="1" // Start with single row
-                        disabled={isSending} // Disable while sending
-                        style={{ maxHeight: '96px' }} // Corresponds to max-h-24 Tailwind class
+                        placeholder="Message..."
+                        className="flex-grow resize-none outline-none text-dark-blue placeholder-dark-blue/60"
+                        rows="1"
+                        disabled={isSending || isUnmatching}
                     />
-                    <button
+                    <IconButton
+                        icon={Send}
                         onClick={handleSend}
-                        disabled={!message.trim() || isSending} // Disable if empty or sending
-                        className={`ml-2 p-2 rounded-full flex-shrink-0 ${message.trim() && !isSending ? 'text-pink' : 'text-dark-blue opacity-50'}`}
-                    >
-                        {isSending ? (
-                            <Loader2 size={20} className="animate-spin" />
-                        ) : (
-                            <Send size={20} />
-                        )}
-                    </button>
+                        disabled={!message || isUnmatching}
+                        isLoading={isSending}
+                        iconSize={20}
+                        className={`ml-2 p-2 ${message && !isSending ? 'text-pink' : 'text-dark-blue/50'}`}
+                    />
                 </div>
             </div>
         </div>

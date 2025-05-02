@@ -89,7 +89,7 @@ export default function GenderStage(props) {
                     ))}
                 </Field>
 
-                <PrimaryButton type="submit">Next</PrimaryButton>
+                <PrimaryButton className="bg-pink" type="submit">Next</PrimaryButton>
             </Form>
         </main>
     )

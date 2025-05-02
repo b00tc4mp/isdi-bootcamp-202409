@@ -13,6 +13,7 @@ import NoMessages from './NoMessages'
 import NoConversation from './NoConversation'
 import Spinner from './Spinner'
 import MatchNotification from './MatchNotification'
+import ChatItem from './ChatItem'
 
 export {
     Header,
@@ -29,5 +30,6 @@ export {
     NoMessages,
     NoConversation,
     Spinner,
-    MatchNotification
+    MatchNotification,
+    ChatItem
 }

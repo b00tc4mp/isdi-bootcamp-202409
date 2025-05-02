@@ -16,7 +16,7 @@ export default function NoMoreProfiles({ onSettingsClick }) {
                 Try adjusting your settings to see more people in your area.
             </p>
 
-            <PrimaryButton onClick={onSettingsClick} className="max-w-3xs">
+            <PrimaryButton onClick={onSettingsClick} className="max-w-3xs bg-pink">
                 Go to my settings
             </PrimaryButton>
         </div>
