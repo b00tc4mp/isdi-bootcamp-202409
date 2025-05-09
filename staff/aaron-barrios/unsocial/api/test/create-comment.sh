@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Bearer 6744836625540077f6501f5a' -H 'Content-Type: application/json' -d '{"text":"Mr potato"}' http://localhost:8080/posts/67449aa0b9857ef0ad5260ea/comments -v

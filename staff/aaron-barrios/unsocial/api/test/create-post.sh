@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Bearer 673f40fb5f24beb34f7f463f' -H 'Content-Type: application/json' -d '{"text":"hallo weendy", "image":"https://media.giphy.com/media/QLiqUx7aHg10bl5FVj/giphy.gif?cid=790b7611k9bnssjixy10hu88u0buneurbrjffxxhlxderris&ep=v1_gifs_search&rid=giphy.gif&ct=g"}' http://localhost:8080/posts -v

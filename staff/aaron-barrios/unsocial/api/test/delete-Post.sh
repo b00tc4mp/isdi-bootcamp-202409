@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer 672e3058090fcae7fd450528' -X DELETE http://localhost:8080/posts/672f6446a29aeff27a155b07

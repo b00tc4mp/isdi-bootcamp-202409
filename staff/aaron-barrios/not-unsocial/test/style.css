@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@400..700&family=Sixtyfour&family=Space+Grotesk:wght@300..700&family=Teko:wght@300..700&display=swap');
+
+html {
+    display: flex;
+    justify-content: center;
+}
+
+:root {
+
+    --color: lavender;
+    --font: 'Sixtyfour';
+    font-family: var(--font);
+
+}
+
+body {
+    background-color: black;
+    color: var(--color);
+
+    text-align: center;
+    justify-content: center;
+}
+
+input {
+    background-color: inherit;
+    font-family: inherit;
+    color: lavender;
+    font-size: 32px;
+}
+
+a:visited {
+    color: var(--color);
+}
+
+form {
+    display: list-item;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    text-align: center;
+    justify-content: center;
+
+    font-size: 200%;
+
+}
+
+.home h3 {
+    font-size: 200%;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20%;
+
+    text-align: center;
+    justify-content: center;
+
+    font-size: 200%;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10%;
+
+    text-align: center;
+    justify-content: center;
+
+    font-size: 150%;
+}
+
+.res {
+    text-align: center;
+    justify-content: center;
+}
+
+#but {
+    background-color: rgb(69, 69, 239);
+    color: white;
+    font-size: 26px;
+    font-family: var(--font);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+h2 {
+    font-size: 500%;
+}
+
+label {
+    font-size: 130%;
+}
+
+a {
+    font-size: 200%;
+}
+
+.anchor {
+    font-size: 300%;
+}
