@@ -1,0 +1,12 @@
+.Login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(100, 148, 237, 0.8);
+    border-radius: 10px;
+    border: solid black;
+    margin: 0 2rem;
+    gap: 30px;
+    padding: 5px;
+}
