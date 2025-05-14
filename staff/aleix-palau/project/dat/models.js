@@ -182,7 +182,8 @@ const notification = new Schema({
 }, { versionKey: false })
 
 notification.index({ to: 1, read: 1 })
-notification.index({ to: 1, matchId: 1, read: 1 }) // For marking read by match
+notification.index({ to: 1, matchId: 1, read: 1 }) // For marking message notifications for a specific match as read
+notification.index({ to: 1, type: 1, read: 1, date: 1 }) // For match notifications query
 
 const User = model('User', user)
 const Heartbeat = model('Heartbeat', heartbeat)

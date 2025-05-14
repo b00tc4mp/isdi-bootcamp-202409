@@ -38,4 +38,3 @@ export default (userId, updates) => {
         }
     })()
 }
-// TODO: posar pictures/profilePicture a l'objecte?

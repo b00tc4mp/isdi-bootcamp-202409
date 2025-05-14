@@ -10,7 +10,7 @@ export default createFunctionalHandler(async (req, res) => {
     // Delete match from database first
     await logic.unmatchUser(userId, matchId)
 
-    // Emit unmatch event to everyone in the match room
+    // Notify all users in the match room
     emitToMatchRoom(io, matchId, 'unmatch', {
         matchId,
         initiatedBy: userId

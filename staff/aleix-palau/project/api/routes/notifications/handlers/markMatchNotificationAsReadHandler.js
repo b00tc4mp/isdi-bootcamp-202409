@@ -3,9 +3,9 @@ import { createFunctionalHandler } from '../../helpers/index.js'
 
 export default createFunctionalHandler(async (req, res) => {
     const { userId } = req // from JWT token
+    const { notificationId } = req.params
 
-    const result = await logic.getUnreadNotifications(userId)
+    await logic.markMatchNotificationAsRead(userId, notificationId)
 
-    // Returns structured response with message counts and match notifications
-    res.json(result)
+    res.status(204).send() // No content response for successful update
 })

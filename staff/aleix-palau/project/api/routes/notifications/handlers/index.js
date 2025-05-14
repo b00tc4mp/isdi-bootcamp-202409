@@ -1,7 +1,9 @@
 import getUnreadNotificationsHandler from './getUnreadNotificationsHandler.js'
-import markNotificationsAsReadHandler from './markNotificationsAsReadHandler.js'
+import markMessageNotificationsAsReadHandler from './markMessageNotificationsAsReadHandler.js'
+import markMatchNotificationAsReadHandler from './markMatchNotificationAsReadHandler.js'
 
 export {
     getUnreadNotificationsHandler,
-    markNotificationsAsReadHandler
+    markMessageNotificationsAsReadHandler,
+    markMatchNotificationAsReadHandler
 }

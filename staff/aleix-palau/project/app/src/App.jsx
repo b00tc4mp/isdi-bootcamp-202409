@@ -17,35 +17,27 @@ function AppContent() {
     const [previousPage, setPreviousPage] = useState('/people')
     const [isLoading, setIsLoading] = useState(true)
     const [isLoggedIn, setIsLoggedIn] = useState(logic.isUserLoggedIn())
-    const [matchToShow, setMatchToShow] = useState(null)
+
+    const [matchToShow, setMatchToShow] = useState(null) // For real-time match notifications
+    const [currentOfflineMatchToShow, setCurrentOfflineMatchToShow] = useState(null) // For offline match notifications from the queue
+    const [isProcessingNotificationAction, setIsProcessingNotificationAction] = useState(false)
 
     const navigate = useNavigate()
     const location = useLocation()
-    const { registerMatchListener, unregisterMatchListener } = useNotifications()
+    const { registerMatchListener, pendingMatchNotificationsQueue, markAndDequeueMatchNotification } = useNotifications()
 
     useEffect(() => {
         const checkLoginStatus = () => {
             const loggedInStatus = logic.isUserLoggedIn()
-
-            setIsLoggedIn(prevState => {
-                if (prevState !== loggedInStatus)
-                    return loggedInStatus
-                return prevState
-            })
-
+            setIsLoggedIn(prevState => prevState !== loggedInStatus ? loggedInStatus : prevState)
             if (!loggedInStatus) {
                 setUserStage(null)
                 setIsLoading(false)
             }
         }
         checkLoginStatus()
-
-        // Listen for the custom event dispatched by logic.loginUser/logic.logoutUser or by the tokenUpdated listener in socket.js
-        const handleAuthChange = () => {
-            checkLoginStatus()
-        }
+        const handleAuthChange = () => checkLoginStatus()
         document.addEventListener('authChange', handleAuthChange)
-
         return () => document.removeEventListener('authChange', handleAuthChange)
     }, [])
 
@@ -75,7 +67,7 @@ function AppContent() {
             setIsLoading(false)
         }
 
-        return () => isMounted = false
+        return () => { isMounted = false }
     }, [isLoggedIn])
 
     useEffect(() => {
@@ -87,10 +79,12 @@ function AppContent() {
         }
     }, [location.pathname])
 
-    // Effect for Match Listener
+    // Effect for Real-time Match Listener
     useEffect(() => {
-        if (!isLoggedIn) return
-
+        if (!isLoggedIn) {
+            setMatchToShow(null) // Clear real-time notification if logged out
+            return
+        }
         let currentUserId = null
         try {
             currentUserId = logic.getUserId()
@@ -101,28 +95,41 @@ function AppContent() {
 
         const handleRealtimeMatch = newMatchData => {
             if (!currentUserId) return
-
             // Find the *other* user in the match data
             const otherUser = newMatchData.users?.find(user => user?._id?.toString() !== currentUserId.toString())
-
             if (otherUser) {
                 const notificationData = {
                     _id: newMatchData._id,
+                    notificationId: newMatchData.notificationId,
                     user: { // The other user's details
                         _id: otherUser._id,
                         name: otherUser.name,
                         profilePicture: otherUser.profilePicture || '/images/default-profile.jpeg'
                     }
                 }
-                setMatchToShow(notificationData)
+                if (!matchToShow && !currentOfflineMatchToShow && !isProcessingNotificationAction) // Be more conservative about showing it
+                    setMatchToShow(notificationData)
             }
         }
-        // Register returns the unregister function
         const unregister = registerMatchListener(handleRealtimeMatch)
-
-        // Cleanup function returned by useEffect
         return () => unregister()
-    }, [isLoggedIn, registerMatchListener, unregisterMatchListener])
+    }, [isLoggedIn, registerMatchListener, matchToShow, currentOfflineMatchToShow, isProcessingNotificationAction])
+
+    // Effect to manage showing OFFLINE notifications from the queue
+    useEffect(() => {
+        if (matchToShow) { // If a real-time notification is active, don't show an offline one
+            setCurrentOfflineMatchToShow(null)
+            return
+        }
+        if (pendingMatchNotificationsQueue.length > 0) {
+            // If current offline one is not the head of queue (or not set), update it.
+            if (!currentOfflineMatchToShow || currentOfflineMatchToShow._id !== pendingMatchNotificationsQueue[0]._id) {
+                setCurrentOfflineMatchToShow(pendingMatchNotificationsQueue[0])
+            }
+        } else {
+            setCurrentOfflineMatchToShow(null) // Clear if queue is empty
+        }
+    }, [matchToShow, pendingMatchNotificationsQueue, currentOfflineMatchToShow])
 
     // --- Handlers ---
     const handleSetupComplete = nextStage => {
@@ -155,20 +162,53 @@ function AppContent() {
         navigate('/login')
     }
 
-    const handleStartChatFromNotification = () => {
-        if (matchToShow?._id) {
-            const matchId = matchToShow._id
-            setMatchToShow(null)
-            navigate(`/chat/${matchId}`)
-        }
-    }
-
     const handleRegisterClick = () => navigate('/register')
     const handleLoginClick = () => navigate('/login')
     const handleUserRegistered = () => navigate('/login')
     const handleSettingsClick = () => navigate('/settings')
     const handleChatClick = () => navigate('/chat')
     const handleBackFromSettings = () => navigate(previousPage)
+
+    const handleNotificationAction = async (notification, isRealTime, shouldNavigate) => {
+        if (isProcessingNotificationAction || !notification) return
+        setIsProcessingNotificationAction(true)
+
+        try {
+            const notificationId = isRealTime ? notification.notificationId : notification._id
+
+            if (!notificationId) {
+                console.error('Missing notification ID in notification action handler')
+                return
+            }
+
+            await markAndDequeueMatchNotification(notificationId)
+
+            // Clear the appropriate state
+            if (isRealTime)
+                setMatchToShow(null)
+
+            // Navigation happens after clearing notification state
+            if (shouldNavigate) {
+                const navigateToMatchId = isRealTime ? notification._id : notification.matchId
+                if (navigateToMatchId)
+                    navigate(`/chat/${navigateToMatchId}`)
+                else
+                    console.error("Unified handler: Cannot navigate, navigateToMatchId is missing.", { notification, isRealTime })
+            }
+        } catch (error) {
+            console.error(`Error handling ${isRealTime ? 'real-time' : 'offline'} notification:`, error)
+            // Still clear notification for better UX
+            if (isRealTime)
+                setMatchToShow(null)
+        } finally {
+            setIsProcessingNotificationAction(false)
+        }
+    }
+
+    const handleRealtimeMatchDismissed = () => handleNotificationAction(matchToShow, true, false)
+    const handleStartChatFromNotification = () => handleNotificationAction(matchToShow, true, true)
+    const handleOfflineMatchDismissed = () => handleNotificationAction(currentOfflineMatchToShow, false, false)
+    const handleStartChatFromOfflineNotification = () => handleNotificationAction(currentOfflineMatchToShow, false, true)
 
     const showFooter = isLoggedIn && userStage === 'completed' && !isLoading
 
@@ -223,12 +263,13 @@ function AppContent() {
             {(alert.message || alert.title) && <Alert message={alert.message} title={alert.title} level={alert.level} onAccepted={handleAlertAccepted} />}
             {(confirm.message || confirm.title) && <Confirm message={confirm.message} title={confirm.title} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
 
-            {/* Match Notification */}
-            {matchToShow && (
+            {/* Match Notification Display Logic: Real-time notifications take priority over offline queue */}
+            {(matchToShow || currentOfflineMatchToShow) && (
                 <MatchNotification
-                    match={matchToShow}
-                    onClose={() => setMatchToShow(null)}
-                    onStartChat={handleStartChatFromNotification}
+                    match={matchToShow || currentOfflineMatchToShow}
+                    onClose={matchToShow ? handleRealtimeMatchDismissed : handleOfflineMatchDismissed}
+                    onStartChat={matchToShow ? handleStartChatFromNotification : handleStartChatFromOfflineNotification}
+                    isProcessing={isProcessingNotificationAction}
                 />
             )}
         </Context.Provider>

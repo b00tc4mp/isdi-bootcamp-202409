@@ -1,6 +1,6 @@
 import { PrimaryButton } from '../library'
 
-export default function MatchNotification({ match, onClose, onStartChat }) {
+export default function MatchNotification({ match, onClose, onStartChat, isProcessing = false }) {
     if (!match || !match.user) return null
 
     const { name, profilePicture } = match.user
@@ -23,15 +23,23 @@ export default function MatchNotification({ match, onClose, onStartChat }) {
                 </div>
 
                 <div className="space-y-3">
-                    <PrimaryButton className="bg-pink" onClick={onStartChat}>
+                    <PrimaryButton
+                        className="bg-pink"
+                        onClick={onStartChat}
+                        disabled={isProcessing}
+                    >
                         Start Chatting
                     </PrimaryButton>
 
-                    <PrimaryButton className="bg-light" onClick={onClose}>
+                    <PrimaryButton
+                        className="bg-light"
+                        onClick={onClose}
+                        disabled={isProcessing}
+                    >
                         Keep Browsing
                     </PrimaryButton>
                 </div>
-            </div >
-        </div >
+            </div>
+        </div>
     )
 }

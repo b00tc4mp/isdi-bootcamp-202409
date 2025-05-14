@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
+import useContext from '../useContext'
 import { ChevronLeft, Send, UserRoundX } from 'lucide-react'
 import { MessageBubble, IconButton } from '../library'
 import { useAutoResizeTextarea } from '../../hooks'
@@ -38,6 +39,8 @@ const useGroupedMessages = messages => {
 }
 
 export default function Conversation({ match, currentUser, onSendMessage, onUnmatch, onViewProfile, onBack, isUnmatching }) {
+    const { alert } = useContext()
+
     const [message, setMessage] = useState('')
     const [isSending, setIsSending] = useState(false)
     const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true)

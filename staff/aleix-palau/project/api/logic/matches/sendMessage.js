@@ -16,45 +16,45 @@ export default (userId, matchId, text) => {
 
             if (!match) throw new NotFoundError('match not found')
 
-            // Ensure userId is compared correctly (ObjectId vs string)
-            if (!match.users.some(id => id.toString() === userId.toString())) throw new AuthorizationError('user is not part of this match')
+            if (!match.users.some(id => id.toString() === userId.toString()))
+                throw new AuthorizationError('user is not part of this match')
 
             // Create new message
             const newMessage = {
-                _id: new mongoose.Types.ObjectId(), // Generate new ID for the message
+                _id: new mongoose.Types.ObjectId(),
                 sender: userId,
                 text: text.trim(),
                 timestamp: new Date(),
             }
 
-            // Add message to match using $push and update lastActivity atomically
+            // Add message and update lastActivity
             const updatedMatch = await Match.findByIdAndUpdate(
                 matchId,
                 {
                     $push: { messages: newMessage },
                     $set: { lastActivity: newMessage.timestamp }
                 },
-                { new: true } // Return the updated document if needed, though not strictly necessary here
+                { new: true }
             )
 
             if (!updatedMatch) throw new SystemError('Failed to save message to match')
 
-            // Create notification for the other user
+            // Find the other user to notify
             const otherUserId = match.users.find(id => id.toString() !== userId.toString())
 
-            if (otherUserId) { // Ensure other user exists
+            // Create notification if there's another user to notify
+            if (otherUserId) {
                 await new Notification({
                     from: userId,
                     to: otherUserId,
                     type: 'message',
-                    date: newMessage.timestamp, // Use message timestamp for notification
+                    date: newMessage.timestamp,
                     read: false,
                     matchId: matchId
                 }).save()
             }
 
-            // Return the newly created message object (including its _id)
-            // Note: Because it's embedded, the _id is part of the object added to the array
+            // Get the saved message from the updated match
             const savedMessage = updatedMatch.messages[updatedMatch.messages.length - 1]
 
             return {
@@ -64,12 +64,10 @@ export default (userId, matchId, text) => {
                 timestamp: savedMessage.timestamp,
             }
         } catch (error) {
-            if (error instanceof NotFoundError || error instanceof AuthorizationError) {
+            if (error instanceof NotFoundError || error instanceof AuthorizationError)
                 throw error
-            }
 
             throw new SystemError(error.message)
         }
     })()
 }
-// TODO: mirar lo de pagination pels missatges

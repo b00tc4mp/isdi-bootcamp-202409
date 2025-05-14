@@ -6,17 +6,20 @@ export default createFunctionalHandler(async (req, res) => {
     const { userId } = req // from JWT token (sender)
     const { matchId } = req.params
     const { text } = req.body
-    const { io } = req // Get io instance from request object
+    const { io } = req
     const userSockets = req.app.get('userSockets')
 
-    // Save message to database first (ensures persistence)
+    // Save message to database first
     const message = await logic.sendMessage(userId, matchId, text)
 
-    // Emit to everyone in the room except the sender
-    emitToMatchRoomExcept(io, userSockets, matchId, userId, 'newMessage', {
+    // Include the matchId for the client to know which conversation it belongs to
+    const messageWithMatchId = {
         ...message,
-        matchId // Include matchId in the event data for easier handling
-    })
+        matchId
+    }
+
+    // Emit to everyone in the match room except the sender
+    emitToMatchRoomExcept(io, userSockets, matchId, userId, 'newMessage', messageWithMatchId)
 
     // Respond with the saved message
     res.status(201).json(message)

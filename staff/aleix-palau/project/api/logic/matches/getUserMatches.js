@@ -18,7 +18,7 @@ export default userId => {
                 .sort({ lastActivity: -1 }) // Sort by most recent activity
                 .lean()
 
-            return matches
+            return matches || []
         } catch (error) {
             throw new SystemError(error.message)
         }

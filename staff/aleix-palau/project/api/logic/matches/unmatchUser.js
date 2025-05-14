@@ -12,47 +12,36 @@ export default (userId, matchId) => {
             // Find the match
             const match = await Match.findById(matchId)
 
-            if (!match) {
-                throw new NotFoundError('match not found')
-            }
+            if (!match) throw new NotFoundError('match not found')
 
             // Check if user is part of the match
-            if (!match.users.includes(userId)) {
+            if (!match.users.some(id => id.toString() === userId.toString()))
                 throw new AuthorizationError('user is not part of this match')
-            }
 
             // Get the other user id
             const otherUserId = match.users.find(id => id.toString() !== userId.toString())
 
-            // Delete both heartbeats (so they can match again in the future if they want)
-            await Heartbeat.deleteMany({
-                $or: [
-                    { sender: userId, receiver: otherUserId },
-                    { sender: otherUserId, receiver: userId }
-                ]
-            })
-
-            // Delete associated notifications for this match
-            await Notification.deleteMany({ matchId: matchId })
-
-            if (otherUserId) {
-                await Notification.deleteMany({
-                    type: 'match',
+            // Process all deletion operations in parallel for efficiency
+            await Promise.all([
+                // Delete heartbeats between the users
+                Heartbeat.deleteMany({
                     $or: [
-                        { from: userId, to: otherUserId },
-                        { from: otherUserId, to: userId }
+                        { sender: userId, receiver: otherUserId },
+                        { sender: otherUserId, receiver: userId }
                     ]
-                })
-            }
+                }),
 
-            // Delete the match
-            await Match.findByIdAndDelete(matchId)
+                // Delete all notifications related to this match
+                Notification.deleteMany({ matchId: matchId }),
+
+                // Delete the match itself
+                Match.findByIdAndDelete(matchId)
+            ])
 
             return true
         } catch (error) {
-            if (error instanceof NotFoundError || error instanceof AuthorizationError) {
+            if (error instanceof NotFoundError || error instanceof AuthorizationError)
                 throw error
-            }
 
             throw new SystemError(error.message)
         }

@@ -27,7 +27,8 @@ import {
 
 import {
     getUnreadNotifications,
-    markNotificationsAsRead
+    markMessageNotificationsAsRead,
+    markMatchNotificationAsRead
 } from './notifications'
 
 const logic = {
@@ -50,7 +51,8 @@ const logic = {
     sendMessage,
     unmatchUser,
     getUnreadNotifications,
-    markNotificationsAsRead
+    markMessageNotificationsAsRead,
+    markMatchNotificationAsRead
 }
 
 export default logic

@@ -20,11 +20,10 @@ export default (userId, matchId) => {
             }
 
             // Return the messages array
-            return match.messages
+            return match.messages || []
         } catch (error) {
-            if (error instanceof NotFoundError || error instanceof AuthorizationError) {
+            if (error instanceof NotFoundError || error instanceof AuthorizationError)
                 throw error
-            }
 
             throw new SystemError(error.message)
         }

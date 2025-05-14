@@ -8,62 +8,65 @@ export default (userId, pictureToRemove) => {
     validate.pictures([pictureToRemove])
 
     return (async () => {
-        let user
-        let updatedUser
-
-        // Fetch user with lean() for better performance since we don't need the full document
         try {
-            user = await User.findById(userId).lean()
-        } catch (error) {
-            throw new SystemError(error.message)
-        }
+            // Fetch user
+            const user = await User.findById(userId).lean()
+            if (!user) throw new NotFoundError('user not found')
 
-        if (!user) throw new NotFoundError('user not found')
+            // Ensure pictures array exists and has content
+            const pictures = user.pictures || []
+            if (pictures.length === 0)
+                throw new ValidationError('user has no pictures to remove')
 
-        // Ensure pictures array exists and has content
-        const pictures = user.pictures || []
-        if (pictures.length === 0) throw new ValidationError('user has no pictures to remove')
+            // Validate minimum pictures
+            if (pictures.length === 1)
+                throw new ValidationError('cannot remove the last picture')
 
-        // Validate minimum pictures constraint
-        if (pictures.length === 1) throw new ValidationError('cannot remove the last picture')
+            // Ensure picture exists
+            const index = pictures.indexOf(pictureToRemove)
+            if (index === -1)
+                throw new NotFoundError('picture not found in user profile')
 
-        // Find the picture index
-        const index = pictures.indexOf(pictureToRemove)
-        if (index === -1) throw new NotFoundError('picture not found')
+            // Prepare update object
+            const updateObject = {
+                $pull: { pictures: pictureToRemove }
+            }
 
-        // Create update object for atomic operation
-        const updateObject = {
-            $pull: { pictures: pictureToRemove }
-        }
+            // Handle profile picture update if needed
+            if (user.profilePicture === pictureToRemove) {
+                // Choose a replacement profile picture
+                let newProfilePicture = null
 
-        // Handle profile picture update if needed
-        if (user.profilePicture === pictureToRemove) {
-            // Choose the next picture if available, otherwise the previous one; if none, set to null.
-            const newProfilePicture = pictures.length > 1 ?
-                pictures[index + 1] || pictures[index - 1] : null
-            updateObject.$set = { profilePicture: newProfilePicture }
-        }
+                // Try to get the next picture, or previous if at the end
+                if (pictures.length > 1) {
+                    const remainingPictures = pictures.filter(pic => pic !== pictureToRemove)
+                    newProfilePicture = remainingPictures[0]
+                }
 
-        // Perform atomic update and get updated document
-        try {
-            updatedUser = await User.findByIdAndUpdate(
+                updateObject.$set = { profilePicture: newProfilePicture }
+            }
+
+            // Perform atomic update
+            const updatedUser = await User.findByIdAndUpdate(
                 userId,
                 updateObject,
                 {
-                    new: true,         // Return updated document
-                    runValidators: true // Run model validators
+                    new: true,
+                    runValidators: true
                 }
             )
+
+            if (!updatedUser) throw new SystemError('Failed to update user pictures')
+
+            return {
+                pictures: updatedUser.pictures,
+                profilePicture: updatedUser.profilePicture || '/images/default-profile.jpeg'
+            }
         } catch (error) {
+            if (error instanceof NotFoundError || error instanceof ValidationError)
+                throw error
+
             throw new SystemError(error.message)
-        }
-
-        if (!updatedUser) throw new SystemError('Failed to update user pictures')
-
-        // Return updated pictures array and profile picture for frontend sync
-        return {
-            pictures: updatedUser.pictures,
-            profilePicture: updatedUser.profilePicture
         }
     })()
 }

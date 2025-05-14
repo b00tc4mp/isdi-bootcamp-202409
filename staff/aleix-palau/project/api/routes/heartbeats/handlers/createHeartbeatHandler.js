@@ -1,38 +1,62 @@
 import logic from '../../../logic/index.js'
 import { createFunctionalHandler } from '../../helpers/index.js'
 import { emitToUser, addUserToMatchRoom } from '../../../socketUtils.js'
+import { Notification } from 'dat'
 
 export default createFunctionalHandler(async (req, res) => {
-    const { userId } = req // from JWT token (senderId)
+    const { userId: senderId } = req // from JWT token
     const { receiverId, action } = req.body
-    const { io } = req // Get io instance from request object
+    const { io } = req
     const userSockets = req.app.get('userSockets')
 
-    // Call the logic function
-    const result = await logic.createHeartbeat(userId, receiverId, action)
+    const result = await logic.createHeartbeat(senderId, receiverId, action)
 
-    // Check if a match was created
-    if (result.match) {
-        const populatedMatchData = result.match
+    // Process match creation (if any)
+    if (result.match && result.match._id)
+        await notifyUsersAboutMatch(result.match, io, userSockets)
 
-        // Ensure both users are in the match room
-        if (populatedMatchData._id && populatedMatchData.users) {
-            const matchId = populatedMatchData._id
-
-            // Add both users to the match room if they're connected
-            populatedMatchData.users.forEach(user => {
-                if (user && user._id) {
-                    const targetUserId = user._id.toString()
-
-                    // Add user to match room
-                    addUserToMatchRoom(io, userSockets, targetUserId, matchId)
-
-                    // Emit newMatch event to the user
-                    emitToUser(io, userSockets, targetUserId, 'newMatch', populatedMatchData)
-                }
-            })
-        }
-    }
-
+    // Return success response with result
     res.status(201).json(result)
 })
+
+// Notifies users about a new match via sockets
+async function notifyUsersAboutMatch(matchData, io, userSockets) {
+    const matchId = matchData._id
+    const users = matchData.users || []
+
+    if (!matchId || users.length !== 2) {
+        console.error('[Match Notification] Invalid match data:', matchId, 'users:', users?.length)
+        return
+    }
+
+    // Find all notifications for this match at once
+    const matchNotifications = await Notification.find({
+        matchId: matchId,
+        type: 'match'
+    }).lean()
+
+    // Process each user
+    for (const user of users) {
+        if (!user?._id) continue
+
+        const userId = user._id.toString()
+
+        // Add user to match chat room
+        addUserToMatchRoom(io, userSockets, userId, matchId)
+
+        // Find this user's notification
+        const userNotification = matchNotifications.find(n => n.to.toString() === userId)
+
+        if (!userNotification)
+            console.error(`[Socket] No match notification found for user ${userId} and match ${matchId}`)
+
+        // Prepare payload with notification ID
+        const eventPayload = {
+            ...matchData,
+            notificationId: userNotification?._id?.toString() || null
+        }
+
+        // Send match event to this user
+        emitToUser(io, userSockets, userId, 'newMatch', eventPayload)
+    }
+}

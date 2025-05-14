@@ -1,7 +1,9 @@
 import getUnreadNotifications from './getUnreadNotifications'
-import markNotificationsAsRead from './markNotificationsAsRead'
+import markMessageNotificationsAsRead from './markMessageNotificationsAsRead'
+import markMatchNotificationAsRead from './markMatchNotificationAsRead'
 
 export {
     getUnreadNotifications,
-    markNotificationsAsRead
+    markMessageNotificationsAsRead,
+    markMatchNotificationAsRead
 }

@@ -143,7 +143,7 @@ export default function Chat({ onChatClick }) {
                     })
             },
             'warn',
-            `Unmatch with ${partnerName}?`
+            `Unmatch ${partnerName}?`
         )
     }, [matches, currentUser, matchId, navigate, confirm, alert, setLoading, unreadMatches, markMatchAsRead])
 
