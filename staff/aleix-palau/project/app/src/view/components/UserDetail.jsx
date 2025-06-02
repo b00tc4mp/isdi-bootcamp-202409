@@ -82,12 +82,18 @@ export default function UserDetail({ user, currentUser, onBack }) {
                 <>
                     <h2 className="text-lg font-semibold text-dark-blue mb-2.5">Artists</h2>
                     <div className="flex flex-wrap gap-1.5">
-                        {orderArtists(user.artists).map((artist, index) => {
-                            const isCommonArtist = user.commonArtists && user.commonArtists.includes(artist)
+                        {orderArtists(user.artists).map(artist => {
+                            // Check if this artist is a common artist
+                            // commonArtists is an array of artist names (strings)
+                            const artistName = typeof artist === 'string' ? artist : artist.name
+                            const isCommonArtist = user.commonArtists && user.commonArtists.includes(artistName)
 
                             return (
-                                <ArtistTag key={index} isHighlighted={isCommonArtist}>
-                                    {artist}
+                                <ArtistTag
+                                    key={typeof artist === 'string' ? artist : artist.id}
+                                    isHighlighted={isCommonArtist}
+                                >
+                                    {artistName}
                                 </ArtistTag>
                             )
                         })}

@@ -69,7 +69,7 @@ async function getInteractedUserIds(userId) {
 
 // Build and execute query for potential matches based on user preferences
 async function queryPotentialMatches(user, interactedWith) {
-    const { targetGender, minAge, maxAge, distance, coordinates, artists } = user
+    const { targetGender, minAge, maxAge, distance, coordinates, artists: userArtistsArray } = user
 
     // Base query - exclude already interacted with and require completed profile
     const query = {
@@ -110,8 +110,10 @@ async function queryPotentialMatches(user, interactedWith) {
     }
 
     // Apply artist preference if available
-    if (artists && artists.length > 0)
-        query.artists = { $in: artists } // Match users with at least one artist in common
+    if (userArtistsArray && userArtistsArray.length > 0) {
+        const userArtistIds = userArtistsArray.map(artist => artist.id) // Extract IDs
+        query['artists.id'] = { $in: userArtistIds } // Match users with at least one artist in common
+    }
 
     // Execute query with required fields
     return User.find(query)
@@ -166,12 +168,15 @@ function shouldCheckDistance(user, potentialMatch) {
 
 // Process matches to include compatibility information
 function processMatchResults(user, matches) {
-    const userArtists = user.artists || []
+    const userArtists = user.artists || [] // Array of {id, name}
 
     // Add compatibility information to each match
     const processedMatches = matches.map(match => {
-        const matchArtists = match.artists || []
-        const commonArtists = matchArtists.filter(artist => userArtists.includes(artist))
+        const matchArtists = match.artists || [] // Array of {id, name}
+        const commonArtistsObjects = matchArtists.filter(matchArtist =>
+            userArtists.some(userArtist => userArtist.id === matchArtist.id)
+        )
+        const commonArtistsNames = commonArtistsObjects.map(artist => artist.name)
 
         return {
             _id: match._id,
@@ -184,8 +189,8 @@ function processMatchResults(user, matches) {
             pictures: match.pictures,
             coordinates: match.coordinates,
             age: match.dateOfBirth ? calculateAge(match.dateOfBirth) : null,
-            commonArtistsCount: commonArtists.length,
-            commonArtists
+            commonArtistsCount: commonArtistsNames.length,
+            commonArtists: commonArtistsNames
         }
     })
 

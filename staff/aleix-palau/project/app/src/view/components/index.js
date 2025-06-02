@@ -14,6 +14,8 @@ import NoConversation from './NoConversation'
 import Spinner from './Spinner'
 import MatchNotification from './MatchNotification'
 import ChatItem from './ChatItem'
+import SpotifyConnectionSection from './SpotifyConnectionSection'
+import ArtistSearchBox from './ArtistSearchBox'
 
 export {
     Header,
@@ -31,5 +33,7 @@ export {
     NoConversation,
     Spinner,
     MatchNotification,
-    ChatItem
+    ChatItem,
+    SpotifyConnectionSection,
+    ArtistSearchBox
 }

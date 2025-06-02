@@ -35,7 +35,7 @@ const validateId = (id, explain = 'id') => {
     if (id.length !== 24) throw new ValidationError(`invalid ${explain} length`)
 }
 
-// const validateCallback = callback => {
+// const validateCallback = callback => { // TODO
 //     if (typeof callback !== 'function') throw new ValidationError('invalid callback')
 // }
 
@@ -75,6 +75,11 @@ const validateTargetGender = targetGender => {
 
 const validateArtists = artists => {
     if (!Array.isArray(artists)) throw new ValidationError('invalid artists: must be an array')
+    artists.forEach(artist => {
+        if (typeof artist !== 'object' || artist === null) throw new ValidationError('invalid artist entry: must be an object')
+        if (typeof artist.id !== 'string' || artist.id.trim().length === 0) throw new ValidationError('invalid artist id: must be a non-empty string')
+        if (typeof artist.name !== 'string' || artist.name.trim().length === 0) throw new ValidationError('invalid artist name: must be a non-empty string')
+    })
 }
 
 const MAX_PIC_SIZE_MB = 4
@@ -109,7 +114,7 @@ const validatePictures = pictures => {
 const validateProfilePicture = (profilePicture, pictures) => {
     if (profilePicture === null) return
     if (typeof profilePicture !== 'string') throw new ValidationError('invalid profile picture')
-    if (!pictures.includes(profilePicture)) throw new ValidationError('profile picture must be one of the uploaded pictures')
+    if (pictures && !pictures.includes(profilePicture)) throw new ValidationError('profile picture must be one of the uploaded pictures')
 }
 
 const validateBio = bio => {
@@ -123,10 +128,11 @@ const validateLocation = location => {
     if (typeof location !== 'string') throw new ValidationError('invalid location')
 }
 
-const validateMinAge = minAge => {
+const validateMinAge = (minAge, maxAge) => {
     if (typeof minAge !== 'number') throw new ValidationError('invalid minimum age')
     if (minAge < 18) throw new ValidationError('minimum age must be at least 18')
     if (minAge > 55) throw new ValidationError('minimum age cannot exceed 55')
+    if (maxAge && minAge > minAge) throw new ValidationError('minimum age cannot be more than maximum age')
 }
 
 const validateMaxAge = (maxAge, minAge) => {
@@ -166,6 +172,22 @@ const validateAction = action => {
     if (action !== 'left' && action !== 'right') throw new ValidationError('invalid action, must be "left" or "right"')
 }
 
+const validateSpotifyId = spotifyId => {
+    if (typeof spotifyId !== 'string' || spotifyId.trim().length === 0) throw new ValidationError('invalid Spotify ID')
+}
+
+const validateSpotifyToken = token => {
+    if (typeof token !== 'string' || token.trim().length === 0) throw new ValidationError('invalid Spotify token')
+}
+
+const validateCode = code => {
+    if (typeof code !== 'string' || !code.trim().length) throw new ValidationError('Authorization code is required')
+}
+
+const validateQuery = query => {
+    if (typeof query !== 'string' || !query.trim().length) throw new ValidationError('Search query is required')
+}
+
 const validate = {
     name: validateName,
     email: validateEmail,
@@ -173,7 +195,7 @@ const validate = {
     passwordsMatch: validatePasswordsMatch,
     text: validateText,
     id: validateId,
-    // callback: validateCallback, // TODO: mirar si cal
+    // callback: validateCallback, // TODO
     dateOfBirth: validateDateOfBirth,
     stage: validateStage,
     gender: validateGender,
@@ -187,7 +209,12 @@ const validate = {
     maxAge: validateMaxAge,
     distance: validateDistance,
     coordinates: validateCoordinates,
-    action: validateAction
+    action: validateAction,
+    spotifyId: validateSpotifyId,
+    spotifyToken: validateSpotifyToken,
+    code: validateCode,
+    query: validateQuery
 }
 
 export default validate
+// TODO: maybe delete spotifyId and simply use id

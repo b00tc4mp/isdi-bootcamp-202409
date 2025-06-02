@@ -31,6 +31,14 @@ import {
     markMatchNotificationAsRead
 } from './notifications'
 
+import {
+    getSpotifyAuthURL,
+    connectSpotifyAccount,
+    disconnectSpotifyAccount,
+    getSpotifyStatus,
+    searchSpotifyArtists
+} from './spotify'
+
 const logic = {
     registerUser,
     loginUser,
@@ -52,7 +60,12 @@ const logic = {
     unmatchUser,
     getUnreadNotifications,
     markMessageNotificationsAsRead,
-    markMatchNotificationAsRead
+    markMatchNotificationAsRead,
+    getSpotifyAuthURL,
+    connectSpotifyAccount,
+    disconnectSpotifyAccount,
+    getSpotifyStatus,
+    searchSpotifyArtists
 }
 
 export default logic

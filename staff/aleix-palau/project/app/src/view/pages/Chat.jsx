@@ -213,12 +213,19 @@ export default function Chat({ onChatClick }) {
     // Highlight common artists in Chat's UserDetail
     const handleViewProfile = partnerData => {
         if (partnerData && currentUser?.artists && Array.isArray(partnerData.artists)) {
-            // Find the intersection (common artists)
-            const commonArtists = partnerData.artists.filter(artist => currentUser.artists.includes(artist))
+            // Find the intersection (common artists) by comparing IDs
+            const commonArtists = partnerData.artists.filter(partnerArtist => {
+                const partnerArtistId = typeof partnerArtist === 'string' ? partnerArtist : partnerArtist.id
+                return currentUser.artists.some(userArtist => {
+                    const userArtistId = typeof userArtist === 'string' ? userArtist : userArtist.id
+                    return userArtistId === partnerArtistId
+                })
+            }).map(artist => typeof artist === 'string' ? artist : artist.name)
+
             setViewingProfile({ ...partnerData, commonArtists })
         } else {
             // Show profile without highlighting if data is incomplete
-            setViewingProfile(partnerData) // Show profile anyway, but highlighting won't work
+            setViewingProfile(partnerData)
         }
     }
 

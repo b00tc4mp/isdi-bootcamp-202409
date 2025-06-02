@@ -13,6 +13,9 @@ export default function RoundedButton({
             onClick={onClick}
             disabled={disabled || isLoading}
             className={`
+                flex
+                items-center
+                justify-center
                 rounded-full
                 shadow-md
                 transition-transform

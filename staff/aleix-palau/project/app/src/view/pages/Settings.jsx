@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import useContext from '../useContext'
 import { errors } from 'com'
 import logic from '../../logic'
-import { GenderModal, SettingsSection, Spinner } from '../components'
+import { GenderModal, SettingsSection, Spinner, SpotifyConnectionSection } from '../components'
 import { SingleSlider, DualSlider, PrimaryButton } from '../library'
 import { ChevronRight, MapPin, RefreshCw, Loader2 } from 'lucide-react'
 import { formatLocation } from '../../util'
@@ -10,7 +10,7 @@ import { formatLocation } from '../../util'
 const { SystemError } = errors
 
 export default function Settings() {
-    const { alert, confirm } = useContext() // TODO: confirm per lo dspoti Settings.1.jsx
+    const { alert, confirm } = useContext()
 
     const [targetGender, setTargetGender] = useState([])
     const [coordinates, setCoordinates] = useState({})
@@ -23,21 +23,28 @@ export default function Settings() {
     const [isUpdatingLocation, setIsUpdatingLocation] = useState(false)
     const [showGenderModal, setShowGenderModal] = useState(false)
 
+    const [isSpotifyConnected, setIsSpotifyConnected] = useState(false)
+
     // Load user settings
     useEffect(() => {
-        logic.getUserProfile()
-            .then(profile => {
+        Promise.all([
+            logic.getUserProfile(),
+            logic.getSpotifyStatus()
+        ])
+            .then(([profile, spotifyStatus]) => {
                 // Set settings from profile
                 setTargetGender(profile.targetGender || [])
                 setCoordinates(profile.coordinates || {})
                 setDistance(profile.distance || 100)
                 setMinAge(profile.minAge || 18)
                 setMaxAge(profile.maxAge || 55)
+                setIsSpotifyConnected(spotifyStatus)
                 setIsLoading(false)
             })
             .catch(error => {
                 alert(error.message)
                 console.error(error)
+                setIsLoading(false)
             })
     }, [])
 
@@ -186,7 +193,7 @@ export default function Settings() {
                         Your location is used to find matches within your selected distance and is never shared.
                     </div>
                     <button
-                        className={`flex items-center justify-center px-2.5 py-1.5 text-sm bg-light text-darkest-blue rounded-lg transition-transform active:scale-[.98] min-w-[85.27px] ${(isUpdatingLocation || isSaving) ? 'opacity-70' : ''}`}
+                        className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-sm bg-light text-darkest-blue rounded-lg transition-transform active:scale-[.98] min-w-[85.27px] ${(isUpdatingLocation || isSaving) ? 'opacity-70' : ''}`}
                         onClick={handleUpdateLocation}
                         disabled={isUpdatingLocation || isSaving}
                     >
@@ -196,7 +203,7 @@ export default function Settings() {
                             </>
                         ) : (
                             <>
-                                <RefreshCw size={16} className="mr-1" />
+                                <RefreshCw size={16} />
                                 <span>Update</span>
                             </>
                         )}
@@ -234,6 +241,18 @@ export default function Settings() {
                 />
             </SettingsSection>
 
+            {/* Spotify Section */}
+            <SettingsSection
+                title="Spotify"
+                value={
+                    <SpotifyConnectionSection
+                        isConnected={isSpotifyConnected}
+                        onConnectionChange={setIsSpotifyConnected}
+                        disabled={isSaving}
+                    />
+                }
+            />
+
             {/* Save Button */}
             <PrimaryButton
                 onClick={handleSaveSettings}
@@ -252,7 +271,6 @@ export default function Settings() {
                     />
                 )
             }
-        </div >
+        </div>
     )
 }
-// TODO: disconnect from spotify?

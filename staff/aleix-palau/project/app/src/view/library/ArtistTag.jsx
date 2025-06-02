@@ -12,7 +12,7 @@ export default function ArtistTag({
                 items-center
                 justify-center
                 rounded-full
-                px-2.5
+                px-3.5
                 py-1
                 font-semibold
                 text-sm

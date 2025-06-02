@@ -17,6 +17,15 @@ import { getUserMatches, getMatchMessages, sendMessage, unmatchUser } from './ma
 
 import { getUnreadNotifications, markMessageNotificationsAsRead, markMatchNotificationAsRead } from './notifications/index.js'
 
+import {
+    getSpotifyAuthURL,
+    connectSpotifyAccount,
+    disconnectSpotifyAccount,
+    getSpotifyStatus,
+    searchSpotifyArtists,
+    refreshSpotifyToken
+} from './spotify/index.js'
+
 const logic = {
     registerUser,
     authenticateUser,
@@ -35,7 +44,13 @@ const logic = {
     unmatchUser,
     getUnreadNotifications,
     markMessageNotificationsAsRead,
-    markMatchNotificationAsRead
+    markMatchNotificationAsRead,
+    getSpotifyAuthURL,
+    connectSpotifyAccount,
+    disconnectSpotifyAccount,
+    getSpotifyStatus,
+    searchSpotifyArtists,
+    refreshSpotifyToken
 }
 
 export default logic

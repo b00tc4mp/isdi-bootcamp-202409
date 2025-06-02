@@ -35,7 +35,7 @@ export default function GenderStage(props) {
         }
 
         if (targetGenders.length === 0) {
-            alert(null, 'error', 'Please select at least one option')
+            alert(null, 'warn', 'Please select at least one option')
 
             return
         }
