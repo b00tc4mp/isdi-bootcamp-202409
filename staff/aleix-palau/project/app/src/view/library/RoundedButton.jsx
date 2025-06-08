@@ -1,6 +1,7 @@
 import { Loader2 } from 'lucide-react'
 
 export default function RoundedButton({
+    type = 'button',
     icon: Icon,
     onClick,
     disabled = false,
@@ -10,6 +11,7 @@ export default function RoundedButton({
 }) {
     return (
         <button
+            type={type}
             onClick={onClick}
             disabled={disabled || isLoading}
             className={`

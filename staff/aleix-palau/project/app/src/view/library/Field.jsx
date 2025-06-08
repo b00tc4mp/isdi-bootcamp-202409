@@ -1,6 +1,7 @@
-export default function Field({ children }) {
-
-    return <div
-        className="flex flex-col"
-    >{children}</div>
+export default function Field({ children, className = '' }) {
+    return (
+        <div className={`mb-5 ${className}`}>
+            {children}
+        </div>
+    )
 }

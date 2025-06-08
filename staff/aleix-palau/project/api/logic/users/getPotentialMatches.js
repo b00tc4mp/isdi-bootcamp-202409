@@ -24,6 +24,9 @@ export default (userId, page = 1, limit = 10) => {
             const user = await User.findById(userId).lean()
             if (!user) throw new NotFoundError('user not found')
 
+            if (!user.artists || user.artists.length === 0)
+                return []
+
             // Get IDs of users already swiped on
             const interactedWith = await getInteractedUserIds(userId)
 
@@ -109,11 +112,9 @@ async function queryPotentialMatches(user, interactedWith) {
         return [] // Can't match without location
     }
 
-    // Apply artist preference if available
-    if (userArtistsArray && userArtistsArray.length > 0) {
-        const userArtistIds = userArtistsArray.map(artist => artist.id) // Extract IDs
-        query['artists.id'] = { $in: userArtistIds } // Match users with at least one artist in common
-    }
+    // Apply artist preference if available - users must have at least one common artist
+    const userArtistIds = userArtistsArray.map(artist => artist.id) // Extract IDs
+    query['artists.id'] = { $in: userArtistIds } // Match users with at least one artist in common
 
     // Execute query with required fields
     return User.find(query)

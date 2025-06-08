@@ -49,7 +49,7 @@ export default function ArtistSearchBox({
 
         // Check max limit
         if (selectedArtists.length >= maxArtists) {
-            alert(`You can select up to ${maxArtists} artists`, 'warn')
+            alert(null, 'warn', `You can select up to ${maxArtists} artists`)
             return
         }
 
@@ -108,7 +108,7 @@ export default function ArtistSearchBox({
                                 <button
                                     type="button"
                                     onClick={() => handleAddArtist(artist)}
-                                    className={`px-2 py-1 ${isAdded ? 'bg-pink/50' : 'bg-pink'} text-lightest rounded-full text-xs transition-transform active:scale-[.98]`}
+                                    className={`px-2 py-1 ${isAdded ? 'bg-pink/50' : 'bg-pink'} text-lightest rounded-full text-xs`}
                                     disabled={isAdded || disabled}
                                 >
                                     {isAdded ? 'Added' : 'Add'}

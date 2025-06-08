@@ -1,7 +1,10 @@
-export default function Form({ children, onSubmit }) {
-
-    return <form
-        className="flex flex-col"
-        onSubmit={onSubmit}
-    >{children}</form>
+export default function Form({ children, onSubmit, className = '' }) {
+    return (
+        <form
+            className={`w-full ${className}`}
+            onSubmit={onSubmit}
+        >
+            {children}
+        </form>
+    )
 }

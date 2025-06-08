@@ -197,4 +197,3 @@ export default function PictureUpload({ existingPictures = [], onPicturesUpdate,
         </div>
     )
 }
-// TODO: posar try/catch a les logiques i fer servir SystemError?

@@ -46,7 +46,7 @@ export default (userId, updates) => {
         if (maxAge !== undefined) updateData.maxAge = maxAge
         if (distance !== undefined) updateData.distance = distance
         if (coordinates !== undefined) updateData.coordinates = coordinates
-        if (spotifyId !== undefined) updateData.spotifyId = spotifyId
+        if (spotifyId !== undefined && spotifyId !== null && spotifyId !== '') updateData.spotifyId = spotifyId
         if (spotifyAccessToken !== undefined) updateData.spotifyAccessToken = spotifyAccessToken
         if (spotifyRefreshToken !== undefined) updateData.spotifyRefreshToken = spotifyRefreshToken
 

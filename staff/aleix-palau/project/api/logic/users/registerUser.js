@@ -22,7 +22,7 @@ export default (email, password, passwordRepeat) => {
         try {
             await User.create({ email, password: hash, coordinates: null })
         } catch (error) {
-            if (error.code === 11000) throw new DuplicityError('user already exists')
+            if (error.code === 11000) throw new DuplicityError('User already exists')
 
             throw new SystemError(error.message)
         }

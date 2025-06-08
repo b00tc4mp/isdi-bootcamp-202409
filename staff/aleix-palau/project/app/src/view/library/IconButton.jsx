@@ -1,6 +1,7 @@
 import { Loader2 } from 'lucide-react'
 
 export default function BackButton({
+    type = 'button',
     icon: Icon,
     onClick,
     disabled = false,
@@ -10,6 +11,7 @@ export default function BackButton({
 }) {
     return (
         <button
+            type={type}
             onClick={onClick}
             disabled={disabled || isLoading}
             className={`

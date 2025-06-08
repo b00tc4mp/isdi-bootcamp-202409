@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react'
 import useContext from '../useContext'
-import { errors } from 'com'
 import logic from '../../logic'
 import { UserDetail, NoMoreProfiles, Spinner } from '../components'
 import { RoundedButton, ArtistTag } from '../library'
 import { MapPin, Heart, X, ChevronDown } from 'lucide-react'
 import { calculateAge, orderArtists } from '../../util'
-
-const { SystemError } = errors
 
 export default function People({ onSettingsClick }) {
     const { alert } = useContext()
@@ -69,10 +66,7 @@ export default function People({ onSettingsClick }) {
                         setPotentialMatches([])
                 })
                 .catch(error => {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later.')
-                    else
-                        alert(error.message)
+                    alert(error.message)
                     console.error(error)
                 })
                 .finally(() => {

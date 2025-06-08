@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
 import useContext from '../useContext'
-import { errors } from 'com'
 import logic from '../../logic'
 import { GenderModal, SettingsSection, Spinner, SpotifyConnectionSection } from '../components'
-import { SingleSlider, DualSlider, PrimaryButton } from '../library'
-import { ChevronRight, MapPin, RefreshCw, Loader2 } from 'lucide-react'
+import { SingleSlider, DualSlider, PrimaryButton, TagButton } from '../library'
+import { ChevronRight, MapPin, RefreshCw } from 'lucide-react'
 import { formatLocation } from '../../util'
 
-const { SystemError } = errors
-
 export default function Settings() {
-    const { alert, confirm } = useContext()
+    const { alert } = useContext()
 
     const [targetGender, setTargetGender] = useState([])
     const [coordinates, setCoordinates] = useState({})
@@ -129,10 +126,7 @@ export default function Settings() {
                     alert(null, 'success', 'Dating preferences saved')
                 })
                 .catch(error => {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later.')
-                    else
-                        alert(error.message)
+                    alert(error.message)
                     console.error(error)
                 })
                 .finally(() => {
@@ -192,22 +186,15 @@ export default function Settings() {
                     <div className="text-xs text-dark-blue">
                         Your location is used to find matches within your selected distance and is never shared.
                     </div>
-                    <button
-                        className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-sm bg-light text-darkest-blue rounded-lg transition-transform active:scale-[.98] min-w-[85.27px] ${(isUpdatingLocation || isSaving) ? 'opacity-70' : ''}`}
+                    <TagButton
+                        icon={RefreshCw}
                         onClick={handleUpdateLocation}
                         disabled={isUpdatingLocation || isSaving}
+                        isLoading={isUpdatingLocation}
+                        variant="light"
                     >
-                        {isUpdatingLocation ? (
-                            <>
-                                <Loader2 size={18} className="min-h-5 animate-spin" />
-                            </>
-                        ) : (
-                            <>
-                                <RefreshCw size={16} />
-                                <span>Update</span>
-                            </>
-                        )}
-                    </button>
+                        Update
+                    </TagButton>
                 </div>
             </SettingsSection>
 

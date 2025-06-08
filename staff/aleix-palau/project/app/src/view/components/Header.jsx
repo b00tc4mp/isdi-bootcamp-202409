@@ -12,15 +12,37 @@ const HEADER_TYPES = {
     SETTINGS: 'settings'
 }
 
+const getHeaderType = (pathname, isLoggedIn) => {
+    if (!isLoggedIn)
+        return HEADER_TYPES.AUTH
+    else if (pathname.includes('/setup/'))
+        return HEADER_TYPES.SETUP
+    else if (pathname === '/settings')
+        return HEADER_TYPES.SETTINGS
+    else
+        return HEADER_TYPES.MAIN
+}
+
+// Helper function to get setup progress
+const getSetupProgress = (pathname) => {
+    if (pathname.includes('name-dob')) return 33
+    if (pathname.includes('gender')) return 66
+    if (pathname.includes('artists')) return 100
+    return 0
+}
+
 export default function Header({ onLoggedOut, onSettingsClick, onBackFromSettings }) {
+    const { confirm } = useContext()
+    const location = useLocation()
     const userLoggedIn = logic.isUserLoggedIn()
 
     const [isLoggedIn, setIsLoggedIn] = useState(userLoggedIn)
-    const [headerType, setHeaderType] = useState(HEADER_TYPES.AUTH)
-    const [setupProgress, setSetupProgress] = useState(0)
 
-    const { confirm } = useContext()
-    const location = useLocation()
+    // Initialize with the correct header type based on current location and auth
+    const [headerType, setHeaderType] = useState(() => getHeaderType(location.pathname, userLoggedIn))
+
+    // Initialize with correct progress if in setup
+    const [setupProgress, setSetupProgress] = useState(() => getSetupProgress(location.pathname))
 
     useEffect(() => {
         setIsLoggedIn(userLoggedIn)
@@ -29,23 +51,12 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
     // Determine which header to show based on current route and auth status
     useEffect(() => {
         const path = location.pathname
+        const newHeaderType = getHeaderType(path, userLoggedIn)
 
-        if (!userLoggedIn) {
-            setHeaderType(HEADER_TYPES.AUTH)
-        } else if (path.includes('/setup/')) {
-            setHeaderType(HEADER_TYPES.SETUP)
+        setHeaderType(newHeaderType)
 
-            if (path.includes('name-dob')) {
-                setSetupProgress(33)
-            } else if (path.includes('gender')) {
-                setSetupProgress(66)
-            } else if (path.includes('artists')) {
-                setSetupProgress(100)
-            }
-        } else if (path === '/settings') {
-            setHeaderType(HEADER_TYPES.SETTINGS)
-        } else {
-            setHeaderType(HEADER_TYPES.MAIN)
+        if (newHeaderType === HEADER_TYPES.SETUP) {
+            setSetupProgress(getSetupProgress(path))
         }
     }, [location.pathname, isLoggedIn])
 
@@ -69,7 +80,7 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
     // Auth Header
     const renderAuthHeader = () => (
         <div className="flex justify-center items-center w-full">
-            <h1 className="font-bold text-2xl text-center text-darkest-blue">HEARTBEAT</h1>
+            <h1 className="font-bold text-2xl text-center text-darkest-blue select-none">HEARTBEAT</h1>
         </div>
     )
 
@@ -77,7 +88,7 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
     const renderSetupHeader = () => (
         <div className="w-full px-2">
             <div className="w-full flex flex-col items-center">
-                <div className="w-full bg-light rounded-full h-3">
+                <div className="w-full bg-light-blue/50 rounded-full h-3">
                     <div className="bg-dark-blue h-3 rounded-full transition-all duration-700" style={{ width: `${setupProgress}%` }}></div>
                 </div>
             </div>
@@ -95,7 +106,7 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
                 />
             </div>
             <div className="w-1/3 flex justify-center">
-                <h1 className="font-bold text-2xl text-darkest-blue">Settings</h1>
+                <h1 className="font-bold text-2xl text-darkest-blue select-none">Settings</h1>
             </div>
             <div className="w-1/3 flex justify-end"></div>
         </div>
@@ -106,7 +117,7 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
         <div className="flex justify-between items-center w-full">
             <div className="w-1/3"></div>
             <div className="w-1/3 flex justify-center">
-                <h1 className="font-bold text-2xl text-darkest-blue">HEARTBEAT</h1>
+                <h1 className="font-bold text-2xl text-darkest-blue select-none">HEARTBEAT</h1>
             </div>
             <div className="w-1/3 flex justify-end gap-3">
                 <IconButton
@@ -144,4 +155,3 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
         </header>
     )
 }
-// TODO: posar SystemErrors? userLoggedIn com a dependency del useEffect?

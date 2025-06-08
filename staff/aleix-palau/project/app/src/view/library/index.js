@@ -5,14 +5,14 @@ import SingleSlider from './SingleSlider'
 import DualSlider from './DualSlider'
 import MessageBubble from './MessageBubble'
 import IconButton from './IconButton'
-
-import Field from './Field' // edit
-import Form from './Form' // edit
-import Input from './Input' // edit
-import Label from './Label' // edit
-import PasswordInput from './PasswordInput' // edit
-import Checkbox from './Checkbox' // edit
-import Radio from './Radio' // edit
+import TagButton from './TagButton'
+import Field from './Field'
+import Form from './Form'
+import Input from './Input'
+import Label from './Label'
+import PasswordInput from './PasswordInput'
+import Checkbox from './Checkbox'
+import Radio from './Radio'
 
 export {
     PrimaryButton,
@@ -22,7 +22,7 @@ export {
     DualSlider,
     MessageBubble,
     IconButton,
-
+    TagButton,
     Field,
     Form,
     Input,
@@ -31,4 +31,3 @@ export {
     Checkbox,
     Radio
 }
-// TODO: edit

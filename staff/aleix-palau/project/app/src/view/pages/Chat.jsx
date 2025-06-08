@@ -1,12 +1,9 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import useContext from '../useContext'
-// import { errors } from 'com' // TODO
 import logic from '../../logic'
 import { ChatList, Conversation, UserDetail, NoConversation, Spinner } from '../components'
 import { useNotifications } from '../../contexts/NotificationContext'
-
-// const { SystemError } = errors
 
 // Separate loading states to prevent unnecessary UI updates
 const useLoadingStates = () => {

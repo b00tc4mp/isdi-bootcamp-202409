@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import useContext from '../useContext'
-import { errors } from 'com'
 import logic from '../../logic'
-import { PrimaryButton, ArtistTag, RoundedButton } from '../library'
+import { PrimaryButton, ArtistTag, RoundedButton, TagButton } from '../library'
 import { useAutoResizeTextarea } from '../../hooks'
 import { PictureUpload, Spinner, ArtistSearchBox } from '../components'
 import { calculateAge, orderArtists } from '../../util'
 import { Plus, X } from 'lucide-react'
-
-const { SystemError } = errors
 
 export default function Profile() {
     const { alert, confirm } = useContext()
@@ -63,10 +60,7 @@ export default function Profile() {
                     alert(null, 'success', 'Your details were saved')
                 })
                 .catch(error => {
-                    if (error instanceof SystemError)
-                        alert('Sorry, try again later.')
-                    else
-                        alert(error.message)
+                    alert(error.message)
                     console.error(error)
                 })
                 .finally(() => {
@@ -151,14 +145,20 @@ export default function Profile() {
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-semibold text-darkest-blue">My Artists ({artists.length}/10)</h2>
                         {isSpotifyConnected && (
-                            <button
+                            <TagButton
                                 onClick={() => setShowArtistSearch(!showArtistSearch)}
-                                className="flex items-center gap-1 px-2.5 py-1.5 bg-light-blue text-dark-blue rounded-lg text-sm transition-transform active:scale-[.98]"
                                 disabled={isUpdating}
+                                variant="blue"
                             >
-                                <Plus size={16} />
-                                Add Artist
-                            </button>
+                                <div className="flex items-center gap-1">
+                                    <span
+                                        className="transition-transform duration-300"
+                                        style={{ transform: showArtistSearch ? 'rotate(90deg)' : 'rotate(0deg)' }}>
+                                        {showArtistSearch ? <X size={16} /> : <Plus size={16} />}
+                                    </span>
+                                    Add Artist
+                                </div>
+                            </TagButton>
                         )}
                     </div>
                     {!isSpotifyConnected && (

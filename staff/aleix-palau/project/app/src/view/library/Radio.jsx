@@ -1,6 +1,30 @@
-export default function Radio({ id, name, value, checked, onChange, children }) {
+export default function Radio({
+    id,
+    name,
+    value,
+    checked,
+    onChange,
+    children,
+    disabled = false,
+    className = ''
+}) {
     return (
-        <div className="flex items-center">
+        <label
+            htmlFor={id}
+            className={`
+                flex
+                items-center
+                p-3
+                mb-2
+                bg-lightest
+                border-2
+                ${checked ? 'border-pink bg-pink/15' : 'border-skin'}
+                rounded-lg
+                transition-all
+                ${disabled ? 'opacity-60' : ''}
+                ${className}
+            `}
+        >
             <input
                 type="radio"
                 id={id}
@@ -8,11 +32,12 @@ export default function Radio({ id, name, value, checked, onChange, children }) 
                 value={value}
                 checked={checked}
                 onChange={onChange}
-                className="mr-2"
+                disabled={disabled}
+                className="w-4 h-4 accent-light-blue"
             />
-            <label htmlFor={id} className="w-full box-border">
+            <span className="ml-2 text-dark-blue select-none">
                 {children}
-            </label>
-        </div>
+            </span>
+        </label>
     )
 }

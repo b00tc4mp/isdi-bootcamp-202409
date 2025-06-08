@@ -69,18 +69,16 @@ const user = new Schema({
     },
     artists: [{
         id: {
-            type: String,
-            required: true // TODO: delete?
+            type: String
         },
         name: {
-            type: String,
-            required: true // TODO: delete?
+            type: String
         }
     }],
     spotifyId: {
         type: String,
         unique: true,
-        sparse: true // Allows multiple nulls but unique if value exists
+        sparse: true // Only enforce uniqueness on non-null values
     },
     spotifyAccessToken: {
         type: String

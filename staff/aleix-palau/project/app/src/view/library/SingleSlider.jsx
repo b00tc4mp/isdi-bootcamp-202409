@@ -1,45 +1,56 @@
 export default function SingleSlider({ value, min, max, onChange, disabled }) {
-    return (
-        <div className="relative py-5 mt-2">
-            {/* Background track */}
-            <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-1 bg-light rounded-full"></div>
+    const percentage = ((value - min) / (max - min)) * 100
 
-            {/* Colored portion of track */}
+    const handleSliderInteraction = event => {
+        if (disabled) return
+
+        const slider = event.currentTarget
+        const rect = slider.getBoundingClientRect()
+
+        const updateValue = clientX => {
+            const newPercentage = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
+            const newValue = Math.round(min + newPercentage * (max - min))
+            if (newValue !== value) onChange(newValue)
+        }
+
+        // Initial update
+        updateValue(event.clientX)
+
+        // Set up drag handling
+        const handleMove = e => updateValue(e.clientX)
+
+        const handleEnd = () => {
+            slider.releasePointerCapture(event.pointerId)
+            slider.removeEventListener('pointermove', handleMove)
+            slider.removeEventListener('pointerup', handleEnd)
+        }
+
+        slider.setPointerCapture(event.pointerId)
+        slider.addEventListener('pointermove', handleMove)
+        slider.addEventListener('pointerup', handleEnd)
+    }
+
+    return (
+        <div
+            className="relative py-5 mt-2 touch-none select-none"
+            onPointerDown={handleSliderInteraction}
+        >
+            {/* Background track */}
+            <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-1 bg-light rounded-full pointer-events-none" />
+
+            {/* Colored portion */}
             <div
-                className="absolute top-1/2 -translate-y-1/2 h-1 bg-light-blue rounded-full"
+                className="absolute top-1/2 -translate-y-1/2 h-1 bg-light-blue rounded-full pointer-events-none"
                 style={{
                     left: '0%',
-                    right: `${100 - ((value - min) / (max - min)) * 100}%`
+                    width: `${percentage}%`
                 }}
-            ></div>
+            />
 
             {/* Thumb */}
             <div
-                className="absolute top-1/2 -translate-y-1/2 -ml-3 w-6 h-6 bg-pink border-2 border-dark-blue rounded-full shadow-md"
-                style={{ left: `${((value - min) / (max - min)) * 100}%` }}
-                onPointerDown={event => {
-                    if (disabled) return
-
-                    const startPos = event.clientX
-                    const startValue = value
-                    const range = max - min
-                    const width = event.currentTarget.parentElement.offsetWidth
-
-                    const onMove = moveEvent => {
-                        const dx = moveEvent.clientX - startPos
-                        const dValue = Math.round((dx / width) * range)
-                        const newValue = Math.max(min, Math.min(max, startValue + dValue))
-                        onChange(newValue)
-                    }
-
-                    const onUp = () => {
-                        document.removeEventListener('pointermove', onMove)
-                        document.removeEventListener('pointerup', onUp)
-                    }
-
-                    document.addEventListener('pointermove', onMove)
-                    document.addEventListener('pointerup', onUp)
-                }}
+                className="absolute top-1/2 -translate-y-1/2 -ml-3 w-6 h-6 bg-pink border-2 border-dark-blue rounded-full shadow-md pointer-events-none"
+                style={{ left: `${percentage}%` }}
             />
         </div>
     )

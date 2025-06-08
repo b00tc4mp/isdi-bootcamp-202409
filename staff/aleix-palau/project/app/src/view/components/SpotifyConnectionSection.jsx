@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Loader2, Unlink } from 'lucide-react'
+import { TagButton } from '../library'
+import { Unlink } from 'lucide-react'
 import { FaSpotify } from 'react-icons/fa'
 import logic from '../../logic'
 import useContext from '../useContext'
@@ -70,35 +71,24 @@ export default function SpotifyConnectionSection({
 
     return (
         <div className="flex gap-2">
-            <button
+            <TagButton
+                icon={FaSpotify}
                 onClick={handleConnect}
                 disabled={isConnected || disabled}
-                className={`flex items-center justify-center px-3 py-2 text-sm rounded-lg transition-transform ${isConnected || disabled
-                    ? 'bg-green/50 text-dark-blue/50 cursor-not-allowed'
-                    : 'bg-green text-dark-blue active:scale-[.98]'
-                    }`}
+                variant="green"
             >
-                <FaSpotify size={18} className="mr-1.5" />
-                <span>{isConnected ? 'Connected' : 'Connect'}</span>
-            </button>
+                {isConnected ? 'Connected' : 'Connect'}
+            </TagButton>
 
-            <button
+            <TagButton
+                icon={Unlink}
                 onClick={handleDisconnect}
                 disabled={!isConnected || isDisconnecting || disabled}
-                className={`flex items-center justify-center px-3 py-2 text-sm rounded-lg transition-transform ${!isConnected || isDisconnecting || disabled
-                    ? 'bg-light/50 text-dark-blue/50 cursor-not-allowed'
-                    : 'bg-light text-dark-blue active:scale-[.98]'
-                    }`}
+                isLoading={isDisconnecting}
+                variant="light"
             >
-                {isDisconnecting ? (
-                    <Loader2 size={16} className="animate-spin" />
-                ) : (
-                    <>
-                        <Unlink size={16} className="mr-1.5" />
-                        <span>{isConnected ? 'Disconnect' : 'Disconnected'}</span>
-                    </>
-                )}
-            </button>
+                {isConnected ? 'Disconnect' : 'Disconnected'}
+            </TagButton>
         </div>
     )
 }
