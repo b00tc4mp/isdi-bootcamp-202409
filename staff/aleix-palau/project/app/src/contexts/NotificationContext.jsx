@@ -14,30 +14,32 @@ export const NotificationProvider = ({ children }) => {
 
     const location = useLocation()
 
-    // Helpers
+    // Get current match ID from URL
     const getCurrentMatchId = useCallback(() => {
         const match = location.pathname.match(/^\/chat\/([a-zA-Z0-9]+)$/)
-        return match ? match[1] : null
+        return match?.[1] || null
     }, [location.pathname])
 
+    // Clear all notification state
     const clearNotificationState = useCallback(() => {
         setUnreadMatches({})
         setUnreadCount(0)
         setPendingMatchNotificationsQueue([])
     }, [])
 
-    // Listener registration
-    const registerMessageListener = useCallback(listener => {
-        messageListeners.add(listener)
-        return () => messageListeners.delete(listener)
-    }, [messageListeners])
+    // Register listeners
+    const registerListener = useCallback((listeners, listener) => {
+        listeners.add(listener)
+        return () => listeners.delete(listener)
+    }, [])
 
-    const registerMatchListener = useCallback(listener => {
-        matchListeners.add(listener)
-        return () => matchListeners.delete(listener)
-    }, [matchListeners])
+    const registerMessageListener = useCallback(listener =>
+        registerListener(messageListeners, listener), [messageListeners, registerListener])
 
-    // Data fetching
+    const registerMatchListener = useCallback(listener =>
+        registerListener(matchListeners, listener), [matchListeners, registerListener])
+
+    // Fetch unread notifications
     const fetchUnreadData = useCallback(() => {
         if (!logic.isUserLoggedIn()) {
             clearNotificationState()
@@ -51,57 +53,47 @@ export const NotificationProvider = ({ children }) => {
                     return
                 }
 
-                // Process message notifications
+                // Update message counts
                 const matches = result.messageNotificationCounts?.matches || {}
                 setUnreadMatches(matches)
+                setUnreadCount(Object.values(matches).reduce((sum, count) => sum + count, 0))
 
-                // Calculate total unread count
-                const totalMessages = Object.values(matches).reduce((sum, count) => sum + count, 0)
-                setUnreadCount(totalMessages)
-
-                // Update pending match notifications queue
+                // Update match notifications
                 setPendingMatchNotificationsQueue(result.pendingMatchNotifications || [])
             })
             .catch(error => {
-                console.error('Error fetching unread notifications:', error)
+                console.error('Error fetching notifications:', error)
                 clearNotificationState()
             })
     }, [clearNotificationState])
 
-    // Message notifications handling
+    // Mark match messages as read
     const markMatchAsRead = useCallback(matchId => {
         if (!matchId) return
 
-        // Optimistic update
         setUnreadMatches(prev => {
             const newState = { ...prev }
-            const countToRemove = newState[matchId] || 0
+            const count = newState[matchId] || 0
             delete newState[matchId]
-            setUnreadCount(prevCount => Math.max(0, prevCount - countToRemove))
+            setUnreadCount(current => Math.max(0, current - count))
             return newState
         })
 
-        // Server update
-        logic.markMessageNotificationsAsRead(matchId)
-            .catch(error => {
-                console.error('Failed to mark message notifications as read:', error)
-                fetchUnreadData() // Revert optimistic update on error
-            })
+        logic.markMessageNotificationsAsRead(matchId).catch(() => fetchUnreadData())
     }, [fetchUnreadData])
 
-    // Match notifications handling
+    // Mark and dequeue match notification
     const markAndDequeueMatchNotification = useCallback(async notificationId => {
         if (!notificationId) return
 
-        // Optimistic update
         setPendingMatchNotificationsQueue(prev => prev.filter(n => n._id !== notificationId))
 
         try {
             await logic.markMatchNotificationAsRead(notificationId)
         } catch (error) {
-            console.error("Failed to mark match notification as read:", error)
-            fetchUnreadData() // Refresh data on error
-            throw error // Propagate error for UI feedback
+            console.error('Failed to mark notification as read:', error)
+            fetchUnreadData()
+            throw error
         }
     }, [fetchUnreadData])
 
@@ -110,106 +102,79 @@ export const NotificationProvider = ({ children }) => {
         const socket = getSocket()
         if (!socket || !logic.isUserLoggedIn()) return
 
-        // Handle incoming messages
+        const currentUserId = logic.getUserId()
+        const currentMatchId = getCurrentMatchId()
+
+        // Message handler
         const handleNewMessage = message => {
-            try {
-                const currentUserId = logic.getUserId()
-                if (!message?.matchId || !message?.sender || message.sender === currentUserId) return
+            if (!message?.matchId || message.sender === currentUserId) return
 
-                // Notify listeners first
-                messageListeners.forEach(listener => {
-                    try {
-                        listener(message)
-                    } catch (error) {
-                        console.error('Error in message listener:', error)
-                    }
-                })
+            // Notify listeners
+            messageListeners.forEach(listener => listener(message))
 
-                // If viewing this match, mark as read immediately
-                const viewingMatchId = getCurrentMatchId()
-                if (message.matchId === viewingMatchId) {
-                    markMatchAsRead(message.matchId)
-                } else {
-                    // Otherwise, increment unread count
-                    setUnreadMatches(prev => {
-                        const newMatches = {
-                            ...prev,
-                            [message.matchId]: (prev[message.matchId] || 0) + 1
-                        }
-                        setUnreadCount(prevCount => prevCount + 1)
-                        return newMatches
-                    })
-                }
-            } catch (error) {
-                console.error('Error handling new message:', error)
+            // Update unread count
+            if (message.matchId === currentMatchId) {
+                markMatchAsRead(message.matchId)
+            } else {
+                setUnreadMatches(prev => ({
+                    ...prev,
+                    [message.matchId]: (prev[message.matchId] || 0) + 1
+                }))
+                setUnreadCount(prev => prev + 1)
             }
         }
 
-        // Handle unmatch events
+        // Unmatch handler
         const handleUnmatch = ({ matchId }) => {
             if (!matchId) return
-            // Update unread count
-            setUnreadMatches(prev => {
-                if (!prev[matchId]) return prev
 
+            setUnreadMatches(prev => {
                 const newState = { ...prev }
-                const removedCount = newState[matchId]
+                const count = newState[matchId] || 0
                 delete newState[matchId]
-                setUnreadCount(prevCount => Math.max(0, prevCount - removedCount))
+                setUnreadCount(current => Math.max(0, current - count))
                 return newState
             })
 
-            // Refresh all notification data since unmatch affects match notifications
             fetchUnreadData()
         }
 
-        // Handle new match events
-        const handleNewMatch = newMatchData => {
-            try {
-                const currentUserId = logic.getUserId()
-                if (!newMatchData?._id || !newMatchData?.users?.some(u => u?._id === currentUserId)) return
+        // Match handler
+        const handleNewMatch = matchData => {
+            if (!matchData?._id) return
 
-                // Notify match listeners
-                matchListeners.forEach(listener => {
-                    try {
-                        listener(newMatchData)
-                    } catch (error) {
-                        console.error('Error in match listener:', error)
-                    }
-                })
-            } catch (error) {
-                console.error('Error handling new match:', error)
-            }
+            const isUserInMatch = matchData.users?.some(u => u._id === currentUserId)
+            if (!isUserInMatch) return
+
+            matchListeners.forEach(listener => listener(matchData))
+            fetchUnreadData()
         }
 
-        // Register socket event handlers
-        socket.on('newMessage', handleNewMessage)
-        socket.on('unmatch', handleUnmatch)
-        socket.on('newMatch', handleNewMatch)
-        socket.on('connect', fetchUnreadData)
+        // Setup socket listeners
+        const setupSocketListeners = () => {
+            socket.on('connect', fetchUnreadData)
+            socket.on('reconnect', fetchUnreadData)
+            socket.on('newMessage', handleNewMessage)
+            socket.on('unmatch', handleUnmatch)
+            socket.on('newMatch', handleNewMatch)
+        }
 
-        // Initial fetch if already connected
+        setupSocketListeners()
         if (socket.connected) fetchUnreadData()
 
-        // Cleanup
         return () => {
-            if (socket) {
-                socket.off('connect', fetchUnreadData)
-                socket.off('newMessage', handleNewMessage)
-                socket.off('unmatch', handleUnmatch)
-                socket.off('newMatch', handleNewMatch)
-            }
+            socket.off('connect')
+            socket.off('reconnect')
+            socket.off('newMessage')
+            socket.off('unmatch')
+            socket.off('newMatch')
         }
     }, [getCurrentMatchId, fetchUnreadData, markMatchAsRead, messageListeners, matchListeners])
 
     // Handle auth changes
     useEffect(() => {
         const handleAuthChange = () => {
-            if (logic.isUserLoggedIn()) {
-                fetchUnreadData()
-            } else {
-                clearNotificationState()
-            }
+            logic.isUserLoggedIn() ? fetchUnreadData() : clearNotificationState()
         }
 
         document.addEventListener('authChange', handleAuthChange)
