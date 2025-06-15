@@ -7,19 +7,23 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 
 import db, { User } from 'dat'
+import getUserStage from './getUserStage.js'
 import { errors } from 'com'
 
 const { NotFoundError } = errors
-
-import getUserStage from './getUserStage.js'
 
 describe('getUserStage', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 
+    const mockUserData = {
+        password: '123123123',
+        coordinates: { type: 'Point', coordinates: [0, 0] }
+    }
+
     it('succeeds on existing user with default stage', async () => {
-        const user = await User.create({ email: 'al@eix.com', password: '123123123' })
+        const user = await User.create({ ...mockUserData, email: 'al@eix.com' })
 
         const stage = await getUserStage(user.id)
 
@@ -28,8 +32,8 @@ describe('getUserStage', () => {
 
     it('succeeds on existing user with custom stage', async () => {
         const user = await User.create({
+            ...mockUserData,
             email: 'al@eix.com',
-            password: '123123123',
             stage: 'gender',
         })
 

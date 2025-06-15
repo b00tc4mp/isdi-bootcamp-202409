@@ -7,19 +7,23 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 
 import db, { User } from 'dat'
+import getUserName from './getUserName.js'
 import { errors } from 'com'
 
 const { NotFoundError } = errors
-
-import getUserName from './getUserName.js'
 
 describe('getUserName', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 
+    const mockUserData = {
+        password: '123123123',
+        coordinates: { type: 'Point', coordinates: [0, 0] }
+    }
+
     it('succeeds on existing user', async () => {
-        const user = await User.create({ name: 'Aleix', email: 'al@eix.com', password: '123123123' })
+        const user = await User.create({ ...mockUserData, name: 'Aleix', email: 'al@eix.com' })
 
         const name = await getUserName(user.id, user.id)
 
@@ -34,7 +38,7 @@ describe('getUserName', () => {
 
     it('fails on non-existing target-user', () =>
         expect(
-            User.create({ name: 'Aleix', email: 'al@eix.com', password: '123123123' })
+            User.create({ ...mockUserData, name: 'Aleix', email: 'al@eix.com' })
                 .then(user => getUserName(user.id, '012345678901234567890123'))
         ).to.be.rejectedWith(NotFoundError, 'target user not found')
     )

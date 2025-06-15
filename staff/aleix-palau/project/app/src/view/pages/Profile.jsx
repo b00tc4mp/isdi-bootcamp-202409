@@ -135,7 +135,7 @@ export default function Profile() {
                         value={location}
                         onChange={event => setLocation(event.target.value)}
                         placeholder="Add your location"
-                        className="w-full text-dark-blue"
+                        className="w-full outline-none text-dark-blue placeholder-dark-blue/60"
                         disabled={isUpdating}
                     />
                 </div>

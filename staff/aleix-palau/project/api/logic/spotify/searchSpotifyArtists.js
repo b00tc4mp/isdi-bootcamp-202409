@@ -1,6 +1,6 @@
 import { User } from 'dat'
 import { validate, errors } from 'com'
-import logic from '../../logic/index.js'
+import refreshSpotifyToken from './refreshSpotifyToken.js'
 
 const { SystemError, NotFoundError, AuthorizationError } = errors
 
@@ -27,7 +27,7 @@ export default (userId, query) => {
 
             // If unauthorized, refresh token and retry
             if (searchResponse.status === 401) {
-                await logic.refreshSpotifyToken(userId)
+                await refreshSpotifyToken(userId)
 
                 // Get updated user with new token
                 const updatedUser = await User.findById(userId).lean()
@@ -56,6 +56,7 @@ export default (userId, query) => {
 
         } catch (error) {
             if (error instanceof NotFoundError || error instanceof AuthorizationError) throw error
+
             throw new SystemError(error.message)
         }
     })()

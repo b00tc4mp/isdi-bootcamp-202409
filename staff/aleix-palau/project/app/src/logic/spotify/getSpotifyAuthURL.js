@@ -20,7 +20,7 @@ export default () => {
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
         .then(({ authUrl }) => {
-            // TODO Add userId as state parameter
+            // Add userId as state parameter
             const userId = logic.getUserId()
             const url = new URL(authUrl)
             url.searchParams.append('state', userId)

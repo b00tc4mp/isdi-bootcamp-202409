@@ -1,36 +1,22 @@
-# Heartbeat (maybe?)
+# Heartbeat
 
 ## Intro
 
 If music is your world and you're seeking others who resonate with your taste, Heartbeat is the ultimate app for bringing music lovers together for friendship or perhaps something deeper.
 
-![](https://i.redd.it/6n7yqum9b9jc1.jpeg)
+![](image-1.png)
 
 ## Functional
 
 ### Use Cases
 
-- edit own profile:
-    - update bio
-    - update profile pictures
-    - update music preferences
-- link Spotify account to profile
-- view profiles
-- filter profiles based on:
-    - favourite genres or artists
-    - age
-    - location/distance
-- **Heartbeat** left/right on someone who makes your heart skip a beat
+- edit own profile
+- link Spotify account
+- view other profiles
+- filter profiles based on favourite artists, age, distance
+- swipe left/right on someone
 - chat with people you match with
-- display recently played tracks on chats
-- share music in chats
-<!-- - option to join concerts in calendar
-- invite people to concerts -->
-- get notifications when:
-    - you match with someone
-    - you receive a message
-    <!-- - a band you follow comes to your city
-    - someone invites you to a concert -->
+- get notifications
 
 ### UXUI Design
 
@@ -50,7 +36,7 @@ If music is your world and you're seeking others who resonate with your taste, H
 - app (client-side application)
 - api (server-side API)
 - dat (data model and driver)
-- com (common validations, utils, ...)
+- com (common validations)
 
 ### Techs
 
@@ -59,7 +45,11 @@ If music is your world and you're seeking others who resonate with your taste, H
 - Node
 - Express
 - Mongo
+- Mongoose
+- Tailwind
 - Mocha & Chai
+- Socket.IO
+- Sinon
 
 ### Data Model
 
@@ -69,81 +59,50 @@ User
 - email (string, unique)
 - password (string, hashed)
 - dateOfBirth (Date)
-- gender (string, enum: man | woman | nonbinary)
-- targetGender ([string], enum: men | women | nonbinary people)
-- coordinates ([ latitude: float, longitude: float ])
-
+- gender (string, enum: Man | Woman | Nonbinary)
+- targetGender ([string], enum: Men | Women | Nonbinary people)
+- coordinates (GeoJSON Point: { type: 'Point', coordinates: [longitude, latitude] })
 - bio (string, optional)
 - pictures ([string])
-- minAge (integer, optional)
-- maxAge (integer, optional)
-- distance (integer, optional)
-<!-- - genres ([string]) -->
-- artists ([string])
+- profilePicture (string)
+- minAge (number, default: 18, range: 18-54)
+- maxAge (number, default: 55, range: 19-55)
+- distance (number, default: 100)
+- artists ([{ id: string, name: string }])
 - spotifyId (string, optional, unique)
-- spotifyAccessToken (string)
-- spotifyRefreshToken (string)
-
-- spotifyTrackId (string)
-- track (string)
-- artist (string)
-- playedOn (Date)
-- setupStage (string, enum: ...)
+- spotifyAccessToken (string, optional)
+- spotifyRefreshToken (string, optional)
+stage (string, enum: name-dob | gender | artists | completed, default: name-dob)
 
 Heartbeat
 - id (ObjectId)
 - sender (User.id)
 - receiver (User.id)
 - action (string, enum: left | right)
-- date (Date)
+- date (Date, default: now)
 
 Match
 - id (ObjectId)
 - users ([User.id])
 - messages ([Message])
+- createdAt (Date, default: now)
+- lastActivity (Date, default: now)
 
 Message
 - id (ObjectId)
-- author (User.id)
-- content (string)
-- date (Date)
-- type (string, enum: text | music)
-- music (Music, optional)
-
-Music
-- id (ObjectId)
-- sharedBy (User.id)
-- spotifyTrack (string)
-- track (string)
-- artist (string)
-- date (Date)
+- sender (User.id)
+- text (string)
+- timestamp (Date, default: now)
 
 Notification
 - id (ObjectId)
 - from (User.id)
 - to (User.id)
-- type (string, enum: match | message | event)
-- date (Date)
-
-<!-- Event
-- id (ObjectId)
-- name (string)
-- artist (string)
-- venue (string)
-- city (string)
-- date (Date)
-- createdAt (Date)
-- interested ([User.id])
-- going ([User.id])
-
-Invite
-- id (ObjectId)
-- event (Event.id)
-- from (User.id)
-- to (User.id)
-- date (Date)
-- status (string, enum: pending | accepted | declined) -->
+- type (string, enum: match | message)
+- date (Date, default: now)
+- read (boolean, default: false)
+- matchId (Match.id, optional)
 
 ### Test Coverage
 
-[...]
+![](image.png)

@@ -35,4 +35,3 @@ export default data => {
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
 }
-// TODO: posar pictures/profilePicture a l'objecte?

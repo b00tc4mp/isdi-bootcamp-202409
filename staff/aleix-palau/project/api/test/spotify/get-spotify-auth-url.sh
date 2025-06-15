@@ -1,0 +1,2 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODQyOWYyZmYwMWZmMDJhYWI3MGYwZDQiLCJpYXQiOjE3NDk1NzEyNjksImV4cCI6MTc0OTYxNDQ2OX0.mh1tJhELXJZlRLAmGVwWQx3hIDYlrgb556SYR2HBLNg' http://localhost:8080/spotify/auth-url -v
+# // needs &state={userId} to complete URL

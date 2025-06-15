@@ -4,7 +4,7 @@ export default () => {
         response_type: 'code',
         redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
         scope: 'user-read-private user-read-email user-top-read',
-        // TODO We'll add state parameter when calling from frontend with userId
+        // We add state parameter when calling from frontend with userId
     })
 
     return `https://accounts.spotify.com/authorize?${params.toString()}`

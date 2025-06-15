@@ -37,4 +37,3 @@ export default userId => {
         }
     })()
 }
-// TODO: falten => Spotify...

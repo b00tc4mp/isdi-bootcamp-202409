@@ -73,7 +73,8 @@ const user = new Schema({
         },
         name: {
             type: String
-        }
+        },
+        _id: false
     }],
     spotifyId: {
         type: String,

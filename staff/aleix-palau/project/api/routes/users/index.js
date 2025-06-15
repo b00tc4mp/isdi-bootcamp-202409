@@ -33,6 +33,6 @@ usersRouter.delete('/pictures', jsonBodyParser, authorizationHandler, deleteUser
 usersRouter.get('/potential-matches', authorizationHandler, getPotentialMatchesHandler)
 
 // Protected routes for accessing other users' data
-usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler) // TODO: to show a user's name in the chat component? most likely delete this with logic as well
+usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler)
 
 export default usersRouter

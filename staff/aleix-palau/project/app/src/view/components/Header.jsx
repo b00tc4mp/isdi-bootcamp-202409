@@ -80,7 +80,7 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
     // Auth Header
     const renderAuthHeader = () => (
         <div className="flex justify-center items-center w-full">
-            <h1 className="font-bold text-2xl text-center text-darkest-blue select-none">HEARTBEAT</h1>
+            <h1 className="font-bold text-2xl text-center text-darkest-blue select-none">heartbeat</h1>
         </div>
     )
 
@@ -117,7 +117,7 @@ export default function Header({ onLoggedOut, onSettingsClick, onBackFromSetting
         <div className="flex justify-between items-center w-full">
             <div className="w-1/3"></div>
             <div className="w-1/3 flex justify-center">
-                <h1 className="font-bold text-2xl text-darkest-blue select-none">HEARTBEAT</h1>
+                <h1 className="font-bold text-2xl text-darkest-blue select-none">heartbeat</h1>
             </div>
             <div className="w-1/3 flex justify-end gap-3">
                 <IconButton

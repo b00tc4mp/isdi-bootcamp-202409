@@ -7,11 +7,10 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 
 import db, { User } from 'dat'
+import getUserProfile from './getUserProfile.js'
 import { errors } from 'com'
 
 const { NotFoundError } = errors
-
-import getUserProfile from './getUserProfile.js'
 
 describe('getUserProfile', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
@@ -26,9 +25,15 @@ describe('getUserProfile', () => {
             dateOfBirth: new Date('1991-08-19'),
             gender: 'Man',
             targetGender: ['Women'],
-            artists: ['The Strokes', 'Radiohead'],
+            artists: [{ id: 'artist1', name: 'The Strokes' }, { id: 'artist2', name: 'Radiohead' }],
             bio: 'C\'est la vie',
-            location: 'Barcelona'
+            location: 'Lleide',
+            pictures: ['pic1.jpg', 'pic2.jpg'],
+            profilePicture: 'pic1.jpg',
+            minAge: 28,
+            maxAge: 33,
+            distance: 50,
+            coordinates: { type: 'Point', coordinates: [2.1734, 41.3851] }
         }
 
         const user = await User.create(userData)
@@ -36,15 +41,20 @@ describe('getUserProfile', () => {
         const profile = await getUserProfile(user.id)
 
         expect(profile).to.exist
-        expect(profile).to.deep.equal({
-            name: userData.name,
-            dateOfBirth: userData.dateOfBirth,
-            gender: userData.gender,
-            targetGender: userData.targetGender,
-            artists: userData.artists,
-            bio: userData.bio,
-            location: userData.location
-        })
+        expect(profile._id).to.equal(user.id)
+        expect(profile.name).to.equal(userData.name)
+        expect(profile.dateOfBirth).to.deep.equal(userData.dateOfBirth)
+        expect(profile.gender).to.equal(userData.gender)
+        expect(profile.targetGender).to.deep.equal(userData.targetGender)
+        expect(profile.artists).to.deep.equal(userData.artists)
+        expect(profile.bio).to.equal(userData.bio)
+        expect(profile.location).to.equal(userData.location)
+        expect(profile.pictures).to.deep.equal(userData.pictures)
+        expect(profile.profilePicture).to.equal(userData.profilePicture)
+        expect(profile.minAge).to.equal(userData.minAge)
+        expect(profile.maxAge).to.equal(userData.maxAge)
+        expect(profile.distance).to.equal(userData.distance)
+        expect(profile.coordinates).to.deep.equal(userData.coordinates)
     })
 
     it('fails on non-existing user', () =>

@@ -27,4 +27,3 @@ export default function ArtistTag({
         </span>
     )
 }
-// TODO: edit after spotify implementation

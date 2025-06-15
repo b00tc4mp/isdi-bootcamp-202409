@@ -51,7 +51,7 @@ export default function Register(props) {
         <main className="flex items-center justify-center min-h-full p-10">
             <div className="w-full max-w-md">
                 <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-darkest-blue mb-2">Join Heartbeat</h2>
+                    <h2 className="text-3xl font-bold text-darkest-blue mb-2">Join heartbeat</h2>
                     <p className="text-dark-blue">Find your perfect match through music</p>
                 </div>
 

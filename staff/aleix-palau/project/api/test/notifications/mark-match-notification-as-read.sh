@@ -1,0 +1,1 @@
+curl -X PATCH -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODQ3MDM3ZmE4N2Y5ZWRjZTE1ZGVmMDYiLCJpYXQiOjE3NDk1NTcxNzUsImV4cCI6MTc0OTYwMDM3NX0.VRMOHkjHEsg4KN-Iy_QX67mSYdfNSEgbTK_-5jB7nqc' http://localhost:8080/notifications/match/684842153781ebf4fcf537f4/read -v

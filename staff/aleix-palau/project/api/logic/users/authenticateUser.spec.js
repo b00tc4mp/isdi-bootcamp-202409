@@ -8,11 +8,10 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 
 import db, { User } from 'dat'
+import authenticateUser from './authenticateUser.js'
 import { errors } from 'com'
 
 const { CredentialsError } = errors
-
-import authenticateUser from './authenticateUser.js'
 
 describe('authenticateUser', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
@@ -20,7 +19,7 @@ describe('authenticateUser', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', async () => {
-        await User.create({ email: 'al@eix.com', password: bcrypt.hashSync('123123123', 10) })
+        await User.create({ email: 'al@eix.com', password: bcrypt.hashSync('123123123', 10), coordinates: { type: 'Point', coordinates: [0, 0] } })
 
         const userId = await authenticateUser('al@eix.com', '123123123')
 
@@ -32,7 +31,7 @@ describe('authenticateUser', () => {
     it('fails on non-existing user', () =>
         expect(
             authenticateUser('al@eix.com', '123123123')
-        ).to.be.rejectedWith(CredentialsError, 'wrong credentials')
+        ).to.be.rejectedWith(CredentialsError, 'Wrong credentials')
     )
 
     after(() => db.disconnect())

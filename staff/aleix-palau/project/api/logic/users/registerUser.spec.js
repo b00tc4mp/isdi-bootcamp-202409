@@ -8,11 +8,10 @@ chai.use(chaiAsPromised)
 const { expect } = chai
 
 import db, { User } from 'dat'
+import registerUser from './registerUser.js'
 import { errors } from 'com'
 
 const { DuplicityError } = errors
-
-import registerUser from './registerUser.js'
 
 describe('registerUser', () => {
     before(() => db.connect(process.env.MONGO_URL_TEST))
@@ -31,10 +30,10 @@ describe('registerUser', () => {
 
     it('fails on existing user', () =>
         expect((async () => {
-            await User.create({ email: 'al@eix.com', password: bcrypt.hashSync('123123123', 10) })
+            await User.create({ email: 'al@eix.com', password: bcrypt.hashSync('123123123', 10), coordinates: { type: 'Point', coordinates: [0, 0] } })
 
             await registerUser('al@eix.com', '123123123', '123123123')
-        })()).to.be.rejectedWith(DuplicityError, 'user already exists')
+        })()).to.be.rejectedWith(DuplicityError, 'User already exists')
     )
 
     after(() => db.disconnect())

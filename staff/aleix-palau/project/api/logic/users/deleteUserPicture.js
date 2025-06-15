@@ -18,14 +18,14 @@ export default (userId, pictureToRemove) => {
             if (pictures.length === 0)
                 throw new ValidationError('user has no pictures to remove')
 
-            // Validate minimum pictures
-            if (pictures.length === 1)
-                throw new ValidationError('cannot remove the last picture')
-
             // Ensure picture exists
             const index = pictures.indexOf(pictureToRemove)
             if (index === -1)
                 throw new NotFoundError('picture not found in user profile')
+
+            // Validate minimum pictures
+            if (pictures.length === 1)
+                throw new ValidationError('cannot remove the last picture')
 
             // Prepare update object
             const updateObject = {
