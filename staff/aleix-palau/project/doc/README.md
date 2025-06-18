@@ -13,14 +13,14 @@ If music is your world and you're seeking others who resonate with your taste, H
 - edit own profile
 - link Spotify account
 - view other profiles
-- filter profiles based on favourite artists, age, distance
 - swipe left/right on someone
+- filter profiles based on favourite artists, age, distance
 - chat with people you match with
 - get notifications
 
 ### UXUI Design
 
-[Figma](https://figma.com)
+[Figma](https://www.figma.com/proto/eSSBUud4xOar3jfZfDnHMX/heartbeat?node-id=26-1435&p=f&t=PrSMetTvu2ZCww6j-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1)
 
 ## Technical
 
@@ -35,20 +35,21 @@ If music is your world and you're seeking others who resonate with your taste, H
 - doc (documentation)
 - app (client-side application)
 - api (server-side API)
-- dat (data model and driver)
-- com (common validations)
+- dat (data model)
+- com (common validations, utils)
 
 ### Techs
 
-- HTML/CSS/JS
+- HTML/TailwindCSS/JS
 - React
 - Node
 - Express
-- Mongo
-- Mongoose
-- Tailwind
-- Mocha & Chai
+- MongoDB
+- bcryptjs
+- jwt
+- OAuth
 - Socket.IO
+- Mocha & Chai
 - Sinon
 
 ### Data Model
@@ -72,7 +73,7 @@ User
 - spotifyId (string, optional, unique)
 - spotifyAccessToken (string, optional)
 - spotifyRefreshToken (string, optional)
-stage (string, enum: name-dob | gender | artists | completed, default: name-dob)
+- stage (string, enum: name-dob | gender | artists | completed, default: name-dob)
 
 Heartbeat
 - id (ObjectId)

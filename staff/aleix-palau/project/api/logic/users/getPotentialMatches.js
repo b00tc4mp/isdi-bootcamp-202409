@@ -136,9 +136,8 @@ function filterMutuallyCompatible(user, potentialMatches) {
             .map(tg => genderMapping[tg])
             .filter(Boolean)
 
-        if (!potentialMatchTargetsMapped.includes(userGender)) {
+        if (!potentialMatchTargetsMapped.includes(userGender))
             return false // Not interested in user's gender
-        }
 
         // Check if user's age is in potential match's preferred range
         const userBAgeMin = potentialMatch.minAge || 18
