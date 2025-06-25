@@ -1,2 +1,0 @@
-curl -X PUT -H "Authorization: Bearer 67503f6a10182798c1418773" -H "Content-Type: application/json" -d '{name: 'John',
-    email: 'nemo2@gmail.com'}' http://localhost:8080/users/67503f6a10182798c1418773/profile
