@@ -1,0 +1,1 @@
+curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2RmZWI0Njc2OTAwN2EyY2U0OTcwMDMiLCJpYXQiOjE3NDI4OTgwMTUsImV4cCI6MTc0MjkxMjQxNX0.9nk8nZguuMv8NnEtZkg8OXAGibEcgzk2Zf6CbpOaga0' -H 'Content-Type: application/json' -d '{"receiverId":"67e156014ad17b01131f39cf","action":"right"}' http://localhost:8080/heartbeats -v

@@ -1,0 +1,1 @@
+curl -X DELETE -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODQyOWYyZmYwMWZmMDJhYWI3MGYwZDQiLCJpYXQiOjE3NDk1NTcwOTcsImV4cCI6MTc0OTYwMDI5N30.5zCgyDFlj8YHKXzn4rPY_5F7vffRQHuD_Opf6THD73k' http://localhost:8080/spotify/disconnect -v
