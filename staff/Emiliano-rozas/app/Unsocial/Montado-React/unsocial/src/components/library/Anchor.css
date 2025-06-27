@@ -1,0 +1,12 @@
+.Anchor {
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    color: #7F462C;
+    transition: all 0.5s ease
+}
+
+.Anchor:hover {
+    color: #cc4b0f;
+}

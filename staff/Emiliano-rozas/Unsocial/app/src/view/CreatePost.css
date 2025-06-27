@@ -1,0 +1,9 @@
+.CreatePost {
+    align-content: center;
+    max-width: 400px;
+    /* margin: 0 auto; */
+    margin-top: 5rem;
+    border-radius: 10px;
+    /* position: relative; */
+
+}
