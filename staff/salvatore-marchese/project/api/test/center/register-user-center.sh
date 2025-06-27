@@ -1,0 +1,1 @@
+curl -H 'Content-Type: application/json' -d '{"name":"Pepito Grillo","email":"pepito@grillo.com","password":"123123123","password-repeat":"123123123", "address":"seawater front 1", "country":"Spain", "city":"Barcelona", "postcode":"08001"}' http://localhost:8080/users/center -v
