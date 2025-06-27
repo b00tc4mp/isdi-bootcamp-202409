@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building</title>
+</head>
+<style>
+    main {
+        display: flex;
+        justify-content: center;
+        border-bottom: 4px solid;
+        color: grey;
+
+    }
+
+    .body {
+        display: grid;
+        position: relative;
+        border: 0.5px solid;
+        border-color: black;
+        width: 40px;
+        height: 100px;
+        background-color: grey;
+    }
+
+    .windows {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border: solid;
+        border-color: rgb(0, 0, 0);
+    }
+
+    .right--windows1 {
+        position: absolute;
+        top: 2px;
+        left: 24px;
+    }
+
+    .right--windows2 {
+        position: absolute;
+        top: 20px;
+        left: 24px;
+    }
+
+    .right--windows3 {
+        position: absolute;
+        left: 24px;
+        top: 40px;
+    }
+
+    .right--windows4 {
+        position: absolute;
+        left: 24px;
+        top: 60px;
+    }
+
+    .left--windows1 {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+    }
+
+    .left--windows2 {
+        position: absolute;
+        top: 20px;
+        left: 3px;
+    }
+
+    .left--windows3 {
+        position: absolute;
+        top: 40px;
+        left: 3px;
+    }
+
+    .left--windows4 {
+        position: absolute;
+        top: 60px;
+        left: 3px;
+    }
+
+    .puertas {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: white;
+        border: solid;
+        border-color: rgb(0, 0, 0);
+        top: 79.5px;
+        left: 10px;
+    }
+
+    .puerta--1 {
+        position: absolute;
+        width: 7px;
+        height: 15px;
+        background-color: white;
+        border: solid;
+        border-color: rgb(0, 0, 0);
+        left: 2px;
+        top: 3px
+    }
+
+    .puerta--2 {
+        position: absolute;
+        width: 7px;
+        height: 15px;
+        background-color: white;
+        border: solid;
+        border-color: rgb(0, 0, 0);
+        left: 10px;
+        top: 3px
+    }
+
+    .tree1 {
+        position: absolute;
+        width: 20px;
+        height: 35px;
+        top: 74px;
+        left: 10px;
+    }
+
+    .stick {
+        position: absolute;
+        width: 2px;
+        height: 15px;
+        background-color: brown;
+        border: 0.5px solid;
+        border-color: rgb(0, 0, 0);
+        left: 8px;
+        top: 19px;
+    }
+
+    .bush-a {
+        position: absolute;
+        width: 15px;
+        height: 5px;
+        background-color: green;
+        border: 0.5px solid;
+        border-color: rgb(0, 0, 0);
+        top: 13px;
+        left: 2px;
+    }
+
+    .bush-b {
+        position: absolute;
+        width: 11px;
+        height: 5px;
+        background-color: green;
+        border: 0.5px solid;
+        border-color: rgb(0, 0, 0);
+        top: 7.5px;
+        left: 3.8px;
+    }
+
+    .bush-c {
+        position: absolute;
+        width: 7px;
+        height: 5px;
+        background-color: green;
+        border: 0.5px solid;
+        border-color: rgb(0, 0, 0);
+        top: 2px;
+        left: 5.7px;
+    }
+
+    .tree2 {
+        position: absolute;
+        width: 20px;
+        height: 35px;
+        top: 74px;
+        left: 206px;
+    }
+
+    .tree3 {
+        position: absolute;
+        width: 20px;
+        height: 35px;
+        top: 74px;
+        left: 140px;
+    }
+
+    .tree4 {
+        position: absolute;
+        width: 20px;
+        height: 35px;
+        top: 74px;
+        left: 77px;
+    }
+
+    .farol1 {
+        position: absolute;
+        width: 20px;
+        height: 35px;
+        top: 74px;
+        left: 45px;
+
+    }
+
+    .palo1 {
+        position: absolute;
+        width: 2px;
+        height: 20px;
+        background-color: grey;
+        border: 0.5px solid;
+        border-color: rgb(0, 0, 0);
+        left: 8px;
+        top: 14px;
+    }
+
+    .palo2 {
+        position: absolute;
+        width: 10px;
+        height: 2px;
+        background-color: grey;
+        border: 0.5px solid;
+        border-color: rgb(0, 0, 0);
+        left: 8px;
+        top: 13px;
+    }
+
+    .luz1 {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background-color: yellow;
+        border: 0.5px solid;
+        border-color: rgb(0, 0, 0);
+        left: 16px;
+        top: 15.5px;
+    }
+
+
+    .farol2 {
+        position: absolute;
+        width: 20px;
+        height: 35px;
+        top: 73px;
+        left: 170px;
+
+    }
+</style>
+
+<body>
+    <main>
+        <div class="body">
+            <div class="windows">
+                <div class="windows right--windows1"></div>
+                <div class="windows right--windows2"></div>
+                <div class="windows right--windows3"></div>
+                <div class="windows right--windows4"></div>
+                <div class="windows left--windows1"></div>
+                <div class="windows left--windows2"></div>
+                <div class="windows left--windows3"></div>
+                <div class="windows left--windows4"></div>
+            </div>
+            <div class="puertas">
+                <div class="puerta--1"></div>
+                <div class="puerta--2"></div>
+            </div>
+        </div>
+        <div class="tree1">
+            <div class="bush-a"></div>
+            <div class="bush-b"></div>
+            <div class="bush-c"></div>
+            <div class="stick"></div>
+        </div>
+        <div class="tree2">
+            <div class="bush-a"></div>
+            <div class="bush-b"></div>
+            <div class="bush-c"></div>
+            <div class="stick"></div>
+        </div>
+        </div>
+        <div class="tree3">
+            <div class="bush-a"></div>
+            <div class="bush-b"></div>
+            <div class="bush-c"></div>
+            <div class="stick"></div>
+        </div>
+        </div>
+        <div class="tree4">
+            <div class="bush-a"></div>
+            <div class="bush-b"></div>
+            <div class="bush-c"></div>
+            <div class="stick"></div>
+        </div>
+        </div>
+        <div class="farol1">
+            <div class="palo1"></div>
+            <div class="palo2"></div>
+            <div class="luz1"></div>
+        </div>
+        <div class="farol2">
+            <div class="palo1"></div>
+            <div class="palo2"></div>
+            <div class="luz1"></div>
+        </div>
+    </main>
+
+</body>
+
+</html>

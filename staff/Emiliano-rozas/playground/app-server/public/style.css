@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: grey;
+
+}
+
+img {
+    max-width: 60%;
+    max-height: min-content;
+    border-radius: 1cap;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 20px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    width: 300px;
+    border-radius: 1cap;
+}
+
+input {
+    caret-color: darkmagenta;
+}
+
+
+button {
+    cursor: pointer;
+    transition: all 500ms ease;
+    padding: 5px;
+    margin-top: 1rem;
+    border-radius: 0.5cap;
+    padding: 7px;
+}
+
+button:hover {
+    background-color: orange;
+}
+
+label {
+    padding: 5px;
+}

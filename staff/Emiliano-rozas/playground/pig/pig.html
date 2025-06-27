@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/512/Pig-icon.png"
+        type="image/x-icon">
+    <title>Oink!</title>
+</head>
+<style>
+    main {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .contenedor {
+        display: flex;
+        border: 1px solid;
+        border-color: black;
+        border: solid;
+    }
+
+    .face {
+        display: flex;
+        position: relative;
+        height: auto;
+        width: 30px;
+        height: 30px;
+        background-color: pink;
+        border: solid;
+        border-color: black;
+    }
+
+    .face__eyes {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border: solid;
+        border-color: rgb(0, 0, 0);
+
+    }
+
+    .left--eye {
+        margin-top: 4.5px;
+        margin-left: 2px;
+    }
+
+    .right--eye {
+        margin-top: 4.5px;
+        margin-left: 17px;
+
+    }
+
+    .face__pupil {
+        position: absolute;
+        display: flex;
+        width: 7px;
+        height: 7px;
+        background-color: black;
+        top: -0.5;
+
+    }
+
+    .left--pupil {
+        margin-top: 2px;
+        margin-right: 2px;
+        margin-left: 1.5px;
+    }
+
+    .right--pupil {
+        margin-top: 7px;
+        margin-left: 19px;
+    }
+
+    .face__nose {
+        position: absolute;
+        width: 15px;
+        height: 10px;
+        background-color: rgb(228, 165, 165);
+        margin-left: 7px;
+        margin-top: 15px;
+        border: solid;
+        border-color: rgb(0, 0, 0)
+    }
+
+    .left--nose {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        margin-left: 1.5px;
+        margin-top: 2.5px;
+        border-color: black;
+        border: solid;
+        background-color: bisque;
+    }
+
+    .right--nose {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        margin-left: 8.5px;
+        margin-top: 2.5px;
+        background-color: bisque;
+        border-color: black;
+        border: solid;
+    }
+
+    .legs {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+
+    }
+
+    .right--leg {
+        position: absolute;
+        border-color: black;
+        border: solid;
+        background-color: pink;
+        left: 20px;
+    }
+
+
+    .left--leg {
+        position: absolute;
+        border-color: black;
+        border: solid;
+        background-color: pink;
+        top: 0;
+
+    }
+
+    .ears {
+        position: absolute;
+        width: 7px;
+        height: 7px;
+
+    }
+
+    .left--ear {
+        position: absolute;
+        border-color: black;
+        border: solid;
+        background-color: pink;
+        bottom: 7px;
+        left: 2px;
+    }
+
+    .right--ear {
+        position: absolute;
+        border-color: black;
+        border: solid;
+        background-color: pink;
+        bottom: 7px;
+        left: 20px;
+
+    }
+
+    .right--ear--hole {
+        position: absolute;
+        border-color: black;
+        border: solid;
+        width: 3px;
+        height: 3px;
+        top: 1.5px;
+        left: 1.5px;
+        background-color: bisque;
+    }
+
+    .left--ear--hole {
+        position: absolute;
+        border-color: black;
+        border: solid;
+        width: 3px;
+        height: 3px;
+        top: 1.5px;
+        left: 1.5px;
+        background-color: bisque;
+    }
+</style>
+
+<body>
+    <main>
+        <div class="contendor">
+            <div class="face">
+                <div class="face__eyes left--eye">
+                    <div class="face__pupil left--pupil"></div>
+                </div>
+                <div class="face__eyes right--eye"></div>
+                <div class="face__pupil right--pupil"></div>
+                <div class="face__nose">
+                    <div class="face__nose left--nose">
+                    </div>
+                    <div class="face__nose right--nose">
+                    </div>
+                </div>
+                <div class="ears">
+                    <div class="ears right--ear">
+                        <div class="ears right--ear--hole"></div>
+                    </div>
+                    <div class="ears left--ear">
+                        <div class="ears left--ear--hole"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="legs">
+                <div class="legs right--leg "></div>
+                <div class="legs left--leg "></div>
+            </div>
+        </div>
+
+        </div>
+
+    </main>
+</body>
+
+</html>
