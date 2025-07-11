@@ -1,0 +1,157 @@
+/* Importación de fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Corben&family=Silkscreen:wght@400;700&display=swap');
+@import 'leaflet/dist/leaflet.css';
+
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables */
+:root {
+  --color: #4a7878;
+  --background-color: #4a7878;
+  --font-family: "Corben", serif;
+}
+
+/* Estilos generales */
+body {
+  font-family: var(--font-family), sans-serif;
+  font-size: 16px;
+  background-color: var(--background-color);
+  color: var(--color);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#root {
+  height: 100%;
+}
+
+/* Título principal */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+/* Contenedor de la home */
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #4a7878;  /* Color de fondo */
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+/* Buscador */
+form {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center; /* Asegura que el buscador se mantenga centrado */
+  align-items: center;     /* Alinea verticalmente el contenido */
+}
+
+input {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem; 
+  border-radius: 9999px;  
+  background-color: white;
+  color: #000;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  min-width: 300px; 
+  max-width: 100%;   /* Para que no se expanda más de lo que debería */
+}
+
+
+/* Categorías */
+section {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 2rem;
+}
+
+section div {
+  display: inline-block;
+  margin: 0.5rem;
+  background-color: white;
+  color: black;
+  padding: 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease;
+}
+
+section div:hover {
+  background-color: #e0e7ff;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+section div:active {
+  transform: scale(0.95);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenedor de resultados */
+.results-container {
+  display: flex;
+  flex-direction: column;  /* Esto asegura que los resultados se apilen uno debajo del otro */
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  background-color: #4a7878;  
+  min-height: 100vh;  /* Asegura que el contenedor ocupe toda la altura */
+}
+
+.ais-Hits-item {
+  all: unset; /* ¡Fuera todo! */
+  display: block;
+  @apply w-full; /* O flex, si prefieres */
+}
+
+.ais-Hits {
+  @apply w-full;
+}
+
+.search-button {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #4d5af0;
+  color: white;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.search-button:hover {
+  background-color: #3b4fb6;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 16rem; /* o lo que quieras */
+  border-radius: 0.75rem;
+}
