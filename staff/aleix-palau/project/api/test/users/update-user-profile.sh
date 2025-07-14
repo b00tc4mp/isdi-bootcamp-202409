@@ -1,0 +1,1 @@
+curl -X PATCH -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2FmMzFmM2M5MzhmZDAzYjhhYTVlMWEiLCJpYXQiOjE3Mzk1MzY2MDcsImV4cCI6MTczOTU0MDIwN30.KwTMmM9rO61DWKv87YsAYHFyhyg33ZOJ7qsE9XV2iYo' -H 'Content-Type: application/json' -d '{"name":"Anni","dateOfBirth":"1996-10-12"}' http://localhost:8080/users/profile -v

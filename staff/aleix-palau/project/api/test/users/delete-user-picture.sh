@@ -1,0 +1,1 @@
+curl -X DELETE -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2FkZGFiMzFjZjdjMWI2ZGY3MDljNzciLCJpYXQiOjE3Mzk1NDAxMTYsImV4cCI6MTczOTU0MzcxNn0.dlL-ZCbxgdqLST3y8suS-0RVhEK9qRweg5ykeCwX-Rg' -H 'Content-Type: application/json' -d @request-delete.json http://localhost:8080/users/pictures -v
