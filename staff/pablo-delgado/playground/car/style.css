@@ -1,0 +1,68 @@
+.redondel1 {
+    width: 700px;
+    height: 700px;
+    background-color: hsl(5, 91%, 50%);
+    border-radius: 50%;
+    position: relative;
+    top: 388px;
+    left: 850px;
+    border: 5px solid hsl(350, 28%, 66%)
+}
+
+.chasis1 {
+    width: 1300px;
+    height: 500px;
+    background-color: hsl(5, 91%, 50%);
+    position: relative;
+    top: 3px;
+    left: 600px;
+    border-radius: 10%;
+}
+
+.ruedas {}
+
+.ruedaizq {
+    width: 350px;
+    height: 350px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    position: absolute;
+    top: 1020px;
+    left: 780px;
+    position: absolute;
+    border: 15px solid black;
+    border-color: gray;
+    background-color: rgb(44, 43, 43);
+
+}
+
+.ruedader {
+    width: 350px;
+    height: 350px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    position: absolute;
+    top: 1020px;
+    left: 1400px;
+    position: absolute;
+    border: 15px solid black;
+    border-color: gray;
+    background-color: rgb(44, 43, 43);
+}
+
+.lineanegra {
+    width: 35px;
+    height: 100px;
+    top: 3px;
+    left: 600px;
+}
+
+.mediocirculo {
+    width: 200px;
+    height: 200px;
+    border-radius: 0px 100px 0 0;
+    background-color: rgb(73, 159, 235);
+    margin-left: 700px;
+    position: absolute;
+    top: -200px;
+}

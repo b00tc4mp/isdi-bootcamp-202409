@@ -1,0 +1,105 @@
+* {
+    background-color: #f6f6f6;
+}
+
+#painting {
+    height: 400px;
+    width: 400px;
+    background: #fff4db;
+    margin-top: 30px;
+    margin: auto;
+    box-shadow: 10px 10px 0px #8d8d8d;
+}
+
+/* las cajas */
+
+#top-row {
+    height: 290px;
+}
+
+#big-box {
+    width: 290px;
+    height: 290px;
+}
+
+#bottom-left-box {
+    width: 100px;
+    height: 100px;
+}
+
+#bottom-right-column {
+    height: 100px;
+    width: 40px;
+}
+
+#bottom-middle-box {
+    height: 100px;
+    width: 240px;
+}
+
+/* los divisores negros */
+
+#divider-1 {
+    height: 290px;
+    width: 10px;
+}
+
+#divider-2 {
+    height: 10px;
+    width: 100px;
+}
+
+#divider-3 {
+    height: 10px;
+    width: 400px;
+}
+
+#divider-4 {
+    height: 100px;
+    width: 10px;
+}
+
+#divider-5 {
+    height: 10px;
+    width: 50px;
+}
+
+#divider-6 {
+    height: 100px;
+    width: 10px;
+}
+
+/* tipos de caja/contenedor */
+
+.right {
+    float: right;
+}
+
+.medium-box {
+    width: 100px;
+    height: 140px;
+}
+
+.small-box {
+    width: 50px;
+    height: 45px;
+}
+
+
+/* colores */
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.black {
+    background-color: black;
+}

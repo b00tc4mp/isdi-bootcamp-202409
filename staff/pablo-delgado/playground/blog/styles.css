@@ -1,0 +1,124 @@
+html {
+    background-color: #EBF2FA;
+    text-align: center;
+    font-family: Courier;
+    font-weight: 400;
+}
+
+.idiomaso {
+    box-align: right;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav li {
+    display: inline;
+    font-weight: 600;
+    color: black;
+    margin-right: 70px;
+
+}
+
+.tortilla {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #DF2935;
+    border: 2px;
+    box-shadow: #76171e;
+    border-radius: 5%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+
+.recetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-radius: 5%;
+
+}
+
+article {
+    flex: 1 1 45%;
+    margin: 10px;
+    padding: 2%;
+    max-width: 250px;
+    border-radius: 5%;
+    height: auto;
+    box-shadow: 5px;
+    margin-top: 100px;
+
+}
+
+article img {
+    max-width: 100%;
+    border-radius: 5%;
+    box-shadow: 5px;
+    cursor: pointer;
+
+}
+
+article img:hover {
+    transform: scale(1.1);
+}
+
+.boquerones {
+    background-color: aqua;
+}
+
+.albondigas {
+    background-color: #DF2935;
+}
+
+.enrusa {
+    background-color: brown;
+}
+
+.tortilla {
+    background-color: #3772FF;
+}
+
+.migas {
+    background-color: beige;
+}
+
+.paella {
+    background-color: #FFE74C;
+}
+
+.idiomaso {
+    display: flex;
+
+}
+
+hr {
+    background-color: #3772FF;
+    height: 5px;
+}
+
+header {
+    background-color: #FFE74C;
+    position: fixed;
+    width: 100%;
+}
+
+.contactaso {
+    background-color: red;
+}
+
+.imagen {
+    transition: 0.3;
+    width: 300px;
+}
+
+.imagen:hover {
+    transform: scale(1.1);
+}
+
+.fiter {
+    background-color: beige;
+    padding: 1%;
+}

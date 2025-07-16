@@ -1,0 +1,114 @@
+.face {
+    width: 600px;
+    height: 600px;
+    background-color: hsl(350, 100%, 88%);
+    border-radius: 50%;
+    position: relative;
+    margin-top: 80px;
+    margin-left: 100px;
+    border: 5px solid hsl(350, 28%, 66%)
+}
+
+.left-eye {
+    width: 150px;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    position: absolute;
+    top: 100px;
+    left: 120px;
+    border: 5px solid black;
+}
+
+.right-eye {
+    width: 150px;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    position: absolute;
+    top: 120px;
+    left: 380px;
+    position: absolute;
+    border: 5px solid black;
+}
+
+.left-eyepupila {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border-radius: 50%;
+    top: 60px;
+    left: 88px;
+    position: absolute;
+    border: 5px solid black;
+}
+
+.right-eyepupila {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border-radius: 50%;
+    top: 60px;
+    left: 100px;
+    position: absolute;
+
+}
+
+.nose {
+    width: 150px;
+    height: 90px;
+    background-color: rgb(231, 144, 239);
+    border-radius: 50%;
+    top: 280px;
+    left: 230px;
+    position: absolute;
+    border: 5px solid rgb(160, 100, 165);
+
+}
+
+.hole1 {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(173, 68, 152);
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.hole2 {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(173, 68, 152);
+    border-radius: 50%;
+    margin-top: -33px;
+    margin-left: 93px;
+
+}
+
+.mouth {
+    position: absolute;
+    top: 74%;
+    left: 31%;
+    width: 38%;
+    height: 20%;
+    border-radius: 50%;
+    border-top: 33px solid black;
+}
+
+
+
+.leftear {
+    width: 100px;
+    height: 100px;
+    background-color: pink;
+    border-radius: 50%;
+}
+
+.rightear {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(231, 49, 80);
+    border-radius: 30%;
+    margin-top: -20px;
+    margin-left: 93px;
+}
