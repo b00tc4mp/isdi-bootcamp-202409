@@ -1,7 +1,7 @@
 import { Router, json } from 'express'
 
-import { authorizationHandler, jsonBodyParser } from '../helpers/index.js'
-import { authenticateUserHandler, registerUserHandler, getUserNameHandler } from './handlers/index.js'
+import { authorizationHandler, jsonBodyParser } from '../routes/helpers/index.js'
+import { authenticateUserHandler, registerUserHandler, getUserNameHandler } from '../routes/users/handlers/index.js'
 
 const usersRouter = Router()
 
