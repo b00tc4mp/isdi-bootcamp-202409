@@ -1,0 +1,1 @@
+curl -H 'Content-Type: application/json' -d '{"name": "Salva", "email":"test-diver@test.com"}' http://localhost:8080/users/diver -v

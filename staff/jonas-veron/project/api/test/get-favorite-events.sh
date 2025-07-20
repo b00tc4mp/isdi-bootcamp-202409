@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzUxOTA1OTc0YWRjMjYwZmMwYmEyZDkiLCJyb2xlIjoiZGFuY2VyIiwiaWF0IjoxNzMzNTg5NDA4LCJleHAiOjE3MzM2MzI2MDh9.FRAGN2dzZY7zj6jAt5YiXRZTLiLviC7T3DO8_kPNqRQ' http://localhost:3000/events/favorites

@@ -1,0 +1,41 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "main": "index.js",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "inspect": "node --inspect-brk .",
+    "test-users": "mocha logic/users/*.spec.js",
+    "test-notes": "mocha logic/notes/*.spec.js",
+    "test-reminders": "mocha logic/reminders/*.spec.js",
+    "test-tasks": "mocha logic/tasks/*.spec.js",
+    "test-groups": "mocha logic/groups/*.spec.js",
+    "test-home": "mocha logic/home/*.spec.js",
+    "test-inspect": "mocha --inspect-brk logic/**/*.spec.js",
+    "coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/**/*.spec.js --timeout 20000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "com": "file:../com",
+    "cors": "^2.8.5",
+    "dat": "file:../dat",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.10.0",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "c8": "^10.1.2",
+    "chai": "^5.1.2",
+    "chai-as-promised": "^8.0.0",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.8.2",
+    "mongoose": "^8.8.2",
+    "monocart-coverage-reports": "^2.11.2"
+  }
+}

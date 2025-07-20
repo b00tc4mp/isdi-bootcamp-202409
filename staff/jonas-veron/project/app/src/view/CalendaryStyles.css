@@ -1,0 +1,28 @@
+.react-calendar {
+  background-color: var(--primary-color);
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  color: white;
+  border-radius: 10px;
+}
+
+.react-calendar__tile {
+  background: transparent;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  text-align: center;
+  padding: 1rem;
+  color: inherit;
+  transition: transform 0.2s;
+}
+.react-calendar__navigation {
+  background: var(--tertiary-color);
+  padding: 10px;
+  border-radius: 8px;
+}
+.react-calendar__tile--active {
+  /* background-color: var(--accent-color-pink) !important; */
+  background-color: #eb4747 !important;
+  color: white;
+}

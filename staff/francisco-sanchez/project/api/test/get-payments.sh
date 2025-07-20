@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzgwZjhmZTU4MjU1ZDIwNTYzZDZhNWYiLCJyb2xlIjoic3RhbmRhcmQiLCJpYXQiOjE3MzcwMjQ4NzcsImV4cCI6MTczNzA1MzY3N30.qVB5_yyDvGH2hmE1It64vHysX9SeYaF2zNTEMG95SLo' http://localhost:8080/payments/get-payments/6784e37287c4b0f255660371 -v

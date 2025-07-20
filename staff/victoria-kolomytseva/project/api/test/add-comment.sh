@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU4MjcxNzgyMTkwOTU4MDQ5NGQ2MWIiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDI3MjA0NywiZXhwIjoxNzM0Mjc1NjQ3fQ.t76JpmE6LJfcY6xJbwn9P2VekzyNAJ4ffY88Wc7kir4' -H 'Content-Type: application/json' -d '{"text": "Hello world 2"}' http://localhost:8080/posts/6759db4f6c3c6cd877ad6af9/comments -v

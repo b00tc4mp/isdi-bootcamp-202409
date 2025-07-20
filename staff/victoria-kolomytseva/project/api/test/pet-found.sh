@@ -1,0 +1,1 @@
+curl -X PATCH -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzVmNTJiOGE1NjEyOWQwZGViYmVhOTAiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDQ2NzE2OCwiZXhwIjoxNzM0NDcwNzY4fQ.O9h9b25d_9JsyIZ8eje4p8v90QRTsl0RFo4KFCVTejE' -H 'Content-Type: application/json' http://localhost:8080/posts/675f51c79fc723bb4929efd4/found -v 

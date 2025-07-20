@@ -1,0 +1,1 @@
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzUwMzZjMDEwNDczZjNkODA5ZTUzNTkiLCJyb2xlIjoic3RhbmRhcmQiLCJpYXQiOjE3MzQwMDE2NjcsImV4cCI6MTczNDAzMDQ2N30.3FTPCl32xe1A-1rp5haXdEHd0sOr-CB3daCoH0GyDyw' http://localhost:8080/users/findbyemail/greygandalf4@themiddleearth.com -v

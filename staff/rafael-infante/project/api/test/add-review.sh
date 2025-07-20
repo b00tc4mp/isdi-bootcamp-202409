@@ -1,0 +1,1 @@
+ curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiI2NzUyMTA2ZDBiZmM5MmQ3MDdkMWFiNTEiLCJyb2xlIjoiZWxkZXIiLCJpYXQiOjE3MzM0MzE1NTUsImV4cCI6MTczMzQzODc1NX0.wzi2voVHlrVgRsLRyXNFUD7ZyjTDC52LCmvKChu8gT4' -H 'Content-type: application/json' -d '{"comment":"hello people!", "calification":4}' http://localhost:8080/ads/6751ff0ad1bbbf4d3aca2f74/reviews -v

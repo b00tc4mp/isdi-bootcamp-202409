@@ -1,0 +1,1 @@
+curl -X PATCH -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzUyZGU3ODRiN2UxYTJhOTNkMDgxNDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzM0OTMzNTUsImV4cCI6MTczMzQ5Njk1NX0.zQPJpxfqdeMMGQMH2dCvnX0_poRskbNA9LEX94Ozzv4' http://localhost:8080/products/6752de794b7e1a2a93d08179/save -v
