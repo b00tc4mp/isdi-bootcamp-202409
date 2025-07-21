@@ -9,6 +9,17 @@ import {
     logoutUser
 } from './users'
 
+import {
+    createPost,
+    deletePost,
+    getPosts,
+    toggleLikePost,
+
+    addComment,
+    removeComment,
+    getComments
+} from './posts'
+
 const logic = {
     registerUser,
     loginUser,
@@ -17,7 +28,16 @@ const logic = {
     isUserRoleModerator,
     isUserRoleRegular,
     getUserId,
-    logoutUser
+    logoutUser,
+
+    createPost,
+    deletePost,
+    getPosts,
+    toggleLikePost,
+
+    addComment,
+    removeComment,
+    getComments
 }
 
 export default logic

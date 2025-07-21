@@ -1,12 +1,9 @@
 import { errors } from '../../../../com'
-import { extractPayloadFromJWT } from '../../util'
 
 const { SystemError } = errors
 
-export default () => {
-    const { sub: userId } = extractPayloadFromJWT(localStorage.token)
-
-    return fetch(`http://${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
+export default () =>
+    fetch(`http://${import.meta.env.VITE_API_URL}/posts`, {
         headers: {
             Authorization: `Bearer ${localStorage.token}`
         }
@@ -21,4 +18,3 @@ export default () => {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(({ error, message }) => { throw new errors[error](message) })
         })
-}

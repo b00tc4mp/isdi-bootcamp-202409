@@ -2,7 +2,7 @@ import { PasswordInput, Input, Button, Form, Field, Label } from './library'
 
 import logic from '../logic'
 
-import { errors } from 'com'
+import { errors } from '../../../com'
 
 const { SystemError } = errors
 

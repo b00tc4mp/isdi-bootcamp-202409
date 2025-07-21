@@ -1,12 +1,7 @@
-import { Router, json } from 'express'
+import usersRouter from './users/index.js'
+import postsRouter from './posts/index.js'
 
-import { authorizationHandler, jsonBodyParser } from '../routes/helpers/index.js'
-import { authenticateUserHandler, registerUserHandler, getUserNameHandler } from '../routes/users/handlers/index.js'
-
-const usersRouter = Router()
-
-usersRouter.post('/auth', jsonBodyParser, authenticateUserHandler)
-usersRouter.post('/', jsonBodyParser, registerUserHandler)
-usersRouter.get('/:targetUserId/name', authorizationHandler, getUserNameHandler)
-
-export default usersRouter
+export {
+    usersRouter,
+    postsRouter
+}
