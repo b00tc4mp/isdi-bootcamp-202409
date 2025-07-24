@@ -1,0 +1,43 @@
+{
+  "name": "login-test",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "algoliasearch": "5.25.0",
+    "daisyui": "^5.0.35",
+    "framer-motion": "^12.16.0",
+    "instantsearch.css": "^8.5.1",
+    "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.513.0",
+    "phosphor-react": "^1.4.1",
+    "preline": "^3.0.1",
+    "query-string": "^9.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
+    "react-instantsearch-dom": "^6.40.4",
+    "react-router-dom": "^7.5.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "postcss-nesting": "^13.0.1",
+    "tailwindcss": "3.3.2",
+    "vite": "^6.3.5"
+  }
+}
