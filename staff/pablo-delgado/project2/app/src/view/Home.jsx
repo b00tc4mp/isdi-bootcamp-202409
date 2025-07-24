@@ -91,14 +91,18 @@ export default function Home() {
 
     console.log('Home -> render')
 
-    return <div className="py-12">
-        {posts.map(post => <Post
+    return <div className="py-12 dark:bg-black">
+        {posts.map(post => 
+        <div key={post.id} className="mb-6 last:mb-0">
+            <Post
             key={post.id}
             post={post}
             onLiked={handleLiked}
             onDeleted={handleDeleted}
             onCommentAdded={handleCommentAdded}
             onCommentRemoved={handleCommentRemoved}
-        />)}
+        />
+        </div>
+    )}
     </div>
 }

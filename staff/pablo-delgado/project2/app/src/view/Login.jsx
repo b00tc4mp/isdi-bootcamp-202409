@@ -47,7 +47,8 @@ export default function Login(props) {
         props.onRegisterClick()
     }
 
-    return <main className="flex justify-center items-center flex-col h-full box-border bg-[var(--back-color)]">
+    return <main className="min-h-screen flex justify-center items-center flex-col box-border bg-white dark:bg-black text-black dark:text-white pt-14">
+
         <h2>Login</h2>
 
         <Form onSubmit={handleSubmit}>
@@ -58,7 +59,7 @@ export default function Login(props) {
 
             <Field>
                 <Label htmlFor="password">Password</Label>
-                <PasswordInput id="password" />
+                <PasswordInput id="password" className="bg-white text-black dark:bg-white dark:text-dark" />
             </Field>
 
             <Button type="submit">Login</Button>

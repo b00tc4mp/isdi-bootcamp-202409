@@ -7,15 +7,22 @@
 :root {
     --color: DarkSlateGray;
     --back-color: white;
-    --back-color-dark: black;
-    --font: 'Sixtyfour';
+    --font: 'Sixtyfour', sans-serif;
     font-family: var(--font);
 }
 
+.dark {
+    --color: white;
+    --back-color: black;
+}
+
+
 body {
     color: var(--color);
+    height: 100%;
 }
 
 a:visited {
     color: var(--color);
 }
+

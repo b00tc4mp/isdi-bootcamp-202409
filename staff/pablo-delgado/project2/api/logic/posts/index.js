@@ -5,6 +5,8 @@ import toggleLikePost from './toggleLikePost.js'
 import addComment from './addComment.js'
 import removeComment from './removeComment.js'
 import getComments from './getComments.js'
+import savePost from './savePost.js'
+import getSavedPosts from './getSavedPosts.js'
 
 export {
     createPost,
@@ -14,5 +16,7 @@ export {
 
     addComment,
     removeComment,
-    getComments
+    getComments,
+    savePost,
+    getSavedPosts
 }

@@ -5,6 +5,8 @@ import toggleLikePostHandler from './toggleLikePostHandler.js'
 import addCommentHandler from './addCommentHandler.js'
 import removeCommentHandler from './removeCommentHandler.js'
 import getCommentsHandler from './getCommentsHandler.js'
+import savePostHandler from './savePostHandler.js'
+import getSavedPostsHandler from './getSavedPostsHandler.js'
 
 export {
     createPostHandler,
@@ -13,5 +15,7 @@ export {
     toggleLikePostHandler,
     addCommentHandler,
     removeCommentHandler,
-    getCommentsHandler
+    getCommentsHandler,
+    savePostHandler,
+    getSavedPostsHandler
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import { Login, Register, Home, CreatePost } from './view'
+import { Login, Register, Home, CreatePost, Favourites } from './view'
 
 import Hello from './view/Hello'
 import Profile from './view/Profile'
@@ -85,15 +85,16 @@ export default function App() {
 
             <Route path="/new-post" element={logic.isUserLoggedIn() ? <CreatePost onCreated={handlePostCreated} /> : <Navigate to="/login" />} />
 
-            {/* extra demos */}
+            <Route path="/favourites" element={logic.isUserLoggedIn() ? <Favourites /> : <Navigate to="/login" />} />
+
             <Route path="/hello/:name" element={<Hello />} />
             <Route path="/profile/:userId/*" element={<Profile />} />
         </Routes>
 
         <Footer onNewPostClick={handleNewPostClick} />
 
+        {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
         {alert.message && <Alert message={alert.message} level={alert.level} onAccepted={handleAlertAccepted} />}
 
-        {confirm.message && <Confirm message={confirm.message} level={confirm.level} onAccepted={handleConfirmAccepted} onCancelled={handleConfirmCancelled} />}
     </Context.Provider>
 }

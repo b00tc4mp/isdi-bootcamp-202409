@@ -12,7 +12,9 @@ import {
 
     addComment,
     removeComment,
-    getComments
+    getComments,
+    savePost,
+    getSavedPosts
 } from './posts/index.js'
 
 const logic = {
@@ -27,7 +29,9 @@ const logic = {
 
     addComment,
     removeComment,
-    getComments
+    getComments,
+    savePost,
+    getSavedPosts
 }
 
 export default logic

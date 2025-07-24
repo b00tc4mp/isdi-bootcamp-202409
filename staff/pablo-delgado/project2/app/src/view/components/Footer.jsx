@@ -7,7 +7,7 @@ export default function Footer({ onNewPostClick }) {
 
     const location = useLocation()
 
-    return <footer className="dark:bg-[var(--back-color-dark)] bg-[var(--back-color)] p-4 h-12 box-border flex justify-center items-center fixed bottom-0 w-full">
-        {location.pathname === '/' && <Button type="button" onClick={onNewPostClick}>+</Button>}
+    return <footer className="dark:bg-black dark:text-white bg-[var(--back-color)] p-4 h-12 box-border flex justify-center items-center fixed bottom-0 w-full">
+        {(location.pathname === '/' || location.pathname === '/favourites') && <Button type="button" onClick={onNewPostClick}>+</Button>}
     </footer>
 }

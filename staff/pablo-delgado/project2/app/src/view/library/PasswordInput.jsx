@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import Input from './Input'
-
 export default function PasswordInput({ id }) {
     const [status, setStatus] = useState('😌')
     const [type, setType] = useState('password')
@@ -11,13 +9,19 @@ export default function PasswordInput({ id }) {
         setType(type === 'password' ? 'text' : 'password')
     }
 
-    // console.log('PasswordInput -> render')
-
-    return <div style={{ display: 'flex' }}>
-        <Input type={type} id={id} />
-        <span
-            style={{ cursor: 'pointer', position: 'absolute', right: '10px' }}
-            onClick={handleToggleClick}
-        >{status}</span>
-    </div>
+    return (
+        <div className="relative w-[300px]">
+            <input
+                type={type}
+                id={id}
+                className="w-full box-border border-[var(--color)] border-2 dark:text-black"
+            />
+            <span
+                onClick={handleToggleClick}
+                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer select-none text-xl"
+            >
+                {status}
+            </span>
+        </div>
+    )
 }

@@ -31,7 +31,11 @@ const user = new Schema({
         required: true,
         enum: ['regular', 'moderator'],
         default: 'regular'
-    }
+    },
+    savedPosts: [{
+        type: ObjectId,
+        ref: 'Post'
+    }]
 }, { versionKey: false })
 
 const comment = new Schema({

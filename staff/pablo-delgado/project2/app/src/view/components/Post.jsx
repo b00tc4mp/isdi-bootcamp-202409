@@ -11,7 +11,7 @@ import useContext from '../useContext'
 
 import './Post.css'
 
-export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved }) {
+export default function Post({ post, onLiked, onDeleted, onCommentAdded, onCommentRemoved, onSaved = () => {} }) {
     const [view, setView] = useState(null)
 
     const { alert, confirm } = useContext()
@@ -65,6 +65,25 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
     const handleCommentsClick = () => setView(view ? null : 'comments')
 
+    const handleSaveClick = () => {
+        try {
+            logic.savePost(id)
+                .then(() => {
+                    alert('Post saved in ⭐')
+                    onSaved?.()
+                })
+                .catch(error => {
+                    alert(error.message)
+
+                    console.error(error)
+                })
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
     console.log('Post -> render')
 
     return <article className="Post" >
@@ -76,13 +95,14 @@ export default function Post({ post, onLiked, onDeleted, onCommentAdded, onComme
 
         <time>{getElapsedTime(date)} ago</time>
 
-        <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes} likes`}</Button>
+        <Button onClick={handleLikeClick}>{`${liked ? '❤️' : '🤍'} ${likes}`}</Button>
 
         {author.id === logic.getUserId() && <Button onClick={handleDeleteClick}>🗑️</Button>}
 
-        <Button onClick={handleCommentsClick}>💬 {comments} comments</Button>
+        <Button onClick={handleCommentsClick}>💬 {comments}</Button>
 
-        {/* {logic.getUserRole() === 'moderator' && <Button>💀</Button>} */}
+        <Button onClick={handleSaveClick}>⭐</Button>
+
         {logic.isUserRoleModerator() && <Button>💀</Button>}
 
         {view === 'comments' && <Comments

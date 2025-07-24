@@ -4,12 +4,16 @@ import dark from './dark.svg'
 import light from './light.svg'
 
 export default function ThemeButton() {
-    const [theme, setTheme] = useState(localStorage.theme)
+    const [theme, setTheme] = useState(localStorage.theme || 'light')
 
     useEffect(() => {
-        if (localStorage.theme === 'dark')
-            document.documentElement.classList.add('dark')
-    }, [])
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      }, [theme])
+      
 
     const handleSwitchClick = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light'

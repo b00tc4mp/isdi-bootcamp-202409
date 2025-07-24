@@ -14,6 +14,8 @@ import {
     deletePost,
     getPosts,
     toggleLikePost,
+    savePost,
+    getSavedPosts,
 
     addComment,
     removeComment,
@@ -34,6 +36,8 @@ const logic = {
     deletePost,
     getPosts,
     toggleLikePost,
+    savePost,
+    getSavedPosts,
 
     addComment,
     removeComment,
